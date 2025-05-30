@@ -14,7 +14,7 @@ export default function DefaultHelperBox() {
       aria-labelledby='main-heading'
     >
       <div className='m-0 mb-5 w-full max-w-helper-box content-center items-center justify-evenly justify-items-center rounded-md pb-0'>
-        <div className='px-10 xs:px-2 py-0 text-left smMd:px-0 md:px-10'>
+        <div className='px-10 xs:px-2 py-0 text-left smplus:px-0 md:px-10'>
           <h1
             id='main-heading'
             className='m-0 text-center font-bold font-sans-title text-alt-green text-base text-header leading-modal-heading'

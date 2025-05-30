@@ -25,7 +25,7 @@ export default function OurFindingsTab() {
               key={youthFatalitiesFact.report}
               className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
             >
-              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smMd:text-smallest-header'>
+              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smplus:text-smallest-header'>
                 {youthFatalitiesFact.content}
               </p>
               {youthFatalitiesFact.customCard}
@@ -49,7 +49,7 @@ export default function OurFindingsTab() {
               key={homicideFact.report}
               className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
             >
-              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smMd:text-smallest-header'>
+              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smplus:text-smallest-header'>
                 {homicideFact.content}
               </p>
               <HetLazyLoader>{homicideFact.customCard}</HetLazyLoader>
@@ -75,7 +75,7 @@ export default function OurFindingsTab() {
               key={suicideFact.report}
               className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
             >
-              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smMd:text-smallest-header'>
+              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smplus:text-smallest-header'>
                 {suicideFact.content}
               </p>
               <HetLazyLoader> {suicideFact.customCard}</HetLazyLoader>
@@ -100,7 +100,7 @@ export default function OurFindingsTab() {
               key={urbanicityFact.report}
               className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
             >
-              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smMd:text-smallest-header'>
+              <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smplus:text-smallest-header'>
                 {urbanicityFact.content}
               </p>
               <HetLazyLoader>{urbanicityFact.customCard}</HetLazyLoader>

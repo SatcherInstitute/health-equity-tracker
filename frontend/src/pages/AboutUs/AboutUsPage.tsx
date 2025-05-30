@@ -17,7 +17,7 @@ export default function AboutUsPage() {
   return (
     <>
       <title>About Us - Health Equity Tracker</title>
-      <section className='mx-auto flex w-svw max-w-lg-xl flex-col justify-center px-8 py-16'>
+      <section className='mx-auto flex w-svw max-w-lgplus flex-col justify-center px-8 py-16'>
         <header>
           <h1
             id='main'

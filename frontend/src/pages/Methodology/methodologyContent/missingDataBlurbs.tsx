@@ -1,11 +1,40 @@
 import { urlMap } from '../../../utils/externalUrls'
 
-export function MissingIslandAreaPopulationData() {
+// Shared component for consistent styling
+function MissingDataSection({
+  title,
+  children,
+}: { title: string; children: React.ReactNode }) {
   return (
     <>
-      <h4>Missing population data for Census Island Areas</h4>
+      <h4 className='mt-8 mb-2'>{title}</h4>
+      <div className='m-0 ml-1 self-start text-alt-black text-small'>
+        {children}
+      </div>
+    </>
+  )
+}
 
-      <p className='m-0 ml-1 self-start text-alt-black text-small'>
+// Shared component for bullet lists
+function BulletList({ children }: { children: React.ReactNode }) {
+  return (
+    <ul className='m-0 ml-1 list-disc self-start pl-4 text-alt-black text-small'>
+      {children}
+    </ul>
+  )
+}
+
+// Shared component for paragraphs
+function InfoParagraph({ children }: { children: React.ReactNode }) {
+  return (
+    <p className='m-0 ml-1 self-start text-alt-black text-small'>{children}</p>
+  )
+}
+
+export function MissingIslandAreaPopulationData() {
+  return (
+    <MissingDataSection title='Missing population data for Census Island Areas'>
+      <InfoParagraph>
         Population data for <b>Northern Mariana Islands</b>, <b>Guam</b>,{' '}
         <b>American Samoa</b>, and the <b>U.S. Virgin Islands</b> are not
         reported in the ACS five year estimates; in these territories, for
@@ -22,16 +51,15 @@ export function MissingIslandAreaPopulationData() {
         the ethnicity-agnostic race groups (e.g.{' '}
         <b>Black or African American</b>) even though the condition data may use
         Non-Hispanic race groups (e.g. <b>Black or African American (NH)</b>).
-      </p>
-    </>
+      </InfoParagraph>
+    </MissingDataSection>
   )
 }
 
 export function MissingCovidData() {
   return (
-    <>
-      <h4>Missing and suppressed COVID data</h4>
-      <p className='m-0 ml-1 self-start text-alt-black text-small'>
+    <MissingDataSection title='Missing and suppressed COVID data'>
+      <InfoParagraph>
         For COVID-19 related reports, this tracker uses disaggregated,
         individual{' '}
         <a href={urlMap.cdcCovidRestricted}>
@@ -41,23 +69,22 @@ export function MissingCovidData() {
         . Many of these case records are insufficiently disaggregated, report an
         unknown hospitalization and/or death status, or otherwise fail to
         provide a complete picture of COVID-19 and its overall impact.
-      </p>
-    </>
+      </InfoParagraph>
+    </MissingDataSection>
   )
 }
 
 export function MissingCovidVaccinationData() {
   return (
-    <>
-      <h4>Missing COVID-19 vaccination data</h4>
-      <ul className='m-0 ml-1 self-start text-alt-black text-small'>
+    <MissingDataSection title='Missing COVID-19 vaccination data'>
+      <BulletList>
         <li>
           <b>Population data:</b> Because state-reported population categories
           do not always coincide with the categories reported by the census, we
           rely on the Kaiser Family Foundation population tabulations for
           state-reported population categories, which only include population
           numbers for <b>Black,</b> <b>White</b>, <b>Asian</b>, and{' '}
-          <b>Hispanic</b>. ‘Percent of vaccinated’ metrics for{' '}
+          <b>Hispanic</b>. 'Percent of vaccinated' metrics for{' '}
           <b>Native Hawaiian and Pacific Islander</b>, and{' '}
           <b>American Indian and Alaska Native</b> are shown with a population
           comparison metric from the ACS 5-year estimates, while{' '}
@@ -69,16 +96,15 @@ export function MissingCovidVaccinationData() {
           provides vaccination figures for the <b>All</b> group, but does not
           include any demographic disaggregation.
         </li>
-      </ul>
-    </>
+      </BulletList>
+    </MissingDataSection>
   )
 }
 
 export function MissingCAWPData() {
   return (
-    <>
-      <h4>Missing data for women in legislative office</h4>
-      <ul className='m-0 ml-1 self-start text-alt-black text-small'>
+    <MissingDataSection title='Missing data for women in legislative office'>
+      <BulletList>
         <li>
           The Center for American Women in Politics (CAWP) dataset uses unique
           race/ethnicity groupings that do not correspond directly with the
@@ -93,16 +119,15 @@ export function MissingCAWPData() {
           totals, by state, by year prior to 1983. For that reason, we cannot
           calculate rates of representation historically before that year.
         </li>
-      </ul>
-    </>
+      </BulletList>
+    </MissingDataSection>
   )
 }
 
 export function MissingHIVData() {
   return (
-    <>
-      <h4>Missing data for HIV deaths, diagnoses, and prevalence</h4>
-      <ul className='m-0 ml-1 self-start text-alt-black text-small'>
+    <MissingDataSection title='Missing data for HIV deaths, diagnoses, and prevalence'>
+      <BulletList>
         <li>
           County-level data is suppressed when the population denominator is
           less than 100, the total case count is between 1–4 cases, or when
@@ -127,16 +152,15 @@ export function MissingHIVData() {
           Budget (OMB) race/ethnicity classification system when querying HIV
           prevalence.
         </li>
-      </ul>
-    </>
+      </BulletList>
+    </MissingDataSection>
   )
 }
 
 export function MissingPrepData() {
   return (
-    <>
-      <h4>PrEP Coverage and Prescriptions</h4>
-      <ul className='m-0 ml-1 self-start text-alt-black text-small'>
+    <MissingDataSection title='PrEP Coverage and Prescriptions'>
+      <BulletList>
         <li>
           The race and ethnicity of individuals prescribed PrEP are only
           available for less than 40% of all people prescribed PrEP and are
@@ -152,21 +176,17 @@ export function MissingPrepData() {
           with indications for PrEP (PreEP-eligible population) is suppressed,
           or if the number of persons prescribed PrEP is less than 40.
         </li>
-      </ul>
-    </>
+      </BulletList>
+    </MissingDataSection>
   )
 }
 
 export function MissingPhrmaData() {
   return (
-    <>
-      <h4>Medicare Administration Data</h4>
+    <MissingDataSection title='Medicare Administration Data'>
+      <InfoParagraph>What demographic data are missing?</InfoParagraph>
 
-      <p className='m-0 ml-1 self-start text-alt-black text-small'>
-        What demographic data are missing?
-      </p>
-
-      <ul className='m-0 ml-1 self-start text-alt-black text-small'>
+      <BulletList>
         <li>
           <b>Gender:</b> The Medicare source files did not include information
           on gender. Gender is not presented in this data.
@@ -187,12 +207,11 @@ export function MissingPhrmaData() {
           data, such as the impacts of racism and discrimination on health
           outcomes and adherence to medicines.
         </li>
-      </ul>
+      </BulletList>
 
-      <p className='m-0 ml-1 self-start text-alt-black text-small'>
-        Who is missing?
-      </p>
-      <ul className='m-0 ml-1 self-start text-alt-black text-small'>
+      <InfoParagraph>Who is missing?</InfoParagraph>
+
+      <BulletList>
         <li>
           <b>Data Suppression:</b> To{' '}
           <a href='https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.'>
@@ -200,16 +219,15 @@ export function MissingPhrmaData() {
           </a>
           , all data representing 1-10 people were suppressed.
         </li>
-      </ul>
-    </>
+      </BulletList>
+    </MissingDataSection>
   )
 }
 
 export function MissingAHRData() {
   return (
-    <>
-      <h4>Missing America's Health Rankings data</h4>
-      <ul className='m-0 ml-1 self-start text-alt-black text-small'>
+    <MissingDataSection title="Missing America's Health Rankings data">
+      <BulletList>
         <li>
           <b>Population data:</b> AHR does not have population data available
           for: preventable hospitalizations, voter participation, and
@@ -219,16 +237,15 @@ export function MissingAHRData() {
           difficult to accurately calculate percent share measures, which could
           potentially result in misleading data.
         </li>
-      </ul>
-    </>
+      </BulletList>
+    </MissingDataSection>
   )
 }
 
 export function MissingWisqarsData() {
   return (
-    <>
-      <h4>Missing WISQARS Data</h4>
-      <ul className='m-0 ml-1 self-start text-alt-black text-small'>
+    <MissingDataSection title='Missing WISQARS Data'>
+      <BulletList>
         <li>
           <b>Legal intervention data:</b> Data on deaths caused by legal
           intervention is limited. Therefore, we choose to show raw counts of
@@ -246,7 +263,7 @@ export function MissingWisqarsData() {
           privacy of individuals and ensure the confidentiality of sensitive
           information.
         </li>
-      </ul>
-    </>
+      </BulletList>
+    </MissingDataSection>
   )
 }

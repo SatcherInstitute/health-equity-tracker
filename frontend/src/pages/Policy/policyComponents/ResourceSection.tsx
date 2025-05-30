@@ -21,11 +21,13 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({
   resources,
 }) => {
   return (
-    <section id={id}>
+    <section id={id} className='my-4'>
       <div className='flex w-full flex-row items-center rounded-md border border-methodology-green border-solid'>
         <div className='mr-4 w-fit p-4 text-explore-button'>
-          <div className='fade-in-up-blur flex w-fit flex-row items-center justify-start gap-1 rounded-sm px-0 py-0 text-alt-green smMd:gap-4'>
-            {icon}
+          <div className='fade-in-up-blur flex w-fit flex-row items-center justify-start gap-1 rounded-sm px-0 py-0 text-alt-green smplus:gap-4'>
+            <span className='text-title smplus:text-smallest-header'>
+              {icon}
+            </span>
           </div>
         </div>
         <h2 className='my-0 font-medium text-alt-green text-title'>{title}</h2>

@@ -164,7 +164,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
                   'columns-auto sm:columns-3 lg:columns-4'
                 : props.isCompareMode
                   ? // compare mode only
-                    'smMd:columns-3 md:columns-2 lg:columns-3'
+                    'smplus:columns-3 md:columns-2 lg:columns-3'
                   : // non-compare mode only
                     'sm:columns-1'
             }`}

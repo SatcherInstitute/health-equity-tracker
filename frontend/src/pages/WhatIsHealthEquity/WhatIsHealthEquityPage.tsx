@@ -37,7 +37,7 @@ export default function WhatIsHealthEquityPage() {
         id='main-content'
         aria-labelledby='main-content'
         tabIndex={-1}
-        className='mx-auto flex w-svw max-w-lg-xl flex-col justify-center px-8 py-16'
+        className='mx-auto flex w-svw max-w-lgplus flex-col justify-center px-8 py-16'
       >
         <h1
           id='main'
@@ -46,7 +46,7 @@ export default function WhatIsHealthEquityPage() {
           What is Health Equity?
         </h1>
 
-        <div className='my-4 xs:block flex grow items-center text-left smMd:flex-col'>
+        <div className='my-4 xs:block flex grow items-center text-left smplus:flex-col'>
           <HetTermRaised
             term={'Health equity'}
             termType={'noun'}
@@ -91,8 +91,8 @@ export default function WhatIsHealthEquityPage() {
         id='learning-section'
         className='bg-white-smoke80'
       >
-        <div className='mx-auto flex w-svw max-w-lg-xl flex-col justify-center p-8'>
-          <div className='mx-auto flex w-full max-w-lg-xl flex-col justify-center'>
+        <div className='mx-auto flex w-svw max-w-lgplus flex-col justify-center p-8'>
+          <div className='mx-auto flex w-full max-w-lgplus flex-col justify-center'>
             <HetOverline text={'Trending Topics'} className='text-center' />
             <h2 className='m-0 pb-5 text-center font-bold font-sans-title text-alt-green text-header leading-modal-heading'>
               Don't know where to start?
@@ -117,7 +117,7 @@ export default function WhatIsHealthEquityPage() {
 
       <section
         aria-labelledby='select-faqs'
-        className='mx-auto flex w-svw max-w-lg-xl items-center justify-center px-8 py-16 lgXl:px-0'
+        className='mx-auto flex w-svw max-w-lgplus items-center justify-center px-8 py-16 xl:px-0'
       >
         <FaqSection />
       </section>

@@ -11,7 +11,7 @@ export default function ShareYourStory() {
 
       <section
         id='main-content'
-        className='mx-auto flex w-svw max-w-lg-xl flex-col justify-center px-8 py-16'
+        className='mx-auto flex w-svw max-w-lgplus flex-col justify-center px-8 py-16'
       >
         <h1
           id='main'

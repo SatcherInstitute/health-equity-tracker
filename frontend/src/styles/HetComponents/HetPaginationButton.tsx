@@ -24,7 +24,7 @@ export default function HetPaginationButton({
     <Button
       onClick={onClick}
       disabled={disabled}
-      className={`my-2 flex h-24 max-h-32 min-h-24 flex-col justify-center rounded-3xl bg-methodology-green font-medium font-sans-title text-alt-black leading-some-more-space tracking-wide shadow-raised-tighter hover:shadow-raised sm:w-auto smMd:w-full md:w-80 lg:mb-0 ${className}`}
+      className={`my-2 flex h-24 max-h-32 min-h-24 flex-col justify-center rounded-3xl bg-methodology-green font-medium font-sans-title text-alt-black leading-some-more-space tracking-wide shadow-raised-tighter hover:shadow-raised sm:w-auto smplus:w-full md:w-80 lg:mb-0 ${className}`}
     >
       {/* ARROW AND DIRECTION WORD */}
       <span

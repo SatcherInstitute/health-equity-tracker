@@ -23,7 +23,7 @@ export default function NewsPage() {
 
   return (
     <section>
-      <div className='m-auto max-w-lg-xl'>
+      <div className='m-auto max-w-lgplus'>
         <div className='flex-col'>
           <Tabs
             {...tabLayout}

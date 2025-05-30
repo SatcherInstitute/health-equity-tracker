@@ -131,11 +131,11 @@ const AgeAdjustmentLink = () => {
               In order to do an age-adjustment, we needed the following pieces
               of information:
             </p>
-            <ol>
+            <ol className='list-decimal pl-4'>
               <li>
                 <b>Condition counts broken down by both age and race:</b>
 
-                <ul>
+                <ul className='list-disc pl-4'>
                   <li>
                     For COVID-19, we use the{' '}
                     <a href='https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t'>
@@ -161,7 +161,7 @@ const AgeAdjustmentLink = () => {
               <li>
                 <b>Population counts broken down by both race and age:</b>
 
-                <ul>
+                <ul className='list-disc pl-4'>
                   <li>
                     For COVID-19, the most reliable population source we could
                     find with these particular age and race groupings were the{' '}
@@ -183,7 +183,7 @@ const AgeAdjustmentLink = () => {
             <p>
               In order to generate the age-adjusted ratios, we do the following
             </p>
-            <ol>
+            <ol className='list-decimal pl-4'>
               <li>
                 <p>
                   <b>

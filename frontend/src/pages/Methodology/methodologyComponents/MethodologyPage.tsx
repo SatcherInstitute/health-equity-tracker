@@ -21,7 +21,7 @@ export default function MethodologyPage() {
         aria-labelledby='page-heading'
         id='main-content'
       >
-        <div className='flex max-w-lg-xl grow flex-col smMd:m-5 smMd:flex-row'>
+        <div className='flex max-w-lgplus grow flex-col smplus:m-5 smplus:flex-row'>
           {/* MAIN METHODOLOGY PAGES MENU */}
           <div className='w-fit min-w-fit max-w-screen'>
             <MethodologyCardMenu />
@@ -29,7 +29,7 @@ export default function MethodologyPage() {
           </div>
 
           {/* CONTENT */}
-          <div className='xs:block flex grow smMd:flex-col'>
+          <div className='xs:block flex grow smplus:flex-col'>
             {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
             <div className='px-8 md:hidden'>
               {methodologyRouteConfigs.map((routeConfig) => {
@@ -81,7 +81,7 @@ export default function MethodologyPage() {
               return (
                 hasMatchedSublinks && (
                   <div
-                    className='sticky top-24 z-almost-top hidden h-min w-48 min-w-40 max-w-40 max-w-menu flex-col smMd:flex'
+                    className='sticky top-24 z-almost-top hidden h-min w-48 min-w-40 max-w-40 max-w-menu flex-col smplus:flex'
                     key={routeConfig.path}
                   >
                     <p className='my-0 text-left font-roboto font-semibold text-black text-smallest uppercase'>

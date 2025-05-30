@@ -21,15 +21,15 @@ export default function PolicyPage() {
 
       <section
         ref={ref}
-        className='mx-auto flex w-svw max-w-lg-xl justify-center text-left'
+        className='mx-auto flex w-svw max-w-lgplus justify-center text-left'
         aria-labelledby='page-heading'
       >
-        <div className='flex w-svw max-w-lg-xl grow flex-col smMd:m-5 smMd:flex-row'>
+        <div className='flex w-svw max-w-lgplus grow flex-col smplus:m-5 smplus:flex-row'>
           <div className='w-fit min-w-fit max-w-screen'>
             <PolicyCardMenu />
             <PolicyCardMenuMobile />
           </div>
-          <div className='xs:block flex grow smMd:flex-col'>
+          <div className='xs:block flex grow smplus:flex-col'>
             {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
             <div className='px-8 md:hidden'>
               {policyRouteConfigs.map((routeConfig) => {
@@ -72,7 +72,7 @@ export default function PolicyPage() {
                 routeConfig.subLinks && routeConfig.subLinks.length > 0
               return match && hasSublinks ? (
                 <div
-                  className='sticky top-24 z-almost-top hidden h-min w-full min-w-40 max-w-menu flex-col smMd:flex'
+                  className='sticky top-24 z-almost-top hidden h-min w-full min-w-40 max-w-menu flex-col smplus:flex'
                   key={routeConfig.path}
                 >
                   <HetOverline className='mt-0' text='On this Page' />

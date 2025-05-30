@@ -118,14 +118,14 @@ export default function SinglePost() {
       {canonicalUrl && <link rel='canonical' href={canonicalUrl} />}
 
       <div className='flex flex-wrap justify-center text-left text-title leading-some-more-space'>
-        <div className='mx-2 flex w-full flex-col-reversereverse items-center justify-between smMd:mx-16 md:flex-row md:px-0'>
+        <div className='mx-2 flex w-full flex-col-reversereverse items-center justify-between smplus:mx-16 md:flex-row md:px-0'>
           <div className='flex h-auto w-full flex-col px-4 md:px-16 lg:px-24'>
             {fullArticle?.date ? (
               <HetOverline text={prettyDate(fullArticle.date)} />
             ) : (
               <Skeleton width='50%' />
             )}
-            <div className='flex w-full flex-wrap justify-start py-2 text-left font-bold font-sans-title text-alt-green text-header xs:text-smallest-header leading-normal smMd:py-8 md:text-big-header'>
+            <div className='flex w-full flex-wrap justify-start py-2 text-left font-bold font-sans-title text-alt-green text-header xs:text-smallest-header leading-normal smplus:py-8 md:text-big-header'>
               {isLoading ? (
                 <>
                   <Skeleton animation='wave' width='100%' height='60' />
@@ -170,7 +170,7 @@ export default function SinglePost() {
           </div>
 
           <button
-            className='hidden w-1/2 appearance-none items-center justify-center rounded-sm border-none bg-transparent py-16 outline-hidden focus:outline-hidden smMd:flex'
+            className='hidden w-1/2 appearance-none items-center justify-center rounded-sm border-none bg-transparent py-16 outline-hidden focus:outline-hidden smplus:flex'
             onClick={handleModalOpen}
             type='button'
             style={{ cursor: articleImage ? 'pointer' : 'default' }}
@@ -197,7 +197,7 @@ export default function SinglePost() {
             {!isLoading && !isError && articleImage && (
               <div
                 aria-label={articleImageAltText}
-                className='hidden h-56 w-full rounded-md bg-center bg-cover bg-no-repeat shadow-raised-tighter smMd:block md:h-96'
+                className='hidden h-56 w-full rounded-md bg-center bg-cover bg-no-repeat shadow-raised-tighter smplus:block md:h-96'
                 style={{
                   backgroundImage: `url(${articleImage})`,
                   backgroundClip: 'border-box',

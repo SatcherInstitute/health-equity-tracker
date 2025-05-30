@@ -159,7 +159,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
         {/* Maps container */}
         <div className='mb-6'>
-          <ul className='grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 smMd:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
+          <ul className='grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 smplus:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
             {/* Multiples Maps */}
             {props.demographicGroups.map((demographicGroup) => {
               const mapLabel = CAWP_METRICS.includes(

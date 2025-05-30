@@ -43,14 +43,14 @@ export default function TopicSelector(props: TopicSelectorProps) {
     <>
       <span ref={popoverRef}>
         <HetMadLibButton handleClick={popover.open} isOpen={popover.isOpen}>
-          <span className={dropdownTarget + ' text-alt-green'}>
+          <span className={`${dropdownTarget} text-alt-green`}>
             {currentDisplayName}
           </span>
         </HetMadLibButton>
 
         <HetPopover popover={popover}>
           {/* Condition Topic Dropdown */}
-          <menu className='m-6 grid max-w-md grid-cols-1 tiny:grid-cols-2 gap-4 p-0 smMd:grid-cols-3'>
+          <menu className='m-6 grid max-w-md grid-cols-1 tiny:grid-cols-2 gap-2 p-0 smplus:grid-cols-3'>
             {CATEGORIES_LIST.map((category) => {
               return (
                 <div key={category.title} className='mb-4'>
@@ -70,7 +70,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
                             popover.close()
                             props.onOptionUpdate(optionId)
                           }}
-                          className='pl-2'
+                          className='pl-1'
                         >
                           {DROPDOWN_TOPIC_MAP[optionId]}
                         </HetListBoxOption>

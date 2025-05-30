@@ -66,6 +66,19 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
             variant='outlined'
             onChange={updateTextBox}
             {...params}
+            slotProps={{
+              input: {
+                ...params.InputProps,
+                sx: {
+                  '& .MuiAutocomplete-endAdornment': {
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    position: 'absolute',
+                    right: '9px',
+                  },
+                },
+              },
+            }}
           />
         )}
         onChange={(_e, fips) => {
