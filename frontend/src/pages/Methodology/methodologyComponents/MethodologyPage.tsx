@@ -56,7 +56,7 @@ export default function MethodologyPage() {
             <section className='mx-8 my-0 flex grow flex-col justify-end lg:mx-12'>
               {activeRoute?.visible && (
                 <h1
-                  className='my-0 mb-8 font-bold font-sans-title text-big-header leading-lh-normal'
+                  className='my-0 mb-8 font-bold font-sans-title text-alt-green text-big-header leading-normal'
                   id='page-heading'
                 >
                   {activeRoute?.label}

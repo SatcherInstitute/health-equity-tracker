@@ -18,7 +18,7 @@ export default function FaqsPage() {
       >
         <h1
           id='main'
-          className='font-bold font-sans-title text-alt-green text-big-header leading-lh-normal'
+          className='my-8 font-bold font-sans-title text-alt-green text-big-header leading-normal'
         >
           Frequently Asked Questions
         </h1>

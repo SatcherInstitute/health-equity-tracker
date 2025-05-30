@@ -25,9 +25,7 @@ interface IndentedItemProps {
   pClassName?: string
 }
 export const IndentedItem = ({ label, pClassName }: IndentedItemProps) => (
-  <p className={`my-2 ml-4 text-small leading-lh-normal ${pClassName}`}>
-    {label}
-  </p>
+  <p className={`my-2 ml-4 text-small leading-normal ${pClassName}`}>{label}</p>
 )
 
 export const faqMappings: Faq[] = [

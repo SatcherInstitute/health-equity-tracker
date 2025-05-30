@@ -112,9 +112,9 @@ function LandingPage() {
           className='absolute top-0 right-0 bottom-0 z-0 float-right mx-24 max-w-4xl opacity-35 xs:opacity-15 sm:opacity-15 md:opacity-15'
         ></img>
         <div className='relative m-0 p-0 text-left sm:w-full md:w-full lg:w-3/4'>
-          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-black xs:text-header leading-lh-some-space sm:text-big-header lg:text-hero-header'>
+          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-black xs:text-header leading-some-space sm:text-big-header lg:text-hero-header'>
             Where will the <br aria-hidden />
-            <span className='font-medium font-serif text-alt-green xs:text-header leading-lh-some-space sm:text-big-header lg:text-hero-header'>
+            <span className='font-medium font-serif text-alt-green xs:text-header leading-some-space sm:text-big-header lg:text-hero-header'>
               Health Equity Tracker
             </span>
             <br aria-hidden /> take you?
@@ -199,7 +199,7 @@ function LandingPage() {
           <div className='flex w-full flex-col items-center justify-center sm:block md:block'>
             <h2
               id='main'
-              className='m-0 text-center font-bold font-sans-title text-alt-green text-big-header xs:text-header leading-lh-modal-heading'
+              className='m-0 text-center font-bold font-sans-title text-alt-green text-big-header xs:text-header leading-modal-heading'
             >
               Advancing Health Justice
             </h2>
@@ -221,7 +221,7 @@ function LandingPage() {
         <div className=' m-0 py-0'>
           <div className='m-0 flex flex-col items-center justify-center p-0 '>
             <div className='w-full'>
-              <h3 className='m-0 font-bold font-sans-title text-alt-green text-header leading-lh-modal-heading'>
+              <h3 className='m-0 font-bold font-sans-title text-alt-green text-header leading-modal-heading'>
                 How do I use the Health Equity Tracker?
               </h3>
             </div>
@@ -275,7 +275,7 @@ function LandingPage() {
       <section className='flex w-full flex-wrap items-center justify-center'>
         <div className='flex flex-wrap px-56 xs:px-16 py-24 sm:px-24 md:px-32'>
           <div className='w-full'>
-            <h3 className='m-0 font-bold font-sans-title text-alt-green text-header leading-lh-modal-heading'>
+            <h3 className='m-0 font-bold font-sans-title text-alt-green text-header leading-modal-heading'>
               Recent news
             </h3>
           </div>

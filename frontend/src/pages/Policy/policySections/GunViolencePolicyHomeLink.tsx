@@ -6,7 +6,7 @@ export default function GunViolencePolicyHomeLink() {
       <section className='relative'>
         <HetOverline text='In Focus' className='text-center' />
         <div className='flex w-full flex-col items-center justify-center'>
-          <h1 className='m-0 text-center font-bold font-sans-title text-alt-green text-bigger-header xs:text-header leading-lh-modal-heading'>
+          <h1 className='m-0 text-center font-bold font-sans-title text-alt-green text-bigger-header xs:text-header leading-modal-heading'>
             Understanding the Crisis of Gun Violence in Atlanta
           </h1>
 

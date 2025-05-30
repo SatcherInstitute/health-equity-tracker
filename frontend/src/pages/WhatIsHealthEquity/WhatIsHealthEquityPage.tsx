@@ -41,7 +41,7 @@ export default function WhatIsHealthEquityPage() {
       >
         <h1
           id='main'
-          className='font-bold font-sans-title text-alt-green text-big-header leading-lh-normal'
+          className='mt-24 mb-12 font-bold font-sans-title text-alt-green text-big-header leading-normal '
         >
           What is Health Equity?
         </h1>
@@ -94,7 +94,7 @@ export default function WhatIsHealthEquityPage() {
         <div className='mx-auto flex w-svw max-w-lg-xl flex-col justify-center p-8'>
           <div className='mx-auto flex w-full max-w-lg-xl flex-col justify-center'>
             <HetOverline text={'Trending Topics'} className='text-center' />
-            <h2 className='m-0 pb-5 text-center font-bold font-sans-title text-alt-green text-header leading-lh-modal-heading'>
+            <h2 className='m-0 pb-5 text-center font-bold font-sans-title text-alt-green text-header leading-modal-heading'>
               Don't know where to start?
             </h2>
             <p className='my-4 text-center text-title'>

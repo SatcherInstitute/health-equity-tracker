@@ -29,15 +29,6 @@ const ThemeZIndexValues = {
   multimapModalTooltip: 1300,
 }
 
-const ThemeLineHeightValues = {
-  lhSuperLoose: 2.45,
-  lhLoose: 1.6,
-  lhSomeMoreSpace: 1.3,
-  lhSomeSpace: 1.15,
-  lhNormal: 1,
-  lhTight: 0.95,
-  lhModalHeading: 1.25,
-}
 const het = {
   alertColor: '#d85c47',
   altBlack: '#383838',
@@ -145,9 +136,4 @@ const het = {
   whyBoxColor: '#d8ebe5',
 }
 
-export {
-  het,
-  ThemeLineHeightValues,
-  ThemeStandardScreenSizes,
-  ThemeZIndexValues,
-}
+export { het, ThemeStandardScreenSizes, ThemeZIndexValues }

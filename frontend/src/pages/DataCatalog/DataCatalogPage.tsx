@@ -62,7 +62,7 @@ export default function DataCatalogPage() {
       >
         <h1
           id='main'
-          className='font-bold font-sans-title text-alt-green text-big-header leading-lh-normal'
+          className='font-bold font-sans-title text-alt-green text-big-header leading-normal'
         >
           Data Downloads
         </h1>

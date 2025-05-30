@@ -45,7 +45,7 @@ export default function RaceEthnicityList(props: RaceEthnicityListProps) {
                 {def.resource && (
                   <a
                     href={def.resource}
-                    className='mt-3 font-medium font-sans-title text-alt-green leading-lh-normal no-underline'
+                    className='mt-3 font-medium font-sans-title text-alt-green leading-normal no-underline'
                   >
                     Explore {def.key} resources →
                   </a>

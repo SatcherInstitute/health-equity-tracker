@@ -117,7 +117,7 @@ export default function SinglePost() {
       <title>{pageTitle}</title>
       {canonicalUrl && <link rel='canonical' href={canonicalUrl} />}
 
-      <div className='flex flex-wrap justify-center text-left text-title leading-lh-some-more-space'>
+      <div className='flex flex-wrap justify-center text-left text-title leading-some-more-space'>
         <div className='mx-2 flex w-full flex-col-reversereverse items-center justify-between smMd:mx-16 md:flex-row md:px-0'>
           <div className='flex h-auto w-full flex-col px-4 md:px-16 lg:px-24'>
             {fullArticle?.date ? (
@@ -125,7 +125,7 @@ export default function SinglePost() {
             ) : (
               <Skeleton width='50%' />
             )}
-            <div className='flex w-full flex-wrap justify-start py-2 text-left font-bold font-sans-title text-alt-green text-header xs:text-smallest-header leading-lh-normal smMd:py-8 md:text-big-header'>
+            <div className='flex w-full flex-wrap justify-start py-2 text-left font-bold font-sans-title text-alt-green text-header xs:text-smallest-header leading-normal smMd:py-8 md:text-big-header'>
               {isLoading ? (
                 <>
                   <Skeleton animation='wave' width='100%' height='60' />

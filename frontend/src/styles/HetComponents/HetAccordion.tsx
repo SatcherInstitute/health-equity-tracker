@@ -66,7 +66,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
         <div
           className={`my-0 ${
             summaryClassName ??
-            'p-2 text-left font-medium text-alt-black leading-lh-normal md:py-4 md:text-title md:leading-lh-some-space'
+            'p-2 text-left font-medium text-alt-black leading-normal md:py-4 md:text-title md:leading-some-space'
           }`}
         >
           {data.question}
@@ -74,7 +74,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
       </AccordionSummary>
       <AccordionDetails>
         <div
-          className={`text-left font-normal text-alt-black text-text leading-lh-some-more-space ${
+          className={`text-left font-normal text-alt-black text-text leading-some-more-space ${
             detailsClassName ?? 'm-0 p-2 md:my-0 md:px-6 md:py-4'
           }`}
         >

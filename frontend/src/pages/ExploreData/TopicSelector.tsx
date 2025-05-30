@@ -55,7 +55,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
               return (
                 <div key={category.title} className='mb-4'>
                   <h3
-                    className='m-0 mr-4 mb-1 p-0 font-semibold text-black text-small leading-lh-some-more-space sm:text-text'
+                    className='m-0 mr-4 mb-1 p-0 font-semibold text-black text-small leading-some-more-space sm:text-text'
                     aria-label={category.title + ' options'}
                   >
                     {category.title}

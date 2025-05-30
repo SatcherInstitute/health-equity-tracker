@@ -17,11 +17,11 @@ export default function DefaultHelperBox() {
         <div className='px-10 xs:px-2 py-0 text-left smMd:px-0 md:px-10'>
           <h1
             id='main-heading'
-            className='m-0 text-center font-bold font-sans-title text-alt-green text-base text-header leading-lh-modal-heading'
+            className='m-0 text-center font-bold font-sans-title text-alt-green text-base text-header leading-modal-heading'
           >
             Select a topic above
           </h1>
-          <p className='text-center text-text'>
+          <p className='my-4 text-center text-text'>
             or explore one of the following reports:
           </p>
           <ul

@@ -82,7 +82,7 @@ export default function TermsOfUsePage() {
       >
         <h1
           id='main'
-          className='font-bold font-sans-title text-alt-green text-big-header leading-lh-normal'
+          className='font-bold font-sans-title text-alt-green text-big-header leading-normal'
         >
           Terms of Use
         </h1>

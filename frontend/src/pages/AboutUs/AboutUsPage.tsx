@@ -21,7 +21,7 @@ export default function AboutUsPage() {
         <header>
           <h1
             id='main'
-            className='font-bold font-sans-title text-alt-green text-big-header leading-lh-normal'
+            className='font-bold font-sans-title text-alt-green text-big-header leading-normal'
           >
             About the Health Equity Tracker
           </h1>
@@ -100,7 +100,7 @@ export default function AboutUsPage() {
       </section>
 
       <section className='border-0 border-border-color border-t md:border-solid md:pt-20'>
-        <h2 className='mx-4 text-center font-sans-title text-alt-green text-header leading-lh-some-space sm:text-big-header'>
+        <h2 className='mx-4 text-center font-sans-title text-alt-green text-header leading-some-space sm:text-big-header'>
           We are committed to the following ethics
         </h2>
         <ul className='mx-4 flex list-none flex-wrap pl-0'>
@@ -128,7 +128,7 @@ export default function AboutUsPage() {
 
       <div className='flex w-full flex-col p-10'>
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-lh-some-more-space'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Leadership Team
           </h3>
           <ul className='grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
@@ -151,7 +151,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-lh-some-more-space'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             HET Software Engineering and Education Development (SEED) Program
           </h3>
 
@@ -168,7 +168,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-lh-some-more-space'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Former SHLI Contributors
           </h3>
 
@@ -185,7 +185,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-lh-some-more-space'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Google.org Fellows
           </h3>
           <ul className='grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-4'>
@@ -211,7 +211,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-lh-some-more-space'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Health Equity Task Force
           </h3>
           <ul className='grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-3'>
@@ -224,7 +224,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-lh-some-more-space'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Founding Partners
           </h3>
 
@@ -246,7 +246,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-lh-some-more-space'>
+          <h3 className='border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Grantors
           </h3>
 

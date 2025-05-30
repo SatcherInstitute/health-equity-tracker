@@ -15,7 +15,7 @@ export default function ShareYourStory() {
       >
         <h1
           id='main'
-          className='font-bold font-sans-title text-alt-green text-big-header leading-lh-normal'
+          className='font-bold font-sans-title text-alt-green text-big-header leading-normal'
         >
           Share Your Story
         </h1>
@@ -39,7 +39,7 @@ export default function ShareYourStory() {
 
           <div className='mt-5 flex w-full items-center'>
             <div className='flex-1 border-0 border-alt-grey border-t border-solid'></div>
-            <h2 className='m-0 ps-4 pe-4 font-bold text-alt-green text-title leading-lh-some-more-space md:font-medium md:text-smallest-header'>
+            <h2 className='m-0 ps-4 pe-4 font-bold text-alt-green text-title leading-some-more-space md:font-medium md:text-smallest-header'>
               Submission guidelines
             </h2>
             <div className='flex-1 border-0 border-alt-grey border-t border-solid'></div>

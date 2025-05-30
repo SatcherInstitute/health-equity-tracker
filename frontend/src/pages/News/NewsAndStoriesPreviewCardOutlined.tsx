@@ -50,7 +50,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
               }}
             ></div>
           </div>
-          <h2 className='mx-4 mt-8 pt-0 text-left font-semibold text-alt-green text-text leading-lh-normal'>
+          <h2 className='mx-4 mt-8 pt-0 text-left font-semibold text-alt-green text-text leading-normal'>
             <Link
               to={`${NEWS_PAGE_LINK}/${article.slug}`}
               className='no-underline group-hover:underline'

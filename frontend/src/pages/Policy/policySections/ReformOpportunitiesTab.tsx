@@ -74,7 +74,7 @@ export default function ReformOpportunitiesTab() {
           accordionData={legislativeActions}
           divClassName='py-0 my-0'
           accordionClassName='my-4'
-          summaryClassName='text-text leading-lhsomeSpace font-medium'
+          summaryClassName='text-text leading-some-space font-medium'
           detailsClassName='py-0 my-0'
         />
         <HetTextArrowLink

@@ -177,7 +177,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   key={`${demographicGroup}-grid-item`}
                   className='min-h-multimap-mobile w-full sm:p-1 md:min-h-multimap-desktop md:p-2'
                 >
-                  <h3 className='m-0 font-medium text-smallest leading-lh-tight sm:text-small sm:leading-lh-normal md:text-text'>
+                  <h3 className='m-0 font-medium text-smallest leading-tight sm:text-small sm:leading-normal md:text-text'>
                     {mapLabel}
                   </h3>
                   <div>

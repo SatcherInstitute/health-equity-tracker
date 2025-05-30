@@ -108,11 +108,11 @@ export function HetCarouselCard({
                       className='cursor-pointer border-none bg-transparent p-0 text-left'
                       aria-label={`Open video: ${ariaLabel}`}
                     >
-                      <h3 className='my-2 pt-0 font-semibold text-alt-green text-text leading-lh-normal'>
+                      <h3 className='my-2 pt-0 font-semibold text-alt-green text-text leading-normal'>
                         {ariaLabel}
                       </h3>
                     </button>
-                    <p className='my-2 hidden text-left text-black text-small leading-lh-some-space md:block'>
+                    <p className='my-2 hidden text-left text-black text-small leading-some-space md:block'>
                       {description}
                     </p>
                   </div>
@@ -121,7 +121,7 @@ export function HetCarouselCard({
                       <a
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='ml-auto font-medium text-small leading-lh-some-space no-underline'
+                        className='ml-auto font-medium text-small leading-some-space no-underline'
                         aria-label={`Learn more about ${ariaLabel}`}
                         href={readMoreHref}
                       >
@@ -152,12 +152,12 @@ export function HetCarouselCard({
                       aria-label={ariaLabel}
                       className='cursor-pointer no-underline'
                     >
-                      <h4 className='my-2 pt-0 font-semibold text-alt-green text-text leading-lh-normal'>
+                      <h4 className='my-2 pt-0 font-semibold text-alt-green text-text leading-normal'>
                         {title}
                       </h4>
                     </a>
                     {description && (
-                      <p className='my-0 hidden text-black text-smallest leading-lh-some-space md:block'>
+                      <p className='my-0 hidden text-black text-smallest leading-some-space md:block'>
                         {description}
                       </p>
                     )}
@@ -165,7 +165,7 @@ export function HetCarouselCard({
                   {readMoreHref && (
                     <div className='mb-4 flex w-full flex-row items-center justify-start gap-2 py-0'>
                       <a
-                        className='ml-auto font-medium text-small leading-lh-some-space no-underline'
+                        className='ml-auto font-medium text-small leading-some-space no-underline'
                         aria-label={`Learn more about ${ariaLabel}`}
                         href={readMoreHref}
                       >
@@ -194,7 +194,7 @@ export function HetCarouselCard({
               ×
             </button>
 
-            <h4 className='mb-6 text-center font-semibold text-alt-green text-title leading-lh-normal'>
+            <h4 className='mb-6 text-center font-semibold text-alt-green text-title leading-normal'>
               {ariaLabel}
             </h4>
 

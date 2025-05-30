@@ -67,7 +67,7 @@ export default function HetAppToolbar() {
   }
 
   return (
-    <Toolbar className='flex min-h-[65px] justify-between border-0 border-black border-b border-solid bg-white leading-lh-some-space'>
+    <Toolbar className='flex min-h-[65px] justify-between border-0 border-black border-b border-solid bg-white leading-some-space'>
       <nav aria-label='home navigation' className='m-0'>
         <HetNavLink className='flex items-center pl-0' href='/'>
           <img
@@ -75,7 +75,7 @@ export default function HetAppToolbar() {
             className='h-little-het-logo w-little-het-logo'
             alt='Health Equity Tracker logo'
           />
-          <span className='xs:hidden grow pl-5 text-left font-medium font-sans-title text-alt-green text-nav-bar-header leading-lh-some-space no-underline lg:flex'>
+          <span className='xs:hidden grow pl-5 text-left font-medium font-sans-title text-alt-green text-nav-bar-header leading-some-space no-underline lg:flex'>
             Health Equity Tracker
           </span>
         </HetNavLink>

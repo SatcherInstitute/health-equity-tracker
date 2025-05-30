@@ -15,7 +15,7 @@ export default function HetExpandableBoxButton(
       onClick={() => {
         props.setExpanded(!props.expanded)
       }}
-      className={`flex w-full cursor-pointer items-center justify-between border-none bg-listbox-color px-4 text-left text-black text-smallest leading-lh-list-box-title sm:text-text ${
+      className={`flex w-full cursor-pointer items-center justify-between border-none bg-listbox-color px-4 text-left text-black text-smallest leading-list-box-title sm:text-text ${
         props.expanded
           ? ''
           : 'text-ellipsis whitespace-nowrap sm:overflow-hidden'

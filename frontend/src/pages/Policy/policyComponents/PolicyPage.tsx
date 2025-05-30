@@ -50,7 +50,7 @@ export default function PolicyPage() {
 
             <section className='mx-8 my-0 flex flex-col justify-end md:mx-12'>
               {activeRoute?.visible && (
-                <h1 className='my-2 font-bold font-sans-title text-big-header leading-lh-normal'>
+                <h1 className='my-2 font-bold font-sans-title text-alt-green text-big-header leading-normal'>
                   {activeRoute?.label}
                 </h1>
               )}
