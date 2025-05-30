@@ -57,6 +57,7 @@
 	h1, h2 {
 		font-weight: 600;
 		color: var(--color-alt-green);
+    
 	}
 	h3, h4, h5 {
 		font-weight: 500;

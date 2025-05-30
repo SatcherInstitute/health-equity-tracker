@@ -41,7 +41,7 @@ export default function WhatIsHealthEquityPage() {
       >
         <h1
           id='main'
-          className='mt-24 mb-12 font-bold font-sans-title text-alt-green text-big-header leading-normal '
+          className='my-8 font-bold font-sans-title text-alt-green text-big-header leading-normal '
         >
           What is Health Equity?
         </h1>
