@@ -36,7 +36,7 @@ export default function GunViolencePolicyHomeLink() {
               </p>
 
               <div className='relative text-center'>
-                <span className='absolute xs:-top-60 xs:-left-8 m-0 p-0 text-[20rem] text-hover-alt-green md:-top-52 md:-left-4 lg:-top-56 lg:-left-20'>
+                <span className='xs:-top-60 xs:-left-8 md:-top-52 md:-left-4 lg:-top-56 lg:-left-20 absolute m-0 p-0 text-[20rem] text-hover-alt-green'>
                   &#10077;
                 </span>
                 <p

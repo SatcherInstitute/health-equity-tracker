@@ -136,7 +136,7 @@ export default function DataSourcesLink() {
             Contact Information
           </h2>
           <div className='flex w-full flex-col items-center'>
-            <HetAddressBlock className='flex w-10/12 flex-col rounded-lg bg-standard-info px-10 py-5' />
+            <HetAddressBlock className='flex w-full flex-col rounded-lg bg-standard-info px-10 py-5' />
           </div>
         </div>
       </article>

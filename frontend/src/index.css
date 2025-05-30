@@ -57,11 +57,13 @@
 	h1, h2 {
 		font-weight: 600;
 		color: var(--color-alt-green);
-    
+    padding-top: 2rem;
+    padding-bottom: 1rem;
 	}
 	h3, h4, h5 {
 		font-weight: 500;
 		color: var(--color-alt-black);
+    padding-block: .5rem;
 	}
 	h1{
 		font-size: 2.125rem;
