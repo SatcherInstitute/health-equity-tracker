@@ -49,10 +49,6 @@ test('Maternal Mortality', async ({ page }) => {
     .click()
   await page.getByLabel('Comparison bar chart showing').click()
   await page.getByRole('heading', { name: 'Summary for maternal' }).click()
-  await page
-    .getByRole('figure', { name: 'Summary for maternal' })
-    .locator('h4')
-    .click()
   await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
   await page.getByRole('columnheader', { name: 'Maternal mortality' }).click()
   await page

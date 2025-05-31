@@ -80,10 +80,6 @@ test('HIV Linkage To Care', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Summary for linkage to HIV' })
     .click()
-  await page
-    .getByRole('figure', { name: 'Summary for linkage to HIV' })
-    .locator('h4')
-    .click()
   await page.getByRole('columnheader', { name: 'Age', exact: true }).click()
   await page
     .getByRole('columnheader', { name: 'Linkage to HIV care', exact: true })
