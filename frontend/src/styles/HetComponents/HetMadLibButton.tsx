@@ -23,7 +23,7 @@ export default function HetMadLibButton(props: HetMadLibButtonProps) {
         {props.children}
         <span className='mx-1 '>
           <ArrowDropDown
-            className={`mb-1 transition-transform duration-300 ease-in-out ${props.isOpen ? 'rotate-180' : ''}`}
+            className={`mt-0 transition-transform duration-300 ease-in-out ${props.isOpen ? 'rotate-180' : ''}`}
           />
         </span>
       </span>
