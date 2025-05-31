@@ -28,7 +28,11 @@ const TogglePreview: React.FC<{ index: number; report: any }> = ({
       >
         <span className='mx-1'>
           {showPreview[index] ? 'Hide' : 'Preview the data'}
-          {showPreview[index] ? <ArrowDropUp /> : <ArrowDropDown />}
+          {showPreview[index] ? (
+            <ArrowDropUp className='mb-1' />
+          ) : (
+            <ArrowDropDown className='mb-1' />
+          )}
         </span>
       </button>
       {showPreview[index] && (

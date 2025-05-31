@@ -305,7 +305,7 @@ function LandingPage() {
                 />
               )}
             </div>
-            <div>
+            <div className='flex justify-center'>
               <HetTextArrowLink
                 link={NEWS_PAGE_LINK}
                 linkText='View all articles'

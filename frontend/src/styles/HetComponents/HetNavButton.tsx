@@ -19,7 +19,11 @@ const HetNavButton: React.FC<HetNavButtonProps> = ({
     <Button
       className={`mx-2 font-medium font-sansTitle text-navlinkColor text-small ${className}`}
       onClick={onClick}
-      endIcon={<ExpandMore />}
+      endIcon={
+        <ExpandMore
+          className={`mb-[0px] transition-transform duration-200 ease-in-out ${isExpanded ? 'rotate-180' : ''}`}
+        />
+      }
       aria-haspopup='true'
       aria-expanded={isExpanded}
     >

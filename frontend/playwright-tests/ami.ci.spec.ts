@@ -57,10 +57,6 @@ test('PHRMA: Medicare AMI', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Summary for acute myocardial' })
     .click()
-  await page
-    .getByRole('figure', { name: 'Summary for acute myocardial' })
-    .locator('h4')
-    .click()
   await page.getByRole('columnheader', { name: 'Age' }).click()
   await page
     .getByRole('columnheader', { name: 'Medicare beneficiary acute MI' })

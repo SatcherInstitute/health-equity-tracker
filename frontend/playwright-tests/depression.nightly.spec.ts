@@ -43,10 +43,6 @@ test('Depression Flow', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Summary for depression in the' })
     .click()
-  await page
-    .getByRole('figure', { name: 'Summary for depression in the' })
-    .locator('h4')
-    .click()
   await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
   await page
     .getByRole('columnheader', { name: 'Cases of depression per 100k' })

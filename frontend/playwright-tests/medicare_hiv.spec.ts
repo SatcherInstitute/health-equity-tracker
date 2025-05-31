@@ -34,10 +34,6 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
     .getByRole('button', { name: 'Population vs. distribution' })
     .click()
   await page.getByRole('heading', { name: 'Summary for adherence to' }).click()
-  await page
-    .getByRole('figure', { name: 'Summary for adherence to' })
-    .locator('h4')
-    .click()
   await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
   await page
     .getByRole('columnheader', { name: '% of pop. above adherence' })
