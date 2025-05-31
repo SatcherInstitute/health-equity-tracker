@@ -27,8 +27,12 @@ const TogglePreview: React.FC<{ index: number; report: any }> = ({
         aria-controls={`preview-${index}`}
       >
         <span className='mx-1'>
-          {showPreview[index] ? 'Hide' : 'Preview the data'}
-          {showPreview[index] ? <ArrowDropUp /> : <ArrowDropDown />}
+          {showPreview[index] ? 'Hide preview' : 'Preview the data'}
+          {showPreview[index] ? (
+            <ArrowDropUp className='mt-0' />
+          ) : (
+            <ArrowDropDown className='mt-0' />
+          )}
         </span>
       </button>
       {showPreview[index] && (
