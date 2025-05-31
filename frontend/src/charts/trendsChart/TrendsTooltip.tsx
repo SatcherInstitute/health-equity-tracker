@@ -83,13 +83,13 @@ export function TrendsTooltip({
     : F.dateFromString_YYYY(selectedDate ?? '')
 
   return (
-    <figure className='h-full w-min whitespace-nowrap rounded-sm border border-altGrey border-solid bg-white p-3 font-medium font-sansText text-small'>
+    <figure className='h-full w-min whitespace-nowrap rounded-sm border border-alt-grey border-solid bg-white p-3 font-medium font-sans-text text-small'>
       {/* Date title */}
-      <figcaption className='border-0 border-altGrey border-b border-solid pb-3 text-center'>
+      <figcaption className='border-0 border-alt-grey border-b border-solid pb-3 text-center'>
         <div>{displayDate}</div>
         {/* if per 100k chart and on mobile, add subtitle with units */}
         {isSkinny && type === TYPES.HUNDRED_K && (
-          <div className='mt-1 font-normal font-sansText text-smallest'>
+          <div className='mt-1 font-normal font-sans-text text-smallest'>
             {F.capitalize(yAxisLabel)}
           </div>
         )}
@@ -126,8 +126,8 @@ export function TrendsTooltip({
                   {/* amount */}
                   <div className='justify-end whitespace-nowrap'>
                     {/* // TODO: update way rounding number */}
-                    <span className='font-normal font-sansText'>{value}</span>
-                    <span className='font-normal font-sansText'>
+                    <span className='font-normal font-sans-text'>{value}</span>
+                    <span className='font-normal font-sans-text'>
                       {TYPE_CONFIG[type]?.UNIT}
                     </span>
                   </div>

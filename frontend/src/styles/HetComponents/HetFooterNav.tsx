@@ -25,7 +25,7 @@ export default function HetFooterLinks() {
             <HetLinkButton
               ariaLabel={ariaLabel}
               href={url}
-              className='w-full text-navlinkColor no-underline md:w-auto '
+              className='w-full text-navlink-color no-underline md:w-auto '
             >
               {label}
             </HetLinkButton>

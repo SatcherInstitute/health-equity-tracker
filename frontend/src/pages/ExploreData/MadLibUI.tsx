@@ -118,7 +118,7 @@ export default function MadLibUI(props: MadLibUIProps) {
     <>
       <div className='grid place-content-center'>
         <h1
-          className='mx-0 my-2 p-0 text-center font-normal text-fluidMadLib leading-lhLoose transition-all duration-200 ease-in-out'
+          className='mx-0 my-2 p-0 text-center font-normal text-fluid-mad-lib leading-loose transition-all duration-200 ease-in-out'
           id='madlib-box'
         >
           {props.madLib.phrase.map(
@@ -157,7 +157,7 @@ export default function MadLibUI(props: MadLibUIProps) {
                 >
                   {typeof phraseSegment === 'string' ? (
                     // NON_INTERACTIVE MADLIB WORDS
-                    <span className='text-altBlack'>
+                    <span className='text-alt-black'>
                       {phraseSegment}
                       {insertOptionalThe(props.madLib.activeSelections, index)}
                     </span>

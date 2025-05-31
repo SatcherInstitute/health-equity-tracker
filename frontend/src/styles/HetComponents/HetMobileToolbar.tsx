@@ -51,7 +51,7 @@ export default function HetMobileAppToolbar() {
                   className='pl-8 no-underline'
                   onClick={() => setOpen(false)}
                 >
-                  <ListItemText className='text-altBlack' primary={subValue} />
+                  <ListItemText className='text-alt-black' primary={subValue} />
                 </ListItem>
               ))}
             </Collapse>
@@ -67,7 +67,7 @@ export default function HetMobileAppToolbar() {
             to={value.link}
             key={key}
           >
-            <ListItemText className='text-altBlack' primary={value.label} />
+            <ListItemText className='text-alt-black' primary={value.label} />
           </ListItem>
         )
       }
@@ -103,14 +103,14 @@ export default function HetMobileAppToolbar() {
           <HetNavLink className='flex items-center pl-0' href='/'>
             <img
               src={AppBarLogo}
-              className='mr-auto ml-2 h-littleHetLogo w-littleHetLogo'
+              className='mr-auto ml-2 h-little-het-logo w-little-het-logo'
               alt='Health Equity Tracker logo'
             />
           </HetNavLink>
           <IconButton
             aria-label='Collapse site navigation'
             onClick={() => setOpen(false)}
-            className='mx-2 my-4 ml-auto p-2.5 text-altBlack'
+            className='mx-2 my-4 ml-auto p-2.5 text-alt-black'
             sx={{ borderRadius: 1 }}
           >
             <Close />

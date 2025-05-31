@@ -60,7 +60,7 @@ export function ExtremesListBox(props: ExtremesListBoxProps) {
       duration={500}
       height={props.isOpen ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className={`mt-4 rounded-md bg-listboxColor text-left ${props.isOpen ? '' : 'hide-on-screenshot'}`}
+      className={`mt-4 rounded-md bg-listbox-color text-left ${props.isOpen ? '' : 'hide-on-screenshot'}`}
     >
       <HetExpandableBoxButton
         expandBoxLabel={`${placesType} rate extremes`}

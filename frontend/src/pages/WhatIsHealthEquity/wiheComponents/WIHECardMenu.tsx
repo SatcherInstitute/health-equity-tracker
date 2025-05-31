@@ -50,7 +50,7 @@ interface HetTabButtonProps {
 function HetTabButton(props: HetTabButtonProps) {
   return (
     <button
-      className={`mx-2 cursor-pointer rounded rounded-sm px-8 py-4 text-center font-sansTitle font-semibold text-title no-underline ${props.isActiveTab ? 'cursor-auto border-0 bg-methodologyGreen text-altBlack shadow-raised' : 'border border-dividerGrey bg-white text-altGreen'}`}
+      className={`mx-2 cursor-pointer rounded rounded-sm px-8 py-4 text-center font-sans-title font-semibold text-title no-underline ${props.isActiveTab ? 'cursor-auto border-0 bg-methodology-green text-alt-black shadow-raised' : 'border border-divider-grey bg-white text-alt-green'}`}
       type='button'
       onClick={props.onClick}
     >

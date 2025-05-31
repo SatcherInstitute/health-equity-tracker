@@ -12,7 +12,7 @@ const HetTextArrow: React.FC<HetTextArrowProps> = ({
   return (
     <p className='flex items-center'>
       <span
-        className={`my-0 mr-2 p-0 font-bold font-sansTitle text-altGreen text-text ${textClassName}`}
+        className={`my-0 mr-2 p-0 font-bold font-sans-title text-alt-green text-text ${textClassName}`}
       >
         {linkText}
       </span>

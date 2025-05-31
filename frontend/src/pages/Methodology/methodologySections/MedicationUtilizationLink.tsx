@@ -60,57 +60,57 @@ export default function MedicareMedicationLink() {
           .
         </p>
 
-        <table className='m-4 border-collapse border-bgColor border-solid p-1'>
-          <thead className='bg-joinEffortBg1 font-bold'>
+        <table className='m-4 border-collapse border-bg-color border-solid p-1'>
+          <thead className='bg-join-effort-bg1 font-bold'>
             <tr>
               <th>Field from data dictionary</th>
               <th>Description</th>
             </tr>
           </thead>
-          <tbody className='even:bg-exploreBgColor'>
+          <tbody className='even:bg-explore-bg-color'>
             <tr>
-              <td className='border-collapse border-bgColor border-solid p-1'>
+              <td className='border-collapse border-bg-color border-solid p-1'>
                 <>RTI_RACE_CD</>
               </td>
-              <td className='border-collapse border-bgColor border-solid p-1'>
+              <td className='border-collapse border-bg-color border-solid p-1'>
                 Beneficiary race code (modified using RTI algorithm). The race
                 of the beneficiary and enhanced based on first and last name
                 algorithms.
               </td>
             </tr>
             <tr>
-              <td className='border-collapse border-bgColor border-solid p-1'>
+              <td className='border-collapse border-bg-color border-solid p-1'>
                 <>SEX_IDENT_CD</>
               </td>
-              <td className='border-collapse border-bgColor border-solid p-1'>
+              <td className='border-collapse border-bg-color border-solid p-1'>
                 This variable indicates the sex of the beneficiary.
               </td>
             </tr>
             <tr>
-              <td className='border-collapse border-bgColor border-solid p-1'>
+              <td className='border-collapse border-bg-color border-solid p-1'>
                 <>AGE_AT_END_REF_YR</>
               </td>
-              <td className='border-collapse border-bgColor border-solid p-1'>
+              <td className='border-collapse border-bg-color border-solid p-1'>
                 This is the beneficiary’s age, expressed in years and calculated
                 as of the end of the calendar year, or, for beneficiaries that
                 died during the year, age as of the date of death.
               </td>
             </tr>
             <tr>
-              <td className='border-collapse border-bgColor border-solid p-1'>
+              <td className='border-collapse border-bg-color border-solid p-1'>
                 <>CST_SHR_GRP_CD</>
               </td>
-              <td className='border-collapse border-bgColor border-solid p-1'>
+              <td className='border-collapse border-bg-color border-solid p-1'>
                 Monthly cost sharing group under Part D low-income subsidy.
                 Beneficiaries receiving the subsidy at any time during the year
                 were classified as LIS.
               </td>
             </tr>
             <tr>
-              <td className='border-collapse border-bgColor border-solid p-1'>
+              <td className='border-collapse border-bg-color border-solid p-1'>
                 <>ENTLMT_RSN_CURR</>
               </td>
-              <td className='border-collapse border-bgColor border-solid p-1'>
+              <td className='border-collapse border-bg-color border-solid p-1'>
                 Current reason for Medicare entitlement. This variable indicates
                 how the beneficiary currently qualifies for Medicare.
               </td>

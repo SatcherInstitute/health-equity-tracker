@@ -144,11 +144,11 @@ export default function NewsAndStoriesPage() {
 
       <section
         id='main-content'
-        className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'
+        className='mx-auto flex w-svw max-w-lgplus flex-col justify-center px-8 py-16'
       >
         <h1
           id='main'
-          className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
+          className='font-bold font-sans-title text-alt-green text-big-header leading-normal'
         >
           News and Stories
         </h1>
@@ -204,9 +204,9 @@ export default function NewsAndStoriesPage() {
                     </div>
                   ) : (
                     <>
-                      <div className='mt-8 grid w-full grid-cols-1 gap-4 smMd:gap-0 lg:grid-cols-5 lg:gap-1'>
+                      <div className='mt-8 grid w-full grid-cols-1 gap-4 smplus:gap-0 lg:grid-cols-5 lg:gap-1'>
                         <>
-                          <div className='col-span-1 w-full smMd:mb-4 lg:col-span-2 lg:mb-0'>
+                          <div className='col-span-1 w-full smplus:mb-4 lg:col-span-2 lg:mb-0'>
                             {firstFiveArticles[0] && (
                               <NewsAndStoriesPreviewCardOutlined
                                 article={firstFiveArticles[0]}
@@ -216,7 +216,7 @@ export default function NewsAndStoriesPage() {
                             )}
                           </div>
 
-                          <div className='col-span-1 mb-4 grid grid-cols-1 gap-4 smMd:grid-cols-2 md:col-span-3 lg:mb-0'>
+                          <div className='col-span-1 mb-4 grid grid-cols-1 gap-4 smplus:grid-cols-2 md:col-span-3 lg:mb-0'>
                             {firstFiveArticles.slice(1).map((article) => (
                               <NewsAndStoriesPreviewCardOutlined
                                 key={article.id}
@@ -260,7 +260,7 @@ export default function NewsAndStoriesPage() {
             {filtersApplied ? (
               <HetLinkButton
                 onClick={handleResetFilters}
-                className='px-0 py-0 text-center font-bold leading-lhNormal'
+                className='px-0 py-0 text-center font-bold leading-normal'
                 buttonClassName='mx-auto py-4 px-8'
               >
                 Reset Filters
@@ -270,7 +270,7 @@ export default function NewsAndStoriesPage() {
               remainingArticles.length > 0 && (
                 <HetLinkButton
                   onClick={handleLoadAllArticles}
-                  className='px-0 py-0 text-center font-bold leading-lhNormal'
+                  className='px-0 py-0 text-center font-bold leading-normal'
                   buttonClassName='mx-auto py-4 px-8'
                 >
                   Load All Articles

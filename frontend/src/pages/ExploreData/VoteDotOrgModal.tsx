@@ -58,7 +58,7 @@ export default function VoteDotOrgModal() {
     >
       <DialogContent dividers={true}>
         <HetCloseButton
-          className='text-altBlack'
+          className='text-alt-black'
           onClick={() => setModalIsOpen(false)}
           ariaLabel='close modal'
         />
@@ -68,7 +68,7 @@ export default function VoteDotOrgModal() {
           width='100%'
           height='100%'
           id='voteDotOrgIframe'
-          className='mt-2 border-0 bg-standardInfo p-2 md:px-24'
+          className='mt-2 border-0 bg-standard-info p-2 md:px-24'
         ></iframe>
       </DialogContent>
     </Dialog>

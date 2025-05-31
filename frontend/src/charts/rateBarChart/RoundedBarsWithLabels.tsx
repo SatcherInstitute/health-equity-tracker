@@ -66,8 +66,8 @@ export default function RoundedBarsWithLabels(
           key={'path' + index + barAriaLabel}
           className={
             d[props.demographicType] === 'All'
-              ? 'fill-timeYellow'
-              : 'fill-altGreen'
+              ? 'fill-time-yellow'
+              : 'fill-alt-green'
           }
           aria-hidden
         />

@@ -32,12 +32,12 @@ export default function TopicDefinitionsLink() {
                   return (
                     <div
                       key={config.dataTypeId}
-                      className='ml-0 self-start border-0 border-altDark font-sansText text-altGreen text-smallest first:border-t'
+                      className='ml-0 self-start border-0 border-alt-dark font-sans-text text-alt-green text-smallest first:border-t'
                     >
                       <span>
                         <strong>{config.fullDisplayName}</strong>
                       </span>
-                      <p className='m-0 ml-1 self-start text-altBlack text-small'>
+                      <p className='m-0 ml-1 self-start text-alt-black text-small'>
                         {config.definition?.text}
                       </p>
                     </div>

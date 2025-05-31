@@ -63,9 +63,9 @@ export default function HetTopicDemographics(props: HetTopicDemographicsProps) {
                 className='flex flex-row align-center'
               >
                 {item.included ? (
-                  <CheckRounded className='text-altGreen text-text' />
+                  <CheckRounded className='text-alt-green text-text' />
                 ) : (
-                  <BlockRounded className='text-redOrange text-text' />
+                  <BlockRounded className='text-red-orange text-text' />
                 )}
 
                 <span className='my-0 ml-2'>{item.demographicLabel}</span>

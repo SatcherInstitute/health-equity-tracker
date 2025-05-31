@@ -55,7 +55,7 @@ export default function HetCarousel({
           {items.map((item, index) => (
             <div
               key={index}
-              className='flex-shrink-0 px-2'
+              className='shrink-0 px-2'
               style={{ width: `${100 / visibleItems}%` }}
             >
               <CardComponent {...item} />
@@ -68,14 +68,14 @@ export default function HetCarousel({
         <Button
           aria-label='previous'
           onClick={handlePrev}
-          className='mx-1 w-16 transform rounded-xl bg-methodologyGreen text-altBlack shadow-sm transition-transform hover:scale-110 hover:shadow-raised'
+          className='mx-1 w-16 transform rounded-xl bg-methodology-green text-alt-black shadow-sm transition-transform hover:scale-110 hover:shadow-raised'
         >
           <ArrowBack />
         </Button>
         <Button
           aria-label='next'
           onClick={handleNext}
-          className='mx-1 w-16 transform rounded-xl bg-methodologyGreen text-altBlack shadow-sm transition-transform hover:scale-110 hover:shadow-raised'
+          className='mx-1 w-16 transform rounded-xl bg-methodology-green text-alt-black shadow-sm transition-transform hover:scale-110 hover:shadow-raised'
         >
           <ArrowForward />
         </Button>

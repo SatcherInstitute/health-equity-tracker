@@ -51,7 +51,7 @@ const UnknownMapGradientLegend = ({
   return (
     <div className='mt-4'>
       <div>
-        <h3 className='pl-16 text-left font-bold text-gray-700 text-tinyTag'>
+        <h3 className='pl-16 text-left font-bold text-gray-700 text-tiny-tag'>
           {legendTitle}
         </h3>
         <p className='sr-only'>

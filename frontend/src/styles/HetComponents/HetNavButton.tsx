@@ -17,7 +17,7 @@ const HetNavButton: React.FC<HetNavButtonProps> = ({
 }) => {
   return (
     <Button
-      className={`mx-2 font-medium font-sansTitle text-navlinkColor text-small ${className}`}
+      className={`mx-2 font-medium font-sans-title text-navlink-color text-small ${className}`}
       onClick={onClick}
       endIcon={
         <ExpandMore

@@ -30,12 +30,12 @@ export default function Sidebar(props: SidebarProps) {
   return (
     <>
       <div className='sticky' style={{ top: tocOffset }}>
-        <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
+        <div className='rounded-sm bg-white shadow-raised md:m-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
           <TopicInfoModalButton />
         </div>
 
         <div className='mode-selector-box'>
-          <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-90p md:flex-col md:justify-center md:px-2 md:py-4'>
+          <div className='rounded-sm bg-white shadow-raised md:m-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:px-2 md:py-4'>
             <SimpleSelect<MadLibId>
               label='Compare mode'
               optionsMap={MADLIB_MODE_MAP}
@@ -46,7 +46,7 @@ export default function Sidebar(props: SidebarProps) {
         </div>
 
         <nav
-          className='m-cardGutter flex w-90p justify-center rounded-sm bg-white py-4 shadow-raised'
+          className='m-card-gutter flex w-90p justify-center rounded-sm bg-white py-4 shadow-raised'
           aria-label='page contents navigation'
         >
           <TableOfContents

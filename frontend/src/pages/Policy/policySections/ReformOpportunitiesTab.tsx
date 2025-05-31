@@ -24,7 +24,7 @@ export default function ReformOpportunitiesTab() {
 
       <section id='where-to-start'>
         <HetOverline text='Where to Start' />
-        <h2 className='my-0 font-medium text-altGreen text-title'>
+        <h2 className='my-0 font-medium text-alt-green text-title'>
           Insights from the Advocacy Community
         </h2>
         <ul className='mt-4 mb-8 ml-0 grid list-none grid-cols-1 gap-2 pl-0 md:grid-cols-2'>
@@ -64,7 +64,7 @@ export default function ReformOpportunitiesTab() {
 '
         />
 
-        <h2 className='my-0 font-medium text-altGreen text-title'>
+        <h2 className='my-0 font-medium text-alt-green text-title'>
           Legislative Items to Consider for Policy Changes
         </h2>
         <HetOverline text={`SOURCE: RAND Foundation`} className='inline' />
@@ -74,14 +74,14 @@ export default function ReformOpportunitiesTab() {
           accordionData={legislativeActions}
           divClassName='py-0 my-0'
           accordionClassName='my-4'
-          summaryClassName='text-text leading-lhsomeSpace font-medium'
+          summaryClassName='text-text leading-some-space font-medium'
           detailsClassName='py-0 my-0'
         />
         <HetTextArrowLink
           link={urlMap.findElectedOfficials}
           linkText='Find and contact your elected officials'
           containerClassName='flex items-center justify-center mt-8 mx-auto'
-          linkClassName='font-sansTitle text-smallestHeader'
+          linkClassName='font-sans-title text-smallest-header'
         />
       </section>
     </>

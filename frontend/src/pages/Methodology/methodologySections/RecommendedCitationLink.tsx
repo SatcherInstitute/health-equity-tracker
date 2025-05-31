@@ -14,7 +14,7 @@ export default function RecommendedCitationLink() {
         <p className='mt-12 font-medium text-title'>
           APA (American Psychological Association) Format
         </p>
-        <div className='text-left font-sansText text-altBlack text-small'>
+        <div className='text-left font-sans-text text-alt-black text-small'>
           <Card elevation={3}>
             <p className='first-of-type:-indent-8 mx-0 my-4 pr-4 pl-12'>
               {CITATION_APA}

@@ -91,7 +91,7 @@ function Crumb(props: {
     <>
       {props.isClickable && (
         <Button
-          className='p-1 text-altGreen'
+          className='p-1 text-alt-green'
           onClick={() => {
             props.onClick?.()
           }}

@@ -10,7 +10,7 @@ export default function DataCollectionTab() {
     <>
       <title>Data Collection - Health Equity Tracker</title>
       <section id='source-profile'>
-        <article className='group mt-8 mb-8 rounded-md border border-methodologyGreen border-solid bg-white p-4 shadow-raised-tighter'>
+        <article className='group mt-8 mb-8 rounded-md border border-methodology-green border-solid bg-white p-4 shadow-raised-tighter'>
           <HetOverline className='my-0' text='Source Profile' />
           <h2 className='my-0 font-medium text-title'>
             CDC's WISQARS™(Web-based Injury Statistics Query and Reporting
@@ -29,25 +29,25 @@ export default function DataCollectionTab() {
           </p>
           <ul className='grid list-none grid-cols-2 gap-4 p-0 text-smallest'>
             <li className='flex flex-col'>
-              <p className='my-0 font-semibold text-altGreen'>
+              <p className='my-0 font-semibold text-alt-green'>
                 Time-Series Range
               </p>
               <p className='my-0'>2001 - current</p>
             </li>
             <li className='flex flex-col'>
-              <p className='my-0 font-semibold text-altGreen'>
+              <p className='my-0 font-semibold text-alt-green'>
                 Geographic Level
               </p>
               <p className='my-0'>National, State</p>
             </li>
             <li className='flex flex-col'>
-              <p className='my-0 font-semibold text-altGreen'>
+              <p className='my-0 font-semibold text-alt-green'>
                 Demographic Granularity
               </p>
               <p className='my-0'>Race/ethnicity, sex, age</p>
             </li>
             <li className='flex flex-col'>
-              <p className='my-0 font-semibold text-altGreen'>
+              <p className='my-0 font-semibold text-alt-green'>
                 Update Frequency
               </p>
               <p className='my-0'>Yearly</p>
@@ -58,7 +58,7 @@ export default function DataCollectionTab() {
       <section id='key-metrics'>
         <div className='mb-0'>
           <HetOverline text='Our Methods' />
-          <h2 className='my-0 font-medium text-altGreen text-title'>
+          <h2 className='my-0 font-medium text-alt-green text-title'>
             Key Metrics
           </h2>
         </div>
@@ -71,7 +71,7 @@ export default function DataCollectionTab() {
         </p>
       </section>
       <section id='data-limitations'>
-        <h2 className='my-0 font-medium text-altGreen text-title'>
+        <h2 className='my-0 font-medium text-alt-green text-title'>
           Data Limitations
         </h2>
         <p>
@@ -84,7 +84,7 @@ export default function DataCollectionTab() {
       </section>
 
       <section id='fatality-definitions'>
-        <h2 className='my-4 font-medium text-altGreen text-title'>
+        <h2 className='my-4 font-medium text-alt-green text-title'>
           Fatality Definitions
         </h2>
         <StripedTable
@@ -100,7 +100,7 @@ export default function DataCollectionTab() {
         />
       </section>
       <section id='available-data'>
-        <h2 className='mt-6 mb-2 font-medium text-altGreen text-title'>
+        <h2 className='mt-6 mb-2 font-medium text-alt-green text-title'>
           Available Data
         </h2>
         <p className='mb-0'>

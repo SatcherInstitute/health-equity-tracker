@@ -43,19 +43,19 @@ export default function TopicSelector(props: TopicSelectorProps) {
     <>
       <span ref={popoverRef}>
         <HetMadLibButton handleClick={popover.open} isOpen={popover.isOpen}>
-          <span className={dropdownTarget + ' text-altGreen'}>
+          <span className={`${dropdownTarget} text-alt-green`}>
             {currentDisplayName}
           </span>
         </HetMadLibButton>
 
         <HetPopover popover={popover}>
           {/* Condition Topic Dropdown */}
-          <menu className='m-6 grid max-w-md grid-cols-1 tiny:grid-cols-2 gap-4 p-0 smMd:grid-cols-3'>
+          <menu className='m-6 grid max-w-md grid-cols-1 tiny:grid-cols-2 gap-2 p-0 smplus:grid-cols-3'>
             {CATEGORIES_LIST.map((category) => {
               return (
                 <div key={category.title} className='mb-4'>
                   <h3
-                    className='m-0 mr-4 mb-1 p-0 font-semibold text-black text-small leading-lhSomeMoreSpace sm:text-text'
+                    className='m-0 mr-4 mb-1 p-0 font-semibold text-black text-small leading-some-more-space sm:text-text'
                     aria-label={category.title + ' options'}
                   >
                     {category.title}
@@ -70,7 +70,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
                             popover.close()
                             props.onOptionUpdate(optionId)
                           }}
-                          className='pl-2'
+                          className='pl-1'
                         >
                           {DROPDOWN_TOPIC_MAP[optionId]}
                         </HetListBoxOption>
@@ -83,7 +83,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
             <div className='col-span-full flex w-full justify-end'>
               {!noTopic && (
                 <a
-                  className='bg-white text-black no-underline hover:bg-standardInfo'
+                  className='bg-white text-black no-underline hover:bg-standard-info'
                   href={EXPLORE_DATA_PAGE_LINK}
                 >
                   <KeyboardBackspaceIcon className='pb-[3px] text-black text-small' />{' '}

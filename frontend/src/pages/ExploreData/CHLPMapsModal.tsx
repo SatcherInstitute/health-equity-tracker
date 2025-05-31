@@ -110,12 +110,12 @@ export default function CHLPMapsModal() {
         className='flex flex-col items-center justify-center'
       >
         <HetCloseButton
-          className='absolute top-2 right-2 text-altBlack'
+          className='absolute top-2 right-2 text-alt-black'
           onClick={() => setModalIsOpen(false)}
           ariaLabel='close modal'
         />
         <div className='flex h-full w-full flex-col items-center justify-center'>
-          <div className='flex w-full flex-grow flex-col items-center justify-center py-8'>
+          <div className='flex w-full grow flex-col items-center justify-center py-8'>
             <div className='relative flex w-full items-center justify-center'>
               <img
                 src={mapData[currentMapIndex].imageUrl}
@@ -158,7 +158,7 @@ export default function CHLPMapsModal() {
               href='https://www.hivlawandpolicy.org/maps'
               target='_blank'
               rel='noopener noreferrer'
-              className='rounded px-4 py-2 text-darkGreen hover:underline'
+              className='rounded px-4 py-2 text-dark-green hover:underline'
             >
               Learn more at hivlawandpolicy.org
             </a>

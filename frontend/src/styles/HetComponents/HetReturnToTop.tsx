@@ -8,7 +8,7 @@ export default function HetReturnToTop() {
       onClick={() => {
         window.scrollTo(0, 0)
       }}
-      className='rounded-xl border-none bg-opacity-0 focus:outline-none'
+      className='rounded-xl border-none bg-opacity-0 focus:outline-hidden'
     >
       <ArrowUpwardRoundedIcon />
     </Button>
