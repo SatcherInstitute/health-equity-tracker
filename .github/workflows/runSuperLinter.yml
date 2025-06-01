@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0
         # Lint changed files of these langauges using Super Linter shared action
       - name: Lint Code Base
-        uses: super-linter/super-linter/slim@v7.3.0
+        uses: super-linter/super-linter/slim@v7.4.0
         env:
           DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: false
