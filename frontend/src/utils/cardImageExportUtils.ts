@@ -128,7 +128,7 @@ function handleFooterForCard(
 ): HTMLElement[] {
   const addedElements: HTMLElement[] = []
 
-  footer.classList.add('leading-lhTight', 'pb-4')
+  footer.classList.add('leading-tight', 'pb-4')
 
   if (options.cardId === 'rate-map') {
     const mapDivider = document.createElement('div')
@@ -136,7 +136,7 @@ function handleFooterForCard(
       'w-full',
       'border-b',
       'border-solid',
-      'border-dividerGrey',
+      'border-divider-grey',
     )
     mapDivider.style.height = '0px'
     footer.parentNode?.insertBefore(mapDivider, footer)

@@ -16,15 +16,15 @@ interface HetListItemButtonProps {
 }
 
 const optionsToClasses: Record<HetListItemButtonOptionType, string> = {
-  boldGreenCol: 'py-2 pl-0 font-sansTitle text-small font-medium no-underline',
-  normalBlack: 'py-1 pl-2 text-small font-light text-altBlack',
+  boldGreenCol: 'py-2 pl-0 font-sans-title text-small font-medium no-underline',
+  normalBlack: 'py-1 pl-2 text-small font-light text-alt-black',
 }
 
 export default function HetListItemButton(props: HetListItemButtonProps) {
   return (
     <ListItemButton
       tabIndex={props.onClick ? undefined : -1}
-      className={`mx-auto px-0 ${props.selected ? 'bg-hoverAltGreen' : 'bg-white'}`}
+      className={`mx-auto px-0 ${props.selected ? 'bg-hover-alt-green' : 'bg-white'}`}
       onClick={props.onClick}
       aria-label={props.ariaLabel}
       selected={props.selected}

@@ -5,7 +5,7 @@ interface HetDividerProps {
 export default function HetDivider({ className }: HetDividerProps) {
   return (
     <hr
-      className={`m-0 flex-shrink-0 border-0 border-dividerGrey border-b border-solid ${
+      className={`m-0 shrink-0 border-0 border-divider-grey border-b border-solid ${
         className ?? ''
       }`}
     />

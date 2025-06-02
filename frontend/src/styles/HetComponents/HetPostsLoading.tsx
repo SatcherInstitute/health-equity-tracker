@@ -25,7 +25,7 @@ export default function HetPostsLoading(props: HetPostsLoadingProps) {
 
         return (
           <div
-            className={`col-span-12 ${!isFirst && 'smMd:col-span-6 lg:col-span-4'} lg:col-span-4 ${isFirst && 'lg:row-span-2'} $ my-4 flex w-full flex-wrap rounded-md border border-altGreen border-solid ${props.className ?? ''}`}
+            className={`col-span-12 ${!isFirst && 'smplus:col-span-6 lg:col-span-4'} lg:col-span-4 ${isFirst && 'lg:row-span-2'} $ my-4 flex w-full flex-wrap rounded-md border border-alt-green border-solid ${props.className ?? ''}`}
             key={i}
           >
             {/* IMG PLACEHOLDER */}

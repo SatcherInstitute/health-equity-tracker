@@ -25,7 +25,7 @@ interface Faq {
 
 const OptionGroup = ({ title, children }: OptionGroupProps) => (
   <div className='my-4'>
-    <h3 className='my-0 font-medium text-altGreen text-title'>{title}</h3>
+    <h3 className='my-0 font-medium text-alt-green text-title'>{title}</h3>
     {children}
   </div>
 )
@@ -54,13 +54,13 @@ const AgeGroupList = () => (
 )
 
 const Divider = () => (
-  <div className='mx-0 my-2 w-full border border-methodologyGreen border-t-0 border-r-1.2 border-b-1.2 border-l-0 border-solid md:mx-10 md:my-0 md:w-fit md:border-b-0'></div>
+  <div className='mx-0 my-2 w-full border border-methodology-green border-t-0 border-r-1.2 border-b-1.2 border-l-0 border-solid md:mx-10 md:my-0 md:w-fit md:border-b-0'></div>
 )
 
 const RaceEthnicityOptions = () => (
   <div className='ml-2 flex flex-col justify-start align-start md:flex-row'>
     <div className='my-2 flex w-auto flex-col'>
-      <p className='my-0 font-semibold text-altBlack text-text'>Races</p>
+      <p className='my-0 font-semibold text-alt-black text-text'>Races</p>
       <ul className='list-none pl-1 text-small'>
         <li>Asian</li>
         <li>Black or African American</li>
@@ -73,7 +73,7 @@ const RaceEthnicityOptions = () => (
     </div>
     <Divider />
     <div className='flex flex-col'>
-      <p className='my-0 font-semibold text-altBlack text-text'>Ethnicities</p>
+      <p className='my-0 font-semibold text-alt-black text-text'>Ethnicities</p>
       <ul className='list-none pl-1 text-small'>
         <li>Hispanic/Latino</li>
       </ul>

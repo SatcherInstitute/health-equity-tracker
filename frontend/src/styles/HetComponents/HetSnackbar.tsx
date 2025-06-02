@@ -17,7 +17,7 @@ export default function HetSnackbar(props: HetSnackbarProps) {
     >
       <Alert
         onClose={props.handleClose}
-        className='border border-barChartLight border-solid'
+        className='border border-bar-chart-light border-solid'
         role='alert'
       >
         {props.children}

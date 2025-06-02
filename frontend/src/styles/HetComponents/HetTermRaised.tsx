@@ -68,13 +68,13 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
 
   return (
     <div
-      className={`group fade-in-up-blur my-0 rounded-md border border-methodologyGreen border-solid bg-white p-4 shadow-raised-tighter ${className}`}
+      className={`group fade-in-up-blur my-0 rounded-md border border-methodology-green border-solid bg-white p-4 shadow-raised-tighter ${className}`}
       aria-labelledby='term-definition'
     >
       {source && (
         <span
           id='term-source'
-          className='mt-1 mr-2 rounded-sm bg-tinyTagGray px-2 py-1 font-bold font-sansTitle text-black text-tinyTag uppercase'
+          className='mt-1 mr-2 rounded-sm bg-tiny-tag-gray px-2 py-1 font-bold font-sans-title text-black text-tiny-tag uppercase'
         >
           {source}
         </span>

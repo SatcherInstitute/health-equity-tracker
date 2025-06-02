@@ -61,10 +61,10 @@ function formatValue(
 }
 
 function getNumTicks(width: number): number {
-  const isSmMd = useIsBreakpointAndUp('smMd')
+  const isSmPlusAndUp = useIsBreakpointAndUp('smplus')
   const isCompareMode = window.location.href.includes('compare')
   let numTicks = Math.floor(width / 40)
-  if (isCompareMode || !isSmMd) {
+  if (isCompareMode || !isSmPlusAndUp) {
     numTicks = Math.max(Math.floor(numTicks / 1.5), 5)
   }
   return numTicks

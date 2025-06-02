@@ -3,6 +3,6 @@ interface HetTermProps {
 }
 export default function HetTerm(props: HetTermProps) {
   return (
-    <strong className='font-sansTitle font-semibold'>{props.children}</strong>
+    <strong className='font-sans-title font-semibold'>{props.children}</strong>
   )
 }

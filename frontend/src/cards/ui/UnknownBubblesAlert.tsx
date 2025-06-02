@@ -34,7 +34,7 @@ export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
       <button
         type='button'
         onClick={changeUnknownState}
-        className='cursor-pointer border-0 bg-transparent p-0 text-altGreen underline'
+        className='cursor-pointer border-0 bg-transparent p-0 text-alt-green underline'
         aria-label={
           'View the share of ' +
           props.fullDisplayName +
