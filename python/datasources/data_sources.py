@@ -5,6 +5,7 @@ from datasources.age_adjust_cdc_hiv import AgeAdjustCDCHiv
 from datasources.bjs_incarceration import BJSIncarcerationData
 from datasources.cawp import CAWPData
 from datasources.cdc_hiv import CDCHIVData
+from datasources.cdc_miovd import CDCMIOVDData
 from datasources.cdc_restricted import CDCRestrictedData
 from datasources.cdc_vaccination_county import CDCVaccinationCounty
 from datasources.cdc_vaccination_national import CDCVaccinationNational
@@ -34,6 +35,7 @@ DATA_SOURCES_DICT = {
     BJSIncarcerationData.get_id(): BJSIncarcerationData(),
     CAWPData.get_id(): CAWPData(),
     CDCHIVData.get_id(): CDCHIVData(),
+    CDCMIOVDData.get_id(): CDCMIOVDData(),
     CDCRestrictedData.get_id(): CDCRestrictedData(),
     CDCVaccinationCounty.get_id(): CDCVaccinationCounty(),
     CDCVaccinationNational.get_id(): CDCVaccinationNational(),
