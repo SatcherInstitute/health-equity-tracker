@@ -301,8 +301,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
     setshowCHLPMapsBanner(
       getSelectedConditions(madLib)?.some(
-        (conditionConfig: DataTypeConfig) =>
-          conditionConfig.categoryId === 'hiv',
+        (condition: DataTypeConfig) => condition.categoryId === 'hiv',
       ),
     )
 
