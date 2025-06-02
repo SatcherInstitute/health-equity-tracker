@@ -65,7 +65,7 @@ test('CAWP: State Legislature', async ({ page }) => {
   await page.getByLabel('Race/Ethnicity:').click()
   await page.getByRole('button', { name: 'Black or African American' }).click()
 
-  await page.waitForSelector('#rate-map h3:has-text("Percentage of state")', {
+  await page.waitForSelector('#rate-map h2:has-text("Percentage of state")', {
     timeout: 60000,
   })
   await page

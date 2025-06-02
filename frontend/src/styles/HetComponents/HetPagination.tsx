@@ -37,7 +37,7 @@ export default function HetPagination({
 
   return (
     <div
-      className={`mx-0 mt-8 mb-8 flex w-full flex-col justify-between gap-4 smMd:mb-0 md:mt-16 md:flex-row md:self-stretch ${className ?? ''}`}
+      className={`mx-0 mt-8 mb-8 flex w-full flex-col justify-between gap-4 smplus:mb-0 md:mt-16 md:flex-row md:self-stretch ${className ?? ''}`}
     >
       {prevRoute && (
         <HetPaginationButton direction='previous' onClick={goPrevious}>

@@ -28,10 +28,10 @@ test('Default Guides tab is loaded on /whatishealthequity', async ({
 
 test('WIHE Page Loads and Accessibility Scan', async ({ page }) => {
   await page.goto('/whatishealthequity', { waitUntil: 'networkidle' })
-  await page.waitForSelector('.text-tinyTag', { state: 'attached' })
+  await page.waitForSelector('.text-tiny-tag', { state: 'attached' })
 
   const accessibilityScanResults = await new AxeBuilder({ page })
-    .exclude('.text-tinyTag')
+    .exclude('.text-tiny-tag')
     .exclude('.shadow-raised-tighter')
     .analyze()
 

@@ -14,7 +14,7 @@ const HetGalleryDotNav: React.FC<HetGalleryDotNavProps> = ({
   currentIndex,
   onSelect,
   className = '',
-  activeColor = 'bg-methodologyGreen',
+  activeColor = 'bg-methodology-green',
   inactiveColor = 'bg-gray-300',
 }) => {
   return (

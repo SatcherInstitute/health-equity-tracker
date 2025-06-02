@@ -25,6 +25,7 @@ import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardM
 import MaterialTheme from './styles/MaterialTheme'
 import { autoInitGlobals } from './utils/globals'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
+import { useMakeCssVariables } from './utils/hooks/useMakeCssVariables'
 import {
   ABOUT_US_PAGE_LINK,
   AGE_ADJUSTMENT_LINK,
@@ -104,6 +105,7 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  useMakeCssVariables()
   const isSm = useIsBreakpointAndUp('sm')
 
   return (

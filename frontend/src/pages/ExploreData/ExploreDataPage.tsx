@@ -345,11 +345,11 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       <div
         id={EXPLORE_DATA_ID}
         tabIndex={-1}
-        className={'h-full bg-exploreBgColor'}
+        className={'h-full bg-explore-bg-color'}
       >
         <div
           ref={madlibRef}
-          className={`z-stickyMadLib mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full ${!noTopicChosen ? 'md:sticky' : ''}
+          className={`z-sticky-mad-lib mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full ${!noTopicChosen ? 'md:sticky' : ''}
           `}
           id='madlib-container'
         >

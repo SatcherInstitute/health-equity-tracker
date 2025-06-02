@@ -20,7 +20,7 @@ export default function JumpToSelect(props: JumpToSelectProps) {
         label={'Jump to'}
       >
         <MenuItem value={' '}>
-          <a className='text-altBlack no-underline' href='#top'>
+          <a className='text-alt-black no-underline' href='#top'>
             Select a card
           </a>
         </MenuItem>
@@ -33,7 +33,7 @@ export default function JumpToSelect(props: JumpToSelectProps) {
 
           return (
             <MenuItem key={stepId} value={stepId}>
-              <a className='text-altBlack no-underline' href={`#${stepId}`}>
+              <a className='text-alt-black no-underline' href={`#${stepId}`}>
                 {stepInfo.label}
               </a>
             </MenuItem>

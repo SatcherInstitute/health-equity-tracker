@@ -78,21 +78,21 @@ export default function TermsOfUsePage() {
 
       <section
         id='main-content'
-        className='mx-auto flex w-svw max-w-lgXl flex-col justify-center px-8 py-16'
+        className='mx-auto flex w-svw max-w-lgplus flex-col justify-center px-8 py-16'
       >
         <h1
           id='main'
-          className='font-bold font-sansTitle text-altGreen text-bigHeader leading-lhNormal'
+          className='font-bold font-sans-title text-alt-green text-big-header leading-normal'
         >
           Terms of Use
         </h1>
         <ul className='mx-auto w-full max-w-lg list-none p-0 text-left md:w-3/4'>
           {termsOfUseContent.map((tou, index) => (
             <li key={tou.title} className='pb-5' id={`tou-${index}`}>
-              <h2 className='mt-0 font-medium font-sansTitle text-altGreen text-title'>
+              <h2 className='mt-0 font-medium font-sans-title text-alt-green text-title'>
                 {tou.title}
               </h2>
-              <p key={tou.title} className='font-sansText text-small'>
+              <p key={tou.title} className='font-sans-text text-small'>
                 {tou.paragraphs}
               </p>
             </li>

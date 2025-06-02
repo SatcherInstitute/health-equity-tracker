@@ -60,7 +60,7 @@ export default function HetTermUnderline({
   return (
     <span
       ref={spanRef}
-      className={`font-semibold text-altGreen ${className} ${marginClass}`}
+      className={`font-semibold text-alt-green ${className} ${marginClass}`}
       style={{
         animation: isVisible ? 'underlineSlideIn 1s ease-out forwards' : 'none',
         backgroundImage: 'linear-gradient(#B8CCC6, rgba(220, 229, 226, 0.2))',
