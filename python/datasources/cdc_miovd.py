@@ -49,7 +49,7 @@ class CDCMIOVDData(DataSource):
     # CSV parsing constants
     CSV_COLS_TO_USE = {"Period", "ST_NAME", "NAME", "Count", "Rate", "TTM_Date_Range", "GEOID"}
     DTYPE = {"Period": str, "GEOID": str}
-    NA_VALUES = ["1-9"]
+    NA_VALUES = ["1-9", "-999.0"]
 
     # MIOVD column names to HET standardized column names
     CSV_TO_STANDARD_COLS = {

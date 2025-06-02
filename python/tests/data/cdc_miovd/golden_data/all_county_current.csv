@@ -11,7 +11,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 01019,01,Alabama,Cherokee County,,3.9,,13.8
 01021,01,Alabama,Chilton County,,6.8,,11.3
 01023,01,Alabama,Choctaw County,,9.4,0.0,0.0
-01025,01,Alabama,Clarke County,,-999.0,,10.1
+01025,01,Alabama,Clarke County,,,,10.1
 01027,01,Alabama,Clay County,0,0.0,,13.3
 01029,01,Alabama,Cleburne County,0,0.0,,14.4
 01031,01,Alabama,Coffee County,,5.8,,12.0
@@ -23,7 +23,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 01043,01,Alabama,Cullman County,,3.0,13.0,14.1
 01045,01,Alabama,Dale County,,9.6,,9.7
 01047,01,Alabama,Dallas County,12,33.2,,12.8
-01049,01,Alabama,DeKalb County,,3.7,,-999.0
+01049,01,Alabama,DeKalb County,,3.7,,
 01051,01,Alabama,Elmore County,,4.6,,10.7
 01053,01,Alabama,Escambia County,,12.6,,16.4
 01055,01,Alabama,Etowah County,,6.8,18.0,17.4
@@ -36,7 +36,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 01069,01,Alabama,Houston County,,4.1,,10.3
 01071,01,Alabama,Jackson County,,4.1,11.0,20.6
 01073,01,Alabama,Jefferson County,173,26.1,74.0,11.2
-01075,01,Alabama,Lamar County,0,0.0,,-999.0
+01075,01,Alabama,Lamar County,0,0.0,,
 01077,01,Alabama,Lauderdale County,,3.8,,9.4
 01079,01,Alabama,Lawrence County,,5.8,,12.1
 01081,01,Alabama,Lee County,11,6.0,15.0,8.2
@@ -60,7 +60,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 01117,01,Alabama,Shelby County,,3.1,27.0,11.6
 01119,01,Alabama,Sumter County,,14.8,0.0,0.0
 01121,01,Alabama,Talladega County,,7.8,,12.9
-01123,01,Alabama,Tallapoosa County,,8.1,,-999.0
+01123,01,Alabama,Tallapoosa County,,8.1,,
 01125,01,Alabama,Tuscaloosa County,20,8.4,20.0,8.4
 01127,01,Alabama,Walker County,,5.6,12.0,18.5
 01129,01,Alabama,Washington County,,8.2,0.0,0.0
@@ -79,13 +79,13 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 02100,02,Alaska,Haines Borough,0,0.0,0.0,0.0
 02105,02,Alaska,Hoonah-Angoon Census Area,0,0.0,0.0,0.0
 02110,02,Alaska,Juneau City and Borough,,3.6,,9.9
-02122,02,Alaska,Kenai Peninsula Borough,0,0.0,,-999.0
+02122,02,Alaska,Kenai Peninsula Borough,0,0.0,,
 02130,02,Alaska,Ketchikan Gateway Borough,0,0.0,0.0,0.0
-02150,02,Alaska,Kodiak Island Borough,0,0.0,,-999.0
+02150,02,Alaska,Kodiak Island Borough,0,0.0,,
 02158,02,Alaska,Kusilvak Census Area,0,0.0,0.0,0.0
 02164,02,Alaska,Lake and Peninsula Borough,0,0.0,0.0,0.0
 02170,02,Alaska,Matanuska-Susitna Borough,,2.4,26.0,22.6
-02180,02,Alaska,Nome Census Area,0,0.0,,-999.0
+02180,02,Alaska,Nome Census Area,0,0.0,,
 02185,02,Alaska,North Slope Borough,,6.4,,17.4
 02188,02,Alaska,Northwest Arctic Borough,0,0.0,,16.3
 02195,02,Alaska,Petersburg Borough,0,0.0,,13.9
@@ -95,14 +95,14 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 02240,02,Alaska,Southeast Fairbanks Census Area,0,0.0,0.0,0.0
 02275,02,Alaska,Wrangell City and Borough,0,0.0,0.0,0.0
 02282,02,Alaska,Yakutat City and Borough,0,0.0,0.0,0.0
-02290,02,Alaska,Yukon-Koyukuk Census Area,,-999.0,,17.7
+02290,02,Alaska,Yukon-Koyukuk Census Area,,,,17.7
 04001,04,Arizona,Apache County,10,15.4,18.0,27.7
 04003,04,Arizona,Cochise County,,4.1,15.0,12.0
 04005,04,Arizona,Coconino County,13,9.0,24.0,16.6
 04007,04,Arizona,Gila County,,3.5,12.0,22.2
 04009,04,Arizona,Graham County,,3.3,,16.2
 04011,04,Arizona,Greenlee County,0,0.0,,16.6
-04012,04,Arizona,La Paz County,,5.5,,-999.0
+04012,04,Arizona,La Paz County,,5.5,,
 04013,04,Arizona,Maricopa County,183,4.0,488.0,10.6
 04015,04,Arizona,Mohave County,,3.4,59.0,26.4
 04017,04,Arizona,Navajo County,,4.0,11.0,10.1
@@ -121,7 +121,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 05015,05,Arkansas,Carroll County,,4.3,,15.1
 05017,05,Arkansas,Chicot County,,14.6,,10.2
 05019,05,Arkansas,Clark County,0,0.0,,12.9
-05021,05,Arkansas,Clay County,0,0.0,,-999.0
+05021,05,Arkansas,Clay County,0,0.0,,
 05023,05,Arkansas,Cleburne County,0,0.0,,18.1
 05025,05,Arkansas,Cleveland County,,13.1,0.0,0.0
 05027,05,Arkansas,Columbia County,,7.2,,10.9
@@ -134,24 +134,24 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 05041,05,Arkansas,Desha County,,14.7,,11.8
 05043,05,Arkansas,Drew County,,10.3,0.0,0.0
 05045,05,Arkansas,Faulkner County,,2.8,15.0,11.5
-05047,05,Arkansas,Franklin County,0,0.0,,-999.0
+05047,05,Arkansas,Franklin County,0,0.0,,
 05049,05,Arkansas,Fulton County,0,0.0,,15.7
 05051,05,Arkansas,Garland County,,6.4,12.0,12.0
 05053,05,Arkansas,Grant County,,6.7,,16.2
 05055,05,Arkansas,Greene County,0,0.0,,14.4
 05057,05,Arkansas,Hempstead County,,6.4,,12.4
 05059,05,Arkansas,Hot Spring County,,6.8,,16.8
-05061,05,Arkansas,Howard County,,5.0,,-999.0
-05063,05,Arkansas,Independence County,0,0.0,,-999.0
-05065,05,Arkansas,Izard County,0,0.0,,-999.0
-05067,05,Arkansas,Jackson County,0,0.0,,-999.0
+05061,05,Arkansas,Howard County,,5.0,,
+05063,05,Arkansas,Independence County,0,0.0,,
+05065,05,Arkansas,Izard County,0,0.0,,
+05067,05,Arkansas,Jackson County,0,0.0,,
 05069,05,Arkansas,Jefferson County,22,34.6,,12.0
 05071,05,Arkansas,Johnson County,,2.5,,17.6
 05073,05,Arkansas,Lafayette County,0,0.0,,11.2
 05075,05,Arkansas,Lawrence County,0,0.0,,17.1
 05077,05,Arkansas,Lee County,,17.8,0.0,0.0
 05079,05,Arkansas,Lincoln County,,9.4,,11.8
-05081,05,Arkansas,Little River County,0,0.0,,-999.0
+05081,05,Arkansas,Little River County,0,0.0,,
 05083,05,Arkansas,Logan County,0,0.0,,18.3
 05085,05,Arkansas,Lonoke County,,3.4,,12.3
 05087,05,Arkansas,Madison County,0,0.0,,14.4
@@ -168,29 +168,29 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 05109,05,Arkansas,Pike County,0,0.0,0.0,0.0
 05111,05,Arkansas,Poinsett County,,6.3,,11.6
 05113,05,Arkansas,Polk County,,4.2,,20.1
-05115,05,Arkansas,Pope County,0,0.0,,-999.0
+05115,05,Arkansas,Pope County,0,0.0,,
 05117,05,Arkansas,Prairie County,,8.8,,14.6
 05119,05,Arkansas,Pulaski County,60,15.0,48.0,12.0
-05121,05,Arkansas,Randolph County,,7.5,,-999.0
+05121,05,Arkansas,Randolph County,,7.5,,
 05123,05,Arkansas,St. Francis County,,16.7,,9.6
 05125,05,Arkansas,Saline County,,4.5,24.0,18.5
-05127,05,Arkansas,Scott County,,3.9,,-999.0
+05127,05,Arkansas,Scott County,,3.9,,
 05129,05,Arkansas,Searcy County,0,0.0,0.0,0.0
 05131,05,Arkansas,Sebastian County,0,0.0,13.0,10.1
 05133,05,Arkansas,Sevier County,0,0.0,,17.0
 05135,05,Arkansas,Sharp County,0,0.0,,16.1
-05137,05,Arkansas,Stone County,,3.7,,-999.0
+05137,05,Arkansas,Stone County,,3.7,,
 05139,05,Arkansas,Union County,,8.7,,10.1
 05141,05,Arkansas,Van Buren County,,3.5,,16.5
 05143,05,Arkansas,Washington County,,2.3,24.0,9.2
 05145,05,Arkansas,White County,,5.5,11.0,14.0
 05147,05,Arkansas,Woodruff County,,9.7,0.0,0.0
-05149,05,Arkansas,Yell County,,3.7,,-999.0
+05149,05,Arkansas,Yell County,,3.7,,
 06001,06,California,Alameda County,98,6.0,54.0,3.3
 06003,06,California,Alpine County,0,0.0,0.0,0.0
 06005,06,California,Amador County,,3.1,,6.3
 06007,06,California,Butte County,,1.7,20.0,9.7
-06009,06,California,Calaveras County,0,0.0,,-999.0
+06009,06,California,Calaveras County,0,0.0,,
 06011,06,California,Colusa County,,2.7,,6.8
 06013,06,California,Contra Costa County,39,3.4,50.0,4.3
 06015,06,California,Del Norte County,,3.6,,16.1
@@ -199,15 +199,15 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 06021,06,California,Glenn County,0,0.0,,7.3
 06023,06,California,Humboldt County,,1.4,13.0,9.7
 06025,06,California,Imperial County,,2.0,,4.9
-06027,06,California,Inyo County,,3.1,,-999.0
+06027,06,California,Inyo County,,3.1,,
 06029,06,California,Kern County,47,5.1,54.0,5.9
 06031,06,California,Kings County,,3.6,,3.6
-06033,06,California,Lake County,,2.3,,-999.0
+06033,06,California,Lake County,,2.3,,
 06035,06,California,Lassen County,,2.7,,10.7
 06037,06,California,Los Angeles County,411,4.3,273.0,2.8
 06039,06,California,Madera County,,1.9,,5.3
 06041,06,California,Marin County,,0.8,,2.9
-06043,06,California,Mariposa County,0,0.0,,-999.0
+06043,06,California,Mariposa County,0,0.0,,
 06045,06,California,Mendocino County,,2.1,,8.1
 06047,06,California,Merced County,11,3.8,13.0,4.5
 06049,06,California,Modoc County,0,0.0,,13.7
@@ -231,7 +231,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 06085,06,California,Santa Clara County,21,1.1,45.0,2.4
 06087,06,California,Santa Cruz County,,0.9,12.0,4.6
 06089,06,California,Shasta County,10,5.5,26.0,14.4
-06091,06,California,Sierra County,0,0.0,,-999.0
+06091,06,California,Sierra County,0,0.0,,
 06093,06,California,Siskiyou County,,2.4,10.0,23.3
 06095,06,California,Solano County,24,5.3,24.0,5.3
 06097,06,California,Sonoma County,,0.9,23.0,4.8
@@ -240,7 +240,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 06103,06,California,Tehama County,,4.6,,8.9
 06105,06,California,Trinity County,0,0.0,,13.7
 06107,06,California,Tulare County,17,3.5,25.0,5.2
-06109,06,California,Tuolumne County,,2.6,,-999.0
+06109,06,California,Tuolumne County,,2.6,,
 06111,06,California,Ventura County,15,1.8,31.0,3.7
 06113,06,California,Yolo County,,2.7,,4.7
 06115,06,California,Yuba County,,2.7,,7.3
@@ -254,7 +254,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 08014,08,Colorado,Broomfield County,0,0.0,0.0,0.0
 08015,08,Colorado,Chaffee County,0,0.0,,18.8
 08017,08,Colorado,Cheyenne County,0,0.0,0.0,0.0
-08019,08,Colorado,Clear Creek County,,-999.0,,13.0
+08019,08,Colorado,Clear Creek County,,,,13.0
 08021,08,Colorado,Conejos County,0,0.0,0.0,0.0
 08023,08,Colorado,Costilla County,0,0.0,0.0,0.0
 08025,08,Colorado,Crowley County,0,0.0,0.0,0.0
@@ -268,7 +268,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 08041,08,Colorado,El Paso County,25,3.4,91.0,12.2
 08043,08,Colorado,Fremont County,0,0.0,14.0,27.8
 08045,08,Colorado,Garfield County,0,0.0,11.0,17.5
-08047,08,Colorado,Gilpin County,,-999.0,,11.8
+08047,08,Colorado,Gilpin County,,,,11.8
 08049,08,Colorado,Grand County,0,0.0,,13.4
 08051,08,Colorado,Gunnison County,0,0.0,,23.5
 08053,08,Colorado,Hinsdale County,0,0.0,0.0,0.0
@@ -276,8 +276,8 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 08057,08,Colorado,Jackson County,0,0.0,,17.2
 08059,08,Colorado,Jefferson County,,0.9,74.0,12.8
 08061,08,Colorado,Kiowa County,0,0.0,0.0,0.0
-08063,08,Colorado,Kit Carson County,,-999.0,,14.7
-08065,08,Colorado,Lake County,,-999.0,,15.9
+08063,08,Colorado,Kit Carson County,,,,14.7
+08065,08,Colorado,Lake County,,,,15.9
 08067,08,Colorado,La Plata County,,2.8,,16.2
 08069,08,Colorado,Larimer County,,1.2,40.0,10.8
 08071,08,Colorado,Las Animas County,0,0.0,,16.7
@@ -297,13 +297,13 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 08099,08,Colorado,Prowers County,,3.6,,14.6
 08101,08,Colorado,Pueblo County,17,10.0,38.0,22.4
 08103,08,Colorado,Rio Blanco County,0,0.0,,21.8
-08105,08,Colorado,Rio Grande County,,6.3,,-999.0
+08105,08,Colorado,Rio Grande County,,6.3,,
 08107,08,Colorado,Routt County,0,0.0,,22.0
 08109,08,Colorado,Saguache County,0,0.0,0.0,0.0
 08111,08,Colorado,San Juan County,0,0.0,0.0,0.0
 08113,08,Colorado,San Miguel County,0,0.0,0.0,0.0
 08115,08,Colorado,Sedgwick County,0,0.0,,13.6
-08117,08,Colorado,Summit County,0,0.0,,-999.0
+08117,08,Colorado,Summit County,0,0.0,,
 08119,08,Colorado,Teller County,0,0.0,,18.1
 08121,08,Colorado,Washington County,0,0.0,,13.7
 08123,08,Colorado,Weld County,10,2.8,41.0,11.4
@@ -326,7 +326,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 12007,12,Florida,Bradford County,,7.8,,11.3
 12009,12,Florida,Brevard County,28,4.3,91.0,14.1
 12011,12,Florida,Broward County,104,5.3,130.0,6.6
-12013,12,Florida,Calhoun County,,7.8,,-999.0
+12013,12,Florida,Calhoun County,,7.8,,
 12015,12,Florida,Charlotte County,,2.7,31.0,15.0
 12017,12,Florida,Citrus County,,4.0,34.0,20.4
 12019,12,Florida,Clay County,,3.1,23.0,9.9
@@ -344,14 +344,14 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 12045,12,Florida,Gulf County,,5.5,,18.0
 12047,12,Florida,Hamilton County,,5.6,,10.1
 12049,12,Florida,Hardee County,,4.4,0.0,0.0
-12051,12,Florida,Hendry County,,4.0,,-999.0
+12051,12,Florida,Hendry County,,4.0,,
 12053,12,Florida,Hernando County,,2.5,29.0,13.6
 12055,12,Florida,Highlands County,,5.3,15.0,13.9
 12057,12,Florida,Hillsborough County,63,4.1,142.0,9.2
 12059,12,Florida,Holmes County,,4.4,,21.0
 12061,12,Florida,Indian River County,,3.9,18.0,10.6
-12063,12,Florida,Jackson County,,-999.0,10.0,20.6
-12065,12,Florida,Jefferson County,,5.8,,-999.0
+12063,12,Florida,Jackson County,,,10.0,20.6
+12065,12,Florida,Jefferson County,,5.8,,
 12067,12,Florida,Lafayette County,,5.6,0.0,0.0
 12069,12,Florida,Lake County,,1.7,65.0,15.3
 12071,12,Florida,Lee County,20,2.4,86.0,10.3
@@ -385,13 +385,13 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 12125,12,Florida,Union County,,4.7,,13.4
 12127,12,Florida,Volusia County,15,2.5,85.0,14.4
 12129,12,Florida,Wakulla County,,5.3,,10.6
-12131,12,Florida,Walton County,,2.5,,-999.0
+12131,12,Florida,Walton County,,2.5,,
 12133,12,Florida,Washington County,,4.0,,22.5
 13001,13,Georgia,Appling County,0,0.0,0.0,0.0
 13003,13,Georgia,Atkinson County,,6.5,,11.4
 13005,13,Georgia,Bacon County,,6.1,,12.6
 13007,13,Georgia,Baker County,,10.2,0.0,0.0
-13009,13,Georgia,Baldwin County,,-999.0,,9.9
+13009,13,Georgia,Baldwin County,,,,9.9
 13011,13,Georgia,Banks County,,5.9,,11.5
 13013,13,Georgia,Barrow County,,4.2,,8.0
 13015,13,Georgia,Bartow County,,2.6,15.0,13.0
@@ -410,7 +410,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 13043,13,Georgia,Candler County,0,0.0,,11.3
 13045,13,Georgia,Carroll County,,2.2,18.0,14.2
 13047,13,Georgia,Catoosa County,,2.8,,9.8
-13049,13,Georgia,Charlton County,,4.5,,-999.0
+13049,13,Georgia,Charlton County,,4.5,,
 13051,13,Georgia,Chatham County,25,8.2,26.0,8.6
 13053,13,Georgia,Chattahoochee County,,9.6,,11.5
 13055,13,Georgia,Chattooga County,,3.6,,13.1
@@ -477,15 +477,15 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 13177,13,Georgia,Lee County,,9.9,,10.9
 13179,13,Georgia,Liberty County,,6.1,16.0,23.1
 13181,13,Georgia,Lincoln County,0,0.0,,13.5
-13183,13,Georgia,Long County,,6.9,,-999.0
+13183,13,Georgia,Long County,,6.9,,
 13185,13,Georgia,Lowndes County,,5.3,17.0,14.1
 13187,13,Georgia,Lumpkin County,0,0.0,,10.5
 13189,13,Georgia,McDuffie County,,6.6,,11.8
 13191,13,Georgia,McIntosh County,,8.3,0.0,0.0
 13193,13,Georgia,Macon County,0,0.0,,12.9
 13195,13,Georgia,Madison County,,5.4,,12.1
-13197,13,Georgia,Marion County,0,0.0,,-999.0
-13199,13,Georgia,Meriwether County,,7.0,,-999.0
+13197,13,Georgia,Marion County,0,0.0,,
+13199,13,Georgia,Meriwether County,,7.0,,
 13201,13,Georgia,Miller County,0,0.0,0.0,0.0
 13205,13,Georgia,Mitchell County,,7.9,,9.5
 13207,13,Georgia,Monroe County,,4.7,,14.3
@@ -517,20 +517,20 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 13259,13,Georgia,Stewart County,,15.6,,11.9
 13261,13,Georgia,Sumter County,,15.8,,12.8
 13263,13,Georgia,Talbot County,0,0.0,0.0,0.0
-13265,13,Georgia,Taliaferro County,0,0.0,,-999.0
+13265,13,Georgia,Taliaferro County,0,0.0,,
 13267,13,Georgia,Tattnall County,0,0.0,,12.7
 13269,13,Georgia,Taylor County,0,0.0,0.0,0.0
 13271,13,Georgia,Telfair County,,12.5,,11.8
-13273,13,Georgia,Terrell County,0,0.0,,-999.0
+13273,13,Georgia,Terrell County,0,0.0,,
 13275,13,Georgia,Thomas County,0,0.0,,8.2
 13277,13,Georgia,Tift County,,7.9,,9.5
 13279,13,Georgia,Toombs County,,5.0,,10.3
-13281,13,Georgia,Towns County,0,0.0,,-999.0
+13281,13,Georgia,Towns County,0,0.0,,
 13283,13,Georgia,Treutlen County,,11.2,0.0,0.0
 13285,13,Georgia,Troup County,,7.2,12.0,17.0
 13287,13,Georgia,Turner County,0,0.0,,10.9
 13289,13,Georgia,Twiggs County,,10.7,,12.3
-13291,13,Georgia,Union County,0,0.0,,-999.0
+13291,13,Georgia,Union County,0,0.0,,
 13293,13,Georgia,Upson County,,5.0,,11.8
 13295,13,Georgia,Walker County,,3.5,11.0,15.8
 13297,13,Georgia,Walton County,,4.2,,8.6
@@ -566,17 +566,17 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 16025,16,Idaho,Camas County,0,0.0,,17.7
 16027,16,Idaho,Canyon County,,2.4,28.0,10.9
 16029,16,Idaho,Caribou County,0,0.0,,15.8
-16031,16,Idaho,Cassia County,0,0.0,,-999.0
+16031,16,Idaho,Cassia County,0,0.0,,
 16033,16,Idaho,Clark County,0,0.0,0.0,0.0
-16035,16,Idaho,Clearwater County,,-999.0,,16.5
+16035,16,Idaho,Clearwater County,,,,16.5
 16037,16,Idaho,Custer County,0,0.0,,16.6
 16039,16,Idaho,Elmore County,,1.8,,16.8
 16041,16,Idaho,Franklin County,0,0.0,,14.0
-16043,16,Idaho,Fremont County,0,0.0,,-999.0
+16043,16,Idaho,Fremont County,0,0.0,,
 16045,16,Idaho,Gem County,0,0.0,,17.5
-16047,16,Idaho,Gooding County,,-999.0,,17.0
+16047,16,Idaho,Gooding County,,,,17.0
 16049,16,Idaho,Idaho County,0,0.0,,16.5
-16051,16,Idaho,Jefferson County,0,0.0,,-999.0
+16051,16,Idaho,Jefferson County,0,0.0,,
 16053,16,Idaho,Jerome County,,2.0,,18.3
 16055,16,Idaho,Kootenai County,,0.9,23.0,12.4
 16057,16,Idaho,Latah County,,1.6,,11.1
@@ -584,25 +584,25 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 16061,16,Idaho,Lewis County,0,0.0,0.0,0.0
 16063,16,Idaho,Lincoln County,0,0.0,,16.6
 16065,16,Idaho,Madison County,,1.4,,11.1
-16067,16,Idaho,Minidoka County,0,0.0,,-999.0
+16067,16,Idaho,Minidoka County,0,0.0,,
 16069,16,Idaho,Nez Perce County,0,0.0,,16.2
 16071,16,Idaho,Oneida County,0,0.0,,15.1
 16073,16,Idaho,Owyhee County,0,0.0,,16.8
-16075,16,Idaho,Payette County,0,0.0,,-999.0
+16075,16,Idaho,Payette County,0,0.0,,
 16077,16,Idaho,Power County,0,0.0,,15.3
 16079,16,Idaho,Shoshone County,0,0.0,,15.2
-16081,16,Idaho,Teton County,0,0.0,,-999.0
+16081,16,Idaho,Teton County,0,0.0,,
 16083,16,Idaho,Twin Falls County,,2.2,12.0,12.6
-16085,16,Idaho,Valley County,,-999.0,0.0,0.0
+16085,16,Idaho,Valley County,,,0.0,0.0
 16087,16,Idaho,Washington County,0,0.0,,19.7
 17001,17,Illinois,Adams County,0,0.0,,8.6
 17003,17,Illinois,Alexander County,0,0.0,0.0,0.0
 17005,17,Illinois,Bond County,,3.5,0.0,0.0
 17007,17,Illinois,Boone County,,1.9,,6.3
-17009,17,Illinois,Brown County,0,0.0,,-999.0
+17009,17,Illinois,Brown County,0,0.0,,
 17011,17,Illinois,Bureau County,0,0.0,,7.6
 17013,17,Illinois,Calhoun County,0,0.0,0.0,0.0
-17015,17,Illinois,Carroll County,0,0.0,,-999.0
+17015,17,Illinois,Carroll County,0,0.0,,
 17017,17,Illinois,Cass County,,3.0,,10.1
 17019,17,Illinois,Champaign County,11,5.3,,5.0
 17021,17,Illinois,Christian County,0,0.0,,8.0
@@ -617,7 +617,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 17039,17,Illinois,De Witt County,0,0.0,0.0,0.0
 17041,17,Illinois,Douglas County,,3.2,0.0,0.0
 17043,17,Illinois,DuPage County,21,2.3,36.0,3.9
-17045,17,Illinois,Edgar County,0,0.0,,-999.0
+17045,17,Illinois,Edgar County,0,0.0,,
 17047,17,Illinois,Edwards County,0,0.0,0.0,0.0
 17049,17,Illinois,Effingham County,0,0.0,,7.6
 17051,17,Illinois,Fayette County,0,0.0,,7.5
@@ -628,13 +628,13 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 17061,17,Illinois,Greene County,0,0.0,,10.3
 17063,17,Illinois,Grundy County,,3.0,,6.7
 17065,17,Illinois,Hamilton County,0,0.0,,10.1
-17067,17,Illinois,Hancock County,0,0.0,,-999.0
+17067,17,Illinois,Hancock County,0,0.0,,
 17069,17,Illinois,Hardin County,0,0.0,0.0,0.0
-17071,17,Illinois,Henderson County,0,0.0,,-999.0
+17071,17,Illinois,Henderson County,0,0.0,,
 17073,17,Illinois,Henry County,,2.0,,7.8
 17075,17,Illinois,Iroquois County,,3.3,,8.3
 17077,17,Illinois,Jackson County,,2.0,,9.5
-17079,17,Illinois,Jasper County,,-999.0,,8.5
+17079,17,Illinois,Jasper County,,,,8.5
 17081,17,Illinois,Jefferson County,,2.2,0.0,0.0
 17083,17,Illinois,Jersey County,0,0.0,,8.9
 17085,17,Illinois,Jo Daviess County,0,0.0,,8.9
@@ -656,10 +656,10 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 17117,17,Illinois,Macoupin County,,2.6,,8.7
 17119,17,Illinois,Madison County,,3.2,24.0,9.1
 17121,17,Illinois,Marion County,,2.4,,8.3
-17123,17,Illinois,Marshall County,0,0.0,,-999.0
+17123,17,Illinois,Marshall County,0,0.0,,
 17125,17,Illinois,Mason County,0,0.0,,8.4
 17127,17,Illinois,Massac County,0,0.0,,14.4
-17129,17,Illinois,Menard County,0,0.0,,-999.0
+17129,17,Illinois,Menard County,0,0.0,,
 17131,17,Illinois,Mercer County,0,0.0,,7.8
 17133,17,Illinois,Monroe County,0,0.0,,10.2
 17135,17,Illinois,Montgomery County,,3.0,,8.4
@@ -668,13 +668,13 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 17141,17,Illinois,Ogle County,0,0.0,,8.2
 17143,17,Illinois,Peoria County,21,11.8,16.0,9.0
 17145,17,Illinois,Perry County,0,0.0,0.0,0.0
-17147,17,Illinois,Piatt County,0,0.0,,-999.0
-17149,17,Illinois,Pike County,,2.8,,-999.0
+17147,17,Illinois,Piatt County,0,0.0,,
+17149,17,Illinois,Pike County,,2.8,,
 17151,17,Illinois,Pope County,0,0.0,,14.4
 17153,17,Illinois,Pulaski County,0,0.0,,13.8
-17155,17,Illinois,Putnam County,0,0.0,,-999.0
+17155,17,Illinois,Putnam County,0,0.0,,
 17157,17,Illinois,Randolph County,0,0.0,,9.5
-17159,17,Illinois,Richland County,0,0.0,,-999.0
+17159,17,Illinois,Richland County,0,0.0,,
 17161,17,Illinois,Rock Island County,,4.3,11.0,7.8
 17163,17,Illinois,St. Clair County,44,17.5,12.0,4.8
 17165,17,Illinois,Saline County,0,0.0,,12.3
@@ -682,21 +682,21 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 17169,17,Illinois,Schuyler County,0,0.0,0.0,0.0
 17171,17,Illinois,Scott County,0,0.0,0.0,0.0
 17173,17,Illinois,Shelby County,,4.0,,7.9
-17175,17,Illinois,Stark County,0,0.0,,-999.0
+17175,17,Illinois,Stark County,0,0.0,,
 17177,17,Illinois,Stephenson County,,3.1,,7.6
 17179,17,Illinois,Tazewell County,,1.5,,6.8
 17181,17,Illinois,Union County,0,0.0,,13.1
 17183,17,Illinois,Vermilion County,,3.8,11.0,15.4
 17185,17,Illinois,Wabash County,0,0.0,0.0,0.0
 17187,17,Illinois,Warren County,0,0.0,0.0,0.0
-17189,17,Illinois,Washington County,0,0.0,,-999.0
+17189,17,Illinois,Washington County,0,0.0,,
 17191,17,Illinois,Wayne County,0,0.0,,8.9
 17193,17,Illinois,White County,0,0.0,,11.1
 17195,17,Illinois,Whiteside County,,1.8,,8.1
 17197,17,Illinois,Will County,28,4.0,33.0,4.7
 17199,17,Illinois,Williamson County,,1.8,13.0,19.5
 17201,17,Illinois,Winnebago County,17,6.1,22.0,7.8
-17203,17,Illinois,Woodford County,,2.4,,-999.0
+17203,17,Illinois,Woodford County,,2.4,,
 18001,18,Indiana,Adams County,0,0.0,,9.5
 18003,18,Indiana,Allen County,28,7.1,33.0,8.4
 18005,18,Indiana,Bartholomew County,,2.0,12.0,14.3
@@ -721,7 +721,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 18043,18,Indiana,Floyd County,,4.3,12.0,14.8
 18045,18,Indiana,Fountain County,0,0.0,,9.4
 18047,18,Indiana,Franklin County,0,0.0,,12.5
-18049,18,Indiana,Fulton County,,-999.0,,12.5
+18049,18,Indiana,Fulton County,,,,12.5
 18051,18,Indiana,Gibson County,,2.9,,13.1
 18053,18,Indiana,Grant County,,3.3,,10.3
 18055,18,Indiana,Greene County,0,0.0,,11.5
@@ -754,7 +754,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 18109,18,Indiana,Morgan County,0,0.0,19.0,25.9
 18111,18,Indiana,Newton County,,5.7,,8.1
 18113,18,Indiana,Noble County,0,0.0,,9.6
-18115,18,Indiana,Ohio County,,-999.0,0.0,0.0
+18115,18,Indiana,Ohio County,,,0.0,0.0
 18117,18,Indiana,Orange County,0,0.0,,11.0
 18119,18,Indiana,Owen County,,2.6,,12.3
 18121,18,Indiana,Parke County,0,0.0,,11.0
@@ -762,7 +762,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 18125,18,Indiana,Pike County,0,0.0,,11.2
 18127,18,Indiana,Porter County,,3.5,15.0,8.6
 18129,18,Indiana,Posey County,0,0.0,,13.8
-18131,18,Indiana,Pulaski County,0,0.0,,-999.0
+18131,18,Indiana,Pulaski County,0,0.0,,
 18133,18,Indiana,Putnam County,0,0.0,,11.2
 18135,18,Indiana,Randolph County,0,0.0,,11.0
 18137,18,Indiana,Ripley County,0,0.0,,13.2
@@ -776,10 +776,10 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 18153,18,Indiana,Sullivan County,0,0.0,,10.7
 18155,18,Indiana,Switzerland County,0,0.0,,11.0
 18157,18,Indiana,Tippecanoe County,,2.0,16.0,8.5
-18159,18,Indiana,Tipton County,0,0.0,,-999.0
+18159,18,Indiana,Tipton County,0,0.0,,
 18161,18,Indiana,Union County,0,0.0,,12.2
 18163,18,Indiana,Vanderburgh County,,2.7,34.0,18.9
-18165,18,Indiana,Vermillion County,0,0.0,,-999.0
+18165,18,Indiana,Vermillion County,0,0.0,,
 18167,18,Indiana,Vigo County,,2.9,12.0,11.3
 18169,18,Indiana,Wabash County,0,0.0,,9.4
 18171,18,Indiana,Warren County,0,0.0,,9.6
@@ -790,8 +790,8 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 18181,18,Indiana,White County,,2.5,,9.1
 18183,18,Indiana,Whitley County,0,0.0,,8.5
 19001,19,Iowa,Adair County,0,0.0,0.0,0.0
-19003,19,Iowa,Adams County,0,0.0,,-999.0
-19005,19,Iowa,Allamakee County,,-999.0,0.0,0.0
+19003,19,Iowa,Adams County,0,0.0,,
+19005,19,Iowa,Allamakee County,,,0.0,0.0
 19007,19,Iowa,Appanoose County,0,0.0,,10.0
 19009,19,Iowa,Audubon County,0,0.0,0.0,0.0
 19011,19,Iowa,Benton County,0,0.0,,9.9
@@ -806,13 +806,13 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 19029,19,Iowa,Cass County,0,0.0,,9.9
 19031,19,Iowa,Cedar County,0,0.0,0.0,0.0
 19033,19,Iowa,Cerro Gordo County,0,0.0,,9.4
-19035,19,Iowa,Cherokee County,0,0.0,,-999.0
+19035,19,Iowa,Cherokee County,0,0.0,,
 19037,19,Iowa,Chickasaw County,0,0.0,,8.6
-19039,19,Iowa,Clarke County,,-999.0,,9.8
+19039,19,Iowa,Clarke County,,,,9.8
 19041,19,Iowa,Clay County,0,0.0,,11.4
 19043,19,Iowa,Clayton County,0,0.0,,8.4
 19045,19,Iowa,Clinton County,,1.8,,10.3
-19047,19,Iowa,Crawford County,0,0.0,,-999.0
+19047,19,Iowa,Crawford County,0,0.0,,
 19049,19,Iowa,Dallas County,,1.5,,7.7
 19051,19,Iowa,Davis County,0,0.0,,10.0
 19053,19,Iowa,Decatur County,0,0.0,,10.4
@@ -820,45 +820,45 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 19057,19,Iowa,Des Moines County,,2.6,,9.1
 19059,19,Iowa,Dickinson County,0,0.0,,11.8
 19061,19,Iowa,Dubuque County,0,0.0,,8.6
-19063,19,Iowa,Emmet County,,-999.0,,10.6
+19063,19,Iowa,Emmet County,,,,10.6
 19065,19,Iowa,Fayette County,0,0.0,,8.2
-19067,19,Iowa,Floyd County,,-999.0,,8.7
+19067,19,Iowa,Floyd County,,,,8.7
 19069,19,Iowa,Franklin County,0,0.0,,9.5
 19071,19,Iowa,Fremont County,0,0.0,,9.8
 19073,19,Iowa,Greene County,0,0.0,0.0,0.0
 19075,19,Iowa,Grundy County,0,0.0,0.0,0.0
 19077,19,Iowa,Guthrie County,0,0.0,,9.0
 19079,19,Iowa,Hamilton County,0,0.0,,9.5
-19081,19,Iowa,Hancock County,0,0.0,,-999.0
-19083,19,Iowa,Hardin County,,-999.0,,9.8
-19085,19,Iowa,Harrison County,0,0.0,,-999.0
+19081,19,Iowa,Hancock County,0,0.0,,
+19083,19,Iowa,Hardin County,,,,9.8
+19085,19,Iowa,Harrison County,0,0.0,,
 19087,19,Iowa,Henry County,0,0.0,,9.8
-19089,19,Iowa,Howard County,0,0.0,,-999.0
+19089,19,Iowa,Howard County,0,0.0,,
 19091,19,Iowa,Humboldt County,0,0.0,,10.0
 19093,19,Iowa,Ida County,0,0.0,,10.3
 19095,19,Iowa,Iowa County,0,0.0,,11.8
 19097,19,Iowa,Jackson County,0,0.0,,9.3
 19099,19,Iowa,Jasper County,0,0.0,,10.2
-19101,19,Iowa,Jefferson County,,-999.0,0.0,0.0
+19101,19,Iowa,Jefferson County,,,0.0,0.0
 19103,19,Iowa,Johnson County,,1.1,,7.3
 19105,19,Iowa,Jones County,0,0.0,,9.3
-19107,19,Iowa,Keokuk County,0,0.0,,-999.0
+19107,19,Iowa,Keokuk County,0,0.0,,
 19109,19,Iowa,Kossuth County,0,0.0,,9.7
 19111,19,Iowa,Lee County,,1.9,,9.5
 19113,19,Iowa,Linn County,,1.2,25.0,10.9
 19115,19,Iowa,Louisa County,0,0.0,0.0,0.0
-19117,19,Iowa,Lucas County,0,0.0,,-999.0
+19117,19,Iowa,Lucas County,0,0.0,,
 19119,19,Iowa,Lyon County,0,0.0,,10.1
 19121,19,Iowa,Madison County,0,0.0,,8.7
 19123,19,Iowa,Mahaska County,,1.8,,13.5
 19125,19,Iowa,Marion County,0,0.0,,10.0
 19127,19,Iowa,Marshall County,,3.0,,10.6
 19129,19,Iowa,Mills County,0,0.0,,9.0
-19131,19,Iowa,Mitchell County,,-999.0,,8.8
-19133,19,Iowa,Monona County,,-999.0,,-999.0
+19131,19,Iowa,Mitchell County,,,,8.8
+19133,19,Iowa,Monona County,,,,
 19135,19,Iowa,Monroe County,0,0.0,,10.5
-19137,19,Iowa,Montgomery County,0,0.0,,-999.0
-19139,19,Iowa,Muscatine County,,1.9,,-999.0
+19137,19,Iowa,Montgomery County,0,0.0,,
+19139,19,Iowa,Muscatine County,,1.9,,
 19141,19,Iowa,O'Brien County,0,0.0,,10.5
 19143,19,Iowa,Osceola County,0,0.0,0.0,0.0
 19145,19,Iowa,Page County,0,0.0,,9.6
@@ -868,16 +868,16 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 19153,19,Iowa,Polk County,16,3.2,51.0,10.1
 19155,19,Iowa,Pottawattamie County,,1.7,,9.4
 19157,19,Iowa,Poweshiek County,0,0.0,,11.7
-19159,19,Iowa,Ringgold County,0,0.0,,-999.0
+19159,19,Iowa,Ringgold County,0,0.0,,
 19161,19,Iowa,Sac County,0,0.0,,10.0
 19163,19,Iowa,Scott County,,3.4,17.0,9.8
 19165,19,Iowa,Shelby County,0,0.0,,9.8
 19167,19,Iowa,Sioux County,0,0.0,,8.8
 19169,19,Iowa,Story County,0,0.0,,9.5
 19171,19,Iowa,Tama County,0,0.0,,10.9
-19173,19,Iowa,Taylor County,,-999.0,0.0,0.0
+19173,19,Iowa,Taylor County,,,0.0,0.0
 19175,19,Iowa,Union County,0,0.0,0.0,0.0
-19177,19,Iowa,Van Buren County,0,0.0,,-999.0
+19177,19,Iowa,Van Buren County,0,0.0,,
 19179,19,Iowa,Wapello County,0,0.0,0.0,0.0
 19181,19,Iowa,Warren County,0,0.0,,8.4
 19183,19,Iowa,Washington County,0,0.0,,9.0
@@ -886,8 +886,8 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 19189,19,Iowa,Winnebago County,0,0.0,0.0,0.0
 19191,19,Iowa,Winneshiek County,0,0.0,,8.3
 19193,19,Iowa,Woodbury County,,2.0,10.0,9.4
-19195,19,Iowa,Worth County,0,0.0,,-999.0
-19197,19,Iowa,Wright County,,-999.0,,10.1
+19195,19,Iowa,Worth County,0,0.0,,
+19197,19,Iowa,Wright County,,,,10.1
 20001,20,Kansas,Allen County,0,0.0,0.0,0.0
 20003,20,Kansas,Anderson County,0,0.0,,11.1
 20005,20,Kansas,Atchison County,0,0.0,,14.3
@@ -906,13 +906,13 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 20031,20,Kansas,Coffey County,0,0.0,,12.0
 20033,20,Kansas,Comanche County,0,0.0,,13.8
 20035,20,Kansas,Cowley County,0,0.0,,13.5
-20037,20,Kansas,Crawford County,,3.2,,-999.0
-20039,20,Kansas,Decatur County,0,0.0,,-999.0
+20037,20,Kansas,Crawford County,,3.2,,
+20039,20,Kansas,Decatur County,0,0.0,,
 20041,20,Kansas,Dickinson County,0,0.0,,11.2
 20043,20,Kansas,Doniphan County,0,0.0,0.0,0.0
 20045,20,Kansas,Douglas County,,4.3,15.0,12.4
-20047,20,Kansas,Edwards County,0,0.0,,-999.0
-20049,20,Kansas,Elk County,0,0.0,,-999.0
+20047,20,Kansas,Edwards County,0,0.0,,
+20049,20,Kansas,Elk County,0,0.0,,
 20051,20,Kansas,Ellis County,0,0.0,,11.2
 20053,20,Kansas,Ellsworth County,0,0.0,0.0,0.0
 20055,20,Kansas,Finney County,0,0.0,,10.1
@@ -921,7 +921,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 20061,20,Kansas,Geary County,,1.9,,12.4
 20063,20,Kansas,Gove County,0,0.0,0.0,0.0
 20065,20,Kansas,Graham County,0,0.0,0.0,0.0
-20067,20,Kansas,Grant County,,-999.0,,12.5
+20067,20,Kansas,Grant County,,,,12.5
 20069,20,Kansas,Gray County,0,0.0,0.0,0.0
 20071,20,Kansas,Greeley County,0,0.0,0.0,0.0
 20073,20,Kansas,Greenwood County,0,0.0,0.0,0.0
@@ -932,7 +932,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 20083,20,Kansas,Hodgeman County,0,0.0,0.0,0.0
 20085,20,Kansas,Jackson County,0,0.0,,14.0
 20087,20,Kansas,Jefferson County,0,0.0,,15.2
-20089,20,Kansas,Jewell County,0,0.0,,-999.0
+20089,20,Kansas,Jewell County,0,0.0,,
 20091,20,Kansas,Johnson County,12,1.9,33.0,5.3
 20093,20,Kansas,Kearny County,0,0.0,0.0,0.0
 20095,20,Kansas,Kingman County,0,0.0,,12.3
@@ -941,12 +941,12 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 20101,20,Kansas,Lane County,0,0.0,0.0,0.0
 20103,20,Kansas,Leavenworth County,,2.6,12.0,14.4
 20105,20,Kansas,Lincoln County,0,0.0,,13.0
-20107,20,Kansas,Linn County,,-999.0,0.0,0.0
+20107,20,Kansas,Linn County,,,0.0,0.0
 20109,20,Kansas,Logan County,0,0.0,0.0,0.0
 20111,20,Kansas,Lyon County,0,0.0,,14.3
 20113,20,Kansas,McPherson County,0,0.0,,10.8
 20115,20,Kansas,Marion County,0,0.0,,11.2
-20117,20,Kansas,Marshall County,,-999.0,,11.6
+20117,20,Kansas,Marshall County,,,,11.6
 20119,20,Kansas,Meade County,0,0.0,0.0,0.0
 20121,20,Kansas,Miami County,,2.8,,11.0
 20123,20,Kansas,Mitchell County,0,0.0,,12.4
@@ -955,12 +955,12 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 20129,20,Kansas,Morton County,0,0.0,0.0,0.0
 20131,20,Kansas,Nemaha County,0,0.0,,12.4
 20133,20,Kansas,Neosho County,0,0.0,,11.5
-20135,20,Kansas,Ness County,0,0.0,,-999.0
+20135,20,Kansas,Ness County,0,0.0,,
 20137,20,Kansas,Norton County,0,0.0,0.0,0.0
-20139,20,Kansas,Osage County,0,0.0,,-999.0
+20139,20,Kansas,Osage County,0,0.0,,
 20141,20,Kansas,Osborne County,0,0.0,0.0,0.0
 20143,20,Kansas,Ottawa County,0,0.0,0.0,0.0
-20145,20,Kansas,Pawnee County,,-999.0,,12.3
+20145,20,Kansas,Pawnee County,,,,12.3
 20147,20,Kansas,Phillips County,0,0.0,0.0,0.0
 20149,20,Kansas,Pottawatomie County,0,0.0,,13.3
 20151,20,Kansas,Pratt County,0,0.0,0.0,0.0
@@ -969,7 +969,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 20157,20,Kansas,Republic County,0,0.0,,11.4
 20159,20,Kansas,Rice County,0,0.0,,12.5
 20161,20,Kansas,Riley County,,1.6,,9.7
-20163,20,Kansas,Rooks County,0,0.0,,-999.0
+20163,20,Kansas,Rooks County,0,0.0,,
 20165,20,Kansas,Rush County,0,0.0,0.0,0.0
 20167,20,Kansas,Russell County,0,0.0,,13.0
 20169,20,Kansas,Saline County,,1.6,11.0,20.7
@@ -980,17 +980,17 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 20179,20,Kansas,Sheridan County,0,0.0,0.0,0.0
 20181,20,Kansas,Sherman County,0,0.0,,14.7
 20183,20,Kansas,Smith County,0,0.0,,12.0
-20185,20,Kansas,Stafford County,0,0.0,,-999.0
+20185,20,Kansas,Stafford County,0,0.0,,
 20187,20,Kansas,Stanton County,0,0.0,,14.4
-20189,20,Kansas,Stevens County,0,0.0,,-999.0
+20189,20,Kansas,Stevens County,0,0.0,,
 20191,20,Kansas,Sumner County,0,0.0,,12.4
 20193,20,Kansas,Thomas County,0,0.0,,14.4
 20195,20,Kansas,Trego County,0,0.0,0.0,0.0
 20197,20,Kansas,Wabaunsee County,0,0.0,0.0,0.0
 20199,20,Kansas,Wallace County,0,0.0,0.0,0.0
 20201,20,Kansas,Washington County,0,0.0,0.0,0.0
-20203,20,Kansas,Wichita County,0,0.0,,-999.0
-20205,20,Kansas,Wilson County,,-999.0,,11.3
+20203,20,Kansas,Wichita County,0,0.0,,
+20205,20,Kansas,Wilson County,,,,11.3
 20207,20,Kansas,Woodson County,0,0.0,0.0,0.0
 20209,20,Kansas,Wyandotte County,23,13.9,16.0,9.7
 21001,21,Kentucky,Adair County,,4.9,,14.4
@@ -1004,8 +1004,8 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 21017,21,Kentucky,Bourbon County,0,0.0,,13.6
 21019,21,Kentucky,Boyd County,0,0.0,,12.2
 21021,21,Kentucky,Boyle County,,2.9,,12.0
-21023,21,Kentucky,Bracken County,0,0.0,,-999.0
-21025,21,Kentucky,Breathitt County,0,0.0,,-999.0
+21023,21,Kentucky,Bracken County,0,0.0,,
+21025,21,Kentucky,Breathitt County,0,0.0,,
 21027,21,Kentucky,Breckinridge County,,4.3,,13.7
 21029,21,Kentucky,Bullitt County,,3.3,12.0,14.1
 21031,21,Kentucky,Butler County,,3.6,,13.7
@@ -1018,7 +1018,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 21045,21,Kentucky,Casey County,0,0.0,,14.3
 21047,21,Kentucky,Christian County,,4.7,10.0,13.9
 21049,21,Kentucky,Clark County,0,0.0,,12.3
-21051,21,Kentucky,Clay County,0,0.0,,-999.0
+21051,21,Kentucky,Clay County,0,0.0,,
 21053,21,Kentucky,Clinton County,,8.6,,15.4
 21055,21,Kentucky,Crittenden County,0,0.0,,16.7
 21057,21,Kentucky,Cumberland County,0,0.0,0.0,0.0
@@ -1040,11 +1040,11 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 21089,21,Kentucky,Greenup County,,3.0,,11.7
 21091,21,Kentucky,Hancock County,0,0.0,,12.9
 21093,21,Kentucky,Hardin County,,4.3,11.0,9.8
-21095,21,Kentucky,Harlan County,,4.3,,-999.0
+21095,21,Kentucky,Harlan County,,4.3,,
 21097,21,Kentucky,Harrison County,0,0.0,,15.1
-21099,21,Kentucky,Hart County,0,0.0,,-999.0
+21099,21,Kentucky,Hart County,0,0.0,,
 21101,21,Kentucky,Henderson County,,2.1,,14.8
-21103,21,Kentucky,Henry County,0,0.0,,-999.0
+21103,21,Kentucky,Henry County,0,0.0,,
 21105,21,Kentucky,Hickman County,0,0.0,,14.2
 21107,21,Kentucky,Hopkins County,,2.4,10.0,22.3
 21109,21,Kentucky,Jackson County,0,0.0,0.0,0.0
@@ -1055,7 +1055,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 21119,21,Kentucky,Knott County,,3.2,,16.2
 21121,21,Kentucky,Knox County,,3.0,,15.7
 21123,21,Kentucky,Larue County,0,0.0,,13.0
-21125,21,Kentucky,Laurel County,,2.4,,-999.0
+21125,21,Kentucky,Laurel County,,2.4,,
 21127,21,Kentucky,Lawrence County,0,0.0,0.0,0.0
 21129,21,Kentucky,Lee County,0,0.0,,12.7
 21131,21,Kentucky,Leslie County,,4.2,,12.8
@@ -1064,10 +1064,10 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 21137,21,Kentucky,Lincoln County,,3.4,,16.1
 21139,21,Kentucky,Livingston County,0,0.0,,15.9
 21141,21,Kentucky,Logan County,,3.2,,12.1
-21143,21,Kentucky,Lyon County,0,0.0,,-999.0
+21143,21,Kentucky,Lyon County,0,0.0,,
 21145,21,Kentucky,McCracken County,,2.7,,14.5
 21147,21,Kentucky,McCreary County,0,0.0,,12.9
-21149,21,Kentucky,McLean County,0,0.0,,-999.0
+21149,21,Kentucky,McLean County,0,0.0,,
 21151,21,Kentucky,Madison County,0,0.0,,10.0
 21153,21,Kentucky,Magoffin County,0,0.0,,13.8
 21155,21,Kentucky,Marion County,0,0.0,,13.3
@@ -1093,7 +1093,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 21195,21,Kentucky,Pike County,,3.4,16.0,28.6
 21197,21,Kentucky,Powell County,0,0.0,0.0,0.0
 21199,21,Kentucky,Pulaski County,,6.9,,13.3
-21201,21,Kentucky,Robertson County,,-999.0,,-999.0
+21201,21,Kentucky,Robertson County,,,,
 21203,21,Kentucky,Rockcastle County,,6.2,,13.6
 21205,21,Kentucky,Rowan County,0,0.0,,11.0
 21207,21,Kentucky,Russell County,,4.1,,15.3
@@ -1105,11 +1105,11 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 21219,21,Kentucky,Todd County,0,0.0,,14.1
 21221,21,Kentucky,Trigg County,,3.5,,16.9
 21223,21,Kentucky,Trimble County,,4.5,,10.5
-21225,21,Kentucky,Union County,0,0.0,,-999.0
+21225,21,Kentucky,Union County,0,0.0,,
 21227,21,Kentucky,Warren County,,3.5,16.0,11.2
 21229,21,Kentucky,Washington County,,3.5,0.0,0.0
 21231,21,Kentucky,Wayne County,,3.8,,16.0
-21233,21,Kentucky,Webster County,0,0.0,,-999.0
+21233,21,Kentucky,Webster County,0,0.0,,
 21235,21,Kentucky,Whitley County,,2.8,,14.3
 21237,21,Kentucky,Wolfe County,0,0.0,,12.3
 21239,21,Kentucky,Woodford County,0,0.0,,9.8
@@ -1146,19 +1146,19 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 22061,22,Louisiana,Lincoln Parish,,7.1,,9.9
 22063,22,Louisiana,Livingston Parish,,6.1,27.0,18.0
 22065,22,Louisiana,Madison Parish,,15.0,0.0,0.0
-22067,22,Louisiana,Morehouse Parish,,-999.0,,10.8
+22067,22,Louisiana,Morehouse Parish,,,,10.8
 22069,22,Louisiana,Natchitoches Parish,,12.8,,10.6
 22071,22,Louisiana,Orleans Parish,84,23.1,22.0,6.0
 22073,22,Louisiana,Ouachita Parish,12,7.6,,8.0
 22075,22,Louisiana,Plaquemines Parish,,8.3,,9.8
 22077,22,Louisiana,Pointe Coupee Parish,,7.8,,9.0
 22079,22,Louisiana,Rapides Parish,26,20.6,17.0,13.5
-22081,22,Louisiana,Red River Parish,,10.7,,-999.0
+22081,22,Louisiana,Red River Parish,,10.7,,
 22083,22,Louisiana,Richland Parish,,13.9,,11.5
 22085,22,Louisiana,Sabine Parish,0,0.0,,10.5
 22087,22,Louisiana,St. Bernard Parish,,5.7,,13.6
 22089,22,Louisiana,St. Charles Parish,,5.0,,10.2
-22091,22,Louisiana,St. Helena Parish,,13.3,,-999.0
+22091,22,Louisiana,St. Helena Parish,,13.3,,
 22093,22,Louisiana,St. James Parish,,16.3,,8.0
 22095,22,Louisiana,St. John the Baptist Parish,,11.5,,10.3
 22097,22,Louisiana,St. Landry Parish,12,14.7,,10.2
@@ -1170,7 +1170,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 22109,22,Louisiana,Terrebonne Parish,,5.7,,8.3
 22111,22,Louisiana,Union Parish,0,0.0,0.0,0.0
 22113,22,Louisiana,Vermilion Parish,,6.7,,12.2
-22115,22,Louisiana,Vernon Parish,,-999.0,,13.6
+22115,22,Louisiana,Vernon Parish,,,,13.6
 22117,22,Louisiana,Washington Parish,,14.3,0.0,0.0
 22119,22,Louisiana,Webster Parish,,5.6,,9.2
 22121,22,Louisiana,West Baton Rouge Parish,,12.0,,8.5
@@ -1188,7 +1188,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 23017,23,Maine,Oxford County,,1.1,,10.6
 23019,23,Maine,Penobscot County,,0.9,21.0,13.5
 23021,23,Maine,Piscataquis County,0,0.0,,13.0
-23023,23,Maine,Sagadahoc County,,-999.0,,9.7
+23023,23,Maine,Sagadahoc County,,,,9.7
 23025,23,Maine,Somerset County,0,0.0,,12.7
 23027,23,Maine,Waldo County,0,0.0,,11.0
 23029,23,Maine,Washington County,0,0.0,,10.4
@@ -1201,7 +1201,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 24013,24,Maryland,Carroll County,,1.5,14.0,7.9
 24015,24,Maryland,Cecil County,,3.4,,4.6
 24017,24,Maryland,Charles County,11,6.4,14.0,8.1
-24019,24,Maryland,Dorchester County,,4.0,,-999.0
+24019,24,Maryland,Dorchester County,,4.0,,
 24021,24,Maryland,Frederick County,,1.1,13.0,4.4
 24023,24,Maryland,Garrett County,0,0.0,,11.4
 24025,24,Maryland,Harford County,,2.1,16.0,6.0
@@ -1211,7 +1211,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 24033,24,Maryland,Prince George's County,111,11.7,37.0,3.9
 24035,24,Maryland,Queen Anne's County,,2.4,,5.4
 24037,24,Maryland,St. Mary's County,,2.2,,7.8
-24039,24,Maryland,Somerset County,,3.9,,-999.0
+24039,24,Maryland,Somerset County,,3.9,,
 24041,24,Maryland,Talbot County,0,0.0,,6.8
 24043,24,Maryland,Washington County,,2.0,,7.1
 24045,24,Maryland,Wicomico County,,4.6,,6.3
@@ -1236,7 +1236,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 26005,26,Michigan,Allegan County,0,0.0,,7.2
 26007,26,Michigan,Alpena County,0,0.0,,14.8
 26009,26,Michigan,Antrim County,0,0.0,,9.3
-26011,26,Michigan,Arenac County,0,0.0,,-999.0
+26011,26,Michigan,Arenac County,0,0.0,,
 26013,26,Michigan,Baraga County,0,0.0,0.0,0.0
 26015,26,Michigan,Barry County,0,0.0,,8.0
 26017,26,Michigan,Bay County,,1.9,,8.6
@@ -1252,7 +1252,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 26037,26,Michigan,Clinton County,,1.6,,9.3
 26039,26,Michigan,Crawford County,0,0.0,,12.0
 26041,26,Michigan,Delta County,0,0.0,,16.6
-26043,26,Michigan,Dickinson County,0,0.0,,-999.0
+26043,26,Michigan,Dickinson County,0,0.0,,
 26045,26,Michigan,Eaton County,,1.8,,8.4
 26047,26,Michigan,Emmet County,0,0.0,,10.7
 26049,26,Michigan,Genesee County,36,9.0,41.0,10.2
@@ -1273,7 +1273,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 26079,26,Michigan,Kalkaska County,0,0.0,0.0,0.0
 26081,26,Michigan,Kent County,15,2.3,44.0,6.7
 26083,26,Michigan,Keweenaw County,0,0.0,0.0,0.0
-26085,26,Michigan,Lake County,,-999.0,,9.3
+26085,26,Michigan,Lake County,,,,9.3
 26087,26,Michigan,Lapeer County,,1.5,,7.6
 26089,26,Michigan,Leelanau County,0,0.0,0.0,0.0
 26091,26,Michigan,Lenawee County,,1.5,11.0,11.3
@@ -1281,7 +1281,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 26095,26,Michigan,Luce County,0,0.0,0.0,0.0
 26097,26,Michigan,Mackinac County,0,0.0,,15.0
 26099,26,Michigan,Macomb County,23,2.6,74.0,8.5
-26101,26,Michigan,Manistee County,,1.7,,-999.0
+26101,26,Michigan,Manistee County,,1.7,,
 26103,26,Michigan,Marquette County,0,0.0,,14.0
 26105,26,Michigan,Mason County,0,0.0,,9.8
 26107,26,Michigan,Mecosta County,,1.7,,10.2
@@ -1298,8 +1298,8 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 26129,26,Michigan,Ogemaw County,0,0.0,,11.5
 26131,26,Michigan,Ontonagon County,0,0.0,,14.1
 26133,26,Michigan,Osceola County,0,0.0,,8.3
-26135,26,Michigan,Oscoda County,,-999.0,,13.4
-26137,26,Michigan,Otsego County,,-999.0,,12.0
+26135,26,Michigan,Oscoda County,,,,13.4
+26137,26,Michigan,Otsego County,,,,12.0
 26139,26,Michigan,Ottawa County,,0.9,17.0,5.6
 26141,26,Michigan,Presque Isle County,0,0.0,,14.8
 26143,26,Michigan,Roscommon County,0,0.0,,9.6
@@ -1319,7 +1319,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 27005,27,Minnesota,Becker County,,1.4,,9.2
 27007,27,Minnesota,Beltrami County,0,0.0,,12.4
 27009,27,Minnesota,Benton County,,1.4,,9.0
-27011,27,Minnesota,Big Stone County,0,0.0,,-999.0
+27011,27,Minnesota,Big Stone County,0,0.0,,
 27013,27,Minnesota,Blue Earth County,,2.1,,9.9
 27015,27,Minnesota,Brown County,0,0.0,,8.6
 27017,27,Minnesota,Carlton County,,1.4,,9.3
@@ -1338,8 +1338,8 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 27043,27,Minnesota,Faribault County,0,0.0,,9.3
 27045,27,Minnesota,Fillmore County,0,0.0,,7.7
 27047,27,Minnesota,Freeborn County,0,0.0,,9.0
-27049,27,Minnesota,Goodhue County,,1.4,,-999.0
-27051,27,Minnesota,Grant County,,-999.0,,-999.0
+27049,27,Minnesota,Goodhue County,,1.4,,
+27051,27,Minnesota,Grant County,,,,
 27053,27,Minnesota,Hennepin County,57,4.5,48.0,3.8
 27055,27,Minnesota,Houston County,0,0.0,0.0,0.0
 27057,27,Minnesota,Hubbard County,0,0.0,,12.1
@@ -1349,12 +1349,12 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 27065,27,Minnesota,Kanabec County,0,0.0,,11.2
 27067,27,Minnesota,Kandiyohi County,,1.3,0.0,0.0
 27069,27,Minnesota,Kittson County,0,0.0,0.0,0.0
-27071,27,Minnesota,Koochiching County,,-999.0,,13.8
+27071,27,Minnesota,Koochiching County,,,,13.8
 27073,27,Minnesota,Lac qui Parle County,0,0.0,,9.7
 27075,27,Minnesota,Lake County,0,0.0,,12.8
 27077,27,Minnesota,Lake of the Woods County,0,0.0,,15.2
 27079,27,Minnesota,Le Sueur County,0,0.0,,7.7
-27081,27,Minnesota,Lincoln County,,-999.0,,9.5
+27081,27,Minnesota,Lincoln County,,,,9.5
 27083,27,Minnesota,Lyon County,0,0.0,,9.0
 27085,27,Minnesota,McLeod County,0,0.0,,7.0
 27087,27,Minnesota,Mahnomen County,0,0.0,0.0,0.0
@@ -1377,24 +1377,24 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 27121,27,Minnesota,Pope County,0,0.0,,8.4
 27123,27,Minnesota,Ramsey County,25,4.7,39.0,7.3
 27125,27,Minnesota,Red Lake County,0,0.0,0.0,0.0
-27127,27,Minnesota,Redwood County,0,0.0,,-999.0
-27129,27,Minnesota,Renville County,0,0.0,,-999.0
+27127,27,Minnesota,Redwood County,0,0.0,,
+27129,27,Minnesota,Renville County,0,0.0,,
 27131,27,Minnesota,Rice County,,1.7,,7.6
 27133,27,Minnesota,Rock County,0,0.0,0.0,0.0
 27135,27,Minnesota,Roseau County,0,0.0,,12.8
 27137,27,Minnesota,St. Louis County,,2.1,20.0,10.0
 27139,27,Minnesota,Scott County,,1.9,,5.8
 27141,27,Minnesota,Sherburne County,,1.8,11.0,10.8
-27143,27,Minnesota,Sibley County,0,0.0,,-999.0
+27143,27,Minnesota,Sibley County,0,0.0,,
 27145,27,Minnesota,Stearns County,0,0.0,11.0,6.8
 27147,27,Minnesota,Steele County,0,0.0,,8.2
 27149,27,Minnesota,Stevens County,0,0.0,0.0,0.0
-27151,27,Minnesota,Swift County,0,0.0,,-999.0
-27153,27,Minnesota,Todd County,,1.4,,-999.0
+27151,27,Minnesota,Swift County,0,0.0,,
+27153,27,Minnesota,Todd County,,1.4,,
 27155,27,Minnesota,Traverse County,0,0.0,0.0,0.0
 27157,27,Minnesota,Wabasha County,0,0.0,0.0,0.0
 27159,27,Minnesota,Wadena County,0,0.0,,12.3
-27161,27,Minnesota,Waseca County,0,0.0,,-999.0
+27161,27,Minnesota,Waseca County,0,0.0,,
 27163,27,Minnesota,Washington County,,0.9,12.0,4.3
 27165,27,Minnesota,Watonwan County,0,0.0,,9.8
 27167,27,Minnesota,Wilkin County,0,0.0,,9.3
@@ -1411,9 +1411,9 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 28015,28,Mississippi,Carroll County,,19.2,0.0,0.0
 28017,28,Mississippi,Chickasaw County,,8.8,,9.3
 28019,28,Mississippi,Choctaw County,0,0.0,0.0,0.0
-28021,28,Mississippi,Claiborne County,,17.7,,-999.0
+28021,28,Mississippi,Claiborne County,,17.7,,
 28023,28,Mississippi,Clarke County,,9.0,0.0,0.0
-28025,28,Mississippi,Clay County,,11.0,,-999.0
+28025,28,Mississippi,Clay County,,11.0,,
 28027,28,Mississippi,Coahoma County,17,84.7,,9.3
 28029,28,Mississippi,Copiah County,,22.3,,11.1
 28031,28,Mississippi,Covington County,,8.4,,12.6
@@ -1426,7 +1426,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 28045,28,Mississippi,Hancock County,,6.6,11.0,23.8
 28047,28,Mississippi,Harrison County,19,9.0,29.0,13.8
 28049,28,Mississippi,Hinds County,87,40.5,15.0,7.0
-28051,28,Mississippi,Holmes County,10-50,67.3,,-999.0
+28051,28,Mississippi,Holmes County,10-50,67.3,,
 28053,28,Mississippi,Humphreys County,,24.6,0.0,0.0
 28055,28,Mississippi,Issaquena County,0,0.0,0.0,0.0
 28057,28,Mississippi,Itawamba County,0,0.0,,12.0
@@ -1436,11 +1436,11 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 28065,28,Mississippi,Jefferson Davis County,,17.3,,14.3
 28067,28,Mississippi,Jones County,,11.6,,10.4
 28069,28,Mississippi,Kemper County,,10.9,,8.7
-28071,28,Mississippi,Lafayette County,,-999.0,,8.7
+28071,28,Mississippi,Lafayette County,,,,8.7
 28073,28,Mississippi,Lamar County,,10.6,,12.8
 28075,28,Mississippi,Lauderdale County,15,21.3,,8.0
 28077,28,Mississippi,Lawrence County,,14.4,,14.0
-28079,28,Mississippi,Leake County,,17.3,,-999.0
+28079,28,Mississippi,Leake County,,17.3,,
 28081,28,Mississippi,Lee County,,7.8,,9.7
 28083,28,Mississippi,Leflore County,20,75.8,,8.7
 28085,28,Mississippi,Lincoln County,,13.3,,13.2
@@ -1450,8 +1450,8 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 28093,28,Mississippi,Marshall County,,9.4,,9.2
 28095,28,Mississippi,Monroe County,,8.7,,9.5
 28097,28,Mississippi,Montgomery County,,11.9,0.0,0.0
-28099,28,Mississippi,Neshoba County,,-999.0,,9.3
-28101,28,Mississippi,Newton County,,11.8,,-999.0
+28099,28,Mississippi,Neshoba County,,,,9.3
+28101,28,Mississippi,Newton County,,11.8,,
 28103,28,Mississippi,Noxubee County,,12.2,0.0,0.0
 28105,28,Mississippi,Oktibbeha County,,5.7,,7.2
 28107,28,Mississippi,Panola County,,12.0,,8.2
@@ -1462,24 +1462,24 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 28117,28,Mississippi,Prentiss County,0,0.0,0.0,0.0
 28119,28,Mississippi,Quitman County,,32.3,0.0,0.0
 28121,28,Mississippi,Rankin County,16,10.0,10.0,6.2
-28123,28,Mississippi,Scott County,,-999.0,,8.9
+28123,28,Mississippi,Scott County,,,,8.9
 28125,28,Mississippi,Sharkey County,0,0.0,0.0,0.0
 28127,28,Mississippi,Simpson County,,20.3,,10.8
 28129,28,Mississippi,Smith County,0,0.0,0.0,0.0
-28131,28,Mississippi,Stone County,,8.5,,-999.0
+28131,28,Mississippi,Stone County,,8.5,,
 28133,28,Mississippi,Sunflower County,11,45.0,,9.3
 28135,28,Mississippi,Tallahatchie County,,25.8,0.0,0.0
 28137,28,Mississippi,Tate County,,8.3,,8.5
 28139,28,Mississippi,Tippah County,0,0.0,,10.1
 28141,28,Mississippi,Tishomingo County,0,0.0,,10.4
-28143,28,Mississippi,Tunica County,,26.0,,-999.0
+28143,28,Mississippi,Tunica County,,26.0,,
 28145,28,Mississippi,Union County,,4.9,,10.1
 28147,28,Mississippi,Walthall County,,12.9,,14.1
 28149,28,Mississippi,Warren County,,11.9,,10.4
 28151,28,Mississippi,Washington County,25,59.6,,9.3
 28153,28,Mississippi,Wayne County,,28.2,,9.5
 28155,28,Mississippi,Webster County,0,0.0,0.0,0.0
-28157,28,Mississippi,Wilkinson County,,37.4,,-999.0
+28157,28,Mississippi,Wilkinson County,,37.4,,
 28159,28,Mississippi,Winston County,,13.1,,8.5
 28161,28,Mississippi,Yalobusha County,,13.1,0.0,0.0
 28163,28,Mississippi,Yazoo County,,15.5,,9.0
@@ -1487,7 +1487,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 29003,29,Missouri,Andrew County,0,0.0,,11.7
 29005,29,Missouri,Atchison County,0,0.0,0.0,0.0
 29007,29,Missouri,Audrain County,,2.5,,11.3
-29009,29,Missouri,Barry County,0,0.0,,-999.0
+29009,29,Missouri,Barry County,0,0.0,,
 29011,29,Missouri,Barton County,0,0.0,0.0,0.0
 29013,29,Missouri,Bates County,,4.4,,13.4
 29015,29,Missouri,Benton County,,2.6,,12.6
@@ -1499,7 +1499,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 29027,29,Missouri,Callaway County,,2.6,,13.1
 29029,29,Missouri,Camden County,0,0.0,10.0,22.7
 29031,29,Missouri,Cape Girardeau County,,2.5,10.0,12.1
-29033,29,Missouri,Carroll County,,-999.0,0.0,0.0
+29033,29,Missouri,Carroll County,,,0.0,0.0
 29035,29,Missouri,Carter County,0,0.0,,14.5
 29037,29,Missouri,Cass County,,3.6,12.0,10.7
 29039,29,Missouri,Cedar County,0,0.0,,13.1
@@ -1511,12 +1511,12 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 29051,29,Missouri,Cole County,0,0.0,13.0,16.8
 29053,29,Missouri,Cooper County,0,0.0,0.0,0.0
 29055,29,Missouri,Crawford County,0,0.0,,16.3
-29057,29,Missouri,Dade County,,-999.0,,14.6
+29057,29,Missouri,Dade County,,,,14.6
 29059,29,Missouri,Dallas County,0,0.0,,15.0
 29061,29,Missouri,Daviess County,0,0.0,0.0,0.0
 29063,29,Missouri,DeKalb County,0,0.0,,12.6
 29065,29,Missouri,Dent County,,3.4,,15.3
-29067,29,Missouri,Douglas County,0,0.0,,-999.0
+29067,29,Missouri,Douglas County,0,0.0,,
 29069,29,Missouri,Dunklin County,,7.3,,14.0
 29071,29,Missouri,Franklin County,,2.6,18.0,16.9
 29073,29,Missouri,Gasconade County,0,0.0,,16.5
@@ -1526,7 +1526,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 29081,29,Missouri,Harrison County,0,0.0,,11.3
 29083,29,Missouri,Henry County,0,0.0,,11.4
 29085,29,Missouri,Hickory County,0,0.0,,17.2
-29087,29,Missouri,Holt County,0,0.0,,-999.0
+29087,29,Missouri,Holt County,0,0.0,,
 29089,29,Missouri,Howard County,0,0.0,0.0,0.0
 29091,29,Missouri,Howell County,,4.4,,15.9
 29093,29,Missouri,Iron County,,3.8,,14.8
@@ -1535,7 +1535,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 29099,29,Missouri,Jefferson County,,2.5,41.0,17.7
 29101,29,Missouri,Johnson County,,2.4,,10.3
 29103,29,Missouri,Knox County,0,0.0,,11.3
-29105,29,Missouri,Laclede County,0,0.0,,-999.0
+29105,29,Missouri,Laclede County,0,0.0,,
 29107,29,Missouri,Lafayette County,0,0.0,,10.1
 29109,29,Missouri,Lawrence County,,2.4,,12.9
 29111,29,Missouri,Lewis County,0,0.0,,10.3
@@ -1554,12 +1554,12 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 29137,29,Missouri,Monroe County,0,0.0,,11.8
 29139,29,Missouri,Montgomery County,0,0.0,,14.5
 29141,29,Missouri,Morgan County,0,0.0,,11.0
-29143,29,Missouri,New Madrid County,,6.9,,-999.0
+29143,29,Missouri,New Madrid County,,6.9,,
 29145,29,Missouri,Newton County,,2.0,,14.9
 29147,29,Missouri,Nodaway County,0,0.0,,9.9
 29149,29,Missouri,Oregon County,,4.7,,15.5
 29151,29,Missouri,Osage County,0,0.0,,17.1
-29153,29,Missouri,Ozark County,0,0.0,,-999.0
+29153,29,Missouri,Ozark County,0,0.0,,
 29155,29,Missouri,Pemiscot County,,8.8,,12.2
 29157,29,Missouri,Perry County,0,0.0,,12.7
 29159,29,Missouri,Pettis County,,2.9,,11.3
@@ -1567,9 +1567,9 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 29163,29,Missouri,Pike County,,2.8,,12.1
 29165,29,Missouri,Platte County,,5.2,,9.5
 29167,29,Missouri,Polk County,,2.4,,15.8
-29169,29,Missouri,Pulaski County,,1.9,,-999.0
+29169,29,Missouri,Pulaski County,,1.9,,
 29171,29,Missouri,Putnam County,0,0.0,0.0,0.0
-29173,29,Missouri,Ralls County,,-999.0,,11.2
+29173,29,Missouri,Ralls County,,,,11.2
 29175,29,Missouri,Randolph County,,3.2,,10.4
 29177,29,Missouri,Ray County,,4.2,,12.5
 29179,29,Missouri,Reynolds County,,4.6,,14.6
@@ -1577,11 +1577,11 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 29183,29,Missouri,St. Charles County,,2.1,40.0,9.6
 29185,29,Missouri,St. Clair County,0,0.0,,13.7
 29186,29,Missouri,Ste. Genevieve County,0,0.0,,12.2
-29187,29,Missouri,St. Francois County,,2.1,,-999.0
+29187,29,Missouri,St. Francois County,,2.1,,
 29189,29,Missouri,St. Louis County,115,11.7,81.0,8.2
 29195,29,Missouri,Saline County,0,0.0,,10.5
 29197,29,Missouri,Schuyler County,0,0.0,0.0,0.0
-29199,29,Missouri,Scotland County,0,0.0,,-999.0
+29199,29,Missouri,Scotland County,0,0.0,,
 29201,29,Missouri,Scott County,,3.2,,11.9
 29203,29,Missouri,Shannon County,0,0.0,0.0,0.0
 29205,29,Missouri,Shelby County,0,0.0,,11.4
@@ -1589,7 +1589,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 29209,29,Missouri,Stone County,,4.4,,15.0
 29211,29,Missouri,Sullivan County,0,0.0,,11.0
 29213,29,Missouri,Taney County,,2.2,12.0,21.1
-29215,29,Missouri,Texas County,0,0.0,,-999.0
+29215,29,Missouri,Texas County,0,0.0,,
 29217,29,Missouri,Vernon County,0,0.0,0.0,0.0
 29219,29,Missouri,Warren County,0,0.0,,14.5
 29221,29,Missouri,Washington County,,3.0,,15.7
@@ -1598,7 +1598,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 29227,29,Missouri,Worth County,0,0.0,0.0,0.0
 29229,29,Missouri,Wright County,0,0.0,,17.6
 29510,29,Missouri,St. Louis city,105,37.3,24.0,8.5
-30001,30,Montana,Beaverhead County,0,0.0,,-999.0
+30001,30,Montana,Beaverhead County,0,0.0,,
 30003,30,Montana,Big Horn County,,7.4,,21.9
 30005,30,Montana,Blaine County,0,0.0,0.0,0.0
 30007,30,Montana,Broadwater County,0,0.0,,15.5
@@ -1611,14 +1611,14 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 30021,30,Montana,Dawson County,0,0.0,,15.8
 30023,30,Montana,Deer Lodge County,0,0.0,,18.5
 30025,30,Montana,Fallon County,0,0.0,,16.5
-30027,30,Montana,Fergus County,0,0.0,,-999.0
+30027,30,Montana,Fergus County,0,0.0,,
 30029,30,Montana,Flathead County,,1.3,16.0,14.1
 30031,30,Montana,Gallatin County,,1.1,14.0,11.1
 30033,30,Montana,Garfield County,0,0.0,0.0,0.0
 30035,30,Montana,Glacier County,,4.1,,21.3
 30037,30,Montana,Golden Valley County,0,0.0,,19.8
 30039,30,Montana,Granite County,0,0.0,,19.7
-30041,30,Montana,Hill County,,6.2,,-999.0
+30041,30,Montana,Hill County,,6.2,,
 30043,30,Montana,Jefferson County,0,0.0,,15.9
 30045,30,Montana,Judith Basin County,0,0.0,0.0,0.0
 30047,30,Montana,Lake County,,2.5,11.0,33.0
@@ -1626,27 +1626,27 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 30051,30,Montana,Liberty County,0,0.0,0.0,0.0
 30053,30,Montana,Lincoln County,0,0.0,,25.4
 30055,30,Montana,McCone County,0,0.0,0.0,0.0
-30057,30,Montana,Madison County,0,0.0,,-999.0
+30057,30,Montana,Madison County,0,0.0,,
 30059,30,Montana,Meagher County,0,0.0,,17.9
 30061,30,Montana,Mineral County,0,0.0,,17.1
 30063,30,Montana,Missoula County,,1.2,18.0,14.8
 30065,30,Montana,Musselshell County,0,0.0,0.0,0.0
-30067,30,Montana,Park County,0,0.0,,-999.0
+30067,30,Montana,Park County,0,0.0,,
 30069,30,Montana,Petroleum County,0,0.0,0.0,0.0
 30071,30,Montana,Phillips County,0,0.0,,16.0
-30073,30,Montana,Pondera County,0,0.0,,-999.0
+30073,30,Montana,Pondera County,0,0.0,,
 30075,30,Montana,Powder River County,0,0.0,0.0,0.0
 30077,30,Montana,Powell County,0,0.0,,17.0
 30079,30,Montana,Prairie County,0,0.0,0.0,0.0
 30081,30,Montana,Ravalli County,0,0.0,10.0,20.9
-30083,30,Montana,Richland County,0,0.0,,-999.0
+30083,30,Montana,Richland County,0,0.0,,
 30085,30,Montana,Roosevelt County,0,0.0,0.0,0.0
-30087,30,Montana,Rosebud County,,-999.0,,18.5
+30087,30,Montana,Rosebud County,,,,18.5
 30089,30,Montana,Sanders County,0,0.0,,20.0
 30091,30,Montana,Sheridan County,0,0.0,0.0,0.0
 30093,30,Montana,Silver Bow County,0,0.0,,17.0
 30095,30,Montana,Stillwater County,0,0.0,,24.5
-30097,30,Montana,Sweet Grass County,,-999.0,,19.7
+30097,30,Montana,Sweet Grass County,,,,19.7
 30099,30,Montana,Teton County,0,0.0,,19.3
 30101,30,Montana,Toole County,0,0.0,,21.1
 30103,30,Montana,Treasure County,0,0.0,0.0,0.0
@@ -1660,17 +1660,17 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 31007,31,Nebraska,Banner County,0,0.0,0.0,0.0
 31009,31,Nebraska,Blaine County,0,0.0,0.0,0.0
 31011,31,Nebraska,Boone County,0,0.0,0.0,0.0
-31013,31,Nebraska,Box Butte County,,-999.0,,13.4
+31013,31,Nebraska,Box Butte County,,,,13.4
 31015,31,Nebraska,Boyd County,0,0.0,0.0,0.0
 31017,31,Nebraska,Brown County,0,0.0,0.0,0.0
 31019,31,Nebraska,Buffalo County,,1.4,,8.7
 31021,31,Nebraska,Burt County,0,0.0,0.0,0.0
-31023,31,Nebraska,Butler County,0,0.0,,-999.0
+31023,31,Nebraska,Butler County,0,0.0,,
 31025,31,Nebraska,Cass County,0,0.0,,9.7
 31027,31,Nebraska,Cedar County,0,0.0,0.0,0.0
 31029,31,Nebraska,Chase County,0,0.0,0.0,0.0
 31031,31,Nebraska,Cherry County,0,0.0,,12.7
-31033,31,Nebraska,Cheyenne County,,-999.0,0.0,0.0
+31033,31,Nebraska,Cheyenne County,,,0.0,0.0
 31035,31,Nebraska,Clay County,0,0.0,0.0,0.0
 31037,31,Nebraska,Colfax County,0,0.0,0.0,0.0
 31039,31,Nebraska,Cuming County,0,0.0,0.0,0.0
@@ -1680,7 +1680,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 31047,31,Nebraska,Dawson County,0,0.0,,12.8
 31049,31,Nebraska,Deuel County,0,0.0,0.0,0.0
 31051,31,Nebraska,Dixon County,0,0.0,0.0,0.0
-31053,31,Nebraska,Dodge County,0,0.0,,-999.0
+31053,31,Nebraska,Dodge County,0,0.0,,
 31055,31,Nebraska,Douglas County,25,4.2,58.0,9.8
 31057,31,Nebraska,Dundy County,0,0.0,0.0,0.0
 31059,31,Nebraska,Fillmore County,0,0.0,0.0,0.0
@@ -1692,31 +1692,31 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 31071,31,Nebraska,Garfield County,0,0.0,0.0,0.0
 31073,31,Nebraska,Gosper County,0,0.0,0.0,0.0
 31075,31,Nebraska,Grant County,0,0.0,0.0,0.0
-31077,31,Nebraska,Greeley County,0,0.0,,-999.0
+31077,31,Nebraska,Greeley County,0,0.0,,
 31079,31,Nebraska,Hall County,0,0.0,,8.1
 31081,31,Nebraska,Hamilton County,0,0.0,0.0,0.0
-31083,31,Nebraska,Harlan County,0,0.0,,-999.0
+31083,31,Nebraska,Harlan County,0,0.0,,
 31085,31,Nebraska,Hayes County,0,0.0,0.0,0.0
 31087,31,Nebraska,Hitchcock County,0,0.0,0.0,0.0
 31089,31,Nebraska,Holt County,0,0.0,0.0,0.0
 31091,31,Nebraska,Hooker County,0,0.0,0.0,0.0
 31093,31,Nebraska,Howard County,0,0.0,0.0,0.0
-31095,31,Nebraska,Jefferson County,0,0.0,,-999.0
-31097,31,Nebraska,Johnson County,0,0.0,,-999.0
+31095,31,Nebraska,Jefferson County,0,0.0,,
+31097,31,Nebraska,Johnson County,0,0.0,,
 31099,31,Nebraska,Kearney County,0,0.0,0.0,0.0
-31101,31,Nebraska,Keith County,,-999.0,,14.1
+31101,31,Nebraska,Keith County,,,,14.1
 31103,31,Nebraska,Keya Paha County,0,0.0,0.0,0.0
 31105,31,Nebraska,Kimball County,0,0.0,0.0,0.0
-31107,31,Nebraska,Knox County,,-999.0,,9.9
+31107,31,Nebraska,Knox County,,,,9.9
 31109,31,Nebraska,Lancaster County,,1.5,23.0,7.0
 31111,31,Nebraska,Lincoln County,0,0.0,,11.6
 31113,31,Nebraska,Logan County,0,0.0,0.0,0.0
 31115,31,Nebraska,Loup County,0,0.0,0.0,0.0
 31117,31,Nebraska,McPherson County,0,0.0,0.0,0.0
 31119,31,Nebraska,Madison County,0,0.0,,8.7
-31121,31,Nebraska,Merrick County,0,0.0,,-999.0
+31121,31,Nebraska,Merrick County,0,0.0,,
 31123,31,Nebraska,Morrill County,0,0.0,,13.7
-31125,31,Nebraska,Nance County,0,0.0,,-999.0
+31125,31,Nebraska,Nance County,0,0.0,,
 31127,31,Nebraska,Nemaha County,0,0.0,,10.5
 31129,31,Nebraska,Nuckolls County,0,0.0,0.0,0.0
 31131,31,Nebraska,Otoe County,0,0.0,0.0,0.0
@@ -1725,7 +1725,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 31137,31,Nebraska,Phelps County,0,0.0,,11.1
 31139,31,Nebraska,Pierce County,0,0.0,0.0,0.0
 31141,31,Nebraska,Platte County,,1.5,,9.9
-31143,31,Nebraska,Polk County,0,0.0,,-999.0
+31143,31,Nebraska,Polk County,0,0.0,,
 31145,31,Nebraska,Red Willow County,0,0.0,0.0,0.0
 31147,31,Nebraska,Richardson County,0,0.0,0.0,0.0
 31149,31,Nebraska,Rock County,0,0.0,0.0,0.0
@@ -1738,26 +1738,26 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 31163,31,Nebraska,Sherman County,0,0.0,0.0,0.0
 31165,31,Nebraska,Sioux County,0,0.0,0.0,0.0
 31167,31,Nebraska,Stanton County,0,0.0,,9.3
-31169,31,Nebraska,Thayer County,0,0.0,,-999.0
-31171,31,Nebraska,Thomas County,0,0.0,,-999.0
+31169,31,Nebraska,Thayer County,0,0.0,,
+31171,31,Nebraska,Thomas County,0,0.0,,
 31173,31,Nebraska,Thurston County,0,0.0,0.0,0.0
-31175,31,Nebraska,Valley County,0,0.0,,-999.0
+31175,31,Nebraska,Valley County,0,0.0,,
 31177,31,Nebraska,Washington County,0,0.0,,9.8
 31179,31,Nebraska,Wayne County,0,0.0,,9.0
-31181,31,Nebraska,Webster County,0,0.0,,-999.0
+31181,31,Nebraska,Webster County,0,0.0,,
 31183,31,Nebraska,Wheeler County,0,0.0,0.0,0.0
 31185,31,Nebraska,York County,0,0.0,,8.8
 32001,32,Nevada,Churchill County,0,0.0,,10.4
 32003,32,Nevada,Clark County,112,4.8,186.0,8.0
-32005,32,Nevada,Douglas County,0,0.0,,-999.0
+32005,32,Nevada,Douglas County,0,0.0,,
 32007,32,Nevada,Elko County,,2.9,16.0,29.5
-32009,32,Nevada,Esmeralda County,,-999.0,0.0,0.0
+32009,32,Nevada,Esmeralda County,,,0.0,0.0
 32011,32,Nevada,Eureka County,0,0.0,,14.5
-32013,32,Nevada,Humboldt County,,-999.0,,15.7
+32013,32,Nevada,Humboldt County,,,,15.7
 32015,32,Nevada,Lander County,0,0.0,0.0,0.0
 32017,32,Nevada,Lincoln County,0,0.0,0.0,0.0
 32019,32,Nevada,Lyon County,,1.9,,10.4
-32021,32,Nevada,Mineral County,0,0.0,,-999.0
+32021,32,Nevada,Mineral County,0,0.0,,
 32023,32,Nevada,Nye County,,2.7,,10.1
 32027,32,Nevada,Pershing County,0,0.0,,13.4
 32029,32,Nevada,Storey County,0,0.0,0.0,0.0
@@ -1798,7 +1798,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 35001,35,New Mexico,Bernalillo County,76,11.3,93.0,13.8
 35003,35,New Mexico,Catron County,0,0.0,,19.6
 35005,35,New Mexico,Chaves County,,9.3,14.0,22.0
-35006,35,New Mexico,Cibola County,0,0.0,,-999.0
+35006,35,New Mexico,Cibola County,0,0.0,,
 35007,35,New Mexico,Colfax County,,5.3,0.0,0.0
 35009,35,New Mexico,Curry County,,6.2,,10.5
 35011,35,New Mexico,De Baca County,0,0.0,0.0,0.0
@@ -1811,7 +1811,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 35025,35,New Mexico,Lea County,10,13.9,,11.4
 35027,35,New Mexico,Lincoln County,,8.7,,17.3
 35028,35,New Mexico,Los Alamos County,0,0.0,0.0,0.0
-35029,35,New Mexico,Luna County,,5.8,,-999.0
+35029,35,New Mexico,Luna County,,5.8,,
 35031,35,New Mexico,McKinley County,,6.9,,15.1
 35033,35,New Mexico,Mora County,,7.5,0.0,0.0
 35035,35,New Mexico,Otero County,,8.3,12.0,17.4
@@ -1820,7 +1820,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 35041,35,New Mexico,Roosevelt County,,6.5,,12.6
 35043,35,New Mexico,Sandoval County,,4.3,24.0,15.4
 35045,35,New Mexico,San Juan County,,6.0,32.0,26.5
-35047,35,New Mexico,San Miguel County,,11.2,,-999.0
+35047,35,New Mexico,San Miguel County,,11.2,,
 35049,35,New Mexico,Santa Fe County,,4.8,16.0,10.3
 35051,35,New Mexico,Sierra County,0,0.0,,19.2
 35053,35,New Mexico,Socorro County,,5.9,,16.0
@@ -1829,7 +1829,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 35059,35,New Mexico,Union County,0,0.0,0.0,0.0
 35061,35,New Mexico,Valencia County,15,19.0,11.0,13.9
 36001,36,New York,Albany County,,1.6,,4.1
-36003,36,New York,Allegany County,0,0.0,,-999.0
+36003,36,New York,Allegany County,0,0.0,,
 36005,36,New York,Bronx County,64,4.7,15.0,1.1
 36007,36,New York,Broome County,,1.2,,6.0
 36009,36,New York,Cattaraugus County,0,0.0,,7.0
@@ -1864,7 +1864,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 36067,36,New York,Onondaga County,14,3.0,26.0,5.6
 36069,36,New York,Ontario County,0,0.0,,4.4
 36071,36,New York,Orange County,,0.7,10.0,2.5
-36073,36,New York,Orleans County,,1.9,,-999.0
+36073,36,New York,Orleans County,,1.9,,
 36075,36,New York,Oswego County,,1.0,,4.7
 36077,36,New York,Otsego County,0,0.0,,5.9
 36079,36,New York,Putnam County,0,0.0,,2.8
@@ -1875,21 +1875,21 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 36089,36,New York,St. Lawrence County,,0.9,18.0,16.8
 36091,36,New York,Saratoga County,,0.7,10.0,4.2
 36093,36,New York,Schenectady County,,0.8,,4.4
-36095,36,New York,Schoharie County,0,0.0,,-999.0
+36095,36,New York,Schoharie County,0,0.0,,
 36097,36,New York,Schuyler County,0,0.0,,6.5
 36099,36,New York,Seneca County,0,0.0,,5.7
 36101,36,New York,Steuben County,,1.2,,6.3
 36103,36,New York,Suffolk County,,0.6,37.0,2.4
-36105,36,New York,Sullivan County,,-999.0,,6.8
-36107,36,New York,Tioga County,,1.3,,-999.0
+36105,36,New York,Sullivan County,,,,6.8
+36107,36,New York,Tioga County,,1.3,,
 36109,36,New York,Tompkins County,,1.1,,5.6
 36111,36,New York,Ulster County,0,0.0,12.0,6.6
 36113,36,New York,Warren County,0,0.0,,8.0
-36115,36,New York,Washington County,0,0.0,,-999.0
+36115,36,New York,Washington County,0,0.0,,
 36117,36,New York,Wayne County,,1.6,,6.1
 36119,36,New York,Westchester County,10,1.0,12.0,1.2
 36121,36,New York,Wyoming County,0,0.0,,6.2
-36123,36,New York,Yates County,,1.6,,-999.0
+36123,36,New York,Yates County,,1.6,,
 37001,37,North Carolina,Alamance County,,4.5,22.0,12.3
 37003,37,North Carolina,Alexander County,0,0.0,,12.2
 37005,37,North Carolina,Alleghany County,0,0.0,0.0,0.0
@@ -1904,7 +1904,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 37023,37,North Carolina,Burke County,,3.4,17.0,19.2
 37025,37,North Carolina,Cabarrus County,16,6.7,26.0,10.8
 37027,37,North Carolina,Caldwell County,,3.8,,11.7
-37029,37,North Carolina,Camden County,,7.0,,-999.0
+37029,37,North Carolina,Camden County,,7.0,,
 37031,37,North Carolina,Carteret County,,3.6,10.0,14.4
 37033,37,North Carolina,Caswell County,,11.3,,8.7
 37035,37,North Carolina,Catawba County,10,6.1,21.0,12.8
@@ -1955,7 +1955,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 37125,37,North Carolina,Moore County,,3.8,16.0,15.0
 37127,37,North Carolina,Nash County,,5.2,,8.4
 37129,37,North Carolina,New Hanover County,12,5.0,24.0,10.0
-37131,37,North Carolina,Northampton County,,10.5,,-999.0
+37131,37,North Carolina,Northampton County,,10.5,,
 37133,37,North Carolina,Onslow County,,3.7,26.0,12.2
 37135,37,North Carolina,Orange County,,3.1,10.0,6.6
 37137,37,North Carolina,Pamlico County,0,0.0,0.0,0.0
@@ -1978,7 +1978,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 37171,37,North Carolina,Surry County,,5.0,11.0,15.4
 37173,37,North Carolina,Swain County,,3.3,,15.3
 37175,37,North Carolina,Transylvania County,0,0.0,,16.1
-37177,37,North Carolina,Tyrrell County,,9.0,,-999.0
+37177,37,North Carolina,Tyrrell County,,9.0,,
 37179,37,North Carolina,Union County,10,3.9,17.0,6.6
 37181,37,North Carolina,Vance County,,10.2,,10.3
 37183,37,North Carolina,Wake County,23,1.9,62.0,5.2
@@ -2020,7 +2020,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 38055,38,North Dakota,McLean County,0,0.0,,12.8
 38057,38,North Dakota,Mercer County,0,0.0,0.0,0.0
 38059,38,North Dakota,Morton County,0,0.0,,13.1
-38061,38,North Dakota,Mountrail County,0,0.0,,-999.0
+38061,38,North Dakota,Mountrail County,0,0.0,,
 38063,38,North Dakota,Nelson County,0,0.0,0.0,0.0
 38065,38,North Dakota,Oliver County,0,0.0,,14.9
 38067,38,North Dakota,Pembina County,0,0.0,0.0,0.0
@@ -2029,17 +2029,17 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 38073,38,North Dakota,Ransom County,0,0.0,0.0,0.0
 38075,38,North Dakota,Renville County,0,0.0,0.0,0.0
 38077,38,North Dakota,Richland County,0,0.0,,9.3
-38079,38,North Dakota,Rolette County,,-999.0,0.0,0.0
+38079,38,North Dakota,Rolette County,,,0.0,0.0
 38081,38,North Dakota,Sargent County,0,0.0,0.0,0.0
 38083,38,North Dakota,Sheridan County,0,0.0,0.0,0.0
 38085,38,North Dakota,Sioux County,0,0.0,0.0,0.0
 38087,38,North Dakota,Slope County,0,0.0,0.0,0.0
 38089,38,North Dakota,Stark County,,1.6,,13.1
 38091,38,North Dakota,Steele County,0,0.0,0.0,0.0
-38093,38,North Dakota,Stutsman County,0,0.0,,-999.0
-38095,38,North Dakota,Towner County,0,0.0,,-999.0
+38093,38,North Dakota,Stutsman County,0,0.0,,
+38095,38,North Dakota,Towner County,0,0.0,,
 38097,38,North Dakota,Traill County,0,0.0,0.0,0.0
-38099,38,North Dakota,Walsh County,0,0.0,,-999.0
+38099,38,North Dakota,Walsh County,0,0.0,,
 38101,38,North Dakota,Ward County,,1.3,12.0,17.6
 38103,38,North Dakota,Wells County,0,0.0,0.0,0.0
 38105,38,North Dakota,Williams County,0,0.0,,13.8
@@ -2100,7 +2100,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 39109,39,Ohio,Miami County,,1.5,10.0,9.0
 39111,39,Ohio,Monroe County,0,0.0,,10.1
 39113,39,Ohio,Montgomery County,56,10.5,49.0,9.2
-39115,39,Ohio,Morgan County,,-999.0,,11.4
+39115,39,Ohio,Morgan County,,,,11.4
 39117,39,Ohio,Morrow County,0,0.0,,9.0
 39119,39,Ohio,Muskingum County,0,0.0,,9.4
 39121,39,Ohio,Noble County,0,0.0,,10.1
@@ -2133,8 +2133,8 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 39175,39,Ohio,Wyandot County,0,0.0,,9.9
 40001,40,Oklahoma,Adair County,0,0.0,,13.5
 40003,40,Oklahoma,Alfalfa County,0,0.0,0.0,0.0
-40005,40,Oklahoma,Atoka County,0,0.0,,-999.0
-40007,40,Oklahoma,Beaver County,0,0.0,,-999.0
+40005,40,Oklahoma,Atoka County,0,0.0,,
+40007,40,Oklahoma,Beaver County,0,0.0,,
 40009,40,Oklahoma,Beckham County,,4.3,,13.2
 40011,40,Oklahoma,Blaine County,0,0.0,,12.3
 40013,40,Oklahoma,Bryan County,,2.4,,13.4
@@ -2142,7 +2142,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 40017,40,Oklahoma,Canadian County,,3.4,17.0,9.7
 40019,40,Oklahoma,Carter County,,3.5,,14.3
 40021,40,Oklahoma,Cherokee County,,2.4,12.0,24.9
-40023,40,Oklahoma,Choctaw County,,5.1,,-999.0
+40023,40,Oklahoma,Choctaw County,,5.1,,
 40025,40,Oklahoma,Cimarron County,0,0.0,0.0,0.0
 40027,40,Oklahoma,Cleveland County,,1.6,30.0,10.0
 40029,40,Oklahoma,Coal County,0,0.0,0.0,0.0
@@ -2167,48 +2167,48 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 40067,40,Oklahoma,Jefferson County,,4.5,0.0,0.0
 40069,40,Oklahoma,Johnston County,0,0.0,,17.1
 40071,40,Oklahoma,Kay County,,3.0,,13.4
-40073,40,Oklahoma,Kingfisher County,0,0.0,,-999.0
+40073,40,Oklahoma,Kingfisher County,0,0.0,,
 40075,40,Oklahoma,Kiowa County,0,0.0,,14.0
-40077,40,Oklahoma,Latimer County,,4.5,,-999.0
-40079,40,Oklahoma,Le Flore County,0,0.0,,-999.0
+40077,40,Oklahoma,Latimer County,,4.5,,
+40079,40,Oklahoma,Le Flore County,0,0.0,,
 40081,40,Oklahoma,Lincoln County,,2.9,,14.5
 40083,40,Oklahoma,Logan County,,2.3,,11.2
-40085,40,Oklahoma,Love County,,-999.0,,13.2
+40085,40,Oklahoma,Love County,,,,13.2
 40087,40,Oklahoma,McClain County,0,0.0,10.0,21.2
 40089,40,Oklahoma,McCurtain County,,9.8,10.0,32.6
 40091,40,Oklahoma,McIntosh County,0,0.0,,17.8
 40093,40,Oklahoma,Major County,,3.8,,13.3
 40095,40,Oklahoma,Marshall County,0,0.0,,16.4
 40097,40,Oklahoma,Mayes County,,4.2,,16.8
-40099,40,Oklahoma,Murray County,0,0.0,,-999.0
+40099,40,Oklahoma,Murray County,0,0.0,,
 40101,40,Oklahoma,Muskogee County,,4.2,12.0,18.0
 40103,40,Oklahoma,Noble County,0,0.0,0.0,0.0
 40105,40,Oklahoma,Nowata County,0,0.0,,12.3
 40107,40,Oklahoma,Okfuskee County,,9.5,,15.0
 40109,40,Oklahoma,Oklahoma County,60,7.4,99.0,12.2
-40111,40,Oklahoma,Okmulgee County,0,0.0,,-999.0
+40111,40,Oklahoma,Okmulgee County,0,0.0,,
 40113,40,Oklahoma,Osage County,,2.4,,12.4
 40115,40,Oklahoma,Ottawa County,0,0.0,13.0,42.9
 40117,40,Oklahoma,Pawnee County,0,0.0,,13.7
 40119,40,Oklahoma,Payne County,0,0.0,12.0,14.4
 40121,40,Oklahoma,Pittsburg County,,5.7,,14.8
 40123,40,Oklahoma,Pontotoc County,,4.8,,14.7
-40125,40,Oklahoma,Pottawatomie County,,3.5,,-999.0
+40125,40,Oklahoma,Pottawatomie County,,3.5,,
 40127,40,Oklahoma,Pushmataha County,0,0.0,,16.2
 40129,40,Oklahoma,Roger Mills County,0,0.0,0.0,0.0
 40131,40,Oklahoma,Rogers County,,3.3,14.0,14.0
 40133,40,Oklahoma,Seminole County,0,0.0,,16.8
 40135,40,Oklahoma,Sequoyah County,,3.2,,16.5
 40137,40,Oklahoma,Stephens County,,4.8,,12.6
-40139,40,Oklahoma,Texas County,0,0.0,,-999.0
+40139,40,Oklahoma,Texas County,0,0.0,,
 40141,40,Oklahoma,Tillman County,0,0.0,,17.7
 40143,40,Oklahoma,Tulsa County,41,6.0,83.0,12.2
 40145,40,Oklahoma,Wagoner County,,3.0,16.0,17.9
 40147,40,Oklahoma,Washington County,,3.0,,10.2
 40149,40,Oklahoma,Washita County,0,0.0,,12.4
-40151,40,Oklahoma,Woods County,,5.7,,-999.0
+40151,40,Oklahoma,Woods County,,5.7,,
 40153,40,Oklahoma,Woodward County,0,0.0,,15.3
-41001,41,Oregon,Baker County,,-999.0,,24.2
+41001,41,Oregon,Baker County,,,,24.2
 41003,41,Oregon,Benton County,,1.5,,10.9
 41005,41,Oregon,Clackamas County,,1.9,36.0,8.5
 41007,41,Oregon,Clatsop County,,1.9,10.0,24.3
@@ -2235,7 +2235,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 41049,41,Oregon,Morrow County,0,0.0,,13.5
 41051,41,Oregon,Multnomah County,46,5.8,67.0,8.5
 41053,41,Oregon,Polk County,,4.0,,10.8
-41055,41,Oregon,Sherman County,0,0.0,,-999.0
+41055,41,Oregon,Sherman County,0,0.0,,
 41057,41,Oregon,Tillamook County,0,0.0,,12.4
 41059,41,Oregon,Umatilla County,,1.6,,12.8
 41061,41,Oregon,Union County,,2.1,10.0,38.5
@@ -2301,11 +2301,11 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 42109,42,Pennsylvania,Snyder County,0,0.0,0.0,0.0
 42111,42,Pennsylvania,Somerset County,,1.6,11.0,15.2
 42113,42,Pennsylvania,Sullivan County,0,0.0,,11.4
-42115,42,Pennsylvania,Susquehanna County,0,0.0,,-999.0
+42115,42,Pennsylvania,Susquehanna County,0,0.0,,
 42117,42,Pennsylvania,Tioga County,0,0.0,,8.3
 42119,42,Pennsylvania,Union County,0,0.0,,7.8
 42121,42,Pennsylvania,Venango County,0,0.0,,10.8
-42123,42,Pennsylvania,Warren County,,2.3,,-999.0
+42123,42,Pennsylvania,Warren County,,2.3,,
 42125,42,Pennsylvania,Washington County,,1.4,19.0,9.0
 42127,42,Pennsylvania,Wayne County,0,0.0,,8.4
 42129,42,Pennsylvania,Westmoreland County,,1.0,35.0,10.0
@@ -2337,7 +2337,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 45037,45,South Carolina,Edgefield County,,4.9,,13.1
 45039,45,South Carolina,Fairfield County,,10.1,,12.8
 45041,45,South Carolina,Florence County,12,8.7,17.0,12.4
-45043,45,South Carolina,Georgetown County,,-999.0,,11.0
+45043,45,South Carolina,Georgetown County,,,,11.0
 45045,45,South Carolina,Greenville County,33,5.9,65.0,11.6
 45047,45,South Carolina,Greenwood County,,7.0,,11.8
 45049,45,South Carolina,Hampton County,,9.1,,9.8
@@ -2351,7 +2351,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 45065,45,South Carolina,McCormick County,,10.5,,13.3
 45067,45,South Carolina,Marion County,,17.4,,11.2
 45069,45,South Carolina,Marlboro County,,10.3,,11.7
-45071,45,South Carolina,Newberry County,,5.6,,-999.0
+45071,45,South Carolina,Newberry County,,5.6,,
 45073,45,South Carolina,Oconee County,0,0.0,,12.4
 45075,45,South Carolina,Orangeburg County,12,14.5,12.0,14.5
 45077,45,South Carolina,Pickens County,,4.8,19.0,14.0
@@ -2363,7 +2363,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 45089,45,South Carolina,Williamsburg County,,18.7,,10.7
 45091,45,South Carolina,York County,12,4.0,36.0,12.1
 46003,46,South Dakota,Aurora County,0,0.0,0.0,0.0
-46005,46,South Dakota,Beadle County,,-999.0,,9.7
+46005,46,South Dakota,Beadle County,,,,9.7
 46007,46,South Dakota,Bennett County,0,0.0,0.0,0.0
 46009,46,South Dakota,Bon Homme County,0,0.0,0.0,0.0
 46011,46,South Dakota,Brookings County,0,0.0,,8.7
@@ -2379,14 +2379,14 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 46031,46,South Dakota,Corson County,0,0.0,0.0,0.0
 46033,46,South Dakota,Custer County,0,0.0,,14.9
 46035,46,South Dakota,Davison County,0,0.0,,12.1
-46037,46,South Dakota,Day County,0,0.0,,-999.0
+46037,46,South Dakota,Day County,0,0.0,,
 46039,46,South Dakota,Deuel County,0,0.0,0.0,0.0
 46041,46,South Dakota,Dewey County,0,0.0,0.0,0.0
 46043,46,South Dakota,Douglas County,0,0.0,0.0,0.0
 46045,46,South Dakota,Edmunds County,0,0.0,0.0,0.0
 46047,46,South Dakota,Fall River County,0,0.0,0.0,0.0
 46049,46,South Dakota,Faulk County,0,0.0,0.0,0.0
-46051,46,South Dakota,Grant County,0,0.0,,-999.0
+46051,46,South Dakota,Grant County,0,0.0,,
 46053,46,South Dakota,Gregory County,0,0.0,0.0,0.0
 46055,46,South Dakota,Haakon County,0,0.0,0.0,0.0
 46057,46,South Dakota,Hamlin County,0,0.0,,9.7
@@ -2395,8 +2395,8 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 46063,46,South Dakota,Harding County,0,0.0,,17.2
 46065,46,South Dakota,Hughes County,0,0.0,,14.8
 46067,46,South Dakota,Hutchinson County,0,0.0,0.0,0.0
-46069,46,South Dakota,Hyde County,0,0.0,,-999.0
-46071,46,South Dakota,Jackson County,,-999.0,,14.2
+46069,46,South Dakota,Hyde County,0,0.0,,
+46071,46,South Dakota,Jackson County,,,,14.2
 46073,46,South Dakota,Jerauld County,0,0.0,0.0,0.0
 46075,46,South Dakota,Jones County,0,0.0,0.0,0.0
 46077,46,South Dakota,Kingsbury County,0,0.0,0.0,0.0
@@ -2409,12 +2409,12 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 46091,46,South Dakota,Marshall County,0,0.0,0.0,0.0
 46093,46,South Dakota,Meade County,0,0.0,,16.1
 46095,46,South Dakota,Mellette County,0,0.0,,14.2
-46097,46,South Dakota,Miner County,0,0.0,,-999.0
+46097,46,South Dakota,Miner County,0,0.0,,
 46099,46,South Dakota,Minnehaha County,,2.8,25.0,12.1
 46101,46,South Dakota,Moody County,0,0.0,,10.0
-46102,46,South Dakota,Oglala Lakota County,,11.8,,-999.0
+46102,46,South Dakota,Oglala Lakota County,,11.8,,
 46103,46,South Dakota,Pennington County,,3.1,16.0,13.8
-46105,46,South Dakota,Perkins County,,-999.0,,15.7
+46105,46,South Dakota,Perkins County,,,,15.7
 46107,46,South Dakota,Potter County,0,0.0,0.0,0.0
 46109,46,South Dakota,Roberts County,0,0.0,0.0,0.0
 46111,46,South Dakota,Sanborn County,0,0.0,0.0,0.0
@@ -2423,10 +2423,10 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 46119,46,South Dakota,Sully County,0,0.0,,13.8
 46121,46,South Dakota,Todd County,0,0.0,,14.2
 46123,46,South Dakota,Tripp County,0,0.0,,13.6
-46125,46,South Dakota,Turner County,,-999.0,0.0,0.0
-46127,46,South Dakota,Union County,,-999.0,,9.4
+46125,46,South Dakota,Turner County,,,0.0,0.0
+46127,46,South Dakota,Union County,,,,9.4
 46129,46,South Dakota,Walworth County,0,0.0,,11.9
-46135,46,South Dakota,Yankton County,0,0.0,,-999.0
+46135,46,South Dakota,Yankton County,0,0.0,,
 46137,46,South Dakota,Ziebach County,0,0.0,0.0,0.0
 47001,47,Tennessee,Anderson County,,3.1,10.0,12.5
 47003,47,Tennessee,Bedford County,,2.3,10.0,18.8
@@ -2435,7 +2435,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 47009,47,Tennessee,Blount County,,3.4,15.0,10.6
 47011,47,Tennessee,Bradley County,,1.6,12.0,10.8
 47013,47,Tennessee,Campbell County,,3.5,,10.7
-47015,47,Tennessee,Cannon County,0,0.0,,-999.0
+47015,47,Tennessee,Cannon County,0,0.0,,
 47017,47,Tennessee,Carroll County,0,0.0,,15.4
 47019,47,Tennessee,Carter County,0,0.0,,11.8
 47021,47,Tennessee,Cheatham County,,4.8,15.0,35.5
@@ -2451,7 +2451,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 47041,47,Tennessee,DeKalb County,,4.0,0.0,0.0
 47043,47,Tennessee,Dickson County,0,0.0,,12.6
 47045,47,Tennessee,Dyer County,,8.8,,11.3
-47047,47,Tennessee,Fayette County,,-999.0,,11.6
+47047,47,Tennessee,Fayette County,,,,11.6
 47049,47,Tennessee,Fentress County,0,0.0,,13.9
 47051,47,Tennessee,Franklin County,0,0.0,,14.1
 47053,47,Tennessee,Gibson County,,6.5,11.0,21.5
@@ -2470,7 +2470,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 47079,47,Tennessee,Henry County,0,0.0,,17.1
 47081,47,Tennessee,Hickman County,,4.2,,12.2
 47083,47,Tennessee,Houston County,,4.1,,13.2
-47085,47,Tennessee,Humphreys County,0,0.0,,-999.0
+47085,47,Tennessee,Humphreys County,0,0.0,,
 47087,47,Tennessee,Jackson County,0,0.0,,13.0
 47089,47,Tennessee,Jefferson County,,2.7,13.0,22.5
 47091,47,Tennessee,Johnson County,,2.7,,11.9
@@ -2493,7 +2493,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 47125,47,Tennessee,Montgomery County,17,7.1,28.0,11.7
 47127,47,Tennessee,Moore County,0,0.0,0.0,0.0
 47129,47,Tennessee,Morgan County,0,0.0,,14.0
-47131,47,Tennessee,Obion County,,5.6,,-999.0
+47131,47,Tennessee,Obion County,,5.6,,
 47133,47,Tennessee,Overton County,,3.0,,15.2
 47135,47,Tennessee,Perry County,0,0.0,,14.3
 47137,47,Tennessee,Pickett County,0,0.0,,16.5
@@ -2528,7 +2528,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 48005,48,Texas,Angelina County,,4.6,14.0,16.0
 48007,48,Texas,Aransas County,0,0.0,11.0,43.4
 48009,48,Texas,Archer County,,5.7,,14.6
-48011,48,Texas,Armstrong County,0,0.0,,-999.0
+48011,48,Texas,Armstrong County,0,0.0,,
 48013,48,Texas,Atascosa County,,3.1,,8.9
 48015,48,Texas,Austin County,,3.1,,9.5
 48017,48,Texas,Bailey County,0,0.0,0.0,0.0
@@ -2566,7 +2566,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 48081,48,Texas,Coke County,0,0.0,0.0,0.0
 48083,48,Texas,Coleman County,0,0.0,0.0,0.0
 48085,48,Texas,Collin County,27,2.3,89.0,7.4
-48087,48,Texas,Collingsworth County,0,0.0,,-999.0
+48087,48,Texas,Collingsworth County,0,0.0,,
 48089,48,Texas,Colorado County,,4.4,,11.6
 48091,48,Texas,Comal County,,1.5,22.0,11.3
 48093,48,Texas,Comanche County,,3.1,,13.3
@@ -2576,7 +2576,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 48101,48,Texas,Cottle County,0,0.0,0.0,0.0
 48103,48,Texas,Crane County,0,0.0,0.0,0.0
 48105,48,Texas,Crockett County,0,0.0,,12.3
-48107,48,Texas,Crosby County,,6.4,,-999.0
+48107,48,Texas,Crosby County,,6.4,,
 48109,48,Texas,Culberson County,0,0.0,,14.9
 48111,48,Texas,Dallam County,0,0.0,,13.7
 48113,48,Texas,Dallas County,200,7.7,184.0,7.1
@@ -2588,7 +2588,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 48125,48,Texas,Dickens County,0,0.0,0.0,0.0
 48127,48,Texas,Dimmit County,0,0.0,0.0,0.0
 48129,48,Texas,Donley County,0,0.0,0.0,0.0
-48131,48,Texas,Duval County,,3.7,,-999.0
+48131,48,Texas,Duval County,,3.7,,
 48133,48,Texas,Eastland County,0,0.0,0.0,0.0
 48135,48,Texas,Ector County,,4.0,15.0,9.1
 48137,48,Texas,Edwards County,0,0.0,0.0,0.0
@@ -2603,7 +2603,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 48155,48,Texas,Foard County,0,0.0,0.0,0.0
 48157,48,Texas,Fort Bend County,34,3.7,59.0,6.4
 48159,48,Texas,Franklin County,0,0.0,0.0,0.0
-48161,48,Texas,Freestone County,0,0.0,,-999.0
+48161,48,Texas,Freestone County,0,0.0,,
 48163,48,Texas,Frio County,,4.6,,8.1
 48165,48,Texas,Gaines County,0,0.0,,10.4
 48167,48,Texas,Galveston County,14,3.9,41.0,11.3
@@ -2612,7 +2612,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 48173,48,Texas,Glasscock County,0,0.0,0.0,0.0
 48175,48,Texas,Goliad County,0,0.0,,15.0
 48177,48,Texas,Gonzales County,0,0.0,,11.5
-48179,48,Texas,Gray County,,3.4,,-999.0
+48179,48,Texas,Gray County,,3.4,,
 48181,48,Texas,Grayson County,,1.7,20.0,13.6
 48183,48,Texas,Gregg County,10,7.9,,8.7
 48185,48,Texas,Grimes County,0,0.0,,10.3
@@ -2658,10 +2658,10 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 48265,48,Texas,Kerr County,0,0.0,14.0,26.0
 48267,48,Texas,Kimble County,0,0.0,0.0,0.0
 48269,48,Texas,King County,0,0.0,0.0,0.0
-48271,48,Texas,Kinney County,0,0.0,,-999.0
+48271,48,Texas,Kinney County,0,0.0,,
 48273,48,Texas,Kleberg County,,4.4,,7.4
 48275,48,Texas,Knox County,0,0.0,0.0,0.0
-48277,48,Texas,Lamar County,0,0.0,,-999.0
+48277,48,Texas,Lamar County,0,0.0,,
 48279,48,Texas,Lamb County,0,0.0,,10.2
 48281,48,Texas,Lampasas County,,8.5,,13.1
 48283,48,Texas,La Salle County,0,0.0,0.0,0.0
@@ -2670,7 +2670,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 48289,48,Texas,Leon County,0,0.0,,12.2
 48291,48,Texas,Liberty County,,4.5,14.0,12.9
 48293,48,Texas,Limestone County,0,0.0,,11.5
-48295,48,Texas,Lipscomb County,,-999.0,,13.0
+48295,48,Texas,Lipscomb County,,,,13.0
 48297,48,Texas,Live Oak County,0,0.0,,9.2
 48299,48,Texas,Llano County,0,0.0,,14.3
 48301,48,Texas,Loving County,0,0.0,0.0,0.0
@@ -2708,29 +2708,29 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 48365,48,Texas,Panola County,0,0.0,,12.7
 48367,48,Texas,Parker County,,2.6,17.0,9.8
 48369,48,Texas,Parmer County,0,0.0,0.0,0.0
-48371,48,Texas,Pecos County,0,0.0,,-999.0
+48371,48,Texas,Pecos County,0,0.0,,
 48373,48,Texas,Polk County,,2.8,,13.2
 48375,48,Texas,Potter County,,5.3,15.0,13.1
 48377,48,Texas,Presidio County,0,0.0,0.0,0.0
-48379,48,Texas,Rains County,0,0.0,,-999.0
+48379,48,Texas,Rains County,0,0.0,,
 48381,48,Texas,Randall County,,2.4,22.0,14.8
 48383,48,Texas,Reagan County,0,0.0,,12.3
 48385,48,Texas,Real County,0,0.0,0.0,0.0
 48387,48,Texas,Red River County,0,0.0,,17.2
 48389,48,Texas,Reeves County,0,0.0,,14.9
 48391,48,Texas,Refugio County,0,0.0,,13.9
-48393,48,Texas,Roberts County,0,0.0,,-999.0
+48393,48,Texas,Roberts County,0,0.0,,
 48395,48,Texas,Robertson County,,3.4,,11.4
 48397,48,Texas,Rockwall County,0,0.0,16.0,12.2
-48399,48,Texas,Runnels County,,-999.0,,13.5
+48399,48,Texas,Runnels County,,,,13.5
 48401,48,Texas,Rusk County,,3.9,,11.3
 48403,48,Texas,Sabine County,0,0.0,,12.0
-48405,48,Texas,San Augustine County,,5.4,,-999.0
+48405,48,Texas,San Augustine County,,5.4,,
 48407,48,Texas,San Jacinto County,0,0.0,,14.3
 48409,48,Texas,San Patricio County,,4.9,,9.5
 48411,48,Texas,San Saba County,0,0.0,,13.8
-48413,48,Texas,Schleicher County,0,0.0,,-999.0
-48415,48,Texas,Scurry County,0,0.0,,-999.0
+48413,48,Texas,Schleicher County,0,0.0,,
+48415,48,Texas,Scurry County,0,0.0,,
 48417,48,Texas,Shackelford County,0,0.0,0.0,0.0
 48419,48,Texas,Shelby County,,4.3,,10.4
 48421,48,Texas,Sherman County,0,0.0,0.0,0.0
@@ -2744,13 +2744,13 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 48437,48,Texas,Swisher County,0,0.0,,11.7
 48439,48,Texas,Tarrant County,102,4.7,208.0,9.5
 48441,48,Texas,Taylor County,,3.3,25.0,17.0
-48443,48,Texas,Terrell County,0,0.0,,-999.0
+48443,48,Texas,Terrell County,0,0.0,,
 48445,48,Texas,Terry County,0,0.0,,10.2
 48447,48,Texas,Throckmorton County,0,0.0,0.0,0.0
 48449,48,Texas,Titus County,0,0.0,,16.1
 48451,48,Texas,Tom Green County,,2.4,16.0,13.4
 48453,48,Texas,Travis County,51,3.8,109.0,8.2
-48455,48,Texas,Trinity County,0,0.0,,-999.0
+48455,48,Texas,Trinity County,0,0.0,,
 48457,48,Texas,Tyler County,,5.5,,12.1
 48459,48,Texas,Upshur County,0,0.0,,13.3
 48461,48,Texas,Upton County,0,0.0,0.0,0.0
@@ -2766,7 +2766,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 48481,48,Texas,Wharton County,,3.6,,10.7
 48483,48,Texas,Wheeler County,0,0.0,0.0,0.0
 48485,48,Texas,Wichita County,,3.9,25.0,19.2
-48487,48,Texas,Wilbarger County,,4.1,,-999.0
+48487,48,Texas,Wilbarger County,,4.1,,
 48489,48,Texas,Willacy County,,2.9,,5.5
 48491,48,Texas,Williamson County,10,1.4,70.0,10.0
 48493,48,Texas,Wilson County,0,0.0,,12.3
@@ -2783,15 +2783,15 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 49007,49,Utah,Carbon County,,4.2,,15.3
 49009,49,Utah,Daggett County,0,0.0,0.0,0.0
 49011,49,Utah,Davis County,,1.1,34.0,9.1
-49013,49,Utah,Duchesne County,,-999.0,,14.5
+49013,49,Utah,Duchesne County,,,,14.5
 49015,49,Utah,Emery County,0,0.0,,19.0
 49017,49,Utah,Garfield County,0,0.0,0.0,0.0
-49019,49,Utah,Grand County,,-999.0,,-999.0
+49019,49,Utah,Grand County,,,,
 49021,49,Utah,Iron County,,2.0,12.0,18.7
 49023,49,Utah,Juab County,0,0.0,,13.5
 49025,49,Utah,Kane County,0,0.0,,18.3
 49027,49,Utah,Millard County,0,0.0,0.0,0.0
-49029,49,Utah,Morgan County,0,0.0,,-999.0
+49029,49,Utah,Morgan County,0,0.0,,
 49031,49,Utah,Piute County,0,0.0,,16.9
 49033,49,Utah,Rich County,0,0.0,0.0,0.0
 49035,49,Utah,Salt Lake County,28,2.4,122.0,10.3
@@ -2807,12 +2807,12 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 49055,49,Utah,Wayne County,0,0.0,0.0,0.0
 49057,49,Utah,Weber County,,2.0,37.0,13.6
 50001,50,Vermont,Addison County,0,0.0,,7.5
-50003,50,Vermont,Bennington County,0,0.0,,-999.0
-50005,50,Vermont,Caledonia County,,-999.0,,11.6
+50003,50,Vermont,Bennington County,0,0.0,,
+50005,50,Vermont,Caledonia County,,,,11.6
 50007,50,Vermont,Chittenden County,0,0.0,11.0,6.5
 50009,50,Vermont,Essex County,0,0.0,,11.5
-50011,50,Vermont,Franklin County,0,0.0,,-999.0
-50013,50,Vermont,Grand Isle County,,-999.0,,-999.0
+50011,50,Vermont,Franklin County,0,0.0,,
+50013,50,Vermont,Grand Isle County,,,,
 50015,50,Vermont,Lamoille County,,1.6,,8.3
 50017,50,Vermont,Orange County,0,0.0,,9.2
 50019,50,Vermont,Orleans County,,2.4,,8.7
@@ -2839,15 +2839,15 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 51033,51,Virginia,Caroline County,0,0.0,,9.2
 51035,51,Virginia,Carroll County,,4.1,,12.1
 51036,51,Virginia,Charles City County,,6.0,0.0,0.0
-51037,51,Virginia,Charlotte County,0,0.0,,-999.0
+51037,51,Virginia,Charlotte County,0,0.0,,
 51041,51,Virginia,Chesterfield County,,2.6,20.0,5.2
-51043,51,Virginia,Clarke County,,-999.0,,8.2
+51043,51,Virginia,Clarke County,,,,8.2
 51045,51,Virginia,Craig County,0,0.0,0.0,0.0
 51047,51,Virginia,Culpeper County,,1.9,,8.7
 51049,51,Virginia,Cumberland County,0,0.0,,9.6
 51051,51,Virginia,Dickenson County,0,0.0,,13.9
 51053,51,Virginia,Dinwiddie County,0,0.0,,9.7
-51057,51,Virginia,Essex County,,3.8,,-999.0
+51057,51,Virginia,Essex County,,3.8,,
 51059,51,Virginia,Fairfax County,,0.9,53.0,4.6
 51061,51,Virginia,Fauquier County,,1.7,,7.1
 51063,51,Virginia,Floyd County,,3.8,,10.8
@@ -2878,9 +2878,9 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 51113,51,Virginia,Madison County,0,0.0,,12.5
 51115,51,Virginia,Mathews County,,4.9,,12.4
 51117,51,Virginia,Mecklenburg County,,9.8,,12.5
-51119,51,Virginia,Middlesex County,0,0.0,,-999.0
+51119,51,Virginia,Middlesex County,0,0.0,,
 51121,51,Virginia,Montgomery County,,2.3,,9.7
-51125,51,Virginia,Nelson County,0,0.0,,-999.0
+51125,51,Virginia,Nelson County,0,0.0,,
 51127,51,Virginia,New Kent County,0,0.0,,9.6
 51131,51,Virginia,Northampton County,,5.6,,9.4
 51133,51,Virginia,Northumberland County,,4.1,,10.7
@@ -2891,7 +2891,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 51143,51,Virginia,Pittsylvania County,,5.3,10.0,16.8
 51145,51,Virginia,Powhatan County,,3.5,,9.3
 51147,51,Virginia,Prince Edward County,,3.6,,9.4
-51149,51,Virginia,Prince George County,,-999.0,,7.4
+51149,51,Virginia,Prince George County,,,,7.4
 51153,51,Virginia,Prince William County,16,3.3,22.0,4.5
 51155,51,Virginia,Pulaski County,,2.8,,10.4
 51157,51,Virginia,Rappahannock County,0,0.0,,10.9
@@ -2906,13 +2906,13 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 51175,51,Virginia,Southampton County,0,0.0,,9.2
 51177,51,Virginia,Spotsylvania County,,3.1,25.0,16.7
 51179,51,Virginia,Stafford County,,1.9,14.0,8.5
-51181,51,Virginia,Surry County,0,0.0,,-999.0
-51183,51,Virginia,Sussex County,0,0.0,,-999.0
+51181,51,Virginia,Surry County,0,0.0,,
+51183,51,Virginia,Sussex County,0,0.0,,
 51185,51,Virginia,Tazewell County,0,0.0,,11.9
 51187,51,Virginia,Warren County,,2.4,13.0,31.1
 51191,51,Virginia,Washington County,0,0.0,,10.7
 51193,51,Virginia,Westmoreland County,,4.7,,9.5
-51195,51,Virginia,Wise County,0,0.0,,-999.0
+51195,51,Virginia,Wise County,0,0.0,,
 51197,51,Virginia,Wythe County,,2.9,,10.4
 51199,51,Virginia,York County,,2.7,,6.6
 51510,51,Virginia,Alexandria city,,1.8,,3.4
@@ -2920,11 +2920,11 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 51530,51,Virginia,Buena Vista city,0,0.0,0.0,0.0
 51540,51,Virginia,Charlottesville city,,2.9,,13.9
 51550,51,Virginia,Chesapeake city,17,6.7,20.0,7.9
-51570,51,Virginia,Colonial Heights city,,8.4,,-999.0
+51570,51,Virginia,Colonial Heights city,,8.4,,
 51580,51,Virginia,Covington city,0,0.0,0.0,0.0
 51590,51,Virginia,Danville city,,10.6,,9.8
 51595,51,Virginia,Emporia city,,20.4,0.0,0.0
-51600,51,Virginia,Fairfax city,,4.0,,-999.0
+51600,51,Virginia,Fairfax city,,4.0,,
 51610,51,Virginia,Falls Church city,0,0.0,0.0,0.0
 51620,51,Virginia,Franklin city,,7.1,0.0,0.0
 51630,51,Virginia,Fredericksburg city,,2.7,,9.1
@@ -2962,7 +2962,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 53013,53,Washington,Columbia County,0,0.0,,12.7
 53015,53,Washington,Cowlitz County,,3.2,14.0,12.4
 53017,53,Washington,Douglas County,,2.0,,9.8
-53019,53,Washington,Ferry County,,-999.0,,15.6
+53019,53,Washington,Ferry County,,,,15.6
 53021,53,Washington,Franklin County,0,0.0,,9.1
 53023,53,Washington,Garfield County,0,0.0,0.0,0.0
 53025,53,Washington,Grant County,,2.3,,9.5
@@ -2971,7 +2971,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 53031,53,Washington,Jefferson County,0,0.0,,13.0
 53033,53,Washington,King County,76,3.3,105.0,4.6
 53035,53,Washington,Kitsap County,,0.7,25.0,9.0
-53037,53,Washington,Kittitas County,,2.1,,-999.0
+53037,53,Washington,Kittitas County,,2.1,,
 53039,53,Washington,Klickitat County,,3.3,,12.5
 53041,53,Washington,Lewis County,,2.5,,10.3
 53043,53,Washington,Lincoln County,0,0.0,,12.9
@@ -2998,19 +2998,19 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 54007,54,West Virginia,Braxton County,0,0.0,0.0,0.0
 54009,54,West Virginia,Brooke County,,2.5,,8.7
 54011,54,West Virginia,Cabell County,,3.0,,9.8
-54013,54,West Virginia,Calhoun County,,-999.0,0.0,0.0
+54013,54,West Virginia,Calhoun County,,,0.0,0.0
 54015,54,West Virginia,Clay County,0,0.0,,13.2
 54017,54,West Virginia,Doddridge County,0,0.0,0.0,0.0
 54019,54,West Virginia,Fayette County,0,0.0,,11.0
 54021,54,West Virginia,Gilmer County,0,0.0,,12.2
 54023,54,West Virginia,Grant County,0,0.0,,11.7
-54025,54,West Virginia,Greenbrier County,,3.5,,-999.0
+54025,54,West Virginia,Greenbrier County,,3.5,,
 54027,54,West Virginia,Hampshire County,0,0.0,,11.5
 54029,54,West Virginia,Hancock County,,3.4,,8.9
 54031,54,West Virginia,Hardy County,,2.3,,11.6
 54033,54,West Virginia,Harrison County,,1.9,,11.9
 54035,54,West Virginia,Jackson County,0,0.0,,11.6
-54037,54,West Virginia,Jefferson County,0,0.0,,-999.0
+54037,54,West Virginia,Jefferson County,0,0.0,,
 54039,54,West Virginia,Kanawha County,,3.9,20.0,11.4
 54041,54,West Virginia,Lewis County,,4.1,,14.7
 54043,54,West Virginia,Lincoln County,,2.7,,11.7
@@ -3029,7 +3029,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 54069,54,West Virginia,Ohio County,0,0.0,,10.3
 54071,54,West Virginia,Pendleton County,0,0.0,0.0,0.0
 54073,54,West Virginia,Pleasants County,0,0.0,,11.0
-54075,54,West Virginia,Pocahontas County,,-999.0,,12.7
+54075,54,West Virginia,Pocahontas County,,,,12.7
 54077,54,West Virginia,Preston County,,2.9,,12.2
 54079,54,West Virginia,Putnam County,0,0.0,,8.6
 54081,54,West Virginia,Raleigh County,,3.2,,11.9
@@ -3047,10 +3047,10 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 54105,54,West Virginia,Wirt County,0,0.0,0.0,0.0
 54107,54,West Virginia,Wood County,,3.0,11.0,13.2
 54109,54,West Virginia,Wyoming County,,3.0,,11.7
-55001,55,Wisconsin,Adams County,,1.2,,-999.0
+55001,55,Wisconsin,Adams County,,1.2,,
 55003,55,Wisconsin,Ashland County,0,0.0,,14.0
 55005,55,Wisconsin,Barron County,0,0.0,,11.1
-55007,55,Wisconsin,Bayfield County,,-999.0,,16.4
+55007,55,Wisconsin,Bayfield County,,,,16.4
 55009,55,Wisconsin,Brown County,,0.6,21.0,7.7
 55011,55,Wisconsin,Buffalo County,0,0.0,,8.9
 55013,55,Wisconsin,Burnett County,0,0.0,,11.5
@@ -3058,7 +3058,7 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 55017,55,Wisconsin,Chippewa County,0,0.0,,10.4
 55019,55,Wisconsin,Clark County,0,0.0,,10.3
 55021,55,Wisconsin,Columbia County,,1.2,,8.2
-55023,55,Wisconsin,Crawford County,0,0.0,,-999.0
+55023,55,Wisconsin,Crawford County,0,0.0,,
 55025,55,Wisconsin,Dane County,,1.3,34.0,5.9
 55027,55,Wisconsin,Dodge County,,1.2,13.0,14.7
 55029,55,Wisconsin,Door County,0,0.0,,9.6
@@ -3069,13 +3069,13 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 55039,55,Wisconsin,Fond du Lac County,,0.9,,7.1
 55041,55,Wisconsin,Forest County,0,0.0,,13.0
 55043,55,Wisconsin,Grant County,0,0.0,,9.2
-55045,55,Wisconsin,Green County,0,0.0,,-999.0
-55047,55,Wisconsin,Green Lake County,,-999.0,,7.8
+55045,55,Wisconsin,Green County,0,0.0,,
+55047,55,Wisconsin,Green Lake County,,,,7.8
 55049,55,Wisconsin,Iowa County,,1.7,,8.0
 55051,55,Wisconsin,Iron County,0,0.0,,15.6
 55053,55,Wisconsin,Jackson County,0,0.0,,9.6
 55055,55,Wisconsin,Jefferson County,0,0.0,,8.1
-55057,55,Wisconsin,Juneau County,,-999.0,0.0,0.0
+55057,55,Wisconsin,Juneau County,,,0.0,0.0
 55059,55,Wisconsin,Kenosha County,,2.8,,4.7
 55061,55,Wisconsin,Kewaunee County,0,0.0,,9.6
 55063,55,Wisconsin,La Crosse County,,1.0,11.0,9.1
@@ -3086,22 +3086,22 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 55073,55,Wisconsin,Marathon County,,0.7,15.0,10.8
 55075,55,Wisconsin,Marinette County,,0.7,,15.6
 55077,55,Wisconsin,Marquette County,0,0.0,,8.1
-55078,55,Wisconsin,Menominee County,0,0.0,,-999.0
+55078,55,Wisconsin,Menominee County,0,0.0,,
 55079,55,Wisconsin,Milwaukee County,149,16.3,56.0,6.1
 55081,55,Wisconsin,Monroe County,,1.3,,9.7
 55083,55,Wisconsin,Oconto County,0,0.0,,10.4
 55085,55,Wisconsin,Oneida County,0,0.0,,13.9
 55087,55,Wisconsin,Outagamie County,0,0.0,16.0,8.3
 55089,55,Wisconsin,Ozaukee County,0,0.0,,6.8
-55091,55,Wisconsin,Pepin County,0,0.0,,-999.0
+55091,55,Wisconsin,Pepin County,0,0.0,,
 55093,55,Wisconsin,Pierce County,0,0.0,0.0,0.0
 55095,55,Wisconsin,Polk County,,1.1,,8.5
 55097,55,Wisconsin,Portage County,0,0.0,,8.3
-55099,55,Wisconsin,Price County,,-999.0,,-999.0
+55099,55,Wisconsin,Price County,,,,
 55101,55,Wisconsin,Racine County,,1.9,14.0,7.1
 55103,55,Wisconsin,Richland County,0,0.0,,8.7
 55105,55,Wisconsin,Rock County,,2.7,13.0,7.9
-55107,55,Wisconsin,Rusk County,0,0.0,,-999.0
+55107,55,Wisconsin,Rusk County,0,0.0,,
 55109,55,Wisconsin,St. Croix County,0,0.0,,6.3
 55111,55,Wisconsin,Sauk County,,1.3,,7.8
 55113,55,Wisconsin,Sawyer County,0,0.0,,13.4
@@ -3126,19 +3126,19 @@ county_fips,state_fips,state_name,county_name,gun_violence_homicide_estimated_to
 56009,56,Wyoming,Converse County,0,0.0,,19.1
 56011,56,Wyoming,Crook County,0,0.0,0.0,0.0
 56013,56,Wyoming,Fremont County,,1.7,,19.5
-56015,56,Wyoming,Goshen County,0,0.0,,-999.0
+56015,56,Wyoming,Goshen County,0,0.0,,
 56017,56,Wyoming,Hot Springs County,0,0.0,0.0,0.0
 56019,56,Wyoming,Johnson County,0,0.0,,22.7
 56021,56,Wyoming,Laramie County,,2.3,22.0,21.8
-56023,56,Wyoming,Lincoln County,0,0.0,,-999.0
+56023,56,Wyoming,Lincoln County,0,0.0,,
 56025,56,Wyoming,Natrona County,,1.9,24.0,30.0
 56027,56,Wyoming,Niobrara County,0,0.0,0.0,0.0
 56029,56,Wyoming,Park County,0,0.0,,17.1
-56031,56,Wyoming,Platte County,,-999.0,,17.1
+56031,56,Wyoming,Platte County,,,,17.1
 56033,56,Wyoming,Sheridan County,,2.3,,23.1
 56035,56,Wyoming,Sublette County,0,0.0,,17.5
 56037,56,Wyoming,Sweetwater County,,1.7,10.0,24.2
-56039,56,Wyoming,Teton County,0,0.0,,-999.0
-56041,56,Wyoming,Uinta County,,-999.0,,17.4
-56043,56,Wyoming,Washakie County,0,0.0,,-999.0
+56039,56,Wyoming,Teton County,0,0.0,,
+56041,56,Wyoming,Uinta County,,,,17.4
+56043,56,Wyoming,Washakie County,0,0.0,,
 56045,56,Wyoming,Weston County,0,0.0,0.0,0.0
