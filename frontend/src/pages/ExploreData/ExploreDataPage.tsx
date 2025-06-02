@@ -300,15 +300,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
     )
 
     setshowCHLPMapsBanner(
-      getSelectedConditions(madLib)?.some((condition: DataTypeConfig) =>
-        [
-          'hiv_deaths_black_women',
-          'hiv_deaths',
-          'hiv_diagnoses_black_women',
-          'hiv_diagnoses',
-          'hiv_prevalence_black_women',
-          'hiv_prevalence',
-        ].includes(condition?.dataTypeId),
+      getSelectedConditions(madLib)?.some(
+        (condition: DataTypeConfig) => condition.categoryId === 'hiv',
       ),
     )
 
