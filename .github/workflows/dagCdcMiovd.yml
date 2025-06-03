@@ -1,0 +1,26 @@
+---
+name: DAG - CDC_MIOVD_DATA
+on:
+  workflow_dispatch:
+  workflow_call:
+env:
+  WORKFLOW_ID: "CDC_MIOVD_DATA"
+  DATASET_NAME: "cdc_miovd_data"
+  GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+  EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+jobs:
+  trigger-data-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write CDC MIOVD tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+      - name: Export NDJSON files to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          should_export_as_alls: "true"
