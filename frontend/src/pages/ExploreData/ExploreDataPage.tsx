@@ -285,7 +285,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  /* on any changes to the madlib settings */
+  /* on any changes to the madlib */
   useEffect(() => {
     // A11y - create then delete an invisible alert that the report mode has changed
     srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`)
