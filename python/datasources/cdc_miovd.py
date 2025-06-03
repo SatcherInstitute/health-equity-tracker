@@ -1,31 +1,20 @@
 """
 This documentation outlines the procedure for querying the homicide and suicide reports
-from the MIOVD datasouce.
+from the CDC MIOVD datasource.
 
-Instructions for generating homicide and suide reports:
+Manual Query Steps:
+1. Open your web browser and navigate to the CDC data portal:
+    - (https://data.cdc.gov/Injury-Violence/Mapping-Injury-Overdose-and-Violence-County/psx4-wq38/data_preview).
+2. Select "Actions" and choose "Query Data."
+4. Filter the dataset by intent to display either "FA_Homicide" for homicide reports
+   or "FA_Suicide" for suicide reports.
 
-Homicide Data - Use this link to generate the query:
+Note: If the provided link does not work, please refer to the URL in the comment section below.
 
-If the Links Don't Work - Navigate manually to:
-   - "https://data.cdc.gov/Injury-Violence/Mapping-Injury-Overdose-and-Violence-County/psx4-wq38/about_data"
-   - Click "Data" > "Actions" (right-side panel) > "Query Data"
-   - Use the following column settings:
+URL for manual access:
+https://data.cdc.gov/Injury-Violence/Mapping-Injury-Overdose-and-Violence-County/psx4-wq38/about_data
 
-     | Order | Column Name    |
-     |-------|----------------|
-     | 1     | Period         |
-     | 2     | ST_NAME        |
-     | 3     | NAME           |
-     | -     | Intent         |
-     | -     | Count          |
-     | -     | Rate           |
-     | -     | GEOID          |
-     | -     | ST_GEOID       |
-     | -     | TTM_Date_Range |
-
-   - Finally, filter the dataset by intent to either "FA_Homicide" or "FA_Suicide."
-
-Last Updated: 6/2/2025
+Last Updated: 6/3/2025
 """
 
 import pandas as pd
@@ -60,7 +49,13 @@ class CDCMIOVDData(DataSource):
     }
 
     # Columns to merge the homicide and suicide dataframes
-    MERGE_COLS = [std_col.TIME_PERIOD_COL, std_col.COUNTY_NAME_COL, std_col.STATE_NAME_COL, std_col.COUNTY_FIPS_COL]
+    MERGE_COLS = [
+        std_col.TIME_PERIOD_COL,
+        std_col.COUNTY_NAME_COL,
+        std_col.STATE_NAME_COL,
+        std_col.COUNTY_FIPS_COL,
+        "is_ttm",
+    ]
 
     @staticmethod
     def get_id():
@@ -76,17 +71,22 @@ class CDCMIOVDData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demo_type = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
+
+        # Load data for both conditions
         homicides_df = self.load_condition_data("gun_violence_homicide")
         suicides_df = self.load_condition_data("gun_violence_suicide")
 
+        # Merge homicide and suicide data
         df = merge_utils.merge_dfs_list([homicides_df, suicides_df], self.MERGE_COLS)
         df = merge_utils.merge_state_ids(df)
         df = merge_utils.merge_county_names(df)
 
-        for time_view in (CURRENT, HISTORICAL):
-            df_for_bq = df.copy()
-            df_for_bq, col_types = dataset_utils.get_timeview_df_and_cols(df_for_bq, time_view, self.CONDITIONS)
+        # Split into annual and TTM dataframes using the is_ttm flag
+        annual_df = df.copy().drop(columns=["is_ttm"])
+        ttm_df = df[df["is_ttm"]].copy().drop(columns=["is_ttm"])
 
+        for time_view, df_for_bq in [(CURRENT, ttm_df), (HISTORICAL, annual_df)]:
+            df_for_bq, col_types = dataset_utils.get_timeview_df_and_cols(df_for_bq, time_view, self.CONDITIONS)
             df_for_bq = self._reorder_and_sort_dataframe(df_for_bq)
 
             table_id = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, time_view)
@@ -106,8 +106,8 @@ class CDCMIOVDData(DataSource):
 
         # Handle trailing twelve months (TTM) periods
         # Extract year from TTM_Date_Range: "January, 2024 to December, 2024" -> "2024"
-        ttm_mask = df[std_col.TIME_PERIOD_COL] == "TTM"
-        df.loc[ttm_mask, std_col.TIME_PERIOD_COL] = df.loc[ttm_mask, "TTM_Date_Range"].str.extract(
+        df["is_ttm"] = df[std_col.TIME_PERIOD_COL] == "TTM"
+        df.loc[df["is_ttm"], std_col.TIME_PERIOD_COL] = df.loc[df["is_ttm"], "TTM_Date_Range"].str.extract(
             r"to .+?(\d{4})", expand=False
         )
 
@@ -131,10 +131,9 @@ class CDCMIOVDData(DataSource):
 
         df = df[[col for col in column_order if col in df.columns]]
 
-        # Sort: if time_period exists, include it first in sort
-        sort_columns = []
+        # Sort: start with county and state FIPS, add time period if it exists
+        sort_columns = [std_col.COUNTY_FIPS_COL, std_col.STATE_FIPS_COL]
         if std_col.TIME_PERIOD_COL in df.columns:
-            sort_columns.append(std_col.TIME_PERIOD_COL)
-        sort_columns.extend([std_col.COUNTY_FIPS_COL, std_col.STATE_FIPS_COL])
+            sort_columns.insert(0, std_col.TIME_PERIOD_COL)
 
         return df.sort_values(sort_columns, ascending=True)
