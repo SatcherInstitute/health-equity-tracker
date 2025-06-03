@@ -47,7 +47,7 @@ export default function KeyTermsTopicsAccordion(
                   <p className='mb-1 font-medium text-small'>
                     Measurement Definition
                   </p>
-                  <p className='m-0 self-start pt-1 text-altBlack text-small'>
+                  <p className='m-0 self-start pt-1 text-alt-black text-small'>
                     {config.definition?.text}
                   </p>
                   <InfoCitations citations={config.definition?.citations} />
@@ -56,7 +56,7 @@ export default function KeyTermsTopicsAccordion(
                       <p className='mb-1 font-medium text-small'>
                         Clinical Importance
                       </p>
-                      <p className='m-0 self-start pt-1 text-altBlack text-small'>
+                      <p className='m-0 self-start pt-1 text-alt-black text-small'>
                         {config.description.text}
                       </p>
                       <InfoCitations

@@ -11,7 +11,7 @@ export default function HowToUseTheDataTab() {
       >
         <h1 className='sr-only'>How to Use the Data</h1>
         <HetOverline text='How to Use the Data' />
-        <h2 className='my-0 font-medium text-altGreen text-title'>
+        <h2 className='my-0 font-medium text-alt-green text-title'>
           HET Data Visualization Maps and Charts
         </h2>
         <p>
@@ -35,7 +35,7 @@ export default function HowToUseTheDataTab() {
             <div className='w-auto max-w-svw'>
               <HetOverline text='Our Data Visuals' />
 
-              <h2 className='my-0 font-medium text-altGreen text-title'>
+              <h2 className='my-0 font-medium text-alt-green text-title'>
                 {dataVisual.title}
               </h2>
 
@@ -47,7 +47,7 @@ export default function HowToUseTheDataTab() {
                 <ul className='grid list-none grid-cols-2 gap-4 p-0 text-smallest'>
                   {dataVisual.details.alternateBreakdowns !== 'N/A' && (
                     <li className='flex flex-col'>
-                      <p className='my-0 font-semibold text-altGreen'>
+                      <p className='my-0 font-semibold text-alt-green'>
                         Alternate Disparities Breakdowns
                       </p>
                       <p className='my-0'>
@@ -60,7 +60,7 @@ export default function HowToUseTheDataTab() {
                 </ul>
               </div>
               <div>
-                <h2 className='mt-4 mb-2 font-medium text-altGreen text-title'>
+                <h2 className='mt-4 mb-2 font-medium text-alt-green text-title'>
                   How to Use
                 </h2>
                 <div>
@@ -72,13 +72,13 @@ export default function HowToUseTheDataTab() {
                 </div>
               </div>
               <div>
-                <h2 className='mt-4 mb-4 font-medium text-altGreen text-title'>
+                <h2 className='mt-4 mb-4 font-medium text-alt-green text-title'>
                   Interactive Example
                 </h2>
                 {dataVisual.customCard}
               </div>
 
-              <div className='mt-8 border border-methodologyGreen border-x-0 border-t-0 border-b-1 border-solid'></div>
+              <div className='mt-8 border border-methodology-green border-x-0 border-t-0 border-b border-solid'></div>
             </div>
           </section>
         )

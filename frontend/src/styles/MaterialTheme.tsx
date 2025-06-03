@@ -1,5 +1,5 @@
 import { extendTheme } from '@mui/material'
-import { ThemeLineHeightValues, het } from '../styles/DesignTokens'
+import { het } from '../styles/DesignTokens'
 
 // Use the new extendTheme function from MUI v7
 const MaterialTheme = extendTheme({
@@ -112,7 +112,7 @@ const MaterialTheme = extendTheme({
     MuiStepLabel: {
       styleOverrides: {
         label: {
-          lineHeight: ThemeLineHeightValues.lhTight,
+          lineHeight: '.95',
         },
       },
     },

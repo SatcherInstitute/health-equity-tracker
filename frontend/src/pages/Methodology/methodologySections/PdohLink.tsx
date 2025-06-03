@@ -239,10 +239,10 @@ const PdohLink = () => {
         </p>
 
         <ul className='list-disc pl-4'>
-          <li className='font-medium font-sansTitle'>
+          <li className='font-medium font-sans-title'>
             Women in State Legislature
           </li>
-          <li className='font-medium font-sansTitle'>
+          <li className='font-medium font-sans-title'>
             {' '}
             Women in U.S. Congress
           </li>

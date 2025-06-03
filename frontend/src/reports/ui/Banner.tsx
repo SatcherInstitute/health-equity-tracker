@@ -36,20 +36,20 @@ const Banner: React.FC = () => {
 
   return (
     <section
-      className='bg-infobarColor p-4 text-center'
+      className='bg-infobar-color p-4 text-center'
       aria-labelledby='banner-heading'
     >
       <div className='flex justify-between'>
         <div className='m-0 flex flex-wrap items-center justify-start px-2 md:items-center lg:flex-row lg:justify-start'>
           <FlagIcon
-            className='mr-2 hidden text-alertColor lg:visible'
+            className='mr-2 hidden text-alert-color lg:visible'
             aria-hidden='true'
           />
           <p
             className='my-0 p-0 text-left text-small lg:mr-8'
             id='banner-heading'
           >
-            <span className='m-0 p-0 font-bold font-sansTitle text-small lg:text-text'>
+            <span className='m-0 p-0 font-bold font-sans-title text-small lg:text-text'>
               Major gaps in the data:
             </span>{' '}
             Structural racism causes health inequities. We’re closing these gaps

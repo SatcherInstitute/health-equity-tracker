@@ -31,7 +31,7 @@ export default function HetCTABig(props: HetCTABigProps) {
       href={optionalMailTo}
       onClick={handleClick}
     >
-      <span className='font-bold text-exploreButton text-white xs:text-small sm:text-small'>
+      <span className='font-bold text-explore-button text-white xs:text-small sm:text-small'>
         {props.children}
       </span>
     </Button>

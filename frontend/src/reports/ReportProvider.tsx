@@ -171,8 +171,8 @@ function ReportProvider(props: ReportProviderProps) {
       <div
         className={`mx-auto my-0 w-full ${
           props.isSingleColumn
-            ? ' max-w-exploreDataPage'
-            : 'max-w-exploreDataTwoColumnPage'
+            ? ' max-w-explore-data-page'
+            : 'max-w-explore-data-two-column-page'
         }`}
       >
         {props.showLifeLineAlert && <LifelineAlert />}
@@ -188,7 +188,7 @@ function ReportProvider(props: ReportProviderProps) {
       </div>
 
       <div className='mt-20 flex min-h-preload-article w-full justify-center bg-white'>
-        <aside className='m-8 max-w-exploreDataPage text-left sm:m-16 '>
+        <aside className='m-8 max-w-explore-data-page text-left sm:m-16 '>
           {/* Display condition definition(s) based on the tracker madlib settings */}
           {definedConditions?.length > 0 && (
             <div className='mb-5'>
@@ -205,7 +205,7 @@ function ReportProvider(props: ReportProviderProps) {
                 link={RACES_AND_ETHNICITIES_LINK}
                 linkText='See our methodology'
                 containerClassName='w-auto ml-8'
-                linkClassName='text-altGreen'
+                linkClassName='text-alt-green'
               />
             </div>
           )}
@@ -217,7 +217,7 @@ function ReportProvider(props: ReportProviderProps) {
             link={DATA_CATALOG_PAGE_LINK}
             linkText='See our data sources'
             containerClassName='w-auto ml-8'
-            linkClassName='text-altGreen'
+            linkClassName='text-alt-green'
           />
           <WhatDataAreMissing
             metricConfigSubset={metricConfigSubset}

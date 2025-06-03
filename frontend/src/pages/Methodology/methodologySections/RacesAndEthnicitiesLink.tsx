@@ -52,7 +52,7 @@ export default function RacesAndEthnicitiesLink() {
             sources ultimately combine the race and ethnicity groups in one of
             two ways:
           </p>
-          <ol>
+          <ol className='list-decimal pl-4'>
             <li>
               Each <HetTerm>race</HetTerm> group explicitly excludes people of
               Hispanic origin, and another group{' '}

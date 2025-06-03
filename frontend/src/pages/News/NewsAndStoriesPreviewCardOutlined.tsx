@@ -35,7 +35,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
   }
   return (
     <article
-      className={`group flex h-full flex-col rounded-md border border-altGreen border-solid bg-white text-center text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised ${linkClassName ?? 'mr-4'}`}
+      className={`group flex h-full flex-col rounded-md border border-alt-green border-solid bg-white text-center text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised ${linkClassName ?? 'mr-4'}`}
     >
       <HetLazyLoader once offset={300} className='m-0 h-full p-0'>
         <div className='relative m-0 flex h-full flex-col justify-between'>
@@ -50,7 +50,7 @@ export default function NewsAndStoriesPreviewCardOutlined({
               }}
             ></div>
           </div>
-          <h2 className='mx-4 mt-8 pt-0 text-left font-semibold text-altGreen text-text leading-lhNormal'>
+          <h2 className='mx-4 mt-8 pt-0 text-left font-semibold text-alt-green text-text leading-normal'>
             <Link
               to={`${NEWS_PAGE_LINK}/${article.slug}`}
               className='no-underline group-hover:underline'
