@@ -23,6 +23,7 @@ from datasources.data_source import DataSource
 from ingestion import dataset_utils, gcs_to_bq_util, merge_utils
 from ingestion import standardized_columns as std_col
 from ingestion.constants import CURRENT, HISTORICAL
+from typing import Dict
 
 
 class CDCMIOVDData(DataSource):
@@ -30,7 +31,7 @@ class CDCMIOVDData(DataSource):
     CONDITIONS = [std_col.GUN_VIOLENCE_HOMICIDE_PREFIX, std_col.GUN_VIOLENCE_SUICIDE_PREFIX]
     DIRECTORY = "cdc_miovd"
 
-    FILE_NAME_MAP = {
+    FILE_NAME_MAP: Dict[str, str] = {
         std_col.GUN_VIOLENCE_HOMICIDE_PREFIX: "gun_homicides-county-all.csv",
         std_col.GUN_VIOLENCE_SUICIDE_PREFIX: "gun_suicides-county-all.csv",
     }
