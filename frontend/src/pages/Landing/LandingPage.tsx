@@ -105,7 +105,7 @@ function LandingPage() {
     <main className='relative' aria-label='Main Content'>
       <title>Home - Health Equity Tracker</title>
 
-      <section className='relative min-h-5/6 overflow-hidden px-56 xs:px-16 py-16 sm:px-16 md:px-24'>
+      <section className='relative min-h-5/6 overflow-hidden px-4 py-16 sm:px-16 md:px-24'>
         <img
           src='/img/graphics/het-hero.png'
           alt='various charts from the health equity tracker'
