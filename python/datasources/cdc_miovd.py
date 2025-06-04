@@ -26,13 +26,13 @@ from ingestion.constants import CURRENT, HISTORICAL
 
 
 class CDCMIOVDData(DataSource):
-    # MIOVD constants
-    CONDITIONS = ["gun_violence_homicide", "gun_violence_suicide"]
+    # File loading constants
+    CONDITIONS = [std_col.GUN_VIOLENCE_HOMICIDE_PREFIX, std_col.GUN_VIOLENCE_SUICIDE_PREFIX]
     DIRECTORY = "cdc_miovd"
 
     FILE_NAME_MAP = {
-        "gun_violence_homicide": "gun_homicides-county-all.csv",
-        "gun_violence_suicide": "gun_suicides-county-all.csv",
+        std_col.GUN_VIOLENCE_HOMICIDE_PREFIX: "gun_homicides-county-all.csv",
+        std_col.GUN_VIOLENCE_SUICIDE_PREFIX: "gun_suicides-county-all.csv",
     }
 
     # CSV parsing constants
@@ -72,18 +72,18 @@ class CDCMIOVDData(DataSource):
         demo_type = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
 
-        # Load data for both conditions
-        homicides_df = self.load_condition_data("gun_violence_homicide")
-        suicides_df = self.load_condition_data("gun_violence_suicide")
+        # Load data homicides and suicides
+        homicides_df = self.load_condition_data(std_col.GUN_VIOLENCE_HOMICIDE_PREFIX)
+        suicides_df = self.load_condition_data(std_col.GUN_VIOLENCE_SUICIDE_PREFIX)
 
-        # Merge homicide and suicide data
+        # Merge utils
         df = merge_utils.merge_dfs_list([homicides_df, suicides_df], self.MERGE_COLS)
         df = merge_utils.merge_state_ids(df)
         df = merge_utils.merge_county_names(df)
 
         # Split into annual and TTM dataframes using the is_ttm flag
-        annual_df = df.copy().drop(columns=["is_ttm"])
-        ttm_df = df[df["is_ttm"]].copy().drop(columns=["is_ttm"])
+        annual_df = df[~df["is_ttm"]].copy().drop(columns=["is_ttm"])  # Only non-TTM rows
+        ttm_df = df[df["is_ttm"]].copy().drop(columns=["is_ttm"])  # Only TTM rows
 
         for time_view, df_for_bq in [(CURRENT, ttm_df), (HISTORICAL, annual_df)]:
             df_for_bq, col_types = dataset_utils.get_timeview_df_and_cols(df_for_bq, time_view, self.CONDITIONS)
@@ -104,12 +104,8 @@ class CDCMIOVDData(DataSource):
 
         df = df.rename(columns=csv_to_standard_cols)
 
-        # Handle trailing twelve months (TTM) periods
-        # Extract year from TTM_Date_Range: "January, 2024 to December, 2024" -> "2024"
+        # Add the ttm_flag to dataframe
         df["is_ttm"] = df[std_col.TIME_PERIOD_COL] == "TTM"
-        df.loc[df["is_ttm"], std_col.TIME_PERIOD_COL] = df.loc[df["is_ttm"], "TTM_Date_Range"].str.extract(
-            r"to .+?(\d{4})", expand=False
-        )
 
         df = df.drop(columns=["TTM_Date_Range"], errors="ignore")
 
