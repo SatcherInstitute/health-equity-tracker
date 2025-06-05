@@ -21,7 +21,7 @@ tig
 composer-local-dev/
 
 /frontend_server/build/
-/frontend_server/.env.local
+/frontend/.env.local
 
 node_modules/
 /frontend/build/
