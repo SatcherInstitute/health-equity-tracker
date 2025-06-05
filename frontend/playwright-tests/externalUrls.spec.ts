@@ -40,6 +40,8 @@ const knownFlakyUrls = [
   'https://www.naccho.org/programs/public-health-infrastructure/performance-improvement/community-health-assessment/mapp',
   'https://pubmed.ncbi.nlm.nih.gov/21563622/',
   'https://jamanetwork.com/channels/health-forum/fullarticle/2760153',
+  'https://www.ama-assn.org/about/ama-center-health-equity/medical-justice-advocacy-fellowship',
+  'https://nau.edu/center-health-equity-research/',
   urlMap.southernCenterForHumanRights,
   urlMap.randGunPolicy,
   urlMap.cdcTrans,
