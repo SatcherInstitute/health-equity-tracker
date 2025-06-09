@@ -271,11 +271,11 @@ async function captureAndSaveImage(
       const htmlEl = el as HTMLElement
       htmlEl.style.border = 'none'
       htmlEl.style.outline = 'none'
-      htmlEl.style.boxShadow = 'none'
+      // htmlEl.style.boxShadow = 'none'
     })
 
     if (isSafari) {
-      await new Promise((resolve) => setTimeout(resolve, 150))
+      // await new Promise((resolve) => setTimeout(resolve, 150))
     }
     const dataUrl = await domtoimage.toPng(node, domToImageOptions)
     return await handleDestination(dataUrl, options)
