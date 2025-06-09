@@ -1,48 +1,59 @@
-.terraform/plugins
-/config/.terraform/plugins
-.vscode
+# OS Files
+.DS_Store
+~$*
+
+# IDE/Editor
+.vscode/
+.idea/
+*.iml
+
+# Python
+__pycache__/
+*.egg-info/
 .venv*/
-__pycache__
 venv*/
-*.egg-info
+
+# Node.js
+node_modules/
+
+# Terraform
+.terraform/
 *.tfstate
 *.tfstate.backup
 *.tfvars
-*.zip
-.DS_Store
-airflow-logs
-*.iml
-.idea/
-~$*
-tig
-.cspellcache
-.DS_Store
+config/.terraform.lock.hcl
 
-composer-local-dev/
-
-/frontend_server/build/
-/frontend_server/.env.local
-
-node_modules/
-/frontend/build/
+# Environment Files
+.env.local
+.env.secrets
 /frontend_server/.env.development
+/scripts/.env.secrets
+
+# Build Outputs
+/frontend/build/
+/frontend_server/build/
+python/data_server/build/
+python/datasources/build/
+python/ingestion/build/
+
+# Logs & Reports
+airflow-logs/
 /frontend/npm-debug.log*
 /frontend/playwright-report/
 /frontend/test-results/
 /frontend/coverage/
 /frontend/stats.html
 
-config/.terraform.lock.hcl
-config/.terraform/
+# Archives
+*.zip
 
-python/data_server/build/
-python/datasources/build/
-python/ingestion/build/
+# Spell Check
+.cspellcache
 
-/scripts/.env.secrets
+# Misc
+tig
 
+# JSON Files (with exceptions)
 *.json
-# Exception: Dont ignore these specific JSON files
 !frontend/cspell.config.json
 !python/ingestion/ahr_config/graphql_ahr_measure_ids.json
-
