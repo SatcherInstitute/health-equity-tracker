@@ -77,19 +77,34 @@ async function handleDestination(dataUrl: string, options: SaveImageOptions) {
   return dataUrl
 }
 
-// Legend and shadow utilities
 function removeLegendBorders(): void {
   const legendItemsBoxes = document.querySelectorAll(
     `.${LEGEND_ITEMS_BOX_CLASS}`,
   )
-  legendItemsBoxes.forEach((box) => box.classList.add('border-none'))
+  legendItemsBoxes.forEach((box) => {
+    box.classList.remove(
+      'border-0',
+      'border-grey-grid-color-darker',
+      'border-t',
+      'border-solid',
+    )
+    box.classList.add('border-none')
+  })
 }
 
 function restoreLegendBorders(): void {
   const legendItemsBoxes = document.querySelectorAll(
     `.${LEGEND_ITEMS_BOX_CLASS}`,
   )
-  legendItemsBoxes.forEach((box) => box.classList.remove('border-none'))
+  legendItemsBoxes.forEach((box) => {
+    box.classList.remove('border-none')
+    box.classList.add(
+      'border-0',
+      'border-grey-grid-color-darker',
+      'border-t',
+      'border-solid',
+    )
+  })
 }
 
 function removeShadows(node: HTMLElement): void {
@@ -248,6 +263,13 @@ async function captureAndSaveImage(
       height: node.offsetHeight - addedElements.heightToCrop,
     }
 
+    const allElements = node.parentElement?.querySelectorAll('*')
+    allElements?.forEach((el) => {
+      if (el instanceof HTMLElement) {
+        el.style.border = 'none'
+        el.style.outline = 'none'
+      }
+    })
     const dataUrl = await domtoimage.toPng(node, domToImageOptions)
     return await handleDestination(dataUrl, options)
   } catch (error: unknown) {
@@ -258,7 +280,6 @@ async function captureAndSaveImage(
   }
 }
 
-// Specialized capture functions
 async function saveSingleCardImage(
   targetNode: HTMLElement,
   options: SaveImageOptions,
