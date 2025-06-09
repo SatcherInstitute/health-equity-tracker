@@ -77,19 +77,53 @@ async function handleDestination(dataUrl: string, options: SaveImageOptions) {
   return dataUrl
 }
 
-// Legend and shadow utilities
+// // Legend and shadow utilities
+// function removeLegendBorders(): void {
+//   const legendItemsBoxes = document.querySelectorAll(
+//     `.${LEGEND_ITEMS_BOX_CLASS}`,
+//   )
+//   legendItemsBoxes.forEach((box) => box.classList.add('border-none'))
+// }
+
+// function restoreLegendBorders(): void {
+//   const legendItemsBoxes = document.querySelectorAll(
+//     `.${LEGEND_ITEMS_BOX_CLASS}`,
+//   )
+//   legendItemsBoxes.forEach((box) => box.classList.remove('border-none'))
+// }
+
 function removeLegendBorders(): void {
   const legendItemsBoxes = document.querySelectorAll(
     `.${LEGEND_ITEMS_BOX_CLASS}`,
   )
-  legendItemsBoxes.forEach((box) => box.classList.add('border-none'))
+  legendItemsBoxes.forEach((box) => {
+    // Remove all border-related classes
+    box.classList.remove(
+      'border-0',
+      'border-grey-grid-color-darker',
+      'border-t',
+      'border-solid',
+    )
+    // Also add border-none for good measure
+    box.classList.add('border-none')
+  })
 }
 
 function restoreLegendBorders(): void {
   const legendItemsBoxes = document.querySelectorAll(
     `.${LEGEND_ITEMS_BOX_CLASS}`,
   )
-  legendItemsBoxes.forEach((box) => box.classList.remove('border-none'))
+  legendItemsBoxes.forEach((box) => {
+    // Remove border-none
+    box.classList.remove('border-none')
+    // Restore the original border classes
+    box.classList.add(
+      'border-0',
+      'border-grey-grid-color-darker',
+      'border-t',
+      'border-solid',
+    )
+  })
 }
 
 function removeShadows(node: HTMLElement): void {
@@ -248,6 +282,13 @@ async function captureAndSaveImage(
       height: node.offsetHeight - addedElements.heightToCrop,
     }
 
+    const allElements = node.parentElement?.querySelectorAll('*')
+    allElements?.forEach((el) => {
+      if (el instanceof HTMLElement) {
+        el.style.border = 'none'
+        el.style.outline = 'none'
+      }
+    })
     const dataUrl = await domtoimage.toPng(node, domToImageOptions)
     return await handleDestination(dataUrl, options)
   } catch (error: unknown) {
