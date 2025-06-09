@@ -77,34 +77,17 @@ async function handleDestination(dataUrl: string, options: SaveImageOptions) {
   return dataUrl
 }
 
-// // Legend and shadow utilities
-// function removeLegendBorders(): void {
-//   const legendItemsBoxes = document.querySelectorAll(
-//     `.${LEGEND_ITEMS_BOX_CLASS}`,
-//   )
-//   legendItemsBoxes.forEach((box) => box.classList.add('border-none'))
-// }
-
-// function restoreLegendBorders(): void {
-//   const legendItemsBoxes = document.querySelectorAll(
-//     `.${LEGEND_ITEMS_BOX_CLASS}`,
-//   )
-//   legendItemsBoxes.forEach((box) => box.classList.remove('border-none'))
-// }
-
 function removeLegendBorders(): void {
   const legendItemsBoxes = document.querySelectorAll(
     `.${LEGEND_ITEMS_BOX_CLASS}`,
   )
   legendItemsBoxes.forEach((box) => {
-    // Remove all border-related classes
     box.classList.remove(
       'border-0',
       'border-grey-grid-color-darker',
       'border-t',
       'border-solid',
     )
-    // Also add border-none for good measure
     box.classList.add('border-none')
   })
 }
@@ -114,9 +97,7 @@ function restoreLegendBorders(): void {
     `.${LEGEND_ITEMS_BOX_CLASS}`,
   )
   legendItemsBoxes.forEach((box) => {
-    // Remove border-none
     box.classList.remove('border-none')
-    // Restore the original border classes
     box.classList.add(
       'border-0',
       'border-grey-grid-color-darker',
@@ -299,7 +280,6 @@ async function captureAndSaveImage(
   }
 }
 
-// Specialized capture functions
 async function saveSingleCardImage(
   targetNode: HTMLElement,
   options: SaveImageOptions,
