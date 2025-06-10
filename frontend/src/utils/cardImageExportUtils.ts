@@ -223,6 +223,51 @@ function prepareRowForCapture(rowNode: HTMLElement): AddedElements {
   return { heightToCrop, elements: [citation] }
 }
 
+function prepareModalContentForCapture(
+  node: HTMLElement,
+  options: SaveImageOptions,
+): AddedElements {
+  removeShadows(node)
+  removeLegendBorders()
+
+  // Temporarily remove any overflow hidden or height constraints
+  const originalOverflow = node.style.overflow
+  const originalMaxHeight = node.style.maxHeight
+  const originalHeight = node.style.height
+
+  node.style.overflow = 'visible'
+  node.style.maxHeight = 'none'
+  node.style.height = 'auto'
+
+  const heightToCrop = calculateHeightToCrop(node)
+  const addedElements: Array<HTMLElement | null> = [
+    { originalOverflow, originalMaxHeight, originalHeight } as any,
+  ]
+
+  if (options.cardId === 'multimap-modal') {
+    const footerDiv = document.createElement('div')
+    footerDiv.className = 'mt-4 pt-2 '
+
+    const modalFooter = document.getElementById('modal-footer')
+    if (modalFooter) {
+      const modalFooterClone = modalFooter.cloneNode(true) as HTMLElement
+      footerDiv.appendChild(modalFooterClone)
+    }
+
+    const citation = document.createElement('p')
+    citation.innerHTML = CITATION_APA
+    citation.className = 'text-smallest pl-3 pt-0 mt-0 leading-tight'
+
+    footerDiv.appendChild(citation)
+    footerDiv.classList.add(SCREENSHOT_REVERT_TO_NORMAL)
+
+    node.appendChild(footerDiv)
+    addedElements.push(footerDiv)
+  }
+
+  return { heightToCrop, elements: addedElements }
+}
+
 // Cleanup functions
 function cleanupSingleCard(
   addedElements: AddedElements,
@@ -249,17 +294,42 @@ function cleanupRowOfTwoCards(
   restoreLegendBorders()
 }
 
+function cleanupModalContent(
+  addedElements: AddedElements,
+  node: HTMLElement,
+): void {
+  const originalStyles = addedElements.elements[0] as any
+
+  // Restore original styles
+  node.style.overflow = originalStyles.originalOverflow || ''
+  node.style.maxHeight = originalStyles.originalMaxHeight || ''
+  node.style.height = originalStyles.originalHeight || ''
+
+  // Clean up other elements (skip the first one which is the styles object)
+  addedElements.elements.slice(1).forEach((element) => element?.remove())
+  restoreLegendBorders()
+}
+
 async function captureAndSaveImage(
   node: HTMLElement,
   addedElements: AddedElements,
   options: SaveImageOptions,
 ): Promise<string | undefined> {
   try {
+    // For modal content, we need to use the full scrollHeight
+    const height =
+      options.cardId === 'multimap-modal'
+        ? node.scrollHeight - addedElements.heightToCrop
+        : node.offsetHeight - addedElements.heightToCrop
+
+    const width =
+      options.cardId === 'multimap-modal' ? node.scrollWidth : node.offsetWidth
+
     const domToImageOptions: DomToImageOptions = {
       scale: SCALE_FACTOR,
       filter: hideElementsForScreenshot,
-      width: node.offsetWidth,
-      height: node.offsetHeight - addedElements.heightToCrop,
+      width: width,
+      height: height,
     }
 
     // Get all node elements including the card node itself
@@ -288,12 +358,21 @@ async function saveSingleCardImage(
 ): Promise<string | undefined> {
   const articleChild = targetNode.querySelector('article') as HTMLElement | null
   const nodeToCapture = articleChild || targetNode
-  const addedElements = prepareNodeForCapture(nodeToCapture, options)
+
+  // Use modal-specific preparation for multimap modal
+  const addedElements =
+    options.cardId === 'multimap-modal'
+      ? prepareModalContentForCapture(nodeToCapture, options)
+      : prepareNodeForCapture(nodeToCapture, options)
 
   try {
     return await captureAndSaveImage(nodeToCapture, addedElements, options)
   } finally {
-    cleanupSingleCard(addedElements, articleChild)
+    if (options.cardId === 'multimap-modal') {
+      cleanupModalContent(addedElements, nodeToCapture)
+    } else {
+      cleanupSingleCard(addedElements, articleChild)
+    }
   }
 }
 
@@ -310,14 +389,23 @@ async function saveRowOfTwoCardsImage(
   }
 }
 
-// Main export function
 export async function saveCardImage(
   options: SaveImageOptions,
 ): Promise<string | undefined> {
   const { cardId, isRowOfTwo = false } = options
-  const targetNode = isRowOfTwo
-    ? (document.getElementById(cardId + '-row') as HTMLElement)
-    : (document.getElementById(cardId) as HTMLElement)
+
+  let targetNode: HTMLElement | null = null
+
+  if (cardId === 'multimap-modal') {
+    // For multimap modal, capture the content div directly, not the modal wrapper
+    targetNode = document.getElementById(
+      MULTIMAP_MODAL_CONTENT_ID,
+    ) as HTMLElement
+  } else if (isRowOfTwo) {
+    targetNode = document.getElementById(cardId + '-row') as HTMLElement
+  } else {
+    targetNode = document.getElementById(cardId) as HTMLElement
+  }
 
   if (!targetNode) return
 
