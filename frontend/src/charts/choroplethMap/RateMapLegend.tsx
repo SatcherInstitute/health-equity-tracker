@@ -150,14 +150,16 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       ref={containerRef}
     >
       <div className='w-full'>
-        <div className='flex flex-col items-center'>
-          <ClickableLegendHeader
-            legendTitle={props.legendTitle}
-            dataTypeConfig={props.dataTypeConfig}
-          />
+        <div className='flex w-full flex-col items-center'>
+          <div className='mt-4 mb-0 flex w-full justify-center'>
+            <ClickableLegendHeader
+              legendTitle={props.legendTitle}
+              dataTypeConfig={props.dataTypeConfig}
+            />
+          </div>
 
           <div
-            // common classes across all views
+            // all views
             className={`${LEGEND_ITEMS_BOX_CLASS} w-2/3 columns-1 tiny:columns-2 gap-1 space-y-1 border-0 border-grey-grid-color-darker border-t border-solid px-4 pt-4 ${
               props.isMulti
                 ? // multimap only
