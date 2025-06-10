@@ -249,7 +249,6 @@ function cleanupRowOfTwoCards(
   restoreLegendBorders()
 }
 
-// Core capture logic
 async function captureAndSaveImage(
   node: HTMLElement,
   addedElements: AddedElements,
@@ -263,13 +262,16 @@ async function captureAndSaveImage(
       height: node.offsetHeight - addedElements.heightToCrop,
     }
 
-    const allElements = node.parentElement?.querySelectorAll('*')
-    allElements?.forEach((el) => {
-      if (el instanceof HTMLElement) {
-        el.style.border = 'none'
-        el.style.outline = 'none'
-      }
+    // Get all node elements including the card node itself
+    const allCardElements = [node, ...Array.from(node.querySelectorAll('*'))]
+
+    allCardElements.forEach((el) => {
+      const htmlEl = el as HTMLElement
+      htmlEl.style.border = 'none'
+      htmlEl.style.outline = 'none'
+      htmlEl.style.boxShadow = 'none'
     })
+
     const dataUrl = await domtoimage.toPng(node, domToImageOptions)
     return await handleDestination(dataUrl, options)
   } catch (error: unknown) {
