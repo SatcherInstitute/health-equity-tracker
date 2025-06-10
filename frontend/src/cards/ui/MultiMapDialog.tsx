@@ -138,7 +138,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     >
       <DialogContent
         dividers={true}
-        className='p-2 '
+        className='bg-white p-2'
         id={MULTIMAP_MODAL_CONTENT_ID}
       >
         {/* card options button */}
@@ -287,7 +287,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       </DialogContent>
 
       {/* MODAL FOOTER */}
-      <section className='hide-on-screenshot'>
+      <footer className='' id='modal-footer'>
         <div className='flex items-center justify-between pl-2 text-left text-small'>
           {/* Desktop only Sources and Card Options */}
           <div className='hidden sm:block'>
@@ -308,7 +308,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             </HetLinkButton>
           </div>
         </div>
-      </section>
+      </footer>
     </Dialog>
   )
 }
