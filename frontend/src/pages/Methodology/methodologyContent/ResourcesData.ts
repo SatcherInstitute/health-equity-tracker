@@ -77,7 +77,7 @@ export const RESOURCES: ResourceGroup = {
     },
     {
       name: 'Health Equity: Why It Matters, and How To Take Action - RWJF',
-      url: 'https://www.rwjf.org/en/library/features/achieving-health-equity.html',
+      url: 'https://www.rwjf.org/en/our-vision/focus-areas/Features/achieving-health-equity.html',
     },
     {
       name: 'Health Equity and Prevention Primer',
