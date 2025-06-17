@@ -1,12 +1,17 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.5.3/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
 	"files": {
-		"ignore": [
-			"**/*.css"
+		"includes": [
+			"**",
+			"!**/*.css"
 		]
 	},
-	"organizeImports": {
-		"enabled": true
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
 	},
 	"vcs": {
 		"enabled": true,
@@ -66,7 +71,11 @@
 				"noInferrableTypes": "off",
 				"noParameterAssign": "off",
 				"noUselessElse": "off",
-				"useDefaultParameterLast": "off"
+				"useDefaultParameterLast": "off",
+				"useAsConstAssertion": "error",
+				"useEnumInitializers": "error",
+				"useSingleVarDeclarator": "error",
+				"useNumberNamespace": "error"
 			},
 			"complexity": {
 				"noForEach": "off",
