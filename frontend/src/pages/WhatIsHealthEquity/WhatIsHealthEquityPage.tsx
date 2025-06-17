@@ -1,33 +1,17 @@
-import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router'
+import { useState } from 'react'
 import { HetOverline } from '../../styles/HetComponents/HetOverline'
 import { HetTermRaised } from '../../styles/HetComponents/HetTermRaised'
-import { useScrollToAnchor } from '../../utils/hooks/useScrollToAnchor'
 import WIHECardMenu from './wiheComponents/WIHECardMenu'
 import ExternalResourcesTab from './wiheSections/ExternalResourcesTab'
 import FaqSection from './wiheSections/FaqSection'
 import GuidesTab from './wiheSections/GuidesTab'
 
 export default function WhatIsHealthEquityPage() {
-  const location = useLocation()
-  const scrollToAnchor = useScrollToAnchor()
   const [activeTab, setActiveTab] = useState<'guides' | 'resources'>('guides')
 
   const handleTabChange = (tab: 'guides' | 'resources') => {
     setActiveTab(tab)
   }
-  useEffect(() => {
-    scrollToAnchor('main-content', 0)
-  }, [location.pathname, scrollToAnchor])
-
-  useEffect(() => {
-    const section = document.getElementById('learning-section')
-    if (section) {
-      setTimeout(() => {
-        section.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      }, 0)
-    }
-  }, [location.pathname])
 
   return (
     <>
