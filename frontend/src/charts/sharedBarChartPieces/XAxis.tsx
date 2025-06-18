@@ -1,4 +1,4 @@
-import { type ScaleLinear, format } from 'd3'
+import { format, type ScaleLinear } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 

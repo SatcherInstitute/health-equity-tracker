@@ -8,10 +8,10 @@ import {
   resolveDatasetId,
 } from '../query/MetricQuery'
 import {
-  AIANNH_W,
   AIAN_API_W,
-  HISPANIC,
+  AIANNH_W,
   HISP_W,
+  HISPANIC,
   MULTI,
   MULTI_W,
   OTHER_STANDARD,

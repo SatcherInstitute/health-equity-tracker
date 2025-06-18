@@ -1,3 +1,11 @@
+import GrantorElevenLabs from '../../assets/grantors/elevenlabs-logo-black-compressed.png'
+import GrantorPhrma from '../../assets/grantors/GrantorPhrma.png'
+import PartnerAARP from '../../assets/partners/PartnerAARP.png'
+import PartnerAECF from '../../assets/partners/PartnerAECF.jpg'
+import PartnerCdc from '../../assets/partners/PartnerCdc.png'
+import PartnerGilead from '../../assets/partners/PartnerGilead.png'
+import PartnerGoogle from '../../assets/partners/PartnerGoogle.png'
+import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
 import Allyson from '../../assets/team/BeltonA.png'
 import Kim from '../../assets/team/CincoKim.jpg'
 import Megan from '../../assets/team/DouglasMegan.jpg'
@@ -9,16 +17,6 @@ import DrHH from '../../assets/team/SHarris-Hooker.jpg'
 import Shaneeta from '../../assets/team/ShaneetaJohnson.png'
 import Maisha from '../../assets/team/StandiferM.png'
 import Eric from '../../assets/team/WarrenEric.png'
-
-import GrantorPhrma from '../../assets/grantors/GrantorPhrma.png'
-import GrantorElevenLabs from '../../assets/grantors/elevenlabs-logo-black-compressed.png'
-
-import PartnerAARP from '../../assets/partners/PartnerAARP.png'
-import PartnerAECF from '../../assets/partners/PartnerAECF.jpg'
-import PartnerCdc from '../../assets/partners/PartnerCdc.png'
-import PartnerGilead from '../../assets/partners/PartnerGilead.png'
-import PartnerGoogle from '../../assets/partners/PartnerGoogle.png'
-import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
 
 export const LEADERSHIP_TEAM = [
   {

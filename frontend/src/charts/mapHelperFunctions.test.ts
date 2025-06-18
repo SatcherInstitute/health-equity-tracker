@@ -1,3 +1,4 @@
+import { describe, expect, test } from 'vitest'
 import type {
   DataTypeConfig,
   DataTypeId,
@@ -13,8 +14,6 @@ import {
   getHighestLowestGroupsByFips,
   getMapGroupLabel,
 } from './mapHelperFunctions'
-
-import { describe, expect, test } from 'vitest'
 
 describe('Test getMapGroupLabel()', () => {
   test('All becomes Overall', () => {

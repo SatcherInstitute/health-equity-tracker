@@ -1,6 +1,4 @@
 import { UNKNOWN_W } from '../../data/utils/Constants'
-import LineSegment from './LineSegment'
-import SparseDataInterpolationLine from './SparseDataInterpolationLine'
 import { COLORS as C } from './constants'
 import {
   createLineGenerator,
@@ -8,6 +6,8 @@ import {
   hasDataGaps,
   splitIntoConsecutiveSegments,
 } from './helpers'
+import LineSegment from './LineSegment'
+import SparseDataInterpolationLine from './SparseDataInterpolationLine'
 import type { XScale, YScale } from './types'
 
 interface GroupLineProps {

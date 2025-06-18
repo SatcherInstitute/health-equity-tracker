@@ -13,8 +13,8 @@ import {
 } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { RACE, SEX } from '../utils/Constants'
-import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { Fips } from '../utils/Fips'
 import CdcCancerProvider from './CdcCancerProvider'
 
 async function ensureCorrectDatasetsDownloaded(

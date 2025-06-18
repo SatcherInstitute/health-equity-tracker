@@ -1,7 +1,7 @@
 import { ApiDataFetcher, type DataFetcher } from '../data/loading/DataFetcher'
 import DataManager from '../data/loading/DataManager'
 import FakeDataFetcher from '../testing/FakeDataFetcher'
-import { type Environment, createEnvironment } from './Environment'
+import { createEnvironment, type Environment } from './Environment'
 import Logger from './Logger'
 
 interface Globals {

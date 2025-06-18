@@ -12,8 +12,8 @@ import { HetTags } from '../../styles/HetComponents/HetTags'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import {
   ARTICLES_KEY,
-  REACT_QUERY_OPTIONS,
   fetchNewsData,
+  REACT_QUERY_OPTIONS,
 } from '../../utils/blogUtils'
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { getHtml } from '../../utils/urlutils'
@@ -196,7 +196,6 @@ export default function SinglePost() {
             )}
             {!isLoading && !isError && articleImage && (
               <div
-                aria-label={articleImageAltText}
                 className='hidden h-56 w-full rounded-md bg-center bg-cover bg-no-repeat shadow-raised-tighter smplus:block md:h-96'
                 style={{
                   backgroundImage: `url(${articleImage})`,

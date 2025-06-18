@@ -24,9 +24,9 @@ import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_CORRELATION_CARD } from '../featureFlags'
 import Sidebar from '../pages/ui/Sidebar'
-import type { MadLibId } from '../utils/MadLibs'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { MadLibId } from '../utils/MadLibs'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,

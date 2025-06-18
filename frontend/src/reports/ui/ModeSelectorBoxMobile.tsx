@@ -1,7 +1,7 @@
 import JumpToSelect from '../../pages/ui/JumpToSelect'
 import SimpleSelect from '../../pages/ui/SimpleSelect'
-import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import { reportProviderSteps } from '../ReportProviderSteps'
 
 interface ModeSelectorBoxMobileProps {

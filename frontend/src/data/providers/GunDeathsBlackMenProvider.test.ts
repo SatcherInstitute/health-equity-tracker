@@ -6,16 +6,15 @@ import {
   resetCacheDebug,
 } from '../../utils/globals'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
-import type { DataTypeId } from '../config/MetricConfigTypes'
-import type { MetricId } from '../config/MetricConfigTypes'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import {
   Breakdowns,
   type DemographicType,
   type TimeView,
 } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { Fips } from '../utils/Fips'
 import GunDeathsBlackMenProvider from './GunDeathsBlackMenProvider'
 
 async function ensureCorrectDatasetsDownloaded(

@@ -4,7 +4,10 @@ import { urlMap } from '../../../utils/externalUrls'
 function MissingDataSection({
   title,
   children,
-}: { title: string; children: React.ReactNode }) {
+}: {
+  title: string
+  children: React.ReactNode
+}) {
   return (
     <>
       <h4 className='mt-8 mb-2'>{title}</h4>

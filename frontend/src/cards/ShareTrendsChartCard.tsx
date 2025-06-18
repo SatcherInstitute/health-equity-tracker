@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { HashLink } from 'react-router-hash-link'
-import { TrendsChart } from '../charts/trendsChart/Index'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
+import { TrendsChart } from '../charts/trendsChart/Index'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
@@ -24,8 +24,8 @@ import {
   getNestedUnknowns,
 } from '../data/utils/DatasetTimeUtils'
 import type { HetRow } from '../data/utils/DatasetTypes'
-import type { Fips } from '../data/utils/Fips'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
+import type { Fips } from '../data/utils/Fips'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'

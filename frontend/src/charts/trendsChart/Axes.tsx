@@ -19,15 +19,14 @@ import { useEffect, useRef } from 'react'
 
 /* Local Imports */
 
-/* Constants */
-import { CONFIG, FORMATTERS as F, TYPES } from './constants'
-import type { AxisConfig, TrendsData, XScale, YScale } from './types'
-
 /* Helpers */
 import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
 import { het } from '../../styles/DesignTokens'
 import { X_AXIS_MAX_TICKS_SKINNY } from '../utils'
+/* Constants */
+import { CONFIG, FORMATTERS as F, TYPES } from './constants'
 import { getDates, getMaxNumber, getMinNumber } from './helpers'
+import type { AxisConfig, TrendsData, XScale, YScale } from './types'
 
 /* Define type interface */
 interface AxesProps {

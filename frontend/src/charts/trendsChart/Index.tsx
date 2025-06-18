@@ -14,18 +14,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 /* Local Imports */
 
-import { Axes } from './Axes'
-import { CircleChart } from './CircleChart'
-/* Components */
-import { FilterLegend } from './FilterLegend'
-import { HoverCircles } from './HoverCircles'
-import { LineChart } from './LineChart'
-import { TrendsTooltip } from './TrendsTooltip'
-
-/* Constants */
-import { BASELINE_THRESHOLD_Y_AXIS_ZERO, CONFIG } from './constants'
-import type { AxisConfig, TrendsData, UnknownData } from './types'
-
 import ChartTitle from '../../cards/ChartTitle'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { DemographicGroup } from '../../data/utils/Constants'
@@ -34,6 +22,13 @@ import useEscape from '../../utils/hooks/useEscape'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { X_AXIS_MAX_TICKS } from '../utils'
+import { Axes } from './Axes'
+import { CircleChart } from './CircleChart'
+/* Constants */
+import { BASELINE_THRESHOLD_Y_AXIS_ZERO, CONFIG } from './constants'
+/* Components */
+import { FilterLegend } from './FilterLegend'
+import { HoverCircles } from './HoverCircles'
 /* Helpers */
 import {
   filterDataByGroup,
@@ -41,6 +36,9 @@ import {
   getAmounts,
   getDates,
 } from './helpers'
+import { LineChart } from './LineChart'
+import { TrendsTooltip } from './TrendsTooltip'
+import type { AxisConfig, TrendsData, UnknownData } from './types'
 
 /* Define type interface */
 interface TrendsChartProps {

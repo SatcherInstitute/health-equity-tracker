@@ -2,13 +2,13 @@ import type { DatasetId } from '../config/DatasetMetadata'
 import { METRIC_CONFIG } from '../config/MetricConfig'
 import type { DataTypeConfig, MetricId } from '../config/MetricConfigTypes'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
-import { Fips } from './Fips'
 import {
   appendFipsIfNeeded,
   getExclusionList,
   getExtremeValues,
   splitIntoKnownsAndUnknowns,
 } from './datasetutils'
+import { Fips } from './Fips'
 
 describe('DatasetUtils.getExtremeValues() Unit Tests', () => {
   const data = [

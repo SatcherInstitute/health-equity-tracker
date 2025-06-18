@@ -1,3 +1,7 @@
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import GetAppIcon from '@mui/icons-material/GetApp'
+import SaveAlt from '@mui/icons-material/SaveAlt'
+import { ListItemButton } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
@@ -5,19 +9,6 @@ import List from '@mui/material/List'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { useState } from 'react'
-import type {
-  DataSourceMetadata,
-  DatasetMetadata,
-  MapOfDatasetMetadata,
-} from '../../data/utils/DatasetTypes'
-import { getLogger } from '../../utils/globals'
-import downloadDataset from './downloadDataset'
-
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import GetAppIcon from '@mui/icons-material/GetApp'
-import SaveAlt from '@mui/icons-material/SaveAlt'
-import { ListItemButton } from '@mui/material'
-
 import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
@@ -27,10 +18,17 @@ import {
   GEO_DISPLAY_TYPES,
   type GeographicBreakdown,
 } from '../../data/query/Breakdowns'
+import type {
+  DataSourceMetadata,
+  DatasetMetadata,
+  MapOfDatasetMetadata,
+} from '../../data/utils/DatasetTypes'
 import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import { getLogger } from '../../utils/globals'
+import downloadDataset from './downloadDataset'
 
 type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 

@@ -9,11 +9,11 @@ import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import { PHRMA_DATATYPES } from '../../data/providers/PhrmaProvider'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type { MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import {
   type CategoryTypeId,
   getConfigFromDataTypeId,
 } from '../../utils/MadLibs'
-import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,

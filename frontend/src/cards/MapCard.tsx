@@ -1,9 +1,9 @@
 import { GridView } from '@mui/icons-material'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router'
-import RateMapLegend from '../charts/choroplethMap/RateMapLegend'
 import { createColorScale } from '../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../charts/choroplethMap/index'
+import RateMapLegend from '../charts/choroplethMap/RateMapLegend'
 import {
   ATLANTA_METRO_COUNTY_FIPS,
   type CountColsMap,
@@ -45,28 +45,28 @@ import {
   UNKNOWN_RACE,
 } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
-import { Fips } from '../data/utils/Fips'
 import { getExtremeValues } from '../data/utils/datasetutils'
+import { Fips } from '../data/utils/Fips'
 import HetDivider from '../styles/HetComponents/HetDivider'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import HetTerm from '../styles/HetComponents/HetTerm'
-import type { MadLibId } from '../utils/MadLibs'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { MadLibId } from '../utils/MadLibs'
 import {
   ATLANTA_MODE_PARAM_KEY,
   EXTREMES_1_PARAM_KEY,
   EXTREMES_2_PARAM_KEY,
+  getDemographicGroupFromGroupParam,
+  getGroupParamFromDemographicGroup,
+  getParameter,
   MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
   MULTIPLE_MAPS_1_PARAM_KEY,
   MULTIPLE_MAPS_2_PARAM_KEY,
-  getDemographicGroupFromGroupParam,
-  getGroupParamFromDemographicGroup,
-  getParameter,
   setParameter,
 } from '../utils/urlutils'
 import CardWrapper from './CardWrapper'
@@ -74,13 +74,13 @@ import ChartTitle from './ChartTitle'
 import DemographicGroupMenu from './ui/DemographicGroupMenu'
 import { ExtremesListBox } from './ui/ExtremesListBox'
 import GeoContext from './ui/GeoContext'
-import MissingDataAlert from './ui/MissingDataAlert'
-import MultiMapDialog from './ui/MultiMapDialog'
-import { findVerboseRating } from './ui/SviAlert'
 import {
   getSubPopulationPhrase,
   getTotalACSPopulationPhrase,
 } from './ui/geoContextHelpers'
+import MissingDataAlert from './ui/MissingDataAlert'
+import MultiMapDialog from './ui/MultiMapDialog'
+import { findVerboseRating } from './ui/SviAlert'
 
 const HASH_ID: ScrollableHashId = 'rate-map'
 
