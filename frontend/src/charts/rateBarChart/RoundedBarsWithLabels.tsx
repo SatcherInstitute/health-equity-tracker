@@ -1,11 +1,11 @@
-import { type ScaleBand, type ScaleLinear, max } from 'd3'
+import { max, type ScaleBand, type ScaleLinear } from 'd3'
 import { useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import { buildRoundedBarString } from '../sharedBarChartPieces/helpers'
-import EndOfRateBarLabel from './EndOfRateBarLabel'
 import { LABEL_SWAP_CUTOFF_PERCENT } from './constants'
+import EndOfRateBarLabel from './EndOfRateBarLabel'
 
 interface RoundedBarsWithLabelsProps {
   processedData: HetRow[]

@@ -33,7 +33,10 @@
 		"rules": {
 			"recommended": true,
 			"nursery": {
-				"useSortedClasses": "info"
+				"useSortedClasses": "info",
+				"useUniqueElementIds": {
+					"level": "off"
+				}
 			},
 			"a11y": {
 				"useSemanticElements": "off",
@@ -61,7 +64,8 @@
 			"correctness": {
 				"useExhaustiveDependencies": "off",
 				"noUnusedVariables": "error",
-				"noUnusedImports": "error"
+				"noUnusedImports": "error",
+				"useHookAtTopLevel": "off"
 			},
 			"style": {
 				"useTemplate": "off",

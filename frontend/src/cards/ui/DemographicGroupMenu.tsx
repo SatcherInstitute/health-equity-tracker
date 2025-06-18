@@ -15,9 +15,9 @@ import type {
   DemographicTypeDisplayName,
 } from '../../data/query/Breakdowns'
 import type { DemographicGroup } from '../../data/utils/Constants'
-import { getConfigFromDataTypeId } from '../../utils/MadLibs'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { type PopoverElements, usePopover } from '../../utils/hooks/usePopover'
+import { getConfigFromDataTypeId } from '../../utils/MadLibs'
 
 interface MenuPopoverProps {
   popover: PopoverElements

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { ThemeFontSizes, ThemeFonts, het } from '../../styles/DesignTokens'
+import { het, ThemeFontSizes, ThemeFonts } from '../../styles/DesignTokens'
 
 export const useMakeCssVariables = () => {
   useEffect(() => {

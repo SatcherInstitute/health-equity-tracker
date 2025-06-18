@@ -1,5 +1,5 @@
-import { TableChart } from '../charts/TableChart'
 import type { CountColsMap } from '../charts/mapGlobals'
+import { TableChart } from '../charts/TableChart'
 import { generateSubtitle } from '../charts/utils'
 import { COVID_DISEASE_METRICS } from '../data/config/MetricConfigCovidCategory'
 import type {
@@ -26,11 +26,11 @@ import { MetricQuery } from '../data/query/MetricQuery'
 import { sortByIncome } from '../data/sorting/IncomeSorterStrategy'
 import { ALL, RACE, SEX } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
-import type { Fips } from '../data/utils/Fips'
 import {
   getExclusionList,
   shouldShowAltPopCompare,
 } from '../data/utils/datasetutils'
+import type { Fips } from '../data/utils/Fips'
 import HetDivider from '../styles/HetComponents/HetDivider'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { urlMap } from '../utils/externalUrls'

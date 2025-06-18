@@ -5,15 +5,15 @@ import type { DataTypeId } from '../../data/config/MetricConfigTypes'
 import HetListBoxOption from '../../styles/HetComponents/HetListBoxOption'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
+import { usePopover } from '../../utils/hooks/usePopover'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import {
   CATEGORIES_LIST,
   DEFAULT,
-  DROPDOWN_TOPIC_MAP,
   type DefaultDropdownVarId,
+  DROPDOWN_TOPIC_MAP,
   SELECTED_DROPDOWN_OVERRIDES,
 } from '../../utils/MadLibs'
-import { usePopover } from '../../utils/hooks/usePopover'
-import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 
 interface TopicSelectorProps {
   newValue: DataTypeId | DefaultDropdownVarId // DataTypeId OR default setting with no topic selected

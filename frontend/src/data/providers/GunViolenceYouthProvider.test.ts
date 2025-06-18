@@ -6,8 +6,7 @@ import {
   resetCacheDebug,
 } from '../../utils/globals'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
-import type { DataTypeId } from '../config/MetricConfigTypes'
-import type { MetricId } from '../config/MetricConfigTypes'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import {
   Breakdowns,
   type DemographicType,
@@ -15,8 +14,8 @@ import {
 } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { RACE } from '../utils/Constants'
-import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { Fips } from '../utils/Fips'
 import GunViolenceYouthProvider from './GunViolenceYouthProvider'
 
 async function ensureCorrectDatasetsDownloaded(

@@ -7,7 +7,7 @@ import {
   GEO_HOVERED_OPACITY,
   STROKE_WIDTH,
 } from './mapUtils'
-import { TOOLTIP_OFFSET, generateTooltipHtml } from './tooltipUtils'
+import { generateTooltipHtml, TOOLTIP_OFFSET } from './tooltipUtils'
 import type { MouseEventHandlerOptions, MouseEventType } from './types'
 
 /**
