@@ -41,7 +41,8 @@
 			"a11y": {
 				"useSemanticElements": "off",
 				"noSvgWithoutTitle": "off",
-				"noInteractiveElementToNoninteractiveRole": "off"
+				"noInteractiveElementToNoninteractiveRole": "off",
+				"noNoninteractiveElementToInteractiveRole": "off"
 			},
 			"suspicious": {
 				"noExplicitAny": "off",
