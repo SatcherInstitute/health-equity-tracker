@@ -13,9 +13,6 @@ import { Fragment } from 'react'
 import { raceNameToCodeMap } from '../../data/utils/Constants'
 
 import { COLORS as C, FORMATTERS as F, TYPES } from './constants'
-/* Constants */
-import type { AxisConfig, GroupData, TrendsData } from './types'
-
 /* Helpers */
 import {
   getAmountsByDate,
@@ -24,6 +21,8 @@ import {
   sortDataDescending,
   translateXPctShare,
 } from './helpers'
+/* Constants */
+import type { AxisConfig, GroupData, TrendsData } from './types'
 
 /* Define type interface */
 interface TrendsTooltipProps {

@@ -1,22 +1,21 @@
 import { useQuery } from '@tanstack/react-query'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
-import HetLazyLoader from '../../styles/HetComponents/HetLazyLoader'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import {
   ARTICLES_KEY_4,
-  REACT_QUERY_OPTIONS,
   fetchLandingPageNewsData,
+  REACT_QUERY_OPTIONS,
 } from '../../utils/blogUtils'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import {
   EXPLORE_DATA_PAGE_LINK,
   NEWS_PAGE_LINK,
-  WARM_WELCOME_DEMO_SETTING,
 } from '../../utils/internalRoutes'
 import type { Article } from '../News/ArticleTypes'
 import NewsAndStoriesPreviewCardOutlined from '../News/NewsAndStoriesPreviewCardOutlined'
+import LandingPageListItem from './LandingPageListItem'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery({
@@ -34,72 +33,6 @@ function LandingPage() {
 
   const recentArticles = data?.data?.slice(0, numberOfArticlePreviews)
   const prefersReducedMotion = usePrefersReducedMotion()
-
-  interface ListItemProps {
-    title: string
-    description: string
-    videoSrc?: string
-    iframeSrc?: string
-    itemNumber?: number
-    customClassName?: string
-  }
-
-  function ListItem({
-    title,
-    description,
-    videoSrc,
-    iframeSrc,
-    itemNumber,
-    customClassName,
-  }: ListItemProps) {
-    return (
-      <li
-        className={`sticky top-[0] mx-24 my-12 flex h-auto xs:h-auto min-h-[55vh] min-w-full list-none xs:flex-col items-center justify-around rounded-xl bg-white p-8 xs:px-4 xs:py-2 shadow-raised sm:flex-col sm:p-8 lg:flex-row xl:flex-row ${customClassName}`}
-      >
-        <div className='mx-4 flex w-1/3 xs:w-auto flex-col justify-between sm:w-auto md:w-auto '>
-          <p className='xs:my-0 xs:py-0 text-left font-bold font-sans-title text-alt-green text-small'>
-            {itemNumber}/4
-          </p>
-          <div className='mb-4 xs:mb-0 w-full min-w-1/2'>
-            <h4 className='my-2 font-medium font-sans-title text-smallest-header xs:text-title md:text-left'>
-              {title}
-            </h4>
-            <p className='mb-8 xs:mb-4 xs:text-small sm:text-small md:text-left'>
-              {description}
-            </p>
-            <HetTextArrowLink
-              link={`${EXPLORE_DATA_PAGE_LINK}${WARM_WELCOME_DEMO_SETTING}`}
-              linkText='Take a guided tour'
-            />
-          </div>
-        </div>
-        <div className='h-auto w-full'>
-          {iframeSrc ? (
-            <iframe
-              className='xs:h-[25vh] max-h-[40vh] w-full max-w-[60vw] rounded-md sm:h-[25vh] md:h-[25vh] lg:min-h-[40vh] xl:min-h-[40vh]'
-              src={iframeSrc}
-              title='YouTube video player'
-              loading='lazy'
-              allow='accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture'
-              allowFullScreen
-            ></iframe>
-          ) : (
-            <HetLazyLoader offset={300} once>
-              <video
-                autoPlay={!prefersReducedMotion}
-                loop
-                muted
-                playsInline
-                className='h-auto max-h-[40vh] min-h-[30vh] w-full'
-              >
-                <source src={videoSrc} type='video/mp4' />
-              </video>
-            </HetLazyLoader>
-          )}
-        </div>
-      </li>
-    )
-  }
 
   return (
     <main className='relative' aria-label='Main Content'>
@@ -232,37 +165,41 @@ function LandingPage() {
 
           <div className='relative flex xs:max-h-[75vh] xs:min-h-[75vh] flex-col items-center justify-center overflow-y-auto py-4'>
             <ul className='scrollbar-hide absolute top-[0] flex w-full flex-col items-center justify-center px-8 xs:px-4 py-0 pb-8'>
-              <ListItem
+              <LandingPageListItem
                 title='Take a tour of the data'
                 description='New to the Health Equity Tracker? Watch a short video demo that highlights major features of the platform.'
                 iframeSrc='https://www.youtube.com/embed/XBoqT9Jjc8w'
                 videoSrc={undefined}
                 itemNumber={1}
+                prefersReducedMotion={prefersReducedMotion}
               />
 
-              <ListItem
+              <LandingPageListItem
                 title='Search by completing the sentence'
-                description='Select topics and locations you’re interested in to complete the sentence and explore the data.'
+                description='Select topics and locations you are interested in to complete the sentence and explore the data.'
                 videoSrc='videos/search-by.mp4'
                 iframeSrc={undefined}
                 itemNumber={2}
+                prefersReducedMotion={prefersReducedMotion}
               />
 
-              <ListItem
+              <LandingPageListItem
                 title='Use filters to go deeper'
                 description='Where available, the tracker offers breakdowns by race and ethnicity, sex, and age.'
                 videoSrc='videos/filters.mp4'
                 iframeSrc={undefined}
                 itemNumber={3}
+                prefersReducedMotion={prefersReducedMotion}
               />
 
-              <ListItem
+              <LandingPageListItem
                 title='Explore maps and graphs'
-                description='The interactive maps and graphs are a great way to investigate the data more closely. If a state or county is gray, that means there’s no data currently available.'
+                description='The interactive maps and graphs are a great way to investigate the data more closely. If a state or county is gray, that means there is no data currently available.'
                 videoSrc='videos/explore-map.mp4'
                 iframeSrc={undefined}
                 itemNumber={4}
                 customClassName='xs:mt-4 xs:mb-12'
+                prefersReducedMotion={prefersReducedMotion}
               />
             </ul>
           </div>

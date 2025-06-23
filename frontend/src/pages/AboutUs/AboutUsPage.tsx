@@ -6,9 +6,9 @@ import GoalListItem from './GoalListItem'
 import {
   GOOGLE_FELLOWS,
   GRANTORS,
+  HE_TASKFORCE,
   HET_ALUMNI,
   HET_DEV_PROGRAM,
-  HE_TASKFORCE,
   LEADERSHIP_TEAM,
   PARTNERS,
 } from './OurTeamData'

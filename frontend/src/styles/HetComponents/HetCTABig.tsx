@@ -15,7 +15,7 @@ export default function HetCTABig(props: HetCTABigProps) {
   let handleClick = () => {
     navigate(props.href)
   }
-  let optionalMailTo = undefined
+  let optionalMailTo
   if (props.href.startsWith('mailto:')) {
     handleClick = () => null
     optionalMailTo = props.href
