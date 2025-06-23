@@ -19,10 +19,13 @@ jobs:
         with:
           workflow_id: ${{ env.WORKFLOW_ID }}
           dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{env.ALLS}}
+          geographic: ${{env.COUNTY}}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
       - name: Export NDJSON files to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{env.ALLS}}
           should_export_as_alls: "true"
