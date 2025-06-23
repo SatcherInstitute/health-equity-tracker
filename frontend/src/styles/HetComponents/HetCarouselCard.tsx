@@ -70,7 +70,7 @@ export function HetCarouselCard({
     <>
       <article
         ref={cardRef}
-        className='group mr-4 flex h-full max-w-tiny shrink-0 flex-col rounded-md border border-alt-green border-solid bg-white text-left text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'
+        className='group mr-4 flex h-full max-w-tiny shrink-0 flex-col overflow-hidden rounded-md border border-alt-green border-solid bg-white text-left text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'
       >
         {isVisible && (
           <>
