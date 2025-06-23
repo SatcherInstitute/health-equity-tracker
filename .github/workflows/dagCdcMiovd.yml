@@ -7,7 +7,6 @@ env:
   DATASET_NAME: "cdc_miovd_data"
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
-
 jobs:
   trigger-data-pipeline:
     runs-on: ubuntu-latest
