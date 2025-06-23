@@ -1,3 +1,4 @@
+import { SHOW_CDC_MIOVD_DEATHS } from '../../featureFlags'
 import { getDataManager } from '../../utils/globals'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
@@ -63,8 +64,23 @@ class GunViolenceProvider extends VariableProvider {
         metricQuery.dataTypeId === 'gun_deaths' &&
         breakdowns.geography === 'county'
 
+      const isMiovd =
+        SHOW_CDC_MIOVD_DEATHS &&
+        (metricQuery.dataTypeId === 'gun_violence_homicide' ||
+          metricQuery.dataTypeId === 'gun_violence_suicide') &&
+        breakdowns.geography === 'county'
+
+      let datasetName: string
+      if (isMiovd) {
+        datasetName = 'cdc_miovd_data'
+      } else if (isChr) {
+        datasetName = 'chr_data'
+      } else {
+        datasetName = 'cdc_wisqars_data'
+      }
+
       const { datasetId, isFallbackId } = resolveDatasetId(
-        isChr ? 'chr_data' : 'cdc_wisqars_data',
+        datasetName,
         '',
         metricQuery,
       )

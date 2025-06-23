@@ -1,6 +1,8 @@
 import type { DataSourceMetadata, DatasetMetadata } from '../utils/DatasetTypes'
 
 export type DatasetIdCommunitySafetyCategory =
+  | 'cdc_miovd_data-alls_county_current'
+  | 'cdc_miovd_data-alls_county_historical'
   | 'cdc_wisqars_data-age_national_current'
   | 'cdc_wisqars_data-age_national_historical'
   | 'cdc_wisqars_data-age_state_current'
@@ -42,6 +44,16 @@ export const DatasetMetadataMapCommunitySafetyCategory: Record<
   DatasetIdCommunitySafetyCategory,
   DatasetMetadata
 > = {
+  'cdc_miovd_data-alls_county_current': {
+    name: 'Gun-related Deaths, by county',
+    original_data_sourced: '2024',
+    source_id: 'cdc_miovd',
+  },
+  'cdc_miovd_data-alls_county_historical': {
+    name: 'Gun-related Deaths, by county',
+    original_data_sourced: '2019-2024',
+    source_id: 'cdc_miovd',
+  },
   'cdc_wisqars_data-age_state_historical': {
     name: 'Gun-related Deaths, by age and state',
     original_data_sourced: '2018-2021',

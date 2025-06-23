@@ -4,3 +4,5 @@ export const SHOW_CANCER_SCREENINGS = import.meta.env
   .VITE_SHOW_CANCER_SCREENINGS
 export const SHOW_CORRELATION_CARD = import.meta.env.VITE_SHOW_CORRELATION_CARD
 export const SHOW_CHR_GUN_DEATHS = import.meta.env.VITE_SHOW_CHR_GUN_DEATHS
+export const SHOW_CDC_MIOVD_DEATHS = import.meta.env
+  .VITE_SHOW_CDC_MIOVD_GUN_DEATHS

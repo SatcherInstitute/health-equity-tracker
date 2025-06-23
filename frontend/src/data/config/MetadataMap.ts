@@ -11,6 +11,7 @@ export type DataSourceId =
   | 'bjs'
   | 'cawp'
   | 'cdc_atlas'
+  | 'cdc_miovd'
   | 'cdc_restricted'
   | 'cdc_vaccination_county'
   | 'cdc_vaccination_national'
@@ -553,5 +554,22 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     dataset_ids: [],
     downloadable: false,
     time_period_range: null,
+  },
+  cdc_miovd: {
+    id: 'cdc_miovd',
+    description:
+      'The CDC Mapping Injury, Overdose, and Violence Dashboard displays data on deaths from drug overdose, suicide, and homicide using provisional and final death data received from states. This data source provides enhanced geographic detail down to the county level for violence-related deaths.',
+    dataset_ids: ['cdc_miovd_data-alls_county_current'],
+    data_source_name: 'CDC MIOVD',
+    data_source_acronym: 'CDC',
+    data_source_pretty_site_name:
+      'cdc.gov/injury-violence-data/data-vis/index.html',
+    data_source_link:
+      'https://www.cdc.gov/injury-violence-data/data-vis/index.html',
+    geographic_breakdowns: ['county'],
+    demographic_breakdowns: [],
+    update_frequency: 'Yearly',
+    downloadable: false,
+    time_period_range: '2019 - current',
   },
 }
