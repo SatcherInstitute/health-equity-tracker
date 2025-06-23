@@ -7,13 +7,13 @@ import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { INVISIBLE_PRELOAD_WIDTH } from '../mapGlobals'
 import { embedHighestLowestGroups, getCountyAddOn } from '../mapHelperFunctions'
 import { HEIGHT_WIDTH_RATIO } from '../utils'
-import TerritoryCircles from './TerritoryCircles'
 import {
   createFeatures,
   createProjection,
   processPhrmaData,
 } from './mapHelpers'
 import { renderMap } from './renderMap'
+import TerritoryCircles from './TerritoryCircles'
 import { createTooltipContainer } from './tooltipUtils'
 import type { ChoroplethMapProps, DataPoint } from './types'
 

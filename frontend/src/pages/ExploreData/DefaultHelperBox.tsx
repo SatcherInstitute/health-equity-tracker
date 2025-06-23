@@ -9,10 +9,7 @@ export default function DefaultHelperBox() {
   const isMobile = !useIsBreakpointAndUp('md')
 
   return (
-    <div
-      className='flex w-full items-center justify-center px-12 pt-4 pb-0 sm:px-20 sm:pt-8'
-      aria-labelledby='main-heading'
-    >
+    <div className='flex w-full items-center justify-center px-12 pt-4 pb-0 sm:px-20 sm:pt-8'>
       <div className='m-0 mb-5 w-full max-w-helper-box content-center items-center justify-evenly justify-items-center rounded-md pb-0'>
         <div className='px-10 xs:px-2 py-0 text-left smplus:px-0 md:px-10'>
           <h1

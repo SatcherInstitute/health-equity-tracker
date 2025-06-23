@@ -14,14 +14,14 @@ import { isFipsString } from '../../data/utils/Fips'
 import { getAllDemographicOptions } from '../../reports/reportUtils'
 import {
   DEFAULT,
-  MADLIB_LIST,
-  type MadLib,
-  type PhraseSegment,
   getConfigFromDataTypeId,
   getFipsListFromMadlib,
   getMadLibWithUpdatedValue,
   getParentDropdownFromDataTypeId,
   insertOptionalThe,
+  MADLIB_LIST,
+  type MadLib,
+  type PhraseSegment,
 } from '../../utils/MadLibs'
 import {
   selectedDataTypeConfig1Atom,
