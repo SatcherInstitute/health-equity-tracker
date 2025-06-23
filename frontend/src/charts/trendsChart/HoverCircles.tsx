@@ -9,14 +9,13 @@
 
 /* External Imports */
 
-/* Constants */
-import { getAmountsByDate } from './helpers'
-import type { TrendsData, YScale } from './types'
-
 import type { DemographicGroup } from '../../data/utils/Constants'
 import { het } from '../../styles/DesignTokens'
 /* Helpers */
 import { COLORS as C } from './constants'
+/* Constants */
+import { getAmountsByDate } from './helpers'
+import type { TrendsData, YScale } from './types'
 
 /* Define type interface */
 interface HoverCirclesProps {

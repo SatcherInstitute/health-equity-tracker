@@ -14,8 +14,8 @@ import {
 } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { AGE, RACE, SEX } from '../utils/Constants'
-import { Fips } from '../utils/Fips'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { Fips } from '../utils/Fips'
 import IncarcerationProvider from './IncarcerationProvider'
 
 async function ensureCorrectDatasetsDownloaded(
