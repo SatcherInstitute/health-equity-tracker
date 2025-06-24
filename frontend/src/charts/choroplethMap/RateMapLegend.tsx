@@ -7,21 +7,15 @@ import type {
 import type { GeographicBreakdown } from '../../data/query/Breakdowns'
 import type { FieldRange } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
-import { het } from '../../styles/DesignTokens'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import ClickableLegendHeader from '../ClickableLegendHeader'
-import { NO_DATA_MESSAGE, PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import LegendItem from './LegendItem'
-import { formatMetricValue } from './tooltipUtils'
-import { type ColorScale, isQuantileScale } from './types'
+import { processLegendData } from './legendDataProcessor'
+import type { LegendItemData } from './mapLegendUtils'
+import type { ColorScale } from './types'
 
 export const LEGEND_ITEMS_BOX_CLASS = 'legend-items-box'
 
-interface LegendItemData {
-  color: string
-  label: string
-  value: any
-}
 interface RateMapLegendProps {
   dataTypeConfig: DataTypeConfig
   data?: Array<Record<string, any>>
@@ -40,10 +34,6 @@ interface RateMapLegendProps {
 }
 
 export default function RateMapLegend(props: RateMapLegendProps) {
-  function labelFormat(value: number) {
-    return formatMetricValue(value, props.metricConfig, true)
-  }
-
   const [containerRef] = useResponsiveWidth()
   const [legendItems, setLegendItems] = useState<LegendItemData[]>([])
 
@@ -53,83 +43,17 @@ export default function RateMapLegend(props: RateMapLegendProps) {
       return
     }
 
-    const zeroData = props.data.filter(
-      (row) => row[props.metricConfig.metricId] === 0,
-    )
-    const nonZeroData = props.data.filter(
-      (row) => row[props.metricConfig.metricId] > 0,
-    )
-    const uniqueNonZeroValues = Array.from(
-      new Set(nonZeroData.map((row) => row[props.metricConfig.metricId])),
-    ).sort((a, b) => a - b)
-    const missingData = props.data.filter(
-      (row) => row[props.metricConfig.metricId] == null,
-    )
+    const { specialItems, regularItems } = processLegendData({
+      data: props.data,
+      metricConfig: props.metricConfig,
+      mapConfig: props.mapConfig,
+      colorScale: props.colorScale,
+      isPhrmaAdherence: props.isPhrmaAdherence,
+      isSummaryLegend: props.isSummaryLegend || false,
+      fipsTypeDisplayName: props.fipsTypeDisplayName,
+    })
 
-    const hasMissingData = missingData.length > 0
-    const hasZeroData = zeroData.length > 0
-
-    const regularLegendItems: LegendItemData[] = []
-    const specialLegendItems: LegendItemData[] = []
-
-    if (uniqueNonZeroValues.length > 0 && !props.isSummaryLegend) {
-      const colorScale = props.colorScale
-
-      const thresholds = props.isPhrmaAdherence
-        ? PHRMA_ADHERENCE_BREAKPOINTS
-        : isQuantileScale(colorScale)
-          ? colorScale.quantiles()
-          : []
-      if (thresholds.length > 0) {
-        const firstThreshold = thresholds[0]
-        const lastThreshold = thresholds[thresholds.length - 1]
-
-        regularLegendItems.push(
-          {
-            value: firstThreshold - 1,
-            label: `< ${labelFormat(firstThreshold)}`,
-            color: colorScale(firstThreshold - 1) as string,
-          },
-          ...thresholds.slice(0, -1).map((threshold: number, i: number) => ({
-            value: threshold,
-            label: `${labelFormat(threshold)} – ${labelFormat(thresholds[i + 1])}`,
-            color: colorScale(threshold) as string,
-          })),
-          {
-            value: lastThreshold,
-            label: `≥ ${labelFormat(lastThreshold)}`,
-            color: colorScale(lastThreshold) as string,
-          },
-        )
-      }
-    }
-
-    if (props.isSummaryLegend) {
-      const summaryValue = nonZeroData[0][props.metricConfig.metricId]
-      regularLegendItems.push({
-        value: summaryValue,
-        label: `${labelFormat(summaryValue)} (${props.fipsTypeDisplayName} overall)`,
-        color: props.mapConfig.mid,
-      })
-    }
-
-    if (hasMissingData) {
-      specialLegendItems.push({
-        color: het.howToColor,
-        label: NO_DATA_MESSAGE,
-        value: null,
-      })
-    }
-
-    if (hasZeroData) {
-      specialLegendItems.push({
-        color: props.mapConfig.zero || het.mapLightest,
-        label: labelFormat(0),
-        value: 0,
-      })
-    }
-
-    setLegendItems([...specialLegendItems, ...regularLegendItems])
+    setLegendItems([...specialItems, ...regularItems])
   }, [
     props.data,
     props.metricConfig,
@@ -139,6 +63,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     props.fipsTypeDisplayName,
     props.isPhrmaAdherence,
     props.isSummaryLegend,
+    props.colorScale,
   ])
 
   return (

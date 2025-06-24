@@ -96,3 +96,132 @@ export function createUnknownLegend(
       .text(`${label}%`)
   })
 }
+
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
+import { formatMetricValue } from './tooltipUtils'
+
+export interface LegendItemData {
+  color: string
+  label: string
+  value: any
+}
+
+/**
+ * Formats a metric value for display in legend labels
+ */
+export function createLabelFormatter(metricConfig: MetricConfig) {
+  return (value: number) => formatMetricValue(value, metricConfig, true)
+}
+
+/**
+ * Creates legend items for datasets with 1-4 unique values
+ */
+export function createLegendForSmallDataset(
+  uniqueValues: number[],
+  colorScale: ColorScale,
+  labelFormat: (value: number) => string,
+): LegendItemData[] {
+  if (uniqueValues.length === 1) {
+    // Single value - just show that value
+    return [
+      {
+        value: uniqueValues[0],
+        label: labelFormat(uniqueValues[0]),
+        color: colorScale(uniqueValues[0]) as string,
+      },
+    ]
+  }
+
+  if (uniqueValues.length === 2) {
+    // Two values - show both as discrete items
+    return uniqueValues.map((value) => ({
+      value,
+      label: labelFormat(value),
+      color: colorScale(value) as string,
+    }))
+  }
+
+  // 3-4 unique values - show as discrete ranges
+  return uniqueValues.map((value, index) => {
+    if (index === uniqueValues.length - 1) {
+      return {
+        value,
+        label: `≥ ${labelFormat(value)}`,
+        color: colorScale(value) as string,
+      }
+    }
+
+    const nextValue = uniqueValues[index + 1]
+    return {
+      value,
+      label: `${labelFormat(value)} – ${labelFormat(nextValue - 0.01)}`, // Slight adjustment to avoid overlap
+      color: colorScale(value) as string,
+    }
+  })
+}
+
+/**
+ * Creates legend items for PHRMA adherence data using predefined breakpoints
+ */
+export function createPhrmaAdherenceLegend(
+  colorScale: ColorScale,
+  labelFormat: (value: number) => string,
+): LegendItemData[] {
+  const thresholds = PHRMA_ADHERENCE_BREAKPOINTS
+  const firstThreshold = thresholds[0]
+  const lastThreshold = thresholds[thresholds.length - 1]
+
+  return [
+    {
+      value: firstThreshold - 1,
+      label: `< ${labelFormat(firstThreshold)}`,
+      color: colorScale(firstThreshold - 1) as string,
+    },
+    ...thresholds.slice(0, -1).map((threshold: number, i: number) => ({
+      value: threshold,
+      label: `${labelFormat(threshold)} – ${labelFormat(thresholds[i + 1])}`,
+      color: colorScale(threshold) as string,
+    })),
+    {
+      value: lastThreshold,
+      label: `≥ ${labelFormat(lastThreshold)}`,
+      color: colorScale(lastThreshold) as string,
+    },
+  ]
+}
+
+/**
+ * Creates legend items for quantile scale data
+ */
+export function createQuantileLegend(
+  colorScale: ColorScale & { quantiles(): number[] },
+  labelFormat: (value: number) => string,
+): LegendItemData[] {
+  const thresholds = colorScale.quantiles()
+
+  if (thresholds.length <= 1) {
+    return []
+  }
+
+  const firstThreshold = thresholds[0]
+  const lastThreshold = thresholds[thresholds.length - 1]
+
+  return [
+    {
+      value: firstThreshold - 1,
+      label: `< ${labelFormat(firstThreshold)}`,
+      color: colorScale(firstThreshold - 1) as string,
+    },
+    ...thresholds.slice(0, -1).map((threshold: number, i: number) => ({
+      value: threshold,
+      label: `${labelFormat(threshold)} – ${labelFormat(thresholds[i + 1])}`,
+      color: colorScale(threshold) as string,
+    })),
+    {
+      value: lastThreshold,
+      label: `≥ ${labelFormat(lastThreshold)}`,
+      color: colorScale(lastThreshold) as string,
+    },
+  ]
+}
