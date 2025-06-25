@@ -46,6 +46,11 @@ export const formatMetricValue = (
 
   if (metricConfig.type === 'per100k') {
     const suffix = isLegendLabel ? '' : '  per 100k'
+
+    if (value < 1) {
+      return `${d3.format('.1f')(value)}${suffix}`
+    }
+
     return `${d3.format(',.2s')(value)}${suffix}`
   }
 

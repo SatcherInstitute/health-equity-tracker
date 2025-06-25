@@ -14,6 +14,7 @@ import { buildTopicsString } from './linkUtils'
 const communitySafetyDataSources = [
   dataSourceMetadataMap.cdc_wisqars,
   dataSourceMetadataMap.chr,
+  dataSourceMetadataMap.cdc_miovd,
 ]
 
 export const communitySafetyTopicsString = buildTopicsString(
@@ -59,6 +60,14 @@ const CommunitySafetyLink = () => {
           firearm-related injuries across the country. WISQARS™ allows users to
           explore data by intent of injury, mechanism, geographic location, and
           demographics, supporting public health and policy decisions.
+        </p>
+        <p>
+          For enhanced county-level analysis of gun violence homicides and
+          suicides, we also use data from the CDC's Mapping Injury, Overdose,
+          and Violence Dashboard (MIOVD). This dashboard displays data on deaths
+          from drug overdose, suicide, and homicide using provisional and final
+          death data received from states, providing enhanced geographic detail
+          down to the county level.
         </p>
         <p>
           We supplement gun violence data at the county level with data released
