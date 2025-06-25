@@ -7,7 +7,7 @@ import {
 } from '../../data/providers/CawpProvider'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
-import { het, ThemeZIndexValues } from '../../styles/DesignTokens'
+import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
 import { NO_DATA_MESSAGE } from '../mapGlobals'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MouseEventHandlerOptions, MouseEventType } from './types'
@@ -46,6 +46,11 @@ export const formatMetricValue = (
 
   if (metricConfig.type === 'per100k') {
     const suffix = isLegendLabel ? '' : '  per 100k'
+
+    if (value < 1) {
+      return `${d3.format('.1f')(value)}${suffix}`
+    }
+
     return `${d3.format(',.2s')(value)}${suffix}`
   }
 

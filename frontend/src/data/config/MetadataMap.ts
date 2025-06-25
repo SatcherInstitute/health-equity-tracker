@@ -559,7 +559,10 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     id: 'cdc_miovd',
     description:
       'The CDC Mapping Injury, Overdose, and Violence Dashboard displays data on deaths from drug overdose, suicide, and homicide using provisional and final death data received from states. This data source provides enhanced geographic detail down to the county level for violence-related deaths.',
-    dataset_ids: ['cdc_miovd_data-alls_county_current'],
+    dataset_ids: [
+      'cdc_miovd_data-alls_county_current',
+      'cdc_miovd_data-alls_county_historical',
+    ],
     data_source_name: 'CDC MIOVD',
     data_source_acronym: 'CDC',
     data_source_pretty_site_name:
