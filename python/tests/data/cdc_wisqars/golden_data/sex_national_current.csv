@@ -1,4 +1,4 @@
 state_name,state_fips,sex,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k,gun_deaths_per_100k,gun_violence_homicide_pct_share,gun_violence_suicide_pct_share,gun_deaths_pct_share,fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,gun_deaths_estimated_total,fatal_population
-United States,00,Female,1.92,2.08,4.11,16.4,12.9,14.3,50.4,3223.0,3494.0,6902.0,168004004.0
-United States,00,Male,9.94,14.24,24.99,83.6,87.1,85.7,49.6,16428.0,23538.0,41302.0,165283553.0
-United States,00,All,5.9,8.11,14.46,100.0,100.0,100.0,100.0,19651.0,27032.0,48204.0,333287557.0
+United States,00,Female,1.78,2.12,4.02,16.8,13.2,14.5,50.5,3007.0,3593.0,6797.0,169165495.0
+United States,00,Male,9.0,14.3,24.09,83.2,86.8,85.5,49.5,14920.0,23707.0,39931.0,165749400.0
+United States,00,All,5.35,8.15,13.95,100.0,100.0,100.0,100.0,17927.0,27300.0,46728.0,334914895.0
