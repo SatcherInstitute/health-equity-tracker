@@ -1,4 +1,4 @@
 state_name,state_fips,urbanicity,gun_homicides_black_men_estimated_total,gun_homicides_black_men_pct_share,gun_homicides_black_men_population_pct,gun_homicides_black_men_per_100k,gun_homicides_black_men_population_estimated_total
-United States,00,Metro,10241.0,92.2,90.6,56.21,18220659.0
-United States,00,Non-Metro,869.0,7.8,9.4,45.73,1900445.0
-United States,00,All,11110.0,100.0,100.0,55.22,20121104.0
+United States,00,Metro,8240.0,91.1,90.8,44.71,18429391.0
+United States,00,Non-Metro,801.0,8.9,9.2,42.82,1870675.0
+United States,00,All,9041.0,100.0,100.0,44.54,20300066.0
