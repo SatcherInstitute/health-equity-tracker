@@ -1,7 +1,7 @@
 import type { GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
 
 interface ConditionVariableProps {
-  definitions: Record<string, GlossaryTermItem>
+  definitions: Record<string, GlossaryTermItem> 
 }
 
 export default function ConditionVariable({
@@ -9,10 +9,12 @@ export default function ConditionVariable({
 }: ConditionVariableProps) {
   return (
     <div className='mx-auto my-4'>
-      {Object.entries(definitions).map(([itemKey, itemVal]) => {
+      {Object.entries(definitions).map(([itemKey, itemVal]) => {  
         return (
           <div id={itemKey} key={itemKey}>
-            <h2 className='mt-12 font-medium text-title'>{itemKey}</h2>
+            <h2 className='mt-12 font-medium text-title' id={itemVal.id}>  
+              {itemKey}
+            </h2>
             {itemVal.definitions.map((def) => {
               return (
                 <figure

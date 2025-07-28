@@ -5,12 +5,42 @@ import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
 
 export default function MetricsLink() {
+  const firstHalf = [
+    'Age-adjusted ratios',
+    'Percent rate',
+    'Percent share',
+  ]
+  
+  const secondHalf = [
+    'Population share',
+    'Relative inequity',
+    'Share of total cases',
+    'Share of total cases with unknown races',
+    'Social Vulnerability Index',
+    'Time-series',
+    'Total cases per 100k people',
+  ]
+
+  const firstHalfDefinitions = firstHalf.reduce((acc, key) => {
+    if (metricDefinitions[key]) {
+      acc[key] = metricDefinitions[key]
+    }
+    return acc
+  }, {} as Record<string, typeof metricDefinitions[string]>)
+
+  const secondHalfDefinitions = secondHalf.reduce((acc, key) => {
+    if (metricDefinitions[key]) {
+      acc[key] = metricDefinitions[key]
+    }
+    return acc
+  }, {} as Record<string, typeof metricDefinitions[string]>)
+
   return (
     <section id='metrics'>
       <article>
         <title>Metrics - Health Equity Tracker</title>
 
-        <ConditionVariable definitions={metricDefinitions} />
+        <ConditionVariable definitions={firstHalfDefinitions} />
 
         <h2 className='mt-12 font-medium text-title' id='percent-share-example'>
           Percent Share Example: COVID-19 Cases
@@ -30,28 +60,30 @@ export default function MetricsLink() {
             <strong>+13%</strong>:
           </p>
           <FormulaFormat leftSide='65.7% - 52.7%' rightSide={['+13.0%']} />
-          This value is then divided by the population percent share to give a
-          <HetTerm>percent relative inequity</HetTerm> of
+          This value is then divided by the population percent share to give a{' '}
+          <HetTerm>percent relative inequity</HetTerm> of{' '}
           <strong>+24.7%</strong>:
           <FormulaFormat
             leftSide={{
               numerator: '+13%',
-              denominator: '52.7%​',
+              denominator: '52.7%',
             }}
             rightSide={['+24.7%']}
           />
           In plain language, this would be interpreted as,{' '}
           <div className='bg-standard-info px-8 py-4'>
             <em>
-              “<strong>Deaths</strong> of individuals identifying as White (Non
+              "<strong>Deaths</strong> of individuals identifying as White (Non
               Hispanic) in Georgia{' '}
               <strong>
                 from COVID-19 were almost 25% higher than expected
               </strong>
-              , based on their share of Georgia’s overall population.”
+              , based on their share of Georgia's overall population."
             </em>
           </div>
         </div>
+
+        <ConditionVariable definitions={secondHalfDefinitions} />
       </article>
     </section>
   )
