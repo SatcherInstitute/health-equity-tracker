@@ -4,7 +4,7 @@ repos:
     hooks:
       - id: cspell
         name: 📚 check spelling of staged files
-        entry: bash -c 'npx cspell --no-must-find-files --no-progress --cache --gitignore "**/*.{md,html,tsx,ts,py,yaml,yml}"'
+        entry: bash -c 'cd frontend && npx cspell --no-must-find-files --no-progress --cache --gitignore "**/*.{md,html,tsx,ts,py,yaml,yml}"'
         language: system
         types: [text]
   # PREVENT COMMON GIT/GITHUB ERRORS
@@ -31,7 +31,7 @@ repos:
         name: 🐍 python lint with pylint
         entry: pylint
         language: python
-        language_version: python3.12
+        language_version: python3.13
         types: [python]
         args: [
             "-rn", # Only display messages
@@ -51,7 +51,7 @@ repos:
     hooks:
       - id: tsc-check
         name: 🏁 TypeScript type check
-        entry: tsc --noEmit
+        entry: bash -c 'cd frontend && npx tsc --noEmit'
         language: system
         types: [ts, tsx]
   # WARN IF TOO MANY FILES IN ONE COMMIT

@@ -13,8 +13,8 @@ import {
   type TimeView,
 } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 import GunDeathsBlackMenProvider from './GunDeathsBlackMenProvider'
 
 async function ensureCorrectDatasetsDownloaded(

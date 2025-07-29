@@ -19,7 +19,7 @@ export default function HetExpandableBoxButton(
         props.expanded
           ? ''
           : 'text-ellipsis whitespace-nowrap sm:overflow-hidden'
-      } `}
+      }`}
     >
       <span className='grow font-medium'>
         {!props.expanded ? 'Expand' : 'Collapse'} {props.expandBoxLabel}

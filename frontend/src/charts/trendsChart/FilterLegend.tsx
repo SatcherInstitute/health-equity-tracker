@@ -102,7 +102,7 @@ export function FilterLegend({
         aria-labelledby={legendId}
         className={`grid auto-cols-auto grid-cols-1 sm:grid-cols-2 ${
           isComparing ? 'md:grid-cols-1 lg:grid-cols-2' : 'lg:grid-cols-3'
-        } `}
+        }`}
       >
         {/* Map over groups and create Legend Item for each */}
         {data?.map(([group]) => {

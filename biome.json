@@ -1,17 +1,7 @@
 {
 	"$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
-	"files": {
-		"includes": [
-			"**",
-			"!**/*.css"
-		]
-	},
-	"assist": {
-		"actions": {
-			"source": {
-				"organizeImports": "on"
-			}
-		}
+	"formatter": {
+		"enabled": true
 	},
 	"vcs": {
 		"enabled": true,
@@ -33,13 +23,9 @@
 		"rules": {
 			"recommended": true,
 			"nursery": {
-				"useSortedClasses": "info",
-				"useUniqueElementIds": {
-					"level": "off"
-				}
+				"useSortedClasses": "info"
 			},
 			"a11y": {
-				"useSemanticElements": "off",
 				"noSvgWithoutTitle": "off",
 				"noInteractiveElementToNoninteractiveRole": "off",
 				"noNoninteractiveElementToInteractiveRole": "off"
@@ -49,18 +35,7 @@
 				"noImplicitAnyLet": "off",
 				"noArrayIndexKey": "off",
 				"noAssignInExpressions": "off",
-				"noGlobalIsNan": "off",
-				"noConsole": {
-					"level": "info",
-					"options": {
-						"allow": [
-							"assert",
-							"error",
-							"info",
-							"warn"
-						]
-					}
-				}
+				"noGlobalIsNan": "off"
 			},
 			"correctness": {
 				"useExhaustiveDependencies": "off",

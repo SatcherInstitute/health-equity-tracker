@@ -11,12 +11,12 @@ import TablePagination from '@mui/material/TablePagination'
 import TableRow from '@mui/material/TableRow'
 import {
   type ColumnDef,
+  type SortingState,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  type SortingState,
   useReactTable,
 } from '@tanstack/react-table'
 import { useMemo } from 'react'
@@ -31,8 +31,8 @@ import {
 import type { Fips } from '../data/utils/Fips'
 import { het } from '../styles/DesignTokens'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
-import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
 import Units from './Units'
+import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
 import { removeLastS } from './utils'
 
 const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20

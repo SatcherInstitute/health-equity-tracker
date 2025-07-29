@@ -5,6 +5,7 @@ import {
   type DemographicGroup,
   raceNameToCodeMap,
 } from '../data/utils/Constants'
+import type { PhraseSelections } from './MadLibs'
 import { urlMap } from './externalUrls'
 import { getLogger } from './globals'
 import {
@@ -17,7 +18,6 @@ import {
   NEWS_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from './internalRoutes'
-import type { PhraseSelections } from './MadLibs'
 
 // OLDER HANDLING PARAMS
 
