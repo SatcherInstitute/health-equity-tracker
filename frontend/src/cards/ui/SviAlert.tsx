@@ -59,10 +59,7 @@ function SviAlert(props: SviAlertProps) {
         <>
           This county has a <HetTerm>social vulnerability index</HetTerm> of{' '}
           <strong>{props.svi}</strong>; which indicates a{' '}
-          <HashLink
-            to={`${METRICS_LINK as string}#svi`}
-            className={color}
-          >
+          <HashLink to={`${METRICS_LINK as string}#svi`} className={color}>
             <span>{rating} level of vulnerability.</span>
           </HashLink>
         </>

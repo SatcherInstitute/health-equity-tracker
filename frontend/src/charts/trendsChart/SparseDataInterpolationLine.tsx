@@ -1,8 +1,8 @@
 import { UNKNOWN_W } from '../../data/utils/Constants'
 import { het } from '../../styles/DesignTokens'
+import StyledPath from './StyledPath'
 import { COLORS as C } from './constants'
 import { createLineGenerator } from './helpers'
-import StyledPath from './StyledPath'
 import type { XScale, YScale } from './types'
 
 const SPARSE_LINE_OPACITY = 0.5

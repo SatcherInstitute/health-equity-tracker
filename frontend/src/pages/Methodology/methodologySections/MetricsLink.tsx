@@ -5,12 +5,8 @@ import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
 
 export default function MetricsLink() {
-  const firstHalf = [
-    'Age-adjusted ratios',
-    'Percent rate',
-    'Percent share',
-  ]
-  
+  const firstHalf = ['Age-adjusted ratios', 'Percent rate', 'Percent share']
+
   const secondHalf = [
     'Population share',
     'Relative inequity',
@@ -21,19 +17,25 @@ export default function MetricsLink() {
     'Total cases per 100k people',
   ]
 
-  const firstHalfDefinitions = firstHalf.reduce((acc, key) => {
-    if (metricDefinitions[key]) {
-      acc[key] = metricDefinitions[key]
-    }
-    return acc
-  }, {} as Record<string, typeof metricDefinitions[string]>)
+  const firstHalfDefinitions = firstHalf.reduce(
+    (acc, key) => {
+      if (metricDefinitions[key]) {
+        acc[key] = metricDefinitions[key]
+      }
+      return acc
+    },
+    {} as Record<string, (typeof metricDefinitions)[string]>,
+  )
 
-  const secondHalfDefinitions = secondHalf.reduce((acc, key) => {
-    if (metricDefinitions[key]) {
-      acc[key] = metricDefinitions[key]
-    }
-    return acc
-  }, {} as Record<string, typeof metricDefinitions[string]>)
+  const secondHalfDefinitions = secondHalf.reduce(
+    (acc, key) => {
+      if (metricDefinitions[key]) {
+        acc[key] = metricDefinitions[key]
+      }
+      return acc
+    },
+    {} as Record<string, (typeof metricDefinitions)[string]>,
+  )
 
   return (
     <section id='metrics'>

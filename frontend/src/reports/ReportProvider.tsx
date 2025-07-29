@@ -4,26 +4,26 @@ import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import { Fips } from '../data/utils/Fips'
 import HetTextArrowLink from '../styles/HetComponents/HetTextArrowLink'
+import {
+  type MadLib,
+  getMadLibPhraseText,
+  getMadLibWithUpdatedValue,
+  getPhraseValue,
+} from '../utils/MadLibs'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
   DATA_CATALOG_PAGE_LINK,
   RACES_AND_ETHNICITIES_LINK,
 } from '../utils/internalRoutes'
-import {
-  getMadLibPhraseText,
-  getMadLibWithUpdatedValue,
-  getPhraseValue,
-  type MadLib,
-} from '../utils/MadLibs'
 import CompareReport from './CompareReport'
 import { Report } from './Report'
+import WhatDataAreMissing from './WhatDataAreMissing'
 import CHLPMapsBanner from './ui/CHLPMapsBanner'
 import DefinitionsList from './ui/DefinitionsList'
 import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
 import LifelineAlert from './ui/LifelineAlert'
 import { RaceRelabelingsList } from './ui/RaceRelabelingsList'
 import VoteDotOrgBanner from './ui/VoteDotOrgBanner'
-import WhatDataAreMissing from './WhatDataAreMissing'
 
 interface ReportProviderProps {
   isSingleColumn: boolean

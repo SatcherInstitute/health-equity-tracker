@@ -12,8 +12,8 @@ import { HetTags } from '../../styles/HetComponents/HetTags'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import {
   ARTICLES_KEY,
-  fetchNewsData,
   REACT_QUERY_OPTIONS,
+  fetchNewsData,
 } from '../../utils/blogUtils'
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { getHtml } from '../../utils/urlutils'

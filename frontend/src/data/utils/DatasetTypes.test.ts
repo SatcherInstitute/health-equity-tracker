@@ -1,6 +1,6 @@
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataSourceId } from '../config/MetadataMap'
-import { convertSpecialCharactersForCsv, Dataset } from './DatasetTypes'
+import { Dataset, convertSpecialCharactersForCsv } from './DatasetTypes'
 
 describe('DatasetTypes', () => {
   test('Testing convertSpecialCharactersForCsv()', async () => {

@@ -14,8 +14,8 @@ import {
 } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { RACE } from '../utils/Constants'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 import GunViolenceYouthProvider from './GunViolenceYouthProvider'
 
 async function ensureCorrectDatasetsDownloaded(

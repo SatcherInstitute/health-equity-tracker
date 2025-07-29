@@ -56,7 +56,7 @@ export function generateSubtitle(
   const ageSubPop =
     demographicType === AGE && activeDemographicGroup !== ALL
       ? ''
-      : (dataTypeConfig?.ageSubPopulationLabel ?? '')
+      : dataTypeConfig?.ageSubPopulationLabel ?? ''
   const otherSubPop = dataTypeConfig?.otherSubPopulationLabel ?? ''
 
   // combine as needed to create specific population subtitle

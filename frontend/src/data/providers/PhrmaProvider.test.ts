@@ -9,8 +9,8 @@ import type { MetricId } from '../config/MetricConfigTypes'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { AGE, RACE } from '../utils/Constants'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 import PhrmaProvider from './PhrmaProvider'
 
 async function ensureCorrectDatasetsDownloaded(

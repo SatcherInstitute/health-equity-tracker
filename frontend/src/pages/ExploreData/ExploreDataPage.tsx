@@ -15,19 +15,19 @@ import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
 import { ALL } from '../../data/utils/Constants'
 import ReportProvider from '../../reports/ReportProvider'
 import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert'
-import { srSpeak } from '../../utils/a11yutils'
-import { urlMap } from '../../utils/externalUrls'
-import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
-import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import {
-  getMadLibPhraseText,
-  getSelectedConditions,
   MADLIB_LIST,
   type MadLib,
   type MadLibId,
   type PhraseSegment,
   type PhraseSelections,
+  getMadLibPhraseText,
+  getSelectedConditions,
 } from '../../utils/MadLibs'
+import { srSpeak } from '../../utils/a11yutils'
+import { urlMap } from '../../utils/externalUrls'
+import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
+import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
@@ -35,14 +35,14 @@ import {
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
-  getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
+  SHOW_ONBOARDING_PARAM,
+  getParameter,
   parseMls,
   psSubscribe,
-  SHOW_ONBOARDING_PARAM,
   setParameter,
   setParameters,
   stringifyMls,
@@ -342,7 +342,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       >
         <div
           ref={madlibRef}
-          className={`z-sticky-mad-lib mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full ${!noTopicChosen ? 'md:sticky' : ''} `}
+          className={`z-sticky-mad-lib mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full ${!noTopicChosen ? 'md:sticky' : ''}`}
           id='madlib-container'
         >
           <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />

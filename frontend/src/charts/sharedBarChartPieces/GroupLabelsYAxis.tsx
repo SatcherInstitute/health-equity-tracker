@@ -31,7 +31,6 @@ export default function GroupLabelsYAxis(props: GroupLabelsYAxisProps) {
           <g
             pointerEvents={'none'}
             tabIndex={-1}
-            aria-hidden={true}
             key={`${label.original}-${index}`}
             transform={`translate(0,${yPosition})`}
           >

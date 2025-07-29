@@ -1,5 +1,5 @@
-import { getDataManager } from '../../utils/globals'
 import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
+import { getDataManager } from '../../utils/globals'
 import type { DropdownVarId } from '../config/DropDownIds'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../config/MetricConfigBehavioralHealth'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'

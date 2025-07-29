@@ -394,57 +394,57 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     visible: true,
   },
   {
-  label: 'Metrics',
-  path: METRICS_LINK,
-  component: <MetricsLink />,
-  subLinks: [
-    {
-      label: 'Age-adjusted ratios',
-      path: 'age-adjusted-ratios-metrics',
-    },
-    {
-      label: 'Percent rate',
-      path: 'percent-rate-metrics',
-    },
-    {
-      label: 'Percent share',
-      path: 'percent-share-metrics',
-    },
-    {
-      label: 'Percent Share Example: COVID-19 Cases',
-      path: 'percent-share-example',
-    },
-    {
-      label: 'Population share',
-      path: 'population-share-metrics',
-    },
-    {
-      label: 'Relative inequity',
-      path: 'relative-inequity-metrics',
-    },
-    {
-      label: 'Share of total cases',
-      path: 'total-share-metrics',
-    },
-    {
-      label: 'Share of total cases with unknown races',
-      path: 'unknown-cases-metrics',
-    },
-    {
-      label: 'Social Vulnerability Index',
-      path: 'svi',
-    },
-    {
-      label: 'Time-series',
-      path: 'time-series-metrics',
-    },
-    {
-      label: 'Total cases per 100k people',
-      path: 'per-100k-metrics',
-    },
-  ],
-  visible: true,
-},
+    label: 'Metrics',
+    path: METRICS_LINK,
+    component: <MetricsLink />,
+    subLinks: [
+      {
+        label: 'Age-adjusted ratios',
+        path: 'age-adjusted-ratios-metrics',
+      },
+      {
+        label: 'Percent rate',
+        path: 'percent-rate-metrics',
+      },
+      {
+        label: 'Percent share',
+        path: 'percent-share-metrics',
+      },
+      {
+        label: 'Percent Share Example: COVID-19 Cases',
+        path: 'percent-share-example',
+      },
+      {
+        label: 'Population share',
+        path: 'population-share-metrics',
+      },
+      {
+        label: 'Relative inequity',
+        path: 'relative-inequity-metrics',
+      },
+      {
+        label: 'Share of total cases',
+        path: 'total-share-metrics',
+      },
+      {
+        label: 'Share of total cases with unknown races',
+        path: 'unknown-cases-metrics',
+      },
+      {
+        label: 'Social Vulnerability Index',
+        path: 'svi',
+      },
+      {
+        label: 'Time-series',
+        path: 'time-series-metrics',
+      },
+      {
+        label: 'Total cases per 100k people',
+        path: 'per-100k-metrics',
+      },
+    ],
+    visible: true,
+  },
   {
     label: 'Topic Definitions',
     path: TOPIC_DEFINITIONS_LINK,

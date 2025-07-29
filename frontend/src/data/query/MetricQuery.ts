@@ -1,6 +1,6 @@
 import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
-import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,

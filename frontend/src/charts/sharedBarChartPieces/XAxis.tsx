@@ -1,4 +1,4 @@
-import { format, type ScaleLinear } from 'd3'
+import { type ScaleLinear, format } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
@@ -36,11 +36,7 @@ export default function XAxis(props: XAxisProps) {
         {xAxisLabel}
       </text>
       {/* X Axis */}
-      <g
-        aria-hidden='true'
-        tabIndex={-1}
-        transform={`translate(0,${props.height})`}
-      >
+      <g tabIndex={-1} transform={`translate(0,${props.height})`}>
         <line x1={0} x2={props.width} y1={0} y2={0} stroke='currentColor' />
 
         {/* X Axis Numbered Ticks */}

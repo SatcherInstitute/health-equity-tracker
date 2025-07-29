@@ -23,8 +23,8 @@ import {
 } from '../data/utils/Constants'
 import { makeA11yTableData } from '../data/utils/DatasetTimeUtils'
 import type { HetRow } from '../data/utils/DatasetTypes'
-import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
+import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 const HASH_ID_RATES_OVER_TIME: ScrollableHashId = 'rates-over-time'

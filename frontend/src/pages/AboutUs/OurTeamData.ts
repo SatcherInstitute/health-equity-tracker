@@ -1,5 +1,5 @@
-import GrantorElevenLabs from '../../assets/grantors/elevenlabs-logo-black-compressed.png'
 import GrantorPhrma from '../../assets/grantors/GrantorPhrma.png'
+import GrantorElevenLabs from '../../assets/grantors/elevenlabs-logo-black-compressed.png'
 import PartnerAARP from '../../assets/partners/PartnerAARP.png'
 import PartnerAECF from '../../assets/partners/PartnerAECF.jpg'
 import PartnerCdc from '../../assets/partners/PartnerCdc.png'

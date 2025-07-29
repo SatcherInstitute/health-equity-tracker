@@ -20,7 +20,6 @@ export default function EndOfRateBarLabel(props: EndOfRateBarLabelProps) {
       dy='1.3em'
       textAnchor={props.shouldLabelBeInside ? 'end' : 'start'}
       className={`text-smallest ${props.barLabelColor}`}
-      aria-hidden='true'
       tabIndex={-1}
     >
       {formatValue(

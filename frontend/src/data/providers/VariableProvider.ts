@@ -3,9 +3,9 @@ import type { MetricId } from '../config/MetricConfigTypes'
 import type { ProviderId } from '../loading/VariableProviderMap'
 import type { Breakdowns } from '../query/Breakdowns'
 import {
-  createMissingDataResponse,
   type MetricQuery,
   type MetricQueryResponse,
+  createMissingDataResponse,
 } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { TIME_PERIOD } from '../utils/Constants'

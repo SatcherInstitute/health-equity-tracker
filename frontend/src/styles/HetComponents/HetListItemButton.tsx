@@ -31,7 +31,7 @@ export default function HetListItemButton(props: HetListItemButtonProps) {
       role='menuitem'
     >
       <span
-        className={`${optionsToClasses[props.option ?? 'boldGreenCol']} ${
+        className={`${optionsToClasses[props.option ?? 'boldGreenCol']}${
           props.className ?? ''
         }`}
       >
