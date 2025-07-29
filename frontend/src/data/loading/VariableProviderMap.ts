@@ -86,7 +86,7 @@ export default class VariableProviderMap {
     const providerIds = metricIds.map((id) => {
       const providerId = this.metricsToProviderIds[id]
       if (!providerId) {
-        throw new Error('No provider configured for metric id: ' + id)
+        throw new Error(`No provider configured for metric id: ${id}`)
       }
       return providerId
     })

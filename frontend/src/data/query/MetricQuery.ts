@@ -105,7 +105,7 @@ export class MetricQueryResponse {
   // Calculate numerical range for a field or return undefined if not applicable
   getFieldRange(fieldName: MetricId): FieldRange | undefined {
     const fieldValues = this.data
-      .filter((row) => !isNaN(row[fieldName]) && row[fieldName] != null)
+      .filter((row) => !Number.isNaN(row[fieldName]) && row[fieldName] != null)
       .map((row) => row[fieldName])
     if (fieldValues.length === 0) {
       return undefined
@@ -146,7 +146,7 @@ export class MetricQueryResponse {
       validRowsPerGroup.some((row) => {
         // exclude null and undefined, include any values including 0
         return (
-          !isNaN(Number.parseFloat(row[targetMetric])) &&
+          !Number.isNaN(Number.parseFloat(row[targetMetric])) &&
           row[targetMetric] != null
         )
       })
@@ -247,7 +247,7 @@ export function resolveDatasetId(
 
   // No valid dataset or fallback
   console.warn(
-    `Invalid datasetId requests:\n${requestedDatasetId}${requestedRaceDatasetId ? '\n' + requestedRaceDatasetId : ''}\n${fallbackAllsDatasetId}\nNone of those known datasetIds. Did you update DatasetId type?`,
+    `Invalid datasetId requests:\n${requestedDatasetId}${requestedRaceDatasetId ? `\n${requestedRaceDatasetId}` : ''}\n${fallbackAllsDatasetId}\nNone of those known datasetIds. Did you update DatasetId type?`,
   )
   return { breakdowns }
 }

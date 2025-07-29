@@ -85,7 +85,7 @@ export function useStepObserver(
   useEffect(() => {
     // any updates to the focused id updates the ref
     urlHashOverrideRef.current = recentlyClicked
-  }, [activeId, recentlyClicked])
+  }, [recentlyClicked])
 
   const hashLink = location?.hash
   const hashId = hashLink.substring(1) || ''
@@ -97,7 +97,7 @@ export function useStepObserver(
       setActiveId(hashId)
       setRecentlyClicked(hashId)
     }
-  }, [location?.hash, stepIds])
+  }, [stepIds, hashId, hashLink])
 
   useEffect(() => {
     //  on render, set up a timer to auto scroll user to the focused card (counteracting layout shift from loading/resizing cards)

@@ -16,7 +16,7 @@ interface CustomShareTrendsLineChartProps {
 
 const CustomShareTrendsLineChart: React.FC<CustomShareTrendsLineChartProps> = ({
   fips = new Fips('13121'),
-  dataTypeConfig = METRIC_CONFIG['covid'][1],
+  dataTypeConfig = METRIC_CONFIG.covid[1],
   demographicType = 'age',
   reportTitle = 'COVID Deaths in Fulton County by Age',
   isCompareCard = true,

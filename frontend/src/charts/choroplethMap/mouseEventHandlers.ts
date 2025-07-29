@@ -102,7 +102,7 @@ const handleMouseEvent = (
         touchX > screenWidth / 2
           ? touchX -
             TOOLTIP_OFFSET.x -
-            props.tooltipContainer.node()!.getBoundingClientRect().width
+            props.tooltipContainer.node()?.getBoundingClientRect().width
           : touchX + TOOLTIP_OFFSET.x
 
       props.tooltipContainer
@@ -127,7 +127,7 @@ const handleMouseEvent = (
         cursorX > screenWidth / 2
           ? event.pageX -
             TOOLTIP_OFFSET.x -
-            props.tooltipContainer.node()!.getBoundingClientRect().width
+            props.tooltipContainer.node()?.getBoundingClientRect().width
           : event.pageX + TOOLTIP_OFFSET.x
 
       props.tooltipContainer

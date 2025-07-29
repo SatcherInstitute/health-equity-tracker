@@ -103,7 +103,7 @@ export default function SinglePost() {
       const buttonText = button.textContent || ''
       button.textContent = truncateText(buttonText, 42)
     })
-  }, [prevArticle, nextArticle])
+  }, [truncateText])
 
   const pageTitle = `News${
     fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''

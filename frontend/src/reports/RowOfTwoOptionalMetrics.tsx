@@ -48,17 +48,14 @@ export default function RowOfTwoOptionalMetrics(
         // NOTE: use inline styles to set dynamic scroll margin based on MadLib header height
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
-        {props.dataTypeConfig1 && (
-          <>
-            {props.createCard(
-              props.dataTypeConfig1,
-              props.fips1,
-              props.updateFips1 ?? unusedFipsCallback,
-              props.dropdownVarId1,
-              /* isCompareCard */ false,
-            )}
-          </>
-        )}
+        {props.dataTypeConfig1 &&
+          props.createCard(
+            props.dataTypeConfig1,
+            props.fips1,
+            props.updateFips1 ?? unusedFipsCallback,
+            props.dropdownVarId1,
+            /* isCompareCard */ false,
+          )}
       </div>
       <div
         tabIndex={-1}
@@ -66,17 +63,14 @@ export default function RowOfTwoOptionalMetrics(
         id={`${props.id}2`}
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
-        {dataTypeConfig2 && (
-          <>
-            {props.createCard(
-              dataTypeConfig2,
-              props.fips2,
-              props.updateFips2 ?? unusedFipsCallback,
-              props.dropdownVarId2,
-              /* isCompareCard */ true,
-            )}
-          </>
-        )}
+        {dataTypeConfig2 &&
+          props.createCard(
+            dataTypeConfig2,
+            props.fips2,
+            props.updateFips2 ?? unusedFipsCallback,
+            props.dropdownVarId2,
+            /* isCompareCard */ true,
+          )}
       </div>
     </div>
   )

@@ -112,7 +112,7 @@ export function TrendsChart({
   useEffect(() => {
     // @ts-expect-error
     setTooltipWidth(toolTipRef?.current?.getBoundingClientRect()?.width)
-  }, [data, selectedTrendGroups, hoveredDate])
+  }, [])
 
   /* Memoized constants */
 
@@ -303,77 +303,71 @@ export function TrendsChart({
       </div>
       {/* Chart */}
       {filteredData && xScale && yScale && (
-        <>
-          <svg
-            height={CONFIG.HEIGHT}
+        <svg
+          height={CONFIG.HEIGHT}
+          width={width}
+          onMouseMove={handleMousemove}
+          onMouseLeave={() => {
+            setHoveredDate(null)
+          }}
+          aria-labelledby={chartTitleId}
+        >
+          {/* Chart Axes */}
+          <Axes
+            data={filteredData}
+            xScale={xScale}
+            yScale={yScale}
             width={width}
-            onMouseMove={handleMousemove}
-            onMouseLeave={() => {
-              setHoveredDate(null)
+            marginBottom={marginBottom}
+            marginLeft={marginLeft}
+            marginRight={marginRight}
+            axisConfig={axisConfig}
+            isSkinny={isSkinny}
+            yMin={yMin}
+          />
+          {/* Lines */}
+          <LineChart
+            data={filteredData}
+            xScale={xScale}
+            yScale={yScale}
+            valuesArePct={axisConfig.type === 'pct_share'}
+            keepOnlyElectionYears={keepOnlyElectionYears}
+          />
+          {/* Group for hover indicator line and circles */}
+          <g
+            className={`transition-transform duration-300 ease-linear`}
+            // transform group to hovered x position
+            style={{
+              transform: `translateX(${xScale(new Date(hoveredDate ?? ''))}px)`,
+              opacity: hoveredDate ? 1 : 0,
             }}
-            aria-labelledby={chartTitleId}
           >
-            {/* Chart Axes */}
-            <Axes
+            <line
+              className='transition-opacity delay-300 duration-200 ease-linear'
+              y1={HEIGHT - marginBottom}
+              y2={MARGIN.top}
+              x1={0}
+              x2={0}
+            />
+            <HoverCircles
               data={filteredData}
-              xScale={xScale}
+              selectedDate={hoveredDate}
               yScale={yScale}
+            />
+          </g>
+          {/* Only render unknown group circles when there is data for which the group is unknown */}
+          {showUnknowns && (
+            <CircleChart
+              data={filterUnknownsByTimePeriod(unknown, dates)}
+              xScale={xScale}
               width={width}
-              marginBottom={marginBottom}
-              marginLeft={marginLeft}
-              marginRight={marginRight}
-              axisConfig={axisConfig}
               isSkinny={isSkinny}
-              yMin={yMin}
+              groupLabel={groupLabel}
+              selectedDate={hoveredDate}
+              circleId={`${axisConfig.type}-${isCompareCard ? 'b' : 'a'}`}
             />
-            {/* Lines */}
-            <LineChart
-              data={filteredData}
-              xScale={xScale}
-              yScale={yScale}
-              valuesArePct={axisConfig.type === 'pct_share'}
-              keepOnlyElectionYears={keepOnlyElectionYears}
-            />
-            {/* Group for hover indicator line and circles */}
-            <g
-              className={`transition-transform duration-300 ease-linear`}
-              // transform group to hovered x position
-              style={{
-                transform: `translateX(${xScale(
-                  new Date(hoveredDate ?? ''),
-                )}px)`,
-                opacity: hoveredDate ? 1 : 0,
-              }}
-            >
-              <line
-                className='transition-opacity delay-300 duration-200 ease-linear'
-                y1={HEIGHT - marginBottom}
-                y2={MARGIN.top}
-                x1={0}
-                x2={0}
-              />
-              <HoverCircles
-                data={filteredData}
-                selectedDate={hoveredDate}
-                yScale={yScale}
-              />
-            </g>
-            {/* Only render unknown group circles when there is data for which the group is unknown */}
-            {showUnknowns && (
-              <>
-                <CircleChart
-                  data={filterUnknownsByTimePeriod(unknown, dates)}
-                  xScale={xScale}
-                  width={width}
-                  isSkinny={isSkinny}
-                  groupLabel={groupLabel}
-                  selectedDate={hoveredDate}
-                  circleId={`${axisConfig.type}-${isCompareCard ? 'b' : 'a'}`}
-                />
-              </>
-            )}
-          </svg>
-        </>
+          )}
+        </svg>
       )}
     </figure>
   )

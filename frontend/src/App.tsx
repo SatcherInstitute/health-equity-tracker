@@ -100,7 +100,7 @@ function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
     window.scrollTo(0, 0)
-  }, [pathname])
+  }, [])
   return null
 }
 
@@ -152,15 +152,13 @@ export default function App() {
                     path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
                     element={<WhatIsHealthEquityPage />}
                   >
-                    <>
-                      {wiheConfigs.map((route) => (
-                        <Route
-                          key={route.path}
-                          path={route.path}
-                          element={route.component}
-                        />
-                      ))}
-                    </>
+                    {wiheConfigs.map((route) => (
+                      <Route
+                        key={route.path}
+                        path={route.path}
+                        element={route.component}
+                      />
+                    ))}
                   </Route>
 
                   {/* NESTED METHODOLOGY ROUTES */}
@@ -168,15 +166,13 @@ export default function App() {
                     path={METHODOLOGY_PAGE_LINK}
                     element={<MethodologyPage />}
                   >
-                    <>
-                      {methodologyRouteConfigs.map((route) => (
-                        <Route
-                          key={route.path}
-                          path={route.path}
-                          element={route.component}
-                        />
-                      ))}
-                    </>
+                    {methodologyRouteConfigs.map((route) => (
+                      <Route
+                        key={route.path}
+                        path={route.path}
+                        element={route.component}
+                      />
+                    ))}
                   </Route>
 
                   {/* NESTED POLICY ROUTES */}
@@ -185,15 +181,13 @@ export default function App() {
                     element={<Navigate to={GUN_VIOLENCE_POLICY} />}
                   />
                   <Route path={POLICY_PAGE_LINK} element={<PolicyPage />}>
-                    <>
-                      {policyRouteConfigs.map((route) => (
-                        <Route
-                          key={route.path}
-                          path={route.path}
-                          element={route.component}
-                        />
-                      ))}
-                    </>
+                    {policyRouteConfigs.map((route) => (
+                      <Route
+                        key={route.path}
+                        path={route.path}
+                        element={route.component}
+                      />
+                    ))}
                   </Route>
 
                   {/* NESTED NEWS ROUTES */}

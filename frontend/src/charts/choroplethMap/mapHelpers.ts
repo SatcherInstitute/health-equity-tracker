@@ -159,9 +159,9 @@ export const createDataMap = (
           [`# ${denominatorPhrase}`]:
             d[countColsMap.denominatorConfig.metricId],
         }),
-        ...(d.highestGroup && { ['Highest rate group']: d.highestGroup }),
-        ...(d.lowestGroup && { ['Lowest rate group']: d.lowestGroup }),
-        ...(d.rating && { ['County SVI']: d.rating }),
+        ...(d.highestGroup && { 'Highest rate group': d.highestGroup }),
+        ...(d.lowestGroup && { 'Lowest rate group': d.lowestGroup }),
+        ...(d.rating && { 'County SVI': d.rating }),
       },
     ]),
   )

@@ -80,15 +80,12 @@ function LawEnforcementAlert(props: LawEnforcementAlertProps) {
               accounted for <strong>{blackCount}</strong> of these reported
               legal intervention gun fatalities.
             </>
-          )}
-          <>
-            {' '}
-            It is important to note that these numbers are considered to be
-            vastly underreported due to issues with data reporting,
-            classification, and availability. These problems combined highlight
-            the need for comprehensive reforms and accountability to ensure a
-            justice system that equitably protects every community.
-          </>
+          )}{' '}
+          It is important to note that these numbers are considered to be vastly
+          underreported due to issues with data reporting, classification, and
+          availability. These problems combined highlight the need for
+          comprehensive reforms and accountability to ensure a justice system
+          that equitably protects every community.
         </p>
       </HetNotice>
     </div>

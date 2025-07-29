@@ -332,6 +332,8 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
     props.xMetricConfig.shortLabel,
     props.yMetricConfig.shortLabel,
     props.radiusMetricConfig?.metricId,
+    isMd,
+    updateTooltipPosition,
   ])
 
   const updateTooltipPosition = (event: MouseEvent) => {

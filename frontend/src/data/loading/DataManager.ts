@@ -99,7 +99,7 @@ abstract class ResourceCache<K, R extends {}> {
         return await loadingResource
       }
 
-      getLogger().debugLog('Loading ' + resourceId)
+      getLogger().debugLog(`Loading ${resourceId}`)
       const loadPromise = this.loadResourceInternal(key)
       this.loadingResources[resourceId] = loadPromise
       const result = await loadPromise
@@ -108,7 +108,7 @@ abstract class ResourceCache<K, R extends {}> {
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.loadingResources[resourceId]
       getLogger().debugLog(
-        'Loaded ' + resourceId + '. Cache size: ' + this.lruCache.size,
+        `Loaded ${resourceId}. Cache size: ${this.lruCache.size}`,
       )
 
       return result

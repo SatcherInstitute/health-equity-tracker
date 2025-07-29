@@ -170,16 +170,14 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                                     Insufficient data
                                   </span>
                                 </>
+                              ) : isTimePeriod ? (
+                                row[key]
                               ) : (
-                                <>
-                                  {isTimePeriod
-                                    ? row[key]
-                                    : formatFieldValue(
-                                        metricConfigRates.type,
-                                        row[key],
-                                        !appendPct,
-                                      )}
-                                </>
+                                formatFieldValue(
+                                  metricConfigRates.type,
+                                  row[key],
+                                  !appendPct,
+                                )
                               )}
                             </TableCell>
                           )

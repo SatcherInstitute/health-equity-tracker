@@ -17,7 +17,7 @@ const EXTRA_HEIGHT_NON_STICKY_HEADER = 60
 export function useHeaderScrollMargin(
   elemId: string,
   sticking: boolean,
-  otherDependencies: any[],
+  _otherDependencies: any[],
 ) {
   // ensure header height is remeasured on changes to page width
   useEffect(() => {
@@ -25,8 +25,8 @@ export function useHeaderScrollMargin(
     return () => {
       window.removeEventListener('resize', handlePageResize)
     }
-  }, [])
-  const [pageWidth, setPageWidth] = useState(window.innerWidth)
+  }, [handlePageResize])
+  const [_pageWidth, setPageWidth] = useState(window.innerWidth)
   function handlePageResize() {
     setPageWidth(window.innerWidth)
   }
@@ -53,7 +53,7 @@ export function useHeaderScrollMargin(
   const isMd = useIsBreakpointAndUp('md')
   useEffect(() => {
     setHeaderScrollMargin(isMd ? measureHeight() : 0)
-  }, [elemId, pageWidth, sticking, ...otherDependencies])
+  }, [isMd, measureHeight])
 
   return headerScrollMargin
 }

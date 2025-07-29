@@ -468,7 +468,7 @@ function MapCardWithKey(props: MapCardProps) {
             <>
               <div className='w-full'>
                 <ChartTitle
-                  title={'Rate map unavailable: ' + title}
+                  title={`Rate map unavailable: ${title}`}
                   subtitle={subtitle}
                 />
               </div>
@@ -496,7 +496,7 @@ function MapCardWithKey(props: MapCardProps) {
 
         const fieldRange = useMemo(() => {
           return mapQueryResponse.getFieldRange(metricConfig.metricId)
-        }, [mapQueryResponse.data, metricConfig.metricId])
+        }, [mapQueryResponse.getFieldRange])
 
         const colorScale = useMemo(() => {
           return createColorScale({
@@ -511,7 +511,6 @@ function MapCardWithKey(props: MapCardProps) {
           })
         }, [
           displayData,
-          metricConfig.metricId,
           mapConfig.scheme,
           props.fips,
           mapConfig.higherIsBetter,
@@ -710,11 +709,9 @@ function MapCardWithKey(props: MapCardProps) {
                     title='Percentages Over 100%'
                     kind='data-integrity'
                   >
-                    <>
-                      In some locations, the <HetTerm>percent rates</HetTerm>{' '}
-                      exceed 100%, which can be confusing and may indicate
-                      inconsistency in the source data.
-                    </>
+                    In some locations, the <HetTerm>percent rates</HetTerm>{' '}
+                    exceed 100%, which can be confusing and may indicate
+                    inconsistency in the source data.
                     {metricId === 'vaccinated_pct_rate' && (
                       <>
                         {' '}

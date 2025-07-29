@@ -22,8 +22,8 @@ const CardLeftIcon: React.FC<CardLeftIconProps> = ({
         <div className='flex w-1.2 grow border border-methodology-green border-t-0 border-r-0 border-b-0 border-l-1.2 border-solid py-4'></div>
       </div>
       <div className='ml-2 flex flex-col gap-2'>
-        <div className='flex flex-col '>
-          <h3 className='my-0 font-medium text-title '>{title}</h3>
+        <div className='flex flex-col'>
+          <h3 className='my-0 font-medium text-title'>{title}</h3>
           <p className='my-0 w-fit py-0 text-alt-black text-small'>
             {description}
           </p>

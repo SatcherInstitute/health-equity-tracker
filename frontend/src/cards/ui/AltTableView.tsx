@@ -167,16 +167,14 @@ export default function AltTableView(props: AltTableViewProps) {
                                   Insufficient data
                                 </span>
                               </>
+                            ) : isTimePeriod ? (
+                              row[key]
                             ) : (
-                              <>
-                                {isTimePeriod
-                                  ? row[key]
-                                  : formatFieldValue(
-                                      props.knownMetricConfig.type,
-                                      row[key],
-                                      !appendPct,
-                                    )}
-                              </>
+                              formatFieldValue(
+                                props.knownMetricConfig.type,
+                                row[key],
+                                !appendPct,
+                              )
                             )}
                           </TableCell>
                         )

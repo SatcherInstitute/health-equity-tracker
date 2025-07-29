@@ -15,7 +15,7 @@ interface CustomRateTrendsLineChartProps {
 
 const CustomRateTrendsLineChart: React.FC<CustomRateTrendsLineChartProps> = ({
   fips = new Fips('00'),
-  dataTypeConfig = METRIC_CONFIG['hiv'][0],
+  dataTypeConfig = METRIC_CONFIG.hiv[0],
   demographicType = 'race_and_ethnicity',
   reportTitle = 'Custom Rate Trends Line Chart',
   className,

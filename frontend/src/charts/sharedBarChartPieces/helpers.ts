@@ -47,15 +47,13 @@ function formatValue(
     const roundedVal = Math.round(value).toLocaleString('en-US', {
       maximumFractionDigits: maxFractionDigits,
     })
-    return isTinyAndUp ? roundedVal + ' per 100k' : roundedVal
+    return isTinyAndUp ? `${roundedVal} per 100k` : roundedVal
   }
 
   if (isPctType(metricConfig.type))
-    return (
-      value.toLocaleString('en-US', {
-        maximumFractionDigits: maxFractionDigits,
-      }) + '%'
-    )
+    return `${value.toLocaleString('en-US', {
+      maximumFractionDigits: maxFractionDigits,
+    })}%`
 
   return value.toLocaleString('en-US')
 }

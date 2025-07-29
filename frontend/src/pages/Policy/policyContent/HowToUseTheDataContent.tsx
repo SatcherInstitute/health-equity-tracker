@@ -39,7 +39,7 @@ export const dataVisuals = [
     customCard: (
       <CustomChoroplethMap
         fips={new Fips('13')}
-        dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
+        dataTypeConfig={METRIC_CONFIG.gun_deaths_black_men[0]}
         demographicType={AGE}
         reportTitle='Rates of gun homicides among Black (NH) men in Georgia'
         className='mt-0 mb-4 py-0'
@@ -74,7 +74,7 @@ export const dataVisuals = [
     customCard: (
       <CustomRateTrendsLineChart
         fips={new Fips('13')}
-        dataTypeConfig={METRIC_CONFIG['gun_violence_youth'][0]}
+        dataTypeConfig={METRIC_CONFIG.gun_violence_youth[0]}
         demographicType={RACE}
         reportTitle='Rates of gun deaths among young adults over time in Georgia'
       />
@@ -107,7 +107,7 @@ export const dataVisuals = [
     customCard: (
       <CustomRateBarChart
         fips={new Fips('13')}
-        dataTypeConfig={METRIC_CONFIG['gun_violence'][0]}
+        dataTypeConfig={METRIC_CONFIG.gun_violence[0]}
         demographicType='race_and_ethnicity'
         reportTitle='Rates of gun homicides in Georgia'
       />
@@ -166,7 +166,7 @@ export const dataVisuals = [
     customCard: (
       <CustomShareTrendsLineChart
         fips={new Fips('00')}
-        dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
+        dataTypeConfig={METRIC_CONFIG.gun_deaths_black_men[0]}
         demographicType='age'
         reportTitle='Historical relative inequity of gun homicides among Black (NH) men in the United States'
         isCompareCard={false}
@@ -200,7 +200,7 @@ export const dataVisuals = [
     customCard: (
       <CustomStackedSharesBarChart
         fips={new Fips('00')}
-        dataTypeConfig={METRIC_CONFIG['gun_deaths_black_men'][0]}
+        dataTypeConfig={METRIC_CONFIG.gun_deaths_black_men[0]}
         demographicType='urbanicity'
         reportTitle='Population vs. distribution of total gun homicides among Black (NH) men in the United States'
       />

@@ -49,7 +49,7 @@ export function useRateChartTooltip(
         content: tooltipContent,
       })
     },
-    [containerRef, demographicType, metricConfig],
+    [containerRef, demographicType, metricConfig, isTinyAndUp],
   )
 
   const closeTooltip = useCallback(() => {

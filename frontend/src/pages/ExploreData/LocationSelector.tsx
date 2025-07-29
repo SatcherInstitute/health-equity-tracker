@@ -27,23 +27,21 @@ export default function LocationSelector(props: LocationSelectorProps) {
     .map((fipsCode) => new Fips(fipsCode))
 
   return (
-    <>
-      <span ref={popoverRef}>
-        <HetMadLibButton handleClick={popover.open} isOpen={popover.isOpen}>
-          <span className={dropdownTarget}>{currentDisplayName}</span>
-        </HetMadLibButton>
+    <span ref={popoverRef}>
+      <HetMadLibButton handleClick={popover.open} isOpen={popover.isOpen}>
+        <span className={dropdownTarget}>{currentDisplayName}</span>
+      </HetMadLibButton>
 
-        <HetPopover popover={popover}>
-          {/* Location Dropdown */}
+      <HetPopover popover={popover}>
+        {/* Location Dropdown */}
 
-          <HetLocationSearch
-            value={props.newValue}
-            onOptionUpdate={props.onOptionUpdate}
-            popover={popover}
-            options={options}
-          />
-        </HetPopover>
-      </span>
-    </>
+        <HetLocationSearch
+          value={props.newValue}
+          onOptionUpdate={props.onOptionUpdate}
+          popover={popover}
+          options={options}
+        />
+      </HetPopover>
+    </span>
   )
 }

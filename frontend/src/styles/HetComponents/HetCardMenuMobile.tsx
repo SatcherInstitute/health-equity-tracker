@@ -16,30 +16,28 @@ export default function HetCardMenuMobile(props: HetCardMenuMobileProps) {
   }
 
   return (
-    <>
-      <div
-        className={`top-0 z-almost-top flex w-fit max-w-screen rounded-sm bg-white pt-8 pb-4 ${
-          props.className ?? ''
-        }`}
-      >
-        <Toolbar className='flex w-screen justify-center px-0'>
-          <FormControl sx={{ minWidth: '90vw' }} size='medium'>
-            <InputLabel id='context-select-label'>{props.label}</InputLabel>
-            <Select
-              labelId='context-select-label'
-              value={window.location.pathname}
-              onChange={handleSelected}
-              label={props.label}
-            >
-              {props.routeConfigs.map((config) => (
-                <MenuItem key={config.path} value={config.path}>
-                  {config.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Toolbar>
-      </div>
-    </>
+    <div
+      className={`top-0 z-almost-top flex w-fit max-w-screen rounded-sm bg-white pt-8 pb-4 ${
+        props.className ?? ''
+      }`}
+    >
+      <Toolbar className='flex w-screen justify-center px-0'>
+        <FormControl sx={{ minWidth: '90vw' }} size='medium'>
+          <InputLabel id='context-select-label'>{props.label}</InputLabel>
+          <Select
+            labelId='context-select-label'
+            value={window.location.pathname}
+            onChange={handleSelected}
+            label={props.label}
+          >
+            {props.routeConfigs.map((config) => (
+              <MenuItem key={config.path} value={config.path}>
+                {config.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Toolbar>
+    </div>
   )
 }

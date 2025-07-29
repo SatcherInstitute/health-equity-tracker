@@ -32,5 +32,5 @@ export function getSubPopulationPhrase(
     .filter(Boolean)
     .join(', ')
 
-  return `Total population${dataTypeConfig.otherSubPopulationLabel ? ' of' : ''}${combinedSubPop ? ' ' + combinedSubPop : ''}: ${popAllCount}${subPopulationSourceLabel ? ' (from ' + subPopulationSourceLabel + ')' : ''}`
+  return `Total population${dataTypeConfig.otherSubPopulationLabel ? ' of' : ''}${combinedSubPop ? ` ${combinedSubPop}` : ''}: ${popAllCount}${subPopulationSourceLabel ? ` (from ${subPopulationSourceLabel})` : ''}`
 }

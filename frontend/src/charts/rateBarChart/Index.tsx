@@ -82,7 +82,7 @@ export function RateBarChart(props: RateBarChartProps) {
       .domain(processedData.map((d) => d[props.demographicType]))
       .range([0, innerHeight - totalExtraSpace]) // Adjust range to account for extra space
       .padding(BAR_PADDING)
-  }, [processedData, innerHeight, totalExtraSpace])
+  }, [processedData, innerHeight, totalExtraSpace, props.demographicType])
 
   const getYPosition = (index: number, demographicValue: string) => {
     let position = yScale(demographicValue) || 0

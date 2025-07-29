@@ -44,7 +44,7 @@ export default function HetTopicDemographics(props: HetTopicDemographicsProps) {
   return (
     <div className='grid grid-cols-2 md:grid-cols-3'>
       {topicDemographicDetailsItems.map((item) => (
-        <div key={item.topic + '_' + item.topicDetails} className='m-1'>
+        <div key={`${item.topic}_${item.topicDetails}`} className='m-1'>
           <div className='justify-left my-2 flex flex-col'>
             <p className='my-0 text-text'>
               <HetTerm>{item.topic}</HetTerm>

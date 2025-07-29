@@ -55,7 +55,7 @@ export default function HetTermUnderline({
 
       setMarginClass(margin)
     }
-  }, [children])
+  }, [])
 
   return (
     <span

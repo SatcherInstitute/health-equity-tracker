@@ -48,7 +48,7 @@ function initGlobals(
   globals.dataManager = dataManager
   globals.initialized = true
   logger.debugLog(
-    'Initialized globals for context: ' + environment.deployContext,
+    `Initialized globals for context: ${environment.deployContext}`,
   )
 }
 

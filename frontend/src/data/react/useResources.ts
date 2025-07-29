@@ -38,7 +38,7 @@ export function useResources<K, R>(
     }
 
     asyncLoadResources().catch(console.error)
-  }, [...resources.map((resource) => depIdFn(resource))])
+  }, [...resources.map((resource) => depIdFn(resource)), loadResources])
 
   return resourceState
 }

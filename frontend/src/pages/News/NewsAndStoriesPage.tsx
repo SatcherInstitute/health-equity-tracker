@@ -186,74 +186,64 @@ export default function NewsAndStoriesPage() {
 
           {isLoading ? (
             <HetPostsLoading className='mt-8' doPulse={!error} />
+          ) : filteredArticles.length > 0 ? (
+            filtersApplied ? (
+              <div className='mt-8 grid w-full gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+                {filteredArticles.map((article: Article) => (
+                  <div key={article.id} className='w-full'>
+                    <NewsAndStoriesPreviewCardOutlined
+                      article={article}
+                      bgHeight='12rem'
+                      linkClassName='w-full'
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <>
+                <div className='mt-8 grid w-full grid-cols-1 gap-4 smplus:gap-0 lg:grid-cols-5 lg:gap-1'>
+                  <div className='col-span-1 w-full smplus:mb-4 lg:col-span-2 lg:mb-0'>
+                    {firstFiveArticles[0] && (
+                      <NewsAndStoriesPreviewCardOutlined
+                        article={firstFiveArticles[0]}
+                        bgHeight={bgHeight}
+                        linkClassName='mx-0 lg:mr-2'
+                      />
+                    )}
+                  </div>
+
+                  <div className='col-span-1 mb-4 grid grid-cols-1 gap-4 smplus:grid-cols-2 md:col-span-3 lg:mb-0'>
+                    {firstFiveArticles.slice(1).map((article) => (
+                      <NewsAndStoriesPreviewCardOutlined
+                        key={article.id}
+                        article={article}
+                        bgHeight='12rem'
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                {showAllArticles && (
+                  <div className='grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:mt-8 lg:grid-cols-3'>
+                    {remainingArticles.map((article: Article) => (
+                      <NewsAndStoriesPreviewCardOutlined
+                        key={article.id}
+                        article={article}
+                        bgHeight='12rem'
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {loadingMoreArticles && (
+                  <div className='mt-8 w-full'>
+                    <HetPostsLoading doPulse={!error} />
+                  </div>
+                )}
+              </>
+            )
           ) : (
-            <>
-              {filteredArticles.length > 0 ? (
-                <>
-                  {filtersApplied ? (
-                    <div className='mt-8 grid w-full gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-                      {filteredArticles.map((article: Article) => (
-                        <div key={article.id} className='w-full'>
-                          <NewsAndStoriesPreviewCardOutlined
-                            article={article}
-                            bgHeight='12rem'
-                            linkClassName='w-full'
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <>
-                      <div className='mt-8 grid w-full grid-cols-1 gap-4 smplus:gap-0 lg:grid-cols-5 lg:gap-1'>
-                        <>
-                          <div className='col-span-1 w-full smplus:mb-4 lg:col-span-2 lg:mb-0'>
-                            {firstFiveArticles[0] && (
-                              <NewsAndStoriesPreviewCardOutlined
-                                article={firstFiveArticles[0]}
-                                bgHeight={bgHeight}
-                                linkClassName='mx-0 lg:mr-2'
-                              />
-                            )}
-                          </div>
-
-                          <div className='col-span-1 mb-4 grid grid-cols-1 gap-4 smplus:grid-cols-2 md:col-span-3 lg:mb-0'>
-                            {firstFiveArticles.slice(1).map((article) => (
-                              <NewsAndStoriesPreviewCardOutlined
-                                key={article.id}
-                                article={article}
-                                bgHeight='12rem'
-                              />
-                            ))}
-                          </div>
-                        </>
-                      </div>
-
-                      {showAllArticles && (
-                        <div className='grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:mt-8 lg:grid-cols-3'>
-                          {remainingArticles.map((article: Article) => (
-                            <NewsAndStoriesPreviewCardOutlined
-                              key={article.id}
-                              article={article}
-                              bgHeight='12rem'
-                            />
-                          ))}
-                        </div>
-                      )}
-
-                      {loadingMoreArticles && (
-                        <div className='mt-8 w-full'>
-                          <HetPostsLoading doPulse={!error} />
-                        </div>
-                      )}
-                    </>
-                  )}
-                </>
-              ) : (
-                <p className='mt-8 text-center text-gray-500'>
-                  No articles found.
-                </p>
-              )}
-            </>
+            <p className='mt-8 text-center text-gray-500'>No articles found.</p>
           )}
 
           <div className='mt-8 flex w-full justify-center'>

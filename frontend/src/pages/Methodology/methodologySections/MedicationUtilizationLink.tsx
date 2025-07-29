@@ -70,7 +70,7 @@ export default function MedicareMedicationLink() {
           <tbody className='even:bg-explore-bg-color'>
             <tr>
               <td className='border-collapse border-bg-color border-solid p-1'>
-                <>RTI_RACE_CD</>
+                RTI_RACE_CD
               </td>
               <td className='border-collapse border-bg-color border-solid p-1'>
                 Beneficiary race code (modified using RTI algorithm). The race
@@ -80,7 +80,7 @@ export default function MedicareMedicationLink() {
             </tr>
             <tr>
               <td className='border-collapse border-bg-color border-solid p-1'>
-                <>SEX_IDENT_CD</>
+                SEX_IDENT_CD
               </td>
               <td className='border-collapse border-bg-color border-solid p-1'>
                 This variable indicates the sex of the beneficiary.
@@ -88,7 +88,7 @@ export default function MedicareMedicationLink() {
             </tr>
             <tr>
               <td className='border-collapse border-bg-color border-solid p-1'>
-                <>AGE_AT_END_REF_YR</>
+                AGE_AT_END_REF_YR
               </td>
               <td className='border-collapse border-bg-color border-solid p-1'>
                 This is the beneficiary’s age, expressed in years and calculated
@@ -98,7 +98,7 @@ export default function MedicareMedicationLink() {
             </tr>
             <tr>
               <td className='border-collapse border-bg-color border-solid p-1'>
-                <>CST_SHR_GRP_CD</>
+                CST_SHR_GRP_CD
               </td>
               <td className='border-collapse border-bg-color border-solid p-1'>
                 Monthly cost sharing group under Part D low-income subsidy.
@@ -108,7 +108,7 @@ export default function MedicareMedicationLink() {
             </tr>
             <tr>
               <td className='border-collapse border-bg-color border-solid p-1'>
-                <>ENTLMT_RSN_CURR</>
+                ENTLMT_RSN_CURR
               </td>
               <td className='border-collapse border-bg-color border-solid p-1'>
                 Current reason for Medicare entitlement. This variable indicates
@@ -328,7 +328,7 @@ export default function MedicareMedicationLink() {
             </ul>
 
             <p>
-              <>Sex:</> Medicare{' '}
+              Sex: Medicare{' '}
               <a href='https://resdac.org/cms-data/variables/sex'>
                 collects the sex of each beneficiary
               </a>
@@ -336,9 +336,9 @@ export default function MedicareMedicationLink() {
             </p>
 
             <p>
-              <>Age:</> Medicare provides the age of each beneficiary at the end
-              of the reference year (i.e., 2020), or, for beneficiaries that
-              died during the year,{' '}
+              Age: Medicare provides the age of each beneficiary at the end of
+              the reference year (i.e., 2020), or, for beneficiaries that died
+              during the year,{' '}
               <a href='https://resdac.org/cms-data/variables/age-beneficiary-end-year'>
                 age as of the date of death
               </a>

@@ -35,25 +35,25 @@ const CustomShareTrendsLineChart = React.lazy(
 
 const gunDeathsBlackMenConfig = {
   fips: new Fips('13'),
-  dataTypeConfig: METRIC_CONFIG['gun_deaths_black_men'][0],
+  dataTypeConfig: METRIC_CONFIG.gun_deaths_black_men[0],
   className: 'shadow-[none] py-0 mt-0 mb-4',
 }
 
 const gunViolenceYouthConfig = {
   fips: new Fips('13'),
-  dataTypeConfig: METRIC_CONFIG['gun_violence_youth'][0],
+  dataTypeConfig: METRIC_CONFIG.gun_violence_youth[0],
   className: 'shadow-[none] py-0 mt-0 mb-4',
 }
 
 const gunViolenceHomicideConfig = {
   fips: new Fips('13'),
-  dataTypeConfig: METRIC_CONFIG['gun_violence'][0],
+  dataTypeConfig: METRIC_CONFIG.gun_violence[0],
   className: 'shadow-[none] py-0 mt-0 mb-4',
 }
 
 const gunViolenceSuicideConfig = {
   fips: new Fips('13'),
-  dataTypeConfig: METRIC_CONFIG['gun_violence'][1],
+  dataTypeConfig: METRIC_CONFIG.gun_violence[1],
   className: 'shadow-[none] py-0 mt-0 mb-4',
 }
 

@@ -191,6 +191,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     props.signalListeners,
     props.isMobile,
     props.isMulti,
+    props,
   ])
 
   // Return null since we're rendering directly with D3

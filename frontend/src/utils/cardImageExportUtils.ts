@@ -402,7 +402,7 @@ export async function saveCardImage(
       MULTIMAP_MODAL_CONTENT_ID,
     ) as HTMLElement
   } else if (isRowOfTwo) {
-    targetNode = document.getElementById(cardId + '-row') as HTMLElement
+    targetNode = document.getElementById(`${cardId}-row`) as HTMLElement
   } else {
     targetNode = document.getElementById(cardId) as HTMLElement
   }

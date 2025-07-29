@@ -21,7 +21,7 @@ export const ethnicityDefinitions: DataItem = {
       key: 'Hispanic/Latino',
       path: 'race-eth-hispanic',
       description: 'Any race(s), Hispanic/Latino.',
-      resource: GLOSSARY_LINK + '#hisp-resources',
+      resource: `${GLOSSARY_LINK}#hisp-resources`,
       considerations: [
         {
           title: 'General Considerations',
@@ -43,7 +43,7 @@ export const raceDefinitions: DataItem = {
       path: 'race-eth-aian',
       description:
         'A person having origins in any of the original peoples of North and South America (including Central America), who maintains tribal affiliation or community attachment. Many of our data sources report this category as “American Indian and Alaska Native”.',
-      resource: GLOSSARY_LINK + '#aian-resources',
+      resource: `${GLOSSARY_LINK}#aian-resources`,
       considerations: [
         {
           title: 'General Considerations',
@@ -58,7 +58,7 @@ export const raceDefinitions: DataItem = {
       path: 'race-eth-asian',
       description:
         'A person having origins in any of the original peoples of the Far East, Southeast Asia, or the Indian subcontinent including, for example, Cambodia, China, India, Japan, Korea, Malaysia, Pakistan, the Philippine Islands, Thailand, and Vietnam.',
-      resource: GLOSSARY_LINK + '#api-resources',
+      resource: `${GLOSSARY_LINK}#api-resources`,
       considerations: [
         {
           title: 'Chronic Diseases',

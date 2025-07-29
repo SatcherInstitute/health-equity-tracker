@@ -7,8 +7,8 @@ import { Fips } from '../data/utils/Fips'
 const CustomRateBarChartCompare: React.FC = () => {
   const fips = new Fips('13')
   const dataTypeConfigIncarceration: DataTypeConfig =
-    METRIC_CONFIG['incarceration'][0]
-  const dataTypeConfigPoverty: DataTypeConfig = METRIC_CONFIG['poverty'][0]
+    METRIC_CONFIG.incarceration[0]
+  const dataTypeConfigPoverty: DataTypeConfig = METRIC_CONFIG.poverty[0]
 
   return (
     <div>

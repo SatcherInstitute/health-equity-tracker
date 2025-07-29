@@ -70,8 +70,6 @@ function getMuiAlertProps(kind: HetNoticeKind | undefined): AlertProps {
       return { severity: 'error', icon: <FlagIcon /> }
     case 'technical-error':
       return { severity: 'error', icon: <DangerousOutlinedIcon /> }
-    // default is 'helpful-info'
-    case 'helpful-info':
     default:
       return { severity: 'info', icon: <InfoOutlinedIcon /> }
   }

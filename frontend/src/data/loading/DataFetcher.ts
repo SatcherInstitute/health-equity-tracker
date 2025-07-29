@@ -49,7 +49,7 @@ export class ApiDataFetcher implements DataFetcher {
   }
 
   private getApiUrl() {
-    return this.environment.getBaseApiUrl() + '/api'
+    return `${this.environment.getBaseApiUrl()}/api`
   }
 
   /**
@@ -60,10 +60,10 @@ export class ApiDataFetcher implements DataFetcher {
     datasetId: DatasetId | DatasetIdWithStateFIPSCode,
     format: FileFormat = 'json',
   ) {
-    const fullDatasetName = datasetId + '.' + format
+    const fullDatasetName = `${datasetId}.${format}`
     const basePath = this.shouldFetchAsStaticFile(fullDatasetName)
       ? '/tmp/'
-      : this.getApiUrl() + '/dataset?name='
+      : `${this.getApiUrl()}/dataset?name=`
     return basePath + fullDatasetName
   }
 
@@ -78,7 +78,7 @@ export class ApiDataFetcher implements DataFetcher {
     const requestPath = this.getDatasetRequestPath(datasetId, format)
     const resp = await fetch(requestPath)
     if (resp.status !== 200) {
-      throw new Error('Failed to fetch dataset. Status: ' + resp.status)
+      throw new Error(`Failed to fetch dataset. Status: ${resp.status}`)
     }
     return await resp.json()
   }

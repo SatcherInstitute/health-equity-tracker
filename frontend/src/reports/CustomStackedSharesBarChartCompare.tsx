@@ -7,7 +7,7 @@ import { Fips } from '../data/utils/Fips'
 const CustomStackedSharesBarChartCompare: React.FC = () => {
   const fipsFlorida = new Fips('12')
   const fipsCalifornia = new Fips('06')
-  const dataTypeConfig: DataTypeConfig = METRIC_CONFIG['health_insurance'][0]
+  const dataTypeConfig: DataTypeConfig = METRIC_CONFIG.health_insurance[0]
 
   return (
     <div className='flex justify-around'>

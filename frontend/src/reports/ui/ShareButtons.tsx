@@ -25,12 +25,12 @@ export default function ShareButtons(props: ShareButtonProps) {
   const sharedUrl: string = window.location.href
   let title: string = 'Health Equity Tracker'
   if (props.reportTitle) {
-    title += ': ' + props.reportTitle
+    title += `: ${props.reportTitle}`
   }
   if (props.article) {
     const htmlTitle = getHtml(props.article.title.rendered, true)
     if (typeof htmlTitle === 'string') {
-      title += ': “' + htmlTitle + '”'
+      title += `: “${htmlTitle}”`
     }
   }
 

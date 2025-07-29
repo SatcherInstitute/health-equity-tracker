@@ -22,7 +22,7 @@ export default function VoteDotOrgBanner() {
           Check your registration →
         </span>
         {/* Tablet/Desktop */}
-        <span className='hidden sm:inline '>
+        <span className='hidden sm:inline'>
           Check your voter registration now →
         </span>
       </HetLinkButton>

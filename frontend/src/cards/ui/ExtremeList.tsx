@@ -33,41 +33,37 @@ export default function ExtremeList(props: ExtremeListProps) {
       <ul className='pr-8'>
         {isTie ? (
           <li>
-            <>
-              {props.values.map((row, i) => {
-                let placeName = row.fips_name
-                if (props.qualifierItems?.includes(placeName)) {
-                  placeName += ` ${props.qualifierMessage ?? ''}`
-                }
+            {props.values.map((row, i) => {
+              let placeName = row.fips_name
+              if (props.qualifierItems?.includes(placeName)) {
+                placeName += ` ${props.qualifierMessage ?? ''}`
+              }
 
-                return (
-                  <span key={row.fips_name}>
-                    {placeName}
-                    {i < props.values.length - 1 ? ', ' : ''}
-                  </span>
-                )
-              })}
-            </>
+              return (
+                <span key={row.fips_name}>
+                  {placeName}
+                  {i < props.values.length - 1 ? ', ' : ''}
+                </span>
+              )
+            })}
           </li>
         ) : (
-          <>
-            {!isTie &&
-              props.values.map((row) => {
-                let placeName = row.fips_name
-                if (props.qualifierItems?.includes(placeName)) {
-                  placeName += ` ${props.qualifierMessage ?? ''}`
-                }
+          !isTie &&
+          props.values.map((row) => {
+            let placeName = row.fips_name
+            if (props.qualifierItems?.includes(placeName)) {
+              placeName += ` ${props.qualifierMessage ?? ''}`
+            }
 
-                return (
-                  <li key={row.fips_name}>
-                    {placeName}: {formatFieldValue(metricType, row[metricId])}
-                    {metricType === 'per100k' && (
-                      <HetUnitLabel> per 100k</HetUnitLabel>
-                    )}
-                  </li>
-                )
-              })}
-          </>
+            return (
+              <li key={row.fips_name}>
+                {placeName}: {formatFieldValue(metricType, row[metricId])}
+                {metricType === 'per100k' && (
+                  <HetUnitLabel> per 100k</HetUnitLabel>
+                )}
+              </li>
+            )
+          })
         )}
       </ul>
     </div>

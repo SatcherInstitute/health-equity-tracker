@@ -8,7 +8,7 @@ function download(filename: string, content: string) {
   const element = document.createElement('a')
   element.setAttribute(
     'href',
-    'data:text/csv;charset=utf-8,' + encodeURIComponent(content),
+    `data:text/csv;charset=utf-8,${encodeURIComponent(content)}`,
   )
   element.setAttribute('download', filename)
 
@@ -24,7 +24,7 @@ async function downloadDataset(
 ) {
   try {
     const dataset = await getDataManager().loadDataset(datasetId)
-    download('HET - ' + dataset.metadata.name + '.csv', dataset.toCsvString())
+    download(`HET - ${dataset.metadata.name}.csv`, dataset.toCsvString())
     return true
   } catch (_e) {
     return false

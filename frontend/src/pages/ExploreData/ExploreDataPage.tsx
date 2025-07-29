@@ -149,7 +149,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       const params = new URLSearchParams(window.location.search)
       !var1HasDataTypes && params.delete(DATA_TYPE_1_PARAM)
       !var2HasDataTypes && params.delete(DATA_TYPE_2_PARAM)
-      history.replaceState(null, '', '?' + params + window.location.hash)
+      history.replaceState(null, '', `?${params}${window.location.hash}`)
     }
 
     //  GET REMAINING PARAMS FROM URL
@@ -348,7 +348,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
           <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />
 
           {showStickyLifeline && isStickyEnabled && (
-            <p className='flex justify-center '>
+            <p className='flex justify-center'>
               <a href={urlMap.lifeline}>988lifeline.org</a>
             </p>
           )}

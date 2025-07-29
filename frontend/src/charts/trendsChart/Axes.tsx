@@ -64,19 +64,19 @@ export function Axes({
   // handles difference between per100k and percent_share charts
   const Y_AXIS_CONFIG = {
     [TYPES.HUNDRED_K]: {
-      topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
+      topLabel: `${yAxisLabel} →`, // reference to shortLabel from metricConfig
       bottomLabel: '',
       formatter: (d: string | number) => d, // per 100k could be interpolated here
       yScaleMin: yMin,
     },
     [TYPES.PCT_RATE]: {
-      topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
+      topLabel: `${yAxisLabel} →`, // reference to shortLabel from metricConfig
       bottomLabel: '',
       formatter: (d: number) => F.pct(d),
       yScaleMin: yMin,
     },
     [TYPES.PERCENT_SHARE]: {
-      topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
+      topLabel: `${yAxisLabel} →`, // reference to shortLabel from metricConfig
       bottomLabel: '',
       formatter: (d: number) => F.pct(d),
       yScaleMin: yMin,
@@ -90,7 +90,7 @@ export function Axes({
       yScaleMin: 0,
     },
     [TYPES.INDEX]: {
-      topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
+      topLabel: `${yAxisLabel} →`, // reference to shortLabel from metricConfig
       bottomLabel: '',
       formatter: (d: string | number) => d, // per 100k could be interpolated here
       yScaleMin: yMin,
@@ -148,7 +148,7 @@ export function Axes({
             .attr('stroke-dasharray', 5),
         )
     }
-  }, [data, xScale, yScale, xAxis, yAxis])
+  }, [xAxis, yAxis])
 
   const dates = getDates(data)
   const startDate = getPrettyDate(dates[0])
@@ -167,11 +167,10 @@ export function Axes({
           transform={`translate(0, ${HEIGHT - marginBottom})`}
           aria-label={`x axis as months ranging from ${startDate} through ${endDate}`}
           tabIndex={0}
-          role='graphics-symbol'
         />
         {/* Y-Axis */}
         <g
-          className='yAxisGroup font-normal font-sans-text text-smallest '
+          className='yAxisGroup font-normal font-sans-text text-smallest'
           ref={yAxisRef}
           transform={`translate(${marginLeft}, 0)`}
           aria-label={`y axis as ${
@@ -180,7 +179,6 @@ export function Axes({
             getMaxNumber(data) ?? 'highest'
           }${optionalPct}`}
           tabIndex={0}
-          role='graphics-symbol'
         />
       </g>
       {/* Zero Line Indicator */}
