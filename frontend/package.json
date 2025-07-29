@@ -81,6 +81,8 @@
 		"build:dev": "env-cmd -f .env.dev npm run build",
 		"build": "vite build",
 		"cleanup": "cd .. && npx @biomejs/biome check --write --unsafe frontend/src",
+		"lint": "cd .. && npx @biomejs/biome check frontend/src",
+		"lint:fix": "cd .. && npx @biomejs/biome check --write frontend/src",
 		"cspell": "cspell '../**/*.{ts,tsx,css,md,py}' --no-progress --no-must-find-files --gitignore",
 		"dev": "npm run local",
 		"local": "env-cmd -f .env.local npm run start -- --host & npm run tsc:watch",
