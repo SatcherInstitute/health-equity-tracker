@@ -80,7 +80,7 @@
 		"build:prod": "env-cmd -f .env.prod npm run build",
 		"build:dev": "env-cmd -f .env.dev npm run build",
 		"build": "vite build",
-		"cleanup": "npx @biomejs/biome check --write  --unsafe ./src",
+		"cleanup": "cd .. && npx @biomejs/biome check --write  --unsafe ./src",
 		"cspell": "cspell '../**/*.{ts,tsx,css,md,py}' --no-progress --no-must-find-files --gitignore",
 		"dev": "npm run local",
 		"local": "env-cmd -f .env.local npm run start -- --host & npm run tsc:watch",

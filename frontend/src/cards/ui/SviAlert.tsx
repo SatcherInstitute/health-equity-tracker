@@ -4,7 +4,7 @@ import type { Fips } from '../../data/utils/Fips'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import { urlMap } from '../../utils/externalUrls'
-import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+import { METRICS_LINK } from '../../utils/internalRoutes'
 
 interface SviAlertProps {
   svi: number
@@ -60,7 +60,7 @@ function SviAlert(props: SviAlertProps) {
           This county has a <HetTerm>social vulnerability index</HetTerm> of{' '}
           <strong>{props.svi}</strong>; which indicates a{' '}
           <HashLink
-            to={`${METHODOLOGY_PAGE_LINK as string}#svi`}
+            to={`${METRICS_LINK as string}#svi`}
             className={color}
           >
             <span>{rating} level of vulnerability.</span>
