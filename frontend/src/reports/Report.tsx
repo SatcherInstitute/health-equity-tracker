@@ -105,7 +105,7 @@ export function Report(props: ReportProps) {
         psHandler.unsubscribe()
       }
     }
-  }, [props.dropdownVarId, demographicType])
+  }, [props.dropdownVarId, setDataTypeConfig])
 
   // when variable config changes (new data type), re-calc available card steps TableOfContents
   useEffect(() => {
@@ -114,7 +114,7 @@ export function Report(props: ReportProps) {
     )
 
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
-  }, [dataTypeConfig])
+  }, [props.setReportStepHashIds])
 
   const demographicTypeString: string =
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType] ?? 'demographic'
@@ -139,7 +139,7 @@ export function Report(props: ReportProps) {
     <>
       <title>{`${browserTitle} - Health Equity Tracker`}</title>
 
-      <div className='flex '>
+      <div className='flex'>
         {/* CARDS COLUMN */}
         <div className='w-full md:w-10/12'>
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}

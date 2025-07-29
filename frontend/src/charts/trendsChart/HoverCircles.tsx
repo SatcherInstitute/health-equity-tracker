@@ -40,20 +40,18 @@ export function HoverCircles({
               {/* only append circle if data exists for this group & date */}
               {(getAmountsByDate(d, selectedDate) ||
                 getAmountsByDate(d, selectedDate) === 0) && (
-                <>
-                  <circle
-                    // tabIndex={0}
-                    className='transition-opacity delay-300 duration-200 ease-linear'
-                    r={4}
-                    // use transform instead of cy to apply css transitions
-                    // note - x positioning is handled by parent
-                    transform={`translate(0,${
-                      yScale(getAmountsByDate(d, selectedDate)) ?? 0
-                    })`}
-                    fill={C(group)}
-                    stroke={het.white}
-                  />
-                </>
+                <circle
+                  // tabIndex={0}
+                  className='transition-opacity delay-300 duration-200 ease-linear'
+                  r={4}
+                  // use transform instead of cy to apply css transitions
+                  // note - x positioning is handled by parent
+                  transform={`translate(0,${
+                    yScale(getAmountsByDate(d, selectedDate)) ?? 0
+                  })`}
+                  fill={C(group)}
+                  stroke={het.white}
+                />
               )}
             </g>
           )

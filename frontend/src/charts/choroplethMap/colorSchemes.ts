@@ -105,7 +105,7 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
   } = options
   let interpolatorFn
 
-  let colorArray = COLOR_SCHEMES[colorScheme] || COLOR_SCHEMES['darkgreen']
+  let colorArray = COLOR_SCHEMES[colorScheme] || COLOR_SCHEMES.darkgreen
 
   if (isSummaryLegend && !isPhrmaAdherence) {
     colorArray = [mapConfig.mid]
@@ -137,7 +137,12 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
     ? [fieldRange.min, fieldRange.max]
     : [legendLowerBound, legendUpperBound]
 
-  if (min === undefined || max === undefined || isNaN(min) || isNaN(max)) {
+  if (
+    min === undefined ||
+    max === undefined ||
+    Number.isNaN(min) ||
+    Number.isNaN(max)
+  ) {
     return d3.scaleSequential(interpolatorFn).domain([0, 1])
   }
 

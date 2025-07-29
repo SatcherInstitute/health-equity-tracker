@@ -5,17 +5,17 @@ import { AbstractSortStrategy } from './AbstractDataSorter'
 const regexStripIncomeString = /^[^\d-]*(\d+)/
 
 function compareIncome(a: HetRow, b: HetRow): number {
-  const aValue = a?.['income']?.match(regexStripIncomeString)?.[1] || 0
-  const bValue = b?.['income']?.match(regexStripIncomeString)?.[1] || 0
+  const aValue = a?.income?.match(regexStripIncomeString)?.[1] || 0
+  const bValue = b?.income?.match(regexStripIncomeString)?.[1] || 0
   return aValue - bValue
 }
 
 export function sortByIncome(data: HetRow[]): HetRow[] {
   const dataWithUnder = data.filter((row: HetRow) => {
-    return row['income'].includes('Under') || row['income'].includes('All')
+    return row.income.includes('Under') || row.income.includes('All')
   })
   const dataWithoutUnder = data.filter((row: HetRow) => {
-    return !row['income'].includes('Under') && !row['income'].includes('All')
+    return !row.income.includes('Under') && !row.income.includes('All')
   })
 
   dataWithUnder.sort(compareIncome)

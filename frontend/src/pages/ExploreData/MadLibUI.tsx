@@ -115,103 +115,99 @@ export default function MadLibUI(props: MadLibUIProps) {
   ).map(([label, demoType]) => [demoType as DemographicType, label])
 
   return (
-    <>
-      <div className='grid place-content-center'>
-        <h1
-          className='mx-0 my-2 p-0 text-center font-normal text-fluid-mad-lib leading-loose transition-all duration-200 ease-in-out'
-          id='madlib-box'
-        >
-          {props.madLib.phrase.map(
-            (phraseSegment: PhraseSegment, index: number) => {
-              let dataTypes: Array<[DataTypeId, string]> = []
+    <div className='grid place-content-center'>
+      <h1
+        className='mx-0 my-2 p-0 text-center font-normal text-fluid-mad-lib leading-loose transition-all duration-200 ease-in-out'
+        id='madlib-box'
+      >
+        {props.madLib.phrase.map(
+          (phraseSegment: PhraseSegment, index: number) => {
+            let dataTypes: Array<[DataTypeId, string]> = []
 
-              const segmentDataTypeId: DropdownVarId | string =
-                props.madLib.activeSelections[index]
-              if (isDropdownVarId(segmentDataTypeId)) {
-                dataTypes = METRIC_CONFIG[segmentDataTypeId]?.map(
-                  (dataTypeConfig: DataTypeConfig) => {
-                    const { dataTypeId, dataTypeShortLabel } = dataTypeConfig
-                    return [dataTypeId, dataTypeShortLabel]
-                  },
-                )
-              }
-
-              const config =
-                index === 1 ? selectedDataTypeConfig1 : selectedDataTypeConfig2
-              const setConfig =
-                index === 1
-                  ? setSelectedDataTypeConfig1
-                  : setSelectedDataTypeConfig2
-
-              const isLocationMadLib = isFipsString(
-                props.madLib.activeSelections[index],
+            const segmentDataTypeId: DropdownVarId | string =
+              props.madLib.activeSelections[index]
+            if (isDropdownVarId(segmentDataTypeId)) {
+              dataTypes = METRIC_CONFIG[segmentDataTypeId]?.map(
+                (dataTypeConfig: DataTypeConfig) => {
+                  const { dataTypeId, dataTypeShortLabel } = dataTypeConfig
+                  return [dataTypeId, dataTypeShortLabel]
+                },
               )
+            }
 
-              return (
-                <React.Fragment
-                  key={
-                    typeof phraseSegment === 'string'
-                      ? phraseSegment
-                      : `phrase-${index}`
-                  }
-                >
-                  {typeof phraseSegment === 'string' ? (
-                    // NON_INTERACTIVE MADLIB WORDS
-                    <span className='text-alt-black'>
-                      {phraseSegment}
-                      {insertOptionalThe(props.madLib.activeSelections, index)}
-                    </span>
-                  ) : (
-                    <>
-                      {isLocationMadLib ? (
-                        // LOCATION
-                        <LocationSelector
-                          newValue={props.madLib.activeSelections[index]}
-                          onOptionUpdate={(newValue) => {
-                            handleOptionUpdate(newValue, index)
-                          }}
-                          phraseSegment={phraseSegment}
-                        />
-                      ) : (
-                        // MAIN PARENT TOPIC
-                        <TopicSelector
-                          newValue={
-                            props.madLib.activeSelections[
-                              index
-                            ] as DropdownVarId
-                          }
-                          onOptionUpdate={(newValue) => {
-                            handleOptionUpdate(newValue, index)
-                          }}
-                          phraseSegment={phraseSegment}
-                        />
-                      )}
+            const config =
+              index === 1 ? selectedDataTypeConfig1 : selectedDataTypeConfig2
+            const setConfig =
+              index === 1
+                ? setSelectedDataTypeConfig1
+                : setSelectedDataTypeConfig2
 
-                      {dataTypes?.length > 1 && (
-                        // DATA TYPE SUB TOPIC
-                        <DataTypeSelector
-                          key={`${index}-datatype`}
-                          newValue={config?.dataTypeId ?? dataTypes[0][0]}
-                          onOptionUpdate={(newValue) => {
-                            handleDataTypeUpdate(
-                              newValue as DataTypeId,
-                              index,
-                              setConfig,
-                            )
-                          }}
-                          options={dataTypes}
-                        />
-                      )}
-                    </>
-                  )}
-                </React.Fragment>
-              )
-            },
-          )}
-          <span>by</span>
-          <DemographicSelector options={demographicOptions} />
-        </h1>
-      </div>
-    </>
+            const isLocationMadLib = isFipsString(
+              props.madLib.activeSelections[index],
+            )
+
+            return (
+              <React.Fragment
+                key={
+                  typeof phraseSegment === 'string'
+                    ? phraseSegment
+                    : `phrase-${index}`
+                }
+              >
+                {typeof phraseSegment === 'string' ? (
+                  // NON_INTERACTIVE MADLIB WORDS
+                  <span className='text-alt-black'>
+                    {phraseSegment}
+                    {insertOptionalThe(props.madLib.activeSelections, index)}
+                  </span>
+                ) : (
+                  <>
+                    {isLocationMadLib ? (
+                      // LOCATION
+                      <LocationSelector
+                        newValue={props.madLib.activeSelections[index]}
+                        onOptionUpdate={(newValue) => {
+                          handleOptionUpdate(newValue, index)
+                        }}
+                        phraseSegment={phraseSegment}
+                      />
+                    ) : (
+                      // MAIN PARENT TOPIC
+                      <TopicSelector
+                        newValue={
+                          props.madLib.activeSelections[index] as DropdownVarId
+                        }
+                        onOptionUpdate={(newValue) => {
+                          handleOptionUpdate(newValue, index)
+                        }}
+                        phraseSegment={phraseSegment}
+                      />
+                    )}
+
+                    {dataTypes?.length > 1 && (
+                      // DATA TYPE SUB TOPIC
+                      <DataTypeSelector
+                        key={`${index}-datatype`}
+                        newValue={config?.dataTypeId ?? dataTypes[0][0]}
+                        onOptionUpdate={(newValue) => {
+                          handleDataTypeUpdate(
+                            newValue as DataTypeId,
+                            index,
+                            setConfig,
+                          )
+                        }}
+                        options={dataTypes}
+                      />
+                    )}
+                  </>
+                )}
+              </React.Fragment>
+            )
+          },
+        )}
+        <span>by</span>
+        <DemographicSelector options={demographicOptions} />
+      </h1>
+    </div>
   )
 }

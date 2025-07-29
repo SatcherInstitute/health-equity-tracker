@@ -58,8 +58,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     props.data,
     props.metricConfig,
     props.mapConfig,
-    props.fips,
-    props.isMulti,
     props.fipsTypeDisplayName,
     props.isPhrmaAdherence,
     props.isSummaryLegend,

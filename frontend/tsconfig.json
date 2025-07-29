@@ -1,41 +1,25 @@
 {
-  "compilerOptions": {
-    "target": "es2021",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es2021"
-    ],
-    "types": [
-      "vite-plugin-svgr/client",
-      "vite/client",
-      "vitest/globals",
-    ],
-    "typeRoots": [
-      "./node_modules"
-    ],
-    "noImplicitThis": false,
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true
-  },
-  "include": [
-    "src",
-    "playwright.config.ts"
-  ],
-  "exclude": [
-    "src/assets",
-    "node_modules"
-  ]
+	"compilerOptions": {
+		"target": "es2021",
+		"lib": ["dom", "dom.iterable", "es2021"],
+		"types": ["vite-plugin-svgr/client", "vite/client", "vitest/globals"],
+		"typeRoots": ["./node_modules"],
+		"noImplicitThis": false,
+		"allowJs": true,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"jsx": "react-jsx",
+		"noUnusedLocals": true,
+		"noUnusedParameters": true
+	},
+	"include": ["src", "playwright.config.ts"],
+	"exclude": ["src/assets", "node_modules"]
 }

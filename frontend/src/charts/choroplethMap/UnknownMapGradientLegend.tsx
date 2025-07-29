@@ -39,7 +39,7 @@ const UnknownMapGradientLegend = ({
         width: width,
         colorScale: colorScale,
       })
-  }, [data, metricConfig.metricId, width, colorScale, fips])
+  }, [data, width, colorScale, fips])
 
   // Don't render if county level or no data
   if (fips.isCounty() || !data?.length) {

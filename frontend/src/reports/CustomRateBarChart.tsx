@@ -16,7 +16,7 @@ interface CustomRateBarChartProps {
 
 const CustomRateBarChart: React.FC<CustomRateBarChartProps> = ({
   fips = new Fips('13'),
-  dataTypeConfig = METRIC_CONFIG['poverty'][0],
+  dataTypeConfig = METRIC_CONFIG.poverty[0],
   demographicType = RACE,
   reportTitle = `Poverty in ${new Fips('13').getFullDisplayName()}`,
   className,

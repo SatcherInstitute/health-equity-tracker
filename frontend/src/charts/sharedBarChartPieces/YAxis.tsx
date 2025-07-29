@@ -26,7 +26,7 @@ export default function YAxis(props: YAxisProps) {
       original: d[props.demographicType],
       lines: wrapLabel(d[props.demographicType], props.maxLabelWidth),
     }))
-  }, [props.processedData, props.demographicType])
+  }, [props.processedData, props.demographicType, props.maxLabelWidth])
 
   return (
     <g>

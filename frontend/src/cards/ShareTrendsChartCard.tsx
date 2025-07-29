@@ -198,7 +198,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             {shouldShowMissingData ? (
               <>
                 {/* Chart Title Missing Data */}
-                <ChartTitle title={'Graph unavailable: ' + chartTitle} />
+                <ChartTitle title={`Graph unavailable: ${chartTitle}`} />
                 <MissingDataAlert
                   dataName={chartTitle}
                   demographicTypeString={

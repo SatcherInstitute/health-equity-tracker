@@ -17,7 +17,7 @@ const CustomStackedSharesBarChart: React.FC<
   CustomStackedSharesBarChartProps
 > = ({
   fips = new Fips('12'),
-  dataTypeConfig = METRIC_CONFIG['health_insurance'][0],
+  dataTypeConfig = METRIC_CONFIG.health_insurance[0],
   demographicType = 'sex',
   reportTitle = 'Uninsurance in Florida by Sex',
   className,

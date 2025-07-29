@@ -160,7 +160,7 @@ export default function StackedSharesBarChartCard(
               />
             ) : (
               <>
-                <ChartTitle title={'Graph unavailable: ' + chartTitle} />
+                <ChartTitle title={`Graph unavailable: ${chartTitle}`} />
                 <MissingDataAlert
                   dataName={chartTitle}
                   demographicTypeString={

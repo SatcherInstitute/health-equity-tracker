@@ -104,8 +104,8 @@ export function Sources(props: SourcesProps) {
         </p>
       )}
       <p className='w-full'>
-        <>{optionalDefinition}</>
-        <>{showNhFootnote ? 'Note. (NH) indicates ‘Non-Hispanic’. ' : ''}</>
+        {optionalDefinition}
+        {showNhFootnote ? 'Note. (NH) indicates ‘Non-Hispanic’. ' : ''}
         View <HashLink to={methodologyLink}>methodology</HashLink>.
       </p>
 

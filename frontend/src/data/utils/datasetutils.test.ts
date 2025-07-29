@@ -93,7 +93,7 @@ describe('DatasetUtils.appendFipsIfNeeded() Unit Tests', () => {
       base_id,
       breakdowns_for_county,
     )
-    expect(generated_county_set_id).toEqual(base_id + '-06')
+    expect(generated_county_set_id).toEqual(`${base_id}-06`)
   })
 
   test('State Level', async () => {

@@ -184,7 +184,7 @@ export default function TableCard(props: TableCardProps) {
             )}
             {showMissingDataAlert && (
               <MissingDataAlert
-                dataName={props.dataTypeConfig.fullDisplayName + ' '}
+                dataName={`${props.dataTypeConfig.fullDisplayName} `}
                 demographicTypeString={
                   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
                 }

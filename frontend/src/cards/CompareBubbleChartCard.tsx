@@ -73,7 +73,7 @@ export default function CompareBubbleChartCard(
 
   let chartTitle = `Correlation between rates of ${props.rateConfig1?.chartTitle} and ${props.rateConfig2?.chartTitle} in ${props.fips1.getSentenceDisplayName()}`
 
-  if (SHOW_CORRELATION_CARD) chartTitle = 'PREVIEW MODE: ' + chartTitle
+  if (SHOW_CORRELATION_CARD) chartTitle = `PREVIEW MODE: ${chartTitle}`
 
   return (
     <CardWrapper

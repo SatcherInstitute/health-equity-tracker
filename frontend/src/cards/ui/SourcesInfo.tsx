@@ -24,7 +24,7 @@ export default function SourcesInfo(props: SourcesInfoProps) {
             {props.dataSourceMap[dataSourceId].name}
           </LinkWithStickyParams>{' '}
           {props.dataSourceMap[dataSourceId].updateTimes.size === 0 ? (
-            <>(last update unknown) </>
+            '(last update unknown)'
           ) : (
             <>
               (data from{' '}

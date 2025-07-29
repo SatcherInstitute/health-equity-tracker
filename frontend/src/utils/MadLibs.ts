@@ -77,7 +77,7 @@ function getMadLibPhraseText(madLib: MadLib): string {
       const selectionKey: string = madLib.activeSelections[index]
         ? madLib.activeSelections[index]
         : madLib.defaultSelections[index]
-      madLibText += ' ' + phraseSelector[selectionKey] + ' '
+      madLibText += ` ${phraseSelector[selectionKey]} `
     }
   })
   return madLibText

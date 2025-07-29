@@ -74,7 +74,7 @@ export function LinkWithStickyParams(props: {
   let newUrl = props.to
   if (params[STICKY_VERSION_PARAM]) {
     // Note: doesn't handle urls that already have params on them.
-    newUrl = newUrl + `?${STICKY_VERSION_PARAM}=${params[STICKY_VERSION_PARAM]}`
+    newUrl = `${newUrl}?${STICKY_VERSION_PARAM}=${params[STICKY_VERSION_PARAM]}`
   }
   linkProps.to = newUrl
 
@@ -145,7 +145,7 @@ export function setParameters(paramMap: ParamKeyValue[]) {
     window.location.host +
     window.location.pathname
 
-  window.history.pushState({}, '', base + '?' + searchParams.toString())
+  window.history.pushState({}, '', `${base}?${searchParams.toString()}`)
 }
 
 const defaultHandler = <T,>(input: string | null): T => {
@@ -206,8 +206,8 @@ export const psSubscribe = (
   handler: PSEventHandler,
   keyPrefix = 'unk',
 ): { unsubscribe: () => void } => {
-  const key = keyPrefix + '_' + psCount
-  getLogger().debugLog('Adding PSHandler: ' + key)
+  const key = `${keyPrefix}_${psCount}`
+  getLogger().debugLog(`Adding PSHandler: ${key}`)
   psSubscriptions[key] = handler
   psCount++
   return {
@@ -218,7 +218,7 @@ export const psSubscribe = (
 }
 
 const psUnsubscribe = (k: string) => {
-  getLogger().debugLog('Removing PSHandler: ' + k)
+  getLogger().debugLog(`Removing PSHandler: ${k}`)
   // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
   delete psSubscriptions[k]
 }
@@ -227,7 +227,7 @@ window.onpopstate = () => {
   Object.keys(psSubscriptions).forEach((key) => {
     const handler = psSubscriptions[key]
     if (handler) {
-      getLogger().debugLog('Firing PSHandler: ' + key)
+      getLogger().debugLog(`Firing PSHandler: ${key}`)
       handler()
     }
   })

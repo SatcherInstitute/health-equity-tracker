@@ -23,7 +23,7 @@ const CustomUnknownMap: React.FC<CustomUnknownMapProps> = ({
   shareMetricConfig = true,
   reportTitle = 'Custom Unknown Map Report',
 }) => {
-  const dataTypeConfig: DataTypeConfig = METRIC_CONFIG['covid'][0]
+  const dataTypeConfig: DataTypeConfig = METRIC_CONFIG.covid[0]
 
   return (
     <div

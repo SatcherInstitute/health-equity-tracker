@@ -91,14 +91,12 @@ const CommunitySafetyLink = () => {
             <h3 className='font-normal text-text'>Measures</h3>
             <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
-              <>
-                <li>
-                  <HetTerm>Gun-Related Deaths by Homicides</HetTerm>
-                </li>
-                <li>
-                  <HetTerm>Gun-Related Deaths by Suicides</HetTerm>
-                </li>
-              </>
+              <li>
+                <HetTerm>Gun-Related Deaths by Homicides</HetTerm>
+              </li>
+              <li>
+                <HetTerm>Gun-Related Deaths by Suicides</HetTerm>
+              </li>
 
               <li>
                 <HetTerm>Gun-Related Deaths for Children</HetTerm>

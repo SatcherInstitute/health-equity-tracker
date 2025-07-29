@@ -23,7 +23,7 @@ const Banner: React.FC = () => {
     } else {
       setIsVisible(false)
     }
-  }, [window.location.pathname, window.location.search])
+  }, [])
 
   const handleClose = () => {
     setIsVisible(false)

@@ -82,7 +82,7 @@ export function CircleChart({
     <g>
       <g
         tabIndex={0}
-        aria-label={unknownCircleLegendText + ' per month'}
+        aria-label={`${unknownCircleLegendText} per month`}
         transform={`translate(0, ${
           HEIGHT - MARGIN.bottom_with_unknowns + 4 * MAX_RADIUS
         })`}

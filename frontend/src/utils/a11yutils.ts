@@ -6,7 +6,7 @@ export function srSpeak(message: string) {
   const temp = document.createElement('div')
 
   // unique ID
-  const id = 'speak-' + Date.now()
+  const id = `speak-${Date.now()}`
   temp.setAttribute('id', id)
   temp.setAttribute('role', 'alert')
 

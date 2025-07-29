@@ -108,7 +108,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   function getTitleText() {
     return `${
       metricConfigRates?.trendsCardTitleName ??
-      props.dataTypeConfig.fullDisplayName + ' over time '
+      `${props.dataTypeConfig.fullDisplayName} over time `
     } in ${props.fips.getSentenceDisplayName()}`
   }
 
@@ -229,7 +229,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             ]) || nestedRatesData?.length === 0 ? (
               <>
                 {/* Chart Title Missing Data */}
-                <ChartTitle title={'Graph unavailable: ' + getTitleText()} />
+                <ChartTitle title={`Graph unavailable: ${getTitleText()}`} />
                 <MissingDataAlert
                   dataName={`historical data for ${metricConfigRates.chartTitle}`}
                   demographicTypeString={

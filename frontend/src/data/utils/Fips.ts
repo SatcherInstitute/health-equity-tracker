@@ -15,7 +15,7 @@ export function isFipsString(code: string): boolean {
 }
 
 export function failInvalidFips(code: string) {
-  if (!isFipsString(code)) throw new Error('Invalid FIPS code: ' + code)
+  if (!isFipsString(code)) throw new Error(`Invalid FIPS code: ${code}`)
 }
 
 class Fips {
@@ -136,7 +136,7 @@ class Fips {
 
   getFullDisplayName() {
     return `${this.getDisplayName()}${
-      this.isCounty() ? ', ' + this.getStateDisplayName() : ''
+      this.isCounty() ? `, ${this.getStateDisplayName()}` : ''
     }`
   }
 

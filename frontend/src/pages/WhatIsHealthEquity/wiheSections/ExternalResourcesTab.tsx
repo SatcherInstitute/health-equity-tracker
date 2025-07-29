@@ -4,11 +4,9 @@ import { externalResourceMappings } from '../wiheContent/ExternalResourcesTabDat
 
 export default function VideosTab() {
   return (
-    <>
-      <HetCarousel
-        items={externalResourceMappings}
-        CardComponent={HetCarouselCard}
-      />
-    </>
+    <HetCarousel
+      items={externalResourceMappings}
+      CardComponent={HetCarouselCard}
+    />
   )
 }

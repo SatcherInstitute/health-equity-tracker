@@ -59,11 +59,10 @@ export default function RoundedBarsWithLabels(
           props.handleTooltip(e, d, true)
         }}
         aria-label={barAriaLabel}
-        role='img'
       >
         <path
           d={roundedBarString}
-          key={'path' + index + barAriaLabel}
+          key={`path${index}${barAriaLabel}`}
           className={
             d[props.demographicType] === 'All'
               ? 'fill-time-yellow'

@@ -23,36 +23,34 @@ export default function BaseSelector<T extends string>({
   const popover = usePopover()
 
   return (
-    <>
-      <span ref={popoverRef}>
-        <HetMadLibButton
-          className={buttonClassName}
-          isOpen={popover.isOpen}
-          handleClick={popover.open}
-        >
-          {currentDisplayName}
-        </HetMadLibButton>
+    <span ref={popoverRef}>
+      <HetMadLibButton
+        className={buttonClassName}
+        isOpen={popover.isOpen}
+        handleClick={popover.open}
+      >
+        {currentDisplayName}
+      </HetMadLibButton>
 
-        <HetPopover popover={popover}>
-          <div className='m-0 flex p-0'>
-            <menu className='m-0 px-0 py-2'>
-              {options.map(([optionId, optionDisplayName]) => (
-                <HetListBoxOption
-                  key={optionId}
-                  selected={optionId === selectedValue}
-                  onClick={() => {
-                    popover.close()
-                    onSelect(optionId)
-                  }}
-                  className='mr-auto ml-6 p-6 text-left'
-                >
-                  {optionDisplayName}
-                </HetListBoxOption>
-              ))}
-            </menu>
-          </div>
-        </HetPopover>
-      </span>
-    </>
+      <HetPopover popover={popover}>
+        <div className='m-0 flex p-0'>
+          <menu className='m-0 px-0 py-2'>
+            {options.map(([optionId, optionDisplayName]) => (
+              <HetListBoxOption
+                key={optionId}
+                selected={optionId === selectedValue}
+                onClick={() => {
+                  popover.close()
+                  onSelect(optionId)
+                }}
+                className='mr-auto ml-6 p-6 text-left'
+              >
+                {optionDisplayName}
+              </HetListBoxOption>
+            ))}
+          </menu>
+        </div>
+      </HetPopover>
+    </span>
   )
 }

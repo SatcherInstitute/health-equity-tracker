@@ -73,7 +73,7 @@ function MenuPopover(props: MenuPopoverProps): React.ReactElement<any> {
 
   return (
     <Popover
-      className=' w-auto max-w-[95vw] overflow-x-auto p-4'
+      className='w-auto max-w-[95vw] overflow-x-auto p-4'
       open={props.popover.isOpen}
       anchorEl={props.popover.anchor}
       onClose={() => {
@@ -88,7 +88,7 @@ function MenuPopover(props: MenuPopoverProps): React.ReactElement<any> {
       <List
         aria-label='List of Options'
         dense={true}
-        className=' w-auto max-w-[95vw] overflow-x-auto p-4'
+        className='w-auto max-w-[95vw] overflow-x-auto p-4'
       >
         {listItems.map((listItem) => renderListItem(listItem))}
       </List>

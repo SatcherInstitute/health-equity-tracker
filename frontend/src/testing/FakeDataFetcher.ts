@@ -65,7 +65,7 @@ export default class FakeDataFetcher implements DataFetcher {
 
   setFakeMetadataFailedToLoad(err: Error) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    this.metadataRejecter!(err)
+    this.metadataRejecter?.(err)
   }
 
   getNumLoadDatasetCalls() {

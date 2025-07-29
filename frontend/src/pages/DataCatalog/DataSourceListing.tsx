@@ -60,7 +60,7 @@ function DownloadDatasetListItem(props: {
   if (props.datasetMetadata === undefined) {
     void getLogger().logError(
       new Error(
-        'Dataset metadata was missing for dataset with ID: ' + props.datasetId,
+        `Dataset metadata was missing for dataset with ID: ${props.datasetId}`,
       ),
       'ERROR',
     )
@@ -80,10 +80,8 @@ function DownloadDatasetListItem(props: {
         <>
           <ListItemIcon>{getIcon()}</ListItemIcon>
           <ListItemText
-            primary={props.datasetMetadata.name + '.csv'}
-            secondary={
-              'Last updated: ' + props.datasetMetadata.original_data_sourced
-            }
+            primary={`${props.datasetMetadata.name}.csv`}
+            secondary={`Last updated: ${props.datasetMetadata.original_data_sourced}`}
           />
         </>
       ) : (
@@ -182,7 +180,7 @@ function DataSourceListing(props: DataSourceListingProps) {
             href='/data_dictionaries/medicare_population.csv'
             className='px-0 py-0 text-center font-bold leading-normal'
             buttonClassName='w-auto mx-auto md:w-auto md:mr-4 md:ml-0 px-0 pt-2 pb-4'
-            ariaLabel={'Download ' + props.source_metadata.data_source_name}
+            ariaLabel={`Download ${props.source_metadata.data_source_name}`}
           >
             <SaveAlt className='pt-1 pr-2 pl-0' />
             Download data dictionary

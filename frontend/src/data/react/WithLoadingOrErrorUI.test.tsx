@@ -40,7 +40,7 @@ function WithMetricsWrapperApp(props: {
               <>
                 Loaded {response.data.length} rows.{' '}
                 {props.displayRow !== undefined &&
-                  response.data.map((row) => props.displayRow!(row) as any)}
+                  response.data.map((row) => props.displayRow?.(row) as any)}
               </>
             )}
           </div>

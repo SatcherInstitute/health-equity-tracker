@@ -70,7 +70,7 @@ export function joinOnCols(
   joinType: JoinType = 'inner',
 ): IDataFrame {
   const keySelector = (row: any) => {
-    const keys = cols.map((col) => col + ': ' + row[col])
+    const keys = cols.map((col) => `${col}: ${row[col]}`)
     return keys.join(',')
   }
   const aggFn = (row1: any, row2: any) => ({ ...row2, ...row1 })

@@ -78,14 +78,19 @@ export function StackedBarChart(props: StackedBarChartProps) {
       ]),
     )
     return scaleLinear().domain([0, maxValue]).range([0, innerWidth])
-  }, [processedData, innerWidth])
+  }, [
+    processedData,
+    innerWidth,
+    props.darkMetric.metricId,
+    props.lightMetric.metricId,
+  ])
 
   const yScale = useMemo(() => {
     return scaleBand()
       .domain(processedData.map((d) => d[props.demographicType]))
       .range([0, innerHeight])
       .padding(BAR_PADDING)
-  }, [processedData, innerHeight])
+  }, [processedData, innerHeight, props.demographicType])
 
   const getYPosition = (_index: number, demographicValue: string) => {
     return yScale(demographicValue) || 0

@@ -161,7 +161,7 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
             {hideChart ? (
               <>
                 <ChartTitle
-                  title={'Graph unavailable: ' + chartTitle}
+                  title={`Graph unavailable: ${chartTitle}`}
                   subtitle={subtitle}
                 />
 

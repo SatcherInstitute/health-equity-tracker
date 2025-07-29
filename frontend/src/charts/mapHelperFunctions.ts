@@ -45,7 +45,7 @@ export function getLegendDataBounds(
 ): [number, number] {
   const values = data
     .map((row) => row[metricId])
-    .filter((value) => value != null && !isNaN(value))
+    .filter((value) => value != null && !Number.isNaN(value))
 
   if (values.length === 0) {
     console.warn(
