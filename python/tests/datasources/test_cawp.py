@@ -324,7 +324,7 @@ def test_territorial_leg_counts_are_current():
     tables = pd.read_html(StringIO(html_content))
     terr_table = None
     for table in tables:
-        if "Total Seats" in table.columns and "U.S. Territories" in table.columns:
+        if "Total seats" in table.columns and "U.S. territories" in table.columns:
             terr_table = table
             break
 
