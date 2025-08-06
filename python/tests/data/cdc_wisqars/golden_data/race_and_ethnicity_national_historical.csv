@@ -30,27 +30,34 @@ time_period,state_name,state_fips,race_and_ethnicity,gun_violence_homicide_per_1
 2019,United States,00,Two or more races (NH),2.29,3.08,5.64,-45.5,-54.5,-54.5,1.2,1.0,1.0
 2019,United States,00,Native Hawaiian and Pacific Islander (NH),4.8,3.48,8.94,0.0,-50.0,-50.0,0.2,0.1,0.1
 2019,United States,00,White (NH),1.59,10.19,12.15,-63.9,39.9,0.7,21.7,84.1,60.5
-2020,United States,00,Indigenous (NH),7.94,9.35,18.66,42.9,28.6,42.9,1.0,0.9,1.0
+2020,United States,00,Indigenous (NH),7.92,9.33,18.62,42.9,28.6,42.9,1.0,0.9,1.0
 2020,United States,00,Asian (NH),0.88,1.65,2.64,-84.7,-78.0,-81.4,0.9,1.3,1.1
-2020,United States,00,Black or African American (NH),28.35,4.27,33.48,384.9,-41.3,146.0,61.1,7.4,31.0
-2020,United States,00,Hispanic or Latino,4.77,2.9,8.09,-18.7,-60.4,-40.6,15.2,7.4,11.1
-2020,United States,00,Two or more races (NH),2.67,3.3,6.25,-52.2,-56.5,-52.2,1.1,1.0,1.1
-2020,United States,00,Native Hawaiian and Pacific Islander (NH),5.67,3.24,9.4,0.0,-50.0,-50.0,0.2,0.1,0.1
-2020,United States,00,White (NH),2.01,10.04,12.48,-65.6,37.4,-8.4,20.5,81.9,54.6
-2021,United States,00,Indigenous (NH),7.67,9.99,19.31,28.6,28.6,42.9,0.9,0.9,1.0
+2020,United States,00,Black or African American (NH),28.36,4.28,33.5,384.9,-41.3,146.0,61.1,7.4,31.0
+2020,United States,00,Hispanic or Latino,4.74,2.88,8.04,-19.1,-60.6,-41.0,15.2,7.4,11.1
+2020,United States,00,Two or more races (NH),2.68,3.31,6.26,-52.2,-56.5,-52.2,1.1,1.0,1.1
+2020,United States,00,Native Hawaiian and Pacific Islander (NH),5.65,3.23,9.37,0.0,-50.0,-50.0,0.2,0.1,0.1
+2020,United States,00,White (NH),2.01,10.06,12.5,-65.5,37.6,-8.2,20.5,81.9,54.6
+2021,United States,00,Indigenous (NH),7.65,9.97,19.27,28.6,28.6,42.9,0.9,0.9,1.0
 2021,United States,00,Asian (NH),1.03,1.78,2.91,-83.3,-78.3,-80.0,1.0,1.3,1.2
-2021,United States,00,Black or African American (NH),30.39,5.17,36.53,382.5,-34.9,149.2,60.8,8.2,31.4
-2021,United States,00,Hispanic or Latino,5.52,3.25,9.17,-12.7,-58.7,-37.6,16.5,7.8,11.8
-2021,United States,00,Two or more races (NH),3.35,3.38,7.13,-50.0,-58.3,-54.2,1.2,1.0,1.1
-2021,United States,00,Native Hawaiian and Pacific Islander (NH),5.92,4.32,10.89,0.0,-50.0,-50.0,0.2,0.1,0.1
-2021,United States,00,White (NH),2.06,10.77,13.23,-67.3,35.9,-9.9,19.4,80.6,53.4
-2022,United States,00,Indigenous (NH),9.25,10.57,21.89,57.1,28.6,57.1,1.1,0.9,1.1
+2021,United States,00,Black or African American (NH),30.4,5.17,36.54,382.5,-34.9,149.2,60.8,8.2,31.4
+2021,United States,00,Hispanic or Latino,5.48,3.23,9.11,-13.2,-58.9,-37.9,16.5,7.8,11.8
+2021,United States,00,Two or more races (NH),3.35,3.39,7.13,-47.8,-56.5,-52.2,1.2,1.0,1.1
+2021,United States,00,Native Hawaiian and Pacific Islander (NH),5.9,4.31,10.85,0.0,-50.0,-50.0,0.2,0.1,0.1
+2021,United States,00,White (NH),2.07,10.78,13.25,-67.2,36.1,-9.8,19.4,80.6,53.4
+2022,United States,00,Indigenous (NH),9.24,10.56,21.86,57.1,28.6,57.1,1.1,0.9,1.1
 2022,United States,00,Asian (NH),0.97,1.84,2.88,-83.6,-77.0,-80.3,1.0,1.4,1.2
-2022,United States,00,Black or African American (NH),27.51,5.32,33.76,368.3,-34.1,134.1,59.0,8.3,29.5
-2022,United States,00,Hispanic or Latino,5.5,3.26,9.19,-6.8,-59.7,-36.1,17.8,7.7,12.2
-2022,United States,00,Two or more races (NH),3.28,3.52,7.04,-45.8,-58.3,-50.0,1.3,1.0,1.2
-2022,United States,00,Native Hawaiian and Pacific Islander (NH),5.82,3.77,10.22,0.0,-50.0,-50.0,0.2,0.1,0.1
-2022,United States,00,White (NH),1.95,11.08,13.42,-66.9,36.8,-7.1,19.5,80.6,54.7
+2022,United States,00,Black or African American (NH),27.53,5.32,33.78,368.3,-34.1,134.1,59.0,8.3,29.5
+2022,United States,00,Hispanic or Latino,5.46,3.24,9.14,-7.3,-59.9,-36.5,17.8,7.7,12.2
+2022,United States,00,Two or more races (NH),3.28,3.52,7.05,-45.8,-58.3,-50.0,1.3,1.0,1.2
+2022,United States,00,Native Hawaiian and Pacific Islander (NH),5.8,3.76,10.19,0.0,-50.0,-50.0,0.2,0.1,0.1
+2022,United States,00,White (NH),1.96,11.09,13.44,-66.8,37.1,-7.0,19.5,80.6,54.7
+2023,United States,00,Indigenous (NH),8.3,9.7,19.81,57.1,28.6,42.9,1.1,0.9,1.0
+2023,United States,00,Asian (NH),1.01,2.09,3.2,-80.6,-74.2,-77.4,1.2,1.6,1.4
+2023,United States,00,Black or African American (NH),24.47,5.48,30.87,359.5,-32.5,122.2,57.9,8.5,28.0
+2023,United States,00,Hispanic or Latino,5.04,3.37,8.81,-5.6,-58.5,-36.9,18.4,8.1,12.3
+2023,United States,00,Two or more races (NH),2.96,3.48,6.86,-41.7,-58.3,-50.0,1.4,1.0,1.2
+2023,United States,00,Native Hawaiian and Pacific Islander (NH),4.78,6.16,11.55,0.0,-50.0,0.0,0.2,0.1,0.2
+2023,United States,00,White (NH),1.83,11.11,13.31,-65.8,36.6,-4.5,20.0,79.8,55.8
 2001,United States,00,Unknown race,0.0,0.0,0.0,,,,0.8,0.3,0.5
 2002,United States,00,Unknown race,0.0,0.0,0.0,,,,0.7,0.4,0.5
 2003,United States,00,Unknown race,0.0,0.0,0.0,,,,0.6,0.2,0.4
@@ -73,6 +80,7 @@ time_period,state_name,state_fips,race_and_ethnicity,gun_violence_homicide_per_1
 2020,United States,00,Unknown race,0.0,0.0,0.0,,,,0.2,0.2,0.2
 2021,United States,00,Unknown race,0.0,0.0,0.0,,,,0.1,0.2,0.2
 2022,United States,00,Unknown race,0.0,0.0,0.0,,,,0.1,0.2,0.2
+2023,United States,00,Unknown race,0.0,0.0,0.0,,,,0.2,0.3,0.3
 2001,United States,00,All,3.98,5.92,10.38,0.0,0.0,0.0,100.0,100.0,100.0
 2002,United States,00,All,4.11,5.95,10.51,0.0,0.0,0.0,100.0,100.0,100.0
 2003,United States,00,All,4.11,5.83,10.39,0.0,0.0,0.0,100.0,100.0,100.0
@@ -95,3 +103,4 @@ time_period,state_name,state_fips,race_and_ethnicity,gun_violence_homicide_per_1
 2020,United States,00,All,5.85,7.33,13.64,0.0,0.0,0.0,100.0,100.0,100.0
 2021,United States,00,All,6.31,7.93,14.71,0.0,0.0,0.0,100.0,100.0,100.0
 2022,United States,00,All,5.9,8.11,14.46,0.0,0.0,0.0,100.0,100.0,100.0
+2023,United States,00,All,5.35,8.15,13.95,0.0,0.0,0.0,100.0,100.0,100.0
