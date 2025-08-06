@@ -325,14 +325,17 @@ def test_territorial_leg_counts_are_current():
     terr_table = None
 
     for table in tables:
-        lowercase_cols = [col.lower() for col in table.columns]
+        # Make column names lowercase safely by converting to strings
+        lowercase_cols = [str(col).lower() for col in table.columns]
         if "total seats" in lowercase_cols and "u.s. territories" in lowercase_cols:
             terr_table = table
             break
 
+    assert terr_table is not None, "Territorial table not found in Wikipedia page"
+
     # Find the actual column name that matches "Total seats" case-insensitively
     total_seats_col = next(
-        (col for col in terr_table.columns if col.lower() == "total seats"),
+        (col for col in terr_table.columns if str(col).lower() == "total seats"),
         None,
     )
     assert total_seats_col is not None, "Column with total seats not found"
