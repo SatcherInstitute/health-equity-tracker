@@ -24,11 +24,13 @@ import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { X_AXIS_MAX_TICKS } from '../utils'
 import { Axes } from './Axes'
 import { CircleChart } from './CircleChart'
-/* Constants */
-import { BASELINE_THRESHOLD_Y_AXIS_ZERO, CONFIG } from './constants'
 /* Components */
 import { FilterLegend } from './FilterLegend'
 import { HoverCircles } from './HoverCircles'
+import { LineChart } from './LineChart'
+import { TrendsTooltip } from './TrendsTooltip'
+/* Constants */
+import { BASELINE_THRESHOLD_Y_AXIS_ZERO, CONFIG } from './constants'
 /* Helpers */
 import {
   filterDataByGroup,
@@ -36,8 +38,6 @@ import {
   getAmounts,
   getDates,
 } from './helpers'
-import { LineChart } from './LineChart'
-import { TrendsTooltip } from './TrendsTooltip'
 import type { AxisConfig, TrendsData, UnknownData } from './types'
 
 /* Define type interface */

@@ -2,12 +2,12 @@ import { Dialog, DialogContent } from '@mui/material'
 import { useAtomValue } from 'jotai'
 import { HashLink } from 'react-router-hash-link'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
+import type { CategoryTypeId } from '../../utils/MadLibs'
 import { useParamState } from '../../utils/hooks/useParamState'
 import {
   DATA_CATALOG_PAGE_LINK,
   METHODOLOGY_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import type { CategoryTypeId } from '../../utils/MadLibs'
 import { selectedDataTypeConfig1Atom } from '../../utils/sharedSettingsState'
 import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
 import DataTypeDefinitionsList from '../ui/DataTypeDefinitionsList'

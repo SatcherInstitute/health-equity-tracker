@@ -29,8 +29,8 @@ import {
   type RaceAndEthnicityGroup,
   WHITE_NH,
 } from '../data/utils/Constants'
-import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
+import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'

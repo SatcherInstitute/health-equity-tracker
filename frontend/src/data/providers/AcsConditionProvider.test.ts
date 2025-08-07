@@ -12,8 +12,8 @@ import {
 } from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
 import { AGE, RACE, SEX } from '../utils/Constants'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 import AcsConditionProvider from './AcsConditionProvider'
 import { CHATAM, NC, USA } from './TestUtils'
 

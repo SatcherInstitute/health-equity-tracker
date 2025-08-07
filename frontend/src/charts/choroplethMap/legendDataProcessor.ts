@@ -6,11 +6,11 @@ import type { GeographicBreakdown } from '../../data/query/Breakdowns'
 import { het } from '../../styles/DesignTokens'
 import { NO_DATA_MESSAGE } from '../mapGlobals'
 import {
+  type LegendItemData,
   createLabelFormatter,
   createLegendForSmallDataset,
   createPhrmaAdherenceLegend,
   createQuantileLegend,
-  type LegendItemData,
 } from './mapLegendUtils'
 import { type ColorScale, isQuantileScale } from './types'
 

@@ -24,9 +24,9 @@ import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_CORRELATION_CARD } from '../featureFlags'
 import Sidebar from '../pages/ui/Sidebar'
+import type { MadLibId } from '../utils/MadLibs'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import type { MadLibId } from '../utils/MadLibs'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
@@ -126,7 +126,7 @@ export default function CompareReport(props: CompareReportProps) {
       const newDtParam2 =
         props.trackerMode === 'comparegeos'
           ? newDtParam1
-          : (dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0])
+          : dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
       setDtConfig2(newDtParam2)
     }
     const psSub = psSubscribe(readParams, 'twovar')

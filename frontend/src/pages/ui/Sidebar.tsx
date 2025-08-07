@@ -1,5 +1,5 @@
-import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import SimpleSelect from './SimpleSelect'
 import TableOfContents from './TableOfContents'
 import TopicInfoModalButton from './TopicInfoModalButton'

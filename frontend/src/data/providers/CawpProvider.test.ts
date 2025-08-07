@@ -20,8 +20,8 @@ import {
   UNKNOWN_RACE,
   WHITE,
 } from '../utils/Constants'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 import CawpProvider, { getWomenRaceLabel } from './CawpProvider'
 
 async function ensureCorrectDatasetsDownloaded(

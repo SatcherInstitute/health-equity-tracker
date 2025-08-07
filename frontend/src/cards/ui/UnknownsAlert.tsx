@@ -7,8 +7,8 @@ import {
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { AGE } from '../../data/utils/Constants'
 import type { HetRow } from '../../data/utils/DatasetTypes'
-import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import type { Fips } from '../../data/utils/Fips'
+import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 

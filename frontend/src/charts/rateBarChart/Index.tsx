@@ -14,6 +14,7 @@ import VerticalGridlines from '../sharedBarChartPieces/VerticalGridlines'
 import XAxis from '../sharedBarChartPieces/XAxis'
 import YAxis from '../sharedBarChartPieces/YAxis'
 import BarChartTooltip from './BarChartTooltip'
+import RoundedBarsWithLabels from './RoundedBarsWithLabels'
 import {
   BAR_HEIGHT,
   BAR_PADDING,
@@ -24,7 +25,6 @@ import {
   NORMAL_MARGIN_HEIGHT,
   Y_AXIS_LABEL_HEIGHT,
 } from './constants'
-import RoundedBarsWithLabels from './RoundedBarsWithLabels'
 import { useRateChartTooltip } from './useRateChartTooltip'
 
 interface RateBarChartProps {

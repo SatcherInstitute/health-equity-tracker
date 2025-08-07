@@ -18,8 +18,8 @@ import {
   DIABETES_METRICS,
 } from './MetricConfigChronicDisease'
 import {
-  GUN_DEATH_METRICS,
   GUN_DEATHS_BLACK_MEN_METRICS,
+  GUN_DEATH_METRICS,
   GUN_VIOLENCE_METRICS,
   GUN_VIOLENCE_YOUTH_METRICS,
 } from './MetricConfigCommunitySafety'

@@ -1,8 +1,8 @@
 import { useLocation } from 'react-router'
+import UnknownMapGradientLegend from '../charts/choroplethMap/UnknownMapGradientLegend'
 import { createColorScale } from '../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../charts/choroplethMap/index'
 import type { DataPoint } from '../charts/choroplethMap/types'
-import UnknownMapGradientLegend from '../charts/choroplethMap/UnknownMapGradientLegend'
 import { MAP_SCHEMES } from '../charts/mapGlobals'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type {

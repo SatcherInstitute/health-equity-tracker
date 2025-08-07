@@ -16,7 +16,7 @@ export default function HetMadLibButton(props: HetMadLibButtonProps) {
       aria-haspopup='menu'
       className={`mx-4 my-1 min-w-[80px] border border-alt-green border-solid py-0 pr-1 pl-3 font-medium text-alt-green text-fluid-mad-lib shadow-raised-tighter ${
         props.className ?? ''
-      } `}
+      }`}
       onClick={props.handleClick}
     >
       <span>

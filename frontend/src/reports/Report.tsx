@@ -20,9 +20,9 @@ import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import Sidebar from '../pages/ui/Sidebar'
 import HetLazyLoader from '../styles/HetComponents/HetLazyLoader'
+import type { MadLibId } from '../utils/MadLibs'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import type { MadLibId } from '../utils/MadLibs'
 import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,

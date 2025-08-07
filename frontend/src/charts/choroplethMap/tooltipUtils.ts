@@ -7,7 +7,7 @@ import {
 } from '../../data/providers/CawpProvider'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
-import { het, ThemeZIndexValues } from '../../styles/DesignTokens'
+import { ThemeZIndexValues, het } from '../../styles/DesignTokens'
 import { NO_DATA_MESSAGE } from '../mapGlobals'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MouseEventHandlerOptions, MouseEventType } from './types'
