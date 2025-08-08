@@ -323,13 +323,24 @@ def test_territorial_leg_counts_are_current():
     html_content = data["parse"]["text"]["*"]
     tables = pd.read_html(StringIO(html_content))
     terr_table = None
+
     for table in tables:
-        if "Total Seats" in table.columns and "U.S. Territories" in table.columns:
+        # Make column names lowercase safely by converting to strings
+        lowercase_cols = [str(col).lower() for col in table.columns]
+        if "total seats" in lowercase_cols and "u.s. territories" in lowercase_cols:
             terr_table = table
             break
 
     assert terr_table is not None, "Territorial table not found in Wikipedia page"
-    assert terr_table["Total Seats"].to_list() == [
+
+    # Find the actual column name that matches "Total seats" case-insensitively
+    total_seats_col = next(
+        (col for col in terr_table.columns if str(col).lower() == "total seats"),
+        None,
+    )
+    assert total_seats_col is not None, "Column with total seats not found"
+
+    assert terr_table[total_seats_col].to_list() == [
         39,
         13,
         15,
