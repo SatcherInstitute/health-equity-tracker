@@ -114,8 +114,7 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
     definitions: [
       {
         key: 'Measurement Definition',
-        description:
-          'A Social Vulnerability Index (SVI) score provides a single numerical value that reflects the overall status or level of equity in a given context, facilitating easy comparisons and policy assessments.',
+        description: `A Social Vulnerability Index (SVI) score refers to the "demographic and socioeconomic factors (such as poverty, lack of access to transportation, and crowded housing) that adversely affect communities that encounter hazards and other community-level stressors. These stressors can include natural or human-caused disasters (such as tornadoes or chemical spills) or disease outbreaks (such as COVID-19)." (Source: Agency for Toxic Substances and Disease Registry)`,
       },
     ],
   },
