@@ -3,7 +3,7 @@ import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
-
+//TODO: uncomment
 export default function MetricsLink() {
   return (
     <section id='metrics'>
