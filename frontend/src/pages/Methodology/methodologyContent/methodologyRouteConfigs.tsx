@@ -402,19 +402,45 @@ export const methodologyRouteConfigs: RouteConfig[] = [
         label: 'Age-adjusted ratios',
         path: 'age-adjusted-ratios-metrics',
       },
-      { label: 'Total cases per 100k people', path: 'per-100k-metrics' },
+      {
+        label: 'Percent rate',
+        path: 'percent-rate-metrics',
+      },
+      {
+        label: 'Percent share',
+        path: 'percent-share-metrics',
+      },
+      {
+        label: 'Percent Share Example: COVID-19 Cases',
+        path: 'percent-share-example',
+      },
+      {
+        label: 'Population share',
+        path: 'population-share-metrics',
+      },
+      {
+        label: 'Relative inequity',
+        path: 'relative-inequity-metrics',
+      },
+      {
+        label: 'Share of total cases',
+        path: 'total-share-metrics',
+      },
       {
         label: 'Share of total cases with unknown races',
         path: 'unknown-cases-metrics',
       },
-      { label: 'Share of total cases', path: 'total-share-metrics' },
-      { label: 'Population share', path: 'population-share-metrics' },
-      { label: 'Relative inequity', path: 'relative-inequity-metrics' },
-      { label: 'Time-series', path: 'time-series-metrics' },
-      { label: 'Social Vulnerability Index', path: 'svi' },
       {
-        label: 'Percent Share Example: COVID-19 Cases',
-        path: 'percent-share-example',
+        label: 'Social Vulnerability Index',
+        path: 'svi',
+      },
+      {
+        label: 'Time-series',
+        path: 'time-series-metrics',
+      },
+      {
+        label: 'Total cases per 100k people',
+        path: 'per-100k-metrics',
       },
     ],
     visible: true,
