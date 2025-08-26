@@ -864,7 +864,7 @@ time_period,county_fips,state_fips,state_name,county_name,gun_violence_homicide_
 2022,05121,05,Arkansas,Randolph County,4.7,True,13.6,True
 2019,05121,05,Arkansas,Randolph County,0.0,False,15.1,True
 2020,05123,05,Arkansas,St. Francis County,11.4,True,9.0,True
-2022,05123,05,Arkansas,St. Francis County,32.3,False,11.3,True
+2022,05123,05,Arkansas,St. Francis County,32.3,True,11.3,True
 2023,05123,05,Arkansas,St. Francis County,16.7,True,0.0,False
 2019,05123,05,Arkansas,St. Francis County,7.3,True,9.3,True
 2021,05123,05,Arkansas,St. Francis County,44.0,False,0.0,False
@@ -7133,9 +7133,9 @@ time_period,county_fips,state_fips,state_name,county_name,gun_violence_homicide_
 2022,28049,28,Mississippi,Hinds County,51.5,False,8.7,False
 2023,28049,28,Mississippi,Hinds County,46.1,False,8.4,False
 2021,28049,28,Mississippi,Hinds County,56.6,False,12.1,False
-2022,28051,28,Mississippi,Holmes County,62.8,False,0.0,False
+2022,28051,28,Mississippi,Holmes County,62.8,True,0.0,False
 2021,28051,28,Mississippi,Holmes County,17.8,True,10.6,True
-2023,28051,28,Mississippi,Holmes County,64.6,False,0.0,False
+2023,28051,28,Mississippi,Holmes County,64.6,True,0.0,False
 2020,28051,28,Mississippi,Holmes County,23.4,True,7.6,True
 2019,28051,28,Mississippi,Holmes County,17.0,True,11.0,True
 2023,28053,28,Mississippi,Humphreys County,33.4,True,0.0,False

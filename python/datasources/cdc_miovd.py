@@ -39,7 +39,7 @@ class CDCMIOVDData(DataSource):
     # CSV parsing constants
     CSV_COLS_TO_USE = {"Period", "ST_NAME", "NAME", "Count", "Rate", "TTM_Date_Range", "GEOID"}
     DTYPE = {"Period": str, "GEOID": str}
-    NA_VALUES = ["-999.0", "10-50"]
+    NA_VALUES = ["-999.0"]
 
     # MIOVD column names to HET standardized column names
     CSV_TO_STANDARD_COLS = {
@@ -116,19 +116,18 @@ class CDCMIOVDData(DataSource):
         rate_col = f"{condition}_{std_col.PER_100K_SUFFIX}"
         suppressed_col = f"{condition}_{std_col.IS_SUPPRESSED_SUFFIX}"
 
-        # Create IS_SUPPRESSED column based on "1-9" values in Count columns
+        # Create IS_SUPPRESSED column based on suppressed values in Count columns
         df[suppressed_col] = False
 
-        # Check for suppressed values in both raw count and rate columns
-        df[suppressed_col] = df[suppressed_col] | (df[raw_col].astype(str) == "1-9")
-        df[raw_col] = df[raw_col].replace("1-9", -9999)
+        # Check for suppressed values (ranges like "1-9", "10-50") in raw count column
+        df[suppressed_col] = df[suppressed_col] | df[raw_col].astype(str).str.match(r"^\d+-\d+$", na=False)
+        df[raw_col] = df[raw_col].replace(to_replace=r"^\d+-\d+$", value=pd.NA, regex=True)
 
-        df[rate_col + "_suppressed"] = df[rate_col].astype(str) == "1-9"
-        df[suppressed_col] = df[suppressed_col] | df[rate_col + "_suppressed"]
+        rate_suppressed = df[rate_col].astype(str).str.match(r"^\d+-\d+$", na=False)
+        df[suppressed_col] = df[suppressed_col] | rate_suppressed
 
-        # Replace "1-9" with -9999 placeholder for rates
-        df[rate_col] = df[rate_col].replace("1-9", -9999)
-        df = df.drop(columns=[rate_col + "_suppressed"])
+        # Replace suppressed rate values with null
+        df[rate_col] = df[rate_col].replace(to_replace=r"^\d+-\d+$", value=pd.NA, regex=True)
 
         # Add the ttm_flag to dataframe
         df["is_ttm"] = df[std_col.TIME_PERIOD_COL] == "TTM"
