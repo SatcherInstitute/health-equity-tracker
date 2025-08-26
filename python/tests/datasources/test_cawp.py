@@ -318,7 +318,10 @@ def test_territorial_leg_counts_are_current():
         "prop": "text",
         "contentmodel": "wikitext",
     }
-    response = requests.get(WIKI_API_URL, params=params)
+
+    headers = {"User-Agent": "Health Equity Tracker Test Suite"}
+
+    response = requests.get(WIKI_API_URL, params=params, headers=headers, timeout=30)
     data = response.json()
     html_content = data["parse"]["text"]["*"]
     tables = pd.read_html(StringIO(html_content))
