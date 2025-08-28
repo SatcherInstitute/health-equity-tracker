@@ -116,19 +116,13 @@ class CDCMIOVDData(DataSource):
         rate_col = f"{condition}_{std_col.PER_100K_SUFFIX}"
         suppressed_col = f"{condition}_{std_col.IS_SUPPRESSED_SUFFIX}"
 
-        # Create IS_SUPPRESSED column based on suppressed values in Count columns
-        df[suppressed_col] = False
+        suppressed_values = ["1-9", "10-50"]
 
-        # Check for suppressed values (ranges like "1-9", "10-50") in raw count column
-        df[suppressed_col] = df[suppressed_col] | df[raw_col].astype(str).str.match(r"^\d+-\d+$", na=False)
-        df[raw_col] = df[raw_col].replace(to_replace=r"^\d+-\d+$", value=pd.NA, regex=True)
+        # Create IS_SUPPRESSED column based only on rate column
+        df[suppressed_col] = df[rate_col].astype(str).isin(suppressed_values)
 
-        rate_suppressed = df[rate_col].astype(str).str.match(r"^\d+-\d+$", na=False)
-        df[suppressed_col] = df[suppressed_col] | rate_suppressed
-
-        # Replace suppressed rate values with null
-        df[rate_col] = df[rate_col].replace(to_replace=r"^\d+-\d+$", value=pd.NA, regex=True)
-
+        # Replace suppressed values with NA in both columns
+        df[[raw_col, rate_col]] = df[[raw_col, rate_col]].replace(suppressed_values, pd.NA)
         # Add the ttm_flag to dataframe
         df["is_ttm"] = df[std_col.TIME_PERIOD_COL] == "TTM"
 
