@@ -118,11 +118,16 @@ class CDCMIOVDData(DataSource):
 
         suppressed_values = ["1-9", "10-50"]
 
-        # Create IS_SUPPRESSED column based only on rate column
-        df[suppressed_col] = df[rate_col].astype(str).isin(suppressed_values)
+        # Check if count is suppressed AND rate is null
+        count_suppressed = df[raw_col].astype(str).isin(suppressed_values)
+        rate_is_null = df[rate_col].isna()
+
+        # Only TRUE if count is suppressed AND rate is null
+        df[suppressed_col] = count_suppressed & rate_is_null
 
         # Replace suppressed values with NA in both columns
         df[[raw_col, rate_col]] = df[[raw_col, rate_col]].replace(suppressed_values, pd.NA)
+
         # Add the ttm_flag to dataframe
         df["is_ttm"] = df[std_col.TIME_PERIOD_COL] == "TTM"
 
