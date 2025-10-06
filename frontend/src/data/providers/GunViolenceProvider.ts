@@ -1,4 +1,3 @@
-import { SHOW_CDC_MIOVD_DEATHS } from '../../featureFlags'
 import { getDataManager } from '../../utils/globals'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
@@ -65,7 +64,6 @@ class GunViolenceProvider extends VariableProvider {
         breakdowns.geography === 'county'
 
       const isMiovd =
-        SHOW_CDC_MIOVD_DEATHS &&
         (metricQuery.dataTypeId === 'gun_violence_homicide' ||
           metricQuery.dataTypeId === 'gun_violence_suicide') &&
         breakdowns.geography === 'county'
