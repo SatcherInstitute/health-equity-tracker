@@ -37,7 +37,7 @@ function hideElementsForScreenshot(node: HTMLElement): boolean {
 
 function getTotalElementHeight(element: HTMLElement | null): number {
   if (!element) return 0
-  const marginTop = Number.parseInt(getComputedStyle(element).marginTop)
+  const marginTop = Number.parseInt(getComputedStyle(element).marginTop, 10)
   return element.offsetHeight + marginTop
 }
 

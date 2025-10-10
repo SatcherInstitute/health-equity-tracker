@@ -70,9 +70,9 @@ export default function CHLPMapsModal() {
           'https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.3/iframeResizer.min.js',
         )
         // Initialize the iframeResizer after the script is loaded
-        // @ts-ignore
+        // @ts-expect-error
         if (window.iFrameResize) {
-          // @ts-ignore
+          // @ts-expect-error
           window.iFrameResize({ log: true, checkOrigin: false })
         }
       } catch (error) {

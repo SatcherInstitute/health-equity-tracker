@@ -171,7 +171,7 @@ function ReportProvider(props: ReportProviderProps) {
       <div
         className={`mx-auto my-0 w-full ${
           props.isSingleColumn
-            ? ' max-w-explore-data-page'
+            ? 'max-w-explore-data-page'
             : 'max-w-explore-data-two-column-page'
         }`}
       >
@@ -188,13 +188,13 @@ function ReportProvider(props: ReportProviderProps) {
       </div>
 
       <div className='mt-20 flex min-h-preload-article w-full justify-center bg-white'>
-        <aside className='m-8 max-w-explore-data-page text-left sm:m-16 '>
+        <aside className='m-8 max-w-explore-data-page text-left sm:m-16'>
           {/* Display condition definition(s) based on the tracker madlib settings */}
           {definedConditions?.length > 0 && (
             <div className='mb-5'>
               <h2
                 id='definitions-missing-data'
-                className='scroll-m-0 text-header first-of-type:mt-0 md:scroll-mt-24 '
+                className='scroll-m-0 text-header first-of-type:mt-0 md:scroll-mt-24'
               >
                 Definitions:
               </h2>
@@ -210,7 +210,7 @@ function ReportProvider(props: ReportProviderProps) {
             </div>
           )}
 
-          <h2 className='mt-12 mb-0 text-header '>What data are missing?</h2>
+          <h2 className='mt-12 mb-0 text-header'>What data are missing?</h2>
 
           <p>Unfortunately there are crucial data missing in our sources.</p>
           <HetTextArrowLink

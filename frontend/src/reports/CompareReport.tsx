@@ -193,7 +193,7 @@ export default function CompareReport(props: CompareReportProps) {
       <title>{`${browserTitle} - Health Equity Tracker`}</title>
       <div className='flex'>
         {/* CARDS COLUMN */}
-        <div className=' w-full md:w-10/12'>
+        <div className='w-full md:w-10/12'>
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
@@ -203,7 +203,7 @@ export default function CompareReport(props: CompareReportProps) {
             disabledDemographicOptions={disabledDemographicOptions}
           />
 
-          <div className='flex w-full flex-col content-center '>
+          <div className='flex w-full flex-col content-center'>
             {showCorrelationCard && rateConfig1 && rateConfig2 && (
               <CompareBubbleChartCard
                 fips1={props.fips1}
@@ -442,7 +442,7 @@ export default function CompareReport(props: CompareReportProps) {
         </div>
         {/* SIDEBAR COLUMN - DESKTOP ONLY */}
         {props.reportStepHashIds && (
-          <div className=' hidden items-start md:flex md:w-2/12 md:flex-col'>
+          <div className='hidden items-start md:flex md:w-2/12 md:flex-col'>
             <Sidebar
               isScrolledToTop={props.isScrolledToTop}
               reportStepHashIds={props.reportStepHashIds}

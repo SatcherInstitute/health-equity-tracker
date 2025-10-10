@@ -10,7 +10,7 @@ export const HetOverline: React.FC<HetOverlineProps> = ({
   return (
     <>
       <p
-        className={`font-extrabold font-sans-title text-black text-smallest uppercase tracking-widest ${className ?? 'mt-8 mb-2 '}`}
+        className={`font-extrabold font-sans-title text-black text-smallest uppercase tracking-widest ${className ?? 'mt-8 mb-2'}`}
       >
         {text}
       </p>
