@@ -231,8 +231,8 @@ export function getPrettyDate(timePeriod: string): string {
 
     // skip if non-numerical input
     if (
-      Number.isNaN(Number.parseInt(year)) ||
-      Number.isNaN(Number.parseInt(monthNum))
+      Number.isNaN(Number.parseInt(year, 10)) ||
+      Number.isNaN(Number.parseInt(monthNum, 10))
     )
       return timePeriod
 

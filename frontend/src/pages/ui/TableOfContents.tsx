@@ -35,9 +35,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
     <Stepper
       component={'nav'}
       nonLinear
-      activeStep={props.reportStepHashIds?.findIndex(
-        (stepId) => stepId === activeId,
-      )}
+      activeStep={props.reportStepHashIds?.indexOf(activeId)}
       orientation='vertical'
       aria-label='Available cards on this report'
       className='hidden p-0 titleSm:pl-1p sm:flex sm:w-90p md:px-5'

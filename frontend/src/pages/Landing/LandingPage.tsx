@@ -151,8 +151,8 @@ function LandingPage() {
       </section>
 
       <section className='h-full xs:px-4 pt-8 pb-0'>
-        <div className=' m-0 py-0'>
-          <div className='m-0 flex flex-col items-center justify-center p-0 '>
+        <div className='m-0 py-0'>
+          <div className='m-0 flex flex-col items-center justify-center p-0'>
             <div className='w-full'>
               <h3 className='m-0 font-bold font-sans-title text-alt-green text-header leading-modal-heading'>
                 How do I use the Health Equity Tracker?

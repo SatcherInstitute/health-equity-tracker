@@ -11,12 +11,15 @@ function getTailwindBreakpointValue(breakpoint: TailwindBreakpoint): number {
   if (breakpointStringValue === 'full') return Number.POSITIVE_INFINITY
   if (breakpointStringValue.includes('vw')) {
     // For viewport width units like '80vw', calculate based on current viewport
-    const vwValue = Number.parseInt(breakpointStringValue.replace('vw', ''))
+    const vwValue = Number.parseInt(breakpointStringValue.replace('vw', ''), 10)
     return (window.innerWidth * vwValue) / 100
   }
 
   // Handle px values
-  const pixelValue = Number.parseInt(breakpointStringValue.replace('px', ''))
+  const pixelValue = Number.parseInt(
+    breakpointStringValue.replace('px', ''),
+    10,
+  )
   return pixelValue || 0
 }
 
