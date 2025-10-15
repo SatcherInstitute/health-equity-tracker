@@ -1,8 +1,8 @@
-import { COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR } from '../../../data/config/MetricConfigCommunitySafety'
+import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../../../data/config/MetricConfigCommunitySafety'
 import { getMetricConfigsForIds } from '../../../data/config/MetricConfigUtils'
 
 const metricConfigsWithIds = getMetricConfigsForIds([
-  ...COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR,
+  ...COMMUNITY_SAFETY_DROPDOWNIDS,
 ])
 
 export const gvDefinitions = metricConfigsWithIds.flatMap(({ configs }) => {
