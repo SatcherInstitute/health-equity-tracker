@@ -19,7 +19,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: ingestion
@@ -42,7 +42,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: gcstobq
@@ -66,7 +66,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: exporter
@@ -89,7 +89,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: serving
@@ -112,7 +112,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: frontend
@@ -137,7 +137,7 @@ jobs:
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v2
+        uses: google-github-actions/setup-gcloud@v3
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - name: Setup Terraform
