@@ -9,7 +9,7 @@ export default function GoalListItem(props: GoalListItemProps) {
       <h3 className='px-0 py-4 text-left font-sans-title text-smallest-header'>
         {props.title}
       </h3>
-      <p className='my-0 text-left font-sans-text '>{props.text}</p>
+      <p className='my-0 text-left font-sans-text'>{props.text}</p>
     </li>
   )
 }
