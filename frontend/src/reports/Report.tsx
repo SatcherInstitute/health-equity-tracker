@@ -139,7 +139,7 @@ export function Report(props: ReportProps) {
     <>
       <title>{`${browserTitle} - Health Equity Tracker`}</title>
 
-      <div className='flex '>
+      <div className='flex'>
         {/* CARDS COLUMN */}
         <div className='w-full md:w-10/12'>
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}

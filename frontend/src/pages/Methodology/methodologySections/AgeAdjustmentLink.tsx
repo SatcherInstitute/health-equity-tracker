@@ -280,7 +280,7 @@ const AgeAdjustmentLink = () => {
 
             <h2
               id='age-adjustment-examples'
-              className='text-left font-medium font-sans-title text-alt-green text-header leading-modal-heading '
+              className='text-left font-medium font-sans-title text-alt-green text-header leading-modal-heading'
             >
               Age-Adjustment Example: HIV Deaths
             </h2>
