@@ -3,10 +3,7 @@ import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigBehavioralHealth'
 import { CDC_CANCER_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCancer'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigChronicDisease'
-import {
-  COMMUNITY_SAFETY_DROPDOWNIDS,
-  COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR,
-} from '../data/config/MetricConfigCommunitySafety'
+import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../data/config/MetricConfigCommunitySafety'
 import { COVID_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCovidCategory'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigHivCategory'
 import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigMaternalHealth'
@@ -22,7 +19,7 @@ import type {
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
 import { Fips } from '../data/utils/Fips'
 import { FIPS_MAP } from '../data/utils/FipsData'
-import { SHOW_CANCER_SCREENINGS, SHOW_CHR_GUN_DEATHS } from '../featureFlags'
+import { SHOW_CANCER_SCREENINGS } from '../featureFlags'
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>
@@ -231,9 +228,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'Community Safety',
     definition: '',
-    options: SHOW_CHR_GUN_DEATHS
-      ? (COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[])
-      : (COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR as unknown as DropdownVarId[]),
+    options: COMMUNITY_SAFETY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
     title: 'Medication Utilization in the Medicare Population',

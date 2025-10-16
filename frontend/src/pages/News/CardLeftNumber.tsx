@@ -23,8 +23,8 @@ const CardLeftNumber: React.FC<CardLeftNumberProps> = ({
         </span>
       </div>
       <div className='ml-0 flex h-full flex-col gap-2 md:ml-4'>
-        <div className='flex flex-col '>
-          <h3 className='mt-0 mb-4 font-medium text-title '>{title}</h3>
+        <div className='flex flex-col'>
+          <h3 className='mt-0 mb-4 font-medium text-title'>{title}</h3>
           <p className='z-10 my-0 h-full w-fit py-0 text-alt-black text-small'>
             {description}
           </p>

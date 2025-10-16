@@ -171,7 +171,7 @@ export function Axes({
         />
         {/* Y-Axis */}
         <g
-          className='yAxisGroup font-normal font-sans-text text-smallest '
+          className='yAxisGroup font-normal font-sans-text text-smallest'
           ref={yAxisRef}
           transform={`translate(${marginLeft}, 0)`}
           aria-label={`y axis as ${

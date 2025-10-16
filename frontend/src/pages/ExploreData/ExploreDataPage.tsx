@@ -348,7 +348,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
           <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />
 
           {showStickyLifeline && isStickyEnabled && (
-            <p className='flex justify-center '>
+            <p className='flex justify-center'>
               <a href={urlMap.lifeline}>988lifeline.org</a>
             </p>
           )}
