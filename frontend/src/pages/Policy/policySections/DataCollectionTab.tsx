@@ -1,5 +1,5 @@
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR } from '../../../data/config/MetricConfigCommunitySafety'
+import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../../../data/config/MetricConfigCommunitySafety'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import StripedTable from '../../Methodology/methodologyComponents/StripedTable'
@@ -109,7 +109,7 @@ export default function DataCollectionTab() {
           data collection.
         </p>
         <HetTopicDemographics
-          topicIds={[...COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR]}
+          topicIds={[...COMMUNITY_SAFETY_DROPDOWNIDS]}
           datasourceMetadata={dataSourceMetadataMap.cdc_wisqars}
         />
       </section>

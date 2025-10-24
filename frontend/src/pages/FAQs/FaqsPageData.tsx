@@ -445,7 +445,7 @@ const additionalFaqs: Faq[] = [
           <img
             src={'/img/screenshots/card-menu-options.png'}
             aria-label='options on card menu'
-            className='rounded-md shadow-raised-tighter '
+            className='rounded-md shadow-raised-tighter'
           />
         </div>
         <p>

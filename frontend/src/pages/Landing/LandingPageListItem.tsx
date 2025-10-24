@@ -28,7 +28,7 @@ export default function LandingPageListItem({
     <li
       className={`sticky top-[0] mx-24 my-12 flex h-auto xs:h-auto min-h-[55vh] min-w-full list-none xs:flex-col items-center justify-around rounded-xl bg-white p-8 xs:px-4 xs:py-2 shadow-raised sm:flex-col sm:p-8 lg:flex-row xl:flex-row ${customClassName}`}
     >
-      <div className='mx-4 flex w-1/3 xs:w-auto flex-col justify-between sm:w-auto md:w-auto '>
+      <div className='mx-4 flex w-1/3 xs:w-auto flex-col justify-between sm:w-auto md:w-auto'>
         <p className='xs:my-0 xs:py-0 text-left font-bold font-sans-title text-alt-green text-small'>
           {itemNumber}/4
         </p>

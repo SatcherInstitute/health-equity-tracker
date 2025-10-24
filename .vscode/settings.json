@@ -2,7 +2,6 @@
 	"editor.formatOnSave": true,
 	"editor.defaultFormatter": "biomejs.biome",
 	"biome.requireConfiguration": true,
-	"biome.lsp.bin": "./frontend/node_modules/.bin/biome",
 	"cSpell.import": [
 		"../cspell.config.json"
 	],

@@ -27,7 +27,7 @@ jobs:
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
         with:
-          version: 2
+          version: 2.2.5
       - name: Run Biome
         run: |
           echo "Running Biome"

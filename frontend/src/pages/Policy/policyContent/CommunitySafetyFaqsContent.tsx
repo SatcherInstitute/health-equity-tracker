@@ -1,5 +1,5 @@
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR } from '../../../data/config/MetricConfigCommunitySafety'
+import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../../../data/config/MetricConfigCommunitySafety'
 import HetButtonSecondary from '../../../styles/HetComponents/HetButtonSecondary'
 import HetDivider from '../../../styles/HetComponents/HetDivider'
 import HetLaunchLink from '../../../styles/HetComponents/HetLaunchLink'
@@ -94,7 +94,7 @@ function DataDescription() {
           state-level data.
         </p>
         <HetTopicDemographics
-          topicIds={[...COMMUNITY_SAFETY_DROPDOWNIDS_NO_CHR]}
+          topicIds={[...COMMUNITY_SAFETY_DROPDOWNIDS]}
           datasourceMetadata={dataSourceMetadataMap.cdc_wisqars}
         />
         <OptionGroup title='Age Group Options'>

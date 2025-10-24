@@ -7,7 +7,7 @@ interface FormulaFormatProps {
 
 export default function FormulaFormat(props: FormulaFormatProps) {
   return (
-    <div className='flex w-full flex-row items-center justify-center rounded-md bg-standard-info '>
+    <div className='flex w-full flex-row items-center justify-center rounded-md bg-standard-info'>
       <code className='flex flex-col flex-wrap items-center justify-center self-start border-none bg-opacity-0 font-roboto-condensed text-smallest smplus:text-text md:flex-row md:gap-1 lg:text-title'>
         <div className='p-2'>
           {typeof props.leftSide === 'string' ? (
