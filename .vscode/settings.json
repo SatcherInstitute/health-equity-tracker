@@ -1,6 +1,6 @@
 {
 	"editor.formatOnSave": true,
-	"editor.defaultFormatter": "biomejs.biome",
+	"editor.defaultFormatter": "fronterior.biome-monorepo",
 	"biome.requireConfiguration": true,
 	"cSpell.import": [
 		"../cspell.config.json"
@@ -18,7 +18,7 @@
 		"source.addMissingImports": "always"
 	},
 	"[javascript]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "fronterior.biome-monorepo"
 	},
 	"[json]": {
 		"editor.defaultFormatter": "vscode.json-language-features"
@@ -33,7 +33,7 @@
 		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[javascriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "fronterior.biome-monorepo"
 	},
 	"[python]": {
 		"editor.defaultFormatter": "ms-python.black-formatter",
