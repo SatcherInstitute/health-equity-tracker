@@ -1,4 +1,5 @@
 import type { DataSourceMetadata } from '../utils/DatasetTypes'
+import { datasourceMetadataAhr } from './DatasetMetadataAhr'
 import { datasourceMetadataCommunitySafetyCategory } from './DatasetMetadataCommunitySafetyCategory'
 import {
   datasourceMetadataCdcRestricted,
@@ -45,6 +46,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   cdc_vaccination_county: datasourceMetadataCdcVaccinationCounty,
   cdc_vaccination_national: datasourceMetadataCdcVaccinationNational,
   kff_vaccination: datasourceMetadataKffVaccinationState,
+  ahr: datasourceMetadataAhr,
   cdc_wonder: {
     id: 'cdc_wonder',
     data_source_name: 'CDC WONDER Cancer Statistics',
@@ -192,47 +194,6 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     time_period_range: null,
   },
 
-  ahr: {
-    id: 'ahr',
-    data_source_name: "America's Health Rankings (AHR)",
-    data_source_acronym: 'AHR',
-    data_source_pretty_site_name: 'americashealthrankings.org',
-    data_source_link:
-      'https://www.americashealthrankings.org/explore/measures/CHC',
-    geographic_breakdowns: ['national', 'state'],
-    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
-    update_frequency: 'Yearly',
-    description:
-      'The prevalence of multiple conditions at the state level, including chronic diseases (COPD, diabetes, chronic kidney disease, cardiovascular diseases), behavioral health indicators (suicide, depression, frequent mental distress, excessive drinking, opioid and other substance misuse), and other social determinants of health (care avoidance due to cost, preventable hospitalizations).',
-    dataset_ids: [
-      'graphql_ahr_data-behavioral_health_age_national_current',
-      'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current',
-      'graphql_ahr_data-behavioral_health_sex_national_current',
-      'graphql_ahr_data-behavioral_health_age_state_current',
-      'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current',
-      'graphql_ahr_data-behavioral_health_sex_state_current',
-      'graphql_ahr_data-non-behavioral_health_age_national_current',
-      'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current',
-      'graphql_ahr_data-non-behavioral_health_sex_national_current',
-      'graphql_ahr_data-non-behavioral_health_age_state_current',
-      'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current',
-      'graphql_ahr_data-non-behavioral_health_sex_state_current',
-      'graphql_ahr_data-behavioral_health_age_national_historical',
-      'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_historical',
-      'graphql_ahr_data-behavioral_health_sex_national_historical',
-      'graphql_ahr_data-behavioral_health_age_state_historical',
-      'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_historical',
-      'graphql_ahr_data-behavioral_health_sex_state_historical',
-      'graphql_ahr_data-non-behavioral_health_age_national_historical',
-      'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_historical',
-      'graphql_ahr_data-non-behavioral_health_sex_national_historical',
-      'graphql_ahr_data-non-behavioral_health_age_state_historical',
-      'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_historical',
-      'graphql_ahr_data-non-behavioral_health_sex_state_historical',
-    ],
-    downloadable: true,
-    time_period_range: null,
-  },
   bjs: {
     id: 'bjs',
     data_source_name: 'Bureau of Justice Statistics (BJS)',
