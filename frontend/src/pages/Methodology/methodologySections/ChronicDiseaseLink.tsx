@@ -1,6 +1,8 @@
+import { datasourceMetadataAhr } from '../../../data/config/DatasetMetadataAhr'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigChronicDisease'
+import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import { urlMap } from '../../../utils/externalUrls'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
@@ -69,6 +71,18 @@ const ChronicDiseaseLink = () => {
         <NoteBrfss />
         <AhrMetrics />
 
+        <h3
+          className='mt-12 font-medium text-title'
+          id='demographic-stratification'
+        >
+          Demographic Stratification
+        </h3>
+        <HetTopicDemographics
+          topicIds={[...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS]}
+          datasourceMetadata={{
+            ...datasourceMetadataAhr,
+          }}
+        />
         <h3
           className='mt-12 font-medium text-title'
           id='chronic-diseases-data-sources'
