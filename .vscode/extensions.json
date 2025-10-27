@@ -1,6 +1,5 @@
 {
 	"recommendations": [
-		"biomejs.biome",
 		"ms-python.black-formatter",
 		"streetsidesoftware.code-spell-checker",
 		"YoavBls.pretty-ts-errors",
@@ -8,5 +7,7 @@
 		"github.vscode-github-actions",
 		"fronterior.biome-monorepo"
 	],
-	"unwantedRecommendations": []
+	"unwantedRecommendations": [
+		"biomejs.biome"
+	]
 }
