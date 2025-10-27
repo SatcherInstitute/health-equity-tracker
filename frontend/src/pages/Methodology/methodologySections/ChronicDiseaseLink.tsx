@@ -1,4 +1,5 @@
 import { datasourceMetadataAhr } from '../../../data/config/DatasetMetadataAhr'
+import { datasourceMetadataChr } from '../../../data/config/DatasetMetadataChr'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigChronicDisease'
@@ -81,6 +82,7 @@ const ChronicDiseaseLink = () => {
           topicIds={[...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS]}
           datasourceMetadata={{
             ...datasourceMetadataAhr,
+            ...datasourceMetadataChr,
           }}
         />
         <h3

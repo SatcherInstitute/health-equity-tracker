@@ -1,5 +1,6 @@
 import type { DataSourceMetadata } from '../utils/DatasetTypes'
 import { datasourceMetadataAhr } from './DatasetMetadataAhr'
+import { datasourceMetadataChr } from './DatasetMetadataChr'
 import { datasourceMetadataCommunitySafetyCategory } from './DatasetMetadataCommunitySafetyCategory'
 import {
   datasourceMetadataCdcRestricted,
@@ -47,6 +48,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   cdc_vaccination_national: datasourceMetadataCdcVaccinationNational,
   kff_vaccination: datasourceMetadataKffVaccinationState,
   ahr: datasourceMetadataAhr,
+  chr: datasourceMetadataChr,
   cdc_wonder: {
     id: 'cdc_wonder',
     data_source_name: 'CDC WONDER Cancer Statistics',
@@ -265,27 +267,6 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     downloadable: true,
   },
 
-  chr: {
-    id: 'chr',
-    data_source_name: 'County Health Rankings (CHR)',
-    data_source_acronym: 'CHR',
-    data_source_pretty_site_name: 'countyhealthrankings.org',
-    data_source_link:
-      'https://www.countyhealthrankings.org/health-data/methodology-and-sources/data-documentation',
-    geographic_breakdowns: ['county'],
-    demographic_breakdowns: ['race_and_ethnicity'],
-    update_frequency: 'Yearly',
-    description:
-      'The prevalence of multiple conditions at the county level, including chronic disease (diabetes), behavioral health indicators (suicide, frequent mental distress, excessive drinking), community safety (gun deaths), and other determinants of health (preventable hospitalizations).',
-    dataset_ids: [
-      'chr_data-race_and_ethnicity_county_current',
-      'chr_data-race_and_ethnicity_county_historical',
-      'chr_data-alls_county_current',
-      'chr_data-alls_county_historical',
-    ],
-    downloadable: true,
-    time_period_range: null,
-  },
   the_unitedstates_project: {
     id: 'the_unitedstates_project',
     data_source_name: 'The @unitedstates Project',

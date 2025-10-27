@@ -1,6 +1,7 @@
 import type { DatasetMetadata } from '../utils/DatasetTypes'
 import type { StateFipsCode } from '../utils/FipsData'
 import { type DatasetIdAhr, DatasetMetadataMapAhr } from './DatasetMetadataAhr'
+import { type DatasetIdChr, DatasetMetadataMapChr } from './DatasetMetadataChr'
 import {
   type DatasetIdCommunitySafetyCategory,
   DatasetMetadataMapCommunitySafetyCategory,
@@ -25,6 +26,7 @@ export type DatasetId =
   | DatasetIdCommunitySafetyCategory
   | DatasetIdCovidCategory
   | DatasetIdAhr
+  | DatasetIdChr
   | 'acs_condition-race_and_ethnicity_county_historical'
   | 'acs_condition-race_and_ethnicity_county_current'
   | 'acs_condition-race_and_ethnicity_state_historical'
@@ -91,10 +93,6 @@ export type DatasetId =
   | 'cdc_wonder_data-alls_state_current'
   | 'cdc_wonder_data-alls_state_historical'
   | 'census_pop_estimates-race_and_ethnicity'
-  | 'chr_data-race_and_ethnicity_county_current'
-  | 'chr_data-race_and_ethnicity_county_historical'
-  | 'chr_data-alls_county_current'
-  | 'chr_data-alls_county_historical'
   | 'covid_tracking_project-cases_by_race_state'
   | 'covid_tracking_project-deaths_by_race_state'
   | 'covid_tracking_project-hospitalizations_by_race_state'
@@ -157,6 +155,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   ...DatasetMetadataMapCommunitySafetyCategory,
   ...DatasetMetadataMapCovidCategory,
   ...DatasetMetadataMapAhr,
+  ...DatasetMetadataMapChr,
   'cdc_wonder_data-age_national_current': {
     name: 'Cancer incidence by age, nationally',
     original_data_sourced: '2021',
@@ -609,30 +608,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
       '1915-2025 for Congress, 1983-2025 for state/territory legislatures',
     source_id: 'cawp',
   },
-  'chr_data-race_and_ethnicity_county_current': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county, with race/ethnicity breakdowns for some topics.',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'chr',
-  },
-  'chr_data-race_and_ethnicity_county_historical': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county, with race/ethnicity breakdowns for some topics.',
-    original_data_sourced: '2016-2021',
-    contains_nh: true,
-    source_id: 'chr',
-  },
-  'chr_data-alls_county_current': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county.',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'chr',
-  },
-  'chr_data-alls_county_historical': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county.',
-    original_data_sourced: '2016-2021',
-    contains_nh: true,
-    source_id: 'chr',
-  },
+
   the_unitedstates_project: {
     name: '@unitedstates is a shared commons of data and tools for the United States. Made by the public, used by the public. Featuring work from people with the Sunlight Foundation, GovTrack.us, the New York Times, the Electronic Frontier Foundation, and the internet.',
     original_data_sourced: '1915-2025',
