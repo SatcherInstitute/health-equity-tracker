@@ -1,8 +1,15 @@
+import {
+  datasourceMetadataCdcRestricted,
+  datasourceMetadataCdcVaccinationCounty,
+  datasourceMetadataCdcVaccinationNational,
+  datasourceMetadataKffVaccinationState,
+} from '../../../data/config/DatasetMetadataCovidCategory'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
@@ -267,6 +274,21 @@ export default function Covid19Link() {
           Maine, New Jersey, and Tennessee report total vaccine doses
           administered, adding another layer to our comprehensive analysis.
         </p>
+        <h3
+          className='mt-12 font-medium text-title'
+          id='demographic-stratification'
+        >
+          Demographic Stratification
+        </h3>
+        <HetTopicDemographics
+          topicIds={[...COVID_CATEGORY_DROPDOWNIDS]}
+          datasourceMetadata={{
+            ...datasourceMetadataCdcRestricted,
+            ...datasourceMetadataKffVaccinationState,
+            ...datasourceMetadataCdcVaccinationCounty,
+            ...datasourceMetadataCdcVaccinationNational,
+          }}
+        />
 
         <h3 className='mt-12' id='covid-data-sources'>
           COVID-19 Data Sources
