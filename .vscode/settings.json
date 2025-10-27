@@ -27,7 +27,7 @@
 		"editor.defaultFormatter": "fronterior.biome-monorepo"
 	},
 	"[typescriptreact]": {
-		"editor.defaultFormatter": "biomejs.biome"
+		"editor.defaultFormatter": "fronterior.biome-monorepo"
 	},
 	"[jsonc]": {
 		"editor.defaultFormatter": "vscode.json-language-features"

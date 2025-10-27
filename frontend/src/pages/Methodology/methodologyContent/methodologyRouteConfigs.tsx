@@ -235,6 +235,7 @@ export const methodologyRouteConfigs: RouteConfig[] = [
         label: 'Data Limitations and Specific Considerations',
         path: 'covid-data-limitations',
       },
+      { label: 'Demographics', path: 'demographic-stratification' },
       { label: 'Data Sources', path: 'covid-data-sources' },
       {
         label: 'Key Terms',
