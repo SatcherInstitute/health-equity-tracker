@@ -1,5 +1,11 @@
 import type { DataSourceMetadata } from '../utils/DatasetTypes'
 import { datasourceMetadataCommunitySafetyCategory } from './DatasetMetadataCommunitySafetyCategory'
+import {
+  datasourceMetadataCdcRestricted,
+  datasourceMetadataCdcVaccinationCounty,
+  datasourceMetadataCdcVaccinationNational,
+  datasourceMetadataKffVaccinationState,
+} from './DatasetMetadataCovidCategory'
 import { datasourceMetadataHivCategory } from './DatasetMetadataHivCategory'
 import { datasourceMetadataMaternalHealthCategory } from './DatasetMetadataMaternalHealthCategory'
 
@@ -32,6 +38,13 @@ export type DataSourceId =
   | 'vera'
 
 export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
+  cdc_wisqars: datasourceMetadataCommunitySafetyCategory,
+  maternal_health: datasourceMetadataMaternalHealthCategory,
+  cdc_restricted: datasourceMetadataCdcRestricted,
+  cdc_atlas: datasourceMetadataHivCategory,
+  cdc_vaccination_county: datasourceMetadataCdcVaccinationCounty,
+  cdc_vaccination_national: datasourceMetadataCdcVaccinationNational,
+  kff_vaccination: datasourceMetadataKffVaccinationState,
   cdc_wonder: {
     id: 'cdc_wonder',
     data_source_name: 'CDC WONDER Cancer Statistics',
@@ -64,49 +77,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     ],
     downloadable: true,
   },
-  cdc_wisqars: datasourceMetadataCommunitySafetyCategory,
-  maternal_health: datasourceMetadataMaternalHealthCategory,
-  cdc_restricted: {
-    id: 'cdc_restricted',
-    data_source_name: 'CDC Case Surveillance Restricted Access Detailed Data',
-    data_source_acronym: 'CDC',
-    data_source_pretty_site_name: 'data.cdc.gov',
-    data_source_link:
-      'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
-    geographic_breakdowns: ['national', 'state', 'county'],
-    time_period_range: 'January 2020 - current',
-    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
-    update_frequency: 'Final update was June 2024',
-    description:
-      'The numbers of confirmed COVID-19 deaths, cases, and hospitalizations nationally and at the state and county levels. The data source is Centers for Disease Control and Prevention, COVID-19 Response. COVID-19 Case Surveillance Data Access, Summary, and Limitations. The last case data included is two (2) weeks before they most recent release from the CDC. The CDC does not take responsibility for the scientific validity or accuracy of methodology, results, statistical analyses, or conclusions presented. We only present the data as rates that are calculated with the American Community Survey (ACS) 2019 5-year estimates, to view the raw data you must apply for access on the CDC website linked above.',
-    dataset_ids: [
-      'cdc_restricted_data-race_and_ethnicity_national_cumulative-with_age_adjust',
-      'cdc_restricted_data-race_and_ethnicity_county_cumulative',
-      'cdc_restricted_data-race_and_ethnicity_state_cumulative-with_age_adjust',
-      'cdc_restricted_data-age_national_cumulative',
-      'cdc_restricted_data-age_county_cumulative',
-      'cdc_restricted_data-age_state_cumulative',
-      'cdc_restricted_data-sex_national_cumulative',
-      'cdc_restricted_data-sex_county_cumulative',
-      'cdc_restricted_data-sex_state_cumulative',
-      'cdc_restricted_data-race_and_ethnicity_national_historical',
-      'cdc_restricted_data-race_and_ethnicity_county_historical',
-      'cdc_restricted_data-race_and_ethnicity_state_historical',
-      'cdc_restricted_data-age_national_historical',
-      'cdc_restricted_data-age_county_historical',
-      'cdc_restricted_data-age_state_historical',
-      'cdc_restricted_data-sex_national_historical',
-      'cdc_restricted_data-sex_county_historical',
-      'cdc_restricted_data-sex_state_historical',
-      'cdc_restricted_data-alls_national_cumulative',
-      'cdc_restricted_data-alls_county_cumulative',
-      'cdc_restricted_data-alls_state_cumulative',
-      'cdc_restricted_data-alls_national_historical',
-      'cdc_restricted_data-alls_county_historical',
-      'cdc_restricted_data-alls_state_historical',
-    ],
-    downloadable: true,
-  },
+
   acs: {
     id: 'acs',
     data_source_name: 'American Community Survey (ACS) 5-year estimates',
@@ -220,62 +191,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     downloadable: true,
     time_period_range: null,
   },
-  cdc_vaccination_county: {
-    id: 'cdc_vaccination_county',
-    data_source_name: 'CDC COVID-19 Vaccinations in the United States, County',
-    data_source_acronym: 'CDC',
-    data_source_pretty_site_name: 'data.cdc.gov',
-    data_source_link:
-      'https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh',
-    geographic_breakdowns: ['county'],
-    demographic_breakdowns: [],
-    update_frequency: 'Daily',
-    description:
-      'Overall US COVID-19 Vaccine administration and vaccine equity data at county level Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities.',
-    dataset_ids: ['cdc_vaccination_county-alls_county_current'],
-    downloadable: true,
-    time_period_range: null,
-  },
-  cdc_vaccination_national: {
-    id: 'cdc_vaccination_national',
-    data_source_name:
-      'CDC COVID-19 Vaccination Demographics in the United States, National',
-    data_source_acronym: 'CDC',
-    data_source_pretty_site_name: 'data.cdc.gov',
-    data_source_link:
-      'https://data.cdc.gov/Vaccinations/COVID-19-Vaccination-Demographics-in-the-United-St/km4m-vcsb',
-    geographic_breakdowns: ['national'],
-    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
-    update_frequency: 'Daily',
-    description:
-      'Overall Demographic Characteristics of People Receiving COVID-19 Vaccinations in the United States at national level. Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities. (CDC 2021)',
-    dataset_ids: [
-      'cdc_vaccination_national-age_national_current',
-      'cdc_vaccination_national-race_and_ethnicity_national_current',
-      'cdc_vaccination_national-sex_national_current',
-    ],
-    downloadable: true,
-    time_period_range: null,
-  },
-  cdc_atlas: datasourceMetadataHivCategory,
-  kff_vaccination: {
-    id: 'kff_vaccination',
-    data_source_name: 'Kaiser Family Foundation (KFF) COVID-19 Indicators',
-    data_source_acronym: 'KFF',
-    data_source_pretty_site_name: 'kff.org',
-    data_source_link: 'https://www.kff.org/state-category/covid-19/',
-    geographic_breakdowns: ['state'],
-    demographic_breakdowns: ['race_and_ethnicity'],
-    update_frequency: 'Biweekly',
-    description:
-      "State level vaccination information based off of Kaiser Family Foundation analysis of publicly available data from state websites. Per 100k metrics are found on 'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on 'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
-    dataset_ids: [
-      'kff_vaccination-race_and_ethnicity_state_current',
-      'kff_vaccination-alls_state_current',
-    ],
-    downloadable: true,
-    time_period_range: null,
-  },
+
   ahr: {
     id: 'ahr',
     data_source_name: "America's Health Rankings (AHR)",

@@ -5,6 +5,10 @@ import {
   DatasetMetadataMapCommunitySafetyCategory,
 } from './DatasetMetadataCommunitySafetyCategory'
 import {
+  type DatasetIdCovidCategory,
+  DatasetMetadataMapCovidCategory,
+} from './DatasetMetadataCovidCategory'
+import {
   type DatasetIdHivCategory,
   DatasetMetadataMapHivCategory,
 } from './DatasetMetadataHivCategory'
@@ -18,6 +22,7 @@ export type DatasetId =
   | DatasetIdHivCategory
   | DatasetIdMaternalHealthCategory
   | DatasetIdCommunitySafetyCategory
+  | DatasetIdCovidCategory
   | 'acs_condition-race_and_ethnicity_county_historical'
   | 'acs_condition-race_and_ethnicity_county_current'
   | 'acs_condition-race_and_ethnicity_state_historical'
@@ -91,34 +96,6 @@ export type DatasetId =
   | 'cawp_data-race_and_ethnicity_national_historical'
   | 'cawp_data-race_and_ethnicity_state_historical'
   | 'cawp_data-race_and_ethnicity_state_historical_names'
-  | 'cdc_restricted_data-age_county_historical'
-  | 'cdc_restricted_data-age_county_cumulative'
-  | 'cdc_restricted_data-age_national_historical'
-  | 'cdc_restricted_data-age_national_cumulative'
-  | 'cdc_restricted_data-age_state_historical'
-  | 'cdc_restricted_data-age_state_cumulative'
-  | 'cdc_restricted_data-race_and_ethnicity_county_historical'
-  | 'cdc_restricted_data-race_and_ethnicity_county_cumulative'
-  | 'cdc_restricted_data-race_and_ethnicity_national_historical'
-  | 'cdc_restricted_data-race_and_ethnicity_national_cumulative-with_age_adjust'
-  | 'cdc_restricted_data-race_and_ethnicity_state_historical'
-  | 'cdc_restricted_data-race_and_ethnicity_state_cumulative-with_age_adjust'
-  | 'cdc_restricted_data-sex_county_historical'
-  | 'cdc_restricted_data-sex_county_cumulative'
-  | 'cdc_restricted_data-sex_national_historical'
-  | 'cdc_restricted_data-sex_national_cumulative'
-  | 'cdc_restricted_data-sex_state_historical'
-  | 'cdc_restricted_data-sex_state_cumulative'
-  | 'cdc_restricted_data-alls_county_historical'
-  | 'cdc_restricted_data-alls_county_cumulative'
-  | 'cdc_restricted_data-alls_national_historical'
-  | 'cdc_restricted_data-alls_national_cumulative'
-  | 'cdc_restricted_data-alls_state_historical'
-  | 'cdc_restricted_data-alls_state_cumulative'
-  | 'cdc_vaccination_county-alls_county_current'
-  | 'cdc_vaccination_national-age_national_current'
-  | 'cdc_vaccination_national-race_and_ethnicity_national_current'
-  | 'cdc_vaccination_national-sex_national_current'
   | 'cdc_wonder_data-age_national_current'
   | 'cdc_wonder_data-age_national_historical'
   | 'cdc_wonder_data-age_state_current'
@@ -157,8 +134,6 @@ export type DatasetId =
   | 'geo_context-alls_national_current'
   | 'geo_context-alls_state_current'
   | 'geo_context-alls_county_current'
-  | 'kff_vaccination-alls_state_current'
-  | 'kff_vaccination-race_and_ethnicity_state_current'
   | 'phrma_data-age_county_current'
   | 'phrma_data-age_national_current'
   | 'phrma_data-age_state_current'
@@ -202,6 +177,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   ...DatasetMetadataMapHivCategory,
   ...DatasetMetadataMapMaternalHealthCategory,
   ...DatasetMetadataMapCommunitySafetyCategory,
+  ...DatasetMetadataMapCovidCategory,
   'cdc_wonder_data-age_national_current': {
     name: 'Cancer incidence by age, nationally',
     original_data_sourced: '2021',
@@ -534,168 +510,6 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     name: 'Health insurance and poverty, yearly, by race at the national level',
     original_data_sourced: '2022',
     source_id: 'acs',
-  },
-
-  'cdc_restricted_data-race_and_ethnicity_county_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and county',
-    original_data_sourced: 'January 2020 - May 2024',
-    contains_nh: true,
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-race_and_ethnicity_state_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and state',
-    original_data_sourced: 'January 2020 - May 2024',
-    contains_nh: true,
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-race_and_ethnicity_national_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity, nationally',
-    original_data_sourced: 'January 2020 - May 2024',
-    contains_nh: true,
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-age_county_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and county',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-age_state_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and state',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-age_national_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age, nationally',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-sex_county_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and county',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-sex_state_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and state',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-sex_national_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex, nationally',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-race_and_ethnicity_county_cumulative': {
-    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by race/ethnicity and county',
-    original_data_sourced: 'January 2020 - May 2024',
-    contains_nh: true,
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-race_and_ethnicity_state_cumulative-with_age_adjust': {
-    name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity and state',
-    original_data_sourced: 'January 2020 - May 2024',
-    contains_nh: true,
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-race_and_ethnicity_national_cumulative-with_age_adjust':
-    {
-      name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity, nationally',
-      original_data_sourced: 'January 2020 - May 2024',
-      contains_nh: true,
-      source_id: 'cdc_restricted',
-    },
-  'cdc_restricted_data-age_county_cumulative': {
-    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and county',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-age_state_cumulative': {
-    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and state',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-age_national_cumulative': {
-    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age, nationally',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-sex_county_cumulative': {
-    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and county',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-sex_state_cumulative': {
-    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and state',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-sex_national_cumulative': {
-    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex, nationally',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-alls_county_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by county',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-alls_state_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations by state',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-alls_national_historical': {
-    name: 'Monthly COVID-19 deaths, cases, and hospitalizations, nationally',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-alls_county_cumulative': {
-    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by county',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-alls_state_cumulative': {
-    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by state',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_restricted_data-alls_national_cumulative': {
-    name: 'COVID-19 deaths, cases, and hospitalizations since January 2020, nationally',
-    original_data_sourced: 'January 2020 - May 2024',
-    source_id: 'cdc_restricted',
-  },
-  'cdc_vaccination_county-alls_county_current': {
-    name: 'COVID-19 vaccinations by county',
-    contains_nh: true,
-    original_data_sourced: 'March 2023',
-    source_id: 'cdc_vaccination_county',
-  },
-  'cdc_vaccination_national-age_national_current': {
-    name: 'COVID-19 vaccinations by age, nationally',
-    original_data_sourced: 'March 2023',
-    source_id: 'cdc_vaccination_national',
-  },
-  'cdc_vaccination_national-sex_national_current': {
-    name: 'COVID-19 vaccinations by sex, nationally',
-    original_data_sourced: 'March 2023',
-    source_id: 'cdc_vaccination_national',
-  },
-  'cdc_vaccination_national-race_and_ethnicity_national_current': {
-    name: 'COVID-19 vaccinations by race and ethnicity, nationally',
-    original_data_sourced: 'March 2023',
-    contains_nh: true,
-    source_id: 'cdc_vaccination_national',
-  },
-  'kff_vaccination-race_and_ethnicity_state_current': {
-    name: 'COVID-19 vaccinations by race and ethnicity by state/territory',
-    original_data_sourced: 'July 2022',
-    contains_nh: true,
-    source_id: 'kff_vaccination',
-  },
-  'kff_vaccination-alls_state_current': {
-    name: 'COVID-19 vaccinations by state/territory',
-    original_data_sourced: 'July 2022',
-    contains_nh: true,
-    source_id: 'kff_vaccination',
   },
   'graphql_ahr_data-behavioral_health_age_national_current': {
     name: 'Prevalence of multiple chronic diseases and social determinants of health by age, nationally',

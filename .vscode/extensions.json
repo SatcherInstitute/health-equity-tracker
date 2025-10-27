@@ -5,7 +5,8 @@
 		"streetsidesoftware.code-spell-checker",
 		"YoavBls.pretty-ts-errors",
 		"bradlc.vscode-tailwindcss",
-		"github.vscode-github-actions"
+		"github.vscode-github-actions",
+		"fronterior.biome-monorepo"
 	],
 	"unwantedRecommendations": []
 }
