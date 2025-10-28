@@ -171,6 +171,8 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     component: <ChronicDiseaseLink />,
     subLinks: [
       { label: 'Data Sourcing', path: 'chronic-diseases-data-sourcing' },
+      { label: 'Demographics', path: 'demographic-stratification' },
+
       { label: 'Data Sources', path: 'chronic-diseases-data-sources' },
       { label: 'Key Terms', path: 'chronic-diseases-key-terms' },
     ],
