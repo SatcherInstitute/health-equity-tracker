@@ -1,6 +1,11 @@
+import { datasourceMetadataAhr } from '../../../data/config/DatasetMetadataAhr'
+import { datasourceMetadataBjs } from '../../../data/config/DatasetMetadataBjs'
+import { datasourceMetadataChr } from '../../../data/config/DatasetMetadataChr'
+import { datasourceMetadataVera } from '../../../data/config/DatasetMetadataVera'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPDOH'
+import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
@@ -348,6 +353,22 @@ const PdohLink = () => {
           totals by state and year before 1983, preventing historical
           representation calculations before that year.
         </p>
+
+        <h3
+          className='mt-12 font-medium text-title'
+          id='demographic-stratification'
+        >
+          Demographic Stratification
+        </h3>
+        <HetTopicDemographics
+          topicIds={[...PDOH_CATEGORY_DROPDOWNIDS]}
+          datasourceMetadata={{
+            ...datasourceMetadataChr,
+            ...datasourceMetadataVera,
+            ...datasourceMetadataAhr,
+            ...datasourceMetadataBjs,
+          }}
+        />
 
         <h3 className='mt-12 font-medium text-title' id='pdoh-data-resources'>
           Data Sources

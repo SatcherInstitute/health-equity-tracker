@@ -1,6 +1,9 @@
 import type { DataSourceMetadata } from '../utils/DatasetTypes'
 import { datasourceMetadataAcs } from './DatasetMetadataAcs'
 import { datasourceMetadataAhr } from './DatasetMetadataAhr'
+import { datasourceMetadataBjs } from './DatasetMetadataBjs'
+import { datasourceMetadataCawp } from './DatasetMetadataCawp'
+import { datasourceMetadataCdcWonder } from './DatasetMetadataCdcWonder'
 import { datasourceMetadataChr } from './DatasetMetadataChr'
 import { datasourceMetadataCommunitySafetyCategory } from './DatasetMetadataCommunitySafetyCategory'
 import {
@@ -11,6 +14,7 @@ import {
 } from './DatasetMetadataCovidCategory'
 import { datasourceMetadataHivCategory } from './DatasetMetadataHivCategory'
 import { datasourceMetadataMaternalHealthCategory } from './DatasetMetadataMaternalHealthCategory'
+import { datasourceMetadataVera } from './DatasetMetadataVera'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
 
@@ -51,38 +55,11 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   kff_vaccination: datasourceMetadataKffVaccinationState,
   ahr: datasourceMetadataAhr,
   chr: datasourceMetadataChr,
-  cdc_wonder: {
-    id: 'cdc_wonder',
-    data_source_name: 'CDC WONDER Cancer Statistics',
-    data_source_acronym: 'CDC',
-    data_source_pretty_site_name: 'wonder.cdc.gov',
-    data_source_link: 'https://wonder.cdc.gov/cancer-v2021.HTML',
-    geographic_breakdowns: ['national', 'state'],
-    time_period_range: '1999 - 2021',
-    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
-    update_frequency: 'Yearly',
-    description:
-      'Cancer incidence statistics from the CDC WONDER database, providing detailed information about new cancer cases across the United States. The data includes incidence rates, counts, and population data stratified by various demographic characteristics. The statistics are derived from cancer registries reporting to the National Program of Cancer Registries (NPCR) and/or the Surveillance, Epidemiology, and End Results (SEER) Program. Rates are calculated using bridged-race population estimates from the U.S. Census Bureau. Age-adjusted rates are calculated based on the 2000 U.S. standard population. Users can access data on different types of cancer, with breakdowns by demographic factors and geographic areas.',
-    dataset_ids: [
-      'cdc_wonder_data-age_national_current',
-      'cdc_wonder_data-age_national_historical',
-      'cdc_wonder_data-age_state_current',
-      'cdc_wonder_data-age_state_historical',
-      'cdc_wonder_data-race_and_ethnicity_national_current',
-      'cdc_wonder_data-race_and_ethnicity_national_historical',
-      'cdc_wonder_data-race_and_ethnicity_state_current',
-      'cdc_wonder_data-race_and_ethnicity_state_historical',
-      'cdc_wonder_data-sex_national_current',
-      'cdc_wonder_data-sex_national_historical',
-      'cdc_wonder_data-sex_state_current',
-      'cdc_wonder_data-sex_state_historical',
-      'cdc_wonder_data-alls_national_current',
-      'cdc_wonder_data-alls_national_historical',
-      'cdc_wonder_data-alls_state_current',
-      'cdc_wonder_data-alls_state_historical',
-    ],
-    downloadable: true,
-  },
+  bjs: datasourceMetadataBjs,
+  vera: datasourceMetadataVera,
+  cawp: datasourceMetadataCawp,
+
+  cdc_wonder: datasourceMetadataCdcWonder,
 
   decia_2010_territory_population: {
     id: 'decia_2010_territory_population',
@@ -142,77 +119,6 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     dataset_ids: ['census_pop_estimates-race_and_ethnicity'],
     downloadable: true,
     time_period_range: null,
-  },
-
-  bjs: {
-    id: 'bjs',
-    data_source_name: 'Bureau of Justice Statistics (BJS)',
-    data_source_acronym: 'BJS',
-    data_source_pretty_site_name: 'bjs.ojp.gov',
-    data_source_link: 'https://bjs.ojp.gov',
-    geographic_breakdowns: ['national', 'state'],
-    demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
-    update_frequency: 'Yearly',
-    description:
-      'Rates of individuals, including children, who are confined in a local adult jail facility, or under the jurisdiction of a federal, state, or territory adult prison facility.',
-    dataset_ids: [
-      'bjs_incarceration_data-race_and_ethnicity_national_current',
-      'bjs_incarceration_data-race_and_ethnicity_state_current',
-      'bjs_incarceration_data-age_national_current',
-      'bjs_incarceration_data-age_state_current',
-      'bjs_incarceration_data-sex_national_current',
-      'bjs_incarceration_data-sex_state_current',
-      'bjs_incarceration_data-alls_national_current',
-      'bjs_incarceration_data-alls_state_current',
-    ],
-    downloadable: true,
-    time_period_range: null,
-  },
-  vera: {
-    id: 'vera',
-    data_source_name: 'Vera Institute of Justice',
-    data_source_acronym: 'Vera',
-    data_source_pretty_site_name: 'vera.org',
-    data_source_link: 'https://www.vera.org/projects/incarceration-trends',
-    geographic_breakdowns: ['county'],
-    demographic_breakdowns: ['race_and_ethnicity', 'sex'],
-    update_frequency: 'None',
-    description:
-      'Rates of individuals, including children, who are confined in local adult jail facilities, or under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county.',
-    dataset_ids: [
-      'vera_incarceration_county-sex_county_historical',
-      'vera_incarceration_county-race_and_ethnicity_county_historical',
-      'vera_incarceration_county-age_county_historical',
-      'vera_incarceration_county-sex_county_current',
-      'vera_incarceration_county-race_and_ethnicity_county_current',
-      'vera_incarceration_county-age_county_current',
-      'vera_incarceration_county-alls_county_historical',
-      'vera_incarceration_county-alls_county_current',
-    ],
-    downloadable: true,
-    time_period_range: '1985 - 2016',
-  },
-  cawp: {
-    id: 'cawp',
-    data_source_name: 'Center for American Women in Politics (CAWP)',
-    data_source_acronym: 'CAWP',
-    data_source_pretty_site_name: 'cawpdata.rutgers.edu',
-    data_source_link: 'https://cawpdata.rutgers.edu/',
-    geographic_breakdowns: ['national', 'state'],
-    time_period_range:
-      'U.S. Congress: 1915 - current, State Legislatures: 1983 - current',
-    demographic_breakdowns: ['race_and_ethnicity'],
-    update_frequency: 'Monthly',
-    description:
-      'Detailed information on women legislators, by race/ethnicity, in the US Congress and state legislatures, and historical counts of total state legislators of any gender by year by state. A separate table is also available containing legislator names and positions.',
-    dataset_ids: [
-      'cawp_data-race_and_ethnicity_national_current',
-      'cawp_data-race_and_ethnicity_state_current',
-      'cawp_data-race_and_ethnicity_national_historical',
-      'cawp_data-race_and_ethnicity_state_historical',
-      'cawp_data-race_and_ethnicity_state_historical_names',
-    ],
-    downloadable: true,
   },
 
   the_unitedstates_project: {
