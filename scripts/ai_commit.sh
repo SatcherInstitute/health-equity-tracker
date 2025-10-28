@@ -18,9 +18,6 @@ if ! git diff --cached --quiet; then
     # Debug: Show diff length (comment out after testing)
     echo "Diff length: ${#DIFF}"
 
-    # Escape the diff for JSON
-    DIFF_ESCAPED=$(echo "$DIFF" | jq -Rs .)
-
     # Create the JSON payload
     JSON_PAYLOAD=$(jq -n \
       --arg diff "$DIFF" \
@@ -47,8 +44,8 @@ if ! git diff --cached --quiet; then
       -d "$JSON_PAYLOAD")
 
     # Debug: Show raw response (comment out after testing)
-    echo "Raw API Response:"
-    echo "$RESPONSE"
+    # echo "Raw API Response:"
+    # echo "$RESPONSE"
 
     # Extract commit message from response using jq (better JSON parsing)
     if command -v jq &> /dev/null; then
