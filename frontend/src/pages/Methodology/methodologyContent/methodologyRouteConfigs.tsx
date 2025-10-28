@@ -172,7 +172,6 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     subLinks: [
       { label: 'Data Sourcing', path: 'chronic-diseases-data-sourcing' },
       { label: 'Demographics', path: 'demographic-stratification' },
-
       { label: 'Data Sources', path: 'chronic-diseases-data-sources' },
       { label: 'Key Terms', path: 'chronic-diseases-key-terms' },
     ],
@@ -324,6 +323,7 @@ export const methodologyRouteConfigs: RouteConfig[] = [
         label: 'Missing Data',
         path: 'pdoh-missing-data',
       },
+      { label: 'Demographics', path: 'demographic-stratification' },
       {
         label: 'Data Sources',
         path: 'pdoh-data-resources',
