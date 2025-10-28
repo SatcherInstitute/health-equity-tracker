@@ -346,6 +346,7 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     subLinks: [
       { label: 'Data Sourcing', path: 'sdoh-data-sourcing' },
       { label: 'Data Sources', path: 'sdoh-data-sources' },
+      { label: 'Demographics', path: 'demographic-stratification' },
       { label: 'Key Terms', path: 'sdoh-key-terms' },
       { label: 'Resources', path: 'sdoh-resources' },
     ],
