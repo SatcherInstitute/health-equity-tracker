@@ -55,7 +55,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Breast cancer screening',
     surveyCollectedData: true,
     definition: {
-      text: ``,
+      text: `The percentage of women ages 50-74 who report having received a mammogram within the recommended timeframe, based on survey responses.`,
       citations: [
         {
           shortLabel: '',
@@ -65,7 +65,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: ``,
+      text: `Regular breast cancer screening through mammography can detect cancer early when it is most treatable. Monitoring screening rates helps identify populations that may face barriers to preventive care and enables targeted interventions to improve early detection and reduce breast cancer mortality.`,
       citations: [
         {
           shortLabel: '',
@@ -131,10 +131,10 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
     dataTableTitle: 'Summary for prostate cancer screening',
     mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Prostate cancer',
-    fullDisplayName: 'prostate cancer screening',
+    fullDisplayName: 'Prostate cancer screening',
     surveyCollectedData: true,
     definition: {
-      text: ``,
+      text: `The percentage of men ages 55-69 who report having received prostate cancer screening (such as PSA testing or digital rectal exam) within the recommended timeframe, based on survey responses.`,
       citations: [
         {
           shortLabel: '',
@@ -144,7 +144,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: ``,
+      text: `Prostate cancer screening can help detect cancer early in high-risk populations. Understanding screening patterns across different communities helps identify disparities in access to preventive services and supports efforts to ensure informed decision-making about prostate cancer screening.`,
       citations: [
         {
           shortLabel: '',
@@ -210,10 +210,10 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
     dataTableTitle: 'Summary for colorectal cancer screening',
     mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Colorectal cancer',
-    fullDisplayName: 'colorectal cancer screening',
+    fullDisplayName: 'Colorectal cancer screening',
     surveyCollectedData: true,
     definition: {
-      text: ``,
+      text: `The percentage of people ages 45-74 who report having received colorectal cancer screening (such as colonoscopy, sigmoidoscopy, or stool-based tests) within the recommended timeframe, based on survey responses.`,
       citations: [
         {
           shortLabel: '',
@@ -223,7 +223,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: ``,
+      text: `Colorectal cancer screening is highly effective at detecting cancer early and identifying precancerous polyps that can be removed before they become cancerous. Tracking screening rates helps identify gaps in preventive care and supports initiatives to increase screening adherence and reduce colorectal cancer mortality.`,
       citations: [
         {
           shortLabel: '',
@@ -289,10 +289,10 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
     dataTableTitle: 'Summary for cervical cancer screening',
     mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Cervical cancer',
-    fullDisplayName: 'cervical cancer screening',
+    fullDisplayName: 'Cervical cancer screening',
     surveyCollectedData: true,
     definition: {
-      text: ``,
+      text: `The percentage of women ages 21-65 who report having received cervical cancer screening (such as Pap test or HPV test) within the recommended timeframe, based on survey responses.`,
       citations: [
         {
           shortLabel: '',
@@ -302,7 +302,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: ``,
+      text: `Cervical cancer screening is one of the most effective cancer prevention tools, capable of detecting precancerous changes before they develop into cancer. Monitoring screening rates helps identify populations that may lack access to preventive care and informs strategies to reduce cervical cancer incidence and mortality.`,
       citations: [
         {
           shortLabel: '',
@@ -367,10 +367,10 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
     dataTableTitle: 'Summary for lung cancer screening',
     mapConfig: medicareAdherenceHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Lung cancer',
-    fullDisplayName: 'lung cancer screening',
+    fullDisplayName: 'Lung cancer screening',
     surveyCollectedData: true,
     definition: {
-      text: ``,
+      text: `The percentage of people ages 50-79 with a significant smoking history who report having received low-dose CT screening for lung cancer within the recommended timeframe, based on survey responses.`,
       citations: [
         {
           shortLabel: '',
@@ -380,7 +380,7 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: ``,
+      text: `Lung cancer screening with low-dose CT scans can detect lung cancer at earlier, more treatable stages among high-risk individuals with smoking history. Tracking screening rates in eligible populations helps identify gaps in preventive care delivery and supports efforts to reduce lung cancer mortality through early detection.`,
       citations: [
         {
           shortLabel: '',
