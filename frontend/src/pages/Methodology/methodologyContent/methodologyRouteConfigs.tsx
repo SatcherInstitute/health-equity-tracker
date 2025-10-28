@@ -2,6 +2,7 @@ import { lazy } from 'react'
 import {
   AGE_ADJUSTMENT_LINK,
   BEHAVIORAL_HEALTH_LINK,
+  CANCER_LINK,
   CHRONIC_DISEASE_LINK,
   COMMUNITY_SAFETY_LINK,
   COVID_19_LINK,
@@ -43,6 +44,7 @@ const Covid19Link = lazy(() => import('../methodologySections/Covid19Link'))
 const HivLink = lazy(() => import('../methodologySections/HivLink'))
 const MetricsLink = lazy(() => import('../methodologySections/MetricsLink'))
 const PdohLink = lazy(() => import('../methodologySections/PdohLink'))
+const CancerLink = lazy(() => import('../methodologySections/CancerLink'))
 const MedicationUtilizationLink = lazy(
   () => import('../methodologySections/MedicationUtilizationLink'),
 )
@@ -345,10 +347,23 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     component: <SdohLink />,
     subLinks: [
       { label: 'Data Sourcing', path: 'sdoh-data-sourcing' },
-      { label: 'Data Sources', path: 'sdoh-data-sources' },
       { label: 'Demographics', path: 'demographic-stratification' },
+      { label: 'Data Sources', path: 'sdoh-data-sources' },
       { label: 'Key Terms', path: 'sdoh-key-terms' },
       { label: 'Resources', path: 'sdoh-resources' },
+    ],
+    visible: true,
+  },
+  {
+    label: 'Cancer',
+    path: CANCER_LINK,
+    component: <CancerLink />,
+    subLinks: [
+      { label: 'Data Sourcing', path: 'cancer-data-sourcing' },
+      { label: 'Demographics', path: 'demographic-stratification' },
+      { label: 'Data Sources', path: 'cancer-data-sources' },
+      { label: 'Key Terms', path: 'cancer-key-terms' },
+      { label: 'Resources', path: 'cancer-resources' },
     ],
     visible: true,
   },
