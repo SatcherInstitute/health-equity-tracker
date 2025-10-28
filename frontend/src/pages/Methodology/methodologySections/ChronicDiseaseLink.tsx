@@ -81,8 +81,8 @@ const ChronicDiseaseLink = () => {
         <HetTopicDemographics
           topicIds={[...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS]}
           datasourceMetadata={{
-            ...datasourceMetadataAhr,
             ...datasourceMetadataChr,
+            ...datasourceMetadataAhr,
           }}
         />
         <h3

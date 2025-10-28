@@ -25,7 +25,6 @@ test('HIV Linkage To Care', async ({ page }) => {
     .click()
   await page.getByText('% linkage →').click()
   await page.getByText('time →').click()
-  await page.getByText("Due to COVID-19's effects on").click()
   await page.getByRole('button', { name: 'Rate chart' }).click()
   await page
     .locator('#rate-chart')
