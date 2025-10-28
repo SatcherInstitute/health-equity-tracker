@@ -347,8 +347,8 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     component: <SdohLink />,
     subLinks: [
       { label: 'Data Sourcing', path: 'sdoh-data-sourcing' },
-      { label: 'Data Sources', path: 'sdoh-data-sources' },
       { label: 'Demographics', path: 'demographic-stratification' },
+      { label: 'Data Sources', path: 'sdoh-data-sources' },
       { label: 'Key Terms', path: 'sdoh-key-terms' },
       { label: 'Resources', path: 'sdoh-resources' },
     ],
@@ -360,8 +360,8 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     component: <CancerLink />,
     subLinks: [
       { label: 'Data Sourcing', path: 'cancer-data-sourcing' },
-      { label: 'Data Sources', path: 'cancer-data-sources' },
       { label: 'Demographics', path: 'demographic-stratification' },
+      { label: 'Data Sources', path: 'cancer-data-sources' },
       { label: 'Key Terms', path: 'cancer-key-terms' },
       { label: 'Resources', path: 'cancer-resources' },
     ],
