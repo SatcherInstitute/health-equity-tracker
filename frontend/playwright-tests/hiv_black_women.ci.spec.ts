@@ -18,7 +18,6 @@ test('HIV Black Women: Prevalance Top Cards', async ({ page }) => {
     })
     .click()
   await page.getByLabel('Include 55+').click()
-  await page.getByText("Due to COVID-19's effects on").click()
   await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'HIV prevalence for Black (NH' })
@@ -48,10 +47,7 @@ test('HIV Black Women: Prevalance Bottom Cards', async ({ page }) => {
     .getByRole('columnheader', { name: 'Ages 55+ % relative inequity' })
     .click()
   await page.getByRole('caption').click()
-  await page
-    .locator('#inequities-over-time')
-    .getByText("Due to COVID-19's effects on")
-    .click()
+
   await page
     .getByRole('heading', { name: 'Population vs. distribution' })
     .click()
