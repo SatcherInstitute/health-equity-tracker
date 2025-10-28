@@ -1,5 +1,7 @@
 import type { DatasetMetadata } from '../utils/DatasetTypes'
 import type { StateFipsCode } from '../utils/FipsData'
+import { type DatasetIdAhr, DatasetMetadataMapAhr } from './DatasetMetadataAhr'
+import { type DatasetIdChr, DatasetMetadataMapChr } from './DatasetMetadataChr'
 import {
   type DatasetIdCommunitySafetyCategory,
   DatasetMetadataMapCommunitySafetyCategory,
@@ -23,6 +25,8 @@ export type DatasetId =
   | DatasetIdMaternalHealthCategory
   | DatasetIdCommunitySafetyCategory
   | DatasetIdCovidCategory
+  | DatasetIdAhr
+  | DatasetIdChr
   | 'acs_condition-race_and_ethnicity_county_historical'
   | 'acs_condition-race_and_ethnicity_county_current'
   | 'acs_condition-race_and_ethnicity_state_historical'
@@ -59,30 +63,6 @@ export type DatasetId =
   | 'acs_population-sex_county_historical'
   | 'acs_population-sex_national_historical'
   | 'acs_population-sex_state_historical'
-  | 'graphql_ahr_data-behavioral_health_age_national_current'
-  | 'graphql_ahr_data-behavioral_health_age_state_current'
-  | 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current'
-  | 'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current'
-  | 'graphql_ahr_data-behavioral_health_sex_national_current'
-  | 'graphql_ahr_data-behavioral_health_sex_state_current'
-  | 'graphql_ahr_data-non-behavioral_health_age_national_current'
-  | 'graphql_ahr_data-non-behavioral_health_age_state_current'
-  | 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current'
-  | 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current'
-  | 'graphql_ahr_data-non-behavioral_health_sex_national_current'
-  | 'graphql_ahr_data-non-behavioral_health_sex_state_current'
-  | 'graphql_ahr_data-behavioral_health_age_national_historical'
-  | 'graphql_ahr_data-behavioral_health_age_state_historical'
-  | 'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_historical'
-  | 'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_historical'
-  | 'graphql_ahr_data-behavioral_health_sex_national_historical'
-  | 'graphql_ahr_data-behavioral_health_sex_state_historical'
-  | 'graphql_ahr_data-non-behavioral_health_age_national_historical'
-  | 'graphql_ahr_data-non-behavioral_health_age_state_historical'
-  | 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_historical'
-  | 'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_historical'
-  | 'graphql_ahr_data-non-behavioral_health_sex_national_historical'
-  | 'graphql_ahr_data-non-behavioral_health_sex_state_historical'
   | 'bjs_incarceration_data-age_national_current'
   | 'bjs_incarceration_data-age_state_current'
   | 'bjs_incarceration_data-race_and_ethnicity_national_current'
@@ -113,10 +93,6 @@ export type DatasetId =
   | 'cdc_wonder_data-alls_state_current'
   | 'cdc_wonder_data-alls_state_historical'
   | 'census_pop_estimates-race_and_ethnicity'
-  | 'chr_data-race_and_ethnicity_county_current'
-  | 'chr_data-race_and_ethnicity_county_historical'
-  | 'chr_data-alls_county_current'
-  | 'chr_data-alls_county_historical'
   | 'covid_tracking_project-cases_by_race_state'
   | 'covid_tracking_project-deaths_by_race_state'
   | 'covid_tracking_project-hospitalizations_by_race_state'
@@ -178,6 +154,8 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   ...DatasetMetadataMapMaternalHealthCategory,
   ...DatasetMetadataMapCommunitySafetyCategory,
   ...DatasetMetadataMapCovidCategory,
+  ...DatasetMetadataMapAhr,
+  ...DatasetMetadataMapChr,
   'cdc_wonder_data-age_national_current': {
     name: 'Cancer incidence by age, nationally',
     original_data_sourced: '2021',
@@ -511,137 +489,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: '2022',
     source_id: 'acs',
   },
-  'graphql_ahr_data-behavioral_health_age_national_current': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by age, nationally',
-    original_data_sourced: '2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by race/ethnicity, nationally',
-    original_data_sourced: '2022',
-    contains_nh: true,
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-behavioral_health_sex_national_current': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by sex, nationally',
-    original_data_sourced: '2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-behavioral_health_age_state_current': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by age and state',
-    original_data_sourced: '2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_current': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by race/ethnicity and state',
-    original_data_sourced: '2022',
-    contains_nh: true,
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-behavioral_health_sex_state_current': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by sex and state',
-    original_data_sourced: '2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-non-behavioral_health_age_national_current': {
-    name: 'Prevalence of multiple behavioral and mental health conditions by age, nationally',
-    original_data_sourced: '2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current':
-    {
-      name: 'Prevalence of multiple behavioral and mental health conditions by race/ethnicity, nationally',
-      original_data_sourced: '2022',
-      contains_nh: true,
-      source_id: 'ahr',
-    },
-  'graphql_ahr_data-non-behavioral_health_sex_national_current': {
-    name: 'Prevalence of multiple behavioral and mental health conditions by sex, nationally',
-    original_data_sourced: '2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-non-behavioral_health_age_state_current': {
-    name: 'Prevalence of multiple behavioral and mental health conditions by age and state',
-    original_data_sourced: '2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current': {
-    name: 'Prevalence of multiple behavioral and mental health conditions by race/ethnicity and state',
-    original_data_sourced: '2022',
-    contains_nh: true,
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-non-behavioral_health_sex_state_current': {
-    name: 'Prevalence of multiple behavioral and mental health conditions by sex and state',
-    original_data_sourced: '2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-behavioral_health_age_national_historical': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by year, by age, nationally',
-    original_data_sourced: '1995-2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_historical': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by year, by race/ethnicity, nationally',
-    original_data_sourced: '1995-2022',
-    contains_nh: true,
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-behavioral_health_sex_national_historical': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by year, by sex, nationally',
-    original_data_sourced: '1995-2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-behavioral_health_age_state_historical': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by year, by age and state',
-    original_data_sourced: '1995-2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-behavioral_health_race_and_ethnicity_state_historical': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by year, by race/ethnicity and state',
-    original_data_sourced: '1995-2022',
-    contains_nh: true,
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-behavioral_health_sex_state_historical': {
-    name: 'Prevalence of multiple chronic diseases and social determinants of health by year, by sex and state',
-    original_data_sourced: '1995-2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-non-behavioral_health_age_national_historical': {
-    name: 'Prevalence of multiple behavioral and mental health conditions by year, by age, nationally',
-    original_data_sourced: '1995-2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_historical':
-    {
-      name: 'Prevalence of multiple behavioral and mental health conditions by year, by race/ethnicity, nationally',
-      original_data_sourced: '1995-2022',
-      contains_nh: true,
-      source_id: 'ahr',
-    },
-  'graphql_ahr_data-non-behavioral_health_sex_national_historical': {
-    name: 'Prevalence of multiple behavioral and mental health conditions by year, by sex, nationally',
-    original_data_sourced: '1995-2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-non-behavioral_health_age_state_historical': {
-    name: 'Prevalence of multiple behavioral and mental health conditions by year, by age and state',
-    original_data_sourced: '1995-2022',
-    source_id: 'ahr',
-  },
-  'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_historical':
-    {
-      name: 'Prevalence of multiple behavioral and mental health conditions by year, by race/ethnicity and state',
-      original_data_sourced: '1995-2022',
-      contains_nh: true,
-      source_id: 'ahr',
-    },
-  'graphql_ahr_data-non-behavioral_health_sex_state_historical': {
-    name: 'Prevalence of multiple behavioral and mental health conditions by year, by sex and state',
-    original_data_sourced: '1995-2022',
-    source_id: 'ahr',
-  },
+
   'bjs_incarceration_data-age_national_current': {
     name: 'National rates of sentenced individuals under the jurisdiction of federal or state adult prison facilities, or confined in local adult jail facilities, by age',
     original_data_sourced: '2019 for jail, 2020 for prison',
@@ -760,30 +608,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
       '1915-2025 for Congress, 1983-2025 for state/territory legislatures',
     source_id: 'cawp',
   },
-  'chr_data-race_and_ethnicity_county_current': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county, with race/ethnicity breakdowns for some topics.',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'chr',
-  },
-  'chr_data-race_and_ethnicity_county_historical': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county, with race/ethnicity breakdowns for some topics.',
-    original_data_sourced: '2016-2021',
-    contains_nh: true,
-    source_id: 'chr',
-  },
-  'chr_data-alls_county_current': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county.',
-    original_data_sourced: '2021',
-    contains_nh: true,
-    source_id: 'chr',
-  },
-  'chr_data-alls_county_historical': {
-    name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county.',
-    original_data_sourced: '2016-2021',
-    contains_nh: true,
-    source_id: 'chr',
-  },
+
   the_unitedstates_project: {
     name: '@unitedstates is a shared commons of data and tools for the United States. Made by the public, used by the public. Featuring work from people with the Sunlight Foundation, GovTrack.us, the New York Times, the Electronic Frontier Foundation, and the internet.',
     original_data_sourced: '1915-2025',
