@@ -81,7 +81,7 @@ export default function MethodologyPage() {
               return (
                 hasMatchedSublinks && (
                   <div
-                    className='sticky top-24 z-almost-top hidden h-min w-48 min-w-40 max-w-40 max-w-menu flex-col smplus:flex'
+                    className='sticky top-24 z-almost-top hidden h-min w-48 min-w-40 max-w-menu flex-col smplus:flex'
                     key={routeConfig.path}
                   >
                     <p className='my-0 text-left font-roboto font-semibold text-black text-smallest uppercase'>
