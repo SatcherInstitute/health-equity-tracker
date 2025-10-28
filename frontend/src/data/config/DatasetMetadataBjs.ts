@@ -49,7 +49,7 @@ export const DatasetMetadataMapBjs: Record<DatasetIdBjs, DatasetMetadata> = {
     source_id: 'bjs',
   },
   'bjs_incarceration_data-alls_state_current': {
-    name: 'Rates of individuals under the jurisdiction of state or territory prison facilities or confined in local adult jail facilities,  by state/territory',
+    name: 'Rates of individuals under the jurisdiction of state or territory prison facilities or confined in local adult jail facilities, by state/territory',
     original_data_sourced: '2019 for jail, 2020 for prison',
     source_id: 'bjs',
   },
