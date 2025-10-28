@@ -79,9 +79,9 @@ function SdohLink() {
         <HetTopicDemographics
           topicIds={[...SDOH_CATEGORY_DROPDOWNIDS]}
           datasourceMetadata={{
-            ...datasourceMetadataAcs,
-            ...datasourceMetadataAhr,
             ...datasourceMetadataChr,
+            ...datasourceMetadataAhr,
+            ...datasourceMetadataAcs,
           }}
         />
 
