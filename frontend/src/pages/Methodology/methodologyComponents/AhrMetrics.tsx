@@ -22,22 +22,20 @@ export default function AhrMetrics({ category }: AhrMetricsProps) {
       case 'chronic-diseases':
         return (
           <>
-            America's Health Rankings (AHR) provides data for several chronic
-            disease topics via their <a href={urlMap.ahrGraphQl}>GraphQL API</a>
-            . Asthma, cardiovascular diseases, chronic kidney disease, chronic
-            obstructive pulmonary disease (COPD), and diabetes are provided as
-            percentages.
+            AHR provides data for several chronic disease topics via their{' '}
+            <a href={urlMap.ahrGraphQl}>GraphQL API</a>. Asthma, cardiovascular
+            diseases, chronic kidney disease, chronic obstructive pulmonary
+            disease (COPD), and diabetes are provided as percentages.
           </>
         )
       case 'social-determinants':
         return (
           <>
-            America's Health Rankings (AHR) provides data for several social
-            determinants of health topics via their{' '}
-            <a href={urlMap.ahrGraphQl}>GraphQL API</a>. Care avoidance due to
-            cost and uninsured individuals are displayed as percentage rates
-            with no conversion applied. Preventable hospitalization is provided
-            as a rate per 100,000 people.
+            AHR provides data for several social determinants of health topics
+            via their <a href={urlMap.ahrGraphQl}>GraphQL API</a>. Care
+            avoidance due to cost and uninsured individuals are displayed as
+            percentage rates with no conversion applied. Preventable
+            hospitalization is provided as a rate per 100,000 people.
           </>
         )
       default:
