@@ -75,7 +75,7 @@ export default function BehavioralHealthLink() {
         </p>
         <NoteBrfss />
 
-        <AhrMetrics />
+        <AhrMetrics category='behavioral-health' />
         <h3
           className='mt-12 font-medium text-title'
           id='demographic-stratification'

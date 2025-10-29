@@ -70,7 +70,7 @@ const ChronicDiseaseLink = () => {
         </p>
 
         <NoteBrfss />
-        <AhrMetrics />
+        <AhrMetrics category='chronic-diseases' />
 
         <h3
           className='mt-12 font-medium text-title'
