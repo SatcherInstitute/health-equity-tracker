@@ -34,10 +34,6 @@ test('HIV PrEP: Rates Over Time', async ({ page }) => {
   await page
     .getByText('Rates of PrEP coverage over time in the United States by sex')
     .click()
-  await page
-    .locator('#rates-over-time')
-    .getByText("Due to COVID-19's effects on")
-    .click()
 })
 
 test('HIV PrEP: Rate chart', async ({ page }) => {
@@ -78,10 +74,7 @@ test('HIV PrEP: Inequities over time and down', async ({ page }) => {
       'Historical relative inequity for PrEP coverage in the United States by sex',
     )
     .click()
-  await page
-    .locator('#inequities-over-time')
-    .getByText("Due to COVID-19's effects on")
-    .click()
+
   await page.getByText('This graph visualizes the').click()
   await page
     .getByRole('heading', { name: 'PrEP-eligible population vs.' })

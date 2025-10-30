@@ -346,3 +346,13 @@ export const MEDICARE_MEDICATION_RESOURCES: ResourceGroup = {
   heading: 'Medication Utilization',
   resources: [],
 }
+
+export const CANCER_RESOURCES: ResourceGroup = {
+  heading: 'Cancer',
+  resources: [
+    {
+      name: 'Cancer Health Equity Institute (CHEI)',
+      url: 'https://www.msm.edu/cancerhealthequityinstitute/index.php',
+    },
+  ],
+}

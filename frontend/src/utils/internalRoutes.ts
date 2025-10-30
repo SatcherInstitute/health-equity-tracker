@@ -49,6 +49,7 @@ export const GLOSSARY_LINK = METHODOLOGY_PAGE_LINK + '/glossary'
 export const HIV_LINK = TOPIC_CATEGORIES_LINK + '/hiv'
 export const PDOH_LINK = TOPIC_CATEGORIES_LINK + '/pdoh'
 export const SDOH_LINK = TOPIC_CATEGORIES_LINK + '/sdoh'
+export const CANCER_LINK = TOPIC_CATEGORIES_LINK + '/cancer'
 export const MEDICATION_UTILIZATION_LINK =
   TOPIC_CATEGORIES_LINK + '/medication-utilization'
 export const DATA_METHOD_DEFINITIONS_LINK =

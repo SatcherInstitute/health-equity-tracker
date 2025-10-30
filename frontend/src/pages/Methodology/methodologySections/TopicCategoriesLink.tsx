@@ -1,6 +1,7 @@
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { behavioralHealthTopicsString } from './BehavioralHealthLink'
+import { cancerTopicsString } from './CancerLink'
 import { chronicDiseaseTopicsString } from './ChronicDiseaseLink'
 import { communitySafetyTopicsString } from './CommunitySafetyLink'
 import { covidTopicsString } from './Covid19Link'
@@ -77,6 +78,10 @@ export default function TopicCategoriesLink() {
             {
               category: 'HIV',
               topic: hivTopicsString,
+            },
+            {
+              category: 'Cancer',
+              topic: cancerTopicsString,
             },
             {
               category: 'Political Determinants of Health (PDOH)',

@@ -1,7 +1,11 @@
+import { datasourceMetadataAcs } from '../../../data/config/DatasetMetadataAcs'
+import { datasourceMetadataAhr } from '../../../data/config/DatasetMetadataAhr'
+import { datasourceMetadataChr } from '../../../data/config/DatasetMetadataChr'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigSDOH'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import { urlMap } from '../../../utils/externalUrls'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
@@ -64,7 +68,22 @@ function SdohLink() {
         </p>
         <NoteBrfss />
 
-        <AhrMetrics />
+        <AhrMetrics category='social-determinants' />
+
+        <h3
+          className='mt-12 font-medium text-title'
+          id='demographic-stratification'
+        >
+          Demographic Stratification
+        </h3>
+        <HetTopicDemographics
+          topicIds={[...SDOH_CATEGORY_DROPDOWNIDS]}
+          datasourceMetadata={{
+            ...datasourceMetadataChr,
+            ...datasourceMetadataAhr,
+            ...datasourceMetadataAcs,
+          }}
+        />
 
         <h3 className='mt-12 font-medium text-title' id='sdoh-data-sources'>
           Data Sources

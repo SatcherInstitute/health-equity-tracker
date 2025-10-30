@@ -1,3 +1,5 @@
+import { datasourceMetadataAhr } from '../../../data/config/DatasetMetadataAhr'
+import { datasourceMetadataChr } from '../../../data/config/DatasetMetadataChr'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
@@ -73,7 +75,7 @@ export default function BehavioralHealthLink() {
         </p>
         <NoteBrfss />
 
-        <AhrMetrics />
+        <AhrMetrics category='behavioral-health' />
         <h3
           className='mt-12 font-medium text-title'
           id='demographic-stratification'
@@ -82,7 +84,10 @@ export default function BehavioralHealthLink() {
         </h3>
         <HetTopicDemographics
           topicIds={[...BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS]}
-          datasourceMetadata={dataSourceMetadataMap.ahr}
+          datasourceMetadata={{
+            ...datasourceMetadataAhr,
+            ...datasourceMetadataChr,
+          }}
         />
 
         <h3
