@@ -176,6 +176,7 @@ export interface MouseEventHandlerOptions {
   dataMap: Map<string, any>
   tooltipContainer: any
   geographyType: string
+  demographicType?: DemographicType
   mapConfig: MapConfig
   isMultiMap: boolean
   isSummaryLegend: boolean
