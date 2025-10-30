@@ -50,6 +50,7 @@
 				"noGlobalIsNan": "off",
 				"noConsole": {
 					"level": "info",
+					"fix": "none",
 					"options": {
 						"allow": [
 							"assert",

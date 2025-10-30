@@ -100,6 +100,7 @@ export const renderMap = (options: RenderMapOptions) => {
     options,
     dataMap,
     geographyType,
+    demographicType,
   )
 
   // Add event listeners
