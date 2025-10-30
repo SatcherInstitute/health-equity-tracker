@@ -68,7 +68,7 @@ function SdohLink() {
         </p>
         <NoteBrfss />
 
-        <AhrMetrics />
+        <AhrMetrics category='social-determinants' />
 
         <h3
           className='mt-12 font-medium text-title'

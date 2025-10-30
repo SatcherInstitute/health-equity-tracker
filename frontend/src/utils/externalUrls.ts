@@ -1,6 +1,7 @@
 export const urlMap: Record<string, string> = {
   acs5: 'https://www.census.gov/data/developers/data-sets/acs-5year.html',
   ahr: 'https://www.americashealthrankings.org/explore/measures',
+  ahrGraphQl: 'https://developers.americashealthrankings.org/',
   cdcBrfss: 'https://www.cdc.gov/brfss/index.html',
   cdcCovidRestricted:
     'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
