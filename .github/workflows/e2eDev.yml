@@ -32,7 +32,7 @@ jobs:
       - name: Runs playwright E2E_DEV
         run: npm run e2e-dev
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: always()
         with:
           name: playwright-report
