@@ -32,7 +32,7 @@ export const createMouseEventOptions = (
     isSummaryLegend: options.isSummaryLegend,
     isExtremesMode: options.isExtremesMode,
     updateFipsCallback: options.updateFipsCallback,
-    demographicType: demographicType,
+    demographicType,
   }
 }
 
