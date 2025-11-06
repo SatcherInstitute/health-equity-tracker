@@ -23,7 +23,7 @@ google-crc32c==1.7.1
 google-resumable-media
 googleapis-common-protos[grpc]==1.71.0
 grpc-google-iam-v1==0.14.0
-grpcio-status==1.76.0
+grpcio-status==1.66.2
 grpcio==1.76.0
 gunicorn==23.0.0
 idna
@@ -44,7 +44,7 @@ pandas==2.3.3
 platformdirs==4.5.0
 pluggy==1.6.0
 proto-plus==1.26.0
-protobuf
+protobuf>=3.20.2,<6.0.0
 pyarrow==18.1.0
 pyasn1-modules==0.4.1
 pyasn1==0.6.1
