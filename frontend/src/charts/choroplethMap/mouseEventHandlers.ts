@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import type { DemographicType } from '../../data/query/Breakdowns'
 import { het } from '../../styles/DesignTokens'
 import { getFillColor } from './colorSchemes'
 import {
@@ -18,6 +19,7 @@ export const createMouseEventOptions = (
   options: any,
   dataMap?: Map<string, any>,
   geographyType?: string,
+  demographicType?: DemographicType,
 ): MouseEventHandlerOptions => {
   return {
     colorScale: options.colorScale,
@@ -30,6 +32,7 @@ export const createMouseEventOptions = (
     isSummaryLegend: options.isSummaryLegend,
     isExtremesMode: options.isExtremesMode,
     updateFipsCallback: options.updateFipsCallback,
+    demographicType,
   }
 }
 
