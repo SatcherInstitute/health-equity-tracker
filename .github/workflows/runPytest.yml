@@ -15,6 +15,7 @@ on:
       - 'python/**'
       - 'run_gcs_to_bq/**'
       - 'run_ingestion/**'
+      - 'shared_requirements/**'
 
 jobs:
   build:
