@@ -105,8 +105,8 @@
 		"url": "npx playwright install chromium && npx playwright test --project=URL"
 	},
 	"engines": {
-		"node": ">=20.11.0",
-		"npm": ">=10.2.4"
+		"node": ">=22.0.0",
+		"npm": ">=10.7.0"
 	},
 	"browserslist": {
 		"production": [
