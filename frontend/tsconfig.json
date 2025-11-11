@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
-    "target": "es2023",
+    "target": "es2024",
     "lib": [
       "dom",
       "dom.iterable",
-      "es2023"
+      "es2024"
     ],
     "types": [
       "vite-plugin-svgr/client",
