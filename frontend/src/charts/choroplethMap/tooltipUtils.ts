@@ -119,6 +119,7 @@ export const generateTooltipHtml = (
         }
         return [key, value]
       })
+
   // Create the HTML for the tooltip
   const tooltipHtml = `
     <div>
@@ -133,7 +134,7 @@ export const generateTooltipHtml = (
                 .map(([label, value]: [string, number | undefined]) => {
                   const displayValue =
                     value == null ? NO_DATA_MESSAGE : value.toLocaleString()
-                  return `<div class='pl-2 mb-1 text-sm text-alt-black'><span>${label && ': '}</span>${displayValue}</div>`
+                  return `<div class='pl-2 mb-1 text-sm text-alt-black'>${label ? `<span>${label}: </span>` : ''}${displayValue}</div>`
                 })
                 .join('')
             : `<div class='pl-2 mb-1 text-sm text-alt-black'><span>No data</span></div>`
