@@ -25,7 +25,7 @@ export const LEADERSHIP_TEAM = [
     imageUrl: DrHH,
   },
   {
-    name: 'Benjamin Hammond, BMus',
+    name: 'Ben Hammond, BMus',
     role: 'Senior Software Engineer, Team Lead',
     imageUrl: Ben,
   },
