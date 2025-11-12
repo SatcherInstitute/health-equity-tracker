@@ -57,7 +57,8 @@ function LandingPage() {
           </HetCTABig>
           <div className='z-1 border-0 border-timberwolf border-l-2 border-solid py-0 pl-2'>
             <p className='z-1 my-0 py-0'>
-              Data sourced from major public health agencies
+              Developed by Morehouse School of Medicine, sourcing data from
+              leading public health organizations
             </p>
           </div>
           <div className='flex w-full flex-wrap justify-start gap-6 py-4'>
@@ -137,15 +138,21 @@ function LandingPage() {
               Advancing Health Justice
             </h2>
 
-            <p className='mt-4 mb-16 text-title lg:text-left lg:text-title'>
+            <p className='mt-4 mb-8 text-title lg:text-left lg:text-title'>
               The Health Equity Tracker from the Satcher Health Leadership
-              Institute aims to address health disparities in the United States
-              by identifying at-risk populations and highlighting data
-              inequities. By providing policymakers, community leaders, and
-              researchers the data they need to make informed decisions, this
-              scalable, feature-rich platform supports efforts to achieve health
-              equity and justice for all.
+              Institute at Morehouse School of Medicine aims to address health
+              disparities in the United States by identifying at-risk
+              populations and highlighting data inequities. By providing
+              policymakers, community leaders, and researchers the data they
+              need to make informed decisions, this scalable, feature-rich
+              platform supports efforts to achieve health equity and justice for
+              all.
             </p>
+            <img
+              src='/img/graphics/msm-50-shli-banner.png'
+              className='mx-auto w-3/5 w-full sm:w-4/5 md:w-3/5'
+              alt='logos for morehouse school of medicine and satcher health leadership institute'
+            />
           </div>
         </div>
       </section>
