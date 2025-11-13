@@ -32,10 +32,14 @@ CHR_FILE_LOOKUP = {
     "2022": "2022 County Health Rankings Data - v1.xlsx",
     "2023": "2023 County Health Rankings Data - v2.xlsx",
     "2024": "2024_county_health_release_data_-_v1.xlsx",
+    "2025": "2025 County Health Rankings Data - v3.xlsx",
 }
 
 
 def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = None) -> dict[str, dict[str, str | None]]:
+    # this dict maps the key representing the ALL values, to the value prefix used by the PER RACE columns.
+    # a value of NULL represents topics that only have ALL values but no RACE stratifications
+
     het_to_source_select_topic_all_to_race_prefix_map: dict[str, dict[str, str | None]] = {}
 
     if year is None or int(year) >= 2012:
