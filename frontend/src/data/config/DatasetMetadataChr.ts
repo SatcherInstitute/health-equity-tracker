@@ -9,25 +9,25 @@ export type DatasetIdChr =
 export const DatasetMetadataMapChr: Record<DatasetIdChr, DatasetMetadata> = {
   'chr_data-race_and_ethnicity_county_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county, with race/ethnicity breakdowns for some topics.',
-    original_data_sourced: '2021',
+    original_data_sourced: '2025',
     contains_nh: true,
     source_id: 'chr',
   },
   'chr_data-race_and_ethnicity_county_historical': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county, with race/ethnicity breakdowns for some topics.',
-    original_data_sourced: '2016-2021',
+    original_data_sourced: '2011-2025',
     contains_nh: true,
     source_id: 'chr',
   },
   'chr_data-alls_county_current': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county.',
-    original_data_sourced: '2021',
+    original_data_sourced: '2025',
     contains_nh: true,
     source_id: 'chr',
   },
   'chr_data-alls_county_historical': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county.',
-    original_data_sourced: '2016-2021',
+    original_data_sourced: '2011-2025',
     contains_nh: true,
     source_id: 'chr',
   },
@@ -57,5 +57,5 @@ export const datasourceMetadataChr: DataSourceMetadataChr = {
     'chr_data-alls_county_historical',
   ],
   downloadable: true,
-  time_period_range: null,
+  time_period_range: '2011 - current',
 }
