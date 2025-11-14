@@ -32,10 +32,14 @@ CHR_FILE_LOOKUP = {
     "2022": "2022 County Health Rankings Data - v1.xlsx",
     "2023": "2023 County Health Rankings Data - v2.xlsx",
     "2024": "2024_county_health_release_data_-_v1.xlsx",
+    "2025": "2025 County Health Rankings Data - v3.xlsx",
 }
 
 
 def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = None) -> dict[str, dict[str, str | None]]:
+    # this dict maps the key representing the ALL values, to the value prefix used by the PER RACE columns.
+    # a value of NULL represents topics that only have ALL values but no RACE stratifications
+
     het_to_source_select_topic_all_to_race_prefix_map: dict[str, dict[str, str | None]] = {}
 
     if year is None or int(year) >= 2012:
@@ -57,6 +61,10 @@ def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = Non
         het_to_source_select_topic_all_to_race_prefix_map[std_col.PREVENTABLE_HOSP_PREFIX] = {
             "Preventable Hospitalization Rate": "Preventable Hosp. Rate"
         }
+
+    if year is None or int(year) >= 2025:
+        # drinking moved to the other sheet
+        het_to_source_select_topic_all_to_race_prefix_map.pop(std_col.EXCESSIVE_DRINKING_PREFIX)
 
     return het_to_source_select_topic_all_to_race_prefix_map
 
@@ -95,6 +103,11 @@ def get_het_to_source_additional_topic_all_to_race_prefix_map(
     if year is None or int(year) >= 2023:
         het_to_source_additional_topic_all_to_race_prefix_map[std_col.VOTER_PARTICIPATION_PREFIX] = {
             "% Voter Turnout": None
+        }
+
+    if year is None or int(year) >= 2025:
+        het_to_source_additional_topic_all_to_race_prefix_map[std_col.EXCESSIVE_DRINKING_PREFIX] = {
+            "% Excessive Drinking": None
         }
 
     return het_to_source_additional_topic_all_to_race_prefix_map
@@ -143,6 +156,7 @@ def get_race_map(year: str, sheet_name: str) -> Dict[str, str]:
         ("2022", "Ranked Measure Data"): source_race_w_to_id_map,
         ("2022", "Additional Measure Data"): source_race_w_to_id_map,
         ("2024", "Additional Measure Data"): source_nh_race_to_id_map,
+        ("2025", "Additional Measure Data"): source_nh_race_to_id_map,
     }
     return special_race_maps.get((year, sheet_name), default_source_race_to_id_map)
 
@@ -172,7 +186,7 @@ class CHRData(DataSource):
 
         for year in CHR_FILE_LOOKUP.keys():
 
-            main_sheet_name = "Select Measure Data" if year == "2024" else "Ranked Measure Data"
+            main_sheet_name = "Select Measure Data" if year in ["2024", "2025"] else "Ranked Measure Data"
             main_source_df = get_df_from_chr_excel_sheet(year, main_sheet_name)
             additional_source_df = get_df_from_chr_excel_sheet(year, "Additional Measure Data")
             year_df = pd.merge(main_source_df, additional_source_df, how="outer", on=source_fips_col)
