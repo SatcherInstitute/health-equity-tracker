@@ -80,9 +80,10 @@ function DownloadDatasetListItem(props: {
         <>
           <ListItemIcon>{getIcon()}</ListItemIcon>
           <ListItemText
-            primary={props.datasetMetadata.name + '.csv'}
+            primary={props.datasetMetadata.name + 'csv'}
             secondary={
-              'Last updated: ' + props.datasetMetadata.original_data_sourced
+              'Original data time range: ' +
+              props.datasetMetadata.original_data_sourced
             }
           />
         </>
@@ -120,13 +121,24 @@ function DataSourceListing(props: DataSourceListingProps) {
         </a>
       </h2>
       <ul className='mx-0 my-4 flex list-none flex-col px-0 md:my-8 md:gap-1'>
-        {props.source_metadata.time_period_range && (
+        {props.source_metadata.data_source_release_years && (
           <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>
             <p className='my-0 xs:mb-1 w-full font-semibold text-alt-black leading-normal md:w-1/3 md:min-w-1/3'>
-              Time Series Range
+              Source Release Years
             </p>
             <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-normal md:w-7/12 md:max-w-2/3'>
-              {props.source_metadata.time_period_range}
+              {props.source_metadata.data_source_release_years}
+            </p>
+          </li>
+        )}
+
+        {props.source_metadata.primary_data_time_period_range && (
+          <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>
+            <p className='my-0 xs:mb-1 w-full font-semibold text-alt-black leading-normal md:w-1/3 md:min-w-1/3'>
+              Original Data Time Range
+            </p>
+            <p className='my-0 ml-auto w-full pl-0 xs:pl-2 leading-normal md:w-7/12 md:max-w-2/3'>
+              {props.source_metadata.primary_data_time_period_range}
             </p>
           </li>
         )}
