@@ -24,7 +24,8 @@ async function downloadDataset(
 ) {
   try {
     const dataset = await getDataManager().loadDataset(datasetId)
-    download('HET - ' + dataset.metadata.name + '.csv', dataset.toCsvString())
+    // TODO: figure out where the period before csv is coming from
+    download('HET - ' + dataset.metadata.name + 'csv', dataset.toCsvString())
     return true
   } catch (_e) {
     return false

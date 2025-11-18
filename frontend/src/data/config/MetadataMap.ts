@@ -79,7 +79,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'decia_2010_territory_population-age_state_current',
     ],
     downloadable: true,
-    time_period_range: null,
+    data_source_release_years: null,
   },
   decia_2020_territory_population: {
     id: 'decia_2020_territory_population',
@@ -102,7 +102,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'decia_2020_territory_population-age_county_current',
     ],
     downloadable: true,
-    time_period_range: null,
+    data_source_release_years: null,
   },
   census_pop_estimates: {
     id: 'census_pop_estimates',
@@ -118,7 +118,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'Population percentage estimates by race/ethnicity, age, and sex to the county level provided by the U.S Census Bureau. We use the single year estimates from 2019.',
     dataset_ids: ['census_pop_estimates-race_and_ethnicity'],
     downloadable: true,
-    time_period_range: null,
+    data_source_release_years: null,
   },
 
   the_unitedstates_project: {
@@ -134,7 +134,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'Total members of the United States Congress (Senate and House of Representatives including Delegates) both nationally and by state/territory. This dataset is viewable and downloadable in the CAWP datasets.',
     dataset_ids: ['the_unitedstates_project'],
     downloadable: false,
-    time_period_range: null,
+    data_source_release_years: null,
   },
   geo_context: {
     id: 'geo_context',
@@ -154,7 +154,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'geo_context-alls_national_current',
     ],
     downloadable: true,
-    time_period_range: null,
+    data_source_release_years: null,
   },
   phrma: {
     id: 'phrma',
@@ -195,7 +195,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     downloadable_blurb:
       'Disease rates and medication adherence percentages for multiple HIV, mental health, and cardiovascular conditions within the Medicare beneficiary population.',
     downloadable_data_dictionary: true,
-    time_period_range: null,
+    data_source_release_years: null,
   },
   phrma_brfss: {
     id: 'phrma_brfss',
@@ -216,7 +216,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     description:
       'The 2022 Behavioral Risk Factor Surveillance System (BRFSS) database from the Centers for Disease Control and Prevention (CDC) was analyzed for five different cancer screening rates. Breast, colorectal, cervical, and lung cancer use data from the 50 states and Washington DC. Prostate cancer screening data is not part of the core BRFSS database so are available only for Arkansas, Delaware, Massachusetts, Mississippi, New Jersey, and South Carolina.',
     downloadable: true,
-    time_period_range: null,
+    data_source_release_years: null,
     dataset_ids: [
       'phrma_brfss_data-race_and_ethnicity_national_current-with_age_adjust',
       'phrma_brfss_data-age_national_current',
@@ -250,7 +250,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'covid_tracking_project-tests_by_race_state',
     ],
     downloadable: true,
-    time_period_range: null,
+    data_source_release_years: null,
   },
   geographies_source: {
     id: 'geographies_source',
@@ -265,7 +265,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'This dataset contains the geographic boundaries for the United States, states, territories, counties, and county-equivalents.',
     dataset_ids: [],
     downloadable: false,
-    time_period_range: null,
+    data_source_release_years: null,
   },
   cdc_miovd: {
     id: 'cdc_miovd',
@@ -285,6 +285,6 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     demographic_breakdowns: [],
     update_frequency: 'Yearly',
     downloadable: false,
-    time_period_range: '2019 - current',
+    data_source_release_years: '2019 - current',
   },
 }

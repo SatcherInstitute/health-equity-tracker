@@ -50,7 +50,7 @@ export const datasourceMetadataCawp: DataSourceMetadataCawp = {
   data_source_pretty_site_name: 'cawpdata.rutgers.edu',
   data_source_link: 'https://cawpdata.rutgers.edu/',
   geographic_breakdowns: ['national', 'state'],
-  time_period_range:
+  data_source_release_years:
     'U.S. Congress: 1915 - current, State Legislatures: 1983 - current',
   demographic_breakdowns: ['race_and_ethnicity'],
   update_frequency: 'Monthly',

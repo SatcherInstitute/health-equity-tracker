@@ -243,5 +243,5 @@ export const datasourceMetadataHivCategory: DataSourceMetadataHivCategory = {
     DatasetMetadataMapHivCategory,
   ) as DatasetIdHivCategory[],
   downloadable: true,
-  time_period_range: '2008 - current',
+  data_source_release_years: '2008 - current',
 }

@@ -205,5 +205,5 @@ export const datasourceMetadataAhr: DataSourceMetadataAhr = {
     'graphql_ahr_data-non-behavioral_health_sex_state_historical',
   ],
   downloadable: true,
-  time_period_range: null,
+  data_source_release_years: null,
 }

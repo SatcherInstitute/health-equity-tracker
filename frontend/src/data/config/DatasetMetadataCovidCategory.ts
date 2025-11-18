@@ -213,7 +213,7 @@ export const datasourceMetadataCdcRestricted: DataSourceMetadataCovidCategory =
     data_source_link:
       'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
     geographic_breakdowns: ['national', 'state', 'county'],
-    time_period_range: 'January 2020 - current',
+    data_source_release_years: 'January 2020 - current',
     demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
     update_frequency: 'Final update was June 2024',
     description:
@@ -262,7 +262,7 @@ export const datasourceMetadataCdcVaccinationCounty: DataSourceMetadataCovidCate
       'Overall US COVID-19 Vaccine administration and vaccine equity data at county level Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities.',
     dataset_ids: ['cdc_vaccination_county-alls_county_current'],
     downloadable: true,
-    time_period_range: null,
+    data_source_release_years: null,
   }
 export const datasourceMetadataCdcVaccinationNational: DataSourceMetadataCovidCategory =
   {
@@ -284,7 +284,7 @@ export const datasourceMetadataCdcVaccinationNational: DataSourceMetadataCovidCa
       'cdc_vaccination_national-sex_national_current',
     ],
     downloadable: true,
-    time_period_range: null,
+    data_source_release_years: null,
   }
 export const datasourceMetadataKffVaccinationState: DataSourceMetadataCovidCategory =
   {
@@ -303,5 +303,5 @@ export const datasourceMetadataKffVaccinationState: DataSourceMetadataCovidCateg
       'kff_vaccination-alls_state_current',
     ],
     downloadable: true,
-    time_period_range: null,
+    data_source_release_years: null,
   }

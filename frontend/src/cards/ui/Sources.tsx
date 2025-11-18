@@ -32,6 +32,7 @@ interface SourcesProps {
   hideNH?: boolean
   isMulti?: boolean
   showDefinition?: boolean
+  showAggregatorYearsAlert?: boolean
   isCompareCard?: boolean
   hasIntersectionalAllCompareBar?: boolean
 }
@@ -94,6 +95,9 @@ export function Sources(props: SourcesProps) {
     !props.hideNH &&
     datasetIds.some((id) => DatasetMetadataMap[id]?.contains_nh)
 
+  const displayAggregatorYearNotice =
+    Boolean(dataSourceMap.chr) && props.showAggregatorYearsAlert
+
   return (
     <footer className='px-1 py-0 text-left text-smallest'>
       {props.hasIntersectionalAllCompareBar && (
@@ -108,6 +112,13 @@ export function Sources(props: SourcesProps) {
         <>{showNhFootnote ? 'Note. (NH) indicates ‘Non-Hispanic’. ' : ''}</>
         View <HashLink to={methodologyLink}>methodology</HashLink>.
       </p>
+
+      {displayAggregatorYearNotice && (
+        <p className='w-full'>
+          'Years shown use County Health Rankings’ release years; underlying
+          data may have been collected earlier.'
+        </p>
+      )}
 
       <div
         className={`${

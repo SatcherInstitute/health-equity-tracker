@@ -80,6 +80,10 @@ function CardWrapper(props: {
                 hideNH={props.hideNH}
                 queryResponses={queryResponses}
                 showDefinition={props.scrollToHash === 'rate-map'}
+                showAggregatorYearsAlert={
+                  props.scrollToHash === 'rates-over-time' ||
+                  props.scrollToHash === 'inequities-over-time'
+                }
                 isCompareCard={props.isCompareCard}
                 hasIntersectionalAllCompareBar={
                   props.hasIntersectionalAllCompareBar

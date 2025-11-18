@@ -77,5 +77,5 @@ export const datasourceMetadataMaternalHealthCategory: DataSourceMetadataMaterna
       DatasetMetadataMapMaternalHealthCategory,
     ) as DatasetIdMaternalHealthCategory[],
     downloadable: true,
-    time_period_range: '1999 - 2019',
+    data_source_release_years: '1999 - 2019',
   }
