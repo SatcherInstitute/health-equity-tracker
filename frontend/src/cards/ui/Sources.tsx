@@ -115,7 +115,7 @@ export function Sources(props: SourcesProps) {
 
       <p className='w-full'>
         {displayAggregatorYearNotice &&
-          'Years shown use County Health Rankings’ release years; underlying data may have been collected earlier (noted below).'}
+          'Years shown use County Health Rankings’ release years; underlying data may have been collected earlier.'}
       </p>
 
       <div
