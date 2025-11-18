@@ -35,6 +35,105 @@ CHR_FILE_LOOKUP = {
     "2025": "2025 County Health Rankings Data - v3.xlsx",
 }
 
+CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP = {
+    "2011": {std_col.DIABETES_PREFIX: "2008"},
+    "2012": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+    },
+    "2013": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+    },
+    "2014": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+    },
+    "2015": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+        std_col.PREVENTABLE_HOSP_PREFIX: "",
+    },
+    "2016": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+        std_col.PREVENTABLE_HOSP_PREFIX: "",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "",
+    },
+    "2017": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+        std_col.PREVENTABLE_HOSP_PREFIX: "",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "",
+        std_col.GUN_DEATHS_PREFIX: "",
+    },
+    "2018": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+        std_col.PREVENTABLE_HOSP_PREFIX: "",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "",
+        std_col.GUN_DEATHS_PREFIX: "",
+    },
+    "2019": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+        std_col.PREVENTABLE_HOSP_PREFIX: "",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "",
+        std_col.GUN_DEATHS_PREFIX: "",
+    },
+    "2020": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+        std_col.PREVENTABLE_HOSP_PREFIX: "",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "",
+        std_col.GUN_DEATHS_PREFIX: "",
+        std_col.SUICIDE_PREFIX: "",
+    },
+    "2021": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+        std_col.PREVENTABLE_HOSP_PREFIX: "",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "",
+        std_col.GUN_DEATHS_PREFIX: "",
+        std_col.SUICIDE_PREFIX: "",
+    },
+    "2022": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+        std_col.PREVENTABLE_HOSP_PREFIX: "",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "",
+        std_col.GUN_DEATHS_PREFIX: "",
+        std_col.SUICIDE_PREFIX: "",
+    },
+    "2023": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+        std_col.PREVENTABLE_HOSP_PREFIX: "",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "",
+        std_col.GUN_DEATHS_PREFIX: "",
+        std_col.SUICIDE_PREFIX: "",
+        std_col.VOTER_PARTICIPATION_PREFIX: "",
+    },
+    "2024": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+        std_col.PREVENTABLE_HOSP_PREFIX: "",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "",
+        std_col.GUN_DEATHS_PREFIX: "",
+        std_col.SUICIDE_PREFIX: "",
+        std_col.VOTER_PARTICIPATION_PREFIX: "",
+    },
+    "2025": {
+        std_col.DIABETES_PREFIX: "",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "",
+        std_col.PREVENTABLE_HOSP_PREFIX: "",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "",
+        std_col.GUN_DEATHS_PREFIX: "",
+        std_col.SUICIDE_PREFIX: "",
+        std_col.VOTER_PARTICIPATION_PREFIX: "",
+    },
+}
+
 
 def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = None) -> dict[str, dict[str, str | None]]:
     # this dict maps the key representing the ALL values, to the value prefix used by the PER RACE columns.
