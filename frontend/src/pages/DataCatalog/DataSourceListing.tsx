@@ -80,6 +80,7 @@ function DownloadDatasetListItem(props: {
         <>
           <ListItemIcon>{getIcon()}</ListItemIcon>
           <ListItemText
+            // TODO: figure out where the period before csv is coming from
             primary={props.datasetMetadata.name + 'csv'}
             secondary={
               'Original data time range: ' +

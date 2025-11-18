@@ -113,10 +113,12 @@ export function Sources(props: SourcesProps) {
         View <HashLink to={methodologyLink}>methodology</HashLink>.
       </p>
 
-      <p className='w-full'>
-        {displayAggregatorYearNotice &&
-          'Years shown use County Health Rankings’ release years; underlying data may have been collected earlier.'}
-      </p>
+      {displayAggregatorYearNotice && (
+        <p className='w-full'>
+          'Years shown use County Health Rankings’ release years; underlying
+          data may have been collected earlier.'
+        </p>
+      )}
 
       <div
         className={`${
