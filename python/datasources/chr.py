@@ -206,9 +206,22 @@ class CHRData(DataSource):
             year_df[std_col.STATE_FIPS_COL] = year_df[std_col.COUNTY_FIPS_COL].str[:2]
 
             # Assign time_period per topic based on the primary data years, not just the CHR release year
-            year_df = add_time_periods_to_melted_df(year_df, year, CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP)
+            merge_cols = [std_col.STATE_FIPS_COL, std_col.COUNTY_FIPS_COL, std_col.RACE_CATEGORY_ID_COL]
 
-            dfs.append(year_df)
+            # split the year_df into multiple dfs, each containing the merge cols plus one of the metric cols
+            metric_cols = list(melt_map.keys())
+            year_topic_dfs = []
+
+            for metric_col in metric_cols:
+
+                year_topic_df = year_df[[metric_col] + merge_cols]
+                year_lookup = CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP.get(year, {})
+                primary_data_year = get_primary_time_period_for_metric(metric_col, year_lookup)
+                year_topic_df[std_col.TIME_PERIOD_COL] = primary_data_year
+                year_topic_dfs.append(year_topic_df)
+
+            updated_years_df = merge_utils.merge_dfs_list(year_topic_dfs, [std_col.TIME_PERIOD_COL] + merge_cols)
+            dfs.append(updated_years_df)
 
         df = pd.concat(dfs)
 
@@ -432,43 +445,6 @@ def convert_some_pct_rate_to_100k(df: pd.DataFrame, float_cols: List[str]) -> Tu
     return (df, float_cols)
 
 
-def add_time_periods_to_melted_df(
-    df: pd.DataFrame, release_year: str, time_period_lookup: Dict[str, Dict[str, str]]
-) -> pd.DataFrame:
-    """
-    Add time_period column to melted df based on column prefixes.
-
-    Args:
-        df: Melted dataframe with standardized column names
-        release_year: String like "2025"
-        time_period_lookup: CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP
-
-    Returns:
-        pd.DataFrame: DataFrame with time_period column added
-    """
-    # Get the mapping for this release year
-    year_mapping = time_period_lookup.get(release_year, {})
-
-    # Create a time_period column initialized with the release year as failsafe
-    df[std_col.TIME_PERIOD_COL] = release_year
-
-    # For each topic prefix, assign the corresponding year
-    for prefix, year in year_mapping.items():
-        # Find all columns that start with this prefix
-        matching_cols = [col for col in df.columns if col.startswith(prefix)]
-
-        if not matching_cols:
-            continue
-
-        # Create a mask for rows that have non-null values in ANY of these columns
-        mask = df[matching_cols].notna().any(axis=1)
-
-        # Assign the year to those rows
-        df.loc[mask, std_col.TIME_PERIOD_COL] = year
-
-    return df
-
-
 CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP = {
     "2011": {std_col.DIABETES_PREFIX: "2008"},
     "2012": {
@@ -567,3 +543,10 @@ CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP = {
         std_col.VOTER_PARTICIPATION_PREFIX: "2020",
     },
 }
+
+
+def get_primary_time_period_for_metric(col_name, year_mapping):
+    for prefix, year in year_mapping.items():
+        if col_name.startswith(prefix):
+            return year
+    return None

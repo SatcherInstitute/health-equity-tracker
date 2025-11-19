@@ -591,6 +591,7 @@ def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame, topic_prefixes: L
     for topic_prefix in topic_prefixes:
         topic_primary_col = get_topic_primary_col(topic_prefix, df)
         most_recent_time_period = df[df[topic_primary_col].notnull()][std_col.TIME_PERIOD_COL].max()
+        print(f"most recent time period for {topic_prefix} is {most_recent_time_period}")
         col_list = list(df.columns[df.columns.str.startswith(topic_prefix)])
 
         # build the mapping of string year to list of topics where that year is the most recent
