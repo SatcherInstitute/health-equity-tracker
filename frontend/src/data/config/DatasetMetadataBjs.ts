@@ -82,5 +82,5 @@ export const datasourceMetadataBjs: DataSourceMetadataBjs = {
     'bjs_incarceration_data-alls_state_current',
   ],
   downloadable: true,
-  time_period_range: null,
+  data_source_release_years: null,
 }

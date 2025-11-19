@@ -275,5 +275,5 @@ export const datasourceMetadataCommunitySafetyCategory: DataSourceMetadataCommun
       DatasetMetadataMapCommunitySafetyCategory,
     ) as DatasetIdCommunitySafetyCategory[],
     downloadable: true,
-    time_period_range: '2001 - current',
+    data_source_release_years: '2001 - current',
   }

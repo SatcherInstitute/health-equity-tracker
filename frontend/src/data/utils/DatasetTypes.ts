@@ -13,13 +13,14 @@ export interface DataSourceMetadata {
   readonly data_source_acronym: string
   readonly data_source_pretty_site_name: string
   readonly data_source_link: string
+  readonly data_source_release_years: string | null
+  readonly primary_data_time_period_range?: string
   readonly geographic_breakdowns: GeographicBreakdown[]
   readonly demographic_breakdowns: DemographicType[]
   readonly update_frequency: string
   readonly downloadable: boolean
   readonly downloadable_blurb?: string
   readonly downloadable_data_dictionary?: boolean
-  readonly time_period_range: string | null
 }
 
 // Datasets contain data with specified breakdowns
