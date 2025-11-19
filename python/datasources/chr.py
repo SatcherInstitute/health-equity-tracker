@@ -35,105 +35,6 @@ CHR_FILE_LOOKUP = {
     "2025": "2025 County Health Rankings Data - v3.xlsx",
 }
 
-CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP = {
-    "2011": {std_col.DIABETES_PREFIX: "2008"},
-    "2012": {
-        std_col.DIABETES_PREFIX: "2009",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2010",
-    },
-    "2013": {
-        std_col.DIABETES_PREFIX: "2009",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2011",
-    },
-    "2014": {
-        std_col.DIABETES_PREFIX: "2010",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2012",
-    },
-    "2015": {
-        std_col.DIABETES_PREFIX: "2011",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2012",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2012",
-    },
-    "2016": {
-        std_col.DIABETES_PREFIX: "2012",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2014",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2013",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2014",
-    },
-    "2017": {
-        std_col.DIABETES_PREFIX: "2013",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2015",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2014",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2015",
-        std_col.GUN_DEATHS_PREFIX: "2015",
-    },
-    "2018": {
-        std_col.DIABETES_PREFIX: "2014",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2016",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2015",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2016",
-        std_col.GUN_DEATHS_PREFIX: "2016",
-    },
-    "2019": {
-        std_col.DIABETES_PREFIX: "2015",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2016",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2016",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2016",
-        std_col.GUN_DEATHS_PREFIX: "2017",
-    },
-    "2020": {
-        std_col.DIABETES_PREFIX: "2016",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2017",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2017",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2017",
-        std_col.GUN_DEATHS_PREFIX: "2018",
-        std_col.SUICIDE_PREFIX: "2018",
-    },
-    "2021": {
-        std_col.DIABETES_PREFIX: "2017",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2018",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2018",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2018",
-        std_col.GUN_DEATHS_PREFIX: "2019",
-        std_col.SUICIDE_PREFIX: "2019",
-    },
-    "2022": {
-        std_col.DIABETES_PREFIX: "2019",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2019",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2019",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2019",
-        std_col.GUN_DEATHS_PREFIX: "2020",
-        std_col.SUICIDE_PREFIX: "2020",
-    },
-    "2023": {
-        std_col.DIABETES_PREFIX: "2020",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2020",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2020",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2020",
-        std_col.GUN_DEATHS_PREFIX: "2020",
-        std_col.SUICIDE_PREFIX: "2020",
-        std_col.VOTER_PARTICIPATION_PREFIX: "2020",
-    },
-    "2024": {
-        std_col.DIABETES_PREFIX: "2021",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2021",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2021",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2021",
-        std_col.GUN_DEATHS_PREFIX: "2021",
-        std_col.SUICIDE_PREFIX: "2021",
-        std_col.VOTER_PARTICIPATION_PREFIX: "2020",
-    },
-    "2025": {
-        std_col.DIABETES_PREFIX: "2022",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2022",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2022",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2022",
-        std_col.GUN_DEATHS_PREFIX: "2022",
-        std_col.SUICIDE_PREFIX: "2022",
-        std_col.VOTER_PARTICIPATION_PREFIX: "2020",
-    },
-}
-
 
 def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = None) -> dict[str, dict[str, str | None]]:
     # this dict maps the key representing the ALL values, to the value prefix used by the PER RACE columns.
@@ -295,18 +196,34 @@ class CHRData(DataSource):
                 }
             )
 
-            # # drop any national and state-level rows
+            # drop any national and state-level rows
             year_df = year_df[~year_df[std_col.COUNTY_FIPS_COL].astype(str).str.endswith("000")]
             melt_map = get_melt_map(year)
             year_df = dataset_utils.melt_to_het_style_df(
-                year_df, std_col.RACE_CATEGORY_ID_COL, [std_col.COUNTY_FIPS_COL], melt_map
+                year_df, std_col.RACE_CATEGORY_ID_COL, [std_col.COUNTY_FIPS_COL], melt_map, drop_empty_rows=True
             )
+
             year_df[std_col.STATE_FIPS_COL] = year_df[std_col.COUNTY_FIPS_COL].str[:2]
-            year_df.insert(loc=0, column=std_col.TIME_PERIOD_COL, value=year)
+
+            # Assign time_period per topic based on the primary data years, not just the CHR release year
+            year_df = add_time_periods_to_melted_df(year_df, year, CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP)
 
             dfs.append(year_df)
 
         df = pd.concat(dfs)
+
+        sort_cols = [
+            std_col.TIME_PERIOD_COL,
+            std_col.STATE_FIPS_COL,
+            std_col.COUNTY_FIPS_COL,
+            std_col.RACE_CATEGORY_ID_COL,
+        ]
+
+        # Reorder: sort columns first, then everything else
+        other_cols = [col for col in df.columns if col not in sort_cols]
+        df = df[sort_cols + other_cols]
+        df = df.sort_values(by=sort_cols).reset_index(drop=True)
+
         df = merge_utils.merge_state_ids(df)
         df = merge_utils.merge_county_names(df)
         df = merge_utils.merge_yearly_pop_numbers(df, std_col.RACE_COL, COUNTY_LEVEL)
@@ -513,3 +430,140 @@ def convert_some_pct_rate_to_100k(df: pd.DataFrame, float_cols: List[str]) -> Tu
             df[col] = df[col].round(num_decimal_places)
 
     return (df, float_cols)
+
+
+def add_time_periods_to_melted_df(
+    df: pd.DataFrame, release_year: str, time_period_lookup: Dict[str, Dict[str, str]]
+) -> pd.DataFrame:
+    """
+    Add time_period column to melted df based on column prefixes.
+
+    Args:
+        df: Melted dataframe with standardized column names
+        release_year: String like "2025"
+        time_period_lookup: CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP
+
+    Returns:
+        pd.DataFrame: DataFrame with time_period column added
+    """
+    # Get the mapping for this release year
+    year_mapping = time_period_lookup.get(release_year, {})
+
+    # Create a time_period column initialized with the release year as failsafe
+    df[std_col.TIME_PERIOD_COL] = release_year
+
+    # For each topic prefix, assign the corresponding year
+    for prefix, year in year_mapping.items():
+        # Find all columns that start with this prefix
+        matching_cols = [col for col in df.columns if col.startswith(prefix)]
+
+        if not matching_cols:
+            continue
+
+        # Create a mask for rows that have non-null values in ANY of these columns
+        mask = df[matching_cols].notna().any(axis=1)
+
+        # Assign the year to those rows
+        df.loc[mask, std_col.TIME_PERIOD_COL] = year
+
+    return df
+
+
+CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP = {
+    "2011": {std_col.DIABETES_PREFIX: "2008"},
+    "2012": {
+        std_col.DIABETES_PREFIX: "2009",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2010",
+    },
+    "2013": {
+        std_col.DIABETES_PREFIX: "2009",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2011",
+    },
+    "2014": {
+        std_col.DIABETES_PREFIX: "2010",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2012",
+    },
+    "2015": {
+        std_col.DIABETES_PREFIX: "2011",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2012",
+        std_col.PREVENTABLE_HOSP_PREFIX: "2012",
+    },
+    "2016": {
+        std_col.DIABETES_PREFIX: "2012",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2014",
+        std_col.PREVENTABLE_HOSP_PREFIX: "2013",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2014",
+    },
+    "2017": {
+        std_col.DIABETES_PREFIX: "2013",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2015",
+        std_col.PREVENTABLE_HOSP_PREFIX: "2014",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2015",
+        std_col.GUN_DEATHS_PREFIX: "2015",
+    },
+    "2018": {
+        std_col.DIABETES_PREFIX: "2014",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2016",
+        std_col.PREVENTABLE_HOSP_PREFIX: "2015",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2016",
+        std_col.GUN_DEATHS_PREFIX: "2016",
+    },
+    "2019": {
+        std_col.DIABETES_PREFIX: "2015",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2016",
+        std_col.PREVENTABLE_HOSP_PREFIX: "2016",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2016",
+        std_col.GUN_DEATHS_PREFIX: "2017",
+    },
+    "2020": {
+        std_col.DIABETES_PREFIX: "2016",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2017",
+        std_col.PREVENTABLE_HOSP_PREFIX: "2017",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2017",
+        std_col.GUN_DEATHS_PREFIX: "2018",
+        std_col.SUICIDE_PREFIX: "2018",
+    },
+    "2021": {
+        std_col.DIABETES_PREFIX: "2017",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2018",
+        std_col.PREVENTABLE_HOSP_PREFIX: "2018",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2018",
+        std_col.GUN_DEATHS_PREFIX: "2019",
+        std_col.SUICIDE_PREFIX: "2019",
+    },
+    "2022": {
+        std_col.DIABETES_PREFIX: "2019",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2019",
+        std_col.PREVENTABLE_HOSP_PREFIX: "2019",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2019",
+        std_col.GUN_DEATHS_PREFIX: "2020",
+        std_col.SUICIDE_PREFIX: "2020",
+    },
+    "2023": {
+        std_col.DIABETES_PREFIX: "2020",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2020",
+        std_col.PREVENTABLE_HOSP_PREFIX: "2020",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2020",
+        std_col.GUN_DEATHS_PREFIX: "2020",
+        std_col.SUICIDE_PREFIX: "2020",
+        std_col.VOTER_PARTICIPATION_PREFIX: "2020",
+    },
+    "2024": {
+        std_col.DIABETES_PREFIX: "2021",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2021",
+        std_col.PREVENTABLE_HOSP_PREFIX: "2021",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2021",
+        std_col.GUN_DEATHS_PREFIX: "2021",
+        std_col.SUICIDE_PREFIX: "2021",
+        std_col.VOTER_PARTICIPATION_PREFIX: "2020",
+    },
+    "2025": {
+        std_col.DIABETES_PREFIX: "2022",
+        std_col.EXCESSIVE_DRINKING_PREFIX: "2022",
+        std_col.PREVENTABLE_HOSP_PREFIX: "2022",
+        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2022",
+        std_col.GUN_DEATHS_PREFIX: "2022",
+        std_col.SUICIDE_PREFIX: "2022",
+        std_col.VOTER_PARTICIPATION_PREFIX: "2020",
+    },
+}
