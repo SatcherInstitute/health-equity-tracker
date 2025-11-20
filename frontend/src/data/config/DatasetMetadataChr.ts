@@ -15,7 +15,7 @@ export const DatasetMetadataMapChr: Record<DatasetIdChr, DatasetMetadata> = {
   },
   'chr_data-race_and_ethnicity_county_historical': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county, with race/ethnicity breakdowns for some topics.',
-    original_data_sourced: '2011-2022',
+    original_data_sourced: '2008-2022',
     contains_nh: true,
     source_id: 'chr',
   },
@@ -27,7 +27,7 @@ export const DatasetMetadataMapChr: Record<DatasetIdChr, DatasetMetadata> = {
   },
   'chr_data-alls_county_historical': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by county.',
-    original_data_sourced: '2011-2022',
+    original_data_sourced: '2008-2022',
     contains_nh: true,
     source_id: 'chr',
   },
