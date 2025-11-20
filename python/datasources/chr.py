@@ -213,7 +213,7 @@ class CHRData(DataSource):
             year_topic_dfs = []
 
             for metric_col in metric_cols:
-                year_topic_df = year_df[[metric_col] + merge_cols]
+                year_topic_df = year_df[[metric_col] + merge_cols].copy()
                 year_lookup = CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP.get(year, {})
                 primary_data_year = get_primary_time_period_for_metric(metric_col, year_lookup)
                 year_topic_df[std_col.TIME_PERIOD_COL] = primary_data_year
