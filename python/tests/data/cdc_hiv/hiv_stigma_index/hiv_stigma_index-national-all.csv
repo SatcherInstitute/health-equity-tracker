@@ -1,5 +1,6 @@
-Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Rate LCI,Rate UCI,Population
-"HIV Stigma","2021","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","Data not available","28.8","27.6","30.1","NA"
-"HIV Stigma","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","Data not available","28.4","27.7","29.2","NA"
-"HIV Stigma","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","Data not available","30.7","29.2","32.1","NA"
-"HIV Stigma","2018","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","Data not available","31.2","30.3","32.1","NA"
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Cases,Rate per 100000,Rate LCI,Rate UCI,Population
+"HIV Stigma","2022","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","Data not available","29.3","27.9","30.7","NA"
+"HIV Stigma","2021","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","Data not available","28.8","27.6","30.1","NA"
+"HIV Stigma","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","Data not available","28.4","27.7","29.2","NA"
+"HIV Stigma","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","Data not available","30.7","29.2","32.1","NA"
+"HIV Stigma","2018","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","Data not available","31.2","30.3","32.1","NA"
