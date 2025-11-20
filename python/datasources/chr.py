@@ -213,7 +213,6 @@ class CHRData(DataSource):
             year_topic_dfs = []
 
             for metric_col in metric_cols:
-
                 year_topic_df = year_df[[metric_col] + merge_cols]
                 year_lookup = CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP.get(year, {})
                 primary_data_year = get_primary_time_period_for_metric(metric_col, year_lookup)
@@ -232,9 +231,17 @@ class CHRData(DataSource):
             std_col.RACE_CATEGORY_ID_COL,
         ]
 
+        agg_metric_cols = [col for col in df.columns if col not in sort_cols]
+
+        # For each metric column, take the LAST non-null value (most recent release)
+        agg_dict = {col: "last" for col in agg_metric_cols}
+
+        df = df.groupby(sort_cols, dropna=False).agg(agg_dict).reset_index()
+
+        assert not df.duplicated(subset=sort_cols).any(), f"Found duplicate rows based on {sort_cols}"
+
         # Reorder: sort columns first, then everything else
-        other_cols = [col for col in df.columns if col not in sort_cols]
-        df = df[sort_cols + other_cols]
+        df = df[sort_cols + agg_metric_cols]
         df = df.sort_values(by=sort_cols).reset_index(drop=True)
 
         df = merge_utils.merge_state_ids(df)
