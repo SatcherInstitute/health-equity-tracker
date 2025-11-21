@@ -1,7 +1,13 @@
 from datasources.data_source import DataSource
 from ingestion import dataset_utils, merge_utils, gcs_to_bq_util, standardized_columns as std_col
 from ingestion.constants import COUNTY_LEVEL, CURRENT, HISTORICAL
-from typing import List, Dict, Optional, Tuple
+from ingestion.chr_utils import (
+    get_topics_for_sheet_and_year,
+    get_primary_data_year_for_topic,
+    get_all_topic_prefixes,
+    get_race_map,
+)
+from typing import List, Dict, Tuple
 import pandas as pd
 
 """
@@ -34,132 +40,6 @@ CHR_FILE_LOOKUP = {
     "2024": "2024_county_health_release_data_-_v1.xlsx",
     "2025": "2025 County Health Rankings Data - v3.xlsx",
 }
-
-
-def get_het_to_source_select_topic_all_to_race_prefix_map(year: str | None = None) -> dict[str, dict[str, str | None]]:
-    # this dict maps the key representing the ALL values, to the value prefix used by the PER RACE columns.
-    # a value of NULL represents topics that only have ALL values but no RACE stratifications
-
-    het_to_source_select_topic_all_to_race_prefix_map: dict[str, dict[str, str | None]] = {}
-
-    if year is None or int(year) >= 2012:
-        het_to_source_select_topic_all_to_race_prefix_map[std_col.EXCESSIVE_DRINKING_PREFIX] = {
-            "% Excessive Drinking": None
-        }
-
-    if year is None or int(year) >= 2015:
-        het_to_source_select_topic_all_to_race_prefix_map[std_col.PREVENTABLE_HOSP_PREFIX] = {
-            "Preventable Hosp. Rate": None
-        }
-
-    if year is None or int(year) == 2019:
-        het_to_source_select_topic_all_to_race_prefix_map[std_col.PREVENTABLE_HOSP_PREFIX] = {
-            "Preventable Hosp. Rate": "Preventable Hosp. Rate"
-        }
-
-    if year is None or int(year) > 2019:
-        het_to_source_select_topic_all_to_race_prefix_map[std_col.PREVENTABLE_HOSP_PREFIX] = {
-            "Preventable Hospitalization Rate": "Preventable Hosp. Rate"
-        }
-
-    if year is None or int(year) >= 2025:
-        # drinking moved to the other sheet
-        het_to_source_select_topic_all_to_race_prefix_map.pop(std_col.EXCESSIVE_DRINKING_PREFIX)
-
-    return het_to_source_select_topic_all_to_race_prefix_map
-
-
-def get_het_to_source_additional_topic_all_to_race_prefix_map(
-    year: str | None = None,
-) -> dict[str, dict[str, str | None]]:
-    het_to_source_additional_topic_all_to_race_prefix_map: dict[str, dict[str, str | None]] = {}
-
-    if year is None or int(year) >= 2011:
-        het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {"Diabetes": None}
-
-    if year is None or int(year) >= 2012:
-        het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {"% diabetic": None}
-
-    if year is None or int(year) >= 2014:
-        het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {"% Diabetic": None}
-
-    if year is None or int(year) >= 2016:
-        het_to_source_additional_topic_all_to_race_prefix_map[std_col.FREQUENT_MENTAL_DISTRESS_PREFIX] = {
-            "% Frequent Mental Distress": None
-        }
-
-    if year is None or int(year) >= 2017:
-        het_to_source_additional_topic_all_to_race_prefix_map["gun_deaths"] = {"Firearm Fatalities Rate": None}
-
-    if year is None or int(year) >= 2020:
-        het_to_source_additional_topic_all_to_race_prefix_map[std_col.SUICIDE_PREFIX] = {"Crude Rate": "Suicide Rate"}
-        het_to_source_additional_topic_all_to_race_prefix_map[std_col.DIABETES_PREFIX] = {
-            "% Adults with Diabetes": None
-        }
-        het_to_source_additional_topic_all_to_race_prefix_map["gun_deaths"] = {
-            "Firearm Fatalities Rate": "Firearm Fatalities Rate"
-        }
-
-    if year is None or int(year) >= 2023:
-        het_to_source_additional_topic_all_to_race_prefix_map[std_col.VOTER_PARTICIPATION_PREFIX] = {
-            "% Voter Turnout": None
-        }
-
-    if year is None or int(year) >= 2025:
-        het_to_source_additional_topic_all_to_race_prefix_map[std_col.EXCESSIVE_DRINKING_PREFIX] = {
-            "% Excessive Drinking": None
-        }
-
-    return het_to_source_additional_topic_all_to_race_prefix_map
-
-
-default_source_race_to_id_map = {
-    "(AIAN)": std_col.Race.AIAN_NH.value,
-    "(Asian)": std_col.Race.API_NH.value,
-    "(Black)": std_col.Race.BLACK_NH.value,
-    "(Hispanic)": std_col.Race.HISP.value,
-    "(White)": std_col.Race.WHITE_NH.value,
-}
-
-source_race_few_to_id_map = {
-    "(Black)": std_col.Race.BLACK_NH.value,
-    "(Hispanic)": std_col.Race.HISP.value,
-    "(White)": std_col.Race.WHITE_NH.value,
-}
-
-source_race_w_to_id_map = {
-    "(AIAN)": std_col.Race.AIAN_NH.value,
-    "(Asian)": std_col.Race.API_NH.value,
-    "(Black)": std_col.Race.BLACK_NH.value,
-    "(Hispanic)": std_col.Race.HISP.value,
-    "(white)": std_col.Race.WHITE_NH.value,
-}
-
-source_nh_race_to_id_map = {
-    "(Hispanic (all races))": std_col.Race.HISP.value,
-    "(Non-Hispanic AIAN)": std_col.Race.AIAN_NH.value,
-    "(Non-Hispanic Asian)": std_col.Race.ASIAN_NH.value,
-    "(Non-Hispanic Black)": std_col.Race.BLACK_NH.value,
-    "(Non-Hispanic Native Hawaiian and Other Pacific Islander)": std_col.Race.NHPI_NH.value,
-    "(Non-Hispanic 2+ races)": std_col.Race.MULTI_NH.value,
-    "(Non-Hispanic White)": std_col.Race.WHITE_NH.value,
-}
-
-
-def get_race_map(year: str, sheet_name: str) -> Dict[str, str]:
-    """
-    Returns a dict of CHR source race names to the HET standard race code.
-    Some source years/sheets use inconsistent labels for the column names.
-    """
-    special_race_maps = {
-        ("2019", "Ranked Measure Data"): source_race_few_to_id_map,
-        ("2022", "Ranked Measure Data"): source_race_w_to_id_map,
-        ("2022", "Additional Measure Data"): source_race_w_to_id_map,
-        ("2024", "Additional Measure Data"): source_nh_race_to_id_map,
-        ("2025", "Additional Measure Data"): source_nh_race_to_id_map,
-    }
-    return special_race_maps.get((year, sheet_name), default_source_race_to_id_map)
-
 
 source_fips_col = "FIPS"
 source_per_100k = "Rate"
@@ -214,8 +94,16 @@ class CHRData(DataSource):
 
             for metric_col in metric_cols:
                 year_topic_df = year_df[[metric_col] + merge_cols].copy()
-                year_lookup = CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP.get(year, {})
-                primary_data_year = get_primary_time_period_for_metric(metric_col, year_lookup)
+
+                # Extract topic prefix from metric column (remove _per_100k or _pct_rate suffix)
+                topic_prefix = metric_col.replace("_per_100k", "").replace("_pct_rate", "")
+
+                primary_data_year = get_primary_data_year_for_topic(topic_prefix, year)
+                if primary_data_year is None:
+                    raise ValueError(
+                        f"No time period mapping found for metric {metric_col} (topic: {topic_prefix}) in year {year}"
+                    )
+
                 year_topic_df[std_col.TIME_PERIOD_COL] = primary_data_year
                 year_topic_dfs.append(year_topic_df)
 
@@ -262,9 +150,7 @@ class CHRData(DataSource):
             float_cols = timeview_float_cols_map[timeview]
             df_for_bq, float_cols = convert_some_pct_rate_to_100k(df, float_cols)
 
-            topic_prefixes = list(get_het_to_source_select_topic_all_to_race_prefix_map().keys()) + list(
-                get_het_to_source_additional_topic_all_to_race_prefix_map().keys()
-            )
+            topic_prefixes = get_all_topic_prefixes()
             topic_prefixes.append("chr_population")
 
             df_for_bq, col_types = dataset_utils.get_timeview_df_and_cols(df_for_bq, timeview, topic_prefixes)
@@ -275,28 +161,25 @@ class CHRData(DataSource):
 def get_source_usecols(year: str, sheet_name: str) -> List[str]:
     """
     Returns a list of column names to be used when reading a source file's excel sheet.
-    The list includes the source_fips_col and columns derived from the source_topic_all_to_race_prefix_map.
+    The list includes the source_fips_col and columns derived from CHR_METRICS.
 
     Returns:
         list: A list of column names to be used when reading a source file.
     """
-
     source_usecols = [source_fips_col]
 
-    sheet_topic_map: Dict[str, Dict[str, Optional[str]]] = {}
     sheet_race_map = get_race_map(year, sheet_name)
-    if sheet_name in ["Ranked Measure Data", "Select Measure Data"]:
-        sheet_topic_map = get_het_to_source_select_topic_all_to_race_prefix_map(year)
-    if sheet_name == "Additional Measure Data":
-        sheet_topic_map = get_het_to_source_additional_topic_all_to_race_prefix_map(year)
+    sheet_topics = get_topics_for_sheet_and_year(sheet_name, year)
 
-    for source_topic_all_to_race_prefix_map in sheet_topic_map.values():
-        for source_topic, source_topic_race_prefix in source_topic_all_to_race_prefix_map.items():
-            source_usecols.append(source_topic)
+    for topic_config in sheet_topics.values():
+        source_all_col = topic_config["source_all_col"]
+        source_usecols.append(source_all_col)
 
-            if source_topic_race_prefix is not None:
-                for race_suffix in sheet_race_map.keys():
-                    source_usecols.append(f"{source_topic_race_prefix} {race_suffix}")
+        # If this topic has race-stratified data
+        source_race_prefix = topic_config.get("source_race_prefix")
+        if source_race_prefix is not None:
+            for race_suffix in sheet_race_map.keys():
+                source_usecols.append(f"{source_race_prefix} {race_suffix}")
 
     return source_usecols
 
@@ -309,54 +192,36 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
     Returns:
         dict: A nested dict
     """
-
     melt_map: Dict[str, Dict[str, str]] = {}
 
-    ranked_race_code_to_id_map = get_race_map(year, "Ranked Measure Data")
-    for het_prefix, source_all_race_map in get_het_to_source_select_topic_all_to_race_prefix_map(year).items():
-        topic_melt_map: Dict[str, str] = {}
+    # Process both Select/Ranked and Additional sheets
+    for sheet_name in ["Select Measure Data", "Additional Measure Data"]:
+        sheet_topics = get_topics_for_sheet_and_year(sheet_name, year)
+        sheet_race_map = get_race_map(year, sheet_name)
 
-        for source_all, source_race_prefix in source_all_race_map.items():
-            topic_melt_map[source_all] = std_col.Race.ALL.value
+        for het_prefix, topic_config in sheet_topics.items():
+            source_all_col = topic_config["source_all_col"]
+            source_race_prefix = topic_config.get("source_race_prefix")
 
-            # some topics have by race columns
+            topic_melt_map: Dict[str, str] = {}
+
+            # Add the "all" column
+            topic_melt_map[source_all_col] = std_col.Race.ALL.value
+
+            # Add race-stratified columns if they exist
             if source_race_prefix is not None:
-                for source_race_suffix, het_race_id in ranked_race_code_to_id_map.items():
+                for source_race_suffix, het_race_id in sheet_race_map.items():
                     topic_melt_map[f"{source_race_prefix} {source_race_suffix}"] = het_race_id
 
-        # assign 100k or pct_rate as needed
-        rate_suffix = ""
-        source_all_col = list(source_all_race_map.keys())[0]
-        if source_per_100k in source_all_col:
-            rate_suffix = std_col.PER_100K_SUFFIX
-        if source_pct_rate in source_all_col or source_all_col in source_pct_rate_cols_no_symbol:
-            rate_suffix = std_col.PCT_RATE_SUFFIX
+            # Determine the rate suffix (per_100k or pct_rate)
+            rate_suffix = ""
+            if source_per_100k in source_all_col:
+                rate_suffix = std_col.PER_100K_SUFFIX
+            if source_pct_rate in source_all_col or source_all_col in source_pct_rate_cols_no_symbol:
+                rate_suffix = std_col.PCT_RATE_SUFFIX
 
-        # set this metrics sub melt map
-        melt_map[f"{het_prefix}_{rate_suffix}"] = topic_melt_map
-
-    additional_race_code_to_id_map = get_race_map(year, "Additional Measure Data")
-    for het_prefix, source_all_race_map in get_het_to_source_additional_topic_all_to_race_prefix_map(year).items():
-        additional_topic_melt_map: Dict[str, str] = {}
-        # maps the sources by race topic column name to the needed HET race column values
-        for source_all, source_race_prefix in source_all_race_map.items():
-            additional_topic_melt_map[source_all] = std_col.Race.ALL.value
-
-            # some topics only have ALLs
-            if source_race_prefix is not None:
-                for source_race_suffix, het_race_id in additional_race_code_to_id_map.items():
-                    additional_topic_melt_map[f"{source_race_prefix} {source_race_suffix}"] = het_race_id
-
-        # assign 100k or pct_rate as needed
-        rate_suffix = ""
-        source_all_col = list(source_all_race_map.keys())[0]
-        if source_per_100k in source_all_col:
-            rate_suffix = std_col.PER_100K_SUFFIX
-        if source_pct_rate in source_all_col or source_all_col in source_pct_rate_cols_no_symbol:
-            rate_suffix = std_col.PCT_RATE_SUFFIX
-
-        # set this metrics sub melt map
-        melt_map[f"{het_prefix}_{rate_suffix}"] = additional_topic_melt_map
+            # Set this metric's melt map
+            melt_map[f"{het_prefix}_{rate_suffix}"] = topic_melt_map
 
     return melt_map
 
@@ -367,36 +232,40 @@ def get_float_cols() -> Dict[str, List[str]]:
     The list of column names includes all numerical cols like population, per_100k and pct_share.
 
     Returns:
-        dict: A dictionary that maps the time period string to a list of needed numerical column names .
+        dict: A dictionary that maps the time period string to a list of needed numerical column names.
     """
-
     current_float_cols = [std_col.CHR_POPULATION_RAW, std_col.CHR_POPULATION_PCT]
     historical_float_cols = []
 
-    # include all numerical columns in the time map
-    all_topics = list(get_het_to_source_select_topic_all_to_race_prefix_map().keys()) + list(
-        get_het_to_source_additional_topic_all_to_race_prefix_map().keys()
-    )
-    for topic_prefix in all_topics:
+    # Get all unique topic prefixes across all years
+    all_topic_prefixes = get_all_topic_prefixes()
 
-        # assign 100k or pct_rate as needed based on the source col name
-        source_dict = {
-            **get_het_to_source_select_topic_all_to_race_prefix_map(),
-            **get_het_to_source_additional_topic_all_to_race_prefix_map(),
-        }.get(topic_prefix)
+    for topic_prefix in all_topic_prefixes:
+        # Find any occurrence of this topic to determine its rate type
+        # We'll check the first available year/sheet combo for this topic
+        rate_suffix = None
 
-        if source_dict is None:
-            continue
-        source_all_col = list(source_dict.keys())[0]
+        for year in CHR_FILE_LOOKUP.keys():
+            for sheet_name in ["Select Measure Data", "Additional Measure Data"]:
+                sheet_topics = get_topics_for_sheet_and_year(sheet_name, year)
 
-        rate_suffix = ""
-        if source_per_100k in source_all_col:
-            rate_suffix = std_col.PER_100K_SUFFIX
-        if source_pct_rate in source_all_col:
-            rate_suffix = std_col.PCT_RATE_SUFFIX
-        topic_rate_col = f"{topic_prefix}_{rate_suffix}"
-        current_float_cols.append(topic_rate_col)
-        historical_float_cols.append(topic_rate_col)
+                if topic_prefix in sheet_topics:
+                    source_all_col = sheet_topics[topic_prefix]["source_all_col"]
+
+                    if source_per_100k in source_all_col:
+                        rate_suffix = std_col.PER_100K_SUFFIX
+                    elif source_pct_rate in source_all_col or source_all_col in source_pct_rate_cols_no_symbol:
+                        rate_suffix = std_col.PCT_RATE_SUFFIX
+
+                    break
+
+            if rate_suffix is not None:
+                break
+
+        if rate_suffix:
+            topic_rate_col = f"{topic_prefix}_{rate_suffix}"
+            current_float_cols.append(topic_rate_col)
+            historical_float_cols.append(topic_rate_col)
 
     TIME_MAP = {CURRENT: current_float_cols, HISTORICAL: historical_float_cols}
 
@@ -441,7 +310,8 @@ def convert_some_pct_rate_to_100k(df: pd.DataFrame, float_cols: List[str]) -> Tu
 
     # convert per 100 to per 100,000
     for col in cols_conversion_map.values():
-        df[col] = df[col] * 1000
+        if col in df.columns:
+            df[col] = df[col] * 1000
 
     # round 100k to whole numbers and pct_rate to one decimal
     for col in df.columns:
@@ -450,110 +320,3 @@ def convert_some_pct_rate_to_100k(df: pd.DataFrame, float_cols: List[str]) -> Tu
             df[col] = df[col].round(num_decimal_places)
 
     return (df, float_cols)
-
-
-CHR_AGGREGATION_TO_PRIMARY_TIME_PERIOD_LOOKUP = {
-    "2011": {std_col.DIABETES_PREFIX: "2008"},
-    "2012": {
-        std_col.DIABETES_PREFIX: "2009",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2010",
-    },
-    "2013": {
-        std_col.DIABETES_PREFIX: "2009",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2011",
-    },
-    "2014": {
-        std_col.DIABETES_PREFIX: "2010",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2012",
-    },
-    "2015": {
-        std_col.DIABETES_PREFIX: "2011",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2012",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2012",
-    },
-    "2016": {
-        std_col.DIABETES_PREFIX: "2012",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2014",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2013",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2014",
-    },
-    "2017": {
-        std_col.DIABETES_PREFIX: "2013",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2015",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2014",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2015",
-        std_col.GUN_DEATHS_PREFIX: "2015",
-    },
-    "2018": {
-        std_col.DIABETES_PREFIX: "2014",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2016",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2015",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2016",
-        std_col.GUN_DEATHS_PREFIX: "2016",
-    },
-    "2019": {
-        std_col.DIABETES_PREFIX: "2015",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2016",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2016",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2016",
-        std_col.GUN_DEATHS_PREFIX: "2017",
-    },
-    "2020": {
-        std_col.DIABETES_PREFIX: "2016",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2017",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2017",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2017",
-        std_col.GUN_DEATHS_PREFIX: "2018",
-        std_col.SUICIDE_PREFIX: "2018",
-    },
-    "2021": {
-        std_col.DIABETES_PREFIX: "2017",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2018",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2018",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2018",
-        std_col.GUN_DEATHS_PREFIX: "2019",
-        std_col.SUICIDE_PREFIX: "2019",
-    },
-    "2022": {
-        std_col.DIABETES_PREFIX: "2019",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2019",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2019",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2019",
-        std_col.GUN_DEATHS_PREFIX: "2020",
-        std_col.SUICIDE_PREFIX: "2020",
-    },
-    "2023": {
-        std_col.DIABETES_PREFIX: "2020",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2020",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2020",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2020",
-        std_col.GUN_DEATHS_PREFIX: "2020",
-        std_col.SUICIDE_PREFIX: "2020",
-        std_col.VOTER_PARTICIPATION_PREFIX: "2020",
-    },
-    "2024": {
-        std_col.DIABETES_PREFIX: "2021",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2021",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2021",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2021",
-        std_col.GUN_DEATHS_PREFIX: "2021",
-        std_col.SUICIDE_PREFIX: "2021",
-        std_col.VOTER_PARTICIPATION_PREFIX: "2020",
-    },
-    "2025": {
-        std_col.DIABETES_PREFIX: "2022",
-        std_col.EXCESSIVE_DRINKING_PREFIX: "2022",
-        std_col.PREVENTABLE_HOSP_PREFIX: "2022",
-        std_col.FREQUENT_MENTAL_DISTRESS_PREFIX: "2022",
-        std_col.GUN_DEATHS_PREFIX: "2022",
-        std_col.SUICIDE_PREFIX: "2022",
-        std_col.VOTER_PARTICIPATION_PREFIX: "2020",
-    },
-}
-
-
-def get_primary_time_period_for_metric(col_name, year_mapping):
-    for prefix, year in year_mapping.items():
-        if col_name.startswith(prefix):
-            return year
-    return None
