@@ -69,6 +69,7 @@ class CHRData(DataSource):
 
         for year in CHR_FILE_LOOKUP.keys():
 
+            # TODO: improve this if 2026 is released and there is a clear pattern
             main_sheet_name = SELECT_SHEET if year in ["2024", "2025"] else RANKED_SHEET
             main_source_df = get_df_from_chr_excel_sheet(year, main_sheet_name)
             additional_source_df = get_df_from_chr_excel_sheet(year, ADDITIONAL_SHEET)
@@ -85,12 +86,8 @@ class CHRData(DataSource):
             year_df = dataset_utils.melt_to_het_style_df(
                 year_df, std_col.RACE_CATEGORY_ID_COL, [std_col.COUNTY_FIPS_COL], melt_map, drop_empty_rows=True
             )
-
             year_df[std_col.STATE_FIPS_COL] = year_df[std_col.COUNTY_FIPS_COL].str[:2]
-
-            # Assign time_period per topic based on the primary data years, not just the CHR release year
             year_df = adjust_time_period_from_release_year_to_primary_data_year(year_df, melt_map, year)
-
             dfs.append(year_df)
 
         df = pd.concat(dfs)
@@ -104,7 +101,7 @@ class CHRData(DataSource):
 
         agg_metric_cols = [col for col in df.columns if col not in sort_cols]
 
-        # For each metric column, take the LAST non-null value (most recent release)
+        # For each metric column, take the most recent non-null value
         agg_dict = {col: "last" for col in agg_metric_cols}
 
         df = df.groupby(sort_cols, dropna=False).agg(agg_dict).reset_index()
