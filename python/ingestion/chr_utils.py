@@ -491,7 +491,7 @@ def get_all_topic_prefixes() -> list[str]:
         >>> get_all_topic_prefixes()
         ['diabetes', 'excessive_drinking', 'preventable_hospitalizations', ...]
     """
-    prefixes = set()
+    prefixes: set = set()
     for topics_dict in CHR_METRIC_CONFIG.values():
         prefixes.update(topics_dict.keys())
     return sorted(list(prefixes))
