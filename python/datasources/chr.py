@@ -6,6 +6,9 @@ from ingestion.chr_utils import (
     get_primary_data_year_for_topic,
     get_all_topic_prefixes,
     get_race_map,
+    SELECT_SHEET,
+    RANKED_SHEET,
+    ADDITIONAL_SHEET,
 )
 from typing import List, Dict, Tuple
 import pandas as pd
@@ -66,9 +69,9 @@ class CHRData(DataSource):
 
         for year in CHR_FILE_LOOKUP.keys():
 
-            main_sheet_name = "Select Measure Data" if year in ["2024", "2025"] else "Ranked Measure Data"
+            main_sheet_name = SELECT_SHEET if year in ["2024", "2025"] else RANKED_SHEET
             main_source_df = get_df_from_chr_excel_sheet(year, main_sheet_name)
-            additional_source_df = get_df_from_chr_excel_sheet(year, "Additional Measure Data")
+            additional_source_df = get_df_from_chr_excel_sheet(year, ADDITIONAL_SHEET)
             year_df = pd.merge(main_source_df, additional_source_df, how="outer", on=source_fips_col)
             year_df = year_df.rename(
                 columns={
@@ -86,29 +89,9 @@ class CHRData(DataSource):
             year_df[std_col.STATE_FIPS_COL] = year_df[std_col.COUNTY_FIPS_COL].str[:2]
 
             # Assign time_period per topic based on the primary data years, not just the CHR release year
-            merge_cols = [std_col.STATE_FIPS_COL, std_col.COUNTY_FIPS_COL, std_col.RACE_CATEGORY_ID_COL]
+            year_df = adjust_time_period_from_release_year_to_primary_data_year(year_df, melt_map, year)
 
-            # split the year_df into multiple dfs, each containing the merge cols plus one of the metric cols
-            metric_cols = list(melt_map.keys())
-            year_topic_dfs = []
-
-            for metric_col in metric_cols:
-                year_topic_df = year_df[[metric_col] + merge_cols].copy()
-
-                # Extract topic prefix from metric column (remove _per_100k or _pct_rate suffix)
-                topic_prefix = metric_col.replace("_per_100k", "").replace("_pct_rate", "")
-
-                primary_data_year = get_primary_data_year_for_topic(topic_prefix, year)
-                if primary_data_year is None:
-                    raise ValueError(
-                        f"No time period mapping found for metric {metric_col} (topic: {topic_prefix}) in year {year}"
-                    )
-
-                year_topic_df[std_col.TIME_PERIOD_COL] = primary_data_year
-                year_topic_dfs.append(year_topic_df)
-
-            updated_years_df = merge_utils.merge_dfs_list(year_topic_dfs, [std_col.TIME_PERIOD_COL] + merge_cols)
-            dfs.append(updated_years_df)
+            dfs.append(year_df)
 
         df = pd.concat(dfs)
 
@@ -195,7 +178,7 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
     melt_map: Dict[str, Dict[str, str]] = {}
 
     # Process both Select/Ranked and Additional sheets
-    for sheet_name in ["Select Measure Data", "Additional Measure Data"]:
+    for sheet_name in [SELECT_SHEET, ADDITIONAL_SHEET]:
         sheet_topics = get_topics_for_sheet_and_year(sheet_name, year)
         sheet_race_map = get_race_map(year, sheet_name)
 
@@ -246,7 +229,7 @@ def get_float_cols() -> Dict[str, List[str]]:
         rate_suffix = None
 
         for year in CHR_FILE_LOOKUP.keys():
-            for sheet_name in ["Select Measure Data", "Additional Measure Data"]:
+            for sheet_name in [SELECT_SHEET, ADDITIONAL_SHEET]:
                 sheet_topics = get_topics_for_sheet_and_year(sheet_name, year)
 
                 if topic_prefix in sheet_topics:
@@ -320,3 +303,39 @@ def convert_some_pct_rate_to_100k(df: pd.DataFrame, float_cols: List[str]) -> Tu
             df[col] = df[col].round(num_decimal_places)
 
     return (df, float_cols)
+
+
+def adjust_time_period_from_release_year_to_primary_data_year(
+    df: pd.DataFrame, melt_map: Dict[str, Dict[str, str]], chr_year: str
+) -> pd.DataFrame:
+    """
+    Assigns the primary data year (from original sources like BRFSS) as the time_period,
+    rather than using the CHR release year.
+
+    Args:
+        df: DataFrame with metric columns from CHR
+        melt_map: Mapping of metric column names to race values
+        chr_year: The CHR release year
+
+    Returns:
+        DataFrame with time_period column set to primary data years per metric
+    """
+    merge_cols = [std_col.STATE_FIPS_COL, std_col.COUNTY_FIPS_COL, std_col.RACE_CATEGORY_ID_COL]
+
+    # Split the df into multiple dfs, each containing the merge cols plus one metric col
+    metric_cols = list(melt_map.keys())
+    topic_dfs = []
+
+    for metric_col in metric_cols:
+        topic_df = df[[metric_col] + merge_cols].copy()
+        topic_prefix = std_col.extract_prefix(metric_col)
+        primary_data_year = get_primary_data_year_for_topic(topic_prefix, chr_year)
+        if primary_data_year is None:
+            raise ValueError(
+                f"No time period mapping found for metric {metric_col} (topic: {topic_prefix}) in year {chr_year}"
+            )
+
+        topic_df[std_col.TIME_PERIOD_COL] = primary_data_year
+        topic_dfs.append(topic_df)
+
+    return merge_utils.merge_dfs_list(topic_dfs, [std_col.TIME_PERIOD_COL] + merge_cols)
