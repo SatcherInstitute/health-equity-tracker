@@ -1,5 +1,9 @@
 from ingestion import standardized_columns as std_col
 
+SELECT_SHEET = "Select Measure Data"
+RANKED_SHEET = "Ranked Measure Data"
+ADDITIONAL_SHEET = "Additional Measure Data"
+
 # Race mapping configurations
 DEFAULT_RACE_MAP = {
     "(AIAN)": std_col.Race.AIAN_NH.value,
@@ -35,11 +39,11 @@ RACE_NON_HISPANIC_MAP = {
 
 # Maps (year, sheet_name) to the race mapping to use
 CHR_RACE_MAPS = {
-    ("2019", "Ranked Measure Data"): RACE_FEW_MAP,
-    ("2022", "Ranked Measure Data"): RACE_LOWERCASE_WHITE_MAP,
-    ("2022", "Additional Measure Data"): RACE_LOWERCASE_WHITE_MAP,
-    ("2024", "Additional Measure Data"): RACE_NON_HISPANIC_MAP,
-    ("2025", "Additional Measure Data"): RACE_NON_HISPANIC_MAP,
+    ("2019", RANKED_SHEET): RACE_FEW_MAP,
+    ("2022", RANKED_SHEET): RACE_LOWERCASE_WHITE_MAP,
+    ("2022", ADDITIONAL_SHEET): RACE_LOWERCASE_WHITE_MAP,
+    ("2024", ADDITIONAL_SHEET): RACE_NON_HISPANIC_MAP,
+    ("2025", ADDITIONAL_SHEET): RACE_NON_HISPANIC_MAP,
 }
 
 
@@ -50,15 +54,13 @@ def get_race_map(year: str, sheet_name: str) -> dict[str, str]:
 
     Args:
         year: CHR release year (e.g., "2025")
-        sheet_name: Either "Select Measure Data", "Ranked Measure Data", or "Additional Measure Data"
+        sheet_name: Either SELECT_SHEET, RANKED_SHEET, or ADDITIONAL_SHEET
 
     Returns:
         dict: Mapping of source race suffixes (e.g., "(White)") to HET race codes
     """
     # Normalize sheet name for lookup
-    normalized_sheet = (
-        "Select Measure Data" if sheet_name in ["Select Measure Data", "Ranked Measure Data"] else sheet_name
-    )
+    normalized_sheet = SELECT_SHEET if sheet_name in [SELECT_SHEET, RANKED_SHEET] else sheet_name
 
     return CHR_RACE_MAPS.get((year, normalized_sheet), DEFAULT_RACE_MAP)
 
@@ -72,49 +74,49 @@ def get_race_map(year: str, sheet_name: str) -> dict[str, str]:
 # 	}
 # }
 CHR_METRIC_CONFIG = {
-    ("2011", "Additional Measure Data"): {
+    ("2011", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "Diabetes",
             "primary_data_year": "2008",
         },
     },
-    ("2012", "Select Measure Data"): {
+    ("2012", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2010",
         },
     },
-    ("2012", "Additional Measure Data"): {
+    ("2012", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% diabetic",
             "primary_data_year": "2009",
         },
     },
-    ("2013", "Select Measure Data"): {
+    ("2013", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2011",
         },
     },
-    ("2013", "Additional Measure Data"): {
+    ("2013", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% diabetic",
             "primary_data_year": "2009",
         },
     },
-    ("2014", "Select Measure Data"): {
+    ("2014", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2012",
         },
     },
-    ("2014", "Additional Measure Data"): {
+    ("2014", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Diabetic",
             "primary_data_year": "2010",
         },
     },
-    ("2015", "Select Measure Data"): {
+    ("2015", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2012",
@@ -124,13 +126,13 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2012",
         },
     },
-    ("2015", "Additional Measure Data"): {
+    ("2015", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Diabetic",
             "primary_data_year": "2011",
         },
     },
-    ("2016", "Select Measure Data"): {
+    ("2016", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2014",
@@ -140,7 +142,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2013",
         },
     },
-    ("2016", "Additional Measure Data"): {
+    ("2016", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Diabetic",
             "primary_data_year": "2012",
@@ -150,7 +152,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2014",
         },
     },
-    ("2017", "Select Measure Data"): {
+    ("2017", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2015",
@@ -160,7 +162,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2014",
         },
     },
-    ("2017", "Additional Measure Data"): {
+    ("2017", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Diabetic",
             "primary_data_year": "2013",
@@ -174,7 +176,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2015",
         },
     },
-    ("2018", "Select Measure Data"): {
+    ("2018", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2016",
@@ -184,7 +186,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2015",
         },
     },
-    ("2018", "Additional Measure Data"): {
+    ("2018", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Diabetic",
             "primary_data_year": "2014",
@@ -198,7 +200,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2016",
         },
     },
-    ("2019", "Select Measure Data"): {
+    ("2019", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2016",
@@ -209,7 +211,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2016",
         },
     },
-    ("2019", "Additional Measure Data"): {
+    ("2019", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Diabetic",
             "primary_data_year": "2015",
@@ -223,7 +225,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2017",
         },
     },
-    ("2020", "Select Measure Data"): {
+    ("2020", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2017",
@@ -234,7 +236,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2017",
         },
     },
-    ("2020", "Additional Measure Data"): {
+    ("2020", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Adults with Diabetes",
             "primary_data_year": "2016",
@@ -254,7 +256,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2018",
         },
     },
-    ("2021", "Select Measure Data"): {
+    ("2021", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2018",
@@ -265,7 +267,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2018",
         },
     },
-    ("2021", "Additional Measure Data"): {
+    ("2021", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Adults with Diabetes",
             "primary_data_year": "2017",
@@ -285,7 +287,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2019",
         },
     },
-    ("2022", "Select Measure Data"): {
+    ("2022", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2019",
@@ -296,7 +298,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2019",
         },
     },
-    ("2022", "Additional Measure Data"): {
+    ("2022", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Adults with Diabetes",
             "primary_data_year": "2019",
@@ -316,7 +318,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2020",
         },
     },
-    ("2023", "Select Measure Data"): {
+    ("2023", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2020",
@@ -327,7 +329,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2020",
         },
     },
-    ("2023", "Additional Measure Data"): {
+    ("2023", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Adults with Diabetes",
             "primary_data_year": "2020",
@@ -351,7 +353,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2020",
         },
     },
-    ("2024", "Select Measure Data"): {
+    ("2024", SELECT_SHEET): {
         std_col.EXCESSIVE_DRINKING_PREFIX: {
             "source_all_col": "% Excessive Drinking",
             "primary_data_year": "2021",
@@ -362,7 +364,7 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2021",
         },
     },
-    ("2024", "Additional Measure Data"): {
+    ("2024", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Adults with Diabetes",
             "primary_data_year": "2021",
@@ -386,14 +388,14 @@ CHR_METRIC_CONFIG = {
             "primary_data_year": "2020",
         },
     },
-    ("2025", "Select Measure Data"): {
+    ("2025", SELECT_SHEET): {
         std_col.PREVENTABLE_HOSP_PREFIX: {
             "source_all_col": "Preventable Hospitalization Rate",
             "source_race_prefix": "Preventable Hosp. Rate",
             "primary_data_year": "2022",
         },
     },
-    ("2025", "Additional Measure Data"): {
+    ("2025", ADDITIONAL_SHEET): {
         std_col.DIABETES_PREFIX: {
             "source_all_col": "% Adults with Diabetes",
             "primary_data_year": "2022",
@@ -429,7 +431,7 @@ def get_topics_for_sheet_and_year(sheet_name: str, year: str) -> dict[str, dict[
     Returns a mapping of HET topic prefixes to their source column configuration for a specific sheet and year.
 
     Args:
-        sheet_name: Either "Select Measure Data", "Ranked Measure Data", or "Additional Measure Data"
+        sheet_name: Either SELECT_SHEET, RANKED_SHEET, or ADDITIONAL_SHEET
         year: The CHR release year (e.g., "2025")
 
     Returns:
@@ -437,17 +439,15 @@ def get_topics_for_sheet_and_year(sheet_name: str, year: str) -> dict[str, dict[
         Returns empty dict if year/sheet combo not found
 
     Example:
-        >>> get_topics_for_sheet_and_year("Additional Measure Data", "2025")
+        >>> get_topics_for_sheet_and_year(ADDITIONAL_SHEET, "2025")
         {
             'diabetes': {'source_all_col': '% Adults with Diabetes', 'primary_data_year': '2022'},
             'excessive_drinking': {'source_all_col': '% Excessive Drinking', 'primary_data_year': '2022'},
             ...
         }
     """
-    # Normalize sheet name - 2024+ calls it "Select Measure Data", earlier years call it "Ranked Measure Data"
-    normalized_sheet = (
-        "Select Measure Data" if sheet_name in ["Select Measure Data", "Ranked Measure Data"] else sheet_name
-    )
+    # Normalize sheet name - 2024+ calls it SELECT_SHEET, earlier years call it RANKED_SHEET
+    normalized_sheet = SELECT_SHEET if sheet_name in [SELECT_SHEET, RANKED_SHEET] else sheet_name
 
     return CHR_METRIC_CONFIG.get((year, normalized_sheet), {})
 
@@ -472,7 +472,7 @@ def get_primary_data_year_for_topic(topic_prefix: str, chr_year: str) -> str | N
         "2020"
     """
     # Check both possible sheets
-    for sheet_name in ["Select Measure Data", "Additional Measure Data"]:
+    for sheet_name in [SELECT_SHEET, ADDITIONAL_SHEET]:
         topics = get_topics_for_sheet_and_year(sheet_name, chr_year)
         if topic_prefix in topics:
             return topics[topic_prefix]["primary_data_year"]
