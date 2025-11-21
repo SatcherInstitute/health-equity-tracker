@@ -31,6 +31,7 @@ def melt_to_het_style_df(
     demo_col: Literal["age", "sex", "race", "race_and_ethnicity"],
     keep_cols: List[str],
     value_to_cols: Dict[str, Dict[str, str]],
+    drop_empty_rows: bool = False,
 ):
     """Generalized util fn for melting a source df into the skinny/long
     HET-style df that contains 1 row per FIPS/GROUP (or FIPS/TIME_PERIOD/GROUP)
@@ -49,6 +50,7 @@ def melt_to_het_style_df(
         for the resulting df (typically a metric like "population_pct_share")
         to the col name mapping that is a dict of old_group_metric column names
         to new_group_names
+    drop_empty_rows: whether to drop rows that contain all nulls
 
     Example:
 
@@ -83,6 +85,10 @@ def melt_to_het_style_df(
     # merge all partial_dfs
     merge_cols = [*keep_cols, demo_col]
     result_df = merge_dfs_list(partial_dfs, merge_cols)
+
+    if drop_empty_rows:
+        value_cols = list(value_to_cols.keys())
+        result_df = result_df.dropna(subset=value_cols, how="all")
 
     return result_df.sort_values(by=keep_cols).reset_index(drop=True)
 
