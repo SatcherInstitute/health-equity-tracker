@@ -1,10 +1,4 @@
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV deaths","2023","United States","NA","65+","All races/ethnicities","Both sexes","All transmission categories","5,921","10.0","59,248,361"
-"HIV deaths","2023","United States","NA","55-64","All races/ethnicities","Both sexes","All transmission categories","6,056","14.5","41,854,411"
-"HIV deaths","2023","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","3,107","7.7","40,493,781"
-"HIV deaths","2023","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","2,269","5.1","44,390,693"
-"HIV deaths","2023","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","1,314","2.9","45,542,516"
-"HIV deaths","2023","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","122","0.2","52,413,939"
 "HIV deaths","2022","United States","NA","65+","All races/ethnicities","Both sexes","All transmission categories","5,719","10.0","57,470,184"
 "HIV deaths","2022","United States","NA","55-64","All races/ethnicities","Both sexes","All transmission categories","6,288","14.9","42,308,032"
 "HIV deaths","2022","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","3,477","8.6","40,527,082"
