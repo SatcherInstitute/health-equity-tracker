@@ -1,7 +1,4 @@
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV diagnoses","2025","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","1,513","Data not available","NA"
-"HIV diagnoses","2024","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","4,159","Data not available","NA"
-"HIV diagnoses","2023","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","3,635","19.6","18,511,744"
 "HIV diagnoses","2022","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","3,453","18.8","18,359,238"
 "HIV diagnoses","2021","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","3,406","18.7","18,223,872"
 "HIV diagnoses","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","2,832","15.6","18,107,727"

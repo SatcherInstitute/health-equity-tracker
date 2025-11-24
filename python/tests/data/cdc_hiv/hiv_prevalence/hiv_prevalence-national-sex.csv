@@ -1,6 +1,4 @@
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV prevalence","2023","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","252,824","175.3","144,259,543"
-"HIV prevalence","2023","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","863,776","618.4","139,684,158"
 "HIV prevalence","2022","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","247,535","172.8","143,238,562"
 "HIV prevalence","2022","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","841,327","606.5","138,715,098"
 "HIV prevalence","2021","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","244,066","171.4","142,359,764"

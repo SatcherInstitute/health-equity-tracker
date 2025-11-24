@@ -1,10 +1,4 @@
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV prevalence","2023","United States","NA","65+","Black/African American","Female","All transmission categories","23,702","710.5","3,335,728"
-"HIV prevalence","2023","United States","NA","55-64","Black/African American","Female","All transmission categories","39,338","1465.7","2,683,995"
-"HIV prevalence","2023","United States","NA","45-54","Black/African American","Female","All transmission categories","37,156","1390.5","2,672,059"
-"HIV prevalence","2023","United States","NA","35-44","Black/African American","Female","All transmission categories","26,288","882.8","2,977,718"
-"HIV prevalence","2023","United States","NA","25-34","Black/African American","Female","All transmission categories","13,852","420.6","3,293,672"
-"HIV prevalence","2023","United States","NA","13-24","Black/African American","Female","All transmission categories","2,890","81.4","3,548,572"
 "HIV prevalence","2022","United States","NA","65+","Black/African American","Female","All transmission categories","21,063","655.3","3,214,023"
 "HIV prevalence","2022","United States","NA","55-64","Black/African American","Female","All transmission categories","38,494","1426.6","2,698,358"
 "HIV prevalence","2022","United States","NA","45-54","Black/African American","Female","All transmission categories","37,479","1403.8","2,669,910"
