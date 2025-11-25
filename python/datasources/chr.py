@@ -76,9 +76,6 @@ class CHRData(DataSource):
 
             year_df = pd.merge(main_source_df, additional_source_df, how="outer", on=source_fips_col)
 
-            print(year_df)
-            print(year_df.columns)
-
             year_df = year_df.rename(
                 columns={
                     source_fips_col: std_col.COUNTY_FIPS_COL,
@@ -192,6 +189,7 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
         for het_prefix, topic_config in sheet_topics.items():
             source_all_col = topic_config["source_all_col"]
             source_race_prefix = topic_config.get("source_race_prefix")
+            source_n_count_col = topic_config.get("source_n_count_col")
 
             topic_melt_map: Dict[str, str] = {}
 
@@ -204,14 +202,17 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
                     topic_melt_map[f"{source_race_prefix} {source_race_suffix}"] = het_race_id
 
             # Determine the rate suffix (per_100k or pct_rate)
-            rate_suffix = ""
+            metric_suffix = ""
             if source_per_100k in source_all_col:
-                rate_suffix = std_col.PER_100K_SUFFIX
+                metric_suffix = std_col.PER_100K_SUFFIX
             if source_pct_rate in source_all_col or source_all_col in source_pct_rate_cols_no_symbol:
-                rate_suffix = std_col.PCT_RATE_SUFFIX
+                metric_suffix = std_col.PCT_RATE_SUFFIX
 
             # Set this metric's melt map
-            melt_map[f"{het_prefix}_{rate_suffix}"] = topic_melt_map
+            melt_map[f"{het_prefix}_{metric_suffix}"] = topic_melt_map
+
+            if source_n_count_col is not None:
+                melt_map[f"{het_prefix}_{std_col.RAW_SUFFIX}"] = {source_n_count_col: std_col.Race.ALL.value}
 
     return melt_map
 
@@ -257,6 +258,10 @@ def get_float_cols() -> Dict[str, List[str]]:
             current_float_cols.append(topic_rate_col)
             historical_float_cols.append(topic_rate_col)
 
+        # if topic has n-count, add only to the CURRENT year output
+        if sheet_topics[topic_prefix].get("source_n_count_col") is not None:
+            current_float_cols.append(f"{topic_prefix}_{std_col.RAW_SUFFIX}")
+
     TIME_MAP = {CURRENT: current_float_cols, HISTORICAL: historical_float_cols}
 
     return TIME_MAP
@@ -264,8 +269,6 @@ def get_float_cols() -> Dict[str, List[str]]:
 
 def get_df_from_chr_excel_sheet(year: str, sheet_name: str) -> pd.DataFrame:
     source_usecols = get_source_usecols(year, sheet_name)
-
-    print(f"Sheet: {sheet_name}, Year: {year}, Using source usecols: {source_usecols}")
 
     file_name = CHR_FILE_LOOKUP[year]
 
