@@ -73,7 +73,9 @@ class CHRData(DataSource):
             main_sheet_name = SELECT_SHEET if year in ["2024", "2025"] else RANKED_SHEET
             main_source_df = get_df_from_chr_excel_sheet(year, main_sheet_name)
             additional_source_df = get_df_from_chr_excel_sheet(year, ADDITIONAL_SHEET)
+
             year_df = pd.merge(main_source_df, additional_source_df, how="outer", on=source_fips_col)
+
             year_df = year_df.rename(
                 columns={
                     source_fips_col: std_col.COUNTY_FIPS_COL,
@@ -161,6 +163,11 @@ def get_source_usecols(year: str, sheet_name: str) -> List[str]:
             for race_suffix in sheet_race_map.keys():
                 source_usecols.append(f"{source_race_prefix} {race_suffix}")
 
+        # if this topic has n-count data
+        source_n_count_col = topic_config.get("source_n_count_col")
+        if source_n_count_col is not None:
+            source_usecols.append(source_n_count_col)
+
     return source_usecols
 
 
@@ -182,6 +189,7 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
         for het_prefix, topic_config in sheet_topics.items():
             source_all_col = topic_config["source_all_col"]
             source_race_prefix = topic_config.get("source_race_prefix")
+            source_n_count_col = topic_config.get("source_n_count_col")
 
             topic_melt_map: Dict[str, str] = {}
 
@@ -193,15 +201,18 @@ def get_melt_map(year: str) -> Dict[str, Dict[str, str]]:
                 for source_race_suffix, het_race_id in sheet_race_map.items():
                     topic_melt_map[f"{source_race_prefix} {source_race_suffix}"] = het_race_id
 
-            # Determine the rate suffix (per_100k or pct_rate)
-            rate_suffix = ""
+            # Determine the suffix (per_100k or pct_rate)
+            metric_suffix = ""
             if source_per_100k in source_all_col:
-                rate_suffix = std_col.PER_100K_SUFFIX
+                metric_suffix = std_col.PER_100K_SUFFIX
             if source_pct_rate in source_all_col or source_all_col in source_pct_rate_cols_no_symbol:
-                rate_suffix = std_col.PCT_RATE_SUFFIX
+                metric_suffix = std_col.PCT_RATE_SUFFIX
 
             # Set this metric's melt map
-            melt_map[f"{het_prefix}_{rate_suffix}"] = topic_melt_map
+            melt_map[f"{het_prefix}_{metric_suffix}"] = topic_melt_map
+
+            if source_n_count_col is not None:
+                melt_map[f"{het_prefix}_{std_col.RAW_SUFFIX}"] = {source_n_count_col: std_col.Race.ALL.value}
 
     return melt_map
 
@@ -224,6 +235,7 @@ def get_float_cols() -> Dict[str, List[str]]:
         # Find any occurrence of this topic to determine its rate type
         # We'll check the first available year/sheet combo for this topic
         rate_suffix = None
+        has_n_count = False  # Track if this topic has n-count data
 
         for year in CHR_FILE_LOOKUP.keys():
             for sheet_name in [SELECT_SHEET, ADDITIONAL_SHEET]:
@@ -237,6 +249,10 @@ def get_float_cols() -> Dict[str, List[str]]:
                     elif source_pct_rate in source_all_col or source_all_col in source_pct_rate_cols_no_symbol:
                         rate_suffix = std_col.PCT_RATE_SUFFIX
 
+                    # Check for n-count while we have the correct sheet_topics
+                    if sheet_topics[topic_prefix].get("source_n_count_col") is not None:
+                        has_n_count = True
+
                     break
 
             if rate_suffix is not None:
@@ -246,6 +262,10 @@ def get_float_cols() -> Dict[str, List[str]]:
             topic_rate_col = f"{topic_prefix}_{rate_suffix}"
             current_float_cols.append(topic_rate_col)
             historical_float_cols.append(topic_rate_col)
+
+        # if topic has n-count, add only to the CURRENT year output
+        if has_n_count:
+            current_float_cols.append(f"{topic_prefix}_{std_col.RAW_SUFFIX}")
 
     TIME_MAP = {CURRENT: current_float_cols, HISTORICAL: historical_float_cols}
 
