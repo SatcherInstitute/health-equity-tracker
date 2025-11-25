@@ -277,6 +277,7 @@ def test_write_to_bq_sex_county(
     ), _col_types = mock_bq_sex_county_historical
     assert table_name == "sex_county_historical"
     expected_sex_county_historical_df = pd.read_csv(GOLDEN_DATA["sex_county_historical"], dtype=EXP_DTYPE)
+
     assert_frame_equal(
         sex_county_historical_df.sort_values(by=["time_period", "sex"]).reset_index(drop=True),
         expected_sex_county_historical_df.sort_values(by=["time_period", "sex"]).reset_index(drop=True),
@@ -311,6 +312,7 @@ def test_write_to_bq_black_women_national(
     ), _col_types = mock_bq_black_women_national_current
     assert table_name == "black_women_by_age_national_current"
     expected_black_women_national_current_df = pd.read_csv(GOLDEN_DATA["black_women_national_current"], dtype=EXP_DTYPE)
+
     assert_frame_equal(
         black_women_national_current_df.sort_values(by=["age"]).reset_index(drop=True),
         expected_black_women_national_current_df.sort_values(by=["age"]).reset_index(drop=True),
@@ -326,6 +328,7 @@ def test_write_to_bq_black_women_national(
     expected_black_women_national_historical_df = pd.read_csv(
         GOLDEN_DATA["black_women_national_historical"], dtype=EXP_DTYPE
     )
+
     assert_frame_equal(
         black_women_national_historical_df.sort_values(by=["time_period", "age"]).reset_index(drop=True),
         expected_black_women_national_historical_df.sort_values(by=["time_period", "age"]).reset_index(drop=True),
