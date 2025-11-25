@@ -38,7 +38,7 @@ test('HIV Black Women: Prevalance Bottom Cards', async ({ page }) => {
     .getByRole('heading', { name: 'Historical relative inequity' })
     .click()
   await page.locator('#inequities-over-time').getByLabel('Include 65+').click()
-  await page.getByText('disproportionately high →').click()
+  await page.getByText('disproportionately low →').click()
   await page
     .getByRole('button', { name: 'Expand inequities over time table' })
     .click()
