@@ -73,7 +73,12 @@ class CHRData(DataSource):
             main_sheet_name = SELECT_SHEET if year in ["2024", "2025"] else RANKED_SHEET
             main_source_df = get_df_from_chr_excel_sheet(year, main_sheet_name)
             additional_source_df = get_df_from_chr_excel_sheet(year, ADDITIONAL_SHEET)
+
             year_df = pd.merge(main_source_df, additional_source_df, how="outer", on=source_fips_col)
+
+            print(year_df)
+            print(year_df.columns)
+
             year_df = year_df.rename(
                 columns={
                     source_fips_col: std_col.COUNTY_FIPS_COL,
@@ -160,6 +165,11 @@ def get_source_usecols(year: str, sheet_name: str) -> List[str]:
         if source_race_prefix is not None:
             for race_suffix in sheet_race_map.keys():
                 source_usecols.append(f"{source_race_prefix} {race_suffix}")
+
+        # if this topic has n-count data
+        source_n_count_col = topic_config.get("source_n_count_col")
+        if source_n_count_col is not None:
+            source_usecols.append(source_n_count_col)
 
     return source_usecols
 
@@ -254,6 +264,8 @@ def get_float_cols() -> Dict[str, List[str]]:
 
 def get_df_from_chr_excel_sheet(year: str, sheet_name: str) -> pd.DataFrame:
     source_usecols = get_source_usecols(year, sheet_name)
+
+    print(f"Sheet: {sheet_name}, Year: {year}, Using source usecols: {source_usecols}")
 
     file_name = CHR_FILE_LOOKUP[year]
 

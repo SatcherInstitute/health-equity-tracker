@@ -174,6 +174,7 @@ CHR_METRIC_CONFIG = {
         std_col.GUN_DEATHS_PREFIX: {
             "source_all_col": "Firearm Fatalities Rate",
             "primary_data_year": "2015",
+            "source_n_count_col": "# Firearm Fatalities",
         },
     },
     ("2018", SELECT_SHEET): {
@@ -198,6 +199,7 @@ CHR_METRIC_CONFIG = {
         std_col.GUN_DEATHS_PREFIX: {
             "source_all_col": "Firearm Fatalities Rate",
             "primary_data_year": "2016",
+            "source_n_count_col": "# Firearm Fatalities",
         },
     },
     ("2019", SELECT_SHEET): {
@@ -223,6 +225,7 @@ CHR_METRIC_CONFIG = {
         std_col.GUN_DEATHS_PREFIX: {
             "source_all_col": "Firearm Fatalities Rate",
             "primary_data_year": "2017",
+            "source_n_count_col": "# Firearm Fatalities",
         },
     },
     ("2020", SELECT_SHEET): {
@@ -249,6 +252,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2018",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
@@ -280,6 +284,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2019",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
@@ -311,6 +316,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2020",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
@@ -342,6 +348,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2020",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
@@ -377,6 +384,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2021",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
@@ -412,6 +420,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2022",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
