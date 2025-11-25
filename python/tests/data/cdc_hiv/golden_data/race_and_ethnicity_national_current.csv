@@ -1,10 +1,10 @@
 state_name,state_fips,race_and_ethnicity,race_category_id,hiv_stigma_index,hiv_deaths_per_100k,hiv_diagnoses_per_100k,hiv_prevalence_per_100k,hiv_care_linkage,hiv_prep_coverage,hiv_care_pct_share,hiv_deaths_pct_share,hiv_diagnoses_pct_share,hiv_prep_pct_share,hiv_prevalence_pct_share,hiv_prep_population_pct,hiv_population_pct,hiv_care_population_pct,hiv_care,hiv_deaths,hiv_diagnoses,hiv_prep,hiv_prevalence,hiv_population,hiv_care_population,hiv_prep_population
-United States,00,Two or more races (NH),MULTI_NH,33.6,28.2,19.9,1063.9,81.8,,2.9,7.5,2.9,,5.2,,1.9,2.9,791.0,1478.0,1041.0,,55717.0,5237094.0,967.0,
-United States,00,White (NH),WHITE_NH,27.1,3.5,5.3,178.6,82.1,78.0,25.6,30.7,25.4,64.1,28.6,24.7,61.2,25.5,7048.0,6025.0,9058.0,234504.0,306428.0,171591284.0,8580.0,300650.0
-United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,2.7,14.8,185.9,79.7,,0.2,0.1,0.2,,0.1,,0.2,0.2,59.0,14.0,76.0,,952.0,512209.0,74.0,
-United States,00,Hispanic or Latino,HISP,31.5,7.1,20.4,517.6,84.5,20.4,28.9,17.8,28.2,17.5,23.8,25.7,17.6,28.0,7958.0,3498.0,10059.0,63938.0,255101.0,49289880.0,9416.0,312820.0
-United States,00,Black or African American (NH),BLACK_NH,27.8,24.2,41.8,1245.1,79.8,11.0,39.5,42.8,40.7,14.1,40.4,38.5,12.4,40.6,10889.0,8402.0,14522.0,51766.0,432227.0,34715303.0,13650.0,468540.0
-United States,00,Asian (NH),ASIAN_NH,33.1,0.7,4.4,98.9,87.0,,2.2,0.6,2.1,,1.6,,6.0,2.1,608.0,125.0,737.0,,16632.0,16816427.0,699.0,
-United States,00,Indigenous (NH),AIAN_NH,,3.9,10.9,160.3,82.7,,0.7,0.4,0.6,,0.3,,0.7,0.7,182.0,80.0,223.0,,3270.0,2040452.0,220.0,
-United States,00,Unrepresented race (NH),OTHER_NONSTANDARD_NH,,,,,,12.0,,,,4.3,,10.8,,,,,,15710.0,,,,131180.0
-United States,00,All,ALL,28.8,7.0,12.7,382.2,81.9,30.1,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,27535.0,19623.0,35716.0,365919.0,1071005.0,280202649.0,33606.0,1216210.0
+United States,00,All,ALL,29.3,6.9,13.4,386.2,81.6,36.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,29753.0,19509.0,37660.0,437425.0,1088862.0,281953660.0,36470.0,1216210.0
+United States,00,Asian (NH),ASIAN_NH,34.6,0.6,4.5,98.3,88.1,,2.3,0.6,2.1,,1.6,,6.1,2.1,681.0,112.0,784.0,,17018.0,17314804.0,773.0,
+United States,00,Black or African American (NH),BLACK_NH,30.4,23.7,41.0,1229.7,78.3,,37.4,42.5,38.0,,39.4,,12.4,38.9,11117.0,8282.0,14318.0,,429395.0,34919806.0,14198.0,
+United States,00,Hispanic or Latino,HISP,29.7,6.8,23.8,538.2,85.0,,32.2,17.6,32.1,,25.0,,18.0,30.9,9576.0,3437.0,12071.0,,272417.0,50614339.0,11270.0,
+United States,00,Indigenous (NH),AIAN_NH,,4.0,10.6,154.8,77.9,,0.6,0.4,0.6,,0.3,,0.7,0.6,166.0,82.0,216.0,,3147.0,2033272.0,213.0,
+United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,1.7,14.9,175.3,73.5,,0.2,0.05,0.2,,0.1,,0.2,0.2,61.0,9.0,78.0,,918.0,523681.0,83.0,
+United States,00,Two or more races (NH),MULTI_NH,29.0,26.8,23.5,1142.4,81.9,,2.8,7.5,3.4,,5.7,,1.9,2.8,826.0,1454.0,1275.0,,61923.0,5420349.0,1009.0,
+United States,00,Unrepresented race (NH),OTHER_NONSTANDARD_NH,,,,,,,,,,,,,,,,,,,,,,
+United States,00,White (NH),WHITE_NH,27.7,3.6,5.2,177.3,82.1,,24.6,31.4,23.7,,27.9,,60.7,24.5,7326.0,6131.0,8918.0,,303416.0,171127409.0,8924.0,
