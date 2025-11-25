@@ -37,15 +37,6 @@ RACE_NON_HISPANIC_MAP = {
     "(Non-Hispanic White)": std_col.Race.WHITE_NH.value,
 }
 
-# Maps (year, sheet_name) to the race mapping to use
-CHR_RACE_MAPS = {
-    ("2019", RANKED_SHEET): RACE_FEW_MAP,
-    ("2022", RANKED_SHEET): RACE_LOWERCASE_WHITE_MAP,
-    ("2022", ADDITIONAL_SHEET): RACE_LOWERCASE_WHITE_MAP,
-    ("2024", ADDITIONAL_SHEET): RACE_NON_HISPANIC_MAP,
-    ("2025", ADDITIONAL_SHEET): RACE_NON_HISPANIC_MAP,
-}
-
 
 def get_race_map(year: str, sheet_name: str) -> dict[str, str]:
     """
@@ -59,6 +50,16 @@ def get_race_map(year: str, sheet_name: str) -> dict[str, str]:
     Returns:
         dict: Mapping of source race suffixes (e.g., "(White)") to HET race codes
     """
+
+    # Maps (year, normalized sheet_name) to the race mapping to use
+    CHR_RACE_MAPS = {
+        ("2019", SELECT_SHEET): RACE_FEW_MAP,
+        ("2022", SELECT_SHEET): RACE_LOWERCASE_WHITE_MAP,
+        ("2022", ADDITIONAL_SHEET): RACE_LOWERCASE_WHITE_MAP,
+        ("2024", ADDITIONAL_SHEET): RACE_NON_HISPANIC_MAP,
+        ("2025", ADDITIONAL_SHEET): RACE_NON_HISPANIC_MAP,
+    }
+
     # Normalize sheet name for lookup
     normalized_sheet = SELECT_SHEET if sheet_name in [SELECT_SHEET, RANKED_SHEET] else sheet_name
 
@@ -174,6 +175,7 @@ CHR_METRIC_CONFIG = {
         std_col.GUN_DEATHS_PREFIX: {
             "source_all_col": "Firearm Fatalities Rate",
             "primary_data_year": "2015",
+            "source_n_count_col": "# Firearm Fatalities",
         },
     },
     ("2018", SELECT_SHEET): {
@@ -198,6 +200,7 @@ CHR_METRIC_CONFIG = {
         std_col.GUN_DEATHS_PREFIX: {
             "source_all_col": "Firearm Fatalities Rate",
             "primary_data_year": "2016",
+            "source_n_count_col": "# Firearm Fatalities",
         },
     },
     ("2019", SELECT_SHEET): {
@@ -223,6 +226,7 @@ CHR_METRIC_CONFIG = {
         std_col.GUN_DEATHS_PREFIX: {
             "source_all_col": "Firearm Fatalities Rate",
             "primary_data_year": "2017",
+            "source_n_count_col": "# Firearm Fatalities",
         },
     },
     ("2020", SELECT_SHEET): {
@@ -249,6 +253,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2018",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
@@ -280,6 +285,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2019",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
@@ -311,6 +317,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2020",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
@@ -342,6 +349,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2020",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
@@ -377,6 +385,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2021",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
@@ -412,6 +421,7 @@ CHR_METRIC_CONFIG = {
             "source_all_col": "Firearm Fatalities Rate",
             "source_race_prefix": "Firearm Fatalities Rate",
             "primary_data_year": "2022",
+            "source_n_count_col": "# Firearm Fatalities",
         },
         std_col.SUICIDE_PREFIX: {
             "source_all_col": "Crude Rate",
