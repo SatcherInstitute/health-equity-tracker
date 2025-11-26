@@ -17,7 +17,7 @@ test('HIV Black Women: Prevalance Top Cards', async ({ page }) => {
       name: 'HIV prevalence for Black (NH) women over time in the United States',
     })
     .click()
-  await page.getByLabel('Include 65+').click()
+  await page.getByLabel('Include 55+').click()
   await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'HIV prevalence for Black (NH' })
