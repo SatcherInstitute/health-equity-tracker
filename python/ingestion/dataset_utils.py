@@ -602,7 +602,7 @@ def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame, topic_prefixes: L
     # iterate over the recent_year_to_rate_col_map and extract the most recent year rows data per rate_col
     dfs_by_recent_year: List[pd.DataFrame] = []
     for year, topic_cols in recent_year_to_rate_col_map.items():
-        keep_cols = base_cols + topic_cols
+        keep_cols = list(dict.fromkeys(base_cols + topic_cols))
 
         # get a subset df with the keep_cols and only the rows where time_period == year
         df_for_year = df[df[std_col.TIME_PERIOD_COL] == year][keep_cols]
