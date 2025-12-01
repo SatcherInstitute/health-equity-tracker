@@ -125,26 +125,26 @@ export default function MedicareMedicationLink() {
             <ul className='list-inside list-disc pl-4'>
               <li>
                 <HetTerm>Renin Angiotensin System Antagonists</HetTerm>{' '}
-                <a href='https://www.pqaalliance.org/measures-overview#pdc-rasa'>
+                <a href='https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf'>
                   (PQA PDC-RASA)
                 </a>
               </li>
               <li>
                 <HetTerm>Statins</HetTerm>{' '}
-                <a href='https://www.pqaalliance.org/measures-overview#pdc-sta'>
+                <a href='https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf'>
                   (PQA PDC-STA)
                 </a>
               </li>
 
               <li>
                 <HetTerm>Beta-blockers</HetTerm>{' '}
-                <a href='https://www.pqaalliance.org/measures-overview#pdc-bb'>
+                <a href='https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf'>
                   (PQA PDC-BB)
                 </a>
               </li>
               <li>
                 <HetTerm>Calcium Channel Blockers</HetTerm>{' '}
-                <a href='https://www.pqaalliance.org/measures-overview#pdc-ccb'>
+                <a href='https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf'>
                   (PQA PDC-CCB)
                 </a>
               </li>
@@ -152,13 +152,13 @@ export default function MedicareMedicationLink() {
                 <HetTerm>
                   Adherence to Direct-Acting Oral Anticoagulants
                 </HetTerm>{' '}
-                <a href='https://www.pqaalliance.org/measures-overview#pdc-doac'>
+                <a href='https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf'>
                   (PQA PDC-DOAC)
                 </a>
               </li>
               <li>
                 <HetTerm>Antiretroviral Medications</HetTerm>{' '}
-                <a href='https://www.pqaalliance.org/measures-overview#pdc-arv'>
+                <a href='https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf'>
                   (PQA PDC-ARV)
                 </a>
               </li>
