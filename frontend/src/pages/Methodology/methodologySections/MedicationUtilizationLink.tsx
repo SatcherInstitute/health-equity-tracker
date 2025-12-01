@@ -331,7 +331,7 @@ export default function MedicareMedicationLink() {
               <>Sex:</> Medicare{' '}
               <a href='https://resdac.org/cms-data/variables/sex'>
                 collects the sex of each beneficiary
-              </a>
+              </a>{' '}
               as Unknown, Male, or Female.
             </p>
 
