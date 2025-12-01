@@ -13,7 +13,7 @@ flask
 flask-cors==6.0.0
 freezegun==1.5.1
 google-api-core[grpc]
-google-auth==2.42.1
+google-auth==2.43.0
 google-cloud
 google-cloud-bigquery
 google-cloud-core
@@ -21,9 +21,9 @@ google-cloud-pubsub
 google-cloud-storage
 google-crc32c==1.7.1
 google-resumable-media
-googleapis-common-protos[grpc]==1.71.0
+googleapis-common-protos[grpc]==1.72.0
 grpc-google-iam-v1==0.14.0
-grpcio-status==1.66.2
+grpcio-status==1.76.0
 grpcio==1.76.0
 gunicorn==23.0.0
 idna
