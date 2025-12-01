@@ -8,7 +8,7 @@ test('HIV Black Women: Prevalance Top Cards', async ({ page }) => {
     .locator('#rate-map')
     .getByRole('heading', { name: 'HIV prevalence for Black (NH' })
     .click()
-  await page.getByRole('heading', { name: 'Ages 55+' }).click()
+  await page.getByRole('heading', { name: 'Ages 65+' }).click()
   await page
     .getByRole('button', { name: 'Rates over time', exact: true })
     .click()
@@ -17,7 +17,7 @@ test('HIV Black Women: Prevalance Top Cards', async ({ page }) => {
       name: 'HIV prevalence for Black (NH) women over time in the United States',
     })
     .click()
-  await page.getByLabel('Include 55+').click()
+  await page.getByLabel('Include 65+').click()
   await page
     .locator('#rate-chart')
     .getByRole('heading', { name: 'HIV prevalence for Black (NH' })
@@ -37,14 +37,14 @@ test('HIV Black Women: Prevalance Bottom Cards', async ({ page }) => {
   await page
     .getByRole('heading', { name: 'Historical relative inequity' })
     .click()
-  await page.locator('#inequities-over-time').getByLabel('Include 55+').click()
-  await page.getByText('disproportionately high →').click()
+  await page.locator('#inequities-over-time').getByLabel('Include 65+').click()
+  await page.getByText('← disproportionately low').click()
   await page
     .getByRole('button', { name: 'Expand inequities over time table' })
     .click()
   await page.getByText('Add or remove columns by').click()
   await page
-    .getByRole('columnheader', { name: 'Ages 55+ % relative inequity' })
+    .getByRole('columnheader', { name: 'Ages 65+ % relative inequity' })
     .click()
   await page.getByRole('caption').click()
 
