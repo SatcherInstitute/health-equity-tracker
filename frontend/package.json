@@ -47,9 +47,9 @@
 		"topojson-client": "^3.1.0"
 	},
 	"devDependencies": {
-		"@axe-core/playwright": "^4.10.1",
-		"@biomejs/biome": "^2.2.5",
-		"@playwright/test": "^1.56.0",
+		"@axe-core/playwright": "^4.11.0",
+		"@biomejs/biome": "^2.3.2",
+		"@playwright/test": "^1.57.0",
 		"@tailwindcss/postcss": "^4.1.8",
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/react": "^16.3.0",
@@ -105,8 +105,8 @@
 		"url": "npx playwright install chromium && npx playwright test --project=URL"
 	},
 	"engines": {
-		"node": ">=20.11.0",
-		"npm": ">=10.2.4"
+		"node": ">=24.0.0",
+		"npm": ">=10.9.0"
 	},
 	"browserslist": {
 		"production": [

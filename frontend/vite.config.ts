@@ -5,6 +5,7 @@ import svgrPlugin from 'vite-plugin-svgr'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
 import { configDefaults } from 'vitest/config'
 
+// biome-ignore lint/correctness/noUnusedFunctionParameters: dont need it
 export default defineConfig(({ mode }) => {
   const isDeployPreview = process.env.VITE_DEPLOY_CONTEXT === 'deploy_preview'
 

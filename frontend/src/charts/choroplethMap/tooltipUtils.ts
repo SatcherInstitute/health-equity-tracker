@@ -5,7 +5,10 @@ import {
   CAWP_METRICS,
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
-import type { DemographicType } from '../../data/query/Breakdowns'
+import {
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
+} from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
 import { het, ThemeZIndexValues } from '../../styles/DesignTokens'
 import { NO_DATA_MESSAGE } from '../mapGlobals'
@@ -87,9 +90,15 @@ export const generateTooltipHtml = (
   type: MouseEventType,
   options: MouseEventHandlerOptions,
 ) => {
-  const { geographyType, isSummaryLegend, updateFipsCallback } = options
+  const {
+    geographyType,
+    demographicType,
+    isSummaryLegend,
+    updateFipsCallback,
+    dataMap,
+  } = options
   const name = feature.properties?.name || String(feature.id)
-  const data = options.dataMap.get(feature.id as string)
+  const data = dataMap.get(feature.id as string)
   const featureId = feature.id
 
   const exploreText = isSummaryLegend
@@ -101,13 +110,22 @@ export const generateTooltipHtml = (
     Object.entries(data)
       .filter(([key]) => !(key === 'County SVI' && geographyType !== 'County'))
       .filter(([key]) => key !== 'value')
+      .map(([key, value]) => {
+        if (key.startsWith('% unknown')) {
+          return [
+            '',
+            `${value}% of ${demographicType ? DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType] : 'demographic'} data missing`,
+          ]
+        }
+        return [key, value]
+      })
 
   // Create the HTML for the tooltip
   const tooltipHtml = `
     <div>
-      <p class="font-bold">${name} ${geographyType}</p>
+      <p class="font-bold mb-2">${name} ${geographyType}</p>
       ${exploreText ? `<button class="pl-2 explore-btn text-sm text-alt-black bg-transparent border-0 " data-feature-id="${featureId}">${exploreText}</button>` : ''}
-      <hr class="pl-2 mx-2 " >
+      <hr class="pl-2 mx-2 my-1" >
       <div style="text-align: left;">
 
         ${
@@ -116,7 +134,7 @@ export const generateTooltipHtml = (
                 .map(([label, value]: [string, number | undefined]) => {
                   const displayValue =
                     value == null ? NO_DATA_MESSAGE : value.toLocaleString()
-                  return `<div class='pl-2 mb-1 text-sm text-alt-black'><span>${label}:</span> ${displayValue}</div>`
+                  return `<div class='pl-2 mb-1 text-sm text-alt-black'>${label ? `<span>${label}: </span>` : ''}${displayValue}</div>`
                 })
                 .join('')
             : `<div class='pl-2 mb-1 text-sm text-alt-black'><span>No data</span></div>`

@@ -1,6 +1,7 @@
-Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Percent,Population
-"Linkage to HIV care","2021","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","27,535","81.9","33,606"
-"Linkage to HIV care","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","23,419","82.4","28,422"
-"Linkage to HIV care","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","27,479","81.3","33,795"
-"Linkage to HIV care","2018","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","26,858","80.2","33,500"
-"Linkage to HIV care","2017","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","26,517","77.8","34,078"
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Cases,Percent,Population
+"Linkage to HIV medical care","2022","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","29,753","81.6","36,470"
+"Linkage to HIV medical care","2021","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","27,535","81.9","33,606"
+"Linkage to HIV medical care","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","23,419","82.4","28,422"
+"Linkage to HIV medical care","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","27,479","81.3","33,795"
+"Linkage to HIV medical care","2018","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","26,858","80.2","33,500"
+"Linkage to HIV medical care","2017","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","26,517","77.8","34,078"

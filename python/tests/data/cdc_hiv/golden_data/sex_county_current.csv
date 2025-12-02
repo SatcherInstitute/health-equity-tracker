@@ -1,4 +1,4 @@
 county_name,county_fips,sex,hiv_stigma_index,hiv_deaths_per_100k,hiv_diagnoses_per_100k,hiv_prevalence_per_100k,hiv_care_linkage,hiv_prep_coverage,hiv_care_pct_share,hiv_deaths_pct_share,hiv_diagnoses_pct_share,hiv_prep_pct_share,hiv_prevalence_pct_share,hiv_prep_population_pct,hiv_population_pct,hiv_care_population_pct,hiv_care,hiv_deaths,hiv_diagnoses,hiv_prep,hiv_prevalence,hiv_population,hiv_care_population,hiv_prep_population
-Autauga County,01001,Female,,,,109.0,,,,,,,25.9,,51.9,,,,,,28,25699,,
-Autauga County,01001,Male,,,,335.7,,,,,,,74.1,,48.1,,,,,,80,23832,,
-Autauga County,01001,All,,,,218.0,,,,,,,100.0,,100.0,,,,,,108,49531,,
+Autauga County,01001,Female,,,,100.1,,,,,,,23.2,,52.0,,,,,,26,25979,,
+Autauga County,01001,Male,,,,358.5,,,,,,,76.8,,48.0,,,,,,86,23991,,
+Autauga County,01001,All,,,,224.1,50.0,,100.0,,,,100.0,,100.0,100.0,4.0,,,,112,49970,8.0,

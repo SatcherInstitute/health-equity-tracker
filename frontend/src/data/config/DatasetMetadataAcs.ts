@@ -285,6 +285,6 @@ export const datasourceMetadataAcs: DataSourceMetadataAcs = {
     'acs_condition-sex_national_current',
   ],
   downloadable: true,
-  time_period_range:
+  data_source_release_years:
     'Population: 2009 - current, Health Topics: 2012 - current',
 }

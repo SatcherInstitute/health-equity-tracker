@@ -116,7 +116,7 @@ export const datasourceMetadataCdcWonder: DataSourceMetadataCdcWonder = {
   data_source_pretty_site_name: 'wonder.cdc.gov',
   data_source_link: 'https://wonder.cdc.gov/cancer-v2021.HTML',
   geographic_breakdowns: ['national', 'state'],
-  time_period_range: '1999 - 2021',
+  data_source_release_years: '1999 - 2021',
   demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
   update_frequency: 'Yearly',
   description:

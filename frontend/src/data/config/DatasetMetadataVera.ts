@@ -88,5 +88,5 @@ export const datasourceMetadataVera: DataSourceMetadataVera = {
     'vera_incarceration_county-alls_county_current',
   ],
   downloadable: true,
-  time_period_range: '1985 - 2016',
+  data_source_release_years: '1985 - 2016',
 }

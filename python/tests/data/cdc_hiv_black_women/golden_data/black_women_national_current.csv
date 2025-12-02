@@ -1,7 +1,8 @@
 state_name,state_fips,age,sex,race_and_ethnicity,race_category_id,hiv_deaths_black_women_per_100k,hiv_diagnoses_black_women_per_100k,hiv_prevalence_black_women_per_100k,hiv_deaths_black_women,hiv_diagnoses_black_women,hiv_prevalence_black_women,black_women_population_count,hiv_deaths_black_women_pct_share,hiv_diagnoses_black_women_pct_share,hiv_prevalence_black_women_pct_share,black_women_population_pct
-United States,00,55+,Female,Black or African American (NH),BLACK_NH,28.2,10.3,989.8,1642,597,57618,5821358,60.7,16.8,40.5,32.0
-United States,00,45-54,Female,Black or African American (NH),BLACK_NH,23.2,24.3,1449.1,620,649,38726,2672389,22.9,18.3,27.2,14.7
-United States,00,35-44,Female,Black or African American (NH),BLACK_NH,10.5,30.0,965.5,304,867,27927,2892576,11.2,24.5,19.6,15.9
-United States,00,25-34,Female,Black or African American (NH),BLACK_NH,4.0,28.9,451.1,130,949,14828,3287103,4.8,26.8,10.4,18.0
-United States,00,13-24,Female,Black or African American (NH),BLACK_NH,0.2,13.6,92.6,8,482,3281,3543480,0.3,13.6,2.3,19.5
-United States,00,All,Female,Black or African American (NH),BLACK_NH,14.8,19.5,781.6,2704,3544,142380,18216906,100.0,100.0,100.0,100.0
+United States,00,13-24,Female,Black or African American (NH),BLACK_NH,0.4,13.3,85.7,14,471,3044,3550338,0.5,13.6,2.2,19.3
+United States,00,25-34,Female,Black or African American (NH),BLACK_NH,4.2,30.6,427.1,138,1007,14078,3295815,5.3,29.2,10.0,18.0
+United States,00,35-44,Female,Black or African American (NH),BLACK_NH,10.3,27.3,910.3,303,801,26679,2930794,11.6,23.2,18.9,16.0
+United States,00,45-54,Female,Black or African American (NH),BLACK_NH,20.8,23.7,1403.8,555,634,37479,2669910,21.3,18.4,26.6,14.5
+United States,00,55-64,Female,Black or African American (NH),BLACK_NH,31.1,14.7,1426.6,839,398,38494,2698358,32.2,11.5,27.3,14.7
+United States,00,65+,Female,Black or African American (NH),BLACK_NH,23.6,4.4,655.3,758,142,21063,3214023,29.1,4.1,15.0,17.5
+United States,00,All,Female,Black or African American (NH),BLACK_NH,14.2,18.8,767.1,2607,3453,140837,18359238,100.0,100.0,100.0,100.0

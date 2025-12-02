@@ -28,13 +28,14 @@ def test_write_to_bq_race_county(
     subset_dict = {
         "2011": "2011 County Health Rankings National Data_v2_0.xls",
         "2024": "2024_county_health_release_data_-_v1.xlsx",
+        "2025": "2025 County Health Rankings Data - v3.xlsx",
     }
 
     with mock.patch.dict("datasources.chr.CHR_FILE_LOOKUP", subset_dict, clear=True):
         datasource = CHRData()
         datasource.write_to_bq("dataset", "gcs_bucket", demographic="race_and_ethnicity")
 
-    assert mock_xlsx_data_dir.call_count == 4  # only testing subset; 2 years of source files
+    assert mock_xlsx_data_dir.call_count == 2 * 3  # only testing subset; 3 years of source files
 
     # calls writing COUNTY CURRENT and COUNTY HISTORICAL to bq
     assert mock_bq.call_count == 2
