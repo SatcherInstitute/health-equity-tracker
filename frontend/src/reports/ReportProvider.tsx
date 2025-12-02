@@ -177,9 +177,8 @@ function ReportProvider(props: ReportProviderProps) {
       >
         {props.showLifeLineAlert && <LifelineAlert />}
         {props.showVoteDotOrgBanner && <VoteDotOrgBanner />}
-        {import.meta.env.VITE_CHLP_GRAPHS && props.showCHLPMapsBanner && (
-          <CHLPMapsBanner />
-        )}
+        {props.showCHLPMapsBanner && <CHLPMapsBanner />}
+        {/* TODO: why is this always false? */}
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}
