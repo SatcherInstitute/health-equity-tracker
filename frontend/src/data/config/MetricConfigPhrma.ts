@@ -156,7 +156,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
           shortLabel: 'PQA Alliance',
           longerTitle:
             'Proportion of Days Covered: Statins (PDC-STA). Pharmacy Quality Alliance. Updated September 2019. ',
-          url: 'https://www.pqaalliance.org/measures-overview#pdc-sta',
+          url: 'https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf',
         },
       ],
     },
@@ -225,7 +225,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
           shortLabel: 'PQA Alliance',
           longerTitle:
             'Proportion of Days Covered: Beta-Blockers (PDC-BB). Pharmacy Quality Alliance. Updated September 2019.',
-          url: 'https://www.pqaalliance.org/measures-overview#pdc-bb',
+          url: 'https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf',
         },
       ],
     },
@@ -289,7 +289,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
           shortLabel: 'PQA Alliance',
           longerTitle:
             'Proportion of Days Covered: Renin Angiotensin System Antagonists (PDC-RAS). Pharmacy Quality Alliance. Updated September 2019. ',
-          url: 'https://www.pqaalliance.org/measures-overview#pdc-rasa',
+          url: 'https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf',
         },
       ],
     },
@@ -350,7 +350,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
           shortLabel: 'PQA Alliance',
           longerTitle:
             'Proportion of Days Covered: Calcium Channel Blockers (PDC-CCB). Pharmacy Quality Alliance. Updated September 2019.',
-          url: 'https://www.pqaalliance.org/measures-overview#pdc-ccb',
+          url: 'https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf',
         },
       ],
     },
@@ -411,7 +411,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
           shortLabel: 'PQA Alliance',
           longerTitle:
             'Proportion of Days Covered: Direct-Acting Oral Anticoagulants (PDC-DOAC) Pharmacy Quality Alliance. Updated September 2019.',
-          url: 'https://www.pqaalliance.org/measures-overview#pdc-doac',
+          url: 'https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf',
         },
       ],
     },
@@ -540,7 +540,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
           shortLabel: 'PQA Alliance',
           longerTitle:
             'Proportion of Days Covered: Antiretroviral Medications (PDC-ARV). Pharmacy Quality Alliance. Updated September 2019.',
-          url: 'https://www.pqaalliance.org/measures-overview#pdc-arv',
+          url: 'https://www.pqaalliance.org/assets/Measures/PQA_Measures_Overview.pdf',
         },
       ],
     },
