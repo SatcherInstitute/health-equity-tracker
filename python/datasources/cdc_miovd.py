@@ -39,7 +39,7 @@ class CDCMIOVDData(DataSource):
     # CSV parsing constants
     CSV_COLS_TO_USE = {"Period", "ST_NAME", "NAME", "Count", "Rate", "TTM_Date_Range", "GEOID"}
     DTYPE = {"Period": str, "GEOID": str}
-    NA_VALUES = ["1-9", "-999.0", "10-50"]
+    NA_VALUES = ["-999.0"]
 
     # MIOVD column names to HET standardized column names
     CSV_TO_STANDARD_COLS = {
@@ -88,6 +88,12 @@ class CDCMIOVDData(DataSource):
 
         for time_view, df_for_bq in [(CURRENT, ttm_df), (HISTORICAL, annual_df)]:
             df_for_bq, col_types = dataset_utils.get_timeview_df_and_cols(df_for_bq, time_view, self.CONDITIONS)
+
+            if time_view == CURRENT:
+                for col in df_for_bq.columns:
+                    if std_col.RAW_SUFFIX in col:
+                        df_for_bq[col] = pd.to_numeric(df_for_bq[col], errors="coerce")
+
             df_for_bq = self._reorder_and_sort_dataframe(df_for_bq)
 
             table_id = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, time_view)
@@ -106,6 +112,23 @@ class CDCMIOVDData(DataSource):
 
         df = df.rename(columns=csv_to_standard_cols)
 
+        # Handle suppressed data detection and conversion
+        raw_col = f"{condition}_{std_col.RAW_SUFFIX}"
+        rate_col = f"{condition}_{std_col.PER_100K_SUFFIX}"
+        suppressed_col = f"{condition}_{std_col.IS_SUPPRESSED_SUFFIX}"
+
+        suppressed_values = ["1-9", "10-50"]
+
+        # Check if count is suppressed AND rate is null
+        count_suppressed = df[raw_col].astype(str).isin(suppressed_values)
+        rate_is_null = df[rate_col].isna()
+
+        # Only TRUE if count is suppressed AND rate is null
+        df[suppressed_col] = count_suppressed & rate_is_null
+
+        # Replace suppressed values with NA in both columns
+        df[[raw_col, rate_col]] = df[[raw_col, rate_col]].replace(suppressed_values, pd.NA)
+
         # Add the ttm_flag to dataframe
         df["is_ttm"] = df[std_col.TIME_PERIOD_COL] == "TTM"
 
@@ -123,8 +146,10 @@ class CDCMIOVDData(DataSource):
             std_col.COUNTY_NAME_COL,
             std_col.GUN_VIOLENCE_HOMICIDE_RAW,
             std_col.GUN_VIOLENCE_HOMICIDE_PER_100K,
+            std_col.GUN_VIOLENCE_HOMICIDE_IS_SUPPRESSED,
             std_col.GUN_VIOLENCE_SUICIDE_RAW,
             std_col.GUN_VIOLENCE_SUICIDE_PER_100K,
+            std_col.GUN_VIOLENCE_SUICIDE_IS_SUPPRESSED,
         ]
 
         df = df[[col for col in column_order if col in df.columns]]
