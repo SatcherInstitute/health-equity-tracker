@@ -97,6 +97,7 @@ class CDCMIOVDData(DataSource):
             df_for_bq = self._reorder_and_sort_dataframe(df_for_bq)
 
             table_id = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, time_view)
+            print(table_id)
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
 
     def load_condition_data(self, condition: str) -> pd.DataFrame:
