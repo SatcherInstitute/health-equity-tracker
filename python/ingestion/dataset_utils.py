@@ -15,6 +15,7 @@ from ingestion.constants import (
     HISTORICAL,
     BQ_STRING,
     BQ_FLOAT,
+    BQ_BOOLEAN,
     ALL_VALUE,
 )
 import os
@@ -807,7 +808,7 @@ def build_bq_col_types(df: pd.DataFrame) -> Dict[str, str]:
     bq_col_types: Dict[str, str] = {}
     for col in df.columns:
         if col.endswith(std_col.IS_SUPPRESSED_SUFFIX):
-            bq_col_types[col] = "BOOL"
+            bq_col_types[col] = BQ_BOOLEAN
         elif std_col.ends_with_suffix_from_list(col, std_col.SUFFIXES):
             bq_col_types[col] = BQ_FLOAT
         else:
