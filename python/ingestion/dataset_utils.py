@@ -15,6 +15,7 @@ from ingestion.constants import (
     HISTORICAL,
     BQ_STRING,
     BQ_FLOAT,
+    BQ_BOOLEAN,
     ALL_VALUE,
 )
 import os
@@ -806,7 +807,12 @@ def build_bq_col_types(df: pd.DataFrame) -> Dict[str, str]:
     """Returns a dict mapping column names needed by BigQuery to their BQ types."""
     bq_col_types: Dict[str, str] = {}
     for col in df.columns:
-        bq_col_types[col] = BQ_FLOAT if std_col.ends_with_suffix_from_list(col, std_col.SUFFIXES) else BQ_STRING
+        if col.endswith(std_col.IS_SUPPRESSED_SUFFIX):
+            bq_col_types[col] = BQ_BOOLEAN
+        elif std_col.ends_with_suffix_from_list(col, std_col.SUFFIXES):
+            bq_col_types[col] = BQ_FLOAT
+        else:
+            bq_col_types[col] = BQ_STRING
     return bq_col_types
 
 
