@@ -27,12 +27,42 @@ def test_write_to_bq_alls_county(mock_csv_data_dir: mock.MagicMock, mock_bq: moc
     assert mock_csv_data_dir.called
     assert mock_bq.call_count == 2
 
+    # current
+    actual_current_bq_col_types = mock_bq.call_args_list[0][1]["column_types"]
+    assert actual_current_bq_col_types == {
+        "state_name": "STRING",
+        "county_fips": "STRING",
+        "gun_violence_homicide_is_suppressed": "BOOL",
+        "gun_violence_suicide_is_suppressed": "BOOL",
+        "state_fips": "STRING",
+        "county_name": "STRING",
+        "gun_violence_homicide_estimated_total": "FLOAT64",
+        "gun_violence_homicide_per_100k": "FLOAT64",
+        "gun_violence_suicide_estimated_total": "FLOAT64",
+        "gun_violence_suicide_per_100k": "FLOAT64",
+    }
+
     actual_current_df, _, current_table_name = mock_bq.call_args_list[0][0]
     actual_current_df = actual_current_df.sort_values(["county_fips"]).reset_index(drop=True)
 
     expected_current_df = pd.read_csv(GOLDEN_DATA[current_table_name], dtype=EXP_DTYPE)
     assert current_table_name == "alls_county_current"
     assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
+
+    # historical
+    actual_historical_bq_col_types = mock_bq.call_args_list[1][1]["column_types"]
+
+    assert actual_historical_bq_col_types == {
+        "time_period": "STRING",
+        "state_name": "STRING",
+        "gun_violence_homicide_per_100k": "FLOAT64",
+        "county_fips": "STRING",
+        "gun_violence_homicide_is_suppressed": "BOOL",
+        "gun_violence_suicide_per_100k": "FLOAT64",
+        "gun_violence_suicide_is_suppressed": "BOOL",
+        "state_fips": "STRING",
+        "county_name": "STRING",
+    }
 
     actual_historical_df, _, historical_table_name = mock_bq.call_args_list[1][0]
     actual_historical_df = actual_historical_df.sort_values(["county_fips"]).reset_index(drop=True)
