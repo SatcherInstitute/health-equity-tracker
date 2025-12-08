@@ -11,7 +11,6 @@ env:
   RACE_AND_ETHNICITY: "race_and_ethnicity"
   SEX: "sex"
   AGE: "age"
-  BLACK_WOMEN: "black_women"
   NATIONAL: "national"
   STATE: "state"
   COUNTY: "county"
@@ -147,34 +146,3 @@ jobs:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.AGE }}
-
-  black-women-pipeline:
-    runs-on: ubuntu-latest
-    steps:
-      # BLACK WOMEN NATIONAL
-      - name: Process and write black_women national tables to BigQuery
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          demographic: ${{ env.BLACK_WOMEN }}
-          geographic: ${{ env.NATIONAL }}
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-
-      # BLACK WOMEN STATE
-      - name: Process and write black_women state tables to BigQuery
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
-        with:
-          workflow_id: ${{ env.WORKFLOW_ID }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          demographic: ${{ env.BLACK_WOMEN }}
-          geographic: ${{ env.STATE }}
-          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-
-      # Export black women data
-      - name: Export black_women NDJSON files to GCS buckets from BigQuery tables
-        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
-        with:
-          service_url: ${{ env.EXPORTER_SERVICE_URL }}
-          dataset_name: ${{ env.DATASET_NAME }}
-          demographic: ${{ env.BLACK_WOMEN }}

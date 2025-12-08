@@ -1,0 +1,43 @@
+name: DAG - CDC_HIV_BLACK_WOMEN_DATA
+on:
+  workflow_dispatch:
+  workflow_call:
+env:
+  WORKFLOW_ID: "CDC_HIV_BLACK_WOMEN_DATA"
+  DATASET_NAME: "cdc_hiv_data"
+  GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+  EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+  BLACK_WOMEN: "black_women"
+  NATIONAL: "national"
+  STATE: "state"
+
+jobs:
+  black-women-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      # BLACK WOMEN NATIONAL
+      - name: Process and write black women national tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.BLACK_WOMEN }}
+          geographic: ${{ env.NATIONAL }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # BLACK WOMEN STATE
+      - name: Process and write black women state tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.BLACK_WOMEN }}
+          geographic: ${{ env.STATE }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+
+      # Export black women data
+      - name: Export black women NDJSON files to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          dataset_name: ${{ env.DATASET_NAME }}
