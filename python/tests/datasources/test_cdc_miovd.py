@@ -32,8 +32,8 @@ def test_write_to_bq_alls_county(mock_csv_data_dir: mock.MagicMock, mock_bq: moc
     assert actual_current_bq_col_types == {
         "state_name": "STRING",
         "county_fips": "STRING",
-        "gun_violence_homicide_is_suppressed": "BOOL",
-        "gun_violence_suicide_is_suppressed": "BOOL",
+        "gun_violence_homicide_per_100k_is_suppressed": "BOOL",
+        "gun_violence_suicide_per_100k_is_suppressed": "BOOL",
         "state_fips": "STRING",
         "county_name": "STRING",
         "gun_violence_homicide_estimated_total": "FLOAT64",
@@ -48,6 +48,7 @@ def test_write_to_bq_alls_county(mock_csv_data_dir: mock.MagicMock, mock_bq: moc
     expected_current_df = pd.read_csv(GOLDEN_DATA[current_table_name], dtype=EXP_DTYPE)
     assert current_table_name == "alls_county_current"
     assert_frame_equal(actual_current_df, expected_current_df, check_like=True)
+    # actual_current_df.to_csv(current_table_name, index=False)
 
     # historical
     actual_historical_bq_col_types = mock_bq.call_args_list[1][1]["column_types"]
@@ -57,9 +58,9 @@ def test_write_to_bq_alls_county(mock_csv_data_dir: mock.MagicMock, mock_bq: moc
         "state_name": "STRING",
         "gun_violence_homicide_per_100k": "FLOAT64",
         "county_fips": "STRING",
-        "gun_violence_homicide_is_suppressed": "BOOL",
+        "gun_violence_homicide_per_100k_is_suppressed": "BOOL",
         "gun_violence_suicide_per_100k": "FLOAT64",
-        "gun_violence_suicide_is_suppressed": "BOOL",
+        "gun_violence_suicide_per_100k_is_suppressed": "BOOL",
         "state_fips": "STRING",
         "county_name": "STRING",
     }
@@ -70,3 +71,4 @@ def test_write_to_bq_alls_county(mock_csv_data_dir: mock.MagicMock, mock_bq: moc
     expected_historical_df = pd.read_csv(GOLDEN_DATA[historical_table_name], dtype=EXP_DTYPE)
     assert historical_table_name == "alls_county_historical"
     assert_frame_equal(actual_historical_df, expected_historical_df, check_like=True)
+    # actual_historical_df.to_csv(historical_table_name, index=False)

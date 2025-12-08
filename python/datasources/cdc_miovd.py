@@ -97,7 +97,6 @@ class CDCMIOVDData(DataSource):
             df_for_bq = self._reorder_and_sort_dataframe(df_for_bq)
 
             table_id = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, time_view)
-            print(table_id)
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
 
     def load_condition_data(self, condition: str) -> pd.DataFrame:
@@ -115,7 +114,7 @@ class CDCMIOVDData(DataSource):
         # Handle suppressed data detection and conversion
         raw_col = f"{condition}_{std_col.RAW_SUFFIX}"
         rate_col = f"{condition}_{std_col.PER_100K_SUFFIX}"
-        suppressed_col = f"{condition}_{std_col.IS_SUPPRESSED_SUFFIX}"
+        suppressed_col = f"{rate_col}_{std_col.IS_SUPPRESSED_SUFFIX}"
 
         suppressed_values = ["1-9", "10-50"]
 
@@ -123,8 +122,11 @@ class CDCMIOVDData(DataSource):
         count_suppressed = df[raw_col].astype(str).isin(suppressed_values)
         rate_is_null = df[rate_col].isna()
 
-        # Only TRUE if count is suppressed AND rate is null
-        df[suppressed_col] = count_suppressed & rate_is_null
+        # IS_SUPPRESSED column: SUPPRESSED (TRUE), MISSING/UNCOLLECTED (FALSE)
+        # if rate is non-null, then the IS_SUPPRESSED column doesn't apply and value is null
+        df[suppressed_col] = None
+        df.loc[count_suppressed & rate_is_null, suppressed_col] = True
+        df.loc[~count_suppressed & rate_is_null, suppressed_col] = False
 
         # Replace suppressed values with NA in both columns
         df[[raw_col, rate_col]] = df[[raw_col, rate_col]].replace(suppressed_values, pd.NA)
