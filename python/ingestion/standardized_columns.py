@@ -36,8 +36,6 @@ ELIGIBILITY_COL = "eligibility"
 URBANICITY_COL = "urbanicity"
 
 IS_SUPPRESSED_SUFFIX = "is_suppressed"
-GUN_VIOLENCE_HOMICIDE_IS_SUPPRESSED = "gun_violence_homicide_is_suppressed"
-GUN_VIOLENCE_SUICIDE_IS_SUPPRESSED = "gun_violence_suicide_is_suppressed"
 
 STATE_FIPS_COL = "state_fips"
 STATE_NAME_COL = "state_name"
