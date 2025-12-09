@@ -4,6 +4,7 @@ import {
   getDataFetcher,
   resetCacheDebug,
 } from '../../utils/globals'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import {
@@ -24,6 +25,7 @@ async function ensureCorrectDatasetsDownloaded(
   dataTypeId?: DataTypeId,
   timeView?: TimeView,
   metricIds?: MetricId[],
+  scrollToHashId?: ScrollableHashId,
 ) {
   // If these aren't sent as args, default to []
   metricIds = metricIds || []
@@ -42,6 +44,7 @@ async function ensureCorrectDatasetsDownloaded(
       baseBreakdown.addBreakdown(demographicType),
       dataTypeId,
       timeView,
+      scrollToHashId,
     ),
   )
 
@@ -91,6 +94,18 @@ describe('GunViolenceProvider', () => {
       SEX,
       'gun_violence',
       'historical',
+    )
+  })
+
+  test('Current County and Alls Breakdown', async () => {
+    await ensureCorrectDatasetsDownloaded(
+      'cdc_miovd_data-alls_county_current',
+      Breakdowns.forFips(new Fips('01001')),
+      RACE, // falls back to ALLS
+      'gun_violence_homicide',
+      'current',
+      ['gun_violence_homicide_per_100k'],
+      'rate-map',
     )
   })
 })
