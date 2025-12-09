@@ -6,6 +6,13 @@ from ingestion.het_types import GEO_TYPE, HIV_BREAKDOWN_TYPE
 from ingestion.cdc_hiv_utils import (
     load_atlas_df_from_data_dir,
     BREAKDOWN_TO_STANDARD_BY_COL,
+    CDC_AGE,
+    CDC_POP,
+    CDC_RACE,
+    CDC_SEX,
+    CDC_STATE_NAME,
+    CDC_STATE_FIPS,
+    CDC_YEAR,
     TEST_PCT_SHARE_MAP,
     PCT_SHARE_MAP,
     PCT_RELATIVE_INEQUITY_MAP,
@@ -18,14 +25,6 @@ from ingestion.dataset_utils import (
     preserve_only_current_time_period_rows,
 )
 from typing import cast
-
-CDC_AGE = "Age Group"
-CDC_POP = "Population"
-CDC_RACE = "Race/Ethnicity"
-CDC_SEX = "Sex"
-CDC_STATE_NAME = "Geography"
-CDC_STATE_FIPS = "FIPS"
-CDC_YEAR = "Year"
 
 HIV_DIRECTORY = "cdc_hiv_black_women"
 

@@ -85,9 +85,6 @@ def test_write_to_bq_black_women_state(mock_data_dir: mock.MagicMock, mock_bq: m
     (black_women_state_current_df, _dataset, table_name), _col_types = mock_bq_black_women_state_current
 
     assert table_name == "black_women_by_age_state_current"
-    black_women_state_current_df.sort_values(by=["state_name", "age"]).reset_index(drop=True).to_csv(
-        "black_women_state_current_df.csv", index=False
-    )
     expected_black_women_state_current_df = pd.read_csv(GOLDEN_DATA["black_women_state_current"], dtype=EXP_DTYPE)
 
     assert_frame_equal(
@@ -99,9 +96,6 @@ def test_write_to_bq_black_women_state(mock_data_dir: mock.MagicMock, mock_bq: m
     (black_women_state_historical_df, _dataset, table_name), _col_types = mock_bq_black_women_state_historical
 
     assert table_name == "black_women_by_age_state_historical"
-    black_women_state_historical_df.sort_values(by=["time_period", "state_name", "age"]).reset_index(drop=True).to_csv(
-        "black_women_by_age_state_historical.csv", index=False
-    )
     expected_black_women_state_historical_df = pd.read_csv(GOLDEN_DATA["black_women_state_historical"], dtype=EXP_DTYPE)
 
     assert_frame_equal(

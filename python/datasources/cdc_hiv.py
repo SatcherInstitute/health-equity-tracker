@@ -128,7 +128,7 @@ class CDCHIVData(DataSource):
         if geo_level == NATIONAL_LEVEL:
             df[std_col.STATE_FIPS_COL] = US_FIPS
 
-        if breakdown in std_col.RACE_OR_HISPANIC_COL:
+        if breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
 
         if std_col.HIV_DEATHS_PREFIX not in df.columns:
