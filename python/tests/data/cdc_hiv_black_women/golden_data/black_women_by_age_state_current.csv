@@ -1,0 +1,400 @@
+state_name,state_fips,age,sex,race_and_ethnicity,race_category_id,hiv_deaths_black_women_per_100k,hiv_diagnoses_black_women_per_100k,hiv_prevalence_black_women_per_100k,hiv_deaths_black_women,hiv_diagnoses_black_women,hiv_prevalence_black_women,black_women_population_count,hiv_deaths_black_women_pct_share,hiv_diagnoses_black_women_pct_share,hiv_prevalence_black_women_pct_share,black_women_population_pct
+Alabama,01,13-24,Female,Black or African American (NH),BLACK_NH,0.8,10.0,48.4,1.0,12.0,58.0,119896.0,1.8,11.3,2.1,19.9
+Alabama,01,25-34,Female,Black or African American (NH),BLACK_NH,5.9,30.4,334.1,6.0,31.0,341.0,102050.0,10.7,29.2,12.6,17.0
+Alabama,01,35-44,Female,Black or African American (NH),BLACK_NH,9.5,31.8,638.9,9.0,30.0,603.0,94376.0,16.1,28.3,22.3,15.7
+Alabama,01,45-54,Female,Black or African American (NH),BLACK_NH,8.1,19.6,862.7,7.0,17.0,747.0,86587.0,12.5,16.0,27.6,14.4
+Alabama,01,55-64,Female,Black or African American (NH),BLACK_NH,21.2,12.3,735.5,19.0,11.0,658.0,89468.0,33.9,10.4,24.3,14.9
+Alabama,01,65+,Female,Black or African American (NH),BLACK_NH,12.8,4.6,272.9,14.0,5.0,299.0,109572.0,25.0,4.7,11.0,18.2
+Alabama,01,All,Female,Black or African American (NH),BLACK_NH,9.3,17.6,449.5,56.0,106.0,2706.0,601949.0,100.0,100.0,100.0,100.0
+Alaska,02,13-24,Female,Black or African American (NH),BLACK_NH,0.0,0.0,55.3,0.0,0.0,1.0,1807.0,,0.0,3.4,21.9
+Alaska,02,25-34,Female,Black or African American (NH),BLACK_NH,0.0,55.3,110.6,0.0,1.0,2.0,1809.0,,100.0,6.9,21.9
+Alaska,02,35-44,Female,Black or African American (NH),BLACK_NH,0.0,0.0,417.2,0.0,0.0,6.0,1438.0,,0.0,20.7,17.4
+Alaska,02,45-54,Female,Black or African American (NH),BLACK_NH,0.0,0.0,489.7,0.0,0.0,5.0,1021.0,,0.0,17.2,12.4
+Alaska,02,55-64,Female,Black or African American (NH),BLACK_NH,0.0,0.0,1121.5,0.0,0.0,12.0,1070.0,,0.0,41.4,13.0
+Alaska,02,65+,Female,Black or African American (NH),BLACK_NH,0.0,0.0,271.5,0.0,0.0,3.0,1105.0,,0.0,10.3,13.4
+Alaska,02,All,Female,Black or African American (NH),BLACK_NH,0.0,12.1,351.5,0.0,1.0,29.0,8250.0,,100.0,100.0,100.0
+American Samoa,60,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+American Samoa,60,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+American Samoa,60,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+American Samoa,60,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+American Samoa,60,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+American Samoa,60,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+American Samoa,60,All,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Arizona,04,13-24,Female,Black or African American (NH),BLACK_NH,0.0,13.4,130.7,0.0,4.0,39.0,29842.0,0.0,9.3,4.8,21.1
+Arizona,04,25-34,Female,Black or African American (NH),BLACK_NH,3.5,38.6,420.9,1.0,11.0,120.0,28510.0,8.3,25.6,14.9,20.2
+Arizona,04,35-44,Female,Black or African American (NH),BLACK_NH,8.2,53.5,712.5,2.0,13.0,173.0,24282.0,16.7,30.2,21.4,17.2
+Arizona,04,45-54,Female,Black or African American (NH),BLACK_NH,9.7,53.5,1156.9,2.0,11.0,238.0,20572.0,16.7,25.6,29.5,14.6
+Arizona,04,55-64,Female,Black or African American (NH),BLACK_NH,27.5,22.0,918.9,5.0,4.0,167.0,18174.0,41.7,9.3,20.7,12.9
+Arizona,04,65+,Female,Black or African American (NH),BLACK_NH,10.0,0.0,350.5,2.0,0.0,70.0,19972.0,16.7,0.0,8.7,14.1
+Arizona,04,All,Female,Black or African American (NH),BLACK_NH,8.5,30.4,570.9,12.0,43.0,807.0,141352.0,100.0,100.0,100.0,100.0
+Arkansas,05,13-24,Female,Black or African American (NH),BLACK_NH,0.0,4.6,48.8,0.0,2.0,21.0,43054.0,0.0,6.5,2.8,21.4
+Arkansas,05,25-34,Female,Black or African American (NH),BLACK_NH,8.6,23.0,319.0,3.0,8.0,111.0,34797.0,21.4,25.8,14.6,17.3
+Arkansas,05,35-44,Female,Black or African American (NH),BLACK_NH,0.0,46.8,468.3,0.0,15.0,150.0,32033.0,0.0,48.4,19.7,15.9
+Arkansas,05,45-54,Female,Black or African American (NH),BLACK_NH,25.0,14.3,779.2,7.0,4.0,218.0,27977.0,50.0,12.9,28.6,13.9
+Arkansas,05,55-64,Female,Black or African American (NH),BLACK_NH,10.4,6.9,651.0,3.0,2.0,188.0,28879.0,21.4,6.5,24.7,14.4
+Arkansas,05,65+,Female,Black or African American (NH),BLACK_NH,2.9,0.0,212.8,1.0,0.0,73.0,34305.0,7.1,0.0,9.6,17.1
+Arkansas,05,All,Female,Black or African American (NH),BLACK_NH,7.0,15.4,378.5,14.0,31.0,761.0,201045.0,100.0,100.0,100.0,100.0
+California,06,13-24,Female,Black or African American (NH),BLACK_NH,0.0,16.0,66.0,0.0,25.0,103.0,155970.0,0.0,17.9,2.2,16.5
+California,06,25-34,Female,Black or African American (NH),BLACK_NH,2.9,27.6,269.4,5.0,47.0,459.0,170399.0,5.0,33.6,9.6,18.0
+California,06,35-44,Female,Black or African American (NH),BLACK_NH,5.5,21.9,541.3,8.0,32.0,790.0,145933.0,7.9,22.9,16.5,15.4
+California,06,45-54,Female,Black or African American (NH),BLACK_NH,6.6,16.2,909.9,9.0,22.0,1239.0,136164.0,8.9,15.7,25.9,14.4
+California,06,55-64,Female,Black or African American (NH),BLACK_NH,25.1,7.3,924.0,38.0,11.0,1397.0,151195.0,37.6,7.9,29.2,16.0
+California,06,65+,Female,Black or African American (NH),BLACK_NH,22.1,1.6,429.1,41.0,3.0,797.0,185752.0,40.6,2.1,16.7,19.6
+California,06,All,Female,Black or African American (NH),BLACK_NH,10.7,14.8,506.1,101.0,140.0,4785.0,945413.0,100.0,100.0,100.0,100.0
+Colorado,08,13-24,Female,Black or African American (NH),BLACK_NH,0.0,11.0,215.5,0.0,2.0,39.0,18101.0,0.0,12.5,6.1,19.8
+Colorado,08,25-34,Female,Black or African American (NH),BLACK_NH,5.2,21.0,330.4,1.0,4.0,63.0,19068.0,25.0,25.0,9.9,20.9
+Colorado,08,35-44,Female,Black or African American (NH),BLACK_NH,6.2,12.5,706.1,1.0,2.0,113.0,16004.0,25.0,12.5,17.7,17.5
+Colorado,08,45-54,Female,Black or African American (NH),BLACK_NH,0.0,39.4,1544.8,0.0,5.0,196.0,12688.0,0.0,31.2,30.8,13.9
+Colorado,08,55-64,Female,Black or African American (NH),BLACK_NH,8.3,16.7,1282.6,1.0,2.0,154.0,12007.0,25.0,12.5,24.2,13.1
+Colorado,08,65+,Female,Black or African American (NH),BLACK_NH,7.4,7.4,535.6,1.0,1.0,72.0,13444.0,25.0,6.2,11.3,14.7
+Colorado,08,All,Female,Black or African American (NH),BLACK_NH,4.4,17.5,697.6,4.0,16.0,637.0,91312.0,100.0,100.0,100.0,100.0
+Connecticut,09,13-24,Female,Black or African American (NH),BLACK_NH,0.0,9.2,67.6,0.0,3.0,22.0,32531.0,0.0,12.5,1.5,18.8
+Connecticut,09,25-34,Female,Black or African American (NH),BLACK_NH,0.0,16.8,345.4,0.0,5.0,103.0,29820.0,0.0,20.8,7.1,17.3
+Connecticut,09,35-44,Female,Black or African American (NH),BLACK_NH,3.6,14.2,725.3,1.0,4.0,204.0,28126.0,4.3,16.7,14.0,16.3
+Connecticut,09,45-54,Female,Black or African American (NH),BLACK_NH,18.5,25.9,1284.3,5.0,7.0,347.0,27019.0,21.7,29.2,23.8,15.6
+Connecticut,09,55-64,Female,Black or African American (NH),BLACK_NH,26.0,7.4,1770.8,7.0,2.0,477.0,26937.0,30.4,8.3,32.8,15.6
+Connecticut,09,65+,Female,Black or African American (NH),BLACK_NH,35.4,10.6,1071.8,10.0,3.0,303.0,28269.0,43.5,12.5,20.8,16.4
+Connecticut,09,All,Female,Black or African American (NH),BLACK_NH,13.3,13.9,843.1,23.0,24.0,1456.0,172702.0,100.0,100.0,100.0,100.0
+Delaware,10,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,20080.0,,,,19.6
+Delaware,10,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,16552.0,,,,16.1
+Delaware,10,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,15928.0,,,,15.5
+Delaware,10,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,14988.0,,,,14.6
+Delaware,10,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,16358.0,,,,15.9
+Delaware,10,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,18703.0,,,,18.2
+Delaware,10,All,Female,Black or African American (NH),BLACK_NH,15.6,14.6,732.9,16.0,15.0,752.0,102609.0,100.0,100.0,100.0,100.0
+District of Columbia,11,13-24,Female,Black or African American (NH),BLACK_NH,0.0,9.0,183.5,0.0,2.0,41.0,22339.0,0.0,4.7,1.3,16.5
+District of Columbia,11,25-34,Female,Black or African American (NH),BLACK_NH,15.2,45.7,997.3,4.0,12.0,262.0,26272.0,7.4,27.9,8.2,19.4
+District of Columbia,11,35-44,Female,Black or African American (NH),BLACK_NH,28.4,66.2,2525.7,6.0,14.0,534.0,21143.0,11.1,32.6,16.7,15.6
+District of Columbia,11,45-54,Female,Black or African American (NH),BLACK_NH,64.9,29.5,4893.7,11.0,5.0,829.0,16940.0,20.4,11.6,25.9,12.5
+District of Columbia,11,55-64,Female,Black or African American (NH),BLACK_NH,112.8,35.9,4997.2,22.0,7.0,975.0,19511.0,40.7,16.3,30.4,14.4
+District of Columbia,11,65+,Female,Black or African American (NH),BLACK_NH,37.6,10.3,1929.2,11.0,3.0,564.0,29235.0,20.4,7.0,17.6,21.6
+District of Columbia,11,All,Female,Black or African American (NH),BLACK_NH,39.9,31.7,2366.4,54.0,43.0,3205.0,135440.0,100.0,100.0,100.0,100.0
+Florida,12,13-24,Female,Black or African American (NH),BLACK_NH,1.7,21.3,116.9,5.0,63.0,345.0,295102.0,1.3,12.6,1.7,19.9
+Florida,12,25-34,Female,Black or African American (NH),BLACK_NH,9.0,59.9,707.2,24.0,160.0,1888.0,266983.0,6.0,32.0,9.4,18.0
+Florida,12,35-44,Female,Black or African American (NH),BLACK_NH,21.5,50.0,1594.7,52.0,121.0,3857.0,241857.0,13.1,24.2,19.1,16.3
+Florida,12,45-54,Female,Black or African American (NH),BLACK_NH,40.8,33.0,2377.6,88.0,71.0,5122.0,215427.0,22.1,14.2,25.4,14.5
+Florida,12,55-64,Female,Black or African American (NH),BLACK_NH,59.2,27.0,2665.7,125.0,57.0,5629.0,211161.0,31.4,11.4,27.9,14.2
+Florida,12,65+,Female,Black or African American (NH),BLACK_NH,40.8,11.0,1304.1,104.0,28.0,3325.0,254961.0,26.1,5.6,16.5,17.2
+Florida,12,All,Female,Black or African American (NH),BLACK_NH,26.8,33.7,1357.5,398.0,500.0,20166.0,1485491.0,100.0,100.0,100.0,100.0
+Georgia,13,13-24,Female,Black or African American (NH),BLACK_NH,0.0,18.4,92.1,0.0,57.0,285.0,309394.0,0.0,15.8,2.6,19.7
+Georgia,13,25-34,Female,Black or African American (NH),BLACK_NH,4.6,31.5,433.5,13.0,89.0,1226.0,282829.0,6.1,24.7,11.4,18.0
+Georgia,13,35-44,Female,Black or African American (NH),BLACK_NH,13.3,27.8,827.0,35.0,73.0,2170.0,262396.0,16.4,20.3,20.1,16.7
+Georgia,13,45-54,Female,Black or African American (NH),BLACK_NH,18.2,26.5,1172.2,44.0,64.0,2836.0,241941.0,20.7,17.8,26.3,15.4
+Georgia,13,55-64,Female,Black or African American (NH),BLACK_NH,28.2,28.2,1242.9,64.0,64.0,2816.0,226574.0,30.0,17.8,26.1,14.4
+Georgia,13,65+,Female,Black or African American (NH),BLACK_NH,23.2,5.3,588.8,57.0,13.0,1444.0,245235.0,26.8,3.6,13.4,15.6
+Georgia,13,All,Female,Black or African American (NH),BLACK_NH,13.6,23.0,687.1,213.0,360.0,10777.0,1568369.0,100.0,100.0,100.0,100.0
+Guam,66,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Guam,66,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Guam,66,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Guam,66,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Guam,66,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Guam,66,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Guam,66,All,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Hawaii,15,13-24,Female,Black or African American (NH),BLACK_NH,0.0,0.0,51.5,0.0,0.0,1.0,1941.0,,0.0,8.3,21.9
+Hawaii,15,25-34,Female,Black or African American (NH),BLACK_NH,0.0,0.0,82.5,0.0,0.0,2.0,2425.0,,0.0,16.7,27.3
+Hawaii,15,35-44,Female,Black or African American (NH),BLACK_NH,0.0,57.4,229.5,0.0,1.0,4.0,1743.0,,100.0,33.3,19.6
+Hawaii,15,45-54,Female,Black or African American (NH),BLACK_NH,0.0,0.0,192.9,0.0,0.0,2.0,1037.0,,0.0,16.7,11.7
+Hawaii,15,55-64,Female,Black or African American (NH),BLACK_NH,0.0,0.0,0.0,0.0,0.0,0.0,888.0,,0.0,0.0,10.0
+Hawaii,15,65+,Female,Black or African American (NH),BLACK_NH,0.0,0.0,354.6,0.0,0.0,3.0,846.0,,0.0,25.0,9.5
+Hawaii,15,All,Female,Black or African American (NH),BLACK_NH,0.0,11.3,135.1,0.0,1.0,12.0,8880.0,,100.0,100.0,100.0
+Idaho,16,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,1658.0,,,,33.1
+Idaho,16,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,1116.0,,,,22.3
+Idaho,16,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,860.0,,,,17.1
+Idaho,16,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,515.0,,,,10.3
+Idaho,16,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,451.0,,,,9.0
+Idaho,16,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,415.0,,,,8.3
+Idaho,16,All,Female,Black or African American (NH),BLACK_NH,0.0,19.9,997.0,0.0,1.0,50.0,5015.0,,100.0,100.0,100.0
+Illinois,17,13-24,Female,Black or African American (NH),BLACK_NH,0.0,15.1,99.0,0.0,22.0,144.0,145467.0,0.0,14.9,3.3,18.4
+Illinois,17,25-34,Female,Black or African American (NH),BLACK_NH,0.7,32.8,412.5,1.0,46.0,579.0,140354.0,1.0,31.1,13.4,17.8
+Illinois,17,35-44,Female,Black or African American (NH),BLACK_NH,7.6,26.1,705.7,9.0,31.0,838.0,118752.0,9.0,20.9,19.4,15.0
+Illinois,17,45-54,Female,Black or African American (NH),BLACK_NH,22.6,21.7,1032.9,26.0,25.0,1188.0,115018.0,26.0,16.9,27.5,14.5
+Illinois,17,55-64,Female,Black or African American (NH),BLACK_NH,26.3,16.1,855.9,31.0,19.0,1010.0,118009.0,31.0,12.8,23.4,14.9
+Illinois,17,65+,Female,Black or African American (NH),BLACK_NH,21.6,3.3,362.5,33.0,5.0,555.0,153105.0,33.0,3.4,12.9,19.4
+Illinois,17,All,Female,Black or African American (NH),BLACK_NH,12.6,18.7,545.6,100.0,148.0,4314.0,790705.0,100.0,100.0,100.0,100.0
+Indiana,18,13-24,Female,Black or African American (NH),BLACK_NH,0.0,24.9,93.1,0.0,15.0,56.0,60171.0,0.0,19.0,3.8,21.3
+Indiana,18,25-34,Female,Black or African American (NH),BLACK_NH,5.6,54.2,439.2,3.0,29.0,235.0,53506.0,13.6,36.7,16.0,19.0
+Indiana,18,35-44,Female,Black or African American (NH),BLACK_NH,6.5,32.5,744.8,3.0,15.0,344.0,46184.0,13.6,19.0,23.5,16.4
+Indiana,18,45-54,Female,Black or African American (NH),BLACK_NH,12.4,32.3,942.9,5.0,13.0,379.0,40194.0,22.7,16.5,25.9,14.3
+Indiana,18,55-64,Female,Black or African American (NH),BLACK_NH,13.2,18.5,803.2,5.0,7.0,304.0,37849.0,22.7,8.9,20.7,13.4
+Indiana,18,65+,Female,Black or African American (NH),BLACK_NH,13.6,0.0,335.3,6.0,0.0,148.0,44136.0,27.3,0.0,10.1,15.6
+Indiana,18,All,Female,Black or African American (NH),BLACK_NH,7.8,28.0,519.8,22.0,79.0,1466.0,282040.0,100.0,100.0,100.0,100.0
+Iowa,19,13-24,Female,Black or African American (NH),BLACK_NH,0.0,22.7,128.9,0.0,3.0,17.0,13187.0,0.0,42.9,6.0,28.4
+Iowa,19,25-34,Female,Black or African American (NH),BLACK_NH,0.0,18.5,343.0,0.0,2.0,37.0,10787.0,0.0,28.6,13.1,23.2
+Iowa,19,35-44,Female,Black or African American (NH),BLACK_NH,11.8,0.0,1106.9,1.0,0.0,94.0,8492.0,50.0,0.0,33.2,18.3
+Iowa,19,45-54,Female,Black or African American (NH),BLACK_NH,17.9,35.9,1328.1,1.0,2.0,74.0,5572.0,50.0,28.6,26.1,12.0
+Iowa,19,55-64,Female,Black or African American (NH),BLACK_NH,0.0,0.0,946.0,0.0,0.0,41.0,4334.0,0.0,0.0,14.5,9.3
+Iowa,19,65+,Female,Black or African American (NH),BLACK_NH,0.0,0.0,496.5,0.0,0.0,20.0,4028.0,0.0,0.0,7.1,8.7
+Iowa,19,All,Female,Black or African American (NH),BLACK_NH,4.3,15.1,609.9,2.0,7.0,283.0,46400.0,100.0,100.0,100.0,100.0
+Kansas,20,13-24,Female,Black or African American (NH),BLACK_NH,0.0,0.0,75.2,0.0,0.0,11.0,14627.0,0.0,0.0,4.0,22.4
+Kansas,20,25-34,Female,Black or African American (NH),BLACK_NH,0.0,17.0,271.8,0.0,2.0,32.0,11775.0,0.0,66.7,11.8,18.0
+Kansas,20,35-44,Female,Black or African American (NH),BLACK_NH,0.0,0.0,539.7,0.0,0.0,56.0,10376.0,0.0,0.0,20.6,15.9
+Kansas,20,45-54,Female,Black or African American (NH),BLACK_NH,0.0,0.0,962.4,0.0,0.0,82.0,8520.0,0.0,0.0,30.1,13.0
+Kansas,20,55-64,Female,Black or African American (NH),BLACK_NH,10.9,10.9,676.4,1.0,1.0,62.0,9166.0,16.7,33.3,22.8,14.0
+Kansas,20,65+,Female,Black or African American (NH),BLACK_NH,46.2,0.0,267.8,5.0,0.0,29.0,10828.0,83.3,0.0,10.7,16.6
+Kansas,20,All,Female,Black or African American (NH),BLACK_NH,9.2,4.6,416.6,6.0,3.0,272.0,65292.0,100.0,100.0,100.0,100.0
+Kentucky,21,13-24,Female,Black or African American (NH),BLACK_NH,0.0,11.8,85.8,0.0,4.0,29.0,33809.0,0.0,19.0,4.3,21.7
+Kentucky,21,25-34,Female,Black or African American (NH),BLACK_NH,0.0,29.1,283.7,0.0,8.0,78.0,27496.0,0.0,38.1,11.6,17.6
+Kentucky,21,35-44,Female,Black or African American (NH),BLACK_NH,8.3,12.5,638.6,2.0,3.0,153.0,23958.0,11.8,14.3,22.8,15.4
+Kentucky,21,45-54,Female,Black or African American (NH),BLACK_NH,23.2,4.6,919.2,5.0,1.0,198.0,21540.0,29.4,4.8,29.5,13.8
+Kentucky,21,55-64,Female,Black or African American (NH),BLACK_NH,31.1,8.9,612.8,7.0,2.0,138.0,22520.0,41.2,9.5,20.6,14.4
+Kentucky,21,65+,Female,Black or African American (NH),BLACK_NH,11.2,11.2,281.2,3.0,3.0,75.0,26667.0,17.6,14.3,11.2,17.1
+Kentucky,21,All,Female,Black or African American (NH),BLACK_NH,10.9,13.5,430.2,17.0,21.0,671.0,155990.0,100.0,100.0,100.0,100.0
+Louisiana,22,13-24,Female,Black or African American (NH),BLACK_NH,1.5,16.4,86.4,2.0,22.0,116.0,134182.0,2.2,15.9,2.3,21.0
+Louisiana,22,25-34,Female,Black or African American (NH),BLACK_NH,6.4,41.3,629.7,7.0,45.0,686.0,108937.0,7.8,32.6,13.8,17.1
+Louisiana,22,35-44,Female,Black or African American (NH),BLACK_NH,17.5,31.2,1308.8,18.0,32.0,1344.0,102686.0,20.0,23.2,27.0,16.1
+Louisiana,22,45-54,Female,Black or African American (NH),BLACK_NH,31.8,27.1,1659.3,27.0,23.0,1410.0,84974.0,30.0,16.7,28.4,13.3
+Louisiana,22,55-64,Female,Black or African American (NH),BLACK_NH,20.4,12.9,1046.6,19.0,12.0,976.0,93251.0,21.1,8.7,19.6,14.6
+Louisiana,22,65+,Female,Black or African American (NH),BLACK_NH,14.9,3.5,382.0,17.0,4.0,437.0,114406.0,18.9,2.9,8.8,17.9
+Louisiana,22,All,Female,Black or African American (NH),BLACK_NH,14.1,21.6,778.3,90.0,138.0,4969.0,638436.0,100.0,100.0,100.0,100.0
+Maine,23,13-24,Female,Black or African American (NH),BLACK_NH,0.0,36.7,220.4,0.0,1.0,6.0,2722.0,0.0,9.1,3.6,31.8
+Maine,23,25-34,Female,Black or African American (NH),BLACK_NH,0.0,105.1,1103.5,0.0,2.0,21.0,1903.0,0.0,18.2,12.7,22.3
+Maine,23,35-44,Female,Black or African American (NH),BLACK_NH,0.0,382.9,2744.1,0.0,6.0,43.0,1567.0,0.0,54.5,26.1,18.3
+Maine,23,45-54,Female,Black or African American (NH),BLACK_NH,94.2,94.2,4519.8,1.0,1.0,48.0,1062.0,100.0,9.1,29.1,12.4
+Maine,23,55-64,Female,Black or African American (NH),BLACK_NH,0.0,136.8,5198.4,0.0,1.0,38.0,731.0,0.0,9.1,23.0,8.5
+Maine,23,65+,Female,Black or African American (NH),BLACK_NH,0.0,0.0,1587.3,0.0,0.0,9.0,567.0,0.0,0.0,5.5,6.6
+Maine,23,All,Female,Black or African American (NH),BLACK_NH,11.7,128.6,1929.4,1.0,11.0,165.0,8552.0,100.0,100.0,100.0,100.0
+Maryland,24,13-24,Female,Black or African American (NH),BLACK_NH,0.0,6.3,93.2,0.0,9.0,134.0,143775.0,0.0,6.3,1.5,16.9
+Maryland,24,25-34,Female,Black or African American (NH),BLACK_NH,3.6,33.2,524.4,5.0,46.0,727.0,138624.0,3.0,32.2,8.0,16.3
+Maryland,24,35-44,Female,Black or African American (NH),BLACK_NH,4.4,25.6,1138.3,6.0,35.0,1555.0,136602.0,3.7,24.5,17.1,16.1
+Maryland,24,45-54,Female,Black or African American (NH),BLACK_NH,24.5,28.3,1890.7,32.0,37.0,2471.0,130689.0,19.5,25.9,27.2,15.4
+Maryland,24,55-64,Female,Black or African American (NH),BLACK_NH,46.6,9.5,1996.7,64.0,13.0,2743.0,137379.0,39.0,9.1,30.2,16.2
+Maryland,24,65+,Female,Black or African American (NH),BLACK_NH,35.3,1.9,903.5,57.0,3.0,1457.0,161264.0,34.8,2.1,16.0,19.0
+Maryland,24,All,Female,Black or African American (NH),BLACK_NH,19.3,16.9,1071.2,164.0,143.0,9087.0,848333.0,100.0,100.0,100.0,100.0
+Massachusetts,25,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,45526.0,,,,20.2
+Massachusetts,25,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,41553.0,,,,18.5
+Massachusetts,25,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,37364.0,,,,16.6
+Massachusetts,25,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,33268.0,,,,14.8
+Massachusetts,25,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,31800.0,,,,14.1
+Massachusetts,25,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,35495.0,,,,15.8
+Massachusetts,25,All,Female,Black or African American (NH),BLACK_NH,16.9,28.9,1344.4,38.0,65.0,3025.0,225006.0,100.0,100.0,100.0,100.0
+Michigan,26,13-24,Female,Black or African American (NH),BLACK_NH,0.0,6.1,53.3,0.0,7.0,61.0,114538.0,0.0,11.7,2.6,19.0
+Michigan,26,25-34,Female,Black or African American (NH),BLACK_NH,0.9,12.6,272.9,1.0,14.0,302.0,110676.0,1.8,23.3,12.7,18.4
+Michigan,26,35-44,Female,Black or African American (NH),BLACK_NH,5.9,20.0,547.2,5.0,17.0,465.0,84983.0,8.9,28.3,19.6,14.1
+Michigan,26,45-54,Female,Black or African American (NH),BLACK_NH,18.8,14.4,766.4,17.0,13.0,694.0,90549.0,30.4,21.7,29.2,15.0
+Michigan,26,55-64,Female,Black or African American (NH),BLACK_NH,17.4,7.0,646.7,15.0,6.0,558.0,86289.0,26.8,10.0,23.5,14.3
+Michigan,26,65+,Female,Black or African American (NH),BLACK_NH,15.6,2.6,256.3,18.0,3.0,295.0,115096.0,32.1,5.0,12.4,19.1
+Michigan,26,All,Female,Black or African American (NH),BLACK_NH,9.3,10.0,394.4,56.0,60.0,2375.0,602131.0,100.0,100.0,100.0,100.0
+Minnesota,27,13-24,Female,Black or African American (NH),BLACK_NH,0.0,4.9,124.6,0.0,2.0,51.0,40936.0,0.0,8.3,3.7,26.5
+Minnesota,27,25-34,Female,Black or African American (NH),BLACK_NH,0.0,12.0,388.3,0.0,4.0,129.0,33224.0,0.0,16.7,9.2,21.5
+Minnesota,27,35-44,Female,Black or African American (NH),BLACK_NH,6.6,26.4,1390.3,2.0,8.0,422.0,30354.0,14.3,33.3,30.3,19.6
+Minnesota,27,45-54,Female,Black or African American (NH),BLACK_NH,9.4,28.3,1857.3,2.0,6.0,394.0,21214.0,14.3,25.0,28.2,13.7
+Minnesota,27,55-64,Female,Black or African American (NH),BLACK_NH,32.4,25.9,1677.4,5.0,4.0,259.0,15441.0,35.7,16.7,18.6,10.0
+Minnesota,27,65+,Female,Black or African American (NH),BLACK_NH,37.0,0.0,1035.0,5.0,0.0,140.0,13526.0,35.7,0.0,10.0,8.7
+Minnesota,27,All,Female,Black or African American (NH),BLACK_NH,9.1,15.5,901.8,14.0,24.0,1395.0,154695.0,100.0,100.0,100.0,100.0
+Mississippi,28,13-24,Female,Black or African American (NH),BLACK_NH,0.0,14.6,54.4,0.0,15.0,56.0,102909.0,0.0,24.6,2.4,21.1
+Mississippi,28,25-34,Female,Black or African American (NH),BLACK_NH,1.2,28.6,381.4,1.0,23.0,307.0,80501.0,2.2,37.7,13.4,16.5
+Mississippi,28,35-44,Female,Black or African American (NH),BLACK_NH,6.5,10.4,628.6,5.0,8.0,484.0,77002.0,11.1,13.1,21.1,15.8
+Mississippi,28,45-54,Female,Black or African American (NH),BLACK_NH,16.8,12.6,932.4,12.0,9.0,665.0,71325.0,26.7,14.8,28.9,14.6
+Mississippi,28,55-64,Female,Black or African American (NH),BLACK_NH,19.5,4.2,758.4,14.0,3.0,545.0,71860.0,31.1,4.9,23.7,14.7
+Mississippi,28,65+,Female,Black or African American (NH),BLACK_NH,15.4,3.6,286.2,13.0,3.0,241.0,84215.0,28.9,4.9,10.5,17.3
+Mississippi,28,All,Female,Black or African American (NH),BLACK_NH,9.2,12.5,471.1,45.0,61.0,2298.0,487812.0,100.0,100.0,100.0,100.0
+Missouri,29,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,61387.0,,,,20.0
+Missouri,29,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,56590.0,,,,18.4
+Missouri,29,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,48090.0,,,,15.7
+Missouri,29,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,42647.0,,,,13.9
+Missouri,29,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,44585.0,,,,14.5
+Missouri,29,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,53935.0,,,,17.6
+Missouri,29,All,Female,Black or African American (NH),BLACK_NH,8.1,18.6,461.5,25.0,57.0,1418.0,307234.0,100.0,100.0,100.0,100.0
+Montana,30,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,618.0,,,,31.5
+Montana,30,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,476.0,,,,24.3
+Montana,30,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,275.0,,,,14.0
+Montana,30,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,202.0,,,,10.3
+Montana,30,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,192.0,,,,9.8
+Montana,30,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,196.0,,,,10.0
+Montana,30,All,Female,Black or African American (NH),BLACK_NH,51.0,0.0,663.6,1.0,0.0,13.0,1959.0,100.0,,100.0,100.0
+Nebraska,31,13-24,Female,Black or African American (NH),BLACK_NH,0.0,11.3,78.8,0.0,1.0,7.0,8882.0,0.0,25.0,2.9,24.1
+Nebraska,31,25-34,Female,Black or African American (NH),BLACK_NH,0.0,13.3,398.8,0.0,1.0,30.0,7522.0,0.0,25.0,12.6,20.4
+Nebraska,31,35-44,Female,Black or African American (NH),BLACK_NH,0.0,15.7,913.4,0.0,1.0,58.0,6350.0,0.0,25.0,24.4,17.2
+Nebraska,31,45-54,Female,Black or African American (NH),BLACK_NH,20.9,20.9,1526.2,1.0,1.0,73.0,4783.0,50.0,25.0,30.7,13.0
+Nebraska,31,55-64,Female,Black or African American (NH),BLACK_NH,22.1,0.0,1148.2,1.0,0.0,52.0,4529.0,50.0,0.0,21.8,12.3
+Nebraska,31,65+,Female,Black or African American (NH),BLACK_NH,0.0,0.0,374.0,0.0,0.0,18.0,4813.0,0.0,0.0,7.6,13.1
+Nebraska,31,All,Female,Black or African American (NH),BLACK_NH,5.4,10.8,645.4,2.0,4.0,238.0,36879.0,100.0,100.0,100.0,100.0
+Nevada,32,13-24,Female,Black or African American (NH),BLACK_NH,0.0,21.3,97.8,0.0,5.0,23.0,23520.0,0.0,13.5,2.9,18.2
+Nevada,32,25-34,Female,Black or African American (NH),BLACK_NH,0.0,33.3,358.4,0.0,9.0,97.0,27063.0,0.0,24.3,12.1,21.0
+Nevada,32,35-44,Female,Black or African American (NH),BLACK_NH,17.8,48.9,840.6,4.0,11.0,189.0,22485.0,25.0,29.7,23.5,17.4
+Nevada,32,45-54,Female,Black or African American (NH),BLACK_NH,21.7,43.3,1072.5,4.0,8.0,198.0,18462.0,25.0,21.6,24.7,14.3
+Nevada,32,55-64,Female,Black or African American (NH),BLACK_NH,29.2,23.3,1183.7,5.0,4.0,203.0,17150.0,31.2,10.8,25.3,13.3
+Nevada,32,65+,Female,Black or African American (NH),BLACK_NH,14.8,0.0,457.3,3.0,0.0,93.0,20335.0,18.8,0.0,11.6,15.8
+Nevada,32,All,Female,Black or African American (NH),BLACK_NH,12.4,28.7,622.4,16.0,37.0,803.0,129015.0,100.0,100.0,100.0,100.0
+New Hampshire,33,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,2072.0,,,,25.6
+New Hampshire,33,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,1724.0,,,,21.3
+New Hampshire,33,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,1379.0,,,,17.1
+New Hampshire,33,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,1104.0,,,,13.7
+New Hampshire,33,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,1073.0,,,,13.3
+New Hampshire,33,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,729.0,,,,9.0
+New Hampshire,33,All,Female,Black or African American (NH),BLACK_NH,,,,,,,8081.0,,,,100.0
+New Jersey,34,13-24,Female,Black or African American (NH),BLACK_NH,1.1,6.3,72.9,1.0,6.0,69.0,94630.0,0.8,7.3,1.2,17.6
+New Jersey,34,25-34,Female,Black or African American (NH),BLACK_NH,3.3,25.2,421.0,3.0,23.0,384.0,91201.0,2.3,28.0,6.8,16.9
+New Jersey,34,35-44,Female,Black or African American (NH),BLACK_NH,7.1,25.0,887.6,6.0,21.0,747.0,84156.0,4.6,25.6,13.3,15.6
+New Jersey,34,45-54,Female,Black or African American (NH),BLACK_NH,28.4,13.0,1569.7,24.0,11.0,1327.0,84538.0,18.3,13.4,23.7,15.7
+New Jersey,34,55-64,Female,Black or African American (NH),BLACK_NH,63.2,21.1,2267.6,54.0,18.0,1937.0,85419.0,41.2,22.0,34.5,15.9
+New Jersey,34,65+,Female,Black or African American (NH),BLACK_NH,43.5,3.0,1157.1,43.0,3.0,1144.0,98869.0,32.8,3.7,20.4,18.3
+New Jersey,34,All,Female,Black or African American (NH),BLACK_NH,24.3,15.2,1040.8,131.0,82.0,5608.0,538813.0,100.0,100.0,100.0,100.0
+New Mexico,35,13-24,Female,Black or African American (NH),BLACK_NH,0.0,0.0,121.0,0.0,0.0,4.0,3307.0,,0.0,9.3,21.2
+New Mexico,35,25-34,Female,Black or African American (NH),BLACK_NH,0.0,0.0,133.9,0.0,0.0,4.0,2987.0,,0.0,9.3,19.1
+New Mexico,35,35-44,Female,Black or African American (NH),BLACK_NH,0.0,0.0,218.4,0.0,0.0,5.0,2289.0,,0.0,11.6,14.7
+New Mexico,35,45-54,Female,Black or African American (NH),BLACK_NH,0.0,53.0,1006.9,0.0,1.0,19.0,1887.0,,100.0,44.2,12.1
+New Mexico,35,55-64,Female,Black or African American (NH),BLACK_NH,0.0,0.0,319.5,0.0,0.0,7.0,2191.0,,0.0,16.3,14.0
+New Mexico,35,65+,Female,Black or African American (NH),BLACK_NH,0.0,0.0,135.2,0.0,0.0,4.0,2958.0,,0.0,9.3,18.9
+New Mexico,35,All,Female,Black or African American (NH),BLACK_NH,0.0,6.4,275.3,0.0,1.0,43.0,15619.0,,100.0,100.0,100.0
+New York,36,13-24,Female,Black or African American (NH),BLACK_NH,0.0,11.0,102.5,0.0,24.0,223.0,217477.0,0.0,11.9,1.4,16.7
+New York,36,25-34,Female,Black or African American (NH),BLACK_NH,5.4,17.5,527.1,12.0,39.0,1173.0,222522.0,4.3,19.3,7.1,17.1
+New York,36,35-44,Female,Black or African American (NH),BLACK_NH,12.9,21.2,1169.2,25.0,41.0,2259.0,193211.0,9.0,20.3,13.7,14.9
+New York,36,45-54,Female,Black or African American (NH),BLACK_NH,32.9,26.7,2077.0,63.0,51.0,3974.0,191334.0,22.7,25.2,24.1,14.7
+New York,36,55-64,Female,Black or African American (NH),BLACK_NH,44.1,14.7,2558.9,93.0,31.0,5393.0,210757.0,33.5,15.3,32.7,16.2
+New York,36,65+,Female,Black or African American (NH),BLACK_NH,32.1,6.0,1310.9,85.0,16.0,3470.0,264712.0,30.6,7.9,21.0,20.4
+New York,36,All,Female,Black or African American (NH),BLACK_NH,21.4,15.5,1268.6,278.0,202.0,16492.0,1300013.0,100.0,100.0,100.0,100.0
+North Carolina,37,13-24,Female,Black or African American (NH),BLACK_NH,0.0,9.3,54.5,0.0,18.0,106.0,194544.0,0.0,12.8,1.7,19.1
+North Carolina,37,25-34,Female,Black or African American (NH),BLACK_NH,5.7,24.1,302.9,10.0,42.0,528.0,174306.0,7.4,29.8,8.3,17.1
+North Carolina,37,35-44,Female,Black or African American (NH),BLACK_NH,7.1,23.2,657.3,11.0,36.0,1018.0,154865.0,8.1,25.5,15.9,15.2
+North Carolina,37,45-54,Female,Black or African American (NH),BLACK_NH,16.9,16.9,1141.3,26.0,26.0,1752.0,153509.0,19.3,18.4,27.4,15.1
+North Carolina,37,55-64,Female,Black or African American (NH),BLACK_NH,26.1,6.5,1249.9,40.0,10.0,1915.0,153213.0,29.6,7.1,29.9,15.0
+North Carolina,37,65+,Female,Black or African American (NH),BLACK_NH,25.4,4.8,571.8,48.0,9.0,1079.0,188702.0,35.6,6.4,16.9,18.5
+North Carolina,37,All,Female,Black or African American (NH),BLACK_NH,13.2,13.8,627.8,135.0,141.0,6398.0,1019139.0,100.0,100.0,100.0,100.0
+North Dakota,38,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,2241.0,,,,26.6
+North Dakota,38,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,2620.0,,,,31.1
+North Dakota,38,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,1747.0,,,,20.8
+North Dakota,38,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,952.0,,,,11.3
+North Dakota,38,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,582.0,,,,6.9
+North Dakota,38,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,270.0,,,,3.2
+North Dakota,38,All,Female,Black or African American (NH),BLACK_NH,23.8,83.2,1307.7,2.0,7.0,110.0,8412.0,100.0,100.0,100.0,100.0
+Northern Mariana Islands,69,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Northern Mariana Islands,69,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Northern Mariana Islands,69,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Northern Mariana Islands,69,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Northern Mariana Islands,69,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Northern Mariana Islands,69,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Northern Mariana Islands,69,All,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Ohio,39,13-24,Female,Black or African American (NH),BLACK_NH,0.0,12.3,85.5,0.0,16.0,111.0,129825.0,0.0,19.8,3.9,20.1
+Ohio,39,25-34,Female,Black or African American (NH),BLACK_NH,3.4,22.6,308.4,4.0,27.0,368.0,119323.0,10.5,33.3,12.8,18.5
+Ohio,39,35-44,Female,Black or African American (NH),BLACK_NH,3.0,23.1,624.9,3.0,23.0,621.0,99376.0,7.9,28.4,21.6,15.4
+Ohio,39,45-54,Female,Black or African American (NH),BLACK_NH,12.5,14.7,862.6,11.0,13.0,762.0,88336.0,28.9,16.0,26.6,13.7
+Ohio,39,55-64,Female,Black or African American (NH),BLACK_NH,11.0,2.2,752.2,10.0,2.0,686.0,91203.0,26.3,2.5,23.9,14.1
+Ohio,39,65+,Female,Black or African American (NH),BLACK_NH,8.5,0.0,274.3,10.0,0.0,322.0,117410.0,26.3,0.0,11.2,18.2
+Ohio,39,All,Female,Black or African American (NH),BLACK_NH,5.9,12.5,444.6,38.0,81.0,2870.0,645473.0,100.0,100.0,100.0,100.0
+Oklahoma,40,13-24,Female,Black or African American (NH),BLACK_NH,0.0,22.6,71.7,0.0,6.0,19.0,26495.0,0.0,25.0,4.3,21.7
+Oklahoma,40,25-34,Female,Black or African American (NH),BLACK_NH,4.3,43.4,373.6,1.0,10.0,86.0,23018.0,33.3,41.7,19.7,18.8
+Oklahoma,40,35-44,Female,Black or African American (NH),BLACK_NH,0.0,20.4,490.2,0.0,4.0,96.0,19582.0,0.0,16.7,22.0,16.0
+Oklahoma,40,45-54,Female,Black or African American (NH),BLACK_NH,0.0,12.3,723.8,0.0,2.0,118.0,16302.0,0.0,8.3,27.0,13.3
+Oklahoma,40,55-64,Female,Black or African American (NH),BLACK_NH,5.9,11.7,539.0,1.0,2.0,92.0,17070.0,33.3,8.3,21.1,14.0
+Oklahoma,40,65+,Female,Black or African American (NH),BLACK_NH,5.0,0.0,131.1,1.0,0.0,26.0,19826.0,33.3,0.0,5.9,16.2
+Oklahoma,40,All,Female,Black or African American (NH),BLACK_NH,2.5,19.6,357.3,3.0,24.0,437.0,122293.0,100.0,100.0,100.0,100.0
+Oregon,41,13-24,Female,Black or African American (NH),BLACK_NH,0.0,14.7,176.7,0.0,1.0,12.0,6793.0,0.0,16.7,7.2,21.0
+Oregon,41,25-34,Female,Black or African American (NH),BLACK_NH,13.9,13.9,138.7,1.0,1.0,10.0,7210.0,100.0,16.7,6.0,22.3
+Oregon,41,35-44,Female,Black or African American (NH),BLACK_NH,0.0,52.7,773.3,0.0,3.0,44.0,5690.0,0.0,50.0,26.5,17.6
+Oregon,41,45-54,Female,Black or African American (NH),BLACK_NH,0.0,0.0,1022.8,0.0,0.0,44.0,4302.0,0.0,0.0,26.5,13.3
+Oregon,41,55-64,Female,Black or African American (NH),BLACK_NH,0.0,25.4,940.8,0.0,1.0,37.0,3933.0,0.0,16.7,22.3,12.2
+Oregon,41,65+,Female,Black or African American (NH),BLACK_NH,0.0,0.0,431.5,0.0,0.0,19.0,4403.0,0.0,0.0,11.4,13.6
+Oregon,41,All,Female,Black or African American (NH),BLACK_NH,3.1,18.6,513.4,1.0,6.0,166.0,32331.0,100.0,100.0,100.0,100.0
+Palau,70,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Palau,70,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Palau,70,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Palau,70,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Palau,70,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Palau,70,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Palau,70,All,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Pennsylvania,42,13-24,Female,Black or African American (NH),BLACK_NH,1.6,10.6,95.4,2.0,13.0,117.0,122664.0,1.9,14.6,2.1,20.0
+Pennsylvania,42,25-34,Female,Black or African American (NH),BLACK_NH,2.6,27.3,452.2,3.0,31.0,513.0,113442.0,2.9,34.8,9.4,18.5
+Pennsylvania,42,35-44,Female,Black or African American (NH),BLACK_NH,14.0,19.4,984.9,13.0,18.0,915.0,92907.0,12.6,20.2,16.7,15.2
+Pennsylvania,42,45-54,Female,Black or African American (NH),BLACK_NH,27.5,15.5,1762.4,23.0,13.0,1475.0,83695.0,22.3,14.6,26.9,13.7
+Pennsylvania,42,55-64,Female,Black or African American (NH),BLACK_NH,38.3,11.3,1851.1,34.0,10.0,1643.0,88757.0,33.0,11.2,30.0,14.5
+Pennsylvania,42,65+,Female,Black or African American (NH),BLACK_NH,25.2,3.6,734.4,28.0,4.0,817.0,111248.0,27.2,4.5,14.9,18.2
+Pennsylvania,42,All,Female,Black or African American (NH),BLACK_NH,16.8,14.5,894.4,103.0,89.0,5480.0,612713.0,100.0,100.0,100.0,100.0
+Puerto Rico,72,13-24,Female,Black or African American (NH),BLACK_NH,,,,0.0,0.0,0.0,,,,0.0,
+Puerto Rico,72,25-34,Female,Black or African American (NH),BLACK_NH,,,,0.0,0.0,0.0,,,,0.0,
+Puerto Rico,72,35-44,Female,Black or African American (NH),BLACK_NH,,,,0.0,0.0,0.0,,,,0.0,
+Puerto Rico,72,45-54,Female,Black or African American (NH),BLACK_NH,,,,0.0,0.0,3.0,,,,60.0,
+Puerto Rico,72,55-64,Female,Black or African American (NH),BLACK_NH,,,,0.0,0.0,2.0,,,,40.0,
+Puerto Rico,72,65+,Female,Black or African American (NH),BLACK_NH,,,,0.0,0.0,0.0,,,,0.0,
+Puerto Rico,72,All,Female,Black or African American (NH),BLACK_NH,,,,0.0,0.0,5.0,,,,100.0,
+Rhode Island,44,13-24,Female,Black or African American (NH),BLACK_NH,0.0,0.0,139.4,0.0,0.0,9.0,6457.0,0.0,0.0,3.5,22.4
+Rhode Island,44,25-34,Female,Black or African American (NH),BLACK_NH,0.0,18.1,379.4,0.0,1.0,21.0,5535.0,0.0,50.0,8.2,19.2
+Rhode Island,44,35-44,Female,Black or African American (NH),BLACK_NH,21.4,0.0,834.9,1.0,0.0,39.0,4671.0,20.0,0.0,15.2,16.2
+Rhode Island,44,45-54,Female,Black or African American (NH),BLACK_NH,0.0,0.0,1605.2,0.0,0.0,67.0,4174.0,0.0,0.0,26.2,14.5
+Rhode Island,44,55-64,Female,Black or African American (NH),BLACK_NH,25.6,25.6,1972.3,1.0,1.0,77.0,3904.0,20.0,50.0,30.1,13.6
+Rhode Island,44,65+,Female,Black or African American (NH),BLACK_NH,73.7,0.0,1056.8,3.0,0.0,43.0,4069.0,60.0,0.0,16.8,14.1
+Rhode Island,44,All,Female,Black or African American (NH),BLACK_NH,17.4,6.9,888.6,5.0,2.0,256.0,28810.0,100.0,100.0,100.0,100.0
+South Carolina,45,13-24,Female,Black or African American (NH),BLACK_NH,0.8,12.7,49.1,1.0,15.0,58.0,118188.0,1.2,16.7,1.7,19.4
+South Carolina,45,25-34,Female,Black or African American (NH),BLACK_NH,5.0,22.8,308.8,5.0,23.0,311.0,100706.0,6.0,25.6,8.9,16.5
+South Carolina,45,35-44,Female,Black or African American (NH),BLACK_NH,8.7,14.1,615.1,8.0,13.0,568.0,92345.0,9.6,14.4,16.3,15.1
+South Carolina,45,45-54,Female,Black or African American (NH),BLACK_NH,27.8,27.8,1075.1,24.0,24.0,929.0,86414.0,28.9,26.7,26.7,14.2
+South Carolina,45,55-64,Female,Black or African American (NH),BLACK_NH,17.1,13.9,1085.6,16.0,13.0,1015.0,93495.0,19.3,14.4,29.1,15.3
+South Carolina,45,65+,Female,Black or African American (NH),BLACK_NH,24.4,1.7,507.4,29.0,2.0,604.0,119036.0,34.9,2.2,17.3,19.5
+South Carolina,45,All,Female,Black or African American (NH),BLACK_NH,13.6,14.7,571.1,83.0,90.0,3485.0,610184.0,100.0,100.0,100.0,100.0
+South Dakota,46,13-24,Female,Black or African American (NH),BLACK_NH,0.0,0.0,222.5,0.0,0.0,4.0,1798.0,0.0,,4.9,27.3
+South Dakota,46,25-34,Female,Black or African American (NH),BLACK_NH,0.0,0.0,456.6,0.0,0.0,8.0,1752.0,0.0,,9.9,26.6
+South Dakota,46,35-44,Female,Black or African American (NH),BLACK_NH,69.6,0.0,1810.6,1.0,0.0,26.0,1436.0,100.0,,32.1,21.8
+South Dakota,46,45-54,Female,Black or African American (NH),BLACK_NH,0.0,0.0,2642.6,0.0,0.0,19.0,719.0,0.0,,23.5,10.9
+South Dakota,46,55-64,Female,Black or African American (NH),BLACK_NH,0.0,0.0,3830.6,0.0,0.0,19.0,496.0,0.0,,23.5,7.5
+South Dakota,46,65+,Female,Black or African American (NH),BLACK_NH,0.0,0.0,1312.3,0.0,0.0,5.0,381.0,0.0,,6.2,5.8
+South Dakota,46,All,Female,Black or African American (NH),BLACK_NH,15.2,0.0,1230.6,1.0,0.0,81.0,6582.0,100.0,,100.0,100.0
+Tennessee,47,13-24,Female,Black or African American (NH),BLACK_NH,1.0,15.1,97.5,1.0,15.0,97.0,99480.0,1.4,16.0,3.2,19.7
+Tennessee,47,25-34,Female,Black or African American (NH),BLACK_NH,5.3,27.5,311.9,5.0,26.0,295.0,94582.0,6.8,27.7,9.8,18.8
+Tennessee,47,35-44,Female,Black or African American (NH),BLACK_NH,17.5,21.3,923.2,14.0,17.0,737.0,79828.0,18.9,18.1,24.5,15.8
+Tennessee,47,45-54,Female,Black or African American (NH),BLACK_NH,24.9,29.0,1176.3,18.0,21.0,851.0,72348.0,24.3,22.3,28.3,14.4
+Tennessee,47,55-64,Female,Black or African American (NH),BLACK_NH,28.7,15.0,990.8,21.0,11.0,725.0,73176.0,28.4,11.7,24.1,14.5
+Tennessee,47,65+,Female,Black or African American (NH),BLACK_NH,17.8,4.7,361.1,15.0,4.0,305.0,84474.0,20.3,4.3,10.1,16.8
+Tennessee,47,All,Female,Black or African American (NH),BLACK_NH,14.7,18.7,597.4,74.0,94.0,3010.0,503888.0,100.0,100.0,100.0,100.0
+Texas,48,13-24,Female,Black or African American (NH),BLACK_NH,0.0,12.1,80.6,0.0,39.0,259.0,321336.0,0.0,12.1,2.3,19.9
+Texas,48,25-34,Female,Black or African American (NH),BLACK_NH,2.9,31.0,455.5,9.0,97.0,1427.0,313296.0,5.4,30.1,12.8,19.4
+Texas,48,35-44,Female,Black or African American (NH),BLACK_NH,9.8,27.6,978.7,28.0,79.0,2803.0,286396.0,16.9,24.5,25.2,17.7
+Texas,48,45-54,Female,Black or African American (NH),BLACK_NH,14.1,25.8,1360.0,34.0,62.0,3271.0,240508.0,20.5,19.3,29.4,14.9
+Texas,48,55-64,Female,Black or African American (NH),BLACK_NH,23.2,16.8,1048.7,51.0,37.0,2304.0,219696.0,30.7,11.5,20.7,13.6
+Texas,48,65+,Female,Black or African American (NH),BLACK_NH,18.9,3.4,461.5,44.0,8.0,1076.0,233161.0,26.5,2.5,9.7,14.4
+Texas,48,All,Female,Black or African American (NH),BLACK_NH,10.3,19.9,690.0,166.0,322.0,11140.0,1614393.0,100.0,100.0,100.0,100.0
+U.S. Virgin Islands,78,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+U.S. Virgin Islands,78,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+U.S. Virgin Islands,78,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+U.S. Virgin Islands,78,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+U.S. Virgin Islands,78,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+U.S. Virgin Islands,78,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+U.S. Virgin Islands,78,All,Female,Black or African American (NH),BLACK_NH,,,,,,,,,,,
+Utah,49,13-24,Female,Black or African American (NH),BLACK_NH,0.0,0.0,254.2,0.0,0.0,10.0,3934.0,0.0,0.0,6.8,29.7
+Utah,49,25-34,Female,Black or African American (NH),BLACK_NH,0.0,29.2,408.4,0.0,1.0,14.0,3428.0,0.0,50.0,9.5,25.9
+Utah,49,35-44,Female,Black or African American (NH),BLACK_NH,0.0,45.0,1620.2,0.0,1.0,36.0,2222.0,0.0,50.0,24.5,16.8
+Utah,49,45-54,Female,Black or African American (NH),BLACK_NH,0.0,0.0,3434.3,0.0,0.0,51.0,1485.0,0.0,0.0,34.7,11.2
+Utah,49,55-64,Female,Black or African American (NH),BLACK_NH,87.0,0.0,2087.0,1.0,0.0,24.0,1150.0,100.0,0.0,16.3,8.7
+Utah,49,65+,Female,Black or African American (NH),BLACK_NH,0.0,0.0,1165.0,0.0,0.0,12.0,1030.0,0.0,0.0,8.2,7.8
+Utah,49,All,Female,Black or African American (NH),BLACK_NH,7.5,15.1,1109.5,1.0,2.0,147.0,13249.0,100.0,100.0,100.0,100.0
+Vermont,50,13-24,Female,Black or African American (NH),BLACK_NH,,,,,,,952.0,,,,30.9
+Vermont,50,25-34,Female,Black or African American (NH),BLACK_NH,,,,,,,693.0,,,,22.5
+Vermont,50,35-44,Female,Black or African American (NH),BLACK_NH,,,,,,,495.0,,,,16.1
+Vermont,50,45-54,Female,Black or African American (NH),BLACK_NH,,,,,,,398.0,,,,12.9
+Vermont,50,55-64,Female,Black or African American (NH),BLACK_NH,,,,,,,297.0,,,,9.6
+Vermont,50,65+,Female,Black or African American (NH),BLACK_NH,,,,,,,246.0,,,,8.0
+Vermont,50,All,Female,Black or African American (NH),BLACK_NH,0.0,0.0,908.8,0.0,0.0,28.0,3081.0,,,100.0,100.0
+Virginia,51,13-24,Female,Black or African American (NH),BLACK_NH,0.0,10.3,54.7,0.0,14.0,74.0,135270.0,0.0,15.2,1.7,18.5
+Virginia,51,25-34,Female,Black or African American (NH),BLACK_NH,2.4,21.1,307.3,3.0,26.0,378.0,122987.0,4.6,28.3,8.7,16.8
+Virginia,51,35-44,Female,Black or African American (NH),BLACK_NH,6.9,21.7,653.8,8.0,25.0,753.0,115178.0,12.3,27.2,17.3,15.8
+Virginia,51,45-54,Female,Black or African American (NH),BLACK_NH,10.5,15.3,1125.9,11.0,16.0,1174.0,104272.0,16.9,17.4,27.0,14.3
+Virginia,51,55-64,Female,Black or African American (NH),BLACK_NH,22.4,6.0,1097.3,26.0,7.0,1272.0,115922.0,40.0,7.6,29.2,15.9
+Virginia,51,65+,Female,Black or African American (NH),BLACK_NH,12.4,2.9,507.6,17.0,4.0,698.0,137499.0,26.2,4.3,16.0,18.8
+Virginia,51,All,Female,Black or African American (NH),BLACK_NH,8.9,12.6,594.8,65.0,92.0,4349.0,731128.0,100.0,100.0,100.0,100.0
+Washington,53,13-24,Female,Black or African American (NH),BLACK_NH,0.0,16.2,194.8,0.0,4.0,48.0,24644.0,0.0,7.1,4.9,20.4
+Washington,53,25-34,Female,Black or African American (NH),BLACK_NH,7.8,38.8,368.9,2.0,10.0,95.0,25754.0,16.7,17.9,9.6,21.3
+Washington,53,35-44,Female,Black or African American (NH),BLACK_NH,4.4,56.6,906.0,1.0,13.0,208.0,22958.0,8.3,23.2,21.1,19.0
+Washington,53,45-54,Female,Black or African American (NH),BLACK_NH,5.9,106.6,1872.0,1.0,18.0,316.0,16880.0,8.3,32.1,32.0,13.9
+Washington,53,55-64,Female,Black or African American (NH),BLACK_NH,19.4,58.1,1406.9,3.0,9.0,218.0,15495.0,25.0,16.1,22.1,12.8
+Washington,53,65+,Female,Black or African American (NH),BLACK_NH,32.6,13.0,658.8,5.0,2.0,101.0,15330.0,41.7,3.6,10.2,12.7
+Washington,53,All,Female,Black or African American (NH),BLACK_NH,9.9,46.3,814.5,12.0,56.0,986.0,121061.0,100.0,100.0,100.0,100.0
+West Virginia,54,13-24,Female,Black or African American (NH),BLACK_NH,0.0,0.0,79.6,0.0,0.0,4.0,5023.0,0.0,,3.8,20.4
+West Virginia,54,25-34,Female,Black or African American (NH),BLACK_NH,24.4,0.0,243.5,1.0,0.0,10.0,4106.0,50.0,,9.6,16.7
+West Virginia,54,35-44,Female,Black or African American (NH),BLACK_NH,0.0,0.0,454.7,0.0,0.0,16.0,3519.0,0.0,,15.4,14.3
+West Virginia,54,45-54,Female,Black or African American (NH),BLACK_NH,0.0,0.0,977.1,0.0,0.0,32.0,3275.0,0.0,,30.8,13.3
+West Virginia,54,55-64,Female,Black or African American (NH),BLACK_NH,0.0,0.0,711.2,0.0,0.0,26.0,3656.0,0.0,,25.0,14.8
+West Virginia,54,65+,Female,Black or African American (NH),BLACK_NH,19.7,0.0,315.2,1.0,0.0,16.0,5076.0,50.0,,15.4,20.6
+West Virginia,54,All,Female,Black or African American (NH),BLACK_NH,8.1,0.0,421.8,2.0,0.0,104.0,24655.0,100.0,,100.0,100.0
+Wisconsin,55,13-24,Female,Black or African American (NH),BLACK_NH,0.0,14.4,48.9,0.0,5.0,17.0,34793.0,0.0,23.8,2.7,23.3
+Wisconsin,55,25-34,Female,Black or African American (NH),BLACK_NH,0.0,29.4,264.8,0.0,9.0,81.0,30587.0,0.0,42.9,12.8,20.5
+Wisconsin,55,35-44,Female,Black or African American (NH),BLACK_NH,16.3,16.3,504.8,4.0,4.0,124.0,24562.0,23.5,19.0,19.6,16.5
+Wisconsin,55,45-54,Female,Black or African American (NH),BLACK_NH,9.8,4.9,855.1,2.0,1.0,174.0,20349.0,11.8,4.8,27.4,13.7
+Wisconsin,55,55-64,Female,Black or African American (NH),BLACK_NH,47.7,5.3,969.7,9.0,1.0,183.0,18871.0,52.9,4.8,28.9,12.7
+Wisconsin,55,65+,Female,Black or African American (NH),BLACK_NH,10.1,5.0,277.1,2.0,1.0,55.0,19852.0,11.8,4.8,8.7,13.3
+Wisconsin,55,All,Female,Black or African American (NH),BLACK_NH,11.4,14.1,425.5,17.0,21.0,634.0,149014.0,100.0,100.0,100.0,100.0
+Wyoming,56,13-24,Female,Black or African American (NH),BLACK_NH,0.0,0.0,450.5,0.0,0.0,2.0,444.0,,,50.0,22.2
+Wyoming,56,25-34,Female,Black or African American (NH),BLACK_NH,0.0,0.0,0.0,0.0,0.0,0.0,419.0,,,0.0,20.9
+Wyoming,56,35-44,Female,Black or African American (NH),BLACK_NH,0.0,0.0,291.5,0.0,0.0,1.0,343.0,,,25.0,17.2
+Wyoming,56,45-54,Female,Black or African American (NH),BLACK_NH,0.0,0.0,0.0,0.0,0.0,0.0,234.0,,,0.0,11.7
+Wyoming,56,55-64,Female,Black or African American (NH),BLACK_NH,0.0,0.0,0.0,0.0,0.0,0.0,244.0,,,0.0,12.2
+Wyoming,56,65+,Female,Black or African American (NH),BLACK_NH,0.0,0.0,316.5,0.0,0.0,1.0,316.0,,,25.0,15.8
+Wyoming,56,All,Female,Black or African American (NH),BLACK_NH,0.0,0.0,200.0,0.0,0.0,4.0,2000.0,,,100.0,100.0
