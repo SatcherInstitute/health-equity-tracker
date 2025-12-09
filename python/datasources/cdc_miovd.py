@@ -18,7 +18,7 @@ Last Updated: 6/3/2025
 """
 
 import pandas as pd
-
+import numpy as np
 from datasources.data_source import DataSource
 from ingestion import dataset_utils, gcs_to_bq_util, merge_utils
 from ingestion import standardized_columns as std_col
@@ -114,7 +114,7 @@ class CDCMIOVDData(DataSource):
         # Handle suppressed data detection and conversion
         raw_col = f"{condition}_{std_col.RAW_SUFFIX}"
         rate_col = f"{condition}_{std_col.PER_100K_SUFFIX}"
-        suppressed_col = f"{condition}_{std_col.IS_SUPPRESSED_SUFFIX}"
+        suppressed_col = f"{rate_col}_{std_col.IS_SUPPRESSED_SUFFIX}"
 
         suppressed_values = ["1-9", "10-50"]
 
@@ -122,11 +122,16 @@ class CDCMIOVDData(DataSource):
         count_suppressed = df[raw_col].astype(str).isin(suppressed_values)
         rate_is_null = df[rate_col].isna()
 
-        # Only TRUE if count is suppressed AND rate is null
-        df[suppressed_col] = count_suppressed & rate_is_null
+        # IS_SUPPRESSED column: SUPPRESSED (TRUE), MISSING/UNCOLLECTED (FALSE)
+        # if rate is non-null, then the IS_SUPPRESSED column doesn't apply and value is null
+        # treat as string column type to allow np.nan which is used in the rest of the codebase
+        df[suppressed_col] = np.nan
+        df[suppressed_col] = df[suppressed_col].astype(object)
+        df.loc[count_suppressed & rate_is_null, suppressed_col] = True
+        df.loc[~count_suppressed & rate_is_null, suppressed_col] = False
 
         # Replace suppressed values with NA in both columns
-        df[[raw_col, rate_col]] = df[[raw_col, rate_col]].replace(suppressed_values, pd.NA)
+        df[[raw_col, rate_col]] = df[[raw_col, rate_col]].replace(suppressed_values, np.nan)
 
         # Add the ttm_flag to dataframe
         df["is_ttm"] = df[std_col.TIME_PERIOD_COL] == "TTM"
@@ -137,21 +142,22 @@ class CDCMIOVDData(DataSource):
 
     def _reorder_and_sort_dataframe(self, df: pd.DataFrame) -> pd.DataFrame:
         """Reorder columns and sort data."""
-        column_order = [
+        priority_columns = [
             std_col.TIME_PERIOD_COL,
             std_col.COUNTY_FIPS_COL,
             std_col.STATE_FIPS_COL,
             std_col.STATE_NAME_COL,
             std_col.COUNTY_NAME_COL,
-            std_col.GUN_VIOLENCE_HOMICIDE_RAW,
-            std_col.GUN_VIOLENCE_HOMICIDE_PER_100K,
-            std_col.GUN_VIOLENCE_HOMICIDE_IS_SUPPRESSED,
-            std_col.GUN_VIOLENCE_SUICIDE_RAW,
-            std_col.GUN_VIOLENCE_SUICIDE_PER_100K,
-            std_col.GUN_VIOLENCE_SUICIDE_IS_SUPPRESSED,
         ]
 
-        df = df[[col for col in column_order if col in df.columns]]
+        # Get priority columns that exist in the dataframe
+        ordered_cols = [col for col in priority_columns if col in df.columns]
+
+        # Add remaining columns in their current order
+        remaining_cols = [col for col in df.columns if col not in priority_columns]
+        ordered_cols.extend(remaining_cols)
+
+        df = df[ordered_cols]
 
         # Sort: start with county and state FIPS, add time period if it exists
         sort_columns = [std_col.COUNTY_FIPS_COL, std_col.STATE_FIPS_COL]
