@@ -29,12 +29,9 @@ from ingestion.cdc_hiv_utils import (
     CDC_YEAR,
     PER_100K_MAP,
     TOTAL_DEATHS,
-    BW_FLOAT_COLS_RENAME_MAP,
     BREAKDOWN_TO_STANDARD_BY_COL,
-    TEST_PCT_SHARE_MAP,
     PCT_SHARE_MAP,
     HIV_METRICS,
-    BASE_COLS_PER_100K,
     PCT_RELATIVE_INEQUITY_MAP,
     CDC_CASES,
     DTYPE,
@@ -72,8 +69,7 @@ class CDCHIVData(DataSource):
         if geo_level == COUNTY_LEVEL and demographic == std_col.BLACK_WOMEN:
             return
 
-        all = "black_women_all" if demographic == std_col.BLACK_WOMEN else "all"
-        alls_df = load_atlas_df_from_data_dir(geo_level, all)
+        alls_df = load_atlas_df_from_data_dir(geo_level, "all")
         df = self.generate_breakdown_df(demographic, geo_level, alls_df)
 
         # MAKE TWO TABLES: ONE FOR TIME WITH MORE ROWS AND ONE FOR CURRENT WITH MORE COLS
@@ -81,12 +77,8 @@ class CDCHIVData(DataSource):
             # copy so iterative changes dont interfere
             df_for_bq = df.copy()
 
-            table_demo = demographic if demographic != std_col.BLACK_WOMEN else "black_women_by_age"
-            table_id = gcs_to_bq_util.make_bq_table_id(table_demo, geo_level, time_view)
-            if demographic == std_col.BLACK_WOMEN:
-                df_for_bq.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
-            else:
-                df_for_bq.rename(columns={std_col.POPULATION_COL: std_col.HIV_POPULATION}, inplace=True)
+            table_id = gcs_to_bq_util.make_bq_table_id(demographic, geo_level, time_view)
+            df_for_bq.rename(columns={std_col.POPULATION_COL: std_col.HIV_POPULATION}, inplace=True)
 
             col_types = get_bq_col_types(demographic, geo_level, time_view)
 
@@ -103,7 +95,7 @@ class CDCHIVData(DataSource):
     def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
         """generate_breakdown_df generates a HIV data frame by breakdown and geo_level
 
-        breakdown: string equal to `age`, `black_women`, `race_and_ethnicity`, or `sex`
+        breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
         geo_level: string equal to `county`, `national`, or `state`
         alls_df: the data frame containing the all values for each demographic breakdown
         return: a data frame of time-based HIV data by breakdown and geo_level"""
@@ -136,34 +128,24 @@ class CDCHIVData(DataSource):
         if geo_level == NATIONAL_LEVEL:
             df[std_col.STATE_FIPS_COL] = US_FIPS
 
-        if breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.BLACK_WOMEN]:
+        if breakdown in std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
 
-        if breakdown != std_col.BLACK_WOMEN:
-            if std_col.HIV_DEATHS_PREFIX not in df.columns:
-                df[[std_col.HIV_DEATHS_PREFIX, PER_100K_MAP[std_col.HIV_DEATHS_PREFIX]]] = np.nan
+        if std_col.HIV_DEATHS_PREFIX not in df.columns:
+            df[[std_col.HIV_DEATHS_PREFIX, PER_100K_MAP[std_col.HIV_DEATHS_PREFIX]]] = np.nan
 
-            if std_col.HIV_PREP_PREFIX not in df.columns:
-                df[[std_col.HIV_PREP_PREFIX, std_col.HIV_PREP_COVERAGE]] = np.nan
+        if std_col.HIV_PREP_PREFIX not in df.columns:
+            df[[std_col.HIV_PREP_PREFIX, std_col.HIV_PREP_COVERAGE]] = np.nan
 
-            if std_col.HIV_STIGMA_INDEX not in df.columns:
-                df[[std_col.HIV_STIGMA_INDEX]] = np.nan
+        if std_col.HIV_STIGMA_INDEX not in df.columns:
+            df[[std_col.HIV_STIGMA_INDEX]] = np.nan
 
-        if breakdown == std_col.BLACK_WOMEN:
-            df = generate_pct_share_col_without_unknowns(
-                df,
-                TEST_PCT_SHARE_MAP,
-                cast(HIV_BREAKDOWN_TYPE, std_col.AGE_COL),
-                std_col.ALL_VALUE,
-            )
-
-        else:
-            df = generate_pct_share_col_without_unknowns(
-                df,
-                PCT_SHARE_MAP,
-                cast(HIV_BREAKDOWN_TYPE, breakdown),
-                std_col.ALL_VALUE,
-            )
+        df = generate_pct_share_col_without_unknowns(
+            df,
+            PCT_SHARE_MAP,
+            cast(HIV_BREAKDOWN_TYPE, breakdown),
+            std_col.ALL_VALUE,
+        )
 
         for col in HIV_METRICS.values():
             pop_col = std_col.HIV_POPULATION_PCT
@@ -171,15 +153,9 @@ class CDCHIVData(DataSource):
                 pop_col = std_col.HIV_PREP_POPULATION_PCT
             if col == std_col.HIV_CARE_PREFIX:
                 pop_col = std_col.HIV_CARE_POPULATION_PCT
-            if breakdown == std_col.BLACK_WOMEN:
-                pop_col == "black_women_population_count"
 
-            if (breakdown == std_col.BLACK_WOMEN) and (col in BASE_COLS_PER_100K):
+            if col != std_col.HIV_STIGMA_INDEX:
                 df = generate_pct_rel_inequity_col(df, PCT_SHARE_MAP[col], pop_col, PCT_RELATIVE_INEQUITY_MAP[col])
-
-            elif breakdown != std_col.BLACK_WOMEN:
-                if col != std_col.HIV_STIGMA_INDEX:
-                    df = generate_pct_rel_inequity_col(df, PCT_SHARE_MAP[col], pop_col, PCT_RELATIVE_INEQUITY_MAP[col])
 
         return df
 
