@@ -49,11 +49,11 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       {demographicTypePhrase}
       {geoPhrase}
       for <span>{props.fips.getSentenceDisplayName()}</span>
-      {props.dueToSuppression
-        ? ' due to small population sizes that could identify individuals.'
-        : '. Learn more about how this lack of data impacts '}
-      {!props.dueToSuppression && (
+      {props.dueToSuppression ? (
+        ' due to small population sizes that could identify individuals.'
+      ) : (
         <>
+          {'. Learn more about how this lack of data impacts '}
           <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
             health equity
           </LinkWithStickyParams>
