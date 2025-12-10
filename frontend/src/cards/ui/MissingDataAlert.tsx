@@ -18,6 +18,7 @@ interface MissingDataAlertProps {
   isMapCard?: boolean
   fips: Fips
   ageAdjustedDataTypes?: DataTypeConfig[]
+  dueToSuppression?: boolean
 }
 
 function MissingDataAlert(props: MissingDataAlertProps) {
@@ -47,12 +48,18 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       <HetTerm>{props.dataName}</HetTerm>
       {demographicTypePhrase}
       {geoPhrase}
-      for <span>{props.fips.getSentenceDisplayName()}</span>. Learn more about
-      how this lack of data impacts{' '}
-      <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-        health equity
-      </LinkWithStickyParams>
-      {'. '}
+      for <span>{props.fips.getSentenceDisplayName()}</span>
+      {props.dueToSuppression
+        ? ' due to small population sizes that could identify individuals.'
+        : '. Learn more about how this lack of data impacts '}
+      {!props.dueToSuppression && (
+        <>
+          <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+            health equity
+          </LinkWithStickyParams>
+          {'. '}
+        </>
+      )}
       {props.ageAdjustedDataTypes && props.ageAdjustedDataTypes.length > 0 && (
         <AltDataTypesMessage
           ageAdjustedDataTypes={props.ageAdjustedDataTypes}

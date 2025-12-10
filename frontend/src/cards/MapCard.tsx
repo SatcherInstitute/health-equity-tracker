@@ -487,6 +487,7 @@ function MapCardWithKey(props: MapCardProps) {
                 }
                 isMapCard={true}
                 fips={props.fips}
+                dueToSuppression={allMissingDataIsSuppressed}
               />
             </>
           )
