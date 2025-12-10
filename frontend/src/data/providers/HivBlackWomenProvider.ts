@@ -1,5 +1,5 @@
 import { getDataManager } from '../../utils/globals'
-import type { MetricId } from '../config/MetricConfigTypes'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
 import {
   type MetricQuery,
@@ -8,6 +8,12 @@ import {
 } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
+
+export const BLACK_WOMEN_DATATYPES: DataTypeId[] = [
+  'hiv_deaths_black_women',
+  'hiv_diagnoses_black_women',
+  'hiv_prevalence_black_women',
+]
 
 export const BLACK_WOMEN_METRICS: MetricId[] = [
   'hiv_deaths_black_women',
@@ -73,7 +79,6 @@ class HivBlackWomenProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns, _metricIds: MetricId[]): boolean {
-    // Black women data only available at state and national levels
     const validGeography =
       breakdowns.geography === 'state' || breakdowns.geography === 'national'
 

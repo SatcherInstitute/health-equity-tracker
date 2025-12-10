@@ -8,6 +8,7 @@ import GeoContextProvider from '../providers/GeoContextProvider'
 import GunViolenceBlackMenProvider from '../providers/GunDeathsBlackMenProvider'
 import GunViolenceProvider from '../providers/GunViolenceProvider'
 import GunViolenceYouthProvider from '../providers/GunViolenceYouthProvider'
+import HivBlackWomenProvider from '../providers/HivBlackWomenProvider'
 import HivProvider from '../providers/HivProvider'
 import IncarcerationProvider from '../providers/IncarcerationProvider'
 import MaternalMortalityProvider from '../providers/MaternalMortalityProvider'
@@ -28,6 +29,7 @@ export type ProviderId =
   | 'gun_violence_provider'
   | 'gun_violence_youth_provider'
   | 'gun_violence_black_men_provider'
+  | 'hiv_black_women_provider'
   | 'hiv_provider'
   | 'incarceration_provider'
   | 'maternal_mortality_provider'
@@ -51,6 +53,7 @@ export default class VariableProviderMap {
       new GunViolenceProvider(),
       new GunViolenceYouthProvider(),
       new GunViolenceBlackMenProvider(),
+      new HivBlackWomenProvider(),
       new HivProvider(),
       new IncarcerationProvider(),
       new PhrmaProvider(),
