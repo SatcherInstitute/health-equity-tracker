@@ -28,7 +28,7 @@ import {
 import {
   BLACK_WOMEN_DATATYPES,
   BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
-} from '../data/providers/HivProvider'
+} from '../data/providers/HivBlackWomenProvider'
 import { MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/MaternalMortalityProvider'
 import {
   PHRMA_BRFSS_ALL_SEXES_DATATYPES,

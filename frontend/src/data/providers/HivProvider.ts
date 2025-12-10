@@ -9,35 +9,11 @@ import {
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
-export const BLACK_WOMEN_DATATYPES: DataTypeId[] = [
-  'hiv_deaths_black_women',
-  'hiv_diagnoses_black_women',
-  'hiv_prevalence_black_women',
-]
-
 export const DATATYPES_NEEDING_13PLUS: DataTypeId[] = [
   'hiv_care',
   'hiv_deaths',
   'hiv_diagnoses',
   'hiv_prevalence',
-  ...BLACK_WOMEN_DATATYPES,
-]
-
-const BLACK_WOMEN_METRICS: MetricId[] = [
-  'hiv_deaths_black_women',
-  'hiv_deaths_black_women_pct_relative_inequity',
-  'hiv_deaths_black_women_pct_share',
-  'hiv_deaths_black_women_per_100k',
-  'hiv_diagnoses_black_women',
-  'hiv_diagnoses_black_women_pct_relative_inequity',
-  'hiv_diagnoses_black_women_pct_share',
-  'hiv_diagnoses_black_women_per_100k',
-  'hiv_prevalence_black_women',
-  'hiv_prevalence_black_women_pct_relative_inequity',
-  'hiv_prevalence_black_women_pct_share',
-  'hiv_prevalence_black_women_per_100k',
-  'black_women_population_count',
-  'black_women_population_pct',
 ]
 
 const CARE_METRICS: MetricId[] = [
@@ -98,7 +74,6 @@ export const GENDER_METRICS: MetricId[] = [
 const STIGMA_METRICS: MetricId[] = ['hiv_stigma_index', 'hiv_stigma_pct_share']
 
 export const HIV_METRICS: MetricId[] = [
-  ...BLACK_WOMEN_METRICS,
   ...CARE_METRICS,
   ...DEATHS_METRICS,
   ...DIAGNOSES_METRICS,
@@ -111,12 +86,6 @@ export const HIV_METRICS: MetricId[] = [
   'hiv_population',
 ]
 
-const reason = 'unavailable for intersectional Black women topics'
-export const BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS = [
-  ['Race/Ethnicity', reason],
-  ['Sex', reason],
-]
-
 class HivProvider extends VariableProvider {
   constructor() {
     super('hiv_provider', HIV_METRICS)
@@ -125,15 +94,9 @@ class HivProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const isBlackWomenData =
-      metricQuery.dataTypeId &&
-      BLACK_WOMEN_DATATYPES.includes(metricQuery.dataTypeId)
-
-    const tablePrefix = isBlackWomenData ? 'black_women_by_' : ''
-
     const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
       'cdc_hiv_data',
-      tablePrefix,
+      '',
       metricQuery,
     )
 
@@ -162,9 +125,8 @@ class HivProvider extends VariableProvider {
     const validDemographicBreakdownRequest =
       breakdowns.hasExactlyOneDemographic()
 
-    const noCountyData = [...BLACK_WOMEN_METRICS, ...DEATHS_METRICS]
     const hasNoCountyData = metricIds.some((metricId) =>
-      noCountyData.includes(metricId),
+      DEATHS_METRICS.includes(metricId),
     )
 
     return hasNoCountyData
