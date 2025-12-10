@@ -97,7 +97,17 @@ describe('GunViolenceProvider', () => {
     )
   })
 
-  test('Current County and Alls Breakdown', async () => {
+  test('Historical County and Alls Breakdown - Overall Gun Deaths from CHR', async () => {
+    await ensureCorrectDatasetsDownloaded(
+      'chr_data-race_and_ethnicity_county_historical',
+      Breakdowns.forFips(new Fips('01001')),
+      RACE, // falls back to ALLS
+      'gun_deaths',
+      'historical',
+    )
+  })
+
+  test('Current County and Alls Breakdown - Gun Homicides from CDC MIOVD', async () => {
     await ensureCorrectDatasetsDownloaded(
       'cdc_miovd_data-alls_county_current',
       Breakdowns.forFips(new Fips('01001')),
@@ -105,7 +115,7 @@ describe('GunViolenceProvider', () => {
       'gun_violence_homicide',
       'current',
       ['gun_violence_homicide_per_100k'],
-      'rate-map',
+      'rate-map', // in tests we always need a scrollToHashId to enable the fallbackId logic
     )
   })
 })
