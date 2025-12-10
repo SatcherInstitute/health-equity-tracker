@@ -6,6 +6,7 @@ import {
   MetricQueryResponse,
   resolveDatasetId,
 } from '../query/MetricQuery'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
@@ -82,11 +83,15 @@ class GunViolenceProvider extends VariableProvider {
         '',
         metricQuery,
       )
+
       if (!datasetId) {
         return new MetricQueryResponse([], [])
       }
 
-      const gunViolenceData = await getDataManager().loadDataset(datasetId)
+      const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+
+      const gunViolenceData =
+        await getDataManager().loadDataset(specificDatasetId)
       let df = gunViolenceData.toDataFrame()
 
       df = this.filterByGeo(df, breakdowns)
