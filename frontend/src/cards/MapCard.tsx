@@ -300,6 +300,14 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
+        const rateIsSuppressedColumn = metricConfig.metricId + '_is_suppressed'
+        const rowsWithMissingRates = mapQueryResponse.data.filter(
+          (row) => row[metricConfig.metricId] == null,
+        )
+        const allMissingDataIsSuppressed = rowsWithMissingRates.every(
+          (row) => row[rateIsSuppressedColumn] === true,
+        )
+
         const isGeorgiaWithCountyData =
           props.fips.code === '13' && !hasSelfButNotChildGeoData
 
@@ -646,6 +654,7 @@ function MapCardWithKey(props: MapCardProps) {
                       isSummaryLegend={isSummaryLegend}
                       updateFipsCallback={props.updateFipsCallback}
                       colorScale={colorScale}
+                      allMissingDataIsSuppressed={allMissingDataIsSuppressed}
                     />
                   </div>
                 </div>
@@ -662,6 +671,7 @@ function MapCardWithKey(props: MapCardProps) {
                     mapConfig={mapConfig}
                     isSummaryLegend={isSummaryLegend}
                     isPhrmaAdherence={isPhrmaAdherence}
+                    allMissingDataIsSuppressed={allMissingDataIsSuppressed}
                     fips={props.fips}
                     isCompareMode={isCompareMode}
                   />

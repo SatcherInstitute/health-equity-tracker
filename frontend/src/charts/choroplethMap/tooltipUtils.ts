@@ -11,7 +11,7 @@ import {
 } from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
 import { het, ThemeZIndexValues } from '../../styles/DesignTokens'
-import { NO_DATA_MESSAGE } from '../mapGlobals'
+import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MouseEventHandlerOptions, MouseEventType } from './types'
 
@@ -94,9 +94,11 @@ export const generateTooltipHtml = (
     geographyType,
     demographicType,
     isSummaryLegend,
+    allMissingDataIsSuppressed,
     updateFipsCallback,
     dataMap,
   } = options
+
   const name = feature.properties?.name || String(feature.id)
   const data = dataMap.get(feature.id as string)
   const featureId = feature.id
@@ -119,7 +121,9 @@ export const generateTooltipHtml = (
         }
         return [key, value]
       })
-
+  const missingDataValue = allMissingDataIsSuppressed
+    ? DATA_SUPPRESSED
+    : NO_DATA_MESSAGE
   // Create the HTML for the tooltip
   const tooltipHtml = `
     <div>
@@ -133,11 +137,11 @@ export const generateTooltipHtml = (
             ? entries
                 .map(([label, value]: [string, number | undefined]) => {
                   const displayValue =
-                    value == null ? NO_DATA_MESSAGE : value.toLocaleString()
+                    value == null ? missingDataValue : value.toLocaleString()
                   return `<div class='pl-2 mb-1 text-sm text-alt-black'>${label ? `<span>${label}: </span>` : ''}${displayValue}</div>`
                 })
                 .join('')
-            : `<div class='pl-2 mb-1 text-sm text-alt-black'><span>No data</span></div>`
+            : `<div class='pl-2 mb-1 text-sm text-alt-black'><span>${missingDataValue}</span></div>`
         }
       </div>
     </div>

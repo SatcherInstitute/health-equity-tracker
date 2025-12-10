@@ -69,6 +69,7 @@ export interface ChoroplethMapProps {
   isAtlantaMode?: boolean
   updateFipsCallback: (fips: Fips) => void
   colorScale: ColorScale | null
+  allMissingDataIsSuppressed?: boolean
 }
 
 export interface CreateColorScaleOptions {
@@ -145,6 +146,7 @@ export type RenderMapOptions = {
   signalListeners: any
   isMulti?: boolean
   isSummaryLegend?: boolean
+  allMissingDataIsSuppressed: boolean
   updateFipsCallback: (fips: Fips) => void
 }
 
@@ -181,5 +183,6 @@ export interface MouseEventHandlerOptions {
   isMultiMap: boolean
   isSummaryLegend: boolean
   isExtremesMode: boolean
+  allMissingDataIsSuppressed: boolean
   updateFipsCallback: (fips: Fips) => void
 }

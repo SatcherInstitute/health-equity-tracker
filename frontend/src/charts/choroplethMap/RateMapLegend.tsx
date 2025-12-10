@@ -31,45 +31,52 @@ interface RateMapLegendProps {
   legendTitle: string
   isCompareMode?: boolean
   colorScale: ColorScale
+  allMissingDataIsSuppressed?: boolean
 }
 
 export default function RateMapLegend(props: RateMapLegendProps) {
+  const {
+    data,
+    metricConfig,
+    mapConfig,
+    fips,
+    isMulti,
+    fipsTypeDisplayName,
+    isPhrmaAdherence,
+    isSummaryLegend,
+    colorScale,
+    allMissingDataIsSuppressed,
+  } = props
+
   const [containerRef] = useResponsiveWidth()
   const [legendItems, setLegendItems] = useState<LegendItemData[]>([])
 
   // Process data and create legend items
   useEffect(() => {
-    if (!props.data) {
+    if (!data) {
       return
     }
 
-    const { specialItems, regularItems } = processLegendData({
-      data: props.data,
-      metricConfig: props.metricConfig,
-      mapConfig: props.mapConfig,
-      colorScale: props.colorScale,
-      isPhrmaAdherence: props.isPhrmaAdherence,
-      isSummaryLegend: props.isSummaryLegend || false,
-      fipsTypeDisplayName: props.fipsTypeDisplayName,
-    })
+    const { specialItems, regularItems } = processLegendData(props)
 
     setLegendItems([...specialItems, ...regularItems])
   }, [
-    props.data,
-    props.metricConfig,
-    props.mapConfig,
-    props.fips,
-    props.isMulti,
-    props.fipsTypeDisplayName,
-    props.isPhrmaAdherence,
-    props.isSummaryLegend,
-    props.colorScale,
+    data,
+    metricConfig,
+    mapConfig,
+    fips,
+    isMulti,
+    fipsTypeDisplayName,
+    isPhrmaAdherence,
+    isSummaryLegend,
+    colorScale,
+    allMissingDataIsSuppressed,
   ])
 
   return (
     <section
       className={`mx-4 flex w-full flex-col items-start text-left ${
-        props.isMulti ? 'md:mx-auto md:w-1/2' : ''
+        isMulti ? 'md:mx-auto md:w-1/2' : ''
       }`}
       aria-label='Legend for rate map'
       ref={containerRef}

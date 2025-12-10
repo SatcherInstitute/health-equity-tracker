@@ -33,6 +33,7 @@ export const createMouseEventOptions = (
     isExtremesMode: options.isExtremesMode,
     updateFipsCallback: options.updateFipsCallback,
     demographicType,
+    allMissingDataIsSuppressed: options.allMissingDataIsSuppressed,
   }
 }
 
