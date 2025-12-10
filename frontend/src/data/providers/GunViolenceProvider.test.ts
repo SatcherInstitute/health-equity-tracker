@@ -115,7 +115,7 @@ describe('GunViolenceProvider', () => {
       'gun_violence_homicide',
       'current',
       ['gun_violence_homicide_per_100k'],
-      'rate-map', // in tests we always need a scrollToHashId to enable the fallbackId logic
+      'rate-map', // these metricQuery tests need a scrollToHashId to enable the fallbackId logic
     )
   })
 })
