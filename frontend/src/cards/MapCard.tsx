@@ -45,7 +45,10 @@ import {
   UNKNOWN_RACE,
 } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
-import { getExtremeValues } from '../data/utils/datasetutils'
+import {
+  allMissingValuesAreSuppressed,
+  getExtremeValues,
+} from '../data/utils/datasetutils'
 import { Fips } from '../data/utils/Fips'
 import HetDivider from '../styles/HetComponents/HetDivider'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
@@ -300,6 +303,11 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
+        const allMissingDataIsSuppressed = allMissingValuesAreSuppressed(
+          mapQueryResponse.data,
+          metricConfig.metricId,
+        )
+
         const isGeorgiaWithCountyData =
           props.fips.code === '13' && !hasSelfButNotChildGeoData
 
@@ -479,6 +487,7 @@ function MapCardWithKey(props: MapCardProps) {
                 }
                 isMapCard={true}
                 fips={props.fips}
+                dueToSuppression={allMissingDataIsSuppressed}
               />
             </>
           )
@@ -646,6 +655,7 @@ function MapCardWithKey(props: MapCardProps) {
                       isSummaryLegend={isSummaryLegend}
                       updateFipsCallback={props.updateFipsCallback}
                       colorScale={colorScale}
+                      allMissingDataIsSuppressed={allMissingDataIsSuppressed}
                     />
                   </div>
                 </div>
@@ -662,6 +672,7 @@ function MapCardWithKey(props: MapCardProps) {
                     mapConfig={mapConfig}
                     isSummaryLegend={isSummaryLegend}
                     isPhrmaAdherence={isPhrmaAdherence}
+                    allMissingDataIsSuppressed={allMissingDataIsSuppressed}
                     fips={props.fips}
                     isCompareMode={isCompareMode}
                   />

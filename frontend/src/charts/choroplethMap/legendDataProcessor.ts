@@ -4,7 +4,7 @@ import type {
 } from '../../data/config/MetricConfigTypes'
 import type { GeographicBreakdown } from '../../data/query/Breakdowns'
 import { het } from '../../styles/DesignTokens'
-import { NO_DATA_MESSAGE } from '../mapGlobals'
+import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import {
   createLabelFormatter,
   createLegendForSmallDataset,
@@ -15,13 +15,14 @@ import {
 import { type ColorScale, isQuantileScale } from './types'
 
 export interface ProcessLegendDataParams {
-  data: Array<Record<string, any>>
+  data?: Array<Record<string, any>>
   metricConfig: MetricConfig
   mapConfig: MapConfig
   colorScale: ColorScale
-  isPhrmaAdherence: boolean
-  isSummaryLegend: boolean
+  isPhrmaAdherence?: boolean
+  isSummaryLegend?: boolean
   fipsTypeDisplayName?: GeographicBreakdown
+  allMissingDataIsSuppressed?: boolean
 }
 
 export interface ProcessedLegendData {
@@ -35,6 +36,13 @@ export interface ProcessedLegendData {
 export function processLegendData(
   params: ProcessLegendDataParams,
 ): ProcessedLegendData {
+  if (!params.data) {
+    return {
+      regularItems: [],
+      specialItems: [],
+    }
+  }
+
   const {
     data,
     metricConfig,
@@ -43,6 +51,7 @@ export function processLegendData(
     isPhrmaAdherence,
     isSummaryLegend,
     fipsTypeDisplayName,
+    allMissingDataIsSuppressed,
   } = params
 
   const labelFormat = createLabelFormatter(metricConfig)
@@ -107,7 +116,7 @@ export function processLegendData(
   if (hasMissingData) {
     specialItems.push({
       color: het.howToColor,
-      label: NO_DATA_MESSAGE,
+      label: allMissingDataIsSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE,
       value: null,
     })
   }
