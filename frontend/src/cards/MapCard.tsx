@@ -45,7 +45,10 @@ import {
   UNKNOWN_RACE,
 } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
-import { getExtremeValues } from '../data/utils/datasetutils'
+import {
+  allMissingValuesAreSuppressed,
+  getExtremeValues,
+} from '../data/utils/datasetutils'
 import { Fips } from '../data/utils/Fips'
 import HetDivider from '../styles/HetComponents/HetDivider'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
@@ -300,12 +303,9 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const rateIsSuppressedColumn = metricConfig.metricId + '_is_suppressed'
-        const rowsWithMissingRates = mapQueryResponse.data.filter(
-          (row) => row[metricConfig.metricId] == null,
-        )
-        const allMissingDataIsSuppressed = rowsWithMissingRates.every(
-          (row) => row[rateIsSuppressedColumn] === true,
+        const allMissingDataIsSuppressed = allMissingValuesAreSuppressed(
+          mapQueryResponse.data,
+          metricConfig.metricId,
         )
 
         const isGeorgiaWithCountyData =

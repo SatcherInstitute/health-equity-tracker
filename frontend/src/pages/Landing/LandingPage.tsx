@@ -171,7 +171,7 @@ function LandingPage() {
           </div>
 
           <div className='relative flex xs:max-h-[75vh] xs:min-h-[75vh] flex-col items-center justify-center overflow-y-auto py-4'>
-            <ul className='scrollbar-hide absolute top-[0] flex w-full flex-col items-center justify-center px-8 xs:px-4 py-0 pb-8'>
+            <ul className='scrollbar-hide absolute top-0 flex w-full flex-col items-center justify-center px-8 xs:px-4 py-0 pb-8'>
               <LandingPageListItem
                 title='Take a tour of the data'
                 description='New to the Health Equity Tracker? Watch a short video demo that highlights major features of the platform.'
