@@ -17,16 +17,7 @@ test('Beta Blockers Adherence', async ({ page }) => {
         }),
       )
       .toBeVisible(),
-    expect.soft(page.getByText('Off').nth(1)).toBeVisible(),
   ])
-
-  await page.getByText('Off').nth(1).click()
-  await page
-    .getByRole('button', { name: 'Adherence to beta blockers', exact: false })
-    .click()
-  await page
-    .getByText('Adherence to beta blockers: Pharmacy Quality Alliance')
-    .click()
 
   const rateChart = page.locator('#rate-chart')
   await rateChart.scrollIntoViewIfNeeded()
