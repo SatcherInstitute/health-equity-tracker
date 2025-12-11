@@ -1,13 +1,6 @@
 import { expect, test } from './utils/fixtures'
 
 test('PHRMA: Beta Blockers after Heart Attack (AMI)', async ({ page }) => {
-  await page.route('**/*.{png,jpg,jpeg,svg,woff,woff2}', (route) =>
-    route.abort(),
-  )
-  await page.addStyleTag({
-    content: `*, *::before, *::after { animation: none !important; transition: none !important; }`,
-  })
-
   await page.goto(
     '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All',
     { waitUntil: 'domcontentloaded' },

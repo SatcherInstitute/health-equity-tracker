@@ -1,13 +1,6 @@
 import { expect, test } from './utils/fixtures'
 
 test('PHRMA: Medicare AMI', async ({ page }) => {
-  await page.route('**/*.{png,jpg,jpeg,svg,woff,woff2}', (route) =>
-    route.abort(),
-  )
-  await page.addStyleTag({
-    content: `*, *::before, *::after { animation: none !important; transition: none !important; }`,
-  })
-
   await page.goto(
     '/exploredata?mls=1.medicare_cardiovascular-3.12&group1=85PLUS&dt1=medicare_ami&demo=age',
     { waitUntil: 'domcontentloaded' },
