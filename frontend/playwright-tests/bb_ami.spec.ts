@@ -1,9 +1,6 @@
 import { expect, test } from '@playwright/test'
 
-test('PHRMA: Beta Blockers after Heart Attack (AMI) - Fixed', async ({
-  page,
-}) => {
-  // 1. SETUP: Block heavy assets & Kill Animations
+test('PHRMA: Beta Blockers after Heart Attack (AMI)', async ({ page }) => {
   await page.route('**/*.{png,jpg,jpeg,svg,woff,woff2}', (route) =>
     route.abort(),
   )
@@ -11,33 +8,21 @@ test('PHRMA: Beta Blockers after Heart Attack (AMI) - Fixed', async ({
     content: `*, *::before, *::after { animation: none !important; transition: none !important; }`,
   })
 
-  // 2. NAVIGATE
   await page.goto(
     '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All',
-    {
-      waitUntil: 'domcontentloaded',
-    },
+    { waitUntil: 'domcontentloaded' },
   )
 
-  // --- INTERACTION ---
-  // 1. Open the Category Menu
   await page
     .locator('#madlib-box')
     .getByRole('button', { name: 'Race/Ethnicity' })
     .click()
-
-  // 2. Select 'Eligibility'
   await page.getByRole('menuitem', { name: 'Eligibility' }).click()
-
-  // 3. Open the Sub-Menu
   await page.getByText('Medicare eligibility:').click()
-
-  // 4. Select the specific Option
   await page
     .getByRole('button', { name: 'Eligible due to disability', exact: true })
     .click()
 
-  // --- SECTION 1: RATE MAP ---
   const rateMap = page.locator('#rate-map')
   await rateMap.scrollIntoViewIfNeeded()
 
@@ -50,8 +35,6 @@ test('PHRMA: Beta Blockers after Heart Attack (AMI) - Fixed', async ({
           }),
         )
         .toBeVisible(),
-
-      // FIX: Reverted to getByRole('heading') to distinguish the title from the summary text
       expect
         .soft(
           page.getByRole('heading', {
@@ -59,7 +42,6 @@ test('PHRMA: Beta Blockers after Heart Attack (AMI) - Fixed', async ({
           }),
         )
         .toBeVisible(),
-
       expect
         .soft(
           page
@@ -71,7 +53,6 @@ test('PHRMA: Beta Blockers after Heart Attack (AMI) - Fixed', async ({
     ])
   })
 
-  // --- SECTION 2: RATE CHART ---
   const rateChart = page.locator('#rate-chart')
   await rateChart.scrollIntoViewIfNeeded()
 
@@ -83,7 +64,6 @@ test('PHRMA: Beta Blockers after Heart Attack (AMI) - Fixed', async ({
     ])
   })
 
-  // --- SECTION 3: UNKNOWN DEMOGRAPHIC MAP & TABLE ---
   await page.getByRole('button', { name: 'Unknown demographic map' }).click()
 
   await test.step('Verify Unknown Map & Table Headers', async () => {
@@ -98,7 +78,6 @@ test('PHRMA: Beta Blockers after Heart Attack (AMI) - Fixed', async ({
     ])
   })
 
-  // --- SECTION 4: DEFINITIONS ---
   await page.getByRole('button', { name: 'Definitions & missing data' }).click()
 
   await test.step('Verify Definitions', async () => {
@@ -106,7 +85,6 @@ test('PHRMA: Beta Blockers after Heart Attack (AMI) - Fixed', async ({
       expect
         .soft(page.getByText('Medication Utilization in the'))
         .toBeVisible(),
-      // Use .first() to handle strict mode collisions
       expect
         .soft(
           page
