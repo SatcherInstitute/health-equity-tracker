@@ -1,3 +1,4 @@
+// playwright-tests/utils/fixtures.ts
 import { test as base } from '@playwright/test'
 
 // Extend the base test to include our performance optimizations

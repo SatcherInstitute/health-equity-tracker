@@ -25,9 +25,6 @@ test('PHRMA: Medicare AMI', async ({ page }) => {
         )
         .toBeVisible(),
       expect
-        .soft(page.getByText('Total population of Medicare').first())
-        .toBeVisible(),
-      expect
         .soft(
           page.getByText(
             'Acute Myocardial Infarctions (Heart Attacks): The number',

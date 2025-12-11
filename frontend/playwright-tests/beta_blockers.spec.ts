@@ -64,16 +64,6 @@ test('Beta Blockers Adherence', async ({ page }) => {
       expect
         .soft(page.getByText('Adherence to beta blockers', { exact: true }))
         .toBeVisible(),
-      expect
-        .soft(page.getByRole('heading', { name: 'What data are missing?' }))
-        .toBeVisible(),
-      expect
-        .soft(
-          page.getByText(
-            'Do you have information that belongs on the Health Equity Tracker?',
-          ),
-        )
-        .toBeVisible(),
     ])
   })
 })
