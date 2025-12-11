@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test } from './utils/fixtures'
 
 test('PHRMA: Beta Blockers after Heart Attack (AMI)', async ({ page }) => {
   await page.route('**/*.{png,jpg,jpeg,svg,woff,woff2}', (route) =>
