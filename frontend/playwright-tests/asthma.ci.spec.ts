@@ -26,18 +26,22 @@ test('Asthma', async ({ page }) => {
   await rateChart.scrollIntoViewIfNeeded()
 
   await test.step('Verify Rate Chart', async () => {
-    await Promise.all([
-      expect
-        .soft(
-          rateChart.getByRole('heading', {
-            name: 'Asthma in the United States',
-          }),
-        )
-        .toBeVisible(),
-    ])
+    // FIX: Added await to the single expect
+    await expect
+      .soft(
+        rateChart.getByRole('heading', {
+          name: 'Asthma in the United States',
+        }),
+      )
+      .toBeVisible()
   })
 
   // --- Share & Population Section ---
+  // FIX: Added scroll to ensure these elements are in the viewport
+  await page
+    .getByRole('heading', { name: 'Share of all adult asthma cases' })
+    .scrollIntoViewIfNeeded()
+
   await test.step('Verify Share and Population Views', async () => {
     await Promise.all([
       expect
@@ -61,7 +65,8 @@ test('Asthma', async ({ page }) => {
     .scrollIntoViewIfNeeded()
 
   await test.step('Verify Summary Table', async () => {
-    expect
+    // FIX: Added await to the single expect
+    await expect
       .soft(page.getByRole('heading', { name: 'Summary for asthma' }))
       .toBeVisible()
   })
