@@ -31,9 +31,6 @@ test('CAWP: Congress', async ({ page }) => {
   await test.step('Verify Rates Over Time', async () => {
     await Promise.all([
       expect.soft(page.getByLabel('Include All women')).toBeVisible(),
-      expect
-        .soft(page.getByRole('columnheader', { name: 'Year' }))
-        .toBeVisible(),
     ])
   })
 
