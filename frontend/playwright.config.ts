@@ -15,7 +15,7 @@ const config: PlaywrightTestConfig = {
   timeout: process.env.CI ? 300 * 1000 : 60 * 1000,
   /* Maximum time one "expect" can run for, default was 5 seconds and was too quick */
   expect: {
-    timeout: process.env.CI ? 90 * 1000 : 10 * 1000,
+    timeout: process.env.CI ? 60 * 1000 : 10 * 1000,
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
