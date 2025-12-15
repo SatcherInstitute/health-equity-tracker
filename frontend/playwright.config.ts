@@ -12,7 +12,7 @@ const config: PlaywrightTestConfig = {
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for, default was 30s. */
-  timeout: process.env.CI ? 300 * 1000 : 60 * 1000,
+  timeout: process.env.CI ? 120 * 1000 : 60 * 1000,
   /* Maximum time one "expect" can run for, default was 5 seconds and was too quick */
   expect: {
     timeout: process.env.CI ? 30 * 1000 : 10 * 1000,
