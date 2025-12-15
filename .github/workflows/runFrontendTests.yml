@@ -98,7 +98,7 @@ jobs:
       # 9. Run E2E Tests
       - name: run E2E on DEPLOY_PREVIEW
         if: github.event_name == 'pull_request'
-        run: npx playwright test --project=E2E_CI --workers 3
+        run: npx playwright test --project=E2E_CI --workers 2
         env:
           E2E_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
 
