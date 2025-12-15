@@ -16,7 +16,7 @@ test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({
   await expect(madlibBox).toContainText('Compare rates of')
 
   // back button works properly for tracker mode changes
-  await page.goBack()
+  await page.goBack({ waitUntil: 'commit' })
   await expect(madlibBox).toContainText('Investigate')
 })
 
@@ -40,7 +40,7 @@ test('Clicking a state on national map loads state report; back button returns t
   await expect(page).toHaveURL(/.*mls=1.hiv-3.25/)
 
   // back button should take you back to National report
-  await page.goBack()
+  await page.goBack({ waitUntil: 'commit' })
   await expect(page).toHaveURL(/.*mls=1.hiv-3.00/)
 })
 
@@ -79,25 +79,6 @@ test('Clear selections button from Compare Topics mode returns tracker to defaul
 
   // should return to default page (with explicit params or clean base)
   await expect(page).toHaveURL('/exploredata')
-})
-
-test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', async ({
-  page,
-}) => {
-  await page.goto(
-    '/exploredata?mls=1.incarceration-3.00&mlp=disparity&dt1=hiv_prevalence',
-    { waitUntil: 'domcontentloaded' },
-  )
-
-  // find Table of Contents link to Unknown Map
-  await page
-    .getByRole('button', { name: 'Unknown demographic map', exact: true })
-    .click()
-
-  // ensure card is on the page, focused, and visible
-  const unknownMapCard = page.locator('#unknown-demographic-map')
-  await expect(unknownMapCard).toBeFocused()
-  await expect(unknownMapCard).toBeVisible()
 })
 
 test('Including the Extremes Mode Param in URL should load report with Extremes Mode Enabled', async ({

@@ -89,6 +89,7 @@
 		"e2e-dev": "npx playwright install chromium && cross-env E2E_BASE_URL=https://dev.healthequitytracker.org npx playwright test --project=E2E_NIGHTLY --workers 5",
 		"e2e-prod": "npx playwright install chromium && cross-env E2E_BASE_URL=https://healthequitytracker.org npx playwright test --project=E2E_NIGHTLY --workers 5",
 		"e2e-new": "npx playwright codegen http://localhost:3000",
+		"e2e:ci": "npx playwright install chromium && npx playwright test --project=E2E_CI --workers 4",
 		"e2e:prod": "npm run e2e-prod",
 		"e2e:dev": "npm run e2e-dev",
 		"e2e:new": "npm run e2e-new",

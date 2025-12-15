@@ -16,7 +16,7 @@ test('Topic Info Modal from Sidebar', async ({ page }) => {
   await expect(page).toHaveURL(/.*methodology\/topic-categories\/pdoh/)
 
   // 4. Test Browser Back Button Behavior
-  await page.goBack()
+  await page.goBack({ waitUntil: 'commit' })
   // Ensure we are back at the modal state
   await expect(page).toHaveURL(/.*topic-info=true/)
 
