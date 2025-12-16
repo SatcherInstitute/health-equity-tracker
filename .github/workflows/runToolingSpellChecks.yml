@@ -1,0 +1,56 @@
+name: Lint Infrastructure & Run Spellcheck
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  # JOB 1: Spellcheck (Parallel)
+  spelling:
+    name: Spellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        # Default fetch-depth: 1 is fine here since we aren't diffing history
+
+      - name: Run CSpell
+        uses: streetsidesoftware/cspell-action@v6
+        with:
+          config: 'cspell.config.json'
+          # Scanning explicit file types is often faster/safer than "incremental" on CI
+          files: '**/*.{ts,tsx,js,jsx,py,md,mdx,json,yml,yaml,css,scss,sh,tf}'
+          # strictly fail on error
+          strict: true
+
+  # JOB 2: Infra & Scripts (Parallel)
+  infra-lint:
+    name: Infra & Scripts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 1. Terraform (Uses pre-installed binary)
+      - name: Terraform Format
+        run: terraform fmt -check -recursive
+        # If your terraform is in a subfolder, e.g., 'ops/', change to:
+        # run: terraform fmt -check -recursive ops/
+
+      # 2. Bash/Shell (Uses pre-installed Shellcheck)
+      - name: Shellcheck
+        run: |
+          # Find all .sh files and run shellcheck on them
+          find . -type f -name "*.sh" -print0 | xargs -0 shellcheck -e SC1091
+
+      # 3. YAML (Installs in ~3s)
+      - name: YAML Lint
+        run: |
+          pip install yamllint
+          # Create a temporary config to avoid noisy errors (like line length)
+          # If you have a .yamllint file, remove this echo line.
+          echo "{extends: default, rules: {line-length: disable}}" > .yamllint_temp
+
+          # Run on current dir
+          yamllint -c .yamllint_temp .
