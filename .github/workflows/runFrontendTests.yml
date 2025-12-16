@@ -1,9 +1,6 @@
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: RUN Frontend Tests
 
 env:
-  ## Sets environment variables
   NETLIFY_SITE_NAME: 'health-equity-tracker'
   GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
 
@@ -13,71 +10,64 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'frontend/**' # Run when changes occur in the frontend subfolder
+      - 'frontend/**'
+
 defaults:
   run:
     working-directory: frontend
 
 jobs:
-  code-quality:
+  validate_and_test:
+    name: Validate, Build & E2E
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
+      # --- SETUP PHASE (Run Once) ---
+
+      # 1. Fast Checkout
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # 2. Setup Node
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: frontend/package.json
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      # 3. Install Dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # --- CODE QUALITY PHASE (Fails Fast) ---
+
+      # 4. Lint
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
         with:
           version: 2.2.5
       - name: Run Biome
-        run: |
-          echo "Running Biome"
-          echo "🚨 If this fails, run 'npm run cleanup' from your frontend/ local directory, add/commit, and push again."
-          echo "🔧 Also, please check your local pre-commit, as Biome should run on every local commit."
-          echo "See https://github.com/SatcherInstitute/health-equity-tracker?tab=readme-ov-file#install-node-and-pre-commit"
-          biome ci src/
+        run: biome ci src/
 
-  build_frontend:
-    name: Builds frontend
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v6
-        with:
-          node-version-file: frontend/package.json
-          cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
-      - name: Install dependencies
-        run: npm ci
+      # 5. Unit Tests
+      - name: Run Vitest unit tests
+        run: npm test
+
+      # 6. Build Check
       - name: Build React frontend
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
           VITE_NODE_OPTIONS: '--max_old_space_size=4096'
         run: npx tsc --noEmit && npm run build:deploy_preview
 
-  frontend_unit_tests:
-    name: Runs frontend unit tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v6
-        with:
-          node-version-file: frontend/package.json
-          cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
-      - name: Install dependencies
-        run: npm ci
-      - name: Run Vitest unit tests
-        run: npm test
+      # --- E2E PHASE (Runs only if above passed) ---
 
-  # If it's a PR creation or update, we'll run the e2e test here on Netlify
-  # if it's a merge to main, the E2E will run in e2eDev.yml
-
-  tests_e2e_netlify_prepare:
-    name: Wait for Netlify deploy
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
+      # 7. Wait for Netlify
       - name: Waiting for "Success" from Netlify Preview
+        if: github.event_name == 'pull_request'
         uses: Wandalen/wretry.action@master
         with:
           action: jakepartusch/wait-for-netlify-action@v1.4
@@ -87,31 +77,32 @@ jobs:
             site_name: ${{env.NETLIFY_SITE_NAME}}
             max_timeout: 180
 
-  tests_e2e_netlify:
-    needs:
-      - tests_e2e_netlify_prepare
-      - code-quality
-    name: Run E2E tests on deploy preview
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v6
+      # 8. Install Playwright Browsers (Cached)
+      - name: Get installed Playwright version
+        id: playwright-version
+        # FIX: Output to GITHUB_OUTPUT instead of ENV to satisfy linters
+        run: echo "version=$(npx playwright --version | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright binaries
+        uses: actions/cache@v3
+        id: playwright-cache
         with:
-          node-version-file: frontend/package.json
-          cache: 'npm'
-          cache-dependency-path: frontend/package-lock.json
-      - name: Install dependencies
-        run: npm ci
-      - name: Install playwright deps
+          path: ~/.cache/ms-playwright
+          # FIX: Access via steps context
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
+
+      - name: Install Playwright Browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
+
+      # 9. Run E2E Tests
       - name: run E2E on DEPLOY_PREVIEW
-        run: npx playwright test --project=E2E_NIGHTLY --workers 4
-        # base url based on the GITHUB_PR_NUMBER +  NETLIFY_SITE_NAME
+        if: github.event_name == 'pull_request'
+        run: npx playwright test --project=E2E_CI --workers 2
         env:
           E2E_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
-      # store test run reports if they fail
+
+      # 10. Upload Reports (Only if E2E fails)
       - uses: actions/upload-artifact@v5
         if: ${{ failure() }}
         with:
