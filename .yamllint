@@ -1,19 +1,10 @@
-# .yamllint
 extends: default
 
 rules:
-  # 1. Disable Indentation checks (matches SuperLinter behavior)
   indentation: disable
-
-  # 2. Disable Line Length (Github Actions lines are long)
   line-length: disable
-
-  # 3. Disable Document Start (---)
   document-start: disable
-
-  # 4. Disable Truthy (on: push)
   truthy: disable
-
-  # 5. Disable Comment nits
   comments: disable
   comments-indentation: disable
+  new-line-at-end-of-file]: disable
