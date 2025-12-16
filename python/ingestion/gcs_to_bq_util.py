@@ -12,6 +12,7 @@ from ingestion.het_types import (
     TIME_VIEW_TYPE,
     COMPREHENSIVE_DEMOGRAPHIC_TYPE,
     TOPIC_CATEGORY_TYPE,
+    GEO_TYPE,
 )  # pylint: disable=no-name-in-module
 
 
@@ -477,9 +478,9 @@ def get_bq_column_types(df, float_cols: List[str]):
 
 
 def make_bq_table_id(
-    demographic: COMPREHENSIVE_DEMOGRAPHIC_TYPE,
-    geographic,
-    time_view: TIME_VIEW_TYPE,
+    demographic: COMPREHENSIVE_DEMOGRAPHIC_TYPE | str,
+    geographic: GEO_TYPE | str,
+    time_view: TIME_VIEW_TYPE | str,
     category_prefix: TOPIC_CATEGORY_TYPE | None = None,
     has_age_adjust_suffix: bool = False,
 ):
