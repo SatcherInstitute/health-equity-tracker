@@ -19,6 +19,7 @@ jobs:
         with:
           config: 'cspell.config.json'
           files: '**/*.{ts,tsx,js,jsx,py,md,mdx,json,yml,yaml,css,scss,sh,tf}'
+          incremental_files_only: false
           strict: true
 
   # JOB 2: Infra & Scripts (Parallel)
