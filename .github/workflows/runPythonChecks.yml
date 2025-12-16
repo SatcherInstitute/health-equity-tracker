@@ -1,4 +1,4 @@
-name: Python CI
+name: Backend CI
 
 on:
   push:
@@ -14,15 +14,12 @@ on:
 
 jobs:
   validate_and_test:
-    name: Validate & Test (Single Job)
+    name: Validate & Test
     runs-on: ubuntu-latest
     steps:
-      # --- SETUP PHASE (Run Once) ---
-
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Shallow fetch is faster for big repos
           fetch-depth: 1
 
       - name: Setup Python
@@ -31,38 +28,47 @@ jobs:
           python-version: '3.12'
           cache: 'pip'
 
-      - name: Install Dependencies
-        # One unified install command for the whole environment
+      - name: Install dependencies
         run: |
           pip install --upgrade pip setuptools wheel
-
-          # Install Tools
           pip install mypy pytest pytest-xdist types-requests types-PyYAML types-setuptools
 
-          # Install All Project Requirements
           pip install -r requirements/tests.txt
           pip install -r data_server/requirements.txt
           pip install -r run_ingestion/requirements.txt
           pip install -r run_gcs_to_bq/requirements.txt
           pip install -r exporter/requirements.txt
 
-          # Install Local Packages
           pip install python/ingestion python/data_server python/datasources
-
-      # --- TYPE CHECK PHASE ---
 
       - name: Run Mypy
         run: |
           mypy --install-types --non-interactive \
             --ignore-missing-imports --show-error-codes \
             --config-file=.github/linters/mypy.ini \
-            data_server/ python/ run_ingestion/ run_gcs_to_bq/ exporter/
+            data_server/
 
-      # --- TESTING PHASE ---
+          mypy --install-types --non-interactive \
+            --ignore-missing-imports --show-error-codes \
+            --config-file=.github/linters/mypy.ini \
+            python/
 
-      - name: Run All Tests
-        # Runs pytest on all folders in a single command.
-        # NOTE: If you want to speed this up later, add "-n auto" to enable parallel testing.
+          mypy --install-types --non-interactive \
+            --ignore-missing-imports --show-error-codes \
+            --config-file=.github/linters/mypy.ini \
+            run_ingestion/
+
+          mypy --install-types --non-interactive \
+            --ignore-missing-imports --show-error-codes \
+            --config-file=.github/linters/mypy.ini \
+            run_gcs_to_bq/
+
+          mypy --install-types --non-interactive \
+            --ignore-missing-imports --show-error-codes \
+            --config-file=.github/linters/mypy.ini \
+            exporter/
+
+      - name: Run Pytest
         run: |
           pytest \
             python/ \
