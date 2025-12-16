@@ -24,6 +24,7 @@ from ingestion.bjs_utils import (
     BJS_DATA_TYPES,
     STANDARD_RACE_CODES,
     BJS_SEX_GROUPS,
+    #
     BJS_JAIL_AGE_GROUPS,
     RAW_JAIL_COL,
     RAW_PRISON_COL,

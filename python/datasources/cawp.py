@@ -216,7 +216,7 @@ class CAWPData(DataSource):
     def upload_to_gcs(self, _, **attrs):
         raise NotImplementedError("upload_to_gcs should not be called for CAWPData")
 
-    def write_to_bq(self, dataset, gcs_bucket, **attrs):
+    def write_to_bq(self, dataset: str, gcs_bucket: str, write_local_instead_of_bq=False, **attrs) -> None:
         base_df = self.generate_base_df()
         df_names = base_df.copy()
         df_names = self.generate_names_breakdown(df_names)
