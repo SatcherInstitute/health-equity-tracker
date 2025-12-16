@@ -1,0 +1,20 @@
+# .yamllint
+extends: default
+
+rules:
+  # Disable strict line length limits (GitHub Actions lines get long)
+  line-length: disable
+
+  # Don't require "---" at the start of every file
+  document-start: disable
+
+  # Allow "on: push" without quoting "on" (YAML 1.1 vs 1.2 issue)
+  truthy: disable
+
+  # Don't nitpick comment spacing
+  comments: disable
+  comments-indentation: disable
+
+  # Allow consistent indentation (doesn't force 2 vs 4 spaces, just consistency)
+  indentation:
+    indent-sequences: consistent
