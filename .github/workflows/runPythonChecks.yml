@@ -39,7 +39,8 @@ jobs:
           pip install -r run_gcs_to_bq/requirements.txt
           pip install -r exporter/requirements.txt
 
-          pip install python/ingestion python/data_server python/datasources
+          # Using -e (editable) ensures Mypy scans the source code
+          pip install -e python/ingestion -e python/data_server -e python/datasources
 
       - name: Run Mypy
         run: |
