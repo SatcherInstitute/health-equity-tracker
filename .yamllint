@@ -2,19 +2,18 @@
 extends: default
 
 rules:
-  # Disable strict line length limits (GitHub Actions lines get long)
+  # 1. Disable Indentation checks (matches SuperLinter behavior)
+  indentation: disable
+
+  # 2. Disable Line Length (Github Actions lines are long)
   line-length: disable
 
-  # Don't require "---" at the start of every file
+  # 3. Disable Document Start (---)
   document-start: disable
 
-  # Allow "on: push" without quoting "on" (YAML 1.1 vs 1.2 issue)
+  # 4. Disable Truthy (on: push)
   truthy: disable
 
-  # Don't nitpick comment spacing
+  # 5. Disable Comment nits
   comments: disable
   comments-indentation: disable
-
-  # Allow consistent indentation (doesn't force 2 vs 4 spaces, just consistency)
-  indentation:
-    indent-sequences: consistent
