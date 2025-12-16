@@ -12,15 +12,15 @@ const config: PlaywrightTestConfig = {
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for, default was 30s. */
-  timeout: process.env.CI ? 150 * 1000 : 60 * 1000,
+  timeout: process.env.CI ? 4 * 60 * 1000 : 60 * 1000,
   /* Maximum time one "expect" can run for, default was 5 seconds and was too quick */
   expect: {
-    timeout: process.env.CI ? 90 * 1000 : 10 * 1000,
+    timeout: process.env.CI ? 30 * 1000 : 10 * 1000,
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
   retries: process.env.CI ? 1 : 0,
-  maxFailures: process.env.CI ? 1 : 0,
+  maxFailures: process.env.CI ? 2 : 0,
   reporter: [[process.env.CI ? 'github' : 'list'], ['html']],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
