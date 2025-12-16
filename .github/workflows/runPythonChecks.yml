@@ -70,9 +70,8 @@ jobs:
 
       - name: Run Pytest
         run: |
-          pytest \
-            python/ \
-            data_server/ \
-            exporter/ \
-            run_gcs_to_bq/ \
-            run_ingestion/
+          pytest python/
+          pytest data_server/
+          pytest exporter/
+          pytest run_gcs_to_bq/
+          pytest run_ingestion/
