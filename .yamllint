@@ -8,3 +8,4 @@ rules:
   comments: disable
   comments-indentation: disable
   new-line-at-end-of-file: disable
+  trailing-spaces: disable
