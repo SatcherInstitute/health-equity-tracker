@@ -1,4 +1,4 @@
-name: RUN Tooling and Spell Checks
+name: RUN Checks on Platform Files and Spelling
 
 on:
   push:
