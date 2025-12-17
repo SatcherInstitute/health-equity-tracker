@@ -175,8 +175,8 @@ export const AIAN_RESOURCES: ResourceGroup = {
       url: 'https://nau.edu/center-health-equity-research/',
     },
     {
-      name: 'Indigenous Health Equity - UIHI',
-      url: 'https://www.uihi.org/resources/indigenous-health-equity/',
+      name: 'Urban Indian Health Institute (UIHI)',
+      url: 'https://www.uihi.org/',
     },
     {
       name: 'Racialization as a Barrier to Achieving Health Equity for Native Americans',
