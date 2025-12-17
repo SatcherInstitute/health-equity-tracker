@@ -96,7 +96,7 @@ export default function TermsOfUsePage() {
               <h2 className='mt-0 font-medium font-sans-title text-alt-green text-title'>
                 {termOfUse.title}
               </h2>
-              <p key={termOfUse.title} className='font-sans-text text-small'>
+              <p className='font-sans-text text-small'>
                 {termOfUse.paragraphs}
               </p>
             </li>
