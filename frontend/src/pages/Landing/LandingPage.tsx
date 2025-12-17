@@ -36,7 +36,7 @@ function LandingPage() {
 
   return (
     <main className='relative' aria-label='Main Content'>
-      <title>Home - Health Equity Tracker</title>
+      <title>Home - Health Equity Trackerl</title>
 
       <section className='relative min-h-5/6 overflow-hidden px-4 py-16 sm:px-16 md:px-24'>
         <img
