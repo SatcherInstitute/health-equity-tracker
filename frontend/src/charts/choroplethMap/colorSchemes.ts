@@ -34,7 +34,7 @@ const COLOR_SCHEMES: Record<ColorScheme, string[]> = {
     het.mapMenMid,
     het.mapMenLight,
     het.mapMenLighter,
-    het.mapMenLighest,
+    het.mapMenLightest,
   ],
   viridis: [
     het.mapMedicareDarkest,

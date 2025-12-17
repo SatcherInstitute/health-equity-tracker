@@ -1,0 +1,50 @@
+name: RUN Checks on Platform Files and Spelling
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  spelling:
+    name: spellcheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run CSpell
+        uses: streetsidesoftware/cspell-action@v6
+        with:
+          config: 'cspell.config.json'
+          files: '**/*.{ts,tsx,js,jsx,py,md,mdx,json,yml,yaml,css,scss,sh,tf}'
+          incremental_files_only: false
+          strict: true
+
+  infra-lint:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "latest"
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Terraform Format
+        run: terraform fmt -check -recursive
+
+      - name: Shellcheck
+        run: find . -type f -name "*.sh" -print0 | xargs -0 shellcheck -e SC1091
+
+      - name: YAML Lint
+        run: |
+          pip install yamllint
+          yamllint .

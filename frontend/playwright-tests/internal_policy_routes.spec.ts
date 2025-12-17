@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 
 test.describe.configure({ mode: 'parallel' })
 
-// use prefers-reduced-motion to prevent a11y constrast failures on unfinished fade-in animations
+// use prefers-reduced-motion to prevent a11y contrast failures on unfinished fade-in animations
 test.beforeEach(async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
 })

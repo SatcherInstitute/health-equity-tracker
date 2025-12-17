@@ -87,13 +87,17 @@ export default function TermsOfUsePage() {
           Terms of Use
         </h1>
         <ul className='mx-auto w-full max-w-lg list-none p-0 text-left md:w-3/4'>
-          {termsOfUseContent.map((tou, index) => (
-            <li key={tou.title} className='pb-5' id={`tou-${index}`}>
+          {termsOfUseContent.map((termOfUse, index) => (
+            <li
+              key={termOfUse.title}
+              className='pb-5'
+              id={`termOfUse-${index}`}
+            >
               <h2 className='mt-0 font-medium font-sans-title text-alt-green text-title'>
-                {tou.title}
+                {termOfUse.title}
               </h2>
-              <p key={tou.title} className='font-sans-text text-small'>
-                {tou.paragraphs}
+              <p className='font-sans-text text-small'>
+                {termOfUse.paragraphs}
               </p>
             </li>
           ))}
