@@ -22,8 +22,8 @@ const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
 export const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
 
 export const createTooltipContainer = (isMulti?: boolean) => {
-  const tooltipZnumber = isMulti ? multimapModalTooltip : mapTooltip
-  const tooltipZIndex = tooltipZnumber.toString()
+  const tooltipZ = isMulti ? multimapModalTooltip : mapTooltip
+  const tooltipZIndex = tooltipZ.toString()
 
   return d3
     .select('body')

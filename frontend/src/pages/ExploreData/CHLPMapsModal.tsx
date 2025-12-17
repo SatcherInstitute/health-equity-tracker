@@ -19,7 +19,7 @@ export default function CHLPMapsModal() {
     {
       id: 2,
       title: 'Sex Work Penalty Enhancements',
-      imageUrl: '/img/graphics/sex_work_penalty_ehancements.png',
+      imageUrl: '/img/graphics/sex_work_penalty_enhancements.png',
     },
     {
       id: 3,

@@ -278,6 +278,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     data_source_name: 'CDC MIOVD',
     data_source_acronym: 'CDC',
     data_source_pretty_site_name:
+      // cspell:disable-next-line
       'cdc.gov/injury-violence-data/data-vis/index.html',
     data_source_link:
       'https://www.cdc.gov/injury-violence-data/data-vis/index.html',
