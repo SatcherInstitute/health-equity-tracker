@@ -130,7 +130,7 @@ const het = {
   mapMedicareEvenLighter: '#9fda3a',
   mapMedicareLightest: '#f0e525',
   mapMedicareLightZero: '#fff9c1',
-  mapMenLighest: '#fbc127',
+  mapMenLightest: '#fbc127',
   mapMenLighter: '#f57d15',
   mapMenLight: '#d44843',
   mapMenMid: '#9f2a63',
