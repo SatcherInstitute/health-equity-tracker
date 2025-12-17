@@ -6,9 +6,8 @@ on:
   pull_request:
 
 jobs:
-  # JOB 1: Spellcheck (Parallel)
   spelling:
-    name: Spellcheck
+    name: spellcheck
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -22,35 +21,29 @@ jobs:
           incremental_files_only: false
           strict: true
 
-  # JOB 2: Infra & Scripts (Parallel)
   infra-lint:
-    name: Infra & Scripts
+    name: Lint Code Base
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Setup Terraform (Fixes 'command not found')
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "latest"
 
-      # Setup Python (Ensures safe 'pip')
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
-      # 1. Terraform Format
       - name: Terraform Format
         run: terraform fmt -check -recursive
 
-      # 2. Bash/Shell
       - name: Shellcheck
         run: find . -type f -name "*.sh" -print0 | xargs -0 shellcheck -e SC1091
 
-      # 3. YAML Lint (Uses your new .yamllint file automatically)
       - name: YAML Lint
         run: |
           pip install yamllint
