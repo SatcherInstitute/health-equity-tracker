@@ -24,8 +24,8 @@ node_modules/
 config/.terraform.lock.hcl
 
 # Environment Files
-.env.local
-.env.secrets
+/frontend_server/.env.secrets
+/frontend_server/.env.local
 /frontend_server/.env.development
 /scripts/.env.secrets
 

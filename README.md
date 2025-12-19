@@ -264,11 +264,6 @@ The frontend consists of
 The frontend uses multiple environments to assist with development, testing, and deployment.
 
 ### Setting Up Local Development Environment Variables
-For local development, you'll need to create your own `.env.local` file:
-1. **Copy from .env.local.preview file and :**
-   ```bash
-   cp frontend/.env.local.preview frontend/.env.local
-   ```
 
 | Environment | .env File | Frontend Deployment | Backend GCP Project | Description |
 |-------------|-----------|---------------------|---------------------|-------------|
@@ -277,7 +272,7 @@ For local development, you'll need to create your own `.env.local` file:
 | Development | `.env.dev` | dev.healthequitytracker.org | het-infra-test | Stable environment for testing features before production. |
 | Production | `.env.production` | healthequitytracker.org | het-infra-prod | Live environment for end users. |
 
-**IMPORTANT!** All of these `.env` files, except `.env.local`, are checked in to git, meaning that we DO NOT store secret information such as API keys, passwords, or other sensitive data in these files.
+**IMPORTANT!** All of these `.env` files are checked in to git, meaning that we **DO NOT store secret information** such as API keys, passwords, or other sensitive data in these files.
 
 ### Available Overrides for local development
 
