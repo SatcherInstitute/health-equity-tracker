@@ -13,7 +13,7 @@ flask
 flask-cors==6.0.0
 freezegun==1.5.1
 google-api-core[grpc]
-google-auth==2.45.0
+google-auth==2.47.0
 google-cloud
 google-cloud-bigquery
 google-cloud-core
