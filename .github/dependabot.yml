@@ -46,6 +46,8 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
+      - dependency-name: "grpcio-status"
+        versions: [">= 1.72.0"]
     groups:
       minor-python:
         update-types:
