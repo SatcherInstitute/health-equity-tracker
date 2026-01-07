@@ -19,7 +19,6 @@ import type {
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
 import { Fips } from '../data/utils/Fips'
 import { FIPS_MAP } from '../data/utils/FipsData'
-import { SHOW_CANCER_SCREENINGS } from '../featureFlags'
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>
@@ -240,18 +239,15 @@ const CATEGORIES_LIST: Category[] = [
     definition: '',
     options: MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
-]
-
-if (SHOW_CANCER_SCREENINGS) {
-  CATEGORIES_LIST.push({
+  {
     title: 'Cancer',
     definition: '',
     options: [
       ...CDC_CANCER_CATEGORY_DROPDOWNIDS,
       ...CANCER_SCREENING_CATEGORY_DROPDOWNIDS,
     ] as unknown as DropdownVarId[],
-  })
-}
+  },
+]
 
 const MADLIB_LIST: MadLib[] = [
   {
