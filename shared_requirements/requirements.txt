@@ -22,8 +22,8 @@ google-cloud-storage
 google-crc32c==1.8.0          # Updated
 google-resumable-media
 googleapis-common-protos[grpc]==1.72.0  # Updated
-grpc-google-iam-v1==0.14.3    # Updated to latest compatible
-grpcio-status==1.72.0         # CHANGED: 1.73.0 and 1.75.x both require Protobuf 6
+grpc-google-iam-v1==0.14.3    # Updated
+grpcio-status==1.71.0         # FIXED: 1.72.0+ strictly requires Protobuf 6
 grpcio==1.76.0
 gunicorn==23.0.0
 idna
