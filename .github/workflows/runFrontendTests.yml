@@ -101,7 +101,7 @@ jobs:
           E2E_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
 
       # 10. Upload Reports (Only if E2E fails)
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         if: ${{ failure() }}
         with:
           name: playwright-report
