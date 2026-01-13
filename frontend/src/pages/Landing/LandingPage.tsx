@@ -149,7 +149,7 @@ function LandingPage() {
               all.
             </p>
             <img
-              src='/img/graphics/msm-new-day-banner.svg'
+              src='/img/graphics/msm-new-day-banner.png'
               className='mx-auto w-4/5 rounded-sm md:w-3/5'
               alt='logos for morehouse school of medicine and satcher health leadership institute'
             />
