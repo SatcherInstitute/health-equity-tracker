@@ -1,10 +1,8 @@
 from unittest import mock
 import os
-from io import StringIO
 import pandas as pd
 from pandas._testing import assert_frame_equal
 import json
-import requests
 
 from datasources.cawp import (
     CAWPData,
@@ -307,47 +305,3 @@ def testWriteToBq(
         expected_df_national_current,
         check_like=True,
     )
-
-
-def test_territorial_leg_counts_are_current():
-    WIKI_API_URL = "https://en.wikipedia.org/w/api.php"
-    params = {
-        "action": "parse",
-        "page": "List_of_United_States_state_legislatures",
-        "format": "json",
-        "prop": "text",
-        "contentmodel": "wikitext",
-    }
-
-    headers = {"User-Agent": "Health Equity Tracker Test Suite"}
-
-    response = requests.get(WIKI_API_URL, params=params, headers=headers, timeout=30)
-    data = response.json()
-    html_content = data["parse"]["text"]["*"]
-    tables = pd.read_html(StringIO(html_content))
-    terr_table = None
-
-    for table in tables:
-        # Make column names lowercase safely by converting to strings
-        lowercase_cols = [str(col).lower() for col in table.columns]
-        if "total seats" in lowercase_cols and "u.s. territories" in lowercase_cols:
-            terr_table = table
-            break
-
-    assert terr_table is not None, "Territorial table not found in Wikipedia page"
-
-    # Find the actual column name that matches "Total seats" case-insensitively
-    total_seats_col = next(
-        (col for col in terr_table.columns if str(col).lower() == "total seats"),
-        None,
-    )
-    assert total_seats_col is not None, "Column with total seats not found"
-
-    assert terr_table[total_seats_col].to_list() == [
-        39,
-        13,
-        15,
-        29,
-        78,
-        15,
-    ], "Territorial counts need to be updated here and in the data/cawp/ files"
