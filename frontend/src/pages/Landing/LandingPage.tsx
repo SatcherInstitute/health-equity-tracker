@@ -149,8 +149,8 @@ function LandingPage() {
               all.
             </p>
             <img
-              src='/img/graphics/msm-50-shli-banner.png'
-              className='mx-auto w-4/5 md:w-3/5'
+              src='/img/graphics/msm-new-day-banner.svg'
+              className='mx-auto w-4/5 rounded-sm md:w-3/5'
               alt='logos for morehouse school of medicine and satcher health leadership institute'
             />
           </div>
