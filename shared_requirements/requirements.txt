@@ -47,7 +47,7 @@ proto-plus==1.27.0
 protobuf>=3.20.2,<6.0.0      # Critical constraint
 pyarrow==18.1.0
 pyasn1-modules==0.4.1
-pyasn1==0.6.1
+pyasn1==0.6.2
 pycparser==2.23
 pylint==3.3.1
 pyparsing==3.3.1
