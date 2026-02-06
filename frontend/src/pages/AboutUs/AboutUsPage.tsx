@@ -1,7 +1,9 @@
 import HetAddressBlock from '../../styles/HetComponents/HetAddressBlock'
 import HetLazyLoader from '../../styles/HetComponents/HetLazyLoader'
 import HetSocialIconLinks from '../../styles/HetComponents/HetSocialIconLinks'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import { urlMap } from '../../utils/externalUrls'
+import { ABOUT_SEED_LINK } from '../../utils/internalRoutes'
 import GoalListItem from './GoalListItem'
 import {
   GOOGLE_FELLOWS,
@@ -154,8 +156,7 @@ export default function AboutUsPage() {
           <h3 className='my-8 border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             HET Software Engineering and Education Development (SEED) Program
           </h3>
-
-          <ul className='grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-4'>
+          <ul className='mb-8 grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-4'>
             {HET_DEV_PROGRAM.map((dev) => {
               return (
                 <li className='text-left' key={dev.name}>
@@ -165,6 +166,10 @@ export default function AboutUsPage() {
               )
             })}
           </ul>
+          <HetTextArrowLink
+            link={ABOUT_SEED_LINK}
+            linkText='Learn more about the SEED Program'
+          />
         </section>
 
         <section className='flex flex-col pt-8'>

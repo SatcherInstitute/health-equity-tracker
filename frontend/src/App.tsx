@@ -27,6 +27,7 @@ import { autoInitGlobals } from './utils/globals'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
 import { useMakeCssVariables } from './utils/hooks/useMakeCssVariables'
 import {
+  ABOUT_SEED_LINK,
   ABOUT_US_PAGE_LINK,
   AGE_ADJUSTMENT_LINK,
   DATA_CATALOG_PAGE_LINK,
@@ -47,6 +48,8 @@ import {
 } from './utils/internalRoutes'
 
 // Lazy Load components for code-splitting
+const AboutSeedPage = React.lazy(() => import('./pages/AboutUs/SeedPage'))
+
 const AboutUsPage = React.lazy(
   async () => await import('./pages/AboutUs/AboutUsPage'),
 )
@@ -129,6 +132,7 @@ export default function App() {
               <main id='main' className='scroll-smooth'>
                 <Routes>
                   <Route path={ABOUT_US_PAGE_LINK} element={<AboutUsPage />} />
+                  <Route path={ABOUT_SEED_LINK} element={<AboutSeedPage />} />
 
                   <Route
                     path={DATA_CATALOG_PAGE_LINK}

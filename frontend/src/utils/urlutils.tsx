@@ -8,6 +8,7 @@ import {
 import { urlMap } from './externalUrls'
 import { getLogger } from './globals'
 import {
+  ABOUT_SEED_LINK,
   ABOUT_US_PAGE_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
@@ -87,6 +88,7 @@ export const NAVIGATION_STRUCTURE = {
     pages: {
       [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
       [ABOUT_US_PAGE_LINK]: 'About Us',
+      [ABOUT_SEED_LINK]: 'SEED Program',
     },
   },
   exploreTheData: {
