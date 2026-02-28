@@ -12,7 +12,7 @@ type ExternalResourceMapping = {
 
 export const externalResourceMappings: ExternalResourceMapping[] = [
   {
-    href: 'https://satcherinstitute.org/hetblog2/',
+    href: 'https://satcherinstitute.org/news/why-it-matters-that-information-on-race-ethnicity-gender-and-disability-are-measured-accurately-and-completely',
     ariaLabel: 'Satcher Blog Post on Why Data Matters',
     imgSrc: '/img/stock/kid-gets-a-mask.png',
     imgAlt: '',
@@ -20,17 +20,19 @@ export const externalResourceMappings: ExternalResourceMapping[] = [
       'Why it matters that information on race, ethnicity, gender and disability are measured accurately and completely',
     description:
       'Why ongoing data on health and well-being metrics could be used in targeting federal resources and programs to address inequities due to social and economic factors.',
-    readMoreHref: 'https://satcherinstitute.org/hetblog2/',
+    readMoreHref:
+      'https://satcherinstitute.org/news/why-it-matters-that-information-on-race-ethnicity-gender-and-disability-are-measured-accurately-and-completely',
     categories: ['Demographics', 'Determinants of Health'],
   },
   {
-    href: 'https://satcherinstitute.org/hetblog3/',
+    href: 'https://satcherinstitute.org/news/how-can-we-use-data-to-inform-practices-to-advance-health-equity',
     ariaLabel: 'Satcher Blog Post on Health Equity Data',
     imgSrc: '/img/stock/girls-studying.jpg',
     imgAlt: '',
     title: 'How can we use data to inform practices to advance health equity?',
     description: `In public health, much of our work depends on having accurate data, so we know what's happening both on the ground and at a population level.`,
-    readMoreHref: 'https://satcherinstitute.org/hetblog3/',
+    readMoreHref:
+      'https://satcherinstitute.org/news/how-can-we-use-data-to-inform-practices-to-advance-health-equity',
     categories: ['Public Health', 'Data Collection'],
   },
   {
@@ -52,16 +54,6 @@ export const externalResourceMappings: ExternalResourceMapping[] = [
     description: '',
     readMoreHref: '',
     categories: ['Demographics', 'COVID-19', 'Data Collection'],
-  },
-  {
-    href: 'https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children',
-    ariaLabel: 'Kennedy Satcher Article: The Mental Fitness of Our Children',
-    imgSrc: '/img/graphics/laptop-HET.png',
-    imgAlt: '',
-    title: 'The mental fitness of our children',
-    description: '',
-    readMoreHref: '',
-    categories: ['Mental Health', 'Youth', 'Psychology'],
   },
   {
     href: 'https://www.youtube.com/embed/mux1c73fJ78',
@@ -89,14 +81,15 @@ export const externalResourceMappings: ExternalResourceMapping[] = [
     isVideo: true,
   },
   {
-    href: 'https://ncrn.msm.edu/',
+    href: 'https://www.msm.edu/Research/research_centersandinstitutes/NCPC/NCRN/index.php',
     ariaLabel: 'NCRN Information',
     imgSrc: '/img/graphics/NCRN-MSM.png',
     imgAlt: 'NCRN Information Thumbnail',
     title: 'Morehouse School of Medicine National COVID-19 Resiliency Network',
     description:
       'We provide awareness and linkage to critical health information and services, helping families recover from difficulties that may have been caused or worsened by the Coronavirus (COVID-19) pandemic.',
-    readMoreHref: '',
+    readMoreHref:
+      'https://www.msm.edu/Research/research_centersandinstitutes/NCPC/NCRN/index.php',
     categories: [],
     isVideo: false,
   },

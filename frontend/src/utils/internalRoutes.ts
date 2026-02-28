@@ -3,7 +3,7 @@
 export const HET_URL = 'https://healthequitytracker.org'
 export const EXPLORE_DATA_PAGE_LINK = '/exploredata'
 export const DATA_CATALOG_PAGE_LINK = '/datacatalog'
-export const NEWS_PAGE_LINK = '/news'
+export const NEWS_PAGE_LINK = 'https://satcherinstitute.org/news#het'
 export const SHARE_YOUR_STORY_PATH = 'shareyourstory'
 export const SHARE_YOUR_STORY_TAB_LINK =
   NEWS_PAGE_LINK + '/' + SHARE_YOUR_STORY_PATH

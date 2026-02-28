@@ -20,6 +20,7 @@ import AppBarLogo from '../../assets/AppbarLogo.png'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
 import HetCTASmall from './HetCTASmall'
+import HetLaunchLink from './HetLaunchLink'
 import HetNavLink from './HetNavLink'
 
 export default function HetMobileAppToolbar() {
@@ -43,24 +44,65 @@ export default function HetMobileAppToolbar() {
               {expandedMenu === key ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={expandedMenu === key} timeout='auto' unmountOnExit>
-              {Object.entries(value.pages).map(([subKey, subValue]) => (
-                <ListItem
-                  key={subKey}
-                  component={Link}
-                  to={subKey}
-                  className='pl-8 no-underline'
-                  onClick={() => setOpen(false)}
-                >
-                  <ListItemText className='text-alt-black' primary={subValue} />
-                </ListItem>
-              ))}
+              {Object.entries(value.pages).map(([subKey, subValue]) => {
+                const isExternal =
+                  typeof subValue === 'object'
+                    ? subValue.isExternal
+                    : subKey.startsWith('https://') ||
+                      subKey.startsWith('http://')
+                const label =
+                  typeof subValue === 'string' ? subValue : subValue.label
+
+                return (
+                  <ListItem
+                    key={subKey}
+                    component={isExternal ? 'a' : Link}
+                    {...(isExternal
+                      ? {
+                          href: subKey,
+                          target: '_blank',
+                          rel: 'noopener noreferrer',
+                        }
+                      : { to: subKey })}
+                    className='pl-8 no-underline'
+                    onClick={() => setOpen(false)}
+                  >
+                    <div className='flex w-full items-center justify-between gap-2'>
+                      <ListItemText
+                        className='text-alt-black'
+                        primary={label}
+                      />
+                      {isExternal && (
+                        <HetLaunchLink
+                          svgClassName='flex my-auto text-text'
+                          href={subKey}
+                        />
+                      )}
+                    </div>
+                  </ListItem>
+                )
+              })}
             </Collapse>
           </div>
         )
       }
 
       if ('link' in value) {
-        return (
+        return value.isExternal ? (
+          <ListItem
+            key={key}
+            component='a'
+            href={value.link}
+            target='_blank'
+            rel='noopener noreferrer'
+            onClick={() => setOpen(false)}
+          >
+            <div className='flex w-full items-center justify-between gap-2'>
+              <ListItemText className='text-alt-black' primary={value.label} />
+              <HetLaunchLink href={value.link} />
+            </div>
+          </ListItem>
+        ) : (
           <ListItem
             onClick={() => setOpen(false)}
             component={Link}
@@ -71,7 +113,6 @@ export default function HetMobileAppToolbar() {
           </ListItem>
         )
       }
-
       return null
     })
   }

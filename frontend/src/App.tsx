@@ -19,7 +19,6 @@ import {
   useLocation,
 } from 'react-router'
 import { methodologyRouteConfigs } from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
-import NewsAndStoriesPage from './pages/News/NewsAndStoriesPage'
 import { policyRouteConfigs } from './pages/Policy/policyContent/policyRouteConfigs'
 import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
 import MaterialTheme from './styles/MaterialTheme'
@@ -35,7 +34,6 @@ import {
   FULL_FAQS_LINK,
   GUN_VIOLENCE_POLICY,
   METHODOLOGY_PAGE_LINK,
-  NEWS_PAGE_LINK,
   OLD_AGE_ADJUSTMENT_LINK,
   OLD_CONTACT_LINK,
   OLD_OURTEAM_LINK,
@@ -62,7 +60,6 @@ const ErrorBoundaryDropParams = React.lazy(
 const ExploreDataFallback = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataFallback'),
 )
-const NewsPage = React.lazy(async () => await import('./pages/News/NewsPage'))
 const SkipLink = React.lazy(async () => await import('./SkipLink'))
 const MethodologyPage = React.lazy(
   async () =>
@@ -74,12 +71,6 @@ const HetAppBar = React.lazy(
 const Banner = React.lazy(async () => await import('./reports/ui/Banner'))
 const PolicyPage = React.lazy(
   async () => await import('./pages/Policy/policyComponents/PolicyPage'),
-)
-const ShareYourStory = React.lazy(
-  async () => await import('./pages/News/ShareYourStory'),
-)
-const SinglePost = React.lazy(
-  async () => await import('./pages/News/SinglePost'),
 )
 const FaqsPage = React.lazy(async () => await import('./pages/FAQs/FaqsPage'))
 
@@ -198,16 +189,6 @@ export default function App() {
                         />
                       ))}
                     </>
-                  </Route>
-
-                  {/* NESTED NEWS ROUTES */}
-                  <Route path={NEWS_PAGE_LINK} element={<NewsPage />}>
-                    <Route
-                      path={SHARE_YOUR_STORY_TAB_LINK}
-                      element={<ShareYourStory />}
-                    />
-                    <Route path={''} element={<NewsAndStoriesPage />} />
-                    <Route path='/news/:slug' element={<SinglePost />} />
                   </Route>
 
                   <Route

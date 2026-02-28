@@ -127,7 +127,10 @@ export function HetCarouselCard({
                       >
                         Learn more
                       </a>
-                      <HetLaunchLink href={readMoreHref} />
+                      <HetLaunchLink
+                        svgClassName='flex my-auto text-text'
+                        href={readMoreHref}
+                      />
                     </div>
                   )}
                 </div>

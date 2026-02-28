@@ -1,37 +1,9 @@
-import { useQuery } from '@tanstack/react-query'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
-import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
-import {
-  ARTICLES_KEY_4,
-  fetchLandingPageNewsData,
-  REACT_QUERY_OPTIONS,
-} from '../../utils/blogUtils'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
-import {
-  EXPLORE_DATA_PAGE_LINK,
-  NEWS_PAGE_LINK,
-} from '../../utils/internalRoutes'
-import type { Article } from '../News/ArticleTypes'
-import NewsAndStoriesPreviewCardOutlined from '../News/NewsAndStoriesPreviewCardOutlined'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import LandingPageListItem from './LandingPageListItem'
 
 function LandingPage() {
-  const { isLoading, error, data }: any = useQuery({
-    queryKey: [ARTICLES_KEY_4],
-    queryFn: fetchLandingPageNewsData,
-    ...REACT_QUERY_OPTIONS,
-  })
-
-  const isMd = useIsBreakpointAndUp('md')
-  const isLg = useIsBreakpointAndUp('lg')
-
-  let numberOfArticlePreviews = 1
-  if (isMd) numberOfArticlePreviews = 2
-  if (isLg) numberOfArticlePreviews = 3
-
-  const recentArticles = data?.data?.slice(0, numberOfArticlePreviews)
   const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
@@ -213,51 +185,6 @@ function LandingPage() {
         </div>
         <div className='my-0 py-0 xs:py-0'>
           <HetCTABig href={EXPLORE_DATA_PAGE_LINK}>Explore the data</HetCTABig>
-        </div>
-      </section>
-
-      <section className='flex w-full flex-wrap items-center justify-center'>
-        <div className='flex flex-wrap px-56 xs:px-16 py-24 sm:px-24 md:px-32'>
-          <div className='w-full'>
-            <h3 className='m-0 font-bold font-sans-title text-alt-green text-header leading-modal-heading'>
-              Recent news
-            </h3>
-          </div>
-          <div className='w-full'>
-            <p className='mt-4 mb-16 text-text'>
-              Stories and updates from Morehouse School of Medicine and beyond
-            </p>
-          </div>
-          <div className='w-full'>
-            <div className='mt-8 grid w-full gap-4 sm:grid-cols-1 md:grid-cols-2 lg:mt-8 lg:grid-cols-3'>
-              {recentArticles && !isLoading ? (
-                recentArticles.map((article: Article) => {
-                  return (
-                    <div key={article.id}>
-                      <NewsAndStoriesPreviewCardOutlined
-                        article={article}
-                        bgHeight='14rem'
-                      />
-                    </div>
-                  )
-                })
-              ) : (
-                <HetPostsLoading
-                  className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4'
-                  doPulse={!error}
-                  numberLoading={numberOfArticlePreviews}
-                />
-              )}
-            </div>
-            <div className='flex justify-center'>
-              <HetTextArrowLink
-                link={NEWS_PAGE_LINK}
-                linkText='View all articles'
-                containerClassName='flex items-center justify-center mt-16 mx-auto '
-                linkClassName='font-sans-title text-smallest-header'
-              />
-            </div>
-          </div>
         </div>
       </section>
     </main>

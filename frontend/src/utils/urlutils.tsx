@@ -82,7 +82,20 @@ export function LinkWithStickyParams(props: {
   return <Link {...linkProps}>{props.children}</Link>
 }
 
-export const NAVIGATION_STRUCTURE = {
+type NavigationPage = string | { label: string; isExternal?: boolean }
+
+type NavigationItem =
+  | {
+      label: string
+      pages: Record<string, NavigationPage>
+    }
+  | {
+      label: string
+      link: string
+      isExternal?: boolean
+    }
+
+export const NAVIGATION_STRUCTURE: Record<string, NavigationItem> = {
   about: {
     label: 'About',
     pages: {
@@ -103,8 +116,14 @@ export const NAVIGATION_STRUCTURE = {
   mediaAndUpdates: {
     label: 'Media & Updates',
     pages: {
-      [NEWS_PAGE_LINK]: 'News',
-      [urlMap.hetYouTubeShorts]: 'Videos on YouTube',
+      [NEWS_PAGE_LINK]: {
+        label: 'News',
+        isExternal: true,
+      },
+      [urlMap.hetYouTubeShorts]: {
+        label: 'Videos on YouTube',
+        isExternal: true,
+      },
     },
   },
   faqs: { label: 'FAQs', link: FULL_FAQS_LINK },
