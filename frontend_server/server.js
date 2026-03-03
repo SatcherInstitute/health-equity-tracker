@@ -1,12 +1,10 @@
 import compression from 'compression'
-import path, { dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
-// TODO: change over to use ESModules with import() instead of require() ?
 import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import path, { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const buildDir = process.env['BUILD_DIR'] || 'build'
-let RATE_LIMIT_REACHED = false
 console.info(`Build directory: ${buildDir}`)
 
 export function assertEnvVar(name) {
@@ -14,9 +12,7 @@ export function assertEnvVar(name) {
   console.info(`Environment variable ${name}: ${value}`)
   if (value === 'NULL') return ''
   if (!value) {
-    throw new Error(
-      `Invalid environment variable. Name: ${name}, value: ${value}`,
-    )
+    throw new Error(`Invalid environment variable. Name: ${name}, value: ${value}`)
   }
   return value
 }
@@ -25,15 +21,11 @@ export function getBooleanEnvVar(name) {
   const value = process.env[name]
   console.info(`Environment variable ${name}: ${value}`)
   if (value && value !== 'true' && value !== 'false') {
-    throw new Error(
-      `Invalid boolean environment variable. Name: ${name}, value: ${value}`,
-    )
+    throw new Error(`Invalid boolean environment variable. Name: ${name}, value: ${value}`)
   }
   return value === 'true'
 }
 
-// TODO it would be nice to extract PORT and HOST to environment variables
-// because it's good practice not to hard-code this kind of configuration.
 const PORT = 8080
 const HOST = '0.0.0.0'
 const app = express()
@@ -41,41 +33,24 @@ const app = express()
 app.use(express.json())
 app.use(compression())
 
-// CORS middleware
 app.use((req, res, next) => {
-  // Allow all origins for development or use '*' in non-production environments
   res.setHeader('Access-Control-Allow-Origin', '*')
-
-  // Set standard CORS headers
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-
-  // Handle preflight requests
   if (req.method === 'OPTIONS') {
     return res.status(204).end()
   }
-
   next()
 })
 
-// Add Authorization header for all requests that are proxied to the data server.
-// TODO: The token can be cached and only refreshed when needed
 app.use('/api', (req, res, next) => {
   if (assertEnvVar('NODE_ENV') === 'production') {
-    // Set up metadata server request
-    // See https://cloud.google.com/compute/docs/instances/verifying-instance-identity#request_signature
     const metadataServerTokenURL = assertEnvVar('METADATA_SERVER_TOKEN_URL')
     const targetUrl = assertEnvVar('DATA_SERVER_URL')
     const fetchUrl = metadataServerTokenURL + targetUrl
-    const options = {
-      headers: {
-        'Metadata-Flavor': 'Google',
-      },
-    }
-    fetch(fetchUrl, options)
+    fetch(fetchUrl, { headers: { 'Metadata-Flavor': 'Google' } })
       .then((res) => res.text())
       .then((token) => {
-        // Set the bearer token temporarily to Authorization_DataServer header.
         req.headers['Authorization_DataServer'] = `bearer ${token}`
         next()
       })
@@ -85,52 +60,19 @@ app.use('/api', (req, res, next) => {
   }
 })
 
-// TODO check if these are all the right proxy options. For example, there's a
-// "secure" option that makes it check SSL certificates. I don't think we need
-// it but I can't find good documentation.
-// TODO add logging if there's an error in the request.
 const apiProxyOptions = {
   target: assertEnvVar('DATA_SERVER_URL'),
-  changeOrigin: true, // needed for virtual hosted sites
+  changeOrigin: true,
   pathRewrite: { '^/api': '' },
   onProxyReq: (proxyReq) => {
-    proxyReq.setHeader(
-      'Authorization',
-      proxyReq.getHeader('Authorization_DataServer'),
-    )
+    proxyReq.setHeader('Authorization', proxyReq.getHeader('Authorization_DataServer'))
     proxyReq.removeHeader('Authorization_DataServer')
   },
 }
-const apiProxy = createProxyMiddleware(apiProxyOptions)
-app.use('/api', apiProxy)
-
-app.use(compression())
+app.use('/api', createProxyMiddleware(apiProxyOptions))
 
 const aiInsightCache = new Map()
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000
-
-// Track rate limit with timestamp
-let rateLimitInfo = {
-  isLimited: false,
-  lastLimitTime: null
-}
-
-const RATE_LIMIT_RESET_TIME = 60 * 60 * 1000 // 1 hour in milliseconds
-
-app.get('/rate-limit-status', (req, res) => {
-  // Auto-reset rate limit after RATE_LIMIT_RESET_TIME
-  if (rateLimitInfo.isLimited && rateLimitInfo.lastLimitTime) {
-    const timeSinceLimit = Date.now() - rateLimitInfo.lastLimitTime
-    if (timeSinceLimit > RATE_LIMIT_RESET_TIME) {
-      rateLimitInfo.isLimited = false
-      rateLimitInfo.lastLimitTime = null
-    }
-  }
-
-  res.json({
-    rateLimitReached: rateLimitInfo.isLimited,
-  })
-})
 
 app.post('/fetch-ai-insight', async (req, res) => {
   const prompt = req.body.prompt
@@ -138,10 +80,8 @@ app.post('/fetch-ai-insight', async (req, res) => {
     return res.status(400).json({ error: 'Missing prompt parameter' })
   }
 
-  // Check if response is cached and not expired
   const now = Date.now()
   const cachedItem = aiInsightCache.get(prompt)
-
   if (cachedItem && now - cachedItem.timestamp < CACHE_TTL_MS) {
     return res.json({ content: cachedItem.content })
   }
@@ -149,37 +89,23 @@ app.post('/fetch-ai-insight', async (req, res) => {
   const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
 
   try {
-    const aiResponse = await fetch(
-      'https://api.anthropic.com/v1/messages',
-      {
-        method: 'POST',
-        headers: {
-          'x-api-key': apiKey,
-          'anthropic-version': '2023-06-01',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-5-20250929',
-          max_tokens: 1024,
-          messages: [
-            { 
-              role: 'user', 
-              content: prompt 
-            }
-          ],
-        }),
+    const aiResponse = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'Content-Type': 'application/json',
       },
-    )
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5-20250929',
+        max_tokens: 1024,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+    })
 
     if (aiResponse.status === 429) {
-      rateLimitInfo.isLimited = true
-      rateLimitInfo.lastLimitTime = now
       return res.status(429).json({ error: 'Rate limit reached' })
     }
-
-    // Successfully got a response - reset rate limit flag
-    rateLimitInfo.isLimited = false
-    rateLimitInfo.lastLimitTime = null
 
     if (!aiResponse.ok) {
       throw new Error(`AI API Error: ${aiResponse.statusText}`)
@@ -189,27 +115,16 @@ app.post('/fetch-ai-insight', async (req, res) => {
     const content = json.content?.[0]?.text || 'No content returned'
     const trimmedContent = content.trim()
 
-    // Store in cache with timestamp
-    aiInsightCache.set(prompt, {
-      content: trimmedContent,
-      timestamp: now,
-    })
-
+    aiInsightCache.set(prompt, { content: trimmedContent, timestamp: now })
     res.json({ content: trimmedContent })
   } catch (err) {
     console.error('Error fetching AI insight:', err)
-
     res.status(500).json({ error: 'Failed to fetch AI insight' })
   }
 })
 
-// Serve static files from the build directory.
 const __dirname = dirname(fileURLToPath(import.meta.url))
 app.use(express.static(path.join(__dirname, buildDir)))
-
-// Route all other paths to index.html. The "*" must be used otherwise
-// client-side routing wil fail due to missing exact matches. For more info, see
-// https://create-react-app.dev/docs/deployment/#serving-apps-with-client-side-routing
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, buildDir, 'index.html'))
 })

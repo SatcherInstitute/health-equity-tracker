@@ -2,10 +2,10 @@ import { DeleteForever, TipsAndUpdatesOutlined } from '@mui/icons-material'
 import CircularProgress from '@mui/material/CircularProgress'
 import IconButton from '@mui/material/IconButton'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type {
   MetricConfig,
-  MetricId,
+  MetricId
 } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
@@ -14,9 +14,6 @@ import type { Fips } from '../../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { generateInsight } from '../generateInsights'
-import { checkRateLimitStatus } from '../generateInsightsUtils'
-
-// import { checkRateLimitStatus } from '../generateInsightsUtils'
 
 type InsightDisplayProps = {
   demographicType: DemographicType
@@ -43,31 +40,17 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
   const validData = queryResponse.getValidRowsForField(shareConfig.metricId)
   const [knownData] = splitIntoKnownsAndUnknowns(validData, demographicType)
 
-  useEffect(() => {
-    const checkLimit = async () => {
-      const isRateLimited = await checkRateLimitStatus()
-      setRateLimitReached(isRateLimited)
-    }
-    checkLimit()
-  }, [])
-
   const handleGenerateInsight = async () => {
-    if (
-      !SHOW_INSIGHT_GENERATION ||
-      !knownData.length ||
-      !metricIds.length ||
-      rateLimitReached
-    )
-      return
+    if (!SHOW_INSIGHT_GENERATION || !knownData.length || !metricIds.length) return
 
     setIsGeneratingInsight(true)
     try {
-      const newInsight = await generateInsight(
-        { knownData, metricIds },
-        hashId,
-        fips,
-      )
-      setInsight(newInsight)
+      const result = await generateInsight({ knownData, metricIds }, hashId, fips)
+      if (result.rateLimited) {
+        setRateLimitReached(true)
+      } else {
+        setInsight(result.content)
+      }
     } finally {
       setIsGeneratingInsight(false)
     }

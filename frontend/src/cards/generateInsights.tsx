@@ -11,42 +11,43 @@ const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 
 export type Dataset = Record<string, any>
 
-async function fetchAIInsight(prompt: string): Promise<string> {
+export type InsightResult = {
+  content: string
+  rateLimited: boolean
+}
+
+async function fetchAIInsight(prompt: string): Promise<InsightResult> {
   const baseApiUrl = import.meta.env.VITE_BASE_API_URL
-  const dataServerUrl = baseApiUrl
-    ? `${baseApiUrl}${API_ENDPOINT}`
-    : API_ENDPOINT
+  const dataServerUrl = baseApiUrl ? `${baseApiUrl}${API_ENDPOINT}` : API_ENDPOINT
 
   if (!SHOW_INSIGHT_GENERATION) {
-    return ''
+    return { content: '', rateLimited: false }
   }
 
   try {
     const dataResponse = await fetch(dataServerUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt }),
     })
 
+    if (dataResponse.status === 429) {
+      return { content: '', rateLimited: true }
+    }
+
     if (!dataResponse.ok) {
-      if (dataResponse.status === 429) {
-        return 'AI insights temporarily unavailable due to rate limits. Please try again later.'
-      }
       throw new Error(`Failed to fetch AI insight: ${dataResponse.statusText}`)
     }
 
     const insight = await dataResponse.json()
-
     if (!insight.content) {
       throw new Error('No content returned from AI service')
     }
 
-    return insight.content.trim()
+    return { content: insight.content.trim(), rateLimited: false }
   } catch (error) {
     console.error('Error generating insight:', error)
-    return ERROR_GENERATING_INSIGHT
+    return { content: ERROR_GENERATING_INSIGHT, rateLimited: false }
   }
 }
 
@@ -129,33 +130,27 @@ export async function generateInsight(
   chartMetrics: ChartData,
   hashId: ScrollableHashId,
   fips?: Fips,
-): Promise<string> {
+): Promise<InsightResult> {
   if (!SHOW_INSIGHT_GENERATION) {
-    return ''
+    return { content: '', rateLimited: false }
   }
 
   try {
     const { knownData, metricIds } = chartMetrics
 
     if (!knownData || knownData.length === 0) {
-      return 'No data available to generate insights.'
+      return { content: 'No data available to generate insights.', rateLimited: false }
     }
 
     const processedData = mapRelevantData(knownData, metricIds)
     const { topic, demographic } = extractMetadata(processedData)
     const location = fips?.getDisplayName() || ''
     const formattedData = JSON.stringify(processedData, null, 2)
-    const prompt = generateInsightPrompt(
-      topic,
-      location,
-      demographic,
-      formattedData,
-      hashId,
-    )
+    const prompt = generateInsightPrompt(topic, location, demographic, formattedData, hashId)
 
     return await fetchAIInsight(prompt)
   } catch (error) {
     console.error(ERROR_GENERATING_INSIGHT, error)
-    return ERROR_GENERATING_INSIGHT
+    return { content: ERROR_GENERATING_INSIGHT, rateLimited: false }
   }
 }
