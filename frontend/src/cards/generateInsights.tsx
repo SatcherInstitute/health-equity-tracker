@@ -18,7 +18,9 @@ export type InsightResult = {
 
 async function fetchAIInsight(prompt: string): Promise<InsightResult> {
   const baseApiUrl = import.meta.env.VITE_BASE_API_URL
-  const dataServerUrl = baseApiUrl ? `${baseApiUrl}${API_ENDPOINT}` : API_ENDPOINT
+  const dataServerUrl = baseApiUrl 
+  ? `${baseApiUrl}${API_ENDPOINT}` 
+  : API_ENDPOINT
 
   if (!SHOW_INSIGHT_GENERATION) {
     return { content: '', rateLimited: false }

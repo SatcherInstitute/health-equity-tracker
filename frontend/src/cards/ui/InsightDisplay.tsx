@@ -41,11 +41,16 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
   const [knownData] = splitIntoKnownsAndUnknowns(validData, demographicType)
 
   const handleGenerateInsight = async () => {
-    if (!SHOW_INSIGHT_GENERATION || !knownData.length || !metricIds.length) return
+    if (!SHOW_INSIGHT_GENERATION || !knownData.length || !metricIds.length) 
+      return
 
     setIsGeneratingInsight(true)
     try {
-      const result = await generateInsight({ knownData, metricIds }, hashId, fips)
+      const result = await generateInsight(
+        { knownData, metricIds },
+        hashId,
+        fips
+        )
       if (result.rateLimited) {
         setRateLimitReached(true)
       } else {
