@@ -7,13 +7,10 @@ export default function InsightReport() {
 
   return (
     <>
-      <InsightReportModal
-      />
+      <InsightReportModal />
       <div className='rounded-sm bg-white shadow-raised md:m-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
         <InsightReportModalButton />
       </div>
     </>
   )
 }
-
-

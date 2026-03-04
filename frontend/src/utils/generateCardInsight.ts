@@ -16,9 +16,9 @@ export type InsightResult = {
 
 async function fetchAIInsight(prompt: string): Promise<InsightResult> {
   const baseApiUrl = import.meta.env.VITE_BASE_API_URL
-  const dataServerUrl = baseApiUrl 
-  ? `${baseApiUrl}${API_ENDPOINT}` 
-  : API_ENDPOINT
+  const dataServerUrl = baseApiUrl
+    ? `${baseApiUrl}${API_ENDPOINT}`
+    : API_ENDPOINT
 
   if (!SHOW_INSIGHT_GENERATION) {
     return { content: '', rateLimited: false }
@@ -139,14 +139,23 @@ export async function generateCardInsight(
     const { knownData, metricIds } = chartMetrics
 
     if (!knownData || knownData.length === 0) {
-      return { content: 'No data available to generate insights.', rateLimited: false }
+      return {
+        content: 'No data available to generate insights.',
+        rateLimited: false,
+      }
     }
 
     const processedData = mapRelevantData(knownData, metricIds)
     const { topic, demographic } = extractMetadata(processedData)
     const location = fips?.getDisplayName() || ''
     const formattedData = JSON.stringify(processedData, null, 2)
-    const prompt = generateInsightPrompt(topic, location, demographic, formattedData, hashId)
+    const prompt = generateInsightPrompt(
+      topic,
+      location,
+      demographic,
+      formattedData,
+      hashId,
+    )
 
     return await fetchAIInsight(prompt)
   } catch (error) {

@@ -5,7 +5,7 @@ import type React from 'react'
 import { useState } from 'react'
 import type {
   MetricConfig,
-  MetricId
+  MetricId,
 } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
@@ -41,7 +41,7 @@ const InsightCard: React.FC<InsightCardProps> = ({
   const [knownData] = splitIntoKnownsAndUnknowns(validData, demographicType)
 
   const handleGenerateInsight = async () => {
-    if (!SHOW_INSIGHT_GENERATION || !knownData.length || !metricIds.length) 
+    if (!SHOW_INSIGHT_GENERATION || !knownData.length || !metricIds.length)
       return
 
     setIsGeneratingInsight(true)
@@ -49,8 +49,8 @@ const InsightCard: React.FC<InsightCardProps> = ({
       const result = await generateCardInsight(
         { knownData, metricIds },
         hashId,
-        fips
-        )
+        fips,
+      )
       if (result.rateLimited) {
         setRateLimitReached(true)
       } else {

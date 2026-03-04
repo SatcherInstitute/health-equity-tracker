@@ -14,7 +14,7 @@ import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-  type DemographicType
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
@@ -27,14 +27,14 @@ import type { MadLibId } from '../utils/MadLibs'
 import {
   selectedDataTypeConfig1Atom,
   selectedDemographicTypeAtom,
-  selectedFipsAtom
+  selectedFipsAtom,
 } from '../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DEMOGRAPHIC_PARAM,
   getParameter,
   psSubscribe,
-  swapOldDatatypeParams
+  swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
 import { getAllDemographicOptions } from './reportUtils'

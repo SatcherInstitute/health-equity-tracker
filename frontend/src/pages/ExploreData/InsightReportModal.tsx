@@ -3,7 +3,7 @@ import {
   CircularProgress,
   Dialog,
   DialogContent,
-  DialogTitle
+  DialogTitle,
 } from '@mui/material'
 import { useAtomValue } from 'jotai'
 import type React from 'react'
@@ -11,13 +11,13 @@ import { useEffect, useState } from 'react'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import {
   generateReportInsight,
-  type ReportInsightSections
+  type ReportInsightSections,
 } from '../../utils/generateReportInsight'
 import { useParamState } from '../../utils/hooks/useParamState'
 import {
   selectedDataTypeConfig1Atom,
   selectedDemographicTypeAtom,
-  selectedFipsAtom
+  selectedFipsAtom,
 } from '../../utils/sharedSettingsState'
 import { REPORT_INSIGHT_PARAM_KEY } from '../../utils/urlutils'
 
@@ -121,7 +121,7 @@ export default function AIInsightModal() {
       scroll='paper'
     >
       <DialogTitle className='flex items-center justify-between gap-2 pb-2'>
-        <span className='flex items-center gap-2 text-alt-dark font-semibold'>
+        <span className='flex items-center gap-2 font-semibold text-alt-dark'>
           <AutoAwesome fontSize='small' className='text-alt-green' />
           AI Report Summary
         </span>
@@ -136,7 +136,7 @@ export default function AIInsightModal() {
         {isGenerating && (
           <div className='flex flex-col items-center gap-3 py-8'>
             <CircularProgress size={28} />
-            <p className='text-small text-alt-dark'>
+            <p className='text-alt-dark text-small'>
               Synthesizing data across all charts with AI...
             </p>
           </div>
@@ -144,14 +144,14 @@ export default function AIInsightModal() {
 
         {/* Rate limited */}
         {rateLimitReached && !isGenerating && (
-          <p className='text-small text-center text-red-500 py-4'>
+          <p className='py-4 text-center text-red-500 text-small'>
             Too many requests. Please wait a moment and try again.
           </p>
         )}
 
         {/* Error */}
         {error && !isGenerating && (
-          <p className='text-small text-center text-red-500 py-4'>{error}</p>
+          <p className='py-4 text-center text-red-500 text-small'>{error}</p>
         )}
 
         {/* Sections */}
@@ -159,19 +159,20 @@ export default function AIInsightModal() {
           <div className='flex flex-col gap-5'>
             {SECTIONS.map(({ key, label, icon }) => (
               <div key={key} className='flex flex-col gap-1'>
-                <span className='flex items-center gap-1 text-smallest font-semibold text-alt-green uppercase tracking-wide'>
+                <span className='flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide'>
                   {icon}
                   {label}
                 </span>
-                <p className='m-0 text-text text-alt-dark leading-relaxed'>
+                <p className='m-0 text-alt-dark text-text leading-relaxed'>
                   {sections[key]}
                 </p>
               </div>
             ))}
 
             <button
+              type='button'
               onClick={handleRegenerate}
-              className='self-end text-smallest text-alt-green underline'
+              className='self-end text-alt-green text-smallest underline'
             >
               Regenerate
             </button>
@@ -179,7 +180,7 @@ export default function AIInsightModal() {
         )}
       </DialogContent>
 
-      <DialogContent dividers className='text-smallest text-alt-dark'>
+      <DialogContent dividers className='text-alt-dark text-smallest'>
         AI-generated synthesis based on report context. Always verify findings
         with the source data shown in the charts above.
       </DialogContent>

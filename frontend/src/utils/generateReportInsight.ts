@@ -1,5 +1,8 @@
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import { DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE, type DemographicType } from '../data/query/Breakdowns'
+import {
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
+} from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 
@@ -7,9 +10,9 @@ const API_ENDPOINT = '/fetch-ai-insight'
 const ERROR_GENERATING_INSIGHT = 'Error generating report insight'
 
 export type InsightResult = {
-    content: string
-    rateLimited: boolean
-  }
+  content: string
+  rateLimited: boolean
+}
 
 export type ReportInsightSections = {
   keyFindings: string
@@ -123,7 +126,11 @@ export async function generateReportInsight(
     const demographicTypeString =
       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType] ?? 'demographic'
 
-    const prompt = generateReportInsightPrompt(topic, location, demographicTypeString)
+    const prompt = generateReportInsightPrompt(
+      topic,
+      location,
+      demographicTypeString,
+    )
     const result = await fetchAIInsight(prompt)
 
     if (result.rateLimited) {
@@ -131,13 +138,21 @@ export async function generateReportInsight(
     }
 
     if (result.content === ERROR_GENERATING_INSIGHT) {
-      return { sections: null, rateLimited: false, error: ERROR_GENERATING_INSIGHT }
+      return {
+        sections: null,
+        rateLimited: false,
+        error: ERROR_GENERATING_INSIGHT,
+      }
     }
 
     const sections = parseSections(result.content)
     return { sections, rateLimited: false }
   } catch (error) {
     console.error(ERROR_GENERATING_INSIGHT, error)
-    return { sections: null, rateLimited: false, error: ERROR_GENERATING_INSIGHT }
+    return {
+      sections: null,
+      rateLimited: false,
+      error: ERROR_GENERATING_INSIGHT,
+    }
   }
 }
