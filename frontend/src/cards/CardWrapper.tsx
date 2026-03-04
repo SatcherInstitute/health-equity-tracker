@@ -9,7 +9,7 @@ import type { Fips } from '../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardOptionsMenu from './ui/CardOptionsMenu'
-import InsightDisplay from './ui/InsightDisplay'
+import InsightCard from './ui/InsightCard'
 import { Sources } from './ui/Sources'
 
 function CardWrapper(props: {
@@ -63,7 +63,7 @@ function CardWrapper(props: {
             className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
           >
             {shouldShowInsightDisplay && (
-              <InsightDisplay
+              <InsightCard
                 demographicType={props.demographicType}
                 metricIds={props.metricIds}
                 queryResponses={queryResponses}

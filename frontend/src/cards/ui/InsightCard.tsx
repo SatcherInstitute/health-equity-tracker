@@ -12,10 +12,10 @@ import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import type { Fips } from '../../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
+import { generateCardInsight } from '../../utils/generateCardInsight'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import { generateInsight } from '../generateInsights'
 
-type InsightDisplayProps = {
+type InsightCardProps = {
   demographicType: DemographicType
   metricIds: MetricId[]
   queryResponses: MetricQueryResponse[]
@@ -24,7 +24,7 @@ type InsightDisplayProps = {
   fips?: Fips
 }
 
-const InsightDisplay: React.FC<InsightDisplayProps> = ({
+const InsightCard: React.FC<InsightCardProps> = ({
   queryResponses,
   shareConfig,
   demographicType,
@@ -46,7 +46,7 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
 
     setIsGeneratingInsight(true)
     try {
-      const result = await generateInsight(
+      const result = await generateCardInsight(
         { knownData, metricIds },
         hashId,
         fips
@@ -92,4 +92,4 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
   )
 }
 
-export default InsightDisplay
+export default InsightCard

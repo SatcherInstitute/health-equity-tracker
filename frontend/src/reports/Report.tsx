@@ -14,22 +14,27 @@ import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-  type DemographicType,
+  type DemographicType
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
+import InsightReport from '../pages/ui/InsightReport'
 import Sidebar from '../pages/ui/Sidebar'
 import HetLazyLoader from '../styles/HetComponents/HetLazyLoader'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import type { MadLibId } from '../utils/MadLibs'
-import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDemographicTypeAtom,
+  selectedFipsAtom
+} from '../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DEMOGRAPHIC_PARAM,
   getParameter,
   psSubscribe,
-  swapOldDatatypeParams,
+  swapOldDatatypeParams
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
 import { getAllDemographicOptions } from './reportUtils'
@@ -69,6 +74,8 @@ export function Report(props: ReportProps) {
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
     selectedDataTypeConfig1Atom,
   )
+  const [, setSelectedFips] = useAtom(selectedFipsAtom)
+  const [, setSelectedDemographicType] = useAtom(selectedDemographicTypeAtom)
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
     getAllDemographicOptions(dataTypeConfig, props.fips)
@@ -99,13 +106,15 @@ export function Report(props: ReportProps) {
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
     readParams()
+    setSelectedFips(props.fips)
+    setSelectedDemographicType(demographicType)
 
     return () => {
       if (psHandler) {
         psHandler.unsubscribe()
       }
     }
-  }, [props.dropdownVarId, demographicType])
+  }, [props.dropdownVarId, demographicType, props.fips])
 
   // when variable config changes (new data type), re-calc available card steps TableOfContents
   useEffect(() => {
@@ -322,6 +331,7 @@ export function Report(props: ReportProps) {
           </div>
         </div>
         <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
+          {dataTypeConfig && <InsightReport />}
           <Sidebar
             floatTopOffset={props.headerScrollMargin}
             isScrolledToTop={props.isScrolledToTop}

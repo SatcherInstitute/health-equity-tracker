@@ -1,24 +1,23 @@
-import { useAtomValue } from 'jotai'
-import { lazy, useCallback, useEffect, useState } from 'react'
-import { STATUS } from 'react-joyride-react-19' // TODO: ideally revert back to react-joyride and not this temporary fork
-import { useLocation } from 'react-router'
+import { useAtomValue } from 'jotai';
+import { lazy, useCallback, useEffect, useState } from 'react';
+import { STATUS } from 'react-joyride-react-19'; // TODO: ideally revert back to react-joyride and not this temporary fork
+import { useLocation } from 'react-router';
 import {
-  type DropdownVarId,
-  isDropdownVarId,
-} from '../../data/config/DropDownIds'
-import { METRIC_CONFIG } from '../../data/config/MetricConfig'
+  isDropdownVarId, type DropdownVarId
+} from '../../data/config/DropDownIds';
+import { METRIC_CONFIG } from '../../data/config/MetricConfig';
 import type {
   DataTypeConfig,
-  DataTypeId,
-} from '../../data/config/MetricConfigTypes'
-import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
-import { ALL } from '../../data/utils/Constants'
-import ReportProvider from '../../reports/ReportProvider'
-import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert'
-import { srSpeak } from '../../utils/a11yutils'
-import { urlMap } from '../../utils/externalUrls'
-import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
-import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
+  DataTypeId
+} from '../../data/config/MetricConfigTypes';
+import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider';
+import { ALL } from '../../data/utils/Constants';
+import ReportProvider from '../../reports/ReportProvider';
+import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert';
+import { srSpeak } from '../../utils/a11yutils';
+import { urlMap } from '../../utils/externalUrls';
+import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects';
+import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin';
 import {
   getMadLibPhraseText,
   getSelectedConditions,
@@ -26,12 +25,12 @@ import {
   type MadLib,
   type MadLibId,
   type PhraseSegment,
-  type PhraseSelections,
-} from '../../utils/MadLibs'
+  type PhraseSelections
+} from '../../utils/MadLibs';
 import {
   selectedDataTypeConfig1Atom,
-  selectedDataTypeConfig2Atom,
-} from '../../utils/sharedSettingsState'
+  selectedDataTypeConfig2Atom
+} from '../../utils/sharedSettingsState';
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -41,17 +40,15 @@ import {
   MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
   parseMls,
-  psSubscribe,
-  SHOW_ONBOARDING_PARAM,
-  setParameter,
-  setParameters,
-  stringifyMls,
-} from '../../utils/urlutils'
-import CHLPMapsModal from './CHLPMapsModal'
-import DefaultHelperBox from './DefaultHelperBox'
-import MadLibUI from './MadLibUI'
-import TopicInfoModal from './TopicInfoModal'
-import VoteDotOrgModal from './VoteDotOrgModal'
+  psSubscribe, setParameter,
+  setParameters, SHOW_ONBOARDING_PARAM, stringifyMls
+} from '../../utils/urlutils';
+import CHLPMapsModal from './CHLPMapsModal';
+import DefaultHelperBox from './DefaultHelperBox';
+import InsightReportModal from './InsightReportModal';
+import MadLibUI from './MadLibUI';
+import TopicInfoModal from './TopicInfoModal';
+import VoteDotOrgModal from './VoteDotOrgModal';
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
@@ -330,6 +327,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       <TopicInfoModal />
       <VoteDotOrgModal />
       <CHLPMapsModal />
+      <InsightReportModal/>
       <Onboarding
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}

@@ -1,10 +1,8 @@
-// generateInsights.ts
-
 import type { MetricId } from '../data/config/MetricConfigTypes'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import type { ChartData } from '../reports/Report'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import type { ScrollableHashId } from './hooks/useStepObserver'
 
 const API_ENDPOINT = '/fetch-ai-insight'
 const ERROR_GENERATING_INSIGHT = 'Error generating insight'
@@ -128,7 +126,7 @@ function mapRelevantData(
   })
 }
 
-export async function generateInsight(
+export async function generateCardInsight(
   chartMetrics: ChartData,
   hashId: ScrollableHashId,
   fips?: Fips,
