@@ -130,6 +130,9 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
       reportTitle={props.reportTitle}
       className={props.className}
       hasIntersectionalAllCompareBar={rateComparisonConfig !== undefined}
+      shareConfig={rateConfig}
+      metricIds={[rateConfig.metricId]}
+      fips={props.fips}
     >
       {([rateQueryResponseRate, rateQueryResponseRateAlls], metadata) => {
         // for consistency, filter out any 'Unknown' rows that might have rates (like PHRMA)

@@ -123,6 +123,9 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       expanded={a11yTableExpanded}
       className={props.className}
+      shareConfig={metricConfigInequitable}
+      metricIds={[metricConfigInequitable.metricId]}
+      fips={props.fips}
     >
       {([queryResponseInequity, queryResponsePctShares]) => {
         const inequityData = queryResponseInequity.getValidRowsForField(

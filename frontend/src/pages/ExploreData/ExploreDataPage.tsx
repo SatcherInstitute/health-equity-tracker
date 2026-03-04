@@ -49,6 +49,7 @@ import {
 } from '../../utils/urlutils'
 import CHLPMapsModal from './CHLPMapsModal'
 import DefaultHelperBox from './DefaultHelperBox'
+import InsightReportModal from './InsightReportModal'
 import MadLibUI from './MadLibUI'
 import TopicInfoModal from './TopicInfoModal'
 import VoteDotOrgModal from './VoteDotOrgModal'
@@ -330,6 +331,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       <TopicInfoModal />
       <VoteDotOrgModal />
       <CHLPMapsModal />
+      <InsightReportModal />
       <Onboarding
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}

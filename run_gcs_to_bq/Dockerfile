@@ -8,10 +8,11 @@ ENV PYTHONUNBUFFERED True
 
 # Define the build-time variable
 ARG AHR_API_KEY
+ARG ANTHROPIC_API_KEY
 
 # Set the environment variable using the ARG value
 ENV AHR_API_KEY=$AHR_API_KEY
-
+ENV ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME

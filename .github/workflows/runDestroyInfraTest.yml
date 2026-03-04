@@ -121,7 +121,6 @@ jobs:
           dockerfile: 'frontend_server/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/frontend'
           deploy-context: 'dev'
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
 
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'

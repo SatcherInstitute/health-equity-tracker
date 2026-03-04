@@ -2,7 +2,7 @@ import { DeleteForever, TipsAndUpdatesOutlined } from '@mui/icons-material'
 import CircularProgress from '@mui/material/CircularProgress'
 import IconButton from '@mui/material/IconButton'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type {
   MetricConfig,
   MetricId,
@@ -10,22 +10,27 @@ import type {
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
+import type { Fips } from '../../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
-import { generateInsight } from '../generateInsights'
-import { checkRateLimitStatus } from '../generateInsightsUtils'
+import { generateCardInsight } from '../../utils/generateCardInsight'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
-type InsightDisplayProps = {
+type InsightCardProps = {
   demographicType: DemographicType
   metricIds: MetricId[]
   queryResponses: MetricQueryResponse[]
   shareConfig: MetricConfig
+  hashId: ScrollableHashId
+  fips?: Fips
 }
 
-const InsightDisplay: React.FC<InsightDisplayProps> = ({
+const InsightCard: React.FC<InsightCardProps> = ({
   queryResponses,
   shareConfig,
   demographicType,
   metricIds,
+  hashId,
+  fips,
 }) => {
   const [insight, setInsight] = useState<string>('')
   const [isGeneratingInsight, setIsGeneratingInsight] = useState<boolean>(false)
@@ -35,30 +40,22 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
   const validData = queryResponse.getValidRowsForField(shareConfig.metricId)
   const [knownData] = splitIntoKnownsAndUnknowns(validData, demographicType)
 
-  useEffect(() => {
-    async function checkLimit() {
-      if (SHOW_INSIGHT_GENERATION) {
-        const isLimited = await checkRateLimitStatus()
-        setRateLimitReached(isLimited)
-      }
-    }
-
-    checkLimit()
-  }, [])
-
   const handleGenerateInsight = async () => {
-    if (
-      !SHOW_INSIGHT_GENERATION ||
-      !knownData.length ||
-      !metricIds.length ||
-      rateLimitReached
-    )
+    if (!SHOW_INSIGHT_GENERATION || !knownData.length || !metricIds.length)
       return
 
     setIsGeneratingInsight(true)
     try {
-      const newInsight = await generateInsight({ knownData, metricIds })
-      setInsight(newInsight)
+      const result = await generateCardInsight(
+        { knownData, metricIds },
+        hashId,
+        fips,
+      )
+      if (result.rateLimited) {
+        setRateLimitReached(true)
+      } else {
+        setInsight(result.content)
+      }
     } finally {
       setIsGeneratingInsight(false)
     }
@@ -87,10 +84,12 @@ const InsightDisplay: React.FC<InsightDisplayProps> = ({
         </IconButton>
       )}
       <p className='m-0 p-8 text-center text-alt-dark text-text smplus:text-smallest-header'>
-        {isGeneratingInsight ? 'Generating insight...' : insight}
+        {isGeneratingInsight
+          ? 'Analyzing health equity data with AI...'
+          : insight}
       </p>
     </>
   )
 }
 
-export default InsightDisplay
+export default InsightCard

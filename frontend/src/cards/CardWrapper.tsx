@@ -5,10 +5,11 @@ import type {
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
+import type { Fips } from '../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardOptionsMenu from './ui/CardOptionsMenu'
-import InsightDisplay from './ui/InsightDisplay'
+import InsightCard from './ui/InsightCard'
 import { Sources } from './ui/Sources'
 
 function CardWrapper(props: {
@@ -36,6 +37,7 @@ function CardWrapper(props: {
   shareConfig?: any
   demographicType?: any
   metricIds?: any
+  fips?: Fips
 }) {
   const loadingComponent = (
     <div
@@ -61,11 +63,13 @@ function CardWrapper(props: {
             className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
           >
             {shouldShowInsightDisplay && (
-              <InsightDisplay
+              <InsightCard
                 demographicType={props.demographicType}
                 metricIds={props.metricIds}
                 queryResponses={queryResponses}
                 shareConfig={props.shareConfig}
+                hashId={props.scrollToHash}
+                fips={props.fips}
               />
             )}
             <CardOptionsMenu

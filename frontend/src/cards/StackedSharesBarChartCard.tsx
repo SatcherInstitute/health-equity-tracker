@@ -91,6 +91,7 @@ export default function StackedSharesBarChartCard(
       className={props.className}
       shareConfig={shareConfig}
       metricIds={metricIds}
+      fips={props.fips}
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(
