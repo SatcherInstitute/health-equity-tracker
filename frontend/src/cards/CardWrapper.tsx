@@ -1,12 +1,17 @@
+import { AutoAwesome, DeleteForever } from '@mui/icons-material'
 import { CircularProgress } from '@mui/material'
+import IconButton from '@mui/material/IconButton'
+import { useState } from 'react'
 import type {
   MetricQuery,
-  MetricQueryResponse,
+  MetricQueryResponse
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
+import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
+import { generateCardInsight } from '../utils/generateCardInsight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardOptionsMenu from './ui/CardOptionsMenu'
 import InsightCard from './ui/InsightCard'
@@ -39,6 +44,10 @@ function CardWrapper(props: {
   metricIds?: any
   fips?: Fips
 }) {
+  const [insight, setInsight] = useState<string>('')
+  const [isGeneratingInsight, setIsGeneratingInsight] = useState<boolean>(false)
+  const [rateLimitReached, setRateLimitReached] = useState<boolean>(false)
+
   const loadingComponent = (
     <div
       className={`relative m-2 flex justify-center rounded bg-white p-3 shadow-raised ${props.className}`}
@@ -50,6 +59,7 @@ function CardWrapper(props: {
   )
 
   const shouldShowInsightDisplay = SHOW_INSIGHT_GENERATION && props.shareConfig
+  const showInsightButton = shouldShowInsightDisplay && !rateLimitReached
 
   return (
     <WithMetadataAndMetrics
@@ -58,6 +68,39 @@ function CardWrapper(props: {
       queries={props.queries ?? []}
     >
       {(metadata, queryResponses, geoData) => {
+        const queryResponse = queryResponses[0]
+
+        const handleGenerateInsight = async () => {
+          if (!props.shareConfig || !props.metricIds?.length) return
+
+          const validData = queryResponse.getValidRowsForField(
+            props.shareConfig.metricId,
+          )
+          const [knownData] = splitIntoKnownsAndUnknowns(
+            validData,
+            props.demographicType,
+          )
+          if (!knownData.length) return
+
+          setIsGeneratingInsight(true)
+          try {
+            const result = await generateCardInsight(
+              { knownData, metricIds: props.metricIds },
+              props.scrollToHash,
+              props.fips,
+            )
+            if (result.rateLimited) {
+              setRateLimitReached(true)
+            } else {
+              setInsight(result.content)
+            }
+          } finally {
+            setIsGeneratingInsight(false)
+          }
+        }
+
+        const handleClearInsight = () => setInsight('')
+
         return (
           <article
             className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
@@ -70,12 +113,33 @@ function CardWrapper(props: {
                 shareConfig={props.shareConfig}
                 hashId={props.scrollToHash}
                 fips={props.fips}
+                insight={insight}
+                isGeneratingInsight={isGeneratingInsight}
               />
             )}
-            <CardOptionsMenu
-              reportTitle={props.reportTitle}
-              scrollToHash={props.scrollToHash}
-            />
+            <div className='absolute top-2 right-2 z-10 flex items-center gap-1'>
+              {showInsightButton && (
+                <IconButton
+                  aria-label={insight ? 'Clear insight' : 'Generate insight'}
+                  onClick={insight ? handleClearInsight : handleGenerateInsight}
+                  disabled={isGeneratingInsight}
+                  size='small'
+                >
+                  {isGeneratingInsight ? (
+                    <CircularProgress size={20} />
+                  ) : insight ? (
+                    <DeleteForever fontSize='small' />
+                  ) : (
+                    <AutoAwesome fontSize='small' />
+                  )}
+                </IconButton>
+              )}
+              <CardOptionsMenu
+                reportTitle={props.reportTitle}
+                scrollToHash={props.scrollToHash}
+              />
+            </div>
+
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <Sources
