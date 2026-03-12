@@ -13,10 +13,11 @@ from ingestion.cdc_hiv_utils import (
     CDC_STATE_NAME,
     CDC_STATE_FIPS,
     CDC_YEAR,
-    TEST_PCT_SHARE_MAP,
+    BW_PCT_SHARE_MAP,
     PCT_SHARE_MAP,
     PCT_RELATIVE_INEQUITY_MAP,
     BW_FLOAT_COLS_RENAME_MAP,
+    BW_HIV_METRICS,
     get_bq_col_types,
 )
 from ingestion.dataset_utils import (
@@ -25,14 +26,6 @@ from ingestion.dataset_utils import (
     preserve_only_current_time_period_rows,
 )
 from typing import cast
-
-HIV_DIRECTORY = "cdc_hiv_black_women"
-
-HIV_METRICS = {
-    "deaths": std_col.HIV_DEATHS_PREFIX,
-    "diagnoses": std_col.HIV_DIAGNOSES_PREFIX,
-    "prevalence": std_col.HIV_PREVALENCE_PREFIX,
-}
 
 
 class CDCHIVBlackWomenData(DataSource):
@@ -65,8 +58,7 @@ class CDCHIVBlackWomenData(DataSource):
             if time_view == CURRENT:
                 df_for_bq = preserve_only_current_time_period_rows(df_for_bq)
 
-            keep_cols = col_types.keys()
-            df_for_bq = df_for_bq[keep_cols]
+            df_for_bq = df_for_bq[list(col_types.keys())]
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
 
@@ -103,12 +95,12 @@ class CDCHIVBlackWomenData(DataSource):
 
         df = generate_pct_share_col_without_unknowns(
             df,
-            TEST_PCT_SHARE_MAP,
+            BW_PCT_SHARE_MAP,
             cast(HIV_BREAKDOWN_TYPE, std_col.AGE_COL),
             std_col.ALL_VALUE,
         )
 
-        for col in HIV_METRICS.values():
+        for col in BW_HIV_METRICS.values():
             pop_col = std_col.HIV_POPULATION_PCT
             df = generate_pct_rel_inequity_col(df, PCT_SHARE_MAP[col], pop_col, PCT_RELATIVE_INEQUITY_MAP[col])
 

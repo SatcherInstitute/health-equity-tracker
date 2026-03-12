@@ -1,12 +1,13 @@
 from unittest import mock
 from pandas._testing import assert_frame_equal
-from datasources.cdc_hiv_black_women import CDCHIVBlackWomenData, HIV_DIRECTORY
+from datasources.cdc_hiv_black_women import CDCHIVBlackWomenData
 from ingestion.cdc_hiv_utils import DTYPE, NA_VALUES
 import pandas as pd
 import os
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
+HIV_DIRECTORY = "cdc_hiv_black_women"
 GOLDEN_DIR = os.path.join(TEST_DIR, HIV_DIRECTORY, "golden_data")
 
 GOLDEN_DATA = {

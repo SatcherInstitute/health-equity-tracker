@@ -7,7 +7,7 @@ import PartnerGilead from '../../assets/partners/PartnerGilead.png'
 import PartnerGoogle from '../../assets/partners/PartnerGoogle.png'
 import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
 import Allyson from '../../assets/team/BeltonA.png'
-import Kim from '../../assets/team/CincoKim.jpg'
+import Kim from '../../assets/team/CincoK.png'
 import Megan from '../../assets/team/DouglasMegan.jpg'
 import Ben from '../../assets/team/HammondBen.jpg'
 import Jammie from '../../assets/team/HopkinsJammie.jpg'
@@ -16,7 +16,7 @@ import Donrie from '../../assets/team/PurcellDonrie.png'
 import DrHH from '../../assets/team/SHarris-Hooker.jpg'
 import Shaneeta from '../../assets/team/ShaneetaJohnson.png'
 import Maisha from '../../assets/team/StandiferM.png'
-import Eric from '../../assets/team/WarrenEric.png'
+import Eric from '../../assets/team/WarrenE.png'
 
 export const LEADERSHIP_TEAM = [
   {
