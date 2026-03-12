@@ -240,7 +240,7 @@ export function Report(props: ReportProps) {
                     id='inequities-over-time'
                     className='w-full scroll-m-0 md:scroll-mt-24'
                   >
-                    <HetLazyLoader offset={600} height={750} once>
+                    <HetLazyLoader offset={600} once>
                       <ShareTrendsChartCard
                         dataTypeConfig={dataTypeConfig}
                         demographicType={demographicType}
