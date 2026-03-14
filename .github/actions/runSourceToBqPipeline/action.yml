@@ -65,8 +65,6 @@ runs:
         # Create the request payload
         REQUEST_PAYLOAD="{\"message\":{\"is_dag_pipeline_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"${{ inputs.source_gcs_bucket }}\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}"
 
-        echo "Request payload: $REQUEST_PAYLOAD"
-
         TOKEN=$(gcloud auth print-identity-token)
 
         while [ $ATTEMPT -lt $MAX_RETRIES ]; do
