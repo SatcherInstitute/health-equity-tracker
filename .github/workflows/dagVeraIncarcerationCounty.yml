@@ -24,11 +24,13 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_ETH }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
 
       - name: Export NDJSON files to GCS buckets from by race BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_ETH }}
 
@@ -42,11 +44,13 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.AGE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
 
       - name: Export NDJSON files to GCS buckets from by age BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.AGE }}
 
@@ -60,11 +64,13 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.SEX }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
 
       - name: Export NDJSON files to GCS buckets from by sex BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.SEX }}
           should_export_as_alls: "true"
