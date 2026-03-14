@@ -24,5 +24,6 @@ jobs:
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           workflow_id: ${{ env.WORKFLOW_ID }}
           destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}

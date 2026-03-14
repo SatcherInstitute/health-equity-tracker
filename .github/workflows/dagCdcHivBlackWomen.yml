@@ -25,6 +25,7 @@ jobs:
           demographic: ${{ env.BLACK_WOMEN }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
 
       # BLACK WOMEN STATE
       - name: Process and write black women state to BigQuery
@@ -35,11 +36,13 @@ jobs:
           demographic: ${{ env.BLACK_WOMEN }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
 
       # Export black women data
       - name: Export black women NDJSON files from BigQuery
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.BLACK_WOMEN }}
