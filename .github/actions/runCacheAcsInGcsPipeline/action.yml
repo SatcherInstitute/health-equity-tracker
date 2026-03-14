@@ -8,6 +8,9 @@ inputs:
   workflow_id:
     description: "Workflow ID (e.g., ACS_POPULATION, ACS_CONDITION)"
     required: true
+  gcp_sa_key:
+    description: "GCP service account key JSON for authenticating requests to Cloud Run"
+    required: true
   filename:
     description: "Name of GCS file to store the data in (optional)"
     required: false
@@ -36,6 +39,14 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Authenticate to GCP
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ inputs.gcp_sa_key }}
+
+    - name: Set up gcloud
+      uses: google-github-actions/setup-gcloud@v2
+
     - run: |
         MAX_RETRIES=${{ inputs.max_retries }}
         INITIAL_BACKOFF=${{ inputs.initial_backoff }}
@@ -44,12 +55,15 @@ runs:
         # Create the request payload
         REQUEST_PAYLOAD="{\"message\":{\"is_dag_pipeline_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"filename\":\"${{ inputs.filename }}\",\"url\":\"${{ inputs.url }}\",\"gcs_bucket\":\"${{ inputs.destination_gcs_bucket }}\",\"year\":\"${{ inputs.year }}\"}}"
 
+        TOKEN=$(gcloud auth print-identity-token)
+
         while [ $ATTEMPT -lt $MAX_RETRIES ]; do
           echo "Attempt $(($ATTEMPT + 1))/$MAX_RETRIES to call data-ingestion service..."
 
           # Make the request and store the response
           HTTP_STATUS=$(curl -X POST \
             -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${TOKEN}" \
             -d "$REQUEST_PAYLOAD" \
             ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}")
 
