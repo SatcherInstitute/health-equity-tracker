@@ -11,6 +11,9 @@ inputs:
   dataset_name:
     description: "Dataset Name"
     required: true
+  gcp_sa_key:
+    description: "GCP service account key JSON for authenticating requests to Cloud Run"
+    required: true
   source_gcs_bucket:
     description: "Source GCS bucket (optional). Only used for COVID and Census Pop Est. (manual) and ACS (landing)"
     required: false
@@ -42,6 +45,14 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Authenticate to GCP
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ inputs.gcp_sa_key }}
+
+    - name: Set up gcloud
+      uses: google-github-actions/setup-gcloud@v2
+
     - run: |
         MAX_RETRIES=${{ inputs.max_retries }}
         INITIAL_BACKOFF=${{ inputs.initial_backoff }}
@@ -54,8 +65,7 @@ runs:
         # Create the request payload
         REQUEST_PAYLOAD="{\"message\":{\"is_dag_pipeline_run\":true,\"id\":\"${{ inputs.workflow_id }}\",\"gcs_bucket\":\"${{ inputs.source_gcs_bucket }}\",\"dataset\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"year\":\"${{ inputs.year }}\",\"category\":\"${{ inputs.category }}\"}}"
 
-        # Log the payload (optional - remove if contains sensitive data)
-        echo "Request payload: $REQUEST_PAYLOAD"
+        TOKEN=$(gcloud auth print-identity-token)
 
         while [ $ATTEMPT -lt $MAX_RETRIES ]; do
           echo "Attempt $(($ATTEMPT + 1))/$MAX_RETRIES to call gcs-to-bq service..."
@@ -63,6 +73,7 @@ runs:
           # Make the request and store the response
           HTTP_STATUS=$(curl -X POST \
             -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${TOKEN}" \
             -d "$REQUEST_PAYLOAD" \
             ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}")
 
@@ -73,11 +84,9 @@ runs:
             cat response.txt
             exit 0
           else
-            # Display response content
             echo "Response content:"
             cat response.txt || echo "No response content available"
 
-            # Check for scaling-related error messages in response
             if grep -q "no available instance" response.txt || grep -q "Please try again" response.txt; then
               BACKOFF_TIME=$(( INITIAL_BACKOFF * 2**ATTEMPT ))
               ATTEMPT=$((ATTEMPT + 1))
