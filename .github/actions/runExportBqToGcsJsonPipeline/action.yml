@@ -8,6 +8,9 @@ inputs:
   dataset_name:
     description: "Dataset Name"
     required: true
+  gcp_sa_key:
+    description: "GCP service account key JSON for authenticating requests to Cloud Run"
+    required: true
   category:
     description: "Category (optional)"
     required: false
@@ -35,6 +38,14 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Authenticate to GCP
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ inputs.gcp_sa_key }}
+
+    - name: Set up gcloud
+      uses: google-github-actions/setup-gcloud@v2
+
     - run: |
         MAX_RETRIES=${{ inputs.max_retries }}
         INITIAL_BACKOFF=${{ inputs.initial_backoff }}
@@ -43,8 +54,11 @@ runs:
         while [ $ATTEMPT -lt $MAX_RETRIES ]; do
           echo "Attempt $(($ATTEMPT + 1))/$MAX_RETRIES to call exporter service..."
 
+          TOKEN=$(gcloud auth print-identity-token)
+
           HTTP_STATUS=$(curl -X POST \
             -H "Content-Type: application/json" \
+            -H "Authorization: Bearer ${TOKEN}" \
             -d "{\"dataset_name\":\"${{ inputs.dataset_name }}\",\"demographic\":\"${{ inputs.demographic }}\",\"geographic\":\"${{ inputs.geographic }}\",\"should_export_as_alls\":${{ inputs.should_export_as_alls }}}" \
             ${{ inputs.service_url }} -s -o response.txt -w "%{http_code}")
 

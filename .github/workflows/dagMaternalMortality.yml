@@ -22,6 +22,7 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
 
       - name: Export NDJSON files to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
@@ -30,3 +31,4 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           should_export_as_alls: "true"
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
