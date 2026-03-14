@@ -28,7 +28,7 @@ jobs:
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           should_export_as_alls: "true"
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}

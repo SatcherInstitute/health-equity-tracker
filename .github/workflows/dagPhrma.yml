@@ -32,7 +32,8 @@ jobs:
           demographic: ${{ env.RACE_ETH }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # State level
       - name: Process and write race tables to BigQuery (state)
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
@@ -42,7 +43,8 @@ jobs:
           demographic: ${{ env.RACE_ETH }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # County level
       - name: Process and write race tables to BigQuery (county)
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
@@ -52,12 +54,14 @@ jobs:
           demographic: ${{ env.RACE_ETH }}
           geographic: ${{ env.COUNTY }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # Export to GCS
       - name: Export NDJSON files to GCS buckets from race tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_ETH }}
 
@@ -74,7 +78,8 @@ jobs:
           demographic: ${{ env.AGE }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # State level
       - name: Process and write age tables to BigQuery (state)
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
@@ -84,7 +89,8 @@ jobs:
           demographic: ${{ env.AGE }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # County level
       - name: Process and write age tables to BigQuery (county)
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
@@ -94,12 +100,14 @@ jobs:
           demographic: ${{ env.AGE }}
           geographic: ${{ env.COUNTY }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # Export to GCS
       - name: Export NDJSON files to GCS buckets from age tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.AGE }}
 
@@ -116,7 +124,8 @@ jobs:
           demographic: ${{ env.SEX }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # State level
       - name: Process and write sex tables to BigQuery (state)
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
@@ -126,7 +135,8 @@ jobs:
           demographic: ${{ env.SEX }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # County level
       - name: Process and write sex tables to BigQuery (county)
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
@@ -136,12 +146,14 @@ jobs:
           demographic: ${{ env.SEX }}
           geographic: ${{ env.COUNTY }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # Export to GCS
       - name: Export NDJSON files to GCS buckets from sex tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.SEX }}
           should_export_as_alls: "true"
@@ -159,7 +171,8 @@ jobs:
           demographic: ${{ env.LIS }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # State level
       - name: Process and write lis tables to BigQuery (state)
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
@@ -169,7 +182,8 @@ jobs:
           demographic: ${{ env.LIS }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # County level
       - name: Process and write lis tables to BigQuery (county)
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
@@ -179,12 +193,14 @@ jobs:
           demographic: ${{ env.LIS }}
           geographic: ${{ env.COUNTY }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # Export to GCS
       - name: Export NDJSON files to GCS buckets from lis tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.LIS }}
 
@@ -201,7 +217,8 @@ jobs:
           demographic: ${{ env.ELIGIBILITY }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # State level
       - name: Process and write eligibility tables to BigQuery (state)
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
@@ -211,7 +228,8 @@ jobs:
           demographic: ${{ env.ELIGIBILITY }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # County level
       - name: Process and write eligibility tables to BigQuery (county)
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
@@ -221,11 +239,13 @@ jobs:
           demographic: ${{ env.ELIGIBILITY }}
           geographic: ${{ env.COUNTY }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+
       # Export to GCS
       - name: Export NDJSON files to GCS buckets from eligibility tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.ELIGIBILITY }}
