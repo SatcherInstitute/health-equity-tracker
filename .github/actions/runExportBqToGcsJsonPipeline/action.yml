@@ -51,10 +51,10 @@ runs:
         INITIAL_BACKOFF=${{ inputs.initial_backoff }}
         ATTEMPT=0
 
+        TOKEN=$(gcloud auth print-identity-token)
+
         while [ $ATTEMPT -lt $MAX_RETRIES ]; do
           echo "Attempt $(($ATTEMPT + 1))/$MAX_RETRIES to call exporter service..."
-
-          TOKEN=$(gcloud auth print-identity-token)
 
           HTTP_STATUS=$(curl -X POST \
             -H "Content-Type: application/json" \

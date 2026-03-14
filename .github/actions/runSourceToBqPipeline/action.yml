@@ -67,10 +67,10 @@ runs:
 
         echo "Request payload: $REQUEST_PAYLOAD"
 
+        TOKEN=$(gcloud auth print-identity-token)
+
         while [ $ATTEMPT -lt $MAX_RETRIES ]; do
           echo "Attempt $(($ATTEMPT + 1))/$MAX_RETRIES to call gcs-to-bq service..."
-
-          TOKEN=$(gcloud auth print-identity-token)
 
           # Make the request and store the response
           HTTP_STATUS=$(curl -X POST \
