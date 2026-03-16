@@ -120,75 +120,75 @@ export default function InsightReportCard(props: InsightReportCardProps) {
         maxHeight: `calc(100vh - ${topOffset + 16}px)`,
       }}
     >
-    <div className='flex flex-col gap-3 rounded-sm bg-white p-4 shadow-raised md:m-card-gutter'>
-      {/* Header */}
-      <div className='flex items-center justify-between gap-2'>
-        <span className='flex items-center gap-2 font-semibold text-alt-dark'>
-          <AutoAwesome fontSize='small' className='text-alt-green' />
-          AI Report Summary
-        </span>
-        <HetCloseButton
-          onClick={handleClose}
-          ariaLabel='close AI report insight'
-        />
-      </div>
+      <div className='flex flex-col gap-3 rounded-sm bg-white p-4 shadow-raised md:m-card-gutter'>
+        {/* Header */}
+        <div className='flex items-center justify-between gap-2'>
+          <span className='flex items-center gap-2 font-semibold text-alt-dark'>
+            <AutoAwesome fontSize='small' className='text-alt-green' />
+            AI Report Summary
+          </span>
+          <HetCloseButton
+            onClick={handleClose}
+            ariaLabel='close AI report insight'
+          />
+        </div>
 
-      <Divider />
+        <Divider />
 
-      {/* Loading */}
-      {isGenerating && (
-        <div className='flex flex-col items-center gap-3 py-8'>
-          <CircularProgress size={28} />
-          <p className='text-alt-dark text-small'>
-            Synthesizing data across all charts with AI...
+        {/* Loading */}
+        {isGenerating && (
+          <div className='flex flex-col items-center gap-3 py-8'>
+            <CircularProgress size={28} />
+            <p className='text-alt-dark text-small'>
+              Synthesizing data across all charts with AI...
+            </p>
+          </div>
+        )}
+
+        {/* Rate limited */}
+        {rateLimitReached && !isGenerating && (
+          <p className='py-4 text-center text-red-500 text-small'>
+            Too many requests. Please wait a moment and try again.
           </p>
-        </div>
-      )}
+        )}
 
-      {/* Rate limited */}
-      {rateLimitReached && !isGenerating && (
-        <p className='py-4 text-center text-red-500 text-small'>
-          Too many requests. Please wait a moment and try again.
+        {/* Error */}
+        {error && !isGenerating && (
+          <p className='py-4 text-center text-red-500 text-small'>{error}</p>
+        )}
+
+        {/* Sections */}
+        {sections && !isGenerating && (
+          <div className='flex flex-col gap-5'>
+            {SECTIONS.map(({ key, label, icon }) => (
+              <div key={key} className='flex flex-col gap-1'>
+                <span className='flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide'>
+                  {icon}
+                  {label}
+                </span>
+                <p className='m-0 text-alt-dark text-text leading-relaxed'>
+                  {sections[key]}
+                </p>
+              </div>
+            ))}
+
+            <button
+              type='button'
+              onClick={handleRegenerate}
+              className='self-end text-alt-green text-smallest underline'
+            >
+              Regenerate
+            </button>
+          </div>
+        )}
+
+        <Divider />
+
+        <p className='m-0 text-alt-dark text-smallest'>
+          AI-generated synthesis based on report context. Always verify findings
+          with the source data shown in the charts above.
         </p>
-      )}
-
-      {/* Error */}
-      {error && !isGenerating && (
-        <p className='py-4 text-center text-red-500 text-small'>{error}</p>
-      )}
-
-      {/* Sections */}
-      {sections && !isGenerating && (
-        <div className='flex flex-col gap-5'>
-          {SECTIONS.map(({ key, label, icon }) => (
-            <div key={key} className='flex flex-col gap-1'>
-              <span className='flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide'>
-                {icon}
-                {label}
-              </span>
-              <p className='m-0 text-alt-dark text-text leading-relaxed'>
-                {sections[key]}
-              </p>
-            </div>
-          ))}
-
-          <button
-            type='button'
-            onClick={handleRegenerate}
-            className='self-end text-alt-green text-smallest underline'
-          >
-            Regenerate
-          </button>
-        </div>
-      )}
-
-      <Divider />
-
-      <p className='m-0 text-alt-dark text-smallest'>
-        AI-generated synthesis based on report context. Always verify findings
-        with the source data shown in the charts above.
-      </p>
-    </div>
+      </div>
     </div>
   )
 }

@@ -1,8 +1,6 @@
 import { useAtom } from 'jotai'
 import { useEffect } from 'react'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
-import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
-import InsightReportCard from '../pages/ExploreData/InsightReportCard'
 import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
 import MapCard from '../cards/MapCard'
 import RateBarChartCard from '../cards/RateBarChartCard'
@@ -24,7 +22,8 @@ import {
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
-import { SHOW_CORRELATION_CARD } from '../featureFlags'
+import { SHOW_CORRELATION_CARD, SHOW_INSIGHT_GENERATION } from '../featureFlags'
+import InsightReportCard from '../pages/ExploreData/InsightReportCard'
 import Sidebar from '../pages/ui/Sidebar'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -39,8 +38,8 @@ import {
   DEMOGRAPHIC_PARAM,
   getParameter,
   psSubscribe,
-  swapOldDatatypeParams,
   REPORT_INSIGHT_PARAM_KEY,
+  swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'

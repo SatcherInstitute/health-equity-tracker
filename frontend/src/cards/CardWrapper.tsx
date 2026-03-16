@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton'
 import { useState } from 'react'
 import type {
   MetricQuery,
-  MetricQueryResponse
+  MetricQueryResponse,
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
