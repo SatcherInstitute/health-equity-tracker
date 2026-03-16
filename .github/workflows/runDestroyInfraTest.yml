@@ -17,7 +17,7 @@ jobs:
       - id: auth
         uses: google-github-actions/auth@v3
         with:
-          credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          credentials_json: ${{ secrets.DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v3
         with:
@@ -40,7 +40,7 @@ jobs:
       - id: auth
         uses: google-github-actions/auth@v3
         with:
-          credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          credentials_json: ${{ secrets.DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v3
         with:
@@ -64,7 +64,7 @@ jobs:
       - id: auth
         uses: google-github-actions/auth@v3
         with:
-          credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          credentials_json: ${{ secrets.DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v3
         with:
@@ -87,7 +87,7 @@ jobs:
       - id: auth
         uses: google-github-actions/auth@v3
         with:
-          credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          credentials_json: ${{ secrets.DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v3
         with:
@@ -110,7 +110,7 @@ jobs:
       - id: auth
         uses: google-github-actions/auth@v3
         with:
-          credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          credentials_json: ${{ secrets.DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v3
         with:
@@ -135,7 +135,7 @@ jobs:
       - id: auth
         uses: google-github-actions/auth@v3
         with:
-          credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          credentials_json: ${{ secrets.DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
         uses: google-github-actions/setup-gcloud@v3
         with:
@@ -149,7 +149,7 @@ jobs:
         working-directory: ./config
         run: |
           cat > creds.json << EOF
-          ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          ${{ secrets.DEPLOYER_SA_KEY }}
           EOF
       - name: Terraform Init
         working-directory: ./config
@@ -162,7 +162,7 @@ jobs:
         run: |
           terraform destroy -auto-approve -var-file=gcp.tfvars \
           -var-file=common.tfvars \
-          -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
+          -var 'gcp_credentials=${{ secrets.DEPLOYER_SA_KEY }}' \
           -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
           -var 'ingestion_image_digest=${{ needs.build-ingestion.outputs.image-digest }}' \
           -var 'gcs_to_bq_image_digest=${{ needs.build-gcs-to-bq.outputs.image-digest }}' \

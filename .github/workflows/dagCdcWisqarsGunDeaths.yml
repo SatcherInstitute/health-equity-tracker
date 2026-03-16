@@ -25,7 +25,7 @@ jobs:
           demographic: ${{ env.AGE }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
       # AGE STATE
       - name: Process and write age state tables to BigQuery
@@ -36,7 +36,7 @@ jobs:
           demographic: ${{ env.AGE }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
       # RACE NATIONAL
       - name: Process and write race and ethnicity national tables to BigQuery
@@ -47,7 +47,7 @@ jobs:
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
       # RACE STATE
       - name: Process and write race and ethnicity state tables to BigQuery
@@ -58,7 +58,7 @@ jobs:
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
       # SEX NATIONAL
       - name: Process and write sex national tables to BigQuery
@@ -69,7 +69,7 @@ jobs:
           demographic: ${{ env.SEX }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
       # SEX STATE
       - name: Process and write sex state tables to BigQuery
@@ -80,14 +80,14 @@ jobs:
           demographic: ${{ env.SEX }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
       # EXPORTERS
       - name: Export NDJSON files for age to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.AGE }}
 
@@ -95,7 +95,7 @@ jobs:
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_AND_ETHNICITY }}
 
@@ -103,7 +103,7 @@ jobs:
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.SEX }}
           should_export_as_alls: "true"

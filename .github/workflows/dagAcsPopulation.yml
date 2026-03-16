@@ -29,7 +29,7 @@ jobs:
           year: "2009"
           source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
   # Process 2010-2016 concurrently (APPEND operations)
   process-2010-2016:
@@ -49,7 +49,7 @@ jobs:
           year: ${{ matrix.year }}
           source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
   # Process 2017-2021 concurrently (APPEND operations)
   process-2017-2021:
@@ -69,7 +69,7 @@ jobs:
           year: ${{ matrix.year }}
           source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
   # Process 2022 separately (latest year)
   process-2022:
@@ -84,7 +84,7 @@ jobs:
           year: "2022"
           source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
   # Export demographic data - separate explicit jobs running in parallel
   export-race:
@@ -95,7 +95,7 @@ jobs:
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE }}
           should_export_as_alls: "true"
@@ -108,7 +108,7 @@ jobs:
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.AGE }}
           should_export_as_alls: "false"
@@ -121,7 +121,7 @@ jobs:
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.SEX }}
           should_export_as_alls: "false"
