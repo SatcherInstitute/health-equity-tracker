@@ -23,7 +23,7 @@ jobs:
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
       # RACE STATE
       - name: Process and write race and ethnicity state tables to BigQuery
@@ -34,14 +34,14 @@ jobs:
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
       # EXPORTER
       - name: Export NDJSON files for race and ethnicity to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
-          gcp_sa_key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           should_export_as_alls: "true"
