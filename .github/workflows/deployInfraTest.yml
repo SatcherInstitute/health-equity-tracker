@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: main
 
@@ -34,7 +34,7 @@ jobs:
         with:
           ref: main
           environment: dev
-          deployer-sa-key: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+          deployer-sa-key: ${{ secrets.DEPLOYER_SA_KEY }}
           project-id: ${{ secrets.TEST_PROJECT_ID }}
           tf-state-bucket: ${{ secrets.TEST_TF_STATE_BUCKET }}
           ahr-api-key: ${{ secrets.AHR_API_KEY }}

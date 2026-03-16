@@ -178,8 +178,7 @@ function ReportProvider(props: ReportProviderProps) {
         {props.showLifeLineAlert && <LifelineAlert />}
         {props.showVoteDotOrgBanner && <VoteDotOrgBanner />}
         {props.showCHLPMapsBanner && <CHLPMapsBanner />}
-        {/* TODO: why is this always false? */}
-        {props.showIncarceratedChildrenAlert && false && (
+        {props.showIncarceratedChildrenAlert && (
           <IncarceratedChildrenLongAlert />
         )}
 
