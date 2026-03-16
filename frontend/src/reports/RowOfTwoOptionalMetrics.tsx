@@ -25,6 +25,7 @@ interface RowOfTwoOptionalMetricsProps {
   dropdownVarId2?: DropdownVarId
   headerScrollMargin: number
   trackerMode: MadLibId
+  hideSecondCard?: boolean
 }
 
 export default function RowOfTwoOptionalMetrics(
@@ -43,7 +44,7 @@ export default function RowOfTwoOptionalMetrics(
     <div id={`${props.id}-row`} className='flex w-full flex-wrap'>
       <div
         tabIndex={-1}
-        className='w-full gap-2 md:w-1/2 lg:gap-3'
+        className={`w-full gap-2 lg:gap-3 ${props.hideSecondCard ? '' : 'md:w-1/2'}`}
         id={props.id}
         // NOTE: use inline styles to set dynamic scroll margin based on MadLib header height
         style={{ scrollMarginTop: props.headerScrollMargin }}
@@ -60,24 +61,26 @@ export default function RowOfTwoOptionalMetrics(
           </>
         )}
       </div>
-      <div
-        tabIndex={-1}
-        className='w-full md:w-1/2'
-        id={`${props.id}2`}
-        style={{ scrollMarginTop: props.headerScrollMargin }}
-      >
-        {dataTypeConfig2 && (
-          <>
-            {props.createCard(
-              dataTypeConfig2,
-              props.fips2,
-              props.updateFips2 ?? unusedFipsCallback,
-              props.dropdownVarId2,
-              /* isCompareCard */ true,
-            )}
-          </>
-        )}
-      </div>
+      {!props.hideSecondCard && (
+        <div
+          tabIndex={-1}
+          className='w-full md:w-1/2'
+          id={`${props.id}2`}
+          style={{ scrollMarginTop: props.headerScrollMargin }}
+        >
+          {dataTypeConfig2 && (
+            <>
+              {props.createCard(
+                dataTypeConfig2,
+                props.fips2,
+                props.updateFips2 ?? unusedFipsCallback,
+                props.dropdownVarId2,
+                /* isCompareCard */ true,
+              )}
+            </>
+          )}
+        </div>
+      )}
     </div>
   )
 }

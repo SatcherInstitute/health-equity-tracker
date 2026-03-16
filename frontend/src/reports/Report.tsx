@@ -331,7 +331,9 @@ export function Report(props: ReportProps) {
           </div>
         </div>
         <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
-          {dataTypeConfig && <InsightReport />}
+          {dataTypeConfig && (
+            <InsightReport setTrackerMode={props.setTrackerMode} />
+          )}
           <Sidebar
             floatTopOffset={props.headerScrollMargin}
             isScrolledToTop={props.isScrolledToTop}
