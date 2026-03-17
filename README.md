@@ -119,7 +119,7 @@ Note: If you are using VSCode or one of its forks, ensure you install the recomm
 1. While still in the `health-equity-tracker/frontend/` folder, run
 
    ```bash
-   npm run local
+   npm run localhost
    ```
 
 2. In your browser, visit <http://localhost:3000>
@@ -267,7 +267,7 @@ The frontend uses multiple environments to assist with development, testing, and
 
 | Environment | .env File | Frontend Deployment | Backend GCP Project | Description |
 |-------------|-----------|---------------------|---------------------|-------------|
-| Local Development | `.env.local` (create from template) | Local machine's <http://localhost:3000> | het-infra-test | For developer workstations. |
+| Local Development | `.env.localhost` | Local machine's <http://localhost:3000> | het-infra-test | For developer workstations. |
 | PR Preview | `.env.deploy_preview` | Netlify PR Preview; URL in GitHub PR comment | het-infra-test | Temporary deployments for pull request reviews. |
 | Development | `.env.dev` | dev.healthequitytracker.org | het-infra-test | Stable environment for testing features before production. |
 | Production | `.env.production` | healthequitytracker.org | het-infra-prod | Live environment for end users. |
