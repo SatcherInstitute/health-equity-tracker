@@ -10,7 +10,8 @@ type DeployContext =
   | 'deploy_preview'
 
   // When running npm run dev, or when running Docker locally
-  | 'local'
+  // NOTE: the filename .env.local is ALWAYS loaded in Vite, and merged with any other environment specific vars.
+  | 'localhost'
 
   // Unit or integration tests
   | 'test'
@@ -69,7 +70,7 @@ class HetEnvironment implements Environment {
   getBaseApiUrl() {
     // If the API url isn't provided, requests are relative to current domain.
     const apiBaseUrl = this.getEnvVariable('BASE_API_URL')
-    if (!apiBaseUrl && this.deployContext === 'local') {
+    if (!apiBaseUrl && this.deployContext === 'localhost') {
       console.warn(
         '\n\n.ENV MISSING\n\n\nBASE_API_URL environment variable is not set. See the repo README for more information.',
       )
@@ -95,13 +96,13 @@ function getDeployContext(): DeployContext {
     return 'test'
   }
 
-  if (import.meta.env.NODE_ENV === 'local') {
-    return 'local'
+  if (import.meta.env.NODE_ENV === 'localhost') {
+    return 'localhost'
   }
 
   const deployContextVar = import.meta.env.VITE_DEPLOY_CONTEXT
   if (deployContextVar) {
-    const expectedContexts = ['prod', 'dev', 'deploy_preview', 'local']
+    const expectedContexts = ['prod', 'dev', 'deploy_preview', 'localhost']
     if (!expectedContexts.includes(deployContextVar)) {
       throw new Error('Invalid value for deploy context environment variable')
     }
