@@ -1,23 +1,12 @@
-type DeployContext =
-  // Production environment in GCP
-  | 'prod'
-
-  // The "dev" GCP environment that gets auto-deployed from main branch to dev.healthequitytracker.org
-  | 'dev'
-
-  // Deploy previews. Currently, all netlify deploys are considered deploy
-  // previews.
-  | 'deploy_preview'
-
-  // When running npm run dev, or when running Docker locally
-  // NOTE: the filename .env.local is ALWAYS loaded in Vite, and merged with any other environment specific vars.
-  | 'localhost'
-
-  // Unit or integration tests
-  | 'test'
-
-  // Unknown deploy context. This generally shouldn't happen.
-  | 'unknown'
+const DEPLOY_CONTEXTS = [
+  'prod', // Production environment in GCP (healthequitytracker.org)
+  'dev', // Dev environment, auto-deployed from main (dev.healthequitytracker.org)
+  'deploy_preview', // Netlify PR previews
+  'localhost', // Local development
+  'test', // Unit/integration tests
+  'unknown', // Fallback — should not occur in practice
+] as const
+type DeployContext = (typeof DEPLOY_CONTEXTS)[number]
 
 export interface Environment {
   /** The context the frontend is currently running in. */
@@ -40,10 +29,8 @@ export interface Environment {
 
   /**
    * Whether to fetch the dataset as a static file from the public/tmp/
-   * directory.
-   *
-   * This should only be used for local development or in-progress datasets. In
-   * production, all datasets should be fetched from the data server.
+   * directory. Should only be used for local development or in-progress
+   * datasets not yet on the data server.
    */
   forceFetchDatasetAsStaticFile: (fileName: string) => boolean
 }
@@ -68,7 +55,9 @@ class HetEnvironment implements Environment {
   }
 
   getBaseApiUrl() {
-    // If the API url isn't provided, requests are relative to current domain.
+    // Empty string means API calls are relative to the current domain.
+    // NOTE: Vite always loads .env.local regardless of mode — use .env.localhost
+    // for local dev to avoid contaminating prod builds.
     const apiBaseUrl = this.getEnvVariable('BASE_API_URL')
     if (!apiBaseUrl && this.deployContext === 'localhost') {
       console.warn(
@@ -96,14 +85,9 @@ function getDeployContext(): DeployContext {
     return 'test'
   }
 
-  if (import.meta.env.NODE_ENV === 'localhost') {
-    return 'localhost'
-  }
-
   const deployContextVar = import.meta.env.VITE_DEPLOY_CONTEXT
   if (deployContextVar) {
-    const expectedContexts = ['prod', 'dev', 'deploy_preview', 'localhost']
-    if (!expectedContexts.includes(deployContextVar)) {
+    if (!DEPLOY_CONTEXTS.includes(deployContextVar as DeployContext)) {
       throw new Error('Invalid value for deploy context environment variable')
     }
     return deployContextVar as DeployContext
