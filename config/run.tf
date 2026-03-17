@@ -189,6 +189,11 @@ resource "google_cloud_run_service" "frontend_service" {
           value = google_cloud_run_service.data_server_service.status.0.url
         }
 
+        env {
+          name  = "ANTHROPIC_API_KEY"
+          value = var.anthropic_api_key
+        }
+
         resources {
           limits = {
             memory = "8Gi"

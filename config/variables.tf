@@ -175,3 +175,9 @@ variable "frontend_runner_identity_id" {
   description = "Account id of the service account used when running the frontend service"
   type        = string
 }
+
+variable "anthropic_api_key" {
+  description = "Anthropic API key for AI insights"
+  type        = string
+  sensitive   = true
+}
