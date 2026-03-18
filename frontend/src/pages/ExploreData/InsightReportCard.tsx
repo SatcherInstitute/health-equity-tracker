@@ -7,14 +7,14 @@ import { useEffect, useState } from 'react'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import {
   generateReportInsight,
-  type ReportInsightSections,
+  type ReportInsightSections
 } from '../../utils/generateReportInsight'
 import { useParamState } from '../../utils/hooks/useParamState'
 import type { MadLibId } from '../../utils/MadLibs'
 import {
   selectedDataTypeConfig1Atom,
   selectedDemographicTypeAtom,
-  selectedFipsAtom,
+  selectedFipsAtom
 } from '../../utils/sharedSettingsState'
 import { REPORT_INSIGHT_PARAM_KEY } from '../../utils/urlutils'
 
@@ -154,13 +154,12 @@ export default function InsightReportCard(props: InsightReportCardProps) {
 
   return (
     <div
-      className='sticky overflow-y-auto'
+      className='sticky'
       style={{
         top: topOffset,
-        maxHeight: `calc(100vh - ${topOffset + 16}px)`,
       }}
     >
-      <div className='flex flex-col gap-3 rounded-sm bg-white p-4 shadow-raised md:m-card-gutter'>
+      <div className='flex flex-col gap-3 rounded-sm bg-white p-4 text-left shadow-raised md:m-card-gutter'>
         {/* Header */}
         <div className='flex items-center justify-between gap-2'>
           <span className='flex items-center gap-2 font-semibold text-alt-dark'>
@@ -212,12 +211,15 @@ export default function InsightReportCard(props: InsightReportCardProps) {
         {sections && !isGenerating && (
           <div className='flex flex-col gap-5'>
             {SECTIONS.map(({ key, label, icon }) => (
-              <div key={key} className='flex flex-col gap-1'>
+              <div
+                key={key}
+                className={`flex flex-col gap-1 ${key === 'keyFindings' ? 'rounded-md bg-green-50' : ''}`}
+              >
                 <span className='flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide'>
                   {icon}
                   {label}
                 </span>
-                <p className='m-0 text-alt-dark text-text leading-relaxed'>
+                <p className={`m-0 text-alt-dark leading-snug ${key === 'keyFindings' ? 'font-bold text-title' : 'text-text leading-relaxed'}`}>
                   {sections[key]}
                 </p>
               </div>

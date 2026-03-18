@@ -74,17 +74,23 @@ function generateReportInsightPrompt(
   location: string,
   demographicTypeString: string,
 ): string {
-  return `You are a public health analyst reviewing a full report page about "${topic}" in ${location}, broken down by ${demographicTypeString}.
+  return `You are a public health analyst reviewing a report about "${topic}" in ${location}, broken down by ${demographicTypeString}.
 
 The page contains multiple charts: a rate map, rates over time, a rate bar chart, an unknowns map, inequities over time, and a population vs distribution chart.
+
+WRITING RULES — follow these strictly:
+- Write at an 8th-grade reading level. Use short words and simple sentences.
+- Avoid jargon. If you must use a technical term, explain it immediately.
+- Each section: 1-2 sentences maximum, 35 words or fewer.
+- keyFindings: 1 sentence, 25 words or fewer. Lead with the single most striking fact.
 
 Respond ONLY with a valid JSON object — no markdown, no backticks, no explanation outside the JSON. Use this exact structure:
 
 {
-  "keyFindings": "2-3 sentences identifying the most significant disparity across all charts, leading with the most striking number or pattern.",
-  "locationComparison": "2-3 sentences describing how disparities vary geographically — which states or regions show the most extreme gaps and what that suggests about structural vs localized factors.",
-  "demographicInsights": "2-3 sentences naming the most disproportionately affected group, quantifying the gap between highest and lowest rates, and describing the population share vs case share imbalance.",
-  "whatThisMeans": "2-3 sentences translating the data into real-world human impact — what does this mean for people living in these communities, in plain language."
+  "keyFindings": "1 sentence (max 25 words): the single most striking disparity, leading with a specific number or rate.",
+  "locationComparison": "1-2 sentences (max 35 words): which places have the biggest gaps and why that might be.",
+  "demographicInsights": "1-2 sentences (max 35 words): which group is most affected and how large the gap is compared to others.",
+  "whatThisMeans": "1-2 sentences (max 35 words): what this means for real people in these communities, in plain everyday language."
 }`
 }
 
