@@ -69,7 +69,11 @@ const apiProxyOptions = {
     proxyReq.removeHeader('Authorization_DataServer')
   },
 }
-app.use('/api', createProxyMiddleware(apiProxyOptions))
+const apiProxy = createProxyMiddleware(apiProxyOptions)
+app.use('/api', apiProxy)
+
+app.use(compression())
+
 
 const aiInsightCache = new Map()
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000
@@ -104,6 +108,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
     })
 
     if (aiResponse.status === 429) {
+      console.warn('Anthropic API rate limit reached')
       return res.status(429).json({ error: 'Rate limit reached' })
     }
 
@@ -115,6 +120,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
     const content = json.content?.[0]?.text || 'No content returned'
     const trimmedContent = content.trim()
 
+    // Store in cache with timestamp
     aiInsightCache.set(prompt, { content: trimmedContent, timestamp: now })
     res.json({ content: trimmedContent })
   } catch (err) {

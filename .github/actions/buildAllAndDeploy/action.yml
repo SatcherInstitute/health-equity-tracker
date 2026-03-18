@@ -23,7 +23,7 @@ inputs:
   anthropic-api-key:
     description: "Claude API key"
     required: true
-    
+
 outputs:
   data-server-url:
     description: "URL of the deployed data server"
