@@ -105,11 +105,6 @@ app.use('/api', apiProxy)
 
 app.use(compression())
 
-app.get('/rate-limit-status', (req, res) => {
-  res.json({
-    rateLimitReached: RATE_LIMIT_REACHED,
-  })
-})
 
 const aiInsightCache = new Map()
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000
@@ -146,6 +141,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
     })
 
     if (aiResponse.status === 429) {
+      console.warn('Anthropic API rate limit reached')
       return res.status(429).json({ error: 'Rate limit reached' })
     }
 
