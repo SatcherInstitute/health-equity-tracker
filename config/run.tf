@@ -92,7 +92,7 @@ resource "google_cloud_run_service" "data_server_service" {
   template {
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale" = "80" # User-facing can scale to handle many requests
+        "autoscaling.knative.dev/maxScale" = "50" # User-facing can scale to handle many requests
       }
     }
     spec {
@@ -177,7 +177,7 @@ resource "google_cloud_run_service" "frontend_service" {
   template {
     metadata {
       annotations = {
-        "autoscaling.knative.dev/maxScale" = "80" # User-facing can scale to handle many requests
+        "autoscaling.knative.dev/maxScale" = "50" # User-facing can scale to handle many requests
       }
     }
     spec {
@@ -187,6 +187,11 @@ resource "google_cloud_run_service" "frontend_service" {
           # URL of the Data Server Cloud Run service.
           name  = "DATA_SERVER_URL"
           value = google_cloud_run_service.data_server_service.status.0.url
+        }
+
+        env {
+          name  = "ANTHROPIC_API_KEY"
+          value = var.anthropic_api_key
         }
 
         resources {

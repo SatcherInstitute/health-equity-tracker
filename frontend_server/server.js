@@ -6,7 +6,6 @@ import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const buildDir = process.env['BUILD_DIR'] || 'build'
-let RATE_LIMIT_REACHED = false
 console.info(`Build directory: ${buildDir}`)
 
 export function assertEnvVar(name) {
@@ -106,11 +105,6 @@ app.use('/api', apiProxy)
 
 app.use(compression())
 
-app.get('/rate-limit-status', (req, res) => {
-  res.json({
-    rateLimitReached: RATE_LIMIT_REACHED,
-  })
-})
 
 const aiInsightCache = new Map()
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000
@@ -129,46 +123,38 @@ app.post('/fetch-ai-insight', async (req, res) => {
     return res.json({ content: cachedItem.content })
   }
 
-  const apiKey = assertEnvVar('OPENAI_API_KEY')
+  const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
 
   try {
-    const aiResponse = await fetch(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'gpt-4',
-          messages: [{ role: 'user', content: prompt }],
-          max_tokens: 500,
-        }),
+    const aiResponse = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'Content-Type': 'application/json',
       },
-    )
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5-20250929',
+        max_tokens: 1024,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+    })
 
     if (aiResponse.status === 429) {
-      RATE_LIMIT_REACHED = true
+      console.warn('Anthropic API rate limit reached')
       return res.status(429).json({ error: 'Rate limit reached' })
     }
-
-    RATE_LIMIT_REACHED = false
 
     if (!aiResponse.ok) {
       throw new Error(`AI API Error: ${aiResponse.statusText}`)
     }
 
     const json = await aiResponse.json()
-    const content = json.choices?.[0]?.message?.content || 'No content returned'
+    const content = json.content?.[0]?.text || 'No content returned'
     const trimmedContent = content.trim()
 
     // Store in cache with timestamp
-    aiInsightCache.set(prompt, {
-      content: trimmedContent,
-      timestamp: now,
-    })
-
+    aiInsightCache.set(prompt, { content: trimmedContent, timestamp: now })
     res.json({ content: trimmedContent })
   } catch (err) {
     console.error('Error fetching AI insight:', err)
