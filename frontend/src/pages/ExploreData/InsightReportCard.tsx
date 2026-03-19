@@ -1,4 +1,10 @@
-import { AutoAwesome, FileDownload, Info, LocationOn, People } from '@mui/icons-material'
+import {
+  AutoAwesome,
+  FileDownload,
+  Info,
+  LocationOn,
+  People,
+} from '@mui/icons-material'
 import { CircularProgress, Divider } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import { useAtomValue } from 'jotai'
@@ -7,14 +13,14 @@ import { useEffect, useState } from 'react'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import {
   generateReportInsight,
-  type ReportInsightSections
+  type ReportInsightSections,
 } from '../../utils/generateReportInsight'
 import { useParamState } from '../../utils/hooks/useParamState'
 import type { MadLibId } from '../../utils/MadLibs'
 import {
   selectedDataTypeConfig1Atom,
   selectedDemographicTypeAtom,
-  selectedFipsAtom
+  selectedFipsAtom,
 } from '../../utils/sharedSettingsState'
 import { REPORT_INSIGHT_PARAM_KEY } from '../../utils/urlutils'
 
@@ -137,7 +143,8 @@ export default function InsightReportCard(props: InsightReportCardProps) {
       y += 6
     }
 
-    const locationSlug = fips?.getDisplayName().toLowerCase().replace(/\s+/g, '_') ?? 'unknown'
+    const locationSlug =
+      fips?.getDisplayName().toLowerCase().replace(/\s+/g, '_') ?? 'unknown'
     const filename = `${dataTypeConfig?.dataTypeId ?? 'report'}_${locationSlug}_${demographicType ?? 'all'}_insight.pdf`
     doc.save(filename)
   }
@@ -219,7 +226,9 @@ export default function InsightReportCard(props: InsightReportCardProps) {
                   {icon}
                   {label}
                 </span>
-                <p className={`m-0 text-alt-dark leading-snug ${key === 'keyFindings' ? 'font-bold text-title' : 'text-text leading-relaxed'}`}>
+                <p
+                  className={`m-0 text-alt-dark leading-snug ${key === 'keyFindings' ? 'font-bold text-title' : 'text-text leading-relaxed'}`}
+                >
                   {sections[key]}
                 </p>
               </div>
