@@ -37,7 +37,7 @@ const PORT = 8080
 const HOST = '0.0.0.0'
 const app = express()
 
-app.use(express.json())
+app.use(express.json({ limit: '5mb' }))
 app.use(compression())
 
 // CORS middleware
@@ -110,20 +110,31 @@ const aiInsightCache = new Map()
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000
 
 app.post('/fetch-ai-insight', async (req, res) => {
-  const prompt = req.body.prompt
+  const { prompt, imageBase64 } = req.body
   if (!prompt) {
     return res.status(400).json({ error: 'Missing prompt parameter' })
   }
 
-  // Check if response is cached and not expired
+  // Only cache text-only requests — image renders vary per session
   const now = Date.now()
-  const cachedItem = aiInsightCache.get(prompt)
-
-  if (cachedItem && now - cachedItem.timestamp < CACHE_TTL_MS) {
-    return res.json({ content: cachedItem.content })
+  if (!imageBase64) {
+    const cachedItem = aiInsightCache.get(prompt)
+    if (cachedItem && now - cachedItem.timestamp < CACHE_TTL_MS) {
+      return res.json({ content: cachedItem.content })
+    }
   }
 
   const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
+
+  const messageContent = imageBase64
+    ? [
+        {
+          type: 'image',
+          source: { type: 'base64', media_type: 'image/png', data: imageBase64 },
+        },
+        { type: 'text', text: prompt },
+      ]
+    : [{ type: 'text', text: prompt }]
 
   try {
     const aiResponse = await fetch('https://api.anthropic.com/v1/messages', {
@@ -136,7 +147,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
       body: JSON.stringify({
         model: 'claude-sonnet-4-5-20250929',
         max_tokens: 1024,
-        messages: [{ role: 'user', content: prompt }],
+        messages: [{ role: 'user', content: messageContent }],
       }),
     })
 
@@ -153,8 +164,10 @@ app.post('/fetch-ai-insight', async (req, res) => {
     const content = json.content?.[0]?.text || 'No content returned'
     const trimmedContent = content.trim()
 
-    // Store in cache with timestamp
-    aiInsightCache.set(prompt, { content: trimmedContent, timestamp: now })
+    // Only cache text-only responses
+    if (!imageBase64) {
+      aiInsightCache.set(prompt, { content: trimmedContent, timestamp: now })
+    }
     res.json({ content: trimmedContent })
   } catch (err) {
     console.error('Error fetching AI insight:', err)
