@@ -1,17 +1,17 @@
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-  type DemographicType,
+  type DemographicType
 } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
-import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 
 const API_ENDPOINT = '/fetch-ai-insight'
 const ERROR_GENERATING_INSIGHT = 'Error generating report insight'
 
-export type InsightResult = {
+type InsightResult = {
   content: string
   rateLimited: boolean
+  error?: boolean
 }
 
 export type ReportInsightSections = {
@@ -21,15 +21,10 @@ export type ReportInsightSections = {
   whatThisMeans: string
 }
 
-export type ReportInsightResult = {
+type ReportInsightResult = {
   sections: ReportInsightSections | null
   rateLimited: boolean
   error?: string
-}
-
-const EMPTY_RESULT: ReportInsightResult = {
-  sections: null,
-  rateLimited: false,
 }
 
 async function fetchAIInsight(prompt: string): Promise<InsightResult> {
@@ -37,10 +32,6 @@ async function fetchAIInsight(prompt: string): Promise<InsightResult> {
   const dataServerUrl = baseApiUrl
     ? `${baseApiUrl}${API_ENDPOINT}`
     : API_ENDPOINT
-
-  if (!SHOW_INSIGHT_GENERATION) {
-    return { content: '', rateLimited: false }
-  }
 
   try {
     const dataResponse = await fetch(dataServerUrl, {
@@ -65,7 +56,7 @@ async function fetchAIInsight(prompt: string): Promise<InsightResult> {
     return { content: insight.content.trim(), rateLimited: false }
   } catch (error) {
     console.error('Error generating report insight:', error)
-    return { content: ERROR_GENERATING_INSIGHT, rateLimited: false }
+    return { content: '', rateLimited: false, error: true }
   }
 }
 
@@ -122,20 +113,13 @@ export async function generateReportInsight(
   demographicType: DemographicType,
   fips: Fips,
 ): Promise<ReportInsightResult> {
-  if (!SHOW_INSIGHT_GENERATION) {
-    return EMPTY_RESULT
-  }
-
   try {
     const topic = dataTypeConfig.fullDisplayName
     const location = fips.getSentenceDisplayName()
-    const demographicTypeString =
-      DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType] ?? 'demographic'
-
     const prompt = generateReportInsightPrompt(
       topic,
       location,
-      demographicTypeString,
+      DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType],
     )
     const result = await fetchAIInsight(prompt)
 
@@ -143,12 +127,8 @@ export async function generateReportInsight(
       return { sections: null, rateLimited: true }
     }
 
-    if (result.content === ERROR_GENERATING_INSIGHT) {
-      return {
-        sections: null,
-        rateLimited: false,
-        error: ERROR_GENERATING_INSIGHT,
-      }
+    if (result.error) {
+      return { sections: null, rateLimited: false, error: ERROR_GENERATING_INSIGHT }
     }
 
     const sections = parseSections(result.content)

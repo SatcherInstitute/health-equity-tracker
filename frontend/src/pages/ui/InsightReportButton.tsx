@@ -3,20 +3,18 @@ import { Button } from '@mui/material'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { REPORT_INSIGHT_PARAM_KEY } from '../../utils/urlutils'
 
-interface InsightReportModalButtonProps {
+interface InsightReportButtonProps {
   onInsightClick?: () => void
 }
 
-export default function ReportInsightModalButton(
-  props: InsightReportModalButtonProps,
-) {
-  const [, setReportInsightModalIsOpen] = useParamState<boolean>(
+export default function InsightReportButton(props: InsightReportButtonProps) {
+  const [, setInsightIsOpen] = useParamState<boolean>(
     REPORT_INSIGHT_PARAM_KEY,
     false,
   )
 
   const handleClick = () => {
-    setReportInsightModalIsOpen(true)
+    setInsightIsOpen(true)
     props.onInsightClick?.()
   }
 

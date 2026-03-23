@@ -1,16 +1,9 @@
-import {
-  AutoAwesome,
-  FileDownload,
-  Info,
-  LocationOn,
-  People,
-} from '@mui/icons-material'
+import { AutoAwesome, Info, LocationOn, People } from '@mui/icons-material'
 import { CircularProgress, Divider } from '@mui/material'
-import IconButton from '@mui/material/IconButton'
 import { useAtomValue } from 'jotai'
 import type React from 'react'
 import { useEffect, useState } from 'react'
-import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
+import InsightCardOptionsMenu from '../../cards/ui/InsightCardOptionsMenu'
 import {
   generateReportInsight,
   type ReportInsightSections,
@@ -104,49 +97,48 @@ export default function InsightReportCard(props: InsightReportCardProps) {
     }
   }
 
-  const handleRegenerate = () => {
-    setSections(null)
-    void handleGenerate()
-  }
-
   const handleDownload = async () => {
     if (!sections) return
-    const { jsPDF } = await import('jspdf')
-    const doc = new jsPDF()
-    const pageWidth = doc.internal.pageSize.getWidth()
-    const margin = 16
-    const maxWidth = pageWidth - margin * 2
-    let y = 20
+    try {
+      const { jsPDF } = await import('jspdf')
+      const doc = new jsPDF()
+      const pageWidth = doc.internal.pageSize.getWidth()
+      const margin = 16
+      const maxWidth = pageWidth - margin * 2
+      let y = 20
 
-    doc.setFontSize(16)
-    doc.setFont('helvetica', 'bold')
-    doc.text('AI Report Summary', margin, y)
-    y += 12
-
-    for (const { key, label } of SECTIONS) {
-      doc.setFontSize(10)
+      doc.setFontSize(16)
       doc.setFont('helvetica', 'bold')
-      doc.text(label.toUpperCase(), margin, y)
-      y += 6
+      doc.text('AI Report Summary', margin, y)
+      y += 12
 
-      doc.setFontSize(11)
-      doc.setFont('helvetica', 'normal')
-      const lines = doc.splitTextToSize(sections[key], maxWidth)
-      for (const line of lines) {
-        if (y > 275) {
-          doc.addPage()
-          y = 20
+      for (const { key, label } of SECTIONS) {
+        doc.setFontSize(10)
+        doc.setFont('helvetica', 'bold')
+        doc.text(label.toUpperCase(), margin, y)
+        y += 6
+
+        doc.setFontSize(11)
+        doc.setFont('helvetica', 'normal')
+        const lines = doc.splitTextToSize(sections[key], maxWidth)
+        for (const line of lines) {
+          if (y > 275) {
+            doc.addPage()
+            y = 20
+          }
+          doc.text(line, margin, y)
+          y += 6
         }
-        doc.text(line, margin, y)
         y += 6
       }
-      y += 6
-    }
 
-    const locationSlug =
-      fips?.getDisplayName().toLowerCase().replace(/\s+/g, '_') ?? 'unknown'
-    const filename = `${dataTypeConfig?.dataTypeId ?? 'report'}_${locationSlug}_${demographicType ?? 'all'}_insight.pdf`
-    doc.save(filename)
+      const locationSlug =
+        fips?.getDisplayName().toLowerCase().replace(/\s+/g, '_') ?? 'unknown'
+      const filename = `${dataTypeConfig?.dataTypeId ?? 'report'}_${locationSlug}_${demographicType}_insight.pdf`
+      doc.save(filename)
+    } catch {
+      setError('Unable to download PDF. Please try again.')
+    }
   }
 
   const handleClose = () => {
@@ -173,21 +165,10 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             <AutoAwesome fontSize='small' className='text-alt-green' />
             AI Report Summary
           </span>
-          <div className='flex items-center'>
-            {sections && (
-              <IconButton
-                aria-label='export AI report as PDF'
-                onClick={handleDownload}
-                size='small'
-              >
-                <FileDownload fontSize='small' />
-              </IconButton>
-            )}
-            <HetCloseButton
-              onClick={handleClose}
-              ariaLabel='close AI report insight'
-            />
-          </div>
+          <InsightCardOptionsMenu
+            onClose={handleClose}
+            onDownload={sections ? handleDownload : undefined}
+          />
         </div>
 
         <Divider />
@@ -233,22 +214,14 @@ export default function InsightReportCard(props: InsightReportCardProps) {
                 </p>
               </div>
             ))}
-
-            <button
-              type='button'
-              onClick={handleRegenerate}
-              className='self-end text-alt-green text-smallest underline'
-            >
-              Regenerate
-            </button>
           </div>
         )}
 
         <Divider />
 
         <p className='m-0 text-alt-dark text-smallest'>
-          AI-generated synthesis based on report context. Always verify findings
-          with the source data shown in the charts above.
+          AI-generated synthesis powered by the Claude API. Always verify
+          findings with the source data shown in the charts above.
         </p>
       </div>
     </div>

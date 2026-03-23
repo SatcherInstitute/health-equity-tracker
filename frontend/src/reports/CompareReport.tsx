@@ -200,7 +200,7 @@ export default function CompareReport(props: CompareReportProps) {
       <div className='flex'>
         {/* CARDS COLUMN */}
         <div
-          className={`w-full ${SHOW_INSIGHT_GENERATION && insightIsOpen ? 'md:w-6/12' : 'md:w-10/12'}`}
+          className={`w-full ${insightMode ? 'md:w-6/12' : 'md:w-10/12'}`}
         >
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile

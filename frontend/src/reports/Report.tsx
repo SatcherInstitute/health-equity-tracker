@@ -18,7 +18,8 @@ import {
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
-import InsightReport from '../pages/ui/InsightReport'
+import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
+import InsightReportButton from '../pages/ui/InsightReportButton'
 import Sidebar from '../pages/ui/Sidebar'
 import HetLazyLoader from '../styles/HetComponents/HetLazyLoader'
 import { useParamState } from '../utils/hooks/useParamState'
@@ -126,7 +127,7 @@ export function Report(props: ReportProps) {
   }, [dataTypeConfig])
 
   const demographicTypeString: string =
-    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType] ?? 'demographic'
+    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
 
   const browserTitle = `${
     (dataTypeConfig?.fullDisplayName as string) ?? 'Data'
@@ -331,8 +332,12 @@ export function Report(props: ReportProps) {
           </div>
         </div>
         <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
-          {dataTypeConfig && (
-            <InsightReport setTrackerMode={props.setTrackerMode} />
+          {dataTypeConfig && SHOW_INSIGHT_GENERATION && (
+            <div className='rounded-sm bg-white shadow-raised md:m-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
+              <InsightReportButton
+                onInsightClick={() => props.setTrackerMode('comparegeos')}
+              />
+            </div>
           )}
           <Sidebar
             floatTopOffset={props.headerScrollMargin}
