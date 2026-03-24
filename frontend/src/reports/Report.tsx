@@ -19,6 +19,7 @@ import {
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
+import InsightReportCard from '../pages/ExploreData/InsightReportCard'
 import InsightReportButton from '../pages/ui/InsightReportButton'
 import Sidebar from '../pages/ui/Sidebar'
 import HetLazyLoader from '../styles/HetComponents/HetLazyLoader'
@@ -33,6 +34,7 @@ import {
 import {
   DATA_TYPE_1_PARAM,
   DEMOGRAPHIC_PARAM,
+  REPORT_INSIGHT_PARAM_KEY,
   getParameter,
   psSubscribe,
   swapOldDatatypeParams,
@@ -71,6 +73,9 @@ export function Report(props: ReportProps) {
     DEMOGRAPHIC_PARAM,
     defaultDemo,
   )
+
+  const [insightIsOpen] = useParamState(REPORT_INSIGHT_PARAM_KEY)
+  const insightMode = Boolean(SHOW_INSIGHT_GENERATION && insightIsOpen)
 
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
     selectedDataTypeConfig1Atom,
@@ -151,7 +156,7 @@ export function Report(props: ReportProps) {
 
       <div className='flex'>
         {/* CARDS COLUMN */}
-        <div className='w-full md:w-10/12'>
+        <div className={`w-full ${insightMode ? 'md:w-6/12' : 'md:w-10/12'}`}>
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
@@ -163,7 +168,7 @@ export function Report(props: ReportProps) {
 
           <div className='flex w-full items-center justify-center'>
             {dataTypeConfig && (
-              <div className='flex w-full flex-col content-center'>
+              <div key={String(insightMode)} className='flex w-full flex-col content-center'>
                 {/* 100k MAP CARD */}
                 <div
                   tabIndex={-1}
@@ -331,12 +336,19 @@ export function Report(props: ReportProps) {
             )}
           </div>
         </div>
+        {/* INSIGHT CARD COLUMN - shown when insight is open */}
+        {insightMode && dataTypeConfig && (
+          <div className='hidden md:flex md:w-4/12 md:flex-col'>
+            <InsightReportCard
+              headerScrollMargin={props.headerScrollMargin}
+            />
+          </div>
+        )}
+
         <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
           {dataTypeConfig && SHOW_INSIGHT_GENERATION && (
             <div className='rounded-sm bg-white shadow-raised md:m-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
-              <InsightReportButton
-                onInsightClick={() => props.setTrackerMode('comparegeos')}
-              />
+              <InsightReportButton />
             </div>
           )}
           <Sidebar

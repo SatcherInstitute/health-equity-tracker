@@ -89,7 +89,6 @@ export default function StackedSharesBarChartCard(
       minHeight={preloadHeight}
       reportTitle={props.reportTitle}
       className={props.className}
-      shareConfig={shareConfig}
       metricIds={metricIds}
       fips={props.fips}
     >

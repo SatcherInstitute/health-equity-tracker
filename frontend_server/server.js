@@ -1,4 +1,5 @@
 import compression from 'compression'
+import crypto from 'node:crypto'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 // TODO: change over to use ESModules with import() instead of require() ?
@@ -115,13 +116,15 @@ app.post('/fetch-ai-insight', async (req, res) => {
     return res.status(400).json({ error: 'Missing prompt parameter' })
   }
 
-  // Only cache text-only requests — image renders vary per session
+  const imageHash = imageBase64
+    ? crypto.createHash('sha256').update(imageBase64).digest('hex').slice(0, 16)
+    : null
+  const cacheKey = imageHash ? `${prompt}::img:${imageHash}` : prompt
+
   const now = Date.now()
-  if (!imageBase64) {
-    const cachedItem = aiInsightCache.get(prompt)
-    if (cachedItem && now - cachedItem.timestamp < CACHE_TTL_MS) {
-      return res.json({ content: cachedItem.content })
-    }
+  const cachedItem = aiInsightCache.get(cacheKey)
+  if (cachedItem && now - cachedItem.timestamp < CACHE_TTL_MS) {
+    return res.json({ content: cachedItem.content })
   }
 
   const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
@@ -164,10 +167,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
     const content = json.content?.[0]?.text || 'No content returned'
     const trimmedContent = content.trim()
 
-    // Only cache text-only responses
-    if (!imageBase64) {
-      aiInsightCache.set(prompt, { content: trimmedContent, timestamp: now })
-    }
+    aiInsightCache.set(cacheKey, { content: trimmedContent, timestamp: now })
     res.json({ content: trimmedContent })
   } catch (err) {
     console.error('Error fetching AI insight:', err)

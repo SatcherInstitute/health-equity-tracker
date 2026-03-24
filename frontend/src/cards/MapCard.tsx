@@ -285,7 +285,6 @@ function MapCardWithKey(props: MapCardProps) {
       expanded={isExtremesMode}
       isCompareCard={props.isCompareCard}
       className={props.className}
-      shareConfig={metricConfig}
       metricIds={[metricConfig.metricId]}
       fips={props.fips}
     >

@@ -130,7 +130,6 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
       reportTitle={props.reportTitle}
       className={props.className}
       hasIntersectionalAllCompareBar={rateComparisonConfig !== undefined}
-      shareConfig={rateConfig}
       metricIds={[rateConfig.metricId]}
       fips={props.fips}
     >

@@ -135,7 +135,6 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       expanded={a11yTableExpanded}
       className={props.className}
-      shareConfig={metricConfigRates}
       metricIds={[metricConfigRates.metricId]}
       fips={props.fips}
     >

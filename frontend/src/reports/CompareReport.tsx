@@ -22,8 +22,7 @@ import {
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
-import { SHOW_CORRELATION_CARD, SHOW_INSIGHT_GENERATION } from '../featureFlags'
-import InsightReportCard from '../pages/ExploreData/InsightReportCard'
+import { SHOW_CORRELATION_CARD } from '../featureFlags'
 import Sidebar from '../pages/ui/Sidebar'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -38,7 +37,6 @@ import {
   DEMOGRAPHIC_PARAM,
   getParameter,
   psSubscribe,
-  REPORT_INSIGHT_PARAM_KEY,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
@@ -78,8 +76,6 @@ export default function CompareReport(props: CompareReportProps) {
     DEMOGRAPHIC_PARAM,
     defaultDemo,
   )
-
-  const [insightIsOpen] = useParamState(REPORT_INSIGHT_PARAM_KEY)
 
   const [dataTypeConfig1, setDtConfig1] = useAtom(selectedDataTypeConfig1Atom)
   const [dataTypeConfig2, setDtConfig2] = useAtom(selectedDataTypeConfig2Atom)
@@ -192,16 +188,12 @@ export default function CompareReport(props: CompareReportProps) {
   const showCorrelationCard =
     SHOW_CORRELATION_CARD && props.trackerMode === 'comparevars'
 
-  const insightMode = Boolean(SHOW_INSIGHT_GENERATION && insightIsOpen)
-
   return (
     <>
       <title>{`${browserTitle} - Health Equity Tracker`}</title>
       <div className='flex'>
         {/* CARDS COLUMN */}
-        <div
-          className={`w-full ${insightMode ? 'md:w-6/12' : 'md:w-10/12'}`}
-        >
+        <div className='w-full md:w-10/12'>
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
@@ -226,7 +218,6 @@ export default function CompareReport(props: CompareReportProps) {
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
-              hideSecondCard={insightMode}
               id='rate-map'
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
@@ -260,7 +251,6 @@ export default function CompareReport(props: CompareReportProps) {
             {showRatesOverTimeCardRow && (
               <RowOfTwoOptionalMetrics
                 trackerMode={props.trackerMode}
-                hideSecondCard={insightMode}
                 id='rates-over-time'
                 dataTypeConfig1={dataTypeConfig1}
                 dataTypeConfig2={dataTypeConfig2}
@@ -289,7 +279,6 @@ export default function CompareReport(props: CompareReportProps) {
 
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
-              hideSecondCard={insightMode}
               id='rate-chart'
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
@@ -313,7 +302,6 @@ export default function CompareReport(props: CompareReportProps) {
             {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
-              hideSecondCard={insightMode}
               id='unknown-demographic-map'
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
@@ -345,7 +333,6 @@ export default function CompareReport(props: CompareReportProps) {
             {showInequitiesOverTimeCardRow && (
               <RowOfTwoOptionalMetrics
                 trackerMode={props.trackerMode}
-                hideSecondCard={insightMode}
                 id='inequities-over-time'
                 dataTypeConfig1={dataTypeConfig1}
                 dataTypeConfig2={dataTypeConfig2}
@@ -373,7 +360,6 @@ export default function CompareReport(props: CompareReportProps) {
             {/* SIDE-BY-SIDE STACKED SHARES BAR CHARTS CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
-              hideSecondCard={insightMode}
               id='population-vs-distribution'
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
@@ -397,7 +383,6 @@ export default function CompareReport(props: CompareReportProps) {
             {/* SIDE-BY-SIDE DATA TABLE CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
-              hideSecondCard={insightMode}
               id='data-table'
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
@@ -425,7 +410,6 @@ export default function CompareReport(props: CompareReportProps) {
             {showAgeAdjustCardRow && (
               <RowOfTwoOptionalMetrics
                 trackerMode={props.trackerMode}
-                hideSecondCard={insightMode}
                 id='age-adjusted-ratios'
                 // specific data type
                 dataTypeConfig1={dataTypeConfig1}
@@ -456,15 +440,6 @@ export default function CompareReport(props: CompareReportProps) {
             )}
           </div>
         </div>
-        {/* INSIGHT CARD COLUMN - shown when insight is open */}
-        {SHOW_INSIGHT_GENERATION && insightIsOpen && dataTypeConfig1 && (
-          <div className='hidden md:flex md:w-4/12 md:flex-col'>
-            <InsightReportCard
-              setTrackerMode={props.setTrackerMode}
-              headerScrollMargin={props.headerScrollMargin}
-            />
-          </div>
-        )}
         {/* SIDEBAR COLUMN - DESKTOP ONLY */}
         {props.reportStepHashIds && (
           <div className='hidden items-start md:flex md:w-2/12 md:flex-col'>
