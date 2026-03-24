@@ -1,7 +1,7 @@
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-  type DemographicType
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
 import { ERROR_GENERATING_INSIGHT, fetchAIInsight } from './fetchAIInsight'
@@ -87,7 +87,11 @@ export async function generateReportInsight(
     }
 
     if (result.error) {
-      return { sections: null, rateLimited: false, error: ERROR_GENERATING_INSIGHT }
+      return {
+        sections: null,
+        rateLimited: false,
+        error: ERROR_GENERATING_INSIGHT,
+      }
     }
 
     const sections = parseSections(result.content)

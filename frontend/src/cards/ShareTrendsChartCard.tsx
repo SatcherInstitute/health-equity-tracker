@@ -10,16 +10,18 @@ import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-  type DemographicType
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import {
-  ALL, NON_HISPANIC,
-  UNKNOWN_LABELS, type DemographicGroup
+  ALL,
+  type DemographicGroup,
+  NON_HISPANIC,
+  UNKNOWN_LABELS,
 } from '../data/utils/Constants'
 import {
   getNestedData,
-  getNestedUnknowns
+  getNestedUnknowns,
 } from '../data/utils/DatasetTimeUtils'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'

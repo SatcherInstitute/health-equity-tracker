@@ -23,7 +23,7 @@ export default function InsightCardOptionsMenu({
     <>
       <Tooltip title='Card options'>
         <IconButton onClick={menu.open} aria-label='card options'>
-          <MoreHorizIcon/>
+          <MoreHorizIcon />
         </IconButton>
       </Tooltip>
 

@@ -34,9 +34,9 @@ import {
 import {
   DATA_TYPE_1_PARAM,
   DEMOGRAPHIC_PARAM,
-  REPORT_INSIGHT_PARAM_KEY,
   getParameter,
   psSubscribe,
+  REPORT_INSIGHT_PARAM_KEY,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
@@ -168,7 +168,10 @@ export function Report(props: ReportProps) {
 
           <div className='flex w-full items-center justify-center'>
             {dataTypeConfig && (
-              <div key={String(insightMode)} className='flex w-full flex-col content-center'>
+              <div
+                key={String(insightMode)}
+                className='flex w-full flex-col content-center'
+              >
                 {/* 100k MAP CARD */}
                 <div
                   tabIndex={-1}
@@ -339,9 +342,7 @@ export function Report(props: ReportProps) {
         {/* INSIGHT CARD COLUMN - shown when insight is open */}
         {insightMode && dataTypeConfig && (
           <div className='hidden md:flex md:w-4/12 md:flex-col'>
-            <InsightReportCard
-              headerScrollMargin={props.headerScrollMargin}
-            />
+            <InsightReportCard headerScrollMargin={props.headerScrollMargin} />
           </div>
         )}
 

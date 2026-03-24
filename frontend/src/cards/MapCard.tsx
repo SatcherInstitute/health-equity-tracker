@@ -5,7 +5,9 @@ import { createColorScale } from '../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../charts/choroplethMap/index'
 import RateMapLegend from '../charts/choroplethMap/RateMapLegend'
 import {
-  ATLANTA_METRO_COUNTY_FIPS, SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST, type CountColsMap
+  ATLANTA_METRO_COUNTY_FIPS,
+  type CountColsMap,
+  SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST,
 } from '../charts/mapGlobals'
 import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
@@ -17,7 +19,7 @@ import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import {
   COMBINED_INCARCERATION_STATES_LIST,
   COMBINED_QUALIFIER,
-  PRIVATE_JAILS_QUALIFIER
+  PRIVATE_JAILS_QUALIFIER,
 } from '../data/providers/IncarcerationProvider'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -26,24 +28,26 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
-  type DemographicTypeDisplayName
+  type DemographicTypeDisplayName,
 } from '../data/query/Breakdowns'
 import {
   MetricQuery,
-  type MetricQueryResponse
+  type MetricQueryResponse,
 } from '../data/query/MetricQuery'
 import { getSortArgs } from '../data/sorting/sortingUtils'
 import {
-  ALL, NON_HISPANIC,
+  ALL,
+  type DemographicGroup,
+  NON_HISPANIC,
   RACE,
   UNKNOWN,
   UNKNOWN_ETHNICITY,
-  UNKNOWN_RACE, type DemographicGroup
+  UNKNOWN_RACE,
 } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import {
   allMissingValuesAreSuppressed,
-  getExtremeValues
+  getExtremeValues,
 } from '../data/utils/datasetutils'
 import { Fips } from '../data/utils/Fips'
 import HetDivider from '../styles/HetComponents/HetDivider'
@@ -66,7 +70,7 @@ import {
   MAP2_GROUP_PARAM,
   MULTIPLE_MAPS_1_PARAM_KEY,
   MULTIPLE_MAPS_2_PARAM_KEY,
-  setParameter
+  setParameter,
 } from '../utils/urlutils'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
@@ -75,7 +79,7 @@ import { ExtremesListBox } from './ui/ExtremesListBox'
 import GeoContext from './ui/GeoContext'
 import {
   getSubPopulationPhrase,
-  getTotalACSPopulationPhrase
+  getTotalACSPopulationPhrase,
 } from './ui/geoContextHelpers'
 import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'

@@ -76,7 +76,11 @@ export default function InsightReportCard(props: InsightReportCardProps) {
     setIsGenerating(true)
     setError(null)
     try {
-      const result = await generateReportInsight(dataTypeConfig, demographicType, fips)
+      const result = await generateReportInsight(
+        dataTypeConfig,
+        demographicType,
+        fips,
+      )
       if (result.rateLimited) {
         setError('Too many requests. Please wait a moment and try again.')
       } else if (result.error || !result.sections) {
@@ -145,7 +149,6 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   return (
     <div className='sticky' style={{ top: props.headerScrollMargin ?? 0 }}>
       <div className='flex flex-col gap-3 rounded-sm bg-white p-4 text-left shadow-raised md:m-card-gutter'>
-
         {/* Header */}
         <div className='flex items-center justify-between gap-2'>
           <span className='flex items-center gap-2 font-semibold text-alt-dark'>
@@ -210,7 +213,6 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             </p>
           </>
         )}
-
       </div>
     </div>
   )

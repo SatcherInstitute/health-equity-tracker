@@ -20,7 +20,9 @@ export const cardInsightOpenAtom = atom<Record<string, boolean>>({})
 export type ReportInsightCacheEntry = {
   sections: ReportInsightSections
 }
-export const reportInsightsAtom = atom<Record<string, ReportInsightCacheEntry>>({})
+export const reportInsightsAtom = atom<Record<string, ReportInsightCacheEntry>>(
+  {},
+)
 
 /* SHARED SYNCED URL PARAMS STATE */
 export const locationAtom = atomWithLocation()

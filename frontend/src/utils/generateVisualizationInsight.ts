@@ -1,6 +1,9 @@
 import domtoimage from 'dom-to-image-more'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import { DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE, type DemographicType } from '../data/query/Breakdowns'
+import {
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
+} from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
 import { fetchAIInsight, type InsightResult } from './fetchAIInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
@@ -11,11 +14,12 @@ const CHART_TYPE_LABELS: Record<ScrollableHashId, string> = {
   'rate-chart': 'bar chart',
   'unknown-demographic-map': 'map of unknown demographics',
   'inequities-over-time': 'line chart of inequities over time',
-  'population-vs-distribution': 'bar chart comparing population share vs. distribution',
+  'population-vs-distribution':
+    'bar chart comparing population share vs. distribution',
   'data-table': 'data table',
   'age-adjusted-ratios': 'bar chart of age-adjusted ratios',
   'multimap-modal': 'small multiples map',
-  'definitions-missing-data': ''
+  'definitions-missing-data': '',
 }
 
 async function captureCardAsBase64(
