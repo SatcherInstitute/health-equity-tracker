@@ -10,19 +10,17 @@ import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-  type DemographicType,
+  type DemographicType
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import {
   AIAN_API,
-  ALL,
-  type DemographicGroup,
-  NON_HISPANIC,
-  TIME_PERIOD,
+  ALL, NON_HISPANIC,
+  TIME_PERIOD, type DemographicGroup
 } from '../data/utils/Constants'
 import {
   getNestedData,
-  getNestedUnknowns,
+  getNestedUnknowns
 } from '../data/utils/DatasetTimeUtils'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
@@ -31,11 +29,11 @@ import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
-import UnknownPctRateGradient from './UnknownPctRateGradient'
 import AltTableView from './ui/AltTableView'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import MissingDataAlert from './ui/MissingDataAlert'
 import UnknownBubblesAlert from './ui/UnknownBubblesAlert'
+import UnknownPctRateGradient from './UnknownPctRateGradient'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -135,8 +133,6 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       expanded={a11yTableExpanded}
       className={props.className}
-      metricIds={[metricConfigRates.metricId]}
-      fips={props.fips}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
         let ratesData = queryResponseRates.getValidRowsForField(

@@ -10,18 +10,16 @@ import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-  type DemographicType,
+  type DemographicType
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import {
-  ALL,
-  type DemographicGroup,
-  NON_HISPANIC,
-  UNKNOWN_LABELS,
+  ALL, NON_HISPANIC,
+  UNKNOWN_LABELS, type DemographicGroup
 } from '../data/utils/Constants'
 import {
   getNestedData,
-  getNestedUnknowns,
+  getNestedUnknowns
 } from '../data/utils/DatasetTimeUtils'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
@@ -123,8 +121,6 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       expanded={a11yTableExpanded}
       className={props.className}
-      metricIds={[metricConfigInequitable.metricId]}
-      fips={props.fips}
     >
       {([queryResponseInequity, queryResponsePctShares]) => {
         const inequityData = queryResponseInequity.getValidRowsForField(

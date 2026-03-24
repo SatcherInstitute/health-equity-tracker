@@ -8,7 +8,7 @@ import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-  type DemographicType,
+  type DemographicType
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import {
@@ -17,7 +17,7 @@ import {
   HISPANIC,
   NON_HISPANIC,
   RACE,
-  SEX,
+  SEX
 } from '../data/utils/Constants'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
@@ -89,8 +89,6 @@ export default function StackedSharesBarChartCard(
       minHeight={preloadHeight}
       reportTitle={props.reportTitle}
       className={props.className}
-      metricIds={metricIds}
-      fips={props.fips}
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(

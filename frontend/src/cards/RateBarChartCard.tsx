@@ -6,7 +6,7 @@ import { isPctType } from '../data/config/MetricConfigUtils'
 import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
 import {
   DATATYPES_NEEDING_13PLUS,
-  GENDER_METRICS,
+  GENDER_METRICS
 } from '../data/providers/HivProvider'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -14,14 +14,14 @@ import {
   Breakdowns,
   DEMOGRAPHIC_DISPLAY_TYPES,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-  type DemographicType,
+  type DemographicType
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import {
   AIAN_API,
   ALL,
   NON_HISPANIC,
-  UNKNOWN_RACE,
+  UNKNOWN_RACE
 } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -130,8 +130,6 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
       reportTitle={props.reportTitle}
       className={props.className}
       hasIntersectionalAllCompareBar={rateComparisonConfig !== undefined}
-      metricIds={[rateConfig.metricId]}
-      fips={props.fips}
     >
       {([rateQueryResponseRate, rateQueryResponseRateAlls], metadata) => {
         // for consistency, filter out any 'Unknown' rows that might have rates (like PHRMA)

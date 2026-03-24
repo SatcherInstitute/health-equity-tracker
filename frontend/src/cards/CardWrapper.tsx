@@ -5,7 +5,6 @@ import type {
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
-import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardOptionsMenu from './ui/CardOptionsMenu'
 import InsightVisualizationButton from './ui/InsightVisualizationButton'
@@ -34,8 +33,6 @@ function CardWrapper(props: {
   isCompareCard?: boolean
   className?: string
   hasIntersectionalAllCompareBar?: boolean
-  metricIds?: any
-  fips?: Fips
 }) {
   const loadingComponent = (
     <div
