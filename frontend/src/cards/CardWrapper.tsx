@@ -36,13 +36,11 @@ function CardWrapper(props: {
 }) {
   const loadingComponent = (
     <div
-      className={`relative m-2 rounded bg-white p-3 shadow-raised ${props.className}`}
+      className={`relative m-2 flex justify-center rounded bg-white p-3 shadow-raised ${props.className}`}
       style={{ minHeight: props.minHeight }}
       tabIndex={-1}
     >
-      <div className='flex justify-center'>
-        <CircularProgress aria-label='loading' />
-      </div>
+      <CircularProgress aria-label='loading' />
     </div>
   )
 
