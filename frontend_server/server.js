@@ -1,5 +1,4 @@
 import compression from 'compression'
-import crypto from 'node:crypto'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 // TODO: change over to use ESModules with import() instead of require() ?
@@ -116,10 +115,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
     return res.status(400).json({ error: 'Missing prompt parameter' })
   }
 
-  const imageHash = imageBase64
-    ? crypto.createHash('sha256').update(imageBase64).digest('hex').slice(0, 16)
-    : null
-  const cacheKey = imageHash ? `${prompt}::img:${imageHash}` : prompt
+  const cacheKey = prompt
 
   const now = Date.now()
   const cachedItem = aiInsightCache.get(cacheKey)
