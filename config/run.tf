@@ -194,6 +194,11 @@ resource "google_cloud_run_service" "frontend_service" {
           value = var.anthropic_api_key
         }
 
+        env {
+          name  = "INSIGHTS_CACHE_BUCKET"
+          value = var.insights_cache_bucket
+        }
+
         resources {
           limits = {
             memory = "8Gi"

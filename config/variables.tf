@@ -181,3 +181,8 @@ variable "anthropic_api_key" {
   type        = string
   sensitive   = true
 }
+
+variable "insights_cache_bucket" {
+  description = "Name of the GCS bucket for caching AI-generated insights"
+  type        = string
+}
