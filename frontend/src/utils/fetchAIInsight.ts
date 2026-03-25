@@ -7,9 +7,14 @@ export type InsightResult = {
   error?: boolean
 }
 
+export type FetchAIInsightOptions = {
+  cacheKey?: string
+}
+
 export async function fetchAIInsight(
   prompt: string,
   imageBase64?: string,
+  options?: FetchAIInsightOptions,
 ): Promise<InsightResult> {
   const baseApiUrl = import.meta.env.VITE_BASE_API_URL
   const dataServerUrl = baseApiUrl
@@ -20,7 +25,11 @@ export async function fetchAIInsight(
     const dataResponse = await fetch(dataServerUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, imageBase64 }),
+      body: JSON.stringify({
+        prompt,
+        imageBase64,
+        cacheKey: options?.cacheKey,
+      }),
     })
 
     if (dataResponse.status === 429) {

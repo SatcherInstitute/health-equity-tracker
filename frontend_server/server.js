@@ -1,3 +1,4 @@
+import { Storage } from '@google-cloud/storage'
 import compression from 'compression'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -106,21 +107,64 @@ app.use('/api', apiProxy)
 app.use(compression())
 
 
+// ── AI Insight Cache ─────────────────────────────────────────────────────────
+// Two-tier: L1 in-memory (fast, ephemeral) + L2 GCS (persistent across restarts).
+// Set INSIGHTS_CACHE_BUCKET env var to enable GCS tier; falls back to memory-only.
+
 const aiInsightCache = new Map()
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000
+const INSIGHTS_BUCKET = process.env['INSIGHTS_CACHE_BUCKET'] ?? null
+const storage = INSIGHTS_BUCKET ? new Storage() : null
+
+async function getFromGCS(key) {
+  if (!storage) return null
+  try {
+    const file = storage.bucket(INSIGHTS_BUCKET).file(`insights/${key}.json`)
+    const [exists] = await file.exists()
+    if (!exists) return null
+    const [buffer] = await file.download()
+    const { content, timestamp } = JSON.parse(buffer.toString())
+    return Date.now() - timestamp < CACHE_TTL_MS ? content : null
+  } catch (err) {
+    console.warn('[insight cache] GCS read error:', err.message)
+    return null
+  }
+}
+
+async function saveToGCS(key, content) {
+  if (!storage) return
+  try {
+    await storage
+      .bucket(INSIGHTS_BUCKET)
+      .file(`insights/${key}.json`)
+      .save(JSON.stringify({ content, timestamp: Date.now() }), {
+        contentType: 'application/json',
+      })
+  } catch (err) {
+    console.warn('[insight cache] GCS write error:', err.message)
+  }
+}
 
 app.post('/fetch-ai-insight', async (req, res) => {
-  const { prompt, imageBase64 } = req.body
+  const { prompt, imageBase64, cacheKey: clientCacheKey } = req.body
   if (!prompt) {
     return res.status(400).json({ error: 'Missing prompt parameter' })
   }
 
-  const cacheKey = prompt
-
+  // Prefer explicit structured key from client; fall back to prompt string
+  const cacheKey = clientCacheKey ?? prompt
   const now = Date.now()
-  const cachedItem = aiInsightCache.get(cacheKey)
-  if (cachedItem && now - cachedItem.timestamp < CACHE_TTL_MS) {
-    return res.json({ content: cachedItem.content })
+
+  // L1: in-memory
+  const mem = aiInsightCache.get(cacheKey)
+  if (mem && now - mem.timestamp < CACHE_TTL_MS) {
+    return res.json({ content: mem.content })
+  }
+  // L2: GCS
+  const gcs = await getFromGCS(cacheKey)
+  if (gcs) {
+    aiInsightCache.set(cacheKey, { content: gcs, timestamp: now })
+    return res.json({ content: gcs })
   }
 
   const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
@@ -163,11 +207,13 @@ app.post('/fetch-ai-insight', async (req, res) => {
     const content = json.content?.[0]?.text || 'No content returned'
     const trimmedContent = content.trim()
 
+    // Write to both tiers (GCS write is non-blocking)
     aiInsightCache.set(cacheKey, { content: trimmedContent, timestamp: now })
+    void saveToGCS(cacheKey, trimmedContent)
+
     res.json({ content: trimmedContent })
   } catch (err) {
     console.error('Error fetching AI insight:', err)
-
     res.status(500).json({ error: 'Failed to fetch AI insight' })
   }
 })

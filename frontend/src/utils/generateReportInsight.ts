@@ -80,7 +80,8 @@ export async function generateReportInsight(
       location,
       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType],
     )
-    const result = await fetchAIInsight(prompt)
+    const cacheKey = `report-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}`
+    const result = await fetchAIInsight(prompt, undefined, { cacheKey })
 
     if (result.rateLimited) {
       return { sections: null, rateLimited: true }

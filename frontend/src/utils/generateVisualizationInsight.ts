@@ -63,5 +63,6 @@ export async function generateCardInsight(
   const demographic = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
   const prompt = buildPrompt(chartType, topic, location, demographic)
   const imageBase64 = await captureCardAsBase64(hashId)
-  return fetchAIInsight(prompt, imageBase64 ?? undefined)
+  const cacheKey = `card-${hashId}-${dataTypeConfig.dataTypeId}-${fips?.code ?? '00'}-${demographicType}`
+  return fetchAIInsight(prompt, imageBase64 ?? undefined, { cacheKey })
 }

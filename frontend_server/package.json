@@ -9,6 +9,7 @@
     "test": "env-cmd -f .env.test vitest run"
   },
   "dependencies": {
+    "@google-cloud/storage": "^7.0.0",
     "compression": "^1.8.1",
     "dotenv": "^17.2.1",
     "env-cmd": "^11.0.0",
