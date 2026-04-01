@@ -107,18 +107,13 @@ app.use('/api', apiProxy)
 app.use(compression())
 
 
-// ── AI Insight Cache ─────────────────────────────────────────────────────────
-// Two-tier: in-memory (fast, ephemeral) + GCS (persistent across restarts).
-// Set INSIGHTS_CACHE_BUCKET env var to enable GCS tier; falls back to memory-only.
-// To force regeneration after a data update, clear the GCS bucket manually.
-
+// AI Insight Cache
 const insightMemoryCache = new Map()
 const INSIGHT_TTL_MS = 180 * 24 * 60 * 60 * 1000 // 6 months
 const GCS_BUCKET_NAME = process.env['INSIGHTS_CACHE_BUCKET'] ?? null
 const gcsClient = GCS_BUCKET_NAME ? new Storage() : null
 
 // Returns the cached insight string if found in GCS and still within TTL,
-// or null if missing, expired, or GCS is not configured.
 async function readFromGCS(key) {
   if (!gcsClient) return null
   try {
@@ -134,8 +129,7 @@ async function readFromGCS(key) {
   }
 }
 
-// Persists a generated insight to GCS so it survives server restarts and
-// cold starts. Failures are non-fatal — the response is already in memory.
+// Writes a generated insight to GCS
 async function writeToGCS(key, content) {
   if (!gcsClient) return
   try {
@@ -150,12 +144,6 @@ async function writeToGCS(key, content) {
   }
 }
 
-// POST /fetch-ai-insight
-// Accepts { prompt, imageBase64?, cacheKey? } and returns { content }.
-// Lookup order: in-memory cache → GCS cache → Anthropic API.
-// cacheKey should be a stable identifier for the insight context
-// (e.g. "report-hiv_prevalence-00-race_and_ethnicity"). Falls back to
-// the prompt string itself if not provided.
 app.post('/fetch-ai-insight', async (req, res) => {
   const { prompt, imageBase64, cacheKey: clientCacheKey } = req.body
   if (!prompt) {
@@ -178,7 +166,6 @@ app.post('/fetch-ai-insight', async (req, res) => {
     return res.json({ content: gcsContent })
   }
 
-  // Cache miss — call the Anthropic API
   const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
 
   // Build message content: text-only, or image + text for chart-based insights
@@ -219,7 +206,6 @@ app.post('/fetch-ai-insight', async (req, res) => {
     const responseBody = await anthropicResponse.json()
     const insightText = (responseBody.content?.[0]?.text || 'No content returned').trim()
 
-    // Write to both tiers; GCS write is fire-and-forget (non-blocking)
     insightMemoryCache.set(cacheKey, { content: insightText, timestamp: now })
     void writeToGCS(cacheKey, insightText)
 
@@ -229,8 +215,9 @@ app.post('/fetch-ai-insight', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch AI insight' })
   }
 })
-// Serve static files from the build directory.
 const __dirname = dirname(fileURLToPath(import.meta.url))
+
+// Serve static files from the build directory.
 app.use(express.static(path.join(__dirname, buildDir)))
 
 // Route all other paths to index.html. The "*" must be used otherwise

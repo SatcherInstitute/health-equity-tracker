@@ -27,10 +27,6 @@ export default defineConfig(({ mode }) => {
     server: {
       open: true,
       port: 3000,
-      fs: {
-        // Allow imports from frontend_server/ (e.g. reportInsightPrompt.js)
-        allow: ['..'],
-      },
     },
     plugins: [
       react({
