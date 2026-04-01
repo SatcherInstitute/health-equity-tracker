@@ -1,12 +1,10 @@
 import { Storage } from '@google-cloud/storage'
 import compression from 'compression'
-import { readFileSync } from 'node:fs'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 // TODO: change over to use ESModules with import() instead of require() ?
 import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
-import { buildReportInsightPrompt } from './reportInsightPrompt.js'
 
 const buildDir = process.env['BUILD_DIR'] || 'build'
 console.info(`Build directory: ${buildDir}`)
@@ -114,7 +112,7 @@ app.use(compression())
 // Set INSIGHTS_CACHE_BUCKET env var to enable GCS tier; falls back to memory-only.
 
 const aiInsightCache = new Map()
-const CACHE_TTL_MS = 24 * 60 * 60 * 1000
+const CACHE_TTL_MS = 180 * 24 * 60 * 60 * 1000 // 6 months
 const INSIGHTS_BUCKET = process.env['INSIGHTS_CACHE_BUCKET'] ?? null
 const storage = INSIGHTS_BUCKET ? new Storage() : null
 
@@ -220,92 +218,6 @@ app.post('/fetch-ai-insight', async (req, res) => {
   }
 })
 const __dirname = dirname(fileURLToPath(import.meta.url))
-
-// ── Pre-cache helpers ─────────────────────────────────────────────────────────
-
-const PRECACHE_DEMOGRAPHICS = [
-  { id: 'race_and_ethnicity', label: 'race/ethnicity' },
-  { id: 'age', label: 'age' },
-  { id: 'sex', label: 'sex' },
-]
-const NATIONAL_FIPS = '00'
-const NATIONAL_LOCATION = 'the United States'
-
-
-async function generateAndCache(cacheKey, prompt) {
-  // Skip if already in either cache tier
-  const now = Date.now()
-  const mem = aiInsightCache.get(cacheKey)
-  if (mem && now - mem.timestamp < CACHE_TTL_MS) return 'hit-memory'
-  const gcs = await getFromGCS(cacheKey)
-  if (gcs) {
-    aiInsightCache.set(cacheKey, { content: gcs, timestamp: now })
-    return 'hit-gcs'
-  }
-
-  const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
-  const aiResponse = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: {
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-5-20250929',
-      max_tokens: 1024,
-      messages: [{ role: 'user', content: [{ type: 'text', text: prompt }] }],
-    }),
-  })
-
-  if (!aiResponse.ok) throw new Error(`AI API ${aiResponse.status}: ${aiResponse.statusText}`)
-  const json = await aiResponse.json()
-  const content = (json.content?.[0]?.text ?? 'No content returned').trim()
-  aiInsightCache.set(cacheKey, { content, timestamp: now })
-  void saveToGCS(cacheKey, content)
-  return 'generated'
-}
-
-// ── Precache endpoint ─────────────────────────────────────────────────────────
-// Reads topics.json (written by the Vite build plugin) and generates/caches
-// an insight for every topic × demographic combination for the national view.
-// Returns 202 immediately; generation runs in the background.
-
-app.post('/precache', (req, res) => {
-  let topics
-  try {
-    topics = JSON.parse(readFileSync(path.join(__dirname, buildDir, 'topics.json'), 'utf-8'))
-  } catch {
-    return res.status(503).json({ error: 'topics.json not available — run a frontend build first' })
-  }
-
-  const total = topics.length * PRECACHE_DEMOGRAPHICS.length
-  res.status(202).json({ message: `Pre-caching ${total} entries in the background` })
-
-  // Run after response is sent
-  setImmediate(async () => {
-    let succeeded = 0
-    let skipped = 0
-    let failed = 0
-    for (const { dataTypeId, fullDisplayName } of topics) {
-      for (const { id: demographicType, label: demographicLabel } of PRECACHE_DEMOGRAPHICS) {
-        const cacheKey = `report-${dataTypeId}-${NATIONAL_FIPS}-${demographicType}`
-        const prompt = buildReportInsightPrompt(fullDisplayName, NATIONAL_LOCATION, demographicLabel)
-        try {
-          const result = await generateAndCache(cacheKey, prompt)
-          if (result === 'generated') succeeded++
-          else skipped++
-        } catch (err) {
-          console.warn(`[precache] failed ${cacheKey}: ${err.message}`)
-          failed++
-        }
-        // Brief pause to avoid hammering the Anthropic API
-        await new Promise((r) => setTimeout(r, 500))
-      }
-    }
-    console.log(`[precache] done — ${succeeded} generated, ${skipped} skipped (cached), ${failed} failed`)
-  })
-})
 
 // Serve static files from the build directory.
 app.use(express.static(path.join(__dirname, buildDir)))

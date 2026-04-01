@@ -1,12 +1,9 @@
 import react from '@vitejs/plugin-react'
-import { writeFileSync } from 'fs'
-import { resolve } from 'path'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 import svgrPlugin from 'vite-plugin-svgr'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
 import { configDefaults } from 'vitest/config'
-import { METRIC_CONFIG } from './src/data/config/MetricConfig'
 
 // biome-ignore lint/correctness/noUnusedFunctionParameters: dont need it
 export default defineConfig(({ mode }) => {
@@ -32,28 +29,6 @@ export default defineConfig(({ mode }) => {
       port: 3000,
     },
     plugins: [
-      // After each build, write the topic list derived from METRIC_CONFIG into
-      // the build output so the frontend server can serve it via GET /topics.
-      {
-        name: 'export-topics-json',
-        closeBundle() {
-          if (mode === 'test') return
-          const topics = Object.values(METRIC_CONFIG)
-            .flat()
-            .map(({ dataTypeId, fullDisplayName }) => ({
-              dataTypeId,
-              fullDisplayName,
-            }))
-            .filter(
-              ({ dataTypeId }, i, arr) =>
-                arr.findIndex((t) => t.dataTypeId === dataTypeId) === i,
-            )
-          writeFileSync(
-            resolve(__dirname, 'build/topics.json'),
-            JSON.stringify(topics, null, 2),
-          )
-        },
-      },
       react({
         include: '**/*.tsx',
       }),

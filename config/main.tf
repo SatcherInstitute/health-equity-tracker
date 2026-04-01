@@ -40,7 +40,7 @@ resource "google_storage_bucket" "insights_cache_bucket" {
 
   lifecycle_rule {
     condition {
-      age = 30 # Delete cached entries older than 30 days
+      age = 210 # Delete cached entries older than 7 months (TTL is 6 months)
     }
     action {
       type = "Delete"
