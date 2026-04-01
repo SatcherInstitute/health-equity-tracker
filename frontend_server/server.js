@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url'
 // TODO: change over to use ESModules with import() instead of require() ?
 import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import { buildReportInsightPrompt } from './reportInsightPrompt.js'
 
 const buildDir = process.env['BUILD_DIR'] || 'build'
 console.info(`Build directory: ${buildDir}`)
@@ -230,28 +231,6 @@ const PRECACHE_DEMOGRAPHICS = [
 const NATIONAL_FIPS = '00'
 const NATIONAL_LOCATION = 'the United States'
 
-// Must stay in sync with generateReportInsightPrompt in
-// frontend/src/utils/generateReportInsight.ts.
-function buildInsightPrompt(topicName, location, demographicLabel) {
-  return `You are a public health analyst reviewing a report about "${topicName}" in ${location}, broken down by ${demographicLabel}.
-
-The page contains multiple charts: a rate map, rates over time, a rate bar chart, an unknowns map, inequities over time, and a population vs distribution chart.
-
-WRITING RULES — follow these strictly:
-- Write at an 8th-grade reading level. Use short words and simple sentences.
-- Avoid jargon. If you must use a technical term, explain it immediately.
-- Each section: 1-2 sentences maximum, 35 words or fewer.
-- keyFindings: 1 sentence, 25 words or fewer. Lead with the single most striking fact.
-
-Respond ONLY with a valid JSON object — no markdown, no backticks, no explanation outside the JSON. Use this exact structure:
-
-{
- "keyFindings": "1 sentence (max 25 words): the single most striking disparity, leading with a specific number or rate.",
- "locationComparison": "1-2 sentences (max 35 words): which places have the biggest gaps and why that might be.",
- "demographicInsights": "1-2 sentences (max 35 words): which group is most affected and how large the gap is compared to others.",
- "whatThisMeans": "1-2 sentences (max 35 words): what this means for real people in these communities, in plain everyday language."
-}`
-}
 
 async function generateAndCache(cacheKey, prompt) {
   // Skip if already in either cache tier
@@ -311,7 +290,7 @@ app.post('/precache', (req, res) => {
     for (const { dataTypeId, fullDisplayName } of topics) {
       for (const { id: demographicType, label: demographicLabel } of PRECACHE_DEMOGRAPHICS) {
         const cacheKey = `report-${dataTypeId}-${NATIONAL_FIPS}-${demographicType}`
-        const prompt = buildInsightPrompt(fullDisplayName, NATIONAL_LOCATION, demographicLabel)
+        const prompt = buildReportInsightPrompt(fullDisplayName, NATIONAL_LOCATION, demographicLabel)
         try {
           const result = await generateAndCache(cacheKey, prompt)
           if (result === 'generated') succeeded++
