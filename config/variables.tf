@@ -176,6 +176,11 @@ variable "frontend_runner_identity_id" {
   type        = string
 }
 
+variable "frontend_runner_role_id" {
+  description = "Role id of the custom IAM role for the frontend service"
+  type        = string
+}
+
 variable "anthropic_api_key" {
   description = "Anthropic API key for AI insights"
   type        = string

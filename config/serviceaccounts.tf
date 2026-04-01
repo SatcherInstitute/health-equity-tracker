@@ -102,10 +102,17 @@ resource "google_service_account" "frontend_runner_identity" {
   account_id = var.frontend_runner_identity_id
 }
 
-# Give the frontend service account read/write access to the insights cache bucket
+# Give the frontend runner service account the minimum permissions it needs to read/write the insights cache bucket.
+resource "google_project_iam_custom_role" "frontend_runner_role" {
+  role_id     = var.frontend_runner_role_id
+  title       = "Frontend Runner"
+  description = "Allows reading and writing objects in the AI insights cache bucket."
+  permissions = ["storage.objects.create", "storage.objects.get", "storage.objects.update", "storage.buckets.get"]
+}
+
 resource "google_storage_bucket_iam_member" "frontend_insights_cache_binding" {
   bucket = google_storage_bucket.insights_cache_bucket.name
-  role   = "roles/storage.objectAdmin"
+  role   = google_project_iam_custom_role.frontend_runner_role.id
   member = format("serviceAccount:%s", google_service_account.frontend_runner_identity.email)
 }
 
