@@ -107,35 +107,34 @@ app.use('/api', apiProxy)
 app.use(compression())
 
 
-// ── AI Insight Cache ─────────────────────────────────────────────────────────
-// Two-tier: L1 in-memory (fast, ephemeral) + L2 GCS (persistent across restarts).
-// Set INSIGHTS_CACHE_BUCKET env var to enable GCS tier; falls back to memory-only.
+// AI Insight Cache
+const insightMemoryCache = new Map()
+const INSIGHT_TTL_MS = 180 * 24 * 60 * 60 * 1000 // 6 months
+const GCS_BUCKET_NAME = process.env['INSIGHTS_CACHE_BUCKET'] ?? null
+const gcsClient = GCS_BUCKET_NAME ? new Storage() : null
 
-const aiInsightCache = new Map()
-const CACHE_TTL_MS = 180 * 24 * 60 * 60 * 1000 // 6 months
-const INSIGHTS_BUCKET = process.env['INSIGHTS_CACHE_BUCKET'] ?? null
-const storage = INSIGHTS_BUCKET ? new Storage() : null
-
-async function getFromGCS(key) {
-  if (!storage) return null
+// Returns the cached insight string if found in GCS and still within TTL,
+async function readFromGCS(key) {
+  if (!gcsClient) return null
   try {
-    const file = storage.bucket(INSIGHTS_BUCKET).file(`insights/${key}.json`)
+    const file = gcsClient.bucket(GCS_BUCKET_NAME).file(`insights/${key}.json`)
     const [exists] = await file.exists()
     if (!exists) return null
     const [buffer] = await file.download()
     const { content, timestamp } = JSON.parse(buffer.toString())
-    return Date.now() - timestamp < CACHE_TTL_MS ? content : null
+    return Date.now() - timestamp < INSIGHT_TTL_MS ? content : null
   } catch (err) {
     console.warn('[insight cache] GCS read error:', err.message)
     return null
   }
 }
 
-async function saveToGCS(key, content) {
-  if (!storage) return
+// Writes a generated insight to GCS
+async function writeToGCS(key, content) {
+  if (!gcsClient) return
   try {
-    await storage
-      .bucket(INSIGHTS_BUCKET)
+    await gcsClient
+      .bucket(GCS_BUCKET_NAME)
       .file(`insights/${key}.json`)
       .save(JSON.stringify({ content, timestamp: Date.now() }), {
         contentType: 'application/json',
@@ -151,24 +150,25 @@ app.post('/fetch-ai-insight', async (req, res) => {
     return res.status(400).json({ error: 'Missing prompt parameter' })
   }
 
-  // Prefer explicit structured key from client; fall back to prompt string
   const cacheKey = clientCacheKey ?? prompt
   const now = Date.now()
 
-  // L1: in-memory
-  const mem = aiInsightCache.get(cacheKey)
-  if (mem && now - mem.timestamp < CACHE_TTL_MS) {
-    return res.json({ content: mem.content })
+  // In-memory cache: serve immediately if the entry is within TTL
+  const memEntry = insightMemoryCache.get(cacheKey)
+  if (memEntry && now - memEntry.timestamp < INSIGHT_TTL_MS) {
+    return res.json({ content: memEntry.content })
   }
-  // L2: GCS
-  const gcs = await getFromGCS(cacheKey)
-  if (gcs) {
-    aiInsightCache.set(cacheKey, { content: gcs, timestamp: now })
-    return res.json({ content: gcs })
+
+  // GCS cache: serve from persistent storage and populate memory cache for subsequent requests
+  const gcsContent = await readFromGCS(cacheKey)
+  if (gcsContent) {
+    insightMemoryCache.set(cacheKey, { content: gcsContent, timestamp: now })
+    return res.json({ content: gcsContent })
   }
 
   const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
 
+  // Build message content: text-only, or image + text for chart-based insights
   const messageContent = imageBase64
     ? [
         {
@@ -180,7 +180,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
     : [{ type: 'text', text: prompt }]
 
   try {
-    const aiResponse = await fetch('https://api.anthropic.com/v1/messages', {
+    const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'x-api-key': apiKey,
@@ -194,24 +194,22 @@ app.post('/fetch-ai-insight', async (req, res) => {
       }),
     })
 
-    if (aiResponse.status === 429) {
+    if (anthropicResponse.status === 429) {
       console.warn('Anthropic API rate limit reached')
       return res.status(429).json({ error: 'Rate limit reached' })
     }
 
-    if (!aiResponse.ok) {
-      throw new Error(`AI API Error: ${aiResponse.statusText}`)
+    if (!anthropicResponse.ok) {
+      throw new Error(`Anthropic API error: ${anthropicResponse.statusText}`)
     }
 
-    const json = await aiResponse.json()
-    const content = json.content?.[0]?.text || 'No content returned'
-    const trimmedContent = content.trim()
+    const responseBody = await anthropicResponse.json()
+    const insightText = (responseBody.content?.[0]?.text || 'No content returned').trim()
 
-    // Write to both tiers (GCS write is non-blocking)
-    aiInsightCache.set(cacheKey, { content: trimmedContent, timestamp: now })
-    void saveToGCS(cacheKey, trimmedContent)
+    insightMemoryCache.set(cacheKey, { content: insightText, timestamp: now })
+    void writeToGCS(cacheKey, insightText)
 
-    res.json({ content: trimmedContent })
+    res.json({ content: insightText })
   } catch (err) {
     console.error('Error fetching AI insight:', err)
     res.status(500).json({ error: 'Failed to fetch AI insight' })
