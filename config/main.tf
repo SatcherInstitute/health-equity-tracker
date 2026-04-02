@@ -33,6 +33,21 @@ resource "google_storage_bucket" "gcs_manual_ingestion_landing_bucket" {
   location = var.gcs_region
 }
 
+# Bucket for caching AI-generated insights (used by the frontend server)
+resource "google_storage_bucket" "insights_cache_bucket" {
+  name     = var.insights_cache_bucket
+  location = var.gcs_region
+
+  lifecycle_rule {
+    condition {
+      age = 210 # Delete cached entries older than 7 months (TTL is 6 months)
+    }
+    action {
+      type = "Delete"
+    }
+  }
+}
+
 /* [END] GCS Resources */
 
 
