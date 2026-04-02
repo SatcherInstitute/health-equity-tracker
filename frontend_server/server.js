@@ -11,7 +11,7 @@ console.info(`Build directory: ${buildDir}`)
 
 export function assertEnvVar(name) {
   const value = process.env[name]
-  console.info(`Environment variable ${name}: ${value}`)
+  console.info(`Environment variable ${name}: ${value ? '[set]' : '[not set]'}`)
   if (value === 'NULL') return ''
   if (!value) {
     throw new Error(
@@ -23,7 +23,7 @@ export function assertEnvVar(name) {
 
 export function getBooleanEnvVar(name) {
   const value = process.env[name]
-  console.info(`Environment variable ${name}: ${value}`)
+  console.info(`Environment variable ${name}: ${value ? '[set]' : '[not set]'}`)
   if (value && value !== 'true' && value !== 'false') {
     throw new Error(
       `Invalid boolean environment variable. Name: ${name}, value: ${value}`,
@@ -150,7 +150,8 @@ app.post('/fetch-ai-insight', async (req, res) => {
     return res.status(400).json({ error: 'Missing prompt parameter' })
   }
 
-  const cacheKey = clientCacheKey ?? prompt
+  // Ensure the key is safe to use as a filename in the cloud by removing any special characters.
+  const cacheKey = (clientCacheKey ?? prompt).replace(/[^\x20-\x7E]/g, '_').slice(0, 500)
   const now = Date.now()
 
   // In-memory cache: serve immediately if the entry is within TTL
@@ -215,6 +216,13 @@ app.post('/fetch-ai-insight', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch AI insight' })
   }
 })
+
+// Indicates whether you have reached the usage limit for the Anthropic API. A value is always returned,
+// but the system does not yet track API usage; this functionality will be added in the future.
+app.get('/rate-limit-status', (_req, res) => {
+  res.json({ rateLimitReached: false })
+})
+
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 // Serve static files from the build directory.
