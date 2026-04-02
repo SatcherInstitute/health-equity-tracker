@@ -1,3 +1,4 @@
+import { Storage } from '@google-cloud/storage'
 import compression from 'compression'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -6,12 +7,11 @@ import express from 'express'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 
 const buildDir = process.env['BUILD_DIR'] || 'build'
-let RATE_LIMIT_REACHED = false
 console.info(`Build directory: ${buildDir}`)
 
 export function assertEnvVar(name) {
   const value = process.env[name]
-  console.info(`Environment variable ${name}: ${value}`)
+  console.info(`Environment variable ${name}: ${value ? '[set]' : '[not set]'}`)
   if (value === 'NULL') return ''
   if (!value) {
     throw new Error(
@@ -23,7 +23,7 @@ export function assertEnvVar(name) {
 
 export function getBooleanEnvVar(name) {
   const value = process.env[name]
-  console.info(`Environment variable ${name}: ${value}`)
+  console.info(`Environment variable ${name}: ${value ? '[set]' : '[not set]'}`)
   if (value && value !== 'true' && value !== 'false') {
     throw new Error(
       `Invalid boolean environment variable. Name: ${name}, value: ${value}`,
@@ -38,7 +38,7 @@ const PORT = 8080
 const HOST = '0.0.0.0'
 const app = express()
 
-app.use(express.json())
+app.use(express.json({ limit: '5mb' }))
 app.use(compression())
 
 // CORS middleware
@@ -106,78 +106,126 @@ app.use('/api', apiProxy)
 
 app.use(compression())
 
-app.get('/rate-limit-status', (req, res) => {
-  res.json({
-    rateLimitReached: RATE_LIMIT_REACHED,
-  })
-})
 
-const aiInsightCache = new Map()
-const CACHE_TTL_MS = 24 * 60 * 60 * 1000
+// AI Insight Cache
+const insightMemoryCache = new Map()
+const INSIGHT_TTL_MS = 180 * 24 * 60 * 60 * 1000 // 6 months
+const GCS_BUCKET_NAME = process.env['INSIGHTS_CACHE_BUCKET'] ?? null
+const gcsClient = GCS_BUCKET_NAME ? new Storage() : null
+
+// Returns the cached insight string if found in GCS and still within TTL,
+async function readFromGCS(key) {
+  if (!gcsClient) return null
+  try {
+    const file = gcsClient.bucket(GCS_BUCKET_NAME).file(`insights/${key}.json`)
+    const [exists] = await file.exists()
+    if (!exists) return null
+    const [buffer] = await file.download()
+    const { content, timestamp } = JSON.parse(buffer.toString())
+    return Date.now() - timestamp < INSIGHT_TTL_MS ? content : null
+  } catch (err) {
+    console.warn('[insight cache] GCS read error:', err.message)
+    return null
+  }
+}
+
+// Writes a generated insight to GCS
+async function writeToGCS(key, content) {
+  if (!gcsClient) return
+  try {
+    await gcsClient
+      .bucket(GCS_BUCKET_NAME)
+      .file(`insights/${key}.json`)
+      .save(JSON.stringify({ content, timestamp: Date.now() }), {
+        contentType: 'application/json',
+      })
+  } catch (err) {
+    console.warn('[insight cache] GCS write error:', err.message)
+  }
+}
 
 app.post('/fetch-ai-insight', async (req, res) => {
-  const prompt = req.body.prompt
+  const { prompt, imageBase64, cacheKey: clientCacheKey } = req.body
   if (!prompt) {
     return res.status(400).json({ error: 'Missing prompt parameter' })
   }
 
-  // Check if response is cached and not expired
+  // Ensure the key is safe to use as a filename in the cloud by removing any special characters.
+  const cacheKey = (clientCacheKey ?? prompt).replace(/[^\x20-\x7E]/g, '_').slice(0, 500)
   const now = Date.now()
-  const cachedItem = aiInsightCache.get(prompt)
 
-  if (cachedItem && now - cachedItem.timestamp < CACHE_TTL_MS) {
-    return res.json({ content: cachedItem.content })
+  // In-memory cache: serve immediately if the entry is within TTL
+  const memEntry = insightMemoryCache.get(cacheKey)
+  if (memEntry && now - memEntry.timestamp < INSIGHT_TTL_MS) {
+    return res.json({ content: memEntry.content })
   }
 
-  const apiKey = assertEnvVar('OPENAI_API_KEY')
+  // GCS cache: serve from persistent storage and populate memory cache for subsequent requests
+  const gcsContent = await readFromGCS(cacheKey)
+  if (gcsContent) {
+    insightMemoryCache.set(cacheKey, { content: gcsContent, timestamp: now })
+    return res.json({ content: gcsContent })
+  }
+
+  const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
+
+  // Build message content: text-only, or image + text for chart-based insights
+  const messageContent = imageBase64
+    ? [
+        {
+          type: 'image',
+          source: { type: 'base64', media_type: 'image/png', data: imageBase64 },
+        },
+        { type: 'text', text: prompt },
+      ]
+    : [{ type: 'text', text: prompt }]
 
   try {
-    const aiResponse = await fetch(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'gpt-4',
-          messages: [{ role: 'user', content: prompt }],
-          max_tokens: 500,
-        }),
+    const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'Content-Type': 'application/json',
       },
-    )
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5-20250929',
+        max_tokens: 1024,
+        messages: [{ role: 'user', content: messageContent }],
+      }),
+    })
 
-    if (aiResponse.status === 429) {
-      RATE_LIMIT_REACHED = true
+    if (anthropicResponse.status === 429) {
+      console.warn('Anthropic API rate limit reached')
       return res.status(429).json({ error: 'Rate limit reached' })
     }
 
-    RATE_LIMIT_REACHED = false
-
-    if (!aiResponse.ok) {
-      throw new Error(`AI API Error: ${aiResponse.statusText}`)
+    if (!anthropicResponse.ok) {
+      throw new Error(`Anthropic API error: ${anthropicResponse.statusText}`)
     }
 
-    const json = await aiResponse.json()
-    const content = json.choices?.[0]?.message?.content || 'No content returned'
-    const trimmedContent = content.trim()
+    const responseBody = await anthropicResponse.json()
+    const insightText = (responseBody.content?.[0]?.text || 'No content returned').trim()
 
-    // Store in cache with timestamp
-    aiInsightCache.set(prompt, {
-      content: trimmedContent,
-      timestamp: now,
-    })
+    insightMemoryCache.set(cacheKey, { content: insightText, timestamp: now })
+    void writeToGCS(cacheKey, insightText)
 
-    res.json({ content: trimmedContent })
+    res.json({ content: insightText })
   } catch (err) {
     console.error('Error fetching AI insight:', err)
-
     res.status(500).json({ error: 'Failed to fetch AI insight' })
   }
 })
-// Serve static files from the build directory.
+
+// Indicates whether you have reached the usage limit for the Anthropic API. A value is always returned,
+// but the system does not yet track API usage; this functionality will be added in the future.
+app.get('/rate-limit-status', (_req, res) => {
+  res.json({ rateLimitReached: false })
+})
+
 const __dirname = dirname(fileURLToPath(import.meta.url))
+
+// Serve static files from the build directory.
 app.use(express.static(path.join(__dirname, buildDir)))
 
 // Route all other paths to index.html. The "*" must be used otherwise

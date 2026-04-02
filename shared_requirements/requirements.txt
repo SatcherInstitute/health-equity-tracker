@@ -13,7 +13,7 @@ flask
 flask-cors==6.0.0
 freezegun==1.5.1
 google-api-core[grpc]
-google-auth==2.48.0
+google-auth==2.49.1
 google-cloud
 google-cloud-bigquery
 google-cloud-core
@@ -21,10 +21,10 @@ google-cloud-pubsub
 google-cloud-storage
 google-crc32c==1.8.0
 google-resumable-media
-googleapis-common-protos[grpc]==1.72.0
+googleapis-common-protos[grpc]==1.73.1
 grpc-google-iam-v1==0.14.3
 grpcio-status==1.71.0         # FIXED: 1.72.0+ strictly requires Protobuf 6
-grpcio==1.76.0
+grpcio==1.80.0
 gunicorn==23.0.0
 idna
 importlib-metadata==8.7.0
@@ -41,13 +41,13 @@ numpy==2.4.0
 openpyxl==3.1.5
 packaging==24.2
 pandas==2.3.3
-platformdirs==4.5.0
+platformdirs==4.9.4
 pluggy==1.6.0
 proto-plus==1.27.0
 protobuf>=3.20.2,<6.0.0      # Critical constraint
 pyarrow==18.1.0
 pyasn1-modules==0.4.1
-pyasn1==0.6.2
+pyasn1==0.6.3
 pycparser==2.23
 pylint==3.3.1
 pyparsing==3.3.1
@@ -55,7 +55,7 @@ pytest==8.4.2
 python-dateutil==2.9.0.post0
 pytz==2024.2
 pyyaml==6.0.2
-requests==2.32.4
+requests==2.33.0
 rsa==4.9
 six==1.17.0
 tomlkit==0.14.0
