@@ -34,7 +34,7 @@ export default function InsightVisualizationCard({
   useEffect(() => {
     if (!isOpen || insight || !dataTypeConfig || !demographicType) return
     void handleGenerate()
-  }, [isOpen])
+  }, [isOpen, cacheKey])
 
   async function handleGenerate() {
     if (!dataTypeConfig || !demographicType) return

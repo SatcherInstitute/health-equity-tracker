@@ -69,7 +69,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
 
   useEffect(() => {
     if (!cachedEntry) void handleGenerate()
-  }, [])
+  }, [cacheKey])
 
   async function handleGenerate() {
     if (!dataTypeConfig || !fips || !demographicType) return
