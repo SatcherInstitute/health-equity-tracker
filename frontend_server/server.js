@@ -107,8 +107,6 @@ app.use('/api', apiProxy)
 app.use(compression())
 
 
-const ANTHROPIC_API_KEY = assertEnvVar('ANTHROPIC_API_KEY')
-
 // AI Insight Cache
 const insightMemoryCache = new Map()
 const INSIGHT_TTL_MS = 180 * 24 * 60 * 60 * 1000 // 6 months
@@ -169,11 +167,13 @@ app.post('/fetch-ai-insight', async (req, res) => {
     return res.json({ content: gcsContent })
   }
 
+  const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
+
   try {
     const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
-        'x-api-key': ANTHROPIC_API_KEY,
+        'x-api-key': apiKey,
         'anthropic-version': '2023-06-01',
         'Content-Type': 'application/json',
       },
