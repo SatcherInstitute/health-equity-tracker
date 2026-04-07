@@ -147,7 +147,7 @@ runs:
         echo "gcs_to_bq_url=$gcs_to_bq_url" >> $GITHUB_OUTPUT
         exporter_url=$(terraform output exporter_url)
         echo "exporter_url=$exporter_url" >> $GITHUB_OUTPUT
-        frontend_url=$(terraform output frontend_url)
+        frontend_url=$(terraform output -raw frontend_url)
         echo "frontend_url=$frontend_url" >> $GITHUB_OUTPUT
 
     # Run E2E tests
