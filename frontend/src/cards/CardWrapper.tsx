@@ -48,9 +48,11 @@ function CardWrapper(props: {
   const dataTypeConfig = useAtomValue(selectedDataTypeConfig1Atom)
   const fips = useAtomValue(selectedFipsAtom)
   const demographicType = useAtomValue(selectedDemographicTypeAtom)
-  const isInsightOpen = useAtomValue(cardInsightOpenAtom)[props.scrollToHash] ?? false
+  const isInsightOpen =
+    useAtomValue(cardInsightOpenAtom)[props.scrollToHash] ?? false
   const cacheKey = `${props.scrollToHash}-${dataTypeConfig?.dataTypeId ?? ''}-${fips?.code ?? ''}-${demographicType ?? ''}`
-  const hasInsight = SHOW_INSIGHT_GENERATION && isInsightOpen && Boolean(cardInsights[cacheKey])
+  const hasInsight =
+    SHOW_INSIGHT_GENERATION && isInsightOpen && Boolean(cardInsights[cacheKey])
 
   const loadingComponent = (
     <div
@@ -73,12 +75,12 @@ function CardWrapper(props: {
           <article
             className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
           >
-                  {hasInsight && (
-                    <span className='absolute mb-1 flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide p-3'>
-                      <AutoAwesome fontSize='small' />
-                      AI Insight
-                    </span>
-                  )}
+            {hasInsight && (
+              <span className='absolute mb-1 flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide p-3'>
+                <AutoAwesome fontSize='small' />
+                AI Insight
+              </span>
+            )}
             <InsightVisualizationButton scrollToHash={props.scrollToHash} />
             <CardOptionsMenu
               reportTitle={props.reportTitle}

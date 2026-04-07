@@ -1,4 +1,7 @@
-import type { DataTypeConfig, MetricConfig } from '../data/config/MetricConfigTypes'
+import type {
+  DataTypeConfig,
+  MetricConfig,
+} from '../data/config/MetricConfigTypes'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
@@ -25,9 +28,11 @@ function getPrimaryMetricConfig(
   hashId: ScrollableHashId,
   metrics: DataTypeConfig['metrics'],
 ): MetricConfig | null {
-  if (hashId === 'inequities-over-time') return metrics.pct_relative_inequity ?? null
+  if (hashId === 'inequities-over-time')
+    return metrics.pct_relative_inequity ?? null
   if (hashId === 'population-vs-distribution') return metrics.pct_share ?? null
-  if (hashId === 'age-adjusted-ratios') return metrics.age_adjusted_ratio ?? null
+  if (hashId === 'age-adjusted-ratios')
+    return metrics.age_adjusted_ratio ?? null
   return metrics.per100k ?? metrics.pct_rate ?? metrics.index ?? null
 }
 
@@ -55,12 +60,16 @@ function formatDataRows(
       .flatMap(([group, groupRows]) => {
         const sorted = [...groupRows]
           .sort((a, b) =>
-            String(a.time_period ?? '').localeCompare(String(b.time_period ?? '')),
+            String(a.time_period ?? '').localeCompare(
+              String(b.time_period ?? ''),
+            ),
           )
           .filter((row) => row[metricConfig.metricId] != null)
         if (sorted.length === 0) return []
         const points =
-          sorted.length === 1 ? [sorted[0]] : [sorted[0], sorted[sorted.length - 1]]
+          sorted.length === 1
+            ? [sorted[0]]
+            : [sorted[0], sorted[sorted.length - 1]]
         return points.map(
           (row) =>
             `- ${group} (${row.time_period}): ${row[metricConfig.metricId]} ${metricConfig.shortLabel}`,
@@ -77,7 +86,9 @@ function formatDataRows(
       : null
 
   return rows
-    .filter((row) => row[groupKey] != null && row[metricConfig.metricId] != null)
+    .filter(
+      (row) => row[groupKey] != null && row[metricConfig.metricId] != null,
+    )
     .map((row) => {
       const val = `${row[metricConfig.metricId]} ${metricConfig.shortLabel}`
       if (popMetric && row[popMetric.metricId] != null) {
