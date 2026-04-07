@@ -60,7 +60,10 @@ function CardWrapper(props: {
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}
             />
-            <InsightVisualizationCard scrollToHash={props.scrollToHash} />
+            <InsightVisualizationCard
+              scrollToHash={props.scrollToHash}
+              queryResponses={queryResponses}
+            />
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <Sources

@@ -5,6 +5,7 @@ import {
 } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
 import { ERROR_GENERATING_INSIGHT, fetchAIInsight } from './fetchAIInsight'
+import { REPORT_INSIGHT_PARAM_KEY } from './urlutils'
 
 export type ReportInsightSections = {
   keyFindings: string
@@ -80,8 +81,10 @@ export async function generateReportInsight(
       location,
       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType],
     )
-    const cacheKey = `report-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}`
-    const result = await fetchAIInsight(prompt, undefined, { cacheKey })
+    const params = new URLSearchParams(window.location.search)
+    params.delete(REPORT_INSIGHT_PARAM_KEY)
+    const cacheKey = `${window.location.pathname}?${params.toString()}`
+    const result = await fetchAIInsight(prompt, { cacheKey })
 
     if (result.rateLimited) {
       return { sections: null, rateLimited: true }

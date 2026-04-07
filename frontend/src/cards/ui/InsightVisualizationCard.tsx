@@ -3,6 +3,7 @@ import { Button, CircularProgress } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
 import { useEffect, useState } from 'react'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
+import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { generateCardInsight } from '../../utils/generateVisualizationInsight'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
@@ -15,10 +16,12 @@ import {
 
 interface InsightVisualizationCardProps {
   scrollToHash: ScrollableHashId
+  queryResponses: MetricQueryResponse[]
 }
 
 export default function InsightVisualizationCard({
   scrollToHash,
+  queryResponses,
 }: InsightVisualizationCardProps) {
   const dataTypeConfig = useAtomValue(selectedDataTypeConfig1Atom)
   const fips = useAtomValue(selectedFipsAtom)
@@ -46,6 +49,7 @@ export default function InsightVisualizationCard({
         dataTypeConfig,
         demographicType,
         fips ?? undefined,
+        queryResponses,
       )
       if (result.rateLimited) {
         setError('Too many requests. Please wait a moment and try again.')

@@ -13,7 +13,6 @@ export type FetchAIInsightOptions = {
 
 export async function fetchAIInsight(
   prompt: string,
-  imageBase64?: string,
   options?: FetchAIInsightOptions,
 ): Promise<InsightResult> {
   const baseApiUrl = import.meta.env.VITE_BASE_API_URL
@@ -27,7 +26,6 @@ export async function fetchAIInsight(
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         prompt,
-        imageBase64,
         cacheKey: options?.cacheKey,
       }),
     })
