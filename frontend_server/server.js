@@ -197,7 +197,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
     const insightText = (responseBody.content?.[0]?.text || 'No content returned').trim()
 
     insightMemoryCache.set(cacheKey, { content: insightText, timestamp: now })
-    void writeToGCS(cacheKey, insightText)
+    await writeToGCS(cacheKey, insightText)
 
     res.json({ content: insightText })
   } catch (err) {
