@@ -2,7 +2,7 @@ import { AutoAwesome, Info, LocationOn, People } from '@mui/icons-material'
 import { Button, CircularProgress, Divider } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
 import type React from 'react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import InsightCardOptionsMenu from '../../cards/ui/InsightCardOptionsMenu'
 import {
   generateReportInsight,
@@ -67,11 +67,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    if (!cachedEntry) void handleGenerate()
-  }, [cacheKey])
-
-  async function handleGenerate() {
+  const handleGenerate = useCallback(async () => {
     if (!dataTypeConfig || !fips || !demographicType) return
     setIsGenerating(true)
     setError(null)
@@ -94,7 +90,11 @@ export default function InsightReportCard(props: InsightReportCardProps) {
     } finally {
       setIsGenerating(false)
     }
-  }
+  }, [cacheKey, dataTypeConfig, demographicType, fips, setReportInsights])
+
+  useEffect(() => {
+    if (!cachedEntry) void handleGenerate()
+  }, [cacheKey, handleGenerate])
 
   const handleDownload = async () => {
     if (!sections) return

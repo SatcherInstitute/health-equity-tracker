@@ -1,6 +1,6 @@
 import { Button, CircularProgress } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
 import { generateCardInsight } from '../../utils/generateVisualizationInsight'
@@ -33,12 +33,7 @@ export default function InsightVisualizationCard({
   const cacheKey = `${scrollToHash}-${dataTypeConfig?.dataTypeId ?? ''}-${fips?.code ?? ''}-${demographicType ?? ''}`
   const insight = cardInsights[cacheKey]
 
-  useEffect(() => {
-    if (!isOpen || insight || !dataTypeConfig || !demographicType) return
-    void handleGenerate()
-  }, [isOpen, cacheKey])
-
-  async function handleGenerate() {
+  const handleGenerate = useCallback(async () => {
     if (!dataTypeConfig || !demographicType) return
     setIsGenerating(true)
     setError(null)
@@ -60,7 +55,20 @@ export default function InsightVisualizationCard({
     } finally {
       setIsGenerating(false)
     }
-  }
+  }, [
+    cacheKey,
+    dataTypeConfig,
+    demographicType,
+    fips,
+    queryResponses,
+    scrollToHash,
+    setCardInsights,
+  ])
+
+  useEffect(() => {
+    if (!isOpen || insight || !dataTypeConfig || !demographicType) return
+    void handleGenerate()
+  }, [isOpen, cacheKey, handleGenerate])
 
   if (!SHOW_INSIGHT_GENERATION || !dataTypeConfig || !isOpen) return null
 
