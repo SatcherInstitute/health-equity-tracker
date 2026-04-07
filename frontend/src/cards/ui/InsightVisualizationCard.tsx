@@ -1,9 +1,8 @@
-import { AutoAwesome } from '@mui/icons-material'
 import { Button, CircularProgress } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
 import { useEffect, useState } from 'react'
-import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
 import { generateCardInsight } from '../../utils/generateVisualizationInsight'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
@@ -66,11 +65,7 @@ export default function InsightVisualizationCard({
   if (!SHOW_INSIGHT_GENERATION || !dataTypeConfig || !isOpen) return null
 
   return (
-    <div className='mt-10 mb-3 rounded-md bg-green-50 p-3'>
-      <span className='mb-1 flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide'>
-        <AutoAwesome fontSize='small' />
-        AI Insight
-      </span>
+    <div className='mb-3 rounded-md bg-green-50 p-3'>
       {isGenerating ? (
         <div className='flex items-center gap-2 py-1'>
           <CircularProgress size={14} className='shrink-0' />
