@@ -62,8 +62,8 @@ function parseSections(raw: string): ReportInsightSections | null {
     }
 
     return parsed as ReportInsightSections
-  } catch {
-    console.error('Failed to parse report insight JSON')
+  } catch (error) {
+    console.error('Failed to parse report insight JSON:', error)
     return null
   }
 }

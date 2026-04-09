@@ -347,7 +347,7 @@ export function Report(props: ReportProps) {
         )}
 
         <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
-          {dataTypeConfig && SHOW_INSIGHT_GENERATION && (
+          {dataTypeConfig && SHOW_INSIGHT_GENERATION && props.trackerMode === 'disparity' && (
             <div className='rounded-sm bg-white shadow-raised md:m-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
               <InsightReportButton />
             </div>

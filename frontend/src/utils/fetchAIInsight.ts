@@ -44,7 +44,8 @@ export async function fetchAIInsight(
     }
 
     return { content: insight.content.trim(), rateLimited: false }
-  } catch {
+  } catch (error) {
+    console.error('Error fetching AI insight:', error)
     return { content: '', rateLimited: false, error: true }
   }
 }

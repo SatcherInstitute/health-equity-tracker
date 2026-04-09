@@ -96,50 +96,6 @@ export default function InsightReportCard(props: InsightReportCardProps) {
     if (!cachedEntry) void handleGenerate()
   }, [cacheKey, handleGenerate])
 
-  const handleDownload = async () => {
-    if (!sections) return
-    try {
-      const { jsPDF } = await import('jspdf')
-      const doc = new jsPDF()
-      const pageWidth = doc.internal.pageSize.getWidth()
-      const margin = 16
-      const maxWidth = pageWidth - margin * 2
-      let y = 20
-
-      doc.setFontSize(16)
-      doc.setFont('helvetica', 'bold')
-      doc.text('AI Report Summary', margin, y)
-      y += 12
-
-      for (const { key, label } of SECTIONS) {
-        doc.setFontSize(10)
-        doc.setFont('helvetica', 'bold')
-        doc.text(label.toUpperCase(), margin, y)
-        y += 6
-
-        doc.setFontSize(11)
-        doc.setFont('helvetica', 'normal')
-        const lines = doc.splitTextToSize(sections[key], maxWidth)
-        for (const line of lines) {
-          if (y > 275) {
-            doc.addPage()
-            y = 20
-          }
-          doc.text(line, margin, y)
-          y += 6
-        }
-        y += 6
-      }
-
-      const locationSlug =
-        fips?.getDisplayName().toLowerCase().replace(/\s+/g, '_') ?? 'unknown'
-      const filename = `${dataTypeConfig?.dataTypeId ?? 'report'}_${locationSlug}_${demographicType}_insight.pdf`
-      doc.save(filename)
-    } catch {
-      setError('Unable to download PDF. Please try again.')
-    }
-  }
-
   const handleClose = () => {
     setIsOpen(false)
     setError(null)
@@ -157,7 +113,6 @@ export default function InsightReportCard(props: InsightReportCardProps) {
           </span>
           <InsightCardOptionsMenu
             onClose={handleClose}
-            onDownload={sections ? handleDownload : undefined}
           />
         </div>
 
