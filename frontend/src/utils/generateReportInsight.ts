@@ -25,7 +25,7 @@ function buildReportInsightPrompt(
   location: string,
   demographicLabel: string,
 ): string {
-  return `You are a public health analyst reviewing a report about "${topic}" in ${location}, broken down by ${demographicLabel}.
+  return `You are a public health analyst reviewing a report about "${topic}" in ${location}, broken down by ${demographicLabel}. Emphasize health equity aspects including demographic and geographic disparities, and ensure inclusive, person-first language. Remember these are extremely sensitive conditions that affect millions of real people.
 
 The page contains multiple charts: a rate map, rates over time, a rate bar chart, an unknowns map, inequities over time, and a population vs distribution chart.
 
@@ -33,7 +33,7 @@ WRITING RULES — follow these strictly:
 - Write at an 8th-grade reading level. Use short words and simple sentences.
 - Avoid jargon. If you must use a technical term, explain it immediately.
 - Each section: 1-2 sentences maximum, 35 words or fewer.
-- keyFindings: 1 sentence, 25 words or fewer. Lead with the single most striking fact.
+- keyFindings: 1 sentence, 25 words or fewer. Lead with the single most striking disparity or equity gap.
 
 Respond ONLY with a valid JSON object — no markdown, no backticks, no explanation outside the JSON. Use this exact structure:
 

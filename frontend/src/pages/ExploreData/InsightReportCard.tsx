@@ -111,9 +111,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             <AutoAwesome fontSize='small' className='text-alt-green' />
             AI Report Summary
           </span>
-          <InsightCardOptionsMenu
-            onClose={handleClose}
-          />
+          <InsightCardOptionsMenu onClose={handleClose} />
         </div>
 
         <Divider />
