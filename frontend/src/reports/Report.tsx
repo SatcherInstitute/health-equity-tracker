@@ -18,17 +18,25 @@ import {
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
+import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
+import InsightReportCard from '../pages/ExploreData/InsightReportCard'
+import InsightReportButton from '../pages/ui/InsightReportButton'
 import Sidebar from '../pages/ui/Sidebar'
 import HetLazyLoader from '../styles/HetComponents/HetLazyLoader'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import type { MadLibId } from '../utils/MadLibs'
-import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDemographicTypeAtom,
+  selectedFipsAtom,
+} from '../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DEMOGRAPHIC_PARAM,
   getParameter,
   psSubscribe,
+  REPORT_INSIGHT_PARAM_KEY,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
@@ -66,9 +74,14 @@ export function Report(props: ReportProps) {
     defaultDemo,
   )
 
+  const [insightIsOpen] = useParamState(REPORT_INSIGHT_PARAM_KEY)
+  const insightMode = Boolean(SHOW_INSIGHT_GENERATION && insightIsOpen)
+
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
     selectedDataTypeConfig1Atom,
   )
+  const [, setSelectedFips] = useAtom(selectedFipsAtom)
+  const [, setSelectedDemographicType] = useAtom(selectedDemographicTypeAtom)
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
     getAllDemographicOptions(dataTypeConfig, props.fips)
@@ -99,13 +112,15 @@ export function Report(props: ReportProps) {
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
     readParams()
+    setSelectedFips(props.fips)
+    setSelectedDemographicType(demographicType)
 
     return () => {
       if (psHandler) {
         psHandler.unsubscribe()
       }
     }
-  }, [props.dropdownVarId, demographicType])
+  }, [props.dropdownVarId, demographicType, props.fips])
 
   // when variable config changes (new data type), re-calc available card steps TableOfContents
   useEffect(() => {
@@ -117,7 +132,7 @@ export function Report(props: ReportProps) {
   }, [dataTypeConfig])
 
   const demographicTypeString: string =
-    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType] ?? 'demographic'
+    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
 
   const browserTitle = `${
     (dataTypeConfig?.fullDisplayName as string) ?? 'Data'
@@ -141,7 +156,7 @@ export function Report(props: ReportProps) {
 
       <div className='flex'>
         {/* CARDS COLUMN */}
-        <div className='w-full md:w-10/12'>
+        <div className={`w-full ${insightMode ? 'md:w-6/12' : 'md:w-10/12'}`}>
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
@@ -153,7 +168,10 @@ export function Report(props: ReportProps) {
 
           <div className='flex w-full items-center justify-center'>
             {dataTypeConfig && (
-              <div className='flex w-full flex-col content-center'>
+              <div
+                key={String(insightMode)}
+                className='flex w-full flex-col content-center'
+              >
                 {/* 100k MAP CARD */}
                 <div
                   tabIndex={-1}
@@ -321,7 +339,21 @@ export function Report(props: ReportProps) {
             )}
           </div>
         </div>
+        {/* INSIGHT CARD COLUMN - shown when insight is open */}
+        {insightMode && dataTypeConfig && (
+          <div className='hidden md:flex md:w-4/12 md:flex-col'>
+            <InsightReportCard headerScrollMargin={props.headerScrollMargin} />
+          </div>
+        )}
+
         <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
+          {dataTypeConfig &&
+            SHOW_INSIGHT_GENERATION &&
+            props.trackerMode === 'disparity' && (
+              <div className='rounded-sm bg-white shadow-raised md:m-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
+                <InsightReportButton />
+              </div>
+            )}
           <Sidebar
             floatTopOffset={props.headerScrollMargin}
             isScrolledToTop={props.isScrolledToTop}

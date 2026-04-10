@@ -38,7 +38,7 @@ const PORT = 8080
 const HOST = '0.0.0.0'
 const app = express()
 
-app.use(express.json({ limit: '5mb' }))
+app.use(express.json())
 app.use(compression())
 
 // CORS middleware
@@ -145,7 +145,7 @@ async function writeToGCS(key, content) {
 }
 
 app.post('/fetch-ai-insight', async (req, res) => {
-  const { prompt, imageBase64, cacheKey: clientCacheKey } = req.body
+  const { prompt, cacheKey: clientCacheKey } = req.body
   if (!prompt) {
     return res.status(400).json({ error: 'Missing prompt parameter' })
   }
@@ -169,17 +169,6 @@ app.post('/fetch-ai-insight', async (req, res) => {
 
   const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
 
-  // Build message content: text-only, or image + text for chart-based insights
-  const messageContent = imageBase64
-    ? [
-        {
-          type: 'image',
-          source: { type: 'base64', media_type: 'image/png', data: imageBase64 },
-        },
-        { type: 'text', text: prompt },
-      ]
-    : [{ type: 'text', text: prompt }]
-
   try {
     const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -191,7 +180,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
       body: JSON.stringify({
         model: 'claude-sonnet-4-5-20250929',
         max_tokens: 1024,
-        messages: [{ role: 'user', content: messageContent }],
+        messages: [{ role: 'user', content: prompt }],
       }),
     })
 
@@ -208,7 +197,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
     const insightText = (responseBody.content?.[0]?.text || 'No content returned').trim()
 
     insightMemoryCache.set(cacheKey, { content: insightText, timestamp: now })
-    void writeToGCS(cacheKey, insightText)
+    await writeToGCS(cacheKey, insightText)
 
     res.json({ content: insightText })
   } catch (err) {
