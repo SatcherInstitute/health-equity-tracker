@@ -136,7 +136,12 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       expanded={a11yTableExpanded}
       className={props.className}
     >
-      {([queryResponseRates, queryResponsePctShares], _metadata, _geoData, setHasData) => {
+      {(
+        [queryResponseRates, queryResponsePctShares],
+        _metadata,
+        _geoData,
+        setHasData,
+      ) => {
         let ratesData = queryResponseRates.getValidRowsForField(
           metricConfigRates.metricId,
         )

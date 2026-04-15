@@ -132,7 +132,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       reportTitle={props.reportTitle}
       hideNH={true}
     >
-      {([mapQueryResponse, alertQueryResponse], _metadata, geoData, setHasData) => {
+      {(
+        [mapQueryResponse, alertQueryResponse],
+        _metadata,
+        geoData,
+        setHasData,
+      ) => {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
         //  e.g. if you look at the United States, we are dealing with the Unknown pct_share at the state level
         // the exception is the <UnknownsAlert /> which presents the amount of unknown demographic at the SELECTED level
