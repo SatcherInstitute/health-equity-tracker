@@ -7,15 +7,17 @@ import { cardInsightOpenAtom } from '../../utils/sharedSettingsState'
 
 interface InsightVisualizationButtonProps {
   scrollToHash: ScrollableHashId
+  hasData?: boolean
 }
 
 export default function InsightVisualizationButton({
   scrollToHash,
+  hasData = true,
 }: InsightVisualizationButtonProps) {
   const [cardInsightOpen, setCardInsightOpen] = useAtom(cardInsightOpenAtom)
   const isOpen = cardInsightOpen[scrollToHash] ?? false
 
-  if (!SHOW_INSIGHT_GENERATION) return null
+  if (!SHOW_INSIGHT_GENERATION || !hasData) return null
 
   return (
     <div className='absolute top-5 right-20'>

@@ -124,7 +124,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       expanded={a11yTableExpanded}
       className={props.className}
     >
-      {([queryResponseInequity, queryResponsePctShares]) => {
+      {([queryResponseInequity, queryResponsePctShares], _metadata, _geoData, setHasData) => {
         const inequityData = queryResponseInequity.getValidRowsForField(
           metricConfigInequitable.metricId,
         )
@@ -192,6 +192,8 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           queryResponseInequity.shouldShowMissingDataMessage([
             metricConfigInequitable.metricId,
           ]) || nestedInequityData.length === 0
+
+        setHasData?.(!shouldShowMissingData)
 
         return (
           <>

@@ -90,7 +90,7 @@ export default function StackedSharesBarChartCard(
       reportTitle={props.reportTitle}
       className={props.className}
     >
-      {([queryResponse]) => {
+      {([queryResponse], _metadata, _geoData, setHasData) => {
         const validData = queryResponse.getValidRowsForField(
           shareConfig.metricId,
         )
@@ -122,6 +122,8 @@ export default function StackedSharesBarChartCard(
         const dataAvailable =
           knownData.length > 0 &&
           !queryResponse.shouldShowMissingDataMessage([shareConfig.metricId])
+
+        setHasData?.(dataAvailable)
 
         return (
           <>

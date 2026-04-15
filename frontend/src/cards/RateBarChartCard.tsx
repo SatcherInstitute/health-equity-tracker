@@ -131,7 +131,7 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
       className={props.className}
       hasIntersectionalAllCompareBar={rateComparisonConfig !== undefined}
     >
-      {([rateQueryResponseRate, rateQueryResponseRateAlls], metadata) => {
+      {([rateQueryResponseRate, rateQueryResponseRateAlls], metadata, _geoData, setHasData) => {
         // for consistency, filter out any 'Unknown' rows that might have rates (like PHRMA)
         let data = rateQueryResponseRate
           .getValidRowsForField(rateConfig.metricId)
@@ -153,6 +153,8 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
           rateQueryResponseRate.shouldShowMissingDataMessage([
             rateConfig.metricId,
           ])
+
+        setHasData?.(!hideChart)
 
         const comparisonAllSubGroup = props.dataTypeConfig.ageSubPopulationLabel
 
