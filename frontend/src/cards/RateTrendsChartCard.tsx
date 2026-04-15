@@ -136,7 +136,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       expanded={a11yTableExpanded}
       className={props.className}
     >
-      {([queryResponseRates, queryResponsePctShares]) => {
+      {([queryResponseRates, queryResponsePctShares], _metadata, _geoData, setHasData) => {
         let ratesData = queryResponseRates.getValidRowsForField(
           metricConfigRates.metricId,
         )
@@ -222,11 +222,16 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           xAxisTimeSeriesCadence: metricConfigRates.timeSeriesCadence,
         }
 
+        const shouldShowMissingData =
+          queryResponseRates.shouldShowMissingDataMessage([
+            metricConfigRates.metricId,
+          ]) || nestedRatesData?.length === 0
+
+        setHasData?.(!shouldShowMissingData)
+
         return (
           <>
-            {queryResponseRates.shouldShowMissingDataMessage([
-              metricConfigRates.metricId,
-            ]) || nestedRatesData?.length === 0 ? (
+            {shouldShowMissingData ? (
               <>
                 {/* Chart Title Missing Data */}
                 <ChartTitle title={'Graph unavailable: ' + getTitleText()} />
