@@ -44,7 +44,7 @@ async function getTagMap(forceRefresh = false) {
     }
 
     const data = await res.json()
-    tagCache = Object.fromEntries(data.items.map((item) => [item.id, item.fieldData.name]))
+    tagCache = Object.fromEntries((data.items || []).map((item) => [item.id, item.fieldData.name]))
     lastFetchTime = now
     console.info('[webflow-tags] Cache updated successfully')
     return tagCache
@@ -86,7 +86,7 @@ router.get('/het-news', async (req, res) => {
     // 4. Transform and Filter Data
     const articles = rawItems
       .filter((item) => item.fieldData['primary-org'] === HET_ORG_ID)
-      .sort((a, b) => new Date(b.fieldData.date) - new Date(a.fieldData.date))
+      .sort((a, b) => new Date(b.fieldData.date || 0) - new Date(a.fieldData.date || 0))
       .slice(0, 3)
       .map((item) => {
         const f = item.fieldData
@@ -98,7 +98,7 @@ router.get('/het-news', async (req, res) => {
           tags: (f.tags ?? []).map((id) => tagMap[id] ?? id),
           slug: f.slug,
           summary: f['post-summary'] ?? null,
-          thumbnail: imageUrl ? `${imageUrl}?w=400` : null,
+          thumbnail: imageUrl ? (imageUrl.includes('?') ? imageUrl + '&w=400' : imageUrl + '?w=400') : null,
         }
       })
 
