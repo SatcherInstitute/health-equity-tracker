@@ -67,7 +67,6 @@ const apiProxyOptions = {
 const apiProxy = createProxyMiddleware(apiProxyOptions)
 app.use('/api', apiProxy)
 
-app.use(compression())
 
 // Routes
 app.use(webflowRouter)

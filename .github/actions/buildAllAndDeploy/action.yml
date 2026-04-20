@@ -141,7 +141,7 @@ runs:
           -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}' \
           -var 'frontend_image_digest=${{ steps.frontend.outputs.image-digest }}' \
           -var 'anthropic_api_key=${{ inputs.anthropic-api-key }}' \
-          -var 'webflow_api_token'=${{ inputs.webflow-api-token }}' \
+          -var 'webflow_api_token=${{ inputs.webflow-api-token }}' \
 
         data_server_url=$(terraform output data_server_url)
         echo "data_server_url=$data_server_url" >> $GITHUB_OUTPUT

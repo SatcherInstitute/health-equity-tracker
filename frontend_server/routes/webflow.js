@@ -33,9 +33,15 @@ router.get('/het-news', async (req, res) => {
       getTagMap(),
     ])
 
+    // Added safety check: verify the response was successful (200-299)
+    if (!itemsRes.ok) {
+      throw new Error(`Webflow News API error: ${itemsRes.status} ${itemsRes.statusText}`)
+    }
+
     const data = await itemsRes.json()
 
-    const articles = data.items
+    // Ensure data.items exists before processing to avoid "cannot read property map of undefined"
+    const articles = (data.items || [])
       .filter((item) => item.fieldData['primary-org'] === HET_ORG_ID)
       .sort((a, b) => new Date(b.fieldData.date) - new Date(a.fieldData.date))
       .slice(0, 3)
