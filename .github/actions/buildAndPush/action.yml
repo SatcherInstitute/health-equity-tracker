@@ -40,7 +40,7 @@ runs:
         docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} ${{ inputs.build-directory }} \
         --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
         --build-arg="AHR_API_KEY=${{ inputs.ahr-api-key }}" \
-        --build-arg="ANTHROPIC_API_KEY=${{ inputs.anthropic-api-key }}"
+        --build-arg="ANTHROPIC_API_KEY=${{ inputs.anthropic-api-key }}" \
         --build-arg="WEBFLOW_API_TOKEN=${{ inputs.webflow-api-token }}"
       shell: bash
     - run: docker push ${{ inputs.image-path }}

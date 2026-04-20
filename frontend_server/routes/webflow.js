@@ -17,9 +17,8 @@ let tagCache = null
 
 async function getTagMap() {
   if (tagCache) return tagCache
-  const res = await fetch(`${WEBFLOW_BASE}/collections/${WEBFLOW_TAGS_COLLECTION_ID}/items`, {
-    headers: WEBFLOW_HEADERS,
-  })
+    const res = await fetch(`${WEBFLOW_BASE}/collections/${WEBFLOW_TAGS_COLLECTION_ID}/items`, { headers: WEBFLOW_HEADERS })
+  if (!res.ok) throw new Error(`Webflow API error: ${res.statusText}`)
   const data = await res.json()
   tagCache = Object.fromEntries(data.items.map((item) => [item.id, item.fieldData.name]))
   return tagCache
