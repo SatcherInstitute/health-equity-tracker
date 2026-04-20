@@ -7,6 +7,9 @@ inputs:
   anthropic-api-key:
     description: "Claude API key used to fetch insights from Claude endpoint"
     required: false
+  webflow-api-token:
+    description: "Webflow CMS API token to read news / blog content"
+    required: false
   dockerfile:
     description: "Relative path to dockerfile"
     required: true
@@ -38,6 +41,7 @@ runs:
         --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
         --build-arg="AHR_API_KEY=${{ inputs.ahr-api-key }}" \
         --build-arg="ANTHROPIC_API_KEY=${{ inputs.anthropic-api-key }}"
+        --build-arg="WEBFLOW_API_TOKEN=${{ inputs.webflow-api-token }}"
       shell: bash
     - run: docker push ${{ inputs.image-path }}
       shell: bash

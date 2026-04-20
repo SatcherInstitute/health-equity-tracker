@@ -23,6 +23,9 @@ inputs:
   anthropic-api-key:
     description: "Claude API key"
     required: true
+  webflow-api-token:
+    description: "Webflow CMS API token"
+    required: true
 
 outputs:
   data-server-url:
@@ -138,6 +141,7 @@ runs:
           -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}' \
           -var 'frontend_image_digest=${{ steps.frontend.outputs.image-digest }}' \
           -var 'anthropic_api_key=${{ inputs.anthropic-api-key }}' \
+          -var 'webflow-api-token'=${{ inputs.webflow-api-token }}' \
 
         data_server_url=$(terraform output data_server_url)
         echo "data_server_url=$data_server_url" >> $GITHUB_OUTPUT
@@ -167,3 +171,4 @@ runs:
         PATH_TO_SA_CREDS: config/creds.json
         AHR_API_KEY: ${{ inputs.ahr-api-key }}
         ANTHROPIC_API_KEY: ${{ inputs.anthropic-api-key }}
+        WEBFLOW_API_TOKEN: ${{ inputs.webflow-api-token }}
