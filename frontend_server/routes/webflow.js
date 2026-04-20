@@ -3,29 +3,40 @@ import { assertEnvVar } from '../utils.js'
 
 const router = express.Router()
 
+/** * Configuration Constants
+ * Using the CDN endpoint for improved performance and higher rate limits.
+ */
 const WEBFLOW_API_TOKEN = assertEnvVar('WEBFLOW_API_TOKEN')
 const WEBFLOW_NEWS_COLLECTION_ID = '6811154eaf44a4127de5c768'
 const WEBFLOW_TAGS_COLLECTION_ID = '681260687cb93bd6bf4f782f'
 const HET_ORG_ID = 'ae155e605db764fb19ba82c7a5b4ac26'
-const WEBFLOW_BASE = 'https://api.webflow.com/v2'
+const WEBFLOW_BASE = 'https://api-cdn.webflow.com/v2'
+
 const WEBFLOW_HEADERS = {
   Authorization: `Bearer ${WEBFLOW_API_TOKEN}`,
   accept: 'application/json',
 }
 
-// Cache State
+/** * Cache State
+ * TTL-based caching to minimize external API latency and stay within rate limits.
+ */
 let tagCache = null
-let lastFetchTime = 0
-const CACHE_TTL = 60 * 60 * 1000 // 1 Hour
+let tagFetchTime = 0
+let newsCache = null
+let newsFetchTime = 0
+
+const TAG_TTL = 60 * 60 * 1000  // 1 Hour
+const NEWS_TTL = 5 * 60 * 1000  // 5 Minutes
 
 /**
- * Fetches the tag mapping from Webflow.
- * @param {boolean} forceRefresh - If true, ignores TTL and fetches fresh data.
+ * Retrieves tag metadata from Webflow.
+ * Implements a stale-if-error pattern to ensure service availability.
+ * @param {boolean} forceRefresh - If true, bypasses the local TTL cache.
+ * @returns {Promise<Object>} Map of tag IDs to display names.
  */
 async function getTagMap(forceRefresh = false) {
   const now = Date.now()
-
-  if (!forceRefresh && tagCache && (now - lastFetchTime < CACHE_TTL)) {
+  if (!forceRefresh && tagCache && (now - tagFetchTime < TAG_TTL)) {
     return tagCache
   }
 
@@ -34,29 +45,36 @@ async function getTagMap(forceRefresh = false) {
       headers: WEBFLOW_HEADERS
     })
 
-    if (!res.ok) {
-      // If refresh fails but we have old data, prefer stale data over a crash
-      if (tagCache) {
-        console.warn('[webflow-tags] API error, serving stale cache')
-        return tagCache
-      }
-      throw new Error(`Webflow Tags API error: ${res.statusText}`)
-    }
+    if (!res.ok) throw new Error(`Tags API error: ${res.statusText}`)
 
     const data = await res.json()
-    tagCache = Object.fromEntries((data.items || []).map((item) => [item.id, item.fieldData.name]))
-    lastFetchTime = now
-    console.info('[webflow-tags] Cache updated successfully')
+    tagCache = Object.fromEntries(data.items.map((item) => [item.id, item.fieldData.name]))
+    tagFetchTime = now
     return tagCache
   } catch (err) {
-    if (tagCache) return tagCache
+    // Return stale cache if available, otherwise propagate error
+    if (tagCache) {
+      console.warn('[webflow-tags] API unreachable, serving stale cache.')
+      return tagCache
+    }
     throw err
   }
 }
 
+/**
+ * GET /het-news
+ * Retrieves the latest 3 news articles filtered by organization.
+ */
 router.get('/het-news', async (req, res) => {
+  const now = Date.now()
+
+  // Serve from cache if within TTL
+  if (newsCache && (now - newsFetchTime < NEWS_TTL)) {
+    return res.json({ articles: newsCache })
+  }
+
   try {
-    // 1. Initial fetch of tags and news items
+    // Parallel fetch of tag metadata and news items
     let [tagMap, itemsRes] = await Promise.all([
       getTagMap(),
       fetch(`${WEBFLOW_BASE}/collections/${WEBFLOW_NEWS_COLLECTION_ID}/items`, {
@@ -64,29 +82,30 @@ router.get('/het-news', async (req, res) => {
       }),
     ])
 
-    // 2. Verify news API success
     if (!itemsRes.ok) {
-      throw new Error(`Webflow News API error: ${itemsRes.status} ${itemsRes.statusText}`)
+      throw new Error(`News API error: ${itemsRes.status} ${itemsRes.statusText}`)
     }
 
     const data = await itemsRes.json()
     const rawItems = data.items || []
 
-    // 3. Smart Cache Busting:
-    // Check if any incoming article uses a tag ID that isn't in our current map.
+    /**
+     * Lazy Cache Invalidation:
+     * If an item contains a tag ID missing from our cache, trigger an
+     * immediate refresh of the tag metadata.
+     */
     const hasUnknownTag = rawItems.some((item) =>
       (item.fieldData.tags ?? []).some((id) => !tagMap[id])
     )
 
     if (hasUnknownTag) {
-      console.info('[webflow-news] Unknown tag detected. Busting tag cache...')
       tagMap = await getTagMap(true)
     }
 
-    // 4. Transform and Filter Data
+    // Process and format articles
     const articles = rawItems
       .filter((item) => item.fieldData['primary-org'] === HET_ORG_ID)
-      .sort((a, b) => new Date(b.fieldData.date || 0) - new Date(a.fieldData.date || 0))
+      .sort((a, b) => new Date(b.fieldData.date) - new Date(a.fieldData.date))
       .slice(0, 3)
       .map((item) => {
         const f = item.fieldData
@@ -98,14 +117,25 @@ router.get('/het-news', async (req, res) => {
           tags: (f.tags ?? []).map((id) => tagMap[id] ?? id),
           slug: f.slug,
           summary: f['post-summary'] ?? null,
-          thumbnail: imageUrl ? (imageUrl.includes('?') ? imageUrl + '&w=400' : imageUrl + '?w=400') : null,
+          thumbnail: imageUrl ? `${imageUrl}?w=400` : null,
         }
       })
 
+    // Update news cache
+    newsCache = articles
+    newsFetchTime = now
+
     res.json({ articles })
   } catch (err) {
-    console.error('[webflow-news] Error fetching news:', err)
-    res.status(500).json({ error: 'Failed to fetch news articles' })
+    console.error('[webflow-news] Error processing request:', err)
+
+    // Recovery attempt: serve last known good data
+    if (newsCache) {
+      console.info('[webflow-news] Serving stale news articles after error.')
+      return res.json({ articles: newsCache })
+    }
+
+    res.status(500).json({ error: 'Internal server error while fetching news articles.' })
   }
 })
 
