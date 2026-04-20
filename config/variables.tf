@@ -187,6 +187,12 @@ variable "anthropic_api_key" {
   sensitive   = true
 }
 
+variable "webflow_api_token" {
+  description = "Webflow API token for CMS blog read access"
+  type        = string
+  sensitive   = true
+}
+
 variable "insights_cache_bucket" {
   description = "Name of the GCS bucket for caching AI-generated insights"
   type        = string

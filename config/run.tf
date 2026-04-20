@@ -193,7 +193,10 @@ resource "google_cloud_run_service" "frontend_service" {
           name  = "ANTHROPIC_API_KEY"
           value = var.anthropic_api_key
         }
-
+        env {
+          name  = "WEBFLOW_API_TOKEN"
+          value = var.webflow_api_token
+        }
         env {
           name  = "INSIGHTS_CACHE_BUCKET"
           value = var.insights_cache_bucket
