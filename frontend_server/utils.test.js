@@ -1,6 +1,6 @@
 import request from 'supertest'
 import { test, expect } from 'vitest'
-import { assertEnvVar, getBooleanEnvVar } from './server.js'
+import { assertEnvVar, getBooleanEnvVar } from './utils.js'
 
 // UNIT TESTS OF ENV VAR FUNCTIONS
 

@@ -76,7 +76,7 @@ function CardWrapper(props: {
             className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
           >
             {hasInsight && (
-              <span className='absolute mb-1 flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide p-3'>
+              <span className='absolute mb-1 flex items-center gap-1 p-3 font-semibold text-alt-green text-smallest uppercase tracking-wide'>
                 <AutoAwesome fontSize='small' />
                 AI Insight
               </span>

@@ -39,3 +39,4 @@ jobs:
           tf-state-bucket: ${{ secrets.TEST_TF_STATE_BUCKET }}
           ahr-api-key: ${{ secrets.AHR_API_KEY }}
           anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          webflow-api-token: ${{ secrets.WEBFLOW_API_TOKEN }}
