@@ -91,3 +91,8 @@ export function getDataManager(): DataManager {
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   return globals.dataManager!
 }
+
+export function getEnvironment(): Environment {
+  assertInitialized()
+  return globals.environment!
+}

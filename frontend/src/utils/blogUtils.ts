@@ -1,3 +1,5 @@
+import { getEnvironment } from './globals'
+
 // WORDPRESS CONFIG
 const NEWS_URL = 'https://hetblog.dreamhosters.com/'
 const WP_API = 'wp-json/wp/v2/'
@@ -38,7 +40,9 @@ export async function fetchLandingPageNewsData() {
 }
 
 export async function fetchHetNewsData() {
-  const response = await fetch('https://dev.healthequitytracker.org/het-news')
+  const environment = getEnvironment()
+  const hetNewsEndpoint = `${environment.getBaseApiUrl()}/het-news`
+  const response = await fetch(hetNewsEndpoint)
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`)
   }
