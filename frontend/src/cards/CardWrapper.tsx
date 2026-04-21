@@ -75,7 +75,7 @@ function CardWrapper(props: {
         let hasData = queryResponses.some(
           (response, i) =>
             !response.shouldShowMissingDataMessage(
-              props.queries[i]?.metricIds ?? [],
+              (props.queries ?? [])[i]?.metricIds ?? [],
             ),
         )
 
