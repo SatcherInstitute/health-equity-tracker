@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
+import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import {
   ARTICLES_KEY_WEBFLOW,
@@ -16,7 +17,7 @@ import LandingPageListItem from './LandingPageListItem'
 const SHLI_NEWS_PAGE = 'https://satcherinstitute.org/news'
 
 function LandingPage() {
-  const { data } = useQuery<WebflowArticle[]>({
+  const { data, isLoading, error } = useQuery<WebflowArticle[]>({
     queryKey: [ARTICLES_KEY_WEBFLOW],
     queryFn: fetchHetNewsData,
     ...REACT_QUERY_OPTIONS,
@@ -222,11 +223,18 @@ function LandingPage() {
           </div>
           <div className='w-full'>
             <div className='mt-8 grid w-full gap-4 sm:grid-cols-1 md:grid-cols-2 lg:mt-8 lg:grid-cols-3'>
-              {recentArticles?.map((article: WebflowArticle) => (
-                <div key={article.slug}>
-                  <WebflowNewsPreviewCard article={article} bgHeight='14rem' />
-                </div>
-              ))}
+              {isLoading && !recentArticles
+                ? [...Array(numberOfArticlePreviews)].map((_, i) => (
+                    <HetPostsLoading key={i} doPulse={!error} />
+                  ))
+                : recentArticles?.map((article: WebflowArticle) => (
+                    <div key={article.slug}>
+                      <WebflowNewsPreviewCard
+                        article={article}
+                        bgHeight='14rem'
+                      />
+                    </div>
+                  ))}
             </div>
             <div className='flex justify-center'>
               <HetTextArrowLink
