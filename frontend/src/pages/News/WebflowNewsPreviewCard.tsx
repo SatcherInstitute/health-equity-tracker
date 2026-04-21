@@ -22,7 +22,7 @@ export default function WebflowNewsPreviewCard({
   return (
     <article
       className={
-        'group mr-4 flex h-full flex-col rounded-md border border-alt-green border-solid bg-white text-center text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'
+        'group flex h-full flex-col rounded-md border border-alt-green border-solid bg-white text-center text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'
       }
     >
       <HetLazyLoader once offset={300} className='m-0 h-full p-0'>
