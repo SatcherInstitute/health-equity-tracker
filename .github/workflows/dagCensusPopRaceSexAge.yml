@@ -20,9 +20,11 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           source_gcs_bucket: ${{ env.GCS_MANUAL_UPLOADS_BUCKET }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
       - name: Export race NDJSON files to GCS buckets from BigQuery tables
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_AND_ETHNICITY }}

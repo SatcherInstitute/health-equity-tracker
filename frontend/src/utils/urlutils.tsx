@@ -19,6 +19,7 @@ import {
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from './internalRoutes'
 import type { PhraseSelections } from './MadLibs'
+export const REPORT_INSIGHT_PARAM_KEY = 'report-insight'
 
 // OLDER HANDLING PARAMS
 

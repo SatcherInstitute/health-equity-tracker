@@ -1,5 +1,5 @@
 # The variables here are for resources which are qualified by cloud project
-# so they will not obverlap across environments
+# so they will not overlap across environments
 ingestion_service_name         = "data-ingestion-service"
 ingestion_image_name           = "data-ingestion"
 ingestion_runner_identity_id   = "ingestion-runner"
@@ -19,3 +19,4 @@ exporter_runner_role_id        = "exporter_runner"
 frontend_service_name          = "frontend-service"
 frontend_image_name            = "frontend"
 frontend_runner_identity_id    = "frontend-runner"
+frontend_runner_role_id        = "frontend_runner"

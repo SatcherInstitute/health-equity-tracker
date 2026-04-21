@@ -4,6 +4,12 @@ inputs:
   ahr-api-key:
     description: "AHR API key used to fetch AHR data from the GraphQL endpoint"
     required: false
+  anthropic-api-key:
+    description: "Claude API key used to fetch insights from Claude endpoint"
+    required: false
+  webflow-api-token:
+    description: "Webflow CMS API token to read news / blog content"
+    required: false
   dockerfile:
     description: "Relative path to dockerfile"
     required: true
@@ -17,9 +23,7 @@ inputs:
   deploy-context:
     description: 'String value for deploy context. Should be "prod" or "dev". Only used for the frontend'
     required: false
-  openai-api-key:
-    description: "OpenAI API key for generating insights"
-    required: false
+
 outputs:
   image-digest:
     description: "Digest of image pushed to GCR"
@@ -36,7 +40,8 @@ runs:
         docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} ${{ inputs.build-directory }} \
         --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
         --build-arg="AHR_API_KEY=${{ inputs.ahr-api-key }}" \
-        --build-arg="OPENAI_API_KEY=${{ inputs.openai-api-key }}"
+        --build-arg="ANTHROPIC_API_KEY=${{ inputs.anthropic-api-key }}" \
+        --build-arg="WEBFLOW_API_TOKEN=${{ inputs.webflow-api-token }}"
       shell: bash
     - run: docker push ${{ inputs.image-path }}
       shell: bash

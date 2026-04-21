@@ -19,11 +19,12 @@ export function getSubPopulationPhrase(
     dataTypeConfig.metrics?.pct_rate ?? dataTypeConfig.metrics?.per100k
   if (!subPopConfig?.rateDenominatorMetric) return ''
   const allRow = subPopulationData.find((row) => row[demographicType] === 'All')
+
+  const rawPop = allRow?.[subPopConfig.rateDenominatorMetric?.metricId]
   const popAllCount: string =
-    allRow?.[subPopConfig.rateDenominatorMetric?.metricId]?.toLocaleString(
-      'en-US',
-      { maximumFractionDigits: 0 },
-    ) ?? POP_MISSING_VALUE
+    rawPop != null && !isNaN(rawPop)
+      ? rawPop.toLocaleString('en-US', { maximumFractionDigits: 0 })
+      : POP_MISSING_VALUE
 
   const combinedSubPop = [
     dataTypeConfig.otherSubPopulationLabel,

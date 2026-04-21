@@ -3,7 +3,7 @@
 name: CRON Frontend E2E Nightly Against PROD
 on:
   schedule:
-    - cron: "30 2 * * *" # Every night at 2:30am
+    - cron: "30 1 * * *" # Every night at 1:30am
   workflow_dispatch:
 
 defaults:
@@ -14,9 +14,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
           node-version-file: frontend/package.json
       - run: npm ci
-      - run: npm run e2e-prod
+      - run: npm run e2e-prod-nightly
