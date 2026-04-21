@@ -26,6 +26,7 @@ export const HetTags: React.FC<HetTagsProps> = ({ tags, onTagClick }) => {
           key={tag.name}
           type='button'
           aria-label={tag.name}
+          // TODO: Add click handling to navigate user to tag page on Satcher; restore hover styling to indicate user can click
           className='mt-1 mr-2 rounded-sm border-none bg-tiny-tag-gray px-2 py-1 font-bold font-sans-title text-black text-tiny-tag uppercase no-underline'
           onClick={() => handleClick(tag.name)}
         >

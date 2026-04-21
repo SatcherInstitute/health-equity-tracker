@@ -9,7 +9,6 @@ const SHLI_NEWS_BASE = 'https://satcherinstitute.org/news'
 interface WebflowNewsPreviewCardProps {
   article: WebflowArticle
   bgHeight?: string
-  linkClassName?: string
 }
 
 export default function WebflowNewsPreviewCard({

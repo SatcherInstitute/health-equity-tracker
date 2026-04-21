@@ -223,11 +223,11 @@ function LandingPage() {
           </div>
           <div className='w-full'>
             <div className='mt-8 grid w-full gap-4 sm:grid-cols-1 md:grid-cols-2 lg:mt-8 lg:grid-cols-3'>
-              {isLoading && !recentArticles
+              {!recentArticles || isLoading
                 ? [...Array(numberOfArticlePreviews)].map((_, i) => (
                     <HetPostsLoading key={i} doPulse={!error} />
                   ))
-                : recentArticles?.map((article: WebflowArticle) => (
+                : recentArticles.map((article: WebflowArticle) => (
                     <div key={article.slug}>
                       <WebflowNewsPreviewCard
                         article={article}
