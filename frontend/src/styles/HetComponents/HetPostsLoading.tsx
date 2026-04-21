@@ -2,7 +2,6 @@ import Skeleton from '@mui/material/Skeleton'
 
 interface HetPostsLoadingProps {
   doPulse: boolean
-  index?: number
 }
 
 export default function HetPostsLoading({ doPulse }: HetPostsLoadingProps) {

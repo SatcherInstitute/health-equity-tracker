@@ -8,6 +8,10 @@ const WP_EMBED_PARAM = '_embed'
 const WP_PER_PAGE_PARAM = 'per_page='
 const MAX_FETCH = 100
 
+// WEBFLOW CONFIG
+export const SATCHER_NEWS_PAGE = 'https://satcherinstitute.org/news'
+export const SATCHER_HET_NEWS_TAB = SATCHER_NEWS_PAGE + '#het'
+
 // REACT QUERY
 export const ARTICLES_KEY = 'cached_wp_articles'
 export const ARTICLES_KEY_4 = 'cached_wp_articles_first_four'

@@ -2,9 +2,8 @@ import type React from 'react'
 import AppbarLogo from '../../assets/AppbarLogo.png'
 import HetLazyLoader from '../../styles/HetComponents/HetLazyLoader'
 import { HetTags } from '../../styles/HetComponents/HetTags'
+import { SATCHER_NEWS_PAGE } from '../../utils/blogUtils'
 import type { WebflowArticle } from './ArticleTypes'
-
-const SHLI_NEWS_BASE = 'https://satcherinstitute.org/news'
 
 interface WebflowNewsPreviewCardProps {
   article: WebflowArticle
@@ -17,7 +16,7 @@ export default function WebflowNewsPreviewCard({
 }: WebflowNewsPreviewCardProps): React.ReactElement {
   const imageSource = article.thumbnail ?? AppbarLogo
   const tags = article.tags.map((name) => ({ name }))
-  const articleUrl = `${SHLI_NEWS_BASE}/${article.slug}`
+  const articleUrl = `${SATCHER_NEWS_PAGE}/${article.slug}`
 
   return (
     <article

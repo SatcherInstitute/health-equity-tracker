@@ -6,6 +6,7 @@ import {
   ARTICLES_KEY_WEBFLOW,
   fetchHetNewsData,
   REACT_QUERY_OPTIONS,
+  SATCHER_HET_NEWS_TAB,
 } from '../../utils/blogUtils'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
@@ -13,8 +14,6 @@ import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import type { WebflowArticle } from '../News/ArticleTypes'
 import WebflowNewsPreviewCard from '../News/WebflowNewsPreviewCard'
 import LandingPageListItem from './LandingPageListItem'
-
-const SHLI_NEWS_PAGE = 'https://satcherinstitute.org/news'
 
 function LandingPage() {
   const { data, isLoading, error } = useQuery<WebflowArticle[]>({
@@ -238,7 +237,7 @@ function LandingPage() {
             </div>
             <div className='flex justify-center'>
               <HetTextArrowLink
-                link={SHLI_NEWS_PAGE}
+                link={SATCHER_HET_NEWS_TAB}
                 linkText='More articles on SatcherInstitute.org'
                 containerClassName='flex items-center justify-center mt-16 mx-auto'
                 linkClassName='font-sans-title text-smallest-header'
