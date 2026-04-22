@@ -8,6 +8,10 @@ import {
 import { getLogger } from './globals'
 import type { PhraseSelections } from './MadLibs'
 
+// LLM INSIGHTS FEATURE
+export const REPORT_INSIGHT_PARAM_KEY = 'report-insight'
+
+// OG PARAMS
 const STICKY_VERSION_PARAM = 'sv'
 export const DATA_SOURCE_PRE_FILTERS = 'dpf'
 // Value is index of the phrase to jump to
