@@ -16,7 +16,7 @@ const HetLaunchLink: React.FC<HetLaunchLinkProps> = ({
     <a
       href={href}
       target='_blank'
-      rel='noreferrer noopener'
+      rel='noopener noreferrer'
       aria-label={
         label
           ? `Opens the ${label} website in a new window`
