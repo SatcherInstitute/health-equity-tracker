@@ -185,7 +185,7 @@ export default function NewsAndStoriesPage() {
           </div>
 
           {isLoading ? (
-            <HetPostsLoading className='mt-8' doPulse={!error} />
+            <HetPostsLoading doPulse={!error} />
           ) : (
             <>
               {filteredArticles.length > 0 ? (
