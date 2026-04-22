@@ -425,7 +425,7 @@ const additionalFaqs: Faq[] = [
         <p>Join us, and let’s advance health equity together!</p>
 
         <div className='flex justify-center'>
-          <HetButtonSecondary href={SHARE_YOUR_STORY_PATH}>
+          <HetButtonSecondary href={'/' + SHARE_YOUR_STORY_PATH}>
             Share your health equity story
           </HetButtonSecondary>
         </div>

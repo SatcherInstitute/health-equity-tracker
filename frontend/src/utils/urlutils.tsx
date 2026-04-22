@@ -5,24 +5,8 @@ import {
   type DemographicGroup,
   raceNameToCodeMap,
 } from '../data/utils/Constants'
-import { SATCHER_HET_NEWS_TAB } from './blogUtils'
-import { urlMap } from './externalUrls'
 import { getLogger } from './globals'
-import {
-  ABOUT_SEED_LINK,
-  ABOUT_US_PAGE_LINK,
-  DATA_CATALOG_PAGE_LINK,
-  EXPLORE_DATA_PAGE_LINK,
-  FULL_FAQS_LINK,
-  GUN_VIOLENCE_POLICY,
-  METHODOLOGY_PAGE_LINK,
-  SHARE_YOUR_STORY_PATH,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-} from './internalRoutes'
 import type { PhraseSelections } from './MadLibs'
-export const REPORT_INSIGHT_PARAM_KEY = 'report-insight'
-
-// OLDER HANDLING PARAMS
 
 const STICKY_VERSION_PARAM = 'sv'
 export const DATA_SOURCE_PRE_FILTERS = 'dpf'
@@ -84,9 +68,9 @@ export function LinkWithStickyParams(props: {
   return <Link {...linkProps}>{props.children}</Link>
 }
 
-type NavigationPage = string | { label: string; isExternal?: boolean }
+type NavigationPage = string | { label: string }
 
-type NavigationItem =
+export type NavigationItem =
   | {
       label: string
       pages: Record<string, NavigationPage>
@@ -94,44 +78,14 @@ type NavigationItem =
   | {
       label: string
       link: string
-      isExternal?: boolean
     }
 
-export const NAVIGATION_STRUCTURE: Record<string, NavigationItem> = {
-  about: {
-    label: 'About',
-    pages: {
-      [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
-      [ABOUT_US_PAGE_LINK]: 'About Us',
-      [ABOUT_SEED_LINK]: 'SEED Program',
-    },
-  },
-  exploreTheData: {
-    label: 'Insights Hub',
-    pages: {
-      [EXPLORE_DATA_PAGE_LINK]: 'Data Dashboard',
-      [DATA_CATALOG_PAGE_LINK]: 'Source Files',
-      [METHODOLOGY_PAGE_LINK]: 'Methodology',
-      [GUN_VIOLENCE_POLICY]: 'Policy Context',
-    },
-  },
-  mediaAndUpdates: {
-    label: 'Media & Updates',
-    pages: {
-      [SATCHER_HET_NEWS_TAB]: {
-        label: 'News on Satcher Institute',
-        isExternal: true,
-      },
-      [urlMap.hetYouTubeShorts]: {
-        label: 'Videos on YouTube',
-        isExternal: true,
-      },
-      [SHARE_YOUR_STORY_PATH]: {
-        label: 'Share Your Story',
-      },
-    },
-  },
-  faqs: { label: 'FAQs', link: FULL_FAQS_LINK },
+export function isExternalLink(href: string): boolean {
+  return (
+    href.startsWith('https://') ||
+    href.startsWith('http://') ||
+    href.startsWith('mailto:')
+  )
 }
 
 export function useSearchParams() {

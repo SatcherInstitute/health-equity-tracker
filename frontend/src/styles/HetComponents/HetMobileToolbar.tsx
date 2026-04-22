@@ -2,6 +2,7 @@ import {
   Close,
   ExpandLess,
   ExpandMore,
+  LaunchRounded,
   Menu as MenuIcon,
 } from '@mui/icons-material'
 import {
@@ -17,13 +18,13 @@ import {
 import { useState } from 'react'
 import { Link } from 'react-router'
 import AppBarLogo from '../../assets/AppbarLogo.png'
+import { NAVIGATION_STRUCTURE } from '../../pages/navigationData'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
-import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
+import { isExternalLink } from '../../utils/urlutils'
 import HetCTASmall from './HetCTASmall'
-import HetLaunchLink from './HetLaunchLink'
 import HetNavLink from './HetNavLink'
 
-export default function HetMobileAppToolbar() {
+export default function HetMobileToolbar() {
   const [open, setOpen] = useState(false)
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null)
 
@@ -45,19 +46,15 @@ export default function HetMobileAppToolbar() {
             </ListItemButton>
             <Collapse in={expandedMenu === key} timeout='auto' unmountOnExit>
               {Object.entries(value.pages).map(([subKey, subValue]) => {
-                const isExternal =
-                  typeof subValue === 'object'
-                    ? subValue.isExternal
-                    : subKey.startsWith('https://') ||
-                      subKey.startsWith('http://')
+                const external = isExternalLink(subKey)
                 const label =
                   typeof subValue === 'string' ? subValue : subValue.label
 
                 return (
                   <ListItem
                     key={subKey}
-                    component={isExternal ? 'a' : Link}
-                    {...(isExternal
+                    component={external ? 'a' : Link}
+                    {...(external
                       ? {
                           href: subKey,
                           target: '_blank',
@@ -72,11 +69,8 @@ export default function HetMobileAppToolbar() {
                         className='text-alt-black'
                         primary={label}
                       />
-                      {isExternal && (
-                        <HetLaunchLink
-                          svgClassName='flex my-auto text-text'
-                          href={subKey}
-                        />
+                      {external && (
+                        <LaunchRounded className='my-auto text-alt-black' />
                       )}
                     </div>
                   </ListItem>
@@ -88,7 +82,9 @@ export default function HetMobileAppToolbar() {
       }
 
       if ('link' in value) {
-        return value.isExternal ? (
+        const external = isExternalLink(value.link)
+
+        return external ? (
           <ListItem
             key={key}
             component='a'
@@ -99,7 +95,7 @@ export default function HetMobileAppToolbar() {
           >
             <div className='flex w-full items-center justify-between gap-2'>
               <ListItemText className='text-alt-black' primary={value.label} />
-              <HetLaunchLink href={value.link} />
+              <LaunchRounded className='my-auto text-alt-black' />
             </div>
           </ListItem>
         ) : (
