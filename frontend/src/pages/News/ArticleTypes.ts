@@ -30,18 +30,22 @@ export interface Article {
       source_url: string
       media_details: {
         sizes: {
-          medium: {
-            source_url: string
-          }
-          large: {
-            source_url: string
-          }
-          full: {
-            source_url: string
-          }
+          medium: { source_url: string }
+          large: { source_url: string }
+          full: { source_url: string }
         }
       }
     }>
     'wp:term': { 0: Array<{ id: number; name: string; link: string }> }
   }
+}
+
+export interface WebflowArticle {
+  title: string
+  author: string | null
+  date: string
+  tags: string[]
+  slug: string
+  summary: string | null
+  thumbnail: string | null
 }
