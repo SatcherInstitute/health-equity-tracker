@@ -10,9 +10,9 @@ import {
   ABOUT_US_PAGE_LINK,
   AGE_ADJUSTMENT_LINK,
   DATA_CATALOG_PAGE_LINK,
-  NEWS_PAGE_LINK,
-  SHARE_YOUR_STORY_TAB_LINK,
+  SHARE_YOUR_STORY_PATH,
 } from '../../utils/internalRoutes'
+
 import ResourceItem from '../Policy/policyComponents/ResourceItem'
 
 export interface Faq {
@@ -168,8 +168,8 @@ function AnswerAreTheLimitations() {
       </p>
       <div className='flex justify-center'>
         <HetTextArrowLink
-          link={`${NEWS_PAGE_LINK}/hiv-criminalization-in-georgia-a-call-for-reform`}
           linkText={'Read our article on HIV Criminalization in Georgia'}
+          link={urlMap.hivCriminalization}
         />
       </div>
       <p>
@@ -425,7 +425,7 @@ const additionalFaqs: Faq[] = [
         <p>Join us, and let’s advance health equity together!</p>
 
         <div className='flex justify-center'>
-          <HetButtonSecondary href={SHARE_YOUR_STORY_TAB_LINK}>
+          <HetButtonSecondary href={SHARE_YOUR_STORY_PATH}>
             Share your health equity story
           </HetButtonSecondary>
         </div>

@@ -3,7 +3,16 @@ import AppbarLogo from '../../assets/AppbarLogo.png'
 import HetLazyLoader from '../../styles/HetComponents/HetLazyLoader'
 import { HetTags } from '../../styles/HetComponents/HetTags'
 import { SATCHER_NEWS_PAGE } from '../../utils/blogUtils'
-import type { WebflowArticle } from './ArticleTypes'
+
+export interface WebflowArticle {
+  title: string
+  author: string | null
+  date: string
+  tags: string[]
+  slug: string
+  summary: string | null
+  thumbnail: string | null
+}
 
 interface WebflowNewsPreviewCardProps {
   article: WebflowArticle

@@ -40,7 +40,6 @@ import {
   OLD_TERMS_OF_SERVICE_LINK,
   POLICY_PAGE_LINK,
   SHARE_YOUR_STORY_PATH,
-  SHARE_YOUR_STORY_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from './utils/internalRoutes'
@@ -80,6 +79,9 @@ const ExploreDataPage = React.lazy(
 const Footer = React.lazy(async () => await import('./Footer'))
 const LandingPage = React.lazy(
   async () => await import('./pages/Landing/LandingPage'),
+)
+const ShareYourStoryPage = React.lazy(
+  async () => await import('./pages/ShareYourStory/ShareYourStoryPage'),
 )
 const TermsOfUsePage = React.lazy(
   async () => await import('./pages/TermsOfUsePage/TermsOfUsePage'),
@@ -211,7 +213,7 @@ export default function App() {
                   />
                   <Route
                     path={SHARE_YOUR_STORY_PATH}
-                    element={<Navigate to={SHARE_YOUR_STORY_TAB_LINK} />}
+                    element={<ShareYourStoryPage />}
                   />
 
                   <Route

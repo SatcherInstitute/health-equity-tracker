@@ -5,6 +5,7 @@ import {
   type DemographicGroup,
   raceNameToCodeMap,
 } from '../data/utils/Constants'
+import { SATCHER_HET_NEWS_TAB } from './blogUtils'
 import { urlMap } from './externalUrls'
 import { getLogger } from './globals'
 import {
@@ -15,7 +16,7 @@ import {
   FULL_FAQS_LINK,
   GUN_VIOLENCE_POLICY,
   METHODOLOGY_PAGE_LINK,
-  NEWS_PAGE_LINK,
+  SHARE_YOUR_STORY_PATH,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from './internalRoutes'
 import type { PhraseSelections } from './MadLibs'
@@ -117,13 +118,16 @@ export const NAVIGATION_STRUCTURE: Record<string, NavigationItem> = {
   mediaAndUpdates: {
     label: 'Media & Updates',
     pages: {
-      [NEWS_PAGE_LINK]: {
-        label: 'News',
+      [SATCHER_HET_NEWS_TAB]: {
+        label: 'News on Satcher Institute',
         isExternal: true,
       },
       [urlMap.hetYouTubeShorts]: {
         label: 'Videos on YouTube',
         isExternal: true,
+      },
+      [SHARE_YOUR_STORY_PATH]: {
+        label: 'Share Your Story',
       },
     },
   },
@@ -253,23 +257,6 @@ window.onpopstate = () => {
       handler()
     }
   })
-}
-
-export function getHtml(item: string | undefined, asString = false) {
-  // If only a string is needed (not setting inner HTML)
-  if (asString) {
-    const span = document.createElement('span')
-    span.innerHTML = item || ''
-    return span.textContent || span.innerText || ''
-  }
-
-  // Return a div with dangerouslySetInnerHTML
-  return (
-    <div
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: needed to render headless WordPress
-      dangerouslySetInnerHTML={{ __html: item || '' }}
-    />
-  )
 }
 
 /* for converting selected group long name into URL safe param value */
