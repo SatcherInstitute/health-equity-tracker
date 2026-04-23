@@ -11,9 +11,10 @@ import {
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
-import type { WebflowArticle } from '../News/ArticleTypes'
-import WebflowNewsPreviewCard from '../News/WebflowNewsPreviewCard'
 import LandingPageListItem from './LandingPageListItem'
+import WebflowNewsPreviewCard, {
+  type WebflowArticle,
+} from './WebflowNewsPreviewCard'
 
 function LandingPage() {
   const { data, isLoading, error } = useQuery<WebflowArticle[]>({
