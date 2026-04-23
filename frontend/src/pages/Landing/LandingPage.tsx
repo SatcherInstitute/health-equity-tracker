@@ -24,7 +24,7 @@ function LandingPage() {
   })
 
   const isMd = useIsBreakpointAndUp('md')
-  
+
   const isLg = useIsBreakpointAndUp('lg')
 
   let numberOfArticlePreviews = 1
