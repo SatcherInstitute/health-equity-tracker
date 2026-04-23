@@ -26,7 +26,6 @@ The text contains the words `National Data`
 """
 
 CHR_DIR = "chr"
-
 CHR_FILE_LOOKUP = {
     "2011": "2011 County Health Rankings National Data_v2_0.xls",
     "2012": "2012 County Health Rankings National Data_v2_0.xls",
@@ -42,7 +41,7 @@ CHR_FILE_LOOKUP = {
     "2022": "2022 County Health Rankings Data - v1.xlsx",
     "2023": "2023 County Health Rankings Data - v2.xlsx",
     "2024": "2024_county_health_release_data_-_v1.xlsx",
-    "2025": "2025 County Health Rankings Data - v3.xlsx",
+    "2025": "2025 County Health Rankings Data - v4.xlsx",
 }
 
 source_fips_col = "FIPS"
