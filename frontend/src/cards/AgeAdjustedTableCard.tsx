@@ -124,8 +124,9 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
     >
-      {(queries) => {
-        if (queries.length < 2)
+      {(queries, _metadata, _geoData, overrideCardHasData) => {
+        if (queries.length < 2) {
+          overrideCardHasData?.(false)
           return (
             <MissingDataAlert
               demographicTypeString={
@@ -135,6 +136,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               fips={props.fips}
             />
           )
+        }
 
         const [raceQueryResponse, ageQueryResponse] = queries
 

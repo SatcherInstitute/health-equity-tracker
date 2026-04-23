@@ -34,7 +34,7 @@ function CardWrapper(props: {
     queryResponses: MetricQueryResponse[],
     metadata: MapOfDatasetMetadata,
     geoData?: Record<string, any>,
-    knownData?: Record<string, any>,
+    overrideCardHasData?: (value: boolean) => void,
   ) => React.ReactNode
   isCensusNotAcs?: boolean
   scrollToHash: ScrollableHashId
@@ -71,6 +71,25 @@ function CardWrapper(props: {
       queries={props.queries ?? []}
     >
       {(metadata, queryResponses, geoData) => {
+        // Default: check if any query has non-missing data for its metrics
+        let cardHasData = queryResponses.some(
+          (response, i) =>
+            !response.shouldShowMissingDataMessage(
+              (props.queries ?? [])[i]?.metricIds ?? [],
+            ),
+        )
+
+        // Evaluate children first so cards can override via overrideCardHasData
+        const overrideCardHasData = (value: boolean) => {
+          cardHasData = value
+        }
+        const childContent = props.children(
+          queryResponses,
+          metadata,
+          geoData,
+          overrideCardHasData,
+        )
+
         return (
           <article
             className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
@@ -81,7 +100,9 @@ function CardWrapper(props: {
                 AI Insight
               </span>
             )}
-            <InsightVisualizationButton scrollToHash={props.scrollToHash} />
+            {cardHasData && (
+              <InsightVisualizationButton scrollToHash={props.scrollToHash} />
+            )}
             <CardOptionsMenu
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}
@@ -90,7 +111,7 @@ function CardWrapper(props: {
               scrollToHash={props.scrollToHash}
               queryResponses={queryResponses}
             />
-            {props.children(queryResponses, metadata, geoData)}
+            {childContent}
             {!props.hideFooter && props.queries && (
               <Sources
                 isCensusNotAcs={props.isCensusNotAcs}
