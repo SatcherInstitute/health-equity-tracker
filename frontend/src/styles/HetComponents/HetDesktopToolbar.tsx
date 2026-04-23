@@ -1,13 +1,15 @@
 import { Menu, MenuItem, Toolbar } from '@mui/material'
 import { useState } from 'react'
 import AppBarLogo from '../../assets/AppbarLogo.png'
+import { NAVIGATION_STRUCTURE } from '../../pages/navigationData'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
-import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
+import { isExternalLink } from '../../utils/urlutils'
 import HetCTASmall from './HetCTASmall'
+import HetLaunchLink from './HetLaunchLink'
 import HetNavButton from './HetNavButton'
 import HetNavLink from './HetNavLink'
 
-export default function HetAppToolbar() {
+export default function HetDesktopToolbar() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
 
@@ -40,25 +42,55 @@ export default function HetAppToolbar() {
               onClose={handleClose}
               classes={{ paper: 'bg-white' }}
             >
-              {Object.entries(value.pages).map(([subKey, subValue]) => (
-                <MenuItem key={subKey} onClick={handleClose}>
-                  <HetNavLink href={subKey}>{subValue}</HetNavLink>
-                </MenuItem>
-              ))}
+              {Object.entries(value.pages).map(([subKey, subValue]) => {
+                const external = isExternalLink(subKey)
+                const label =
+                  typeof subValue === 'string' ? subValue : subValue.label
+
+                return (
+                  <MenuItem key={subKey} onClick={handleClose}>
+                    <div className='flex items-center gap-2'>
+                      <HetNavLink
+                        href={subKey}
+                        {...(external && {
+                          target: '_blank',
+                          rel: 'noopener noreferrer',
+                        })}
+                      >
+                        {label}
+                      </HetNavLink>
+                      {external && (
+                        <HetLaunchLink
+                          svgClassName='flex my-auto text-text'
+                          href={subKey}
+                        />
+                      )}
+                    </div>
+                  </MenuItem>
+                )
+              })}
             </Menu>
           </div>
         )
       }
 
       if ('link' in value) {
+        const external = isExternalLink(value.link)
+
         return (
-          <HetNavLink
-            key={key}
-            href={value.link}
-            className='mx-2 my-0 w-auto px-2 font-medium font-sans-title text-navlink-color text-small'
-          >
-            {value.label}
-          </HetNavLink>
+          <div key={key} className='flex items-center gap-1'>
+            <HetNavLink
+              href={value.link}
+              className='mx-2 my-0 w-auto px-2 font-medium font-sans-title text-navlink-color text-small'
+              {...(external && {
+                target: '_blank',
+                rel: 'noopener noreferrer',
+              })}
+            >
+              {value.label}
+            </HetNavLink>
+            {external && <HetLaunchLink href={value.link} />}
+          </div>
         )
       }
 

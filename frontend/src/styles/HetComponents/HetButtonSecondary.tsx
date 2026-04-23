@@ -1,6 +1,7 @@
 import { Button } from '@mui/material'
 import type { ReactNode } from 'react'
 import { Link as RouterLink } from 'react-router'
+import { isExternalLink } from '../../utils/urlutils'
 
 interface HetButtonSecondaryProps {
   children: ReactNode
@@ -11,32 +12,15 @@ interface HetButtonSecondaryProps {
   underline?: boolean
 }
 
-const isExternalLink = (href?: string): boolean => {
-  return (
-    !!href &&
-    (href.startsWith('http://') ||
-      href.startsWith('https://') ||
-      href.startsWith('mailto:'))
-  )
-}
-
 const getComponentType = (href?: string): React.ElementType => {
-  if (isExternalLink(href)) {
-    return 'a'
-  }
-  if (href) {
-    return RouterLink
-  }
+  if (href && isExternalLink(href)) return 'a'
+  if (href) return RouterLink
   return 'button'
 }
 
 const getLinkProps = (href?: string): Record<string, unknown> => {
-  if (isExternalLink(href)) {
-    return { href }
-  }
-  if (href) {
-    return { to: href }
-  }
+  if (href && isExternalLink(href)) return { href }
+  if (href) return { to: href }
   return {}
 }
 
