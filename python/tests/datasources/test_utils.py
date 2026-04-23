@@ -28,6 +28,7 @@ def _load_csv_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
     usecols = kwargs.get("usecols", None)
     delimiter = kwargs.get("delimiter", None)
     skipinitialspace = kwargs.get("skipinitialspace", None)
+    skiprows = kwargs.get("skiprows", None)
     create_sample = kwargs.get("create_sample", False)
 
     file_path = os.path.join(REAL_DATA_DIR, directory, subdirectory, filename)
@@ -39,6 +40,7 @@ def _load_csv_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
         usecols=usecols,
         delimiter=delimiter,
         skipinitialspace=skipinitialspace,
+        skiprows=skiprows,
     )
 
     if create_sample:
