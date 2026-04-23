@@ -26,7 +26,6 @@ The text contains the words `National Data`
 """
 
 CHR_DIR = "chr"
-
 CHR_FILE_LOOKUP = {
     "2011": "2011 County Health Rankings National Data_v2_0.xls",
     "2012": "2012 County Health Rankings National Data_v2_0.xls",
