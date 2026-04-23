@@ -7,7 +7,6 @@ export const SATCHER_HET_NEWS_TAB = SATCHER_NEWS_PAGE + '#het'
 // REACT QUERY
 export const ARTICLES_KEY_WEBFLOW = 'cached_webflow_het_news'
 export const REACT_QUERY_OPTIONS = {
-  cacheTime: 1000 * 60 * 5,
   staleTime: 1000 * 30,
 }
 
