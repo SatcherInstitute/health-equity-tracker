@@ -14,7 +14,8 @@
 		"frontend/src/assets/",
 		"frontend_server/",
 		"composer-local-dev/",
-		"**/.*"
+		"**/.*",
+		"data/"
 	],
 	"allowCompoundWords": true,
 	"minWordLength": 3,
