@@ -29,8 +29,8 @@ def test_write_to_bq_race_county(mock_csv_data_dir: mock.MagicMock, mock_bq: moc
     assert actual_bq_col_types == {
         std_col.COUNTY_FIPS_COL: "STRING",
         std_col.COUNTY_NAME_COL: "STRING",
-        # std_col.STATE_FIPS_COL: "STRING",
-        # std_col.STATE_NAME_COL: "STRING",
+        std_col.STATE_FIPS_COL: "STRING",
+        std_col.STATE_NAME_COL: "STRING",
         std_col.RACE_OR_HISPANIC_COL: "STRING",
         "cervical_per_100k": "FLOAT64",
         "cervical_estimated_total": "FLOAT64",
@@ -39,7 +39,7 @@ def test_write_to_bq_race_county(mock_csv_data_dir: mock.MagicMock, mock_bq: moc
 
     actual_df, _, table_name = mock_bq.call_args_list[0][0]
     actual_df = actual_df.sort_values([std_col.COUNTY_FIPS_COL, std_col.RACE_OR_HISPANIC_COL]).reset_index(drop=True)
-    actual_df.to_csv(table_name, index=False)
+    # actual_df.to_csv(table_name, index=False)
 
     expected_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=EXP_DTYPE)
     assert table_name == "race_and_ethnicity_county_current"

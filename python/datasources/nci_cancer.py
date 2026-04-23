@@ -14,13 +14,13 @@ No time series dimension; only writes _current tables.
 """
 
 import pandas as pd
-
+import numpy as np
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util
 from ingestion import standardized_columns as std_col
 from ingestion.constants import CURRENT
 from ingestion.dataset_utils import build_bq_col_types
-from ingestion.merge_utils import merge_county_names
+from ingestion.merge_utils import merge_county_names, merge_state_ids
 from ingestion.standardized_columns import Race
 
 
@@ -47,7 +47,6 @@ CSV_RENAME = {
 }
 
 SUPPRESSED_VALUE = "*"
-NATIONAL_FIPS = "00000"
 
 
 class NciCancerData(DataSource):
@@ -92,11 +91,18 @@ class NciCancerData(DataSource):
         # Pad FIPS to 5 digits (NCI stores as int-like strings without leading zeros)
         df[std_col.COUNTY_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.zfill(5)
 
-        # Drop national-level row
-        df = df[df[std_col.COUNTY_FIPS_COL] != NATIONAL_FIPS].copy()
+        # Drop row with US fake FIPS 00000
+        df = df[df[std_col.COUNTY_FIPS_COL] != "00000"]
 
-        # Attach county and state names (merge_county_names expects county_fips
-        # as a 5-digit string and returns county_name and state_fips)
+        # Drop rows with empty county FIPS
+        df = df.dropna(subset=[std_col.COUNTY_FIPS_COL])
+
+        # State FIPS is always the first two digits of the county FIPS.
+        # merge_state_ids uses this to attach state_name and state_postal.
+        df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.slice(0, 2)
+        df = merge_state_ids(df)
+
+        # Attach standardized county_name via county FIPS lookup.
         df = merge_county_names(df)
 
         df = df.sort_values(by=[std_col.COUNTY_FIPS_COL, std_col.RACE_OR_HISPANIC_COL]).reset_index(drop=True)
@@ -130,7 +136,8 @@ class NciCancerData(DataSource):
         rate_suppressed = df[PER_100K_COL] == SUPPRESSED_VALUE
         rate_missing = df[PER_100K_COL].isna() | (df[PER_100K_COL] == "")
 
-        df[IS_SUPPRESSED_COL] = None
+        df[IS_SUPPRESSED_COL] = np.nan
+        df[IS_SUPPRESSED_COL] = df[IS_SUPPRESSED_COL].astype(object)
         df.loc[rate_suppressed, IS_SUPPRESSED_COL] = True
         df.loc[~rate_suppressed & rate_missing, IS_SUPPRESSED_COL] = False
 
