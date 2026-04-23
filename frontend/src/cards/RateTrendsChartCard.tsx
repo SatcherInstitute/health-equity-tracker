@@ -140,7 +140,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         [queryResponseRates, queryResponsePctShares],
         _metadata,
         _geoData,
-        setHasData,
+        overrideCardHasData,
       ) => {
         let ratesData = queryResponseRates.getValidRowsForField(
           metricConfigRates.metricId,
@@ -232,7 +232,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             metricConfigRates.metricId,
           ]) || nestedRatesData?.length === 0
 
-        setHasData?.(!shouldShowMissingData)
+        overrideCardHasData?.(!shouldShowMissingData)
 
         return (
           <>

@@ -136,7 +136,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         [mapQueryResponse, alertQueryResponse],
         _metadata,
         geoData,
-        setHasData,
+        overrideCardHasData,
       ) => {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
         //  e.g. if you look at the United States, we are dealing with the Unknown pct_share at the state level
@@ -215,7 +215,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const showingVisualization =
           !unknownsArrayEmpty && !unknownsUndefined && !unknownsAllZero
 
-        setHasData?.(showingVisualization)
+        overrideCardHasData?.(showingVisualization)
 
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 

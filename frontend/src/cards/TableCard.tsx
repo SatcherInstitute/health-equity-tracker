@@ -127,7 +127,7 @@ export default function TableCard(props: TableCardProps) {
       reportTitle={props.reportTitle}
       className={props.className}
     >
-      {([queryResponse], _metadata, _geoData, setHasData) => {
+      {([queryResponse], _metadata, _geoData, overrideCardHasData) => {
         let data = queryResponse.data
         if (shouldShowAltPopCompare(props)) data = fillInAltPops(data)
         let normalMetricIds = metricIds
@@ -146,7 +146,7 @@ export default function TableCard(props: TableCardProps) {
           queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
           data.length <= 0
 
-        setHasData?.(!showMissingDataAlert)
+        overrideCardHasData?.(!showMissingDataAlert)
 
         if (props.demographicType === 'income') {
           data = sortByIncome(data)

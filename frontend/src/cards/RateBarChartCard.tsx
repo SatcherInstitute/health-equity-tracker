@@ -135,7 +135,7 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
         [rateQueryResponseRate, rateQueryResponseRateAlls],
         metadata,
         _geoData,
-        setHasData,
+        overrideCardHasData,
       ) => {
         // for consistency, filter out any 'Unknown' rows that might have rates (like PHRMA)
         let data = rateQueryResponseRate
@@ -159,7 +159,7 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
             rateConfig.metricId,
           ])
 
-        setHasData?.(!hideChart)
+        overrideCardHasData?.(!hideChart)
 
         const comparisonAllSubGroup = props.dataTypeConfig.ageSubPopulationLabel
 

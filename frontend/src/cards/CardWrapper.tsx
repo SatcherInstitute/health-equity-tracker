@@ -34,7 +34,7 @@ function CardWrapper(props: {
     queryResponses: MetricQueryResponse[],
     metadata: MapOfDatasetMetadata,
     geoData?: Record<string, any>,
-    setHasData?: (hasData: boolean) => void,
+    overrideCardHasData?: (value: boolean) => void,
   ) => React.ReactNode
   isCensusNotAcs?: boolean
   scrollToHash: ScrollableHashId
@@ -72,22 +72,22 @@ function CardWrapper(props: {
     >
       {(metadata, queryResponses, geoData) => {
         // Default: check if any query has non-missing data for its metrics
-        let hasData = queryResponses.some(
+        let cardHasData = queryResponses.some(
           (response, i) =>
             !response.shouldShowMissingDataMessage(
               (props.queries ?? [])[i]?.metricIds ?? [],
             ),
         )
 
-        // Evaluate children first so cards can override via setHasData
-        const setHasData = (value: boolean) => {
-          hasData = value
+        // Evaluate children first so cards can override via overrideCardHasData
+        const overrideCardHasData = (value: boolean) => {
+          cardHasData = value
         }
         const childContent = props.children(
           queryResponses,
           metadata,
           geoData,
-          setHasData,
+          overrideCardHasData,
         )
 
         return (
@@ -100,10 +100,9 @@ function CardWrapper(props: {
                 AI Insight
               </span>
             )}
-            <InsightVisualizationButton
-              scrollToHash={props.scrollToHash}
-              hasData={hasData}
-            />
+            {cardHasData && (
+              <InsightVisualizationButton scrollToHash={props.scrollToHash} />
+            )}
             <CardOptionsMenu
               reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}

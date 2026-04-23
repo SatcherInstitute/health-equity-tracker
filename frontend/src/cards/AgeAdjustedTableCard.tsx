@@ -124,9 +124,9 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
     >
-      {(queries, _metadata, _geoData, setHasData) => {
+      {(queries, _metadata, _geoData, overrideCardHasData) => {
         if (queries.length < 2) {
-          setHasData?.(false)
+          overrideCardHasData?.(false)
           return (
             <MissingDataAlert
               demographicTypeString={
