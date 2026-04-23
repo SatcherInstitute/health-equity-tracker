@@ -5,24 +5,13 @@ import {
   type DemographicGroup,
   raceNameToCodeMap,
 } from '../data/utils/Constants'
-import { urlMap } from './externalUrls'
 import { getLogger } from './globals'
-import {
-  ABOUT_SEED_LINK,
-  ABOUT_US_PAGE_LINK,
-  DATA_CATALOG_PAGE_LINK,
-  EXPLORE_DATA_PAGE_LINK,
-  FULL_FAQS_LINK,
-  GUN_VIOLENCE_POLICY,
-  METHODOLOGY_PAGE_LINK,
-  NEWS_PAGE_LINK,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-} from './internalRoutes'
 import type { PhraseSelections } from './MadLibs'
+
+// LLM INSIGHTS FEATURE
 export const REPORT_INSIGHT_PARAM_KEY = 'report-insight'
 
-// OLDER HANDLING PARAMS
-
+// OG PARAMS
 const STICKY_VERSION_PARAM = 'sv'
 export const DATA_SOURCE_PRE_FILTERS = 'dpf'
 // Value is index of the phrase to jump to
@@ -83,32 +72,24 @@ export function LinkWithStickyParams(props: {
   return <Link {...linkProps}>{props.children}</Link>
 }
 
-export const NAVIGATION_STRUCTURE = {
-  about: {
-    label: 'About',
-    pages: {
-      [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
-      [ABOUT_US_PAGE_LINK]: 'About Us',
-      [ABOUT_SEED_LINK]: 'SEED Program',
-    },
-  },
-  exploreTheData: {
-    label: 'Insights Hub',
-    pages: {
-      [EXPLORE_DATA_PAGE_LINK]: 'Data Dashboard',
-      [DATA_CATALOG_PAGE_LINK]: 'Source Files',
-      [METHODOLOGY_PAGE_LINK]: 'Methodology',
-      [GUN_VIOLENCE_POLICY]: 'Policy Context',
-    },
-  },
-  mediaAndUpdates: {
-    label: 'Media & Updates',
-    pages: {
-      [NEWS_PAGE_LINK]: 'News',
-      [urlMap.hetYouTubeShorts]: 'Videos on YouTube',
-    },
-  },
-  faqs: { label: 'FAQs', link: FULL_FAQS_LINK },
+type NavigationPage = string | { label: string }
+
+export type NavigationItem =
+  | {
+      label: string
+      pages: Record<string, NavigationPage>
+    }
+  | {
+      label: string
+      link: string
+    }
+
+export function isExternalLink(href: string): boolean {
+  return (
+    href.startsWith('https://') ||
+    href.startsWith('http://') ||
+    href.startsWith('mailto:')
+  )
 }
 
 export function useSearchParams() {
@@ -234,23 +215,6 @@ window.onpopstate = () => {
       handler()
     }
   })
-}
-
-export function getHtml(item: string | undefined, asString = false) {
-  // If only a string is needed (not setting inner HTML)
-  if (asString) {
-    const span = document.createElement('span')
-    span.innerHTML = item || ''
-    return span.textContent || span.innerText || ''
-  }
-
-  // Return a div with dangerouslySetInnerHTML
-  return (
-    <div
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: needed to render headless WordPress
-      dangerouslySetInnerHTML={{ __html: item || '' }}
-    />
-  )
 }
 
 /* for converting selected group long name into URL safe param value */

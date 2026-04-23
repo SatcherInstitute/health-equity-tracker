@@ -9,16 +9,13 @@ import {
   TwitterShareButton,
   XIcon,
 } from 'react-share'
-import type { Article } from '../../pages/News/ArticleTypes'
 import { het } from '../../styles/DesignTokens'
-import { getHtml } from '../../utils/urlutils'
 
 export const SHARE_LABEL = 'Share this report:'
 
 interface ShareButtonProps {
   isMobile: boolean
   reportTitle?: string
-  article?: Article
 }
 
 export default function ShareButtons(props: ShareButtonProps) {
@@ -26,12 +23,6 @@ export default function ShareButtons(props: ShareButtonProps) {
   let title: string = 'Health Equity Tracker'
   if (props.reportTitle) {
     title += ': ' + props.reportTitle
-  }
-  if (props.article) {
-    const htmlTitle = getHtml(props.article.title.rendered, true)
-    if (typeof htmlTitle === 'string') {
-      title += ': “' + htmlTitle + '”'
-    }
   }
 
   const shareIconAttributes = {

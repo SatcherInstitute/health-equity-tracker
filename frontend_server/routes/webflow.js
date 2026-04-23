@@ -117,7 +117,7 @@ router.get('/het-news', async (req, res) => {
           tags: (f.tags ?? []).map((id) => tagMap[id] ?? id),
           slug: f.slug,
           summary: f['post-summary'] ?? null,
-          thumbnail: imageUrl ? imageUrl.replace(/(\.\w+)(\?.*)?$/, '-p-500$1$2') : null, // fetch 500px wide version
+          thumbnail: imageUrl ?? null,
         }
       })
 
