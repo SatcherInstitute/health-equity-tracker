@@ -14,7 +14,7 @@ https://statecancerprofiles.cancer.gov/incidencerates/index.php?statefips=00&are
 
 https://statecancerprofiles.cancer.gov/incidencerates/index.php?statefips=00&areatype=county&cancer=057&race=05&age=001&stage=999&ruralurban=0&type=incd&sortVariableName=rate&sortOrder=default&output=0#results
 
-Source files manually saved in data/nci/ and are named by Race enum member name:
+Source files manually saved in data/nci_cancer/ and are named by Race enum member name:
   cervical-ALL.csv      - All races (includes Hispanic)
   cervical-API_NH.csv   - Asian, Native Hawaiian, and Pacific Islander Non-Hispanic
   cervical-BLACK_NH.csv - Black Non-Hispanic
@@ -52,7 +52,7 @@ RACES = [
 ]
 
 # NCI CSV column name -> HET standardized column name
-CSV_RENAME = {
+NCI_CSV_RENAME = {
     "FIPS": std_col.COUNTY_FIPS_COL,
     "Age-Adjusted Incidence Rate([rate note]) - cases per 100,000": PER_100K_COL,
     "Average Annual Count": RAW_COL,
@@ -81,11 +81,10 @@ class NciCancerData(DataSource):
 
         df = self.generate_breakdown_df()
 
-        df_for_bq = df
-        col_types = build_bq_col_types(df_for_bq)
+        col_types = build_bq_col_types(df)
 
         table_id = gcs_to_bq_util.make_bq_table_id(demo_type, geo_level, CURRENT)
-        gcs_to_bq_util.add_df_to_bq(df_for_bq, dataset, table_id, column_types=col_types)
+        gcs_to_bq_util.add_df_to_bq(df, dataset, table_id, column_types=col_types)
 
     def generate_breakdown_df(self) -> pd.DataFrame:
         """Loads and combines all race files into a single HET-style dataframe
@@ -100,14 +99,14 @@ class NciCancerData(DataSource):
 
         df = pd.concat(frames, axis=0, ignore_index=True)
 
-        # Pad FIPS to 5 digits (NCI stores as int-like strings without leading zeros)
-        df[std_col.COUNTY_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.zfill(5)
-
         # Drop row with US fake FIPS 00000
         df = df[df[std_col.COUNTY_FIPS_COL] != "00000"]
 
         # Drop rows with empty county FIPS
         df = df.dropna(subset=[std_col.COUNTY_FIPS_COL])
+
+        # Pad FIPS to 5 digits (NCI stores as int-like strings without leading zeros)
+        df[std_col.COUNTY_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.zfill(5)
 
         # State FIPS is always the first two digits of the county FIPS.
         # merge_state_ids uses this to attach state_name and state_postal.
@@ -137,7 +136,7 @@ class NciCancerData(DataSource):
         df.columns = df.columns.str.strip()
 
         # Keep only the columns we need; rename to HET standard names
-        df = df[list(CSV_RENAME.keys())].rename(columns=CSV_RENAME)
+        df = df[list(NCI_CSV_RENAME.keys())].rename(columns=NCI_CSV_RENAME)
 
         # Strip whitespace from all string values
         df = df.apply(lambda col: col.str.strip() if col.dtype == object else col)
@@ -154,7 +153,7 @@ class NciCancerData(DataSource):
         df.loc[~rate_suppressed & rate_missing, IS_SUPPRESSED_COL] = False
 
         # Null out suppressed and non-numeric values
-        df[PER_100K_COL] = pd.to_numeric(df[PER_100K_COL].replace(SUPPRESSED_VALUE, None), errors="coerce")
-        df[RAW_COL] = pd.to_numeric(df[RAW_COL].replace(SUPPRESSED_VALUE, None), errors="coerce")
+        df[PER_100K_COL] = pd.to_numeric(df[PER_100K_COL], errors="coerce")
+        df[RAW_COL] = pd.to_numeric(df[RAW_COL], errors="coerce")
 
         return df
