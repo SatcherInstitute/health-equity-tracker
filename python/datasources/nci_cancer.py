@@ -54,11 +54,11 @@ class NciCancerData(DataSource):
 
     @staticmethod
     def get_id():
-        return "NCI_CERVICAL_DATA"
+        return "NCI_CANCER"
 
     @staticmethod
     def get_table_name():
-        return "nci_cervical_data"
+        return "nci_cancer"
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
         raise NotImplementedError("upload_to_gcs should not be called for NciCancerData")
