@@ -160,7 +160,7 @@ class CdcWonderData(DataSource):
         for condition in conditions:
             # HET cols to make
             cancer_type = condition.lower()
-            het_rate_numerator = f"{cancer_type}_count_{std_col.RAW_SUFFIX}"
+            het_rate_numerator = f"{cancer_type}_{std_col.RAW_SUFFIX}"
             het_rate_denominator = f"{cancer_type}_{std_col.RAW_POP_SUFFIX}"
             het_pct_share = f"{cancer_type}_{std_col.PCT_SHARE_SUFFIX}"
             het_pop_pct_share = f"{cancer_type}_{std_col.POP_PCT_SUFFIX}"
@@ -183,7 +183,7 @@ class CdcWonderData(DataSource):
             # For age breakdowns, calculate totals from available age groups
             non_all_df = df[df[demo_breakdown] != ALL_VALUE]
             for condition in conditions:
-                count_col = f"{condition.lower()}_count_{std_col.RAW_SUFFIX}"
+                count_col = f"{condition.lower()}_{std_col.RAW_SUFFIX}"
                 if count_col in df.columns:
                     # Update the 'All' row with sum of available age groups
                     available_total = non_all_df[count_col].sum()
