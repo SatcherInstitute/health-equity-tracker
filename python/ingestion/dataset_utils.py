@@ -1,4 +1,4 @@
-from typing import Literal, List, Dict, Union, Callable, Any
+from typing import Literal, List, Dict, Union, Tuple, Callable, Any
 import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import ingestion.standardized_columns as std_col
@@ -19,6 +19,7 @@ from ingestion.constants import (
     ALL_VALUE,
 )
 import os
+from ingestion.het_types import TIME_VIEW_TYPE
 
 INGESTION_DIR = os.path.dirname(os.path.abspath(__file__))
 ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, "acs_population")
@@ -763,6 +764,43 @@ def combine_race_ethnicity(
     df_aggregated = df.groupby(group_cols).agg(agg_col_map).reset_index()
 
     return df_aggregated
+
+
+def get_timeview_df_and_cols(
+    df: pd.DataFrame, time_view: TIME_VIEW_TYPE, topic_prefixes: List[str]
+) -> Tuple[pd.DataFrame, Dict[str, str]]:
+    """Returns a dataframe with only the rows and columns that are needed for the given time view.
+
+    Parameters:
+    - df: The dataframe to process.
+    - time_view: The time view to process for. Can be 'current' or 'historical'.
+    - topic_prefixes: The list of str topic prefixes e.g. ['covid', 'diabetes', 'population_pct]
+
+    Returns:
+    - A tuple containing the processed DataFrame and a dict mapping column names needed by BigQuery
+    """
+
+    if time_view not in ["current", "historical"]:
+        raise ValueError('time_view must be either "current" or "historical"')
+
+    df = df.copy()
+
+    # remove unneeded columns
+    unwanted_suffixes = (
+        std_col.SUFFIXES_CURRENT_TIME_VIEWS if time_view == "historical" else std_col.SUFFIXES_HISTORICAL_TIME_VIEWS
+    )
+
+    for col in df.columns:
+        if std_col.ends_with_suffix_from_list(col, unwanted_suffixes):
+            df.drop(columns=[col], inplace=True)
+
+    # remove unneeded rows
+    if time_view == "current":
+        df = preserve_most_recent_year_rows_per_topic(df, topic_prefixes)
+
+    bq_col_types = build_bq_col_types(df)
+
+    return (df, bq_col_types)
 
 
 def build_bq_col_types(df: pd.DataFrame) -> Dict[str, str]:
