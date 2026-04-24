@@ -2,7 +2,19 @@
 Loads cervical cancer incidence data by county and race from NCI source files.
 Data covers 2018-2022, age-adjusted rates per 100,000, females only.
 
-Source files live in data/nci/ and are named by Race enum member name:
+https://statecancerprofiles.cancer.gov/incidencerates/index.php?statefips=00&areatype=county&cancer=057&race=00&age=001&stage=999&ruralurban=0&type=incd&sortVariableName=rate&sortOrder=default&output=0#results
+
+https://statecancerprofiles.cancer.gov/incidencerates/index.php?statefips=00&areatype=county&cancer=057&race=07&age=001&stage=999&ruralurban=0&type=incd&sortVariableName=rate&sortOrder=default&output=0#results
+
+https://statecancerprofiles.cancer.gov/incidencerates/index.php?statefips=00&areatype=county&cancer=057&race=28&age=001&stage=999&ruralurban=0&type=incd&sortVariableName=rate&sortOrder=default&output=0#results
+
+https://statecancerprofiles.cancer.gov/incidencerates/index.php?statefips=00&areatype=county&cancer=057&race=38&age=001&stage=999&ruralurban=0&type=incd&sortVariableName=rate&sortOrder=default&output=0#results
+
+https://statecancerprofiles.cancer.gov/incidencerates/index.php?statefips=00&areatype=county&cancer=057&race=48&age=001&stage=999&ruralurban=0&type=incd&sortVariableName=rate&sortOrder=default&output=0#results
+
+https://statecancerprofiles.cancer.gov/incidencerates/index.php?statefips=00&areatype=county&cancer=057&race=05&age=001&stage=999&ruralurban=0&type=incd&sortVariableName=rate&sortOrder=default&output=0#results
+
+Source files manually saved in data/nci/ and are named by Race enum member name:
   cervical-ALL.csv      - All races (includes Hispanic)
   cervical-API_NH.csv   - Asian, Native Hawaiian, and Pacific Islander Non-Hispanic
   cervical-BLACK_NH.csv - Black Non-Hispanic
