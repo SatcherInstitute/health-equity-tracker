@@ -41,7 +41,6 @@ CONDITION = "cervical"
 PER_100K_COL = f"{CONDITION}_{std_col.PER_100K_SUFFIX}"
 RAW_COL = f"{CONDITION}_{std_col.RAW_SUFFIX}"
 IS_SUPPRESSED_COL = f"{PER_100K_COL}_{std_col.IS_SUPPRESSED_SUFFIX}"
-
 RACES = [
     Race.ALL,
     Race.API_NH,
@@ -50,15 +49,13 @@ RACES = [
     Race.AIAN_NH,
     Race.WHITE_NH,
 ]
-
-# NCI CSV column name -> HET standardized column name
 NCI_CSV_RENAME = {
     "FIPS": std_col.COUNTY_FIPS_COL,
     "Age-Adjusted Incidence Rate([rate note]) - cases per 100,000": PER_100K_COL,
     "Average Annual Count": RAW_COL,
 }
-
-SUPPRESSED_VALUE = "*"
+NCI_HEADER_ROWS_TO_SKIP = 8
+NCI_SUPPRESSED_VALUE = "*"
 
 
 class NciCancerData(DataSource):
@@ -128,7 +125,7 @@ class NciCancerData(DataSource):
         df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             self.DIRECTORY,
             file_name,
-            skiprows=8,
+            skiprows=NCI_HEADER_ROWS_TO_SKIP,
             dtype=str,
         )
 
@@ -144,7 +141,7 @@ class NciCancerData(DataSource):
         # Mark suppression on the rate column.
         # IS_SUPPRESSED is True when rate is "*", False when rate is null for
         # another reason, and null (NaN) when rate is present (not applicable).
-        rate_suppressed = df[PER_100K_COL] == SUPPRESSED_VALUE
+        rate_suppressed = df[PER_100K_COL] == NCI_SUPPRESSED_VALUE
         rate_missing = df[PER_100K_COL].isna() | (df[PER_100K_COL] == "")
 
         df[IS_SUPPRESSED_COL] = np.nan

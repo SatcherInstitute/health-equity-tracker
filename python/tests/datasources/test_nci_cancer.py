@@ -1,16 +1,36 @@
 import os
 import pandas as pd
-from datasources.nci_cancer import NciCancerData
+from datasources.nci_cancer import NciCancerData, NCI_HEADER_ROWS_TO_SKIP
 from pandas._testing import assert_frame_equal
 from test_utils import _load_csv_as_df_from_real_data_dir
 from unittest import mock
 import ingestion.standardized_columns as std_col
 
+
+def test_nci_csv_header_row():
+    """Fails loudly if NCI changes their file format and adds/removes preamble lines."""
+    df = _load_csv_as_df_from_real_data_dir(
+        NciCancerData.DIRECTORY,
+        f"cervical-{std_col.Race.ALL.name}.csv",
+        skiprows=NCI_HEADER_ROWS_TO_SKIP,
+    )
+    expected_cols = {
+        "County",
+        "FIPS",
+        "Age-Adjusted Incidence Rate([rate note]) - cases per 100,000",
+        "Average Annual Count",
+    }
+    missing = expected_cols - {col.strip() for col in df.columns}
+    assert not missing, (
+        f"Expected columns not found after skipping {NCI_HEADER_ROWS_TO_SKIP} rows: {missing}. "
+        "NCI may have changed their file format — update NCI_HEADER_ROWS_TO_SKIP if so."
+    )
+
+
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
 GOLDEN_DIR = os.path.join(TEST_DIR, NciCancerData.DIRECTORY, "golden_data")
 EXP_DTYPE = {std_col.COUNTY_FIPS_COL: str, std_col.STATE_FIPS_COL: str}
-
 GOLDEN_DATA = {
     "race_and_ethnicity_county_current": os.path.join(GOLDEN_DIR, "race_and_ethnicity_county_current.csv"),
 }
