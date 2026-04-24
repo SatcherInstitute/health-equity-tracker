@@ -19,7 +19,7 @@ from ingestion.constants import (
     ALL_VALUE,
 )
 import os
-from ingestion.het_types import TIME_VIEW_TYPE  # pylint: disable=no-name-in-module
+from ingestion.het_types import TIME_VIEW_TYPE
 
 INGESTION_DIR = os.path.dirname(os.path.abspath(__file__))
 ACS_MERGE_DATA_DIR = os.path.join(INGESTION_DIR, "acs_population")
