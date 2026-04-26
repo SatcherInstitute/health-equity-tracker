@@ -94,7 +94,7 @@ describe('Tests generateSubtitle()', () => {
       CDC_CANCER_INCIDENCE_METRICS[1],
       'county',
     )
-    expect(subTitle).toEqual('Surveyed Females')
+    expect(subTitle).toEqual('Females')
   })
 })
 
