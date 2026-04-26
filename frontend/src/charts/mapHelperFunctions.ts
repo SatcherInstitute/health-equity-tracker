@@ -1,6 +1,9 @@
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { getWomenRaceLabel } from '../data/providers/CawpProvider'
-import type { DemographicType } from '../data/query/Breakdowns'
+import type {
+  DemographicType,
+  GeographicBreakdown,
+} from '../data/query/Breakdowns'
 import {
   AGE,
   ALL,
@@ -74,6 +77,7 @@ export function calculateLegendColorCount(
 
 export function getHighestLowestGroupsByFips(
   dataTypeConfig: DataTypeConfig,
+  geographicBreakdown: GeographicBreakdown,
   fullData?: HetRow[],
   demographicType?: DemographicType,
   metricId?: MetricId,
@@ -110,11 +114,13 @@ export function getHighestLowestGroupsByFips(
           ],
           /* demographicType:  */ demographicType,
           dataTypeConfig,
+          /* geographicBreakdown: */ geographicBreakdown,
         ),
         lowest: generateSubtitle(
           /* activeDemographicGroup: */ ascendingGroups[0],
           /* demographicType:  */ demographicType,
           dataTypeConfig,
+          /* geographicBreakdown: */ geographicBreakdown,
         ),
       }
       // TIE OVERRIDES

@@ -146,6 +146,7 @@ describe('Test getHighestLowestGroupsByFips()', () => {
 
     const highLowSex = getHighestLowestGroupsByFips(
       /* dataTypeConfig */ testDataTypeConfig,
+      /* geographicBreakdown */ 'state',
       /* fullData */ normalData,
       /* demographicType */ 'sex',
       /* metricId */ 'condition_per_100k' as MetricId,
