@@ -180,6 +180,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
     geoOverrides: {
       county: {
         ageSubPopulationLabel: undefined,
+        otherSubPopulationLabel: 'Females',
       },
     },
   },
