@@ -1,5 +1,6 @@
 import type { ColorScheme } from '../../charts/choroplethMap/types'
 import type { CategoryTypeId } from '../../utils/MadLibs'
+import type { GeographicBreakdown } from '../query/Breakdowns'
 import type { DropdownVarId } from './DropDownIds'
 import type {
   BehavioralHealthDataTypeId,
@@ -145,6 +146,7 @@ export interface DataTypeConfig {
   categoryId: CategoryTypeId
   ageSubPopulationLabel?: string
   otherSubPopulationLabel?: string
+  geoOverrides?: Partial<Record<GeographicBreakdown, Partial<DataTypeConfig>>>
 }
 
 export type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'

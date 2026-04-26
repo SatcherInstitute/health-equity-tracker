@@ -120,7 +120,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
     dataTypeId: 'cervical_cancer_incidence',
     dataTypeShortLabel: 'Cervical cancer',
     definition: {
-      text: 'The number of new cases of cervical cancer diagnosed among women ages 20-64 within a specific time period.',
+      text: 'The number of new cases of cervical cancer diagnosed among women (surveyed females ages 20-64 for CDC WONDER; all ages for NCI) within a specific time period.',
     },
     description: {
       text: 'Cervical cancer is a type of cancer that occurs in the cells of the cervix. Understanding the patterns of cervical cancer cases across different populations can help identify disparities in early detection and access to care, and inform strategies to reduce these disparities.',
@@ -177,6 +177,11 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
       },
     },
     otherSubPopulationLabel: 'Surveyed Females',
+    geoOverrides: {
+      county: {
+        ageSubPopulationLabel: undefined,
+      },
+    },
   },
   {
     ageSubPopulationLabel: 'Ages 45-74',

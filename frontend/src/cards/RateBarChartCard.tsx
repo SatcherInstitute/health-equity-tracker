@@ -95,6 +95,7 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
     ALL,
     props.demographicType,
     props.dataTypeConfig,
+    props.fips.getGeographicBreakdown(),
   )
   const filename = `${chartTitle}, by ${
     DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]

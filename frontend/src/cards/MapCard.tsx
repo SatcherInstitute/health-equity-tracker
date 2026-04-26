@@ -267,6 +267,7 @@ function MapCardWithKey(props: MapCardProps) {
     activeDemographicGroup,
     demographicType,
     props.dataTypeConfig,
+    props.fips.getGeographicBreakdown() ?? 'national', // needs to send child-level unless hasSelfButNotChildGeoData is true then needs to send self level
   )
   const pluralChildFips =
     props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
@@ -298,6 +299,15 @@ function MapCardWithKey(props: MapCardProps) {
           parentGeoQueryResponse.data.filter(
             (row) => row[metricConfig.metricId],
           ).length > 0
+
+        if (!hasSelfButNotChildGeoData) {
+          subtitle = generateSubtitle(
+            activeDemographicGroup,
+            demographicType,
+            props.dataTypeConfig,
+            props.fips.getChildGeographicBreakdown(),
+          )
+        }
 
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? parentGeoQueryResponse
