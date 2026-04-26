@@ -97,6 +97,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     ALL,
     props.demographicType,
     props.dataTypeConfig,
+    props.fips.getGeographicBreakdown(),
   )
   const HASH_ID: ScrollableHashId = 'inequities-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label

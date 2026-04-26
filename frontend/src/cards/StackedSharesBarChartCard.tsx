@@ -77,6 +77,7 @@ export default function StackedSharesBarChartCard(
     ALL,
     props.demographicType,
     props.dataTypeConfig,
+    props.fips.getGeographicBreakdown(),
   )
 
   const HASH_ID: ScrollableHashId = 'population-vs-distribution'

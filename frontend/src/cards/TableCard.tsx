@@ -114,6 +114,7 @@ export default function TableCard(props: TableCardProps) {
     ALL,
     props.demographicType,
     props.dataTypeConfig,
+    props.fips.getGeographicBreakdown(),
   )
 
   return (
