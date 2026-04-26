@@ -15,32 +15,32 @@ export type CancerCategoryDataTypeId =
   | 'prostate_cancer_incidence'
 
 export type CancerCategoryMetricId =
-  | 'breast_count_estimated_total'
+  | 'breast_estimated_total'
   | 'breast_pct_relative_inequity'
   | 'breast_pct_share'
   | 'breast_per_100k'
   | 'breast_population_estimated_total'
   | 'breast_population_pct'
-  | 'cervical_count_estimated_total'
+  | 'cervical_estimated_total'
   | 'cervical_pct_relative_inequity'
   | 'cervical_pct_share'
   | 'cervical_per_100k'
   | 'cervical_per_100k_is_suppressed'
   | 'cervical_population_estimated_total'
   | 'cervical_population_pct'
-  | 'colorectal_count_estimated_total'
+  | 'colorectal_estimated_total'
   | 'colorectal_pct_relative_inequity'
   | 'colorectal_pct_share'
   | 'colorectal_per_100k'
   | 'colorectal_population_estimated_total'
   | 'colorectal_population_pct'
-  | 'lung_count_estimated_total'
+  | 'lung_estimated_total'
   | 'lung_pct_relative_inequity'
   | 'lung_pct_share'
   | 'lung_per_100k'
   | 'lung_population_estimated_total'
   | 'lung_population_pct'
-  | 'prostate_count_estimated_total'
+  | 'prostate_estimated_total'
   | 'prostate_pct_relative_inequity'
   | 'prostate_pct_share'
   | 'prostate_per_100k'
@@ -101,7 +101,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         },
         rateNumeratorMetric: {
           chartTitle: '',
-          metricId: 'breast_count_estimated_total',
+          metricId: 'breast_estimated_total',
           shortLabel: 'Breast cancer cases',
           type: 'count',
         },
@@ -165,7 +165,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         },
         rateNumeratorMetric: {
           chartTitle: '',
-          metricId: 'cervical_count_estimated_total',
+          metricId: 'cervical_estimated_total',
           shortLabel: 'Cervical cancer cases',
           type: 'count',
         },
@@ -235,7 +235,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         },
         rateNumeratorMetric: {
           chartTitle: '',
-          metricId: 'colorectal_count_estimated_total',
+          metricId: 'colorectal_estimated_total',
           shortLabel: 'Colorectal cancer cases',
           type: 'count',
         },
@@ -297,7 +297,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         },
         rateNumeratorMetric: {
           chartTitle: '',
-          metricId: 'lung_count_estimated_total',
+          metricId: 'lung_estimated_total',
           shortLabel: 'Lung cancer cases',
           type: 'count',
         },
@@ -361,7 +361,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         },
         rateNumeratorMetric: {
           chartTitle: '',
-          metricId: 'prostate_count_estimated_total',
+          metricId: 'prostate_estimated_total',
           shortLabel: 'Prostate cancer cases',
           type: 'count',
         },
