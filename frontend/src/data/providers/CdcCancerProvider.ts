@@ -27,6 +27,7 @@ const CDC_CANCER_METRICS: MetricId[] = [
   'breast_pct_share',
   'breast_pct_relative_inequity',
   'cervical_per_100k',
+  'cervical_per_100k_is_suppressed',
   'cervical_count_estimated_total',
   'cervical_population_pct',
   'cervical_population_estimated_total',
@@ -68,8 +69,13 @@ class CdcCancerProvider extends VariableProvider {
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
+      const bq_dataset =
+        metricQuery.breakdowns.geography === 'county'
+          ? 'nci_cancer'
+          : 'cdc_wonder_data'
+
       const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
-        'cdc_wonder_data',
+        bq_dataset,
         '',
         metricQuery,
       )
@@ -103,7 +109,8 @@ class CdcCancerProvider extends VariableProvider {
 
     return (
       (breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
+        breakdowns.geography === 'national' ||
+        breakdowns.geography === 'county') &&
       validDemographicBreakdownRequest
     )
   }

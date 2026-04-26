@@ -25,6 +25,7 @@ export type CancerCategoryMetricId =
   | 'cervical_pct_relative_inequity'
   | 'cervical_pct_share'
   | 'cervical_per_100k'
+  | 'cervical_per_100k_is_suppressed'
   | 'cervical_population_estimated_total'
   | 'cervical_population_pct'
   | 'colorectal_count_estimated_total'
