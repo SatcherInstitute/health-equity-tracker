@@ -5,6 +5,7 @@ import { METRIC_CONFIG } from './MetricConfig'
 import type {
   CardMetricType,
   DataTypeConfig,
+  DeepPartial,
   MetricConfig,
   MetricId,
   MetricType,
@@ -118,6 +119,29 @@ export function formatSubPopString({
     : otherSubPopulationLabel || ageSubPopulationLabel || ''
 }
 
+function deepMerge<T>(base: T, override: DeepPartial<T>): T {
+  const result = { ...base }
+  for (const key in override) {
+    const overrideVal = override[key]
+    const baseVal = base?.[key]
+    if (
+      overrideVal !== null &&
+      typeof overrideVal === 'object' &&
+      !Array.isArray(overrideVal) &&
+      typeof baseVal === 'object' &&
+      baseVal !== null
+    ) {
+      result[key] = deepMerge(
+        baseVal,
+        overrideVal as DeepPartial<typeof baseVal>,
+      )
+    } else if (overrideVal !== undefined) {
+      result[key] = overrideVal as T[typeof key]
+    }
+  }
+  return result
+}
+
 export function applyGeoOverrides(
   config: DataTypeConfig,
   geography: GeographicBreakdown,
@@ -125,35 +149,7 @@ export function applyGeoOverrides(
   const overrides = config.geoOverrides?.[geography]
   if (!overrides) return config
 
-  return {
-    ...config,
-    ...overrides,
-    metrics: overrides.metrics
-      ? {
-          ...config.metrics,
-          ...Object.fromEntries(
-            Object.entries(overrides.metrics).map(([key, metricOverride]) => {
-              const baseMetric =
-                config.metrics[key as keyof typeof config.metrics]
-              return [
-                key,
-                {
-                  ...baseMetric,
-                  ...metricOverride,
-                  ...(metricOverride?.populationComparisonMetric &&
-                  baseMetric?.populationComparisonMetric
-                    ? {
-                        populationComparisonMetric: {
-                          ...baseMetric.populationComparisonMetric,
-                          ...metricOverride.populationComparisonMetric,
-                        },
-                      }
-                    : {}),
-                },
-              ]
-            }),
-          ),
-        }
-      : config.metrics,
-  }
+  const merged = deepMerge(config, overrides as DeepPartial<DataTypeConfig>)
+
+  return merged
 }

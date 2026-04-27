@@ -121,6 +121,10 @@ interface InfoWithCitations {
   citations?: Citation[]
 }
 
+export type DeepPartial<T> = {
+  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]
+}
+
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   rateComparisonDataTypeId?: DataTypeId
@@ -148,16 +152,15 @@ export interface DataTypeConfig {
   otherSubPopulationLabel?: string
   // Optional: deeply nested override specific fields
   // for topics with different sources per geographic breakdown
-  geoOverrides?: Partial<
-    Record<
-      GeographicBreakdown,
-      Partial<Omit<DataTypeConfig, 'metrics'>> & {
-        metrics?: {
-          [K in keyof DataTypeConfig['metrics']]?: Partial<MetricConfig>
-        }
-      }
-    >
-  >
+  geoOverrides?: Partial<Record<GeographicBreakdown, DataTypeConfigOverride>>
+}
+
+export type DataTypeConfigOverride = DeepPartial<
+  Omit<DataTypeConfig, 'metrics'>
+> & {
+  metrics?: {
+    [K in keyof DataTypeConfig['metrics']]?: DeepPartial<MetricConfig>
+  }
 }
 
 export type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'

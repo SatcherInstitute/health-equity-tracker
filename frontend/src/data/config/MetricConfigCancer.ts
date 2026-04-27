@@ -154,8 +154,8 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
-        chartTitle: 'Cervical cancer rates',
-        columnTitleHeader: 'Cervical cancer cases per 100k',
+        chartTitle: 'Age-adjusted cervical cancer rates',
+        columnTitleHeader: 'Age-adjusted cervical cancer cases per 100k',
         metricId: 'cervical_per_100k',
         rateDenominatorMetric: {
           chartTitle: '',
@@ -178,7 +178,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
     otherSubPopulationLabel: 'Surveyed women and people with a cervix',
     geoOverrides: {
       county: {
-        ageSubPopulationLabel: undefined,
+        ageSubPopulationLabel: 'All ages',
         otherSubPopulationLabel: 'Women and people with a cervix',
         definition: {
           text: 'The number of new cases of cervical cancer diagnosed among women and people with a cervix of all ages within a specific time period. County-level figures are from NCI State Cancer Profiles and reflect age-adjusted rates to allow fairer comparisons across counties and demographic groups.',
