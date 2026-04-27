@@ -1,17 +1,26 @@
 import { useAtomValue } from 'jotai'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
+import { applyGeoOverrides } from '../../data/config/MetricConfigUtils'
 import InfoCitations from '../../reports/ui/InfoCitations'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
+  selectedFipsAtom,
 } from '../../utils/sharedSettingsState'
 
 export default function DataTypeDefinitionsList() {
-  const selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
+  let selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
   const selectedDataTypeConfig2 = useAtomValue(selectedDataTypeConfig2Atom)
+  const selectedFips = useAtomValue(selectedFipsAtom)
+  const geographyBreakdown =
+    selectedFips?.getGeographicBreakdown() ?? 'national'
 
   const configArray: DataTypeConfig[] = []
   if (selectedDataTypeConfig1) {
+    selectedDataTypeConfig1 = applyGeoOverrides(
+      selectedDataTypeConfig1,
+      geographyBreakdown,
+    )
     configArray.push(selectedDataTypeConfig1)
   }
   if (

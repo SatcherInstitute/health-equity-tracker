@@ -120,10 +120,10 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
     dataTypeId: 'cervical_cancer_incidence',
     dataTypeShortLabel: 'Cervical cancer',
     definition: {
-      text: 'The number of new cases of cervical cancer diagnosed among women (surveyed females ages 20-64 for CDC WONDER; all ages for NCI) within a specific time period.',
+      text: 'The number of new cases of cervical cancer diagnosed among surveyed women and people with a cervix ages 20-64 within a specific time period. National- and state-level figures are from CDC WONDER and reflect crude rates that are not age-adjusted.',
     },
     description: {
-      text: 'Cervical cancer is a type of cancer that occurs in the cells of the cervix. Understanding the patterns of cervical cancer cases across different populations can help identify disparities in early detection and access to care, and inform strategies to reduce these disparities.',
+      text: 'Cervical cancer is largely preventable through HPV vaccination, regular Pap and HPV screening, and timely follow-up care, yet diagnosis rates vary significantly by race, ethnicity, and geography, reflecting deeper inequities in access to these essential interventions. Tracking these disparities at the national, state, and county level helps identify where systemic barriers persist and where targeted action is needed to advance health justice for the communities most affected.',
     },
     fullDisplayName: 'Cervical cancer cases',
     fullDisplayNameInline: 'cervical cancer cases',
@@ -143,7 +143,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         populationComparisonMetric: {
           chartTitle:
             'Population vs. distribution of total cervical cancer cases',
-          columnTitleHeader: 'Population share (ages 20-64)',
+          columnTitleHeader: 'Population share',
           metricId: 'cervical_population_pct',
           shortLabel: '% of population',
           type: 'pct_share',
@@ -154,8 +154,8 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
-        chartTitle: 'Cervical cancer cases for women',
-        columnTitleHeader: 'Cervical cancer cases for women per 100k people',
+        chartTitle: 'Cervical cancer rates',
+        columnTitleHeader: 'Cervical cancer cases per 100k',
         metricId: 'cervical_per_100k',
         rateDenominatorMetric: {
           chartTitle: '',
@@ -171,16 +171,24 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         },
         shortLabel: 'cases per 100k',
         timeSeriesCadence: 'yearly',
-        trendsCardTitleName:
-          'Rates of cervical cancer cases for women over time',
+        trendsCardTitleName: 'Rates of cervical cancer over time',
         type: 'per100k',
       },
     },
-    otherSubPopulationLabel: 'Surveyed Females',
+    otherSubPopulationLabel: 'Surveyed women and people with a cervix',
     geoOverrides: {
       county: {
         ageSubPopulationLabel: undefined,
-        otherSubPopulationLabel: 'Females',
+        otherSubPopulationLabel: 'Women and people with a cervix',
+        definition: {
+          text: 'The number of new cases of cervical cancer diagnosed among women and people with a cervix of all ages within a specific time period. County-level figures are from NCI State Cancer Profiles and reflect age-adjusted rates to allow fairer comparisons across counties and demographic groups.',
+        },
+        metrics: {
+          per100k: {
+            trendsCardTitleName:
+              'Age-adjusted rates of cervical cancer for women and people with a cervix over time',
+          },
+        },
       },
     },
   },

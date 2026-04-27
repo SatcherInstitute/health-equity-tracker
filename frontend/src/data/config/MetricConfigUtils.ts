@@ -124,5 +124,36 @@ export function applyGeoOverrides(
 ): DataTypeConfig {
   const overrides = config.geoOverrides?.[geography]
   if (!overrides) return config
-  return { ...config, ...overrides }
+
+  return {
+    ...config,
+    ...overrides,
+    metrics: overrides.metrics
+      ? {
+          ...config.metrics,
+          ...Object.fromEntries(
+            Object.entries(overrides.metrics).map(([key, metricOverride]) => {
+              const baseMetric =
+                config.metrics[key as keyof typeof config.metrics]
+              return [
+                key,
+                {
+                  ...baseMetric,
+                  ...metricOverride,
+                  ...(metricOverride?.populationComparisonMetric &&
+                  baseMetric?.populationComparisonMetric
+                    ? {
+                        populationComparisonMetric: {
+                          ...baseMetric.populationComparisonMetric,
+                          ...metricOverride.populationComparisonMetric,
+                        },
+                      }
+                    : {}),
+                },
+              ]
+            }),
+          ),
+        }
+      : config.metrics,
+  }
 }

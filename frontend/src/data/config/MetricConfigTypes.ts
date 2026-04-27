@@ -146,7 +146,18 @@ export interface DataTypeConfig {
   categoryId: CategoryTypeId
   ageSubPopulationLabel?: string
   otherSubPopulationLabel?: string
-  geoOverrides?: Partial<Record<GeographicBreakdown, Partial<DataTypeConfig>>>
+  // Optional: deeply nested override specific fields
+  // for topics with different sources per geographic breakdown
+  geoOverrides?: Partial<
+    Record<
+      GeographicBreakdown,
+      Partial<Omit<DataTypeConfig, 'metrics'>> & {
+        metrics?: {
+          [K in keyof DataTypeConfig['metrics']]?: Partial<MetricConfig>
+        }
+      }
+    >
+  >
 }
 
 export type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'

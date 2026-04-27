@@ -406,6 +406,9 @@ function MapCardWithKey(props: MapCardProps) {
           subPopSourceLabel,
           demographicType,
           props.dataTypeConfig,
+          hasSelfButNotChildGeoData
+            ? props.fips.getGeographicBreakdown()
+            : props.fips.getChildGeographicBreakdown(),
         )
 
         const dataForSvi: HetRow[] =
