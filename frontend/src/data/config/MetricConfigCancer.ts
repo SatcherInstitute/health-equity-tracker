@@ -107,8 +107,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         },
         shortLabel: 'cases per 100k',
         timeSeriesCadence: 'yearly',
-        trendsCardTitleName:
-          'Rates of breast cancer cases for female patients over time',
+        trendsCardTitleName: 'Rates of breast cancer cases over time',
         type: 'per100k',
       },
     },
@@ -156,7 +155,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
       },
       per100k: {
         chartTitle: 'Cervical cancer rates',
-        columnTitleHeader: 'Cervical cancer cases per 100k',
+        columnTitleHeader: 'Cervical cancer cases per 100k female patients',
         metricId: 'cervical_per_100k',
         rateDenominatorMetric: {
           chartTitle: '',
