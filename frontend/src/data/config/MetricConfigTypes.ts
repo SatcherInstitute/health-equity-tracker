@@ -150,8 +150,9 @@ export interface DataTypeConfig {
   categoryId: CategoryTypeId
   ageSubPopulationLabel?: string
   otherSubPopulationLabel?: string
-  // Optional: deeply nested override specific fields
-  // for topics with different sources per geographic breakdown
+  // Optional: override specific, deeply nested fields
+  // Used for topics with different sources per geographic breakdown
+  // Note: override values cannot be undefined
   geoOverrides?: Partial<Record<GeographicBreakdown, DataTypeConfigOverride>>
 }
 
