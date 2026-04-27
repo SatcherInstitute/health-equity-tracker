@@ -29,6 +29,7 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
   type DemographicTypeDisplayName,
+  type GeographicBreakdown,
 } from '../data/query/Breakdowns'
 import {
   MetricQuery,
@@ -263,18 +264,27 @@ function MapCardWithKey(props: MapCardProps) {
     undefined,
     isAtlantaMode ? 'metro counties of Atlanta, Georgia' : undefined,
   )
-  let subtitle = generateSubtitle(
-    activeDemographicGroup,
-    demographicType,
-    props.dataTypeConfig,
-    props.fips.getGeographicBreakdown() ?? 'national',
-  )
+
   const pluralChildFips =
     props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
-  if (isExtremesMode)
-    subtitle += ` (only ${pluralChildFips} with rate extremes)`
-  const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
+  function generateMapCardSubtitle(geographicBreakdown: GeographicBreakdown) {
+    const base = generateSubtitle(
+      activeDemographicGroup,
+      demographicType,
+      props.dataTypeConfig,
+      geographicBreakdown,
+    )
+    return (
+      base +
+      (isExtremesMode ? ` (only ${pluralChildFips} with rate extremes)` : '')
+    )
+  }
+
+  const subtitleForFilename = generateMapCardSubtitle(
+    props.fips.getGeographicBreakdown() ?? 'national',
+  )
+  const filename = `${title} ${subtitleForFilename ? `for ${subtitleForFilename}` : ''}`
   return (
     <CardWrapper
       downloadTitle={filename}
@@ -300,20 +310,11 @@ function MapCardWithKey(props: MapCardProps) {
             (row) => row[metricConfig.metricId],
           ).length > 0
 
-        if (!hasSelfButNotChildGeoData) {
-          subtitle = generateSubtitle(
-            activeDemographicGroup,
-            demographicType,
-            props.dataTypeConfig,
-            props.fips.getChildGeographicBreakdown(),
-          )
-
-          const pluralChildFips =
-            props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
-          if (isExtremesMode)
-            subtitle += ` (only ${pluralChildFips} with rate extremes)`
-        }
-
+        const subtitle = generateMapCardSubtitle(
+          hasSelfButNotChildGeoData
+            ? props.fips.getGeographicBreakdown()
+            : props.fips.getChildGeographicBreakdown(),
+        )
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? parentGeoQueryResponse
           : childGeoQueryResponse
