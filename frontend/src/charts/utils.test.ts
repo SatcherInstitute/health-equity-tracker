@@ -85,7 +85,9 @@ describe('Tests generateSubtitle()', () => {
       CDC_CANCER_INCIDENCE_METRICS[1],
       'state',
     )
-    expect(subTitle).toEqual('Surveyed Females, Ages 20-64')
+    expect(subTitle).toEqual(
+      'Surveyed women and people with a cervix, Ages 20-64',
+    )
   })
   test('Cervical Cancer subtitle with county-level override', () => {
     const subTitle = generateSubtitle(
@@ -94,7 +96,7 @@ describe('Tests generateSubtitle()', () => {
       CDC_CANCER_INCIDENCE_METRICS[1],
       'county',
     )
-    expect(subTitle).toEqual('Females')
+    expect(subTitle).toEqual('Women and people with a cervix')
   })
 })
 
