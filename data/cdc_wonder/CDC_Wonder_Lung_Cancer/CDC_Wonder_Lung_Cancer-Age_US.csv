@@ -1,173 +1,180 @@
-﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,Age Groups,Age Groups Code,Count,Population,Crude Rate
-,1999,1999,Lung and Bronchus,22030,50-54 years,50-54,10865,16718890,65
-,1999,1999,Lung and Bronchus,22030,55-59 years,55-59,17321,12922630,134
-,1999,1999,Lung and Bronchus,22030,60-64 years ,60-64,23523,10551544,222.9
-,1999,1999,Lung and Bronchus,22030,65-69 years,65-69,31248,9416383,331.8
-,1999,1999,Lung and Bronchus,22030,70-74 years,70-74,36290,8763864,414.1
-,1999,1999,Lung and Bronchus,22030,75-79 years,75-79,31249,7251311,430.9
-,2000,2000,Lung and Bronchus,22030,50-54 years,50-54,11154,17563484,63.5
-,2000,2000,Lung and Bronchus,22030,55-59 years,55-59,17700,13399105,132.1
-,2000,2000,Lung and Bronchus,22030,60-64 years ,60-64,23539,10720153,219.6
-,2000,2000,Lung and Bronchus,22030,65-69 years,65-69,30496,9398861,324.5
-,2000,2000,Lung and Bronchus,22030,70-74 years,70-74,36025,8746579,411.9
-,2000,2000,Lung and Bronchus,22030,75-79 years,75-79,31707,7347313,431.5
-,2001,2001,Lung and Bronchus,22030,50-54 years,50-54,11431,18507423,61.8
-,2001,2001,Lung and Bronchus,22030,55-59 years,55-59,17989,13833003,130
-,2001,2001,Lung and Bronchus,22030,60-64 years ,60-64,23700,11020881,215
-,2001,2001,Lung and Bronchus,22030,65-69 years,65-69,30491,9463333,322.2
-,2001,2001,Lung and Bronchus,22030,70-74 years,70-74,35674,8734260,408.4
-,2001,2001,Lung and Bronchus,22030,75-79 years,75-79,32825,7386502,444.4
-,2002,2002,Lung and Bronchus,22030,50-54 years,50-54,11367,18560294,61.2
-,2002,2002,Lung and Bronchus,22030,55-59 years,55-59,18170,14996304,121.2
-,2002,2002,Lung and Bronchus,22030,60-64 years ,60-64,24513,11442027,214.2
-,2002,2002,Lung and Bronchus,22030,65-69 years,65-69,30082,9538576,315.4
-,2002,2002,Lung and Bronchus,22030,70-74 years,70-74,35522,8663457,410
-,2002,2002,Lung and Bronchus,22030,75-79 years,75-79,33289,7400487,449.8
-,2003,2003,Lung and Bronchus,22030,50-54 years,50-54,11653,19097278,61
-,2003,2003,Lung and Bronchus,22030,55-59 years,55-59,18785,15814557,118.8
-,2003,2003,Lung and Bronchus,22030,60-64 years ,60-64,25615,12194388,210.1
-,2003,2003,Lung and Bronchus,22030,65-69 years,65-69,31305,9830796,318.4
-,2003,2003,Lung and Bronchus,22030,70-74 years,70-74,35494,8670119,409.4
-,2003,2003,Lung and Bronchus,22030,75-79 years,75-79,34271,7497842,457.1
-,2004,2004,Lung and Bronchus,22030,50-54 years,50-54,11742,19564668,60
-,2004,2004,Lung and Bronchus,22030,55-59 years,55-59,18607,16607176,112
-,2004,2004,Lung and Bronchus,22030,60-64 years ,60-64,26120,12698128,205.7
-,2004,2004,Lung and Bronchus,22030,65-69 years,65-69,31579,10073429,313.5
-,2004,2004,Lung and Bronchus,22030,70-74 years,70-74,34683,8594104,403.6
-,2004,2004,Lung and Bronchus,22030,75-79 years,75-79,34345,7461399,460.3
-,2005,2005,Lung and Bronchus,22030,50-54 years,50-54,12204,20296389,60.1
-,2005,2005,Lung and Bronchus,22030,55-59 years,55-59,19339,17720854,109.1
-,2005,2005,Lung and Bronchus,22030,60-64 years ,60-64,26764,13316528,201
-,2005,2005,Lung and Bronchus,22030,65-69 years,65-69,32042,10426990,307.3
-,2005,2005,Lung and Bronchus,22030,70-74 years,70-74,35303,8720225,404.8
-,2005,2005,Lung and Bronchus,22030,75-79 years,75-79,34772,7548747,460.6
-,2006,2006,Lung and Bronchus,22030,50-54 years,50-54,12332,20802296,59.3
-,2006,2006,Lung and Bronchus,22030,55-59 years,55-59,19620,18622104,105.4
-,2006,2006,Lung and Bronchus,22030,60-64 years ,60-64,26731,13727378,194.7
-,2006,2006,Lung and Bronchus,22030,65-69 years,65-69,32556,10709581,304
-,2006,2006,Lung and Bronchus,22030,70-74 years,70-74,34884,8774951,397.5
-,2006,2006,Lung and Bronchus,22030,75-79 years,75-79,34434,7539017,456.7
-,2007,2007,Lung and Bronchus,22030,50-54 years,50-54,12566,21374729,58.8
-,2007,2007,Lung and Bronchus,22030,55-59 years,55-59,18806,18678382,100.7
-,2007,2007,Lung and Bronchus,22030,60-64 years ,60-64,27591,14875832,185.5
-,2007,2007,Lung and Bronchus,22030,65-69 years,65-69,33386,11130918,299.9
-,2007,2007,Lung and Bronchus,22030,70-74 years,70-74,34868,8856410,393.7
-,2007,2007,Lung and Bronchus,22030,75-79 years,75-79,34492,7494328,460.2
-,2008,2008,Lung and Bronchus,22030,50-54 years,50-54,13126,21876287,60
-,2008,2008,Lung and Bronchus,22030,55-59 years,55-59,19126,19037202,100.5
-,2008,2008,Lung and Bronchus,22030,60-64 years ,60-64,27571,15551146,177.3
-,2008,2008,Lung and Bronchus,22030,65-69 years,65-69,34780,11760073,295.7
-,2008,2008,Lung and Bronchus,22030,70-74 years,70-74,35060,9042434,387.7
-,2008,2008,Lung and Bronchus,22030,75-79 years,75-79,33736,7441634,453.3
-,2009,2009,Lung and Bronchus,22030,50-54 years,50-54,13143,22243298,59.1
-,2009,2009,Lung and Bronchus,22030,55-59 years,55-59,19408,19503576,99.5
-,2009,2009,Lung and Bronchus,22030,60-64 years ,60-64,27647,16339105,169.2
-,2009,2009,Lung and Bronchus,22030,65-69 years,65-69,35559,12263229,290
-,2009,2009,Lung and Bronchus,22030,70-74 years,70-74,35469,9275381,382.4
-,2009,2009,Lung and Bronchus,22030,75-79 years,75-79,32930,7392567,445.4
-,2010,2010,Lung and Bronchus,22030,50-54 years,50-54,13225,22599564,58.5
-,2010,2010,Lung and Bronchus,22030,55-59 years,55-59,19396,20024271,96.9
-,2010,2010,Lung and Bronchus,22030,60-64 years ,60-64,27464,17208628,159.6
-,2010,2010,Lung and Bronchus,22030,65-69 years,65-69,34945,12697864,275.2
-,2010,2010,Lung and Bronchus,22030,70-74 years,70-74,34807,9469382,367.6
-,2010,2010,Lung and Bronchus,22030,75-79 years,75-79,32574,7415733,439.3
-,2011,2011,Lung and Bronchus,22030,50-54 years,50-54,13015,22844331,57
-,2011,2011,Lung and Bronchus,22030,55-59 years,55-59,19719,20514950,96.1
-,2011,2011,Lung and Bronchus,22030,60-64 years ,60-64,28107,18035633,155.8
-,2011,2011,Lung and Bronchus,22030,65-69 years,65-69,35281,13062581,270.1
-,2011,2011,Lung and Bronchus,22030,70-74 years,70-74,35556,9730434,365.4
-,2011,2011,Lung and Bronchus,22030,75-79 years,75-79,31927,7464859,427.7
-,2012,2012,Lung and Bronchus,22030,50-54 years,50-54,12939,22884279,56.5
-,2012,2012,Lung and Bronchus,22030,55-59 years,55-59,20494,21054500,97.3
-,2012,2012,Lung and Bronchus,22030,60-64 years ,60-64,27738,18036056,153.8
-,2012,2012,Lung and Bronchus,22030,65-69 years,65-69,36777,14167268,259.6
-,2012,2012,Lung and Bronchus,22030,70-74 years,70-74,36523,10123795,360.8
-,2012,2012,Lung and Bronchus,22030,75-79 years,75-79,32208,7550044,426.6
-,2013,2013,Lung and Bronchus,22030,50-54 years,50-54,12434,22893105,54.3
-,2013,2013,Lung and Bronchus,22030,55-59 years,55-59,21059,21490925,98
-,2013,2013,Lung and Bronchus,22030,60-64 years ,60-64,27399,18338133,149.4
-,2013,2013,Lung and Bronchus,22030,65-69 years,65-69,36653,14784058,247.9
-,2013,2013,Lung and Bronchus,22030,70-74 years,70-74,38308,10700556,358
-,2013,2013,Lung and Bronchus,22030,75-79 years,75-79,32628,7715794,422.9
-,2014,2014,Lung and Bronchus,22030,50-54 years,50-54,12092,22889811,52.8
-,2014,2014,Lung and Bronchus,22030,55-59 years,55-59,21492,21805989,98.6
-,2014,2014,Lung and Bronchus,22030,60-64 years ,60-64,27925,18764646,148.8
-,2014,2014,Lung and Bronchus,22030,65-69 years,65-69,37527,15492825,242.2
-,2014,2014,Lung and Bronchus,22030,70-74 years,70-74,39376,11143046,353.4
-,2014,2014,Lung and Bronchus,22030,75-79 years,75-79,33311,7927560,420.2
-,2015,2015,Lung and Bronchus,22030,50-54 years,50-54,11575,22662504,51.1
-,2015,2015,Lung and Bronchus,22030,55-59 years,55-59,21767,22112389,98.4
-,2015,2015,Lung and Bronchus,22030,60-64 years ,60-64,29251,19257332,151.9
-,2015,2015,Lung and Bronchus,22030,65-69 years,65-69,38422,16234720,236.7
-,2015,2015,Lung and Bronchus,22030,70-74 years,70-74,40411,11530198,350.5
-,2015,2015,Lung and Bronchus,22030,75-79 years,75-79,33754,8098379,416.8
-,2016,2016,Lung and Bronchus,22030,50-54 years,50-54,10560,22237058,47.5
-,2016,2016,Lung and Bronchus,22030,55-59 years,55-59,22043,22349108,98.6
-,2016,2016,Lung and Bronchus,22030,60-64 years ,60-64,29841,19705483,151.4
-,2016,2016,Lung and Bronchus,22030,65-69 years,65-69,39013,16989182,229.6
-,2016,2016,Lung and Bronchus,22030,70-74 years,70-74,40403,11855835,340.8
-,2016,2016,Lung and Bronchus,22030,75-79 years,75-79,34234,8325007,411.2
-,2017,2017,Lung and Bronchus,22030,50-54 years,50-54,9715,21683101,44.8
-,2017,2017,Lung and Bronchus,22030,55-59 years,55-59,21616,22271630,97.1
-,2017,2017,Lung and Bronchus,22030,60-64 years ,60-64,30517,20086591,151.9
-,2017,2017,Lung and Bronchus,22030,65-69 years,65-69,38697,16881662,229.2
-,2017,2017,Lung and Bronchus,22030,70-74 years,70-74,42237,12756398,331.1
-,2017,2017,Lung and Bronchus,22030,75-79 years,75-79,35291,8592605,410.7
-,2018,2018,Lung and Bronchus,22030,50-54 years,50-54,8819,21341286,41.3
-,2018,2018,Lung and Bronchus,22030,55-59 years,55-59,20837,22380446,93.1
-,2018,2018,Lung and Bronchus,22030,60-64 years ,60-64,31613,20573743,153.7
-,2018,2018,Lung and Bronchus,22030,65-69 years,65-69,38567,17243824,223.7
-,2018,2018,Lung and Bronchus,22030,70-74 years,70-74,42657,13390558,318.6
-,2018,2018,Lung and Bronchus,22030,75-79 years,75-79,36434,9144371,398.4
-,2019,2019,Lung and Bronchus,22030,50-54 years,50-54,8024,20975833,38.3
-,2019,2019,Lung and Bronchus,22030,55-59 years,55-59,20236,22365550,90.5
-,2019,2019,Lung and Bronchus,22030,60-64 years ,60-64,32240,20841569,154.7
-,2019,2019,Lung and Bronchus,22030,65-69 years,65-69,39435,17624068,223.8
-,2019,2019,Lung and Bronchus,22030,70-74 years,70-74,43921,14015303,313.4
-,2019,2019,Lung and Bronchus,22030,75-79 years,75-79,37601,9513563,395.2
-,2020,2020,Lung and Bronchus,22030,50-54 years,50-54,6760,20518264,32.9
-,2020,2020,Lung and Bronchus,22030,55-59 years,55-59,17258,21687950,79.6
-,2020,2020,Lung and Bronchus,22030,60-64 years ,60-64,29238,20672984,141.4
-,2020,2020,Lung and Bronchus,22030,65-69 years,65-69,35522,17700514,200.7
-,2020,2020,Lung and Bronchus,22030,70-74 years,70-74,38766,14398157,269.2
-,2020,2020,Lung and Bronchus,22030,75-79 years,75-79,33615,9634202,348.9
-,2021,2021,Lung and Bronchus,22030,50-54 years,50-54,6545,20641464,31.7
-,2021,2021,Lung and Bronchus,22030,55-59 years,55-59,16386,21249093,77.1
-,2021,2021,Lung and Bronchus,22030,60-64 years ,60-64,30108,20866161,144.3
-,2021,2021,Lung and Bronchus,22030,65-69 years,65-69,37684,18064464,208.6
-,2021,2021,Lung and Bronchus,22030,70-74 years,70-74,40683,15063976,270.1
-,2021,2021,Lung and Bronchus,22030,75-79 years,75-79,34435,9872411,348.8
----,,,,,,,,,
-"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,
-Query Parameters:,,,,,,,,,
-Age Groups: 50-54 years; 55-59 years; 60-64 years ; 65-69 years; 70-74 years; 75-79 years,,,,,,,,,
-Leading Cancer Sites: Lung and Bronchus,,,,,,,,,
-Group By: Year; Leading Cancer Sites; Age Groups,,,,,,,,,
-Show Totals: Disabled,,,,,,,,,
-Show Zero Values: False,,,,,,,,,
-Show Suppressed: False,,,,,,,,,
-"Calculate Rates Per: 100,000",,,,,,,,,
-Standard Population: 2000 U.S. Std. Million,,,,,,,,,
----,,,,,,,,,
-Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,
----,,,,,,,,,
-"Query Date: Dec 9, 2024 11:08:58 AM",,,,,,,,,
----,,,,,,,,,
-"Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,
-"of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,
-"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Dec 9, 2024 11:08:58 AM",,,,,,,,,
----,,,,,,,,,
-Caveats:,,,,,,,,,
-"1. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,
-values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,
-misleading.,,,,,,,,,
-2. Age-adjusted rates are not available when results are grouped by age.,,,,,,,,,
-3. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,
-shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,
-"4. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,
-"Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define",,,,,,,,,
-standard groupings of primary cancer sites.,,,,,,,,,
-"5. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and",,,,,,,,,
-Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for,,,,,,,,,
-"these states, nor are these counts included in the summary populations for the affected division, regions or national",,,,,,,,,
-"population. However, the USCS web site does include these displaced persons in the national population figures for 2005.",,,,,,,,,
+﻿"Notes","Year","Year Code","Leading Cancer Sites","Leading Cancer Sites Code","Age Groups","Age Groups Code",Count,Population,Crude Rate
+,"1999","1999","Lung and Bronchus","22030","50-54 years","50-54",10866,16718890,65.0
+,"1999","1999","Lung and Bronchus","22030","55-59 years","55-59",17324,12922630,134.1
+,"1999","1999","Lung and Bronchus","22030","60-64 years ","60-64",23528,10551544,223.0
+,"1999","1999","Lung and Bronchus","22030","65-69 years","65-69",31259,9416383,332.0
+,"1999","1999","Lung and Bronchus","22030","70-74 years","70-74",36298,8763864,414.2
+,"1999","1999","Lung and Bronchus","22030","75-79 years","75-79",31250,7251311,431.0
+,"2000","2000","Lung and Bronchus","22030","50-54 years","50-54",11159,17563484,63.5
+,"2000","2000","Lung and Bronchus","22030","55-59 years","55-59",17705,13399105,132.1
+,"2000","2000","Lung and Bronchus","22030","60-64 years ","60-64",23549,10720153,219.7
+,"2000","2000","Lung and Bronchus","22030","65-69 years","65-69",30499,9398861,324.5
+,"2000","2000","Lung and Bronchus","22030","70-74 years","70-74",36031,8746579,411.9
+,"2000","2000","Lung and Bronchus","22030","75-79 years","75-79",31715,7347313,431.7
+,"2001","2001","Lung and Bronchus","22030","50-54 years","50-54",11432,18507423,61.8
+,"2001","2001","Lung and Bronchus","22030","55-59 years","55-59",17992,13833003,130.1
+,"2001","2001","Lung and Bronchus","22030","60-64 years ","60-64",23700,11020881,215.0
+,"2001","2001","Lung and Bronchus","22030","65-69 years","65-69",30493,9463333,322.2
+,"2001","2001","Lung and Bronchus","22030","70-74 years","70-74",35677,8734260,408.5
+,"2001","2001","Lung and Bronchus","22030","75-79 years","75-79",32832,7386502,444.5
+,"2002","2002","Lung and Bronchus","22030","50-54 years","50-54",11366,18560294,61.2
+,"2002","2002","Lung and Bronchus","22030","55-59 years","55-59",18176,14996304,121.2
+,"2002","2002","Lung and Bronchus","22030","60-64 years ","60-64",24521,11442027,214.3
+,"2002","2002","Lung and Bronchus","22030","65-69 years","65-69",30083,9538576,315.4
+,"2002","2002","Lung and Bronchus","22030","70-74 years","70-74",35522,8663457,410.0
+,"2002","2002","Lung and Bronchus","22030","75-79 years","75-79",33294,7400487,449.9
+,"2003","2003","Lung and Bronchus","22030","50-54 years","50-54",11651,19097278,61.0
+,"2003","2003","Lung and Bronchus","22030","55-59 years","55-59",18783,15814557,118.8
+,"2003","2003","Lung and Bronchus","22030","60-64 years ","60-64",25614,12194388,210.0
+,"2003","2003","Lung and Bronchus","22030","65-69 years","65-69",31306,9830796,318.4
+,"2003","2003","Lung and Bronchus","22030","70-74 years","70-74",35497,8670119,409.4
+,"2003","2003","Lung and Bronchus","22030","75-79 years","75-79",34270,7497842,457.1
+,"2004","2004","Lung and Bronchus","22030","50-54 years","50-54",11741,19564668,60.0
+,"2004","2004","Lung and Bronchus","22030","55-59 years","55-59",18608,16607176,112.0
+,"2004","2004","Lung and Bronchus","22030","60-64 years ","60-64",26123,12698128,205.7
+,"2004","2004","Lung and Bronchus","22030","65-69 years","65-69",31578,10073429,313.5
+,"2004","2004","Lung and Bronchus","22030","70-74 years","70-74",34688,8594104,403.6
+,"2004","2004","Lung and Bronchus","22030","75-79 years","75-79",34347,7461399,460.3
+,"2005","2005","Lung and Bronchus","22030","50-54 years","50-54",12205,20296389,60.1
+,"2005","2005","Lung and Bronchus","22030","55-59 years","55-59",19351,17720854,109.2
+,"2005","2005","Lung and Bronchus","22030","60-64 years ","60-64",26774,13316528,201.1
+,"2005","2005","Lung and Bronchus","22030","65-69 years","65-69",32047,10426990,307.3
+,"2005","2005","Lung and Bronchus","22030","70-74 years","70-74",35310,8720225,404.9
+,"2005","2005","Lung and Bronchus","22030","75-79 years","75-79",34784,7548747,460.8
+,"2006","2006","Lung and Bronchus","22030","50-54 years","50-54",12336,20802296,59.3
+,"2006","2006","Lung and Bronchus","22030","55-59 years","55-59",19637,18622104,105.4
+,"2006","2006","Lung and Bronchus","22030","60-64 years ","60-64",26741,13727378,194.8
+,"2006","2006","Lung and Bronchus","22030","65-69 years","65-69",32570,10709581,304.1
+,"2006","2006","Lung and Bronchus","22030","70-74 years","70-74",34891,8774951,397.6
+,"2006","2006","Lung and Bronchus","22030","75-79 years","75-79",34439,7539017,456.8
+,"2007","2007","Lung and Bronchus","22030","50-54 years","50-54",12571,21374729,58.8
+,"2007","2007","Lung and Bronchus","22030","55-59 years","55-59",18814,18678382,100.7
+,"2007","2007","Lung and Bronchus","22030","60-64 years ","60-64",27600,14875832,185.5
+,"2007","2007","Lung and Bronchus","22030","65-69 years","65-69",33388,11130918,300.0
+,"2007","2007","Lung and Bronchus","22030","70-74 years","70-74",34869,8856410,393.7
+,"2007","2007","Lung and Bronchus","22030","75-79 years","75-79",34500,7494328,460.3
+,"2008","2008","Lung and Bronchus","22030","50-54 years","50-54",13135,21876287,60.0
+,"2008","2008","Lung and Bronchus","22030","55-59 years","55-59",19141,19037202,100.5
+,"2008","2008","Lung and Bronchus","22030","60-64 years ","60-64",27602,15551146,177.5
+,"2008","2008","Lung and Bronchus","22030","65-69 years","65-69",34796,11760073,295.9
+,"2008","2008","Lung and Bronchus","22030","70-74 years","70-74",35070,9042434,387.8
+,"2008","2008","Lung and Bronchus","22030","75-79 years","75-79",33742,7441634,453.4
+,"2009","2009","Lung and Bronchus","22030","50-54 years","50-54",13160,22243298,59.2
+,"2009","2009","Lung and Bronchus","22030","55-59 years","55-59",19443,19503576,99.7
+,"2009","2009","Lung and Bronchus","22030","60-64 years ","60-64",27706,16339105,169.6
+,"2009","2009","Lung and Bronchus","22030","65-69 years","65-69",35616,12263229,290.4
+,"2009","2009","Lung and Bronchus","22030","70-74 years","70-74",35500,9275381,382.7
+,"2009","2009","Lung and Bronchus","22030","75-79 years","75-79",32963,7392567,445.9
+,"2010","2010","Lung and Bronchus","22030","50-54 years","50-54",13240,22601037,58.6
+,"2010","2010","Lung and Bronchus","22030","55-59 years","55-59",19428,20026790,97.0
+,"2010","2010","Lung and Bronchus","22030","60-64 years ","60-64",27542,17211300,160.0
+,"2010","2010","Lung and Bronchus","22030","65-69 years","65-69",35009,12699948,275.7
+,"2010","2010","Lung and Bronchus","22030","70-74 years","70-74",34846,9470506,367.9
+,"2010","2010","Lung and Bronchus","22030","75-79 years","75-79",32611,7415230,439.8
+,"2011","2011","Lung and Bronchus","22030","50-54 years","50-54",13025,22851851,57.0
+,"2011","2011","Lung and Bronchus","22030","55-59 years","55-59",19749,20527971,96.2
+,"2011","2011","Lung and Bronchus","22030","60-64 years ","60-64",28178,18049874,156.1
+,"2011","2011","Lung and Bronchus","22030","65-69 years","65-69",35340,13073355,270.3
+,"2011","2011","Lung and Bronchus","22030","70-74 years","70-74",35584,9736254,365.5
+,"2011","2011","Lung and Bronchus","22030","75-79 years","75-79",31955,7462415,428.2
+,"2012","2012","Lung and Bronchus","22030","50-54 years","50-54",12965,22898057,56.6
+,"2012","2012","Lung and Bronchus","22030","55-59 years","55-59",20529,21078727,97.4
+,"2012","2012","Lung and Bronchus","22030","60-64 years ","60-64",27809,18061824,154.0
+,"2012","2012","Lung and Bronchus","22030","65-69 years","65-69",36886,14188417,260.0
+,"2012","2012","Lung and Bronchus","22030","70-74 years","70-74",36589,10134710,361.0
+,"2012","2012","Lung and Bronchus","22030","75-79 years","75-79",32243,7545690,427.3
+,"2013","2013","Lung and Bronchus","22030","50-54 years","50-54",12449,22913307,54.3
+,"2013","2013","Lung and Bronchus","22030","55-59 years","55-59",21101,21526854,98.0
+,"2013","2013","Lung and Bronchus","22030","60-64 years ","60-64",27467,18376112,149.5
+,"2013","2013","Lung and Bronchus","22030","65-69 years","65-69",36734,14816036,247.9
+,"2013","2013","Lung and Bronchus","22030","70-74 years","70-74",38351,10717372,357.8
+,"2013","2013","Lung and Bronchus","22030","75-79 years","75-79",32663,7709503,423.7
+,"2014","2014","Lung and Bronchus","22030","50-54 years","50-54",12101,22916653,52.8
+,"2014","2014","Lung and Bronchus","22030","55-59 years","55-59",21535,21853977,98.5
+,"2014","2014","Lung and Bronchus","22030","60-64 years ","60-64",28006,18815680,148.8
+,"2014","2014","Lung and Bronchus","22030","65-69 years","65-69",37628,15536670,242.2
+,"2014","2014","Lung and Bronchus","22030","70-74 years","70-74",39437,11165960,353.2
+,"2014","2014","Lung and Bronchus","22030","75-79 years","75-79",33336,7919055,421.0
+,"2015","2015","Lung and Bronchus","22030","50-54 years","50-54",11586,22695820,51.0
+,"2015","2015","Lung and Bronchus","22030","55-59 years","55-59",21809,22172822,98.4
+,"2015","2015","Lung and Bronchus","22030","60-64 years ","60-64",29352,19322277,151.9
+,"2015","2015","Lung and Bronchus","22030","65-69 years","65-69",38586,16291615,236.8
+,"2015","2015","Lung and Bronchus","22030","70-74 years","70-74",40499,11559533,350.4
+,"2015","2015","Lung and Bronchus","22030","75-79 years","75-79",33790,8087880,417.8
+,"2016","2016","Lung and Bronchus","22030","50-54 years","50-54",10569,22276800,47.4
+,"2016","2016","Lung and Bronchus","22030","55-59 years","55-59",22073,22422382,98.4
+,"2016","2016","Lung and Bronchus","22030","60-64 years ","60-64",29898,19785019,151.1
+,"2016","2016","Lung and Bronchus","22030","65-69 years","65-69",39138,17060175,229.4
+,"2016","2016","Lung and Bronchus","22030","70-74 years","70-74",40517,11891635,340.7
+,"2016","2016","Lung and Bronchus","22030","75-79 years","75-79",34262,8312279,412.2
+,"2017","2017","Lung and Bronchus","22030","50-54 years","50-54",9742,21729161,44.8
+,"2017","2017","Lung and Bronchus","22030","55-59 years","55-59",21666,22357509,96.9
+,"2017","2017","Lung and Bronchus","22030","60-64 years ","60-64",30625,20181576,151.7
+,"2017","2017","Lung and Bronchus","22030","65-69 years","65-69",38872,16964483,229.1
+,"2017","2017","Lung and Bronchus","22030","70-74 years","70-74",42392,12801574,331.1
+,"2017","2017","Lung and Bronchus","22030","75-79 years","75-79",35379,8577390,412.5
+,"2018","2018","Lung and Bronchus","22030","50-54 years","50-54",8857,21393570,41.4
+,"2018","2018","Lung and Bronchus","22030","55-59 years","55-59",20940,22479072,93.2
+,"2018","2018","Lung and Bronchus","22030","60-64 years ","60-64",31805,20684414,153.8
+,"2018","2018","Lung and Bronchus","22030","65-69 years","65-69",38826,17340009,223.9
+,"2018","2018","Lung and Bronchus","22030","70-74 years","70-74",42987,13444973,319.7
+,"2018","2018","Lung and Bronchus","22030","75-79 years","75-79",36636,9126829,401.4
+,"2019","2019","Lung and Bronchus","22030","50-54 years","50-54",8083,21034092,38.4
+,"2019","2019","Lung and Bronchus","22030","55-59 years","55-59",20366,22477047,90.6
+,"2019","2019","Lung and Bronchus","22030","60-64 years ","60-64",32482,20967954,154.9
+,"2019","2019","Lung and Bronchus","22030","65-69 years","65-69",39772,17734753,224.3
+,"2019","2019","Lung and Bronchus","22030","70-74 years","70-74",44330,14079481,314.9
+,"2019","2019","Lung and Bronchus","22030","75-79 years","75-79",37878,9493099,399.0
+,"2020","2020","Lung and Bronchus","22030","50-54 years","50-54",6991,20993983,33.3
+,"2020","2020","Lung and Bronchus","22030","55-59 years","55-59",17960,22252981,80.7
+,"2020","2020","Lung and Bronchus","22030","60-64 years ","60-64",30376,21242461,143.0
+,"2020","2020","Lung and Bronchus","22030","65-69 years","65-69",36934,18192601,203.0
+,"2020","2020","Lung and Bronchus","22030","70-74 years","70-74",40252,14760007,272.7
+,"2020","2020","Lung and Bronchus","22030","75-79 years","75-79",34824,9803635,355.2
+,"2021","2021","Lung and Bronchus","22030","50-54 years","50-54",6902,21117901,32.7
+,"2021","2021","Lung and Bronchus","22030","55-59 years","55-59",17214,21791126,79.0
+,"2021","2021","Lung and Bronchus","22030","60-64 years ","60-64",31661,21436320,147.7
+,"2021","2021","Lung and Bronchus","22030","65-69 years","65-69",39671,18571948,213.6
+,"2021","2021","Lung and Bronchus","22030","70-74 years","70-74",42837,15445504,277.3
+,"2021","2021","Lung and Bronchus","22030","75-79 years","75-79",36305,10051119,361.2
+,"2022","2022","Lung and Bronchus","22030","50-54 years","50-54",6617,21069378,31.4
+,"2022","2022","Lung and Bronchus","22030","55-59 years","55-59",15747,21279453,74.0
+,"2022","2022","Lung and Bronchus","22030","60-64 years ","60-64",30980,21466816,144.3
+,"2022","2022","Lung and Bronchus","22030","65-69 years","65-69",40395,18968362,213.0
+,"2022","2022","Lung and Bronchus","22030","70-74 years","70-74",41632,15415383,270.1
+,"2022","2022","Lung and Bronchus","22030","75-79 years","75-79",37548,11008646,341.1
+"---"
+"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2022 Incidence"
+"Query Parameters:"
+"Title: CDC_Wonder_Lung_Cancer-Age_US"
+"Age Groups: 50-54 years; 55-59 years; 60-64 years ; 65-69 years; 70-74 years; 75-79 years"
+"Leading Cancer Sites: Lung and Bronchus"
+"Group By: Year; Leading Cancer Sites; Age Groups"
+"Show Totals: Disabled"
+"Show Zero Values: True"
+"Show Suppressed: True"
+"Calculate Rates Per: 100,000"
+"Standard Population: 2000 U.S. Std. Million"
+"---"
+"Help: See http://wonder.cdc.gov/wonder/help/cancer-v2022.html for more information."
+"---"
+"Query Date: Apr 28, 2026 1:19:15 AM"
+"---"
+"Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2022, WONDER Online Database. United States Department"
+"of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2024 submission; 2025"
+"release. Accessed at http://wonder.cdc.gov/cancer-v2022.html on Apr 28, 2026 1:19:15 AM"
+"---"
+Caveats:
+"1. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate"
+"values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be"
+"misleading."
+"2. Age-adjusted rates are not available when results are grouped by age."
+"3. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data"
+"shown for the United States are diagnoses and populations from included registries only."
+"4. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for"
+"Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define"
+"standard groupings of primary cancer sites."
+"5. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and"
+"Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for"
+"these states, nor are these counts included in the summary populations for the affected division, regions or national"
+"population. However, the USCS web site does include these displaced persons in the national population figures for 2005."
