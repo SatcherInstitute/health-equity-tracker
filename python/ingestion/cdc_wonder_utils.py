@@ -195,7 +195,7 @@ def load_cdc_df_from_data_dir(
 def _add_is_suppressed_flag(df: pd.DataFrame, condition: str) -> pd.DataFrame:
     """Adds a `<condition>_per_100k_is_suppressed` column (cdc_miovd pattern):
     True = count hidden but pop known (suppressed),
-    False = pop missing (rate uncomputable),
+    False = pop missing (rate missing/uncollected),
     NaN = real data including true zeros.
 
     Called after `standardize_columns` so it operates on the final HET column names.
