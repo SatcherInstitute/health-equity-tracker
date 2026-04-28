@@ -187,18 +187,6 @@ class CdcWonderData(DataSource):
             if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
                 std_col.add_race_columns_from_category_id(df)
 
-        if demo_breakdown == std_col.AGE_COL:
-            # For age breakdowns, replace each year's 'All' row count with the sum of
-            # that year's available age groups.
-            non_all_df = df[df[demo_breakdown] != ALL_VALUE]
-            is_all = df[demo_breakdown] == ALL_VALUE
-            for condition in conditions:
-                count_col = f"{condition.lower()}_{std_col.RAW_SUFFIX}"
-                if count_col in df.columns:
-                    # Update the 'All' row with sum of available age groups
-                    year_totals = non_all_df.groupby(std_col.TIME_PERIOD_COL)[count_col].sum(min_count=1)
-                    df.loc[is_all, count_col] = df.loc[is_all, std_col.TIME_PERIOD_COL].map(year_totals)
-
         if demo_breakdown in [std_col.AGE_COL, std_col.SEX_COL]:
             df = generate_pct_share_col_without_unknowns(
                 df,
