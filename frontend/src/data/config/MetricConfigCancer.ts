@@ -49,13 +49,12 @@ export type CancerCategoryMetricId =
 
 export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
   {
-    ageSubPopulationLabel: 'Ages 50-74',
     categoryId: 'cancer',
     dataTableTitle: 'Summary for breast cancer cases',
     dataTypeId: 'breast_cancer_incidence',
     dataTypeShortLabel: 'Breast cancer',
     definition: {
-      text: 'The number of new cases of breast cancer diagnosed among female patients ages 50-74 within a specific time period.',
+      text: 'The number of new cases of breast cancer diagnosed within a specific time period.',
     },
     description: {
       text: 'Breast cancer is one of the most common cancers diagnosed in the United States, with incidence and outcomes varying significantly across racial, ethnic, and socioeconomic groups. Black women are more likely to be diagnosed at later stages and with more aggressive subtypes, contributing to higher mortality despite similar or lower overall incidence compared to white women. This data reflects sex as recorded in medical records rather than gender identity, so trans and nonbinary individuals are likely undercounted; these gaps in surveillance are themselves a health equity issue.',
@@ -78,7 +77,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         populationComparisonMetric: {
           chartTitle:
             'Population vs. distribution of total breast cancer cases',
-          columnTitleHeader: 'Population share (ages 50-74)',
+          columnTitleHeader: 'Population share',
           metricId: 'breast_population_pct',
           shortLabel: '% of population',
           timeSeriesCadence: 'yearly',
@@ -90,13 +89,13 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
       },
       per100k: {
-        chartTitle: 'Breast cancer cases per 100k female patients',
+        chartTitle: 'Breast cancer cases per 100k',
         columnTitleHeader: 'Breast cancer cases per 100k',
         metricId: 'breast_per_100k',
         rateDenominatorMetric: {
           chartTitle: '',
           metricId: 'breast_population_estimated_total',
-          shortLabel: 'Total pop. (female)',
+          shortLabel: 'Total population',
           type: 'count',
         },
         rateNumeratorMetric: {
@@ -111,16 +110,14 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         type: 'per100k',
       },
     },
-    otherSubPopulationLabel: 'Female patients',
   },
   {
-    ageSubPopulationLabel: 'Ages 20-64',
     categoryId: 'cancer',
     dataTableTitle: 'Summary for cervical cancer cases',
     dataTypeId: 'cervical_cancer_incidence',
     dataTypeShortLabel: 'Cervical cancer',
     definition: {
-      text: 'The number of new cases of cervical cancer diagnosed among female patients ages 20-64 within a specific time period. National- and state-level figures are from CDC WONDER and reflect crude rates that are not age-adjusted.',
+      text: 'The number of new cases of cervical cancer diagnosed within a specific time period. National- and state-level figures are from CDC WONDER and reflect crude rates that are not age-adjusted.',
     },
     description: {
       text: 'Cervical cancer is largely preventable through HPV vaccination, regular Pap and HPV screening, and timely follow-up care, yet diagnosis rates vary significantly by race, ethnicity, and geography, reflecting deeper inequities in access to these essential interventions. Tracking these disparities at the national, state, and county level helps identify where systemic barriers persist and where targeted action is needed to advance health justice for the communities most affected.',
@@ -155,12 +152,12 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
       },
       per100k: {
         chartTitle: 'Cervical cancer rates',
-        columnTitleHeader: 'Cervical cancer cases per 100k female patients',
+        columnTitleHeader: 'Cervical cancer cases per 100k',
         metricId: 'cervical_per_100k',
         rateDenominatorMetric: {
           chartTitle: '',
           metricId: 'cervical_population_estimated_total',
-          shortLabel: 'Total pop. (female)',
+          shortLabel: 'Total population',
           type: 'count',
         },
         rateNumeratorMetric: {
@@ -175,16 +172,14 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         type: 'per100k',
       },
     },
-    otherSubPopulationLabel: 'Female patients',
   },
   {
-    ageSubPopulationLabel: 'Ages 45-74',
     categoryId: 'cancer',
     dataTableTitle: 'Summary for colorectal cancer cases',
     dataTypeId: 'colorectal_cancer_incidence',
     dataTypeShortLabel: 'Colorectal cancer',
     definition: {
-      text: 'The number of new cases of colorectal cancer diagnosed among people ages 45-74 within a specific time period.',
+      text: 'The number of new cases of colorectal cancer diagnosed within a specific time period.',
     },
     description: {
       text: 'Colorectal cancer is one of the most common types of cancer. Understanding the patterns of colorectal cancer cases across different populations can help identify disparities in early detection and access to care, and inform strategies to reduce these disparities.',
@@ -207,7 +202,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         populationComparisonMetric: {
           chartTitle:
             'Population vs. distribution of total colorectal cancer cases',
-          columnTitleHeader: 'Population share (ages 45-74)',
+          columnTitleHeader: 'Population share',
           metricId: 'colorectal_population_pct',
           shortLabel: '% of population',
           type: 'pct_share',
@@ -241,13 +236,12 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
     },
   },
   {
-    ageSubPopulationLabel: 'Ages 50-79',
     categoryId: 'cancer',
     dataTableTitle: 'Summary for lung cancer cases',
     dataTypeId: 'lung_cancer_incidence',
     dataTypeShortLabel: 'Lung cancer',
     definition: {
-      text: 'The number of new cases of lung cancer diagnosed among people ages 50-79 within a specific time period.',
+      text: 'The number of new cases of lung cancer diagnosed within a specific time period.',
     },
     description: {
       text: 'Lung cancer is one of the most common types of cancer. Understanding the patterns of lung cancer cases across different populations can help identify disparities in early detection and access to care, and inform strategies to reduce these disparities.',
@@ -269,7 +263,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         metricId: 'lung_pct_share',
         populationComparisonMetric: {
           chartTitle: 'Population vs. distribution of total lung cancer cases',
-          columnTitleHeader: 'Population share (ages 50-79)',
+          columnTitleHeader: 'Population share',
           metricId: 'lung_population_pct',
           shortLabel: '% of population',
           type: 'pct_share',
@@ -302,13 +296,12 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
     },
   },
   {
-    ageSubPopulationLabel: 'Ages 55-69',
     categoryId: 'cancer',
     dataTableTitle: 'Summary for prostate cancer cases',
     dataTypeId: 'prostate_cancer_incidence',
     dataTypeShortLabel: 'Prostate cancer',
     definition: {
-      text: 'The number of new prostate cancer cases diagnosed among male patients ages 55-69 within a specific time period.',
+      text: 'The number of new prostate cancer cases diagnosed within a specific time period.',
     },
     description: {
       text: 'Prostate cancer is one of the most common cancers diagnosed in the United States, with incidence and outcomes varying significantly across racial and socioeconomic groups. Black men face substantially higher incidence rates and are more likely to die from prostate cancer than any other group, reflecting longstanding disparities in screening access and clinical trial representation. This data reflects sex as recorded in medical records rather than gender identity, so trans and nonbinary individuals are likely undercounted; these gaps in surveillance are themselves a health equity issue.',
@@ -331,7 +324,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         populationComparisonMetric: {
           chartTitle:
             'Population vs. distribution of total prostate cancer cases',
-          columnTitleHeader: 'Population share (ages 55-69)',
+          columnTitleHeader: 'Population share',
           metricId: 'prostate_population_pct',
           shortLabel: '% of population',
           type: 'pct_share',
@@ -348,7 +341,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         rateDenominatorMetric: {
           chartTitle: '',
           metricId: 'prostate_population_estimated_total',
-          shortLabel: 'Total pop. (male)',
+          shortLabel: 'Total population',
           type: 'count',
         },
         rateNumeratorMetric: {
@@ -363,6 +356,5 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         type: 'per100k',
       },
     },
-    otherSubPopulationLabel: 'Male patients',
   },
 ]
