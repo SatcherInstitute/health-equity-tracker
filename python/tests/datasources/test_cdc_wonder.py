@@ -16,20 +16,18 @@ GOLDEN_DIR = os.path.join(TEST_DIR, CDC_WONDER_DIR, "golden_data")
 CSV_DTYPES = {std_col.TIME_PERIOD_COL: str, std_col.STATE_FIPS_COL: str}
 
 GOLDEN_DATA = {
-    "age_national_current": os.path.join(GOLDEN_DIR, "expected_age_national_current.csv"),
-    "age_national_historical": os.path.join(GOLDEN_DIR, "expected_age_national_historical.csv"),
-    "age_state_current": os.path.join(GOLDEN_DIR, "expected_age_state_current.csv"),
-    "age_state_historical": os.path.join(GOLDEN_DIR, "expected_age_state_historical.csv"),
-    "race_and_ethnicity_national_current": os.path.join(GOLDEN_DIR, "expected_race_and_ethnicity_national_current.csv"),
-    "race_and_ethnicity_national_historical": os.path.join(
-        GOLDEN_DIR, "expected_race_and_ethnicity_national_historical.csv"
-    ),
-    "race_and_ethnicity_state_current": os.path.join(GOLDEN_DIR, "expected_race_and_ethnicity_state_current.csv"),
-    "race_and_ethnicity_state_historical": os.path.join(GOLDEN_DIR, "expected_race_and_ethnicity_state_historical.csv"),
-    "sex_national_current": os.path.join(GOLDEN_DIR, "expected_sex_national_current.csv"),
-    "sex_national_historical": os.path.join(GOLDEN_DIR, "expected_sex_national_historical.csv"),
-    "sex_state_current": os.path.join(GOLDEN_DIR, "expected_sex_state_current.csv"),
-    "sex_state_historical": os.path.join(GOLDEN_DIR, "expected_sex_state_historical.csv"),
+    "age_national_current": os.path.join(GOLDEN_DIR, "age_national_current.csv"),
+    "age_national_historical": os.path.join(GOLDEN_DIR, "age_national_historical.csv"),
+    "age_state_current": os.path.join(GOLDEN_DIR, "age_state_current.csv"),
+    "age_state_historical": os.path.join(GOLDEN_DIR, "age_state_historical.csv"),
+    "race_and_ethnicity_national_current": os.path.join(GOLDEN_DIR, "race_and_ethnicity_national_current.csv"),
+    "race_and_ethnicity_national_historical": os.path.join(GOLDEN_DIR, "race_and_ethnicity_national_historical.csv"),
+    "race_and_ethnicity_state_current": os.path.join(GOLDEN_DIR, "race_and_ethnicity_state_current.csv"),
+    "race_and_ethnicity_state_historical": os.path.join(GOLDEN_DIR, "race_and_ethnicity_state_historical.csv"),
+    "sex_national_current": os.path.join(GOLDEN_DIR, "sex_national_current.csv"),
+    "sex_national_historical": os.path.join(GOLDEN_DIR, "sex_national_historical.csv"),
+    "sex_state_current": os.path.join(GOLDEN_DIR, "sex_state_current.csv"),
+    "sex_state_historical": os.path.join(GOLDEN_DIR, "sex_state_historical.csv"),
 }
 
 
