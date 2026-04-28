@@ -1,81 +1,464 @@
 ﻿"Notes","Year","Year Code","Leading Cancer Sites","Leading Cancer Sites Code","Age Groups","Age Groups Code",Count,Population,Crude Rate
+,"1999","1999","Prostate","28010","< 1 year","1",Suppressed,1917433,Suppressed
+,"1999","1999","Prostate","28010","1-4 years","1-4",Suppressed,7742247,Suppressed
+,"1999","1999","Prostate","28010","5-9 years","5-9",Suppressed,10414921,Suppressed
+,"1999","1999","Prostate","28010","10-14 years","10-14",Suppressed,10215859,Suppressed
+,"1999","1999","Prostate","28010","15-19 years","15-19",Suppressed,10170609,Suppressed
+,"1999","1999","Prostate","28010","20-24 years","20-24",Suppressed,9360646,Suppressed
+,"1999","1999","Prostate","28010","25-29 years","25-29",Suppressed,9760598,Suppressed
+,"1999","1999","Prostate","28010","30-34 years","30-34",Suppressed,10240023,Suppressed
+,"1999","1999","Prostate","28010","35-39 years","35-39",74,11275914,0.7
+,"1999","1999","Prostate","28010","40-44 years","40-44",715,10866874,6.6
+,"1999","1999","Prostate","28010","45-49 years","45-49",3307,9548921,34.6
+,"1999","1999","Prostate","28010","50-54 years","50-54",10713,8178348,131.0
 ,"1999","1999","Prostate","28010","55-59 years","55-59",19686,6241758,315.4
 ,"1999","1999","Prostate","28010","60-64 years ","60-64",29043,5012696,579.4
 ,"1999","1999","Prostate","28010","65-69 years","65-69",39601,4342941,911.8
+,"1999","1999","Prostate","28010","70-74 years","70-74",40312,3844898,1048.5
+,"1999","1999","Prostate","28010","75-79 years","75-79",30352,2974973,1020.2
+,"1999","1999","Prostate","28010","80-84 years","80-84",15372,1780402,863.4
+,"1999","1999","Prostate","28010","85+ years","85+",9563,1177073,812.4
+,"2000","2000","Prostate","28010","< 1 year","1",Suppressed,1947506,Suppressed
+,"2000","2000","Prostate","28010","1-4 years","1-4",Suppressed,7732805,Suppressed
+,"2000","2000","Prostate","28010","5-9 years","5-9",Suppressed,10341746,Suppressed
+,"2000","2000","Prostate","28010","10-14 years","10-14",Suppressed,10432043,Suppressed
+,"2000","2000","Prostate","28010","15-19 years","15-19",Suppressed,10288724,Suppressed
+,"2000","2000","Prostate","28010","20-24 years","20-24",Suppressed,9631908,Suppressed
+,"2000","2000","Prostate","28010","25-29 years","25-29",Suppressed,9631783,Suppressed
+,"2000","2000","Prostate","28010","30-34 years","30-34",Suppressed,10213230,Suppressed
+,"2000","2000","Prostate","28010","35-39 years","35-39",91,11162000,0.8
+,"2000","2000","Prostate","28010","40-44 years","40-44",849,11032914,7.7
+,"2000","2000","Prostate","28010","45-49 years","45-49",3624,9832225,36.9
+,"2000","2000","Prostate","28010","50-54 years","50-54",12219,8596817,142.1
 ,"2000","2000","Prostate","28010","55-59 years","55-59",21515,6476836,332.2
 ,"2000","2000","Prostate","28010","60-64 years ","60-64",30215,5099354,592.5
 ,"2000","2000","Prostate","28010","65-69 years","65-69",39672,4341762,913.7
+,"2000","2000","Prostate","28010","70-74 years","70-74",40854,3860732,1058.2
+,"2000","2000","Prostate","28010","75-79 years","75-79",30702,3020236,1016.5
+,"2000","2000","Prostate","28010","80-84 years","80-84",15943,1830504,871.0
+,"2000","2000","Prostate","28010","85+ years","85+",9886,1219319,810.8
+,"2001","2001","Prostate","28010","< 1 year","1",0,2028019,0.0
+,"2001","2001","Prostate","28010","1-4 years","1-4",Suppressed,7734199,Suppressed
+,"2001","2001","Prostate","28010","5-9 years","5-9",Suppressed,10221798,Suppressed
+,"2001","2001","Prostate","28010","10-14 years","10-14",0,10634981,0.0
+,"2001","2001","Prostate","28010","15-19 years","15-19",Suppressed,10430676,Suppressed
+,"2001","2001","Prostate","28010","20-24 years","20-24",Suppressed,9969346,Suppressed
+,"2001","2001","Prostate","28010","25-29 years","25-29",Suppressed,9425845,Suppressed
+,"2001","2001","Prostate","28010","30-34 years","30-34",Suppressed,10295643,Suppressed
+,"2001","2001","Prostate","28010","35-39 years","35-39",85,10994295,0.8
+,"2001","2001","Prostate","28010","40-44 years","40-44",950,11210629,8.5
+,"2001","2001","Prostate","28010","45-49 years","45-49",3891,10097191,38.5
+,"2001","2001","Prostate","28010","50-54 years","50-54",13307,9058366,146.9
 ,"2001","2001","Prostate","28010","55-59 years","55-59",22928,6694290,342.5
 ,"2001","2001","Prostate","28010","60-64 years ","60-64",31687,5247854,603.8
 ,"2001","2001","Prostate","28010","65-69 years","65-69",40877,4382955,932.6
+,"2001","2001","Prostate","28010","70-74 years","70-74",41460,3875837,1069.7
+,"2001","2001","Prostate","28010","75-79 years","75-79",31750,3050131,1040.9
+,"2001","2001","Prostate","28010","80-84 years","80-84",16182,1910356,847.1
+,"2001","2001","Prostate","28010","85+ years","85+",9892,1249573,791.6
+,"2002","2002","Prostate","28010","< 1 year","1",0,1997833,0.0
+,"2002","2002","Prostate","28010","1-4 years","1-4",Suppressed,7829346,Suppressed
+,"2002","2002","Prostate","28010","5-9 years","5-9",Suppressed,10067517,Suppressed
+,"2002","2002","Prostate","28010","10-14 years","10-14",Suppressed,10777493,Suppressed
+,"2002","2002","Prostate","28010","15-19 years","15-19",Suppressed,10513750,Suppressed
+,"2002","2002","Prostate","28010","20-24 years","20-24",Suppressed,10214793,Suppressed
+,"2002","2002","Prostate","28010","25-29 years","25-29",Suppressed,9354046,Suppressed
+,"2002","2002","Prostate","28010","30-34 years","30-34",17,10294940,0.2
+,"2002","2002","Prostate","28010","35-39 years","35-39",103,10750660,1.0
+,"2002","2002","Prostate","28010","40-44 years","40-44",1048,11249572,9.3
+,"2002","2002","Prostate","28010","45-49 years","45-49",4357,10367972,42.0
+,"2002","2002","Prostate","28010","50-54 years","50-54",13864,9080679,152.7
 ,"2002","2002","Prostate","28010","55-59 years","55-59",25425,7270171,349.7
 ,"2002","2002","Prostate","28010","60-64 years ","60-64",33431,5453055,613.1
 ,"2002","2002","Prostate","28010","65-69 years","65-69",40757,4429186,920.2
+,"2002","2002","Prostate","28010","70-74 years","70-74",39874,3859965,1033.0
+,"2002","2002","Prostate","28010","75-79 years","75-79",30569,3073916,994.5
+,"2002","2002","Prostate","28010","80-84 years","80-84",16421,1982284,828.4
+,"2002","2002","Prostate","28010","85+ years","85+",9893,1280112,772.8
+,"2003","2003","Prostate","28010","< 1 year","1",Suppressed,2033237,Suppressed
+,"2003","2003","Prostate","28010","1-4 years","1-4",Suppressed,7979882,Suppressed
+,"2003","2003","Prostate","28010","5-9 years","5-9",Suppressed,10039604,Suppressed
+,"2003","2003","Prostate","28010","10-14 years","10-14",0,10970478,0.0
+,"2003","2003","Prostate","28010","15-19 years","15-19",Suppressed,10710599,Suppressed
+,"2003","2003","Prostate","28010","20-24 years","20-24",Suppressed,10497965,Suppressed
+,"2003","2003","Prostate","28010","25-29 years","25-29",Suppressed,9464481,Suppressed
+,"2003","2003","Prostate","28010","30-34 years","30-34",Suppressed,10278392,Suppressed
+,"2003","2003","Prostate","28010","35-39 years","35-39",106,10604058,1.0
+,"2003","2003","Prostate","28010","40-44 years","40-44",1032,11343445,9.1
+,"2003","2003","Prostate","28010","45-49 years","45-49",4378,10705411,40.9
+,"2003","2003","Prostate","28010","50-54 years","50-54",13114,9337624,140.4
 ,"2003","2003","Prostate","28010","55-59 years","55-59",24621,7672601,320.9
 ,"2003","2003","Prostate","28010","60-64 years ","60-64",32420,5816925,557.3
 ,"2003","2003","Prostate","28010","65-69 years","65-69",38595,4577090,843.2
+,"2003","2003","Prostate","28010","70-74 years","70-74",36599,3875623,944.3
+,"2003","2003","Prostate","28010","75-79 years","75-79",28290,3131860,903.3
+,"2003","2003","Prostate","28010","80-84 years","80-84",15725,2051421,766.5
+,"2003","2003","Prostate","28010","85+ years","85+",9802,1338201,732.5
+,"2004","2004","Prostate","28010","< 1 year","1",Suppressed,2052042,Suppressed
+,"2004","2004","Prostate","28010","1-4 years","1-4",Suppressed,8058452,Suppressed
+,"2004","2004","Prostate","28010","5-9 years","5-9",Suppressed,9951006,Suppressed
+,"2004","2004","Prostate","28010","10-14 years","10-14",0,10967974,0.0
+,"2004","2004","Prostate","28010","15-19 years","15-19",Suppressed,10859759,Suppressed
+,"2004","2004","Prostate","28010","20-24 years","20-24",Suppressed,10654919,Suppressed
+,"2004","2004","Prostate","28010","25-29 years","25-29",Suppressed,9627975,Suppressed
+,"2004","2004","Prostate","28010","30-34 years","30-34",17,10118356,0.2
+,"2004","2004","Prostate","28010","35-39 years","35-39",79,10421329,0.8
+,"2004","2004","Prostate","28010","40-44 years","40-44",1003,11363212,8.8
+,"2004","2004","Prostate","28010","45-49 years","45-49",4381,10880756,40.3
+,"2004","2004","Prostate","28010","50-54 years","50-54",13667,9565045,142.9
 ,"2004","2004","Prostate","28010","55-59 years","55-59",25588,8059227,317.5
 ,"2004","2004","Prostate","28010","60-64 years ","60-64",33033,6060330,545.1
 ,"2004","2004","Prostate","28010","65-69 years","65-69",38828,4703011,825.6
+,"2004","2004","Prostate","28010","70-74 years","70-74",35226,3854159,914.0
+,"2004","2004","Prostate","28010","75-79 years","75-79",27479,3140080,875.1
+,"2004","2004","Prostate","28010","80-84 years","80-84",15608,2111081,739.3
+,"2004","2004","Prostate","28010","85+ years","85+",9441,1379299,684.5
+,"2005","2005","Prostate","28010","< 1 year","1",Suppressed,2071291,Suppressed
+,"2005","2005","Prostate","28010","1-4 years","1-4",Suppressed,8227683,Suppressed
+,"2005","2005","Prostate","28010","5-9 years","5-9",Suppressed,10052911,Suppressed
+,"2005","2005","Prostate","28010","10-14 years","10-14",0,11005942,0.0
+,"2005","2005","Prostate","28010","15-19 years","15-19",Suppressed,11195498,Suppressed
+,"2005","2005","Prostate","28010","20-24 years","20-24",Suppressed,10874429,Suppressed
+,"2005","2005","Prostate","28010","25-29 years","25-29",Suppressed,9946653,Suppressed
+,"2005","2005","Prostate","28010","30-34 years","30-34",Suppressed,10001357,Suppressed
+,"2005","2005","Prostate","28010","35-39 years","35-39",109,10500280,1.0
+,"2005","2005","Prostate","28010","40-44 years","40-44",1131,11365453,10.0
+,"2005","2005","Prostate","28010","45-49 years","45-49",4537,11166233,40.6
+,"2005","2005","Prostate","28010","50-54 years","50-54",13722,9921411,138.3
 ,"2005","2005","Prostate","28010","55-59 years","55-59",27080,8595175,315.1
 ,"2005","2005","Prostate","28010","60-64 years ","60-64",34188,6359594,537.6
 ,"2005","2005","Prostate","28010","65-69 years","65-69",39787,4877355,815.7
+,"2005","2005","Prostate","28010","70-74 years","70-74",35634,3926631,907.5
+,"2005","2005","Prostate","28010","75-79 years","75-79",27846,3201014,869.9
+,"2005","2005","Prostate","28010","80-84 years","80-84",15772,2181396,723.0
+,"2005","2005","Prostate","28010","85+ years","85+",9588,1463607,655.1
+,"2006","2006","Prostate","28010","< 1 year","1",Suppressed,2091208,Suppressed
+,"2006","2006","Prostate","28010","1-4 years","1-4",Suppressed,8224719,Suppressed
+,"2006","2006","Prostate","28010","5-9 years","5-9",Suppressed,10131180,Suppressed
+,"2006","2006","Prostate","28010","10-14 years","10-14",Suppressed,10919622,Suppressed
+,"2006","2006","Prostate","28010","15-19 years","15-19",Suppressed,11361578,Suppressed
+,"2006","2006","Prostate","28010","20-24 years","20-24",Suppressed,10939343,Suppressed
+,"2006","2006","Prostate","28010","25-29 years","25-29",Suppressed,10225390,Suppressed
+,"2006","2006","Prostate","28010","30-34 years","30-34",Suppressed,9791732,Suppressed
+,"2006","2006","Prostate","28010","35-39 years","35-39",102,10570636,1.0
+,"2006","2006","Prostate","28010","40-44 years","40-44",1243,11184900,11.1
+,"2006","2006","Prostate","28010","45-49 years","45-49",5078,11323407,44.8
+,"2006","2006","Prostate","28010","50-54 years","50-54",15370,10171064,151.1
 ,"2006","2006","Prostate","28010","55-59 years","55-59",30586,9027212,338.8
 ,"2006","2006","Prostate","28010","60-64 years ","60-64",38677,6563370,589.3
 ,"2006","2006","Prostate","28010","65-69 years","65-69",44080,5015625,878.9
+,"2006","2006","Prostate","28010","70-74 years","70-74",38312,3964686,966.3
+,"2006","2006","Prostate","28010","75-79 years","75-79",29057,3217535,903.1
+,"2006","2006","Prostate","28010","80-84 years","80-84",16315,2210694,738.0
+,"2006","2006","Prostate","28010","85+ years","85+",10028,1539322,651.5
+,"2007","2007","Prostate","28010","< 1 year","1",Suppressed,2145229,Suppressed
+,"2007","2007","Prostate","28010","1-4 years","1-4",Suppressed,8264370,Suppressed
+,"2007","2007","Prostate","28010","5-9 years","5-9",Suppressed,10210900,Suppressed
+,"2007","2007","Prostate","28010","10-14 years","10-14",Suppressed,10817122,Suppressed
+,"2007","2007","Prostate","28010","15-19 years","15-19",Suppressed,11486172,Suppressed
+,"2007","2007","Prostate","28010","20-24 years","20-24",Suppressed,10945284,Suppressed
+,"2007","2007","Prostate","28010","25-29 years","25-29",Suppressed,10441481,Suppressed
+,"2007","2007","Prostate","28010","30-34 years","30-34",Suppressed,9729056,Suppressed
+,"2007","2007","Prostate","28010","35-39 years","35-39",132,10579438,1.2
+,"2007","2007","Prostate","28010","40-44 years","40-44",1273,10952747,11.6
+,"2007","2007","Prostate","28010","45-49 years","45-49",5452,11371036,47.9
+,"2007","2007","Prostate","28010","50-54 years","50-54",16953,10452255,162.2
 ,"2007","2007","Prostate","28010","55-59 years","55-59",32291,9047774,356.9
 ,"2007","2007","Prostate","28010","60-64 years ","60-64",43531,7127320,610.8
 ,"2007","2007","Prostate","28010","65-69 years","65-69",47679,5218868,913.6
+,"2007","2007","Prostate","28010","70-74 years","70-74",39576,4015360,985.6
+,"2007","2007","Prostate","28010","75-79 years","75-79",29591,3215618,920.2
+,"2007","2007","Prostate","28010","80-84 years","80-84",16477,2244363,734.2
+,"2007","2007","Prostate","28010","85+ years","85+",10221,1614749,633.0
+,"2008","2008","Prostate","28010","< 1 year","1",Suppressed,2133550,Suppressed
+,"2008","2008","Prostate","28010","1-4 years","1-4",Suppressed,8344028,Suppressed
+,"2008","2008","Prostate","28010","5-9 years","5-9",Suppressed,10312799,Suppressed
+,"2008","2008","Prostate","28010","10-14 years","10-14",Suppressed,10741550,Suppressed
+,"2008","2008","Prostate","28010","15-19 years","15-19",Suppressed,11554362,Suppressed
+,"2008","2008","Prostate","28010","20-24 years","20-24",Suppressed,10974337,Suppressed
+,"2008","2008","Prostate","28010","25-29 years","25-29",Suppressed,10634925,Suppressed
+,"2008","2008","Prostate","28010","30-34 years","30-34",Suppressed,9796827,Suppressed
+,"2008","2008","Prostate","28010","35-39 years","35-39",136,10497543,1.3
+,"2008","2008","Prostate","28010","40-44 years","40-44",1291,10734861,12.0
+,"2008","2008","Prostate","28010","45-49 years","45-49",5630,11378002,49.5
+,"2008","2008","Prostate","28010","50-54 years","50-54",16844,10708003,157.3
 ,"2008","2008","Prostate","28010","55-59 years","55-59",31172,9214176,338.3
 ,"2008","2008","Prostate","28010","60-64 years ","60-64",42621,7458789,571.4
 ,"2008","2008","Prostate","28010","65-69 years","65-69",46803,5522058,847.6
+,"2008","2008","Prostate","28010","70-74 years","70-74",37465,4114456,910.6
+,"2008","2008","Prostate","28010","75-79 years","75-79",26595,3208709,828.8
+,"2008","2008","Prostate","28010","80-84 years","80-84",14494,2279414,635.9
+,"2008","2008","Prostate","28010","85+ years","85+",9694,1684903,575.3
+,"2009","2009","Prostate","28010","< 1 year","1",Suppressed,2067673,Suppressed
+,"2009","2009","Prostate","28010","1-4 years","1-4",Suppressed,8391974,Suppressed
+,"2009","2009","Prostate","28010","5-9 years","5-9",Suppressed,10434539,Suppressed
+,"2009","2009","Prostate","28010","10-14 years","10-14",Suppressed,10711932,Suppressed
+,"2009","2009","Prostate","28010","15-19 years","15-19",Suppressed,11535147,Suppressed
+,"2009","2009","Prostate","28010","20-24 years","20-24",Suppressed,11055768,Suppressed
+,"2009","2009","Prostate","28010","25-29 years","25-29",Suppressed,10733546,Suppressed
+,"2009","2009","Prostate","28010","30-34 years","30-34",23,9963430,0.2
+,"2009","2009","Prostate","28010","35-39 years","35-39",155,10332505,1.5
+,"2009","2009","Prostate","28010","40-44 years","40-44",1171,10546437,11.1
+,"2009","2009","Prostate","28010","45-49 years","45-49",5607,11400806,49.2
+,"2009","2009","Prostate","28010","50-54 years","50-54",17274,10893451,158.6
 ,"2009","2009","Prostate","28010","55-59 years","55-59",31017,9436333,328.7
 ,"2009","2009","Prostate","28010","60-64 years ","60-64",43941,7839983,560.5
 ,"2009","2009","Prostate","28010","65-69 years","65-69",47282,5762469,820.5
+,"2009","2009","Prostate","28010","70-74 years","70-74",36434,4234644,860.4
+,"2009","2009","Prostate","28010","75-79 years","75-79",24080,3201484,752.2
+,"2009","2009","Prostate","28010","80-84 years","80-84",13009,2300305,565.5
+,"2009","2009","Prostate","28010","85+ years","85+",8872,1758077,504.6
+,"2010","2010","Prostate","28010","< 1 year","1",Suppressed,2040649,Suppressed
+,"2010","2010","Prostate","28010","1-4 years","1-4",Suppressed,8386691,Suppressed
+,"2010","2010","Prostate","28010","5-9 years","5-9",Suppressed,10504483,Suppressed
+,"2010","2010","Prostate","28010","10-14 years","10-14",Suppressed,10727925,Suppressed
+,"2010","2010","Prostate","28010","15-19 years","15-19",Suppressed,11430131,Suppressed
+,"2010","2010","Prostate","28010","20-24 years","20-24",Suppressed,11201325,Suppressed
+,"2010","2010","Prostate","28010","25-29 years","25-29",Suppressed,10772107,Suppressed
+,"2010","2010","Prostate","28010","30-34 years","30-34",Suppressed,10171307,Suppressed
+,"2010","2010","Prostate","28010","35-39 years","35-39",111,10113994,1.1
+,"2010","2010","Prostate","28010","40-44 years","40-44",1135,10520532,10.8
+,"2010","2010","Prostate","28010","45-49 years","45-49",5127,11298426,45.4
+,"2010","2010","Prostate","28010","50-54 years","50-54",16156,11078142,145.8
 ,"2010","2010","Prostate","28010","55-59 years","55-59",29979,9696838,309.2
 ,"2010","2010","Prostate","28010","60-64 years ","60-64",43072,8262757,521.3
 ,"2010","2010","Prostate","28010","65-69 years","65-69",46680,5978587,780.8
+,"2010","2010","Prostate","28010","70-74 years","70-74",35459,4334983,818.0
+,"2010","2010","Prostate","28010","75-79 years","75-79",23201,3228672,718.6
+,"2010","2010","Prostate","28010","80-84 years","80-84",12209,2331610,523.6
+,"2010","2010","Prostate","28010","85+ years","85+",8527,1829222,466.2
+,"2011","2011","Prostate","28010","< 1 year","1",Suppressed,2048641,Suppressed
+,"2011","2011","Prostate","28010","1-4 years","1-4",Suppressed,8343911,Suppressed
+,"2011","2011","Prostate","28010","5-9 years","5-9",0,10508702,0.0
+,"2011","2011","Prostate","28010","10-14 years","10-14",Suppressed,10785253,Suppressed
+,"2011","2011","Prostate","28010","15-19 years","15-19",Suppressed,11299498,Suppressed
+,"2011","2011","Prostate","28010","20-24 years","20-24",Suppressed,11426148,Suppressed
+,"2011","2011","Prostate","28010","25-29 years","25-29",Suppressed,10826676,Suppressed
+,"2011","2011","Prostate","28010","30-34 years","30-34",Suppressed,10394103,Suppressed
+,"2011","2011","Prostate","28010","35-39 years","35-39",112,9900646,1.1
+,"2011","2011","Prostate","28010","40-44 years","40-44",1112,10603743,10.5
+,"2011","2011","Prostate","28010","45-49 years","45-49",5183,11104456,46.7
+,"2011","2011","Prostate","28010","50-54 years","50-54",16825,11217644,150.0
 ,"2011","2011","Prostate","28010","55-59 years","55-59",30890,9954854,310.3
 ,"2011","2011","Prostate","28010","60-64 years ","60-64",44933,8666747,518.5
 ,"2011","2011","Prostate","28010","65-69 years","65-69",48498,6171520,785.8
+,"2011","2011","Prostate","28010","70-74 years","70-74",36322,4466096,813.3
+,"2011","2011","Prostate","28010","75-79 years","75-79",23094,3267722,706.7
+,"2011","2011","Prostate","28010","80-84 years","80-84",12017,2350114,511.3
+,"2011","2011","Prostate","28010","85+ years","85+",8571,1882643,455.3
+,"2012","2012","Prostate","28010","< 1 year","1",Suppressed,2027141,Suppressed
+,"2012","2012","Prostate","28010","1-4 years","1-4",Suppressed,8287645,Suppressed
+,"2012","2012","Prostate","28010","5-9 years","5-9",Suppressed,10583293,Suppressed
+,"2012","2012","Prostate","28010","10-14 years","10-14",Suppressed,10806122,Suppressed
+,"2012","2012","Prostate","28010","15-19 years","15-19",Suppressed,11167381,Suppressed
+,"2012","2012","Prostate","28010","20-24 years","20-24",0,11656439,0.0
+,"2012","2012","Prostate","28010","25-29 years","25-29",Suppressed,10874489,Suppressed
+,"2012","2012","Prostate","28010","30-34 years","30-34",Suppressed,10599686,Suppressed
+,"2012","2012","Prostate","28010","35-39 years","35-39",74,9874124,0.7
+,"2012","2012","Prostate","28010","40-44 years","40-44",1000,10619971,9.4
+,"2012","2012","Prostate","28010","45-49 years","45-49",4351,10902996,39.9
+,"2012","2012","Prostate","28010","50-54 years","50-54",14204,11257683,126.2
 ,"2012","2012","Prostate","28010","55-59 years","55-59",26568,10237817,259.5
 ,"2012","2012","Prostate","28010","60-64 years ","60-64",37820,8673135,436.1
 ,"2012","2012","Prostate","28010","65-69 years","65-69",43824,6720637,652.1
+,"2012","2012","Prostate","28010","70-74 years","70-74",31216,4661611,669.6
+,"2012","2012","Prostate","28010","75-79 years","75-79",19138,3321431,576.2
+,"2012","2012","Prostate","28010","80-84 years","80-84",10006,2359773,424.0
+,"2012","2012","Prostate","28010","85+ years","85+",7677,1941972,395.3
+,"2013","2013","Prostate","28010","< 1 year","1",0,2027462,0.0
+,"2013","2013","Prostate","28010","1-4 years","1-4",Suppressed,8222399,Suppressed
+,"2013","2013","Prostate","28010","5-9 years","5-9",Suppressed,10638728,Suppressed
+,"2013","2013","Prostate","28010","10-14 years","10-14",Suppressed,10837682,Suppressed
+,"2013","2013","Prostate","28010","15-19 years","15-19",Suppressed,11080936,Suppressed
+,"2013","2013","Prostate","28010","20-24 years","20-24",Suppressed,11784597,Suppressed
+,"2013","2013","Prostate","28010","25-29 years","25-29",Suppressed,10959053,Suppressed
+,"2013","2013","Prostate","28010","30-34 years","30-34",Suppressed,10787461,Suppressed
+,"2013","2013","Prostate","28010","35-39 years","35-39",81,9967153,0.8
+,"2013","2013","Prostate","28010","40-44 years","40-44",929,10543898,8.8
+,"2013","2013","Prostate","28010","45-49 years","45-49",3679,10702038,34.4
+,"2013","2013","Prostate","28010","50-54 years","50-54",13329,11279490,118.2
 ,"2013","2013","Prostate","28010","55-59 years","55-59",26021,10477526,248.4
 ,"2013","2013","Prostate","28010","60-64 years ","60-64",36680,8825066,415.6
 ,"2013","2013","Prostate","28010","65-69 years","65-69",44166,7032222,628.1
+,"2013","2013","Prostate","28010","70-74 years","70-74",31790,4943482,643.1
+,"2013","2013","Prostate","28010","75-79 years","75-79",19260,3410294,564.8
+,"2013","2013","Prostate","28010","80-84 years","80-84",10074,2360480,426.8
+,"2013","2013","Prostate","28010","85+ years","85+",8197,1986962,412.5
+,"2014","2014","Prostate","28010","< 1 year","1",0,2040650,0.0
+,"2014","2014","Prostate","28010","1-4 years","1-4",Suppressed,8223297,Suppressed
+,"2014","2014","Prostate","28010","5-9 years","5-9",Suppressed,10614457,Suppressed
+,"2014","2014","Prostate","28010","10-14 years","10-14",Suppressed,10887465,Suppressed
+,"2014","2014","Prostate","28010","15-19 years","15-19",Suppressed,11032399,Suppressed
+,"2014","2014","Prostate","28010","20-24 years","20-24",0,11817468,0.0
+,"2014","2014","Prostate","28010","25-29 years","25-29",0,11142172,0.0
+,"2014","2014","Prostate","28010","30-34 years","30-34",Suppressed,10913783,Suppressed
+,"2014","2014","Prostate","28010","35-39 years","35-39",82,10134525,0.8
+,"2014","2014","Prostate","28010","40-44 years","40-44",751,10404771,7.2
+,"2014","2014","Prostate","28010","45-49 years","45-49",3387,10546793,32.1
+,"2014","2014","Prostate","28010","50-54 years","50-54",12539,11296853,111.0
 ,"2014","2014","Prostate","28010","55-59 years","55-59",25438,10659557,238.6
 ,"2014","2014","Prostate","28010","60-64 years ","60-64",35559,9040017,393.4
 ,"2014","2014","Prostate","28010","65-69 years","65-69",42928,7382766,581.5
+,"2014","2014","Prostate","28010","70-74 years","70-74",30987,5157596,600.8
+,"2014","2014","Prostate","28010","75-79 years","75-79",18556,3519647,527.2
+,"2014","2014","Prostate","28010","80-84 years","80-84",9834,2363459,416.1
+,"2014","2014","Prostate","28010","85+ years","85+",8151,2034707,400.6
+,"2015","2015","Prostate","28010","< 1 year","1",0,2051777,0.0
+,"2015","2015","Prostate","28010","1-4 years","1-4",Suppressed,8234527,Suppressed
+,"2015","2015","Prostate","28010","5-9 years","5-9",Suppressed,10597170,Suppressed
+,"2015","2015","Prostate","28010","10-14 years","10-14",0,10899055,0.0
+,"2015","2015","Prostate","28010","15-19 years","15-19",Suppressed,11067682,Suppressed
+,"2015","2015","Prostate","28010","20-24 years","20-24",Suppressed,11714664,Suppressed
+,"2015","2015","Prostate","28010","25-29 years","25-29",Suppressed,11359696,Suppressed
+,"2015","2015","Prostate","28010","30-34 years","30-34",16,10989734,0.1
+,"2015","2015","Prostate","28010","35-39 years","35-39",68,10390441,0.7
+,"2015","2015","Prostate","28010","40-44 years","40-44",742,10226628,7.3
+,"2015","2015","Prostate","28010","45-49 years","45-49",3288,10549732,31.2
+,"2015","2015","Prostate","28010","50-54 years","50-54",12568,11205178,112.2
 ,"2015","2015","Prostate","28010","55-59 years","55-59",25840,10839016,238.4
 ,"2015","2015","Prostate","28010","60-64 years ","60-64",38134,9294887,410.3
 ,"2015","2015","Prostate","28010","65-69 years","65-69",47605,7745755,614.6
+,"2015","2015","Prostate","28010","70-74 years","70-74",34066,5351050,636.6
+,"2015","2015","Prostate","28010","75-79 years","75-79",20326,3607203,563.5
+,"2015","2015","Prostate","28010","80-84 years","80-84",10386,2384210,435.6
+,"2015","2015","Prostate","28010","85+ years","85+",8271,2081047,397.4
+,"2016","2016","Prostate","28010","< 1 year","1",Suppressed,2038244,Suppressed
+,"2016","2016","Prostate","28010","1-4 years","1-4",Suppressed,8247448,Suppressed
+,"2016","2016","Prostate","28010","5-9 years","5-9",0,10579522,0.0
+,"2016","2016","Prostate","28010","10-14 years","10-14",0,10958851,0.0
+,"2016","2016","Prostate","28010","15-19 years","15-19",Suppressed,11111992,Suppressed
+,"2016","2016","Prostate","28010","20-24 years","20-24",Suppressed,11540808,Suppressed
+,"2016","2016","Prostate","28010","25-29 years","25-29",Suppressed,11593197,Suppressed
+,"2016","2016","Prostate","28010","30-34 years","30-34",Suppressed,11110047,Suppressed
+,"2016","2016","Prostate","28010","35-39 years","35-39",65,10663314,0.6
+,"2016","2016","Prostate","28010","40-44 years","40-44",671,10025160,6.7
+,"2016","2016","Prostate","28010","45-49 years","45-49",3146,10646095,29.6
+,"2016","2016","Prostate","28010","50-54 years","50-54",12226,11022168,110.9
 ,"2016","2016","Prostate","28010","55-59 years","55-59",26419,10978932,240.6
 ,"2016","2016","Prostate","28010","60-64 years ","60-64",39252,9532828,411.8
 ,"2016","2016","Prostate","28010","65-69 years","65-69",50592,8106509,624.1
+,"2016","2016","Prostate","28010","70-74 years","70-74",35652,5518247,646.1
+,"2016","2016","Prostate","28010","75-79 years","75-79",21692,3715618,583.8
+,"2016","2016","Prostate","28010","80-84 years","80-84",10942,2419827,452.2
+,"2016","2016","Prostate","28010","85+ years","85+",8676,2121546,408.9
+,"2017","2017","Prostate","28010","< 1 year","1",Suppressed,1989094,Suppressed
+,"2017","2017","Prostate","28010","1-4 years","1-4",Suppressed,8232582,Suppressed
+,"2017","2017","Prostate","28010","5-9 years","5-9",0,10475265,0.0
+,"2017","2017","Prostate","28010","10-14 years","10-14",Suppressed,11039693,Suppressed
+,"2017","2017","Prostate","28010","15-19 years","15-19",Suppressed,11057435,Suppressed
+,"2017","2017","Prostate","28010","20-24 years","20-24",Suppressed,11295647,Suppressed
+,"2017","2017","Prostate","28010","25-29 years","25-29",Suppressed,11732054,Suppressed
+,"2017","2017","Prostate","28010","30-34 years","30-34",Suppressed,11148043,Suppressed
+,"2017","2017","Prostate","28010","35-39 years","35-39",66,10854805,0.6
+,"2017","2017","Prostate","28010","40-44 years","40-44",580,9948324,5.8
+,"2017","2017","Prostate","28010","45-49 years","45-49",3146,10618636,29.6
+,"2017","2017","Prostate","28010","50-54 years","50-54",12202,10774122,113.3
 ,"2017","2017","Prostate","28010","55-59 years","55-59",27797,10969150,253.4
 ,"2017","2017","Prostate","28010","60-64 years ","60-64",42387,9743675,435.0
 ,"2017","2017","Prostate","28010","65-69 years","65-69",53157,8058771,659.6
+,"2017","2017","Prostate","28010","70-74 years","70-74",40827,5961045,684.9
+,"2017","2017","Prostate","28010","75-79 years","75-79",23523,3845364,611.7
+,"2017","2017","Prostate","28010","80-84 years","80-84",11434,2442605,468.1
+,"2017","2017","Prostate","28010","85+ years","85+",8604,2134259,403.1
+,"2018","2018","Prostate","28010","< 1 year","1",Suppressed,1962874,Suppressed
+,"2018","2018","Prostate","28010","1-4 years","1-4",Suppressed,8226886,Suppressed
+,"2018","2018","Prostate","28010","5-9 years","5-9",Suppressed,10461678,Suppressed
+,"2018","2018","Prostate","28010","10-14 years","10-14",Suppressed,11194581,Suppressed
+,"2018","2018","Prostate","28010","15-19 years","15-19",Suppressed,11115447,Suppressed
+,"2018","2018","Prostate","28010","20-24 years","20-24",Suppressed,11196572,Suppressed
+,"2018","2018","Prostate","28010","25-29 years","25-29",Suppressed,11865606,Suppressed
+,"2018","2018","Prostate","28010","30-34 years","30-34",Suppressed,11295686,Suppressed
+,"2018","2018","Prostate","28010","35-39 years","35-39",63,11115617,0.6
+,"2018","2018","Prostate","28010","40-44 years","40-44",598,10082592,5.9
+,"2018","2018","Prostate","28010","45-49 years","45-49",3244,10596996,30.6
+,"2018","2018","Prostate","28010","50-54 years","50-54",12356,10627739,116.3
 ,"2018","2018","Prostate","28010","55-59 years","55-59",27759,11041380,251.4
 ,"2018","2018","Prostate","28010","60-64 years ","60-64",43980,10006855,439.5
 ,"2018","2018","Prostate","28010","65-69 years","65-69",55714,8231409,676.8
+,"2018","2018","Prostate","28010","70-74 years","70-74",44042,6270752,702.3
+,"2018","2018","Prostate","28010","75-79 years","75-79",26161,4104036,637.4
+,"2018","2018","Prostate","28010","80-84 years","80-84",12343,2528008,488.3
+,"2018","2018","Prostate","28010","85+ years","85+",8735,2170018,402.5
+,"2019","2019","Prostate","28010","< 1 year","1",Suppressed,1928227,Suppressed
+,"2019","2019","Prostate","28010","1-4 years","1-4",Suppressed,8148496,Suppressed
+,"2019","2019","Prostate","28010","5-9 years","5-9",Suppressed,10476312,Suppressed
+,"2019","2019","Prostate","28010","10-14 years","10-14",0,11212391,0.0
+,"2019","2019","Prostate","28010","15-19 years","15-19",Suppressed,11133570,Suppressed
+,"2019","2019","Prostate","28010","20-24 years","20-24",Suppressed,11081848,Suppressed
+,"2019","2019","Prostate","28010","25-29 years","25-29",Suppressed,11847055,Suppressed
+,"2019","2019","Prostate","28010","30-34 years","30-34",Suppressed,11486816,Suppressed
+,"2019","2019","Prostate","28010","35-39 years","35-39",67,11258036,0.6
+,"2019","2019","Prostate","28010","40-44 years","40-44",645,10235339,6.3
+,"2019","2019","Prostate","28010","45-49 years","45-49",3241,10459518,31.0
+,"2019","2019","Prostate","28010","50-54 years","50-54",12040,10472049,115.0
 ,"2019","2019","Prostate","28010","55-59 years","55-59",29017,11056389,262.4
 ,"2019","2019","Prostate","28010","60-64 years ","60-64",46142,10168317,453.8
 ,"2019","2019","Prostate","28010","65-69 years","65-69",58921,8418974,699.9
+,"2019","2019","Prostate","28010","70-74 years","70-74",47819,6571717,727.6
+,"2019","2019","Prostate","28010","75-79 years","75-79",28641,4275531,669.9
+,"2019","2019","Prostate","28010","80-84 years","80-84",13234,2609498,507.1
+,"2019","2019","Prostate","28010","85+ years","85+",9205,2187233,420.9
+,"2020","2020","Prostate","28010","< 1 year","1",Suppressed,1903619,Suppressed
+,"2020","2020","Prostate","28010","1-4 years","1-4",Suppressed,8016261,Suppressed
+,"2020","2020","Prostate","28010","5-9 years","5-9",Suppressed,10489638,Suppressed
+,"2020","2020","Prostate","28010","10-14 years","10-14",0,11201752,0.0
+,"2020","2020","Prostate","28010","15-19 years","15-19",Suppressed,11111064,Suppressed
+,"2020","2020","Prostate","28010","20-24 years","20-24",Suppressed,11061109,Suppressed
+,"2020","2020","Prostate","28010","25-29 years","25-29",Suppressed,11691702,Suppressed
+,"2020","2020","Prostate","28010","30-34 years","30-34",Suppressed,11668966,Suppressed
+,"2020","2020","Prostate","28010","35-39 years","35-39",41,11315057,0.4
+,"2020","2020","Prostate","28010","40-44 years","40-44",535,10465901,5.1
+,"2020","2020","Prostate","28010","45-49 years","45-49",2622,10255811,25.6
+,"2020","2020","Prostate","28010","50-54 years","50-54",10096,10470167,96.4
 ,"2020","2020","Prostate","28010","55-59 years","55-59",24308,10957353,221.8
 ,"2020","2020","Prostate","28010","60-64 years ","60-64",40116,10323445,388.6
 ,"2020","2020","Prostate","28010","65-69 years","65-69",52470,8642177,607.1
+,"2020","2020","Prostate","28010","70-74 years","70-74",43675,6890861,633.8
+,"2020","2020","Prostate","28010","75-79 years","75-79",26290,4421480,594.6
+,"2020","2020","Prostate","28010","80-84 years","80-84",12509,2672457,468.1
+,"2020","2020","Prostate","28010","85+ years","85+",8882,2214419,401.1
+,"2021","2021","Prostate","28010","< 1 year","1",Suppressed,1837035,Suppressed
+,"2021","2021","Prostate","28010","1-4 years","1-4",Suppressed,7854941,Suppressed
+,"2021","2021","Prostate","28010","5-9 years","5-9",Suppressed,10458853,Suppressed
+,"2021","2021","Prostate","28010","10-14 years","10-14",Suppressed,11086458,Suppressed
+,"2021","2021","Prostate","28010","15-19 years","15-19",Suppressed,11129810,Suppressed
+,"2021","2021","Prostate","28010","20-24 years","20-24",Suppressed,11094261,Suppressed
+,"2021","2021","Prostate","28010","25-29 years","25-29",Suppressed,11497501,Suppressed
+,"2021","2021","Prostate","28010","30-34 years","30-34",Suppressed,11780822,Suppressed
+,"2021","2021","Prostate","28010","35-39 years","35-39",67,11356169,0.6
+,"2021","2021","Prostate","28010","40-44 years","40-44",584,10691698,5.5
+,"2021","2021","Prostate","28010","45-49 years","45-49",2870,9975015,28.8
+,"2021","2021","Prostate","28010","50-54 years","50-54",11582,10534813,109.9
 ,"2021","2021","Prostate","28010","55-59 years","55-59",26774,10731785,249.5
 ,"2021","2021","Prostate","28010","60-64 years ","60-64",45274,10421918,434.4
 ,"2021","2021","Prostate","28010","65-69 years","65-69",60466,8825247,685.1
+,"2021","2021","Prostate","28010","70-74 years","70-74",51591,7192834,717.3
+,"2021","2021","Prostate","28010","75-79 years","75-79",31370,4530943,692.4
+,"2021","2021","Prostate","28010","80-84 years","80-84",14875,2735659,543.7
+,"2021","2021","Prostate","28010","85+ years","85+",9621,2226710,432.1
+,"2022","2022","Prostate","28010","< 1 year","1",Suppressed,1887022,Suppressed
+,"2022","2022","Prostate","28010","1-4 years","1-4",Suppressed,7699989,Suppressed
+,"2022","2022","Prostate","28010","5-9 years","5-9",Suppressed,10428103,Suppressed
+,"2022","2022","Prostate","28010","10-14 years","10-14",Suppressed,10921011,Suppressed
+,"2022","2022","Prostate","28010","15-19 years","15-19",Suppressed,11263528,Suppressed
+,"2022","2022","Prostate","28010","20-24 years","20-24",Suppressed,11149507,Suppressed
+,"2022","2022","Prostate","28010","25-29 years","25-29",Suppressed,11361767,Suppressed
+,"2022","2022","Prostate","28010","30-34 years","30-34",Suppressed,11910250,Suppressed
+,"2022","2022","Prostate","28010","35-39 years","35-39",50,11386183,0.4
+,"2022","2022","Prostate","28010","40-44 years","40-44",576,10895686,5.3
+,"2022","2022","Prostate","28010","45-49 years","45-49",2727,9903635,27.5
+,"2022","2022","Prostate","28010","50-54 years","50-54",11062,10504619,105.3
 ,"2022","2022","Prostate","28010","55-59 years","55-59",25771,10480095,245.9
 ,"2022","2022","Prostate","28010","60-64 years ","60-64",45031,10436236,431.5
 ,"2022","2022","Prostate","28010","65-69 years","65-69",61694,9019676,684.0
+,"2022","2022","Prostate","28010","70-74 years","70-74",52630,7154562,735.6
+,"2022","2022","Prostate","28010","75-79 years","75-79",34110,4984707,684.3
+,"2022","2022","Prostate","28010","80-84 years","80-84",15655,2846703,549.9
+,"2022","2022","Prostate","28010","85+ years","85+",9535,2251862,423.4
 "---"
 "Dataset: United States and Puerto Rico Cancer Statistics, 1999-2022 Incidence"
 "Query Parameters:"
 "Title: CDC_Wonder_Prostate_Cancer-Age_US"
-"Age Groups: 55-59 years; 60-64 years ; 65-69 years"
 "Leading Cancer Sites: Prostate"
 "Sex: Male"
 "Group By: Year; Leading Cancer Sites; Age Groups"
@@ -87,25 +470,35 @@
 "---"
 "Help: See http://wonder.cdc.gov/wonder/help/cancer-v2022.html for more information."
 "---"
-"Query Date: Apr 28, 2026 2:17:41 AM"
+"Query Date: Apr 28, 2026 6:32:40 PM"
 "---"
 "Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2022, WONDER Online Database. United States Department"
 "of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2024 submission; 2025"
-"release. Accessed at http://wonder.cdc.gov/cancer-v2022.html on Apr 28, 2026 2:17:41 AM"
+"release. Accessed at http://wonder.cdc.gov/cancer-v2022.html on Apr 28, 2026 6:32:40 PM"
 "---"
 Caveats:
-"1. 'Not Applicable' is displayed for all data values when sex-specific cancers are combined with the wrong sex. More"
+"1. Statistics are suppressed to protect personal privacy, for the following conditions: <ol><li> Data are suppressed if the"
+"figures represent fewer than 16 cases for the specific category in the table cell. </li><li> Counts and rates are suppressed for"
+"cells at the Metropolitan Statistical Area (MSA) level for the race categories ""American Indian or Alaska Native"" or ""Asian"
+"or Pacific Islander"" when the specific category's population for rate calculations is less than 50,000 persons. </li><li> Data"
+"are suppressed at the state and MSA level for certain race and ethnicity groups: <ul><li> American Indian or Alaska Native data"
+"are suppressed at the state and MSA level for residents of Illinois, Kansas, New Jersey, and New York; </li><li> Hispanic Asian"
+"or Pacific Islander and Hispanic Black or African American data are suppressed at the state and MSA level for all years and for"
+"Non-Hispanic Asian or Pacific Islanders for 1999 for residents of Kansas. </li></ul> </li></ol> States decide whether to"
+"suppress data for specific race and ethnicity categories. The suppression criteria may vary in previous releases of these data"
+"More information: http://wonder.cdc.gov/wonder/help/cancer-v2022.html#Confidentiality."
+"2. 'Not Applicable' is displayed for all data values when sex-specific cancers are combined with the wrong sex. More"
 "information: http://wonder.cdc.gov/wonder/help/cancer-v2022.html#Genital Cancers List."
-"2. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate"
+"3. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate"
 "values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be"
 "misleading."
-"3. Age-adjusted rates are not available when results are grouped by age."
-"4. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data"
+"4. Age-adjusted rates are not available when results are grouped by age."
+"5. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data"
 "shown for the United States are diagnoses and populations from included registries only."
-"5. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for"
+"6. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for"
 "Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define"
 "standard groupings of primary cancer sites."
-"6. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and"
+"7. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and"
 "Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for"
 "these states, nor are these counts included in the summary populations for the affected division, regions or national"
 "population. However, the USCS web site does include these displaced persons in the national population figures for 2005."
