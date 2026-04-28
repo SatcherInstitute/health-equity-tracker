@@ -51,7 +51,6 @@ DEMOGRAPHIC_TO_STANDARD_BY_COL = {
 
 DTYPE = {YEAR_COL: str, STATE_CODE_RACE: str, STATE_CODE_DEFAULT: str}
 NA_VALUES = ["Not Applicable"]  # population denominator unknown
-SUPPRESSED_VALUES = ["Suppressed", "Missing"]  # count hidden / data quality issue
 
 
 def get_state_code_col(demographic_type: CANCER_TYPE_OR_ALL) -> str:
@@ -174,8 +173,8 @@ def aggregate_age_buckets(df: pd.DataFrame, condition: str) -> pd.DataFrame:
         if bucket_df.empty:
             continue
 
-        # Sum count and population, treating NaN as 0
-        summed = bucket_df.groupby(group_cols, dropna=False)[POP_COL].sum(min_count=0).reset_index()
+        # Sum count and population, treating NaN as 0 if at least one value is non-NaN
+        summed = bucket_df.groupby(group_cols, dropna=False)[POP_COL].sum(min_count=1).reset_index()
         summed[COUNT_COL] = (
             bucket_df.groupby(group_cols, dropna=False)[COUNT_COL].apply(lambda x: x.fillna(0).sum()).values
         )

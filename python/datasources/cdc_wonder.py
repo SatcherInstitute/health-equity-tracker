@@ -62,11 +62,11 @@ Options: `Leading Cancer Sites`, `States and Puerto Rico`, `Race`, `Ethnicity`
 
 CANCER INCIDENCE - BY AGE National Level:
 Options: `Leading Cancer Sites`, `None`, `Age Groups`, `None`
-Age Groups: Select 50-54 years, 55-59 years, 60-64 years, 65-69 years, 70-74 years
+Age Groups: Select All Ages
 
 CANCER INCIDENCE - BY AGE State Level:
 Options: `Leading Cancer Sites`, `States and Puerto Rico`, `Age Groups`, `None`
-Age Groups: Select 50-54 years, 55-59 years, 60-64 years, 65-69 years, 70-74 years
+Age Groups: Select Ages
 
 CANCER INCIDENCE - BY SEX National Level:
 Options: `Leading Cancer Sites`, `None`, `Sex`, `None`
