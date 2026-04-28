@@ -142,7 +142,6 @@ def load_cdc_df_from_data_dir(
         # Replace the "Suppressed" / "Missing" placeholder strings with NaN so the
         # numeric columns can be summed and averaged.
         for col in (COUNT_COL, POP_COL, CRUDE_RATE_COL):
-            topic_df[col] = topic_df[col].replace(SUPPRESSED_VALUES, np.nan)
             topic_df[col] = pd.to_numeric(topic_df[col], errors="coerce")
 
         if geo_level == NATIONAL_LEVEL:
