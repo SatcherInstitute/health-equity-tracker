@@ -1,14 +1,14 @@
-state_name,state_fips,age,breast_per_100k,breast_estimated_total,breast_population_pct,breast_population_estimated_total,breast_pct_share,cervical_per_100k,cervical_estimated_total,cervical_population_pct,cervical_population_estimated_total,cervical_pct_share,prostate_per_100k,prostate_estimated_total,prostate_population_pct,prostate_population_estimated_total,prostate_pct_share,colorectal_per_100k,colorectal_estimated_total,colorectal_population_pct,colorectal_population_estimated_total,colorectal_pct_share,lung_per_100k,lung_estimated_total,lung_population_pct,lung_population_estimated_total,lung_pct_share
-United States,00,20-24 years,,,,,,0.4,43.0,6.6,10841519.0,0.02,,,,,,,,,,,,,,,
-United States,00,25-29 years,,,,,,3.2,345.0,6.6,10831364.0,0.1,,,,,,,,,,,,,,,
-United States,00,30-34 years,,,,,,10.1,1138.0,6.8,11216961.0,0.5,,,,,,,,,,,,,,,
-United States,00,35-39 years,,,,,,15.1,1629.0,6.6,10818752.0,0.7,,,,,,,,,,,,,,,
-United States,00,40-44 years,,,,,,15.6,1605.0,6.3,10320319.0,0.7,,,,,,,,,,,,,,,
-United States,00,45-49 years,,,,,,14.9,1449.0,5.9,9740780.0,0.6,,,,,,39.9,7797.0,6.0,19551813.0,0.4,,,,,
-United States,00,50-54 years,124.2,25632.0,6.3,20641464.0,0.8,12.5,1285.0,6.3,10294538.0,0.5,,,,,,67.0,13827.0,6.3,20641464.0,0.7,31.7,6545.0,6.3,20641464.0,0.2
-United States,00,55-59 years,142.0,30183.0,6.5,21249093.0,1.0,11.9,1281.0,6.6,10749404.0,0.5,240.8,25288.0,6.5,10499689.0,1.0,66.1,14051.0,6.5,21249093.0,0.7,77.1,16386.0,6.5,21249093.0,0.4
-United States,00,60-64 years ,179.0,37344.0,6.4,20866161.0,1.2,10.9,1170.0,6.5,10702166.0,0.5,419.8,42670.0,6.3,10163995.0,1.7,83.0,17314.0,6.4,20866161.0,0.9,144.3,30108.0,6.4,20866161.0,0.8
-United States,00,65-69 years,226.0,40828.0,5.6,18064464.0,1.3,,,,,,662.9,56935.0,5.3,8589340.0,2.2,106.8,19293.0,5.6,18064464.0,1.0,208.6,37684.0,5.6,18064464.0,1.0
-United States,00,70-74 years,263.6,39709.0,4.6,15063976.0,1.3,,,,,,,,,,,124.3,18717.0,4.6,15063976.0,0.9,270.1,40683.0,4.6,15063976.0,1.1
-United States,00,75-79 years,,,,,,,,,,,,,,,,,,,,,348.8,34435.0,3.0,9872411.0,0.9
-United States,00,All,84.5,3140348.0,100.0,325218022.0,100.0,7.6,237966.0,100.0,163880835.0,100.0,146.7,2550301.0,100.0,161337187.0,100.0,43.6,2003936.0,100.0,325218022.0,100.0,64.4,3780244.0,100.0,325218022.0,100.0
+state_name,state_fips,age,breast_per_100k,breast_per_100k_is_suppressed,breast_estimated_total,breast_population_pct,breast_population_estimated_total,breast_pct_share,cervical_per_100k,cervical_per_100k_is_suppressed,cervical_estimated_total,cervical_population_pct,cervical_population_estimated_total,cervical_pct_share,prostate_per_100k,prostate_per_100k_is_suppressed,prostate_estimated_total,prostate_population_pct,prostate_population_estimated_total,prostate_pct_share,colorectal_per_100k,colorectal_per_100k_is_suppressed,colorectal_estimated_total,colorectal_population_pct,colorectal_population_estimated_total,colorectal_pct_share,lung_per_100k,lung_per_100k_is_suppressed,lung_estimated_total,lung_population_pct,lung_population_estimated_total,lung_pct_share
+United States,00,20-24 years,,,,,,,0.3,,36.0,6.3,10715215.0,0.4,,,,,,,,,,,,,,,,,,
+United States,00,25-29 years,,,,,,,2.4,,262.0,6.5,11010135.0,2.6,,,,,,,,,,,,,,,,,,
+United States,00,30-34 years,,,,,,,9.6,,1125.0,6.9,11680993.0,11.0,,,,,,,,,,,,,,,,,,
+United States,00,35-39 years,,,,,,,14.3,,1601.0,6.6,11165188.0,15.7,,,,,,,,,,,,,,,,,,
+United States,00,40-44 years,,,,,,,15.5,,1677.0,6.4,10809156.0,16.4,,,,,,,,,,,,,,,,,,
+United States,00,45-49 years,,,,,,,15.1,,1505.0,5.9,9963436.0,14.7,,,,,,,48.0,,9532.0,5.9,19867071.0,10.0,,,,,,
+United States,00,50-54 years,245.4,,25927.0,6.3,10564759.0,14.9,13.3,,1410.0,6.2,10564759.0,13.8,,,,,,,67.7,,14270.0,6.3,21069378.0,15.0,31.4,,6617.0,6.3,21069378.0,3.8
+United States,00,55-59 years,269.7,,29123.0,6.4,10799358.0,16.7,11.8,,1276.0,6.4,10799358.0,12.5,245.9,,25771.0,6.3,10480095.0,19.5,68.3,,14543.0,6.3,21279453.0,15.3,74.0,,15747.0,6.3,21279453.0,9.1
+United States,00,60-64 years ,342.3,,37761.0,6.6,11030580.0,21.7,11.9,,1317.0,6.5,11030580.0,12.9,431.5,,45031.0,6.3,10436236.0,34.0,82.0,,17609.0,6.4,21466816.0,18.5,144.3,,30980.0,6.4,21466816.0,17.9
+United States,00,65-69 years,423.0,,42084.0,5.9,9948686.0,24.2,,,,,,,684.0,,61694.0,5.4,9019676.0,46.6,106.2,,20137.0,5.6,18968362.0,21.1,213.0,,40395.0,5.6,18968362.0,23.4
+United States,00,70-74 years,473.1,,39084.0,4.9,8260821.0,22.5,,,,,,,,,,,,,124.1,,19126.0,4.6,15415383.0,20.1,270.1,,41632.0,4.6,15415383.0,24.1
+United States,00,75-79 years,,,,,,,,,,,,,,,,,,,,,,,,,341.1,,37548.0,3.3,11008646.0,21.7
+United States,00,All,166.2,,173979.0,100.0,168308005.0,100.0,7.7,,10209.0,100.0,170006383.0,100.0,155.5,,132496.0,100.0,166485141.0,100.0,44.5,,95217.0,100.0,336491524.0,100.0,65.3,,172919.0,100.0,336491524.0,100.0

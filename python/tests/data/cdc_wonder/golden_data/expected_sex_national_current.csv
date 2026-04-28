@@ -1,4 +1,4 @@
-state_name,state_fips,sex,colorectal_per_100k,colorectal_estimated_total,colorectal_population_pct,colorectal_population_estimated_total,colorectal_pct_share,lung_per_100k,lung_estimated_total,lung_population_pct,lung_population_estimated_total,lung_pct_share
-United States,00,All,43.6,141902.0,100.0,325218022.0,100.0,64.4,209500.0,100.0,325218022.0,100.0
-United States,00,Female,40.8,66864.0,50.4,163880835.0,47.1,63.9,104708.0,50.4,163880835.0,50.0
-United States,00,Male,46.5,75038.0,49.6,161337187.0,52.9,65.0,104792.0,49.6,161337187.0,50.0
+state_name,state_fips,sex,colorectal_per_100k,colorectal_per_100k_is_suppressed,colorectal_estimated_total,colorectal_population_pct,colorectal_population_estimated_total,colorectal_pct_share,lung_per_100k,lung_per_100k_is_suppressed,lung_estimated_total,lung_population_pct,lung_population_estimated_total,lung_pct_share
+United States,00,All,44.5,,149741.0,100.0,336491524.0,100.0,65.3,,219632.0,100.0,336491524.0,100.0
+United States,00,Female,41.2,,70109.0,50.5,170006383.0,46.8,65.0,,110585.0,50.5,170006383.0,50.4
+United States,00,Male,47.8,,79632.0,49.5,166485141.0,53.2,65.5,,109047.0,49.5,166485141.0,49.6

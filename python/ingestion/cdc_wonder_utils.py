@@ -2,6 +2,7 @@ from ingestion.het_types import GEO_TYPE, CANCER_TYPE_OR_ALL
 from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
 from ingestion.constants import CURRENT, STATE_LEVEL, NATIONAL_LEVEL, US_FIPS
+import numpy as np
 import pandas as pd
 from typing import Dict, cast, List
 from ingestion.merge_utils import merge_dfs_list
@@ -48,6 +49,8 @@ DEMOGRAPHIC_TO_STANDARD_BY_COL = {
 }
 
 DTYPE = {YEAR_COL: str, STATE_CODE_RACE: str, STATE_CODE_DEFAULT: str}
+NA_VALUES = ["Not Applicable"]  # population denominator unknown
+SUPPRESSED_VALUES = ["Suppressed", "Missing"]  # count hidden / data quality issue
 
 
 def get_state_code_col(demographic_type: CANCER_TYPE_OR_ALL) -> str:
@@ -130,11 +133,17 @@ def load_cdc_df_from_data_dir(
             file_name,
             subdirectory=folder_name,
             dtype=DTYPE,
-            na_values=["Not Applicable"],
+            na_values=NA_VALUES,
             usecols=keep_cols,
         )
 
         topic_df = topic_df.dropna(subset=[YEAR_COL])
+
+        # Replace the "Suppressed" / "Missing" placeholder strings with NaN so the
+        # numeric columns can be summed and averaged.
+        for col in (COUNT_COL, POP_COL, CRUDE_RATE_COL):
+            topic_df[col] = topic_df[col].replace(SUPPRESSED_VALUES, np.nan)
+            topic_df[col] = pd.to_numeric(topic_df[col], errors="coerce")
 
         if geo_level == NATIONAL_LEVEL:
             topic_df[state_code_col] = US_FIPS
@@ -157,6 +166,9 @@ def load_cdc_df_from_data_dir(
                 count_cols_to_sum=count_cols_to_sum,
                 race_alone_to_het_code_map=DEMOGRAPHIC_TO_STANDARD_BY_COL[std_col.RACE_CATEGORY_ID_COL],
                 ethnicity_value="Hispanic",
+                unknown_values=["Unknown or Missing"],
+                # Keep all-NaN aggregates as NaN instead of collapsing to 0.
+                treat_zero_count_as_missing=True,
             )
 
         topic_df = standardize_columns(
@@ -167,6 +179,8 @@ def load_cdc_df_from_data_dir(
             state_code_col,
         )
 
+        topic_df = _add_is_suppressed_flag(topic_df, condition)
+
         topic_dfs.append(topic_df)
 
     df_merged = merge_dfs_list(topic_dfs, merge_cols)
@@ -176,6 +190,30 @@ def load_cdc_df_from_data_dir(
     df_merged = dataset_utils.ensure_leading_zeros(df_merged, std_col.STATE_FIPS_COL, 2)
 
     return df_merged
+
+
+def _add_is_suppressed_flag(df: pd.DataFrame, condition: str) -> pd.DataFrame:
+    """Adds a `<condition>_per_100k_is_suppressed` column (cdc_miovd pattern):
+    True = count hidden but pop known (suppressed),
+    False = pop missing (rate uncomputable),
+    NaN = real data including true zeros.
+
+    Called after `standardize_columns` so it operates on the final HET column names.
+    """
+    cancer_type = condition.lower()
+    raw_col = f"{cancer_type}_{std_col.RAW_SUFFIX}"
+    pop_col = f"{cancer_type}_{std_col.RAW_POP_SUFFIX}"
+    rate_col = f"{cancer_type}_{std_col.PER_100K_SUFFIX}"
+    flag_col = f"{rate_col}_{std_col.IS_SUPPRESSED_SUFFIX}"
+
+    pop_missing = df[pop_col].isna()
+    count_missing = df[raw_col].isna()
+
+    df[flag_col] = np.nan
+    df[flag_col] = df[flag_col].astype(object)
+    df.loc[count_missing & ~pop_missing, flag_col] = True
+    df.loc[pop_missing, flag_col] = False
+    return df
 
 
 def standardize_columns(
@@ -235,6 +273,7 @@ def get_float_cols(time_type: str, conditions: List[str]) -> List[str]:
         cancer_type = condition.lower()
 
         cols.append(f"{cancer_type}_{std_col.PER_100K_SUFFIX}")
+        cols.append(f"{cancer_type}_{std_col.PER_100K_SUFFIX}_{std_col.IS_SUPPRESSED_SUFFIX}")
 
         if time_type == CURRENT:
             cols.extend(
