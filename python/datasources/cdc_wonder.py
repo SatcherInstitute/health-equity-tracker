@@ -197,7 +197,7 @@ class CdcWonderData(DataSource):
                 if count_col in df.columns:
                     # Update the 'All' row with sum of available age groups
                     year_totals = non_all_df.groupby(std_col.TIME_PERIOD_COL)[count_col].sum(min_count=1)
-                    df.loc[is_all, count_col] = df.loc[is_all, std_col.TIME_PERIOD_COL].map(year_totals).values
+                    df.loc[is_all, count_col] = df.loc[is_all, std_col.TIME_PERIOD_COL].map(year_totals)
 
         if demo_breakdown in [std_col.AGE_COL, std_col.SEX_COL]:
             df = generate_pct_share_col_without_unknowns(
