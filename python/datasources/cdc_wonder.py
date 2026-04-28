@@ -8,8 +8,9 @@ Instructions for Downloading Data:
 - Access the CDC WONDER website at https://wonder.cdc.gov/cancer.html
 - Select the `Cancer Incidence 1999 - 2022` report and click `Data Request`
 
-Section 1 - Group Results By:
-- And By: Leading Cancer Sites
+Section 1
+- Group Results By: Leading Cancer Sites
+- And By: Year
 - And By: States and Puerto Rico OR States
 - And By: [SELECT ONE DEMOGRAPHIC OPTION]:
   * Age Groups
@@ -26,17 +27,25 @@ Section 2 - Select Locations:
 - Note: Some race breakdowns only have states (without PR) breakdown
 
 Section 3 - Select Year and Demographics:
-- Year: All Years (1999-2022)
-- Age Groups: All Ages (or specific age ranges if Age Groups selected in Section 1)
-- Sex: Both (or specific sex if Sex selected in Section 1)
-- Race: All Races (or specific races if Race selected in Section 1)
-- Ethnicity: All Ethnicities (or specific ethnicities if Ethnicity selected in Section 1)
+- Year: All Years
+- Age Groups: All Ages
+  * (or each specific age range if Age Groups selected in Section 1)
+- Sex:
+  * Male for prostate
+  * Female for breast and cervical
+  * Both for other cancers
+  * (or each specific sex if Sex selected in Section 1)
+- Race: All Races
+  * (or specific race if Race selected in Section 1)
+- Ethnicity: All Ethnicities
+  * (or each specific ethnicity if Ethnicity selected in Section 1)
 
 Section 4 - Select Cancers of Interest:
 - Pick between: Leading Cancer Sites
 
 Section 5 - Other Options:
 - Export Results ✓
+- Export Type: CSV
 - Show Totals ✓
 - Show Zero Values ✓
 - Show Suppressed Values ✓
@@ -46,7 +55,6 @@ COMMON REPORT CONFIGURATIONS:
 CANCER INCIDENCE - BY RACE National Level:
 `Leading Cancer Sites`, `None`, `Race`, `Ethnicity`
 Age Groups: All years
-
 
 CANCER INCIDENCE - BY RACE State Level:
 Options: `Leading Cancer Sites`, `States and Puerto Rico`, `Race`, `Ethnicity`
@@ -65,7 +73,7 @@ Options: `Leading Cancer Sites`, `None`, `Sex`, `None`
 CANCER INCIDENCE - BY SEX State Level:
 Options: `Leading Cancer Sites`, `States and Puerto Rico`, `Sex`, `None`
 
-Last Updated: 5/27/2025
+Last Updated: 4/27/2026
 """
 
 import pandas as pd
