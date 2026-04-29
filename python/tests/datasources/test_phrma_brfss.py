@@ -13,22 +13,18 @@ GOLDEN_DIR = os.path.join(TEST_DIR, "phrma_brfss", "golden_data")
 
 
 GOLDEN_DATA = {
-    "race_and_ethnicity_national_current-with_age_adjust": os.path.join(
-        GOLDEN_DIR, "expected_race_and_ethnicity_national.csv"
-    ),
-    "race_and_ethnicity_state_current-with_age_adjust": os.path.join(
-        GOLDEN_DIR, "expected_race_and_ethnicity_state.csv"
-    ),
-    "age_national_current": os.path.join(GOLDEN_DIR, "expected_age_national.csv"),
-    "age_state_current": os.path.join(GOLDEN_DIR, "expected_age_state.csv"),
-    "sex_national_current": os.path.join(GOLDEN_DIR, "expected_sex_national.csv"),
-    "sex_state_current": os.path.join(GOLDEN_DIR, "expected_sex_state.csv"),
-    "insurance_status_national_current": os.path.join(GOLDEN_DIR, "expected_insurance_status_national.csv"),
-    "insurance_status_state_current": os.path.join(GOLDEN_DIR, "expected_insurance_status_state.csv"),
-    "income_national_current": os.path.join(GOLDEN_DIR, "expected_income_national.csv"),
-    "income_state_current": os.path.join(GOLDEN_DIR, "expected_income_state.csv"),
-    "education_national_current": os.path.join(GOLDEN_DIR, "expected_education_national.csv"),
-    "education_state_current": os.path.join(GOLDEN_DIR, "expected_education_state.csv"),
+    "race_and_ethnicity_national_current-with_age_adjust": os.path.join(GOLDEN_DIR, "race_and_ethnicity_national.csv"),
+    "race_and_ethnicity_state_current-with_age_adjust": os.path.join(GOLDEN_DIR, "race_and_ethnicity_state.csv"),
+    "age_national_current": os.path.join(GOLDEN_DIR, "age_national.csv"),
+    "age_state_current": os.path.join(GOLDEN_DIR, "age_state.csv"),
+    "sex_national_current": os.path.join(GOLDEN_DIR, "sex_national.csv"),
+    "sex_state_current": os.path.join(GOLDEN_DIR, "sex_state.csv"),
+    "insurance_status_national_current": os.path.join(GOLDEN_DIR, "insurance_status_national.csv"),
+    "insurance_status_state_current": os.path.join(GOLDEN_DIR, "insurance_status_state.csv"),
+    "income_national_current": os.path.join(GOLDEN_DIR, "income_national.csv"),
+    "income_state_current": os.path.join(GOLDEN_DIR, "income_state.csv"),
+    "education_national_current": os.path.join(GOLDEN_DIR, "education_national.csv"),
+    "education_state_current": os.path.join(GOLDEN_DIR, "education_state.csv"),
 }
 
 
