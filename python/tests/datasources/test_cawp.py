@@ -12,7 +12,7 @@ from datasources.cawp import (
     extract_term_years,
     FIPS_TO_STATE_TABLE_MAP,
 )
-
+from test_utils import load_golden_df
 
 FIPS_TO_TEST = ["02", "60"]
 
@@ -68,10 +68,11 @@ def test_get_consecutive_time_periods():
 
 # INTEGRATION TEST SETUP
 
-# Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cawp")
-GOLDEN_DATA_DIR = os.path.join(TEST_DIR, "golden_data")
+GOLDEN_DIR = os.path.join(TEST_DIR, "golden_data")
+
+FIPS_TIME_DTYPE = {"state_fips": str, "time_period": str}
 
 
 def _get_consecutive_time_periods(*args, **kwargs):
@@ -93,8 +94,6 @@ def _fetch_json_from_web(*args):
 
 
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
-    # mocked and reduced files for testing
-
     [_folder, filename] = args
 
     print("MOCK READ FROM /data:", filename, kwargs)
@@ -102,7 +101,6 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
     usecols = kwargs.get("usecols", None)
 
     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
-        # READ IN CAWP DB (numerators)
         test_input_data_types = {
             "id": str,
             "year": str,
@@ -123,7 +121,6 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
             usecols=usecols,
         )
     else:
-        # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES
         if filename != "cawp_state_leg_60.csv":
             filename = "cawp_state_leg_ZZ_territory.csv"
         test_input_data_types = {"state_fips": str, "time_period": str}
@@ -135,14 +132,11 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 
 
 def _load_csv_as_df_from_web(*args, **kwargs):
-    # mocked and reduced files for testing
     url = args[0]
     dtype = kwargs.get("dtype", {})
 
-    # reverse lookup the FIPS based on the incoming url string arg
     fips = next(fips for fips, state in FIPS_TO_STATE_TABLE_MAP.items() if state in url)
 
-    # mock out a placeholder file for all FIPS not included in our test files
     if fips in FIPS_TO_TEST:
         print("\t\tread mock stleg table by fips:", fips)
     else:
@@ -156,18 +150,9 @@ def _load_csv_as_df_from_web(*args, **kwargs):
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch("ingestion.gcs_to_bq_util.fetch_json_from_web", side_effect=_fetch_json_from_web)
-@mock.patch(
-    "ingestion.gcs_to_bq_util.load_csv_as_df_from_web",
-    side_effect=_load_csv_as_df_from_web,
-)
-@mock.patch(
-    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
-)
-@mock.patch(
-    "datasources.cawp.get_consecutive_time_periods",
-    side_effect=_get_consecutive_time_periods,
-)
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_web", side_effect=_load_csv_as_df_from_web)
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_as_df_from_data_dir)
+@mock.patch("datasources.cawp.get_consecutive_time_periods", side_effect=_get_consecutive_time_periods)
 @mock.patch("datasources.cawp.get_state_level_fips", return_value=FIPS_TO_TEST)
 def testWriteToBq(
     mock_test_fips: mock.MagicMock,  # only use a restricted set of FIPS codes in test
@@ -210,7 +195,6 @@ def testWriteToBq(
     # [ NATIONAL+STATE X CURRENT+HISTORICAL ] + STATE NAMES
     assert mock_bq.call_count == 5
 
-    # NAMES TABLE OUTPUT (can't really test df content due to csv weirdness)
     (
         names_call,
         state_historical_call,
@@ -218,90 +202,31 @@ def testWriteToBq(
         national_historical_call,
         national_current_call,
     ) = mock_bq.call_args_list
+
+    # NAMES TABLE (can't really test df content due to csv weirdness)
     (_df_names, _dataset, table_name_names), _bq_types = names_call
     assert table_name_names == "race_and_ethnicity_state_historical_names"
 
-    # STATE DATA HISTORICAL OUTPUT
-    (
-        df_state_historical,
-        _dataset,
-        table_name_state_historical,
-    ), _bq_types = state_historical_call
-    assert table_name_state_historical == "race_and_ethnicity_state_historical"
+    # STATE HISTORICAL
+    (df_state_historical, _dataset, table_name), _bq_types = state_historical_call
+    assert table_name == "race_and_ethnicity_state_historical"
+    # df_state_historical.to_csv(table_name, index=False)
+    assert_frame_equal(df_state_historical, load_golden_df(GOLDEN_DIR, table_name, FIPS_TIME_DTYPE), check_like=True)
 
-    expected_df_state_historical = pd.read_csv(
-        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_historical.csv"),
-        dtype={"state_fips": str, "time_period": str},
-    )
+    # STATE CURRENT
+    (df_state_current, _dataset, table_name), _bq_types = state_current_call
+    assert table_name == "race_and_ethnicity_state_current"
+    # df_state_current.to_csv(table_name, index=False)
+    assert_frame_equal(df_state_current, load_golden_df(GOLDEN_DIR, table_name, FIPS_TIME_DTYPE), check_like=True)
 
-    # df_state_historical.to_csv(table_name_state_historical, index=False)
+    # NATIONAL HISTORICAL
+    (df_national_historical, _dataset, table_name), _bq_types = national_historical_call
+    assert table_name == "race_and_ethnicity_national_historical"
+    # df_national_historical.to_csv(table_name, index=False)
+    assert_frame_equal(df_national_historical, load_golden_df(GOLDEN_DIR, table_name, FIPS_TIME_DTYPE), check_like=True)
 
-    assert_frame_equal(
-        df_state_historical,
-        expected_df_state_historical,
-        check_like=True,
-    )
-
-    # STATE DATA CURRENT OUTPUT
-    (
-        df_state_current,
-        _dataset,
-        table_name_state_current,
-    ), _bq_types = state_current_call
-    assert table_name_state_current == "race_and_ethnicity_state_current"
-
-    expected_df_state_current = pd.read_csv(
-        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_current.csv"),
-        dtype={"state_fips": str, "time_period": str},
-    )
-
-    # df_state_current.to_csv(table_name_state_current, index=False)
-
-    assert_frame_equal(
-        df_state_current,
-        expected_df_state_current,
-        check_like=True,
-    )
-
-    # NATIONAL DATA HISTORICAL OUTPUT
-    (
-        df_national_historical,
-        _dataset,
-        table_name_national_historical,
-    ), _bq_types = national_historical_call
-    assert table_name_national_historical == "race_and_ethnicity_national_historical"
-
-    expected_df_national_historical = pd.read_csv(
-        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_historical.csv"),
-        dtype={"state_fips": str, "time_period": str},
-    )
-
-    # df_national_historical.to_csv(table_name_national_historical, index=False)
-
-    assert_frame_equal(
-        df_national_historical,
-        expected_df_national_historical,
-        check_like=True,
-    )
-
-    # NATIONAL DATA CURRENT OUTPUT
-    (
-        df_national_current,
-        _dataset,
-        table_name_national_current,
-    ), _bq_types = national_current_call
-
-    assert table_name_national_current == "race_and_ethnicity_national_current"
-
-    expected_df_national_current = pd.read_csv(
-        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_current.csv"),
-        dtype={"state_fips": str, "time_period": str},
-    )
-
-    # df_national_current.to_csv(table_name_national_current, index=False)
-
-    assert_frame_equal(
-        df_national_current,
-        expected_df_national_current,
-        check_like=True,
-    )
+    # NATIONAL CURRENT
+    (df_national_current, _dataset, table_name), _bq_types = national_current_call
+    assert table_name == "race_and_ethnicity_national_current"
+    # df_national_current.to_csv(table_name, index=False)
+    assert_frame_equal(df_national_current, load_golden_df(GOLDEN_DIR, table_name, FIPS_TIME_DTYPE), check_like=True)
