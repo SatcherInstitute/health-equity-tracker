@@ -93,4 +93,4 @@ def _create_df_sample(df: pd.DataFrame, sample_size: int = 50) -> pd.DataFrame:
 def load_golden_df(golden_dir: str, table_name: str, dtype: dict | None = None) -> pd.DataFrame:
     """Load a golden data frame from the golden_data folder."""
     path = os.path.join(golden_dir, f"{table_name}.csv")
-    return pd.read_csv(path, dtype=dtype or {"state_fips": str, "time_period": str})
+    return pd.read_csv(path, dtype=dtype if dtype is not None else {"state_fips": str, "time_period": str})
