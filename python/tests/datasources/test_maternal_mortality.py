@@ -9,21 +9,10 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "maternal_mortality")
 
 GOLDEN_DIR = os.path.join(TEST_DIR, "golden_data")
-GOLDEN_DATA_RACE_STATE_HISTORICAL = os.path.join(
-    GOLDEN_DIR, "maternal_mortality_output_race_and_ethnicity_state_historical.csv"
-)
-
-GOLDEN_DATA_RACE_NATIONAL_HISTORICAL = os.path.join(
-    GOLDEN_DIR, "maternal_mortality_output_race_and_ethnicity_national_historical.csv"
-)
-
-GOLDEN_DATA_RACE_STATE_CURRENT = os.path.join(
-    GOLDEN_DIR, "maternal_mortality_output_race_and_ethnicity_state_current.csv"
-)
-
-GOLDEN_DATA_RACE_NATIONAL_CURRENT = os.path.join(
-    GOLDEN_DIR, "maternal_mortality_output_race_and_ethnicity_national_current.csv"
-)
+GOLDEN_DATA_RACE_STATE_HISTORICAL = os.path.join(GOLDEN_DIR, "race_and_ethnicity_state_historical.csv")
+GOLDEN_DATA_RACE_NATIONAL_HISTORICAL = os.path.join(GOLDEN_DIR, "race_and_ethnicity_national_historical.csv")
+GOLDEN_DATA_RACE_STATE_CURRENT = os.path.join(GOLDEN_DIR, "race_and_ethnicity_state_current.csv")
+GOLDEN_DATA_RACE_NATIONAL_CURRENT = os.path.join(GOLDEN_DIR, "race_and_ethnicity_national_current.csv")
 
 
 @mock.patch(
