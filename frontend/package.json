@@ -64,7 +64,7 @@
 		"cspell": "^8.19.2",
 		"env-cmd": "^10.1.0",
 		"jsdom": "^26.1.0",
-		"postcss": "^8.5.3",
+		"postcss": "^8.5.10",
 		"rollup-plugin-visualizer": "^5.14.0",
 		"tailwindcss": "^4.1.8",
 		"typescript": "^5.9.3",
