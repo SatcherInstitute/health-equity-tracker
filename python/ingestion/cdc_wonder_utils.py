@@ -2,6 +2,7 @@ from ingestion.het_types import GEO_TYPE, CANCER_TYPE_OR_ALL
 from ingestion import gcs_to_bq_util, dataset_utils
 import ingestion.standardized_columns as std_col
 from ingestion.constants import CURRENT, STATE_LEVEL, NATIONAL_LEVEL, US_FIPS
+import numpy as np
 import pandas as pd
 from typing import Dict, cast, List
 from ingestion.merge_utils import merge_dfs_list
@@ -11,6 +12,7 @@ from ingestion.dataset_utils import combine_race_ethnicity
 YEAR_COL = "Year"
 RACE_NAME = "Race"
 AGE_GROUP = "Age Groups"
+AGE_GROUPS_CODE = "Age Groups Code"
 SEX_COL = "Sex"
 COUNT_COL = "Count"
 POP_COL = "Population"
@@ -48,6 +50,7 @@ DEMOGRAPHIC_TO_STANDARD_BY_COL = {
 }
 
 DTYPE = {YEAR_COL: str, STATE_CODE_RACE: str, STATE_CODE_DEFAULT: str}
+NA_VALUES = ["Not Applicable"]  # population denominator unknown
 
 
 def get_state_code_col(demographic_type: CANCER_TYPE_OR_ALL) -> str:
@@ -79,6 +82,117 @@ def get_source_type(geo_level: GEO_TYPE, demographic_type: CANCER_TYPE_OR_ALL) -
     }
 
     return source_type_map[(demographic_type, geo_level)]
+
+
+AGE_BUCKET_MAP: Dict[str, Dict[str, List[str]]] = {
+    "cervical": {
+        "<20": ["1", "1-4", "5-9", "10-14", "15-19"],
+        "20-24": ["20-24"],
+        "25-29": ["25-29"],
+        "30-34": ["30-34"],
+        "35-39": ["35-39"],
+        "40-44": ["40-44"],
+        "45-49": ["45-49"],
+        "50-54": ["50-54"],
+        "55-59": ["55-59"],
+        "60-64": ["60-64"],
+        "65+": ["65-69", "70-74", "75-79", "80-84", "85+"],
+    },
+    "breast": {
+        "<50": ["1", "1-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49"],
+        "50-54": ["50-54"],
+        "55-59": ["55-59"],
+        "60-64": ["60-64"],
+        "65-69": ["65-69"],
+        "70-74": ["70-74"],
+        "75+": ["75-79", "80-84", "85+"],
+    },
+    "colorectal": {
+        "<45": ["1", "1-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44"],
+        "45-49": ["45-49"],
+        "50-54": ["50-54"],
+        "55-59": ["55-59"],
+        "60-64": ["60-64"],
+        "65-69": ["65-69"],
+        "70-74": ["70-74"],
+        "75+": ["75-79", "80-84", "85+"],
+    },
+    "prostate": {
+        "<55": ["1", "1-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49", "50-54"],
+        "55-59": ["55-59"],
+        "60-64": ["60-64"],
+        "65-69": ["65-69"],
+        "70+": ["70-74", "75-79", "80-84", "85+"],
+    },
+    "lung": {
+        "<50": ["1", "1-4", "5-9", "10-14", "15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49"],
+        "50-54": ["50-54"],
+        "55-59": ["55-59"],
+        "60-64": ["60-64"],
+        "65-69": ["65-69"],
+        "70-74": ["70-74"],
+        "75-79": ["75-79"],
+        "80+": ["80-84", "85+"],
+    },
+}
+
+
+def aggregate_age_buckets(df: pd.DataFrame, condition: str) -> pd.DataFrame:
+    """Aggregates CDC WONDER 5-year age bands into HET display buckets.
+
+    Suppressed counts (NaN) are treated as 0 for summation purposes.
+    Crude rate is recalculated from summed count and population.
+    If population is 0 or NaN after summing, rate is set to NaN.
+
+    Args:
+        df: DataFrame with raw CDC WONDER age-group rows for a single condition,
+            before column renaming. Must contain Age Groups Code, Count, Population,
+            and Crude Rate columns.
+        condition: Cancer condition string (e.g. 'Prostate'), used to look up
+            the bucket map.
+
+    Returns:
+        DataFrame with one row per HET age bucket per grouping key
+        (year, state, etc.), replacing the original 5-year band rows.
+    """
+    bucket_map = AGE_BUCKET_MAP.get(condition.lower())
+    if bucket_map is None:
+        return df
+
+    # Columns to group by other than age
+    group_cols = [
+        col for col in df.columns if col not in [AGE_GROUP, AGE_GROUPS_CODE, COUNT_COL, POP_COL, CRUDE_RATE_COL]
+    ]
+
+    aggregated_rows = []
+
+    for bucket_label, source_codes in bucket_map.items():
+        mask = df[AGE_GROUPS_CODE].isin(source_codes)
+        bucket_df = df[mask].copy()
+
+        if bucket_df.empty:
+            continue
+
+        # Sum count and population, treating NaN as 0 if at least one value is non-NaN
+        summed = bucket_df.groupby(group_cols, dropna=False)[POP_COL].sum(min_count=1).reset_index()
+        summed[COUNT_COL] = (
+            bucket_df.groupby(group_cols, dropna=False)[COUNT_COL].apply(lambda x: x.fillna(0).sum()).values
+        )
+        summed[AGE_GROUP] = bucket_label
+
+        # Recalculate crude rate from summed values
+        summed[CRUDE_RATE_COL] = np.where(
+            summed[POP_COL] > 0,
+            (summed[COUNT_COL] / summed[POP_COL]) * 100_000,
+            np.nan,
+        )
+
+        aggregated_rows.append(summed)
+
+    if not aggregated_rows:
+        return df
+
+    return pd.concat(aggregated_rows, ignore_index=True)
 
 
 def load_cdc_df_from_data_dir(
@@ -113,6 +227,9 @@ def load_cdc_df_from_data_dir(
     if demographic_type == std_col.RACE_OR_HISPANIC_COL:
         keep_cols.extend([RACE_NAME, "Ethnicity"])
 
+    if demographic_type == std_col.AGE_COL:
+        keep_cols.append(AGE_GROUPS_CODE)
+
     state_code_col = get_state_code_col(demographic_type)
     if geo_level == STATE_LEVEL:
         keep_cols.append(state_code_col)
@@ -130,11 +247,19 @@ def load_cdc_df_from_data_dir(
             file_name,
             subdirectory=folder_name,
             dtype=DTYPE,
-            na_values=["Not Applicable"],
+            na_values=NA_VALUES,
             usecols=keep_cols,
         )
 
         topic_df = topic_df.dropna(subset=[YEAR_COL])
+
+        # Replace the "Suppressed" / "Missing" placeholder strings with NaN so the
+        # numeric columns can be summed and averaged.
+        for col in (COUNT_COL, POP_COL, CRUDE_RATE_COL):
+            topic_df[col] = pd.to_numeric(topic_df[col], errors="coerce")
+
+        if demographic_type == std_col.AGE_COL:
+            topic_df = aggregate_age_buckets(topic_df, condition)
 
         if geo_level == NATIONAL_LEVEL:
             topic_df[state_code_col] = US_FIPS
@@ -157,6 +282,9 @@ def load_cdc_df_from_data_dir(
                 count_cols_to_sum=count_cols_to_sum,
                 race_alone_to_het_code_map=DEMOGRAPHIC_TO_STANDARD_BY_COL[std_col.RACE_CATEGORY_ID_COL],
                 ethnicity_value="Hispanic",
+                unknown_values=["Unknown or Missing"],
+                # Keep all-NaN aggregates as NaN instead of collapsing to 0.
+                treat_zero_count_as_missing=True,
             )
 
         topic_df = standardize_columns(
@@ -167,6 +295,8 @@ def load_cdc_df_from_data_dir(
             state_code_col,
         )
 
+        topic_df = _add_is_suppressed_flag(topic_df, condition)
+
         topic_dfs.append(topic_df)
 
     df_merged = merge_dfs_list(topic_dfs, merge_cols)
@@ -176,6 +306,30 @@ def load_cdc_df_from_data_dir(
     df_merged = dataset_utils.ensure_leading_zeros(df_merged, std_col.STATE_FIPS_COL, 2)
 
     return df_merged
+
+
+def _add_is_suppressed_flag(df: pd.DataFrame, condition: str) -> pd.DataFrame:
+    """Adds a `<condition>_per_100k_is_suppressed` column (cdc_miovd pattern):
+    True = count hidden but pop known (suppressed),
+    False = pop missing (rate missing/uncollected),
+    NaN = real data including true zeros.
+
+    Called after `standardize_columns` so it operates on the final HET column names.
+    """
+    cancer_type = condition.lower()
+    raw_col = f"{cancer_type}_{std_col.RAW_SUFFIX}"
+    pop_col = f"{cancer_type}_{std_col.RAW_POP_SUFFIX}"
+    rate_col = f"{cancer_type}_{std_col.PER_100K_SUFFIX}"
+    flag_col = f"{rate_col}_{std_col.IS_SUPPRESSED_SUFFIX}"
+
+    pop_missing = df[pop_col].isna()
+    count_missing = df[raw_col].isna()
+
+    df[flag_col] = np.nan
+    df[flag_col] = df[flag_col].astype(object)
+    df.loc[count_missing & ~pop_missing, flag_col] = True
+    df.loc[pop_missing, flag_col] = False
+    return df
 
 
 def standardize_columns(
@@ -235,6 +389,7 @@ def get_float_cols(time_type: str, conditions: List[str]) -> List[str]:
         cancer_type = condition.lower()
 
         cols.append(f"{cancer_type}_{std_col.PER_100K_SUFFIX}")
+        cols.append(f"{cancer_type}_{std_col.PER_100K_SUFFIX}_{std_col.IS_SUPPRESSED_SUFFIX}")
 
         if time_type == CURRENT:
             cols.extend(
