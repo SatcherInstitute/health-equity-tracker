@@ -176,13 +176,12 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
     otherSubPopulationLabel: 'Female population',
     geoOverrides: {
       county: {
-        ageSubPopulationLabel: 'All ages',
-        otherSubPopulationLabel: 'Female population',
         definition: {
-          text: 'The number of new cases of cervical cancer diagnosed among female patients of all ages within a specific time period. County-level figures are from NCI State Cancer Profiles and reflect age-adjusted rates to allow fairer comparisons across counties and demographic groups.',
+          text: 'The number of new cases of cervical cancer diagnosed among female patients within a specific time period. County-level figures are from NCI State Cancer Profiles and reflect age-adjusted rates to allow fairer comparisons across counties and demographic groups.',
         },
         metrics: {
           per100k: {
+            chartTitle: 'Age-adjusted cervical cancer rates',
             trendsCardTitleName:
               'Age-adjusted rates of cervical cancer for female population over time',
           },
