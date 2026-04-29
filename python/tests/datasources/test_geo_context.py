@@ -2,8 +2,22 @@ from unittest import mock
 import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
-from datasources.geo_context import GeoContext
+from datasources.geo_context import GeoContext, format_svi
 from test_utils import load_golden_df
+import math
+import pytest
+
+
+def test_format_svi():
+    # normal number between 0-1
+    assert format_svi(0.4354) == 0.44
+    # special case of -999
+    assert math.isnan(format_svi(-999.0))
+    # otherwise should error
+    with pytest.raises(ValueError):
+        format_svi(12345)
+        format_svi(None)
+
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 GOLDEN_DIR = os.path.join(THIS_DIR, os.pardir, "data", "geo_context", "golden_data")

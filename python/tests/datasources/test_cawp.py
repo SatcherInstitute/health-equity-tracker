@@ -155,12 +155,12 @@ def _load_csv_as_df_from_web(*args, **kwargs):
 @mock.patch("datasources.cawp.get_consecutive_time_periods", side_effect=_get_consecutive_time_periods)
 @mock.patch("datasources.cawp.get_state_level_fips", return_value=FIPS_TO_TEST)
 def testWriteToBq(
-    mock_test_fips: mock.MagicMock,
-    mock_test_time_periods: mock.MagicMock,
-    mock_data_dir: mock.MagicMock,
-    mock_csv_from_web: mock.MagicMock,
-    mock_json_from_web: mock.MagicMock,
-    mock_bq: mock.MagicMock,
+    mock_test_fips: mock.MagicMock,  # only use a restricted set of FIPS codes in test
+    mock_test_time_periods: mock.MagicMock,  # only use a restricted number of years in test
+    mock_data_dir: mock.MagicMock,  # reading either CAWP LINE ITEM CSV or MANUAL TERRITORY LEG.
+    mock_csv_from_web: mock.MagicMock,  # reading STATE LEG TOTAL from CAWP site
+    mock_json_from_web: mock.MagicMock,  # reading CONGRESS TOTALS from UNITEDSTATES.IO
+    mock_bq: mock.MagicMock,  # writing HET tables to HET BQ
 ):
     """Test overall tables output from write_to_bq method.
     Since the code generates a base_df first and then creates other state/national/names
@@ -175,11 +175,24 @@ def testWriteToBq(
     cawp_data = CAWPData()
     cawp_data.write_to_bq("dataset", "gcs_bucket", **kwargs_for_bq)
 
+    # (CONGRESS + STATE LEG) * (BY RACES + BY ALL)
     assert mock_test_fips.call_count == 4
+
+    # CONGRESS TOTALS + ADD AIANAPI +
+    # SCAFFOLD CONGRESS BY ALL + SCAFFOLD CONGRESS BY RACE +
+    # SCAFFOLD STATELEG BY ALL + SCAFFOLD STATELEG BY RACE
     assert mock_test_time_periods.call_count == 6
+
+    # CAWP LINE ITEM CSV + 6 TERRITORY LEG. TOTAL CSVS
     assert mock_data_dir.call_count == 7
+
+    # STATE LEG TOTALS FOR 50 STATES
     assert mock_csv_from_web.call_count == 50
+
+    # CURRENT + HISTORICAL CONGRESS TOTALS
     assert mock_json_from_web.call_count == 2
+
+    # [ NATIONAL+STATE X CURRENT+HISTORICAL ] + STATE NAMES
     assert mock_bq.call_count == 5
 
     (
