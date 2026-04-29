@@ -88,3 +88,9 @@ def _create_df_sample(df: pd.DataFrame, sample_size: int = 50) -> pd.DataFrame:
     n = len(df) // sample_size  # Calculate step size to get few enough rows
     sample_df = df.iloc[::n][:sample_size]  # Take every nth row, limit to sample_size
     return sample_df
+
+
+def load_golden_df(golden_dir: str, table_name: str, dtype: dict | None = None) -> pd.DataFrame:
+    """Load a golden data frame from the golden_data folder."""
+    path = os.path.join(golden_dir, f"{table_name}.csv")
+    return pd.read_csv(path, dtype=dtype or {"state_fips": str, "time_period": str})
