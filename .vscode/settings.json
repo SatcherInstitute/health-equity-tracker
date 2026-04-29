@@ -14,8 +14,7 @@
 	],
 	"editor.codeActionsOnSave": {
 		"quickfix.biome": "explicit",
-		"source.organizeImports": "always",
-		"source.addMissingImports": "always"
+		"source.organizeImports.biome": "explicit"
 	},
 	"[javascript]": {
 		"editor.defaultFormatter": "fronterior.biome-monorepo"
@@ -75,5 +74,5 @@
 	},
 	"mypy-type-checker.args": [
 		"\"--config-file=pyproject.toml\""
-	]
+	],
 }
