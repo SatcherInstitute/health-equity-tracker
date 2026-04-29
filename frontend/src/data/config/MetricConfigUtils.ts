@@ -1,3 +1,4 @@
+import { merge } from 'lodash-es'
 import { getFormatterPer100k } from '../../charts/utils'
 import type { GeographicBreakdown } from '../query/Breakdowns'
 import type { DropdownVarId } from './DropDownIds'
@@ -5,7 +6,6 @@ import { METRIC_CONFIG } from './MetricConfig'
 import type {
   CardMetricType,
   DataTypeConfig,
-  DeepPartial,
   MetricConfig,
   MetricId,
   MetricType,
@@ -119,37 +119,11 @@ export function formatSubPopString({
     : otherSubPopulationLabel || ageSubPopulationLabel || ''
 }
 
-function deepMerge<T>(base: T, override: DeepPartial<T>): T {
-  const result = { ...base }
-  for (const key in override) {
-    const overrideVal = override[key]
-    const baseVal = base?.[key]
-    if (
-      overrideVal !== null &&
-      typeof overrideVal === 'object' &&
-      !Array.isArray(overrideVal) &&
-      typeof baseVal === 'object' &&
-      baseVal !== null
-    ) {
-      result[key] = deepMerge(
-        baseVal,
-        overrideVal as DeepPartial<typeof baseVal>,
-      )
-    } else if (overrideVal !== undefined) {
-      result[key] = overrideVal as T[typeof key]
-    }
-  }
-  return result
-}
-
 export function applyGeoOverrides(
   config: DataTypeConfig,
   geography: GeographicBreakdown,
 ): DataTypeConfig {
   const overrides = config.geoOverrides?.[geography]
   if (!overrides) return config
-
-  const merged = deepMerge(config, overrides as DeepPartial<DataTypeConfig>)
-
-  return merged
+  return merge({}, config, overrides)
 }

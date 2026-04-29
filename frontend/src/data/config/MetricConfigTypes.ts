@@ -122,7 +122,11 @@ interface InfoWithCitations {
 }
 
 export type DeepPartial<T> = {
-  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]
+  [K in keyof T]?: T[K] extends Array<any>
+    ? T[K]
+    : T[K] extends object
+      ? DeepPartial<T[K]>
+      : T[K]
 }
 
 export interface DataTypeConfig {
@@ -152,15 +156,18 @@ export interface DataTypeConfig {
   otherSubPopulationLabel?: string
   // Optional: override specific, deeply nested fields
   // Used for topics with different sources per geographic breakdown
-  // Note: override values cannot be undefined
+  // Note: `undefined` override values won't work, but `null` will work and will override default values
   geoOverrides?: Partial<Record<GeographicBreakdown, DataTypeConfigOverride>>
 }
 
-export type DataTypeConfigOverride = DeepPartial<
-  Omit<DataTypeConfig, 'metrics'>
+export type MetricConfigOverride = Partial<MetricConfig>
+
+export type DataTypeConfigOverride = Omit<
+  DeepPartial<DataTypeConfig>,
+  'metrics' | 'geoOverrides'
 > & {
   metrics?: {
-    [K in keyof DataTypeConfig['metrics']]?: DeepPartial<MetricConfig>
+    [K in keyof DataTypeConfig['metrics']]?: MetricConfigOverride
   }
 }
 
