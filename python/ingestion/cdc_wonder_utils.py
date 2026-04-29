@@ -198,7 +198,7 @@ def standardize_columns(
         pd.DataFrame: DataFrame with standardized column names
     """
     rename_cols_map: Dict[str, str] = {
-        COUNT_COL: f"{condition.lower()}_count_{std_col.RAW_SUFFIX}",
+        COUNT_COL: f"{condition.lower()}_{std_col.RAW_SUFFIX}",
         POP_COL: f"{condition.lower()}_{std_col.RAW_POP_SUFFIX}",
         CRUDE_RATE_COL: f"{condition.lower()}_{std_col.PER_100K_SUFFIX}",
     }
@@ -239,7 +239,7 @@ def get_float_cols(time_type: str, conditions: List[str]) -> List[str]:
         if time_type == CURRENT:
             cols.extend(
                 [
-                    f"{cancer_type}_count_{std_col.RAW_SUFFIX}",
+                    f"{cancer_type}_{std_col.RAW_SUFFIX}",
                     f"{cancer_type}_{std_col.POP_PCT_SUFFIX}",
                     f"{cancer_type}_{std_col.RAW_POP_SUFFIX}",
                     f"{cancer_type}_{std_col.PCT_SHARE_SUFFIX}",
