@@ -4,6 +4,7 @@ for the general population from the CDC WONDER database. The data, once download
 is stored locally in the `data/cdc_wonder` directory for further processing and
 analysis.
 
+
 Instructions for Downloading Data:
 - Access the CDC WONDER website at https://wonder.cdc.gov/cancer.html
 - Select the `Cancer Incidence 1999 - 2022` report and click `Data Request`
@@ -61,11 +62,11 @@ Options: `Leading Cancer Sites`, `States and Puerto Rico`, `Race`, `Ethnicity`
 
 CANCER INCIDENCE - BY AGE National Level:
 Options: `Leading Cancer Sites`, `None`, `Age Groups`, `None`
-Age Groups: Select 50-54 years, 55-59 years, 60-64 years, 65-69 years, 70-74 years
+Age Groups: Select All Ages
 
 CANCER INCIDENCE - BY AGE State Level:
 Options: `Leading Cancer Sites`, `States and Puerto Rico`, `Age Groups`, `None`
-Age Groups: Select 50-54 years, 55-59 years, 60-64 years, 65-69 years, 70-74 years
+Age Groups: Select Ages
 
 CANCER INCIDENCE - BY SEX National Level:
 Options: `Leading Cancer Sites`, `None`, `Sex`, `None`
@@ -186,16 +187,6 @@ class CdcWonderData(DataSource):
 
             if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
                 std_col.add_race_columns_from_category_id(df)
-
-        if demo_breakdown == std_col.AGE_COL:
-            # For age breakdowns, calculate totals from available age groups
-            non_all_df = df[df[demo_breakdown] != ALL_VALUE]
-            for condition in conditions:
-                count_col = f"{condition.lower()}_{std_col.RAW_SUFFIX}"
-                if count_col in df.columns:
-                    # Update the 'All' row with sum of available age groups
-                    available_total = non_all_df[count_col].sum()
-                    df.loc[df[demo_breakdown] == ALL_VALUE, count_col] = available_total
 
         if demo_breakdown in [std_col.AGE_COL, std_col.SEX_COL]:
             df = generate_pct_share_col_without_unknowns(

@@ -78,13 +78,16 @@ def _load_xlsx_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
     return df
 
 
-def _load_sample_xlsx_as_df_from_real_data_dir(*args, **kwargs) -> pd.DataFrame:
-    """Creates a sample of the full dataset loaded from from data/ folder.
-    Useful in county, historical, or other slow data sources."""
-    return _load_xlsx_as_df_from_real_data_dir(*args, create_sample=True, **kwargs)
-
-
 def _create_df_sample(df: pd.DataFrame, sample_size: int = 50) -> pd.DataFrame:
     n = len(df) // sample_size  # Calculate step size to get few enough rows
     sample_df = df.iloc[::n][:sample_size]  # Take every nth row, limit to sample_size
     return sample_df
+
+
+def load_golden_df(golden_dir: str, table_name: str, dtype: dict | None = None) -> pd.DataFrame:
+    """Load a golden data frame from the golden_data folder; merge sent dtypes with defaults."""
+    path = os.path.join(golden_dir, f"{table_name}.csv")
+    merged_dtype = {"state_fips": str, "time_period": str}
+    if dtype:
+        merged_dtype.update(dtype)
+    return pd.read_csv(path, dtype=merged_dtype)
