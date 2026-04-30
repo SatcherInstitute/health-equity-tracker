@@ -49,8 +49,6 @@ export function generateSubtitle(
   dataTypeConfig: DataTypeConfig,
   _geographicBreakdown: GeographicBreakdown,
 ) {
-  // dataTypeConfig = applyGeoOverrides(dataTypeConfig, geographicBreakdown)
-
   const activeGroupLabel = getDemographicGroupLabel(
     demographicType,
     activeDemographicGroup,
