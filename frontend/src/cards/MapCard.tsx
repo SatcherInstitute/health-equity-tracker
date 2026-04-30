@@ -151,9 +151,13 @@ function MapCardWithKey(props: MapCardProps) {
     false,
   )
 
-  const updatedDataTypeConfig = applyGeoOverrides(
-    props.dataTypeConfig,
-    props.fips.getChildGeographicBreakdown(),
+  const updatedDataTypeConfig = useMemo(
+    () =>
+      applyGeoOverrides(
+        props.dataTypeConfig,
+        props.fips.getChildGeographicBreakdown(),
+      ),
+    [props.dataTypeConfig, props.fips.code],
   )
 
   const metricConfig =

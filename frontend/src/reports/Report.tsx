@@ -99,14 +99,16 @@ export function Report(props: ReportProps) {
     getAllDemographicOptions(resolvedConfig, props.fips)
 
   // if the DemographicType in state doesn't work for the selected datatype, reset to the first demographic type option that works
-  if (
-    resolvedConfig &&
-    !Object.values(enabledDemographicOptionsMap).includes(demographicType)
-  ) {
-    setDemographicType(
-      Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
-    )
-  }
+  useEffect(() => {
+    if (
+      resolvedConfig &&
+      !Object.values(enabledDemographicOptionsMap).includes(demographicType)
+    ) {
+      setDemographicType(
+        Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
+      )
+    }
+  }, [resolvedConfig, demographicType])
 
   useEffect(() => {
     const readParams = () => {
