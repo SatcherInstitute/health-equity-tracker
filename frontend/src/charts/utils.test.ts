@@ -74,14 +74,6 @@ describe('Tests generateSubtitle()', () => {
     )
     expect(subTitle).toEqual('Female population')
   })
-  test('Cervical Cancer subtitle with county-level override', () => {
-    const subTitle = generateSubtitle(
-      'All',
-      'race_and_ethnicity',
-      CDC_CANCER_INCIDENCE_METRICS[1],
-    )
-    expect(subTitle).toEqual('Female population')
-  })
 })
 
 describe('Tests getDemographicGroupLabel()', () => {

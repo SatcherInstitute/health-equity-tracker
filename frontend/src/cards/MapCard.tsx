@@ -519,9 +519,6 @@ function MapCardWithKey(props: MapCardProps) {
 
         const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
           props.dataTypeConfig,
-          hasSelfButNotChildGeoData
-            ? props.fips.getGeographicBreakdown()
-            : props.fips.getChildGeographicBreakdown(),
           mapQueryResponse.data,
           props.demographicType,
           metricId,
