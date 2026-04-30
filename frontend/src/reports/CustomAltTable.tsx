@@ -121,7 +121,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                             whiteSpace: 'normal',
                             wordWrap: 'break-word',
                           }}
-                          className='wrap-break-word border-0 border-alt-dark border-b bg-white leading-some-space'
+                          className='break-words border-0 border-alt-dark border-b bg-white leading-some-space'
                         >
                           {!isTimeCol &&
                             key !== ALL &&
