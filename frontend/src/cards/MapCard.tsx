@@ -14,7 +14,6 @@ import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DatasetId } from '../data/config/DatasetMetadata'
 import { dataSourceMetadataMap } from '../data/config/MetadataMap'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
-import { applyGeoOverrides } from '../data/config/MetricConfigUtils'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import {
@@ -30,7 +29,6 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
   type DemographicTypeDisplayName,
-  type GeographicBreakdown,
 } from '../data/query/Breakdowns'
 import {
   MetricQuery,
@@ -152,15 +150,10 @@ function MapCardWithKey(props: MapCardProps) {
     false,
   )
 
-  const updatedDataTypeConfig = applyGeoOverrides(
-    props.dataTypeConfig,
-    props.fips.getChildGeographicBreakdown(),
-  )
-
   const metricConfig =
-    updatedDataTypeConfig.metrics?.per100k ??
-    updatedDataTypeConfig.metrics?.pct_rate ??
-    updatedDataTypeConfig.metrics?.index
+    props.dataTypeConfig?.metrics?.per100k ??
+    props.dataTypeConfig?.metrics?.pct_rate ??
+    props.dataTypeConfig?.metrics?.index
 
   const isMobile = !useIsBreakpointAndUp('sm')
   const isMd = useIsBreakpointAndUp('md')
@@ -270,27 +263,17 @@ function MapCardWithKey(props: MapCardProps) {
     undefined,
     isAtlantaMode ? 'metro counties of Atlanta, Georgia' : undefined,
   )
-
+  let subtitle = generateSubtitle(
+    activeDemographicGroup,
+    demographicType,
+    props.dataTypeConfig,
+  )
   const pluralChildFips =
     props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
+  if (isExtremesMode)
+    subtitle += ` (only ${pluralChildFips} with rate extremes)`
+  const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
-  function generateMapCardSubtitle(geographicBreakdown: GeographicBreakdown) {
-    const base = generateSubtitle(
-      activeDemographicGroup,
-      demographicType,
-      props.dataTypeConfig,
-      geographicBreakdown,
-    )
-    return (
-      base +
-      (isExtremesMode ? ` (only ${pluralChildFips} with rate extremes)` : '')
-    )
-  }
-
-  const subtitleForFilename = generateMapCardSubtitle(
-    props.fips.getGeographicBreakdown() ?? 'national',
-  )
-  const filename = `${title} ${subtitleForFilename ? `for ${subtitleForFilename}` : ''}`
   return (
     <CardWrapper
       downloadTitle={filename}
@@ -316,11 +299,6 @@ function MapCardWithKey(props: MapCardProps) {
             (row) => row[metricConfig.metricId],
           ).length > 0
 
-        const subtitle = generateMapCardSubtitle(
-          hasSelfButNotChildGeoData
-            ? props.fips.getGeographicBreakdown()
-            : props.fips.getChildGeographicBreakdown(),
-        )
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? parentGeoQueryResponse
           : childGeoQueryResponse
@@ -418,9 +396,6 @@ function MapCardWithKey(props: MapCardProps) {
           subPopSourceLabel,
           demographicType,
           props.dataTypeConfig,
-          hasSelfButNotChildGeoData
-            ? props.fips.getGeographicBreakdown()
-            : props.fips.getChildGeographicBreakdown(),
         )
 
         const dataForSvi: HetRow[] =
@@ -523,9 +498,6 @@ function MapCardWithKey(props: MapCardProps) {
 
         const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
           props.dataTypeConfig,
-          hasSelfButNotChildGeoData
-            ? props.fips.getGeographicBreakdown()
-            : props.fips.getChildGeographicBreakdown(),
           mapQueryResponse.data,
           props.demographicType,
           metricId,

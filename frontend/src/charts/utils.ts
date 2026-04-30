@@ -1,9 +1,7 @@
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import { applyGeoOverrides } from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
-  type GeographicBreakdown,
 } from '../data/query/Breakdowns'
 import { AGE, ALL, type DemographicGroup } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
@@ -48,10 +46,7 @@ export function generateSubtitle(
   activeDemographicGroup: DemographicGroup,
   demographicType: DemographicType,
   dataTypeConfig: DataTypeConfig,
-  geographicBreakdown: GeographicBreakdown,
 ) {
-  dataTypeConfig = applyGeoOverrides(dataTypeConfig, geographicBreakdown)
-
   const activeGroupLabel = getDemographicGroupLabel(
     demographicType,
     activeDemographicGroup,

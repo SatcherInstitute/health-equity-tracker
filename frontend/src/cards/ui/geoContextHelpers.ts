@@ -1,9 +1,5 @@
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
-import { applyGeoOverrides } from '../../data/config/MetricConfigUtils'
-import type {
-  DemographicType,
-  GeographicBreakdown,
-} from '../../data/query/Breakdowns'
+import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 
 const POP_MISSING_VALUE = 'unavailable'
@@ -18,9 +14,7 @@ export function getSubPopulationPhrase(
   subPopulationSourceLabel: string,
   demographicType: DemographicType,
   dataTypeConfig: DataTypeConfig,
-  geographicBreakdown: GeographicBreakdown,
 ): string {
-  dataTypeConfig = applyGeoOverrides(dataTypeConfig, geographicBreakdown)
   const subPopConfig =
     dataTypeConfig.metrics?.pct_rate ?? dataTypeConfig.metrics?.per100k
   if (!subPopConfig?.rateDenominatorMetric) return ''

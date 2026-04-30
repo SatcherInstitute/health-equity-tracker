@@ -82,7 +82,6 @@ describe('test getSubPopulationPhrase()', () => {
         .data_source_acronym,
       /* demographicType */ 'race_and_ethnicity',
       /* dataTypeConfig */ statinsAdherenceConfig,
-      'national',
     )
     expect(medicarePopPhrase).toEqual(
       'Total population of Medicare Statins Beneficiaries, Ages 18+: 41,816,007 (from CMS)',
@@ -120,7 +119,6 @@ describe('test getSubPopulationPhrase()', () => {
         .data_source_acronym,
       /* demographicType */ 'sex',
       /* dataTypeConfig */ statinsAdherenceConfig,
-      'county',
     )
     expect(medicarePopPhrase).toEqual(
       'Total population of Medicare Statins Beneficiaries, Ages 18+: unavailable (from CMS)',
@@ -181,7 +179,6 @@ describe('test getSubPopulationPhrase()', () => {
         .data_source_acronym,
       /* demographicType */ 'race_and_ethnicity',
       /* dataTypeConfig */ covidCasesConfig,
-      'national',
     )
     expect(emptyCovidSubPopPhrase).toEqual('')
   })

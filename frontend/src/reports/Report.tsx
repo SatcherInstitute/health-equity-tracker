@@ -11,10 +11,7 @@ import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
-import {
-  applyGeoOverrides,
-  metricConfigFromDtConfig,
-} from '../data/config/MetricConfigUtils'
+import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
@@ -86,21 +83,12 @@ export function Report(props: ReportProps) {
   const [, setSelectedFips] = useAtom(selectedFipsAtom)
   const [, setSelectedDemographicType] = useAtom(selectedDemographicTypeAtom)
 
-  const resolvedConfig = applyGeoOverrides(
-    dataTypeConfig ?? METRIC_CONFIG[props.dropdownVarId]?.[0],
-    props.fips.getGeographicBreakdown(),
-  )
-
-  useEffect(() => {
-    setDataTypeConfig(resolvedConfig)
-  }, [props.dropdownVarId, props.fips])
-
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
-    getAllDemographicOptions(resolvedConfig, props.fips)
+    getAllDemographicOptions(dataTypeConfig, props.fips)
 
   // if the DemographicType in state doesn't work for the selected datatype, reset to the first demographic type option that works
   if (
-    resolvedConfig &&
+    dataTypeConfig &&
     !Object.values(enabledDemographicOptionsMap).includes(demographicType)
   ) {
     setDemographicType(
@@ -141,13 +129,13 @@ export function Report(props: ReportProps) {
     )
 
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
-  }, [resolvedConfig])
+  }, [dataTypeConfig])
 
   const demographicTypeString: string =
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
 
   const browserTitle = `${
-    (resolvedConfig?.fullDisplayName as string) ?? 'Data'
+    (dataTypeConfig?.fullDisplayName as string) ?? 'Data'
   } by ${demographicTypeString} in ${props.fips.getFullDisplayName()}`
 
   const offerJumpToAgeAdjustment = [
@@ -156,11 +144,11 @@ export function Report(props: ReportProps) {
   ].includes(props.dropdownVarId)
 
   const rateMetricConfig =
-    resolvedConfig && metricConfigFromDtConfig('rate', resolvedConfig)
+    dataTypeConfig && metricConfigFromDtConfig('rate', dataTypeConfig)
   const shareMetricConfig =
-    resolvedConfig && metricConfigFromDtConfig('share', resolvedConfig)
+    dataTypeConfig && metricConfigFromDtConfig('share', dataTypeConfig)
   const inequityOverTimeConfig =
-    resolvedConfig && metricConfigFromDtConfig('inequity', resolvedConfig)
+    dataTypeConfig && metricConfigFromDtConfig('inequity', dataTypeConfig)
 
   return (
     <>
@@ -179,7 +167,7 @@ export function Report(props: ReportProps) {
           />
 
           <div className='flex w-full items-center justify-center'>
-            {resolvedConfig && (
+            {dataTypeConfig && (
               <div
                 key={String(insightMode)}
                 className='flex w-full flex-col content-center'
@@ -194,7 +182,7 @@ export function Report(props: ReportProps) {
                   }}
                 >
                   <MapCard
-                    dataTypeConfig={resolvedConfig}
+                    dataTypeConfig={dataTypeConfig}
                     fips={props.fips}
                     updateFipsCallback={(fips: Fips) => {
                       props.updateFipsCallback(fips)
@@ -213,7 +201,7 @@ export function Report(props: ReportProps) {
                     id='rates-over-time'
                   >
                     <RateTrendsChartCard
-                      dataTypeConfig={resolvedConfig}
+                      dataTypeConfig={dataTypeConfig}
                       demographicType={demographicType}
                       fips={props.fips}
                       reportTitle={props.reportTitle}
@@ -231,7 +219,7 @@ export function Report(props: ReportProps) {
                   }}
                 >
                   <RateBarChartCard
-                    dataTypeConfig={resolvedConfig}
+                    dataTypeConfig={dataTypeConfig}
                     demographicType={demographicType}
                     fips={props.fips}
                     reportTitle={props.reportTitle}
@@ -251,7 +239,7 @@ export function Report(props: ReportProps) {
                     {shareMetricConfig && (
                       <UnknownsMapCard
                         overrideAndWithOr={demographicType === RACE}
-                        dataTypeConfig={resolvedConfig}
+                        dataTypeConfig={dataTypeConfig}
                         fips={props.fips}
                         updateFipsCallback={(fips: Fips) => {
                           props.updateFipsCallback(fips)
@@ -272,7 +260,7 @@ export function Report(props: ReportProps) {
                   >
                     <HetLazyLoader offset={600} height={250} once>
                       <ShareTrendsChartCard
-                        dataTypeConfig={resolvedConfig}
+                        dataTypeConfig={dataTypeConfig}
                         demographicType={demographicType}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
@@ -293,7 +281,7 @@ export function Report(props: ReportProps) {
                   <HetLazyLoader offset={800} height={0} once>
                     {shareMetricConfig && (
                       <StackedSharesBarChartCard
-                        dataTypeConfig={resolvedConfig}
+                        dataTypeConfig={dataTypeConfig}
                         demographicType={demographicType}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
@@ -313,14 +301,14 @@ export function Report(props: ReportProps) {
                 >
                   <TableCard
                     fips={props.fips}
-                    dataTypeConfig={resolvedConfig}
+                    dataTypeConfig={dataTypeConfig}
                     demographicType={demographicType}
                     reportTitle={props.reportTitle}
                   />
                 </div>
 
                 {/* AGE ADJUSTED TABLE CARD */}
-                {resolvedConfig.metrics?.age_adjusted_ratio && (
+                {dataTypeConfig.metrics?.age_adjusted_ratio && (
                   <div
                     tabIndex={-1}
                     className='w-full'
@@ -332,7 +320,7 @@ export function Report(props: ReportProps) {
                     <HetLazyLoader offset={800} height={800} once>
                       <AgeAdjustedTableCard
                         fips={props.fips}
-                        dataTypeConfig={resolvedConfig}
+                        dataTypeConfig={dataTypeConfig}
                         dropdownVarId={props.dropdownVarId}
                         demographicType={demographicType}
                         reportTitle={props.reportTitle}
@@ -352,14 +340,14 @@ export function Report(props: ReportProps) {
           </div>
         </div>
         {/* INSIGHT CARD COLUMN - shown when insight is open */}
-        {insightMode && resolvedConfig && (
+        {insightMode && dataTypeConfig && (
           <div className='hidden md:flex md:w-4/12 md:flex-col'>
             <InsightReportCard headerScrollMargin={props.headerScrollMargin} />
           </div>
         )}
 
         <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
-          {resolvedConfig &&
+          {dataTypeConfig &&
             SHOW_INSIGHT_GENERATION &&
             props.trackerMode === 'disparity' && (
               <div className='rounded-sm bg-white shadow-raised md:m-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>

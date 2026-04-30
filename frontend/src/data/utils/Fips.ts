@@ -25,15 +25,6 @@ class Fips {
     this.code = code
   }
 
-  getGeographicBreakdown(): GeographicBreakdown {
-    return this.getFipsTypeDisplayName() as GeographicBreakdown
-  }
-
-  getChildGeographicBreakdown(): GeographicBreakdown {
-    if (this.isUsa()) return 'state'
-    return 'county'
-  }
-
   isUsa() {
     return this.code === USA_FIPS
   }

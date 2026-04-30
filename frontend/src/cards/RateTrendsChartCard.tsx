@@ -116,7 +116,6 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     ALL,
     props.demographicType,
     props.dataTypeConfig,
-    props.fips.getGeographicBreakdown(),
   )
 
   const isCawp = CAWP_METRICS.includes(metricConfigRates.metricId)
