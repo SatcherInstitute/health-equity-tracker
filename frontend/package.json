@@ -30,7 +30,6 @@
 		"jotai": "^2.17.0",
 		"jotai-location": "^0.6.0",
 		"just-debounce-it": "^3.2.0",
-		"lodash-es": "^4.18.1",
 		"lru-cache": "^11.2.2",
 		"react": "19.2.0",
 		"react-animate-height": "^3.2.3",
