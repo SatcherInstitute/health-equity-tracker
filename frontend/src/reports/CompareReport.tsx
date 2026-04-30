@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
 import MapCard from '../cards/MapCard'
@@ -15,7 +15,10 @@ import type {
   DataTypeConfig,
   DataTypeId,
 } from '../data/config/MetricConfigTypes'
-import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
+import {
+  applyGeoOverrides,
+  metricConfigFromDtConfig,
+} from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
@@ -80,20 +83,46 @@ export default function CompareReport(props: CompareReportProps) {
   const [dataTypeConfig1, setDtConfig1] = useAtom(selectedDataTypeConfig1Atom)
   const [dataTypeConfig2, setDtConfig2] = useAtom(selectedDataTypeConfig2Atom)
 
+  const resolvedConfig1 = useMemo(
+    () =>
+      dataTypeConfig1
+        ? applyGeoOverrides(
+            dataTypeConfig1,
+            props.fips1.getGeographicBreakdown(),
+          )
+        : null,
+    [dataTypeConfig1, props.fips1.code],
+  )
+
+  const resolvedConfig2 = useMemo(
+    () =>
+      dataTypeConfig2
+        ? applyGeoOverrides(
+            dataTypeConfig2,
+            props.fips2.getGeographicBreakdown(),
+          )
+        : null,
+    [dataTypeConfig2, props.fips2.code],
+  )
+
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
     getAllDemographicOptions(
-      dataTypeConfig1,
+      resolvedConfig1,
       props.fips1,
-      dataTypeConfig2,
+      resolvedConfig2,
       props.fips2,
     )
 
   // if the DemographicType in state doesn't work for both sides of the compare report, default to this first option that does work
-  if (!Object.values(enabledDemographicOptionsMap).includes(demographicType)) {
-    setDemographicType(
-      Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
-    )
-  }
+  useEffect(() => {
+    if (
+      !Object.values(enabledDemographicOptionsMap).includes(demographicType)
+    ) {
+      setDemographicType(
+        Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
+      )
+    }
+  }, [resolvedConfig1, resolvedConfig2, demographicType])
 
   useEffect(() => {
     const readParams = () => {
@@ -145,9 +174,9 @@ export default function CompareReport(props: CompareReportProps) {
     )
 
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
-  }, [dataTypeConfig1, dataTypeConfig2])
+  }, [resolvedConfig1, resolvedConfig2])
 
-  if (dataTypeConfig1 === null || dataTypeConfig2 === null) {
+  if (resolvedConfig1 === null || resolvedConfig2 === null) {
     return <></>
   }
 
@@ -207,8 +236,8 @@ export default function CompareReport(props: CompareReportProps) {
             {showCorrelationCard && rateConfig1 && rateConfig2 && (
               <CompareBubbleChartCard
                 fips1={props.fips1}
-                dataTypeConfig1={dataTypeConfig1}
-                dataTypeConfig2={dataTypeConfig2}
+                dataTypeConfig1={resolvedConfig1}
+                dataTypeConfig2={resolvedConfig2}
                 rateConfig1={rateConfig1}
                 rateConfig2={rateConfig2}
                 demographicType={demographicType}
@@ -219,8 +248,8 @@ export default function CompareReport(props: CompareReportProps) {
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='rate-map'
-              dataTypeConfig1={dataTypeConfig1}
-              dataTypeConfig2={dataTypeConfig2}
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               updateFips1={props.updateFips1Callback}
@@ -252,8 +281,8 @@ export default function CompareReport(props: CompareReportProps) {
               <RowOfTwoOptionalMetrics
                 trackerMode={props.trackerMode}
                 id='rates-over-time'
-                dataTypeConfig1={dataTypeConfig1}
-                dataTypeConfig2={dataTypeConfig2}
+                dataTypeConfig1={resolvedConfig1}
+                dataTypeConfig2={resolvedConfig2}
                 fips1={props.fips1}
                 fips2={props.fips2}
                 headerScrollMargin={props.headerScrollMargin}
@@ -280,8 +309,8 @@ export default function CompareReport(props: CompareReportProps) {
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='rate-chart'
-              dataTypeConfig1={dataTypeConfig1}
-              dataTypeConfig2={dataTypeConfig2}
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               headerScrollMargin={props.headerScrollMargin}
@@ -303,8 +332,8 @@ export default function CompareReport(props: CompareReportProps) {
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='unknown-demographic-map'
-              dataTypeConfig1={dataTypeConfig1}
-              dataTypeConfig2={dataTypeConfig2}
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               headerScrollMargin={props.headerScrollMargin}
@@ -334,8 +363,8 @@ export default function CompareReport(props: CompareReportProps) {
               <RowOfTwoOptionalMetrics
                 trackerMode={props.trackerMode}
                 id='inequities-over-time'
-                dataTypeConfig1={dataTypeConfig1}
-                dataTypeConfig2={dataTypeConfig2}
+                dataTypeConfig1={resolvedConfig1}
+                dataTypeConfig2={resolvedConfig2}
                 fips1={props.fips1}
                 fips2={props.fips2}
                 headerScrollMargin={props.headerScrollMargin}
@@ -361,8 +390,8 @@ export default function CompareReport(props: CompareReportProps) {
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='population-vs-distribution'
-              dataTypeConfig1={dataTypeConfig1}
-              dataTypeConfig2={dataTypeConfig2}
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               headerScrollMargin={props.headerScrollMargin}
@@ -384,8 +413,8 @@ export default function CompareReport(props: CompareReportProps) {
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='data-table'
-              dataTypeConfig1={dataTypeConfig1}
-              dataTypeConfig2={dataTypeConfig2}
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               updateFips1={props.updateFips1Callback}
@@ -412,8 +441,8 @@ export default function CompareReport(props: CompareReportProps) {
                 trackerMode={props.trackerMode}
                 id='age-adjusted-ratios'
                 // specific data type
-                dataTypeConfig1={dataTypeConfig1}
-                dataTypeConfig2={dataTypeConfig2}
+                dataTypeConfig1={resolvedConfig1}
+                dataTypeConfig2={resolvedConfig2}
                 // parent variable
                 dropdownVarId1={props.dropdownVarId1}
                 dropdownVarId2={props.dropdownVarId2}

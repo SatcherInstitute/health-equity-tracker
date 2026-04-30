@@ -108,7 +108,7 @@ export function Report(props: ReportProps) {
         Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
       )
     }
-  }, [resolvedConfig, demographicType])
+  }, [resolvedConfig, demographicType, enabledDemographicOptionsMap])
 
   useEffect(() => {
     const readParams = () => {
