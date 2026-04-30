@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import MapCard from '../cards/MapCard'
 import RateBarChartCard from '../cards/RateBarChartCard'
@@ -86,14 +86,14 @@ export function Report(props: ReportProps) {
   const [, setSelectedFips] = useAtom(selectedFipsAtom)
   const [, setSelectedDemographicType] = useAtom(selectedDemographicTypeAtom)
 
-  const resolvedConfig = applyGeoOverrides(
-    dataTypeConfig ?? METRIC_CONFIG[props.dropdownVarId]?.[0],
-    props.fips.getGeographicBreakdown(),
+  const resolvedConfig = useMemo(
+    () =>
+      applyGeoOverrides(
+        dataTypeConfig ?? METRIC_CONFIG[props.dropdownVarId]?.[0],
+        props.fips.getGeographicBreakdown(),
+      ),
+    [dataTypeConfig, props.dropdownVarId, props.fips.code],
   )
-
-  useEffect(() => {
-    setDataTypeConfig(resolvedConfig)
-  }, [props.dropdownVarId, props.fips])
 
   const { enabledDemographicOptionsMap, disabledDemographicOptions } =
     getAllDemographicOptions(resolvedConfig, props.fips)
