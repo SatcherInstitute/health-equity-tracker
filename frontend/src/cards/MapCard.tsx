@@ -30,7 +30,6 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
   type DemographicTypeDisplayName,
-  type GeographicBreakdown,
 } from '../data/query/Breakdowns'
 import {
   MetricQuery,
@@ -274,12 +273,11 @@ function MapCardWithKey(props: MapCardProps) {
   const pluralChildFips =
     props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
 
-  function generateMapCardSubtitle(geographicBreakdown: GeographicBreakdown) {
+  function generateMapCardSubtitle() {
     const base = generateSubtitle(
       activeDemographicGroup,
       demographicType,
       props.dataTypeConfig,
-      geographicBreakdown,
     )
     return (
       base +
@@ -287,9 +285,7 @@ function MapCardWithKey(props: MapCardProps) {
     )
   }
 
-  const subtitleForFilename = generateMapCardSubtitle(
-    props.fips.getGeographicBreakdown() ?? 'national',
-  )
+  const subtitleForFilename = generateMapCardSubtitle()
   const filename = `${title} ${subtitleForFilename ? `for ${subtitleForFilename}` : ''}`
   return (
     <CardWrapper
@@ -316,11 +312,7 @@ function MapCardWithKey(props: MapCardProps) {
             (row) => row[metricConfig.metricId],
           ).length > 0
 
-        const subtitle = generateMapCardSubtitle(
-          hasSelfButNotChildGeoData
-            ? props.fips.getGeographicBreakdown()
-            : props.fips.getChildGeographicBreakdown(),
-        )
+        const subtitle = generateMapCardSubtitle()
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? parentGeoQueryResponse
           : childGeoQueryResponse

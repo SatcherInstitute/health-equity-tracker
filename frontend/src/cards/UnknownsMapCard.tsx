@@ -112,7 +112,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     ALL,
     props.demographicType,
     props.dataTypeConfig,
-    props.fips.getGeographicBreakdown(),
   )
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'

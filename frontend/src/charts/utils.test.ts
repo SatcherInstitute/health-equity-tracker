@@ -40,7 +40,6 @@ describe('Tests generateChartTitle()', () => {
       'Male',
       'sex',
       PREVENTABLE_HOSP_METRICS[0],
-      'national',
     )
     expect(subTitle).toEqual('Medicare beneficiaries, Ages 18+, Male')
   })
@@ -50,7 +49,6 @@ describe('Tests generateChartTitle()', () => {
       'Male',
       'sex',
       PHRMA_CARDIOVASCULAR_METRICS[0],
-      'national',
     )
     expect(subTitle).toEqual(
       'Medicare Beta-Blocker Beneficiaries, Male, Ages 18+',
@@ -60,22 +58,12 @@ describe('Tests generateChartTitle()', () => {
 
 describe('Tests generateSubtitle()', () => {
   test('Standard subtitle', () => {
-    const subTitle = generateSubtitle(
-      'Male',
-      'sex',
-      UNINSURANCE_METRICS[0],
-      'national',
-    )
+    const subTitle = generateSubtitle('Male', 'sex', UNINSURANCE_METRICS[0])
     expect(subTitle).toEqual('Male')
   })
 
   test('HIV subtitle', () => {
-    const subTitle = generateSubtitle(
-      'Male',
-      'sex',
-      HIV_DISEASE_METRICS[2],
-      'national',
-    )
+    const subTitle = generateSubtitle('Male', 'sex', HIV_DISEASE_METRICS[2])
     expect(subTitle).toEqual('Male, Ages 13+')
   })
   test('Cervical Cancer subtitle ', () => {
@@ -83,7 +71,6 @@ describe('Tests generateSubtitle()', () => {
       'All',
       'race_and_ethnicity',
       CDC_CANCER_INCIDENCE_METRICS[1],
-      'state',
     )
     expect(subTitle).toEqual('Female population')
   })
@@ -92,7 +79,6 @@ describe('Tests generateSubtitle()', () => {
       'All',
       'race_and_ethnicity',
       CDC_CANCER_INCIDENCE_METRICS[1],
-      'county',
     )
     expect(subTitle).toEqual('Female population')
   })

@@ -77,7 +77,7 @@ export function calculateLegendColorCount(
 
 export function getHighestLowestGroupsByFips(
   dataTypeConfig: DataTypeConfig,
-  geographicBreakdown: GeographicBreakdown,
+  _geographicBreakdown: GeographicBreakdown,
   fullData?: HetRow[],
   demographicType?: DemographicType,
   metricId?: MetricId,
@@ -114,13 +114,11 @@ export function getHighestLowestGroupsByFips(
           ],
           /* demographicType:  */ demographicType,
           dataTypeConfig,
-          /* geographicBreakdown: */ geographicBreakdown,
         ),
         lowest: generateSubtitle(
           /* activeDemographicGroup: */ ascendingGroups[0],
           /* demographicType:  */ demographicType,
           dataTypeConfig,
-          /* geographicBreakdown: */ geographicBreakdown,
         ),
       }
       // TIE OVERRIDES
