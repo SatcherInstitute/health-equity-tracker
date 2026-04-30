@@ -14,6 +14,7 @@ import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DatasetId } from '../data/config/DatasetMetadata'
 import { dataSourceMetadataMap } from '../data/config/MetadataMap'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import { applyGeoOverrides } from '../data/config/MetricConfigUtils'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import {
@@ -151,10 +152,15 @@ function MapCardWithKey(props: MapCardProps) {
     false,
   )
 
+  const updatedDataTypeConfig = applyGeoOverrides(
+    props.dataTypeConfig,
+    props.fips.getChildGeographicBreakdown(),
+  )
+
   const metricConfig =
-    props.dataTypeConfig?.metrics?.per100k ??
-    props.dataTypeConfig?.metrics?.pct_rate ??
-    props.dataTypeConfig?.metrics?.index
+    updatedDataTypeConfig.metrics?.per100k ??
+    updatedDataTypeConfig.metrics?.pct_rate ??
+    updatedDataTypeConfig.metrics?.index
 
   const isMobile = !useIsBreakpointAndUp('sm')
   const isMd = useIsBreakpointAndUp('md')
