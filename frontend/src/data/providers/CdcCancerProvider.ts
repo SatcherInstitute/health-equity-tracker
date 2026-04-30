@@ -1,3 +1,4 @@
+import { SHOW_NCI_COUNTY_CANCER } from '../../featureFlags'
 import { getDataManager } from '../../utils/globals'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
@@ -110,7 +111,7 @@ class CdcCancerProvider extends VariableProvider {
     return (
       (breakdowns.geography === 'state' ||
         breakdowns.geography === 'national' ||
-        breakdowns.geography === 'county') &&
+        (breakdowns.geography === 'county' && SHOW_NCI_COUNTY_CANCER)) &&
       validDemographicBreakdownRequest
     )
   }

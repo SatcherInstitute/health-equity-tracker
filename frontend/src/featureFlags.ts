@@ -1,3 +1,5 @@
 export const SHOW_INSIGHT_GENERATION = import.meta.env
   .VITE_SHOW_INSIGHT_GENERATION
 export const SHOW_CORRELATION_CARD = import.meta.env.VITE_SHOW_CORRELATION_CARD
+export const SHOW_NCI_COUNTY_CANCER = import.meta.env
+  .VITE_SHOW_NCI_COUNTY_CANCER
