@@ -14,6 +14,7 @@ import {
 } from './DatasetMetadataCovidCategory'
 import { datasourceMetadataHivCategory } from './DatasetMetadataHivCategory'
 import { datasourceMetadataMaternalHealthCategory } from './DatasetMetadataMaternalHealthCategory'
+import { datasourceMetadataNciCancer } from './DatasetMetadataNciCancer'
 import { datasourceMetadataVera } from './DatasetMetadataVera'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
@@ -39,6 +40,7 @@ export type DataSourceId =
   | 'geo_context'
   | 'kff_vaccination'
   | 'maternal_health'
+  | 'nci_cancer'
   | 'phrma'
   | 'phrma_brfss'
   | 'the_unitedstates_project'
@@ -53,6 +55,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   cdc_vaccination_county: datasourceMetadataCdcVaccinationCounty,
   cdc_vaccination_national: datasourceMetadataCdcVaccinationNational,
   kff_vaccination: datasourceMetadataKffVaccinationState,
+  nci_cancer: datasourceMetadataNciCancer,
   ahr: datasourceMetadataAhr,
   chr: datasourceMetadataChr,
   bjs: datasourceMetadataBjs,
