@@ -8,6 +8,7 @@ import type {
   MetricType,
 } from './MetricConfigTypes'
 import {
+  applyGeoOverrides,
   formatFieldValue,
   isPctType,
   metricConfigFromDtConfig,
@@ -79,4 +80,70 @@ test('Test Formatting of Field Values', () => {
   expect(formatFieldValue('per100k', 30_000, false)).toBe('30,000')
   expect(formatFieldValue('per100k', 0, false)).toBe('0.0')
   expect(formatFieldValue('per100k', 3.33, false)).toBe('3.3')
+})
+
+const baseConfig = {
+  fullDisplayName: 'Display Name (default)',
+  metrics: {
+    per100k: {
+      metricId: 'test_per_100k',
+      chartTitle: 'Rate Chart Title (default)',
+      type: 'per100k',
+    },
+    pct_share: {
+      metricId: 'test_pct_share',
+      chartTitle: 'Share Chart Title (default)',
+      type: 'pct_share',
+    },
+  },
+  geoOverrides: {
+    county: {
+      fullDisplayName: 'Display Name (county override)',
+      definition: { text: 'Definition (county override).' },
+      metrics: {
+        per100k: {
+          chartTitle: 'Rate Chart Title (county override)',
+        },
+      },
+    },
+  },
+} as any as DataTypeConfig
+
+describe('applyGeoOverrides', () => {
+  test('returns same object when no override for geography', () => {
+    expect(applyGeoOverrides(baseConfig, 'state')).toBe(baseConfig)
+  })
+
+  test('does not mutate original config', () => {
+    applyGeoOverrides(baseConfig, 'county')
+    expect(baseConfig.fullDisplayName).toBe('Display Name (default)')
+    expect(baseConfig.metrics?.per100k?.chartTitle).toBe(
+      'Rate Chart Title (default)',
+    )
+  })
+
+  test('applies top-level override', () => {
+    const result = applyGeoOverrides(baseConfig, 'county')
+    expect(result.fullDisplayName).toBe('Display Name (county override)')
+  })
+
+  test('preserves top-level fields not in override', () => {
+    const result = applyGeoOverrides(baseConfig, 'county')
+    expect(result.definition?.text).toBe('Definition (county override).')
+  })
+
+  test('partial metric override preserves unspecified fields', () => {
+    const result = applyGeoOverrides(baseConfig, 'county')
+    expect(result.metrics?.per100k?.chartTitle).toBe(
+      'Rate Chart Title (county override)',
+    )
+    expect(result.metrics?.per100k?.metricId).toBe('test_per_100k')
+  })
+
+  test('metrics not in override are preserved', () => {
+    const result = applyGeoOverrides(baseConfig, 'county')
+    expect(result.metrics?.pct_share?.chartTitle).toBe(
+      'Share Chart Title (default)',
+    )
+  })
 })
