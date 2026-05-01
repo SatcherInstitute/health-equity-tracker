@@ -9,7 +9,7 @@ import {
 } from '../../utils/sharedSettingsState'
 
 export default function DataTypeDefinitionsList() {
-  let selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
+  const selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
   const selectedDataTypeConfig2 = useAtomValue(selectedDataTypeConfig2Atom)
   const selectedFips = useAtomValue(selectedFipsAtom)
   const geographyBreakdown =
@@ -17,11 +17,9 @@ export default function DataTypeDefinitionsList() {
 
   const configArray: DataTypeConfig[] = []
   if (selectedDataTypeConfig1) {
-    selectedDataTypeConfig1 = applyGeoOverrides(
-      selectedDataTypeConfig1,
-      geographyBreakdown,
+    configArray.push(
+      applyGeoOverrides(selectedDataTypeConfig1, geographyBreakdown),
     )
-    configArray.push(selectedDataTypeConfig1)
   }
   if (
     selectedDataTypeConfig2 &&

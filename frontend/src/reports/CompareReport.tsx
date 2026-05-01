@@ -259,8 +259,8 @@ export default function CompareReport(props: CompareReportProps) {
               trackerMode={props.trackerMode}
               id='rate-map'
               // NOTE: map card handles its own geo overrides so we send base configs rather than resolved
-              dataTypeConfig1={dataTypeConfig1 || resolvedConfig1}
-              dataTypeConfig2={dataTypeConfig2 || resolvedConfig2}
+              dataTypeConfig1={dataTypeConfig1!}
+              dataTypeConfig2={dataTypeConfig2!}
               fips1={props.fips1}
               fips2={props.fips2}
               updateFips1={props.updateFips1Callback}
