@@ -196,7 +196,10 @@ function ReportProvider(props: ReportProviderProps) {
               >
                 Definitions:
               </h2>
-              <DefinitionsList dataTypesToDefine={metricConfigSubset} />
+              <DefinitionsList
+                dataTypesToDefine={metricConfigSubset}
+                fips={fips1}
+              />
               <RaceRelabelingsList />
 
               <HetTextArrowLink
