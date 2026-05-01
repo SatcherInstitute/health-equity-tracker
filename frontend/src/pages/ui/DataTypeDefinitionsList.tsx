@@ -27,7 +27,9 @@ export default function DataTypeDefinitionsList() {
     selectedDataTypeConfig2 &&
     selectedDataTypeConfig2 !== selectedDataTypeConfig1
   ) {
-    configArray.push(selectedDataTypeConfig2)
+    configArray.push(
+      applyGeoOverrides(selectedDataTypeConfig2, geographyBreakdown),
+    )
   }
   return (
     <>

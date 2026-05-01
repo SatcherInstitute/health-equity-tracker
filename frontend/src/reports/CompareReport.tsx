@@ -191,25 +191,25 @@ export default function CompareReport(props: CompareReportProps) {
   }
 
   const rateConfig1 =
-    dataTypeConfig1 && metricConfigFromDtConfig('rate', dataTypeConfig1)
+    resolvedConfig1 && metricConfigFromDtConfig('rate', resolvedConfig1)
   const rateConfig2 =
-    dataTypeConfig2 && metricConfigFromDtConfig('rate', dataTypeConfig2)
+    resolvedConfig2 && metricConfigFromDtConfig('rate', resolvedConfig2)
   const inequityConfig1 =
-    dataTypeConfig1 && metricConfigFromDtConfig('inequity', dataTypeConfig1)
+    resolvedConfig1 && metricConfigFromDtConfig('inequity', resolvedConfig1)
   const inequityConfig2 =
-    dataTypeConfig2 && metricConfigFromDtConfig('inequity', dataTypeConfig2)
+    resolvedConfig2 && metricConfigFromDtConfig('inequity', resolvedConfig2)
   const ageAdjustedRatioConfig1 =
-    dataTypeConfig1 && metricConfigFromDtConfig('ratio', dataTypeConfig1)
+    resolvedConfig1 && metricConfigFromDtConfig('ratio', resolvedConfig1)
   const ageAdjustedRatioConfig2 =
-    dataTypeConfig2 && metricConfigFromDtConfig('ratio', dataTypeConfig2)
+    resolvedConfig2 && metricConfigFromDtConfig('ratio', resolvedConfig2)
   const showRatesOverTimeCardRow =
     rateConfig1?.timeSeriesCadence || rateConfig2?.timeSeriesCadence
   const showInequitiesOverTimeCardRow = inequityConfig1 || inequityConfig2
   const showAgeAdjustCardRow =
     ageAdjustedRatioConfig1 || ageAdjustedRatioConfig2
 
-  const dt1 = dataTypeConfig1?.fullDisplayName
-  const dt2 = dataTypeConfig2?.fullDisplayName
+  const dt1 = resolvedConfig1?.fullDisplayName
+  const dt2 = resolvedConfig2?.fullDisplayName
   const demo = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
   const loc1 = props.fips1.getSentenceDisplayName()
   const loc2 = props.fips2.getSentenceDisplayName()
@@ -258,8 +258,9 @@ export default function CompareReport(props: CompareReportProps) {
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='rate-map'
-              dataTypeConfig1={resolvedConfig1}
-              dataTypeConfig2={resolvedConfig2}
+              // NOTE: map card handles its own geo overrides so we send base configs rather than resolved
+              dataTypeConfig1={dataTypeConfig1 || resolvedConfig1}
+              dataTypeConfig2={dataTypeConfig2 || resolvedConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               updateFips1={props.updateFips1Callback}

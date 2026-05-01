@@ -160,7 +160,7 @@ export interface DataTypeConfig {
   geoOverrides?: Partial<Record<GeographicBreakdown, DataTypeConfigOverride>>
 }
 
-export type MetricConfigOverride = Partial<MetricConfig>
+export type MetricConfigOverride = DeepPartial<MetricConfig>
 
 export type DataTypeConfigOverride = Omit<
   DeepPartial<DataTypeConfig>,

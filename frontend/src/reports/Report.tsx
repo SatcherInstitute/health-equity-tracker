@@ -198,7 +198,9 @@ export function Report(props: ReportProps) {
                   }}
                 >
                   <MapCard
-                    dataTypeConfig={resolvedConfig}
+                    dataTypeConfig={
+                      dataTypeConfig ?? METRIC_CONFIG[props.dropdownVarId]?.[0]
+                    } // map card handles its own geo overrides, so use original config not resolved
                     fips={props.fips}
                     updateFipsCallback={(fips: Fips) => {
                       props.updateFipsCallback(fips)
