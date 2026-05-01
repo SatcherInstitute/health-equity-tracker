@@ -151,7 +151,7 @@ function MapCardWithKey(props: MapCardProps) {
     false,
   )
 
-  const updatedDataTypeConfig = useMemo(
+  const resolvedDataTypeConfig = useMemo(
     () =>
       applyGeoOverrides(
         props.dataTypeConfig,
@@ -161,9 +161,9 @@ function MapCardWithKey(props: MapCardProps) {
   )
 
   const metricConfig =
-    updatedDataTypeConfig.metrics?.per100k ??
-    updatedDataTypeConfig.metrics?.pct_rate ??
-    updatedDataTypeConfig.metrics?.index
+    resolvedDataTypeConfig.metrics?.per100k ??
+    resolvedDataTypeConfig.metrics?.pct_rate ??
+    resolvedDataTypeConfig.metrics?.index
 
   const isMobile = !useIsBreakpointAndUp('sm')
   const isMd = useIsBreakpointAndUp('md')
@@ -281,7 +281,7 @@ function MapCardWithKey(props: MapCardProps) {
     const base = generateSubtitle(
       activeDemographicGroup,
       demographicType,
-      updatedDataTypeConfig,
+      resolvedDataTypeConfig,
     )
     return (
       base +
@@ -413,10 +413,7 @@ function MapCardWithKey(props: MapCardProps) {
           isAtlantaMode ? atlantaData : parentGeoQueryResponse.data,
           subPopSourceLabel,
           demographicType,
-          props.dataTypeConfig,
-          hasSelfButNotChildGeoData
-            ? props.fips.getGeographicBreakdown()
-            : props.fips.getChildGeographicBreakdown(),
+          resolvedDataTypeConfig,
         )
 
         const dataForSvi: HetRow[] =
