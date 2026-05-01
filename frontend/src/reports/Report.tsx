@@ -95,8 +95,10 @@ export function Report(props: ReportProps) {
     [dataTypeConfig, props.dropdownVarId, props.fips.code],
   )
 
-  const { enabledDemographicOptionsMap, disabledDemographicOptions } =
-    getAllDemographicOptions(resolvedConfig, props.fips)
+  const { enabledDemographicOptionsMap, disabledDemographicOptions } = useMemo(
+    () => getAllDemographicOptions(resolvedConfig, props.fips),
+    [resolvedConfig, props.fips],
+  )
 
   // if the DemographicType in state doesn't work for the selected datatype, reset to the first demographic type option that works
   useEffect(() => {

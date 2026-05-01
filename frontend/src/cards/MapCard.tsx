@@ -281,7 +281,7 @@ function MapCardWithKey(props: MapCardProps) {
     const base = generateSubtitle(
       activeDemographicGroup,
       demographicType,
-      props.dataTypeConfig,
+      updatedDataTypeConfig,
     )
     return (
       base +

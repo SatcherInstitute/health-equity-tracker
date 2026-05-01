@@ -105,24 +105,34 @@ export default function CompareReport(props: CompareReportProps) {
     [dataTypeConfig2, props.fips2.code],
   )
 
-  const { enabledDemographicOptionsMap, disabledDemographicOptions } =
-    getAllDemographicOptions(
-      resolvedConfig1,
-      props.fips1,
-      resolvedConfig2,
-      props.fips2,
-    )
+  const { enabledDemographicOptionsMap, disabledDemographicOptions } = useMemo(
+    () =>
+      getAllDemographicOptions(
+        resolvedConfig1,
+        props.fips1,
+        resolvedConfig2,
+        props.fips2,
+      ),
+    [resolvedConfig1, props.fips1, resolvedConfig2, props.fips2],
+  )
 
-  // if the DemographicType in state doesn't work for both sides of the compare report, default to this first option that does work
+  // if DemographicType in state doesn't work for both sides of compare, default to first working option
   useEffect(() => {
     if (
+      resolvedConfig1 &&
+      resolvedConfig2 &&
       !Object.values(enabledDemographicOptionsMap).includes(demographicType)
     ) {
       setDemographicType(
         Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
       )
     }
-  }, [resolvedConfig1, resolvedConfig2, demographicType])
+  }, [
+    resolvedConfig1,
+    resolvedConfig2,
+    demographicType,
+    enabledDemographicOptionsMap,
+  ])
 
   useEffect(() => {
     const readParams = () => {
