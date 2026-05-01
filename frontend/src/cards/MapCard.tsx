@@ -413,7 +413,12 @@ function MapCardWithKey(props: MapCardProps) {
           isAtlantaMode ? atlantaData : parentGeoQueryResponse.data,
           subPopSourceLabel,
           demographicType,
-          resolvedDataTypeConfig,
+          hasSelfButNotChildGeoData
+            ? applyGeoOverrides(
+                props.dataTypeConfig,
+                props.fips.getGeographicBreakdown(),
+              )
+            : resolvedDataTypeConfig,
         )
 
         const dataForSvi: HetRow[] =
