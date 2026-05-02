@@ -1,4 +1,6 @@
+import { merge } from 'lodash-es'
 import { getFormatterPer100k } from '../../charts/utils'
+import type { GeographicBreakdown } from '../query/Breakdowns'
 import type { DropdownVarId } from './DropDownIds'
 import { METRIC_CONFIG } from './MetricConfig'
 import type {
@@ -115,4 +117,13 @@ export function formatSubPopString({
   return otherSubPopulationLabel && ageSubPopulationLabel
     ? `${otherSubPopulationLabel}, ${ageSubPopulationLabel}`
     : otherSubPopulationLabel || ageSubPopulationLabel || ''
+}
+
+export function applyGeoOverrides(
+  config: DataTypeConfig,
+  geography: GeographicBreakdown,
+): DataTypeConfig {
+  const overrides = config.geoOverrides?.[geography]
+  if (!overrides) return config
+  return merge({}, config, overrides)
 }

@@ -5,12 +5,15 @@ Retrieves their parent categories (with optional category definitions)
 
 import type { DropdownVarId } from '../../data/config/DropDownIds'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
+import { applyGeoOverrides } from '../../data/config/MetricConfigUtils'
+import type { Fips } from '../../data/utils/Fips'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
 import InfoCitations from './InfoCitations'
 
 interface DefinitionsListProps {
   dataTypesToDefine: Array<[string, DataTypeConfig[]]>
+  fips: Fips
 }
 
 export default function DefinitionsList(props: DefinitionsListProps) {
@@ -47,14 +50,22 @@ export default function DefinitionsList(props: DefinitionsListProps) {
                 dataTypesForThisCategory.map((dataType) => {
                   // list their data types and definitions
                   return dataType[1].map((dataTypeConfig: DataTypeConfig) => {
-                    const hasAddedInfo = Boolean(dataTypeConfig?.description)
+                    const resolvedDatatypeConfig = applyGeoOverrides(
+                      dataTypeConfig,
+                      props.fips.getGeographicBreakdown(),
+                    )
+
+                    const hasAddedInfo = Boolean(
+                      resolvedDatatypeConfig?.description,
+                    )
                     return (
                       <li
-                        key={dataTypeConfig?.fullDisplayName}
+                        key={resolvedDatatypeConfig?.fullDisplayName}
                         className='pt-1'
                       >
                         <HetTerm>
-                          {dataTypeConfig?.fullDisplayName ?? 'Data Type'}
+                          {resolvedDatatypeConfig?.fullDisplayName ??
+                            'Data Type'}
                         </HetTerm>
                         <ul className='list-outside list-disc pl-5'>
                           <li>
@@ -64,18 +75,20 @@ export default function DefinitionsList(props: DefinitionsListProps) {
                               </>
                             )}
 
-                            {dataTypeConfig.definition?.text}
+                            {resolvedDatatypeConfig.definition?.text}
                             <InfoCitations
-                              citations={dataTypeConfig.definition?.citations}
+                              citations={
+                                resolvedDatatypeConfig.definition?.citations
+                              }
                             />
                           </li>
                           {hasAddedInfo && (
                             <li>
                               <span>Clinical Importance:</span>{' '}
-                              {dataTypeConfig.description?.text}
+                              {resolvedDatatypeConfig.description?.text}
                               <InfoCitations
                                 citations={
-                                  dataTypeConfig.description?.citations
+                                  resolvedDatatypeConfig.description?.citations
                                 }
                               />
                             </li>

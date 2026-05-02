@@ -14,6 +14,7 @@ import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DatasetId } from '../data/config/DatasetMetadata'
 import { dataSourceMetadataMap } from '../data/config/MetadataMap'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import { applyGeoOverrides } from '../data/config/MetricConfigUtils'
 import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import {
@@ -150,10 +151,19 @@ function MapCardWithKey(props: MapCardProps) {
     false,
   )
 
+  const resolvedDataTypeConfig = useMemo(
+    () =>
+      applyGeoOverrides(
+        props.dataTypeConfig,
+        props.fips.getChildGeographicBreakdown(),
+      ),
+    [props.dataTypeConfig, props.fips.code],
+  )
+
   const metricConfig =
-    props.dataTypeConfig?.metrics?.per100k ??
-    props.dataTypeConfig?.metrics?.pct_rate ??
-    props.dataTypeConfig?.metrics?.index
+    resolvedDataTypeConfig.metrics?.per100k ??
+    resolvedDataTypeConfig.metrics?.pct_rate ??
+    resolvedDataTypeConfig.metrics?.index
 
   const isMobile = !useIsBreakpointAndUp('sm')
   const isMd = useIsBreakpointAndUp('md')
@@ -263,17 +273,24 @@ function MapCardWithKey(props: MapCardProps) {
     undefined,
     isAtlantaMode ? 'metro counties of Atlanta, Georgia' : undefined,
   )
-  let subtitle = generateSubtitle(
-    activeDemographicGroup,
-    demographicType,
-    props.dataTypeConfig,
-  )
+
   const pluralChildFips =
     props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
-  if (isExtremesMode)
-    subtitle += ` (only ${pluralChildFips} with rate extremes)`
-  const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
+  function generateMapCardSubtitle() {
+    const base = generateSubtitle(
+      activeDemographicGroup,
+      demographicType,
+      resolvedDataTypeConfig,
+    )
+    return (
+      base +
+      (isExtremesMode ? ` (only ${pluralChildFips} with rate extremes)` : '')
+    )
+  }
+
+  const subtitleForFilename = generateMapCardSubtitle()
+  const filename = `${title} ${subtitleForFilename ? `for ${subtitleForFilename}` : ''}`
   return (
     <CardWrapper
       downloadTitle={filename}
@@ -299,6 +316,7 @@ function MapCardWithKey(props: MapCardProps) {
             (row) => row[metricConfig.metricId],
           ).length > 0
 
+        const subtitle = generateMapCardSubtitle()
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? parentGeoQueryResponse
           : childGeoQueryResponse
@@ -395,7 +413,12 @@ function MapCardWithKey(props: MapCardProps) {
           isAtlantaMode ? atlantaData : parentGeoQueryResponse.data,
           subPopSourceLabel,
           demographicType,
-          props.dataTypeConfig,
+          hasSelfButNotChildGeoData
+            ? applyGeoOverrides(
+                props.dataTypeConfig,
+                props.fips.getGeographicBreakdown(),
+              )
+            : resolvedDataTypeConfig,
         )
 
         const dataForSvi: HetRow[] =
