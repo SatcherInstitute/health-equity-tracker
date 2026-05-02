@@ -55,9 +55,18 @@ test('HIV PrEP: Inequities over time and down', async ({ page }) => {
   await page
     .getByRole('button', { name: 'Inequities over time', exact: true })
     .click()
+
+  // scroll "Historical relative inequity" into view and then click
+
   await page
+    .locator('#inequities-over-time')
+    .getByRole('heading', { name: 'Historical relative inequity' })
+    .scrollIntoViewIfNeeded()
+  await page
+    .locator('#inequities-over-time')
     .getByRole('heading', { name: 'Historical relative inequity' })
     .click()
+
   await page.locator('#inequities-over-time').getByLabel('Include Male').click()
   await page
     .getByRole('button', { name: 'Expand inequities over time table' })
