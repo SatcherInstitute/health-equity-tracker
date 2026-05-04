@@ -1,6 +1,13 @@
 {
 	"editor.formatOnSave": true,
-	"editor.defaultFormatter": "fronterior.biome-monorepo",
+	"editor.defaultFormatter": "biomejs.biome",
+	"biome.lsp.bin": {
+		"darwin-arm64": "./frontend/node_modules/@biomejs/cli-darwin-arm64/biome",
+		"darwin-x64": "./frontend/node_modules/@biomejs/cli-darwin-x64/biome",
+		"win32-x64": "./frontend/node_modules/@biomejs/cli-win32-x64/biome",
+		"linux-x64": "./frontend/node_modules/@biomejs/cli-linux-x64/biome",
+		"linux-arm64": "./frontend/node_modules/@biomejs/cli-linux-arm64/biome"
+	},
 	"biome.requireConfiguration": true,
 	"cSpell.import": [
 		"../cspell.config.json"
@@ -17,22 +24,22 @@
 		"source.organizeImports.biome": "explicit"
 	},
 	"[javascript]": {
-		"editor.defaultFormatter": "fronterior.biome-monorepo"
+		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[json]": {
 		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[typescript]": {
-		"editor.defaultFormatter": "fronterior.biome-monorepo"
+		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[typescriptreact]": {
-		"editor.defaultFormatter": "fronterior.biome-monorepo"
+		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[jsonc]": {
 		"editor.defaultFormatter": "vscode.json-language-features"
 	},
 	"[javascriptreact]": {
-		"editor.defaultFormatter": "fronterior.biome-monorepo"
+		"editor.defaultFormatter": "biomejs.biome"
 	},
 	"[python]": {
 		"editor.defaultFormatter": "ms-python.black-formatter",
