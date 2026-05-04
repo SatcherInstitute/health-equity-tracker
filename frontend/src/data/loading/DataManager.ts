@@ -39,7 +39,7 @@ abstract class ResourceCache<K, R extends {}> {
   private createLruCache(maxSize: number): LRUCache<string, R> {
     const options: LRUCache.Options<string, R, unknown> = {
       maxSize: maxSize,
-      sizeCalculation: this.getResourceSize,
+      sizeCalculation: (resource, id) => this.getResourceSize(resource, id),
       // dispose: onDispose,
       // If it has been more than 24 hours, the next time the resource is
       // requested it will trigger a new load to make sure the data doesn't get
@@ -178,7 +178,7 @@ class DatasetCache extends ResourceCache<string, Dataset> {
    * to a small number of rows.
    */
   getResourceSize(resource: Dataset): number {
-    return resource.rows.length + 5
+    return Math.max(1, (resource.rows?.length ?? 0) + 5)
   }
 }
 
@@ -255,7 +255,7 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
    * to a small number of rows.
    */
   getResourceSize(resource: MetricQueryResponse): number {
-    return resource.data.length + 5
+    return Math.max(1, (resource.data?.length ?? 0) + 5)
   }
 }
 
