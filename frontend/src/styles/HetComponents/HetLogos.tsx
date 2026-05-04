@@ -7,7 +7,7 @@ import HetSocialIconLinks from './HetSocialIconLinks'
 export default function HetLogos() {
   return (
     <figure className='m-0 flex flex-col content-center justify-items-center gap-x-8 gap-y-2 sm:flex-row sm:items-center sm:justify-center'>
-      <div className='flex flex-nowrap items-center justify-center md:min-w-[150px]'>
+      <div className='flex flex-nowrap items-center justify-center md:min-w-37.5'>
         <HetLinkButton href='/'>
           <img
             src={AppbarLogo}
@@ -27,7 +27,7 @@ export default function HetLogos() {
           </div>
         </div>
       </div>
-      <HetLinkButton href={urlMap.shli} className='min-w-[250px]'>
+      <HetLinkButton href={urlMap.shli} className='min-w-62.5'>
         <img
           src={PartnerSatcher}
           alt='Satcher Health Leadership Institute Logo'

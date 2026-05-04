@@ -54,11 +54,9 @@ export default {
         'preload-article': '750px',
       },
       height: {
-        littleHetLogo: '30px',
         joinEffortLogo: '720px',
       },
       width: {
-        littleHetLogo: '30px',
         joinEffortLogo: '600px',
         '90p': '90%',
         '98p': '98%',
