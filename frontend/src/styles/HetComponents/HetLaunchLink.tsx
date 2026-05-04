@@ -1,4 +1,4 @@
-import { LaunchRounded } from '@mui/icons-material'
+import LaunchRounded from '@mui/icons-material/LaunchRounded'
 import type React from 'react'
 
 interface HetLaunchLinkProps {

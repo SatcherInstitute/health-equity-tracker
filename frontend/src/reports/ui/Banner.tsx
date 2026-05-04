@@ -1,4 +1,4 @@
-import { Close } from '@mui/icons-material'
+import Close from '@mui/icons-material/Close'
 import FlagIcon from '@mui/icons-material/Flag'
 import { IconButton } from '@mui/material'
 import type React from 'react'

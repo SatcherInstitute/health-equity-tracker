@@ -1,13 +1,11 @@
-import {
-  CampaignRounded,
-  HistoryEduRounded,
-  LocalPoliceRounded,
-  PanToolRounded,
-  PsychologyRounded,
-  QueryStatsOutlined,
-  SchoolRounded,
-  VolunteerActivismRounded,
-} from '@mui/icons-material'
+import CampaignRounded from '@mui/icons-material/CampaignRounded'
+import HistoryEduRounded from '@mui/icons-material/HistoryEduRounded'
+import LocalPoliceRounded from '@mui/icons-material/LocalPoliceRounded'
+import PanToolRounded from '@mui/icons-material/PanToolRounded'
+import PsychologyRounded from '@mui/icons-material/PsychologyRounded'
+import QueryStatsOutlined from '@mui/icons-material/QueryStatsOutlined'
+import SchoolRounded from '@mui/icons-material/SchoolRounded'
+import VolunteerActivismRounded from '@mui/icons-material/VolunteerActivismRounded'
 
 interface Faq {
   question: string

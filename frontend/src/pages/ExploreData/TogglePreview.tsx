@@ -1,4 +1,5 @@
-import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import React, { useState } from 'react'
 
 const TogglePreview: React.FC<{ index: number; report: any }> = ({

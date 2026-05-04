@@ -1,4 +1,4 @@
-import { ArrowForward } from '@mui/icons-material'
+import ArrowForward from '@mui/icons-material/ArrowForward'
 
 interface HetTextArrowProps {
   linkText: string

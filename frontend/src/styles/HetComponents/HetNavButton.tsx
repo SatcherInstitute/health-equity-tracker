@@ -1,4 +1,4 @@
-import { ExpandMore } from '@mui/icons-material'
+import ExpandMore from '@mui/icons-material/ExpandMore'
 import { Button } from '@mui/material'
 import type React from 'react'
 
@@ -21,7 +21,7 @@ const HetNavButton: React.FC<HetNavButtonProps> = ({
       onClick={onClick}
       endIcon={
         <ExpandMore
-          className={`mb-[0px] transition-transform duration-200 ease-in-out ${isExpanded ? 'rotate-180' : ''}`}
+          className={`mb-0 transition-transform duration-200 ease-in-out ${isExpanded ? 'rotate-180' : ''}`}
         />
       }
       aria-haspopup='true'

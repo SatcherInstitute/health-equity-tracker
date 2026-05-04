@@ -1,4 +1,4 @@
-import { AutoAwesome } from '@mui/icons-material'
+import AutoAwesome from '@mui/icons-material/AutoAwesome'
 import { Button } from '@mui/material'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { REPORT_INSIGHT_PARAM_KEY } from '../../utils/urlutils'
