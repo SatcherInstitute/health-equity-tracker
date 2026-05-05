@@ -138,6 +138,15 @@ button[data-action="back"] {
 }
 
 /* STYLING OVERRIDES FOR D3 CHARTS */
+
+.unknown-gradient stop {
+  stop-color: var(--color-unknown-map-most);
+}
+
+.unknown-gradient stop:nth-child(even) {
+  stop-color: var(--color-unknown-map-mid);
+}
+
 .yAxisGroup {
 	> path:first-child {
 		opacity: 0.3; /* fade y-domain axis line */
