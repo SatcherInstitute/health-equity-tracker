@@ -63,7 +63,7 @@ export default function HetTermUnderline({
       className={`font-semibold text-alt-green ${className} ${marginClass}`}
       style={{
         animation: isVisible ? 'underlineSlideIn 1s ease-out forwards' : 'none',
-        backgroundImage: 'linear-gradient(#B8CCC6, rgba(220, 229, 226, 0.2))',
+        backgroundImage: 'linear-gradient(#B8CCC6, rgba(220, 229, 226, 0.1))',
         backgroundPosition: '1% 100%',
         backgroundSize: '0% 8px',
         backgroundRepeat: 'no-repeat',

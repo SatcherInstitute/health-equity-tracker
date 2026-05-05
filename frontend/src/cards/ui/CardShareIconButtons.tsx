@@ -9,14 +9,13 @@ import {
   TwitterShareButton,
   XIcon,
 } from 'react-share'
-import { het } from '../../styles/DesignTokens'
 import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
 import { useCardImage } from '../../utils/hooks/useCardImage'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 const shareIconAttributes = {
-  iconFillColor: het.hexShareIconGray,
+  iconFillColor: 'var(--color-hex-share-icon-gray)',
   bgStyle: { fill: 'none' },
   size: 39,
 }
