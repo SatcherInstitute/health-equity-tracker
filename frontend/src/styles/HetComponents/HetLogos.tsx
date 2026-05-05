@@ -7,11 +7,11 @@ import HetSocialIconLinks from './HetSocialIconLinks'
 export default function HetLogos() {
   return (
     <figure className='m-0 flex flex-col content-center justify-items-center gap-x-8 gap-y-2 sm:flex-row sm:items-center sm:justify-center'>
-      <div className='flex flex-nowrap items-center justify-center md:min-w-[150px]'>
+      <div className='flex flex-nowrap items-center justify-center'>
         <HetLinkButton href='/'>
           <img
             src={AppbarLogo}
-            className='m-2 mb-0 h-little-het-logo w-little-het-logo'
+            className='m-2 mb-0 h-little-het-logo object-contain'
             alt='Health Equity Tracker logo'
           />
         </HetLinkButton>
@@ -27,7 +27,7 @@ export default function HetLogos() {
           </div>
         </div>
       </div>
-      <HetLinkButton href={urlMap.shli} className='min-w-[250px]'>
+      <HetLinkButton href={urlMap.shli} className='min-w-64'>
         <img
           src={PartnerSatcher}
           alt='Satcher Health Leadership Institute Logo'

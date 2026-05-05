@@ -1,4 +1,4 @@
-import { ContentCopy } from '@mui/icons-material'
+import ContentCopy from '@mui/icons-material/ContentCopy'
 import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
 import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
 import HetSnackbar from '../../styles/HetComponents/HetSnackbar'

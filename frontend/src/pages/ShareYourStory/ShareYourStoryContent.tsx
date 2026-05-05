@@ -1,13 +1,11 @@
-import {
-  AssignmentLateRounded,
-  BlockRounded,
-  CampaignRounded,
-  EditRounded,
-  FormatListBulletedRounded,
-  PeopleAltRounded,
-  PrivacyTipRounded,
-  PublishRounded,
-} from '@mui/icons-material'
+import AssignmentLateRounded from '@mui/icons-material/AssignmentLateRounded'
+import BlockRounded from '@mui/icons-material/BlockRounded'
+import CampaignRounded from '@mui/icons-material/CampaignRounded'
+import EditRounded from '@mui/icons-material/EditRounded'
+import FormatListBulletedRounded from '@mui/icons-material/FormatListBulletedRounded'
+import PeopleAltRounded from '@mui/icons-material/PeopleAltRounded'
+import PrivacyTipRounded from '@mui/icons-material/PrivacyTipRounded'
+import PublishRounded from '@mui/icons-material/PublishRounded'
 
 export const submissionGuidelines = [
   {

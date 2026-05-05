@@ -1,10 +1,8 @@
-import {
-  Close,
-  ExpandLess,
-  ExpandMore,
-  LaunchRounded,
-  Menu as MenuIcon,
-} from '@mui/icons-material'
+import Close from '@mui/icons-material/Close'
+import ExpandLess from '@mui/icons-material/ExpandLess'
+import ExpandMore from '@mui/icons-material/ExpandMore'
+import LaunchRounded from '@mui/icons-material/LaunchRounded'
+import MenuIcon from '@mui/icons-material/Menu'
 import {
   Collapse,
   Drawer,

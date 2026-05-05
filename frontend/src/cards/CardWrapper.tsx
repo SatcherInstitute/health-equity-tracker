@@ -1,4 +1,4 @@
-import { AutoAwesome } from '@mui/icons-material'
+import AutoAwesome from '@mui/icons-material/AutoAwesome'
 import { CircularProgress } from '@mui/material'
 import { useAtomValue } from 'jotai'
 import type {
