@@ -100,7 +100,6 @@ const het = {
   darkGreen: '#083f31',
   dividerGrey: '#0000001f',
   exploreBgColor: '#f1f4f8',
-  footerColor: '#edf3f0',
   greyDark: '#222',
   greyGridColor: '#f9f9f9',
   greyGridColorDarker: '#dddddd',

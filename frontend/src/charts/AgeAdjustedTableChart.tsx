@@ -23,11 +23,10 @@ import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import { formatFieldValue } from '../data/config/MetricConfigUtils'
 import { DEMOGRAPHIC_DISPLAY_TYPES } from '../data/query/Breakdowns'
 import { RACE } from '../data/utils/Constants'
-import { het } from '../styles/DesignTokens'
 
 const headerCellStyle = {
   width: '200px',
-  backgroundColor: het.footerColor,
+  backgroundColor: 'var(--footer-color)',
 }
 
 const cellStyle = {
@@ -35,7 +34,7 @@ const cellStyle = {
 }
 
 const altCellStyle = {
-  backgroundColor: het.greyGridColor,
+  backgroundColor: 'var(--grey-grid-color)',
   width: '200px',
 }
 
