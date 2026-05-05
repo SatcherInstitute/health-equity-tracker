@@ -29,7 +29,6 @@ import {
   type DemographicType,
 } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
-import { het } from '../styles/DesignTokens'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
 import Units from './Units'
@@ -39,7 +38,7 @@ const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
 const headerCellStyle = {
   width: '200px',
-  backgroundColor: het.exploreBgColor,
+  backgroundColor: 'var(--color-explore-bg-color)',
 }
 
 const cellStyle = {
@@ -47,7 +46,7 @@ const cellStyle = {
 }
 
 const altCellStyle = {
-  backgroundColor: het.standardInfo,
+  backgroundColor: 'var(--color-standard-info)',
   width: '200px',
 }
 
