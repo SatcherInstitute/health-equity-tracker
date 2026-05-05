@@ -7,7 +7,7 @@ import HetSocialIconLinks from './HetSocialIconLinks'
 export default function HetLogos() {
   return (
     <figure className='m-0 flex flex-col content-center justify-items-center gap-x-8 gap-y-2 sm:flex-row sm:items-center sm:justify-center'>
-      <div className='flex flex-nowrap items-center justify-center md:min-w-36'>
+      <div className='flex flex-nowrap items-center justify-center'>
         <HetLinkButton href='/'>
           <img
             src={AppbarLogo}
