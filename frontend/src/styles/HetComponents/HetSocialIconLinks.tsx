@@ -14,21 +14,21 @@ export default function HetSocialIconLinks(props: HetSocialIconLinksProps) {
   return (
     <div className={`flex justify-center ${props.className ?? ''}`}>
       <a
-        className={`mx-1.75 my-0 ${colorClass}`}
+        className={`mx-social-icon my-0 ${colorClass}`}
         href={urlMap.hetLinkedIn}
         aria-label='Health Equity Tracker on LinkedIn'
       >
         <LinkedIn />
       </a>
       <a
-        className={`mx-1.75 my-0 ${colorClass}`}
+        className={`mx-social-icon my-0 ${colorClass}`}
         href={urlMap.hetYouTubeShorts}
         aria-label='Health Equity Tracker on YouTube Shorts'
       >
         <YouTube />
       </a>
       <a
-        className={`mx-1.75 my-0 ${colorClass}`}
+        className={`mx-social-icon my-0 ${colorClass}`}
         href={urlMap.hetTikTok}
         aria-label='Health Equity Tracker on TikTok'
       >

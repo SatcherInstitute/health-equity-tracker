@@ -11,7 +11,9 @@ export default function StyledPath({
   d,
   color,
   isUnknown,
-  strokeWidth = isUnknown ? 'stroke-5.5' : 'stroke-2.5',
+  strokeWidth = isUnknown
+    ? 'stroke-trend-line-thick'
+    : 'stroke-trend-line-normal',
   strokeDasharray = 'none',
   strokeOpacity = 1,
 }: StyledPathProps) {
