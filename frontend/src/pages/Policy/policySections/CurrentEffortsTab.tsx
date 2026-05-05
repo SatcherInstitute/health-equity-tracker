@@ -1,10 +1,8 @@
-import {
-  AttachMoneyRounded,
-  Diversity3Rounded,
-  GavelRounded,
-  PsychologyRounded,
-  SchoolRounded,
-} from '@mui/icons-material'
+import AttachMoneyRounded from '@mui/icons-material/AttachMoneyRounded'
+import Diversity3Rounded from '@mui/icons-material/Diversity3Rounded'
+import GavelRounded from '@mui/icons-material/GavelRounded'
+import PsychologyRounded from '@mui/icons-material/PsychologyRounded'
+import SchoolRounded from '@mui/icons-material/SchoolRounded'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'

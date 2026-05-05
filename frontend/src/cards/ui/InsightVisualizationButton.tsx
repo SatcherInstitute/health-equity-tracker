@@ -1,4 +1,5 @@
-import { AutoAwesome, DeleteForever } from '@mui/icons-material'
+import AutoAwesome from '@mui/icons-material/AutoAwesome'
+import DeleteForever from '@mui/icons-material/DeleteForever'
 import { IconButton, Tooltip } from '@mui/material'
 import { useAtom } from 'jotai'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'

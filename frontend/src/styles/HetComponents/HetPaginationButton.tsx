@@ -1,4 +1,5 @@
-import { ArrowBack, ArrowForward } from '@mui/icons-material'
+import ArrowBack from '@mui/icons-material/ArrowBack'
+import ArrowForward from '@mui/icons-material/ArrowForward'
 import { Button } from '@mui/material'
 
 type HetPaginationDirection = 'previous' | 'next'

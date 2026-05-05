@@ -1,4 +1,4 @@
-import { GridView } from '@mui/icons-material'
+import GridView from '@mui/icons-material/GridView'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router'
 import { createColorScale } from '../charts/choroplethMap/colorSchemes'

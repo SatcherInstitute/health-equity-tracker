@@ -1,4 +1,7 @@
-import { AutoAwesome, Info, LocationOn, People } from '@mui/icons-material'
+import AutoAwesome from '@mui/icons-material/AutoAwesome'
+import Info from '@mui/icons-material/Info'
+import LocationOn from '@mui/icons-material/LocationOn'
+import People from '@mui/icons-material/People'
 import { Button, CircularProgress, Divider } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
 import type React from 'react'

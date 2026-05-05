@@ -1,4 +1,5 @@
-import { BlockRounded, CheckRounded } from '@mui/icons-material'
+import BlockRounded from '@mui/icons-material/BlockRounded'
+import CheckRounded from '@mui/icons-material/CheckRounded'
 import type { DropdownVarId } from '../../data/config/DropDownIds'
 import type { DataTypeId } from '../../data/config/MetricConfigTypes'
 import {
