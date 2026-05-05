@@ -1,4 +1,5 @@
 import { extendTheme } from '@mui/material'
+import { het } from '../styles/DesignTokens'
 
 // Use the new extendTheme function from MUI v7
 const MaterialTheme = extendTheme({
@@ -6,14 +7,14 @@ const MaterialTheme = extendTheme({
     light: {
       palette: {
         primary: {
-          light: 'var(--color-bar-chart-light)',
-          main: 'var(--color-alt-green)',
-          dark: 'var(--color-dark-green)',
+          light: het.barChartLight,
+          main: het.altGreen,
+          dark: het.darkGreen,
         },
         secondary: {
-          light: 'var(--color-secondary-light)',
-          main: 'var(--color-secondary-main)',
-          dark: 'var(--color-secondary-dark)',
+          light: het.secondaryLight,
+          main: het.secondaryMain,
+          dark: het.secondaryDark,
         },
       },
     },
@@ -31,19 +32,19 @@ const MaterialTheme = extendTheme({
         root: {
           fontFamily: '"Inter", sans-serif',
           '&.MuiAlert-standardInfo': {
-            backgroundColor: 'var(--color-standard-info)',
-            color: 'var(--color-black)',
+            backgroundColor: het.standardInfo,
+            color: het.black,
             textAlign: 'left',
             '& .MuiAlert-icon': {
-              color: 'var(--color-alt-green)',
+              color: het.altGreen,
             },
           },
           '&.MuiAlert-standardWarning': {
-            backgroundColor: 'var(--color-standard-warning)',
-            color: 'var(--color-black)',
+            backgroundColor: het.standardWarning,
+            color: het.black,
             textAlign: 'left',
             '& .MuiAlert-icon': {
-              color: 'var(--color-alert-color)',
+              color: het.alertColor,
             },
           },
           '&.MuiAlert-standardError': {
@@ -69,7 +70,7 @@ const MaterialTheme = extendTheme({
           fontFamily: '"Inter", sans-serif',
         },
         containedPrimary: {
-          color: 'var(--color-white)',
+          color: het.white,
         },
       },
     },
@@ -134,14 +135,14 @@ const MaterialTheme = extendTheme({
       styleOverrides: {
         root: {
           marginTop: '40px',
-          borderBottom: '1px solid var(--color-border)',
+          borderBottom: `1px solid ${het.borderColor}`,
         },
       },
     },
     MuiToggleButtonGroup: {
       styleOverrides: {
         root: {
-          outline: '1px solid var(--color-how-to-color) !important',
+          outline: `1px solid ${het.howToColor} !important`,
           borderRadius: '4px',
           overflow: 'hidden',
         },
@@ -157,21 +158,21 @@ const MaterialTheme = extendTheme({
     MuiToggleButton: {
       styleOverrides: {
         root: {
-          outline: '1px solid var(--color-how-to-color) !important',
+          outline: `1px solid ${het.howToColor} !important`,
           fontWeight: 'normal',
           fontSize: '14px',
-          color: 'var(--color-black)',
+          color: het.black,
           lineHeight: '16px !important',
           padding: '11px !important',
-          backgroundColor: 'var(--color-white) !important',
+          backgroundColor: `${het.white} !important`,
           textTransform: 'none',
           '&.Mui-selected': {
-            color: 'var(--color-alt-green)',
-            backgroundColor: 'var(--color-toggle-color) !important',
+            color: het.altGreen,
+            backgroundColor: `${het.toggleColor} !important`,
           },
           '&:hover': {
-            color: 'var(--color-alt-green)',
-            backgroundColor: 'var(--color-toggle-color)',
+            color: het.altGreen,
+            backgroundColor: het.toggleColor,
           },
         },
       },

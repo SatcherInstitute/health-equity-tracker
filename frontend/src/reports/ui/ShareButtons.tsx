@@ -6,10 +6,7 @@ import {
   FacebookShareButton,
   LinkedinIcon,
   LinkedinShareButton,
-  TwitterShareButton,
-  XIcon,
 } from 'react-share'
-import { het } from '../../styles/DesignTokens'
 
 export const SHARE_LABEL = 'Share this report:'
 
@@ -26,7 +23,7 @@ export default function ShareButtons(props: ShareButtonProps) {
   }
 
   const shareIconAttributes = {
-    iconFillColor: het.altDark,
+    iconFillColor: 'var(--color-alt-dark)',
     bgStyle: { fill: 'none' },
     size: props.isMobile ? 64 : 32,
   }
@@ -39,17 +36,6 @@ export default function ShareButtons(props: ShareButtonProps) {
     >
       <div>
         {/* SOCIAL SHARE BUTTONS */}
-
-        <Tooltip title='Tweet this page'>
-          <TwitterShareButton
-            url={sharedUrl}
-            hashtags={['healthequity']}
-            related={['@SatcherHealth', '@MSMEDU']}
-            aria-label={'Share to X (formerly Twitter)'}
-          >
-            <XIcon {...shareIconAttributes} fontSize={'small'} />
-          </TwitterShareButton>
-        </Tooltip>
 
         <Tooltip title='Post this page to Facebook'>
           <FacebookShareButton

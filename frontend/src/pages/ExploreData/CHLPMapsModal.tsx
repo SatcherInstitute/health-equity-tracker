@@ -1,6 +1,5 @@
 import { Button, Dialog, DialogContent } from '@mui/material'
 import { type SetStateAction, useEffect, useState } from 'react'
-import { het } from '../../styles/DesignTokens'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import HetGalleryDotNav from '../../styles/HetComponents/HetGalleryDotNav'
 import { useParamState } from '../../utils/hooks/useParamState'
@@ -94,7 +93,7 @@ export default function CHLPMapsModal() {
       slotProps={{
         paper: {
           style: {
-            backgroundColor: het.standardInfo,
+            backgroundColor: 'var(--color-standard-info)',
             height: '95vh',
             width: '100%',
             maxWidth: '800px',

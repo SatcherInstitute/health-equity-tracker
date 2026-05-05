@@ -18,7 +18,6 @@ import {
   UNKNOWN_W,
 } from '../../data/utils/Constants'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
-import { het } from '../../styles/DesignTokens'
 import { COLORS as C } from './constants'
 /* Constants */
 import type { TrendsData } from './types'
@@ -109,8 +108,8 @@ export function FilterLegend({
           const groupEnabled = selectedGroups.includes(group)
 
           const isUnknown = group === UNKNOWN_W
-          const gradient = `linear-gradient(30deg, ${het.unknownMapMost}, ${het.unknownMapMid},${het.unknownMapMost})`
-
+          const gradient =
+            'linear-gradient(30deg, var(--color-unknown-map-most), var(--color-unknown-map-mid), var(--color-unknown-map-most))'
           // Legend Item Filter Button
           return (
             <button

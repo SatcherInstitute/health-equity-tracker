@@ -1,6 +1,5 @@
 import { Dialog, DialogContent } from '@mui/material'
 import { useEffect } from 'react'
-import { het } from '../../styles/DesignTokens'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { VOTE_DOT_ORG_PARAM_KEY } from '../../utils/urlutils'
@@ -51,7 +50,7 @@ export default function VoteDotOrgModal() {
       className='h-full'
       PaperProps={{
         style: {
-          backgroundColor: het.standardInfo,
+          backgroundColor: 'var(--color-standard-info)',
           height: '95vh', // Ensure the dialog content also respects the height
         },
       }}

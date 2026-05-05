@@ -21,7 +21,6 @@ import { useEffect, useRef } from 'react'
 
 /* Helpers */
 import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
-import { het } from '../../styles/DesignTokens'
 import { X_AXIS_MAX_TICKS_SKINNY } from '../utils'
 /* Constants */
 import { CONFIG, FORMATTERS as F, TYPES } from './constants'
@@ -190,7 +189,7 @@ export function Axes({
           y1={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
           x2={width - marginRight}
           y2={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
-          stroke={het.altGrey}
+          stroke={'var(--color-alt-gray)'}
         />
       </g>
       {/* Axis Labels */}

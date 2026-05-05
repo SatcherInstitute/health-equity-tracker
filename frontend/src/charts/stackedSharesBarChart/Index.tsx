@@ -8,7 +8,6 @@ import {
 import { sortByIncome } from '../../data/sorting/IncomeSorterStrategy'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
-import { het } from '../../styles/DesignTokens'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import {
@@ -31,8 +30,8 @@ const BAR_PADDING = 0.5
 const PAIR_GAP = 3
 const SET_GAP = 20
 export const STACKED_BAR_COLORS = {
-  population: het.barChartLight,
-  distribution: het.barChartDark,
+  population: 'var(--color-bar-chart-light)',
+  distribution: 'var(--color-bar-chart-dark)',
 }
 const LEGEND_HEIGHT = 10
 
