@@ -32,124 +32,119 @@ import {
   WHITE_NH,
   WHITE_W,
 } from '../../data/utils/Constants'
-import { het } from '../../styles/DesignTokens'
 
-// get colors from css variables
-const {
-  unknownMapLeast,
-  unknownMapMost,
-  timePastelGreen,
-  darkBlue,
-  redOrange,
-  black,
-  timeCyanBlue,
-  timePurple,
-  timePink,
-  timeDarkRed,
-  timeYellow,
-  mapLight,
-  mapLighter,
-} = het
-
-export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
-  // shared between breakdown types
-  All: black,
-  Unknown: darkBlue,
-  // race and ethnicity (NH)
-  [AIAN_NH]: timeCyanBlue,
-  [ASIAN_NH]: timePastelGreen,
-  [BLACK_NH]: mapLight,
-  [HISPANIC]: timePurple,
-  [NHPI_NH]: timePink,
-  [MULTI_OR_OTHER_STANDARD_NH]: timeDarkRed,
-  [WHITE_NH]: redOrange,
-  // race and ethnicity (not NH)
-  [AIAN]: timeCyanBlue,
-  [ASIAN]: timePastelGreen,
-  [BLACK]: mapLight,
-  [NHPI]: timePink,
-  [MULTI_OR_OTHER_STANDARD]: timeDarkRed,
-  [OTHER_STANDARD]: darkBlue,
-  [MULTI]: timeDarkRed,
-  [WHITE]: redOrange,
-  // race and ethnicity for CAWP
-  [ALL_W]: black,
-  [AIANNH_W]: timeCyanBlue,
-  [AAPI_W]: timePastelGreen,
-  [AIAN_API_W]: timePastelGreen,
-  [BLACK_W]: mapLight,
-  [HISP_W]: timePurple,
-  [MENA_W]: timeYellow,
-  [OTHER_W]: timePink,
-  [WHITE_W]: redOrange,
-  [UNKNOWN_W]: darkBlue,
-  [MULTI_W]: timeDarkRed,
-  // race and ethnicity for HIV
-  [MULTI_NH]: timeDarkRed,
-  [OTHER_NONSTANDARD_NH]: darkBlue,
-  //  race and ethnicity for INCARCERATION
-  [API_NH]: timePink,
-  // sex
-  Female: timeCyanBlue,
-  Male: timePurple,
-  Other: timeYellow,
-  // age
-  '0-9': timeCyanBlue,
-  '10-19': timePastelGreen,
-  '20-29': darkBlue,
-  '30-39': timePurple,
-  '40-49': timePink,
-  '50-59': timeDarkRed,
-  '60-69': redOrange,
-  '70-79': timeYellow,
-  '80+': mapLight,
-  // age for HIV + ACS CONDITION
-  '0-5': timeCyanBlue,
-  '6-11': timePastelGreen,
-  '6-17': timePastelGreen,
-  '6-18': timePastelGreen,
-  '12-17': darkBlue,
-  '13-24': darkBlue,
-  '16-24': darkBlue,
-  '18-24': timePurple,
-  '19-25': timePurple,
-  '17-24': timePurple,
-  '25-34': timePink,
-  '26-34': timePink,
-  '35-44': timeDarkRed,
-  '45-54': redOrange,
-  '55+': timeYellow,
-  '55-64': timeYellow,
-  '65-74': mapLight,
-  '75+': mapLighter,
-  // added age buckeds for WISQARS
-  '0-14': timeCyanBlue,
-  '15-19': timePurple,
-  '20-24': timePink,
-  '25-29': timePastelGreen,
-  '30-34': redOrange,
-  // age for AHR
-  '15-24': timeCyanBlue,
-  '18-44': timeCyanBlue,
-  '24-34': timePink,
-  '45-64': mapLight,
-  '65+': timeYellow,
-  '75-84': mapLighter,
-
-  // urbanicity / City Size
-  Metro: timePurple,
-  'Non-Metro': timeYellow,
+// Helper to keep the mapping clean
+const COLORS_VARS = {
+  black: 'var(--color-black)',
+  darkBlue: 'var(--color-dark-blue)',
+  timeCyanBlue: 'var(--color-time-cyan-blue)',
+  timePastelGreen: 'var(--color-time-pastel-green)',
+  mapLight: 'var(--color-map-light)',
+  timePurple: 'var(--color-time-purple)',
+  timePink: 'var(--color-time-pink)',
+  timeDarkRed: 'var(--color-time-dark-red)',
+  redOrange: 'var(--color-red-orange)',
+  timeYellow: 'var(--color-time-yellow)',
+  mapLighter: 'var(--color-map-lighter)',
+  unknownMapLeast: 'var(--color-unknown-map-least)',
+  unknownMapMost: 'var(--color-unknown-map-most)',
 }
 
-// domain for color scale
-const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP)
-// range of colors for groups
-const COLOR_RANGE = Object.values(GROUP_COLOR_MAP)
-// color scale
-const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE)
-// color range for unknowns
-const UNKNOWN_GROUP_COLOR_EXTENT = [unknownMapLeast, unknownMapMost]
+export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
+  All: COLORS_VARS.black,
+  Unknown: COLORS_VARS.darkBlue,
+  // race and ethnicity (NH)
+  [AIAN_NH]: COLORS_VARS.timeCyanBlue,
+  [ASIAN_NH]: COLORS_VARS.timePastelGreen,
+  [BLACK_NH]: COLORS_VARS.mapLight,
+  [HISPANIC]: COLORS_VARS.timePurple,
+  [NHPI_NH]: COLORS_VARS.timePink,
+  [MULTI_OR_OTHER_STANDARD_NH]: COLORS_VARS.timeDarkRed,
+  [WHITE_NH]: COLORS_VARS.redOrange,
+  // race and ethnicity (not NH)
+  [AIAN]: COLORS_VARS.timeCyanBlue,
+  [ASIAN]: COLORS_VARS.timePastelGreen,
+  [BLACK]: COLORS_VARS.mapLight,
+  [NHPI]: COLORS_VARS.timePink,
+  [MULTI_OR_OTHER_STANDARD]: COLORS_VARS.timeDarkRed,
+  [OTHER_STANDARD]: COLORS_VARS.darkBlue,
+  [MULTI]: COLORS_VARS.timeDarkRed,
+  [WHITE]: COLORS_VARS.redOrange,
+  // race and ethnicity for CAWP
+  [ALL_W]: COLORS_VARS.black,
+  [AIANNH_W]: COLORS_VARS.timeCyanBlue,
+  [AAPI_W]: COLORS_VARS.timePastelGreen,
+  [AIAN_API_W]: COLORS_VARS.timePastelGreen,
+  [BLACK_W]: COLORS_VARS.mapLight,
+  [HISP_W]: COLORS_VARS.timePurple,
+  [MENA_W]: COLORS_VARS.timeYellow,
+  [OTHER_W]: COLORS_VARS.timePink,
+  [WHITE_W]: COLORS_VARS.redOrange,
+  [UNKNOWN_W]: COLORS_VARS.darkBlue,
+  [MULTI_W]: COLORS_VARS.timeDarkRed,
+  // race and ethnicity for HIV
+  [MULTI_NH]: COLORS_VARS.timeDarkRed,
+  [OTHER_NONSTANDARD_NH]: COLORS_VARS.darkBlue,
+  // race and ethnicity for INCARCERATION
+  [API_NH]: COLORS_VARS.timePink,
+  // sex
+  Female: COLORS_VARS.timeCyanBlue,
+  Male: COLORS_VARS.timePurple,
+  Other: COLORS_VARS.timeYellow,
+  // age
+  '0-9': COLORS_VARS.timeCyanBlue,
+  '10-19': COLORS_VARS.timePastelGreen,
+  '20-29': COLORS_VARS.darkBlue,
+  '30-39': COLORS_VARS.timePurple,
+  '40-49': COLORS_VARS.timePink,
+  '50-59': COLORS_VARS.timeDarkRed,
+  '60-69': COLORS_VARS.redOrange,
+  '70-79': COLORS_VARS.timeYellow,
+  '80+': COLORS_VARS.mapLight,
+  // age for HIV + ACS CONDITION
+  '0-5': COLORS_VARS.timeCyanBlue,
+  '6-11': COLORS_VARS.timePastelGreen,
+  '6-17': COLORS_VARS.timePastelGreen,
+  '6-18': COLORS_VARS.timePastelGreen,
+  '12-17': COLORS_VARS.darkBlue,
+  '13-24': COLORS_VARS.darkBlue,
+  '16-24': COLORS_VARS.darkBlue,
+  '18-24': COLORS_VARS.timePurple,
+  '19-25': COLORS_VARS.timePurple,
+  '17-24': COLORS_VARS.timePurple,
+  '25-34': COLORS_VARS.timePink,
+  '26-34': COLORS_VARS.timePink,
+  '35-44': COLORS_VARS.timeDarkRed,
+  '45-54': COLORS_VARS.redOrange,
+  '55+': COLORS_VARS.timeYellow,
+  '55-64': COLORS_VARS.timeYellow,
+  '65-74': COLORS_VARS.mapLight,
+  '75+': COLORS_VARS.mapLighter,
+  // added age buckeds for WISQARS
+  '0-14': COLORS_VARS.timeCyanBlue,
+  '15-19': COLORS_VARS.timePurple,
+  '20-24': COLORS_VARS.timePink,
+  '25-29': COLORS_VARS.timePastelGreen,
+  '30-34': COLORS_VARS.redOrange,
+  // age for AHR
+  '15-24': COLORS_VARS.timeCyanBlue,
+  '18-44': COLORS_VARS.timeCyanBlue,
+  '24-34': COLORS_VARS.timePink,
+  '45-64': COLORS_VARS.mapLight,
+  '65+': COLORS_VARS.timeYellow,
+  '75-84': COLORS_VARS.mapLighter,
+  // urbanicity / City Size
+  Metro: COLORS_VARS.timePurple,
+  'Non-Metro': COLORS_VARS.timeYellow,
+}
 
+const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP)
+const COLOR_RANGE = Object.values(GROUP_COLOR_MAP)
+const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE)
+const UNKNOWN_GROUP_COLOR_EXTENT = [
+  COLORS_VARS.unknownMapLeast,
+  COLORS_VARS.unknownMapMost,
+]
 /* Config */
 const CONFIG = {
   HEIGHT: 506,
