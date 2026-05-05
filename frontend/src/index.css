@@ -1,10 +1,6 @@
 @import "tailwindcss";
-
-@theme {
-  --height-little-het-logo: 30px;
-  --width-little-het-logo: 30px;
-}
-
+@import "./styles/theme/sizes.css";
+@import "./styles/theme/spacing.css";
 @config '../tailwind.config.ts';
 
 /*
