@@ -38,11 +38,11 @@ export default function ShareYourStory() {
           </HetButtonSecondary>
 
           <div className='mt-5 flex w-full items-center'>
-            <div className='flex-1 border-0 border-alt-grey border-t border-solid'></div>
+            <div className='flex-1 border-0 border-alt-gray border-t border-solid'></div>
             <h2 className='m-0 ps-4 pe-4 font-bold text-alt-green text-title leading-some-more-space md:font-medium md:text-smallest-header'>
               Submission guidelines
             </h2>
-            <div className='flex-1 border-0 border-alt-grey border-t border-solid'></div>
+            <div className='flex-1 border-0 border-alt-gray border-t border-solid'></div>
           </div>
           <ul className='mt-4 mb-8 ml-0 grid max-w-md list-none grid-cols-1 gap-2 px-6 md:grid-cols-2'>
             {submissionGuidelines.map((submissionGuideline, index) => {

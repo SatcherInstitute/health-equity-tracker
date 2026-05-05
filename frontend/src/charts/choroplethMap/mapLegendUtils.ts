@@ -1,8 +1,5 @@
 import * as d3 from 'd3'
-import { het } from '../../styles/DesignTokens'
 import type { ColorScale } from './types'
-
-const { altGrey } = het
 
 export function createUnknownLegend(
   legendGroup: d3.Selection<SVGGElement, unknown, null, undefined>,
@@ -62,7 +59,7 @@ export function createUnknownLegend(
     .attr('y', 0)
     .attr('width', 20)
     .attr('height', legendHeight)
-    .style('fill', altGrey)
+    .style('fill', 'var(--color-alt-gray)')
 
   legendContainer
     .append('text')

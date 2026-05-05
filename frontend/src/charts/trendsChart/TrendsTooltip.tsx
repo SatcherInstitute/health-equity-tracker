@@ -82,9 +82,9 @@ export function TrendsTooltip({
     : F.dateFromString_YYYY(selectedDate ?? '')
 
   return (
-    <figure className='h-full w-min whitespace-nowrap rounded-sm border border-alt-grey border-solid bg-white p-3 font-medium font-sans-text text-small'>
+    <figure className='h-full w-min whitespace-nowrap rounded-sm border border-alt-gray border-solid bg-white p-3 font-medium font-sans-text text-small'>
       {/* Date title */}
-      <figcaption className='border-0 border-alt-grey border-b border-solid pb-3 text-center'>
+      <figcaption className='border-0 border-alt-gray border-b border-solid pb-3 text-center'>
         <div>{displayDate}</div>
         {/* if per 100k chart and on mobile, add subtitle with units */}
         {isSkinny && type === TYPES.HUNDRED_K && (

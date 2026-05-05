@@ -9,8 +9,6 @@ import type {
   GetFillColorOptions,
 } from './types'
 
-const { altGrey: ALT_GREY, white: WHITE } = het
-
 const COLOR_SCHEMES: Record<ColorScheme, string[]> = {
   darkgreen: [
     het.mapDarker,
@@ -171,5 +169,5 @@ export function getFillColor(options: GetFillColorOptions): string {
     return colorScale(value)
   }
 
-  return isExtremesMode ? WHITE : ALT_GREY
+  return isExtremesMode ? 'var(--color-white)' : 'var(--color-alt-gray)'
 }

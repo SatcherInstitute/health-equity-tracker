@@ -22,14 +22,14 @@
   /* greys / blacks */
   --color-alt-black: #383838;
   --color-alt-dark: #5f6368;
-  --color-alt-grey: #bdbdbd;
+  --color-alt-gray: #bdbdbd;
   --color-bg-color: #e2e2e2;
   --color-black: #000;
   --color-border-color: #3e3e3e;
-  --color-divider-grey: #0000001f;
-  --color-grey-dark: #222;
-  --color-grey-grid-color: #f9f9f9;
-  --color-grey-grid-color-darker: #dddddd;
+  --color-divider-gray: #0000001f;
+  --color-gray-dark: #222;
+  --color-gray-grid-color: #f9f9f9;
+  --color-gray-grid-color-darker: #dddddd;
   --color-hex-share-icon-gray: #757575;
   --color-hover-tiny-tag-gray: #979787;
   --color-how-to-color: #bdc1c6;
