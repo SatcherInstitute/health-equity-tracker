@@ -1,7 +1,4 @@
 @import "tailwindcss";
-@import "./styles/theme/sizes.css";
-@import "./styles/theme/spacing.css";
-@import "./styles/theme/colors.css";
 @config '../tailwind.config.ts';
 
 /*
