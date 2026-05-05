@@ -28,7 +28,7 @@ export default function HetSocialIconLinks(props: HetSocialIconLinksProps) {
         <YouTube />
       </a>
       <a
-        className={`mx-social-icon my-0 ${colorClass}`}
+        className={`mx-social-icon mt-1 ${colorClass}`}
         href={urlMap.hetTikTok}
         aria-label='Health Equity Tracker on TikTok'
       >
