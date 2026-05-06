@@ -3,6 +3,7 @@ import type {
   MetricConfig,
 } from '../../data/config/MetricConfigTypes'
 import type { GeographicBreakdown } from '../../data/query/Breakdowns'
+import { het } from '../../styles/DesignTokens'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import {
   createLabelFormatter,
@@ -114,7 +115,7 @@ export function processLegendData(
   // Create special legend items (missing data, zero data)
   if (hasMissingData) {
     specialItems.push({
-      color: 'var(--color-alt-gray)',
+      color: het.altGray,
       label: allMissingDataIsSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE,
       value: null,
     })
@@ -122,7 +123,7 @@ export function processLegendData(
 
   if (hasZeroData) {
     specialItems.push({
-      color: mapConfig.zero || 'var(--color-infobar-color)',
+      color: mapConfig.zero || het.infobarColor,
       label: labelFormat(0),
       value: 0,
     })

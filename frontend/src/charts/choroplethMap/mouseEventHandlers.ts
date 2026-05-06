@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import type { DemographicType } from '../../data/query/Breakdowns'
+import { het } from '../../styles/DesignTokens'
 import { getFillColor } from './colorSchemes'
 import {
   GEO_HOVERED_BORDER_COLOR,
@@ -119,10 +120,7 @@ const handleMouseEvent = (
     }
     case 'touchend': {
       d3.select(event.currentTarget)
-        .attr(
-          'stroke',
-          props.isExtremesMode ? 'var(--color-alt-dark)' : 'var(--color-white)',
-        )
+        .attr('stroke', props.isExtremesMode ? het.altDark : het.white)
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
       break
@@ -158,10 +156,7 @@ const handleMouseEvent = (
             isMultiMap: props.isMultiMap,
           }),
         )
-        .attr(
-          'stroke',
-          props.isExtremesMode ? 'var(--color-alt-dark)' : 'var(--color-white)',
-        )
+        .attr('stroke', props.isExtremesMode ? het.altDark : het.white)
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
       props.tooltipContainer.style('visibility', 'hidden').html('')

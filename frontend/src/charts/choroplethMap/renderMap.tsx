@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
+import { het } from '../../styles/DesignTokens'
 import { getCountyAddOn } from '../mapHelperFunctions'
 import { getFillColor } from './colorSchemes'
 import {
@@ -134,10 +135,7 @@ export const renderMap = (options: RenderMapOptions) => {
         isMultiMap: isMulti,
       }),
     )
-    .attr(
-      'stroke',
-      isExtremesMode ? 'var(--color-alt-gray)' : 'var(--color-white)',
-    )
+    .attr('stroke', isExtremesMode ? het.altGray : het.white)
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event: any, d) => {
       hideTooltips()

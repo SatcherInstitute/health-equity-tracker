@@ -26,9 +26,7 @@ function StripedTableRow({
     <TableRow
       sx={{
         backgroundColor:
-          index % 2 === 0
-            ? 'var(--color-explore-bg-color)'
-            : 'var(--color-white)',
+          index % 2 === 0 ? 'var(--color-explore-bg-color)' : het.white,
         '&:last-child td, &:last-child th': {
           border: 0,
         },

@@ -59,7 +59,7 @@ export function createUnknownLegend(
     .attr('y', 0)
     .attr('width', 20)
     .attr('height', legendHeight)
-    .style('fill', 'var(--color-alt-gray)')
+    .style('fill', het.altGray)
 
   legendContainer
     .append('text')
@@ -95,6 +95,7 @@ export function createUnknownLegend(
 }
 
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import { het } from '../../styles/DesignTokens'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { formatMetricValue } from './tooltipUtils'
 

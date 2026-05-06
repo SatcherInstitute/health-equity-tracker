@@ -44,7 +44,7 @@ export default function EndOfStackedPairLabels(
       y={yPosition + barHeight * 1.5 + pairGap}
       dominantBaseline='middle'
       textAnchor={darkLabelInside ? 'end' : 'start'}
-      fill={darkLabelInside ? 'var(--color-white)' : 'var(--color-black)'}
+      fill={darkLabelInside ? het.white : 'var(--color-black)'}
       className='text-smallest'
     >
       {darkBarLabel}
