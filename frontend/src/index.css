@@ -2,37 +2,50 @@
 @import "./styles/theme/sizes.css";
 @import "./styles/theme/spacing.css";
 @config '../tailwind.config.ts';
-
+@source "../src/**/*.{js,ts,jsx,tsx}";
 @layer base {
-  *, ::after, ::before {
-    /* Uses MUI's primary main or a custom border var if defined */
-    border-color: var(--mui-palette-custom-border, #e0e0e0);
+  *,
+  ::after,
+  ::before {
+    box-sizing: border-box;
+    font-weight: 400;
+    border-color: var(--color-border-color, #e0e0e0);
   }
-}
 
-@layer base {
+  #root {
+    height: 100%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    height: 100%;
+    font-size: 100%;
+  }
+
   body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     height: 100%;
-    /* Source from MUI Theme */
-    background-color: var(--mui-palette-background-default);
-    color: var(--mui-palette-custom-black);
+    background-color: var(--color-white);
+    color: var(--color-alt-black);
   }
 
-  h1, h2 {
-    font-weight: 600;
-    /* Map to primary.main (het.altGreen) */
-    color: var(--mui-palette-primary-main);
+  p {
+    margin-block: 1rem;
   }
 
-  h3, h4, h5 {
+  ul {
+    margin: 0;
+  }
+
+  a,
+  h2 > a {
     font-weight: 500;
-    color: var(--mui-palette-custom-black);
   }
 
   a {
-    color: var(--mui-palette-primary-main);
+    color: var(--color-alt-green);
     text-decoration: none;
     transition: opacity 0.2s;
 
@@ -41,73 +54,122 @@
       opacity: 0.8;
     }
   }
+
+  /*
+    Broad letter-spacing and text-decoration reset.
+    text-transform is intentionally omitted here; MUI button components
+    override it via styleOverrides in MaterialTheme.tsx where specificity
+    is guaranteed to win.
+  */
+  a,
+  li > button,
+  button,
+  button > span > span,
+  a > span,
+  button > span,
+  div,
+  div > p,
+  li > span {
+    letter-spacing: 0.0125rem;
+    text-decoration: none;
+  }
+
+  h1,
+  h2 {
+    font-weight: 600;
+    color: var(--color-alt-green);
+  }
+
+  h3,
+  h4,
+  h5 {
+    font-weight: 500;
+    color: var(--color-alt-black);
+  }
+
+  h1 {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    font-size: 2.125rem;
+    line-height: 1;
+    letter-spacing: -0.0625rem;
+
+    @media (width >= theme(--breakpoint-sm)) {
+      font-size: 2rem;
+    }
+  }
+
+  h2 {
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.875rem;
+    line-height: 1.067;
+
+    @media (width >= theme(--breakpoint-sm)) {
+      font-size: 1.5rem;
+    }
+  }
+
+  h3 {
+    padding-block: 0.5rem;
+    font-size: 1.5rem;
+    line-height: 1.083;
+    letter-spacing: -0.0125rem;
+
+    @media (width >= theme(--breakpoint-sm)) {
+      font-size: 1.125rem;
+    }
+  }
+
+  h4 {
+    padding-block: 0.5rem;
+    font-size: 1.125rem;
+    line-height: 1.1;
+    letter-spacing: -0.025rem;
+  }
+
+  h5 {
+    font-size: 1.1rem;
+    line-height: 1.111;
+    letter-spacing: -0.0125rem;
+
+    @media (width >= theme(--breakpoint-sm)) {
+      font-size: 1.1rem;
+    }
+  }
 }
 
-/* STYLING OVERRIDES FOR JOYRIDE ONBOARDING */
+/* STYLING OVERRIDES FOR D3 CHARTS */
+.yAxisGroup {
+  > path:first-child {
+    opacity: 0.3; /* fade y-domain axis line */
+  }
+}
+
+.xAxisGroup {
+  > path:first-child {
+    opacity: 0; /* remove x-domain axis line */
+  }
+}
+
+/* STYLING OVERRIDES FOR JOYRIDE ONBOARDING GUIDED TOUR */
 button[data-action="back"] {
-  /* Using the custom white token from our theme */
-  color: var(--mui-palette-custom-white) !important;
+  color: var(--color-white) !important;
 }
 
 .react-joyride__tooltip h4 {
-  color: var(--mui-palette-custom-white) !important;
+  color: var(--color-white) !important;
 }
 
-/* Focus styles using Theme Vars */
+/* custom focus styles for warm welcome buttons */
 button[data-action="primary"]:focus,
+button[data-action="close"]:focus,
+button[data-action="skip"]:focus,
 button[data-action="back"]:focus {
-  outline: 1px solid var(--mui-palette-custom-white);
+  outline: 1px solid var(--color-white);
 }
+
 /* Base styles without animation */
 .fade-in-up-blur {
-	visibility: visible; /* Default visible state for reduced motion */
-	opacity: 1;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-	/* ResourceItemCard Animations */
-	@keyframes fadeInUpBlur {
-		0% {
-			visibility: hidden;
-			opacity: 0;
-			filter: blur(10px);
-			transform: translateY(20%);
-			will-change: opacity, filter, transform;
-		}
-		1% {
-			visibility: visible;
-		}
-		100% {
-			visibility: visible;
-			opacity: 1;
-			filter: blur(0px);
-			transform: translateY(0%);
-			will-change: auto;
-		}
-	}
-
-	.fade-in-up-blur {
-		visibility: hidden;
-		animation: fadeInUpBlur 0.5s ease-in-out forwards;
-	}
-
-	/* Underline Animation */
-	@keyframes underlineSlideIn {
-		from {
-			background-size: 0% 8px;
-		}
-		to {
-			background-size: 100% 8px;
-		}
-	}
-}
-
-/* For users who haven't specified a preference, we can optionally add a fallback */
-@media (prefers-reduced-motion) {
-	.fade-in-up-blur {
-		visibility: visible;
-		opacity: 1;
-		transform: none;
-		filter: none;
-	}
+  visibility: visible; /* Default visible state for reduced motion */
 }
