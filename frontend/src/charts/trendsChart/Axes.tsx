@@ -190,7 +190,7 @@ export function Axes({
           y1={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
           x2={width - marginRight}
           y2={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
-          stroke={het.altGrey}
+          stroke={het.altGray}
         />
       </g>
       {/* Axis Labels */}
