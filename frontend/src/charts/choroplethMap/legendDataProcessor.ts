@@ -122,7 +122,7 @@ export function processLegendData(
 
   if (hasZeroData) {
     specialItems.push({
-      color: mapConfig.zero || 'var(--color-map-lightest)',
+      color: mapConfig.zero || 'var(--color-infobar-color)',
       label: labelFormat(0),
       value: 0,
     })

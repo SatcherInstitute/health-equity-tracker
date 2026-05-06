@@ -56,6 +56,8 @@
   --color-tiny-tag-gray: rgba(220, 229, 226, 0.18);
   --color-ashgray-30: rgba(181, 199, 194, 0.3);
   --color-transparent: #00000000;
+  --color-group-green: #7db640;
+  --color-group-yellow-green: #b9ce3a;
 
   /* bar chart */
   --color-bar-chart-dark: #0b5420;
@@ -71,58 +73,6 @@
   --color-join-effort-bg-1: #a5cdc0;
   --color-join-effort-bg-2: #edb2a6;
   --color-join-effort-bg-3: #275141;
-
-  /* map - standard */
-  --color-map-dark-zero: #35403d;
-  --color-map-dark: #027e47;
-  --color-map-darker: #185e49;
-  --color-map-darkest: #134b3a;
-  --color-map-light-zero: #fff9c1;
-  --color-map-light: #7db640;
-  --color-map-lighter: #b9ce3a;
-  --color-map-lightest: #f2e62f;
-  --color-map-mid: #3e9b42;
-
-  /* map - medicare */
-  --color-map-medicare-dark-zero: #090121;
-  --color-map-medicare-darkest: #46327f;
-  --color-map-medicare-dark: #365c8d;
-  --color-map-medicare-mid: #267f8e;
-  --color-map-medicare-light: #1fa187;
-  --color-map-medicare-lighter: #4bc16c;
-  --color-map-medicare-even-lighter: #9fda3a;
-  --color-map-medicare-lightest: #f0e525;
-  --color-map-medicare-light-zero: #fff9c1;
-
-  /* map - men */
-  --color-map-men-lightest: #fbc127;
-  --color-map-men-lighter: #f57d15;
-  --color-map-men-light: #d44843;
-  --color-map-men-mid: #9f2a63;
-  --color-map-men-dark: #65156e;
-  --color-map-men-darker: #280b54;
-
-  /* map - women */
-  --color-map-women-dark-zero: #120161;
-  --color-map-women-dark: #8b0aa5;
-  --color-map-women-darker: #5402a3;
-  --color-map-women-darkest: #320161;
-  --color-map-women-light-zero: #f3e221;
-  --color-map-women-light: #db5b68;
-  --color-map-women-lighter: #f48849;
-  --color-map-women-lightest: #febc2b;
-  --color-map-women-mid: #b93389;
-
-  /* map - youth */
-  --color-map-youth-dark-zero: #5a2f2a;
-  --color-map-youth-darkest: #772f2a;
-  --color-map-youth-darker: #a33a2b;
-  --color-map-youth-dark: #c34e27;
-  --color-map-youth-mid: #e06226;
-  --color-map-youth-light: #e87b26;
-  --color-map-youth-lighter: #f09726;
-  --color-map-youth-lightest: #f4b02a;
-  --color-map-youth-light-zero: #f7d136;
 
   /* map - unknown */
   --color-unknown-map-even-more: #2384b9;
