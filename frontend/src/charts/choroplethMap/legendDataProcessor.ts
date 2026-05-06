@@ -123,7 +123,7 @@ export function processLegendData(
 
   if (hasZeroData) {
     specialItems.push({
-      color: mapConfig.zero || het.infobarColor,
+      color: mapConfig.zero || het.mapLightest,
       label: labelFormat(0),
       value: 0,
     })
