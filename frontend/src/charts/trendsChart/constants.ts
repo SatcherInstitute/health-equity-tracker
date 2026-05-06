@@ -32,8 +32,8 @@ import {
   WHITE_NH,
   WHITE_W,
 } from '../../data/utils/Constants'
+import { het } from '../../styles/DesignTokens'
 
-// Helper to keep the mapping clean
 const COLORS_VARS = {
   black: 'var(--color-black)',
   darkBlue: 'var(--color-dark-blue)',
@@ -46,8 +46,8 @@ const COLORS_VARS = {
   redOrange: 'var(--color-red-orange)',
   timeYellow: 'var(--color-time-yellow)',
   mapLighter: 'var(--color-group-yellow-green)',
-  unknownMapLeast: 'var(--color-unknown-map-least)',
-  unknownMapMost: 'var(--color-unknown-map-most)',
+  unknownMapLeast: het.unknownMapLeast,
+  unknownMapMost: het.unknownMapMost,
 }
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {

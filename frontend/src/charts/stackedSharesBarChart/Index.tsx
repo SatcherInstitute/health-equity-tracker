@@ -31,7 +31,7 @@ const PAIR_GAP = 3
 const SET_GAP = 20
 export const STACKED_BAR_COLORS = {
   population: 'var(--color-bar-chart-light)',
-  distribution: 'var(--color-bar-chart-dark)',
+  distribution: 'var(--color-alt-green)',
 }
 const LEGEND_HEIGHT = 10
 

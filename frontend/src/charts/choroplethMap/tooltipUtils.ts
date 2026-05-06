@@ -32,7 +32,7 @@ export const createTooltipContainer = (isMulti?: boolean) => {
     .style('visibility', 'hidden')
     .style('max-width', '40vw')
     .style('background-color', 'var(--color-white)')
-    .style('border', '1px solid var(--color-gray-grid-color-darker)')
+    .style('border', '1px solid var(--color-explore-bg-color-darker)')
     .style('border-radius', '4px')
     .style('padding', '8px')
     .style('font-size', '12px')

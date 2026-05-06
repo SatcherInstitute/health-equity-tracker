@@ -113,9 +113,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       )
       .attr(
         'stroke',
-        props.isExtremesMode
-          ? 'var(--color-border-color)'
-          : 'var(--color-white)',
+        props.isExtremesMode ? 'var(--color-alt-black)' : 'var(--color-white)',
       )
       .attr('stroke-width', STROKE_WIDTH)
       .on('mouseover', (event: any, d) => {

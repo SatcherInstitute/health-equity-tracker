@@ -93,7 +93,7 @@ export default function CHLPMapsModal() {
       slotProps={{
         paper: {
           style: {
-            backgroundColor: 'var(--color-standard-info)',
+            backgroundColor: 'var(--color-explore-bg-color)',
             height: '95vh',
             width: '100%',
             maxWidth: '800px',

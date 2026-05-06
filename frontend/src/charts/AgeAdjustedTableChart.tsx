@@ -34,7 +34,7 @@ const cellStyle = {
 }
 
 const altCellStyle = {
-  backgroundColor: 'var(--gray-grid-color)',
+  backgroundColor: 'var(--explore-bg-color)',
   width: '200px',
 }
 

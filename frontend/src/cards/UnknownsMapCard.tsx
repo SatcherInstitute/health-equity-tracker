@@ -24,6 +24,7 @@ import {
 } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import { Fips } from '../data/utils/Fips'
+import { het } from '../styles/DesignTokens'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
@@ -117,8 +118,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   const unknownMapConfig: MapConfig = {
     scheme: MAP_SCHEMES.unknown,
-    zero: 'var(--color-unknown-map-least)',
-    mid: 'var(--color-unknown-map-mid)',
+    zero: het.unknownMapLeast,
+    mid: het.unknownMapMid,
   }
 
   return (

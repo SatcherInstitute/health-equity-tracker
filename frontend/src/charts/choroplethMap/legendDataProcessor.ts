@@ -114,7 +114,7 @@ export function processLegendData(
   // Create special legend items (missing data, zero data)
   if (hasMissingData) {
     specialItems.push({
-      color: 'var(--color-how-to-color)',
+      color: 'var(--color-alt-gray)',
       label: allMissingDataIsSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE,
       value: null,
     })

@@ -84,7 +84,7 @@ function removeLegendBorders(): void {
   legendItemsBoxes.forEach((box) => {
     box.classList.remove(
       'border-0',
-      'border-gray-grid-color-darker',
+      'border-explore-bg-color-darker',
       'border-t',
       'border-solid',
     )
@@ -100,7 +100,7 @@ function restoreLegendBorders(): void {
     box.classList.remove('border-none')
     box.classList.add(
       'border-0',
-      'border-gray-grid-color-darker',
+      'border-explore-bg-color-darker',
       'border-t',
       'border-solid',
     )

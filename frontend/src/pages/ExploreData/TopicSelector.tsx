@@ -83,7 +83,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
             <div className='col-span-full flex w-full justify-end'>
               {!noTopic && (
                 <a
-                  className='bg-white text-black no-underline hover:bg-standard-info'
+                  className='bg-white text-black no-underline hover:bg-explore-bg-color'
                   href={EXPLORE_DATA_PAGE_LINK}
                 >
                   <KeyboardBackspaceIcon className='pb-[3px] text-black text-small' />{' '}
