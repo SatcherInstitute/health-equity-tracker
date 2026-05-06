@@ -7,6 +7,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
+import { het } from '../../../styles/DesignTokens'
 
 interface StripedTableRowProps {
   children: React.ReactNode
@@ -25,8 +26,7 @@ function StripedTableRow({
   return (
     <TableRow
       sx={{
-        backgroundColor:
-          index % 2 === 0 ? 'var(--color-explore-bg-color)' : het.white,
+        backgroundColor: index % 2 === 0 ? het.exploreBgColor : het.white,
         '&:last-child td, &:last-child th': {
           border: 0,
         },

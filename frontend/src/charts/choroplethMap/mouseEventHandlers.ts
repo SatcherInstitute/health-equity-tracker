@@ -73,9 +73,7 @@ const handleMouseEvent = (
       d3.select(event.currentTarget)
         .attr(
           'stroke',
-          props.isExtremesMode
-            ? 'var(--color-alt-black)'
-            : GEO_HOVERED_BORDER_COLOR,
+          props.isExtremesMode ? het.altBlack : GEO_HOVERED_BORDER_COLOR,
         )
         .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
         .attr('opacity', GEO_HOVERED_OPACITY)
@@ -91,9 +89,7 @@ const handleMouseEvent = (
       d3.select(event.currentTarget)
         .attr(
           'stroke',
-          props.isExtremesMode
-            ? 'var(--color-alt-black)'
-            : GEO_HOVERED_BORDER_COLOR,
+          props.isExtremesMode ? het.altBlack : GEO_HOVERED_BORDER_COLOR,
         )
         .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
         .attr('opacity', GEO_HOVERED_OPACITY)
