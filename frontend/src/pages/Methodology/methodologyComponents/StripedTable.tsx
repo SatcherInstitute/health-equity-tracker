@@ -59,7 +59,7 @@ export default function StripedTable(props: StripedTableProps) {
     <TableContainer className='w-full' component={Paper} id={props.id}>
       <Table>
         <TableHead>
-          <TableRow className='bg-methodology-green text-navlink-color'>
+          <TableRow className='bg-methodology-green text-alt-black'>
             {props.columns.map((col) => (
               <TableCell key={col.accessor}>{col.header}</TableCell>
             ))}

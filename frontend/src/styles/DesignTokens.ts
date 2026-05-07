@@ -156,7 +156,6 @@ const het = {
   mapYouthLightest: '#f4b02a',
   mapYouthLightZero: '#f7d136',
   methodologyGreen: '#B5C7C2',
-  navlinkColor: '#202124',
   redOrange: '#ed573f',
   reportAlert: '#ff9800',
   secondaryDark: '#167b6f',
