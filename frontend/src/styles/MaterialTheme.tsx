@@ -31,8 +31,8 @@ const MaterialTheme = extendTheme({
       styleOverrides: {
         root: {
           fontFamily: '"Inter", sans-serif',
-          '&.MuiAlert-standardInfo': {
-            backgroundColor: het.standardInfo,
+          '&.MuiAlert-exploreBgColor': {
+            backgroundColor: het.exploreBgColor,
             color: het.black,
             textAlign: 'left',
             '& .MuiAlert-icon': {
