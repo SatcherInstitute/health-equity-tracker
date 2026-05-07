@@ -2,14 +2,14 @@
 @import "./styles/theme/sizes.css";
 @import "./styles/theme/spacing.css";
 @config '../tailwind.config.ts';
-@source "../src/**/*.{js,ts,jsx,tsx}";
+
 @layer base {
   *,
   ::after,
   ::before {
     box-sizing: border-box;
     font-weight: 400;
-    border-color: var(--color-border-color, #e0e0e0);
+    border-color: var(--mui-palette-custom-border, #e0e0e0);
   }
 
   #root {
@@ -27,8 +27,8 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     height: 100%;
-    background-color: var(--color-white);
-    color: var(--color-alt-black);
+    background-color: var(--mui-palette-background-default);
+    color: var(--mui-palette-custom-black);
   }
 
   p {
@@ -45,7 +45,7 @@
   }
 
   a {
-    color: var(--color-alt-green);
+    color: var(--mui-palette-primary-main);
     text-decoration: none;
     transition: opacity 0.2s;
 
@@ -77,14 +77,14 @@
   h1,
   h2 {
     font-weight: 600;
-    color: var(--color-alt-green);
+    color: var(--mui-palette-primary-main);
   }
 
   h3,
   h4,
   h5 {
     font-weight: 500;
-    color: var(--color-alt-black);
+    color: var(--mui-palette-custom-black);
   }
 
   h1 {
@@ -154,11 +154,11 @@
 
 /* STYLING OVERRIDES FOR JOYRIDE ONBOARDING GUIDED TOUR */
 button[data-action="back"] {
-  color: var(--color-white) !important;
+  color: var(--mui-palette-custom-white) !important;
 }
 
 .react-joyride__tooltip h4 {
-  color: var(--color-white) !important;
+  color: var(--mui-palette-custom-white) !important;
 }
 
 /* custom focus styles for warm welcome buttons */
@@ -166,7 +166,7 @@ button[data-action="primary"]:focus,
 button[data-action="close"]:focus,
 button[data-action="skip"]:focus,
 button[data-action="back"]:focus {
-  outline: 1px solid var(--color-white);
+  outline: 1px solid var(--mui-palette-custom-white);
 }
 
 /* Base styles without animation */
