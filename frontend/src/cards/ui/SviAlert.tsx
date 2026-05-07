@@ -35,10 +35,10 @@ export const findVerboseRating = (svi: number) => {
 
 export const findColor = (rating: string) => {
   if (rating === 'high') {
-    return 'text-alt-red'
+    return 'text-red-orange'
   }
   if (rating === 'medium') {
-    return 'text-alt-orange'
+    return 'text-alt-black'
   }
   if (rating === 'low') {
     return 'text-alt-green'
@@ -60,7 +60,7 @@ function SviAlert(props: SviAlertProps) {
           This county has a <HetTerm>social vulnerability index</HetTerm> of{' '}
           <strong>{props.svi}</strong>; which indicates a{' '}
           <HashLink to={`${METRICS_LINK as string}#svi`} className={color}>
-            <span>{rating} level of vulnerability.</span>
+            <span className='font-bold'>{rating} level of vulnerability.</span>
           </HashLink>
         </>
       ) : (

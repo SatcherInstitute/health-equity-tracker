@@ -36,14 +36,14 @@ describe('find color', () => {
   })
   describe('when given a rating', () => {
     it('should return a className property', () => {
-      const [rating, expected] = ['medium', 'text-alt-orange']
+      const [rating, expected] = ['medium', 'text-alt-black']
       const result = findColor(rating)
       expect(result).toEqual(expected)
     })
   })
   describe('when given a rating', () => {
     it('should return a className property', () => {
-      const [rating, expected] = ['high', 'text-alt-red']
+      const [rating, expected] = ['high', 'text-red-orange']
       const result = findColor(rating)
       expect(result).toEqual(expected)
     })
