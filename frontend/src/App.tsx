@@ -6,9 +6,6 @@ import '@fontsource/taviraj/200.css'
 import '@fontsource/taviraj/300.css'
 import '@fontsource/taviraj/400.css'
 import '@fontsource/taviraj/500.css'
-
-import './styles/HetColorUtils'
-
 import { CircularProgress } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'

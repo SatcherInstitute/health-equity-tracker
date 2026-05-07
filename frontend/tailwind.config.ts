@@ -1,4 +1,3 @@
-// biome-ignore assist/source/organizeImports: <broken>
 import type { Config } from 'tailwindcss'
 import {
   ThemeBorderRadii,
@@ -8,7 +7,6 @@ import {
   ThemeLineHeights,
   ThemeStandardScreenSizes,
   ThemeZIndexValues,
-  het,
 } from './src/styles/DesignTokens'
 
 export default {
@@ -20,7 +18,6 @@ export default {
     maxWidth: ThemeStandardScreenSizes,
     borderRadius: ThemeBorderRadii,
     boxShadow: ThemeBoxShadows,
-    colors: het,
     fontSize: ThemeFontSizes,
     fontFamily: ThemeFonts,
     lineHeight: ThemeLineHeights,
