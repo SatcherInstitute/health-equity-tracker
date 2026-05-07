@@ -21,7 +21,7 @@ import type {
   RenderMapOptions,
 } from './types'
 
-const { white: WHITE, borderColor: BORDER_GREY } = het
+const { white: WHITE, borderColor: BORDER_GRAY } = het
 const MARGIN = { top: 0, right: 0, bottom: 0, left: 0 }
 
 export const renderMap = (options: RenderMapOptions) => {
@@ -136,7 +136,7 @@ export const renderMap = (options: RenderMapOptions) => {
         isMultiMap: isMulti,
       }),
     )
-    .attr('stroke', isExtremesMode ? BORDER_GREY : WHITE)
+    .attr('stroke', isExtremesMode ? BORDER_GRAY : WHITE)
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event: any, d) => {
       hideTooltips()

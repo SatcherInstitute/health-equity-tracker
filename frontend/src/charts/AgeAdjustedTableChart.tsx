@@ -35,7 +35,7 @@ const cellStyle = {
 }
 
 const altCellStyle = {
-  backgroundColor: het.greyGridColor,
+  backgroundColor: het.grayGridColor,
   width: '200px',
 }
 
