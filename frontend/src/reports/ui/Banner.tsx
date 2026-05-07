@@ -1,5 +1,4 @@
 import Close from '@mui/icons-material/Close'
-import FlagIcon from '@mui/icons-material/Flag'
 import { IconButton } from '@mui/material'
 import type React from 'react'
 import { useEffect, useState } from 'react'
@@ -41,10 +40,6 @@ const Banner: React.FC = () => {
     >
       <div className='flex justify-between'>
         <div className='m-0 flex flex-wrap items-center justify-start px-2 md:items-center lg:flex-row lg:justify-start'>
-          <FlagIcon
-            className='mr-2 hidden text-alert-color lg:visible'
-            aria-hidden='true'
-          />
           <p
             className='my-0 p-0 text-left text-small lg:mr-8'
             id='banner-heading'

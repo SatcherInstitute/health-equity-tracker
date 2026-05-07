@@ -4,10 +4,12 @@ export default function UnknownPctRateGradient() {
   return (
     <svg
       height='0'
+      width='0'
       version='1.1'
       aria-label='Unknown percentage rate gradient'
       role='img'
       xmlns='http://www.w3.org/2000/svg'
+      style={{ position: 'absolute' }} // Ensures it doesn't take up space
     >
       <linearGradient id='gradient'>
         <stop style={{ stopColor: het.unknownMapMost }} offset='0%' />

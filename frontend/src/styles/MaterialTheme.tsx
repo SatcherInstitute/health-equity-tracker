@@ -32,7 +32,7 @@ const MaterialTheme = extendTheme({
         root: {
           fontFamily: '"Inter", sans-serif',
           '&.MuiAlert-standardInfo': {
-            backgroundColor: het.standardInfo,
+            backgroundColor: het.exploreBgColor,
             color: het.black,
             textAlign: 'left',
             '& .MuiAlert-icon': {

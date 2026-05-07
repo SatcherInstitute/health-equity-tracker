@@ -81,7 +81,7 @@ export default function HetDesktopToolbar() {
           <div key={key} className='flex items-center gap-1'>
             <HetNavLink
               href={value.link}
-              className='mx-2 my-0 w-auto px-2 font-medium font-sans-title text-navlink-color text-small'
+              className='mx-2 my-0 w-auto px-2 font-medium font-sans-title text-alt-black text-small'
               {...(external && {
                 target: '_blank',
                 rel: 'noopener noreferrer',

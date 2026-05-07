@@ -78,7 +78,7 @@ export default function AltTableView(props: AltTableViewProps) {
       duration={500}
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='hide-on-screenshot mx-2 mt-4 rounded-md bg-listbox-color text-left'
+      className='hide-on-screenshot mx-2 mt-4 rounded-md bg-explore-bg-color text-left'
       id={uniqueId}
     >
       <HetExpandableBoxButton

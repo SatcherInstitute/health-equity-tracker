@@ -47,7 +47,7 @@ const cellStyle = {
 }
 
 const altCellStyle = {
-  backgroundColor: het.standardInfo,
+  backgroundColor: het.exploreBgColor,
   width: '200px',
 }
 

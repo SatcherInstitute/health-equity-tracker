@@ -15,7 +15,7 @@ import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MouseEventHandlerOptions, MouseEventType } from './types'
 
-const { white: WHITE, greyGridColorDarker: BORDER_GREY } = het
+const { white: WHITE, grayGridColorDarker: BORDER_GRAY } = het
 const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
 
 // Shared constants
@@ -33,7 +33,7 @@ export const createTooltipContainer = (isMulti?: boolean) => {
     .style('visibility', 'hidden')
     .style('max-width', '40vw')
     .style('background-color', WHITE)
-    .style('border', `1px solid ${BORDER_GREY}`)
+    .style('border', `1px solid ${BORDER_GRAY}`)
     .style('border-radius', '4px')
     .style('padding', '8px')
     .style('font-size', '12px')

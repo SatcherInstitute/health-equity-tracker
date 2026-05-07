@@ -6,8 +6,6 @@ import {
   FacebookShareButton,
   LinkedinIcon,
   LinkedinShareButton,
-  TwitterShareButton,
-  XIcon,
 } from 'react-share'
 import { het } from '../../styles/DesignTokens'
 import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
@@ -44,16 +42,6 @@ export default function CardShareIconButtons(props: CardShareIconButtonsProps) {
   )
 
   const shareButtons: ShareButtonConfig[] = [
-    {
-      ShareButton: TwitterShareButton,
-      Icon: XIcon,
-      label: 'Share on X',
-      options: {
-        hashtags: ['healthequity'],
-        related: ['@SatcherHealth', '@MSMEDU'],
-        'aria-label': 'Share to X (formerly Twitter)',
-      },
-    },
     {
       ShareButton: FacebookShareButton,
       Icon: FacebookIcon,

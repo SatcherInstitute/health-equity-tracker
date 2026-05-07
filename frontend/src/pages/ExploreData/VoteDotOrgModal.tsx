@@ -51,7 +51,7 @@ export default function VoteDotOrgModal() {
       className='h-full'
       PaperProps={{
         style: {
-          backgroundColor: het.standardInfo,
+          backgroundColor: het.exploreBgColor,
           height: '95vh', // Ensure the dialog content also respects the height
         },
       }}
@@ -68,7 +68,7 @@ export default function VoteDotOrgModal() {
           width='100%'
           height='100%'
           id='voteDotOrgIframe'
-          className='mt-2 border-0 bg-standard-info p-2 md:px-24'
+          className='mt-2 border-0 bg-explore-bg-color p-2 md:px-24'
         ></iframe>
       </DialogContent>
     </Dialog>

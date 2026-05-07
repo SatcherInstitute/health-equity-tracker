@@ -84,7 +84,7 @@ function removeLegendBorders(): void {
   legendItemsBoxes.forEach((box) => {
     box.classList.remove(
       'border-0',
-      'border-grey-grid-color-darker',
+      'border-gray-grid-color-darker',
       'border-t',
       'border-solid',
     )
@@ -100,7 +100,7 @@ function restoreLegendBorders(): void {
     box.classList.remove('border-none')
     box.classList.add(
       'border-0',
-      'border-grey-grid-color-darker',
+      'border-gray-grid-color-darker',
       'border-t',
       'border-solid',
     )
@@ -151,7 +151,7 @@ function handleFooterForCard(
       'w-full',
       'border-b',
       'border-solid',
-      'border-divider-grey',
+      'border-divider-gray',
     )
     mapDivider.style.height = '0px'
     footer.parentNode?.insertBefore(mapDivider, footer)

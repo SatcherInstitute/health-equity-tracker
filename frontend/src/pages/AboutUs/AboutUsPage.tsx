@@ -130,7 +130,7 @@ export default function AboutUsPage() {
 
       <div className='flex w-full flex-col p-10'>
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='my-8 border-0 border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Leadership Team
           </h3>
           <ul className='grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
@@ -153,7 +153,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='my-8 border-0 border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             HET Software Engineering and Education Development (SEED) Program
           </h3>
           <ul className='mb-8 grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-4'>
@@ -173,7 +173,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='my-8 border-0 border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Former SHLI Contributors
           </h3>
 
@@ -190,7 +190,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='my-8 border-0 border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Google.org Fellows
           </h3>
           <ul className='grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-4'>
@@ -216,7 +216,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='my-8 border-0 border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Health Equity Task Force
           </h3>
           <ul className='grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-3'>
@@ -229,7 +229,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='my-8 border-0 border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Founding Partners
           </h3>
 
@@ -251,7 +251,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-[0] border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='my-8 border-0 border-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
             Grantors
           </h3>
 
