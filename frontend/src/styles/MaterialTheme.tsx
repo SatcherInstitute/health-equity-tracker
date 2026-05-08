@@ -53,7 +53,7 @@ const MaterialTheme = extendTheme({
           fontFamily: 'var(--font-sans-text)',
           '&.MuiAlert-standardInfo': {
             backgroundColor: het.exploreBgColor,
-            color: het.hetBlack,
+            color: het.altBlack,
             textAlign: 'left',
             '& .MuiAlert-icon': {
               color: het.altGreen,
@@ -61,7 +61,7 @@ const MaterialTheme = extendTheme({
           },
           '&.MuiAlert-standardWarning': {
             backgroundColor: het.standardWarning,
-            color: het.hetBlack,
+            color: het.altBlack,
             textAlign: 'left',
             '& .MuiAlert-icon': {
               color: het.alertColor,
@@ -173,10 +173,10 @@ const MaterialTheme = extendTheme({
           outline: `1px solid ${het.howToColor} !important`,
           fontWeight: 'normal',
           fontSize: '14px',
-          color: het.hetBlack,
+          color: het.altBlack,
           lineHeight: '16px !important',
           padding: '11px !important',
-          backgroundColor: `${het.hetWhite} !important`,
+          backgroundColor: '#fff !important',
           textTransform: 'none',
           '&.Mui-selected': {
             color: het.altGreen,

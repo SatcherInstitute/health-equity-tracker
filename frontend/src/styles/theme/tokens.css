@@ -1,4 +1,165 @@
 @theme {
+
+     --color-how-to-color: #bdc1c6;
+  --color-border-color: #3e3e3e;
+  --color-secondary-dark: #167b6f;
+  --color-secondary-light: #89d5cc;
+  --color-standard-warning: #fff8eb;
+  --color-standard-info: #f8f9fa;
+  --color-toggle-color: #e1e9e7;
+  --color-bar-chart-dark: #0b5420;
+
+  /* map schemes */
+  --color-map-dark-zero: #35403d;
+  --color-map-dark: #027e47;
+  --color-map-darker: #185e49;
+  --color-map-darkest: #134b3a;
+  --color-map-light: #7db640;
+  --color-map-lighter: #b9ce3a;
+  --color-map-lightest: #f2e62f;
+  --color-map-light-zero: #fff9c1;
+  --color-map-mid: #3e9b42;
+  --color-map-medicare-dark: #365c8d;
+  --color-map-medicare-dark-zero: #090121;
+  --color-map-medicare-darkest: #46327f;
+  --color-map-medicare-even-lighter: #9fda3a;
+  --color-map-medicare-light: #1fa187;
+  --color-map-medicare-lighter: #4bc16c;
+  --color-map-medicare-lightest: #f0e525;
+  --color-map-medicare-light-zero: #fff9c1;
+  --color-map-medicare-mid: #267f8e;
+  --color-map-men-dark: #65156e;
+  --color-map-men-darker: #280b54;
+  --color-map-men-light: #d44843;
+  --color-map-men-lighter: #f57d15;
+  --color-map-men-lightest: #fbc127;
+  --color-map-men-mid: #9f2a63;
+  --color-map-women-dark: #8b0aa5;
+  --color-map-women-dark-zero: #120161;
+  --color-map-women-darker: #5402a3;
+  --color-map-women-darkest: #320161;
+  --color-map-women-light: #db5b68;
+  --color-map-women-lighter: #f48849;
+  --color-map-women-lightest: #febc2b;
+  --color-map-women-light-zero: #f3e221;
+  --color-map-women-mid: #b93389;
+  --color-map-youth-dark: #c34e27;
+  --color-map-youth-dark-zero: #5a2f2a;
+  --color-map-youth-darker: #a33a2b;
+  --color-map-youth-darkest: #772f2a;
+  --color-map-youth-light: #e87b26;
+  --color-map-youth-lighter: #f09726;
+  --color-map-youth-lightest: #f4b02a;
+  --color-map-youth-light-zero: #f7d136;
+  --color-map-youth-mid: #e06226;
+
+  /* unknown map */
+  --color-unknown-map-least: #d3eece;
+  --color-unknown-map-less: #92d4be;
+  --color-unknown-map-lesser: #b8e3be;
+  --color-unknown-map-mid: #60bccb;
+  --color-unknown-map-more: #47a8cb;
+  --color-unknown-map-most: #0b61a2;
+
+  /* yellows / oranges */
+  --color-time-yellow: #fcb431;
+  --color-alert-color: #d85c47;
+  --color-red-orange: #ed573f;
+  --color-report-alert: #ff9800;
+
+  /* greens */
+  --color-alt-green: #0b5240;
+  --color-dark-green: #083f31;
+  --color-hover-alt-green: rgba(11, 82, 64, 0.08);
+  --color-secondary-main: #228b7e;
+  --color-methodology-green: #b5c7c2;
+  --color-footer-color: #edf3f0;
+
+  /* greys / blacks */
+  --color-alt-black: #383838;
+  --color-alt-dark: #5f6368;
+  --color-alt-gray: #bdbdbd;
+  --color-bg-color: #e2e2e2;
+  --color-divider-gray: #0000001f;
+  --color-gray-grid-color-darker: #dddddd;
+  --color-hex-share-icon-gray: #757575;
+  --color-navlink-color: #202124;
+  --color-timberwolf: #cbd0c8;
+
+  /* whites */
+  --color-white-smoke80: rgba(240, 241, 239, 0.8);
+  --color-table-zebra: #fdfff9;
+
+  /* blues */
+  --color-dark-blue: #255792;
+  --color-time-cyan-blue: #79b4b7;
+
+  /* misc */
+  --color-explore-bg-color: #f1f4f8;
+  --color-infobar-color: #f8e8b0;
+  --color-tiny-tag-gray: rgba(220, 229, 226, 0.18);
+  --color-transparent: #00000000;
+  --color-group-green: #7db640;
+  --color-group-yellow-green: #b9ce3a;
+
+  /* bar chart */
+  --color-bar-chart-light: #91c684;
+
+  /* time series */
+  --color-time-dark-red: #8c0000;
+  --color-time-pastel-green: #547d6b;
+  --color-time-pink: #ff85b3;
+  --color-time-purple: #816d98;
+
+
+    /* h- */
+  --height-little-het-logo: 30px;
+  --height-join-effort-logo: 720px;
+
+  /* w- */
+  --width-little-het-logo: 30px;
+  --width-join-effort-logo: 600px;
+  --width-90p: 90%;
+  --width-98p: 98%;
+  --width-on-this-page-menu-desktop: 192px;
+
+  /* max-h- */
+  --max-height-aim-to-go: 255px;
+  --max-height-article-logo: 700px;
+
+  /* max-w- */
+  --max-width-aim-to-go: 255px;
+  --max-width-menu: 800px;
+  --max-width-on-this-page-menu-desktop: 200px;
+  --max-width-article-logo: 700px;
+  --max-width-team-headshot: 181px;
+  --max-width-team-logo: 250px;
+  --max-width-explore-data-page: 1500px;
+  --max-width-explore-data-two-column-page: 2500px;
+  --max-width-news-text: 800px;
+  --max-width-equity-logo: 400px;
+  --max-width-helper-box: 1200px;
+
+  /* min-h- */
+  --min-height-multimap-mobile: 125px;
+  --min-height-multimap-desktop: 175px;
+  --min-height-preload-article: 750px;
+	--min-height-toolbar: 65px;
+
+
+     /* p- */
+  --padding-1p: 1%;
+  --padding-15p: 15%;
+
+  /* gap- m- p- etc */
+  --spacing-card-gutter: 8px;
+  --spacing-footer: 10rem;
+	--spacing-social-icon: 7px;
+
+  /* stroke-w- */
+  --stroke-width-trend-line-normal: 2.5;
+  --stroke-width-trend-line-thick: 5.5;
+
   /* -------------------------
      Breakpoints
   ------------------------- */

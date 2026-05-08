@@ -35,7 +35,7 @@ import {
 import { het } from '../../styles/DesignTokens'
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
-  All: het.hetBlack,
+  All: het.altBlack,
   Unknown: het.darkBlue,
   // race and ethnicity (NH)
   [AIAN_NH]: het.timeCyanBlue,
@@ -55,7 +55,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   [MULTI]: het.timeDarkRed,
   [WHITE]: het.redOrange,
   // race and ethnicity for CAWP
-  [ALL_W]: het.hetBlack,
+  [ALL_W]: het.altBlack,
   [AIANNH_W]: het.timeCyanBlue,
   [AAPI_W]: het.timePastelGreen,
   [AIAN_API_W]: het.timePastelGreen,
