@@ -118,7 +118,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           whiteSpace: 'normal',
                           wordWrap: 'break-word',
                         }}
-                        className='wrap-break-word border-0 border-alt-dark border-b bg-white leading-some-space'
+                        className='wrap-break-word border-0 border-alt-dark border-b bg-alt-white leading-some-space'
                       >
                         {!isTimeCol &&
                           key !== ALL &&
@@ -142,7 +142,7 @@ export default function AltTableView(props: AltTableViewProps) {
                   return (
                     <TableRow
                       key={row[TIME_PERIOD_LABEL]}
-                      className='odd:bg-table-zebra even:bg-white'
+                      className='odd:bg-table-zebra even:bg-alt-white'
                     >
                       {keys.map((key) => {
                         const isTimePeriod = key === TIME_PERIOD_LABEL

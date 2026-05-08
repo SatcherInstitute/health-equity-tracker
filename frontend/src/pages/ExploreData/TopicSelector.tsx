@@ -56,7 +56,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
               return (
                 <div key={category.title} className='mb-4'>
                   <h3
-                    className='m-0 mr-4 mb-1 p-0 font-semibold text-black text-small leading-some-more-space sm:text-text'
+                    className='m-0 mr-4 mb-1 p-0 font-semibold text-alt-black text-small leading-some-more-space sm:text-text'
                     aria-label={category.title + ' options'}
                   >
                     {category.title}
@@ -84,11 +84,11 @@ export default function TopicSelector(props: TopicSelectorProps) {
             <div className='col-span-full flex w-full justify-end'>
               {!noTopic && (
                 <a
-                  className='bg-white text-black no-underline hover:bg-explore-bg-color'
+                  className='bg-alt-white text-alt-black no-underline hover:bg-explore-bg-color'
                   href={EXPLORE_DATA_PAGE_LINK}
                 >
-                  <KeyboardBackspaceIcon className='pb-0.75 text-black text-small' />{' '}
-                  <span className='p-1 text-black text-smallest'>
+                  <KeyboardBackspaceIcon className='pb-0.75 text-alt-black text-small' />{' '}
+                  <span className='p-1 text-alt-black text-smallest'>
                     Clear selections
                   </span>
                 </a>

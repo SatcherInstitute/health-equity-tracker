@@ -104,7 +104,7 @@ export default function App() {
   return (
     <ThemeProvider theme={MaterialTheme} defaultMode='light'>
       <CssBaseline />
-      <div className='relative min-h-full bg-white text-center'>
+      <div className='relative min-h-full bg-alt-white text-center'>
         <SkipLink />
 
         <div className='relative h-full'>

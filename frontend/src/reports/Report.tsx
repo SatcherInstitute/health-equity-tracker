@@ -368,7 +368,7 @@ export function Report(props: ReportProps) {
           {resolvedConfig &&
             SHOW_INSIGHT_GENERATION &&
             props.trackerMode === 'disparity' && (
-              <div className='rounded-sm bg-white shadow-raised md:m-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
+              <div className='rounded-sm bg-alt-white shadow-raised md:m-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
                 <InsightReportButton />
               </div>
             )}

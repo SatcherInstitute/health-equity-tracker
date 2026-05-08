@@ -48,6 +48,7 @@ export const het = {
   tableZebra: 'var(--color-table-zebra)',
   transparent: 'var(--color-transparent)',
   whiteSmoke80: 'var(--color-white-smoke80)',
+  altWhite: 'var(--color-alt-white)',
 
   // Time Chart
   timeDarkRed: 'var(--color-time-dark-red)',
