@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, vi } from 'vitest'
-import { resolveColor } from './DesignTokens'
+import { resolveColor } from './themeUtils'
 
 describe('resolveColor()', () => {
   const mockGetPropertyValue = vi.fn()
