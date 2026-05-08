@@ -23,11 +23,6 @@ export default function HetPopover(props: HetPopoverProps) {
         vertical: 'top',
         horizontal: 'center',
       }}
-      slotProps={{
-        paper: {
-          style: { maxWidth: 'none' },
-        },
-      }}
     >
       {props.children}
     </Popover>
