@@ -1,162 +1,166 @@
 @import "tailwindcss";
 @import "./styles/theme/tokens.css";
 @layer theme, base, mui, components, utilities;
+
 @layer base {
-  *,
-  ::after,
-  ::before {
-    box-sizing: border-box;
-    font-weight: 400;
-    border-color: var(--color-border-color);
-  }
 
-  #root {
-    height: 100%;
-  }
+	*,
+	::after,
+	::before {
+		box-sizing: border-box;
+		font-weight: 400;
+		border-color: var(--color-border-color);
+	}
 
-  html {
-    scroll-behavior: smooth;
-    height: 100%;
-    font-size: 100%;
-  }
+	#root {
+		height: 100%;
+	}
 
-  body {
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    height: 100%;
-    background-color: var(--color-het-white);
-    color: var(--color-alt-black);
-  }
+	html {
+		scroll-behavior: smooth;
+		height: 100%;
+		font-size: 100%;
+	}
 
-  p {
-    margin-block: 1rem;
-  }
+	body {
+		margin: 0;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		height: 100%;
+		background-color: var(--color-het-white);
+		color: var(--color-alt-black);
+	}
 
-  ul {
-    margin: 0;
-  }
+	p {
+		margin-block: 1rem;
+	}
 
-  a,
-  h2 > a {
-    font-weight: 500;
-  }
+	ul {
+		margin: 0;
+	}
 
-  a {
-    color: var(--color-alt-green);
-    text-decoration: none;
-    transition: opacity 0.2s;
+	a,
+	h2>a {
+		font-weight: 500;
+	}
 
-    &:hover {
-      text-decoration: underline;
-      opacity: 0.8;
-    }
-  }
+	a {
+		color: var(--color-alt-green);
+		text-decoration: none;
+		transition: opacity 0.2s;
 
-  /*
+		&:hover {
+			text-decoration: underline;
+			opacity: 0.8;
+		}
+	}
+
+	/*
     Broad letter-spacing and text-decoration reset.
     text-transform is intentionally omitted here; MUI button components
     override it via styleOverrides in MaterialTheme.tsx where specificity
     is guaranteed to win.
   */
-  a,
-  li > button,
-  button,
-  button > span > span,
-  a > span,
-  button > span,
-  div,
-  div > p,
-  li > span {
-    letter-spacing: 0.0125rem;
-    text-decoration: none;
-  }
+	a,
+	li>button,
+	button,
+	button>span>span,
+	a>span,
+	button>span,
+	div,
+	div>p,
+	li>span {
+		letter-spacing: 0.0125rem;
+		text-decoration: none;
+	}
 
-  h1,
-  h2 {
-    font-weight: 600;
-    color: var(--color-alt-green);
-  }
+	h1,
+	h2 {
+		font-weight: 600;
+		color: var(--color-alt-green);
+	}
 
-  h3,
-  h4,
-  h5 {
-    font-weight: 500;
-    color: var(--color-alt-black);
-  }
+	h3,
+	h4,
+	h5 {
+		font-weight: 500;
+		color: var(--color-alt-black);
+	}
 
-  h1 {
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-    font-size: 2.125rem;
-    line-height: 1;
-    letter-spacing: -0.0625rem;
+	h1 {
+		padding-top: 2rem;
+		padding-bottom: 1rem;
+		font-size: 2.125rem;
+		line-height: 1;
+		letter-spacing: -0.0625rem;
 
-    @media (width >= theme(--breakpoint-sm)) {
-      font-size: 2rem;
-    }
-  }
+		@media (width >=theme(--breakpoint-sm)) {
+			font-size: 2rem;
+		}
+	}
 
-  h2 {
-    padding-top: 1rem;
-    padding-bottom: 0.5rem;
-    font-size: 1.875rem;
-    line-height: 1.067;
+	h2 {
+		padding-top: 1rem;
+		padding-bottom: 0.5rem;
+		font-size: 1.875rem;
+		line-height: 1.067;
 
-    @media (width >= theme(--breakpoint-sm)) {
-      font-size: 1.5rem;
-    }
-  }
+		@media (width >=theme(--breakpoint-sm)) {
+			font-size: 1.5rem;
+		}
+	}
 
-  h3 {
-    padding-block: 0.5rem;
-    font-size: 1.5rem;
-    line-height: 1.083;
-    letter-spacing: -0.0125rem;
+	h3 {
+		padding-block: 0.5rem;
+		font-size: 1.5rem;
+		line-height: 1.083;
+		letter-spacing: -0.0125rem;
 
-    @media (width >= theme(--breakpoint-sm)) {
-      font-size: 1.125rem;
-    }
-  }
+		@media (width >=theme(--breakpoint-sm)) {
+			font-size: 1.125rem;
+		}
+	}
 
-  h4 {
-    padding-block: 0.5rem;
-    font-size: 1.125rem;
-    line-height: 1.1;
-    letter-spacing: -0.025rem;
-  }
+	h4 {
+		padding-block: 0.5rem;
+		font-size: 1.125rem;
+		line-height: 1.1;
+		letter-spacing: -0.025rem;
+	}
 
-  h5 {
-    font-size: 1.1rem;
-    line-height: 1.111;
-    letter-spacing: -0.0125rem;
+	h5 {
+		font-size: 1.1rem;
+		line-height: 1.111;
+		letter-spacing: -0.0125rem;
 
-    @media (width >= theme(--breakpoint-sm)) {
-      font-size: 1.1rem;
-    }
-  }
+		@media (width >=theme(--breakpoint-sm)) {
+			font-size: 1.1rem;
+		}
+	}
 }
 
 /* STYLING OVERRIDES FOR D3 CHARTS */
 .yAxisGroup {
-  > path:first-child {
-    opacity: 0.3; /* fade y-domain axis line */
-  }
+	>path:first-child {
+		opacity: 0.3;
+		/* fade y-domain axis line */
+	}
 }
 
 .xAxisGroup {
-  > path:first-child {
-    opacity: 0; /* remove x-domain axis line */
-  }
+	>path:first-child {
+		opacity: 0;
+		/* remove x-domain axis line */
+	}
 }
 
 /* STYLING OVERRIDES FOR JOYRIDE ONBOARDING GUIDED TOUR */
 button[data-action="back"] {
-  color: var(--color-het-white) !important;
+	color: var(--color-het-white);
 }
 
 .react-joyride__tooltip h4 {
-  color: var(--color-het-white) !important;
+	color: var(--color-het-white);
 }
 
 /* custom focus styles for warm welcome buttons */
@@ -164,53 +168,57 @@ button[data-action="primary"]:focus,
 button[data-action="close"]:focus,
 button[data-action="skip"]:focus,
 button[data-action="back"]:focus {
-  outline: 1px solid var(--color-het-white);
+	outline: 1px solid var(--color-het-white);
 }
 
 /* Base styles without animation */
 .fade-in-up-blur {
-  visibility: visible; /* Default visible state for reduced motion */
+	visibility: visible;
+	/* Default visible state for reduced motion */
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  @keyframes underlineSlideIn {
-    from {
-      background-size: 0% 8px;
-    }
-    to {
-      background-size: 100% 8px;
-    }
-  }
+	@keyframes underlineSlideIn {
+		from {
+			background-size: 0% 8px;
+		}
 
-  .fade-in-up-blur {
-    visibility: hidden;
-    animation: fadeInUpBlur 0.5s ease-in-out forwards;
-  }
+		to {
+			background-size: 100% 8px;
+		}
+	}
 
-  @keyframes fadeInUpBlur {
-    0% {
-      visibility: hidden;
-      opacity: 0;
-      filter: blur(10px);
-      transform: translateY(20%);
-    }
-    1% {
-      visibility: visible;
-    }
-    100% {
-      visibility: visible;
-      opacity: 1;
-      filter: blur(0px);
-      transform: translateY(0%);
-    }
-  }
+	.fade-in-up-blur {
+		visibility: hidden;
+		animation: fadeInUpBlur 0.5s ease-in-out forwards;
+	}
+
+	@keyframes fadeInUpBlur {
+		0% {
+			visibility: hidden;
+			opacity: 0;
+			filter: blur(10px);
+			transform: translateY(20%);
+		}
+
+		1% {
+			visibility: visible;
+		}
+
+		100% {
+			visibility: visible;
+			opacity: 1;
+			filter: blur(0px);
+			transform: translateY(0%);
+		}
+	}
 }
 
 @media (prefers-reduced-motion) {
-  .fade-in-up-blur {
-    visibility: visible;
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
+	.fade-in-up-blur {
+		visibility: visible;
+		opacity: 1;
+		transform: none;
+		filter: none;
+	}
 }
