@@ -27,7 +27,7 @@
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		height: 100%;
-		background-color: var(--color-het-white);
+		background-color: var(--color-alt-white);
 		color: var(--color-alt-black);
 	}
 
@@ -156,11 +156,11 @@
 
 /* STYLING OVERRIDES FOR JOYRIDE ONBOARDING GUIDED TOUR */
 button[data-action="back"] {
-	color: var(--color-het-white);
+	color: var(--color-alt-white);
 }
 
 .react-joyride__tooltip h4 {
-	color: var(--color-het-white);
+	color: var(--color-alt-white);
 }
 
 /* custom focus styles for warm welcome buttons */
@@ -168,7 +168,7 @@ button[data-action="primary"]:focus,
 button[data-action="close"]:focus,
 button[data-action="skip"]:focus,
 button[data-action="back"]:focus {
-	outline: 1px solid var(--color-het-white);
+	outline: 1px solid var(--color-alt-white);
 }
 
 /* Base styles without animation */

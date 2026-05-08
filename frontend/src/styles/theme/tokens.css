@@ -248,13 +248,13 @@
    /* -------------------------
      Z-Index
   ------------------------- */
-   --z-bottom: -999;
-   --z-middle: 0;
-   --z-almost-top: 3;
-   --z-map-tooltip: 98;
-   --z-top: 99;
-   --z-sticky-mad-lib: 100;
-   --z-multimap-modal: 101;
-   --z-skip-link: 102;
-   --z-multimap-modal-tooltip: 1300;
+   --z-index-bottom: -999;
+   --z-index-middle: 0;
+   --z-index-almost-top: 3;
+   --z-index-map-tooltip: 98;
+   --z-index-top: 99;
+   --z-index-sticky-mad-lib: 100;
+   --z-index-multimap-modal: 101;
+   --z-index-skip-link: 102;
+   --z-index-multimap-modal-tooltip: 1300;
 }
