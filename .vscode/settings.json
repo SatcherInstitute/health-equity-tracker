@@ -8,6 +8,10 @@
 		"linux-x64": "./frontend/node_modules/@biomejs/cli-linux-x64/biome",
 		"linux-arm64": "./frontend/node_modules/@biomejs/cli-linux-arm64/biome"
 	},
+	"tailwindCSS.files.exclude": [
+		"**/*.css"
+	],
+	"css.lint.unknownAtRules": "ignore",
 	"biome.requireConfiguration": true,
 	"cSpell.import": [
 		"../cspell.config.json"
@@ -45,6 +49,10 @@
 		"editor.defaultFormatter": "ms-python.black-formatter",
 		"editor.formatOnSave": true
 	},
+	"[css]": {
+		"editor.defaultFormatter": "vscode.css-language-features"
+	},
+	"css.validate": true,
 	"files.associations": {
 		".env.development": "dotenv",
 		".env.dev": "dotenv",

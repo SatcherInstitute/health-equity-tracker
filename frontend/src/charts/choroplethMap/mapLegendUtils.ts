@@ -1,8 +1,5 @@
 import * as d3 from 'd3'
-import { het } from '../../styles/DesignTokens'
 import type { ColorScale } from './types'
-
-const { altGray } = het
 
 export function createUnknownLegend(
   legendGroup: d3.Selection<SVGGElement, unknown, null, undefined>,
@@ -62,7 +59,7 @@ export function createUnknownLegend(
     .attr('y', 0)
     .attr('width', 20)
     .attr('height', legendHeight)
-    .style('fill', altGray)
+    .style('fill', het.altGray)
 
   legendContainer
     .append('text')
@@ -98,6 +95,7 @@ export function createUnknownLegend(
 }
 
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import { het } from '../../styles/DesignTokens'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { formatMetricValue } from './tooltipUtils'
 
