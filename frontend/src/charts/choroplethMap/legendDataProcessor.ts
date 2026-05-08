@@ -115,7 +115,7 @@ export function processLegendData(
   // Create special legend items (missing data, zero data)
   if (hasMissingData) {
     specialItems.push({
-      color: het.howToColor,
+      color: het.altGray,
       label: allMissingDataIsSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE,
       value: null,
     })

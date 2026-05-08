@@ -101,7 +101,7 @@ export default function AboutUsPage() {
         </section>
       </section>
 
-      <section className='border-0 border-border-color border-t md:border-solid md:pt-20'>
+      <section className='border-0 border-alt-black border-t md:border-solid md:pt-20'>
         <h2 className='mx-4 my-12 text-center font-sans-title text-alt-green text-header leading-some-space sm:text-big-header'>
           We are committed to the following ethics
         </h2>

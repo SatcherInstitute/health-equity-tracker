@@ -109,8 +109,7 @@ export function FilterLegend({
           const groupEnabled = selectedGroups.includes(group)
 
           const isUnknown = group === UNKNOWN_W
-          const gradient = `linear-gradient(30deg, ${het.unknownMapMost}, ${het.unknownMapMid},${het.unknownMapMost})`
-
+          const gradient = `linear-gradient(30deg, ${het.unknownMapMost}, ${het.unknownMapMid}, ${het.unknownMapMost})`
           // Legend Item Filter Button
           return (
             <button
