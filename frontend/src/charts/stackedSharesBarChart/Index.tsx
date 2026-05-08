@@ -30,6 +30,7 @@ const BAR_HEIGHT = 22
 const BAR_PADDING = 0.5
 const PAIR_GAP = 3
 const SET_GAP = 20
+
 export const STACKED_BAR_COLORS = {
   population: het.barChartLight,
   distribution: het.barChartDark,

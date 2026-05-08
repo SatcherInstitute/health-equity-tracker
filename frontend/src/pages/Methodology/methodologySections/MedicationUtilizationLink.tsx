@@ -61,7 +61,7 @@ export default function MedicareMedicationLink() {
         </p>
 
         <table className='m-4 border-collapse border-bg-color border-solid p-1'>
-          <thead className='bg-join-effort-bg1 font-bold'>
+          <thead className='bg-methodology-green font-bold'>
             <tr>
               <th>Field from data dictionary</th>
               <th>Description</th>

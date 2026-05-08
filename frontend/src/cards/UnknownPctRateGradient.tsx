@@ -12,16 +12,16 @@ export default function UnknownPctRateGradient() {
       style={{ position: 'absolute' }} // Ensures it doesn't take up space
     >
       <linearGradient id='gradient'>
-        <stop style={{ stopColor: het.unknownMapMost }} offset='0%' />
-        <stop style={{ stopColor: het.unknownMapMid }} offset='20%' />
-        <stop style={{ stopColor: het.unknownMapMost }} offset='30%' />
-        <stop style={{ stopColor: het.unknownMapMid }} offset='40%' />
-        <stop style={{ stopColor: het.unknownMapMost }} offset='50%' />
-        <stop style={{ stopColor: het.unknownMapMid }} offset='60%' />
-        <stop style={{ stopColor: het.unknownMapMost }} offset='70%' />
-        <stop style={{ stopColor: het.unknownMapMid }} offset='80%' />
-        <stop style={{ stopColor: het.unknownMapMost }} offset='90%' />
-        <stop style={{ stopColor: het.unknownMapMid }} offset='100%' />
+        <stop stopColor={het.unknownMapMost} offset='0%' />
+        <stop stopColor={het.unknownMapMid} offset='20%' />
+        <stop stopColor={het.unknownMapMost} offset='30%' />
+        <stop stopColor={het.unknownMapMid} offset='40%' />
+        <stop stopColor={het.unknownMapMost} offset='50%' />
+        <stop stopColor={het.unknownMapMid} offset='60%' />
+        <stop stopColor={het.unknownMapMost} offset='70%' />
+        <stop stopColor={het.unknownMapMid} offset='80%' />
+        <stop stopColor={het.unknownMapMost} offset='90%' />
+        <stop stopColor={het.unknownMapMid} offset='100%' />
       </linearGradient>
     </svg>
   )
