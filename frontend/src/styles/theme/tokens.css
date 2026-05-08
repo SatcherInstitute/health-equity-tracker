@@ -12,6 +12,17 @@
   --breakpoint-xl: 1920px;
 
   /* -------------------------
+     Container Widths
+  ------------------------- */
+  --container-tiny: 350px;
+  --container-sm: 600px;
+  --container-smplus: 768px;
+  --container-md: 960px;
+  --container-lg: 1280px;
+  --container-lgplus: 1440px;
+  --container-xl: 1920px;
+
+  /* -------------------------
      Font Families
   ------------------------- */
   --font-sans-title: 'DM Sans Variable', sans-serif;
