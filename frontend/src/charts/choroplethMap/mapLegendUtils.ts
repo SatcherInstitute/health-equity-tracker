@@ -1,4 +1,8 @@
 import * as d3 from 'd3'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import { het } from '../../styles/DesignTokens'
+import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
+import { formatMetricValue } from './tooltipUtils'
 import type { ColorScale } from './types'
 
 export function createUnknownLegend(
@@ -93,11 +97,6 @@ export function createUnknownLegend(
       .text(`${label}%`)
   })
 }
-
-import type { MetricConfig } from '../../data/config/MetricConfigTypes'
-import { het } from '../../styles/DesignTokens'
-import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
-import { formatMetricValue } from './tooltipUtils'
 
 export interface LegendItemData {
   color: string
