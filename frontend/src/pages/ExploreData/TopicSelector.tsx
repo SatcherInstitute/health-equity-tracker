@@ -50,7 +50,8 @@ export default function TopicSelector(props: TopicSelectorProps) {
 
         <HetPopover popover={popover}>
           {/* Condition Topic Dropdown */}
-          <menu className='m-6 grid max-w-md grid-cols-1 tiny:grid-cols-2 gap-2 p-0 smplus:grid-cols-3'>
+          <menu className='m-6 grid max-w-menu grid-cols-1 tiny:grid-cols-2 gap-2 p-0 smplus:grid-cols-3'>
+            {' '}
             {CATEGORIES_LIST.map((category) => {
               return (
                 <div key={category.title} className='mb-4'>
@@ -86,7 +87,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
                   className='bg-white text-black no-underline hover:bg-explore-bg-color'
                   href={EXPLORE_DATA_PAGE_LINK}
                 >
-                  <KeyboardBackspaceIcon className='pb-[3px] text-black text-small' />{' '}
+                  <KeyboardBackspaceIcon className='pb-0.75 text-black text-small' />{' '}
                   <span className='p-1 text-black text-smallest'>
                     Clear selections
                   </span>

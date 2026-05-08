@@ -174,3 +174,47 @@ button[data-action="back"]:focus {
 .fade-in-up-blur {
   visibility: visible; /* Default visible state for reduced motion */
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes underlineSlideIn {
+    from {
+      background-size: 0% 8px;
+    }
+    to {
+      background-size: 100% 8px;
+    }
+  }
+
+  .fade-in-up-blur {
+    visibility: hidden;
+    animation: fadeInUpBlur 0.5s ease-in-out forwards;
+  }
+
+  @keyframes fadeInUpBlur {
+    0% {
+      visibility: hidden;
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(20%);
+    }
+    1% {
+      visibility: visible;
+    }
+    100% {
+      visibility: visible;
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0%);
+    }
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .fade-in-up-blur {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+

@@ -31,7 +31,7 @@ const MaterialTheme = extendTheme({
           dark: '#167b6f', // --color-secondary-dark
         },
         background: {
-          default: het.hetWhite,
+          default: '#fff',
         },
       },
     },
