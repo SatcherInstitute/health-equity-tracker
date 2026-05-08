@@ -1,4 +1,146 @@
-const ThemeStandardScreenSizes = {
+export function resolveColor(color: string): string {
+  if (typeof window === 'undefined') return color
+
+  const variableName = color.startsWith('var(')
+    ? color.replace(/^var\((--.*?)\)$/, '$1')
+    : color
+
+  const resolved = getComputedStyle(document.documentElement)
+    .getPropertyValue(variableName)
+    .trim()
+
+  // If the browser returns empty, use the fallback,
+  // otherwise default to black so it doesn't crash.
+  return resolved || '#000000'
+}
+
+/**
+ * HET Design Tokens
+ * Maps TypeScript keys to CSS variables defined in your Tailwind v4 @theme.
+ */
+export const het = {
+  // Blues
+  darkBlue: 'var(--color-dark-blue)',
+
+  // Greens
+  altGreen: 'var(--color-alt-green)',
+  barChartDark: 'var(--color-bar-chart-dark)',
+  barChartLight: 'var(--color-bar-chart-light)',
+  darkGreen: 'var(--color-dark-green)',
+  footerColor: 'var(--color-footer-color)',
+  groupGreen: 'var(--color-group-green)',
+  groupYellowGreen: 'var(--color-group-yellow-green)',
+  hoverAltGreen: 'var(--color-hover-alt-green)',
+  methodologyGreen: 'var(--color-methodology-green)',
+  secondaryDark: 'var(--color-secondary-dark)',
+  secondaryLight: 'var(--color-secondary-light)',
+  secondaryMain: 'var(--color-secondary-main)',
+  toggleColor: 'var(--color-toggle-color)',
+
+  // Greys / Blacks
+  altBlack: 'var(--color-alt-black)',
+  altDark: 'var(--color-alt-dark)',
+  altGray: 'var(--color-alt-gray)',
+  bgColor: 'var(--color-bg-color)',
+  hetBlack: 'var(--color-het-black)',
+  borderColor: 'var(--color-border-color)',
+  dividerGray: 'var(--color-divider-gray)',
+  grayGridColorDarker: 'var(--color-gray-grid-color-darker)',
+  hexShareIconGray: 'var(--color-hex-share-icon-gray)',
+  howToColor: 'var(--color-how-to-color)',
+  navlinkColor: 'var(--color-navlink-color)',
+  timberwolf: 'var(--color-timberwolf)',
+  tinyTagGray: 'var(--color-tiny-tag-gray)',
+
+  // Oranges / Reds
+  alertColor: 'var(--color-alert-color)',
+  redOrange: 'var(--color-red-orange)',
+  reportAlert: 'var(--color-report-alert)',
+
+  // Whites / Misc
+  exploreBgColor: 'var(--color-explore-bg-color)',
+  infobarColor: 'var(--color-infobar-color)',
+  standardInfo: 'var(--color-standard-info)',
+  standardWarning: 'var(--color-standard-warning)',
+  tableZebra: 'var(--color-table-zebra)',
+  transparent: 'var(--color-transparent)',
+  hetWhite: 'var(--color-het-white)',
+  whiteSmoke80: 'var(--color-white-smoke80)',
+
+  // Time Chart
+  timeDarkRed: 'var(--color-time-dark-red)',
+  timeCyanBlue: 'var(--color-time-cyan-blue)',
+  timePink: 'var(--color-time-pink)',
+  timePurple: 'var(--color-time-purple)',
+  timeYellow: 'var(--color-time-yellow)',
+  timePastelGreen: 'var(--color-time-pastel-green)',
+
+  // Map Schemes: Standard
+  mapDark: 'var(--color-map-dark)',
+  mapDarkZero: 'var(--color-map-dark-zero)',
+  mapDarker: 'var(--color-map-darker)',
+  mapDarkest: 'var(--color-map-darkest)',
+  mapLight: 'var(--color-map-light)',
+  mapLighter: 'var(--color-map-lighter)',
+  mapLightest: 'var(--color-map-lightest)',
+  mapLightZero: 'var(--color-map-light-zero)',
+  mapMid: 'var(--color-map-mid)',
+
+  // Map Schemes: Medicare
+  mapMedicareDark: 'var(--color-map-medicare-dark)',
+  mapMedicareDarkZero: 'var(--color-map-medicare-dark-zero)',
+  mapMedicareDarkest: 'var(--color-map-medicare-darkest)',
+  mapMedicareEvenLighter: 'var(--color-map-medicare-even-lighter)',
+  mapMedicareLight: 'var(--color-map-medicare-light)',
+  mapMedicareLighter: 'var(--color-map-medicare-lighter)',
+  mapMedicareLightest: 'var(--color-map-medicare-lightest)',
+  mapMedicareLightZero: 'var(--color-map-medicare-light-zero)',
+  mapMedicareMid: 'var(--color-map-medicare-mid)',
+
+  // Map Schemes: Men
+  mapMenDark: 'var(--color-map-men-dark)',
+  mapMenDarker: 'var(--color-map-men-darker)',
+  mapMenLight: 'var(--color-map-men-light)',
+  mapMenLighter: 'var(--color-map-men-lighter)',
+  mapMenLightest: 'var(--color-map-men-lightest)',
+  mapMenMid: 'var(--color-map-men-mid)',
+
+  // Map Schemes: Women
+  mapWomenDark: 'var(--color-map-women-dark)',
+  mapWomenDarkZero: 'var(--color-map-women-dark-zero)',
+  mapWomenDarker: 'var(--color-map-women-darker)',
+  mapWomenDarkest: 'var(--color-map-women-darkest)',
+  mapWomenLight: 'var(--color-map-women-light)',
+  mapWomenLighter: 'var(--color-map-women-lighter)',
+  mapWomenLightest: 'var(--color-map-women-lightest)',
+  mapWomenLightZero: 'var(--color-map-women-light-zero)',
+  mapWomenMid: 'var(--color-map-women-mid)',
+
+  // Map Schemes: Youth
+  mapYouthDark: 'var(--color-map-youth-dark)',
+  mapYouthDarkZero: 'var(--color-map-youth-dark-zero)',
+  mapYouthDarker: 'var(--color-map-youth-darker)',
+  mapYouthDarkest: 'var(--color-map-youth-darkest)',
+  mapYouthLight: 'var(--color-map-youth-light)',
+  mapYouthLighter: 'var(--color-map-youth-lighter)',
+  mapYouthLightest: 'var(--color-map-youth-lightest)',
+  mapYouthLightZero: 'var(--color-map-youth-light-zero)',
+  mapYouthMid: 'var(--color-map-youth-mid)',
+
+  // Unknown Map
+  unknownMapLeast: 'var(--color-unknown-map-least)',
+  unknownMapLess: 'var(--color-unknown-map-less)',
+  unknownMapLesser: 'var(--color-unknown-map-lesser)',
+  unknownMapMid: 'var(--color-unknown-map-mid)',
+  unknownMapMore: 'var(--color-unknown-map-more)',
+  unknownMapMost: 'var(--color-unknown-map-most)',
+} as const
+
+export type HetColor = (typeof het)[keyof typeof het]
+
+// --- Other Theme Constants ---
+
+export const ThemeStandardScreenSizes = {
   xs: '0px',
   tiny: '350px',
   sm: '600px',
@@ -11,7 +153,7 @@ const ThemeStandardScreenSizes = {
   eighty: '80vw',
 }
 
-const ThemeLineHeights = {
+export const ThemeLineHeights = {
   loose: '1.6',
   'some-more-space': '1.3',
   'some-space': '1.15',
@@ -21,13 +163,7 @@ const ThemeLineHeights = {
   'list-box-title': '47px',
 }
 
-const ThemeZIndexValues = {
-  /*
-          NOTE: some z indexes are generated by npm packages
-          multimap modal blur backdrop: -1
-          MUI sticky headers assigned: 2
-          joyride warm welcome auto-assigned: 101
-          */
+export const ThemeZIndexValues = {
   bottom: -999,
   middle: 0,
   almostTop: 3,
@@ -39,8 +175,7 @@ const ThemeZIndexValues = {
   multimapModalTooltip: 1300,
 }
 
-const ThemeFonts = {
-  // Nested quotations are required for font names with spaces
+export const ThemeFonts = {
   sansTitle: ["'DM Sans Variable'", 'sans-serif'],
   sansText: ['"Inter Variable"', 'sans-serif'],
   roboto: ['Roboto', 'sans-serif'],
@@ -48,7 +183,7 @@ const ThemeFonts = {
   serif: ['Taviraj', 'serif'],
 }
 
-const ThemeFontSizes = {
+export const ThemeFontSizes = {
   'tiny-tag': '0.625rem',
   smallest: '0.75rem',
   small: '0.875rem',
@@ -65,7 +200,7 @@ const ThemeFontSizes = {
   'hero-header': '4.5rem',
 }
 
-const ThemeBorderRadii = {
+export const ThemeBorderRadii = {
   xs: '2px',
   sm: '4px',
   md: '8px',
@@ -75,149 +210,9 @@ const ThemeBorderRadii = {
   '3xl': '64px',
 }
 
-const ThemeBoxShadows = {
+export const ThemeBoxShadows = {
   raised:
     'rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px',
   'raised-tighter':
     'rgba(0, 0, 0, 0.1) 0px 3px 3px -2px, rgba(0, 0, 0, 0.08) 0px 6px 7px 0px, rgba(0, 0, 0, 0.06) 0px 2px 9px 1px',
-}
-
-const hetColors = {
-  // blues
-  darkBlue: '#255792',
-
-  // greens
-  altGreen: '#0b5240',
-  barChartDark: '#0b5420',
-  barChartLight: '#91c684',
-  darkGreen: '#083f31',
-  footerColor: '#edf3f0',
-  groupGreen: '#7db640',
-  groupYellowGreen: '#b9ce3a',
-  hoverAltGreen: 'rgba(11, 82, 64, 0.08)',
-  methodologyGreen: '#b5c7c2',
-  secondaryDark: '#167b6f',
-  secondaryLight: '#89d5cc',
-  secondaryMain: '#228b7e',
-  toggleColor: '#e1e9e7',
-
-  // greys / blacks
-  altBlack: '#383838',
-  altDark: '#5f6368',
-  altGray: '#bdbdbd',
-  bgColor: '#e2e2e2',
-  black: '#000',
-  borderColor: '#3e3e3e',
-  dividerGray: '#0000001f',
-  grayGridColorDarker: '#dddddd',
-  hexShareIconGray: '#757575',
-  howToColor: '#bdc1c6',
-  navlinkColor: '#202124',
-  timberwolf: '#cbd0c8',
-  tinyTagGray: 'rgba(220, 229, 226, 0.18)',
-
-  // oranges / reds
-  alertColor: '#d85c47',
-  redOrange: '#ed573f',
-  reportAlert: '#ff9800',
-
-  // whites
-  exploreBgColor: '#f1f4f8',
-  infobarColor: '#f8e8b0',
-  standardInfo: '#f8f9fa',
-  standardWarning: '#fff8eb',
-  tableZebra: '#fdfff9',
-  transparent: '#00000000',
-  white: '#fff',
-  whiteSmoke80: 'rgba(240, 241, 239, 0.8)',
-}
-
-const timeChartColors = {
-  timeDarkRed: '#8c0000',
-  timeCyanBlue: '#79b4b7',
-  timePink: '#ff85b3',
-  timePurple: '#816d98',
-  timeYellow: '#fcb431',
-  timePastelGreen: '#547d6b',
-}
-
-const mapSchemeColors = {
-  // default
-  mapDark: '#027e47',
-  mapDarkZero: '#35403d',
-  mapDarker: '#185e49',
-  mapDarkest: '#134b3a',
-  mapLight: '#7db640',
-  mapLighter: '#b9ce3a',
-  mapLightest: '#f2e62f',
-  mapLightZero: '#fff9c1',
-  mapMid: '#3e9b42',
-
-  // medicare
-  mapMedicareDark: '#365c8d',
-  mapMedicareDarkZero: '#090121',
-  mapMedicareDarkest: '#46327f',
-  mapMedicareEvenLighter: '#9fda3a',
-  mapMedicareLight: '#1fa187',
-  mapMedicareLighter: '#4bc16c',
-  mapMedicareLightest: '#f0e525',
-  mapMedicareLightZero: '#fff9c1',
-  mapMedicareMid: '#267f8e',
-
-  // men
-  mapMenDark: '#65156e',
-  mapMenDarker: '#280b54',
-  mapMenLight: '#d44843',
-  mapMenLighter: '#f57d15',
-  mapMenLightest: '#fbc127',
-  mapMenMid: '#9f2a63',
-
-  // women
-  mapWomenDark: '#8b0aa5',
-  mapWomenDarkZero: '#120161',
-  mapWomenDarker: '#5402a3',
-  mapWomenDarkest: '#320161',
-  mapWomenLight: '#db5b68',
-  mapWomenLighter: '#f48849',
-  mapWomenLightest: '#febc2b',
-  mapWomenLightZero: '#f3e221',
-  mapWomenMid: '#b93389',
-
-  // youth
-  mapYouthDark: '#c34e27',
-  mapYouthDarkZero: '#5a2f2a',
-  mapYouthDarker: '#a33a2b',
-  mapYouthDarkest: '#772f2a',
-  mapYouthLight: '#e87b26',
-  mapYouthLighter: '#f09726',
-  mapYouthLightest: '#f4b02a',
-  mapYouthLightZero: '#f7d136',
-  mapYouthMid: '#e06226',
-}
-
-const unknownMapSchemeColors = {
-  unknownMapLeast: '#d3eece',
-  unknownMapLess: '#92d4be',
-  unknownMapLesser: '#b8e3be',
-  unknownMapMid: '#60bccb',
-  unknownMapMore: '#47a8cb',
-  unknownMapMost: '#0b61a2',
-}
-
-const het = {
-  ...hetColors,
-  ...mapSchemeColors,
-  ...unknownMapSchemeColors,
-  ...timeChartColors,
-}
-
-export {
-  het,
-  ThemeBorderRadii,
-  ThemeBoxShadows,
-  ThemeFontSizes,
-  ThemeFonts,
-  ThemeLineHeights,
-  ThemeStandardScreenSizes,
-  ThemeZIndexValues,
 }

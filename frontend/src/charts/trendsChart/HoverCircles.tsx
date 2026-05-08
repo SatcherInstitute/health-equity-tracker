@@ -51,7 +51,7 @@ export function HoverCircles({
                       yScale(getAmountsByDate(d, selectedDate)) ?? 0
                     })`}
                     fill={C(group)}
-                    stroke={het.white}
+                    stroke={het.hetWhite}
                   />
                 </>
               )}

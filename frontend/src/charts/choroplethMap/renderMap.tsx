@@ -135,7 +135,7 @@ export const renderMap = (options: RenderMapOptions) => {
         isMultiMap: isMulti,
       }),
     )
-    .attr('stroke', isExtremesMode ? het.altGray : het.white)
+    .attr('stroke', isExtremesMode ? het.altGray : het.hetWhite)
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event: any, d) => {
       hideTooltips()

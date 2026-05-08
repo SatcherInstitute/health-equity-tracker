@@ -169,5 +169,5 @@ export function getFillColor(options: GetFillColorOptions): string {
     return colorScale(value)
   }
 
-  return isExtremesMode ? het.white : het.altGray
+  return isExtremesMode ? het.hetWhite : het.altGray
 }

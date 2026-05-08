@@ -1,63 +1,42 @@
 import { createTheme } from '@mui/material'
 import { het } from '../styles/DesignTokens'
 
+/**
+ * Color strategy:
+ *
+ * - Palette main/light/dark entries use hardcoded hex because MUI derives
+ *   hover, focus, and ripple colors from these at theme-creation time via
+ *   color manipulation functions that cannot resolve CSS variables.
+ *
+ * - Component styleOverrides use `het.*` (CSS variables) wherever the value
+ *   is applied directly to a CSS property and no MUI derivation is needed.
+ *
+ * - Template literals that interpolate into a CSS string (e.g. borderBottom)
+ *   also use `het.*` since the browser resolves those at paint time.
+ */
+
 const MaterialTheme = createTheme({
   palette: {
     primary: {
-      light: het.barChartLight,
-      main: het.altGreen,
-      dark: het.darkGreen,
+      light: '#91c684', // --color-bar-chart-light
+      main: '#0b5240', // --color-alt-green
+      dark: '#083f31', // --color-dark-green
+      contrastText: '#fff',
     },
     secondary: {
-      light: het.secondaryLight,
-      main: het.secondaryMain,
-      dark: het.secondaryDark,
+      light: '#89d5cc', // --color-secondary-light
+      main: '#228b7e', // --color-secondary-main
+      dark: '#167b6f', // --color-secondary-dark
     },
     background: {
-      default: het.white,
+      default: het.hetWhite,
     },
   },
   components: {
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          // font-family and background-color are also set in index.css;
-          // keeping fontFamily here ensures MUI's own injected styles
-          // (e.g. portal/modal roots) also inherit the correct font.
-          fontFamily: '"Inter", sans-serif',
-        },
-      },
-    },
-    MuiAlert: {
-      styleOverrides: {
-        root: {
-          fontFamily: '"Inter", sans-serif',
-          '&.MuiAlert-standardInfo': {
-            backgroundColor: het.exploreBgColor,
-            color: het.black,
-            textAlign: 'left',
-            '& .MuiAlert-icon': {
-              color: het.altGreen,
-            },
-          },
-          '&.MuiAlert-standardWarning': {
-            backgroundColor: het.standardWarning,
-            color: het.black,
-            textAlign: 'left',
-            '& .MuiAlert-icon': {
-              color: het.alertColor,
-            },
-          },
-          '&.MuiAlert-standardError': {
-            textAlign: 'left',
-          },
-        },
-      },
-    },
-    MuiAutocomplete: {
-      styleOverrides: {
-        endAdornment: {
-          top: 'inherit',
+          fontFamily: 'var(--font-sans-text)',
         },
       },
     },
@@ -65,77 +44,32 @@ const MaterialTheme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          fontFamily: '"Inter", sans-serif',
+          fontFamily: 'var(--font-sans-text)',
         },
         containedPrimary: {
-          color: het.white,
+          color: '#fff',
         },
       },
     },
     MuiInputBase: {
       styleOverrides: {
         inputSizeSmall: {
-          fontSize: '.75rem',
+          fontSize: 'var(--text-smallest)',
         },
       },
     },
     MuiListItemText: {
       styleOverrides: {
         root: {
-          fontFamily: '"DM Sans", sans-serif',
-        },
-      },
-    },
-    MuiStepButton: {
-      styleOverrides: {
-        root: {
-          padding: '0',
-        },
-        vertical: {
-          margin: '0 auto',
-        },
-      },
-    },
-    MuiStepConnector: {
-      styleOverrides: {
-        vertical: {
-          paddingBlock: '0',
-          margin: '0 auto',
-        },
-        lineVertical: {
-          minHeight: '8px',
-        },
-      },
-    },
-    MuiStepLabel: {
-      styleOverrides: {
-        label: {
-          lineHeight: '.95',
-        },
-      },
-    },
-    MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          marginBottom: '-4px',
+          fontFamily: 'var(--font-sans-title)',
         },
       },
     },
     MuiTab: {
       styleOverrides: {
         root: {
-          // textTransform handled in index.css but kept here for MUI
-          // specificity since Tab uses its own internal class stacking.
           textTransform: 'none',
-          fontFamily: '"DM Sans", sans-serif !important',
-        },
-      },
-    },
-    MuiTabs: {
-      styleOverrides: {
-        root: {
-          marginTop: '40px',
-          borderBottom: `1px solid ${het.borderColor}`,
+          fontFamily: 'var(--font-sans-title) !important',
         },
       },
     },
@@ -143,37 +77,15 @@ const MaterialTheme = createTheme({
       styleOverrides: {
         root: {
           outline: `1px solid ${het.howToColor} !important`,
-          borderRadius: '4px',
+          borderRadius: 'var(--radius-sm)',
           overflow: 'hidden',
-        },
-      },
-    },
-    MuiToggleButton: {
-      styleOverrides: {
-        root: {
-          outline: `1px solid ${het.howToColor} !important`,
-          fontWeight: 'normal',
-          fontSize: '14px',
-          color: het.black,
-          lineHeight: '16px !important',
-          padding: '11px !important',
-          backgroundColor: `${het.white} !important`,
-          textTransform: 'none',
-          '&.Mui-selected': {
-            color: het.altGreen,
-            backgroundColor: `${het.toggleColor} !important`,
-          },
-          '&:hover': {
-            color: het.altGreen,
-            backgroundColor: het.toggleColor,
-          },
         },
       },
     },
     MuiTypography: {
       styleOverrides: {
         root: {
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: 'var(--font-sans-title)',
         },
       },
     },
