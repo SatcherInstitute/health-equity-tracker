@@ -85,10 +85,9 @@ const MaterialTheme = extendTheme({
         root: {
           textTransform: 'none',
           fontFamily: 'var(--font-sans-text)',
-        },
-        containedPrimary: {
-          color: '#fff',
-          borderRadius: 'var(--radius-2xl)',
+          padding: 'unset',
+          borderRadius: 'unset',
+          minWidth: 'unset',
         },
       },
     },

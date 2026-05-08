@@ -3,7 +3,7 @@
 @import "./styles/theme/sizes.css";
 @import "./styles/theme/spacing.css";
 @import "./styles/theme/tokens.css";
-@layer theme, base, mui, utilities;
+@layer theme, base, mui, components, utilities;
 @layer base {
   *,
   ::after,
