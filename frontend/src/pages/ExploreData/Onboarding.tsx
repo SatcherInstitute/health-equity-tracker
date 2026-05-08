@@ -28,7 +28,7 @@ export default function Onboarding(props: {
           arrowColor: het.altGreen,
           backgroundColor: het.altGreen,
           primaryColor: het.altGreen,
-          textColor: het.tableZebra,
+          textColor: 'white',
           width: 900,
           zIndex: ThemeZIndexValues.almostTop,
         },
