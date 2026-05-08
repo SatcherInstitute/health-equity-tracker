@@ -44,7 +44,7 @@ function LandingPage() {
           className='absolute top-0 right-0 bottom-0 z-0 float-right mx-24 max-w-4xl opacity-35 xs:opacity-15 sm:opacity-15 md:opacity-15'
         />
         <div className='relative m-0 p-0 text-left sm:w-full md:w-full lg:w-3/4'>
-          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-black xs:text-header leading-some-space sm:text-big-header lg:text-hero-header'>
+          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-alt-black xs:text-header leading-some-space sm:text-big-header lg:text-hero-header'>
             Where will the <br aria-hidden />
             <span className='font-medium font-serif text-alt-green xs:text-header leading-some-space sm:text-big-header lg:text-hero-header'>
               Health Equity Tracker

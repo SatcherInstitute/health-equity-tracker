@@ -20,8 +20,6 @@ import {
 import { hideTooltips } from './tooltipUtils'
 import type { DataPoint } from './types'
 
-const { borderColor: BORDER_GRAY, white: WHITE } = het
-
 const TERRITORIES_CONFIG = {
   radius: 16,
   radiusMobile: 12,
@@ -114,7 +112,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           isMultiMap: props.isMulti,
         }),
       )
-      .attr('stroke', props.isExtremesMode ? BORDER_GRAY : WHITE)
+      .attr('stroke', props.isExtremesMode ? het.altGray : 'white')
       .attr('stroke-width', STROKE_WIDTH)
       .on('mouseover', (event: any, d) => {
         hideTooltips()
