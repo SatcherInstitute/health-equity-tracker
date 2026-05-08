@@ -11,9 +11,9 @@ export default function HetFooterLinks() {
   return (
     <nav
       aria-label='footer site navigation'
-      className='flex flex-col items-center lg:items-end'
+      className='flex flex-col items-center pt-4 lg:items-end'
     >
-      <ul className='flex min-h-[78px] list-none flex-col p-0 sm:flex-row'>
+      <ul className='flex min-h-24 list-none flex-col p-0 sm:flex-row'>
         {[
           ['Explore Data', EXPLORE_DATA_PAGE_LINK],
           ['Methods', METHODOLOGY_PAGE_LINK],
@@ -25,7 +25,7 @@ export default function HetFooterLinks() {
             <HetLinkButton
               ariaLabel={ariaLabel}
               href={url}
-              className='w-full text-alt-black no-underline md:w-auto'
+              className='w-full pt-4 text-alt-black no-underline md:w-auto'
             >
               {label}
             </HetLinkButton>
