@@ -23,7 +23,7 @@ export default function OurFindingsTab() {
           {youthFatalitiesFacts.map((youthFatalitiesFact) => (
             <div
               key={youthFatalitiesFact.report}
-              className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
+              className='my-8 list-none rounded-md bg-standard-info pb-8 shadow-raised'
             >
               <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smplus:text-smallest-header'>
                 {youthFatalitiesFact.content}
@@ -47,7 +47,7 @@ export default function OurFindingsTab() {
           {homicideFacts.map((homicideFact) => (
             <div
               key={homicideFact.report}
-              className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
+              className='my-8 list-none rounded-md bg-standard-info pb-8 shadow-raised'
             >
               <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smplus:text-smallest-header'>
                 {homicideFact.content}
@@ -73,7 +73,7 @@ export default function OurFindingsTab() {
           {suicideFacts.map((suicideFact) => (
             <div
               key={suicideFact.report}
-              className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
+              className='my-8 list-none rounded-md bg-standard-info pb-8 shadow-raised'
             >
               <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smplus:text-smallest-header'>
                 {suicideFact.content}
@@ -98,7 +98,7 @@ export default function OurFindingsTab() {
           {urbanicityFacts.map((urbanicityFact) => (
             <div
               key={urbanicityFact.report}
-              className='my-8 list-none rounded-md bg-explore-bg-color pb-8 shadow-raised'
+              className='my-8 list-none rounded-md bg-standard-info pb-8 shadow-raised'
             >
               <p className='px-8 pt-8 pb-0 text-center text-alt-dark text-text smplus:text-smallest-header'>
                 {urbanicityFact.content}

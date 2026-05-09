@@ -67,7 +67,7 @@ export default function MedicareMedicationLink() {
               <th>Description</th>
             </tr>
           </thead>
-          <tbody className='even:bg-explore-bg-color'>
+          <tbody className='[&>tr:nth-child(even)]:bg-methodology-green/20'>
             <tr>
               <td className='border-collapse border-bg-color border-solid p-1'>
                 <>RTI_RACE_CD</>

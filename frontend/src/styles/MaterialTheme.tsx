@@ -52,7 +52,7 @@ const MaterialTheme = extendTheme({
         root: {
           fontFamily: 'var(--font-sans-text)',
           '&.MuiAlert-standardInfo': {
-            backgroundColor: het.exploreBgColor,
+            backgroundColor: het.standardInfo,
             color: het.altBlack,
             textAlign: 'left',
             '& .MuiAlert-icon': {

@@ -145,7 +145,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                     return (
                       <TableRow
                         key={row[TIME_PERIOD_LABEL]}
-                        className='odd:bg-table-zebra even:bg-alt-white'
+                        className='odd:bg-methodology-green/10 even:bg-alt-white'
                       >
                         {keys.map((key) => {
                           const isTimePeriod = key === TIME_PERIOD_LABEL

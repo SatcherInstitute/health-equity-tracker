@@ -45,7 +45,6 @@ export const het = {
   infobarColor: 'var(--color-infobar-color)',
   standardInfo: 'var(--color-standard-info)',
   standardWarning: 'var(--color-standard-warning)',
-  tableZebra: 'var(--color-table-zebra)',
   transparent: 'var(--color-transparent)',
   whiteSmoke80: 'var(--color-white-smoke80)',
   altWhite: 'var(--color-alt-white)',
