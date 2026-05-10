@@ -31,7 +31,7 @@ export const createTooltipContainer = (isMulti?: boolean) => {
     .style('position', 'absolute')
     .style('visibility', 'hidden')
     .style('max-width', '40vw')
-    .style('background-color', 'white')
+    .style('background-color', het.altWhite)
     .style('border', `1px solid ${het.grayGridColorDarker}`)
     .style('border-radius', '4px')
     .style('padding', '8px')

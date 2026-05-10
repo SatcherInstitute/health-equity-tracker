@@ -29,27 +29,12 @@ import {
   type DemographicType,
 } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
-import { het } from '../styles/DesignTokens'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
 import Units from './Units'
 import { removeLastS } from './utils'
 
 const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
-
-const headerCellStyle = {
-  width: '200px',
-  backgroundColor: het.exploreBgColor,
-}
-
-const cellStyle = {
-  width: '200px',
-}
-
-const altCellStyle = {
-  backgroundColor: het.exploreBgColor,
-  width: '200px',
-}
 
 interface TableChartProps {
   countColsMap: CountColsMap
@@ -66,11 +51,9 @@ export function TableChart(props: TableChartProps) {
   const { data, metricConfigs, demographicType } = props
   const columnHelper = createColumnHelper<Record<string, any>>()
 
-  // Define columns
   const columns = useMemo(() => {
     const cols: ColumnDef<any>[] = []
 
-    // Add demographic column first
     cols.push(
       columnHelper.accessor(demographicType as string, {
         header: DEMOGRAPHIC_DISPLAY_TYPES[demographicType],
@@ -78,7 +61,6 @@ export function TableChart(props: TableChartProps) {
       }),
     )
 
-    // Handle special case for hiv_stigma_index
     if (
       metricConfigs.length > 0 &&
       metricConfigs[0].metricId === 'hiv_stigma_index'
@@ -93,7 +75,6 @@ export function TableChart(props: TableChartProps) {
         }),
       )
     } else {
-      // Add remaining metric columns
       metricConfigs.forEach((metricConfig) => {
         cols.push(
           columnHelper.accessor(metricConfig.metricId, {
@@ -108,20 +89,13 @@ export function TableChart(props: TableChartProps) {
     return cols
   }, [metricConfigs, demographicType, columnHelper])
 
-  // Set initial sorting state
   const initialSorting = useMemo<SortingState>(() => {
     if (demographicType !== 'income') {
-      return [
-        {
-          id: demographicType,
-          desc: false,
-        },
-      ]
+      return [{ id: demographicType, desc: false }]
     }
     return []
   }, [demographicType])
 
-  // Initialize the table
   const table = useReactTable({
     data,
     columns,
@@ -144,9 +118,7 @@ export function TableChart(props: TableChartProps) {
         <figure className='m-3'>
           <figcaption>
             <ChartTitle
-              title={`${
-                props.dataTableTitle
-              } in ${props.fips.getSentenceDisplayName()} by ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}`}
+              title={`${props.dataTableTitle} in ${props.fips.getSentenceDisplayName()} by ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}`}
               subtitle={props.subtitle}
             />
           </figcaption>
@@ -157,7 +129,10 @@ export function TableChart(props: TableChartProps) {
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
-                      <TableCell key={header.id} style={headerCellStyle}>
+                      <TableCell
+                        key={header.id}
+                        className='w-[200px] bg-standard-info'
+                      >
                         {header.isPlaceholder ? null : (
                           <div>
                             {flexRender(
@@ -176,6 +151,8 @@ export function TableChart(props: TableChartProps) {
                   <TableRow key={row.id}>
                     {row.getVisibleCells().map((cell, cellIndex) => {
                       const value = cell.getValue()
+                      const cellClass = `w-[200px] ${rowIndex % 2 === 0 ? '' : 'bg-standard-info/50'}`
+
                       const numeratorCount = props.countColsMap.numeratorConfig
                         ?.metricId
                         ? row.original[
@@ -196,20 +173,14 @@ export function TableChart(props: TableChartProps) {
                         props.countColsMap.denominatorConfig?.shortLabel ?? ''
 
                       return value == null ? (
-                        <TableCell
-                          key={cell.id}
-                          style={rowIndex % 2 === 0 ? cellStyle : altCellStyle}
-                        >
+                        <TableCell key={cell.id} className={cellClass}>
                           <Tooltip title={NO_DATA_MESSAGE}>
                             <WarningRoundedIcon />
                           </Tooltip>
                           <span className='sr-only'>{NO_DATA_MESSAGE}</span>
                         </TableCell>
                       ) : (
-                        <TableCell
-                          key={cell.id}
-                          style={rowIndex % 2 === 0 ? cellStyle : altCellStyle}
-                        >
+                        <TableCell key={cell.id} className={cellClass}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext(),

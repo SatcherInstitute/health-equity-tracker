@@ -185,7 +185,7 @@ function ReportProvider(props: ReportProviderProps) {
         {getReport()}
       </div>
 
-      <div className='mt-20 flex min-h-preload-article w-full justify-center bg-white'>
+      <div className='mt-20 flex min-h-preload-article w-full justify-center bg-alt-white'>
         <aside className='m-8 max-w-explore-data-page text-left sm:m-16'>
           {/* Display condition definition(s) based on the tracker madlib settings */}
           {definedConditions?.length > 0 && (

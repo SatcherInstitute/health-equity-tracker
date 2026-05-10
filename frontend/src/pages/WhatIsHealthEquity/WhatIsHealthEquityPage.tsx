@@ -73,7 +73,7 @@ export default function WhatIsHealthEquityPage() {
       <section
         aria-labelledby='learning-section'
         id='learning-section'
-        className='bg-white-smoke80'
+        className='bg-alt-white-smoke80'
       >
         <div className='mx-auto flex w-svw max-w-lgplus flex-col justify-center p-8'>
           <div className='mx-auto flex w-full max-w-lgplus flex-col justify-center'>

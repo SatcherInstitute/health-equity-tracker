@@ -24,7 +24,7 @@ export default function HetCTASmall({
       href={href}
       onClick={onClick}
     >
-      <span className='font-bold text-small text-white'>{children}</span>
+      <span className='font-bold text-alt-white text-small'>{children}</span>
     </Button>
   )
 }

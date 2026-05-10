@@ -27,7 +27,7 @@ interface CompareBubbleChartCardProps {
   className?: string
 }
 
-const defaultClasses = 'shadow-raised bg-white'
+const defaultClasses = 'shadow-raised bg-alt-white'
 
 export default function CompareBubbleChartCard(
   props: CompareBubbleChartCardProps,

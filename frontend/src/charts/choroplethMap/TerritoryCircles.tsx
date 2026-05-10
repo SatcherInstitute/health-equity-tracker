@@ -112,7 +112,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           isMultiMap: props.isMulti,
         }),
       )
-      .attr('stroke', props.isExtremesMode ? het.altGray : 'white')
+      .attr('stroke', props.isExtremesMode ? het.altGray : het.altWhite)
       .attr('stroke-width', STROKE_WIDTH)
       .on('mouseover', (event: any, d) => {
         hideTooltips()

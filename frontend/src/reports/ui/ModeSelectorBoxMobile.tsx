@@ -21,7 +21,7 @@ export default function ModeSelectorBoxMobile(
   props: ModeSelectorBoxMobileProps,
 ) {
   return (
-    <div className='mode-selector-box-mobile m-2 flex justify-start rounded-sm bg-white p-2 shadow-raised md:hidden'>
+    <div className='mode-selector-box-mobile m-2 flex justify-start rounded-sm bg-alt-white p-2 shadow-raised md:hidden'>
       <div>
         <SimpleSelect<MadLibId>
           label='Compare mode'

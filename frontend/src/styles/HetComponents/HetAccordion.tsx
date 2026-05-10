@@ -60,7 +60,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
         className={`${
           expandedIndex === index
             ? 'rounded-t-md bg-hover-alt-green'
-            : 'hover:bg-white-smoke80'
+            : 'hover:bg-alt-white-smoke80'
         }`}
       >
         <div
