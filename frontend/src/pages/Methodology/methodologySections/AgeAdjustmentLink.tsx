@@ -312,7 +312,7 @@ const AgeAdjustmentLink = () => {
               </thead>
 
               <tbody>
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race A
                   </td>
@@ -327,7 +327,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race A
                   </td>
@@ -342,7 +342,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race A
                   </td>
@@ -357,7 +357,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race B
                   </td>
@@ -372,7 +372,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race B
                   </td>
@@ -387,7 +387,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race B
                   </td>
@@ -433,7 +433,7 @@ const AgeAdjustmentLink = () => {
               </thead>
 
               <tbody>
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race A
                   </td>
@@ -452,7 +452,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race A
                   </td>
@@ -471,7 +471,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race A
                   </td>
@@ -492,7 +492,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race B
                   </td>
@@ -511,7 +511,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race B
                   </td>
@@ -530,7 +530,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race B
                   </td>
@@ -574,7 +574,7 @@ const AgeAdjustmentLink = () => {
               </thead>
 
               <tbody>
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Total (A & B)
                   </td>
@@ -589,7 +589,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Total (A & B)
                   </td>
@@ -604,7 +604,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Total (A & B)
                   </td>
@@ -660,7 +660,7 @@ const AgeAdjustmentLink = () => {
               </thead>
 
               <tbody>
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race A
                   </td>
@@ -682,7 +682,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race A
                   </td>
@@ -706,7 +706,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race A
                   </td>
@@ -727,7 +727,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race B
                   </td>
@@ -749,7 +749,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race B
                   </td>
@@ -771,7 +771,7 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
 
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race B
                   </td>
@@ -812,7 +812,7 @@ const AgeAdjustmentLink = () => {
               </thead>
 
               <tbody>
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race A
                   </td>
@@ -823,7 +823,7 @@ const AgeAdjustmentLink = () => {
                     <b>= 7,254.17</b>
                   </td>
                 </tr>
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race B
                   </td>
@@ -854,7 +854,7 @@ const AgeAdjustmentLink = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race A
                   </td>
@@ -868,7 +868,7 @@ const AgeAdjustmentLink = () => {
                     <b>= 1.0×</b>
                   </td>
                 </tr>
-                <tr className='odd:bg-white even:bg-explore-bg-color'>
+                <tr className='odd:bg-alt-white even:bg-standard-info'>
                   <td className='border-collapse border-bg-color border-solid p-1'>
                     Race B
                   </td>

@@ -78,7 +78,7 @@ export default function AltTableView(props: AltTableViewProps) {
       duration={500}
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='hide-on-screenshot mx-2 mt-4 rounded-md bg-explore-bg-color text-left'
+      className='hide-on-screenshot mx-2 mt-4 rounded-md bg-standard-info text-left'
       id={uniqueId}
     >
       <HetExpandableBoxButton
@@ -118,7 +118,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           whiteSpace: 'normal',
                           wordWrap: 'break-word',
                         }}
-                        className='wrap-break-word border-0 border-alt-dark border-b bg-white leading-some-space'
+                        className='wrap-break-word border-0 border-alt-dark border-b bg-alt-white leading-some-space'
                       >
                         {!isTimeCol &&
                           key !== ALL &&
@@ -142,7 +142,7 @@ export default function AltTableView(props: AltTableViewProps) {
                   return (
                     <TableRow
                       key={row[TIME_PERIOD_LABEL]}
-                      className='odd:bg-table-zebra even:bg-white'
+                      className='odd:bg-methodology-green/10 even:bg-alt-white'
                     >
                       {keys.map((key) => {
                         const isTimePeriod = key === TIME_PERIOD_LABEL

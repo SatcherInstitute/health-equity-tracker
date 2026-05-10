@@ -43,7 +43,7 @@ export const findColor = (rating: string) => {
   if (rating === 'low') {
     return 'text-alt-green'
   }
-  return 'text-black'
+  return 'text-alt-black'
 }
 
 function SviAlert(props: SviAlertProps) {

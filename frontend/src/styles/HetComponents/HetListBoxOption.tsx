@@ -16,7 +16,7 @@ export default function HetListBoxOption(props: HetListBoxOptionProps) {
   return (
     <ListItemButton
       tabIndex={props.onClick ? undefined : -1}
-      className={`mx-auto px-0 ${props.selected ? 'bg-hover-alt-green' : 'bg-white'}`}
+      className={`mx-auto px-0 ${props.selected ? 'bg-hover-alt-green' : 'bg-alt-white'}`}
       onClick={props.onClick}
       aria-label={props.ariaLabel}
       selected={props.selected}

@@ -38,7 +38,7 @@ export default function RoundedBarsWithLabels(
 
     const barLabelColor =
       shouldLabelBeInside && d[props.demographicType] !== 'All'
-        ? 'fill-white'
+        ? 'fill-alt-white'
         : 'fill-current'
 
     const roundedBarString = buildRoundedBarString({
