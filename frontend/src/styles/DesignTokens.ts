@@ -90,6 +90,7 @@ const het = {
   altGray: '#bdbdbd',
   altOrange: '#9d4d3f',
   altRed: '#d32f2f',
+  altWhite: '#fefefe',
   ashgray30: 'rgba(181, 199, 194, .3)',
   barChartDark: '#0b5420',
   barChartLight: '#91c684',
