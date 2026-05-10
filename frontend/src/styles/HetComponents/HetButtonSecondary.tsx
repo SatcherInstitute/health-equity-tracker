@@ -33,7 +33,7 @@ export default function HetButtonSecondary(props: HetButtonSecondaryProps) {
   return (
     <Button
       variant='outlined'
-      className={`mx-auto my-2 w-auto rounded-2xl bg-white px-8 py-2 shadow-none hover:cursor-pointer hover:border-methodology-green hover:bg-methodology-green hover:shadow-none ${
+      className={`mx-auto my-2 w-auto rounded-2xl bg-alt-white px-8 py-2 shadow-none hover:cursor-pointer hover:border-methodology-green hover:bg-methodology-green hover:shadow-none ${
         buttonClassName ?? ''
       }`}
       onClick={onClick}

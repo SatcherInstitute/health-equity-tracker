@@ -23,21 +23,6 @@ import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import { formatFieldValue } from '../data/config/MetricConfigUtils'
 import { DEMOGRAPHIC_DISPLAY_TYPES } from '../data/query/Breakdowns'
 import { RACE } from '../data/utils/Constants'
-import { het } from '../styles/DesignTokens'
-
-const headerCellStyle = {
-  width: '200px',
-  backgroundColor: het.footerColor,
-}
-
-const cellStyle = {
-  width: '200px',
-}
-
-const altCellStyle = {
-  backgroundColor: het.exploreBgColor,
-  width: '200px',
-}
 
 interface AgeAdjustedTableChartProps {
   data: Array<Readonly<Record<string, any>>>
@@ -49,11 +34,9 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
   const { data, metricConfigs } = props
   const columnHelper = createColumnHelper<Record<string, any>>()
 
-  // Define columns
   const columns = useMemo(() => {
     const cols: ColumnDef<any>[] = []
 
-    // Add race column first
     cols.push(
       columnHelper.accessor(RACE as string, {
         header: DEMOGRAPHIC_DISPLAY_TYPES[RACE],
@@ -61,7 +44,6 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
       }),
     )
 
-    // Add metric columns
     metricConfigs.forEach((metricConfig) => {
       cols.push(
         columnHelper.accessor(metricConfig.metricId, {
@@ -75,17 +57,11 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
     return cols
   }, [metricConfigs, columnHelper])
 
-  // Set initial sorting state
-  const initialSorting = useMemo<SortingState>(() => {
-    return [
-      {
-        id: RACE,
-        desc: false,
-      },
-    ]
-  }, [])
+  const initialSorting = useMemo<SortingState>(
+    () => [{ id: RACE, desc: false }],
+    [],
+  )
 
-  // Initialize the table
   const table = useReactTable({
     data,
     columns,
@@ -111,7 +87,10 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => (
-                      <TableCell key={header.id} style={headerCellStyle}>
+                      <TableCell
+                        key={header.id}
+                        className='w-[200px] bg-secondary-dark/20'
+                      >
                         {header.isPlaceholder ? null : (
                           <div>
                             {flexRender(
@@ -130,22 +109,17 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
                   <TableRow key={row.id}>
                     {row.getVisibleCells().map((cell) => {
                       const value = cell.getValue()
+                      const cellClass = `w-[200px] ${rowIndex % 2 === 0 ? '' : 'bg-secondary-dark/10'}`
 
                       return value == null ? (
-                        <TableCell
-                          key={cell.id}
-                          style={rowIndex % 2 === 0 ? cellStyle : altCellStyle}
-                        >
+                        <TableCell key={cell.id} className={cellClass}>
                           <Tooltip title='No data available'>
                             <WarningRoundedIcon />
                           </Tooltip>
                           <span className='sr-only'>No Data Available</span>
                         </TableCell>
                       ) : (
-                        <TableCell
-                          key={cell.id}
-                          style={rowIndex % 2 === 0 ? cellStyle : altCellStyle}
-                        >
+                        <TableCell key={cell.id} className={cellClass}>
                           {flexRender(
                             cell.column.columnDef.cell,
                             cell.getContext(),

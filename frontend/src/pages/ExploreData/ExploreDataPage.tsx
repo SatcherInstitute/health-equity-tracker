@@ -342,7 +342,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       >
         <div
           ref={madlibRef}
-          className={`z-sticky-mad-lib mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full ${!noTopicChosen ? 'md:sticky' : ''} `}
+          className={`z-sticky-mad-lib mb-1 bg-alt-white p-4 shadow-raised-tighter md:top-0 md:w-full ${!noTopicChosen ? 'md:sticky' : ''} `}
           id='madlib-container'
         >
           <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />

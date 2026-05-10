@@ -68,7 +68,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
       minHeight={400}
       reportTitle={props.reportTitle}
       scrollToHash={HASH_ID_RATES_OVER_TIME}
-      className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
+      className={`relative m-2 rounded-sm bg-alt-white p-3 shadow-raised ${props.className}`}
     >
       {([queryResponseRates]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
@@ -121,7 +121,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                             whiteSpace: 'normal',
                             wordWrap: 'break-word',
                           }}
-                          className='wrap-break-word border-0 border-alt-dark border-b bg-white leading-some-space'
+                          className='wrap-break-word border-0 border-alt-dark border-b bg-alt-white leading-some-space'
                         >
                           {!isTimeCol &&
                             key !== ALL &&
@@ -145,7 +145,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
                     return (
                       <TableRow
                         key={row[TIME_PERIOD_LABEL]}
-                        className='odd:bg-table-zebra even:bg-white'
+                        className='odd:bg-methodology-green/10 even:bg-alt-white'
                       >
                         {keys.map((key) => {
                           const isTimePeriod = key === TIME_PERIOD_LABEL

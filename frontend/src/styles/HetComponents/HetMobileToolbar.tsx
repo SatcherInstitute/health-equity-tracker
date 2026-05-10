@@ -119,7 +119,7 @@ export default function HetMobileToolbar() {
         size='large'
         sx={{ borderRadius: 1 }}
       >
-        <MenuIcon className='text-white' />
+        <MenuIcon className='text-alt-white' />
       </IconButton>
       <Drawer
         variant='temporary'

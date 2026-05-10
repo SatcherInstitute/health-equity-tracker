@@ -24,7 +24,7 @@ function StripedTableRow({
 }: StripedTableRowProps) {
   return (
     <TableRow
-      className={index % 2 === 0 ? 'bg-explore-bg-color' : 'bg-table-zebra'}
+      className={index % 2 === 0 ? 'bg-alt-white' : 'bg-methodology-green/10'}
       sx={{
         '&:last-child td, &:last-child th': {
           border: 0,

@@ -101,7 +101,7 @@ function Crumb(props: {
       )}
       {!props.isClickable && (
         <Button
-          className={`p-1 text-black ${props.isNote ? 'text-left' : ''}`}
+          className={`p-1 text-alt-black ${props.isNote ? 'text-left' : ''}`}
           disabled
         >
           {props.text}

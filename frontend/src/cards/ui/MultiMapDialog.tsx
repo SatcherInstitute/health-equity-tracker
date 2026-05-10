@@ -138,7 +138,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     >
       <DialogContent
         dividers={true}
-        className='bg-white p-2'
+        className='bg-alt-white p-2'
         id={MULTIMAP_MODAL_CONTENT_ID}
       >
         {/* card options button */}

@@ -27,7 +27,7 @@ export default function DefaultHelperBox() {
           >
             {reportMappings.map((report, index) => (
               <li
-                className='group mx-0 my-4 xs:my-2 flex w-full flex-col rounded-md border border-alt-green border-solid bg-white transition-all duration-300 ease-in-out hover:shadow-raised'
+                className='group mx-0 my-4 xs:my-2 flex w-full flex-col rounded-md border border-alt-green border-solid bg-alt-white transition-all duration-300 ease-in-out hover:shadow-raised'
                 key={report.title}
               >
                 <article
@@ -59,7 +59,7 @@ export default function DefaultHelperBox() {
                         {report.title} {report.icon && report.icon}
                       </a>
                     </h2>
-                    <p className='my-0 hidden text-black md:mb-4 md:block'>
+                    <p className='my-0 hidden text-alt-black md:mb-4 md:block'>
                       {report.description}
                     </p>
                     <HetTextArrowLink

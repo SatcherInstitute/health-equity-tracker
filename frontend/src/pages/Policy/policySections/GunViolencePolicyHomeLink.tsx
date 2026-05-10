@@ -16,7 +16,7 @@ export default function GunViolencePolicyHomeLink() {
             understand its impacts on mental, physical, and social health, often
             exacerbated by racial motives.
           </p>
-          <article className='mt-4 flex rounded-md bg-white px-8 pt-0 pb-8 shadow-raised lg:mt-8 lg:px-24'>
+          <article className='mt-4 flex rounded-md bg-alt-white px-8 pt-0 pb-8 shadow-raised lg:mt-8 lg:px-24'>
             <div className='flex flex-col align-center'>
               <img
                 className='fade-in-up-blur mx-auto my-0 p-0'

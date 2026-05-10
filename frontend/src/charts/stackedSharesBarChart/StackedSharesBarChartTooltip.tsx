@@ -73,7 +73,7 @@ export function StackedSharesBarChartTooltip(props: TooltipProps) {
   return (
     <div
       ref={tooltipRef}
-      className='pointer-events-none fixed border border-alt-black bg-white p-2 opacity-95 shadow-lg backdrop-blur-xs'
+      className='pointer-events-none fixed border border-alt-black bg-alt-white p-2 opacity-95 shadow-lg backdrop-blur-xs'
       style={{
         left: `${position.left}px`,
         top: `${position.top}px`,
