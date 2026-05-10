@@ -122,7 +122,7 @@ function LandingPage() {
       </section>
 
       <section className='flex w-full flex-wrap items-center justify-center'>
-        <div className='space-8 lg:space-24 mx-auto my-0 xs:block flex h-auto min-h-[60vh] w-full items-center justify-center bg-alt-white-smoke80 p-16 sm:block md:flex'>
+        <div className='space-8 lg:space-24 mx-auto my-0 xs:block flex h-auto min-h-[60vh] w-full items-center justify-center bg-white-smoke80 p-16 sm:block md:flex'>
           <img
             src='/img/graphics/banner.png'
             className='w-full md:w-2/5'
