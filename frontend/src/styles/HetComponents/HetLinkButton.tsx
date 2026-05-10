@@ -15,13 +15,15 @@ interface HetLinkButtonProps {
 export default function HetLinkButton(props: HetLinkButtonProps) {
   return (
     <Button
-      color='inherit'
+      color='primary'
       href={props.href}
       onClick={props.onClick}
       aria-label={props.ariaLabel}
-      className={`px-6 ${props.className ?? ''} ${props.buttonClassName ?? ''}`}
+      className={props.buttonClassName}
     >
-      {props.children}
+      <span className={`px-6 text-alt-green ${props.className ?? ''}`}>
+        {props.children}
+      </span>
     </Button>
   )
 }
