@@ -51,7 +51,6 @@ export default function TopicSelector(props: TopicSelectorProps) {
         <HetPopover popover={popover}>
           {/* Condition Topic Dropdown */}
           <menu className='m-6 grid max-w-menu grid-cols-1 tiny:grid-cols-2 gap-2 p-0 smplus:grid-cols-3'>
-            {' '}
             {CATEGORIES_LIST.map((category) => {
               return (
                 <div key={category.title} className='mb-4'>
