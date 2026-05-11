@@ -33,6 +33,7 @@ import {
   WHITE_W,
 } from '../../data/utils/Constants'
 import { het } from '../../styles/DesignTokens'
+import { resolveColor } from '../../styles/theme/themeUtils'
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   All: het.altBlack,
@@ -125,7 +126,10 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
 const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP)
 const COLOR_RANGE = Object.values(GROUP_COLOR_MAP)
 const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE)
-const UNKNOWN_GROUP_COLOR_EXTENT = [het.unknownMapLeast, het.unknownMapMost]
+function getUnknownGroupColorExtent(): [string, string] {
+  return [resolveColor(het.unknownMapLeast), resolveColor(het.unknownMapMost)]
+}
+const UNKNOWN_GROUP_COLOR_EXTENT = getUnknownGroupColorExtent()
 /* Config */
 const CONFIG = {
   HEIGHT: 506,
