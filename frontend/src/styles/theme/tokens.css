@@ -70,7 +70,8 @@
    --color-report-alert: #ff9800;
 
    /* greens */
-   --color-alt-green: #0b5240;
+   /* --color-alt-green: #0b5240; */
+   --color-alt-green: var(--mui-palette-primary-main);
    --color-dark-green: #083f31;
    --color-hover-alt-green: rgba(11, 82, 64, 0.08);
    --color-secondary-main: #228b7e;
@@ -78,7 +79,8 @@
    --color-footer-color: #edf3f0;
 
    /* greys / blacks */
-   --color-alt-black: #383838;
+   /* --color-alt-black: #383838; */
+   --color-alt-black: var(--mui-palette-custom-altBlack);
    --color-alt-dark: #5f6368;
    --color-alt-gray: #bdbdbd;
    --color-bg-color: #e2e2e2;

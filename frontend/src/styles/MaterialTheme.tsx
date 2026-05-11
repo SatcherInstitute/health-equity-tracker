@@ -33,6 +33,9 @@ const MaterialTheme = extendTheme({
         background: {
           default: '#fff',
         },
+        custom: {
+          altBlack: '#383838',
+        },
       },
     },
   },
