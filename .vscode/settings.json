@@ -11,7 +11,7 @@
 	"tailwindCSS.files.exclude": [
 		"**/*.css"
 	],
-	"tailwindCSS.experimental.configFile": "frontend/tailwind.config.ts",
+	"tailwindCSS.experimental.configFile": "frontend/src/index.css",
 	"css.lint.unknownAtRules": "ignore",
 	"biome.requireConfiguration": true,
 	"cSpell.import": [

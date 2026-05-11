@@ -46,7 +46,7 @@ export const het = {
   standardInfo: 'var(--color-standard-info)',
   standardWarning: 'var(--color-standard-warning)',
   transparent: 'var(--color-transparent)',
-  whiteSmoke80: 'var(--color-white-smoke80)',
+  whiteSmoke: 'var(--color-white-smoke)',
   altWhite: 'var(--color-alt-white)',
 
   // Time Chart

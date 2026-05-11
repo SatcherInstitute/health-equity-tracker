@@ -42,14 +42,8 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
       key={index}
       expanded={expandedIndex === index}
       onChange={handleChange(index)}
-      sx={{
-        border: 'none',
-        boxShadow: 'none',
-        '&::before': {
-          content: 'none',
-        },
-      }}
-      className={`list-none rounded-md border border-methodology-green border-solid ${
+      sx={{ '&::before': { content: 'none' } }}
+      className={`list-none rounded-md border border-methodology-green border-solid shadow-none ${
         accordionClassName ?? 'mb-8'
       }`}
     >
@@ -60,7 +54,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
         className={`${
           expandedIndex === index
             ? 'rounded-t-md bg-hover-alt-green'
-            : 'hover:bg-alt-white-smoke80'
+            : 'hover:bg-white-smoke'
         }`}
       >
         <div

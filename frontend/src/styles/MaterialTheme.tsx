@@ -1,5 +1,16 @@
 import { extendTheme } from '@mui/material/styles'
 import { het } from '../styles/DesignTokens'
+import { hetColors } from './HetColors'
+
+// type augmentation
+declare module '@mui/material/styles' {
+  interface PaletteOptions {
+    custom?: typeof hetColors
+  }
+  interface Palette {
+    custom: typeof hetColors
+  }
+}
 
 /**
  * Color strategy:
@@ -20,22 +31,20 @@ const MaterialTheme = extendTheme({
     light: {
       palette: {
         primary: {
-          light: '#91c684', // --color-bar-chart-light
-          main: '#0b5240', // --color-alt-green
-          dark: '#083f31', // --color-dark-green
+          light: hetColors.barChartLight,
+          main: hetColors.altGreen,
+          dark: hetColors.darkGreen,
           contrastText: '#fff',
         },
         secondary: {
-          light: '#89d5cc', // --color-secondary-light
-          main: '#228b7e', // --color-secondary-main
-          dark: '#167b6f', // --color-secondary-dark
+          light: hetColors.secondaryLight,
+          main: hetColors.secondaryMain,
+          dark: hetColors.secondaryDark,
         },
         background: {
           default: '#fff',
         },
-        custom: {
-          altBlack: '#383838',
-        },
+        custom: hetColors,
       },
     },
   },
