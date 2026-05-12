@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, vi } from 'vitest'
-import { resolveCssVar } from './themeUtils'
+import { resolveCssVar } from './cssVarUtils'
 
 describe('resolveCssVar()', () => {
   const mockGetPropertyValue = vi.fn()

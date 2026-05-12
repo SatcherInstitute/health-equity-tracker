@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
-import { het } from '../../styles/theme/cssVarsToJsColors'
-import { resolveCssVar } from '../../styles/theme/themeUtils'
+import { het } from '../../styles/theme/colorVars'
+import { resolveCssVar } from '../../styles/theme/cssVarUtils'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
 import type {
@@ -10,8 +10,10 @@ import type {
   GetFillColorOptions,
 } from './types'
 
+let _colorSchemes: Record<ColorScheme, string[]> | null = null
 function getColorSchemes(): Record<ColorScheme, string[]> {
-  return {
+  if (_colorSchemes) return _colorSchemes
+  _colorSchemes = {
     darkgreen: [
       resolveCssVar(het.mapDarker),
       resolveCssVar(het.mapDark),
@@ -70,6 +72,7 @@ function getColorSchemes(): Record<ColorScheme, string[]> {
       resolveCssVar(het.mapYouthLightest),
     ],
   }
+  return _colorSchemes
 }
 
 export function createColorScale(options: CreateColorScaleOptions): ColorScale {

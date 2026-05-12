@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { resolveCssVar } from '../../styles/theme/themeUtils'
+import { resolveCssVar } from '../../styles/theme/cssVarUtils'
 
 type TailwindBreakpoint =
   | 'xs'

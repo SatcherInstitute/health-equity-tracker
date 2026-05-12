@@ -3,7 +3,7 @@ import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
 To prevent components loading from one another, all exported consts for the map cards should be in this file
 */
 import type { DemographicGroup } from '../data/utils/Constants'
-import { het } from '../styles/theme/cssVarsToJsColors'
+import { het } from '../styles/theme/colorVars'
 import type { ColorScheme } from './choroplethMap/types'
 
 export const DATA_SUPPRESSED = 'Data suppressed'

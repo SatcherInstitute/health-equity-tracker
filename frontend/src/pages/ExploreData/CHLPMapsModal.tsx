@@ -2,7 +2,7 @@ import { Button, Dialog, DialogContent } from '@mui/material'
 import { type SetStateAction, useEffect, useState } from 'react'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import HetGalleryDotNav from '../../styles/HetComponents/HetGalleryDotNav'
-import { het } from '../../styles/theme/cssVarsToJsColors'
+import { het } from '../../styles/theme/colorVars'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { CHLP_MAPS_PARAM_KEY } from '../../utils/urlutils'
 

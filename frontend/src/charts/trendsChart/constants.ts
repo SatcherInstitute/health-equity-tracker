@@ -32,8 +32,8 @@ import {
   WHITE_NH,
   WHITE_W,
 } from '../../data/utils/Constants'
-import { het } from '../../styles/theme/cssVarsToJsColors'
-import { resolveCssVar } from '../../styles/theme/themeUtils'
+import { het } from '../../styles/theme/colorVars'
+import { resolveCssVar } from '../../styles/theme/cssVarUtils'
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   All: het.altBlack,
@@ -126,8 +126,14 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
 const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP)
 const COLOR_RANGE = Object.values(GROUP_COLOR_MAP)
 const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE)
+let _unknownGroupColorExtent: [string, string] | null = null
 function getUnknownGroupColorExtent(): [string, string] {
-  return [resolveCssVar(het.unknownMapLeast), resolveCssVar(het.unknownMapMost)]
+  if (_unknownGroupColorExtent) return _unknownGroupColorExtent
+  _unknownGroupColorExtent = [
+    resolveCssVar(het.unknownMapLeast),
+    resolveCssVar(het.unknownMapMost),
+  ]
+  return _unknownGroupColorExtent
 }
 const UNKNOWN_GROUP_COLOR_EXTENT = getUnknownGroupColorExtent()
 /* Config */

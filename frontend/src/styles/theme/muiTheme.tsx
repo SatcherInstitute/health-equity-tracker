@@ -1,6 +1,6 @@
 import { extendTheme } from '@mui/material/styles'
-import { het } from './cssVarsToJsColors'
-import { hetColors } from './palette'
+import { hetColors } from './colorValues'
+import { het } from './colorVars'
 
 // type augmentation
 declare module '@mui/material/styles' {

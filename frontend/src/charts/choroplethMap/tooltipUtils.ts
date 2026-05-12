@@ -10,8 +10,8 @@ import {
   type DemographicType,
 } from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
-import { het } from '../../styles/theme/cssVarsToJsColors'
-import { resolveCssVar } from '../../styles/theme/themeUtils'
+import { het } from '../../styles/theme/colorVars'
+import { resolveCssVar } from '../../styles/theme/cssVarUtils'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MouseEventHandlerOptions, MouseEventType } from './types'
