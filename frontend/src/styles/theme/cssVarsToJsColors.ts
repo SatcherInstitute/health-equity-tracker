@@ -1,6 +1,6 @@
 /**
  * HET Design Tokens
- * Maps TypeScript keys to CSS variables defined in your Tailwind v4 @theme.
+ * Maps TypeScript keys to CSS variables defined in Tailwind v4 @theme.
  */
 export const het = {
   // Blues
