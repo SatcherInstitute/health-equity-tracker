@@ -1,5 +1,6 @@
 import { format, scaleOrdinal, utcFormat } from 'd3'
 import type { MetricType } from '../../data/config/MetricConfigTypes'
+
 import {
   AAPI_W,
   AIAN,
@@ -32,113 +33,122 @@ import {
   WHITE_NH,
   WHITE_W,
 } from '../../data/utils/Constants'
-import { het } from '../../styles/theme/colorVars'
-import { resolveCssVar } from '../../styles/theme/cssVarUtils'
+
+import { hetColors } from '../../styles/theme/colorValues'
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
-  All: het.altBlack,
-  Unknown: het.darkBlue,
+  All: hetColors.altBlack,
+  Unknown: hetColors.darkBlue,
+
   // race and ethnicity (NH)
-  [AIAN_NH]: het.timeCyanBlue,
-  [ASIAN_NH]: het.timePastelGreen,
-  [BLACK_NH]: het.mapLight,
-  [HISPANIC]: het.timePurple,
-  [NHPI_NH]: het.timePink,
-  [MULTI_OR_OTHER_STANDARD_NH]: het.timeDarkRed,
-  [WHITE_NH]: het.redOrange,
+  [AIAN_NH]: hetColors.timeCyanBlue,
+  [ASIAN_NH]: hetColors.timePastelGreen,
+  [BLACK_NH]: hetColors.mapLight,
+  [HISPANIC]: hetColors.timePurple,
+  [NHPI_NH]: hetColors.timePink,
+  [MULTI_OR_OTHER_STANDARD_NH]: hetColors.timeDarkRed,
+  [WHITE_NH]: hetColors.redOrange,
+
   // race and ethnicity (not NH)
-  [AIAN]: het.timeCyanBlue,
-  [ASIAN]: het.timePastelGreen,
-  [BLACK]: het.mapLight,
-  [NHPI]: het.timePink,
-  [MULTI_OR_OTHER_STANDARD]: het.timeDarkRed,
-  [OTHER_STANDARD]: het.darkBlue,
-  [MULTI]: het.timeDarkRed,
-  [WHITE]: het.redOrange,
+  [AIAN]: hetColors.timeCyanBlue,
+  [ASIAN]: hetColors.timePastelGreen,
+  [BLACK]: hetColors.mapLight,
+  [NHPI]: hetColors.timePink,
+  [MULTI_OR_OTHER_STANDARD]: hetColors.timeDarkRed,
+  [OTHER_STANDARD]: hetColors.darkBlue,
+  [MULTI]: hetColors.timeDarkRed,
+  [WHITE]: hetColors.redOrange,
+
   // race and ethnicity for CAWP
-  [ALL_W]: het.altBlack,
-  [AIANNH_W]: het.timeCyanBlue,
-  [AAPI_W]: het.timePastelGreen,
-  [AIAN_API_W]: het.timePastelGreen,
-  [BLACK_W]: het.mapLight,
-  [HISP_W]: het.timePurple,
-  [MENA_W]: het.timeYellow,
-  [OTHER_W]: het.timePink,
-  [WHITE_W]: het.redOrange,
-  [UNKNOWN_W]: het.darkBlue,
-  [MULTI_W]: het.timeDarkRed,
+  [ALL_W]: hetColors.altBlack,
+  [AIANNH_W]: hetColors.timeCyanBlue,
+  [AAPI_W]: hetColors.timePastelGreen,
+  [AIAN_API_W]: hetColors.timePastelGreen,
+  [BLACK_W]: hetColors.mapLight,
+  [HISP_W]: hetColors.timePurple,
+  [MENA_W]: hetColors.timeYellow,
+  [OTHER_W]: hetColors.timePink,
+  [WHITE_W]: hetColors.redOrange,
+  [UNKNOWN_W]: hetColors.darkBlue,
+  [MULTI_W]: hetColors.timeDarkRed,
+
   // race and ethnicity for HIV
-  [MULTI_NH]: het.timeDarkRed,
-  [OTHER_NONSTANDARD_NH]: het.darkBlue,
+  [MULTI_NH]: hetColors.timeDarkRed,
+  [OTHER_NONSTANDARD_NH]: hetColors.darkBlue,
+
   // race and ethnicity for INCARCERATION
-  [API_NH]: het.timePink,
+  [API_NH]: hetColors.timePink,
+
   // sex
-  Female: het.timeCyanBlue,
-  Male: het.timePurple,
-  Other: het.timeYellow,
+  Female: hetColors.timeCyanBlue,
+  Male: hetColors.timePurple,
+  Other: hetColors.timeYellow,
+
   // age
-  '0-9': het.timeCyanBlue,
-  '10-19': het.timePastelGreen,
-  '20-29': het.darkBlue,
-  '30-39': het.timePurple,
-  '40-49': het.timePink,
-  '50-59': het.timeDarkRed,
-  '60-69': het.redOrange,
-  '70-79': het.timeYellow,
-  '80+': het.mapLight,
+  '0-9': hetColors.timeCyanBlue,
+  '10-19': hetColors.timePastelGreen,
+  '20-29': hetColors.darkBlue,
+  '30-39': hetColors.timePurple,
+  '40-49': hetColors.timePink,
+  '50-59': hetColors.timeDarkRed,
+  '60-69': hetColors.redOrange,
+  '70-79': hetColors.timeYellow,
+  '80+': hetColors.mapLight,
+
   // age for HIV + ACS CONDITION
-  '0-5': het.timeCyanBlue,
-  '6-11': het.timePastelGreen,
-  '6-17': het.timePastelGreen,
-  '6-18': het.timePastelGreen,
-  '12-17': het.darkBlue,
-  '13-24': het.darkBlue,
-  '16-24': het.darkBlue,
-  '18-24': het.timePurple,
-  '19-25': het.timePurple,
-  '17-24': het.timePurple,
-  '25-34': het.timePink,
-  '26-34': het.timePink,
-  '35-44': het.timeDarkRed,
-  '45-54': het.redOrange,
-  '55+': het.timeYellow,
-  '55-64': het.timeYellow,
-  '65-74': het.mapLight,
-  '75+': het.mapLighter,
-  // added age buckeds for WISQARS
-  '0-14': het.timeCyanBlue,
-  '15-19': het.timePurple,
-  '20-24': het.timePink,
-  '25-29': het.timePastelGreen,
-  '30-34': het.redOrange,
+  '0-5': hetColors.timeCyanBlue,
+  '6-11': hetColors.timePastelGreen,
+  '6-17': hetColors.timePastelGreen,
+  '6-18': hetColors.timePastelGreen,
+  '12-17': hetColors.darkBlue,
+  '13-24': hetColors.darkBlue,
+  '16-24': hetColors.darkBlue,
+  '18-24': hetColors.timePurple,
+  '19-25': hetColors.timePurple,
+  '17-24': hetColors.timePurple,
+  '25-34': hetColors.timePink,
+  '26-34': hetColors.timePink,
+  '35-44': hetColors.timeDarkRed,
+  '45-54': hetColors.redOrange,
+  '55+': hetColors.timeYellow,
+  '55-64': hetColors.timeYellow,
+  '65-74': hetColors.mapLight,
+  '75+': hetColors.mapLighter,
+
+  // added age buckets for WISQARS
+  '0-14': hetColors.timeCyanBlue,
+  '15-19': hetColors.timePurple,
+  '20-24': hetColors.timePink,
+  '25-29': hetColors.timePastelGreen,
+  '30-34': hetColors.redOrange,
+
   // age for AHR
-  '15-24': het.timeCyanBlue,
-  '18-44': het.timeCyanBlue,
-  '24-34': het.timePink,
-  '45-64': het.mapLight,
-  '65+': het.timeYellow,
-  '75-84': het.mapLighter,
+  '15-24': hetColors.timeCyanBlue,
+  '18-44': hetColors.timeCyanBlue,
+  '24-34': hetColors.timePink,
+  '45-64': hetColors.mapLight,
+  '65+': hetColors.timeYellow,
+  '75-84': hetColors.mapLighter,
+
   // urbanicity / City Size
-  Metro: het.timePurple,
-  'Non-Metro': het.timeYellow,
+  Metro: hetColors.timePurple,
+  'Non-Metro': hetColors.timeYellow,
 }
 
 const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP)
 const COLOR_RANGE = Object.values(GROUP_COLOR_MAP)
+
 const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE)
-let _unknownGroupColorExtent: [string, string] | null = null
-function getUnknownGroupColorExtent(): [string, string] {
-  if (_unknownGroupColorExtent) return _unknownGroupColorExtent
-  _unknownGroupColorExtent = [
-    resolveCssVar(het.unknownMapLeast),
-    resolveCssVar(het.unknownMapMost),
-  ]
-  return _unknownGroupColorExtent
-}
-const UNKNOWN_GROUP_COLOR_EXTENT = getUnknownGroupColorExtent()
+
+const UNKNOWN_GROUP_COLOR_EXTENT: [string, string] = [
+  hetColors.unknownMapLeast,
+  hetColors.unknownMapMost,
+]
+
 /* Config */
 const CONFIG = {
   HEIGHT: 506,
+
   MARGIN: {
     top: 10,
     right: 55,
@@ -146,18 +156,25 @@ const CONFIG = {
     bottom_with_unknowns: 144,
     left: 80,
   },
+
   TICK_PADDING: 18,
+
   Y_AXIS_LABEL_PADDING: 18,
+
   RADIUS_EXTENT: [4, 10],
+
   // special spacing rules for mobile
   MOBILE: {
     MARGIN: {
       left: 60,
       right: 20,
     },
+
     Y_AXIS_LABEL_PADDING: 10,
+
     RADIUS_EXTENT: [3, 8],
   },
+
   // width of tooltip bars
   BAR_WIDTH: 100,
 }
@@ -172,15 +189,30 @@ const TYPES: Record<string, MetricType> = {
 }
 
 const FORMATTERS = {
-  pct: (d: number) => `${format('.1~f')(d)}%`, // have to treat percent as truncated number and then interpolate % b/c they are received as integers
+  pct: (d: number) => `${format('.1~f')(d)}%`,
+
+  // have to treat percent as truncated number and then interpolate %
+  // because they are received as integers
+
   dateShort: utcFormat('%m/%y'),
+
   dateYear: utcFormat('%Y'),
+
   dateFromString_YYYY: (str: string) => str && utcFormat('%Y')(new Date(str)),
+
   dateFromString_MM_YYYY: (str: string) =>
     str && utcFormat('%B %Y')(new Date(str)),
+
   num: format('.2~f'),
-  num100k: (d: number) => (d < 10 ? format('.1~f')(d) : format('.0~f')(d)), // show single decimal if less than 10, remove trailling zeros
-  plusNum: (d: number) => `${d > 0 ? '+' : ''}${format('.1~f')(d)}`, // add "+" only to positive numbers (not 0)
+
+  num100k: (d: number) => (d < 10 ? format('.1~f')(d) : format('.0~f')(d)),
+
+  // show single decimal if less than 10, remove trailing zeros
+
+  plusNum: (d: number) => `${d > 0 ? '+' : ''}${format('.1~f')(d)}`,
+
+  // add "+" only to positive numbers (not 0)
+
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ''),
 }
 

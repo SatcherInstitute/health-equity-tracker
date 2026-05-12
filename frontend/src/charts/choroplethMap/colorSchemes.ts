@@ -1,8 +1,8 @@
 import * as d3 from 'd3'
-import { het } from '../../styles/theme/colorVars'
-import { resolveCssVar } from '../../styles/theme/cssVarUtils'
+import { hetColors } from '../../styles/theme/colorValues'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
+
 import type {
   ColorScale,
   ColorScheme,
@@ -11,100 +11,117 @@ import type {
 } from './types'
 
 let _colorSchemes: Record<ColorScheme, string[]> | null = null
+
 function getColorSchemes(): Record<ColorScheme, string[]> {
   if (_colorSchemes) return _colorSchemes
+
   _colorSchemes = {
     darkgreen: [
-      resolveCssVar(het.mapDarker),
-      resolveCssVar(het.mapDark),
-      resolveCssVar(het.mapMid),
-      resolveCssVar(het.mapLight),
-      resolveCssVar(het.mapLighter),
-      resolveCssVar(het.mapLightest),
+      hetColors.mapDarker,
+      hetColors.mapDark,
+      hetColors.mapMid,
+      hetColors.mapLight,
+      hetColors.mapLighter,
+      hetColors.mapLightest,
     ],
+
     plasma: [
-      resolveCssVar(het.mapWomenDarker),
-      resolveCssVar(het.mapWomenDark),
-      resolveCssVar(het.mapWomenMid),
-      resolveCssVar(het.mapWomenLight),
-      resolveCssVar(het.mapWomenLighter),
-      resolveCssVar(het.mapWomenLightest),
+      hetColors.mapWomenDarker,
+      hetColors.mapWomenDark,
+      hetColors.mapWomenMid,
+      hetColors.mapWomenLight,
+      hetColors.mapWomenLighter,
+      hetColors.mapWomenLightest,
     ],
+
     inferno: [
-      resolveCssVar(het.mapMenDarker),
-      resolveCssVar(het.mapMenDark),
-      resolveCssVar(het.mapMenMid),
-      resolveCssVar(het.mapMenLight),
-      resolveCssVar(het.mapMenLighter),
-      resolveCssVar(het.mapMenLightest),
+      hetColors.mapMenDarker,
+      hetColors.mapMenDark,
+      hetColors.mapMenMid,
+      hetColors.mapMenLight,
+      hetColors.mapMenLighter,
+      hetColors.mapMenLightest,
     ],
+
     viridis: [
-      resolveCssVar(het.mapMedicareDarkest),
-      resolveCssVar(het.mapMedicareDark),
-      resolveCssVar(het.mapMedicareMid),
-      resolveCssVar(het.mapMedicareLight),
-      resolveCssVar(het.mapMedicareLighter),
-      resolveCssVar(het.mapMedicareLightest),
+      hetColors.mapMedicareDarkest,
+      hetColors.mapMedicareDark,
+      hetColors.mapMedicareMid,
+      hetColors.mapMedicareLight,
+      hetColors.mapMedicareLighter,
+      hetColors.mapMedicareLightest,
     ],
+
     viridisAdherence: [
-      resolveCssVar(het.mapMedicareDarkest),
-      resolveCssVar(het.mapMedicareDark),
-      resolveCssVar(het.mapMedicareMid),
-      resolveCssVar(het.mapMedicareLight),
-      resolveCssVar(het.mapMedicareLighter),
-      resolveCssVar(het.mapMedicareEvenLighter),
-      resolveCssVar(het.mapMedicareLightest),
+      hetColors.mapMedicareDarkest,
+      hetColors.mapMedicareDark,
+      hetColors.mapMedicareMid,
+      hetColors.mapMedicareLight,
+      hetColors.mapMedicareLighter,
+      hetColors.mapMedicareEvenLighter,
+      hetColors.mapMedicareLightest,
     ],
+
     greenblue: [
-      resolveCssVar(het.unknownMapLeast),
-      resolveCssVar(het.unknownMapLesser),
-      resolveCssVar(het.unknownMapLess),
-      resolveCssVar(het.unknownMapMid),
-      resolveCssVar(het.unknownMapMore),
-      resolveCssVar(het.unknownMapMost),
+      hetColors.unknownMapLeast,
+      hetColors.unknownMapLesser,
+      hetColors.unknownMapLess,
+      hetColors.unknownMapMid,
+      hetColors.unknownMapMore,
+      hetColors.unknownMapMost,
     ],
+
     darkred: [
-      resolveCssVar(het.mapYouthDarkest),
-      resolveCssVar(het.mapYouthDarker),
-      resolveCssVar(het.mapYouthDark),
-      resolveCssVar(het.mapYouthLight),
-      resolveCssVar(het.mapYouthLighter),
-      resolveCssVar(het.mapYouthLightest),
+      hetColors.mapYouthDarkest,
+      hetColors.mapYouthDarker,
+      hetColors.mapYouthDark,
+      hetColors.mapYouthLight,
+      hetColors.mapYouthLighter,
+      hetColors.mapYouthLightest,
     ],
   }
+
   return _colorSchemes
 }
 
 export function createColorScale(options: CreateColorScaleOptions): ColorScale {
   const COLOR_SCHEMES = getColorSchemes()
+
   const COLOR_SCHEME_INTERPOLATORS: Record<ColorScheme, (t: number) => string> =
     {
       darkgreen: d3.piecewise(
         d3.interpolateRgb.gamma(2.2),
         COLOR_SCHEMES.darkgreen,
       ),
+
       plasma: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.plasma),
+
       inferno: d3.piecewise(
         d3.interpolateRgb.gamma(2.2),
         COLOR_SCHEMES.inferno,
       ),
+
       viridis: d3.piecewise(
         d3.interpolateRgb.gamma(2.2),
         COLOR_SCHEMES.viridis,
       ),
+
       viridisAdherence: d3.piecewise(
         d3.interpolateRgb.gamma(2.2),
         COLOR_SCHEMES.viridisAdherence,
       ),
+
       greenblue: d3.piecewise(
         d3.interpolateRgb.gamma(2.2),
         COLOR_SCHEMES.greenblue,
       ),
+
       darkred: d3.piecewise(
         d3.interpolateRgb.gamma(2.2),
         COLOR_SCHEMES.darkred,
       ),
     }
+
   const {
     data,
     metricId,
@@ -116,21 +133,20 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
     mapConfig,
     isUnknown,
   } = options
-  let interpolatorFn
 
-  let colorArray = COLOR_SCHEMES[colorScheme] || COLOR_SCHEMES['darkgreen']
+  let colorArray = COLOR_SCHEMES[colorScheme] || COLOR_SCHEMES.darkgreen
 
   if (isSummaryLegend && !isPhrmaAdherence) {
-    colorArray = [resolveCssVar(mapConfig.mid)]
+    colorArray = [mapConfig.mid]
   }
 
   colorArray = reverse ? [...colorArray].reverse() : colorArray
 
-  interpolatorFn = d3.piecewise(d3.interpolateRgb.gamma(2.2), colorArray)
+  let interpolatorFn = d3.piecewise(d3.interpolateRgb.gamma(2.2), colorArray)
 
   const resolvedScheme = colorScheme
     ? COLOR_SCHEME_INTERPOLATORS[colorScheme]
-    : colorScheme
+    : interpolatorFn
 
   interpolatorFn = reverse
     ? (t: number) => resolvedScheme(1 - t)
@@ -172,7 +188,9 @@ export function getFillColor(options: GetFillColorOptions): string {
   const { d, dataMap, mapConfig, isExtremesMode, colorScale, isMultiMap } =
     options
 
-  if (!isMultiMap && dataMap.size === 1) return resolveCssVar(mapConfig.mid)
+  if (!isMultiMap && dataMap.size === 1) {
+    return mapConfig.mid
+  }
 
   const value = dataMap.get(d.id as string)?.value as number
 
@@ -184,5 +202,5 @@ export function getFillColor(options: GetFillColorOptions): string {
     return colorScale(value)
   }
 
-  return isExtremesMode ? '#fff' : het.altGray
+  return isExtremesMode ? '#fff' : hetColors.altGray
 }
