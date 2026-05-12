@@ -261,14 +261,26 @@ The frontend consists of
 
 ### Frontend Design System & Theme Architecture
 
-We use a "Pass-Through" architecture to sync Tailwind v4, MUI, and D3.js from a single source of truth. This prevents style drift and ensures full IntelliSense support across the stack.
+We use a "Pass-Through" architecture to sync Tailwind v4, MUI, and D3.js from a single source of truth, ensuring full IntelliSense and preventing style drift.
+
+#### The Token Pipeline
+
+```plaintext
+colorValues.ts (colors)    designTokens.css (z-index, etc.)
+       ↙            ↘      ↙
+    D3()         colorVars.css (@theme for Tailwind classes)
+                      ↓
+                 colorVars.ts (JS/TS mapping of CSS vars)
+                      ↓
+        Tailwind  /  MUI  /  React styling
+```
 
 #### Color & Token Strategy
 
-- Implementation: Always add new tokens across the pipeline (colorValues.ts → global.css → colorVars.ts) to maintain type safety and code completion.
+- Implementation: Always add new tokens across the pipeline to maintain type safety and code completion.
 - Styling Priority: Always use Tailwind classes as the primary styling method. Only modify the MUI theme.ts styleOverrides to adjust native MUI components. Avoid sx props and inline styles.
 - The `het` Object: In TypeScript, use the `het` constant (e.g., color: `het.altGreen`). This applies a CSS variable directly, keeping the UI reactive and performant.
-- D3 & JS Logic: Use the `resolveCssVar()` utility only when JS-heavy logic (like D3 color interpolation) requires a Hex string. For static SVG fills or strokes, use the CSS variables directly.
+- D3 & JS Logic: Use CSS variables directly for static SVG fills/strokes. Use the `resolveCssVar()` utility only for tokens where CSS is the source of truth (e.g., z-index). For D3 logic and similar where a _color_ HEX code is required, we can import the source of truth token directly from `colorValues.ts`
 
 ### Frontend Environment Configuration
 
