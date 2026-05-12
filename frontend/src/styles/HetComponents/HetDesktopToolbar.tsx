@@ -99,7 +99,7 @@ export default function HetDesktopToolbar() {
   }
 
   return (
-    <Toolbar className='flex min-h-[65px] justify-between border-0 border-alt-black border-b border-solid bg-alt-white leading-some-space'>
+    <Toolbar className='flex min-h-toolbar justify-between border-0 border-alt-black border-b border-solid bg-alt-white leading-some-space'>
       <nav aria-label='home navigation' className='m-0'>
         <HetNavLink className='flex items-center pl-0' href='/'>
           <img

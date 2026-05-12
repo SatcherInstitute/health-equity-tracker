@@ -1,21 +1,50 @@
-import { extendTheme } from '@mui/material'
-import { het } from '../styles/DesignTokens'
+import { extendTheme } from '@mui/material/styles'
+import { hetColors } from './colorValues'
+import { het } from './colorVars'
 
-// Use the new extendTheme function from MUI v7
-const MaterialTheme = extendTheme({
+// type augmentation
+declare module '@mui/material/styles' {
+  interface PaletteOptions {
+    custom?: typeof hetColors
+  }
+  interface Palette {
+    custom: typeof hetColors
+  }
+}
+
+/**
+ * Color strategy:
+ *
+ * - Palette main/light/dark entries use hardcoded hex because MUI derives
+ *   hover, focus, and ripple colors from these at theme-creation time via
+ *   color manipulation functions that cannot resolve CSS variables.
+ *
+ * - Component styleOverrides use `het.*` (CSS variables) wherever the value
+ *   is applied directly to a CSS property and no MUI derivation is needed.
+ *
+ * - Template literals that interpolate into a CSS string (e.g. borderBottom)
+ *   also use `het.*` since the browser resolves those at paint time.
+ */
+
+const muiTheme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
         primary: {
-          light: het.barChartLight,
-          main: het.altGreen,
-          dark: het.darkGreen,
+          light: hetColors.barChartLight,
+          main: hetColors.altGreen,
+          dark: hetColors.darkGreen,
+          contrastText: '#fff',
         },
         secondary: {
-          light: het.secondaryLight,
-          main: het.secondaryMain,
-          dark: het.secondaryDark,
+          light: hetColors.secondaryLight,
+          main: hetColors.secondaryMain,
+          dark: hetColors.secondaryDark,
         },
+        background: {
+          default: '#fff',
+        },
+        custom: hetColors,
       },
     },
   },
@@ -23,17 +52,17 @@ const MaterialTheme = extendTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          fontFamily: '"Inter", sans-serif',
+          fontFamily: 'var(--font-sans-text)',
         },
       },
     },
     MuiAlert: {
       styleOverrides: {
         root: {
-          fontFamily: '"Inter", sans-serif',
+          fontFamily: 'var(--font-sans-text)',
           '&.MuiAlert-standardInfo': {
-            backgroundColor: het.exploreBgColor,
-            color: het.black,
+            backgroundColor: het.standardInfo,
+            color: het.altBlack,
             textAlign: 'left',
             '& .MuiAlert-icon': {
               color: het.altGreen,
@@ -41,7 +70,7 @@ const MaterialTheme = extendTheme({
           },
           '&.MuiAlert-standardWarning': {
             backgroundColor: het.standardWarning,
-            color: het.black,
+            color: het.altBlack,
             textAlign: 'left',
             '& .MuiAlert-icon': {
               color: het.alertColor,
@@ -60,31 +89,28 @@ const MaterialTheme = extendTheme({
         },
       },
     },
-    MuiButtonBase: {
-      styleOverrides: {},
-    },
     MuiButton: {
       styleOverrides: {
         root: {
           textTransform: 'none',
-          fontFamily: '"Inter", sans-serif',
-        },
-        containedPrimary: {
-          color: het.white,
+          fontFamily: 'var(--font-sans-text)',
+          padding: 'unset',
+          borderRadius: 'unset',
+          minWidth: 'unset',
         },
       },
     },
     MuiInputBase: {
       styleOverrides: {
         inputSizeSmall: {
-          fontSize: '.75rem',
+          fontSize: 'var(--text-smallest)',
         },
       },
     },
     MuiListItemText: {
       styleOverrides: {
         root: {
-          fontFamily: '"DM Sans", sans-serif',
+          fontFamily: 'var(--font-sans-title)',
         },
       },
     },
@@ -126,8 +152,10 @@ const MaterialTheme = extendTheme({
     MuiTab: {
       styleOverrides: {
         root: {
+          // textTransform handled in index.css but kept here for MUI
+          // specificity since Tab uses its own internal class stacking.
           textTransform: 'none',
-          fontFamily: '"DM Sans", sans-serif !important',
+          fontFamily: 'var(--font-sans-title) !important',
         },
       },
     },
@@ -143,15 +171,8 @@ const MaterialTheme = extendTheme({
       styleOverrides: {
         root: {
           outline: `1px solid ${het.howToColor} !important`,
-          borderRadius: '4px',
+          borderRadius: 'var(--radius-sm)',
           overflow: 'hidden',
-        },
-      },
-    },
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          fontFamily: '"DM Sans", sans-serif',
         },
       },
     },
@@ -161,10 +182,10 @@ const MaterialTheme = extendTheme({
           outline: `1px solid ${het.howToColor} !important`,
           fontWeight: 'normal',
           fontSize: '14px',
-          color: het.black,
+          color: het.altBlack,
           lineHeight: '16px !important',
           padding: '11px !important',
-          backgroundColor: `${het.white} !important`,
+          backgroundColor: '#fff !important',
           textTransform: 'none',
           '&.Mui-selected': {
             color: het.altGreen,
@@ -177,7 +198,14 @@ const MaterialTheme = extendTheme({
         },
       },
     },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: 'var(--font-sans-title)',
+        },
+      },
+    },
   },
 })
 
-export default MaterialTheme
+export default muiTheme
