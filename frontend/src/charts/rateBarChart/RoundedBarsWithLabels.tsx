@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
-import { het } from '../../styles/DesignTokens'
+import { het } from '../../styles/theme/colorVars'
 import { buildRoundedBarString } from '../sharedBarChartPieces/helpers'
 import { LABEL_SWAP_CUTOFF_PERCENT } from './constants'
 import EndOfRateBarLabel from './EndOfRateBarLabel'
@@ -38,7 +38,7 @@ export default function RoundedBarsWithLabels(
 
     const barLabelColor =
       shouldLabelBeInside && d[props.demographicType] !== 'All'
-        ? 'fill-white'
+        ? 'fill-alt-white'
         : 'fill-current'
 
     const roundedBarString = buildRoundedBarString({

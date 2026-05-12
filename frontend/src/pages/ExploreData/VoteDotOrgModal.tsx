@@ -1,7 +1,7 @@
 import { Dialog, DialogContent } from '@mui/material'
 import { useEffect } from 'react'
-import { het } from '../../styles/DesignTokens'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
+import { het } from '../../styles/theme/colorVars'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { VOTE_DOT_ORG_PARAM_KEY } from '../../utils/urlutils'
 

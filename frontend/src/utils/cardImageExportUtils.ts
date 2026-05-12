@@ -290,7 +290,7 @@ function cleanupRowOfTwoCards(
   elementsToRemove.forEach((element) => element.remove())
 
   restoreAllShadows(rowNode)
-  rowNode.classList.remove('bg-white', 'm-0', 'w-full')
+  rowNode.classList.remove('bg-alt-white', 'm-0', 'w-full')
   restoreLegendBorders()
 }
 
@@ -410,7 +410,7 @@ export async function saveCardImage(
   if (!targetNode) return
 
   if (isRowOfTwo) {
-    targetNode.classList.add('bg-white', 'm-0', 'w-full')
+    targetNode.classList.add('bg-alt-white', 'm-0', 'w-full')
     return saveRowOfTwoCardsImage(targetNode, options)
   }
 

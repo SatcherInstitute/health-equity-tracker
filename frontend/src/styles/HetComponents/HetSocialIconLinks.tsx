@@ -5,7 +5,7 @@ import { urlMap } from '../../utils/externalUrls'
 
 interface HetSocialIconLinksProps {
   className?: string
-  colorOverride?: 'altBlack' | 'white'
+  colorOverride?: 'altBlack' | 'altWhite'
 }
 
 export default function HetSocialIconLinks(props: HetSocialIconLinksProps) {

@@ -3,7 +3,7 @@ import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import type { HetRow } from '../data/utils/DatasetTypes'
-import { het } from '../styles/DesignTokens'
+import { het } from '../styles/theme/colorVars'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { GROUP_COLOR_MAP } from './trendsChart/constants'
@@ -81,7 +81,7 @@ const Tooltip: React.FC<TooltipProps> = ({ content, position }) => {
 
   return (
     <div
-      className={`absolute z-top max-w-sm rounded-sm border border-alt-gray bg-white p-3 text-left`}
+      className={`absolute z-top max-w-sm rounded-sm border border-alt-gray bg-alt-white p-3 text-left`}
       style={{
         top: position.y,
         left: position.x,

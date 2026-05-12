@@ -54,7 +54,7 @@ const Banner: React.FC = () => {
             link={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
             linkText='Learn more about the data limitations'
             containerClassName='block md:mx-2 md:my-0 mx-0 my-4'
-            linkClassName='text-black'
+            linkClassName='text-alt-black'
           />
         </div>
         <IconButton

@@ -108,7 +108,7 @@ function DataSourceListing(props: DataSourceListingProps) {
 
   return (
     <article
-      className='group my-8 rounded-md border border-alt-green border-solid bg-white p-12 text-left shadow-raised-tighter transition-all duration-300 ease-in-out hover:shadow-raised md:px-20 md:pt-14 md:pb-10'
+      className='group my-8 rounded-md border border-alt-green border-solid bg-alt-white p-12 text-left shadow-raised-tighter transition-all duration-300 ease-in-out hover:shadow-raised md:px-20 md:pt-14 md:pb-10'
       data-testid={props.source_metadata.id}
     >
       <h2 className='my-0 font-bold text-title leading-some-more-space md:font-medium md:text-smallest-header'>
