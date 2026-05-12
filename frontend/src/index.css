@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "./styles/theme/tokens.css";
+@import "./styles/theme/designTokens.css";
 @layer theme, base, mui, components, utilities;
 
 @layer base {
