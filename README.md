@@ -259,6 +259,17 @@ The frontend consists of
 2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
 3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
 
+### Frontend Design System & Theme Architecture
+
+We use a "Pass-Through" architecture to sync Tailwind v4, MUI, and D3.js from a single source of truth. This prevents style drift and ensures full IntelliSense support across the stack.
+
+#### Color & Token Strategy
+
+- Implementation: Always add new tokens across the pipeline (colorValues.ts → global.css → colorVars.ts) to maintain type safety and code completion.
+- Styling Priority: Always use Tailwind classes as the primary styling method. Only modify the MUI theme.ts styleOverrides to adjust native MUI components. Avoid sx props and inline styles.
+- The `het` Object: In TypeScript, use the `het` constant (e.g., color: `het.altGreen`). This applies a CSS variable directly, keeping the UI reactive and performant.
+- D3 & JS Logic: Use the `resolveCssVar()` utility only when JS-heavy logic (like D3 color interpolation) requires a Hex string. For static SVG fills or strokes, use the CSS variables directly.
+
 ### Frontend Environment Configuration
 
 The frontend uses multiple environments to assist with development, testing, and deployment.
