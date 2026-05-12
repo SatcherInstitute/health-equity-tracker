@@ -291,7 +291,8 @@ flowchart TD
     HEX -->|"Direct import (bypasses CSS vars)"| D3
 
     MUI_T -->|"Provides --mui-palette-*"| CV_CSS
-    DESIGN -->|"Provides layout vars"| CV_CSS
+    DESIGN -->|"Provides layout vars"| TW
+    DESIGN -->|"Provides layout vars"| MUI_T
 
     CV_CSS -->|"Exposes theme tokens to"| TW
     CV_CSS -->|"Aliased in"| CV_TS
