@@ -21,10 +21,10 @@ export default function InsightReportButton(props: InsightReportButtonProps) {
   return (
     <Button
       onClick={handleClick}
-      className='text-alt-black text-smallest'
+      className='font-roboto text-alt-black text-smallest'
       aria-label='open the AI report insight'
     >
-      <AutoAwesome sx={{ mr: '4px' }} fontSize='small' />
+      <AutoAwesome className='mr-1 text-base' />
       Generate report insight
     </Button>
   )
