@@ -119,30 +119,3 @@ export const het = {
 } as const
 
 export type HetColor = (typeof het)[keyof typeof het]
-
-// --- Other Theme Constants ---
-
-export const ThemeStandardScreenSizes = {
-  xs: '0px',
-  tiny: '350px',
-  sm: '600px',
-  smplus: '768px',
-  md: '960px',
-  lg: '1280px',
-  lgplus: '1440px',
-  xl: '1920px',
-  full: '100%',
-  eighty: '80vw',
-}
-
-export const ThemeZIndexValues = {
-  bottom: -999,
-  middle: 0,
-  almostTop: 3,
-  mapTooltip: 98,
-  top: 99,
-  stickyMadLib: 100,
-  multimapModal: 101,
-  skipLink: 102,
-  multimapModalTooltip: 1300,
-}

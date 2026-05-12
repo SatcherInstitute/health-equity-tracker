@@ -58,7 +58,7 @@
 	/*
     Broad letter-spacing and text-decoration reset.
     text-transform is intentionally omitted here; MUI button components
-    override it via styleOverrides in MaterialTheme.tsx where specificity
+    override it via styleOverrides in muiTheme.tsx where specificity
     is guaranteed to win.
   */
 	a,

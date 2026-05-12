@@ -1,4 +1,4 @@
-import { het } from '../../styles/DesignTokens'
+import { het } from '../../styles/theme/cssVarsToJsColors'
 
 export const GEO_HOVERED_OPACITY = 0.5
 export const GEO_HOVERED_BORDER_COLOR = het.altWhite

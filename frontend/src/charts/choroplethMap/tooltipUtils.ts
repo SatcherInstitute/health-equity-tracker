@@ -10,19 +10,19 @@ import {
   type DemographicType,
 } from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
-import { het, ThemeZIndexValues } from '../../styles/DesignTokens'
+import { het } from '../../styles/theme/cssVarsToJsColors'
+import { resolveCssVar } from '../../styles/theme/themeUtils'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MouseEventHandlerOptions, MouseEventType } from './types'
-
-const { multimapModalTooltip, mapTooltip } = ThemeZIndexValues
 
 // Shared constants
 export const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
 
 export const createTooltipContainer = (isMulti?: boolean) => {
-  const tooltipZ = isMulti ? multimapModalTooltip : mapTooltip
-  const tooltipZIndex = tooltipZ.toString()
+  const tooltipZIndex = isMulti
+    ? resolveCssVar('--z-index-multimap-modal-tooltip')
+    : resolveCssVar('--z-index-map-tooltip')
 
   return d3
     .select('body')

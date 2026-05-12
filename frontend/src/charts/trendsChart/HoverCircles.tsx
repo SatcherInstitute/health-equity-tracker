@@ -10,7 +10,7 @@
 /* External Imports */
 
 import type { DemographicGroup } from '../../data/utils/Constants'
-import { het } from '../../styles/DesignTokens'
+import { het } from '../../styles/theme/cssVarsToJsColors'
 /* Helpers */
 import { COLORS as C } from './constants'
 /* Constants */

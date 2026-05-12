@@ -3,7 +3,7 @@ import { useState } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
-import { het } from '../../styles/DesignTokens'
+import { het } from '../../styles/theme/cssVarsToJsColors'
 import { buildBarPair } from '../sharedBarChartPieces/helpers'
 import EndOfStackedPairLabels from './EndOfStackedPairLabels'
 

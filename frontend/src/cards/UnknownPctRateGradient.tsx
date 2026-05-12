@@ -1,4 +1,4 @@
-import { het } from '../styles/DesignTokens'
+import { het } from '../styles/theme/cssVarsToJsColors'
 
 export default function UnknownPctRateGradient() {
   return (

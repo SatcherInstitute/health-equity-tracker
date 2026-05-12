@@ -7,8 +7,8 @@ import {
   LinkedinIcon,
   LinkedinShareButton,
 } from 'react-share'
-import { het } from '../../styles/DesignTokens'
 import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
+import { het } from '../../styles/theme/cssVarsToJsColors'
 import { useCardImage } from '../../utils/hooks/useCardImage'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'

@@ -20,7 +20,7 @@ import {
 import { methodologyRouteConfigs } from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
 import { policyRouteConfigs } from './pages/Policy/policyContent/policyRouteConfigs'
 import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
-import MaterialTheme from './styles/MaterialTheme'
+import muiTheme from './styles/theme/muiTheme'
 import { autoInitGlobals } from './utils/globals'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
 import {
@@ -102,7 +102,7 @@ export default function App() {
   const isSm = useIsBreakpointAndUp('sm')
 
   return (
-    <ThemeProvider theme={MaterialTheme} defaultMode='light'>
+    <ThemeProvider theme={muiTheme} defaultMode='light'>
       <CssBaseline />
       <div className='relative min-h-full bg-alt-white text-center'>
         <SkipLink />

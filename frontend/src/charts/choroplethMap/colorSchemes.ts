@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
-import { het } from '../../styles/DesignTokens'
-import { resolveColor } from '../../styles/theme/themeUtils'
+import { het } from '../../styles/theme/cssVarsToJsColors'
+import { resolveCssVar } from '../../styles/theme/themeUtils'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
 import type {
@@ -13,61 +13,61 @@ import type {
 function getColorSchemes(): Record<ColorScheme, string[]> {
   return {
     darkgreen: [
-      resolveColor(het.mapDarker),
-      resolveColor(het.mapDark),
-      resolveColor(het.mapMid),
-      resolveColor(het.mapLight),
-      resolveColor(het.mapLighter),
-      resolveColor(het.mapLightest),
+      resolveCssVar(het.mapDarker),
+      resolveCssVar(het.mapDark),
+      resolveCssVar(het.mapMid),
+      resolveCssVar(het.mapLight),
+      resolveCssVar(het.mapLighter),
+      resolveCssVar(het.mapLightest),
     ],
     plasma: [
-      resolveColor(het.mapWomenDarker),
-      resolveColor(het.mapWomenDark),
-      resolveColor(het.mapWomenMid),
-      resolveColor(het.mapWomenLight),
-      resolveColor(het.mapWomenLighter),
-      resolveColor(het.mapWomenLightest),
+      resolveCssVar(het.mapWomenDarker),
+      resolveCssVar(het.mapWomenDark),
+      resolveCssVar(het.mapWomenMid),
+      resolveCssVar(het.mapWomenLight),
+      resolveCssVar(het.mapWomenLighter),
+      resolveCssVar(het.mapWomenLightest),
     ],
     inferno: [
-      resolveColor(het.mapMenDarker),
-      resolveColor(het.mapMenDark),
-      resolveColor(het.mapMenMid),
-      resolveColor(het.mapMenLight),
-      resolveColor(het.mapMenLighter),
-      resolveColor(het.mapMenLightest),
+      resolveCssVar(het.mapMenDarker),
+      resolveCssVar(het.mapMenDark),
+      resolveCssVar(het.mapMenMid),
+      resolveCssVar(het.mapMenLight),
+      resolveCssVar(het.mapMenLighter),
+      resolveCssVar(het.mapMenLightest),
     ],
     viridis: [
-      resolveColor(het.mapMedicareDarkest),
-      resolveColor(het.mapMedicareDark),
-      resolveColor(het.mapMedicareMid),
-      resolveColor(het.mapMedicareLight),
-      resolveColor(het.mapMedicareLighter),
-      resolveColor(het.mapMedicareLightest),
+      resolveCssVar(het.mapMedicareDarkest),
+      resolveCssVar(het.mapMedicareDark),
+      resolveCssVar(het.mapMedicareMid),
+      resolveCssVar(het.mapMedicareLight),
+      resolveCssVar(het.mapMedicareLighter),
+      resolveCssVar(het.mapMedicareLightest),
     ],
     viridisAdherence: [
-      resolveColor(het.mapMedicareDarkest),
-      resolveColor(het.mapMedicareDark),
-      resolveColor(het.mapMedicareMid),
-      resolveColor(het.mapMedicareLight),
-      resolveColor(het.mapMedicareLighter),
-      resolveColor(het.mapMedicareEvenLighter),
-      resolveColor(het.mapMedicareLightest),
+      resolveCssVar(het.mapMedicareDarkest),
+      resolveCssVar(het.mapMedicareDark),
+      resolveCssVar(het.mapMedicareMid),
+      resolveCssVar(het.mapMedicareLight),
+      resolveCssVar(het.mapMedicareLighter),
+      resolveCssVar(het.mapMedicareEvenLighter),
+      resolveCssVar(het.mapMedicareLightest),
     ],
     greenblue: [
-      resolveColor(het.unknownMapLeast),
-      resolveColor(het.unknownMapLesser),
-      resolveColor(het.unknownMapLess),
-      resolveColor(het.unknownMapMid),
-      resolveColor(het.unknownMapMore),
-      resolveColor(het.unknownMapMost),
+      resolveCssVar(het.unknownMapLeast),
+      resolveCssVar(het.unknownMapLesser),
+      resolveCssVar(het.unknownMapLess),
+      resolveCssVar(het.unknownMapMid),
+      resolveCssVar(het.unknownMapMore),
+      resolveCssVar(het.unknownMapMost),
     ],
     darkred: [
-      resolveColor(het.mapYouthDarkest),
-      resolveColor(het.mapYouthDarker),
-      resolveColor(het.mapYouthDark),
-      resolveColor(het.mapYouthLight),
-      resolveColor(het.mapYouthLighter),
-      resolveColor(het.mapYouthLightest),
+      resolveCssVar(het.mapYouthDarkest),
+      resolveCssVar(het.mapYouthDarker),
+      resolveCssVar(het.mapYouthDark),
+      resolveCssVar(het.mapYouthLight),
+      resolveCssVar(het.mapYouthLighter),
+      resolveCssVar(het.mapYouthLightest),
     ],
   }
 }
@@ -118,7 +118,7 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
   let colorArray = COLOR_SCHEMES[colorScheme] || COLOR_SCHEMES['darkgreen']
 
   if (isSummaryLegend && !isPhrmaAdherence) {
-    colorArray = [resolveColor(mapConfig.mid)]
+    colorArray = [resolveCssVar(mapConfig.mid)]
   }
 
   colorArray = reverse ? [...colorArray].reverse() : colorArray
@@ -169,7 +169,7 @@ export function getFillColor(options: GetFillColorOptions): string {
   const { d, dataMap, mapConfig, isExtremesMode, colorScale, isMultiMap } =
     options
 
-  if (!isMultiMap && dataMap.size === 1) return resolveColor(mapConfig.mid)
+  if (!isMultiMap && dataMap.size === 1) return resolveCssVar(mapConfig.mid)
 
   const value = dataMap.get(d.id as string)?.value as number
 

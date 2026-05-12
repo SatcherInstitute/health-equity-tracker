@@ -1,6 +1,6 @@
 import { extendTheme } from '@mui/material/styles'
-import { het } from '../styles/DesignTokens'
-import { hetColors } from './HetColors'
+import { het } from './cssVarsToJsColors'
+import { hetColors } from './palette'
 
 // type augmentation
 declare module '@mui/material/styles' {
@@ -26,7 +26,7 @@ declare module '@mui/material/styles' {
  *   also use `het.*` since the browser resolves those at paint time.
  */
 
-const MaterialTheme = extendTheme({
+const muiTheme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
@@ -52,9 +52,6 @@ const MaterialTheme = extendTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          // font-family and background-color are also set in index.css;
-          // keeping fontFamily here ensures MUI's own injected styles
-          // (e.g. portal/modal roots) also inherit the correct font.
           fontFamily: 'var(--font-sans-text)',
         },
       },
@@ -211,4 +208,4 @@ const MaterialTheme = extendTheme({
   },
 })
 
-export default MaterialTheme
+export default muiTheme

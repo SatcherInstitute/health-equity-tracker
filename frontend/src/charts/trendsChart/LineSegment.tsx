@@ -1,4 +1,4 @@
-import { het } from '../../styles/DesignTokens'
+import { het } from '../../styles/theme/cssVarsToJsColors'
 import StyledPath from './StyledPath'
 import type { XScale, YScale } from './types'
 
