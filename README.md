@@ -265,14 +265,39 @@ We use a "Pass-Through" architecture to sync Tailwind v4, MUI, and D3.js from a 
 
 #### The Token Pipeline
 
-```plaintext
-colorValues.ts (colors)    designTokens.css (z-index, etc.)
-       ↙            ↘      ↙
-    D3()         colorVars.css (@theme for Tailwind classes)
-                      ↓
-                 colorVars.ts (JS/TS mapping of CSS vars)
-                      ↓
-        Tailwind  /  MUI  /  React styling
+```mermaid
+flowchart TD
+    %% Source Layer
+    subgraph Source
+        HEX["<code>colorValues.ts</code><br/><i>Raw Hex Constants</i>"]
+        DESIGN["<code>designTokens.css</code><br/><i>Layout / Z-index Source</i>"]
+    end
+
+    %% Bridge Layer
+    subgraph Bridge
+        MUI_T["<code>muiTheme.tsx</code><br/><i>MUI Theme + styleOverrides</i>"]
+        CV_CSS["<code>colorVars.css</code><br/><i>CSS Variable Definitions (@theme)</i>"]
+    end
+
+    %% Consumption Layer
+    subgraph Consumption
+        TW["Tailwind Classes<br/><i>Utility classes</i>"]
+        CV_TS["<code>colorVars.ts</code><br/><i>Typed 'het' aliases</i>"]
+        D3["D3.js Logic<br/><i>Direct hex imports</i>"]
+        REACT["React Components<br/><i>Tailwind or 'het'</i>"]
+    end
+
+    HEX -->|"Imports"| MUI_T
+    HEX -->|"Direct import (bypasses CSS vars)"| D3
+
+    MUI_T -->|"Provides --mui-palette-*"| CV_CSS
+    DESIGN -->|"Provides layout vars"| CV_CSS
+
+    CV_CSS -->|"Exposes theme tokens to"| TW
+    CV_CSS -->|"Aliased in"| CV_TS
+
+    CV_TS -->|"Type-safe style props"| REACT
+    TW -->|"Utility classes"| REACT
 ```
 
 #### Color & Token Strategy
