@@ -18,7 +18,7 @@ import {
   UNKNOWN_W,
 } from '../../data/utils/Constants'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
-import { het } from '../../styles/DesignTokens'
+import { het } from '../../styles/theme/colorVars'
 import { COLORS as C } from './constants'
 /* Constants */
 import type { TrendsData } from './types'

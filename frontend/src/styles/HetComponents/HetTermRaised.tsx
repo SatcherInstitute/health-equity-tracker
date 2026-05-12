@@ -27,9 +27,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
       case 'start':
         return (
           <>
-            <HetTermUnderline className='text-black' tabIndex={0}>
-              {emphasizedText}
-            </HetTermUnderline>{' '}
+            <HetTermUnderline tabIndex={0}>{emphasizedText}</HetTermUnderline>{' '}
             {description.replace(emphasizedText, '').trim()}
           </>
         )
@@ -43,9 +41,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
           return (
             <>
               {beforeText}{' '}
-              <HetTermUnderline className='text-black' tabIndex={0}>
-                {emphasizedText}
-              </HetTermUnderline>{' '}
+              <HetTermUnderline tabIndex={0}>{emphasizedText}</HetTermUnderline>{' '}
               {afterText}
             </>
           )
@@ -56,9 +52,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
         return (
           <>
             {description.replace(emphasizedText, '').trim()}{' '}
-            <HetTermUnderline className='text-black' tabIndex={0}>
-              {emphasizedText}
-            </HetTermUnderline>
+            <HetTermUnderline tabIndex={0}>{emphasizedText}</HetTermUnderline>
           </>
         )
       default:

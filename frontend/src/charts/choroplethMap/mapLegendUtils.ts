@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
-import { het } from '../../styles/DesignTokens'
+import { het } from '../../styles/theme/colorVars'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { formatMetricValue } from './tooltipUtils'
 import type { ColorScale } from './types'

@@ -8,7 +8,7 @@ import {
 import { sortByIncome } from '../../data/sorting/IncomeSorterStrategy'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
-import { het } from '../../styles/DesignTokens'
+import { het } from '../../styles/theme/colorVars'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import {

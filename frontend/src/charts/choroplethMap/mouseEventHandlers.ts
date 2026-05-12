@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import type { DemographicType } from '../../data/query/Breakdowns'
-import { het } from '../../styles/DesignTokens'
+import { het } from '../../styles/theme/colorVars'
 import { getFillColor } from './colorSchemes'
 import {
   GEO_HOVERED_BORDER_COLOR,
