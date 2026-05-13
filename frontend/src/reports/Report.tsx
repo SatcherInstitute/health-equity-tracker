@@ -184,7 +184,7 @@ export function Report(props: ReportProps) {
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
-            showInsightsButton={showInsightsButton}
+            // showInsightsButton={showInsightsButton} // TODO: re-enable when insights are ready for mobile
           />
 
           <div className='flex w-full items-center justify-center'>

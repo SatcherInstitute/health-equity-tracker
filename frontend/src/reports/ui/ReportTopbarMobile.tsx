@@ -28,7 +28,7 @@ export default function ReportTopbarMobile(props: ReportTopbarMobileProps) {
       </div>
       {props.showInsightsButton && (
         <div className='ml-2 shrink-0'>
-          <InsightReportButton />
+          <InsightReportButton variant='outlined' />
         </div>
       )}
     </div>
