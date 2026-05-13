@@ -23,6 +23,7 @@ import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import InsightReportCard from '../pages/ExploreData/InsightReportCard'
+import InsightReportModal from '../pages/ExploreData/InsightReportModal'
 import ReportSidebarDesktop from '../pages/ui/ReportSidebarDesktop'
 import HetLazyLoader from '../styles/HetComponents/HetLazyLoader'
 import { useParamState } from '../utils/hooks/useParamState'
@@ -177,6 +178,7 @@ export function Report(props: ReportProps) {
       <div className='flex'>
         {/* CARDS COLUMN */}
         <div className={`w-full ${insightMode ? 'md:w-6/12' : 'md:w-10/12'}`}>
+          <InsightReportModal />
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ReportTopbarMobile
             trackerMode={props.trackerMode}
@@ -184,7 +186,7 @@ export function Report(props: ReportProps) {
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
-            // showInsightsButton={showInsightsButton} // TODO: re-enable when insights are ready for mobile
+            showInsightsButton={showInsightsButton}
           />
 
           <div className='flex w-full items-center justify-center'>
