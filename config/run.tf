@@ -64,6 +64,10 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
           name  = "MANUAL_UPLOADS_PROJECT"
           value = var.manual_uploads_project_id
         }
+        env {
+          name  = "AHR_API_KEY"
+          value = var.ahr_api_key
+        }
 
         resources {
           limits = {
