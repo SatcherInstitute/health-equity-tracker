@@ -26,7 +26,7 @@ import {
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_CORRELATION_CARD } from '../featureFlags'
-import Sidebar from '../pages/ui/Sidebar'
+import ReportSidebarDesktop from '../pages/ui/ReportSidebarDesktop'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import type { MadLibId } from '../utils/MadLibs'
@@ -45,7 +45,7 @@ import {
 import { reportProviderSteps } from './ReportProviderSteps'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { getAllDemographicOptions } from './reportUtils'
-import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
+import ReportTopbarMobile from './ui/ReportTopbarMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
@@ -233,8 +233,8 @@ export default function CompareReport(props: CompareReportProps) {
       <div className='flex'>
         {/* CARDS COLUMN */}
         <div className='w-full md:w-10/12'>
-          {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
-          <ModeSelectorBoxMobile
+          {/* Mode selectors here on small/medium, in ReportSidebarDesktop instead for larger screens */}
+          <ReportTopbarMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
@@ -483,7 +483,7 @@ export default function CompareReport(props: CompareReportProps) {
         {/* SIDEBAR COLUMN - DESKTOP ONLY */}
         {props.reportStepHashIds && (
           <div className='hidden items-start md:flex md:w-2/12 md:flex-col'>
-            <Sidebar
+            <ReportSidebarDesktop
               isScrolledToTop={props.isScrolledToTop}
               reportStepHashIds={props.reportStepHashIds}
               floatTopOffset={props.headerScrollMargin}
@@ -493,6 +493,7 @@ export default function CompareReport(props: CompareReportProps) {
               setTrackerMode={props.setTrackerMode}
               enabledDemographicOptionsMap={enabledDemographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
+              showInsightsButton={false}
             />
           </div>
         )}
