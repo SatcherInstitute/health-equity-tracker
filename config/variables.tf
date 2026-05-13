@@ -181,6 +181,12 @@ variable "frontend_runner_role_id" {
   type        = string
 }
 
+variable "ahr_api_key" {
+  description = "AHR GraphQL API key for ingestion"
+  type        = string
+  sensitive   = true
+}
+
 variable "anthropic_api_key" {
   description = "Anthropic API key for AI insights"
   type        = string

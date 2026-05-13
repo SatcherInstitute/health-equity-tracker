@@ -5,6 +5,7 @@ import { REPORT_INSIGHT_PARAM_KEY } from '../../utils/urlutils'
 
 interface InsightReportButtonProps {
   onInsightClick?: () => void
+  variant?: 'text' | 'outlined'
 }
 
 export default function InsightReportButton(props: InsightReportButtonProps) {
@@ -21,11 +22,12 @@ export default function InsightReportButton(props: InsightReportButtonProps) {
   return (
     <Button
       onClick={handleClick}
+      variant={props.variant ?? 'text'}
       className='font-roboto text-alt-black text-smallest'
       aria-label='open the AI report insight'
     >
       <AutoAwesome className='mr-1 text-base' />
-      Generate report insight
+      Report insights
     </Button>
   )
 }

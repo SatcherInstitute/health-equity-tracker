@@ -23,8 +23,7 @@ import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import InsightReportCard from '../pages/ExploreData/InsightReportCard'
-import InsightReportButton from '../pages/ui/InsightReportButton'
-import Sidebar from '../pages/ui/Sidebar'
+import ReportSidebarDesktop from '../pages/ui/ReportSidebarDesktop'
 import HetLazyLoader from '../styles/HetComponents/HetLazyLoader'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -44,7 +43,7 @@ import {
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
 import { getAllDemographicOptions } from './reportUtils'
-import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
+import ReportTopbarMobile from './ui/ReportTopbarMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 
 interface ReportProps {
@@ -166,6 +165,11 @@ export function Report(props: ReportProps) {
   const inequityOverTimeConfig =
     resolvedConfig && metricConfigFromDtConfig('inequity', resolvedConfig)
 
+  const showInsightsButton =
+    resolvedConfig &&
+    SHOW_INSIGHT_GENERATION &&
+    props.trackerMode === 'disparity'
+
   return (
     <>
       <title>{`${browserTitle} - Health Equity Tracker`}</title>
@@ -174,12 +178,13 @@ export function Report(props: ReportProps) {
         {/* CARDS COLUMN */}
         <div className={`w-full ${insightMode ? 'md:w-6/12' : 'md:w-10/12'}`}>
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
-          <ModeSelectorBoxMobile
+          <ReportTopbarMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
+            // showInsightsButton={showInsightsButton} // TODO: re-enable when insights are ready for mobile
           />
 
           <div className='flex w-full items-center justify-center'>
@@ -365,14 +370,7 @@ export function Report(props: ReportProps) {
         )}
 
         <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
-          {resolvedConfig &&
-            SHOW_INSIGHT_GENERATION &&
-            props.trackerMode === 'disparity' && (
-              <div className='rounded-sm bg-alt-white shadow-raised md:mt-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
-                <InsightReportButton />
-              </div>
-            )}
-          <Sidebar
+          <ReportSidebarDesktop
             floatTopOffset={props.headerScrollMargin}
             isScrolledToTop={props.isScrolledToTop}
             reportStepHashIds={props.reportStepHashIds ?? []}
@@ -383,6 +381,7 @@ export function Report(props: ReportProps) {
             setTrackerMode={props.setTrackerMode}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
+            showInsightsButton={showInsightsButton}
           />
         </div>
       </div>

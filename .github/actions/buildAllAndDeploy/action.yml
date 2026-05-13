@@ -71,7 +71,6 @@ runs:
       id: gcstobq
       uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
       with:
-        ahr-api-key: ${{ inputs.ahr-api-key }}
         dockerfile: "run_gcs_to_bq/Dockerfile"
         image-path: "gcr.io/${{ inputs.project-id }}/gcs-to-bq"
         deploy-context: ${{ inputs.environment }}
@@ -103,7 +102,6 @@ runs:
         dockerfile: "frontend_server/Dockerfile"
         image-path: "gcr.io/${{ inputs.project-id }}/frontend"
         deploy-context: ${{ inputs.environment }}
-        anthropic-api-key: ${{ inputs.anthropic-api-key }}
 
     # Terraform and deployment
     - name: Setup Terraform
@@ -140,6 +138,7 @@ runs:
           -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}' \
           -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}' \
           -var 'frontend_image_digest=${{ steps.frontend.outputs.image-digest }}' \
+          -var 'ahr_api_key=${{ inputs.ahr-api-key }}' \
           -var 'anthropic_api_key=${{ inputs.anthropic-api-key }}' \
           -var 'webflow_api_token=${{ inputs.webflow-api-token }}' \
 
