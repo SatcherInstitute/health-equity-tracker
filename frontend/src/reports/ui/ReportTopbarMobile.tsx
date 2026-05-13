@@ -1,28 +1,21 @@
+import InsightReportButton from '../../pages/ui/InsightReportButton'
 import JumpToSelect from '../../pages/ui/JumpToSelect'
 import SimpleSelect from '../../pages/ui/SimpleSelect'
-import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
-import { reportProviderSteps } from '../ReportProviderSteps'
 
-interface ModeSelectorBoxMobileProps {
+interface ReportTopbarMobileProps {
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
   offerJumpToAgeAdjustment: boolean
   enabledDemographicOptionsMap: any
   disabledDemographicOptions?: string[][]
+  showInsightsButton?: boolean
 }
 
-const scrollableHashIdMap: Record<string, ScrollableHashId> = {}
-for (const [key, value] of Object.entries(reportProviderSteps)) {
-  scrollableHashIdMap[value.label] = key as ScrollableHashId
-}
-
-export default function ModeSelectorBoxMobile(
-  props: ModeSelectorBoxMobileProps,
-) {
+export default function ReportTopbarMobile(props: ReportTopbarMobileProps) {
   return (
-    <div className='mode-selector-box-mobile m-2 flex justify-start rounded-sm bg-alt-white p-2 shadow-raised md:hidden'>
-      <div>
+    <div className='mode-selector-box-mobile m-2 flex items-center justify-between rounded-sm bg-alt-white p-2 shadow-raised md:hidden'>
+      <div className='flex items-center gap-2'>
         <SimpleSelect<MadLibId>
           label='Compare mode'
           optionsMap={MADLIB_MODE_MAP}
@@ -33,6 +26,11 @@ export default function ModeSelectorBoxMobile(
           offerJumpToAgeAdjustment={props.offerJumpToAgeAdjustment}
         />
       </div>
+      {props.showInsightsButton && (
+        <div className='ml-2 shrink-0'>
+          <InsightReportButton />
+        </div>
+      )}
     </div>
   )
 }

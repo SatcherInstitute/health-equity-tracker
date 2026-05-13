@@ -1,13 +1,13 @@
 import { expect, test } from './utils/fixtures'
 
-test('Topic Info Modal from Sidebar', async ({ page }) => {
+test('Topic Info Modal from ReportSidebarDesktop', async ({ page }) => {
   // 1. Navigate to the Comparison View
   await page.goto(
     '/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison',
     { waitUntil: 'domcontentloaded' },
   )
 
-  // 2. Open Modal via Sidebar Button
+  // 2. Open Modal via ReportSidebarDesktop Button
   await page.getByRole('button', { name: 'open the topic info modal' }).click()
   await expect(page).toHaveURL(/.*topic-info=true/)
 
