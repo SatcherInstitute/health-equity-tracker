@@ -94,7 +94,7 @@ export default function AltTableView(props: AltTableViewProps) {
             Add or remove columns by toggling demographic groups above the
             chart.
           </p>
-          <TableContainer className='flex max-h-sm caption-top self-center overflow-auto'>
+          <TableContainer className='flex max-h-150 caption-top self-center overflow-auto'>
             <Table
               tabIndex={0}
               ref={tableRef}
