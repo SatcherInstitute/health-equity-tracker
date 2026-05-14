@@ -70,8 +70,6 @@ export interface ChartData {
 
 export function Report(props: ReportProps) {
   const isDesktopLayout = useIsBreakpointAndUp('md')
-
-  console.log({ isDesktopLayout }, window.innerWidth)
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 

@@ -1,5 +1,4 @@
-import { Dialog, DialogContent } from '@mui/material'
-import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
+import { Dialog } from '@mui/material'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { REPORT_INSIGHT_PARAM_KEY } from '../../utils/urlutils'
 import InsightReportCard from '../ExploreData/InsightReportCard'
@@ -17,13 +16,7 @@ export default function InsightReportModal() {
       fullWidth
       scroll='paper'
     >
-      <DialogContent dividers>
-        <HetCloseButton
-          onClick={() => setInsightIsOpen(false)}
-          ariaLabel='close insight report modal'
-        />
-        <InsightReportCard />
-      </DialogContent>
+      <InsightReportCard />
     </Dialog>
   )
 }

@@ -229,8 +229,6 @@ export default function CompareReport(props: CompareReportProps) {
   const showCorrelationCard =
     SHOW_CORRELATION_CARD && props.trackerMode === 'comparevars'
 
-  console.log('logging from compare report')
-
   return (
     <>
       <title>{`${browserTitle} - Health Equity Tracker`}</title>
