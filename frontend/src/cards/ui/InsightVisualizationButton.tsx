@@ -28,9 +28,9 @@ export default function InsightVisualizationButton({
         size='small'
       >
         {isOpen ? (
-          <DeleteForever fontSize='small' className='hide-on-screenshot' />
+          <DeleteForever className='hide-on-screenshot remove-height-on-screenshot' />
         ) : (
-          <AutoAwesome fontSize='small' />
+          <AutoAwesome />
         )}
       </IconButton>
     </Tooltip>
