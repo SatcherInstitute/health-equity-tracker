@@ -223,3 +223,20 @@ button[data-action="back"]:focus {
 		filter: none;
 	}
 }
+
+@utility animate-expand-down {
+	animation: expandDown 0.75s ease-out forwards;
+	overflow: hidden;
+}
+
+@keyframes expandDown {
+	from {
+		max-height: 0;
+		opacity: 0;
+	}
+
+	to {
+		max-height: 500px;
+		opacity: 1;
+	}
+}
