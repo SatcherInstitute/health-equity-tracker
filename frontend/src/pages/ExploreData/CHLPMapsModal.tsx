@@ -127,7 +127,7 @@ export default function CHLPMapsModal() {
             {/* Navigation Controls */}
             <div className='mt-6 flex items-center justify-center'>
               <Button
-                className='mx-4 rounded-full bg-bg-color p-2 text-alt-dark hover:bg-alt-gray'
+                className='mx-4 rounded-full bg-alt-white p-2 text-alt-dark hover:bg-alt-gray'
                 onClick={handlePrevious}
                 aria-label='Previous map'
               >
@@ -143,7 +143,7 @@ export default function CHLPMapsModal() {
               />
 
               <Button
-                className='mx-4 rounded-full bg-bg-color p-2 text-alt-dark hover:bg-alt-gray'
+                className='mx-4 rounded-full bg-alt-white p-2 text-alt-dark hover:bg-alt-gray'
                 onClick={handleNext}
                 aria-label='Next map'
               >
