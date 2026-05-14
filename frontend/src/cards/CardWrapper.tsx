@@ -1,21 +1,11 @@
-import AutoAwesome from '@mui/icons-material/AutoAwesome'
 import { CircularProgress } from '@mui/material'
-import { useAtomValue } from 'jotai'
 import type {
   MetricQuery,
   MetricQueryResponse,
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
-import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import {
-  cardInsightOpenAtom,
-  cardInsightsAtom,
-  selectedDataTypeConfig1Atom,
-  selectedDemographicTypeAtom,
-  selectedFipsAtom,
-} from '../utils/sharedSettingsState'
 import CardOptionsMenu from './ui/CardOptionsMenu'
 import InsightVisualizationButton from './ui/InsightVisualizationButton'
 import InsightVisualizationCard from './ui/InsightVisualizationCard'
@@ -44,16 +34,6 @@ function CardWrapper(props: {
   className?: string
   hasIntersectionalAllCompareBar?: boolean
 }) {
-  const cardInsights = useAtomValue(cardInsightsAtom)
-  const dataTypeConfig = useAtomValue(selectedDataTypeConfig1Atom)
-  const fips = useAtomValue(selectedFipsAtom)
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
-  const isInsightOpen =
-    useAtomValue(cardInsightOpenAtom)[props.scrollToHash] ?? false
-  const cacheKey = `${props.scrollToHash}-${dataTypeConfig?.dataTypeId ?? ''}-${fips?.code ?? ''}-${demographicType ?? ''}`
-  const hasInsight =
-    SHOW_INSIGHT_GENERATION && isInsightOpen && Boolean(cardInsights[cacheKey])
-
   const loadingComponent = (
     <div
       className={`relative m-2 flex justify-center rounded bg-alt-white p-3 shadow-raised ${props.className}`}
@@ -94,24 +74,22 @@ function CardWrapper(props: {
           <article
             className={`relative m-2 rounded-sm bg-alt-white p-3 shadow-raised ${props.className}`}
           >
-            {hasInsight && (
-              <span className='absolute mb-1 flex items-center gap-1 p-3 font-semibold text-alt-green text-smallest uppercase tracking-wide'>
-                <AutoAwesome fontSize='small' />
-                AI Insight
-              </span>
-            )}
-            {cardHasData && (
-              <InsightVisualizationButton scrollToHash={props.scrollToHash} />
-            )}
-            <CardOptionsMenu
-              reportTitle={props.reportTitle}
-              scrollToHash={props.scrollToHash}
-            />
-            <InsightVisualizationCard
-              scrollToHash={props.scrollToHash}
-              queryResponses={queryResponses}
-            />
-            {childContent}
+            <div className='absolute top-2 right-2 flex items-center'>
+              {cardHasData && (
+                <InsightVisualizationButton scrollToHash={props.scrollToHash} />
+              )}
+              <CardOptionsMenu
+                reportTitle={props.reportTitle}
+                scrollToHash={props.scrollToHash}
+              />
+            </div>
+            <div className='pt-8'>
+              <InsightVisualizationCard
+                scrollToHash={props.scrollToHash}
+                queryResponses={queryResponses}
+              />
+              {childContent}
+            </div>
             {!props.hideFooter && props.queries && (
               <Sources
                 isCensusNotAcs={props.isCensusNotAcs}

@@ -110,7 +110,7 @@ export default function CHLPMapsModal() {
         className='flex flex-col items-center justify-center'
       >
         <HetCloseButton
-          className='absolute top-2 right-2 text-alt-black'
+          className='absolute top-4 right-4 text-alt-black'
           onClick={() => setModalIsOpen(false)}
           ariaLabel='close modal'
         />
@@ -127,7 +127,7 @@ export default function CHLPMapsModal() {
             {/* Navigation Controls */}
             <div className='mt-6 flex items-center justify-center'>
               <Button
-                className='mx-4 rounded-full bg-gray-200 p-2 text-gray-700 hover:bg-gray-300'
+                className='mx-4 rounded-full bg-alt-white p-2 text-alt-dark hover:bg-alt-gray'
                 onClick={handlePrevious}
                 aria-label='Previous map'
               >
@@ -143,7 +143,7 @@ export default function CHLPMapsModal() {
               />
 
               <Button
-                className='mx-4 rounded-full bg-gray-200 p-2 text-gray-700 hover:bg-gray-300'
+                className='mx-4 rounded-full bg-alt-white p-2 text-alt-dark hover:bg-alt-gray'
                 onClick={handleNext}
                 aria-label='Next map'
               >

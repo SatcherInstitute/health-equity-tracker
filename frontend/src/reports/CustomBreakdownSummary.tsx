@@ -29,7 +29,7 @@ const CustomBreakdownSummary: React.FC<CustomBreakdownSummaryProps> = ({
       dataTypeConfig={dataTypeConfig}
       demographicType={demographicType}
       reportTitle={reportTitle}
-      className={`max-w-eighty ${className}`}
+      className={`max-w-4/5 ${className}`}
     />
   )
 }
