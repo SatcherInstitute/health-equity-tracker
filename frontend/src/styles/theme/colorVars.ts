@@ -34,6 +34,7 @@ export const het = {
   navlinkColor: 'var(--color-navlink-color)',
   timberwolf: 'var(--color-timberwolf)',
   tinyTagGray: 'var(--color-tiny-tag-gray)',
+  lightOutline: 'var(--color-light-outline)',
 
   // Oranges / Reds
   alertColor: 'var(--color-alert-color)',
