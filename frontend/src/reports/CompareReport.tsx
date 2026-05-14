@@ -27,6 +27,7 @@ import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_CORRELATION_CARD } from '../featureFlags'
 import ReportSidebarDesktop from '../pages/ui/ReportSidebarDesktop'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import type { MadLibId } from '../utils/MadLibs'
@@ -64,12 +65,13 @@ interface CompareReportProps {
   setReportStepHashIds?: (reportStepHashIds: ScrollableHashId[]) => void
   headerScrollMargin: number
   reportTitle: string
-  isMobile: boolean
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
 }
 
 export default function CompareReport(props: CompareReportProps) {
+  const isDesktopLayout = useIsBreakpointAndUp('md')
+
   const isRaceBySex =
     props.dropdownVarId1 === 'hiv_black_women' ||
     props.dropdownVarId2 === 'hiv_black_women'
@@ -226,6 +228,8 @@ export default function CompareReport(props: CompareReportProps) {
 
   const showCorrelationCard =
     SHOW_CORRELATION_CARD && props.trackerMode === 'comparevars'
+
+  console.log('logging from compare report')
 
   return (
     <>
@@ -488,7 +492,7 @@ export default function CompareReport(props: CompareReportProps) {
               reportStepHashIds={props.reportStepHashIds}
               floatTopOffset={props.headerScrollMargin}
               reportTitle={props.reportTitle}
-              isMobile={props.isMobile}
+              isMobile={!isDesktopLayout}
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
               enabledDemographicOptionsMap={enabledDemographicOptionsMap}
@@ -502,7 +506,7 @@ export default function CompareReport(props: CompareReportProps) {
         <p>{SHARE_LABEL}</p>
         <ShareButtons
           reportTitle={props.reportTitle}
-          isMobile={props.isMobile}
+          isMobile={!isDesktopLayout}
         />{' '}
       </div>
     </>

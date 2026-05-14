@@ -57,11 +57,7 @@ const Onboarding = lazy(async () => await import('./Onboarding'))
 
 const EXPLORE_DATA_ID = 'main'
 
-interface ExploreDataPageProps {
-  isMobile: boolean
-}
-
-function ExploreDataPage(props: ExploreDataPageProps) {
+function ExploreDataPage() {
   const location: any = useLocation()
   const [showVoteDotOrgBanner, setShowVoteDotOrgBanner] = useState(false)
   const [showCHLPMapsBanner, setshowCHLPMapsBanner] = useState(false)
@@ -369,7 +365,6 @@ function ExploreDataPage(props: ExploreDataPageProps) {
               setMadLib={setMadLibWithParam}
               isScrolledToTop={!isSticking}
               headerScrollMargin={headerScrollMargin}
-              isMobile={props.isMobile}
             />
           )}
         </div>
