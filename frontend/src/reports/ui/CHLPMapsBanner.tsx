@@ -8,7 +8,7 @@ export default function CHLPMapsBanner() {
 
   return (
     <HetNotice
-      className='mx-2 mt-4 mb-2 border-0 bg-methodology-green text-left text-alt-black lg:mt-4 lg:mb-4 lg:ml-2'
+      className='mx-2 mt-4 mb-2 border-0 bg-methodology-green/50 text-left text-alt-black lg:mt-4 lg:mb-4 lg:ml-2'
       title={`HIV Criminalization`}
       kind='helpful-info'
     >

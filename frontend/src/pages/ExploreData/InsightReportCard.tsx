@@ -142,11 +142,11 @@ export default function InsightReportCard(props: InsightReportCardProps) {
         {/* Sections, disclaimer — only when content is ready */}
         {sections && !isGenerating && (
           <>
-            <div className='flex flex-col gap-5'>
+            <div className='flex flex-col gap-3'>
               {SECTIONS.map(({ key, label, icon }) => (
                 <div
                   key={key}
-                  className={`flex flex-col gap-1 ${key === 'keyFindings' ? 'rounded-md bg-green-50' : ''}`}
+                  className={`flex flex-col gap-1 px-4 ${key === 'keyFindings' ? 'rounded-md bg-footer-color py-4' : 'py-2'}`}
                 >
                   <span className='flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide'>
                     {icon}

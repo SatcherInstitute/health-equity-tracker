@@ -98,7 +98,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
         return (
           <>
             {/* Render the Table */}
-            <TableContainer className='flex max-h-sm caption-top self-center overflow-auto'>
+            <TableContainer className='flex max-h-150 caption-top self-center overflow-auto'>
               <Table
                 tabIndex={0}
                 ref={tableRef}

@@ -19,22 +19,20 @@ export default function InsightVisualizationButton({
   if (!SHOW_INSIGHT_GENERATION) return null
 
   return (
-    <div className='absolute top-5 right-20'>
-      <Tooltip title={isOpen ? 'Clear insight' : 'Generate AI insight'}>
-        <IconButton
-          onClick={() =>
-            setCardInsightOpen((prev) => ({ ...prev, [scrollToHash]: !isOpen }))
-          }
-          aria-label={isOpen ? 'Clear insight' : 'Generate insight'}
-          size='small'
-        >
-          {isOpen ? (
-            <DeleteForever fontSize='small' />
-          ) : (
-            <AutoAwesome fontSize='small' />
-          )}
-        </IconButton>
-      </Tooltip>
-    </div>
+    <Tooltip title={isOpen ? 'Clear insight' : 'Generate AI insight'}>
+      <IconButton
+        onClick={() =>
+          setCardInsightOpen((prev) => ({ ...prev, [scrollToHash]: !isOpen }))
+        }
+        aria-label={isOpen ? 'Clear insight' : 'Generate insight'}
+        size='small'
+      >
+        {isOpen ? (
+          <DeleteForever className='hide-on-screenshot remove-height-on-screenshot' />
+        ) : (
+          <AutoAwesome />
+        )}
+      </IconButton>
+    </Tooltip>
   )
 }
