@@ -191,7 +191,7 @@ export function HetCarouselCard({
             <button
               onClick={handleClose}
               type='button'
-              className='absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300'
+              className='absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-bg-color text-alt-dark hover:bg-alt-gray'
               aria-label='Close modal'
             >
               ×

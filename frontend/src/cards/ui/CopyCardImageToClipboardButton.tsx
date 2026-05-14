@@ -50,7 +50,7 @@ export function CopyCardImageToClipboardButton(
             <img
               src={imgDataUrl}
               alt={`Preview of ${cardName} ${imgTerm}`}
-              className='h-auto max-h-150 w-full bg-gray-50 object-contain'
+              className='h-auto max-h-150 w-full bg-alt-white object-contain'
             />
           </div>
         )}

@@ -14,8 +14,8 @@ const HetGalleryDotNav: React.FC<HetGalleryDotNavProps> = ({
   currentIndex,
   onSelect,
   className = '',
-  activeColor = 'bg-methodology-green',
-  inactiveColor = 'bg-gray-300',
+  activeColor = 'bg-alt-gray',
+  inactiveColor = 'bg-alt-white',
 }) => {
   return (
     <div className={`flex justify-center space-x-2 ${className}`}>
