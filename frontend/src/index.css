@@ -236,7 +236,7 @@ button[data-action="back"]:focus {
 	}
 
 	to {
-		max-height: 500px;
+		max-height: 1000px;
 		opacity: 1;
 	}
 }
