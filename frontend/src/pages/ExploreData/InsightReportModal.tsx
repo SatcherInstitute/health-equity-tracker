@@ -15,6 +15,7 @@ export default function InsightReportModal() {
       maxWidth='sm'
       fullWidth
       scroll='paper'
+      className='border-none'
     >
       <InsightReportCard />
     </Dialog>

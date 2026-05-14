@@ -1,12 +1,18 @@
 import AutoAwesome from '@mui/icons-material/AutoAwesome'
+import CloseIcon from '@mui/icons-material/Close'
 import Info from '@mui/icons-material/Info'
 import LocationOn from '@mui/icons-material/LocationOn'
 import People from '@mui/icons-material/People'
-import { Button, CircularProgress, Divider } from '@mui/material'
+import {
+  Button,
+  CircularProgress,
+  Divider,
+  IconButton,
+  Tooltip,
+} from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
 import type React from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import InsightCardOptionsMenu from '../../cards/ui/InsightCardOptionsMenu'
 import {
   generateReportInsight,
   type ReportInsightSections,
@@ -114,7 +120,12 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             <AutoAwesome fontSize='small' className='text-alt-green' />
             AI Report Summary
           </span>
-          <InsightCardOptionsMenu onClose={handleClose} />
+          {/* Close button */}
+          <Tooltip title='Close'>
+            <IconButton onClick={handleClose} aria-label='close report'>
+              <CloseIcon fontSize='small' />
+            </IconButton>
+          </Tooltip>
         </div>
 
         <Divider />
@@ -164,7 +175,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             <Divider />
 
             <p className='m-0 text-alt-dark text-smallest'>
-              AI-generated synthesis powered by the Claude API. Always verify
+              AI-generated insights powered by the Claude API. Always verify
               findings with the source data shown in the charts above.
             </p>
           </>
