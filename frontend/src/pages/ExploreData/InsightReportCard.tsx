@@ -157,7 +157,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
               {SECTIONS.map(({ key, label, icon }) => (
                 <div
                   key={key}
-                  className={`flex flex-col gap-1 ${key === 'keyFindings' ? 'rounded-md bg-green-50' : ''}`}
+                  className={`flex flex-col gap-1 px-4 ${key === 'keyFindings' ? 'rounded-md bg-footer-color py-4 text-alt-black' : 'py-2'}`}
                 >
                   <span className='flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide'>
                     {icon}
