@@ -1,12 +1,18 @@
 import AutoAwesome from '@mui/icons-material/AutoAwesome'
+import CloseIcon from '@mui/icons-material/Close'
 import Info from '@mui/icons-material/Info'
 import LocationOn from '@mui/icons-material/LocationOn'
 import People from '@mui/icons-material/People'
-import { Button, CircularProgress, Divider } from '@mui/material'
+import {
+  Button,
+  CircularProgress,
+  Divider,
+  IconButton,
+  Tooltip,
+} from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
 import type React from 'react'
 import { useCallback, useEffect, useState } from 'react'
-import InsightCardOptionsMenu from '../../cards/ui/InsightCardOptionsMenu'
 import {
   generateReportInsight,
   type ReportInsightSections,
@@ -114,7 +120,12 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             <AutoAwesome fontSize='small' className='text-alt-green' />
             AI Report Summary
           </span>
-          <InsightCardOptionsMenu onClose={handleClose} />
+          {/* Close button */}
+          <Tooltip title='Close'>
+            <IconButton onClick={handleClose} aria-label='close report'>
+              <CloseIcon fontSize='small' />
+            </IconButton>
+          </Tooltip>
         </div>
 
         <Divider />
@@ -142,11 +153,11 @@ export default function InsightReportCard(props: InsightReportCardProps) {
         {/* Sections, disclaimer — only when content is ready */}
         {sections && !isGenerating && (
           <>
-            <div className='flex flex-col gap-3'>
+            <div className='flex flex-col gap-5'>
               {SECTIONS.map(({ key, label, icon }) => (
                 <div
                   key={key}
-                  className={`flex flex-col gap-1 px-4 ${key === 'keyFindings' ? 'rounded-md bg-footer-color py-4' : 'py-2'}`}
+                  className={`flex flex-col gap-1 px-4 ${key === 'keyFindings' ? 'rounded-md bg-footer-color py-4 text-alt-black' : 'py-2'}`}
                 >
                   <span className='flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide'>
                     {icon}
@@ -164,7 +175,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             <Divider />
 
             <p className='m-0 text-alt-dark text-smallest'>
-              AI-generated synthesis powered by the Claude API. Always verify
+              AI-generated insights powered by the Claude API. Always verify
               findings with the source data shown in the charts above.
             </p>
           </>

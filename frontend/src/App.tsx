@@ -22,7 +22,6 @@ import { policyRouteConfigs } from './pages/Policy/policyContent/policyRouteConf
 import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
 import muiTheme from './styles/theme/muiTheme'
 import { autoInitGlobals } from './utils/globals'
-import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
 import {
   ABOUT_SEED_LINK,
   ABOUT_US_PAGE_LINK,
@@ -99,8 +98,6 @@ function ScrollToTop() {
 }
 
 export default function App() {
-  const isSm = useIsBreakpointAndUp('sm')
-
   return (
     <ThemeProvider theme={muiTheme} defaultMode='light'>
       <CssBaseline />
@@ -135,7 +132,7 @@ export default function App() {
                       <ErrorBoundaryDropParams
                         fallback={<ExploreDataFallback />}
                       >
-                        <ExploreDataPage isMobile={isSm} />
+                        <ExploreDataPage />
                       </ErrorBoundaryDropParams>
                     }
                   />

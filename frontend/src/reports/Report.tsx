@@ -23,8 +23,10 @@ import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import InsightReportCard from '../pages/ExploreData/InsightReportCard'
+import InsightReportModal from '../pages/ExploreData/InsightReportModal'
 import ReportSidebarDesktop from '../pages/ui/ReportSidebarDesktop'
 import HetLazyLoader from '../styles/HetComponents/HetLazyLoader'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import type { MadLibId } from '../utils/MadLibs'
@@ -56,7 +58,6 @@ interface ReportProps {
   setReportStepHashIds?: (hashIdsOnScreen: any[]) => void
   headerScrollMargin: number
   reportTitle: string
-  isMobile: boolean
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
   dataTypesToDefine: Array<[string, DataTypeConfig[]]>
@@ -68,6 +69,7 @@ export interface ChartData {
 }
 
 export function Report(props: ReportProps) {
+  const isDesktopLayout = useIsBreakpointAndUp('md')
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
@@ -177,6 +179,7 @@ export function Report(props: ReportProps) {
       <div className='flex'>
         {/* CARDS COLUMN */}
         <div className={`w-full ${insightMode ? 'md:w-6/12' : 'md:w-10/12'}`}>
+          {!isDesktopLayout && <InsightReportModal />}
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ReportTopbarMobile
             trackerMode={props.trackerMode}
@@ -184,7 +187,7 @@ export function Report(props: ReportProps) {
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
-            // showInsightsButton={showInsightsButton} // TODO: re-enable when insights are ready for mobile
+            showInsightsButton={showInsightsButton}
           />
 
           <div className='flex w-full items-center justify-center'>
@@ -355,7 +358,7 @@ export function Report(props: ReportProps) {
                   <p>{SHARE_LABEL}</p>
                   <ShareButtons
                     reportTitle={props.reportTitle}
-                    isMobile={props.isMobile}
+                    isMobile={!isDesktopLayout}
                   />{' '}
                 </div>
               </div>
@@ -375,7 +378,7 @@ export function Report(props: ReportProps) {
             isScrolledToTop={props.isScrolledToTop}
             reportStepHashIds={props.reportStepHashIds ?? []}
             reportTitle={props.reportTitle}
-            isMobile={props.isMobile}
+            isMobile={!isDesktopLayout}
             // Mode selectors are in sidebar only on larger screens
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}

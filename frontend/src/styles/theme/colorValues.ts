@@ -33,6 +33,7 @@ export const hetColors = {
   navlinkColor: '#202124',
   timberwolf: '#cbd0c8',
   tinyTagGray: 'rgba(220, 229, 226, 0.18)',
+  lightOutline: 'rgba(0, 0, 0, 0.23)',
 
   // Oranges / Reds
   alertColor: '#d85c47',
