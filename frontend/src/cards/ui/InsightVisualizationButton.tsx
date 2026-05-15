@@ -30,7 +30,7 @@ export default function InsightVisualizationButton({
         {isOpen ? (
           <DeleteForever className='hide-on-screenshot remove-height-on-screenshot' />
         ) : (
-          <AutoAwesome />
+          <AutoAwesome className='text-base' />
         )}
       </IconButton>
     </Tooltip>

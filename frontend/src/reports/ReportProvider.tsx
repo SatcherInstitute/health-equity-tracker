@@ -37,7 +37,6 @@ interface ReportProviderProps {
   showCHLPMapsBanner: boolean
   isScrolledToTop: boolean
   headerScrollMargin: number
-  isMobile: boolean
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -94,7 +93,6 @@ function ReportProvider(props: ReportProviderProps) {
               setReportStepHashIds={setReportStepHashIds}
               headerScrollMargin={props.headerScrollMargin}
               reportTitle={reportTitle}
-              isMobile={props.isMobile}
               trackerMode={props.madLib.id}
               setTrackerMode={props.handleModeChange}
               dataTypesToDefine={metricConfigSubset}
@@ -127,7 +125,6 @@ function ReportProvider(props: ReportProviderProps) {
               setReportStepHashIds={setReportStepHashIds}
               headerScrollMargin={props.headerScrollMargin}
               reportTitle={reportTitle}
-              isMobile={props.isMobile}
               trackerMode={props.madLib.id}
               setTrackerMode={props.handleModeChange}
             />
@@ -154,7 +151,6 @@ function ReportProvider(props: ReportProviderProps) {
             setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
             reportTitle={reportTitle}
-            isMobile={props.isMobile}
             trackerMode={props.madLib.id}
             setTrackerMode={props.handleModeChange}
           />

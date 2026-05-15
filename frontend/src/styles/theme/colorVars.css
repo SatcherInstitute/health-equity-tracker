@@ -38,6 +38,7 @@
    --color-navlink-color: var(--mui-palette-custom-navlinkColor);
    --color-timberwolf: var(--mui-palette-custom-timberwolf);
    --color-tiny-tag-gray: var(--mui-palette-custom-tinyTagGray);
+   --color-light-outline: var(--mui-palette-custom-lightOutline);
 
    /* Oranges / Reds */
    --color-alert-color: var(--mui-palette-custom-alertColor);

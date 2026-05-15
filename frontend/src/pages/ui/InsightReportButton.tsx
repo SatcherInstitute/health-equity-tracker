@@ -9,13 +9,13 @@ interface InsightReportButtonProps {
 }
 
 export default function InsightReportButton(props: InsightReportButtonProps) {
-  const [, setInsightIsOpen] = useParamState<boolean>(
+  const [insightIsOpen, setInsightIsOpen] = useParamState<boolean>(
     REPORT_INSIGHT_PARAM_KEY,
     false,
   )
 
   const handleClick = () => {
-    setInsightIsOpen(true)
+    setInsightIsOpen(!insightIsOpen)
     props.onInsightClick?.()
   }
 
@@ -23,10 +23,10 @@ export default function InsightReportButton(props: InsightReportButtonProps) {
     <Button
       onClick={handleClick}
       variant={props.variant ?? 'text'}
-      className='font-roboto text-alt-black text-smallest'
+      className={`font-roboto text-alt-black text-smallest normal-case ${props.variant === 'outlined' ? 'rounded-sm border-light-outline px-3.5 py-[8.5px] font-medium hover:border-border-color hover:bg-transparent' : 'font-normal'}`}
       aria-label='open the AI report insight'
     >
-      <AutoAwesome className='mr-1 text-base' />
+      <AutoAwesome className='mr-2 text-base text-hex-share-icon-gray' />
       Report insights
     </Button>
   )

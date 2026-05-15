@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { resolveCssVar } from '../../styles/theme/cssVarUtils'
 
 type TailwindBreakpoint =
   | 'xs'
@@ -11,25 +10,31 @@ type TailwindBreakpoint =
   | 'lgplus'
   | 'xl'
 
-function getBreakpointValue(breakpoint: TailwindBreakpoint): number {
-  const value = resolveCssVar(`--breakpoint-${breakpoint}`)
-  return Number.parseInt(value.replace('px', ''), 10) || 0
+// TODO: I hate defining these twice; look into #4701
+const BREAKPOINTS: Record<TailwindBreakpoint, number> = {
+  xs: 0,
+  tiny: 350,
+  sm: 600,
+  smplus: 768,
+  md: 960,
+  lg: 1280,
+  lgplus: 1440,
+  xl: 1920,
 }
 
 export function useIsBreakpointAndUp(breakpoint: TailwindBreakpoint) {
-  const [isBreakpoint, setIsBreakpoint] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return window.innerWidth >= getBreakpointValue(breakpoint)
-  })
+  const query = `(min-width: ${BREAKPOINTS[breakpoint]}px)`
+  const [isBreakpoint, setIsBreakpoint] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(query).matches,
+  )
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsBreakpoint(window.innerWidth >= getBreakpointValue(breakpoint))
-    }
-    handleResize()
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [breakpoint])
+    const mediaQueryList = window.matchMedia(query)
+    const handler = (e: MediaQueryListEvent) => setIsBreakpoint(e.matches)
+    setIsBreakpoint(mediaQueryList.matches)
+    mediaQueryList.addEventListener('change', handler)
+    return () => mediaQueryList.removeEventListener('change', handler)
+  }, [query])
 
   return isBreakpoint
 }
