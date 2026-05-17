@@ -614,7 +614,7 @@ function MapCardWithKey(props: MapCardProps) {
                   ariaLabel={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
                 >
                   <GridView />
-                  <span className='mt-1 px-1'>
+                  <span className='mt-1 px-1 text-alt-green'>
                     View {prettyDemoType} disparties across multiple small maps
                   </span>
                 </HetLinkButton>
@@ -639,16 +639,18 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                   />
                   {isGeorgiaWithCountyData && !isExtremesMode && (
-                    <HetLinkButton
-                      onClick={() => setIsAtlantaMode(!isAtlantaMode)}
-                      className='flex items-center'
-                    >
-                      <span className='mt-1 px-1'>
-                        {isAtlantaMode
-                          ? 'Return to all counties'
-                          : 'Highlight metro Atlanta counties'}
-                      </span>
-                    </HetLinkButton>
+                    <div className='flex justify-center'>
+                      <HetLinkButton
+                        onClick={() => setIsAtlantaMode(!isAtlantaMode)}
+                        className='flex items-center'
+                      >
+                        <span className='mt-1 px-1 text-alt-green'>
+                          {isAtlantaMode
+                            ? 'Return to all counties'
+                            : 'Highlight metro Atlanta counties'}
+                        </span>
+                      </HetLinkButton>
+                    </div>
                   )}
                 </div>
 
