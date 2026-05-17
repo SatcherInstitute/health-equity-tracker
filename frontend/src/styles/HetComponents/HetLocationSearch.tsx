@@ -38,7 +38,6 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
       <h3 className='my-1 font-semibold text-small md:text-title'>
         Search for location
       </h3>
-
       <Autocomplete
         disableClearable={true}
         autoHighlight={true}
@@ -67,8 +66,10 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
             onChange={updateTextBox}
             {...params}
             slotProps={{
+              ...params.slotProps,
+
               input: {
-                ...params.InputProps,
+                ...params.slotProps.input,
                 sx: {
                   '& .MuiAutocomplete-endAdornment': {
                     top: '50%',
