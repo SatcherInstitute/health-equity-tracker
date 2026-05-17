@@ -34,11 +34,11 @@ export default function HetPaginationButton({
         }`}
       >
         {isPrevious ? (
-          <span className='flex align-center'>
+          <span className='flex items-center'>
             <ArrowBack /> <span>Previous</span>
           </span>
         ) : (
-          <span className='flex align-center'>
+          <span className='flex items-center'>
             <span>Up Next</span> <ArrowForward />
           </span>
         )}

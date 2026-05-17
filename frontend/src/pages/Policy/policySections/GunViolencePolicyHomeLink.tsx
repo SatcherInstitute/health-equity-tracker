@@ -17,7 +17,7 @@ export default function GunViolencePolicyHomeLink() {
             exacerbated by racial motives.
           </p>
           <article className='mt-4 flex rounded-md bg-alt-white px-8 pt-0 pb-8 shadow-raised lg:mt-8 lg:px-24'>
-            <div className='flex flex-col align-center'>
+            <div className='flex flex-col items-center'>
               <img
                 className='fade-in-up-blur mx-auto my-0 p-0'
                 src='/img/graphics/DrSatcher.png'

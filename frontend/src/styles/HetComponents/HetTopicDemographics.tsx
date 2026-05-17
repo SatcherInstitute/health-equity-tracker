@@ -61,7 +61,7 @@ export default function HetTopicDemographics(props: HetTopicDemographicsProps) {
             {item.items.map((item) => (
               <li
                 key={item.demographicLabel}
-                className='flex flex-row align-center'
+                className='flex flex-row items-center'
               >
                 {item.included ? (
                   <CheckRounded className='text-alt-green text-text' />
