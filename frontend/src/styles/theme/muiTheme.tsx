@@ -103,7 +103,9 @@ const muiTheme = extendTheme({
     MuiInputBase: {
       styleOverrides: {
         sizeSmall: {
-          fontSize: 'var(--text-smallest)',
+          '& .MuiInputBase-input': {
+            fontSize: 'var(--text-smallest)',
+          },
         },
       },
     },
