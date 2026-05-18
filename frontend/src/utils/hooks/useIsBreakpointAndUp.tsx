@@ -10,7 +10,7 @@ type TailwindBreakpoint =
   | 'lgplus'
   | 'xl'
 
-// TODO: I hate defining these twice; look into #4701
+// TODO: source these from tokens/dimensions.tokens.json via dimensionValues
 const BREAKPOINTS: Record<TailwindBreakpoint, number> = {
   xs: 0,
   tiny: 350,

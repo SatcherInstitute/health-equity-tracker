@@ -1,6 +1,6 @@
 import type { ScaleLinear } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
-import { het } from '../../styles/theme/colorVars'
+import { colorVars } from '../../styles/tokens/colors'
 
 interface EndOfStackedPairLabelsProps {
   darkValue: number
@@ -45,7 +45,7 @@ export default function EndOfStackedPairLabels(
       y={yPosition + barHeight * 1.5 + pairGap}
       dominantBaseline='middle'
       textAnchor={darkLabelInside ? 'end' : 'start'}
-      fill={darkLabelInside ? het.altWhite : het.altBlack}
+      fill={darkLabelInside ? colorVars.altWhite : colorVars.altBlack}
       className='text-smallest'
     >
       {darkBarLabel}

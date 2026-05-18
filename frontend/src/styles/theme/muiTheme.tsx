@@ -1,10 +1,11 @@
 import { extendTheme } from '@mui/material/styles'
-import { hetColors } from './colorValues'
-import { het } from './colorVars'
+import { colorValues, colorVars } from '../tokens/colors'
+import { dimensionVars } from '../tokens/dimensions'
+import { typographyVars } from '../tokens/typography'
 
 // Palette entries use hex (from generated colorValues.ts) because MUI derives
 // hover, focus, and ripple colors at theme-creation time via color functions
-// that cannot resolve CSS variables. Component styleOverrides use het.* (CSS
+// that cannot resolve CSS variables. Component styleOverrides use colorVars.* (CSS
 // variables) for direct property application — the browser resolves these at
 // paint time. Our custom color tokens live in colorVars.css independently of
 // MUI's --mui-palette-* variables.
@@ -13,15 +14,15 @@ const muiTheme = extendTheme({
     light: {
       palette: {
         primary: {
-          light: hetColors.barChartLight,
-          main: hetColors.altGreen,
-          dark: hetColors.darkGreen,
+          light: colorValues.barChartLight,
+          main: colorValues.altGreen,
+          dark: colorValues.darkGreen,
           contrastText: '#fff',
         },
         secondary: {
-          light: hetColors.secondaryLight,
-          main: hetColors.secondaryMain,
-          dark: hetColors.secondaryDark,
+          light: colorValues.secondaryLight,
+          main: colorValues.secondaryMain,
+          dark: colorValues.secondaryDark,
         },
         background: {
           default: '#fff',
@@ -33,28 +34,28 @@ const muiTheme = extendTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          fontFamily: 'var(--font-sans-text)',
+          fontFamily: typographyVars.fontSansText,
         },
       },
     },
     MuiAlert: {
       styleOverrides: {
         root: {
-          fontFamily: 'var(--font-sans-text)',
+          fontFamily: typographyVars.fontSansText,
           '&.MuiAlert-standard.MuiAlert-colorInfo': {
-            backgroundColor: het.standardInfo,
-            color: het.altBlack,
+            backgroundColor: colorVars.standardInfo,
+            color: colorVars.altBlack,
             textAlign: 'left',
             '& .MuiAlert-icon': {
-              color: het.altGreen,
+              color: colorVars.altGreen,
             },
           },
           '&.MuiAlert-standard.MuiAlert-colorWarning': {
-            backgroundColor: het.standardWarning,
-            color: het.altBlack,
+            backgroundColor: colorVars.standardWarning,
+            color: colorVars.altBlack,
             textAlign: 'left',
             '& .MuiAlert-icon': {
-              color: het.alertColor,
+              color: colorVars.alertColor,
             },
           },
           '&.MuiAlert-standard.MuiAlert-colorError': {
@@ -74,7 +75,7 @@ const muiTheme = extendTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          fontFamily: 'var(--font-sans-text)',
+          fontFamily: typographyVars.fontSansText,
           padding: 'unset',
           borderRadius: 'unset',
           minWidth: 'unset',
@@ -85,7 +86,7 @@ const muiTheme = extendTheme({
       styleOverrides: {
         sizeSmall: {
           '& .MuiInputBase-input': {
-            fontSize: 'var(--text-smallest)',
+            fontSize: typographyVars.textSmallest,
           },
         },
       },
@@ -93,7 +94,7 @@ const muiTheme = extendTheme({
     MuiListItemText: {
       styleOverrides: {
         root: {
-          fontFamily: 'var(--font-sans-title)',
+          fontFamily: typographyVars.fontSansTitle,
         },
       },
     },
@@ -128,7 +129,7 @@ const muiTheme = extendTheme({
     MuiStepLabel: {
       styleOverrides: {
         label: {
-          lineHeight: '.95',
+          lineHeight: typographyVars.leadingTight,
         },
       },
     },
@@ -145,7 +146,7 @@ const muiTheme = extendTheme({
           // textTransform handled in index.css but kept here for MUI
           // specificity since Tab uses its own internal class stacking.
           textTransform: 'none',
-          fontFamily: 'var(--font-sans-title) !important',
+          fontFamily: `${typographyVars.fontSansTitle} !important`,
         },
       },
     },
@@ -153,15 +154,15 @@ const muiTheme = extendTheme({
       styleOverrides: {
         root: {
           marginTop: '40px',
-          borderBottom: `1px solid ${het.borderColor}`,
+          borderBottom: `1px solid ${colorVars.borderColor}`,
         },
       },
     },
     MuiToggleButtonGroup: {
       styleOverrides: {
         root: {
-          outline: `1px solid ${het.howToColor} !important`,
-          borderRadius: 'var(--radius-sm)',
+          outline: `1px solid ${colorVars.howToColor} !important`,
+          borderRadius: dimensionVars.radiusSm,
           overflow: 'hidden',
         },
       },
@@ -169,21 +170,21 @@ const muiTheme = extendTheme({
     MuiToggleButton: {
       styleOverrides: {
         root: {
-          outline: `1px solid ${het.howToColor} !important`,
+          outline: `1px solid ${colorVars.howToColor} !important`,
           fontWeight: 'normal',
           fontSize: '14px',
-          color: het.altBlack,
+          color: colorVars.altBlack,
           lineHeight: '16px !important',
           padding: '11px !important',
           backgroundColor: '#fff !important',
           textTransform: 'none',
           '&.Mui-selected': {
-            color: het.altGreen,
-            backgroundColor: `${het.toggleColor} !important`,
+            color: colorVars.altGreen,
+            backgroundColor: `${colorVars.toggleColor} !important`,
           },
           '&:hover': {
-            color: het.altGreen,
-            backgroundColor: het.toggleColor,
+            color: colorVars.altGreen,
+            backgroundColor: colorVars.toggleColor,
           },
         },
       },
@@ -191,7 +192,7 @@ const muiTheme = extendTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          fontFamily: 'var(--font-sans-title)',
+          fontFamily: typographyVars.fontSansTitle,
         },
       },
     },
