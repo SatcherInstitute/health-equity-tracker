@@ -2,30 +2,12 @@ import { extendTheme } from '@mui/material/styles'
 import { hetColors } from './colorValues'
 import { het } from './colorVars'
 
-// type augmentation
-declare module '@mui/material/styles' {
-  interface PaletteOptions {
-    custom?: typeof hetColors
-  }
-  interface Palette {
-    custom: typeof hetColors
-  }
-}
-
-/**
- * Color strategy:
- *
- * - Palette main/light/dark entries use hardcoded hex because MUI derives
- *   hover, focus, and ripple colors from these at theme-creation time via
- *   color manipulation functions that cannot resolve CSS variables.
- *
- * - Component styleOverrides use `het.*` (CSS variables) wherever the value
- *   is applied directly to a CSS property and no MUI derivation is needed.
- *
- * - Template literals that interpolate into a CSS string (e.g. borderBottom)
- *   also use `het.*` since the browser resolves those at paint time.
- */
-
+// Palette entries use hex (from generated colorValues.ts) because MUI derives
+// hover, focus, and ripple colors at theme-creation time via color functions
+// that cannot resolve CSS variables. Component styleOverrides use het.* (CSS
+// variables) for direct property application — the browser resolves these at
+// paint time. Our custom color tokens live in colorVars.css independently of
+// MUI's --mui-palette-* variables.
 const muiTheme = extendTheme({
   colorSchemes: {
     light: {
@@ -44,7 +26,6 @@ const muiTheme = extendTheme({
         background: {
           default: '#fff',
         },
-        custom: hetColors,
       },
     },
   },

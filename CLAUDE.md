@@ -89,22 +89,29 @@ Both frontend and backend changes are required:
 
 ### Design System / Theme Architecture
 
-A single-source-of-truth "Pass-Through" system keeps Tailwind v4, MUI v7, and D3 in sync:
+Design tokens are defined once in W3C DTCG JSON and generated into all downstream files by [Cobalt](https://cobalt-ui.pages.dev/):
 
 ```
-colorValues.ts  (raw hex constants)
-  → muiTheme.tsx  (MUI theme — hex required for MUI's color derivation)
-  → colorVars.css  (CSS custom properties, @theme block)
-      → colorVars.ts  (typed `het` aliases: e.g., `het.altGreen`)
-      → Tailwind utility classes
+frontend/tokens/
+  colors.tokens.json       # hex color values
+  typography.tokens.json   # font families, sizes, line-heights
+  dimensions.tokens.json   # spacing, sizing, breakpoints, shadows, z-index
+        ↓  npm run tokens  (auto-runs on install, predev, prebuild)
+src/styles/theme/
+  colorValues.ts    ← DO NOT EDIT — hetColors hex export for MUI palette + D3
+  colorVars.css     ← DO NOT EDIT — Tailwind v4 @theme block (direct hex values)
+  colorVars.ts      ← DO NOT EDIT — het CSS-var-string aliases for components
+  designTokens.css  ← DO NOT EDIT — Tailwind v4 @theme block for non-color tokens
 ```
+
+`muiTheme.tsx` imports `hetColors` only for the primary/secondary palette entries (MUI needs hex at theme-creation time to derive hover/focus/ripple colors). All other color tokens flow through CSS variables independently of MUI.
 
 **Styling rules:**
 - Always prefer Tailwind utility classes as the primary method
 - Use `het.<token>` (e.g., `color: het.altGreen`) in TypeScript for CSS-variable-driven styles
 - Only modify MUI components via `styleOverrides` in `muiTheme.tsx` — avoid `sx` props and inline styles
 - D3/JS logic that requires a hex value imports directly from `colorValues.ts`
-- New tokens must be added across the full pipeline: `colorValues.ts` → `muiTheme.tsx` → `colorVars.css` → `colorVars.ts`
+- **To add or change a token:** edit the relevant `tokens/*.tokens.json` file and run `npm run tokens`
 
 ### Environment Variables
 

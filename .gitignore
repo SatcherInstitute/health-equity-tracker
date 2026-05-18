@@ -58,3 +58,10 @@ tig
 *.json
 !frontend/cspell.config.json
 !python/ingestion/ahr_config/graphql_ahr_measure_ids.json
+!frontend/tokens/*.tokens.json
+
+# Generated design token files — edit tokens/*.tokens.json and run `npm run tokens`
+frontend/src/styles/theme/colorValues.ts
+frontend/src/styles/theme/colorVars.ts
+frontend/src/styles/theme/colorVars.css
+frontend/src/styles/theme/designTokens.css

@@ -261,52 +261,57 @@ The frontend consists of
 
 ### Frontend Design System & Theme Architecture
 
-We use a "Pass-Through" architecture to sync Tailwind v4, MUI, and D3.js from a single source of truth, ensuring full IntelliSense and preventing style drift.
+Design tokens are defined once in [W3C DTCG](https://design-tokens.github.io/community-group/format/) JSON and generated into all downstream consumers by [Cobalt](https://cobalt-ui.pages.dev/). This keeps Tailwind v4, MUI v9, and D3.js in sync from a single source of truth with full IntelliSense and no style drift.
 
 #### The Token Pipeline
 
 ```mermaid
 flowchart TD
     %% Source Layer
-    subgraph Source
-        HEX["<code>colorValues.ts</code><br/><i>Raw Hex Constants</i>"]
-        DESIGN["<code>designTokens.css</code><br/><i>Layout / Z-index Source</i>"]
+    subgraph Source["Source (edit these)"]
+        CT["<code>tokens/colors.tokens.json</code><br/><i>Hex color values</i>"]
+        TT["<code>tokens/typography.tokens.json</code><br/><i>Fonts &amp; sizes</i>"]
+        DT["<code>tokens/dimensions.tokens.json</code><br/><i>Spacing, breakpoints, z-index…</i>"]
     end
 
-    %% Bridge Layer
-    subgraph Bridge
-        MUI_T["<code>muiTheme.tsx</code><br/><i>MUI Theme + styleOverrides</i>"]
-        CV_CSS["<code>colorVars.css</code><br/><i>CSS Variable Definitions (@theme)</i>"]
+    %% Build Step
+    BUILD["<code>npm run tokens</code><br/><i>Cobalt build — auto-runs on install, predev, prebuild</i>"]
+
+    %% Generated Layer
+    subgraph Generated["Generated (DO NOT EDIT)"]
+        HEX["<code>colorValues.ts</code><br/><i>hetColors hex constants</i>"]
+        CV_CSS["<code>colorVars.css</code><br/><i>@theme CSS vars (direct hex)</i>"]
+        CV_TS["<code>colorVars.ts</code><br/><i>het CSS-var-string aliases</i>"]
+        DES["<code>designTokens.css</code><br/><i>@theme layout/typography vars</i>"]
     end
 
     %% Consumption Layer
     subgraph Consumption
-        TW["Tailwind Classes<br/><i>Utility classes</i>"]
-        CV_TS["<code>colorVars.ts</code><br/><i>Typed 'het' aliases</i>"]
-        D3["D3.js Logic<br/><i>Direct hex imports</i>"]
-        REACT["React Components<br/><i>Tailwind or 'het'</i>"]
+        MUI_T["<code>muiTheme.tsx</code><br/><i>primary/secondary palette only</i>"]
+        TW["Tailwind Classes"]
+        D3["D3.js Logic"]
+        REACT["React Components"]
     end
 
-    HEX -->|"Imports"| MUI_T
-    HEX -->|"Direct import (bypasses CSS vars)"| D3
+    CT --> BUILD
+    TT --> BUILD
+    DT --> BUILD
+    BUILD --> HEX & CV_CSS & CV_TS & DES
 
-    MUI_T -->|"Provides --mui-palette-*"| CV_CSS
-    DESIGN -->|"Provides layout vars"| TW
-    DESIGN -->|"Provides layout vars"| MUI_T
-
-    CV_CSS -->|"Exposes theme tokens to"| TW
-    CV_CSS -->|"Aliased in"| CV_TS
-
-    CV_TS -->|"Type-safe style props"| REACT
-    TW -->|"Utility classes"| REACT
+    HEX -->|"hex for MUI color derivation"| MUI_T
+    HEX -->|"direct hex import"| D3
+    CV_CSS -->|"@theme exposes to"| TW
+    CV_TS -->|"type-safe var() props"| REACT
+    DES -->|"@theme exposes to"| TW
+    TW -->|"utility classes"| REACT
 ```
 
 #### Color & Token Strategy
 
-- Implementation: Always add new tokens across the pipeline to maintain type safety and code completion.
-- Styling Priority: Always use Tailwind classes as the primary styling method. Only modify the MUI theme.ts styleOverrides to adjust native MUI components. Avoid sx props and inline styles.
-- The `het` Object: In TypeScript, use the `het` constant (e.g., color: `het.altGreen`). This applies a CSS variable directly, keeping the UI reactive and performant.
-- D3 & JS Logic: Use CSS variables directly for static SVG fills/strokes. Use the `resolveCssVar()` utility only for tokens where CSS is the source of truth (e.g., z-index). For D3 logic and similar where a _color_ HEX code is required, we can import the source of truth token directly from `colorValues.ts`
+- **To add or change any token:** edit `tokens/*.tokens.json` and run `npm run tokens` (or restart the dev server — `predev` runs it automatically).
+- **Styling priority:** Always use Tailwind utility classes first. Use `het.<token>` (e.g. `color: het.altGreen`) for CSS-variable-driven TypeScript styles. Only touch `muiTheme.tsx` for MUI component `styleOverrides`.
+- **D3 & JS logic:** import `hetColors` from `colorValues.ts` for hex values needed by D3 scales. Use `resolveCssVar()` only for canvas/non-DOM contexts where the browser can't resolve `var()`.
+- **MUI palette:** `muiTheme.tsx` imports `hetColors` only for the primary/secondary entries — MUI needs hex at theme-creation time to compute hover/focus/ripple. All other tokens flow through CSS vars independently of MUI.
 
 ### Frontend Environment Configuration
 
