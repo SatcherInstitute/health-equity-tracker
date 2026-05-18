@@ -112,7 +112,7 @@ ${resetLine}${themeVars}
  */
 function makeTsOutput({ tokens, keyFn, exportBase, filename, srcName, extra = '' }) {
   const valEntries = tokens
-    .map((t) => `  ${keyFn(t.id)}: '${valueToString(t.$value).replace(/'/g, "\\'")}'`)
+    .map((t) => `  ${keyFn(t.id)}: ${JSON.stringify(valueToString(t.$value))}`)
     .join(',\n')
 
   const varEntries = tokens

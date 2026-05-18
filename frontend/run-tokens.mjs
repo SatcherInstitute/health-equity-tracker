@@ -47,7 +47,6 @@ const tokens = await loadTokens(config.tokens)
 
 /** @type {Record<string, string>} */
 const outputFiles = {}
-let pluginCount = 0
 
 for (const plugin of config.plugins) {
   if (typeof plugin.build === 'function') {
@@ -58,7 +57,6 @@ for (const plugin of config.plugins) {
         outputFiles[filename] = contents
       },
     })
-    pluginCount++
   }
 }
 
