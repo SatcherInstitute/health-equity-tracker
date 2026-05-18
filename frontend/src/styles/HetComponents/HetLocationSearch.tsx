@@ -69,7 +69,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
               ...params.slotProps,
 
               input: {
-                ...params.slotProps.input,
+                ...params.slotProps?.input,
                 sx: {
                   '& .MuiAutocomplete-endAdornment': {
                     top: '50%',
