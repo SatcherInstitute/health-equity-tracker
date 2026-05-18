@@ -1,5 +1,5 @@
 import { UNKNOWN_W } from '../../data/utils/Constants'
-import { het as colorVars } from '../../styles/theme/colorVars'
+import { colorVars } from '../../styles/tokens/colors'
 import { COLORS as C } from './constants'
 import { createLineGenerator } from './helpers'
 import StyledPath from './StyledPath'

@@ -21,7 +21,7 @@ import { useEffect, useRef } from 'react'
 
 /* Helpers */
 import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
-import { het as colorVars } from '../../styles/theme/colorVars'
+import { colorVars } from '../../styles/tokens/colors'
 import { X_AXIS_MAX_TICKS_SKINNY } from '../utils'
 /* Constants */
 import { CONFIG, FORMATTERS as F, TYPES } from './constants'

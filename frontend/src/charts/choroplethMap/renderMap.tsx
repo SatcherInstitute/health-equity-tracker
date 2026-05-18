@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
-import { het as colorVars } from '../../styles/theme/colorVars'
+import { colorVars } from '../../styles/tokens/colors'
 import { getCountyAddOn } from '../mapHelperFunctions'
 import { getFillColor } from './colorSchemes'
 import {

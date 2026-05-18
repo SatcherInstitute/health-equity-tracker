@@ -34,7 +34,7 @@ import {
   WHITE_W,
 } from '../../data/utils/Constants'
 
-import { hetColors as colorValues } from '../../styles/theme/colorValues'
+import { colorValues } from '../../styles/tokens/colors'
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   All: colorValues.altBlack,
