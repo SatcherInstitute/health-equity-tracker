@@ -1,6 +1,6 @@
 import type { ScaleLinear } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
-import { het as colorVars } from '../../styles/theme/colorVars'
+import { colorVars } from '../../styles/tokens/colors'
 
 interface EndOfStackedPairLabelsProps {
   darkValue: number

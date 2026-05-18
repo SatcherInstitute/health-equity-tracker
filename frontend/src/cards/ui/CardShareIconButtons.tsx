@@ -8,7 +8,7 @@ import {
   LinkedinShareButton,
 } from 'react-share'
 import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
-import { het as colorVars } from '../../styles/theme/colorVars'
+import { colorVars } from '../../styles/tokens/colors'
 import { useCardImage } from '../../utils/hooks/useCardImage'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'

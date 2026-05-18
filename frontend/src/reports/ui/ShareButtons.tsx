@@ -7,7 +7,7 @@ import {
   LinkedinIcon,
   LinkedinShareButton,
 } from 'react-share'
-import { het as colorVars } from '../../styles/theme/colorVars'
+import { colorVars } from '../../styles/tokens/colors'
 
 export const SHARE_LABEL = 'Share this report:'
 

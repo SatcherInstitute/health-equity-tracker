@@ -3,7 +3,7 @@ import type {
   MetricConfig,
 } from '../../data/config/MetricConfigTypes'
 import type { GeographicBreakdown } from '../../data/query/Breakdowns'
-import { het as colorVars } from '../../styles/theme/colorVars'
+import { colorVars } from '../../styles/tokens/colors'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import {
   createLabelFormatter,

@@ -1,6 +1,6 @@
 import Joyride from 'react-joyride-react-19' // TODO: ideally revert back to react-joyride and not this temporary fork
-import { het as colorVars } from '../../styles/theme/colorVars'
 import { resolveCssVar } from '../../styles/theme/cssVarUtils'
+import { colorVars } from '../../styles/tokens/colors'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { getOnboardingSteps } from './OnboardingSteps'
 

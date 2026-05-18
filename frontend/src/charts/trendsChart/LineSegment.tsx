@@ -1,4 +1,4 @@
-import { het as colorVars } from '../../styles/theme/colorVars'
+import { colorVars } from '../../styles/tokens/colors'
 import StyledPath from './StyledPath'
 import type { XScale, YScale } from './types'
 
