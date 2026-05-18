@@ -1,7 +1,7 @@
 import { Dialog, DialogContent } from '@mui/material'
 import { useEffect } from 'react'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
-import { het as colorVars } from '../../styles/theme/colorVars'
+import { het } from '../../styles/theme/colorVars'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { VOTE_DOT_ORG_PARAM_KEY } from '../../utils/urlutils'
 
@@ -49,10 +49,12 @@ export default function VoteDotOrgModal() {
       }}
       scroll='paper'
       className='h-full'
-      PaperProps={{
-        style: {
-          backgroundColor: colorVars.exploreBgColor,
-          height: '95vh', // Ensure the dialog content also respects the height
+      slotProps={{
+        paper: {
+          style: {
+            backgroundColor: het.exploreBgColor,
+            height: '95vh', // Ensure the dialog content also respects the height
+          },
         },
       }}
     >
