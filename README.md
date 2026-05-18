@@ -261,7 +261,7 @@ The frontend consists of
 
 ### Frontend Design System & Theme Architecture
 
-Design tokens are defined once in [W3C DTCG](https://design-tokens.github.io/community-group/format/) JSON and generated into all downstream consumers by [Cobalt](https://cobalt-ui.pages.dev/). This keeps Tailwind v4, MUI v9, and D3.js in sync from a single source of truth with full IntelliSense and no style drift.
+Design tokens are defined once in [W3C DTCG](https://design-tokens.github.io/community-group/format/) JSON and generated into all downstream consumers by [Terrazzo](https://terrazzo.app/). This keeps Tailwind v4, MUI v9, and D3.js in sync from a single source of truth with full IntelliSense and no style drift.
 
 #### The Token Pipeline
 
@@ -275,14 +275,14 @@ flowchart TD
     end
 
     %% Build Step
-    BUILD["<code>npm run tokens</code><br/><i>Cobalt build — auto-runs on install, predev, prebuild</i>"]
+    BUILD["<code>npm run tokens</code><br/><i>Terrazzo — auto-runs on install, predev, prebuild</i>"]
 
     %% Generated Layer
-    subgraph Generated["Generated (DO NOT EDIT)"]
-        HEX["<code>colorValues.ts</code><br/><i>hetColors hex constants</i>"]
-        CV_CSS["<code>colorVars.css</code><br/><i>@theme CSS vars (direct hex)</i>"]
-        CV_TS["<code>colorVars.ts</code><br/><i>het CSS-var-string aliases</i>"]
-        DES["<code>designTokens.css</code><br/><i>@theme layout/typography vars</i>"]
+    subgraph Generated["Generated — src/styles/tokens/ (DO NOT EDIT, gitignored)"]
+        HEX["<code>colors.ts</code><br/><i>colorValues hex + colorVars CSS-var aliases</i>"]
+        CV_CSS["<code>colors.css</code><br/><i>@theme CSS vars (direct hex)</i>"]
+        TYP["<code>typography.ts/.css</code><br/><i>typographyVars + @theme</i>"]
+        DES["<code>dimensions.ts/.css</code><br/><i>dimensionVars, breakpointValues + @theme</i>"]
     end
 
     %% Consumption Layer
@@ -296,22 +296,23 @@ flowchart TD
     CT --> BUILD
     TT --> BUILD
     DT --> BUILD
-    BUILD --> HEX & CV_CSS & CV_TS & DES
+    BUILD --> HEX & CV_CSS & TYP & DES
 
-    HEX -->|"hex for MUI color derivation"| MUI_T
-    HEX -->|"direct hex import"| D3
+    HEX -->|"colorValues hex for MUI"| MUI_T
+    HEX -->|"colorValues direct hex"| D3
     CV_CSS -->|"@theme exposes to"| TW
-    CV_TS -->|"type-safe var() props"| REACT
-    DES -->|"@theme exposes to"| TW
+    HEX -->|"colorVars var() props"| REACT
+    TYP -->|"@theme + typographyVars"| TW
+    DES -->|"@theme + dimensionVars"| TW
     TW -->|"utility classes"| REACT
 ```
 
 #### Color & Token Strategy
 
 - **To add or change any token:** edit `tokens/*.tokens.json` and run `npm run tokens` (or restart the dev server — `predev` runs it automatically).
-- **Styling priority:** Always use Tailwind utility classes first. Use `het.<token>` (e.g. `color: het.altGreen`) for CSS-variable-driven TypeScript styles. Only touch `muiTheme.tsx` for MUI component `styleOverrides`.
-- **D3 & JS logic:** import `hetColors` from `colorValues.ts` for hex values needed by D3 scales. Use `resolveCssVar()` only for canvas/non-DOM contexts where the browser can't resolve `var()`.
-- **MUI palette:** `muiTheme.tsx` imports `hetColors` only for the primary/secondary entries — MUI needs hex at theme-creation time to compute hover/focus/ripple. All other tokens flow through CSS vars independently of MUI.
+- **Styling priority:** Always use Tailwind utility classes first. Use `colorVars.<token>` (e.g. `color: colorVars.altGreen`) for CSS-variable-driven TypeScript styles. Only touch `muiTheme.tsx` for MUI component `styleOverrides`.
+- **D3 & JS logic:** import `colorValues` from `src/styles/tokens/colors` for hex values needed by D3 scales. Use `resolveCssVar()` only for canvas/non-DOM contexts where the browser can't resolve `var()`.
+- **MUI palette:** `muiTheme.tsx` imports `colorValues` only for the primary/secondary entries — MUI needs hex at theme-creation time to compute hover/focus/ripple. All other tokens flow through CSS vars independently of MUI.
 
 ### Frontend Environment Configuration
 

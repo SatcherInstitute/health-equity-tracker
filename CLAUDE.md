@@ -89,28 +89,30 @@ Both frontend and backend changes are required:
 
 ### Design System / Theme Architecture
 
-Design tokens are defined once in W3C DTCG JSON and generated into all downstream files by [Cobalt](https://cobalt-ui.pages.dev/):
+Design tokens are defined once in W3C DTCG JSON and generated into all downstream files by [Terrazzo](https://terrazzo.app/) (`run-tokens.mjs`):
 
 ```
-frontend/tokens/
-  colors.tokens.json       # hex color values
+frontend/tokens/                          ← edit these
+  colors.tokens.json       # color values
   typography.tokens.json   # font families, sizes, line-heights
   dimensions.tokens.json   # spacing, sizing, breakpoints, shadows, z-index
         ↓  npm run tokens  (auto-runs on install, predev, prebuild)
-src/styles/theme/
-  colorValues.ts    ← DO NOT EDIT — hetColors hex export for MUI palette + D3
-  colorVars.css     ← DO NOT EDIT — Tailwind v4 @theme block (direct hex values)
-  colorVars.ts      ← DO NOT EDIT — het CSS-var-string aliases for components
-  designTokens.css  ← DO NOT EDIT — Tailwind v4 @theme block for non-color tokens
+src/styles/tokens/                        ← DO NOT EDIT (gitignored, generated)
+  colors.ts     — colorValues hex export (MUI palette + D3)
+  colors.css    — Tailwind v4 CSS vars (@layer base + @theme inline)
+  typography.ts — typographyVars CSS-var-string aliases
+  typography.css
+  dimensions.ts — dimensionVars + breakpointValues
+  dimensions.css
 ```
 
-`muiTheme.tsx` imports `hetColors` only for the primary/secondary palette entries (MUI needs hex at theme-creation time to derive hover/focus/ripple colors). All other color tokens flow through CSS variables independently of MUI.
+`muiTheme.tsx` imports `colorValues` only for the primary/secondary palette entries (MUI needs hex at theme-creation time to derive hover/focus/ripple colors). All other tokens flow through CSS variables independently of MUI.
 
 **Styling rules:**
 - Always prefer Tailwind utility classes as the primary method
-- Use `het.<token>` (e.g., `color: het.altGreen`) in TypeScript for CSS-variable-driven styles
+- Use `colorVars.<token>` (e.g., `color: colorVars.altGreen`) in TypeScript for CSS-variable-driven styles
 - Only modify MUI components via `styleOverrides` in `muiTheme.tsx` — avoid `sx` props and inline styles
-- D3/JS logic that requires a hex value imports directly from `colorValues.ts`
+- D3/JS logic that requires a hex value imports `colorValues` from `src/styles/tokens/colors`
 - **To add or change a token:** edit the relevant `tokens/*.tokens.json` file and run `npm run tokens`
 
 ### Environment Variables
@@ -147,8 +149,9 @@ All of the following run automatically on `git commit`:
 | URL parameter constants | `frontend/src/utils/urlutils.tsx` |
 | Shared Jotai state | `frontend/src/utils/sharedSettingsState.ts` |
 | MUI theme | `frontend/src/styles/theme/muiTheme.tsx` |
-| Color tokens (hex) | `frontend/src/styles/theme/colorValues.ts` |
-| Color tokens (CSS vars / TS) | `frontend/src/styles/theme/colorVars.css`, `colorVars.ts` |
+| Design token sources | `frontend/tokens/*.tokens.json` |
+| Token build script | `frontend/run-tokens.mjs`, `frontend/terrazzo.config.mjs` |
+| Generated token files | `frontend/src/styles/tokens/` (gitignored) |
 | Python DataSource base class | `python/datasources/data_source.py` |
 | Python BQ/GCS utilities | `python/ingestion/gcs_to_bq_util.py` |
 | Python type definitions | `python/ingestion/het_types.py` |
