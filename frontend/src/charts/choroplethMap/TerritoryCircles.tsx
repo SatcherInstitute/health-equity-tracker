@@ -6,7 +6,7 @@ import type {
 } from '../../data/config/MetricConfigTypes'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
-import { het } from '../../styles/theme/colorVars'
+import { het as colorVars } from '../../styles/theme/colorVars'
 import { getFillColor } from './colorSchemes'
 import {
   createTerritoryFeature,
@@ -112,7 +112,10 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           isMultiMap: props.isMulti,
         }),
       )
-      .attr('stroke', props.isExtremesMode ? het.altGray : het.altWhite)
+      .attr(
+        'stroke',
+        props.isExtremesMode ? colorVars.altGray : colorVars.altWhite,
+      )
       .attr('stroke-width', STROKE_WIDTH)
       .on('mouseover', (event: any, d) => {
         hideTooltips()

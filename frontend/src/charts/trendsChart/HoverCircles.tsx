@@ -10,7 +10,7 @@
 /* External Imports */
 
 import type { DemographicGroup } from '../../data/utils/Constants'
-import { het } from '../../styles/theme/colorVars'
+import { het as colorVars } from '../../styles/theme/colorVars'
 /* Helpers */
 import { COLORS as C } from './constants'
 /* Constants */
@@ -51,7 +51,7 @@ export function HoverCircles({
                       yScale(getAmountsByDate(d, selectedDate)) ?? 0
                     })`}
                     fill={C(group)}
-                    stroke={het.altWhite}
+                    stroke={colorVars.altWhite}
                   />
                 </>
               )}

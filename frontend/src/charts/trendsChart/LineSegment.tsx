@@ -1,4 +1,4 @@
-import { het } from '../../styles/theme/colorVars'
+import { het as colorVars } from '../../styles/theme/colorVars'
 import StyledPath from './StyledPath'
 import type { XScale, YScale } from './types'
 
@@ -38,7 +38,7 @@ export default function LineSegment({
             cy={y}
             r={isUnknown ? 4 : 3}
             fill={color}
-            stroke={het.altWhite}
+            stroke={colorVars.altWhite}
             strokeWidth={1}
           />
         )}
@@ -67,7 +67,7 @@ export default function LineSegment({
               cy={y}
               r={isUnknown ? 4 : 3}
               fill={color}
-              stroke={het.altWhite}
+              stroke={colorVars.altWhite}
               strokeWidth={1}
             />
           )

@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { hetColors } from '../../styles/theme/colorValues'
+import { hetColors as colorValues } from '../../styles/theme/colorValues'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
 
@@ -17,67 +17,67 @@ function getColorSchemes(): Record<ColorScheme, string[]> {
 
   _colorSchemes = {
     darkgreen: [
-      hetColors.mapDarker,
-      hetColors.mapDark,
-      hetColors.mapMid,
-      hetColors.mapLight,
-      hetColors.mapLighter,
-      hetColors.mapLightest,
+      colorValues.mapDarker,
+      colorValues.mapDark,
+      colorValues.mapMid,
+      colorValues.mapLight,
+      colorValues.mapLighter,
+      colorValues.mapLightest,
     ],
 
     plasma: [
-      hetColors.mapWomenDarker,
-      hetColors.mapWomenDark,
-      hetColors.mapWomenMid,
-      hetColors.mapWomenLight,
-      hetColors.mapWomenLighter,
-      hetColors.mapWomenLightest,
+      colorValues.mapWomenDarker,
+      colorValues.mapWomenDark,
+      colorValues.mapWomenMid,
+      colorValues.mapWomenLight,
+      colorValues.mapWomenLighter,
+      colorValues.mapWomenLightest,
     ],
 
     inferno: [
-      hetColors.mapMenDarker,
-      hetColors.mapMenDark,
-      hetColors.mapMenMid,
-      hetColors.mapMenLight,
-      hetColors.mapMenLighter,
-      hetColors.mapMenLightest,
+      colorValues.mapMenDarker,
+      colorValues.mapMenDark,
+      colorValues.mapMenMid,
+      colorValues.mapMenLight,
+      colorValues.mapMenLighter,
+      colorValues.mapMenLightest,
     ],
 
     viridis: [
-      hetColors.mapMedicareDarkest,
-      hetColors.mapMedicareDark,
-      hetColors.mapMedicareMid,
-      hetColors.mapMedicareLight,
-      hetColors.mapMedicareLighter,
-      hetColors.mapMedicareLightest,
+      colorValues.mapMedicareDarkest,
+      colorValues.mapMedicareDark,
+      colorValues.mapMedicareMid,
+      colorValues.mapMedicareLight,
+      colorValues.mapMedicareLighter,
+      colorValues.mapMedicareLightest,
     ],
 
     viridisAdherence: [
-      hetColors.mapMedicareDarkest,
-      hetColors.mapMedicareDark,
-      hetColors.mapMedicareMid,
-      hetColors.mapMedicareLight,
-      hetColors.mapMedicareLighter,
-      hetColors.mapMedicareEvenLighter,
-      hetColors.mapMedicareLightest,
+      colorValues.mapMedicareDarkest,
+      colorValues.mapMedicareDark,
+      colorValues.mapMedicareMid,
+      colorValues.mapMedicareLight,
+      colorValues.mapMedicareLighter,
+      colorValues.mapMedicareEvenLighter,
+      colorValues.mapMedicareLightest,
     ],
 
     greenblue: [
-      hetColors.unknownMapLeast,
-      hetColors.unknownMapLesser,
-      hetColors.unknownMapLess,
-      hetColors.unknownMapMid,
-      hetColors.unknownMapMore,
-      hetColors.unknownMapMost,
+      colorValues.unknownMapLeast,
+      colorValues.unknownMapLesser,
+      colorValues.unknownMapLess,
+      colorValues.unknownMapMid,
+      colorValues.unknownMapMore,
+      colorValues.unknownMapMost,
     ],
 
     darkred: [
-      hetColors.mapYouthDarkest,
-      hetColors.mapYouthDarker,
-      hetColors.mapYouthDark,
-      hetColors.mapYouthLight,
-      hetColors.mapYouthLighter,
-      hetColors.mapYouthLightest,
+      colorValues.mapYouthDarkest,
+      colorValues.mapYouthDarker,
+      colorValues.mapYouthDark,
+      colorValues.mapYouthLight,
+      colorValues.mapYouthLighter,
+      colorValues.mapYouthLightest,
     ],
   }
 
@@ -202,5 +202,5 @@ export function getFillColor(options: GetFillColorOptions): string {
     return colorScale(value)
   }
 
-  return isExtremesMode ? '#fff' : hetColors.altGray
+  return isExtremesMode ? '#fff' : colorValues.altGray
 }
