@@ -264,13 +264,6 @@ export type Breakpoint = keyof typeof breakpointValues
 
 /** @type {import("@terrazzo/parser").Config} */
 export default {
-  lint: {
-    rules: {
-      // Our tokens use camelCase (altGreen, fontSansTitle) — this is intentional
-      // so the generated TypeScript exports are valid identifiers without quoting.
-      'core/consistent-naming': 'off',
-    },
-  },
   tokens: [
     './tokens/colors.tokens.json',
     './tokens/typography.tokens.json',

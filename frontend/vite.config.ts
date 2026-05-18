@@ -1,5 +1,4 @@
 import react from '@vitejs/plugin-react'
-import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 import svgrPlugin from 'vite-plugin-svgr'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
@@ -39,11 +38,6 @@ export default defineConfig(({ mode }) => {
         : [
             viteTsconfigPaths(), // Keep only for non-preview environments
             svgrPlugin(), // Keep only for non-preview environments
-            visualizer({
-              open: !process.env.CI,
-              gzipSize: true,
-              brotliSize: true,
-            }),
           ]),
     ],
     test: {
