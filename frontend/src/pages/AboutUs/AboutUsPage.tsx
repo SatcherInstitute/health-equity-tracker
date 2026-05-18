@@ -255,7 +255,7 @@ export default function AboutUsPage() {
             Grantors
           </h3>
 
-          <ul className='grid list-none grid-cols-1 justify-between gap-6 align-center md:grid-cols-2'>
+          <ul className='grid list-none grid-cols-1 items-center justify-between gap-6 md:grid-cols-2'>
             {GRANTORS.map((grantor) => (
               <li
                 className='flex place-content-start items-center align-start'

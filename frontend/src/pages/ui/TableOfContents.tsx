@@ -40,13 +40,14 @@ export default function TableOfContents(props: TableOfContentsProps) {
       }
       orientation='vertical'
       aria-label='Available cards on this report'
+      role='navigation'
       className='hidden p-0 titleSm:pl-1p sm:flex sm:w-90p md:px-5'
     >
       {props.reportStepHashIds?.map((stepId) => {
         return (
           <Step completed={false} key={stepId}>
             <StepButton
-              // title=
+              role='button'
               className='text-left'
               onClick={(e) => {
                 e.preventDefault()
