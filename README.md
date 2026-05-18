@@ -279,10 +279,12 @@ flowchart TD
 
     %% Generated Layer
     subgraph Generated["Generated — src/styles/tokens/ (DO NOT EDIT, gitignored)"]
-        HEX["<code>colors.ts</code><br/><i>colorValues hex + colorVars CSS-var aliases</i>"]
-        CV_CSS["<code>colors.css</code><br/><i>@theme CSS vars (direct hex)</i>"]
-        TYP["<code>typography.ts/.css</code><br/><i>typographyVars + @theme</i>"]
-        DES["<code>dimensions.ts/.css</code><br/><i>dimensionVars, breakpointValues + @theme</i>"]
+        COLORS_TS["<code>colors.ts</code><br/><i>colorValues (hex) + colorVars (CSS-var aliases)</i>"]
+        COLORS_CSS["<code>colors.css</code><br/><i>@layer base + @theme inline</i>"]
+        TYPO_TS["<code>typography.ts</code><br/><i>typographyVars CSS-var aliases</i>"]
+        TYPO_CSS["<code>typography.css</code><br/><i>@layer base + @theme inline</i>"]
+        DIM_TS["<code>dimensions.ts</code><br/><i>dimensionVars + breakpointValues</i>"]
+        DIM_CSS["<code>dimensions.css</code><br/><i>@layer base + @theme</i>"]
     end
 
     %% Consumption Layer
@@ -296,14 +298,16 @@ flowchart TD
     CT --> BUILD
     TT --> BUILD
     DT --> BUILD
-    BUILD --> HEX & CV_CSS & TYP & DES
+    BUILD --> COLORS_TS & COLORS_CSS & TYPO_TS & TYPO_CSS & DIM_TS & DIM_CSS
 
-    HEX -->|"colorValues hex for MUI"| MUI_T
-    HEX -->|"colorValues direct hex"| D3
-    CV_CSS -->|"@theme exposes to"| TW
-    HEX -->|"colorVars var() props"| REACT
-    TYP -->|"@theme + typographyVars"| TW
-    DES -->|"@theme + dimensionVars"| TW
+    COLORS_TS -->|"colorValues hex"| MUI_T
+    COLORS_TS -->|"colorValues hex"| D3
+    COLORS_TS -->|"colorVars var() props"| REACT
+    COLORS_CSS -->|"color utilities"| TW
+    TYPO_TS -->|"typographyVars var() props"| MUI_T
+    TYPO_CSS -->|"font/text utilities"| TW
+    DIM_TS -->|"breakpointValues"| REACT
+    DIM_CSS -->|"spacing/breakpoint utilities"| TW
     TW -->|"utility classes"| REACT
 ```
 
