@@ -133,7 +133,14 @@ const muiTheme = extendTheme({
           margin: '0 auto',
         },
         line: {
-          minHeight: '8px',
+          variants: [
+            {
+              props: { orientation: 'vertical' },
+              style: {
+                minHeight: '8px',
+              },
+            },
+          ],
         },
       },
     },
