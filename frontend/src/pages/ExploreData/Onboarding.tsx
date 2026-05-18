@@ -1,5 +1,5 @@
 import Joyride from 'react-joyride-react-19' // TODO: ideally revert back to react-joyride and not this temporary fork
-import { het } from '../../styles/theme/colorVars'
+import { het as colorVars } from '../../styles/theme/colorVars'
 import { resolveCssVar } from '../../styles/theme/cssVarUtils'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { getOnboardingSteps } from './OnboardingSteps'
@@ -27,10 +27,10 @@ export default function Onboarding(props: {
       run={props.activelyOnboarding}
       styles={{
         options: {
-          arrowColor: het.altGreen,
-          backgroundColor: het.altGreen,
-          primaryColor: het.altGreen,
-          textColor: het.altWhite,
+          arrowColor: colorVars.altGreen,
+          backgroundColor: colorVars.altGreen,
+          primaryColor: colorVars.altGreen,
+          textColor: colorVars.altWhite,
           width: 900,
           zIndex: zAlmostTop,
         },

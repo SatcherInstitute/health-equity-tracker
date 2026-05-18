@@ -1,4 +1,4 @@
-import { het } from '../styles/theme/colorVars'
+import { het as colorVars } from '../styles/theme/colorVars'
 
 export default function UnknownPctRateGradient() {
   return (
@@ -12,16 +12,16 @@ export default function UnknownPctRateGradient() {
       style={{ position: 'absolute' }} // Ensures it doesn't take up space
     >
       <linearGradient id='gradient'>
-        <stop stopColor={het.unknownMapMost} offset='0%' />
-        <stop stopColor={het.unknownMapMid} offset='20%' />
-        <stop stopColor={het.unknownMapMost} offset='30%' />
-        <stop stopColor={het.unknownMapMid} offset='40%' />
-        <stop stopColor={het.unknownMapMost} offset='50%' />
-        <stop stopColor={het.unknownMapMid} offset='60%' />
-        <stop stopColor={het.unknownMapMost} offset='70%' />
-        <stop stopColor={het.unknownMapMid} offset='80%' />
-        <stop stopColor={het.unknownMapMost} offset='90%' />
-        <stop stopColor={het.unknownMapMid} offset='100%' />
+        <stop stopColor={colorVars.unknownMapMost} offset='0%' />
+        <stop stopColor={colorVars.unknownMapMid} offset='20%' />
+        <stop stopColor={colorVars.unknownMapMost} offset='30%' />
+        <stop stopColor={colorVars.unknownMapMid} offset='40%' />
+        <stop stopColor={colorVars.unknownMapMost} offset='50%' />
+        <stop stopColor={colorVars.unknownMapMid} offset='60%' />
+        <stop stopColor={colorVars.unknownMapMost} offset='70%' />
+        <stop stopColor={colorVars.unknownMapMid} offset='80%' />
+        <stop stopColor={colorVars.unknownMapMost} offset='90%' />
+        <stop stopColor={colorVars.unknownMapMid} offset='100%' />
       </linearGradient>
     </svg>
   )

@@ -49,10 +49,12 @@ export default function VoteDotOrgModal() {
       }}
       scroll='paper'
       className='h-full'
-      PaperProps={{
-        style: {
-          backgroundColor: het.exploreBgColor,
-          height: '95vh', // Ensure the dialog content also respects the height
+      slotProps={{
+        paper: {
+          style: {
+            backgroundColor: het.exploreBgColor,
+            height: '95vh', // Ensure the dialog content also respects the height
+          },
         },
       }}
     >
