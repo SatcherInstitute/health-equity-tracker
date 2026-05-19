@@ -19,7 +19,7 @@ export default function ReportTopbarMobile(props: ReportTopbarMobileProps) {
 
   return (
     <div className='mode-selector-box-mobile m-2 flex items-center justify-between rounded-sm bg-alt-white p-2 shadow-raised md:hidden'>
-      <div className='flex min-w-0 items-center'>
+      <div className='flex items-center gap-2'>
         <SimpleSelect<MadLibId>
           label={isTiny ? 'Compare mode' : 'Mode'}
           minWidth={selectMinWidth}
@@ -34,7 +34,7 @@ export default function ReportTopbarMobile(props: ReportTopbarMobileProps) {
         />
       </div>
       {props.showInsightsButton && (
-        <div className='shrink-0'>
+        <div className='ml-2 shrink-0'>
           <InsightReportButton
             variant='outlined'
             label={isTiny ? undefined : 'Insights'}
