@@ -1,4 +1,4 @@
-import { colors } from '../../styles/tokens/colors'
+import { colorValues } from '../../styles/tokens/colors'
 import StyledPath from './StyledPath'
 import type { XScale, YScale } from './types'
 
@@ -38,7 +38,7 @@ export default function LineSegment({
             cy={y}
             r={isUnknown ? 4 : 3}
             fill={color}
-            stroke={colors.altWhite}
+            stroke={colorValues.altWhite}
             strokeWidth={1}
           />
         )}
@@ -67,7 +67,7 @@ export default function LineSegment({
               cy={y}
               r={isUnknown ? 4 : 3}
               fill={color}
-              stroke={colors.altWhite}
+              stroke={colorValues.altWhite}
               strokeWidth={1}
             />
           )

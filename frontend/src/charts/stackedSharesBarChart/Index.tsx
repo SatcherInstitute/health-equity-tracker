@@ -8,7 +8,7 @@ import {
 import { sortByIncome } from '../../data/sorting/IncomeSorterStrategy'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
-import { colors } from '../../styles/tokens/colors'
+import { colorValues } from '../../styles/tokens/colors'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import {
@@ -32,8 +32,8 @@ const PAIR_GAP = 3
 const SET_GAP = 20
 
 export const STACKED_BAR_COLORS = {
-  population: colors.barChartLight,
-  distribution: colors.barChartDark,
+  population: colorValues.barChartLight,
+  distribution: colorValues.barChartDark,
 }
 const LEGEND_HEIGHT = 10
 

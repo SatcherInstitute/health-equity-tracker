@@ -46,36 +46,26 @@ const tsHeader = (src: string) =>
 // ─── Output builders ─────────────────────────────────────────────────────────
 
 /**
- * Two-block CSS output:
+ * Single @theme block: registers tokens with Tailwind for utility class generation.
+ * Tailwind emits CSS var definitions to :root for tokens whose utility classes
+ * (bg-*, text-*, font-*, etc.) appear in scanned content.
  *
- * @layer base :root — unconditionally emits CSS vars so var(--token-name) works
- *   everywhere (JS strings, SVG attributes, D3). Tailwind tree-shakes @theme vars
- *   whose utility classes never appear in scanned content (e.g. chart colors).
+ * All JS/TS consumers use the *Values exports (raw hex/strings) directly — no
+ * CSS vars needed in application code.
  *
- * @theme / @theme inline — registers vars with Tailwind for utility classes.
- *   Dimensions use plain @theme (not inline) so Tailwind sees literal pixel values
- *   for @media queries — var() in media queries is invalid CSS.
+ * Dimensions use plain @theme so Tailwind embeds literal px values into @media
+ * queries — var() in media queries is invalid CSS and silently breaks breakpoints.
  */
 function makeCssOutput(
   tokens: Token[],
   srcName: string,
-  { cssReset, inlineTheme = true }: { cssReset?: string; inlineTheme?: boolean } = {},
+  { cssReset }: { cssReset?: string } = {},
 ) {
-  const rootVars = tokens.map((t) => `    ${idToCssVar(t.id)}: ${valueToString(t.$value)};`).join('\n')
-  const themeVars = inlineTheme
-    ? tokens.map((t) => `  ${idToCssVar(t.id)}: var(${idToCssVar(t.id)});`).join('\n')
-    : tokens.map((t) => `  ${idToCssVar(t.id)}: ${valueToString(t.$value)};`).join('\n')
-  const themeDirective = inlineTheme ? '@theme inline' : '@theme'
+  const themeVars = tokens.map((t) => `  ${idToCssVar(t.id)}: ${valueToString(t.$value)};`).join('\n')
   const resetLine = cssReset ? `  ${cssReset}: initial;\n\n` : ''
 
   return `${cssHeader(srcName)}
-@layer base {
-  :root {
-${rootVars}
-  }
-}
-
-${themeDirective} {
+@theme {
 ${resetLine}${themeVars}
 }
 `
@@ -87,21 +77,17 @@ function makeTsOutput(
   {
     keyFn,
     exportBase,
-    varExportName,
     extra = '',
   }: {
     keyFn: (id: string) => string
     exportBase: string
-    varExportName?: string
     extra?: string
   },
 ) {
   const valEntries = tokens
     .map((t) => `  ${keyFn(t.id)}: ${JSON.stringify(valueToString(t.$value))}`)
     .join(',\n')
-  const varEntries = tokens.map((t) => `  ${keyFn(t.id)}: 'var(${idToCssVar(t.id)})'`).join(',\n')
   const ExportBase = exportBase.charAt(0).toUpperCase() + exportBase.slice(1)
-  const Vars = varExportName ?? exportBase
 
   return `${tsHeader(srcName)}
 export const ${exportBase}Values = {
@@ -109,10 +95,6 @@ ${valEntries},
 } as const
 
 export type ${ExportBase}Key = keyof typeof ${exportBase}Values
-
-export const ${Vars} = {
-${varEntries},
-} as const
 ${extra}`
 }
 
@@ -121,7 +103,7 @@ ${extra}`
 function cssPlugin(
   srcName: string,
   filter: (t: Token) => boolean,
-  opts: { cssReset?: string; inlineTheme?: boolean } = {},
+  opts: { cssReset?: string } = {},
 ): Plugin {
   return {
     name: `${srcName}-css`,
@@ -140,7 +122,6 @@ function tsPlugin(
   opts: {
     keyFn: (id: string) => string
     exportBase: string
-    varExportName?: string
     extra?: (tokens: Token[]) => string
   },
 ): Plugin {
@@ -170,16 +151,15 @@ export default {
   outDir: './src/styles/tokens/',
   plugins: [
     cssPlugin('colors', isColor, { cssReset: '--color-*' }),
-    tsPlugin('colors', isColor, { keyFn: idToLeafKey, exportBase: 'color', varExportName: 'colors' }),
+    tsPlugin('colors', isColor, { keyFn: idToLeafKey, exportBase: 'color' }),
 
     cssPlugin('typography', isTypo),
     tsPlugin('typography', isTypo, { keyFn: idToCamelKey, exportBase: 'typography' }),
 
-    cssPlugin('dimensions', isDim, { inlineTheme: false }),
+    cssPlugin('dimensions', isDim),
     tsPlugin('dimensions', isDim, {
       keyFn: idToCamelKey,
       exportBase: 'dimension',
-      varExportName: 'dimensions',
       extra: (tokens) => {
         const bpEntries = tokens
           .filter(isBreakpoint)

@@ -1,13 +1,13 @@
 import { extendTheme } from '@mui/material/styles'
-import { colors, colorValues } from '../tokens/colors'
-import { dimensions } from '../tokens/dimensions'
-import { typography } from '../tokens/typography'
+import { colorValues } from '../tokens/colors'
+import { dimensionValues } from '../tokens/dimensions'
+import { typographyValues } from '../tokens/typography'
 
 // Palette entries use hex (from generated colorValues.ts) because MUI derives
 // hover, focus, and ripple colors at theme-creation time via color functions
-// that cannot resolve CSS variables. Component styleOverrides use colors.* (CSS
+// that cannot resolve CSS variables. Component styleOverrides use colorValues.* (CSS
 // variables) for direct property application — the browser resolves these at
-// paint time. Our custom color tokens live in colors.css independently of
+// paint time. Our custom color tokens live in colorValues.css independently of
 // MUI's --mui-palette-* variables.
 const muiTheme = extendTheme({
   colorSchemes: {
@@ -34,28 +34,28 @@ const muiTheme = extendTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          fontFamily: typography.fontSansText,
+          fontFamily: typographyValues.fontSansText,
         },
       },
     },
     MuiAlert: {
       styleOverrides: {
         root: {
-          fontFamily: typography.fontSansText,
+          fontFamily: typographyValues.fontSansText,
           '&.MuiAlert-standard.MuiAlert-colorInfo': {
-            backgroundColor: colors.standardInfo,
-            color: colors.altBlack,
+            backgroundColor: colorValues.standardInfo,
+            color: colorValues.altBlack,
             textAlign: 'left',
             '& .MuiAlert-icon': {
-              color: colors.altGreen,
+              color: colorValues.altGreen,
             },
           },
           '&.MuiAlert-standard.MuiAlert-colorWarning': {
-            backgroundColor: colors.standardWarning,
-            color: colors.altBlack,
+            backgroundColor: colorValues.standardWarning,
+            color: colorValues.altBlack,
             textAlign: 'left',
             '& .MuiAlert-icon': {
-              color: colors.alertColor,
+              color: colorValues.alertColor,
             },
           },
           '&.MuiAlert-standard.MuiAlert-colorError': {
@@ -75,7 +75,7 @@ const muiTheme = extendTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          fontFamily: typography.fontSansText,
+          fontFamily: typographyValues.fontSansText,
           padding: 'unset',
           borderRadius: 'unset',
           minWidth: 'unset',
@@ -86,7 +86,7 @@ const muiTheme = extendTheme({
       styleOverrides: {
         sizeSmall: {
           '& .MuiInputBase-input': {
-            fontSize: typography.textSmallest,
+            fontSize: typographyValues.textSmallest,
           },
         },
       },
@@ -94,7 +94,7 @@ const muiTheme = extendTheme({
     MuiListItemText: {
       styleOverrides: {
         root: {
-          fontFamily: typography.fontSansTitle,
+          fontFamily: typographyValues.fontSansTitle,
         },
       },
     },
@@ -129,7 +129,7 @@ const muiTheme = extendTheme({
     MuiStepLabel: {
       styleOverrides: {
         label: {
-          lineHeight: typography.leadingTight,
+          lineHeight: typographyValues.leadingTight,
         },
       },
     },
@@ -146,7 +146,7 @@ const muiTheme = extendTheme({
           // textTransform handled in index.css but kept here for MUI
           // specificity since Tab uses its own internal class stacking.
           textTransform: 'none',
-          fontFamily: `${typography.fontSansTitle} !important`,
+          fontFamily: `${typographyValues.fontSansTitle} !important`,
         },
       },
     },
@@ -154,15 +154,15 @@ const muiTheme = extendTheme({
       styleOverrides: {
         root: {
           marginTop: '40px',
-          borderBottom: `1px solid ${colors.borderColor}`,
+          borderBottom: `1px solid ${colorValues.borderColor}`,
         },
       },
     },
     MuiToggleButtonGroup: {
       styleOverrides: {
         root: {
-          outline: `1px solid ${colors.howToColor} !important`,
-          borderRadius: dimensions.radiusSm,
+          outline: `1px solid ${colorValues.howToColor} !important`,
+          borderRadius: dimensionValues.radiusSm,
           overflow: 'hidden',
         },
       },
@@ -170,21 +170,21 @@ const muiTheme = extendTheme({
     MuiToggleButton: {
       styleOverrides: {
         root: {
-          outline: `1px solid ${colors.howToColor} !important`,
+          outline: `1px solid ${colorValues.howToColor} !important`,
           fontWeight: 'normal',
           fontSize: '14px',
-          color: colors.altBlack,
+          color: colorValues.altBlack,
           lineHeight: '16px !important',
           padding: '11px !important',
           backgroundColor: '#fff !important',
           textTransform: 'none',
           '&.Mui-selected': {
-            color: colors.altGreen,
-            backgroundColor: `${colors.toggleColor} !important`,
+            color: colorValues.altGreen,
+            backgroundColor: `${colorValues.toggleColor} !important`,
           },
           '&:hover': {
-            color: colors.altGreen,
-            backgroundColor: colors.toggleColor,
+            color: colorValues.altGreen,
+            backgroundColor: colorValues.toggleColor,
           },
         },
       },
@@ -192,7 +192,7 @@ const muiTheme = extendTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          fontFamily: typography.fontSansTitle,
+          fontFamily: typographyValues.fontSansTitle,
         },
       },
     },

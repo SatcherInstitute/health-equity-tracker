@@ -1,4 +1,4 @@
-import { colors } from '../styles/tokens/colors'
+import { colorValues } from '../styles/tokens/colors'
 
 export default function UnknownPctRateGradient() {
   return (
@@ -12,16 +12,16 @@ export default function UnknownPctRateGradient() {
       style={{ position: 'absolute' }} // Ensures it doesn't take up space
     >
       <linearGradient id='gradient'>
-        <stop stopColor={colors.unknownMapMost} offset='0%' />
-        <stop stopColor={colors.unknownMapMid} offset='20%' />
-        <stop stopColor={colors.unknownMapMost} offset='30%' />
-        <stop stopColor={colors.unknownMapMid} offset='40%' />
-        <stop stopColor={colors.unknownMapMost} offset='50%' />
-        <stop stopColor={colors.unknownMapMid} offset='60%' />
-        <stop stopColor={colors.unknownMapMost} offset='70%' />
-        <stop stopColor={colors.unknownMapMid} offset='80%' />
-        <stop stopColor={colors.unknownMapMost} offset='90%' />
-        <stop stopColor={colors.unknownMapMid} offset='100%' />
+        <stop stopColor={colorValues.unknownMapMost} offset='0%' />
+        <stop stopColor={colorValues.unknownMapMid} offset='20%' />
+        <stop stopColor={colorValues.unknownMapMost} offset='30%' />
+        <stop stopColor={colorValues.unknownMapMid} offset='40%' />
+        <stop stopColor={colorValues.unknownMapMost} offset='50%' />
+        <stop stopColor={colorValues.unknownMapMid} offset='60%' />
+        <stop stopColor={colorValues.unknownMapMost} offset='70%' />
+        <stop stopColor={colorValues.unknownMapMid} offset='80%' />
+        <stop stopColor={colorValues.unknownMapMost} offset='90%' />
+        <stop stopColor={colorValues.unknownMapMid} offset='100%' />
       </linearGradient>
     </svg>
   )
