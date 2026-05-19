@@ -51,7 +51,6 @@
 		"@emotion/react": "^11.14.0",
 		"@playwright/test": "^1.59.1",
 		"@tailwindcss/postcss": "^4.2.4",
-		"@terrazzo/cli": "^2.2.0",
 		"@terrazzo/parser": "^2.2.0",
 		"@testing-library/dom": "^10.4.1",
 		"@testing-library/jest-dom": "^6.6.3",
@@ -72,6 +71,7 @@
 		"jsdom": "^26.1.0",
 		"postcss": "^8.5.10",
 		"tailwindcss": "^4.2.4",
+		"tsx": "^4.22.3",
 		"typescript": "^5.9.3",
 		"vite": "^6.4.2",
 		"vite-plugin-svgr": "^4.5.0",
@@ -105,7 +105,7 @@
 		"test:coverage": "vitest run --coverage",
 		"test:watch": "vitest watch",
 		"test": "vitest run",
-		"tokens": "tz build",
+		"tokens": "tsx run-tokens.ts",
 		"postinstall": "npm run tokens",
 		"predev": "npm run tokens",
 		"prebuild": "npm run tokens",
@@ -127,5 +127,9 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"optionalDependencies": {
+		"@emnapi/core": "1.10.0",
+		"@emnapi/runtime": "1.10.0"
 	}
 }
