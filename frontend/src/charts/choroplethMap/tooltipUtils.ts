@@ -10,8 +10,8 @@ import {
   type DemographicType,
 } from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
-import { het } from '../../styles/theme/colorVars'
 import { resolveCssVar } from '../../styles/theme/cssVarUtils'
+import { colors } from '../../styles/tokens/colors'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MouseEventHandlerOptions, MouseEventType } from './types'
@@ -31,8 +31,8 @@ export const createTooltipContainer = (isMulti?: boolean) => {
     .style('position', 'absolute')
     .style('visibility', 'hidden')
     .style('max-width', '40vw')
-    .style('background-color', het.altWhite)
-    .style('border', `1px solid ${het.grayGridColorDarker}`)
+    .style('background-color', colors.altWhite)
+    .style('border', `1px solid ${colors.grayGridColorDarker}`)
     .style('border-radius', '4px')
     .style('padding', '8px')
     .style('font-size', '12px')

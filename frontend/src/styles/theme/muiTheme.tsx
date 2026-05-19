@@ -60,7 +60,7 @@ const muiTheme = extendTheme({
       styleOverrides: {
         root: {
           fontFamily: 'var(--font-sans-text)',
-          '&.MuiAlert-standardInfo': {
+          '&.MuiAlert-standard.MuiAlert-colorInfo': {
             backgroundColor: het.standardInfo,
             color: het.altBlack,
             textAlign: 'left',
@@ -68,7 +68,7 @@ const muiTheme = extendTheme({
               color: het.altGreen,
             },
           },
-          '&.MuiAlert-standardWarning': {
+          '&.MuiAlert-standard.MuiAlert-colorWarning': {
             backgroundColor: het.standardWarning,
             color: het.altBlack,
             textAlign: 'left',
@@ -76,7 +76,7 @@ const muiTheme = extendTheme({
               color: het.alertColor,
             },
           },
-          '&.MuiAlert-standardError': {
+          '&.MuiAlert-standard.MuiAlert-colorError': {
             textAlign: 'left',
           },
         },
@@ -102,8 +102,10 @@ const muiTheme = extendTheme({
     },
     MuiInputBase: {
       styleOverrides: {
-        inputSizeSmall: {
-          fontSize: 'var(--text-smallest)',
+        sizeSmall: {
+          '& .MuiInputBase-input': {
+            fontSize: 'var(--text-smallest)',
+          },
         },
       },
     },
@@ -130,8 +132,15 @@ const muiTheme = extendTheme({
           paddingBlock: '0',
           margin: '0 auto',
         },
-        lineVertical: {
-          minHeight: '8px',
+        line: {
+          variants: [
+            {
+              props: { orientation: 'vertical' },
+              style: {
+                minHeight: '8px',
+              },
+            },
+          ],
         },
       },
     },
