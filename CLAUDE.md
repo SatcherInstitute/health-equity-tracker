@@ -13,7 +13,7 @@ The [Health Equity Tracker](https://healthequitytracker.org/) aggregates demogra
 
 ### Three-Tier Frontend
 
-```
+```plaintext
 frontend/         React app (TypeScript, Vite, MUI, Tailwind, D3, Jotai)
 frontend_server/  Lightweight Node server — serves React static files, proxies data requests
 data_server/      Python Flask server — responds with JSON files exported from BigQuery
@@ -21,7 +21,7 @@ data_server/      Python Flask server — responds with JSON files exported from
 
 ### Backend Data Pipeline
 
-```
+```plaintext
 run_ingestion/  →  GCS bucket  →  run_gcs_to_bq/  →  BigQuery  →  exporter/  →  GCS JSON  →  data_server/
 (fetch raw data)                  (runs DataSource                  (splits county
                                    modules in /python)               files by state)
@@ -30,9 +30,11 @@ run_ingestion/  →  GCS bucket  →  run_gcs_to_bq/  →  BigQuery  →  export
 Each backend microservice is a Docker container triggered by Cloud Run. GitHub Actions workflows in `.github/workflows/dag*.yml` orchestrate the pipeline runs (one DAG per data source).
 
 **Testing backend changes:** Push your branch to the shared `infra-test` branch to trigger a GCP deployment:
+
 ```bash
 git push origin HEAD:infra-test -f
 ```
+
 Then run the relevant DAG workflow from GitHub Actions against the test project.
 
 ## Commands
@@ -49,9 +51,10 @@ pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.
 
 ## Adding a New Health Topic
 
-Both frontend and backend changes are required:
+Both frontend and backend changes are required.
 
 **Frontend** (see `frontend/CLAUDE.md` for file locations):
+
 1. Create `MetricConfig<Topic>.ts` — define `MetricId`s, `DataTypeId`s, and chart configs
 2. Register the new `DropdownVarId` in `DropDownIds.ts`
 3. Create `DatasetMetadata<Topic>.ts` — list dataset IDs consumed
@@ -59,6 +62,7 @@ Both frontend and backend changes are required:
 5. Register provider in `VariableProviderMap.ts`
 
 **Backend:**
+
 1. Create `python/datasources/<source>.py` — extends `DataSource`, implements `write_to_bq()`
 2. Register in `python/datasources/data_sources.py`
 3. Add a DAG GitHub Actions workflow `.github/workflows/dag<Source>.yml`
@@ -66,6 +70,7 @@ Both frontend and backend changes are required:
 ## Pre-Commit Hooks
 
 All of the following run automatically on `git commit`:
+
 - **cspell** — spell-checks staged `.md`, `.html`, `.tsx`, `.ts`, `.py`, `.yaml` files
 - **biome** — formats and lints JS/TS/JSON (`npm run cleanup` in `frontend/`)
 - **tsc** — TypeScript type check (no emit)

@@ -62,11 +62,12 @@ src/styles/tokens/                 ← DO NOT EDIT (gitignored, generated)
 ```
 
 **Token API — always import raw values, use directly:**
+
 ```ts
-import { colors }                             from '../../styles/tokens/colors'
-import { typography }                         from '../../styles/tokens/typography'
-import { dimensions, breakpoints }            from '../../styles/tokens/dimensions'
-import { type Breakpoint }                    from '../../styles/tokens/dimensions'
+import { colors }                  from '../../styles/tokens/colors'
+import { typography }              from '../../styles/tokens/typography'
+import { dimensions, breakpoints } from '../../styles/tokens/dimensions'
+import { type Breakpoint }         from '../../styles/tokens/dimensions'
 
 colors.altGreen          // '#0b5240'
 typography.fontSansText  // "'Inter Variable', sans-serif"
@@ -77,6 +78,7 @@ breakpoints.sm           // '600px'  ← short keys for useIsBreakpointAndUp
 CSS vars are a Tailwind implementation detail — `@theme` registers tokens so utility classes like `bg-alt-green` work; app code never references `var(--color-*)` directly.
 
 **Styling rules:**
+
 - Always prefer Tailwind utility classes as the primary method
 - For inline/computed styles in TypeScript, import from `src/styles/tokens/` and use the raw value
 - Only modify MUI components via `styleOverrides` in `muiTheme.tsx` — avoid `sx` props and inline styles
@@ -93,7 +95,7 @@ No secrets are stored in `.env` files — all are checked into git. Environments
 | `.env.dev` | `dev.healthequitytracker.org` | `het-infra-test` |
 | `.env.prod` | `healthequitytracker.org` | `het-infra-prod` |
 
-To serve local data files instead of a real API during frontend development, set `VITE_BASE_API_URL` to empty and drop `.json` files into `frontend/public/tmp/`. Or use `VITE_FORCE_STATIC=file1.json,file2.json` to override specific files while keeping the rest live.
+To serve local data files instead of a real API during development, set `VITE_BASE_API_URL` to empty and drop `.json` files into `frontend/public/tmp/`. Or use `VITE_FORCE_STATIC=file1.json,file2.json` to override specific files while keeping the rest live.
 
 ## Key File Locations
 

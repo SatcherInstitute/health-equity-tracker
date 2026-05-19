@@ -1,7 +1,6 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import svgrPlugin from 'vite-plugin-svgr'
-import viteTsconfigPaths from 'vite-tsconfig-paths'
 import { configDefaults } from 'vitest/config'
 
 // biome-ignore lint/correctness/noUnusedFunctionParameters: dont need it
@@ -22,6 +21,7 @@ export default defineConfig(({ mode }) => {
           }
         : {},
     },
+    resolve: { tsconfigPaths: true },
     cache: true,
     server: {
       open: true,
@@ -36,7 +36,6 @@ export default defineConfig(({ mode }) => {
       ...(isDeployPreview
         ? []
         : [
-            viteTsconfigPaths(), // Keep only for non-preview environments
             svgrPlugin(), // Keep only for non-preview environments
           ]),
     ],
