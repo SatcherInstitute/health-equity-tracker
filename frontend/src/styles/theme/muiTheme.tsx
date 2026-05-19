@@ -3,12 +3,9 @@ import { colors } from '../tokens/colors'
 import { dimensions } from '../tokens/dimensions'
 import { typography } from '../tokens/typography'
 
-// Palette entries use hex (from generated colors.ts) because MUI derives
-// hover, focus, and ripple colors at theme-creation time via color functions
-// that cannot resolve CSS variables. Component styleOverrides use colors.* (CSS
-// variables) for direct property application — the browser resolves these at
-// paint time. Our custom color tokens live in colors.css independently of
-// MUI's --mui-palette-* variables.
+// All token values are raw hex/strings from the generated token files.
+// MUI needs hex at theme-creation time to derive hover, focus, and ripple
+// colors — CSS variables cannot be resolved by MUI's color functions.
 const muiTheme = extendTheme({
   colorSchemes: {
     light: {
