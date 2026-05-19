@@ -6,28 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The [Health Equity Tracker](https://healthequitytracker.org/) aggregates demographic health data by race, ethnicity, sex, and socioeconomic status across the US. It consists of a React frontend, lightweight Node server, Python data server, and a GCP-hosted data pipeline.
 
-## Commands
-
-All frontend commands run from `frontend/`:
-
-```bash
-npm run localhost        # Start dev server at localhost:3000 (also starts tsc --watch)
-npm run test             # Run Vitest unit tests once
-npm run test:watch       # Run Vitest in watch mode
-npm run cleanup          # Lint + format with Biome (runs pre-commit)
-npx tsc --noEmit         # Type-check TypeScript
-
-# Run a single E2E test file (dev server must be running)
-npm run e2e statins.nightly.spec.ts
-npm run e2e hiv          # Matches any filename containing "hiv"
-```
-
-Python tests run from the repo root with the venv activated (`source .venv/bin/activate`):
-
-```bash
-pip install python/data_server/ python/datasources/ python/ingestion/ && pytest python/tests/
-pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.py -s
-```
+> **Service-specific guidance:** See each service's own `CLAUDE.md` for details.
+> `frontend/` · `frontend_server/` · `data_server/` · `exporter/` · `python/`
 
 ## Architecture
 
@@ -55,32 +35,28 @@ git push origin HEAD:infra-test -f
 ```
 Then run the relevant DAG workflow from GitHub Actions against the test project.
 
-### Frontend Data Flow
+## Commands
 
-The URL encodes the entire report state via URL params. The "MadLib" pattern (`disparity` / `comparegeos` / `comparevars` modes) is the query-builder UI — users fill in topic, geography, and demographic group.
+Frontend commands run from `frontend/` — see `frontend/CLAUDE.md`.
 
-```
-URL params (mls, dt1, demo, etc.)
-  → MadLib selection state (src/utils/MadLibs.ts)
-    → MetricQuery (src/data/query/MetricQuery.ts)
-      → DataManager (src/data/loading/DataManager.ts) — LRU cache
-        → VariableProvider (per-topic, src/data/providers/)
-          → JSON fetch from data_server
-            → MetricQueryResponse → Cards render charts
+Python tests run from the repo root with the venv activated:
+
+```bash
+source .venv/bin/activate
+pip install python/data_server/ python/datasources/ python/ingestion/ && pytest python/tests/
+pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.py -s
 ```
 
-Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`src/utils/sharedSettingsState.ts`).
-
-### Adding a New Health Topic
+## Adding a New Health Topic
 
 Both frontend and backend changes are required:
 
-**Frontend:**
-1. Create `src/data/config/MetricConfig<Topic>.ts` — define `MetricId`s, `DataTypeId`s, and chart configs
-2. Register the new `DropdownVarId` in `src/data/config/DropDownIds.ts`
-3. Create `src/data/config/DatasetMetadata<Topic>.ts` — list dataset IDs consumed
-4. Create `src/data/providers/<Topic>Provider.ts` — extends `VariableProvider`, maps metrics to dataset files
-5. Register provider in `src/data/loading/VariableProviderMap.ts`
+**Frontend** (see `frontend/CLAUDE.md` for file locations):
+1. Create `MetricConfig<Topic>.ts` — define `MetricId`s, `DataTypeId`s, and chart configs
+2. Register the new `DropdownVarId` in `DropDownIds.ts`
+3. Create `DatasetMetadata<Topic>.ts` — list dataset IDs consumed
+4. Create `<Topic>Provider.ts` — extends `VariableProvider`, maps metrics to dataset files
+5. Register provider in `VariableProviderMap.ts`
 
 **Backend:**
 1. Create `python/datasources/<source>.py` — extends `DataSource`, implements `write_to_bq()`
@@ -168,3 +144,4 @@ All of the following run automatically on `git commit`:
 | Python BQ/GCS utilities | `python/ingestion/gcs_to_bq_util.py` |
 | Python type definitions | `python/ingestion/het_types.py` |
 | GCP pipeline DAG workflows | `.github/workflows/dag*.yml` |
+| Frontend key files | See `frontend/CLAUDE.md` |
