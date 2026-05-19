@@ -7,7 +7,10 @@ WORKDIR /usr/src/build
 
 COPY ./frontend/package*.json ./
 
-RUN npm install
+# --ignore-scripts defers postinstall (npm run tokens) until after all files
+# are copied — run-tokens.ts doesn't exist yet at this point in the build.
+# The prebuild hook in npm run build:$DEPLOY_CONTEXT runs tokens instead.
+RUN npm install --ignore-scripts
 
 COPY ./frontend .
 
