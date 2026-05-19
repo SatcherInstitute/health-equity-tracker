@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { hetColors as colorValues } from '../../styles/theme/colorValues'
+import { colorValues } from '../../styles/tokens/colors'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
 
