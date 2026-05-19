@@ -13,7 +13,7 @@ The [Health Equity Tracker](https://healthequitytracker.org/) aggregates demogra
 
 ### Three-Tier Frontend
 
-```
+```plaintext
 frontend/         React app (TypeScript, Vite, MUI, Tailwind, D3, Jotai)
 frontend_server/  Lightweight Node server — serves React static files, proxies data requests
 data_server/      Python Flask server — responds with JSON files exported from BigQuery
@@ -21,7 +21,7 @@ data_server/      Python Flask server — responds with JSON files exported from
 
 ### Backend Data Pipeline
 
-```
+```plaintext
 run_ingestion/  →  GCS bucket  →  run_gcs_to_bq/  →  BigQuery  →  exporter/  →  GCS JSON  →  data_server/
 (fetch raw data)                  (runs DataSource                  (splits county
                                    modules in /python)               files by state)
