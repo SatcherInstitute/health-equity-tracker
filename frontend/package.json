@@ -105,7 +105,7 @@
 		"test:coverage": "vitest run --coverage",
 		"test:watch": "vitest watch",
 		"test": "vitest run",
-		"tokens": "node run-tokens.mjs",
+		"tokens": "tsx run-tokens.ts",
 		"postinstall": "npm run tokens",
 		"predev": "npm run tokens",
 		"prebuild": "npm run tokens",
