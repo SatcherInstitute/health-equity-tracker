@@ -34,7 +34,7 @@ pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.
 ### Three-Tier Frontend
 
 ```
-frontend/         React app (TypeScript, Vite, MUI v7, Tailwind v4, D3, Jotai)
+frontend/         React app (TypeScript, Vite, MUI, Tailwind, D3, Jotai)
 frontend_server/  Lightweight Node server — serves React static files, proxies data requests
 data_server/      Python Flask server — responds with JSON files exported from BigQuery
 ```
