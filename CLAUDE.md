@@ -110,7 +110,7 @@ src/styles/tokens/                        ← DO NOT EDIT (gitignored, generated
 
 **Styling rules:**
 - Always prefer Tailwind utility classes as the primary method
-- Use `colorVars.<token>` (e.g., `color: colorVars.altGreen`) in TypeScript for CSS-variable-driven styles
+- Use `colors.<token>` (e.g., `color: colors.altGreen`) in TypeScript for CSS-variable-driven styles
 - Only modify MUI components via `styleOverrides` in `muiTheme.tsx` — avoid `sx` props and inline styles
 - D3/JS logic that requires a hex value imports `colorValues` from `src/styles/tokens/colors`
 - **To add or change a token:** edit the relevant `tokens/*.tokens.json` file and run `npm run tokens`

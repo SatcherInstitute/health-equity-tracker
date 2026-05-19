@@ -279,7 +279,7 @@ flowchart TD
 
     %% Generated Layer
     subgraph Generated["Generated — src/styles/tokens/ (DO NOT EDIT, gitignored)"]
-        COLORS_TS["<code>colors.ts</code><br/><i>colorValues (hex) + colorVars (CSS-var aliases)</i>"]
+        COLORS_TS["<code>colors.ts</code><br/><i>colorValues (hex) + colors CSS-var aliases</i>"]
         COLORS_CSS["<code>colors.css</code><br/><i>@layer base + @theme inline</i>"]
         TYPO_TS["<code>typography.ts</code><br/><i>typographyVars CSS-var aliases</i>"]
         TYPO_CSS["<code>typography.css</code><br/><i>@layer base + @theme inline</i>"]
@@ -302,7 +302,7 @@ flowchart TD
 
     COLORS_TS -->|"colorValues hex"| MUI_T
     COLORS_TS -->|"colorValues hex"| D3
-    COLORS_TS -->|"colorVars var() props"| REACT
+    COLORS_TS -->|"colors var() props"| REACT
     COLORS_CSS -->|"color utilities"| TW
     TYPO_TS -->|"typographyVars var() props"| MUI_T
     TYPO_CSS -->|"font/text utilities"| TW
@@ -314,7 +314,7 @@ flowchart TD
 #### Color & Token Strategy
 
 - **To add or change any token:** edit `tokens/*.tokens.json` and run `npm run tokens` (or restart the dev server — `predev` runs it automatically).
-- **Styling priority:** Always use Tailwind utility classes first. Use `colorVars.<token>` (e.g. `color: colorVars.altGreen`) for CSS-variable-driven TypeScript styles. Only touch `muiTheme.tsx` for MUI component `styleOverrides`.
+- **Styling priority:** Always use Tailwind utility classes first. Use `colors.<token>` (e.g. `color: colors.altGreen`) for CSS-variable-driven TypeScript styles. Only touch `muiTheme.tsx` for MUI component `styleOverrides`.
 - **D3 & JS logic:** import `colorValues` from `src/styles/tokens/colors` for hex values needed by D3 scales. Use `resolveCssVar()` only for canvas/non-DOM contexts where the browser can't resolve `var()`.
 - **MUI palette:** `muiTheme.tsx` imports `colorValues` only for the primary/secondary entries — MUI needs hex at theme-creation time to compute hover/focus/ripple. All other tokens flow through CSS vars independently of MUI.
 
