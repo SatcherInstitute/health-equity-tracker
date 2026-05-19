@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
-import { colorValues } from '../../styles/tokens/colors'
+import { colors } from '../../styles/tokens/colors'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { formatMetricValue } from './tooltipUtils'
 import type { ColorScale } from './types'
@@ -63,7 +63,7 @@ export function createUnknownLegend(
     .attr('y', 0)
     .attr('width', 20)
     .attr('height', legendHeight)
-    .style('fill', colorValues.altGray)
+    .style('fill', colors.altGray)
 
   legendContainer
     .append('text')

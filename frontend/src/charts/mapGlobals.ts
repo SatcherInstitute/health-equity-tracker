@@ -3,7 +3,7 @@ import type { MapConfig, MetricConfig } from '../data/config/MetricConfigTypes'
 To prevent components loading from one another, all exported consts for the map cards should be in this file
 */
 import type { DemographicGroup } from '../data/utils/Constants'
-import { colorValues } from '../styles/tokens/colors'
+import { colors } from '../styles/tokens/colors'
 import type { ColorScheme } from './choroplethMap/types'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
@@ -30,57 +30,57 @@ export const MAP_SCHEMES: Record<PopulationSubset, ColorScheme> = {
 
 export const defaultHigherIsBetterMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.default,
-  zero: colorValues.mapDarkZero,
-  mid: colorValues.mapMid,
+  zero: colors.mapDarkZero,
+  mid: colors.mapMid,
   higherIsBetter: true,
 }
 
 export const defaultHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.default,
-  zero: colorValues.mapLightZero,
-  mid: colorValues.mapMid,
+  zero: colors.mapLightZero,
+  mid: colors.mapMid,
   higherIsBetter: false,
 }
 
 export const womenHigherIsBetterMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.women,
-  zero: colorValues.mapWomenDarkZero,
-  mid: colorValues.mapWomenMid,
+  zero: colors.mapWomenDarkZero,
+  mid: colors.mapWomenMid,
   higherIsBetter: true,
 }
 
 export const womenHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.women,
-  zero: colorValues.mapWomenLightZero,
-  mid: colorValues.mapWomenMid,
+  zero: colors.mapWomenLightZero,
+  mid: colors.mapWomenMid,
   higherIsBetter: false,
 }
 
 export const menHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.men,
-  zero: colorValues.mapLightZero,
-  mid: colorValues.mapMid,
+  zero: colors.mapLightZero,
+  mid: colors.mapMid,
   higherIsBetter: false,
 }
 
 export const medicareAdherenceHigherIsBetterMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.medicareAdherence,
-  zero: colorValues.mapMedicareDarkZero,
-  mid: colorValues.mapMedicareMid,
+  zero: colors.mapMedicareDarkZero,
+  mid: colors.mapMedicareMid,
   higherIsBetter: true,
 }
 
 export const medicareHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.medicare,
-  zero: colorValues.mapMedicareLightZero,
-  mid: colorValues.mapMedicareMid,
+  zero: colors.mapMedicareLightZero,
+  mid: colors.mapMedicareMid,
   higherIsBetter: false,
 }
 
 export const youthHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.youth,
-  zero: colorValues.mapLightZero,
-  mid: colorValues.mapMid,
+  zero: colors.mapLightZero,
+  mid: colors.mapMid,
   higherIsBetter: false,
 }
 

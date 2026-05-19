@@ -3,7 +3,7 @@ import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import type { HetRow } from '../data/utils/DatasetTypes'
-import { colorValues } from '../styles/tokens/colors'
+import { colors } from '../styles/tokens/colors'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { GROUP_COLOR_MAP } from './trendsChart/constants'
@@ -180,7 +180,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
       .append('text')
       .attr('x', innerWidth / 2)
       .attr('y', 40)
-      .attr('fill', colorValues.altBlack)
+      .attr('fill', colors.altBlack)
       .text(props.xMetricConfig.shortLabel)
 
     // Add Y axis
@@ -190,7 +190,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
       .attr('transform', 'rotate(-90)')
       .attr('y', -40)
       .attr('x', -innerHeight / 2)
-      .attr('fill', colorValues.altBlack)
+      .attr('fill', colors.altBlack)
       .attr('text-anchor', 'middle')
       .text(props.yMetricConfig.shortLabel)
 
@@ -227,7 +227,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
               ' (NH)',
               '',
             ) as keyof typeof GROUP_COLOR_MAP
-          ] || colorValues.altBlack
+          ] || colors.altBlack
         )
       })
       .attr('opacity', 0.7)
@@ -255,7 +255,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
             : 0,
         })
         updateTooltipPosition(event)
-        d3.select(this).attr('fill', colorValues.timeYellow).attr('opacity', 1)
+        d3.select(this).attr('fill', colors.timeYellow).attr('opacity', 1)
         if (this.parentNode) {
           this.parentNode.appendChild(this)
         }
@@ -271,7 +271,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
                   ' (NH)',
                   '',
                 ) as keyof typeof GROUP_COLOR_MAP
-              ] || colorValues.altBlack
+              ] || colors.altBlack
             )
           })
           .attr('opacity', 0.7)
@@ -310,7 +310,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
     g.append('path')
       .datum(weightedTrendlineData)
       .attr('fill', 'none')
-      .attr('stroke', colorValues.altDark)
+      .attr('stroke', colors.altDark)
       .attr('stroke-width', 2)
       .attr('stroke-dasharray', '5,5')
       .attr(

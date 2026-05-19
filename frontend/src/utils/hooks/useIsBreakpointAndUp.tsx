@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react'
-import {
-  type Breakpoint,
-  breakpointValues,
-} from '../../styles/tokens/dimensions'
+import { type Breakpoint, breakpoints } from '../../styles/tokens/dimensions'
 
 export function useIsBreakpointAndUp(breakpoint: Breakpoint) {
-  const query = `(min-width: ${breakpointValues[breakpoint]})`
+  const query = `(min-width: ${breakpoints[breakpoint]})`
   const [isBreakpoint, setIsBreakpoint] = useState(
     () => typeof window !== 'undefined' && window.matchMedia(query).matches,
   )

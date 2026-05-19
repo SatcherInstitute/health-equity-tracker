@@ -76,25 +76,23 @@ function makeTsOutput(
   srcName: string,
   {
     keyFn,
-    exportBase,
     extra = '',
   }: {
     keyFn: (id: string) => string
-    exportBase: string
     extra?: string
   },
 ) {
-  const valEntries = tokens
+  const entries = tokens
     .map((t) => `  ${keyFn(t.id)}: ${JSON.stringify(valueToString(t.$value))}`)
     .join(',\n')
-  const ExportBase = exportBase.charAt(0).toUpperCase() + exportBase.slice(1)
+  const Name = srcName.charAt(0).toUpperCase() + srcName.slice(1)
 
   return `${tsHeader(srcName)}
-export const ${exportBase}Values = {
-${valEntries},
+export const ${srcName} = {
+${entries},
 } as const
 
-export type ${ExportBase}Key = keyof typeof ${exportBase}Values
+export type ${Name}Key = keyof typeof ${srcName}
 ${extra}`
 }
 
@@ -121,7 +119,6 @@ function tsPlugin(
   filter: (t: Token) => boolean,
   opts: {
     keyFn: (id: string) => string
-    exportBase: string
     extra?: (tokens: Token[]) => string
   },
 ): Plugin {
@@ -151,26 +148,25 @@ export default {
   outDir: './src/styles/tokens/',
   plugins: [
     cssPlugin('colors', isColor, { cssReset: '--color-*' }),
-    tsPlugin('colors', isColor, { keyFn: idToLeafKey, exportBase: 'color' }),
+    tsPlugin('colors', isColor, { keyFn: idToLeafKey }),
 
     cssPlugin('typography', isTypo),
-    tsPlugin('typography', isTypo, { keyFn: idToCamelKey, exportBase: 'typography' }),
+    tsPlugin('typography', isTypo, { keyFn: idToCamelKey }),
 
     cssPlugin('dimensions', isDim),
     tsPlugin('dimensions', isDim, {
       keyFn: idToCamelKey,
-      exportBase: 'dimension',
       extra: (tokens) => {
         const bpEntries = tokens
           .filter(isBreakpoint)
           .map((t) => `  ${idToLeafKey(t.id)}: '${valueToString(t.$value)}'`)
           .join(',\n')
         return `
-export const breakpointValues = {
+export const breakpoints = {
 ${bpEntries},
 } as const
 
-export type Breakpoint = keyof typeof breakpointValues
+export type Breakpoint = keyof typeof breakpoints
 `
       },
     }),

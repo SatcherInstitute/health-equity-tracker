@@ -10,8 +10,8 @@ import {
   type DemographicType,
 } from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
-import { colorValues } from '../../styles/tokens/colors'
-import { dimensionValues } from '../../styles/tokens/dimensions'
+import { colors } from '../../styles/tokens/colors'
+import { dimensions } from '../../styles/tokens/dimensions'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MouseEventHandlerOptions, MouseEventType } from './types'
@@ -21,8 +21,8 @@ export const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
 
 export const createTooltipContainer = (isMulti?: boolean) => {
   const tooltipZIndex = isMulti
-    ? dimensionValues.zIndexMultimapModalTooltip
-    : dimensionValues.zIndexMapTooltip
+    ? dimensions.zIndexMultimapModalTooltip
+    : dimensions.zIndexMapTooltip
 
   return d3
     .select('body')
@@ -31,8 +31,8 @@ export const createTooltipContainer = (isMulti?: boolean) => {
     .style('position', 'absolute')
     .style('visibility', 'hidden')
     .style('max-width', '40vw')
-    .style('background-color', colorValues.altWhite)
-    .style('border', `1px solid ${colorValues.grayGridColorDarker}`)
+    .style('background-color', colors.altWhite)
+    .style('border', `1px solid ${colors.grayGridColorDarker}`)
     .style('border-radius', '4px')
     .style('padding', '8px')
     .style('font-size', '12px')

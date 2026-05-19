@@ -25,7 +25,7 @@ import {
 import type { HetRow } from '../data/utils/DatasetTypes'
 import { Fips } from '../data/utils/Fips'
 import HetNotice from '../styles/HetComponents/HetNotice'
-import { colorValues } from '../styles/tokens/colors'
+import { colors } from '../styles/tokens/colors'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -118,8 +118,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   const unknownMapConfig: MapConfig = {
     scheme: MAP_SCHEMES.unknown,
-    zero: colorValues.unknownMapLeast,
-    mid: colorValues.unknownMapMid,
+    zero: colors.unknownMapLeast,
+    mid: colors.unknownMapMid,
   }
 
   return (

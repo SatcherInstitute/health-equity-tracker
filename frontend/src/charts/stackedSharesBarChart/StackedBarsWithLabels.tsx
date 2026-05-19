@@ -3,7 +3,7 @@ import { useState } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
-import { colorValues } from '../../styles/tokens/colors'
+import { colors } from '../../styles/tokens/colors'
 import { buildBarPair } from '../sharedBarChartPieces/helpers'
 import EndOfStackedPairLabels from './EndOfStackedPairLabels'
 
@@ -57,7 +57,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
         const isHovered = hoveredDemographic === d[demographicType]
 
         const strokeDetails = {
-          stroke: isHovered ? colorValues.altBlack : 'none',
+          stroke: isHovered ? colors.altBlack : 'none',
           strokeWidth: isHovered ? 1 : 0,
           strokeOpacity: 0.5,
         }
