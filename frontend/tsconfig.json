@@ -6,14 +6,6 @@
       "dom.iterable",
       "es2024"
     ],
-    "types": [
-      "vite-plugin-svgr/client",
-      "vite/client",
-      "vitest/globals",
-    ],
-    "typeRoots": [
-      "./node_modules"
-    ],
     "noImplicitThis": false,
     "allowJs": true,
     "skipLibCheck": true,
