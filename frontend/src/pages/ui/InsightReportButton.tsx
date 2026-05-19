@@ -6,6 +6,7 @@ import { REPORT_INSIGHT_PARAM_KEY } from '../../utils/urlutils'
 interface InsightReportButtonProps {
   onInsightClick?: () => void
   variant?: 'text' | 'outlined'
+  label?: string
 }
 
 export default function InsightReportButton(props: InsightReportButtonProps) {
@@ -27,7 +28,7 @@ export default function InsightReportButton(props: InsightReportButtonProps) {
       aria-label='open the AI report insight'
     >
       <AutoAwesome className='mr-2 text-base text-hex-share-icon-gray' />
-      Report insights
+      {props.label ?? 'Report insights'}
     </Button>
   )
 }

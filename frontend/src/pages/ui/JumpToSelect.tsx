@@ -6,18 +6,22 @@ import { reportProviderSteps } from '../../reports/ReportProviderSteps'
 
 interface JumpToSelectProps {
   offerJumpToAgeAdjustment: boolean
+  label?: string
+  minWidth?: number
 }
 
 export default function JumpToSelect(props: JumpToSelectProps) {
   return (
-    <FormControl sx={{ m: 1, minWidth: 110 }} size='small'>
-      <InputLabel id={`jump-to-select-label`}>Jump to</InputLabel>
+    <FormControl sx={{ m: 1, minWidth: props.minWidth ?? 110 }} size='small'>
+      <InputLabel id={`jump-to-select-label`}>
+        {props.label ?? 'Jump to'}
+      </InputLabel>
       <Select
         autoWidth
         labelId={`jump-to-select-label`}
         id={`jump-to-select`}
         value={' '}
-        label={'Jump to'}
+        label={props.label ?? 'Jump to'}
       >
         <MenuItem value={' '}>
           <a className='text-alt-black no-underline' href='#top'>
