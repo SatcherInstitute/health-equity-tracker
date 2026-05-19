@@ -1,5 +1,5 @@
 import { UNKNOWN_W } from '../../data/utils/Constants'
-import { colorVars } from '../../styles/tokens/colors'
+import { colors } from '../../styles/tokens/colors'
 import { COLORS as C } from './constants'
 import { createLineGenerator } from './helpers'
 import StyledPath from './StyledPath'
@@ -45,7 +45,7 @@ export default function SparseDataInterpolationLine({
           <g key={`gap-${index}`}>
             <StyledPath
               d={lineGen([lastPoint, firstPoint])}
-              color={color || colorVars.altBlack}
+              color={color || colors.altBlack}
               isUnknown={isUnknown}
               strokeDasharray='1,5'
               strokeOpacity={SPARSE_LINE_OPACITY}

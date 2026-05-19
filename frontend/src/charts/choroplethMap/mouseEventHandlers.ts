@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import type { DemographicType } from '../../data/query/Breakdowns'
-import { colorVars } from '../../styles/tokens/colors'
+import { colors } from '../../styles/tokens/colors'
 import { getFillColor } from './colorSchemes'
 import {
   GEO_HOVERED_BORDER_COLOR,
@@ -73,7 +73,7 @@ const handleMouseEvent = (
       d3.select(event.currentTarget)
         .attr(
           'stroke',
-          props.isExtremesMode ? colorVars.altBlack : GEO_HOVERED_BORDER_COLOR,
+          props.isExtremesMode ? colors.altBlack : GEO_HOVERED_BORDER_COLOR,
         )
         .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
         .attr('opacity', GEO_HOVERED_OPACITY)
@@ -89,7 +89,7 @@ const handleMouseEvent = (
       d3.select(event.currentTarget)
         .attr(
           'stroke',
-          props.isExtremesMode ? colorVars.altBlack : GEO_HOVERED_BORDER_COLOR,
+          props.isExtremesMode ? colors.altBlack : GEO_HOVERED_BORDER_COLOR,
         )
         .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
         .attr('opacity', GEO_HOVERED_OPACITY)
@@ -116,10 +116,7 @@ const handleMouseEvent = (
     }
     case 'touchend': {
       d3.select(event.currentTarget)
-        .attr(
-          'stroke',
-          props.isExtremesMode ? colorVars.altBlack : colorVars.altWhite,
-        )
+        .attr('stroke', props.isExtremesMode ? colors.altGray : colors.altWhite)
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
       break
@@ -155,10 +152,7 @@ const handleMouseEvent = (
             isMultiMap: props.isMultiMap,
           }),
         )
-        .attr(
-          'stroke',
-          props.isExtremesMode ? colorVars.altBlack : colorVars.altWhite,
-        )
+        .attr('stroke', props.isExtremesMode ? colors.altGray : colors.altWhite)
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
       props.tooltipContainer.style('visibility', 'hidden').html('')

@@ -21,7 +21,7 @@ import { useEffect, useRef } from 'react'
 
 /* Helpers */
 import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
-import { colorVars } from '../../styles/tokens/colors'
+import { colors } from '../../styles/tokens/colors'
 import { X_AXIS_MAX_TICKS_SKINNY } from '../utils'
 /* Constants */
 import { CONFIG, FORMATTERS as F, TYPES } from './constants'
@@ -190,7 +190,7 @@ export function Axes({
           y1={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
           x2={width - marginRight}
           y2={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
-          stroke={colorVars.altGray}
+          stroke={colors.altGray}
         />
       </g>
       {/* Axis Labels */}

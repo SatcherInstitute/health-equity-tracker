@@ -8,13 +8,13 @@ import {
   LinkedinShareButton,
 } from 'react-share'
 import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
-import { colorVars } from '../../styles/tokens/colors'
+import { colors } from '../../styles/tokens/colors'
 import { useCardImage } from '../../utils/hooks/useCardImage'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 const shareIconAttributes = {
-  iconFillColor: colorVars.hexShareIconGray,
+  iconFillColor: colors.hexShareIconGray,
   bgStyle: { fill: 'none' },
   size: 39,
 }
