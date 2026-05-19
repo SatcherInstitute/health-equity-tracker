@@ -6,6 +6,7 @@
       "dom.iterable",
       "es2024"
     ],
+    "types": [],
     "noImplicitThis": false,
     "allowJs": true,
     "skipLibCheck": true,
