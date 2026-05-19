@@ -1,29 +1,8 @@
 import { useEffect, useState } from 'react'
+import { type Breakpoint, breakpoints } from '../../styles/tokens/dimensions'
 
-type TailwindBreakpoint =
-  | 'xs'
-  | 'tiny'
-  | 'sm'
-  | 'smplus'
-  | 'md'
-  | 'lg'
-  | 'lgplus'
-  | 'xl'
-
-// TODO: I hate defining these twice; look into #4701
-const BREAKPOINTS: Record<TailwindBreakpoint, number> = {
-  xs: 0,
-  tiny: 350,
-  sm: 600,
-  smplus: 768,
-  md: 960,
-  lg: 1280,
-  lgplus: 1440,
-  xl: 1920,
-}
-
-export function useIsBreakpointAndUp(breakpoint: TailwindBreakpoint) {
-  const query = `(min-width: ${BREAKPOINTS[breakpoint]}px)`
+export function useIsBreakpointAndUp(breakpoint: Breakpoint) {
+  const query = `(min-width: ${breakpoints[breakpoint]})`
   const [isBreakpoint, setIsBreakpoint] = useState(
     () => typeof window !== 'undefined' && window.matchMedia(query).matches,
   )
