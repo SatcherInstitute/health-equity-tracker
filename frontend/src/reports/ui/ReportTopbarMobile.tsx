@@ -19,7 +19,7 @@ export default function ReportTopbarMobile(props: ReportTopbarMobileProps) {
 
   return (
     <div className='mode-selector-box-mobile m-2 flex items-center justify-between rounded-sm bg-alt-white p-2 shadow-raised md:hidden'>
-      <div className='flex shrink items-center overflow-hidden'>
+      <div className='flex min-w-0 items-center'>
         <SimpleSelect<MadLibId>
           label={isTiny ? 'Compare mode' : 'Mode'}
           minWidth={selectMinWidth}
