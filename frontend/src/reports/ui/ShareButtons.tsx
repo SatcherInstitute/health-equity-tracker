@@ -7,7 +7,7 @@ import {
   LinkedinIcon,
   LinkedinShareButton,
 } from 'react-share'
-import { colorVars } from '../../styles/tokens/colors'
+import { colors } from '../../styles/tokens/colors'
 
 export const SHARE_LABEL = 'Share this report:'
 
@@ -24,7 +24,7 @@ export default function ShareButtons(props: ShareButtonProps) {
   }
 
   const shareIconAttributes = {
-    iconFillColor: colorVars.altDark,
+    iconFillColor: colors.altDark,
     bgStyle: { fill: 'none' },
     size: props.isMobile ? 64 : 32,
   }

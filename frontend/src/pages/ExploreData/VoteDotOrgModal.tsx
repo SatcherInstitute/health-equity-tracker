@@ -1,7 +1,7 @@
 import { Dialog, DialogContent } from '@mui/material'
 import { useEffect } from 'react'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
-import { colorVars } from '../../styles/tokens/colors'
+import { colors } from '../../styles/tokens/colors'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { VOTE_DOT_ORG_PARAM_KEY } from '../../utils/urlutils'
 
@@ -52,7 +52,7 @@ export default function VoteDotOrgModal() {
       slotProps={{
         paper: {
           style: {
-            backgroundColor: colorVars.exploreBgColor,
+            backgroundColor: colors.exploreBgColor,
             height: '95vh', // Ensure the dialog content also respects the height
           },
         },

@@ -107,10 +107,10 @@ ${resetLine}${themeVars}
  *   {type}Values  — raw token values (hex for colors, CSS strings for others)
  *   {type}Vars    — CSS var references for use in TypeScript component styles
  *
- * @param {{ tokens: TerrazzoToken[], keyFn: (id: string) => string, exportBase: string, filename: string, srcName: string, extra?: string }} options
+ * @param {{ tokens: TerrazzoToken[], keyFn: (id: string) => string, exportBase: string, varExportName?: string, filename: string, srcName: string, extra?: string }} options
  * @returns {{ filename: string, contents: string }}
  */
-function makeTsOutput({ tokens, keyFn, exportBase, filename, srcName, extra = '' }) {
+function makeTsOutput({ tokens, keyFn, exportBase, varExportName, filename, srcName, extra = '' }) {
   const valEntries = tokens
     .map((t) => `  ${keyFn(t.id)}: ${JSON.stringify(valueToString(t.$value))}`)
     .join(',\n')
@@ -121,7 +121,7 @@ function makeTsOutput({ tokens, keyFn, exportBase, filename, srcName, extra = ''
 
   const ExportBase = exportBase.charAt(0).toUpperCase() + exportBase.slice(1)
   const Values = `${exportBase}Values`
-  const Vars = `${exportBase}Vars`
+  const Vars = varExportName ?? exportBase
 
   return {
     filename,
@@ -166,6 +166,7 @@ function colorsTsPlugin() {
         tokens: Object.values(tokens).filter(isColor),
         keyFn: idToLeafKey,
         exportBase: 'color',
+        varExportName: 'colors',
         filename: 'colors.ts',
         srcName: 'colors',
       })
@@ -251,6 +252,7 @@ export type Breakpoint = keyof typeof breakpointValues
         tokens: dimTokens,
         keyFn: idToCamelKey,
         exportBase: 'dimension',
+        varExportName: 'dimensions',
         filename: 'dimensions.ts',
         srcName: 'dimensions',
         extra,
