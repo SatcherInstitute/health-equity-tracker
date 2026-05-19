@@ -89,7 +89,7 @@ Both frontend and backend changes are required:
 
 ### Design System / Theme Architecture
 
-Design tokens are defined once in W3C DTCG JSON and generated into all downstream files by [Terrazzo](https://terrazzo.app/) (`run-tokens.mjs`):
+Design tokens are defined once in W3C DTCG JSON and generated into all downstream files by [Terrazzo](https://terrazzo.app/) (`tsx run-tokens.ts`):
 
 ```
 frontend/tokens/                          ← edit these
@@ -150,7 +150,7 @@ All of the following run automatically on `git commit`:
 | Shared Jotai state | `frontend/src/utils/sharedSettingsState.ts` |
 | MUI theme | `frontend/src/styles/theme/muiTheme.tsx` |
 | Design token sources | `frontend/tokens/*.tokens.json` |
-| Token build script | `frontend/run-tokens.mjs`, `frontend/terrazzo.config.mjs` |
+| Token build script | `frontend/run-tokens.ts`, `frontend/terrazzo.config.ts` |
 | Generated token files | `frontend/src/styles/tokens/` (gitignored) |
 | Python DataSource base class | `python/datasources/data_source.py` |
 | Python BQ/GCS utilities | `python/ingestion/gcs_to_bq_util.py` |
