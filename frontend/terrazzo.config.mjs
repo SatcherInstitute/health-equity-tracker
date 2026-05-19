@@ -62,7 +62,7 @@ const valueToString = (value) => {
  * @layer base :root  — unconditionally emits CSS vars to the browser so that
  *   var(--token-name) resolves everywhere (JS strings, SVG attributes, D3).
  *   Without this block, Tailwind tree-shakes vars whose utility classes are
- *   never referenced in scanned content (e.g. chart colors set via colorVars.*).
+ *   never referenced in scanned content (e.g. chart colors set via colors.*).
  *
  * @theme / @theme inline  — registers vars with Tailwind for utility class
  *   generation. Use plain @theme for dimensions: Tailwind must see literal
@@ -143,7 +143,7 @@ ${extra}`,
 
 function colorsCssPlugin() {
   return {
-    name: 'het-colors-css',
+    name: 'colors-css',
     /** @param {{ tokens: Record<string, TerrazzoToken>, outputFile: (filename: string, contents: string) => void }} ctx */
     async build({ tokens, outputFile }) {
       const { filename, contents } = makeCssOutput({
@@ -159,7 +159,7 @@ function colorsCssPlugin() {
 
 function colorsTsPlugin() {
   return {
-    name: 'het-colors-ts',
+    name: 'colors-ts',
     /** @param {{ tokens: Record<string, TerrazzoToken>, outputFile: (filename: string, contents: string) => void }} ctx */
     async build({ tokens, outputFile }) {
       const { filename, contents } = makeTsOutput({
@@ -179,7 +179,7 @@ function colorsTsPlugin() {
 
 function typographyCssPlugin() {
   return {
-    name: 'het-typography-css',
+    name: 'typography-css',
     /** @param {{ tokens: Record<string, TerrazzoToken>, outputFile: (filename: string, contents: string) => void }} ctx */
     async build({ tokens, outputFile }) {
       const { filename, contents } = makeCssOutput({
@@ -194,7 +194,7 @@ function typographyCssPlugin() {
 
 function typographyTsPlugin() {
   return {
-    name: 'het-typography-ts',
+    name: 'typography-ts',
     /** @param {{ tokens: Record<string, TerrazzoToken>, outputFile: (filename: string, contents: string) => void }} ctx */
     async build({ tokens, outputFile }) {
       const { filename, contents } = makeTsOutput({
@@ -213,7 +213,7 @@ function typographyTsPlugin() {
 
 function dimensionsCssPlugin() {
   return {
-    name: 'het-dimensions-css',
+    name: 'dimensions-css',
     /** @param {{ tokens: Record<string, TerrazzoToken>, outputFile: (filename: string, contents: string) => void }} ctx */
     async build({ tokens, outputFile }) {
       const { filename, contents } = makeCssOutput({
@@ -231,7 +231,7 @@ function dimensionsCssPlugin() {
 
 function dimensionsTsPlugin() {
   return {
-    name: 'het-dimensions-ts',
+    name: 'dimensions-ts',
     /** @param {{ tokens: Record<string, TerrazzoToken>, outputFile: (filename: string, contents: string) => void }} ctx */
     async build({ tokens, outputFile }) {
       const dimTokens = Object.values(tokens).filter(isDim)
