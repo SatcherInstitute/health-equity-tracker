@@ -89,30 +89,42 @@ Both frontend and backend changes are required:
 
 ### Design System / Theme Architecture
 
-Design tokens are defined once in W3C DTCG JSON and generated into all downstream files by [Terrazzo](https://terrazzo.app/) (`tsx run-tokens.ts`):
+Design tokens are defined once in W3C DTCG JSON and generated into typed TS + CSS files by [Terrazzo](https://terrazzo.app/) (`tsx run-tokens.ts`):
 
 ```
-frontend/tokens/                          ← edit these
-  colors.tokens.json       # color values
-  typography.tokens.json   # font families, sizes, line-heights
-  dimensions.tokens.json   # spacing, sizing, breakpoints, shadows, z-index
+frontend/tokens/                   ← edit these
+  colors.tokens.json
+  typography.tokens.json
+  dimensions.tokens.json
         ↓  npm run tokens  (auto-runs on install, predev, prebuild)
-src/styles/tokens/                        ← DO NOT EDIT (gitignored, generated)
-  colors.ts     — colorValues hex export (MUI palette + D3)
-  colors.css    — Tailwind v4 CSS vars (@layer base + @theme inline)
-  typography.ts — typographyVars CSS-var-string aliases
+src/styles/tokens/                 ← DO NOT EDIT (gitignored, generated)
+  colors.ts      — colors { altGreen: '#0b5240', … }
+  colors.css     — @theme block for Tailwind utility generation
+  typography.ts  — typography { fontSansText: "'Inter Variable'…", … }
   typography.css
-  dimensions.ts — dimensionVars + breakpointValues
+  dimensions.ts  — dimensions { radiusSm: '4px', … } + breakpoints { sm: '600px', … }
   dimensions.css
 ```
 
-`muiTheme.tsx` imports `colorValues` only for the primary/secondary palette entries (MUI needs hex at theme-creation time to derive hover/focus/ripple colors). All other tokens flow through CSS variables independently of MUI.
+**Token API — always import raw values, use directly:**
+```ts
+import { colors }                             from '../../styles/tokens/colors'
+import { typography }                         from '../../styles/tokens/typography'
+import { dimensions, breakpoints }            from '../../styles/tokens/dimensions'
+import { type Breakpoint }                    from '../../styles/tokens/dimensions'
+
+colors.altGreen          // '#0b5240'
+typography.fontSansText  // "'Inter Variable', sans-serif"
+dimensions.radiusSm      // '4px'
+breakpoints.sm           // '600px'  ← short keys for useIsBreakpointAndUp
+```
+
+CSS vars are a Tailwind implementation detail — `@theme` registers tokens so utility classes like `bg-alt-green` work; app code never references `var(--color-*)` directly.
 
 **Styling rules:**
 - Always prefer Tailwind utility classes as the primary method
-- Use `colors.<token>` (e.g., `color: colors.altGreen`) in TypeScript for CSS-variable-driven styles
+- For inline/computed styles in TypeScript, import from `src/styles/tokens/` and use the raw value
 - Only modify MUI components via `styleOverrides` in `muiTheme.tsx` — avoid `sx` props and inline styles
-- D3/JS logic that requires a hex value imports `colorValues` from `src/styles/tokens/colors`
 - **To add or change a token:** edit the relevant `tokens/*.tokens.json` file and run `npm run tokens`
 
 ### Environment Variables

@@ -279,20 +279,19 @@ flowchart TD
 
     %% Generated Layer
     subgraph Generated["Generated — src/styles/tokens/ (DO NOT EDIT, gitignored)"]
-        COLORS_TS["<code>colors.ts</code><br/><i>colorValues (hex) + colors CSS-var aliases</i>"]
-        COLORS_CSS["<code>colors.css</code><br/><i>@layer base + @theme inline</i>"]
-        TYPO_TS["<code>typography.ts</code><br/><i>typographyVars CSS-var aliases</i>"]
-        TYPO_CSS["<code>typography.css</code><br/><i>@layer base + @theme inline</i>"]
-        DIM_TS["<code>dimensions.ts</code><br/><i>dimensionVars + breakpointValues</i>"]
-        DIM_CSS["<code>dimensions.css</code><br/><i>@layer base + @theme</i>"]
+        COLORS_TS["<code>colors.ts</code><br/><i>colors { altGreen: '#0b5240', … }</i>"]
+        COLORS_CSS["<code>colors.css</code><br/><i>@theme block</i>"]
+        TYPO_TS["<code>typography.ts</code><br/><i>typography { fontSansText: '…', … }</i>"]
+        TYPO_CSS["<code>typography.css</code><br/><i>@theme block</i>"]
+        DIM_TS["<code>dimensions.ts</code><br/><i>dimensions + breakpoints</i>"]
+        DIM_CSS["<code>dimensions.css</code><br/><i>@theme block</i>"]
     end
 
     %% Consumption Layer
     subgraph Consumption
-        MUI_T["<code>muiTheme.tsx</code><br/><i>primary/secondary palette only</i>"]
-        TW["Tailwind Classes"]
-        D3["D3.js Logic"]
-        REACT["React Components"]
+        MUI_T["<code>muiTheme.tsx</code><br/><i>colors, typography, dimensions</i>"]
+        TW["Tailwind Classes<br/><i>bg-alt-green, font-sans-text…</i>"]
+        APP["App Code<br/><i>SVG, D3, React styles</i>"]
     end
 
     CT --> BUILD
@@ -300,23 +299,32 @@ flowchart TD
     DT --> BUILD
     BUILD --> COLORS_TS & COLORS_CSS & TYPO_TS & TYPO_CSS & DIM_TS & DIM_CSS
 
-    COLORS_TS -->|"colorValues hex"| MUI_T
-    COLORS_TS -->|"colorValues hex"| D3
-    COLORS_TS -->|"colors var() props"| REACT
-    COLORS_CSS -->|"color utilities"| TW
-    TYPO_TS -->|"typographyVars var() props"| MUI_T
-    TYPO_CSS -->|"font/text utilities"| TW
-    DIM_TS -->|"breakpointValues"| REACT
-    DIM_CSS -->|"spacing/breakpoint utilities"| TW
-    TW -->|"utility classes"| REACT
+    COLORS_TS & TYPO_TS & DIM_TS -->|"raw values"| MUI_T
+    COLORS_TS & DIM_TS -->|"raw values"| APP
+    COLORS_CSS & TYPO_CSS & DIM_CSS -->|"@theme → CSS vars"| TW
+    TW -->|"utility classes"| APP
 ```
 
-#### Color & Token Strategy
+#### Token API
 
-- **To add or change any token:** edit `tokens/*.tokens.json` and run `npm run tokens` (or restart the dev server — `predev` runs it automatically).
-- **Styling priority:** Always use Tailwind utility classes first. Use `colors.<token>` (e.g. `color: colors.altGreen`) for CSS-variable-driven TypeScript styles. Only touch `muiTheme.tsx` for MUI component `styleOverrides`.
-- **D3 & JS logic:** import `colorValues` from `src/styles/tokens/colors` for hex values needed by D3 scales
-- **MUI palette:** `muiTheme.tsx` imports `colorValues` only for the primary/secondary entries — MUI needs hex at theme-creation time to compute hover/focus/ripple. All other tokens flow through CSS vars independently of MUI.
+All tokens are plain values — no CSS var wrappers in application code:
+
+```ts
+import { colors }                  from '../../styles/tokens/colors'
+import { typography }              from '../../styles/tokens/typography'
+import { dimensions, breakpoints } from '../../styles/tokens/dimensions'
+
+colors.altGreen          // '#0b5240'
+typography.fontSansText  // "'Inter Variable', sans-serif"
+dimensions.radiusSm      // '4px'
+breakpoints.sm           // '600px'  ← short keys for useIsBreakpointAndUp
+```
+
+CSS vars are a Tailwind implementation detail. The `@theme` blocks register tokens so utility classes (`bg-alt-green`, `font-sans-text`, `rounded-sm`, `sm:`) work. App code never references `var(--color-*)` directly.
+
+- **To add or change a token:** edit `tokens/*.tokens.json` and run `npm run tokens`.
+- **Styling priority:** Tailwind utility classes first; import from `src/styles/tokens/` for inline/computed styles.
+- **MUI theme:** `muiTheme.tsx` imports `colors`, `typography`, and `dimensions` directly.
 
 ### Frontend Environment Configuration
 
