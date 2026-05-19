@@ -1,50 +1,29 @@
 import { extendTheme } from '@mui/material/styles'
-import { hetColors } from './colorValues'
-import { het } from './colorVars'
+import { colors } from '../tokens/colors'
+import { dimensions } from '../tokens/dimensions'
+import { typography } from '../tokens/typography'
 
-// type augmentation
-declare module '@mui/material/styles' {
-  interface PaletteOptions {
-    custom?: typeof hetColors
-  }
-  interface Palette {
-    custom: typeof hetColors
-  }
-}
-
-/**
- * Color strategy:
- *
- * - Palette main/light/dark entries use hardcoded hex because MUI derives
- *   hover, focus, and ripple colors from these at theme-creation time via
- *   color manipulation functions that cannot resolve CSS variables.
- *
- * - Component styleOverrides use `het.*` (CSS variables) wherever the value
- *   is applied directly to a CSS property and no MUI derivation is needed.
- *
- * - Template literals that interpolate into a CSS string (e.g. borderBottom)
- *   also use `het.*` since the browser resolves those at paint time.
- */
-
+// All token values are raw hex/strings from the generated token files.
+// MUI needs hex at theme-creation time to derive hover, focus, and ripple
+// colors — CSS variables cannot be resolved by MUI's color functions.
 const muiTheme = extendTheme({
   colorSchemes: {
     light: {
       palette: {
         primary: {
-          light: hetColors.barChartLight,
-          main: hetColors.altGreen,
-          dark: hetColors.darkGreen,
+          light: colors.barChartLight,
+          main: colors.altGreen,
+          dark: colors.darkGreen,
           contrastText: '#fff',
         },
         secondary: {
-          light: hetColors.secondaryLight,
-          main: hetColors.secondaryMain,
-          dark: hetColors.secondaryDark,
+          light: colors.secondaryLight,
+          main: colors.secondaryMain,
+          dark: colors.secondaryDark,
         },
         background: {
           default: '#fff',
         },
-        custom: hetColors,
       },
     },
   },
@@ -52,28 +31,28 @@ const muiTheme = extendTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          fontFamily: 'var(--font-sans-text)',
+          fontFamily: typography.fontSansText,
         },
       },
     },
     MuiAlert: {
       styleOverrides: {
         root: {
-          fontFamily: 'var(--font-sans-text)',
+          fontFamily: typography.fontSansText,
           '&.MuiAlert-standard.MuiAlert-colorInfo': {
-            backgroundColor: het.standardInfo,
-            color: het.altBlack,
+            backgroundColor: colors.standardInfo,
+            color: colors.altBlack,
             textAlign: 'left',
             '& .MuiAlert-icon': {
-              color: het.altGreen,
+              color: colors.altGreen,
             },
           },
           '&.MuiAlert-standard.MuiAlert-colorWarning': {
-            backgroundColor: het.standardWarning,
-            color: het.altBlack,
+            backgroundColor: colors.standardWarning,
+            color: colors.altBlack,
             textAlign: 'left',
             '& .MuiAlert-icon': {
-              color: het.alertColor,
+              color: colors.alertColor,
             },
           },
           '&.MuiAlert-standard.MuiAlert-colorError': {
@@ -93,7 +72,7 @@ const muiTheme = extendTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          fontFamily: 'var(--font-sans-text)',
+          fontFamily: typography.fontSansText,
           padding: 'unset',
           borderRadius: 'unset',
           minWidth: 'unset',
@@ -104,7 +83,7 @@ const muiTheme = extendTheme({
       styleOverrides: {
         sizeSmall: {
           '& .MuiInputBase-input': {
-            fontSize: 'var(--text-smallest)',
+            fontSize: typography.textSmallest,
           },
         },
       },
@@ -112,7 +91,7 @@ const muiTheme = extendTheme({
     MuiListItemText: {
       styleOverrides: {
         root: {
-          fontFamily: 'var(--font-sans-title)',
+          fontFamily: typography.fontSansTitle,
         },
       },
     },
@@ -147,7 +126,7 @@ const muiTheme = extendTheme({
     MuiStepLabel: {
       styleOverrides: {
         label: {
-          lineHeight: '.95',
+          lineHeight: typography.leadingTight,
         },
       },
     },
@@ -164,7 +143,7 @@ const muiTheme = extendTheme({
           // textTransform handled in index.css but kept here for MUI
           // specificity since Tab uses its own internal class stacking.
           textTransform: 'none',
-          fontFamily: 'var(--font-sans-title) !important',
+          fontFamily: `${typography.fontSansTitle} !important`,
         },
       },
     },
@@ -172,15 +151,15 @@ const muiTheme = extendTheme({
       styleOverrides: {
         root: {
           marginTop: '40px',
-          borderBottom: `1px solid ${het.borderColor}`,
+          borderBottom: `1px solid ${colors.borderColor}`,
         },
       },
     },
     MuiToggleButtonGroup: {
       styleOverrides: {
         root: {
-          outline: `1px solid ${het.howToColor} !important`,
-          borderRadius: 'var(--radius-sm)',
+          outline: `1px solid ${colors.howToColor} !important`,
+          borderRadius: dimensions.radiusSm,
           overflow: 'hidden',
         },
       },
@@ -188,21 +167,21 @@ const muiTheme = extendTheme({
     MuiToggleButton: {
       styleOverrides: {
         root: {
-          outline: `1px solid ${het.howToColor} !important`,
+          outline: `1px solid ${colors.howToColor} !important`,
           fontWeight: 'normal',
           fontSize: '14px',
-          color: het.altBlack,
+          color: colors.altBlack,
           lineHeight: '16px !important',
           padding: '11px !important',
           backgroundColor: '#fff !important',
           textTransform: 'none',
           '&.Mui-selected': {
-            color: het.altGreen,
-            backgroundColor: `${het.toggleColor} !important`,
+            color: colors.altGreen,
+            backgroundColor: `${colors.toggleColor} !important`,
           },
           '&:hover': {
-            color: het.altGreen,
-            backgroundColor: het.toggleColor,
+            color: colors.altGreen,
+            backgroundColor: colors.toggleColor,
           },
         },
       },
@@ -210,7 +189,7 @@ const muiTheme = extendTheme({
     MuiTypography: {
       styleOverrides: {
         root: {
-          fontFamily: 'var(--font-sans-title)',
+          fontFamily: typography.fontSansTitle,
         },
       },
     },

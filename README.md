@@ -261,52 +261,70 @@ The frontend consists of
 
 ### Frontend Design System & Theme Architecture
 
-We use a "Pass-Through" architecture to sync Tailwind v4, MUI, and D3.js from a single source of truth, ensuring full IntelliSense and preventing style drift.
+Design tokens are defined once in [W3C DTCG](https://design-tokens.github.io/community-group/format/) JSON and generated into all downstream consumers by [Terrazzo](https://terrazzo.app/). This keeps Tailwind v4, MUI v9, and D3.js in sync from a single source of truth with full IntelliSense and no style drift.
 
 #### The Token Pipeline
 
 ```mermaid
 flowchart TD
     %% Source Layer
-    subgraph Source
-        HEX["<code>colorValues.ts</code><br/><i>Raw Hex Constants</i>"]
-        DESIGN["<code>designTokens.css</code><br/><i>Layout / Z-index Source</i>"]
+    subgraph Source["Source (edit these)"]
+        CT["<code>tokens/colors.tokens.json</code><br/><i>Hex color values</i>"]
+        TT["<code>tokens/typography.tokens.json</code><br/><i>Fonts &amp; sizes</i>"]
+        DT["<code>tokens/dimensions.tokens.json</code><br/><i>Spacing, breakpoints, z-index…</i>"]
     end
 
-    %% Bridge Layer
-    subgraph Bridge
-        MUI_T["<code>muiTheme.tsx</code><br/><i>MUI Theme + styleOverrides</i>"]
-        CV_CSS["<code>colorVars.css</code><br/><i>CSS Variable Definitions (@theme)</i>"]
+    %% Build Step
+    BUILD["<code>npm run tokens</code><br/><i>Terrazzo — auto-runs on install, predev, prebuild</i>"]
+
+    %% Generated Layer
+    subgraph Generated["Generated — src/styles/tokens/ (DO NOT EDIT, gitignored)"]
+        COLORS_TS["<code>colors.ts</code><br/><i>colors { altGreen: '#0b5240', … }</i>"]
+        COLORS_CSS["<code>colors.css</code><br/><i>@theme block</i>"]
+        TYPO_TS["<code>typography.ts</code><br/><i>typography { fontSansText: '…', … }</i>"]
+        TYPO_CSS["<code>typography.css</code><br/><i>@theme block</i>"]
+        DIM_TS["<code>dimensions.ts</code><br/><i>dimensions + breakpoints</i>"]
+        DIM_CSS["<code>dimensions.css</code><br/><i>@theme block</i>"]
     end
 
     %% Consumption Layer
     subgraph Consumption
-        TW["Tailwind Classes<br/><i>Utility classes</i>"]
-        CV_TS["<code>colorVars.ts</code><br/><i>Typed 'het' aliases</i>"]
-        D3["D3.js Logic<br/><i>Direct hex imports</i>"]
-        REACT["React Components<br/><i>Tailwind or 'het'</i>"]
+        MUI_T["<code>muiTheme.tsx</code><br/><i>colors, typography, dimensions</i>"]
+        TW["Tailwind Classes<br/><i>bg-alt-green, font-sans-text…</i>"]
+        APP["App Code<br/><i>SVG, D3, React styles</i>"]
     end
 
-    HEX -->|"Imports"| MUI_T
-    HEX -->|"Direct import (bypasses CSS vars)"| D3
+    CT --> BUILD
+    TT --> BUILD
+    DT --> BUILD
+    BUILD --> COLORS_TS & COLORS_CSS & TYPO_TS & TYPO_CSS & DIM_TS & DIM_CSS
 
-    MUI_T -->|"Provides --mui-palette-*"| CV_CSS
-    DESIGN -->|"Provides layout vars"| TW
-    DESIGN -->|"Provides layout vars"| MUI_T
-
-    CV_CSS -->|"Exposes theme tokens to"| TW
-    CV_CSS -->|"Aliased in"| CV_TS
-
-    CV_TS -->|"Type-safe style props"| REACT
-    TW -->|"Utility classes"| REACT
+    COLORS_TS & TYPO_TS & DIM_TS -->|"raw values"| MUI_T
+    COLORS_TS & DIM_TS -->|"raw values"| APP
+    COLORS_CSS & TYPO_CSS & DIM_CSS -->|"@theme → CSS vars"| TW
+    TW -->|"utility classes"| APP
 ```
 
-#### Color & Token Strategy
+#### Token API
 
-- Implementation: Always add new tokens across the pipeline to maintain type safety and code completion.
-- Styling Priority: Always use Tailwind classes as the primary styling method. Only modify the MUI theme.ts styleOverrides to adjust native MUI components. Avoid sx props and inline styles.
-- The `het` Object: In TypeScript, use the `het` constant (e.g., color: `het.altGreen`). This applies a CSS variable directly, keeping the UI reactive and performant.
-- D3 & JS Logic: Use CSS variables directly for static SVG fills/strokes. Use the `resolveCssVar()` utility only for tokens where CSS is the source of truth (e.g., z-index). For D3 logic and similar where a _color_ HEX code is required, we can import the source of truth token directly from `colorValues.ts`
+All tokens are plain values — no CSS var wrappers in application code:
+
+```ts
+import { colors }                  from '../../styles/tokens/colors'
+import { typography }              from '../../styles/tokens/typography'
+import { dimensions, breakpoints } from '../../styles/tokens/dimensions'
+
+colors.altGreen          // '#0b5240'
+typography.fontSansText  // "'Inter Variable', sans-serif"
+dimensions.radiusSm      // '4px'
+breakpoints.sm           // '600px'  ← short keys for useIsBreakpointAndUp
+```
+
+CSS vars are a Tailwind implementation detail. The `@theme` blocks register tokens so utility classes (`bg-alt-green`, `font-sans-text`, `rounded-sm`, `sm:`) work. App code never references `var(--color-*)` directly.
+
+- **To add or change a token:** edit `tokens/*.tokens.json` and run `npm run tokens`.
+- **Styling priority:** Tailwind utility classes first; import from `src/styles/tokens/` for inline/computed styles.
+- **MUI theme:** `muiTheme.tsx` imports `colors`, `typography`, and `dimensions` directly.
 
 ### Frontend Environment Configuration
 
