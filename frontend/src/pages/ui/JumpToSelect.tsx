@@ -25,7 +25,7 @@ export default function JumpToSelect(props: JumpToSelectProps) {
       >
         <MenuItem value={' '}>
           <a className='text-alt-black no-underline' href='#top'>
-            Select a card
+            Choose
           </a>
         </MenuItem>
         {Object.entries(reportProviderSteps).map(([stepId, stepInfo]) => {
