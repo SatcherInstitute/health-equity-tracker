@@ -15,7 +15,9 @@
 		"frontend_server/",
 		"composer-local-dev/",
 		"**/.*",
-		"data/"
+		"data/",
+		"**/package.json",
+		"**/package-lock.json"
 	],
 	"allowCompoundWords": true,
 	"minWordLength": 3,
