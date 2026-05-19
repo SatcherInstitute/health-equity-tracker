@@ -83,6 +83,12 @@ async function dataServerFetch(requestPath, init = {}) {
     const tokenResponse = await fetch(tokenUrl, {
       headers: { 'Metadata-Flavor': 'Google' },
     })
+    if (!tokenResponse.ok) {
+      // Throw before reading the body — otherwise an error page would become the bearer token.
+      throw new Error(
+        `Failed to fetch ID token from metadata server: ${tokenResponse.status} ${tokenResponse.statusText}`,
+      )
+    }
     headers['Authorization'] = `bearer ${await tokenResponse.text()}`
   }
   return fetch(`${dataServerUrl}${requestPath}`, { ...init, headers })

@@ -101,11 +101,15 @@ def get_insight_cache():
         return "", 404
     except Exception as err:  # pylint: disable=broad-except
         logging.error(err)
-        return f"Internal server error: {err}", 500
+        return "Internal server error", 500
 
     try:
         payload = json.loads(blob)
     except json.JSONDecodeError:
+        return "", 404
+
+    # Guard against malformed cache entries (e.g. a list or primitive sneaking in).
+    if not isinstance(payload, dict):
         return "", 404
 
     timestamp = payload.get("timestamp", 0)
@@ -133,7 +137,7 @@ def put_insight_cache():
         gcs_utils.upload_blob_from_bytes(bucket, f"insights/{key}.json", payload, "application/json")
     except Exception as err:  # pylint: disable=broad-except
         logging.error(err)
-        return f"Internal server error: {err}", 500
+        return "Internal server error", 500
 
     return "", 204
 
