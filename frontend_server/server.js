@@ -121,6 +121,12 @@ app.post('/fetch-ai-insight', async (req, res) => {
         insightMemoryCache.set(cacheKey, { content, timestamp: now })
         return res.json({ content })
       }
+    } else if (cacheResponse.status !== 404) {
+      // 404 is a normal cache miss; anything else is unexpected and worth surfacing.
+      const body = await cacheResponse.text().catch(() => '')
+      console.warn(
+        `[insight cache] Data server read returned ${cacheResponse.status}: ${body}`,
+      )
     }
   } catch (err) {
     console.warn('[insight cache] Data server read error:', err.message)
@@ -171,8 +177,9 @@ app.post('/fetch-ai-insight', async (req, res) => {
         body: JSON.stringify({ key: cacheKey, content: insightText }),
       })
       if (!writeResponse.ok) {
+        const body = await writeResponse.text().catch(() => '')
         console.warn(
-          `[insight cache] Data server write returned ${writeResponse.status}`,
+          `[insight cache] Data server write returned ${writeResponse.status}: ${body}`,
         )
       }
     } catch (err) {

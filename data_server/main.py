@@ -79,7 +79,8 @@ def get_dataset():
 
 
 def _validate_insight_key(key: str | None) -> str | None:
-    if not key or len(key) > INSIGHT_KEY_MAX_LEN or "/" in key or ".." in key:
+    # GCS object names are literal strings, not paths — "/" can't escape the insights/ prefix.
+    if not key or len(key) > INSIGHT_KEY_MAX_LEN or ".." in key:
         return None
     return key
 
