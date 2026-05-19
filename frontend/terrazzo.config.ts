@@ -140,6 +140,13 @@ function tsPlugin(
 // ─── Config ───────────────────────────────────────────────────────────────────
 
 export default {
+  lint: {
+    rules: {
+      // Token names use camelCase intentionally so generated TS exports are
+      // valid identifiers (colors.darkGreen not colors['dark-green']).
+      'core/consistent-naming': 'off',
+    },
+  },
   tokens: [
     './tokens/colors.tokens.json',
     './tokens/typography.tokens.json',
