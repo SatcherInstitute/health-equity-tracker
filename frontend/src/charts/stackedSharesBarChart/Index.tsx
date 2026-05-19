@@ -129,7 +129,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
               darkMetric={props.darkMetric}
               xScale={xScale}
               yScale={yScale}
-              colors={STACKED_BAR_COLORS}
+              barColors={STACKED_BAR_COLORS}
               barHeight={BAR_HEIGHT}
               pairGap={PAIR_GAP}
               demographicType={props.demographicType}
