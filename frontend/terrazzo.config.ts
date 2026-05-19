@@ -125,12 +125,13 @@ function tsPlugin(
   return {
     name: `${srcName}-ts`,
     async build({ tokens, outputFile }: BuildCtx) {
-      const filtered = Object.values(tokens).filter(filter)
+      const all = Object.values(tokens)
+      const filtered = all.filter(filter)
       outputFile(
         `${srcName}.ts`,
         makeTsOutput(filtered, srcName, {
           ...opts,
-          extra: opts.extra?.(filtered) ?? '',
+          extra: opts.extra?.(all) ?? '',
         }),
       )
     },
@@ -154,7 +155,7 @@ export default {
     tsPlugin('typography', isTypo, { keyFn: idToCamelKey }),
 
     cssPlugin('dimensions', isDim),
-    tsPlugin('dimensions', isDim, {
+    tsPlugin('dimensions', (t) => isDim(t) && !isBreakpoint(t), {
       keyFn: idToCamelKey,
       extra: (tokens) => {
         const bpEntries = tokens
