@@ -106,13 +106,11 @@ app.post('/fetch-ai-insight', async (req, res) => {
     .slice(0, 500)
   const now = Date.now()
 
-  // In-memory cache: serve immediately if the entry is within TTL
   const memEntry = insightMemoryCache.get(cacheKey)
   if (memEntry && now - memEntry.timestamp < INSIGHT_TTL_MS) {
     return res.json({ content: memEntry.content })
   }
 
-  // Persistent cache (data server → GCS): on hit, populate memory and return
   try {
     const cacheResponse = await dataServerFetch(
       `/insight-cache?key=${encodeURIComponent(cacheKey)}`,

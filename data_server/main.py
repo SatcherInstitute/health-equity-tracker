@@ -108,7 +108,6 @@ def get_insight_cache():
     except json.JSONDecodeError:
         return "", 404
 
-    # Guard against malformed cache entries (e.g. a list or primitive sneaking in).
     if not isinstance(payload, dict):
         return "", 404
 
