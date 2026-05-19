@@ -1,6 +1,6 @@
 import Joyride from 'react-joyride-react-19' // TODO: ideally revert back to react-joyride and not this temporary fork
-import { resolveCssVar } from '../../styles/theme/cssVarUtils'
 import { colors } from '../../styles/tokens/colors'
+import { dimensionValues } from '../../styles/tokens/dimensions'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { getOnboardingSteps } from './OnboardingSteps'
 
@@ -9,7 +9,7 @@ export default function Onboarding(props: {
   activelyOnboarding: boolean
 }) {
   const isMd = useIsBreakpointAndUp('md')
-  const zAlmostTop = Number.parseInt(resolveCssVar('--z-index-almost-top'), 10)
+  const zAlmostTop = Number.parseInt(dimensionValues.zIndexAlmostTop, 10)
 
   return (
     <Joyride

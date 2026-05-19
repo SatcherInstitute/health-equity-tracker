@@ -10,8 +10,8 @@ import {
   type DemographicType,
 } from '../../data/query/Breakdowns'
 import { Fips } from '../../data/utils/Fips'
-import { resolveCssVar } from '../../styles/theme/cssVarUtils'
 import { colors } from '../../styles/tokens/colors'
+import { dimensionValues } from '../../styles/tokens/dimensions'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getMapGroupLabel } from '../mapHelperFunctions'
 import type { MouseEventHandlerOptions, MouseEventType } from './types'
@@ -21,8 +21,8 @@ export const TOOLTIP_OFFSET = { x: 10, y: 10 } as const
 
 export const createTooltipContainer = (isMulti?: boolean) => {
   const tooltipZIndex = isMulti
-    ? resolveCssVar('--z-index-multimap-modal-tooltip')
-    : resolveCssVar('--z-index-map-tooltip')
+    ? dimensionValues.zIndexMultimapModalTooltip
+    : dimensionValues.zIndexMapTooltip
 
   return d3
     .select('body')
