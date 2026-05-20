@@ -14,17 +14,15 @@ export function useParamState<ParamStateType>(
 
   function setParamState(newValue: ParamStateType): void {
     const currentParams = new URLSearchParams(window.location.search)
+    const originalString = currentParams.toString()
 
     newValue
       ? currentParams.set(paramKey, newValue as string)
       : currentParams.delete(paramKey)
 
-    const paramsHaveChanged =
-      new URLSearchParams(window.location.search).toString() !==
-      currentParams.toString()
-
-    paramsHaveChanged &&
+    if (originalString !== currentParams.toString()) {
       setLocationState((prev) => ({ ...prev, searchParams: currentParams }))
+    }
   }
 
   return [paramState, setParamState]
