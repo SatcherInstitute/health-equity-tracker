@@ -163,3 +163,20 @@ test('Extremes Mode Param in URL should work for both sides of Compare mode repo
     rateMap2.getByRole('heading', { name: 'Ages 13+' }),
   ).toBeVisible()
 })
+
+test('Selecting a demographic writes the demo param to the URL', async ({
+  page,
+}) => {
+  // HIV national defaults to Race/Ethnicity; Age is also available
+  await page.goto('/exploredata?mls=1.hiv-3.00&dt1=hiv_prevalence', {
+    waitUntil: 'domcontentloaded',
+  })
+
+  // DemographicSelector is a popover: first click opens it, then pick the option
+  await page.getByRole('button', { name: 'Race/Ethnicity' }).first().click()
+  await page.getByRole('menuitem', { name: 'Age' }).click()
+
+  // useParamState should write demo=age into the URL
+  await expect(page).toHaveURL(/demo=age/)
+})
+
