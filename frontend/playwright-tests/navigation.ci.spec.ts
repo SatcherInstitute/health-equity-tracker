@@ -53,9 +53,10 @@ test('Clicking a county on state map loads county report; back button returns to
     { waitUntil: 'domcontentloaded' },
   )
 
-  // Wait for map to be ready
+  // Wait for map SVG paths to be rendered before clicking
   const rateMap = page.locator('#rate-map')
   await expect(rateMap).toBeVisible()
+  await expect(rateMap.locator('svg path').first()).toBeVisible()
 
   // click on specific county
   await page.locator('path:nth-child(122)').click()
