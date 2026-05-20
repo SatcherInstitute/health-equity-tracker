@@ -255,7 +255,7 @@ Everything below is more detailed, advanced info that you probably won't need ri
 
 The frontend consists of
 
-1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, TS, CSS, images). This app was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and later migrated to Vite.
+1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, TS, CSS, images). Built with [Vite 8](https://vite.dev/) (Rolldown-powered) and tested with [Vitest 4](https://vitest.dev/).
 2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
 3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
 
