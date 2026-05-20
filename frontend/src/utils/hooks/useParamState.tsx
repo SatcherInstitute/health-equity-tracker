@@ -16,7 +16,7 @@ export function useParamState<ParamStateType>(
     const currentParams = new URLSearchParams(window.location.search)
     const originalString = currentParams.toString()
 
-    newValue !== undefined && newValue !== null
+    newValue !== undefined && newValue !== null && newValue !== false
       ? currentParams.set(paramKey, newValue as string)
       : currentParams.delete(paramKey)
 
