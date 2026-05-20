@@ -34,6 +34,15 @@ URL params (mls, dt1, demo, etc.)
 
 Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`src/utils/sharedSettingsState.ts`).
 
+**Two-tier URL param system** — URL params split into two write paths:
+
+| Tier | Params | Written via | Read via |
+|---|---|---|---|
+| MadLib | `mls`, `dt1`, `dt2`, `group1`, `group2`, `mlp`, `extremes` | `history.replaceState` (bypasses Jotai) | `window.location.search` |
+| UI / modal | `demo`, `topic-info`, `multiple-maps`, `chlp-maps`, `vote-dot-org`, `report-insight`, `atl` | `useParamState` → `locationAtom` | `urlParamAtom(key)` — fine-grained, only re-renders on that param's change |
+
+`useParamState` (`src/utils/hooks/useParamState.tsx`) is the hook for Tier 2 params. Its setter reads from `window.location.search` (not Jotai state) so that MadLib params written outside Jotai are preserved in the URL.
+
 ## Adding a New Frontend Feature (health topic)
 
 1. Create `src/data/config/MetricConfig<Topic>.ts` — define `MetricId`s, `DataTypeId`s, and chart configs
