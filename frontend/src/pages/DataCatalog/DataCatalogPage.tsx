@@ -55,19 +55,26 @@ export default function DataCatalogPage() {
     ? params[DATA_SOURCE_PRE_FILTERS].split(',')
     : []
 
-  const [activeCategory, setActiveCategory] = useState<CategoryTypeId | null>(
-    null,
+  const [activeCategories, setActiveCategories] = useState<Set<CategoryTypeId>>(
+    new Set(),
   )
 
   const handleCategoryClick = (catId: CategoryTypeId) => {
-    setActiveCategory((prev) => (prev === catId ? null : catId))
+    setActiveCategories((prev) => {
+      const next = new Set(prev)
+      next.has(catId) ? next.delete(catId) : next.add(catId)
+      return next
+    })
   }
 
-  const categoryFilteredIds = activeCategory
-    ? (Object.values(dataSourceMetadataMap) as DataSourceMetadata[])
-        .filter((src) => src.topic_categories?.includes(activeCategory))
-        .map((src) => src.id)
-    : []
+  const categoryFilteredIds =
+    activeCategories.size > 0
+      ? (Object.values(dataSourceMetadataMap) as DataSourceMetadata[])
+          .filter((src) =>
+            src.topic_categories?.some((cat) => activeCategories.has(cat)),
+          )
+          .map((src) => src.id)
+      : []
 
   const availableCategories = (
     Object.keys(CategoryMap) as CategoryTypeId[]
@@ -115,7 +122,7 @@ export default function DataCatalogPage() {
           </p>
           <div className='flex flex-wrap gap-2'>
             {availableCategories.map((catId) => {
-              const isActive = activeCategory === catId
+              const isActive = activeCategories.has(catId)
               return (
                 <button
                   key={catId}
@@ -124,7 +131,7 @@ export default function DataCatalogPage() {
                   onClick={() => handleCategoryClick(catId)}
                   className={`rounded-sm border-none px-2 py-1 font-bold font-sans-title text-tiny-tag uppercase transition-colors duration-150 ${
                     isActive
-                      ? 'cursor-default bg-alt-green text-alt-white'
+                      ? 'cursor-pointer bg-alt-green text-alt-white hover:bg-alt-green/80'
                       : 'cursor-pointer bg-tiny-tag-gray text-alt-black hover:bg-methodology-green'
                   }`}
                 >
@@ -132,10 +139,10 @@ export default function DataCatalogPage() {
                 </button>
               )
             })}
-            {activeCategory && (
+            {activeCategories.size > 0 && (
               <button
                 type='button'
-                onClick={() => setActiveCategory(null)}
+                onClick={() => setActiveCategories(new Set())}
                 className='cursor-pointer rounded-sm border border-alt-green border-solid bg-transparent px-2 py-1 font-bold font-sans-title text-alt-green text-tiny-tag uppercase transition-colors duration-150 hover:bg-alt-green/10'
               >
                 Clear ×
@@ -153,7 +160,7 @@ export default function DataCatalogPage() {
               )
               const viewingSubsetOfSources =
                 activeFilter[NAME_FILTER_ID].length > 0 ||
-                activeCategory !== null
+                activeCategories.size > 0
 
               return (
                 <>
@@ -164,11 +171,11 @@ export default function DataCatalogPage() {
                         source_metadata={dataSourceMetadataMap[sourceId]}
                         dataset_metadata={datasetMetadata}
                         onCategoryTagClick={handleCategoryClick}
-                        activeCategory={activeCategory}
+                        activeCategories={activeCategories}
                       />
                     </li>
                   ))}
-                  {viewingSubsetOfSources && !activeCategory && (
+                  {viewingSubsetOfSources && activeCategories.size === 0 && (
                     <HetTextArrowLink
                       containerClassName='flex justify-center'
                       link={DATA_CATALOG_PAGE_LINK}
