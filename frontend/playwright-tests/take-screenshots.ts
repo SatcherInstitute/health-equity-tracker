@@ -16,7 +16,7 @@ async function main() {
   await page.setViewportSize({ width: 1280, height: 900 })
 
   await page.goto(`${BASE_URL}/datacatalog`, { waitUntil: 'commit' })
-  await page.waitForSelector('article', { timeout: 15000 })
+  await page.waitForSelector('div[data-testid]', { timeout: 15000 })
   await page.waitForTimeout(400)
 
   // 1 — Full page: filter bar + cards with tags

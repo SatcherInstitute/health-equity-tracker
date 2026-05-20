@@ -160,21 +160,21 @@ export default function DataCatalogPage() {
           </div>
         </div>
 
-        <ul className='list-none pl-0'>
-          <WithMetadata>
-            {(datasetMetadata) => {
-              const filteredDatasets = getFilteredSources(
-                dataSourceMetadataMap,
-                activeFilter,
-              )
-              const viewingSubsetOfSources =
-                activeFilter[NAME_FILTER_ID].length > 0 ||
-                activeCategories.size > 0
+        <WithMetadata>
+          {(datasetMetadata) => {
+            const filteredDatasets = getFilteredSources(
+              dataSourceMetadataMap,
+              activeFilter,
+            )
+            const viewingSubsetOfSources =
+              activeFilter[NAME_FILTER_ID].length > 0 ||
+              activeCategories.size > 0
 
-              return (
-                <>
+            return (
+              <>
+                <ul className='mt-4 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3'>
                   {filteredDatasets.map((sourceId) => (
-                    <li key={sourceId}>
+                    <li key={sourceId} className='min-w-0'>
                       <DataSourceListing
                         key={dataSourceMetadataMap[sourceId].id}
                         source_metadata={dataSourceMetadataMap[sourceId]}
@@ -184,18 +184,18 @@ export default function DataCatalogPage() {
                       />
                     </li>
                   ))}
-                  {viewingSubsetOfSources && (
-                    <HetTextArrowLink
-                      containerClassName='flex justify-center'
-                      link={DATA_CATALOG_PAGE_LINK}
-                      linkText={'View All Datasets'}
-                    />
-                  )}
-                </>
-              )
-            }}
-          </WithMetadata>
-        </ul>
+                </ul>
+                {viewingSubsetOfSources && (
+                  <HetTextArrowLink
+                    containerClassName='mt-4 flex justify-center'
+                    link={DATA_CATALOG_PAGE_LINK}
+                    linkText={'View All Datasets'}
+                  />
+                )}
+              </>
+            )
+          }}
+        </WithMetadata>
       </section>
     </>
   )

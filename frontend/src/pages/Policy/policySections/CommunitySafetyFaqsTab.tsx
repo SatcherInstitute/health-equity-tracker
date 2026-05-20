@@ -6,10 +6,7 @@ export default function CommunitySafetyFaqsTab() {
     <>
       <title>FAQs - Health Equity Tracker</title>
 
-      <HetAccordion
-        accordionData={communitySafetyFaqs}
-        headingLevelOverride='h2'
-      />
+      <HetAccordion accordionData={communitySafetyFaqs} />
     </>
   )
 }

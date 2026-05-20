@@ -16,7 +16,9 @@ test('Category filter narrows and clears data source cards', async ({
   await page.goto('/datacatalog', { waitUntil: 'commit' })
 
   // Wait for cards to render (metadata fetch required)
-  const cards = page.getByRole('article')
+  // Cards are divs identified by data-testid (source ID)
+  // Cards are wrapper divs with data-testid set to the source ID (e.g. 'acs', 'cdc_atlas')
+  const cards = page.locator('ul[class*="grid"] > li > div[data-testid]')
   await expect(cards.first()).toBeVisible()
   const totalCount = await cards.count()
 
