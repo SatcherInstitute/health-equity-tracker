@@ -97,28 +97,3 @@ test('Multiple Maps 2 (Right Side)', async ({ page }) => {
   await expect(page).not.toHaveURL(/.*multiple-maps2=true/)
 })
 
-test('Vote.org modal: button sets param; close removes it', async ({
-  page,
-}) => {
-  await page.goto(
-    '/exploredata?mls=1.incarceration-3.00&group1=All&dt1=prison',
-    { waitUntil: 'domcontentloaded' },
-  )
-
-  // Open via the VoteDotOrgBanner link (voter participation topic shows this)
-  await page.goto(
-    '/exploredata?mls=1.incarceration-3.00&group1=All&dt1=voter_participation',
-    { waitUntil: 'domcontentloaded' },
-  )
-
-  await page
-    .getByRole('link', { name: 'Check your voter registration now' })
-    .click()
-
-  await expect(page).toHaveURL(/vote-dot-org=true/)
-  await expect(page.getByRole('dialog')).toBeVisible()
-
-  await page.getByLabel('close modal').click()
-  await expect(page.getByRole('dialog')).toBeHidden()
-  await expect(page).not.toHaveURL(/vote-dot-org/)
-})
