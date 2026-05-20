@@ -1,4 +1,10 @@
-import type * as d3 from 'd3'
+import type {
+  GeoProjection,
+  ScaleQuantile,
+  ScaleSequential,
+  ScaleThreshold,
+  Selection,
+} from 'd3'
 import type {
   Feature,
   FeatureCollection,
@@ -28,13 +34,13 @@ export type ColorScheme =
   | 'darkred'
 
 export type ColorScale =
-  | d3.ScaleSequential<any, never>
-  | d3.ScaleThreshold<number, string, never>
-  | d3.ScaleQuantile<string, number>
+  | ScaleSequential<any, never>
+  | ScaleThreshold<number, string, never>
+  | ScaleQuantile<string, number>
 
 export function isQuantileScale(
   scale: ColorScale,
-): scale is d3.ScaleQuantile<string, number> {
+): scale is ScaleQuantile<string, number> {
   return 'quantiles' in scale && typeof scale.quantiles === 'function'
 }
 
@@ -128,7 +134,7 @@ export type RenderMapOptions = {
   demographicType: DemographicType
   geoData: {
     features: FeatureCollection<Geometry, GeoJsonProperties>
-    projection: d3.GeoProjection
+    projection: GeoProjection
   }
   height: number
   hideLegend?: boolean
@@ -136,7 +142,7 @@ export type RenderMapOptions = {
   metricConfig: MetricConfig
   showCounties: boolean
   svgRef: RefObject<SVGSVGElement | null>
-  tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
+  tooltipContainer: Selection<HTMLDivElement, unknown, HTMLElement, any>
   width: number
   fips: Fips
   isMobile: boolean

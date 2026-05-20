@@ -1,4 +1,15 @@
-import * as d3 from 'd3'
+import type { Selection } from 'd3'
+import {
+  axisBottom,
+  axisLeft,
+  format,
+  line,
+  max,
+  min,
+  scaleLinear,
+  scaleSqrt,
+  select,
+} from 'd3'
 import type React from 'react'
 import { useEffect, useRef, useState } from 'react'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
@@ -53,12 +64,12 @@ function weightedRegression(data: WeightedDataPoint[]): [number, number][] {
 
   return [
     [
-      d3.min(data, (d) => d.x) || 0,
-      slope * (d3.min(data, (d) => d.x) || 0) + intercept,
+      min(data, (d) => d.x) || 0,
+      slope * (min(data, (d) => d.x) || 0) + intercept,
     ],
     [
-      d3.max(data, (d) => d.x) || 0,
-      slope * (d3.max(data, (d) => d.x) || 0) + intercept,
+      max(data, (d) => d.x) || 0,
+      slope * (max(data, (d) => d.x) || 0) + intercept,
     ],
   ]
 }
@@ -128,7 +139,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
       return
     }
 
-    const svg = d3.select(svgRef.current) as d3.Selection<
+    const svg = select(svgRef.current) as Selection<
       SVGSVGElement,
       unknown,
       null,
@@ -141,21 +152,18 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
     const innerWidth = width - margin.left - margin.right
     const innerHeight = height - margin.top - margin.bottom
 
-    const xScale = d3
-      .scaleLinear()
-      .domain([0, d3.max(props.xData, (d) => d[xRate] as number) || 0])
+    const xScale = scaleLinear()
+      .domain([0, max(props.xData, (d) => d[xRate] as number) || 0])
       .range([0, innerWidth])
 
-    const yScale = d3
-      .scaleLinear()
-      .domain([0, d3.max(props.yData, (d) => d[yRate] as number) || 0])
+    const yScale = scaleLinear()
+      .domain([0, max(props.yData, (d) => d[yRate] as number) || 0])
       .range([innerHeight, 0])
 
-    const radiusScale = d3
-      .scaleSqrt()
+    const radiusScale = scaleSqrt()
       .domain([
         0,
-        d3.max(
+        max(
           props.radiusData,
           (d) => d[props.radiusMetricConfig?.metricId || ''] as number,
         ) || 4,
@@ -166,14 +174,13 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
       .append('g')
       .attr('transform', `translate(${margin.left},${margin.top})`)
 
-    const formatTickK = d3.format('.2~s')
+    const formatTickK = format('.2~s')
 
     // Add X axis
     g.append('g')
       .attr('transform', `translate(0,${innerHeight})`)
       .call(
-        d3
-          .axisBottom(xScale)
+        axisBottom(xScale)
           .ticks(isMd ? X_AXIS_MAX_TICKS : X_AXIS_MAX_TICKS_SKINNY)
           .tickFormat((d) => formatTickK(d as number)),
       )
@@ -185,7 +192,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
 
     // Add Y axis
     g.append('g')
-      .call(d3.axisLeft(yScale).tickFormat((d) => formatTickK(d as number)))
+      .call(axisLeft(yScale).tickFormat((d) => formatTickK(d as number)))
       .append('text')
       .attr('transform', 'rotate(-90)')
       .attr('y', -40)
@@ -255,7 +262,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
             : 0,
         })
         updateTooltipPosition(event)
-        d3.select(this).attr('fill', colors.timeYellow).attr('opacity', 1)
+        select(this).attr('fill', colors.timeYellow).attr('opacity', 1)
         if (this.parentNode) {
           this.parentNode.appendChild(this)
         }
@@ -263,7 +270,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
       .on('mousemove', updateTooltipPosition)
       .on('mouseout', function () {
         setTooltipContent(null)
-        d3.select(this)
+        select(this)
           .attr('fill', (d: any) => {
             return (
               GROUP_COLOR_MAP[
@@ -315,8 +322,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
       .attr('stroke-dasharray', '5,5')
       .attr(
         'd',
-        d3
-          .line<[number, number]>()
+        line<[number, number]>()
           .x((d) => xScale(d[0]))
           .y((d) => yScale(d[1])),
       )

@@ -1,4 +1,4 @@
-import * as d3 from 'd3'
+import { geoPath, select } from 'd3'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import { colors } from '../../styles/tokens/colors'
 import { getCountyAddOn } from '../mapHelperFunctions'
@@ -46,7 +46,7 @@ export const renderMap = (options: RenderMapOptions) => {
     colorScale,
   } = options
 
-  d3.select(svgRef.current).selectAll('*').remove()
+  select(svgRef.current).selectAll('*').remove()
 
   const territoryHeight = fips.isUsa()
     ? TERRITORIES.marginTop + TERRITORIES.radius * 2
@@ -65,7 +65,7 @@ export const renderMap = (options: RenderMapOptions) => {
   const geographyType = getCountyAddOn(fips, showCounties)
 
   projection.fitSize([width, mapHeight], features)
-  const path = d3.geoPath(projection)
+  const path = geoPath(projection)
 
   const tooltipLabel = getTooltipLabel(
     isUnknownsMap,
@@ -178,10 +178,7 @@ const initializeSvg = (options: InitializeSvgOptions) => {
   const { svgRef, width, height, isMobile } = options
   const { left, top } = MARGIN
 
-  const svg = d3
-    .select(svgRef.current)
-    .attr('width', width)
-    .attr('height', height)
+  const svg = select(svgRef.current).attr('width', width).attr('height', height)
 
   return {
     mapGroup: svg

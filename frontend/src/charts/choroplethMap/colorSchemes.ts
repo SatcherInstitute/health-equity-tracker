@@ -1,4 +1,11 @@
-import * as d3 from 'd3'
+import {
+  interpolateRgb,
+  piecewise,
+  scaleQuantile,
+  scaleSequential,
+  scaleSequentialSymlog,
+  scaleThreshold,
+} from 'd3'
 import { colors } from '../../styles/tokens/colors'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
@@ -89,37 +96,22 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
 
   const COLOR_SCHEME_INTERPOLATORS: Record<ColorScheme, (t: number) => string> =
     {
-      darkgreen: d3.piecewise(
-        d3.interpolateRgb.gamma(2.2),
-        COLOR_SCHEMES.darkgreen,
-      ),
+      darkgreen: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.darkgreen),
 
-      plasma: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.plasma),
+      plasma: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.plasma),
 
-      inferno: d3.piecewise(
-        d3.interpolateRgb.gamma(2.2),
-        COLOR_SCHEMES.inferno,
-      ),
+      inferno: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.inferno),
 
-      viridis: d3.piecewise(
-        d3.interpolateRgb.gamma(2.2),
-        COLOR_SCHEMES.viridis,
-      ),
+      viridis: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.viridis),
 
-      viridisAdherence: d3.piecewise(
-        d3.interpolateRgb.gamma(2.2),
+      viridisAdherence: piecewise(
+        interpolateRgb.gamma(2.2),
         COLOR_SCHEMES.viridisAdherence,
       ),
 
-      greenblue: d3.piecewise(
-        d3.interpolateRgb.gamma(2.2),
-        COLOR_SCHEMES.greenblue,
-      ),
+      greenblue: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.greenblue),
 
-      darkred: d3.piecewise(
-        d3.interpolateRgb.gamma(2.2),
-        COLOR_SCHEMES.darkred,
-      ),
+      darkred: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.darkred),
     }
 
   const {
@@ -142,7 +134,7 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
 
   colorArray = reverse ? [...colorArray].reverse() : colorArray
 
-  let interpolatorFn = d3.piecewise(d3.interpolateRgb.gamma(2.2), colorArray)
+  let interpolatorFn = piecewise(interpolateRgb.gamma(2.2), colorArray)
 
   const resolvedScheme = colorScheme
     ? COLOR_SCHEME_INTERPOLATORS[colorScheme]
@@ -167,21 +159,20 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
     : [legendLowerBound, legendUpperBound]
 
   if (min === undefined || max === undefined || isNaN(min) || isNaN(max)) {
-    return d3.scaleSequential(interpolatorFn).domain([0, 1])
+    return scaleSequential(interpolatorFn).domain([0, 1])
   }
 
   if (isUnknown) {
-    return d3.scaleSequentialSymlog(interpolatorFn).domain([min, max])
+    return scaleSequentialSymlog(interpolatorFn).domain([min, max])
   }
 
   if (isPhrmaAdherence) {
-    return d3
-      .scaleThreshold<number, string>()
+    return scaleThreshold<number, string>()
       .domain(PHRMA_ADHERENCE_BREAKPOINTS)
       .range(colorArray)
   }
 
-  return d3.scaleQuantile<string, number>().domain(domain).range(colorArray)
+  return scaleQuantile<string, number>().domain(domain).range(colorArray)
 }
 
 export function getFillColor(options: GetFillColorOptions): string {
