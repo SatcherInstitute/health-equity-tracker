@@ -1,6 +1,9 @@
 import type domToImageLib from 'dom-to-image-more'
 import { MULTIMAP_MODAL_CONTENT_ID } from '../cards/ui/MultiMapDialog'
 
+// typeof on an import type is correct here: dom-to-image-more is a CJS
+// module whose default export is the module object itself (a namespace),
+// so domToImageLib is a namespace type and typeof gives us the instance type.
 type DomToImage = typeof domToImageLib
 
 import { CITATION_APA } from '../cards/ui/SourcesHelpers'
@@ -412,7 +415,14 @@ export async function saveCardImage(
 
   // Import before any DOM mutations so the library is ready before the user
   // sees the card in its "pre-screenshot" state on slow connections.
-  const { default: domtoimage } = await import('dom-to-image-more')
+  const domtoimage = await import('dom-to-image-more')
+    .then((m) => m.default)
+    .catch((error: unknown) => {
+      console.error('Failed to load image export library:', error)
+      return undefined
+    })
+
+  if (!domtoimage) return
 
   let targetNode: HTMLElement | null = null
 
