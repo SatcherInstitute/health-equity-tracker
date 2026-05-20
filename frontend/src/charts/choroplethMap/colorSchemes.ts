@@ -91,20 +91,35 @@ function getColorSchemes(): Record<ColorScheme, string[]> {
   return _colorSchemes
 }
 
+// Static — built once at module load. getColorSchemes() is itself cached,
+// and interpolateRgb.gamma(2.2) has no runtime dependencies.
+const _interpolator = interpolateRgb.gamma(2.2)
+let _colorSchemeInterpolators: Record<
+  ColorScheme,
+  (t: number) => string
+> | null = null
+
+function getColorSchemeInterpolators(): Record<
+  ColorScheme,
+  (t: number) => string
+> {
+  if (_colorSchemeInterpolators) return _colorSchemeInterpolators
+  const COLOR_SCHEMES = getColorSchemes()
+  _colorSchemeInterpolators = {
+    darkgreen: piecewise(_interpolator, COLOR_SCHEMES.darkgreen),
+    plasma: piecewise(_interpolator, COLOR_SCHEMES.plasma),
+    inferno: piecewise(_interpolator, COLOR_SCHEMES.inferno),
+    viridis: piecewise(_interpolator, COLOR_SCHEMES.viridis),
+    viridisAdherence: piecewise(_interpolator, COLOR_SCHEMES.viridisAdherence),
+    greenblue: piecewise(_interpolator, COLOR_SCHEMES.greenblue),
+    darkred: piecewise(_interpolator, COLOR_SCHEMES.darkred),
+  }
+  return _colorSchemeInterpolators
+}
+
 export function createColorScale(options: CreateColorScaleOptions): ColorScale {
   const COLOR_SCHEMES = getColorSchemes()
-
-  const interpolator = interpolateRgb.gamma(2.2)
-  const COLOR_SCHEME_INTERPOLATORS: Record<ColorScheme, (t: number) => string> =
-    {
-      darkgreen: piecewise(interpolator, COLOR_SCHEMES.darkgreen),
-      plasma: piecewise(interpolator, COLOR_SCHEMES.plasma),
-      inferno: piecewise(interpolator, COLOR_SCHEMES.inferno),
-      viridis: piecewise(interpolator, COLOR_SCHEMES.viridis),
-      viridisAdherence: piecewise(interpolator, COLOR_SCHEMES.viridisAdherence),
-      greenblue: piecewise(interpolator, COLOR_SCHEMES.greenblue),
-      darkred: piecewise(interpolator, COLOR_SCHEMES.darkred),
-    }
+  const COLOR_SCHEME_INTERPOLATORS = getColorSchemeInterpolators()
 
   const {
     data,
@@ -126,7 +141,7 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
 
   colorArray = reverse ? [...colorArray].reverse() : colorArray
 
-  let interpolatorFn = piecewise(interpolator, colorArray)
+  let interpolatorFn = piecewise(_interpolator, colorArray)
 
   const resolvedScheme = colorScheme
     ? COLOR_SCHEME_INTERPOLATORS[colorScheme]
