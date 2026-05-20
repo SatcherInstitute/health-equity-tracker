@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   CategoryMap,
   type CategoryTypeId,
@@ -26,6 +26,14 @@ type Filters = Record<string, DataSourceId[]>
 // pre-filtering from url params.
 const NAME_FILTER_ID = 'name_filter'
 const CATEGORY_FILTER_ID = 'category_filter'
+
+const availableCategories = (
+  Object.keys(CategoryMap) as CategoryTypeId[]
+).filter((catId) =>
+  Object.values(dataSourceMetadataMap).some((src) =>
+    src.topic_categories?.includes(catId),
+  ),
+)
 
 /**
  * Returns the ids of the sources to display based on the provided filter. The
@@ -67,21 +75,16 @@ export default function DataCatalogPage() {
     })
   }
 
-  const categoryFilteredIds =
-    activeCategories.size > 0
-      ? (Object.values(dataSourceMetadataMap) as DataSourceMetadata[])
-          .filter((src) =>
-            src.topic_categories?.some((cat) => activeCategories.has(cat)),
-          )
-          .map((src) => src.id)
-      : []
-
-  const availableCategories = (
-    Object.keys(CategoryMap) as CategoryTypeId[]
-  ).filter((catId) =>
-    (Object.values(dataSourceMetadataMap) as DataSourceMetadata[]).some((src) =>
-      src.topic_categories?.includes(catId),
-    ),
+  const categoryFilteredIds = useMemo(
+    () =>
+      activeCategories.size > 0
+        ? Object.values(dataSourceMetadataMap)
+            .filter((src) =>
+              src.topic_categories?.some((cat) => activeCategories.has(cat)),
+            )
+            .map((src) => src.id)
+        : [],
+    [activeCategories],
   )
 
   const activeFilter = {
@@ -175,7 +178,7 @@ export default function DataCatalogPage() {
                       />
                     </li>
                   ))}
-                  {viewingSubsetOfSources && activeCategories.size === 0 && (
+                  {viewingSubsetOfSources && (
                     <HetTextArrowLink
                       containerClassName='flex justify-center'
                       link={DATA_CATALOG_PAGE_LINK}
