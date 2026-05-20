@@ -13,16 +13,24 @@ export function useParamState<ParamStateType>(
   const paramState = (paramValue ?? paramDefaultValue ?? '') as ParamStateType
 
   function setParamState(newValue: ParamStateType): void {
-    const currentParams = new URLSearchParams(window.location.search)
-    const originalString = currentParams.toString()
+    setLocationState((prev) => {
+      // Read window.location.search (not prev.searchParams) as the base so
+      // params written via history.replaceState by the MadLib machinery are
+      // included — jotai-location only re-syncs on popstate, not replaceState.
+      const currentParams = new URLSearchParams(window.location.search)
+      const originalString = currentParams.toString()
 
-    newValue !== undefined && newValue !== null && newValue !== false
-      ? currentParams.set(paramKey, newValue as string)
-      : currentParams.delete(paramKey)
+      if (newValue == null || newValue === false || newValue === '') {
+        currentParams.delete(paramKey)
+      } else {
+        currentParams.set(paramKey, newValue as string)
+      }
 
-    if (originalString !== currentParams.toString()) {
-      setLocationState((prev) => ({ ...prev, searchParams: currentParams }))
-    }
+      if (originalString === currentParams.toString()) {
+        return prev
+      }
+      return { ...prev, searchParams: currentParams }
+    })
   }
 
   return [paramState, setParamState]
