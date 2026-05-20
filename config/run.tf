@@ -107,6 +107,11 @@ resource "google_cloud_run_service" "data_server_service" {
           name  = "GCS_BUCKET"
           value = var.export_bucket
         }
+        env {
+          # GCS bucket for the AI insights cache (read/write).
+          name  = "INSIGHTS_CACHE_BUCKET"
+          value = var.insights_cache_bucket
+        }
 
         resources {
           limits = {
@@ -200,10 +205,6 @@ resource "google_cloud_run_service" "frontend_service" {
         env {
           name  = "WEBFLOW_API_TOKEN"
           value = var.webflow_api_token
-        }
-        env {
-          name  = "INSIGHTS_CACHE_BUCKET"
-          value = var.insights_cache_bucket
         }
 
         resources {

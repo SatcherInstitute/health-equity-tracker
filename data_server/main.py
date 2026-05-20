@@ -1,16 +1,23 @@
+import json
 import logging
 import os
+import time
 
-from flask import Flask, Response, request
+import google.cloud.exceptions
+from flask import Flask, Response, jsonify, request
 from flask_cors import CORS
 from werkzeug.datastructures import Headers
 
+from data_server import gcs_utils
 from data_server.dataset_cache import DatasetCache
-from data_server.gcs_utils import TTL_CONTROL_HEADER
+from data_server.gcs_utils import INSIGHT_TTL_MS, TTL_CONTROL_HEADER
 
 app = Flask(__name__)
 CORS(app)
 cache = DatasetCache()
+
+INSIGHTS_CACHE_BUCKET_ENV = "INSIGHTS_CACHE_BUCKET"
+INSIGHT_KEY_MAX_LEN = 500
 
 
 @app.route("/", methods=["GET"])
@@ -69,6 +76,70 @@ def get_dataset():
         return Response(dataset, mimetype="text/csv", headers=headers)
 
     return Response(generate_response(), mimetype="application/json", headers=headers)
+
+
+def _validate_insight_key(key: str | None) -> str | None:
+    # GCS object names are literal strings, not paths — "/" can't escape the insights/ prefix.
+    if not key or len(key) > INSIGHT_KEY_MAX_LEN or ".." in key:
+        return None
+    return key
+
+
+@app.route("/insight-cache", methods=["GET"])
+def get_insight_cache():
+    """Returns a cached AI insight if present and within TTL, otherwise 404."""
+    key = _validate_insight_key(request.args.get("key"))
+    if key is None:
+        return "Request missing or invalid required url param 'key'", 400
+
+    bucket = os.environ.get(INSIGHTS_CACHE_BUCKET_ENV)
+    if not bucket:
+        return "Insights cache not configured", 503
+
+    try:
+        blob = gcs_utils.download_blob_as_bytes(bucket, f"insights/{key}.json")
+    except google.cloud.exceptions.NotFound:
+        return "", 404
+    except Exception as err:  # pylint: disable=broad-except
+        logging.error(err)
+        return "Internal server error", 500
+
+    try:
+        payload = json.loads(blob)
+    except json.JSONDecodeError:
+        return "", 404
+
+    if not isinstance(payload, dict):
+        return "", 404
+
+    timestamp = payload.get("timestamp", 0)
+    if int(time.time() * 1000) - timestamp >= INSIGHT_TTL_MS:
+        return "", 404
+
+    return jsonify(payload)
+
+
+@app.route("/insight-cache", methods=["POST"])
+def put_insight_cache():
+    """Stores an AI insight in GCS, keyed by the provided cache key."""
+    body = request.get_json(silent=True) or {}
+    key = _validate_insight_key(body.get("key"))
+    content = body.get("content")
+    if key is None or not content:
+        return "Request body missing or invalid 'key' or 'content'", 400
+
+    bucket = os.environ.get(INSIGHTS_CACHE_BUCKET_ENV)
+    if not bucket:
+        return "Insights cache not configured", 503
+
+    payload = json.dumps({"content": content, "timestamp": int(time.time() * 1000)}).encode("utf-8")
+    try:
+        gcs_utils.upload_blob_from_bytes(bucket, f"insights/{key}.json", payload, "application/json")
+    except Exception as err:  # pylint: disable=broad-except
+        logging.error(err)
+        return "Internal server error", 500
+
+    return "", 204
 
 
 if __name__ == "__main__":
