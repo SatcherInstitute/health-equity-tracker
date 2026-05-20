@@ -94,24 +94,16 @@ function getColorSchemes(): Record<ColorScheme, string[]> {
 export function createColorScale(options: CreateColorScaleOptions): ColorScale {
   const COLOR_SCHEMES = getColorSchemes()
 
+  const interpolator = interpolateRgb.gamma(2.2)
   const COLOR_SCHEME_INTERPOLATORS: Record<ColorScheme, (t: number) => string> =
     {
-      darkgreen: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.darkgreen),
-
-      plasma: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.plasma),
-
-      inferno: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.inferno),
-
-      viridis: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.viridis),
-
-      viridisAdherence: piecewise(
-        interpolateRgb.gamma(2.2),
-        COLOR_SCHEMES.viridisAdherence,
-      ),
-
-      greenblue: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.greenblue),
-
-      darkred: piecewise(interpolateRgb.gamma(2.2), COLOR_SCHEMES.darkred),
+      darkgreen: piecewise(interpolator, COLOR_SCHEMES.darkgreen),
+      plasma: piecewise(interpolator, COLOR_SCHEMES.plasma),
+      inferno: piecewise(interpolator, COLOR_SCHEMES.inferno),
+      viridis: piecewise(interpolator, COLOR_SCHEMES.viridis),
+      viridisAdherence: piecewise(interpolator, COLOR_SCHEMES.viridisAdherence),
+      greenblue: piecewise(interpolator, COLOR_SCHEMES.greenblue),
+      darkred: piecewise(interpolator, COLOR_SCHEMES.darkred),
     }
 
   const {
@@ -134,7 +126,7 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
 
   colorArray = reverse ? [...colorArray].reverse() : colorArray
 
-  let interpolatorFn = piecewise(interpolateRgb.gamma(2.2), colorArray)
+  let interpolatorFn = piecewise(interpolator, colorArray)
 
   const resolvedScheme = colorScheme
     ? COLOR_SCHEME_INTERPOLATORS[colorScheme]

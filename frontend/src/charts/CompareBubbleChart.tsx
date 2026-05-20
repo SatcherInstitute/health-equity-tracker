@@ -62,15 +62,12 @@ function weightedRegression(data: WeightedDataPoint[]): [number, number][] {
   const slope = (sumXY - sumX * meanY) / (sumX2 - sumX * meanX)
   const intercept = meanY - slope * meanX
 
+  const minX = min(data, (d) => d.x) || 0
+  const maxX = max(data, (d) => d.x) || 0
+
   return [
-    [
-      min(data, (d) => d.x) || 0,
-      slope * (min(data, (d) => d.x) || 0) + intercept,
-    ],
-    [
-      max(data, (d) => d.x) || 0,
-      slope * (max(data, (d) => d.x) || 0) + intercept,
-    ],
+    [minX, slope * minX + intercept],
+    [maxX, slope * maxX + intercept],
   ]
 }
 
