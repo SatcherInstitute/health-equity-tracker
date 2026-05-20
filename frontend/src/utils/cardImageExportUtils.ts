@@ -1,4 +1,3 @@
-import domtoimage from 'dom-to-image-more'
 import { MULTIMAP_MODAL_CONTENT_ID } from '../cards/ui/MultiMapDialog'
 import { CITATION_APA } from '../cards/ui/SourcesHelpers'
 import { LEGEND_ITEMS_BOX_CLASS } from '../charts/choroplethMap/RateMapLegend'
@@ -342,6 +341,7 @@ async function captureAndSaveImage(
       htmlEl.style.boxShadow = 'none'
     })
 
+    const { default: domtoimage } = await import('dom-to-image-more')
     const dataUrl = await domtoimage.toPng(node, domToImageOptions)
     return await handleDestination(dataUrl, options)
   } catch (error: unknown) {
