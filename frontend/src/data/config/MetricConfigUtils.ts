@@ -1,4 +1,3 @@
-import { merge } from 'lodash-es'
 import { getFormatterPer100k } from '../../charts/utils'
 import type { GeographicBreakdown } from '../query/Breakdowns'
 import type { DropdownVarId } from './DropDownIds'
@@ -119,11 +118,35 @@ export function formatSubPopString({
     : otherSubPopulationLabel || ageSubPopulationLabel || ''
 }
 
+function isPlainObject(val: unknown): val is Record<string, unknown> {
+  return val !== null && typeof val === 'object' && !Array.isArray(val)
+}
+
+function deepMerge<T extends Record<string, unknown>>(
+  base: T,
+  overrides: Partial<T>,
+): T {
+  const result = { ...base }
+  for (const key of Object.keys(overrides) as Array<keyof T>) {
+    const src = overrides[key]
+    const tgt = result[key]
+    result[key] = (
+      isPlainObject(src) && isPlainObject(tgt)
+        ? deepMerge(tgt, src as Partial<typeof tgt>)
+        : src
+    ) as T[keyof T]
+  }
+  return result
+}
+
 export function applyGeoOverrides(
   config: DataTypeConfig,
   geography: GeographicBreakdown,
 ): DataTypeConfig {
   const overrides = config.geoOverrides?.[geography]
   if (!overrides) return config
-  return merge({}, config, overrides)
+  return deepMerge(
+    config as unknown as Record<string, unknown>,
+    overrides as unknown as Partial<Record<string, unknown>>,
+  ) as unknown as DataTypeConfig
 }
