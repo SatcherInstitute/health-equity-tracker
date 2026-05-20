@@ -176,8 +176,8 @@ variable "frontend_runner_identity_id" {
   type        = string
 }
 
-variable "frontend_runner_role_id" {
-  description = "Role id of the custom IAM role for the frontend service"
+variable "insights_cache_writer_role_id" {
+  description = "Role id of the custom IAM role granting read/write access to the AI insights cache bucket"
   type        = string
 }
 

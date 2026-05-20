@@ -1,4 +1,5 @@
-import * as d3 from 'd3'
+import type { Selection } from 'd3'
+import { scaleLinear } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { colors } from '../../styles/tokens/colors'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
@@ -6,7 +7,7 @@ import { formatMetricValue } from './tooltipUtils'
 import type { ColorScale } from './types'
 
 export function createUnknownLegend(
-  legendGroup: d3.Selection<SVGGElement, unknown, null, undefined>,
+  legendGroup: Selection<SVGGElement, unknown, null, undefined>,
   options: {
     width: number
     colorScale: ColorScale
@@ -17,8 +18,7 @@ export function createUnknownLegend(
   const legendHeight = 15
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
   const tickCount = 2
-  const ticks = d3
-    .scaleLinear()
+  const ticks = scaleLinear()
     .domain([legendLowerBound, legendUpperBound])
     .nice(tickCount)
     .ticks(tickCount)
