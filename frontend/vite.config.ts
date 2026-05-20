@@ -12,14 +12,6 @@ export default defineConfig(({ mode }) => {
       outDir: 'build',
       sourcemap: !isDeployPreview, // Disable sourcemaps for deploy previews
       minify: !isDeployPreview,
-
-      rollupOptions: isDeployPreview
-        ? {
-            output: {
-              manualChunks: undefined, // Disable code splitting for deploy previews
-            },
-          }
-        : {},
     },
     resolve: { tsconfigPaths: true },
     cache: true,
