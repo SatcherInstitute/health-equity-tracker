@@ -37,5 +37,6 @@ exporter_runner_role_id     = "exporter_runner_role"
 frontend_service_name       = "frontend-service"
 frontend_image_name         = "frontend-service"
 frontend_runner_identity_id = "frontend-runner"
-frontend_runner_role_id     = "frontend_runner_role"
 
+# Custom IAM role granting read/write on the AI insights cache bucket (bound to the data server SA).
+insights_cache_writer_role_id = "insights_cache_writer_role"

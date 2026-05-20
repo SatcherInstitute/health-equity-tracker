@@ -1,4 +1,4 @@
-import * as d3 from 'd3'
+import { select } from 'd3'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import { colors } from '../../styles/tokens/colors'
 import { getFillColor } from './colorSchemes'
@@ -70,7 +70,7 @@ const handleMouseEvent = (
       event.preventDefault()
       if (!d || !props.dataMap) return
 
-      d3.select(event.currentTarget)
+      select(event.currentTarget)
         .attr(
           'stroke',
           props.isExtremesMode ? colors.altBlack : GEO_HOVERED_BORDER_COLOR,
@@ -86,7 +86,7 @@ const handleMouseEvent = (
     case 'touchstart': {
       event.preventDefault()
 
-      d3.select(event.currentTarget)
+      select(event.currentTarget)
         .attr(
           'stroke',
           props.isExtremesMode ? colors.altBlack : GEO_HOVERED_BORDER_COLOR,
@@ -115,7 +115,7 @@ const handleMouseEvent = (
       break
     }
     case 'touchend': {
-      d3.select(event.currentTarget)
+      select(event.currentTarget)
         .attr('stroke', props.isExtremesMode ? colors.altGray : colors.altWhite)
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
@@ -140,7 +140,7 @@ const handleMouseEvent = (
       break
     }
     case 'mouseout': {
-      d3.select(event.currentTarget)
+      select(event.currentTarget)
         .attr(
           'fill',
           getFillColor({

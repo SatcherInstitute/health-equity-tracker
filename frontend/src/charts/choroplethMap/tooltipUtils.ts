@@ -1,4 +1,4 @@
-import * as d3 from 'd3'
+import { format, select, selectAll } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { isPctType } from '../../data/config/MetricConfigUtils'
 import {
@@ -24,8 +24,7 @@ export const createTooltipContainer = (isMulti?: boolean) => {
     ? dimensions.zIndexMultimapModalTooltip
     : dimensions.zIndexMapTooltip
 
-  return d3
-    .select('body')
+  return select('body')
     .append('div')
     .attr('class', 'tooltip-container')
     .style('position', 'absolute')
@@ -50,17 +49,17 @@ export const formatMetricValue = (
     const suffix = isLegendLabel ? '' : '  per 100k'
 
     if (value < 1) {
-      return `${d3.format('.1f')(value)}${suffix}`
+      return `${format('.1f')(value)}${suffix}`
     }
 
-    return `${d3.format(',.2s')(value)}${suffix}`
+    return `${format(',.2s')(value)}${suffix}`
   }
 
   if (isPctType(metricConfig.type)) {
-    return `${d3.format('d')(value)}%`
+    return `${format('d')(value)}%`
   }
 
-  return d3.format(',.2r')(value)
+  return format(',.2r')(value)
 }
 
 export const getTooltipLabel = (
@@ -169,5 +168,5 @@ export const generateTooltipHtml = (
 
 // hide tooltip when user clicks outside the map, scrolls, or drags
 export const hideTooltips = () => {
-  d3.selectAll('.tooltip-container').style('visibility', 'hidden')
+  selectAll('.tooltip-container').style('visibility', 'hidden')
 }

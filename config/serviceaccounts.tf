@@ -102,19 +102,20 @@ resource "google_service_account" "frontend_runner_identity" {
   account_id = var.frontend_runner_identity_id
 }
 
-# Give the frontend runner service account permissions needs to the insights cache bucket.
-resource "google_project_iam_custom_role" "frontend_runner_role" {
-  role_id     = var.frontend_runner_role_id
-  title       = "Frontend Runner"
+# Bucket-scoped role that lets the data server read/write the AI insights cache bucket.
+# Kept separate from data_server_runner_role (which is read-only and project-wide) so
+# the data server only gains write permission on this specific bucket.
+resource "google_project_iam_custom_role" "insights_cache_writer_role" {
+  role_id     = var.insights_cache_writer_role_id
+  title       = "Insights Cache Writer"
   description = "Allows reading and writing objects in the AI insights cache bucket."
   permissions = ["storage.objects.create", "storage.objects.get", "storage.objects.update", "storage.buckets.get"]
 }
 
-# Allow the frontend service to read and write objects in the AI insights cache bucket.
-resource "google_storage_bucket_iam_member" "frontend_insights_cache_binding" {
+resource "google_storage_bucket_iam_member" "data_server_insights_cache_binding" {
   bucket = google_storage_bucket.insights_cache_bucket.name
-  role   = google_project_iam_custom_role.frontend_runner_role.id
-  member = format("serviceAccount:%s", google_service_account.frontend_runner_identity.email)
+  role   = google_project_iam_custom_role.insights_cache_writer_role.id
+  member = format("serviceAccount:%s", google_service_account.data_server_runner_identity.email)
 }
 
 # Allow the frontend service to make calls to the data server
