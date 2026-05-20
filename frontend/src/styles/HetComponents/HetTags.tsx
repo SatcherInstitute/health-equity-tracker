@@ -6,33 +6,39 @@ interface Tag {
 interface HetTagsProps {
   tags: Tag[] | string[]
   onTagClick?: (tagName: string) => void
+  activeTag?: string
 }
 
-export const HetTags: React.FC<HetTagsProps> = ({ tags, onTagClick }) => {
+export const HetTags: React.FC<HetTagsProps> = ({
+  tags,
+  onTagClick,
+  activeTag,
+}) => {
   const normalizedTags: Tag[] = tags.map((tag) =>
     typeof tag === 'string' ? { name: tag } : tag,
   )
 
-  const handleClick = (tagName: string) => {
-    if (onTagClick) {
-      onTagClick(tagName)
-    }
-  }
-
   return (
     <div className='text-left md:flex md:flex-wrap'>
-      {normalizedTags.map((tag) => (
-        <button
-          key={tag.name}
-          type='button'
-          aria-label={tag.name}
-          // TODO: Add click handling to navigate user to tag page on Satcher; restore hover styling to indicate user can click
-          className='mt-1 mr-2 rounded-sm border-none bg-tiny-tag-gray px-2 py-1 font-bold font-sans-title text-alt-black text-tiny-tag uppercase no-underline'
-          onClick={() => handleClick(tag.name)}
-        >
-          {tag.name}
-        </button>
-      ))}
+      {normalizedTags.map((tag) => {
+        const isActive = tag.name === activeTag
+        return (
+          <button
+            key={tag.name}
+            type='button'
+            aria-label={tag.name}
+            aria-pressed={isActive}
+            className={`mt-1 mr-2 rounded-sm border-none px-2 py-1 font-bold font-sans-title text-tiny-tag uppercase no-underline transition-colors duration-150 ${
+              isActive
+                ? 'cursor-default bg-alt-green text-alt-white'
+                : 'cursor-pointer bg-tiny-tag-gray text-alt-black hover:bg-methodology-green'
+            }`}
+            onClick={() => onTagClick?.(tag.name)}
+          >
+            {tag.name}
+          </button>
+        )
+      })}
     </div>
   )
 }

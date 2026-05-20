@@ -1,3 +1,8 @@
+import { useState } from 'react'
+import {
+  CategoryMap,
+  type CategoryTypeId,
+} from '../../data/config/CategoryTypes'
 import {
   type DataSourceId,
   dataSourceMetadataMap,
@@ -20,6 +25,7 @@ type Filters = Record<string, DataSourceId[]>
 // The id of the filter by dataset name. This is the only one that supports
 // pre-filtering from url params.
 const NAME_FILTER_ID = 'name_filter'
+const CATEGORY_FILTER_ID = 'category_filter'
 
 /**
  * Returns the ids of the sources to display based on the provided filter. The
@@ -49,8 +55,31 @@ export default function DataCatalogPage() {
     ? params[DATA_SOURCE_PRE_FILTERS].split(',')
     : []
 
+  const [activeCategory, setActiveCategory] = useState<CategoryTypeId | null>(
+    null,
+  )
+
+  const handleCategoryClick = (catId: CategoryTypeId) => {
+    setActiveCategory((prev) => (prev === catId ? null : catId))
+  }
+
+  const categoryFilteredIds = activeCategory
+    ? (Object.values(dataSourceMetadataMap) as DataSourceMetadata[])
+        .filter((src) => src.topic_categories?.includes(activeCategory))
+        .map((src) => src.id)
+    : []
+
+  const availableCategories = (
+    Object.keys(CategoryMap) as CategoryTypeId[]
+  ).filter((catId) =>
+    (Object.values(dataSourceMetadataMap) as DataSourceMetadata[]).some((src) =>
+      src.topic_categories?.includes(catId),
+    ),
+  )
+
   const activeFilter = {
     [NAME_FILTER_ID]: datasets as DataSourceId[],
+    [CATEGORY_FILTER_ID]: categoryFilteredIds,
   }
 
   return (
@@ -79,6 +108,42 @@ export default function DataCatalogPage() {
         >
           Explore the data dashboard
         </HetCTASmall>
+
+        <div className='mt-10 mb-2 rounded-md border border-alt-green/20 border-solid bg-alt-white p-6 shadow-raised-tighter'>
+          <p className='my-0 mb-3 font-semibold text-alt-black text-small'>
+            Filter by topic
+          </p>
+          <div className='flex flex-wrap gap-2'>
+            {availableCategories.map((catId) => {
+              const isActive = activeCategory === catId
+              return (
+                <button
+                  key={catId}
+                  type='button'
+                  aria-pressed={isActive}
+                  onClick={() => handleCategoryClick(catId)}
+                  className={`rounded-sm border-none px-2 py-1 font-bold font-sans-title text-tiny-tag uppercase transition-colors duration-150 ${
+                    isActive
+                      ? 'cursor-default bg-alt-green text-alt-white'
+                      : 'cursor-pointer bg-tiny-tag-gray text-alt-black hover:bg-methodology-green'
+                  }`}
+                >
+                  {CategoryMap[catId]}
+                </button>
+              )
+            })}
+            {activeCategory && (
+              <button
+                type='button'
+                onClick={() => setActiveCategory(null)}
+                className='cursor-pointer rounded-sm border border-alt-green border-solid bg-transparent px-2 py-1 font-bold font-sans-title text-alt-green text-tiny-tag uppercase transition-colors duration-150 hover:bg-alt-green/10'
+              >
+                Clear ×
+              </button>
+            )}
+          </div>
+        </div>
+
         <ul className='list-none pl-0'>
           <WithMetadata>
             {(datasetMetadata) => {
@@ -86,11 +151,9 @@ export default function DataCatalogPage() {
                 dataSourceMetadataMap,
                 activeFilter,
               )
-              // Check if more than the default filters are enabled to see if you're viewing
-              // a subset of sources
               const viewingSubsetOfSources =
-                Object.keys(activeFilter).length > 1 ||
-                activeFilter[NAME_FILTER_ID].length > 0
+                activeFilter[NAME_FILTER_ID].length > 0 ||
+                activeCategory !== null
 
               return (
                 <>
@@ -100,10 +163,12 @@ export default function DataCatalogPage() {
                         key={dataSourceMetadataMap[sourceId].id}
                         source_metadata={dataSourceMetadataMap[sourceId]}
                         dataset_metadata={datasetMetadata}
+                        onCategoryTagClick={handleCategoryClick}
+                        activeCategory={activeCategory}
                       />
                     </li>
                   ))}
-                  {viewingSubsetOfSources && (
+                  {viewingSubsetOfSources && !activeCategory && (
                     <HetTextArrowLink
                       containerClassName='flex justify-center'
                       link={DATA_CATALOG_PAGE_LINK}

@@ -9,6 +9,8 @@ import List from '@mui/material/List'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { useState } from 'react'
+import type { CategoryTypeId } from '../../data/config/CategoryTypes'
+import { CategoryMap } from '../../data/config/CategoryTypes'
 import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
@@ -27,6 +29,7 @@ import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import { HetTags } from '../../styles/HetComponents/HetTags'
 import { getLogger } from '../../utils/globals'
 import downloadDataset from './downloadDataset'
 
@@ -99,6 +102,8 @@ function DownloadDatasetListItem(props: {
 interface DataSourceListingProps {
   source_metadata: DataSourceMetadata
   dataset_metadata: MapOfDatasetMetadata
+  onCategoryTagClick?: (categoryId: CategoryTypeId) => void
+  activeCategory?: CategoryTypeId | null
 }
 
 function DataSourceListing(props: DataSourceListingProps) {
@@ -121,6 +126,25 @@ function DataSourceListing(props: DataSourceListingProps) {
           {props.source_metadata.data_source_name}
         </a>
       </h2>
+      {props.source_metadata.topic_categories &&
+        props.source_metadata.topic_categories.length > 0 && (
+          <HetTags
+            tags={props.source_metadata.topic_categories.map(
+              (cat) => CategoryMap[cat],
+            )}
+            activeTag={
+              props.activeCategory
+                ? CategoryMap[props.activeCategory]
+                : undefined
+            }
+            onTagClick={(displayName) => {
+              const catId = (
+                Object.entries(CategoryMap) as [CategoryTypeId, string][]
+              ).find(([, v]) => v === displayName)?.[0]
+              if (catId) props.onCategoryTagClick?.(catId)
+            }}
+          />
+        )}
       <ul className='mx-0 my-4 flex list-none flex-col px-0 md:my-8 md:gap-1'>
         {props.source_metadata.data_source_release_years && (
           <li className='mb-2 flex flex-col items-center justify-start text-small md:flex-row'>
