@@ -129,6 +129,7 @@ function deepMerge<T extends Record<string, unknown>>(
   const result = { ...base }
   for (const key of Object.keys(overrides) as Array<keyof T>) {
     const src = overrides[key]
+    if (src === undefined) continue
     const tgt = result[key]
     result[key] = (
       isPlainObject(src) && isPlainObject(tgt)
