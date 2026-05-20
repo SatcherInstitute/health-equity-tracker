@@ -1,4 +1,8 @@
+import type domToImageLib from 'dom-to-image-more'
 import { MULTIMAP_MODAL_CONTENT_ID } from '../cards/ui/MultiMapDialog'
+
+type DomToImage = typeof domToImageLib
+
 import { CITATION_APA } from '../cards/ui/SourcesHelpers'
 import { LEGEND_ITEMS_BOX_CLASS } from '../charts/choroplethMap/RateMapLegend'
 import type { ScrollableHashId } from './hooks/useStepObserver'
@@ -313,6 +317,7 @@ async function captureAndSaveImage(
   node: HTMLElement,
   addedElements: AddedElements,
   options: SaveImageOptions,
+  domtoimage: DomToImage,
 ): Promise<string | undefined> {
   try {
     // For modal content, we need to use the full scrollHeight
@@ -341,7 +346,6 @@ async function captureAndSaveImage(
       htmlEl.style.boxShadow = 'none'
     })
 
-    const { default: domtoimage } = await import('dom-to-image-more')
     const dataUrl = await domtoimage.toPng(node, domToImageOptions)
     return await handleDestination(dataUrl, options)
   } catch (error: unknown) {
@@ -355,6 +359,7 @@ async function captureAndSaveImage(
 async function saveSingleCardImage(
   targetNode: HTMLElement,
   options: SaveImageOptions,
+  domtoimage: DomToImage,
 ): Promise<string | undefined> {
   const articleChild = targetNode.querySelector('article') as HTMLElement | null
   const nodeToCapture = articleChild || targetNode
@@ -366,7 +371,12 @@ async function saveSingleCardImage(
       : prepareNodeForCapture(nodeToCapture, options)
 
   try {
-    return await captureAndSaveImage(nodeToCapture, addedElements, options)
+    return await captureAndSaveImage(
+      nodeToCapture,
+      addedElements,
+      options,
+      domtoimage,
+    )
   } finally {
     if (options.cardId === 'multimap-modal') {
       cleanupModalContent(addedElements, nodeToCapture)
@@ -379,11 +389,17 @@ async function saveSingleCardImage(
 async function saveRowOfTwoCardsImage(
   rowNode: HTMLElement,
   options: SaveImageOptions,
+  domtoimage: DomToImage,
 ): Promise<string | undefined> {
   const addedElements = prepareRowForCapture(rowNode)
 
   try {
-    return await captureAndSaveImage(rowNode, addedElements, options)
+    return await captureAndSaveImage(
+      rowNode,
+      addedElements,
+      options,
+      domtoimage,
+    )
   } finally {
     cleanupRowOfTwoCards(rowNode, addedElements)
   }
@@ -393,6 +409,10 @@ export async function saveCardImage(
   options: SaveImageOptions,
 ): Promise<string | undefined> {
   const { cardId, isRowOfTwo = false } = options
+
+  // Import before any DOM mutations so the library is ready before the user
+  // sees the card in its "pre-screenshot" state on slow connections.
+  const { default: domtoimage } = await import('dom-to-image-more')
 
   let targetNode: HTMLElement | null = null
 
@@ -411,8 +431,8 @@ export async function saveCardImage(
 
   if (isRowOfTwo) {
     targetNode.classList.add('bg-alt-white', 'm-0', 'w-full')
-    return saveRowOfTwoCardsImage(targetNode, options)
+    return saveRowOfTwoCardsImage(targetNode, options, domtoimage)
   }
 
-  return saveSingleCardImage(targetNode, options)
+  return saveSingleCardImage(targetNode, options, domtoimage)
 }
