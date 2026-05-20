@@ -75,6 +75,11 @@ export default function DataCatalogPage() {
     })
   }
 
+  const activeCategoryNames = useMemo(
+    () => new Set([...activeCategories].map((cat) => CategoryMap[cat])),
+    [activeCategories],
+  )
+
   const categoryFilteredIds = useMemo(
     () =>
       activeCategories.size > 0
@@ -146,6 +151,7 @@ export default function DataCatalogPage() {
               <button
                 type='button'
                 onClick={() => setActiveCategories(new Set())}
+                aria-label='Clear all topic filters'
                 className='cursor-pointer rounded-sm border border-alt-green border-solid bg-transparent px-2 py-1 font-bold font-sans-title text-alt-green text-tiny-tag uppercase transition-colors duration-150 hover:bg-alt-green/10'
               >
                 Clear ×
@@ -174,7 +180,7 @@ export default function DataCatalogPage() {
                         source_metadata={dataSourceMetadataMap[sourceId]}
                         dataset_metadata={datasetMetadata}
                         onCategoryTagClick={handleCategoryClick}
-                        activeCategories={activeCategories}
+                        activeCategoryNames={activeCategoryNames}
                       />
                     </li>
                   ))}

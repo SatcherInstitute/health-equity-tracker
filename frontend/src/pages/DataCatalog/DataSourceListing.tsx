@@ -103,7 +103,7 @@ interface DataSourceListingProps {
   source_metadata: DataSourceMetadata
   dataset_metadata: MapOfDatasetMetadata
   onCategoryTagClick?: (categoryId: CategoryTypeId) => void
-  activeCategories?: Set<CategoryTypeId>
+  activeCategoryNames?: Set<string>
 }
 
 function DataSourceListing(props: DataSourceListingProps) {
@@ -132,13 +132,7 @@ function DataSourceListing(props: DataSourceListingProps) {
             tags={props.source_metadata.topic_categories.map(
               (cat) => CategoryMap[cat],
             )}
-            activeTags={
-              props.activeCategories
-                ? new Set(
-                    [...props.activeCategories].map((cat) => CategoryMap[cat]),
-                  )
-                : undefined
-            }
+            activeTags={props.activeCategoryNames}
             onTagClick={(displayName) => {
               const catId = (
                 Object.entries(CategoryMap) as [CategoryTypeId, string][]
