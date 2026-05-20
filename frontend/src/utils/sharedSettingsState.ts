@@ -1,4 +1,5 @@
 import { atom } from 'jotai'
+import { atomFamily, selectAtom } from 'jotai/utils'
 import { atomWithLocation } from 'jotai-location'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
@@ -26,3 +27,14 @@ export const reportInsightsAtom = atom<Record<string, ReportInsightCacheEntry>>(
 
 /* SHARED SYNCED URL PARAMS STATE */
 export const locationAtom = atomWithLocation()
+
+// Per-param derived atoms. selectAtom with Object.is equality means a component
+// subscribed to urlParamAtom('demo') only re-renders when 'demo' changes,
+// not when any other URL param changes.
+export const urlParamAtom = atomFamily((key: string) =>
+  selectAtom(
+    locationAtom,
+    (loc) => loc.searchParams?.get(key) ?? null,
+    Object.is,
+  ),
+)

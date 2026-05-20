@@ -1,58 +1,31 @@
-import { useAtom } from 'jotai'
-import { locationAtom } from '../sharedSettingsState'
-import {
-  DATA_TYPE_1_PARAM,
-  DATA_TYPE_2_PARAM,
-  MADLIB_PHRASE_PARAM,
-  MADLIB_SELECTIONS_PARAM,
-  MAP1_GROUP_PARAM,
-  MAP2_GROUP_PARAM,
-} from '../urlutils'
-
-const paramsNotHandledByJotai = [
-  MADLIB_SELECTIONS_PARAM,
-  MADLIB_PHRASE_PARAM,
-  DATA_TYPE_1_PARAM,
-  DATA_TYPE_2_PARAM,
-  MAP1_GROUP_PARAM,
-  MAP2_GROUP_PARAM,
-]
+import { useAtomValue, useSetAtom } from 'jotai'
+import { locationAtom, urlParamAtom } from '../sharedSettingsState'
 
 export function useParamState<ParamStateType>(
   paramKey: string,
   paramDefaultValue?: ParamStateType,
 ): [ParamStateType, (newValue: ParamStateType) => void] {
-  const [locationState, setLocationState] = useAtom(locationAtom)
+  // Fine-grained subscription: only re-renders when THIS param changes.
+  const paramValue = useAtomValue(urlParamAtom(paramKey))
+  // Setter only — does not subscribe to locationAtom value.
+  const setLocationState = useSetAtom(locationAtom)
 
-  const paramState =
-    locationState.searchParams?.get(paramKey) ?? paramDefaultValue ?? ''
+  const paramState = (paramValue ?? paramDefaultValue ?? '') as ParamStateType
 
   function setParamState(newValue: ParamStateType): void {
-    const existingURLParams = new URLSearchParams(window.location.search)
-    const existingJotaiParams = new URLSearchParams(locationState.searchParams)
-
-    for (const param of paramsNotHandledByJotai) {
-      existingJotaiParams.delete(param)
-    }
-
-    const combinedParams = new URLSearchParams({
-      ...Object.fromEntries(existingURLParams),
-      ...Object.fromEntries(existingJotaiParams),
-    })
+    const currentParams = new URLSearchParams(window.location.search)
 
     newValue
-      ? combinedParams.set(paramKey, newValue as string)
-      : combinedParams.delete(paramKey)
+      ? currentParams.set(paramKey, newValue as string)
+      : currentParams.delete(paramKey)
 
     const paramsHaveChanged =
-      existingURLParams.toString() !== combinedParams.toString()
+      new URLSearchParams(window.location.search).toString() !==
+      currentParams.toString()
 
     paramsHaveChanged &&
-      setLocationState((prev) => ({
-        ...prev,
-        searchParams: combinedParams,
-      }))
+      setLocationState((prev) => ({ ...prev, searchParams: currentParams }))
   }
 
-  return [paramState as ParamStateType, setParamState]
+  return [paramState, setParamState]
 }
