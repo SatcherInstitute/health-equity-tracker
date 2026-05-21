@@ -1,4 +1,5 @@
-import * as d3 from 'd3'
+import type { GeoProjection } from 'd3'
+import { geoAlbers, geoAlbersUsa } from 'd3'
 import type { FeatureCollection } from 'geojson'
 import { feature } from 'topojson-client'
 import { GEOGRAPHIES_DATASET_ID } from '../../data/config/MetadataMap'
@@ -62,11 +63,11 @@ export const createProjection = (
   width: number,
   height: number,
   features: FeatureCollection,
-): d3.GeoProjection => {
+): GeoProjection => {
   const isTerritory = fips.isTerritory() || fips.getParentFips().isTerritory()
   return isTerritory
-    ? d3.geoAlbers().fitSize([width, height], features)
-    : d3.geoAlbersUsa().fitSize([width, height], features)
+    ? geoAlbers().fitSize([width, height], features)
+    : geoAlbersUsa().fitSize([width, height], features)
 }
 
 export const processPhrmaData = (

@@ -1,4 +1,4 @@
-import * as d3 from 'd3'
+import { select } from 'd3'
 import { useEffect } from 'react'
 import type {
   MapConfig,
@@ -79,7 +79,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
 
     const territoryX = (i: number) => territoryStartX + i * territorySpacing
 
-    const svg = d3.select(props.svgRef.current)
+    const svg = select(props.svgRef.current)
     let territoryContainer = svg.select<SVGGElement>('.territory-container')
     if (territoryContainer.empty()) {
       territoryContainer = svg

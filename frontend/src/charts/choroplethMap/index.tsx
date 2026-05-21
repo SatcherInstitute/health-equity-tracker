@@ -1,4 +1,4 @@
-import * as d3 from 'd3'
+import { select } from 'd3'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { CAWP_METRICS } from '../../data/providers/CawpProvider'
 import { PHRMA_METRICS } from '../../data/providers/PhrmaProvider'
@@ -94,7 +94,7 @@ const ChoroplethMap = ({
 
     // Clean up SVG
     if (svgRef.current) {
-      const svg = d3.select(svgRef.current)
+      const svg = select(svgRef.current)
       svg.selectAll('*').remove()
       svg.on('.', null)
     }
