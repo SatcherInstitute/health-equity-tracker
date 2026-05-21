@@ -1,3 +1,8 @@
+---
+name: screenshot-pr
+description: Take responsive screenshots of the current branch's frontend work and embed them into the open PR's Screenshots section. Use when the user wants to capture UI screenshots for a pull request, add screenshots to a PR, or run /screenshot-pr.
+---
+
 # /screenshot-pr
 
 Take responsive screenshots of the current branch's frontend work and embed them into the open PR's `## Screenshots` section. Screenshots are uploaded to a public GCS bucket and linked as markdown images.
