@@ -331,11 +331,14 @@ export default function CompareReport(props: CompareReportProps) {
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 _unusedUpdateFips: (fips: Fips) => void,
+                _unusedDropdown: any,
+                isCompareCard: boolean | undefined,
               ) => (
                 <RateBarChartCard
                   dataTypeConfig={dataTypeConfig}
                   demographicType={demographicType}
                   fips={fips}
+                  isCompareCard={isCompareCard}
                   reportTitle={props.reportTitle}
                 />
               )}
@@ -356,6 +359,8 @@ export default function CompareReport(props: CompareReportProps) {
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 updateFips: (fips: Fips) => void,
+                _unusedDropdown: any,
+                isCompareCard: boolean | undefined,
               ) => (
                 <UnknownsMapCard
                   overrideAndWithOr={demographicType === RACE}
@@ -365,6 +370,7 @@ export default function CompareReport(props: CompareReportProps) {
                     updateFips(fips)
                   }}
                   demographicType={demographicType}
+                  isCompareCard={isCompareCard}
                   reportTitle={props.reportTitle}
                 />
               )}
@@ -412,11 +418,14 @@ export default function CompareReport(props: CompareReportProps) {
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 _unusedUpdateFips: (fips: Fips) => void,
+                _unusedDropdown: any,
+                isCompareCard: boolean | undefined,
               ) => (
                 <StackedSharesBarChartCard
                   dataTypeConfig={dataTypeConfig}
                   demographicType={demographicType}
                   fips={fips}
+                  isCompareCard={isCompareCard}
                   reportTitle={props.reportTitle}
                 />
               )}
@@ -437,11 +446,14 @@ export default function CompareReport(props: CompareReportProps) {
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 _unusedUpdateFips: (fips: Fips) => void,
+                _unusedDropdown: any,
+                isCompareCard: boolean | undefined,
               ) => (
                 <TableCard
                   fips={fips}
                   dataTypeConfig={dataTypeConfig}
                   demographicType={demographicType}
+                  isCompareCard={isCompareCard}
                   reportTitle={props.reportTitle}
                 />
               )}
@@ -469,12 +481,14 @@ export default function CompareReport(props: CompareReportProps) {
                   fips: Fips,
                   _unusedUpdateFips: (fips: Fips) => void,
                   dropdownVarId?: DropdownVarId,
+                  isCompareCard?: boolean,
                 ) => (
                   <AgeAdjustedTableCard
                     fips={fips}
                     dataTypeConfig={dataTypeConfig}
                     demographicType={demographicType}
                     dropdownVarId={dropdownVarId}
+                    isCompareCard={isCompareCard}
                     reportTitle={props.reportTitle}
                   />
                 )}

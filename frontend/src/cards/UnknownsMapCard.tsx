@@ -46,6 +46,7 @@ interface UnknownsMapCardProps {
   // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
   overrideAndWithOr?: boolean
   reportTitle: string
+  isCompareCard?: boolean
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -131,6 +132,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       hideNH={true}
+      isCompareCard={props.isCompareCard}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
       {(
         [mapQueryResponse, alertQueryResponse],

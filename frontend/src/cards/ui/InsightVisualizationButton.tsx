@@ -8,13 +8,16 @@ import { cardInsightOpenAtom } from '../../utils/sharedSettingsState'
 
 interface InsightVisualizationButtonProps {
   scrollToHash: ScrollableHashId
+  isCompareCard?: boolean
 }
 
 export default function InsightVisualizationButton({
   scrollToHash,
+  isCompareCard,
 }: InsightVisualizationButtonProps) {
   const [cardInsightOpen, setCardInsightOpen] = useAtom(cardInsightOpenAtom)
-  const isOpen = cardInsightOpen[scrollToHash] ?? false
+  const openKey = `${scrollToHash}${isCompareCard ? '-2' : ''}`
+  const isOpen = cardInsightOpen[openKey] ?? false
 
   if (!SHOW_INSIGHT_GENERATION) return null
 
@@ -22,7 +25,7 @@ export default function InsightVisualizationButton({
     <Tooltip title={isOpen ? 'Clear insight' : 'Generate AI insight'}>
       <IconButton
         onClick={() =>
-          setCardInsightOpen((prev) => ({ ...prev, [scrollToHash]: !isOpen }))
+          setCardInsightOpen((prev) => ({ ...prev, [openKey]: !isOpen }))
         }
         aria-label={isOpen ? 'Clear insight' : 'Generate insight'}
         size='small'

@@ -1,10 +1,13 @@
 import { CircularProgress } from '@mui/material'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type { DemographicType } from '../data/query/Breakdowns'
 import type {
   MetricQuery,
   MetricQueryResponse,
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
+import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardOptionsMenu from './ui/CardOptionsMenu'
 import InsightVisualizationButton from './ui/InsightVisualizationButton'
@@ -33,6 +36,11 @@ function CardWrapper(props: {
   isCompareCard?: boolean
   className?: string
   hasIntersectionalAllCompareBar?: boolean
+  // Card-scoped values used to generate an AI insight for this specific card.
+  // Required for cards that participate in insight generation.
+  fips?: Fips
+  dataTypeConfig?: DataTypeConfig
+  demographicType?: DemographicType
 }) {
   const loadingComponent = (
     <div
@@ -42,6 +50,10 @@ function CardWrapper(props: {
     >
       <CircularProgress aria-label='loading' />
     </div>
+  )
+
+  const canShowInsight = Boolean(
+    props.fips && props.dataTypeConfig && props.demographicType,
   )
 
   return (
@@ -75,8 +87,11 @@ function CardWrapper(props: {
             className={`relative m-2 rounded-sm bg-alt-white p-3 shadow-raised ${props.className}`}
           >
             <div className='absolute top-2 right-2 flex items-center'>
-              {cardHasData && (
-                <InsightVisualizationButton scrollToHash={props.scrollToHash} />
+              {cardHasData && canShowInsight && (
+                <InsightVisualizationButton
+                  scrollToHash={props.scrollToHash}
+                  isCompareCard={props.isCompareCard}
+                />
               )}
               <CardOptionsMenu
                 reportTitle={props.reportTitle}
@@ -84,10 +99,16 @@ function CardWrapper(props: {
               />
             </div>
             <div className='pt-8'>
-              <InsightVisualizationCard
-                scrollToHash={props.scrollToHash}
-                queryResponses={queryResponses}
-              />
+              {canShowInsight && (
+                <InsightVisualizationCard
+                  scrollToHash={props.scrollToHash}
+                  queryResponses={queryResponses}
+                  fips={props.fips!}
+                  dataTypeConfig={props.dataTypeConfig!}
+                  demographicType={props.demographicType!}
+                  isCompareCard={props.isCompareCard}
+                />
+              )}
               {childContent}
             </div>
             {!props.hideFooter && props.queries && (

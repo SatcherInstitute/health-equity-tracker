@@ -47,6 +47,7 @@ interface TableCardProps {
   dataTypeConfig: DataTypeConfig
   reportTitle: string
   className?: string
+  isCompareCard?: boolean
 }
 
 export default function TableCard(props: TableCardProps) {
@@ -126,6 +127,10 @@ export default function TableCard(props: TableCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       className={props.className}
+      isCompareCard={props.isCompareCard}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
       {([queryResponse], _metadata, _geoData, overrideCardHasData) => {
         let data = queryResponse.data

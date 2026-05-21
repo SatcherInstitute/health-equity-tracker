@@ -133,6 +133,7 @@ export async function generateCardInsight(
   demographicType: DemographicType,
   fips?: Fips,
   queryResponses?: MetricQueryResponse[],
+  isCompareCard?: boolean,
 ): Promise<InsightResult> {
   const topic = dataTypeConfig.fullDisplayName
   const location = fips?.getSentenceDisplayName() ?? 'the United States'
@@ -152,7 +153,8 @@ export async function generateCardInsight(
 
   const params = new URLSearchParams(window.location.search)
   params.delete(REPORT_INSIGHT_PARAM_KEY)
-  const cacheKey = `${window.location.pathname}?${params.toString()}#${hashId}`
+  const cardSuffix = isCompareCard ? '-2' : ''
+  const cacheKey = `${window.location.pathname}?${params.toString()}#${hashId}${cardSuffix}`
 
   return fetchAIInsight(prompt, { cacheKey })
 }

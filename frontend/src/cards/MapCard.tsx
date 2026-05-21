@@ -302,6 +302,9 @@ function MapCardWithKey(props: MapCardProps) {
       expanded={isExtremesMode}
       isCompareCard={props.isCompareCard}
       className={props.className}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
       {(queryResponses, metadata, geoData, overrideCardHasData) => {
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
