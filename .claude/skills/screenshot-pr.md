@@ -156,7 +156,7 @@ Build the section as stacked breakpoints — one block per route, separated by `
 
 2. Locate the `## Screenshots` section in the body:
    - **Found**: replace everything from `## Screenshots` up to (but not including) the next `## ` heading, or to the end of the string if there's no next `##` heading.
-   - **Not found**: append only the images (no `## Screenshots` heading) to the end of the body, separated by a blank line.
+   - **Not found**: append the full section (including the `## Screenshots` heading) to the end of the body, separated by a blank line. This ensures a subsequent re-run can locate the section to replace rather than appending a second copy.
 
 3. Write the updated body to a temp file:
    ```bash

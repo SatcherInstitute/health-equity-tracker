@@ -11,7 +11,9 @@ const VIEWPORTS = [
 ]
 
 function pathToSlug(route: string): string {
-  return route.split('?')[0].replace(/^\//, '').replace(/\//g, '-') || 'home'
+  return (
+    route.split('?')[0].replace(/\/+$/, '').replace(/^\//, '').replace(/\//g, '-') || 'home'
+  )
 }
 
 const { values } = parseArgs({
@@ -41,22 +43,26 @@ const context = await browser.newContext()
 const page = await context.newPage()
 
 for (const route of routes) {
-  const slug = pathToSlug(route)
-  const url = `${baseUrl}${route}`
+  try {
+    const slug = pathToSlug(route)
+    const url = `${baseUrl}${route}`
 
-  for (const { width, label } of VIEWPORTS) {
-    await page.setViewportSize({ width, height: 900 })
-    await page.goto(url, { waitUntil: 'networkidle' })
-    await page.addStyleTag({
-      content:
-        '*, *::before, *::after { animation: none !important; transition: none !important; }',
-    })
-    await page.waitForTimeout(1000)
+    for (const { width, label } of VIEWPORTS) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto(url, { waitUntil: 'networkidle' })
+      await page.addStyleTag({
+        content:
+          '*, *::before, *::after { animation: none !important; transition: none !important; }',
+      })
+      await page.waitForTimeout(1000)
 
-    const filename = `${slug}-${width}px.png`
-    const filepath = join(outputDir, filename)
-    await page.screenshot({ fullPage: true, path: filepath })
-    console.info(`  [${label} ${width}px] ${filename}`)
+      const filename = `${slug}-${width}px.png`
+      const filepath = join(outputDir, filename)
+      await page.screenshot({ fullPage: true, path: filepath })
+      console.info(`  [${label} ${width}px] ${filename}`)
+    }
+  } catch (error) {
+    console.error(`  [Error] Failed to capture ${route}:`, error)
   }
 }
 
