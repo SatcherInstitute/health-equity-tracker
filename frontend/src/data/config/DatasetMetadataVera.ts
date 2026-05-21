@@ -89,4 +89,5 @@ export const datasourceMetadataVera: DataSourceMetadataVera = {
   ],
   downloadable: true,
   data_source_release_years: '1985 - 2016',
+  topic_categories: ['pdoh'],
 }

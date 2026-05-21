@@ -114,6 +114,11 @@ test('State Vaccination Quick Test', async ({ page }) => {
   })
 
   // --- Interaction: Switch Location ---
+  // Wait for the map to have finished loading data before interacting
+  await expect(
+    rateMap.getByRole('heading', { name: 'COVID-19 vaccination rates in' }),
+  ).toBeVisible()
+
   await page
     .locator('#madlib-box')
     .getByRole('button', { name: 'California' })

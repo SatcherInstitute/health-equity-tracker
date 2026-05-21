@@ -102,6 +102,7 @@
 		"test:coverage": "vitest run --coverage",
 		"test:watch": "vitest watch",
 		"test": "vitest run",
+		"screenshots": "tsx scripts/take-screenshots.ts",
 		"tokens": "tsx run-tokens.ts",
 		"postinstall": "npm run tokens",
 		"predev": "npm run tokens",

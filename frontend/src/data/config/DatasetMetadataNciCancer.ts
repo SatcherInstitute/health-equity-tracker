@@ -44,4 +44,5 @@ export const datasourceMetadataNciCancer: DataSourceMetadataNciCancer = {
     'nci_cancer-alls_county_current',
   ],
   downloadable: true,
+  topic_categories: ['cancer'],
 }
