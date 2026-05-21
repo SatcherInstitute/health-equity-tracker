@@ -124,7 +124,7 @@ export default function DataCatalogPage() {
           Explore the data dashboard
         </HetCTASmall>
 
-        <div className='mt-10 mb-2 rounded-md border border-alt-green/20 border-solid bg-alt-white p-6 shadow-raised-tighter'>
+        <div className='mt-10 mb-2 rounded-md bg-methodology-green/20 p-6'>
           <p className='my-0 mb-3 font-semibold text-alt-black text-small'>
             Filter by topic
           </p>
