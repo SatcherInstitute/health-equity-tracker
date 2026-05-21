@@ -1,10 +1,10 @@
-import type domToImageLib from 'dom-to-image-more'
+// dom-to-image-more exports a namespace as its default, so `import type` alone
+// cannot be used as a type annotation (TS2709). `typeof` in the type alias
+// extracts the usable instance type from the namespace.
+import type domToImageMore from 'dom-to-image-more'
 import { MULTIMAP_MODAL_CONTENT_ID } from '../cards/ui/MultiMapDialog'
 
-// typeof on an import type is correct here: dom-to-image-more is a CJS
-// module whose default export is the module object itself (a namespace),
-// so domToImageLib is a namespace type and typeof gives us the instance type.
-type DomToImage = typeof domToImageLib
+type DomToImage = typeof domToImageMore
 
 import { CITATION_APA } from '../cards/ui/SourcesHelpers'
 import { LEGEND_ITEMS_BOX_CLASS } from '../charts/choroplethMap/RateMapLegend'
