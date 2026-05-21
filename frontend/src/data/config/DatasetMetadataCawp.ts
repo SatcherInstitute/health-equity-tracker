@@ -64,4 +64,5 @@ export const datasourceMetadataCawp: DataSourceMetadataCawp = {
     'cawp_data-race_and_ethnicity_state_historical_names',
   ],
   downloadable: true,
+  topic_categories: ['pdoh'],
 }
