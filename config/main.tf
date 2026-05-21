@@ -48,6 +48,46 @@ resource "google_storage_bucket" "insights_cache_bucket" {
   }
 }
 
+# Public bucket for PR screenshot images uploaded by the /screenshot-pr Claude Code skill.
+# Write access is restricted to msm.edu domain accounts (objectCreator) and the CI deployer SA
+# (objectAdmin for cleanup). allUsers gets objectViewer only — public read, no public write.
+resource "google_storage_bucket" "pr_screenshots_bucket" {
+  count                       = var.pr_screenshots_bucket != "" ? 1 : 0
+  name                        = var.pr_screenshots_bucket
+  location                    = var.gcs_region
+  uniform_bucket_level_access = true
+
+  lifecycle_rule {
+    condition {
+      age = 90
+    }
+    action {
+      type = "Delete"
+    }
+  }
+}
+
+resource "google_storage_bucket_iam_member" "pr_screenshots_public_read" {
+  count  = var.pr_screenshots_bucket != "" ? 1 : 0
+  bucket = google_storage_bucket.pr_screenshots_bucket[0].name
+  role   = "roles/storage.objectViewer"
+  member = "allUsers"
+}
+
+resource "google_storage_bucket_iam_member" "pr_screenshots_team_write" {
+  count  = var.pr_screenshots_bucket != "" ? 1 : 0
+  bucket = google_storage_bucket.pr_screenshots_bucket[0].name
+  role   = "roles/storage.objectAdmin"
+  member = "domain:msm.edu"
+}
+
+resource "google_storage_bucket_iam_member" "pr_screenshots_deployer_admin" {
+  count  = var.pr_screenshots_bucket != "" && var.pr_screenshots_deployer_sa != "" ? 1 : 0
+  bucket = google_storage_bucket.pr_screenshots_bucket[0].name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${var.pr_screenshots_deployer_sa}"
+}
+
 /* [END] GCS Resources */
 
 

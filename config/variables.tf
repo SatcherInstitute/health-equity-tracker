@@ -203,3 +203,15 @@ variable "insights_cache_bucket" {
   description = "Name of the GCS bucket for caching AI-generated insights"
   type        = string
 }
+
+variable "pr_screenshots_bucket" {
+  description = "Name of the GCS bucket for PR screenshot images (public read, team-write, 90-day TTL). Leave empty to skip creation."
+  type        = string
+  default     = ""
+}
+
+variable "pr_screenshots_deployer_sa" {
+  description = "Email of the service account used by CI to delete PR screenshot folders on PR close."
+  type        = string
+  default     = ""
+}
