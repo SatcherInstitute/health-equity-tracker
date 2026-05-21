@@ -163,7 +163,7 @@ runs:
       shell: bash
       run: |
         pip install -r server_smoke_tests/requirements.txt
-        pytest server_smoke_tests/data_serving.py
+        pytest server_smoke_tests/
       env:
         SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
         FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
