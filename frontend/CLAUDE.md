@@ -112,8 +112,10 @@ To serve local data files instead of a real API during development, set `VITE_BA
 |---|---|
 | Topic metric definitions | `src/data/config/MetricConfig*.ts` |
 | All topic dropdown IDs | `src/data/config/DropDownIds.ts` |
+| Topic category map & type | `src/data/config/CategoryTypes.ts` |
 | Data provider per topic | `src/data/providers/*Provider.ts` |
 | Provider registration | `src/data/loading/VariableProviderMap.ts` |
+| Data catalog page | `src/pages/DataCatalog/DataCatalogPage.tsx` |
 | URL parameter constants | `src/utils/urlutils.tsx` |
 | Shared Jotai state | `src/utils/sharedSettingsState.ts` |
 | MUI theme | `src/styles/theme/muiTheme.tsx` |
