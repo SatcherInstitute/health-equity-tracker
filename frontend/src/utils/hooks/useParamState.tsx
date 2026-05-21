@@ -13,24 +13,25 @@ export function useParamState<ParamStateType>(
   const paramState = (paramValue ?? paramDefaultValue ?? '') as ParamStateType
 
   function setParamState(newValue: ParamStateType): void {
-    setLocationState((prev) => {
-      // Read window.location.search (not prev.searchParams) as the base so
-      // params written via history.replaceState by the MadLib machinery are
-      // included — jotai-location only re-syncs on popstate, not replaceState.
-      const currentParams = new URLSearchParams(window.location.search)
-      const originalString = currentParams.toString()
+    // Read window.location.search (not locationAtom) as the base so params
+    // written via history.replaceState by the MadLib machinery are included —
+    // jotai-location only re-syncs on popstate, not replaceState.
+    const currentParams = new URLSearchParams(window.location.search)
+    const originalString = currentParams.toString()
 
-      if (newValue == null || newValue === false || newValue === '') {
-        currentParams.delete(paramKey)
-      } else {
-        currentParams.set(paramKey, newValue as string)
-      }
+    if (newValue == null || newValue === false || newValue === '') {
+      currentParams.delete(paramKey)
+    } else {
+      currentParams.set(paramKey, newValue as string)
+    }
 
-      if (originalString === currentParams.toString()) {
-        return prev
-      }
-      return { ...prev, searchParams: currentParams }
-    })
+    // Guard must be outside setLocationState: jotai-location's write fn always
+    // calls applyLocation (history.pushState) even when the updater returns
+    // prev unchanged, which would push a stale URL on top of any in-flight
+    // history.replaceState from the MadLib navigation machinery.
+    if (originalString === currentParams.toString()) return
+
+    setLocationState((prev) => ({ ...prev, searchParams: currentParams }))
   }
 
   return [paramState, setParamState]
