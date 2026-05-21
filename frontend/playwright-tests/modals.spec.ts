@@ -96,3 +96,4 @@ test('Multiple Maps 2 (Right Side)', async ({ page }) => {
   await page.getByRole('button', { name: 'Close' }).click()
   await expect(page).not.toHaveURL(/.*multiple-maps2=true/)
 })
+
