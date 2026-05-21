@@ -8,7 +8,7 @@ on:
       - 'config/**'
       - 'data/**'
       - 'data_server/**'
-      - 'e2e_tests/**'
+      - 'server_smoke_tests/**'
       - 'exporter/**'
       - 'frontend_server/**'
       - 'python/**'

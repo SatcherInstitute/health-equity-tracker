@@ -17,7 +17,7 @@ from pandas._testing import assert_frame_equal
 """
 Example usage, comparing COVID datasets on DEV to those on PROD
 From directory floor in (.venv):
-`python e2e_tests/scripts/ensure_datasets_equal.py -tp het-infra-prod-f6
+`python server_smoke_tests/scripts/ensure_datasets_equal.py -tp het-infra-prod-f6
 -ep het-infra-test-05 -d cdc_restricted_data`
 """
 
