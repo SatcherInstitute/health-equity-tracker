@@ -3,7 +3,11 @@ import type { PlaywrightTestConfig } from '@playwright/test'
 
 const config: PlaywrightTestConfig = {
   webServer: {
-    command: 'npm run start:deploy_preview',
+    // CI: serve the already-built dist (starts in ~2s, same bundle the build step just produced).
+    // Locally: use the dev server so developers don't need to build first.
+    command: process.env.CI
+      ? 'npx vite preview --port 3000'
+      : 'npm run start:deploy_preview',
     port: 3000,
     timeout: 60 * 1000,
     reuseExistingServer: true,

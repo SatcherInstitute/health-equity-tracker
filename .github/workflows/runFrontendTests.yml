@@ -1,9 +1,5 @@
 name: RUN Frontend Tests
 
-env:
-  NETLIFY_SITE_NAME: 'health-equity-tracker'
-  GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
-
 on:
   push:
     branches: [main]
@@ -26,6 +22,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -55,24 +53,15 @@ jobs:
           VITE_NODE_OPTIONS: '--max_old_space_size=4096'
         run: npx tsc --noEmit && npm run build:deploy_preview
 
-      # --- E2E (PR only) ---
-
-      - name: Waiting for Netlify Preview
-        if: github.event_name == 'pull_request'
-        uses: Wandalen/wretry.action@master
-        with:
-          action: jakepartusch/wait-for-netlify-action@v1.4
-          attempt_limit: 3
-          attempt_delay: 10000
-          with: |
-            site_name: ${{env.NETLIFY_SITE_NAME}}
-            max_timeout: 180
+      # --- E2E (PR only, runs against the local vite preview of the built dist) ---
 
       - name: Get installed Playwright version
+        if: github.event_name == 'pull_request'
         id: playwright-version
         run: echo "version=$(npx playwright --version | cut -d ' ' -f 2)" >> $GITHUB_OUTPUT
 
       - name: Cache Playwright binaries
+        if: github.event_name == 'pull_request'
         uses: actions/cache@v5
         id: playwright-cache
         with:
@@ -80,14 +69,12 @@ jobs:
           key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
 
       - name: Install Playwright Browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: github.event_name == 'pull_request' && steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
 
-      - name: Run E2E on deploy preview
+      - name: Run E2E against local build
         if: github.event_name == 'pull_request'
         run: npx playwright test --project=E2E_CI --workers 2
-        env:
-          E2E_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
 
       - uses: actions/upload-artifact@v7
         if: ${{ failure() }}
