@@ -28,11 +28,11 @@ const config: PlaywrightTestConfig = {
   use: {
     browserName: 'chromium',
     headless: true,
-    /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
-    actionTimeout: 0,
+    /* 20s per action; prevents a stuck click/fill from consuming the full 5-min test timeout */
+    actionTimeout: 20 * 1000,
     baseURL: process.env.E2E_BASE_URL ?? 'http://localhost:3000',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on',
+    trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
   },

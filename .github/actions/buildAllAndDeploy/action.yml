@@ -159,11 +159,11 @@ runs:
       with:
         python-version: "3.12"
 
-    - name: Run Python E2E Tests
+    - name: Run Server Smoke Tests
       shell: bash
       run: |
-        pip install -r e2e_tests/requirements.txt
-        pytest e2e_tests/data_serving.py
+        pip install -r server_smoke_tests/requirements.txt
+        pytest server_smoke_tests/data_serving.py
       env:
         SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
         FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
