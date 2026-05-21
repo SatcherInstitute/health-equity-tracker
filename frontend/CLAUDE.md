@@ -18,6 +18,9 @@ npm run e2e statins.nightly.spec.ts
 npm run e2e hiv          # Matches any filename containing "hiv"
 ```
 
+> **CI note:** In CI, e2e tests run against `vite preview` serving the locally-built `dist/`
+> (not a Netlify preview URL). `VITE_BASE_API_URL` still points to the live dev GCP backend.
+
 ## Frontend Data Flow
 
 The URL encodes the entire report state via URL params. The "MadLib" pattern (`disparity` / `comparegeos` / `comparevars` modes) is the query-builder UI — users fill in topic, geography, and demographic group.
