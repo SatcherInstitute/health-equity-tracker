@@ -23,6 +23,7 @@ jobs:
           fetch-depth: 1
           sparse-checkout: |
             python
+            data
             data_server
             exporter
             run_ingestion
