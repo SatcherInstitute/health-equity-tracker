@@ -75,7 +75,7 @@ jobs:
 
       - name: Run E2E against local build
         if: github.event_name == 'pull_request'
-        run: npx playwright test --project=E2E_CI --workers 2
+        run: npx playwright test --project=E2E_NIGHTLY --workers 2
 
       - uses: actions/upload-artifact@v7
         if: ${{ failure() }}
