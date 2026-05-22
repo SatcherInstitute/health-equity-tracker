@@ -14,7 +14,7 @@ import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import LandingPageListItem from './LandingPageListItem'
 import WebflowNewsPreviewCard, {
   type WebflowArticle,
-} from './WebflowNewsPreviewCard'
+} from './WebflowNewsPreviewCard' //
 
 function LandingPage() {
   const { data, isLoading, error } = useQuery<WebflowArticle[]>({
