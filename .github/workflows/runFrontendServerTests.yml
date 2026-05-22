@@ -2,11 +2,6 @@
 
 name: RUN Frontend Server Tests
 
-env:
-  ## Sets environment variables
-  NETLIFY_SITE_NAME: 'health-equity-tracker'
-  GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
-
 on:
   push:
     branches: [main]
@@ -24,6 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          sparse-checkout: frontend_server
       - uses: actions/setup-node@v6
         with:
           node-version-file: frontend_server/package.json
