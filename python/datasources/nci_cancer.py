@@ -1,6 +1,6 @@
 """
 Loads cervical cancer incidence data by county and race from NCI source files.
-Data covers 2018-2022, age-adjusted rates per 100k, females only..
+Data covers 2018-2022, age-adjusted rates per 100k, females only.
 
 https://statecancerprofiles.cancer.gov/incidencerates/index.php?statefips=00&areatype=county&cancer=057&race=00&age=001&stage=999&ruralurban=0&type=incd&sortVariableName=rate&sortOrder=default&output=0#results
 
