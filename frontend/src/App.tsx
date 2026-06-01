@@ -20,6 +20,9 @@ import {
 import { methodologyRouteConfigs } from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
 import { policyRouteConfigs } from './pages/Policy/policyContent/policyRouteConfigs'
 import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
+import Banner from './reports/ui/Banner'
+import SkipLink from './SkipLink'
+import HetAppBar from './styles/HetComponents/HetAppBar'
 import muiTheme from './styles/theme/muiTheme'
 import { autoInitGlobals } from './utils/globals'
 import {
@@ -56,15 +59,10 @@ const ErrorBoundaryDropParams = React.lazy(
 const ExploreDataFallback = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataFallback'),
 )
-const SkipLink = React.lazy(async () => await import('./SkipLink'))
 const MethodologyPage = React.lazy(
   async () =>
     await import('./pages/Methodology/methodologyComponents/MethodologyPage'),
 )
-const HetAppBar = React.lazy(
-  async () => await import('./styles/HetComponents/HetAppBar'),
-)
-const Banner = React.lazy(async () => await import('./reports/ui/Banner'))
 const PolicyPage = React.lazy(
   async () => await import('./pages/Policy/policyComponents/PolicyPage'),
 )
