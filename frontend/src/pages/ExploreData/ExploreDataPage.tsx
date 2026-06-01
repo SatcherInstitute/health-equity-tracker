@@ -1,4 +1,4 @@
-import { useAtomValue } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import { lazy, useCallback, useEffect, useState } from 'react'
 import { STATUS } from 'react-joyride-react-19' // TODO: ideally revert back to react-joyride and not this temporary fork
 import { useLocation } from 'react-router'
@@ -20,6 +20,7 @@ import { urlMap } from '../../utils/externalUrls'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import {
+  getConfigFromDataTypeId,
   getMadLibPhraseText,
   getSelectedConditions,
   MADLIB_LIST,
@@ -70,6 +71,8 @@ function ExploreDataPage() {
   const dtId2: DataTypeId | undefined = useAtomValue(
     selectedDataTypeConfig2Atom,
   )?.dataTypeId
+  const setSelectedDataTypeConfig1 = useSetAtom(selectedDataTypeConfig1Atom)
+  const setSelectedDataTypeConfig2 = useSetAtom(selectedDataTypeConfig2Atom)
   const showStickyLifeline = LIFELINE_IDS.some(
     (id) => id === dtId1 || id === dtId2,
   )
@@ -112,6 +115,18 @@ function ExploreDataPage() {
         MADLIB_SELECTIONS_PARAM,
         MADLIB_LIST[index].defaultSelections,
         parseMls,
+      )
+
+      // Restore the DataTypeSelector atom state from the URL so that back/forward
+      // navigation shows the correct data type button label instead of a stale
+      // or empty value from the previous forward-navigation state.
+      const dt1Param = getParameter(DATA_TYPE_1_PARAM, '')
+      const dt2Param = getParameter(DATA_TYPE_2_PARAM, '')
+      setSelectedDataTypeConfig1(
+        dt1Param ? getConfigFromDataTypeId(dt1Param) : null,
+      )
+      setSelectedDataTypeConfig2(
+        dt2Param ? getConfigFromDataTypeId(dt2Param) : null,
       )
 
       setMadLib({

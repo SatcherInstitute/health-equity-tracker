@@ -45,8 +45,24 @@ export default function MadLibUI(props: MadLibUIProps) {
     if (newValue === DEFAULT) {
       props.setMadLibWithParam(MADLIB_LIST[0])
     } else {
+      // Topic changes (non-Fips values) carry a stale dt param into the new
+      // URL because the old dt doesn't apply to the new topic. Clear it so
+      // the new topic starts at its default data type instead of showing an
+      // empty DataTypeSelector button.
+      const isTopicChange = !isFipsString(newValue)
+      if (isTopicChange) {
+        index === 1
+          ? setSelectedDataTypeConfig1(null)
+          : setSelectedDataTypeConfig2(null)
+      }
+      const dtOverrides = isTopicChange
+        ? index === 1
+          ? { dt1: '' }
+          : { dt2: '' }
+        : undefined
       props.setMadLibWithParam(
         getMadLibWithUpdatedValue(props.madLib, index, newValue),
+        dtOverrides,
       )
     }
     // drop card hash from url and scroll to top

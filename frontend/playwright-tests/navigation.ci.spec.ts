@@ -240,6 +240,68 @@ test('Sequential topic and geo changes each produce one history entry', async ({
   await expect(page).toHaveURL(/dt1=hiv_prevalence/)
 })
 
+test('Cross-topic navigation: back button traverses all steps including topic switch', async ({
+  page,
+}) => {
+  // State 1: HIV national, Prevalence
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+
+  // State 2: HIV New diagnoses
+  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  // State 3: HIV Deaths (exact: true avoids "info on HIV deaths" button)
+  await page.getByRole('button', { name: 'New diagnoses', exact: true }).click()
+  await page.getByRole('menuitem', { name: 'Deaths' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+
+  // State 4: Switch parent topic to HIV (Black Women).
+  // After the topic switch the stale hiv_deaths dt is cleared from the URL
+  // (Fix A) and the DataTypeSelector resets to the first BW option so the
+  // button is no longer empty.
+  await page.getByRole('button', { name: 'HIV', exact: true }).click()
+  await page.getByRole('menuitem', { name: 'HIV (Black Women)' }).click()
+  await expect(page).toHaveURL(/mls=1.hiv_black_women/)
+  await expect(page).not.toHaveURL(/dt1=hiv_deaths/)
+
+  // State 5: BW New Diagnoses — button now shows first BW option label
+  await page
+    .getByRole('button', { name: 'Prevalence for Black Women', exact: true })
+    .click()
+  await page.getByRole('menuitem', { name: 'New Diagnoses for Black Women' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses_black_women/)
+
+  // State 6: BW Deaths
+  await page
+    .getByRole('button', { name: 'New Diagnoses for Black Women', exact: true })
+    .click()
+  await page.getByRole('menuitem', { name: 'Deaths for Black women' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_deaths_black_women/)
+
+  // Walk all 5 back steps — each must reach a distinct meaningful state.
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses_black_women/)
+
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/mls=1.hiv_black_women/)
+  await expect(page).not.toHaveURL(/dt1=/)
+
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+  await expect(page).toHaveURL(/mls=1.hiv-/)
+
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+})
+
 test('Default reset from Compare Topics mode creates one history entry; back returns to compare state', async ({
   page,
 }) => {
