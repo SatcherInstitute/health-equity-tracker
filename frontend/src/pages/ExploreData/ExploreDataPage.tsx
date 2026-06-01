@@ -130,7 +130,10 @@ function ExploreDataPage() {
     }
   }, [])
 
-  const setMadLibWithParam = (ml: MadLib) => {
+  const setMadLibWithParam = (
+    ml: MadLib,
+    dtOverrides?: { dt1?: string; dt2?: string },
+  ) => {
     // ONLY SOME TOPICS HAVE SUB DATA TYPES
     const var1HasDataTypes =
       isDropdownVarId(ml.activeSelections[1]) &&
@@ -148,17 +151,22 @@ function ExploreDataPage() {
       history.replaceState(null, '', '?' + params + window.location.hash)
     }
 
-    //  GET REMAINING PARAMS FROM URL
+    //  GET REMAINING PARAMS FROM URL (caller may override dt values to avoid
+    //  a separate replaceState that would corrupt the back-button history)
     const groupParam1 = getParameter(MAP1_GROUP_PARAM, ALL)
     const groupParam2 = getParameter(MAP2_GROUP_PARAM, ALL)
-    const dtParam1 = getParameter(DATA_TYPE_1_PARAM, '')
-    const dtParam2 = getParameter(DATA_TYPE_2_PARAM, '')
+    const dtParam1 = dtOverrides?.dt1 ?? getParameter(DATA_TYPE_1_PARAM, '')
+    const dtParam2 = dtOverrides?.dt2 ?? getParameter(DATA_TYPE_2_PARAM, '')
 
     // BUILD REPLACEMENT PARAMS
     const newParams = [
       {
         name: MADLIB_SELECTIONS_PARAM,
         value: stringifyMls(ml.activeSelections),
+      },
+      {
+        name: MADLIB_PHRASE_PARAM,
+        value: ml.id,
       },
       {
         name: MAP1_GROUP_PARAM,
