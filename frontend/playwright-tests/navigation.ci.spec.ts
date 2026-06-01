@@ -181,3 +181,75 @@ test('Selecting a demographic writes the demo param to the URL', async ({
   await expect(page).toHaveURL(/demo=age/)
 })
 
+test('Data sub-type change produces one history entry; back returns to previous sub-type', async ({
+  page,
+}) => {
+  // Start with HIV Prevalence
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+
+  // Switch to New diagnoses via the DataTypeSelector popover
+  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  // One back-press must return to hiv_prevalence — not stay on hiv_diagnoses.
+  // A double-pushState bug would leave the back button stuck on the same state.
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+  await expect(page).not.toHaveURL(/dt1=hiv_diagnoses/)
+})
+
+test('Sequential topic and geo changes each produce one history entry', async ({
+  page,
+}) => {
+  // State 1: HIV national
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence',
+    { waitUntil: 'domcontentloaded' },
+  )
+
+  // State 2: switch sub-type to Deaths
+  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('menuitem', { name: 'Deaths' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+
+  // State 3: switch sub-type to New diagnoses (exact: true avoids matching
+  // the "Click for more info on HIV deaths" info button also on the page)
+  await page.getByRole('button', { name: 'Deaths', exact: true }).click()
+  await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  // Back from state 3 → state 2 (hiv_deaths)
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+
+  // Back from state 2 → state 1 (hiv_prevalence)
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+})
+
+test('Default reset from Compare Topics mode creates one history entry; back returns to compare state', async ({
+  page,
+}) => {
+  // Start in Compare Topics mode
+  await page.goto(
+    '/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/mlp=comparevars/)
+
+  // Trigger the DEFAULT reset via "Clear selections"
+  await page.getByRole('button', { name: 'Poverty', exact: true }).click()
+  await page.getByRole('link', { name: 'Clear selections' }).click()
+  await expect(page).toHaveURL('/exploredata')
+
+  // One back-press should return to the comparevars report, not stay on /exploredata.
+  // A double-pushState bug would leave the previous comparevars state unreachable.
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/mlp=comparevars/)
+})
+
