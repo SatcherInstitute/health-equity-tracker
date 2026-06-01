@@ -43,6 +43,7 @@ import {
   psSubscribe,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
+import ContrastInsightSection from './ContrastInsightSection'
 import { reportProviderSteps } from './ReportProviderSteps'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { getAllDemographicOptions } from './reportUtils'
@@ -257,6 +258,16 @@ export default function CompareReport(props: CompareReportProps) {
               />
             )}
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
+            {resolvedConfig1 && resolvedConfig2 && (
+              <ContrastInsightSection
+                hashId='rate-map'
+                dataTypeConfig1={resolvedConfig1}
+                dataTypeConfig2={resolvedConfig2}
+                fips1={props.fips1}
+                fips2={props.fips2}
+                demographicType={demographicType}
+              />
+            )}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='rate-map'

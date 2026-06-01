@@ -52,9 +52,15 @@ function CardWrapper(props: {
     </div>
   )
 
-  const canShowInsight = Boolean(
-    props.fips && props.dataTypeConfig && props.demographicType,
-  )
+  const insightProps =
+    props.fips && props.dataTypeConfig && props.demographicType
+      ? {
+          fips: props.fips,
+          dataTypeConfig: props.dataTypeConfig,
+          demographicType: props.demographicType,
+          isCompareCard: props.isCompareCard,
+        }
+      : null
 
   return (
     <WithMetadataAndMetrics
@@ -87,10 +93,10 @@ function CardWrapper(props: {
             className={`relative m-2 rounded-sm bg-alt-white p-3 shadow-raised ${props.className}`}
           >
             <div className='absolute top-2 right-2 flex items-center'>
-              {cardHasData && canShowInsight && (
+              {cardHasData && insightProps && (
                 <InsightVisualizationButton
                   scrollToHash={props.scrollToHash}
-                  isCompareCard={props.isCompareCard}
+                  isCompareCard={insightProps.isCompareCard}
                 />
               )}
               <CardOptionsMenu
@@ -99,14 +105,11 @@ function CardWrapper(props: {
               />
             </div>
             <div className='pt-8'>
-              {canShowInsight && (
+              {insightProps && (
                 <InsightVisualizationCard
                   scrollToHash={props.scrollToHash}
                   queryResponses={queryResponses}
-                  fips={props.fips!}
-                  dataTypeConfig={props.dataTypeConfig!}
-                  demographicType={props.demographicType!}
-                  isCompareCard={props.isCompareCard}
+                  {...insightProps}
                 />
               )}
               {childContent}
