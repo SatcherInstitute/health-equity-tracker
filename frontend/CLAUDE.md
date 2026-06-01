@@ -41,10 +41,17 @@ Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`s
 
 | Tier | Params | Written via | Read via |
 |---|---|---|---|
-| MadLib | `mls`, `dt1`, `dt2`, `group1`, `group2`, `mlp`, `extremes` | `history.replaceState` (bypasses Jotai) | `window.location.search` |
+| MadLib | `mls`, `dt1`, `dt2`, `group1`, `group2`, `mlp`, `extremes` | `setParameters` → `history.pushState` (bypasses Jotai) | `window.location.search` |
 | UI / modal | `demo`, `topic-info`, `multiple-maps`, `chlp-maps`, `vote-dot-org`, `report-insight`, `atl` | `useParamState` → `locationAtom` | `urlParamAtom(key)` — fine-grained, only re-renders on that param's change |
 
 `useParamState` (`src/utils/hooks/useParamState.tsx`) is the hook for Tier 2 params. Its setter reads from `window.location.search` (not Jotai state) so that MadLib params written outside Jotai are preserved in the URL.
+
+**MadLib navigation invariants** — critical rules for the `ExploreDataPage` / `MadLibUI` navigation machinery. Violating these causes duplicate history entries or blank DataTypeSelector buttons.
+
+- `setMadLibWithParam` is the single point of truth for all MadLib URL writes. It calls `history.replaceState` (cleanup only — deletes `dt2` when not in comparevars mode) and then `setParameters` → `history.pushState`. Never call `setParameters` or `history.pushState` separately before or after `setMadLibWithParam` for the same user action — that creates duplicate history entries.
+- Pass `dtOverrides: { dt1: newId }` (or `dt2`) when changing data sub-types so the new value reaches `setParameters` in one shot. Do not write the dt param to the URL via a separate call first.
+- On topic changes (`handleOptionUpdate` with a non-Fips value), pass `dtOverrides: { dt1: '' }` to delete the stale dt from the pushed URL and reset the corresponding `selectedDataTypeConfig` atom. The old data type ID does not apply to the new topic, so carrying it forward causes the DataTypeSelector to render an empty button.
+- `readParams` (the `psSubscribe` popstate handler in `ExploreDataPage`) is responsible for restoring full UI state on browser back/forward. It must sync the `selectedDataTypeConfig1`/`2` jotai atoms from `dt1`/`dt2` in the URL, in addition to calling `setMadLib`. If you add a new atom that should survive back-navigation, restore it in `readParams`.
 
 ## Adding a New Frontend Feature (health topic)
 
