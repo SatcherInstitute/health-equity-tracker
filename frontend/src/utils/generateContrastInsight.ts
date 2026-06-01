@@ -3,8 +3,13 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
 } from '../data/query/Breakdowns'
+import type { MetricQueryResponse } from '../data/query/MetricQuery'
 import type { Fips } from '../data/utils/Fips'
 import { fetchAIInsight, type InsightResult } from './fetchAIInsight'
+import {
+  formatDataRows,
+  getPrimaryMetricConfig,
+} from './generateVisualizationInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
 import { REPORT_INSIGHT_PARAM_KEY } from './urlutils'
 
@@ -14,8 +19,8 @@ function buildContrastPrompt(
   location1: string,
   location2: string,
   demographic: string,
-  insight1: string,
-  insight2: string,
+  data1: string,
+  data2: string,
 ): string {
   const isSameTopic = topic1 === topic2
   const isSameLocation = location1 === location2
@@ -44,13 +49,12 @@ function buildContrastPrompt(
     guidance = `Focus on what the contrast reveals about how place and topic interact in driving health inequities.`
   }
 
-  return `${setup}
+  const dataBlock1 = data1 ? `\n\n${viewALabel} data:\n${data1}` : ''
+  const dataBlock2 = data2 ? `\n\n${viewBLabel} data:\n${data2}` : ''
 
-${viewALabel}: ${insight1}
+  return `${setup}${dataBlock1}${dataBlock2}
 
-${viewBLabel}: ${insight2}
-
-Write one sentence at an 8th grade reading level that contrasts these two views. ${guidance} Be specific — name the places, groups, or numbers from the insights above. Do not restate either insight verbatim; the value of this sentence is the comparison itself.`
+Write one sentence at an 8th grade reading level that contrasts these two views. ${guidance} Be specific — name the places, groups, or numbers from the data above. Use only facts present in the data; do not introduce additional statistics, causal explanations, or place-specific facts that are not shown.`
 }
 
 export async function generateContrastInsight(
@@ -60,8 +64,8 @@ export async function generateContrastInsight(
   fips1: Fips,
   fips2: Fips,
   demographicType: DemographicType,
-  insight1: string,
-  insight2: string,
+  queryResponses1: MetricQueryResponse[],
+  queryResponses2: MetricQueryResponse[],
 ): Promise<InsightResult> {
   const topic1 = dataTypeConfig1.fullDisplayName
   const topic2 = dataTypeConfig2.fullDisplayName
@@ -69,14 +73,28 @@ export async function generateContrastInsight(
   const location2 = fips2.getSentenceDisplayName()
   const demographic = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
 
+  const buildDataSection = (
+    config: DataTypeConfig,
+    responses: MetricQueryResponse[],
+  ): string => {
+    if (!responses[0]) return ''
+    const metricConfig = getPrimaryMetricConfig(hashId, config.metrics)
+    if (!metricConfig) return ''
+    const rows = responses[0].getValidRowsForField(metricConfig.metricId)
+    return formatDataRows(rows, hashId, demographicType, metricConfig)
+  }
+
+  const data1 = buildDataSection(dataTypeConfig1, queryResponses1)
+  const data2 = buildDataSection(dataTypeConfig2, queryResponses2)
+
   const prompt = buildContrastPrompt(
     topic1,
     topic2,
     location1,
     location2,
     demographic,
-    insight1,
-    insight2,
+    data1,
+    data2,
   )
 
   const params = new URLSearchParams(window.location.search)

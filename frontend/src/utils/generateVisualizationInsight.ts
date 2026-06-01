@@ -24,7 +24,7 @@ const TIME_SERIES_CHART_IDS: ScrollableHashId[] = [
 ]
 
 // Select the most relevant metric config for the given chart type
-function getPrimaryMetricConfig(
+export function getPrimaryMetricConfig(
   hashId: ScrollableHashId,
   metrics: DataTypeConfig['metrics'],
 ): MetricConfig | null {
@@ -37,7 +37,7 @@ function getPrimaryMetricConfig(
 }
 
 // Format HetRows as a text list to embed in the prompt
-function formatDataRows(
+export function formatDataRows(
   rows: HetRow[],
   hashId: ScrollableHashId,
   demographicType: DemographicType,

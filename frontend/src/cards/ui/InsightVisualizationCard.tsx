@@ -72,10 +72,12 @@ export default function InsightVisualizationCard({
     setCardInsights,
   ])
 
+  // `error` is in the guard so a failed call doesn't get auto-retried on the
+  // next render — the user must click Try again.
   useEffect(() => {
-    if (!isOpen || insight) return
+    if (!isOpen || insight || error || isGenerating) return
     void handleGenerate()
-  }, [isOpen, cacheKey, handleGenerate])
+  }, [isOpen, insight, error, isGenerating, cacheKey, handleGenerate])
 
   if (!SHOW_INSIGHT_GENERATION || !isOpen) return null
 
