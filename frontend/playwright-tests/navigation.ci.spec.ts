@@ -85,12 +85,16 @@ test('Clear selections button from Compare Topics mode returns tracker to defaul
 test('Including the Extremes Mode Param in URL should load report with Extremes Mode Enabled', async ({
   page,
 }) => {
+  // Previously used mls=1.incarceration with dt1=hiv_prevalence — mismatched
+  // topic/data-type so no data loaded and extremes UI never rendered. Fixed to
+  // use a consistent HIV topic + HIV data type at national level.
   await page.goto(
-    '/exploredata?mls=1.incarceration-3.00&mlp=disparity&dt1=hiv_prevalence&extremes=true',
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence&extremes=true',
     { waitUntil: 'domcontentloaded' },
   )
 
   const rateMap = page.locator('#rate-map')
+  await expect(rateMap).toBeVisible()
 
   // Verify Extremes Mode UI elements are present using Parallel Soft Assertions
   await Promise.all([
@@ -118,13 +122,17 @@ test('Including the Extremes Mode Param in URL should load report with Extremes 
 test('Extremes Mode Param in URL should work for both sides of Compare mode report', async ({
   page,
 }) => {
+  // Previously missing the leading "/" so Playwright resolved the URL
+  // relative to the current path instead of the base URL root.
   await page.goto(
-    'exploredata?mls=1.hiv-3.00-5.13&mlp=comparegeos&dt1=hiv_prevalence&extremes2=true',
+    '/exploredata?mls=1.hiv-3.00-5.13&mlp=comparegeos&dt1=hiv_prevalence&extremes2=true',
     { waitUntil: 'domcontentloaded' },
   )
 
   const rateMap1 = page.locator('#rate-map')
   const rateMap2 = page.locator('#rate-map2')
+  await expect(rateMap1).toBeVisible()
+  await expect(rateMap2).toBeVisible()
 
   await test.step('Verify Compare Mode Extremes', async () => {
     await Promise.all([
