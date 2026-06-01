@@ -72,6 +72,13 @@ export default function InsightVisualizationCard({
     setCardInsights,
   ])
 
+  // Reset error when the cacheKey changes (user switched demographic, fips,
+  // etc.) — otherwise a stale error from old params would block generation
+  // for the new ones.
+  useEffect(() => {
+    setError(null)
+  }, [cacheKey])
+
   // `error` is in the guard so a failed call doesn't get auto-retried on the
   // next render — the user must click Try again.
   useEffect(() => {

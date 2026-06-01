@@ -89,6 +89,13 @@ export default function ContrastInsightSection({
     setContrastInsights,
   ])
 
+  // Reset error when the cacheKey changes (user switched demographic, fips,
+  // etc.) — otherwise a stale error from old params would block generation
+  // for the new ones.
+  useEffect(() => {
+    setError(null)
+  }, [contrastCacheKey])
+
   // Generate on open if we don't have a cached result. `error` is in the guard
   // so a failed call doesn't get auto-retried — user must click Try again.
   useEffect(() => {
