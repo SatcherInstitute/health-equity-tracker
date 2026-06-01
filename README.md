@@ -365,7 +365,7 @@ The backend consists of:
 - `health-equity-tracker/.github/workflows/`: Workflow code that controls the DAGs which orchestrate the execution of these various microservices via GitHub Actions
 - `health-equity-tracker/config/`: Terraform configuration for setting permissions and provisioning needed resources for cloud computing
 - `health-equity-tracker/data/`: In code-base "bucket" used to store manually downloaded data from outside sources where it isn't possible to fetch new data directly via and API endpoint or linkable file URL
-- `health-equity-tracker/e2e_tests/`: Automated tests ensuring all services work together as expected; not to be confused with the Playwright E2E tests found in `/frontend`
+- `health-equity-tracker/server_smoke_tests/`: Post-deploy smoke tests that hit the live `data_server` and `frontend_server` GCP services to verify they are responding correctly
 - `health-equity-tracker/exporter/`: Code for the microservice responsible for taking HET-style data from HET BigQuery tables and storing them in buckets as .json files. NOTE: County-level files are broken up by state when exporting.
 - `health-equity-tracker/python/`: Code for the Python modules responsible for fetching data from outside sources and wrangling into a HET-style table with rows for every combination of demographic group, geographic area, and optionally time period, and columns for each measured metric
 - `health-equity-tracker/requirements/`: Packages required for the HET

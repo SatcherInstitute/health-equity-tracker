@@ -18,7 +18,7 @@ pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.
 ```
 datasources/   DataSource subclasses — one per data source (e.g. CdcHiv, Phrma)
 ingestion/     Shared utilities: gcs_to_bq_util.py, het_types.py, BQ/GCS helpers
-tests/         Integration tests
+tests/         Integration tests — many load real fixture CSVs from repo-root data/
 ```
 
 ## Adding a new data source

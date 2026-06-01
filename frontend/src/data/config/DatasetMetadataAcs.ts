@@ -287,4 +287,5 @@ export const datasourceMetadataAcs: DataSourceMetadataAcs = {
   downloadable: true,
   data_source_release_years:
     'Population: 2009 - current, Health Topics: 2012 - current',
+  topic_categories: ['sdoh'],
 }

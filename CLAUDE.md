@@ -49,6 +49,8 @@ pip install python/data_server/ python/datasources/ python/ingestion/ && pytest 
 pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.py -s
 ```
 
+> **Note:** Many Python tests load real fixture CSVs from `data/` (555 files tracked in git). The CI sparse-checkout includes `data/` for this reason.
+
 ## Adding a New Health Topic
 
 Both frontend and backend changes are required.

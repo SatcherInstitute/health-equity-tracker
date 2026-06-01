@@ -140,4 +140,5 @@ export const datasourceMetadataCdcWonder: DataSourceMetadataCdcWonder = {
     'cdc_wonder_data-alls_state_historical',
   ],
   downloadable: true,
+  topic_categories: ['cancer', 'maternal-health'],
 }

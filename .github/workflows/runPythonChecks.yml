@@ -19,6 +19,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            python
+            data
+            data_server
+            exporter
+            run_ingestion
+            run_gcs_to_bq
+            shared_requirements
+            requirements
+            .github
 
       - name: Setup Python
         uses: actions/setup-python@v6
