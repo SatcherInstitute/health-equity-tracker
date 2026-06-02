@@ -323,3 +323,71 @@ test('Default reset from Compare Topics mode creates one history entry; back ret
   await expect(page).toHaveURL(/mlp=comparevars/)
 })
 
+test('demo param survives geo change via map click', async ({ page }) => {
+  // Start with HIV national with Age demographic
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence&demo=age',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/demo=age/)
+
+  // Wait for map then click Massachusetts (path:nth-child(46), FIPS 25)
+  const rateMap = page.locator('#rate-map')
+  await expect(rateMap).toBeVisible()
+  await page.locator('path:nth-child(46)').click()
+  await expect(page).toHaveURL(/mls=1.hiv-3.25/)
+
+  // demo=age must survive the geo change — regression: new system was wiping it
+  await expect(page).toHaveURL(/demo=age/)
+})
+
+test('demo param survives sub-type change', async ({ page }) => {
+  // Start with HIV Prevalence at national level with Age demographic
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence&demo=age',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/demo=age/)
+
+  // Switch sub-type to New diagnoses
+  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  // demo=age must survive the sub-type change
+  await expect(page).toHaveURL(/demo=age/)
+})
+
+test('dt1 and demo survive mode change', async ({ page }) => {
+  // Start with HIV Deaths in disparity mode with Age demographic
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_deaths&demo=age',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+  await expect(page).toHaveURL(/demo=age/)
+
+  // Switch to Compare Places mode via the mode selector
+  await page.getByText('Off').nth(1).click()
+  await page.getByRole('option', { name: 'Places' }).click()
+
+  // dt1 and demo must both survive the mode change
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+  await expect(page).toHaveURL(/demo=age/)
+  await expect(page).toHaveURL(/mlp=comparegeos/)
+})
+
+test('comparevars without dt2 in URL shows report, not blank', async ({
+  page,
+}) => {
+  // dt2 is absent — CompareReport must fall back to METRIC_CONFIG default, not blank
+  await page.goto(
+    '/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison',
+    { waitUntil: 'domcontentloaded' },
+  )
+
+  // Both map cards must render — the regression caused CompareReport to return </>
+  await expect(page.locator('#rate-map')).toBeVisible()
+  await expect(page.locator('#rate-map2')).toBeVisible()
+})
+
