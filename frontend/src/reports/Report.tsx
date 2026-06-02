@@ -39,7 +39,6 @@ import {
   DATA_TYPE_1_PARAM,
   DEMOGRAPHIC_PARAM,
   getParameter,
-  psSubscribe,
   REPORT_INSIGHT_PARAM_KEY,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
@@ -114,29 +113,24 @@ export function Report(props: ReportProps) {
   }, [resolvedConfig, demographicType, enabledDemographicOptionsMap])
 
   useEffect(() => {
-    const readParams = () => {
-      const dtParam1 = getParameter(
-        DATA_TYPE_1_PARAM,
-        undefined,
-        (val: string) => {
-          val = swapOldDatatypeParams(val)
-          return METRIC_CONFIG[props.dropdownVarId]?.find(
-            (cfg) => cfg.dataTypeId === val,
-          )
-        },
-      )
-      setDataTypeConfig(dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
-    }
-    const psHandler = psSubscribe(readParams, 'vardisp')
-    readParams()
+    // No psSubscribe here: ExploreDataPage.readParams owns selectedDataTypeConfig1Atom
+    // on popstate. A stale closure over props.dropdownVarId would corrupt the atom,
+    // triggering a spurious demographic-reset pushState that breaks back navigation.
+    const dtParam1 = getParameter(
+      DATA_TYPE_1_PARAM,
+      undefined,
+      (val: string) => {
+        val = swapOldDatatypeParams(val)
+        return METRIC_CONFIG[props.dropdownVarId]?.find(
+          (cfg) => cfg.dataTypeId === val,
+        )
+      },
+    )
+    setDataTypeConfig(
+      dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0] ?? null,
+    )
     setSelectedFips(props.fips)
     setSelectedDemographicType(demographicType)
-
-    return () => {
-      if (psHandler) {
-        psHandler.unsubscribe()
-      }
-    }
   }, [props.dropdownVarId, demographicType, props.fips])
 
   // when variable config changes (new data type), re-calc available card steps TableOfContents

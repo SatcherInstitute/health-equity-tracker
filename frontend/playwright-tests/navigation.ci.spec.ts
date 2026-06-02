@@ -85,12 +85,16 @@ test('Clear selections button from Compare Topics mode returns tracker to defaul
 test('Including the Extremes Mode Param in URL should load report with Extremes Mode Enabled', async ({
   page,
 }) => {
+  // Previously used mls=1.incarceration with dt1=hiv_prevalence — mismatched
+  // topic/data-type so no data loaded and extremes UI never rendered. Fixed to
+  // use a consistent HIV topic + HIV data type at national level.
   await page.goto(
-    '/exploredata?mls=1.incarceration-3.00&mlp=disparity&dt1=hiv_prevalence&extremes=true',
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence&extremes=true',
     { waitUntil: 'domcontentloaded' },
   )
 
   const rateMap = page.locator('#rate-map')
+  await expect(rateMap).toBeVisible()
 
   // Verify Extremes Mode UI elements are present using Parallel Soft Assertions
   await Promise.all([
@@ -118,13 +122,17 @@ test('Including the Extremes Mode Param in URL should load report with Extremes 
 test('Extremes Mode Param in URL should work for both sides of Compare mode report', async ({
   page,
 }) => {
+  // Previously missing the leading "/" so Playwright resolved the URL
+  // relative to the current path instead of the base URL root.
   await page.goto(
-    'exploredata?mls=1.hiv-3.00-5.13&mlp=comparegeos&dt1=hiv_prevalence&extremes2=true',
+    '/exploredata?mls=1.hiv-3.00-5.13&mlp=comparegeos&dt1=hiv_prevalence&extremes2=true',
     { waitUntil: 'domcontentloaded' },
   )
 
   const rateMap1 = page.locator('#rate-map')
   const rateMap2 = page.locator('#rate-map2')
+  await expect(rateMap1).toBeVisible()
+  await expect(rateMap2).toBeVisible()
 
   await test.step('Verify Compare Mode Extremes', async () => {
     await Promise.all([
@@ -179,5 +187,139 @@ test('Selecting a demographic writes the demo param to the URL', async ({
 
   // useParamState should write demo=age into the URL
   await expect(page).toHaveURL(/demo=age/)
+})
+
+test('Data sub-type change produces one history entry; back returns to previous sub-type', async ({
+  page,
+}) => {
+  // Start with HIV Prevalence
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+
+  // Switch to New diagnoses via the DataTypeSelector popover
+  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  // One back-press must return to hiv_prevalence — not stay on hiv_diagnoses.
+  // A double-pushState bug would leave the back button stuck on the same state.
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+  await expect(page).not.toHaveURL(/dt1=hiv_diagnoses/)
+})
+
+test('Sequential topic and geo changes each produce one history entry', async ({
+  page,
+}) => {
+  // State 1: HIV national
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence',
+    { waitUntil: 'domcontentloaded' },
+  )
+
+  // State 2: switch sub-type to Deaths
+  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('menuitem', { name: 'Deaths' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+
+  // State 3: switch sub-type to New diagnoses (exact: true avoids matching
+  // the "Click for more info on HIV deaths" info button also on the page)
+  await page.getByRole('button', { name: 'Deaths', exact: true }).click()
+  await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  // Back from state 3 → state 2 (hiv_deaths)
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+
+  // Back from state 2 → state 1 (hiv_prevalence)
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+})
+
+test('Cross-topic navigation: back button traverses all steps including topic switch', async ({
+  page,
+}) => {
+  // State 1: HIV national, Prevalence
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+
+  // State 2: HIV New diagnoses
+  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  // State 3: HIV Deaths (exact: true avoids "info on HIV deaths" button)
+  await page.getByRole('button', { name: 'New diagnoses', exact: true }).click()
+  await page.getByRole('menuitem', { name: 'Deaths' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+
+  // State 4: Switch parent topic to HIV (Black Women).
+  // After the topic switch the stale hiv_deaths dt is cleared from the URL
+  // (Fix A) and the DataTypeSelector resets to the first BW option so the
+  // button is no longer empty.
+  await page.getByRole('button', { name: 'HIV', exact: true }).click()
+  await page.getByRole('menuitem', { name: 'HIV (Black Women)' }).click()
+  await expect(page).toHaveURL(/mls=1.hiv_black_women/)
+  await expect(page).not.toHaveURL(/dt1=hiv_deaths/)
+
+  // State 5: BW New Diagnoses — button now shows first BW option label
+  await page
+    .getByRole('button', { name: 'Prevalence for Black Women', exact: true })
+    .click()
+  await page.getByRole('menuitem', { name: 'New Diagnoses for Black Women' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses_black_women/)
+
+  // State 6: BW Deaths
+  await page
+    .getByRole('button', { name: 'New Diagnoses for Black Women', exact: true })
+    .click()
+  await page.getByRole('menuitem', { name: 'Deaths for Black women' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_deaths_black_women/)
+
+  // Walk all 5 back steps — each must reach a distinct meaningful state.
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses_black_women/)
+
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/mls=1.hiv_black_women/)
+  await expect(page).not.toHaveURL(/dt1=/)
+
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+  await expect(page).toHaveURL(/mls=1.hiv-/)
+
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+})
+
+test('Default reset from Compare Topics mode creates one history entry; back returns to compare state', async ({
+  page,
+}) => {
+  // Start in Compare Topics mode
+  await page.goto(
+    '/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/mlp=comparevars/)
+
+  // Trigger the DEFAULT reset via "Clear selections"
+  await page.getByRole('button', { name: 'Poverty', exact: true }).click()
+  await page.getByRole('link', { name: 'Clear selections' }).click()
+  await expect(page).toHaveURL('/exploredata')
+
+  // One back-press should return to the comparevars report, not stay on /exploredata.
+  // A double-pushState bug would leave the previous comparevars state unreachable.
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).toHaveURL(/mlp=comparevars/)
 })
 

@@ -27,14 +27,6 @@ import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
-import {
-  DATA_TYPE_1_PARAM,
-  DATA_TYPE_2_PARAM,
-  MADLIB_PHRASE_PARAM,
-  MADLIB_SELECTIONS_PARAM,
-  setParameters,
-  stringifyMls,
-} from '../../utils/urlutils'
 import DataTypeSelector from './DataTypeSelector'
 import DemographicSelector from './DemographicSelector'
 import LocationSelector from './LocationSelector'
@@ -42,26 +34,35 @@ import TopicSelector from './TopicSelector'
 
 interface MadLibUIProps {
   madLib: MadLib
-  setMadLibWithParam: (updatedMadLib: MadLib) => void
+  setMadLibWithParam: (
+    updatedMadLib: MadLib,
+    dtOverrides?: { dt1?: string; dt2?: string },
+  ) => void
 }
 
 export default function MadLibUI(props: MadLibUIProps) {
   function handleOptionUpdate(newValue: string, index: number) {
     if (newValue === DEFAULT) {
       props.setMadLibWithParam(MADLIB_LIST[0])
-      setParameters([
-        {
-          name: MADLIB_SELECTIONS_PARAM,
-          value: stringifyMls(MADLIB_LIST[0].defaultSelections),
-        },
-        {
-          name: MADLIB_PHRASE_PARAM,
-          value: MADLIB_LIST[0].id,
-        },
-      ])
     } else {
+      // Topic changes (non-Fips values) carry a stale dt param into the new
+      // URL because the old dt doesn't apply to the new topic. Clear it so
+      // the new topic starts at its default data type instead of showing an
+      // empty DataTypeSelector button.
+      const isTopicChange = !isFipsString(newValue)
+      if (isTopicChange) {
+        index === 1
+          ? setSelectedDataTypeConfig1(null)
+          : setSelectedDataTypeConfig2(null)
+      }
+      const dtOverrides = isTopicChange
+        ? index === 1
+          ? { dt1: '' }
+          : { dt2: '' }
+        : undefined
       props.setMadLibWithParam(
         getMadLibWithUpdatedValue(props.madLib, index, newValue),
+        dtOverrides,
       )
     }
     // drop card hash from url and scroll to top
@@ -77,20 +78,15 @@ export default function MadLibUI(props: MadLibUIProps) {
     index: number,
     setConfig: any,
   ) {
-    const dtPosition = index === 1 ? DATA_TYPE_1_PARAM : DATA_TYPE_2_PARAM
     const newConfig = getConfigFromDataTypeId(newDataType)
     newConfig && setConfig(newConfig)
-    setParameters([
-      {
-        name: dtPosition,
-        value: newDataType,
-      },
-    ])
     const dropdownId: DropdownVarId =
       getParentDropdownFromDataTypeId(newDataType)
-    // madlib with updated topic
+    const dtOverrides =
+      index === 1 ? { dt1: newDataType } : { dt2: newDataType }
     props.setMadLibWithParam(
       getMadLibWithUpdatedValue(props.madLib, index, dropdownId),
+      dtOverrides,
     )
   }
 
