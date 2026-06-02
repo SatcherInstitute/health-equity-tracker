@@ -54,6 +54,7 @@ function ExploreDataPage() {
     useState(false)
 
   const setLocationAtom = useSetAtom(locationAtom)
+  const onboardParam = useAtomValue(urlParamAtom(SHOW_ONBOARDING_PARAM))
 
   // Deprecated param redirects fire once on mount via useLayoutEffect
   useDeprecatedParamRedirects()
@@ -123,9 +124,6 @@ function ExploreDataPage() {
   )
 
   // Set up warm welcome onboarding behaviors
-  const onboardParam = new URLSearchParams(window.location.search).get(
-    SHOW_ONBOARDING_PARAM,
-  )
   let showOnboarding = false
   if (noTopicChosen) {
     if (onboardParam === 'true') showOnboarding = true

@@ -49,7 +49,7 @@ export default function useDeprecatedParamRedirects() {
         searchParams: new URLSearchParams(),
       })
     }
-  }, [])
+  }, [mlsParam, setLocation])
 
   return params
 }
