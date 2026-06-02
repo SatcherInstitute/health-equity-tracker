@@ -40,19 +40,20 @@ Then run the relevant DAG workflow from GitHub Actions against the test project.
 ## Git Workflow
 
 This repo uses a **fork-based PR model**. `origin` points to the upstream
-`SatcherInstitute/health-equity-tracker`; each contributor pushes feature branches
-to their own fork remote, then opens a PR from there.
+`SatcherInstitute/health-equity-tracker`. Each contributor has their own fork
+added as a personal remote. Push feature branches to your fork, then open a PR
+from there against `origin/main`.
 
 ```bash
-# Push a feature branch to your fork (creates the branch on your fork)
-git push ben <branch-name>
+# Check your remotes — your fork should be listed alongside origin
+git remote -v
+
+# Push a feature branch to your own fork remote (not origin)
+git push <your-fork-remote> <branch-name>
 
 # Open a PR from the GitHub URL printed in the push output, or via gh:
-gh pr create --base main --head benhammondmusic:<branch-name>
+gh pr create --base main --head <your-github-username>:<branch-name>
 ```
-
-`ben` is the remote name for `https://github.com/benhammondmusic/health-equity-tracker.git`.
-Other team members use their own remote names (`ali`, `eric`, `jc`, etc.) — see `git remote -v`.
 
 **Never push feature branches directly to `origin`** (`SatcherInstitute`). The one
 exception is the shared backend test branch:
@@ -61,7 +62,7 @@ exception is the shared backend test branch:
 git push origin HEAD:infra-test -f   # backend GCP deploy only
 ```
 
-See `README.md` for the full fork setup steps.
+See `README.md` for full fork setup steps including how to add your fork as a remote.
 
 ## Commands
 
