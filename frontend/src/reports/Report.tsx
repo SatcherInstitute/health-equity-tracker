@@ -1,4 +1,4 @@
-import { useAtom } from 'jotai'
+import { useAtomValue, useSetAtom } from 'jotai'
 import { useEffect, useMemo } from 'react'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import MapCard from '../cards/MapCard'
@@ -35,13 +35,7 @@ import {
   selectedDemographicTypeAtom,
   selectedFipsAtom,
 } from '../utils/sharedSettingsState'
-import {
-  DATA_TYPE_1_PARAM,
-  DEMOGRAPHIC_PARAM,
-  getParameter,
-  REPORT_INSIGHT_PARAM_KEY,
-  swapOldDatatypeParams,
-} from '../utils/urlutils'
+import { DEMOGRAPHIC_PARAM, REPORT_INSIGHT_PARAM_KEY } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
 import { getAllDemographicOptions } from './reportUtils'
 import ReportTopbarMobile from './ui/ReportTopbarMobile'
@@ -80,11 +74,9 @@ export function Report(props: ReportProps) {
   const [insightIsOpen] = useParamState(REPORT_INSIGHT_PARAM_KEY)
   const insightMode = Boolean(SHOW_INSIGHT_GENERATION && insightIsOpen)
 
-  const [dataTypeConfig, setDataTypeConfig] = useAtom(
-    selectedDataTypeConfig1Atom,
-  )
-  const [, setSelectedFips] = useAtom(selectedFipsAtom)
-  const [, setSelectedDemographicType] = useAtom(selectedDemographicTypeAtom)
+  const dataTypeConfig = useAtomValue(selectedDataTypeConfig1Atom)
+  const setSelectedFips = useSetAtom(selectedFipsAtom)
+  const setSelectedDemographicType = useSetAtom(selectedDemographicTypeAtom)
 
   const resolvedConfig = useMemo(
     () =>
@@ -113,25 +105,9 @@ export function Report(props: ReportProps) {
   }, [resolvedConfig, demographicType, enabledDemographicOptionsMap])
 
   useEffect(() => {
-    // No psSubscribe here: ExploreDataPage.readParams owns selectedDataTypeConfig1Atom
-    // on popstate. A stale closure over props.dropdownVarId would corrupt the atom,
-    // triggering a spurious demographic-reset pushState that breaks back navigation.
-    const dtParam1 = getParameter(
-      DATA_TYPE_1_PARAM,
-      undefined,
-      (val: string) => {
-        val = swapOldDatatypeParams(val)
-        return METRIC_CONFIG[props.dropdownVarId]?.find(
-          (cfg) => cfg.dataTypeId === val,
-        )
-      },
-    )
-    setDataTypeConfig(
-      dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0] ?? null,
-    )
     setSelectedFips(props.fips)
     setSelectedDemographicType(demographicType)
-  }, [props.dropdownVarId, demographicType, props.fips])
+  }, [props.fips, demographicType])
 
   // when variable config changes (new data type), re-calc available card steps TableOfContents
   useEffect(() => {

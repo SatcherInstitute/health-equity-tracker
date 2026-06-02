@@ -1,4 +1,4 @@
-import { useAtom } from 'jotai'
+import { useAtomValue } from 'jotai'
 import { useEffect, useMemo } from 'react'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import CompareBubbleChartCard from '../cards/CompareBubbleChartCard'
@@ -10,11 +10,7 @@ import StackedSharesBarChartCard from '../cards/StackedSharesBarChartCard'
 import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
-import { METRIC_CONFIG } from '../data/config/MetricConfig'
-import type {
-  DataTypeConfig,
-  DataTypeId,
-} from '../data/config/MetricConfigTypes'
+import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import {
   applyGeoOverrides,
   metricConfigFromDtConfig,
@@ -35,14 +31,7 @@ import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../utils/sharedSettingsState'
-import {
-  DATA_TYPE_1_PARAM,
-  DATA_TYPE_2_PARAM,
-  DEMOGRAPHIC_PARAM,
-  getParameter,
-  psSubscribe,
-  swapOldDatatypeParams,
-} from '../utils/urlutils'
+import { DEMOGRAPHIC_PARAM } from '../utils/urlutils'
 import { CompareModeProvider } from './CompareModeContext'
 import ContrastInsightSection from './ContrastInsightSection'
 import { reportProviderSteps } from './ReportProviderSteps'
@@ -84,8 +73,11 @@ export default function CompareReport(props: CompareReportProps) {
     defaultDemo,
   )
 
-  const [dataTypeConfig1, setDtConfig1] = useAtom(selectedDataTypeConfig1Atom)
-  const [dataTypeConfig2, setDtConfig2] = useAtom(selectedDataTypeConfig2Atom)
+  const dataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
+  // In comparegeos mode both panels show the same data type (dt2 is not in the URL).
+  const dataTypeConfig2Raw = useAtomValue(selectedDataTypeConfig2Atom)
+  const dataTypeConfig2 =
+    props.trackerMode === 'comparegeos' ? dataTypeConfig1 : dataTypeConfig2Raw
 
   const resolvedConfig1 = useMemo(
     () =>
@@ -137,49 +129,6 @@ export default function CompareReport(props: CompareReportProps) {
     demographicType,
     enabledDemographicOptionsMap,
   ])
-
-  useEffect(() => {
-    const readParams = () => {
-      const dtParam1 = getParameter(
-        DATA_TYPE_1_PARAM,
-        undefined,
-        (val: DataTypeId) => {
-          val = swapOldDatatypeParams(val)
-          return METRIC_CONFIG[props.dropdownVarId1].find(
-            (cfg) => cfg.dataTypeId === val,
-          )
-        },
-      )
-      const dtParam2 = getParameter(
-        DATA_TYPE_2_PARAM,
-        undefined,
-        (val: DataTypeId) => {
-          val = swapOldDatatypeParams(val)
-          return (
-            METRIC_CONFIG[props.dropdownVarId2]?.find(
-              (cfg) => cfg.dataTypeId === val,
-            ) ?? METRIC_CONFIG[props.dropdownVarId2][0]
-          )
-        },
-      )
-
-      const newDtParam1 = dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
-      setDtConfig1(newDtParam1)
-
-      const newDtParam2 =
-        props.trackerMode === 'comparegeos'
-          ? newDtParam1
-          : (dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0])
-      setDtConfig2(newDtParam2)
-    }
-    const psSub = psSubscribe(readParams, 'twovar')
-    readParams()
-    return () => {
-      if (psSub) {
-        psSub.unsubscribe()
-      }
-    }
-  }, [props.dropdownVarId1, props.dropdownVarId2])
 
   // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
