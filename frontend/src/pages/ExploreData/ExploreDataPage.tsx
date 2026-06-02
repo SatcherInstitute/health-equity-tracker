@@ -28,6 +28,7 @@ import { locationAtom, urlParamAtom } from '../../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
+  DEMOGRAPHIC_PARAM,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   MAP1_GROUP_PARAM,
@@ -100,6 +101,7 @@ function ExploreDataPage() {
       const current = new URLSearchParams(window.location.search)
       const groupParam1 = current.get(MAP1_GROUP_PARAM) ?? ALL
       const groupParam2 = current.get(MAP2_GROUP_PARAM) ?? ALL
+      const demoParam = current.get(DEMOGRAPHIC_PARAM)
       const dtParam1 =
         dtOverrides?.dt1 !== undefined
           ? dtOverrides.dt1
@@ -115,6 +117,7 @@ function ExploreDataPage() {
       next.set(MAP1_GROUP_PARAM, groupParam1)
 
       if (ml.id !== 'disparity') next.set(MAP2_GROUP_PARAM, groupParam2)
+      if (demoParam) next.set(DEMOGRAPHIC_PARAM, demoParam)
       if (var1HasDataTypes && dtParam1) next.set(DATA_TYPE_1_PARAM, dtParam1)
       if (var2HasDataTypes && dtParam2) next.set(DATA_TYPE_2_PARAM, dtParam2)
 
@@ -188,9 +191,19 @@ function ExploreDataPage() {
     if (modeIndex === 1) updatedSelections = { 1: var1, 3: geo1, 5: geo2 }
     if (modeIndex === 2) updatedSelections = { 1: var1, 3: var2, 5: geo1 }
 
+    const current = new URLSearchParams(window.location.search)
+    const demoParam = current.get(DEMOGRAPHIC_PARAM)
+    const group1Param = current.get(MAP1_GROUP_PARAM) ?? ALL
+    const dt1Param = current.get(DATA_TYPE_1_PARAM)
+    const var1HasDataTypes =
+      isDropdownVarId(var1) && METRIC_CONFIG[var1]?.length > 1
+
     const next = new URLSearchParams()
     next.set(MADLIB_SELECTIONS_PARAM, stringifyMls(updatedSelections))
     next.set(MADLIB_PHRASE_PARAM, MADLIB_LIST[modeIndex].id)
+    next.set(MAP1_GROUP_PARAM, group1Param)
+    if (demoParam) next.set(DEMOGRAPHIC_PARAM, demoParam)
+    if (var1HasDataTypes && dt1Param) next.set(DATA_TYPE_1_PARAM, dt1Param)
 
     setLocationAtom({ searchParams: next })
     location.hash = ''
