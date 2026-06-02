@@ -126,15 +126,8 @@ function ExploreDataPage() {
     [setLocationAtom],
   )
 
-  // Set up warm welcome onboarding behaviors
-  let showOnboarding = false
-  if (noTopicChosen) {
-    if (onboardParam === 'true') showOnboarding = true
-    if (onboardParam === 'false') showOnboarding = false
-  }
-
-  // if there is an incoming #hash; bypass the warm welcome entirely
-  if (location.hash !== '') showOnboarding = false
+  const showOnboarding =
+    noTopicChosen && onboardParam === 'true' && location.hash === ''
 
   const [activelyOnboarding, setActivelyOnboarding] =
     useState<boolean>(showOnboarding)
@@ -170,13 +163,6 @@ function ExploreDataPage() {
   const isSingleColumn = madLib.id === 'disparity'
 
   function handleModeChange(mode: MadLibId) {
-    const modeIndexMap: Record<MadLibId, number> = {
-      disparity: 0,
-      comparegeos: 1,
-      comparevars: 2,
-    }
-
-    const modeIndex = modeIndexMap[mode]
     const var1 = madLib.activeSelections[1]
     const geo1 =
       madLib.id === 'comparevars'
@@ -187,9 +173,12 @@ function ExploreDataPage() {
       var1 === 'poverty' ? 'health_insurance' : 'poverty'
     const geo2 = geo1 === '00' ? '13' : '00'
 
-    let updatedSelections: PhraseSelections = { 1: var1, 3: geo1 }
-    if (modeIndex === 1) updatedSelections = { 1: var1, 3: geo1, 5: geo2 }
-    if (modeIndex === 2) updatedSelections = { 1: var1, 3: var2, 5: geo1 }
+    const updatedSelections: PhraseSelections =
+      mode === 'comparegeos'
+        ? { 1: var1, 3: geo1, 5: geo2 }
+        : mode === 'comparevars'
+          ? { 1: var1, 3: var2, 5: geo1 }
+          : { 1: var1, 3: geo1 }
 
     const current = new URLSearchParams(window.location.search)
     const demoParam = current.get(DEMOGRAPHIC_PARAM)
@@ -200,7 +189,7 @@ function ExploreDataPage() {
 
     const next = new URLSearchParams()
     next.set(MADLIB_SELECTIONS_PARAM, stringifyMls(updatedSelections))
-    next.set(MADLIB_PHRASE_PARAM, MADLIB_LIST[modeIndex].id)
+    next.set(MADLIB_PHRASE_PARAM, mode)
     next.set(MAP1_GROUP_PARAM, group1Param)
     if (demoParam) next.set(DEMOGRAPHIC_PARAM, demoParam)
     if (var1HasDataTypes && dt1Param) next.set(DATA_TYPE_1_PARAM, dt1Param)
