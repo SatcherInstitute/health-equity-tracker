@@ -1,4 +1,4 @@
-import { useAtom } from 'jotai'
+import { useAtomValue } from 'jotai'
 import React from 'react'
 import {
   type DropdownVarId,
@@ -14,7 +14,6 @@ import { isFipsString } from '../../data/utils/Fips'
 import { getAllDemographicOptions } from '../../reports/reportUtils'
 import {
   DEFAULT,
-  getConfigFromDataTypeId,
   getFipsListFromMadlib,
   getMadLibWithUpdatedValue,
   getParentDropdownFromDataTypeId,
@@ -45,16 +44,9 @@ export default function MadLibUI(props: MadLibUIProps) {
     if (newValue === DEFAULT) {
       props.setMadLibWithParam(MADLIB_LIST[0])
     } else {
-      // Topic changes (non-Fips values) carry a stale dt param into the new
-      // URL because the old dt doesn't apply to the new topic. Clear it so
-      // the new topic starts at its default data type instead of showing an
-      // empty DataTypeSelector button.
+      // Topic changes carry a stale dt param into the new URL. Clear it so
+      // the new topic starts at its default data type.
       const isTopicChange = !isFipsString(newValue)
-      if (isTopicChange) {
-        index === 1
-          ? setSelectedDataTypeConfig1(null)
-          : setSelectedDataTypeConfig2(null)
-      }
       const dtOverrides = isTopicChange
         ? index === 1
           ? { dt1: '' }
@@ -65,21 +57,11 @@ export default function MadLibUI(props: MadLibUIProps) {
         dtOverrides,
       )
     }
-    // drop card hash from url and scroll to top
     window.location.hash = ''
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  function handleDataTypeUpdate(
-    newDataType: DataTypeId,
-    index: number,
-    setConfig: any,
-  ) {
-    const newConfig = getConfigFromDataTypeId(newDataType)
-    newConfig && setConfig(newConfig)
+  function handleDataTypeUpdate(newDataType: DataTypeId, index: number) {
     const dropdownId: DropdownVarId =
       getParentDropdownFromDataTypeId(newDataType)
     const dtOverrides =
@@ -90,12 +72,8 @@ export default function MadLibUI(props: MadLibUIProps) {
     )
   }
 
-  const [selectedDataTypeConfig1, setSelectedDataTypeConfig1] = useAtom(
-    selectedDataTypeConfig1Atom,
-  )
-  const [selectedDataTypeConfig2, setSelectedDataTypeConfig2] = useAtom(
-    selectedDataTypeConfig2Atom,
-  )
+  const selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
+  const selectedDataTypeConfig2 = useAtomValue(selectedDataTypeConfig2Atom)
 
   const fipsList = getFipsListFromMadlib(props.madLib)
 
@@ -134,10 +112,6 @@ export default function MadLibUI(props: MadLibUIProps) {
 
               const config =
                 index === 1 ? selectedDataTypeConfig1 : selectedDataTypeConfig2
-              const setConfig =
-                index === 1
-                  ? setSelectedDataTypeConfig1
-                  : setSelectedDataTypeConfig2
 
               const isLocationMadLib = isFipsString(
                 props.madLib.activeSelections[index],
@@ -152,7 +126,6 @@ export default function MadLibUI(props: MadLibUIProps) {
                   }
                 >
                   {typeof phraseSegment === 'string' ? (
-                    // NON_INTERACTIVE MADLIB WORDS
                     <span className='text-alt-black'>
                       {phraseSegment}
                       {insertOptionalThe(props.madLib.activeSelections, index)}
@@ -160,7 +133,6 @@ export default function MadLibUI(props: MadLibUIProps) {
                   ) : (
                     <>
                       {isLocationMadLib ? (
-                        // LOCATION
                         <LocationSelector
                           newValue={props.madLib.activeSelections[index]}
                           onOptionUpdate={(newValue) => {
@@ -169,7 +141,6 @@ export default function MadLibUI(props: MadLibUIProps) {
                           phraseSegment={phraseSegment}
                         />
                       ) : (
-                        // MAIN PARENT TOPIC
                         <TopicSelector
                           newValue={
                             props.madLib.activeSelections[
@@ -184,16 +155,11 @@ export default function MadLibUI(props: MadLibUIProps) {
                       )}
 
                       {dataTypes?.length > 1 && (
-                        // DATA TYPE SUB TOPIC
                         <DataTypeSelector
                           key={`${index}-datatype`}
                           newValue={config?.dataTypeId ?? dataTypes[0][0]}
                           onOptionUpdate={(newValue) => {
-                            handleDataTypeUpdate(
-                              newValue as DataTypeId,
-                              index,
-                              setConfig,
-                            )
+                            handleDataTypeUpdate(newValue as DataTypeId, index)
                           }}
                           options={dataTypes}
                         />

@@ -1,4 +1,5 @@
 import GridView from '@mui/icons-material/GridView'
+import { useSetAtom } from 'jotai'
 import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router'
 import { createColorScale } from '../charts/choroplethMap/colorSchemes'
@@ -60,6 +61,7 @@ import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import type { MadLibId } from '../utils/MadLibs'
+import { locationAtom } from '../utils/sharedSettingsState'
 import {
   ATLANTA_MODE_PARAM_KEY,
   EXTREMES_1_PARAM_KEY,
@@ -71,7 +73,6 @@ import {
   MAP2_GROUP_PARAM,
   MULTIPLE_MAPS_1_PARAM_KEY,
   MULTIPLE_MAPS_2_PARAM_KEY,
-  setParameter,
 } from '../utils/urlutils'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
@@ -136,6 +137,7 @@ function MapCardWithKey(props: MapCardProps) {
     MULTIMAP_PARAM_KEY,
     false,
   )
+  const setLocationAtom = useSetAtom(locationAtom)
   const MAP_GROUP_PARAM = props.isCompareCard
     ? MAP2_GROUP_PARAM
     : MAP1_GROUP_PARAM
@@ -474,13 +476,21 @@ function MapCardWithKey(props: MapCardProps) {
           dropdownValue = activeDemographicGroup
         } else {
           setActiveDemographicGroup(ALL)
-          setParameter(MAP_GROUP_PARAM, ALL)
+          setLocationAtom((prev) => {
+            const next = new URLSearchParams(prev.searchParams)
+            next.set(MAP_GROUP_PARAM, ALL)
+            return { ...prev, searchParams: next }
+          })
         }
 
         function handleMapGroupClick(_: any, newGroup: DemographicGroup) {
           setActiveDemographicGroup(newGroup)
           const groupCode = getGroupParamFromDemographicGroup(newGroup)
-          setParameter(MAP_GROUP_PARAM, groupCode)
+          setLocationAtom((prev) => {
+            const next = new URLSearchParams(prev.searchParams)
+            next.set(MAP_GROUP_PARAM, groupCode)
+            return { ...prev, searchParams: next }
+          })
         }
 
         const displayData = isExtremesMode
