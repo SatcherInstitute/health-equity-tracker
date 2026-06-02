@@ -1,40 +1,45 @@
 import { Button, CircularProgress } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
 import { useCallback, useEffect, useState } from 'react'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
+import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import type { Fips } from '../../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
 import { generateCardInsight } from '../../utils/generateVisualizationInsight'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
   cardInsightOpenAtom,
   cardInsightsAtom,
-  selectedDataTypeConfig1Atom,
-  selectedDemographicTypeAtom,
-  selectedFipsAtom,
 } from '../../utils/sharedSettingsState'
 
 interface InsightVisualizationCardProps {
   scrollToHash: ScrollableHashId
   queryResponses: MetricQueryResponse[]
+  fips: Fips
+  dataTypeConfig: DataTypeConfig
+  demographicType: DemographicType
+  isCompareCard?: boolean
 }
 
 export default function InsightVisualizationCard({
   scrollToHash,
   queryResponses,
+  fips,
+  dataTypeConfig,
+  demographicType,
+  isCompareCard,
 }: InsightVisualizationCardProps) {
-  const dataTypeConfig = useAtomValue(selectedDataTypeConfig1Atom)
-  const fips = useAtomValue(selectedFipsAtom)
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
   const [cardInsights, setCardInsights] = useAtom(cardInsightsAtom)
-  const isOpen = useAtomValue(cardInsightOpenAtom)[scrollToHash] ?? false
+  const openKey = `${scrollToHash}${isCompareCard ? '-2' : ''}`
+  const isOpen = useAtomValue(cardInsightOpenAtom)[openKey] ?? false
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const cacheKey = `${scrollToHash}-${dataTypeConfig?.dataTypeId ?? ''}-${fips?.code ?? ''}-${demographicType ?? ''}`
+  const cacheKey = `${scrollToHash}-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}${isCompareCard ? '-2' : ''}`
   const insight = cardInsights[cacheKey]
 
   const handleGenerate = useCallback(async () => {
-    if (!dataTypeConfig || !demographicType) return
     setIsGenerating(true)
     setError(null)
     try {
@@ -42,8 +47,9 @@ export default function InsightVisualizationCard({
         scrollToHash,
         dataTypeConfig,
         demographicType,
-        fips ?? undefined,
+        fips,
         queryResponses,
+        isCompareCard,
       )
       if (result.rateLimited) {
         setError('Too many requests. Please wait a moment and try again.')
@@ -60,17 +66,27 @@ export default function InsightVisualizationCard({
     dataTypeConfig,
     demographicType,
     fips,
+    isCompareCard,
     queryResponses,
     scrollToHash,
     setCardInsights,
   ])
 
+  // Reset error when the cacheKey changes (user switched demographic, fips,
+  // etc.) — otherwise a stale error from old params would block generation
+  // for the new ones.
   useEffect(() => {
-    if (!isOpen || insight || !dataTypeConfig || !demographicType) return
-    void handleGenerate()
-  }, [isOpen, cacheKey, handleGenerate])
+    setError(null)
+  }, [cacheKey])
 
-  if (!SHOW_INSIGHT_GENERATION || !dataTypeConfig || !isOpen) return null
+  // `error` is in the guard so a failed call doesn't get auto-retried on the
+  // next render — the user must click Try again.
+  useEffect(() => {
+    if (!isOpen || insight || error || isGenerating) return
+    void handleGenerate()
+  }, [isOpen, insight, error, isGenerating, cacheKey, handleGenerate])
+
+  if (!SHOW_INSIGHT_GENERATION || !isOpen) return null
 
   return (
     <div className='mb-3 animate-expand-down rounded-md bg-footer-color p-3'>

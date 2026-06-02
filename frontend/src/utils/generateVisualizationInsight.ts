@@ -24,7 +24,7 @@ const TIME_SERIES_CHART_IDS: ScrollableHashId[] = [
 ]
 
 // Select the most relevant metric config for the given chart type
-function getPrimaryMetricConfig(
+export function getPrimaryMetricConfig(
   hashId: ScrollableHashId,
   metrics: DataTypeConfig['metrics'],
 ): MetricConfig | null {
@@ -37,7 +37,7 @@ function getPrimaryMetricConfig(
 }
 
 // Format HetRows as a text list to embed in the prompt
-function formatDataRows(
+export function formatDataRows(
   rows: HetRow[],
   hashId: ScrollableHashId,
   demographicType: DemographicType,
@@ -133,6 +133,7 @@ export async function generateCardInsight(
   demographicType: DemographicType,
   fips?: Fips,
   queryResponses?: MetricQueryResponse[],
+  isCompareCard?: boolean,
 ): Promise<InsightResult> {
   const topic = dataTypeConfig.fullDisplayName
   const location = fips?.getSentenceDisplayName() ?? 'the United States'
@@ -152,7 +153,8 @@ export async function generateCardInsight(
 
   const params = new URLSearchParams(window.location.search)
   params.delete(REPORT_INSIGHT_PARAM_KEY)
-  const cacheKey = `${window.location.pathname}?${params.toString()}#${hashId}`
+  const cardSuffix = isCompareCard ? '-2' : ''
+  const cacheKey = `${window.location.pathname}?${params.toString()}#${hashId}${cardSuffix}`
 
   return fetchAIInsight(prompt, { cacheKey })
 }

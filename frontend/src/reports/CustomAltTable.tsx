@@ -69,6 +69,9 @@ export default function CustomAltTable(props: CustomAltTableProps) {
       reportTitle={props.reportTitle}
       scrollToHash={HASH_ID_RATES_OVER_TIME}
       className={`relative m-2 rounded-sm bg-alt-white p-3 shadow-raised ${props.className}`}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
       {([queryResponseRates]) => {
         const ratesData = queryResponseRates.getValidRowsForField(

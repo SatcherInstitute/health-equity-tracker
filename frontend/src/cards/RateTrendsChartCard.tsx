@@ -135,6 +135,10 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       expanded={a11yTableExpanded}
       className={props.className}
+      isCompareCard={props.isCompareCard}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
       {(
         [queryResponseRates, queryResponsePctShares],

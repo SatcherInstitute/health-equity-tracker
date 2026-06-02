@@ -41,6 +41,7 @@ interface RateBarChartCardProps {
   fips: Fips
   reportTitle: string
   className?: string
+  isCompareCard?: boolean
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -130,6 +131,10 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
       reportTitle={props.reportTitle}
       className={props.className}
       hasIntersectionalAllCompareBar={rateComparisonConfig !== undefined}
+      isCompareCard={props.isCompareCard}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
       {(
         [rateQueryResponseRate, rateQueryResponseRateAlls],

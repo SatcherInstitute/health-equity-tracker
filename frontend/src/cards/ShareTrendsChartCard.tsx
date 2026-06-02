@@ -123,6 +123,10 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       expanded={a11yTableExpanded}
       className={props.className}
+      isCompareCard={props.isCompareCard}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
       {(
         [queryResponseInequity, queryResponsePctShares],

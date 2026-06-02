@@ -43,6 +43,8 @@ import {
   psSubscribe,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
+import { CompareModeProvider } from './CompareModeContext'
+import ContrastInsightSection from './ContrastInsightSection'
 import { reportProviderSteps } from './ReportProviderSteps'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { getAllDemographicOptions } from './reportUtils'
@@ -230,7 +232,7 @@ export default function CompareReport(props: CompareReportProps) {
     SHOW_CORRELATION_CARD && props.trackerMode === 'comparevars'
 
   return (
-    <>
+    <CompareModeProvider>
       <title>{`${browserTitle} - Health Equity Tracker`}</title>
       <div className='flex'>
         {/* CARDS COLUMN */}
@@ -257,6 +259,14 @@ export default function CompareReport(props: CompareReportProps) {
               />
             )}
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
+            <ContrastInsightSection
+              hashId='rate-map'
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              demographicType={demographicType}
+            />
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='rate-map'
@@ -291,34 +301,52 @@ export default function CompareReport(props: CompareReportProps) {
 
             {/* SIDE-BY-SIDE RATE TREND CARDS */}
             {showRatesOverTimeCardRow && (
-              <RowOfTwoOptionalMetrics
-                trackerMode={props.trackerMode}
-                id='rates-over-time'
-                dataTypeConfig1={resolvedConfig1}
-                dataTypeConfig2={resolvedConfig2}
-                fips1={props.fips1}
-                fips2={props.fips2}
-                headerScrollMargin={props.headerScrollMargin}
-                createCard={(
-                  dataTypeConfig: DataTypeConfig,
-                  fips: Fips,
-                  _unusedUpdateFips: (fips: Fips) => void,
-                  _unusedDropdown: any,
-                  isCompareCard: boolean | undefined,
-                ) => (
-                  <RateTrendsChartCard
-                    dataTypeConfig={dataTypeConfig}
-                    demographicType={demographicType}
-                    fips={fips}
-                    isCompareCard={isCompareCard}
-                    reportTitle={props.reportTitle}
-                  />
-                )}
-              />
+              <>
+                <ContrastInsightSection
+                  hashId='rates-over-time'
+                  dataTypeConfig1={resolvedConfig1}
+                  dataTypeConfig2={resolvedConfig2}
+                  fips1={props.fips1}
+                  fips2={props.fips2}
+                  demographicType={demographicType}
+                />
+                <RowOfTwoOptionalMetrics
+                  trackerMode={props.trackerMode}
+                  id='rates-over-time'
+                  dataTypeConfig1={resolvedConfig1}
+                  dataTypeConfig2={resolvedConfig2}
+                  fips1={props.fips1}
+                  fips2={props.fips2}
+                  headerScrollMargin={props.headerScrollMargin}
+                  createCard={(
+                    dataTypeConfig: DataTypeConfig,
+                    fips: Fips,
+                    _unusedUpdateFips: (fips: Fips) => void,
+                    _unusedDropdown: any,
+                    isCompareCard: boolean | undefined,
+                  ) => (
+                    <RateTrendsChartCard
+                      dataTypeConfig={dataTypeConfig}
+                      demographicType={demographicType}
+                      fips={fips}
+                      isCompareCard={isCompareCard}
+                      reportTitle={props.reportTitle}
+                    />
+                  )}
+                />
+              </>
             )}
 
             {/* SIDE-BY-SIDE 100K BAR GRAPH CARDS */}
 
+            <ContrastInsightSection
+              hashId='rate-chart'
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              demographicType={demographicType}
+            />
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='rate-chart'
@@ -331,11 +359,14 @@ export default function CompareReport(props: CompareReportProps) {
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 _unusedUpdateFips: (fips: Fips) => void,
+                _unusedDropdown: any,
+                isCompareCard: boolean | undefined,
               ) => (
                 <RateBarChartCard
                   dataTypeConfig={dataTypeConfig}
                   demographicType={demographicType}
                   fips={fips}
+                  isCompareCard={isCompareCard}
                   reportTitle={props.reportTitle}
                 />
               )}
@@ -356,6 +387,8 @@ export default function CompareReport(props: CompareReportProps) {
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 updateFips: (fips: Fips) => void,
+                _unusedDropdown: any,
+                isCompareCard: boolean | undefined,
               ) => (
                 <UnknownsMapCard
                   overrideAndWithOr={demographicType === RACE}
@@ -365,6 +398,7 @@ export default function CompareReport(props: CompareReportProps) {
                     updateFips(fips)
                   }}
                   demographicType={demographicType}
+                  isCompareCard={isCompareCard}
                   reportTitle={props.reportTitle}
                 />
               )}
@@ -373,33 +407,51 @@ export default function CompareReport(props: CompareReportProps) {
             {/* SIDE-BY-SIDE SHARE INEQUITY TREND CARDS */}
 
             {showInequitiesOverTimeCardRow && (
-              <RowOfTwoOptionalMetrics
-                trackerMode={props.trackerMode}
-                id='inequities-over-time'
-                dataTypeConfig1={resolvedConfig1}
-                dataTypeConfig2={resolvedConfig2}
-                fips1={props.fips1}
-                fips2={props.fips2}
-                headerScrollMargin={props.headerScrollMargin}
-                createCard={(
-                  dataTypeConfig: DataTypeConfig,
-                  fips: Fips,
-                  _unusedUpdateFips: (fips: Fips) => void,
-                  _unusedDropdown: any,
-                  isCompareCard: boolean | undefined,
-                ) => (
-                  <ShareTrendsChartCard
-                    dataTypeConfig={dataTypeConfig}
-                    demographicType={demographicType}
-                    fips={fips}
-                    isCompareCard={isCompareCard}
-                    reportTitle={props.reportTitle}
-                  />
-                )}
-              />
+              <>
+                <ContrastInsightSection
+                  hashId='inequities-over-time'
+                  dataTypeConfig1={resolvedConfig1}
+                  dataTypeConfig2={resolvedConfig2}
+                  fips1={props.fips1}
+                  fips2={props.fips2}
+                  demographicType={demographicType}
+                />
+                <RowOfTwoOptionalMetrics
+                  trackerMode={props.trackerMode}
+                  id='inequities-over-time'
+                  dataTypeConfig1={resolvedConfig1}
+                  dataTypeConfig2={resolvedConfig2}
+                  fips1={props.fips1}
+                  fips2={props.fips2}
+                  headerScrollMargin={props.headerScrollMargin}
+                  createCard={(
+                    dataTypeConfig: DataTypeConfig,
+                    fips: Fips,
+                    _unusedUpdateFips: (fips: Fips) => void,
+                    _unusedDropdown: any,
+                    isCompareCard: boolean | undefined,
+                  ) => (
+                    <ShareTrendsChartCard
+                      dataTypeConfig={dataTypeConfig}
+                      demographicType={demographicType}
+                      fips={fips}
+                      isCompareCard={isCompareCard}
+                      reportTitle={props.reportTitle}
+                    />
+                  )}
+                />
+              </>
             )}
 
             {/* SIDE-BY-SIDE STACKED SHARES BAR CHARTS CARDS */}
+            <ContrastInsightSection
+              hashId='population-vs-distribution'
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              demographicType={demographicType}
+            />
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='population-vs-distribution'
@@ -412,17 +464,28 @@ export default function CompareReport(props: CompareReportProps) {
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 _unusedUpdateFips: (fips: Fips) => void,
+                _unusedDropdown: any,
+                isCompareCard: boolean | undefined,
               ) => (
                 <StackedSharesBarChartCard
                   dataTypeConfig={dataTypeConfig}
                   demographicType={demographicType}
                   fips={fips}
+                  isCompareCard={isCompareCard}
                   reportTitle={props.reportTitle}
                 />
               )}
             />
 
             {/* SIDE-BY-SIDE DATA TABLE CARDS */}
+            <ContrastInsightSection
+              hashId='data-table'
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              demographicType={demographicType}
+            />
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='data-table'
@@ -437,11 +500,14 @@ export default function CompareReport(props: CompareReportProps) {
                 dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 _unusedUpdateFips: (fips: Fips) => void,
+                _unusedDropdown: any,
+                isCompareCard: boolean | undefined,
               ) => (
                 <TableCard
                   fips={fips}
                   dataTypeConfig={dataTypeConfig}
                   demographicType={demographicType}
+                  isCompareCard={isCompareCard}
                   reportTitle={props.reportTitle}
                 />
               )}
@@ -450,35 +516,47 @@ export default function CompareReport(props: CompareReportProps) {
             {/* SIDE-BY-SIDE AGE-ADJUSTED TABLE CARDS */}
 
             {showAgeAdjustCardRow && (
-              <RowOfTwoOptionalMetrics
-                trackerMode={props.trackerMode}
-                id='age-adjusted-ratios'
-                // specific data type
-                dataTypeConfig1={resolvedConfig1}
-                dataTypeConfig2={resolvedConfig2}
-                // parent variable
-                dropdownVarId1={props.dropdownVarId1}
-                dropdownVarId2={props.dropdownVarId2}
-                fips1={props.fips1}
-                fips2={props.fips2}
-                updateFips1={props.updateFips1Callback}
-                updateFips2={props.updateFips2Callback}
-                headerScrollMargin={props.headerScrollMargin}
-                createCard={(
-                  dataTypeConfig: DataTypeConfig,
-                  fips: Fips,
-                  _unusedUpdateFips: (fips: Fips) => void,
-                  dropdownVarId?: DropdownVarId,
-                ) => (
-                  <AgeAdjustedTableCard
-                    fips={fips}
-                    dataTypeConfig={dataTypeConfig}
-                    demographicType={demographicType}
-                    dropdownVarId={dropdownVarId}
-                    reportTitle={props.reportTitle}
-                  />
-                )}
-              />
+              <>
+                <ContrastInsightSection
+                  hashId='age-adjusted-ratios'
+                  dataTypeConfig1={resolvedConfig1}
+                  dataTypeConfig2={resolvedConfig2}
+                  fips1={props.fips1}
+                  fips2={props.fips2}
+                  demographicType={demographicType}
+                />
+                <RowOfTwoOptionalMetrics
+                  trackerMode={props.trackerMode}
+                  id='age-adjusted-ratios'
+                  // specific data type
+                  dataTypeConfig1={resolvedConfig1}
+                  dataTypeConfig2={resolvedConfig2}
+                  // parent variable
+                  dropdownVarId1={props.dropdownVarId1}
+                  dropdownVarId2={props.dropdownVarId2}
+                  fips1={props.fips1}
+                  fips2={props.fips2}
+                  updateFips1={props.updateFips1Callback}
+                  updateFips2={props.updateFips2Callback}
+                  headerScrollMargin={props.headerScrollMargin}
+                  createCard={(
+                    dataTypeConfig: DataTypeConfig,
+                    fips: Fips,
+                    _unusedUpdateFips: (fips: Fips) => void,
+                    dropdownVarId?: DropdownVarId,
+                    isCompareCard?: boolean,
+                  ) => (
+                    <AgeAdjustedTableCard
+                      fips={fips}
+                      dataTypeConfig={dataTypeConfig}
+                      demographicType={demographicType}
+                      dropdownVarId={dropdownVarId}
+                      isCompareCard={isCompareCard}
+                      reportTitle={props.reportTitle}
+                    />
+                  )}
+                />
+              </>
             )}
           </div>
         </div>
@@ -507,6 +585,6 @@ export default function CompareReport(props: CompareReportProps) {
           isMobile={!isDesktopLayout}
         />{' '}
       </div>
-    </>
+    </CompareModeProvider>
   )
 }
