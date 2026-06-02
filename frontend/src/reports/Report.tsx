@@ -126,7 +126,9 @@ export function Report(props: ReportProps) {
         )
       },
     )
-    setDataTypeConfig(dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
+    setDataTypeConfig(
+      dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0] ?? null,
+    )
     setSelectedFips(props.fips)
     setSelectedDemographicType(demographicType)
   }, [props.dropdownVarId, demographicType, props.fips])

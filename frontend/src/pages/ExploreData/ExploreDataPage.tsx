@@ -123,10 +123,10 @@ function ExploreDataPage() {
       const dt1Param = getParameter(DATA_TYPE_1_PARAM, '')
       const dt2Param = getParameter(DATA_TYPE_2_PARAM, '')
       setSelectedDataTypeConfig1(
-        dt1Param ? getConfigFromDataTypeId(dt1Param) : null,
+        dt1Param ? (getConfigFromDataTypeId(dt1Param) ?? null) : null,
       )
       setSelectedDataTypeConfig2(
-        dt2Param ? getConfigFromDataTypeId(dt2Param) : null,
+        dt2Param ? (getConfigFromDataTypeId(dt2Param) ?? null) : null,
       )
 
       setMadLib({
