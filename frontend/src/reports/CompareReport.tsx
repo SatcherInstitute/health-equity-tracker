@@ -10,6 +10,7 @@ import StackedSharesBarChartCard from '../cards/StackedSharesBarChartCard'
 import TableCard from '../cards/TableCard'
 import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
+import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import {
   applyGeoOverrides,
@@ -73,11 +74,15 @@ export default function CompareReport(props: CompareReportProps) {
     defaultDemo,
   )
 
-  const dataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
+  const dataTypeConfig1Raw = useAtomValue(selectedDataTypeConfig1Atom)
+  const dataTypeConfig1 =
+    dataTypeConfig1Raw ?? METRIC_CONFIG[props.dropdownVarId1]?.[0] ?? null
   // In comparegeos mode both panels show the same data type (dt2 is not in the URL).
   const dataTypeConfig2Raw = useAtomValue(selectedDataTypeConfig2Atom)
   const dataTypeConfig2 =
-    props.trackerMode === 'comparegeos' ? dataTypeConfig1 : dataTypeConfig2Raw
+    props.trackerMode === 'comparegeos'
+      ? dataTypeConfig1
+      : (dataTypeConfig2Raw ?? METRIC_CONFIG[props.dropdownVarId2]?.[0] ?? null)
 
   const resolvedConfig1 = useMemo(
     () =>
