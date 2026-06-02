@@ -51,17 +51,16 @@ export const urlParamAtom = atomFamily((key: string) =>
   ),
 )
 
+// Flattened once at module level — METRIC_CONFIG is static.
+const ALL_METRIC_CONFIGS = Object.values(METRIC_CONFIG).flat()
+
 // Derived from dt1/dt2 URL params — never manually set.
 // Returns null when the param is absent or the id is not found.
 export const selectedDataTypeConfig1Atom = atom<DataTypeConfig | null>(
   (get) => {
     const dt1 = get(urlParamAtom(DATA_TYPE_1_PARAM))
     if (!dt1) return null
-    return (
-      Object.values(METRIC_CONFIG)
-        .flat()
-        .find((c) => c.dataTypeId === dt1) ?? null
-    )
+    return ALL_METRIC_CONFIGS.find((c) => c.dataTypeId === dt1) ?? null
   },
 )
 
@@ -69,10 +68,6 @@ export const selectedDataTypeConfig2Atom = atom<DataTypeConfig | null>(
   (get) => {
     const dt2 = get(urlParamAtom(DATA_TYPE_2_PARAM))
     if (!dt2) return null
-    return (
-      Object.values(METRIC_CONFIG)
-        .flat()
-        .find((c) => c.dataTypeId === dt2) ?? null
-    )
+    return ALL_METRIC_CONFIGS.find((c) => c.dataTypeId === dt2) ?? null
   },
 )

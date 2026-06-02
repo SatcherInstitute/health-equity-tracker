@@ -25,7 +25,7 @@ export function useParamState<ParamStateType>(
       if (newValue == null || newValue === false || newValue === '') {
         params.delete(paramKey)
       } else {
-        params.set(paramKey, newValue as string)
+        params.set(paramKey, nextValue)
       }
       return { ...prev, searchParams: params }
     })
