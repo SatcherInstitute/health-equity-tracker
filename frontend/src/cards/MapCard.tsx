@@ -1,5 +1,6 @@
 import GridView from '@mui/icons-material/GridView'
-import { useMemo, useState } from 'react'
+import { useSetAtom } from 'jotai'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
 import { createColorScale } from '../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../charts/choroplethMap/index'
@@ -60,6 +61,7 @@ import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import type { MadLibId } from '../utils/MadLibs'
+import { locationAtom } from '../utils/sharedSettingsState'
 import {
   ATLANTA_MODE_PARAM_KEY,
   EXTREMES_1_PARAM_KEY,
@@ -71,7 +73,6 @@ import {
   MAP2_GROUP_PARAM,
   MULTIPLE_MAPS_1_PARAM_KEY,
   MULTIPLE_MAPS_2_PARAM_KEY,
-  setParameter,
 } from '../utils/urlutils'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
@@ -136,6 +137,7 @@ function MapCardWithKey(props: MapCardProps) {
     MULTIMAP_PARAM_KEY,
     false,
   )
+  const setLocationAtom = useSetAtom(locationAtom)
   const MAP_GROUP_PARAM = props.isCompareCard
     ? MAP2_GROUP_PARAM
     : MAP1_GROUP_PARAM
@@ -145,6 +147,21 @@ function MapCardWithKey(props: MapCardProps) {
 
   const [activeDemographicGroup, setActiveDemographicGroup] =
     useState<DemographicGroup>(initialGroup)
+
+  // Reset the selected group when the topic or demographic type changes.
+  // A group valid for one topic may not exist in another.
+  // Skip on initial mount — the group is already correctly set from the URL.
+  const isMountRef = useRef(true)
+  useEffect(() => {
+    if (isMountRef.current) {
+      isMountRef.current = false
+      return
+    }
+    setActiveDemographicGroup(ALL)
+    const params = new URLSearchParams(window.location.search)
+    params.set(MAP_GROUP_PARAM, ALL)
+    window.history.replaceState(null, '', '?' + params.toString())
+  }, [props.dataTypeConfig.dataTypeId, props.demographicType])
 
   const [isAtlantaMode, setIsAtlantaMode] = useParamState<boolean>(
     ATLANTA_MODE_PARAM_KEY,
@@ -464,23 +481,21 @@ function MapCardWithKey(props: MapCardProps) {
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL
 
-        // if a previously selected group is no longer valid, reset to ALL
-        let dropdownValue = ALL
-        if (
-          filterOptions[DEMOGRAPHIC_DISPLAY_TYPES[demographicType]].includes(
-            activeDemographicGroup,
-          )
-        ) {
-          dropdownValue = activeDemographicGroup
-        } else {
-          setActiveDemographicGroup(ALL)
-          setParameter(MAP_GROUP_PARAM, ALL)
-        }
+        // derive current dropdown value; the useEffect above handles the reset
+        const dropdownValue = filterOptions[
+          DEMOGRAPHIC_DISPLAY_TYPES[demographicType]
+        ].includes(activeDemographicGroup)
+          ? activeDemographicGroup
+          : ALL
 
         function handleMapGroupClick(_: any, newGroup: DemographicGroup) {
           setActiveDemographicGroup(newGroup)
           const groupCode = getGroupParamFromDemographicGroup(newGroup)
-          setParameter(MAP_GROUP_PARAM, groupCode)
+          setLocationAtom((prev) => {
+            const next = new URLSearchParams(prev.searchParams)
+            next.set(MAP_GROUP_PARAM, groupCode)
+            return { ...prev, searchParams: next }
+          })
         }
 
         const displayData = isExtremesMode

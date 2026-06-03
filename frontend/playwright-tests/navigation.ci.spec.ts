@@ -200,7 +200,7 @@ test('Data sub-type change produces one history entry; back returns to previous 
   await expect(page).toHaveURL(/dt1=hiv_prevalence/)
 
   // Switch to New diagnoses via the DataTypeSelector popover
-  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('button', { name: 'Prevalence', exact: true }).click()
   await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
   await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
 
@@ -221,7 +221,7 @@ test('Sequential topic and geo changes each produce one history entry', async ({
   )
 
   // State 2: switch sub-type to Deaths
-  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('button', { name: 'Prevalence', exact: true }).click()
   await page.getByRole('menuitem', { name: 'Deaths' }).click()
   await expect(page).toHaveURL(/dt1=hiv_deaths/)
 
@@ -251,7 +251,7 @@ test('Cross-topic navigation: back button traverses all steps including topic sw
   await expect(page).toHaveURL(/dt1=hiv_prevalence/)
 
   // State 2: HIV New diagnoses
-  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('button', { name: 'Prevalence', exact: true }).click()
   await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
   await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
 
@@ -261,13 +261,12 @@ test('Cross-topic navigation: back button traverses all steps including topic sw
   await expect(page).toHaveURL(/dt1=hiv_deaths/)
 
   // State 4: Switch parent topic to HIV (Black Women).
-  // After the topic switch the stale hiv_deaths dt is cleared from the URL
-  // (Fix A) and the DataTypeSelector resets to the first BW option so the
-  // button is no longer empty.
+  // The stale hiv_deaths dt is cleared and replaced with the first BW
+  // data type (hiv_prevalence_black_women) in the same write.
   await page.getByRole('button', { name: 'HIV', exact: true }).click()
   await page.getByRole('menuitem', { name: 'HIV (Black Women)' }).click()
   await expect(page).toHaveURL(/mls=1.hiv_black_women/)
-  await expect(page).not.toHaveURL(/dt1=hiv_deaths/)
+  await expect(page).toHaveURL(/dt1=hiv_prevalence_black_women/)
 
   // State 5: BW New Diagnoses — button now shows first BW option label
   await page
@@ -289,7 +288,7 @@ test('Cross-topic navigation: back button traverses all steps including topic sw
 
   await page.goBack({ waitUntil: 'commit' })
   await expect(page).toHaveURL(/mls=1.hiv_black_women/)
-  await expect(page).not.toHaveURL(/dt1=/)
+  await expect(page).toHaveURL(/dt1=hiv_prevalence_black_women/)
 
   await page.goBack({ waitUntil: 'commit' })
   await expect(page).toHaveURL(/dt1=hiv_deaths/)
@@ -321,5 +320,118 @@ test('Default reset from Compare Topics mode creates one history entry; back ret
   // A double-pushState bug would leave the previous comparevars state unreachable.
   await page.goBack({ waitUntil: 'commit' })
   await expect(page).toHaveURL(/mlp=comparevars/)
+})
+
+test('demo param survives geo change via map click', async ({ page }) => {
+  // Start with HIV national with Age demographic
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence&demo=age',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/demo=age/)
+
+  // Wait for map then click Massachusetts (path:nth-child(46), FIPS 25)
+  const rateMap = page.locator('#rate-map')
+  await expect(rateMap).toBeVisible()
+  await page.locator('path:nth-child(46)').click()
+  await expect(page).toHaveURL(/mls=1.hiv-3.25/)
+
+  // demo=age must survive the geo change — regression: new system was wiping it
+  await expect(page).toHaveURL(/demo=age/)
+})
+
+test('demo param survives sub-type change', async ({ page }) => {
+  // Start with HIV Prevalence at national level with Age demographic
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence&demo=age',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/demo=age/)
+
+  // Switch sub-type to New diagnoses
+  await page.getByRole('button', { name: 'Prevalence', exact: true }).click()
+  await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  // demo=age must survive the sub-type change
+  await expect(page).toHaveURL(/demo=age/)
+})
+
+test('dt1 and demo survive mode change', async ({ page }) => {
+  // Start with HIV Deaths in disparity mode with Age demographic
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_deaths&demo=age',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+  await expect(page).toHaveURL(/demo=age/)
+
+  // Switch to Compare Places mode via the mode selector
+  await page.getByText('Off').nth(1).click()
+  await page.getByRole('option', { name: 'Places' }).click()
+
+  // dt1 and demo must both survive the mode change
+  await expect(page).toHaveURL(/dt1=hiv_deaths/)
+  await expect(page).toHaveURL(/demo=age/)
+  await expect(page).toHaveURL(/mlp=comparegeos/)
+})
+
+test('comparevars without dt2 in URL shows report, not blank', async ({
+  page,
+}) => {
+  // dt2 is absent — CompareReport must fall back to METRIC_CONFIG default, not blank
+  await page.goto(
+    '/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison',
+    { waitUntil: 'domcontentloaded' },
+  )
+
+  // Both map cards must render — the regression caused CompareReport to return </>
+  await expect(page.locator('#rate-map')).toBeVisible()
+  await expect(page.locator('#rate-map2')).toBeVisible()
+})
+
+test('comparevars: each panel tracks its own data type independently', async ({
+  page,
+}) => {
+  // Load Compare Topics with two topics that both have multiple data types.
+  // Left: HIV (dt1=hiv_prevalence), Right: HIV Black Women (dt2=hiv_prevalence_black_women)
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.hiv_black_women-5.00&mlp=comparevars&dt1=hiv_prevalence&dt2=hiv_prevalence_black_women',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page.locator('#rate-map')).toBeVisible()
+  await expect(page.locator('#rate-map2')).toBeVisible()
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+  await expect(page).toHaveURL(/dt2=hiv_prevalence_black_women/)
+
+  // Switch the right panel's sub-type — must update dt2 without touching dt1.
+  // "Prevalence for Black Women" only appears in the right panel, so exact: true
+  // is unambiguous even with the left panel's "Prevalence" button also present.
+  await page
+    .getByRole('button', { name: 'Prevalence for Black Women', exact: true })
+    .click()
+  await page.getByRole('menuitem', { name: 'New Diagnoses for Black Women' }).click()
+
+  await expect(page).toHaveURL(/dt2=hiv_diagnoses_black_women/)
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+  await expect(page).not.toHaveURL(/dt1=hiv_diagnoses/)
+})
+
+test('navigating to a topic writes dt1 explicitly to the URL', async ({
+  page,
+}) => {
+  // Start at the HIV default state (no dt1 in URL — first entry to the topic)
+  await page.goto('/exploredata?mls=1.hiv-3.00&mlp=disparity', {
+    waitUntil: 'domcontentloaded',
+  })
+
+  // Open the DataTypeSelector and pick a sub-type to trigger setMadLibWithParam
+  await page.getByRole('button', { name: 'Prevalence', exact: true }).click()
+  await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  // Back must return to the initial URL (no dt1) — verifies back nav is not stuck
+  await page.goBack({ waitUntil: 'commit' })
+  await expect(page).not.toHaveURL(/dt1=hiv_diagnoses/)
 })
 

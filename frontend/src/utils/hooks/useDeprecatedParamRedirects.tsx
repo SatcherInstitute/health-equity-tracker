@@ -29,31 +29,21 @@ export default function useDeprecatedParamRedirects() {
   const params = useSearchParams()
   const mlsParam = params[MADLIB_SELECTIONS_PARAM]
 
-  // Compute corrected params synchronously so callers render with valid state
-  // from the first frame, before the URL update fires in useLayoutEffect.
-  let correctedMlsParam = ''
-  let isMalformed = false
-
-  if (mlsParam) {
+  useLayoutEffect(() => {
+    if (!mlsParam) return
     const dropdownVarId1 = mlsParam.replace('1.', '').split('-')[0]
+
     if (dropdownIdSwaps[dropdownVarId1]) {
-      correctedMlsParam = mlsParam.replace(
+      const newMlsParam = mlsParam.replace(
         dropdownVarId1,
         dropdownIdSwaps[dropdownVarId1],
       )
-    } else if (!Object.keys(METRIC_CONFIG).includes(dropdownVarId1)) {
-      isMalformed = true
-    }
-  }
-
-  useLayoutEffect(() => {
-    if (correctedMlsParam) {
       setLocation((prev) => {
         const next = new URLSearchParams(prev.searchParams)
-        next.set(MADLIB_SELECTIONS_PARAM, correctedMlsParam)
+        next.set(MADLIB_SELECTIONS_PARAM, newMlsParam)
         return { ...prev, searchParams: next }
       })
-    } else if (isMalformed) {
+    } else if (!Object.keys(METRIC_CONFIG).includes(dropdownVarId1)) {
       setLocation({
         pathname: EXPLORE_DATA_PAGE_LINK,
         searchParams: new URLSearchParams(),
@@ -61,6 +51,5 @@ export default function useDeprecatedParamRedirects() {
     }
   }, [mlsParam, setLocation])
 
-  if (!correctedMlsParam) return params
-  return { ...params, [MADLIB_SELECTIONS_PARAM]: correctedMlsParam }
+  return params
 }
