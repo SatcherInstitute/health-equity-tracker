@@ -391,3 +391,22 @@ test('comparevars without dt2 in URL shows report, not blank', async ({
   await expect(page.locator('#rate-map2')).toBeVisible()
 })
 
+test('navigating to a topic writes dt1 explicitly to the URL', async ({
+  page,
+}) => {
+  // Start at the HIV default state (no dt1 in URL — first entry to the topic)
+  await page.goto('/exploredata?mls=1.hiv-3.00&mlp=disparity', {
+    waitUntil: 'domcontentloaded',
+  })
+
+  // Open the DataTypeSelector and pick a sub-type to trigger setMadLibWithParam
+  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
+  await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
+
+  // Back must return to the previous state which now has dt1 written explicitly
+  await page.goBack({ waitUntil: 'commit' })
+  // dt1 should now be present (written by setMadLibWithParam on first interaction)
+  await expect(page).toHaveURL(/dt1=/)
+})
+

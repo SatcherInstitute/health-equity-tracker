@@ -52,7 +52,8 @@ Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`s
 
 - `setMadLibWithParam` is the single point of truth for all MadLib URL writes. It builds the complete new `URLSearchParams` and calls `setLocationAtom` once (one `pushState`). Never write to the URL separately before or after — that creates duplicate history entries.
 - Pass `dtOverrides: { dt1: newId }` (or `dt2`) when changing data sub-types so the new value is included in the same write.
-- On topic changes (`handleOptionUpdate` with a non-Fips value), pass `dtOverrides: { dt1: '' }` to exclude the stale dt from the URL. The old data type ID does not apply to the new topic.
+- On topic changes (`handleOptionUpdate` with a non-Fips value), pass `dtOverrides: { dt1: '' }` to clear the stale dt. `setMadLibWithParam` will then write the new topic's first data type as the default, keeping `dt1` always present in the URL for topics with multiple data types.
+- `dt1` (and `dt2` in comparevars mode) is always written to the URL when the topic has multiple data types, defaulting to the first config's `dataTypeId` if no explicit value is provided. This prevents the demographic selector from showing options from unrelated topics.
 - `selectedDataTypeConfig1Atom` and `selectedDataTypeConfig2Atom` are **read-only derived atoms** — they derive from `urlParamAtom('dt1')` / `urlParamAtom('dt2')`. Never call their setters directly. Update dt values by writing the URL param via `setMadLibWithParam` with `dtOverrides`.
 - `madLib` in `ExploreDataPage` is a `useMemo` derived from `urlParamAtom('mls')` + `urlParamAtom('mlp')`. It is not owned state — never call `setMadLib`. Back/forward automatically updates the URL atoms which recomputes `madLib`.
 - If you add a new atom that should survive back-navigation, derive it from a `urlParamAtom` rather than wiring up a manual `popstate` handler.

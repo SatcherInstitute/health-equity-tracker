@@ -118,8 +118,18 @@ function ExploreDataPage() {
 
       if (ml.id !== 'disparity') next.set(MAP2_GROUP_PARAM, groupParam2)
       if (demoParam) next.set(DEMOGRAPHIC_PARAM, demoParam)
-      if (var1HasDataTypes && dtParam1) next.set(DATA_TYPE_1_PARAM, dtParam1)
-      if (var2HasDataTypes && dtParam2) next.set(DATA_TYPE_2_PARAM, dtParam2)
+      if (var1HasDataTypes) {
+        const defaultDt1 =
+          METRIC_CONFIG[ml.activeSelections[1] as DropdownVarId]?.[0]
+            ?.dataTypeId ?? ''
+        next.set(DATA_TYPE_1_PARAM, dtParam1 || defaultDt1)
+      }
+      if (var2HasDataTypes) {
+        const defaultDt2 =
+          METRIC_CONFIG[ml.activeSelections[3] as DropdownVarId]?.[0]
+            ?.dataTypeId ?? ''
+        next.set(DATA_TYPE_2_PARAM, dtParam2 || defaultDt2)
+      }
 
       setLocationAtom({ searchParams: next })
     },
