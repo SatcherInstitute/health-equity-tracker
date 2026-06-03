@@ -48,8 +48,8 @@ from there against `origin/main`.
 # Check your remotes — your fork should be listed alongside origin
 git remote -v
 
-# Push a feature branch to your own fork remote (not origin)
-git push <your-fork-remote> <branch-name>
+# Push a feature branch to your fork (sets upstream for subsequent git push/pull)
+git push -u <your-remote-name> <branch-name>
 
 # Open a PR from the GitHub URL printed in the push output, or via gh:
 gh pr create --base main --head <your-github-username>:<branch-name>
