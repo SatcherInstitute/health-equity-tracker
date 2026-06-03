@@ -59,6 +59,7 @@ Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`s
 - `selectedDataTypeConfig1Atom` and `selectedDataTypeConfig2Atom` are **read-only derived atoms** — they derive from `urlParamAtom('dt1')` / `urlParamAtom('dt2')`. Never call their setters directly. Update dt values by writing the URL param via `setMadLibWithParam` with `dtOverrides`.
 - `madLib` in `ExploreDataPage` is a `useMemo` derived from `urlParamAtom('mls')` + `urlParamAtom('mlp')`. It is not owned state — never call `setMadLib`. Back/forward automatically updates the URL atoms which recomputes `madLib`.
 - If you add a new atom that should survive back-navigation, derive it from a `urlParamAtom` rather than wiring up a manual `popstate` handler.
+- Derive UI flags directly from URL atoms rather than seeding `useState` with a derived value. `useState(derivedValue)` only captures the value at mount; the flag won't react to URL changes unless the component remounts. Example: `activelyOnboarding` is `onboardParam === 'true' && location.hash === ''`, not a `useState` copy of it.
 
 ## Adding a New Frontend Feature (health topic)
 
