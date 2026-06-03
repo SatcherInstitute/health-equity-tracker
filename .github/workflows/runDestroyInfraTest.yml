@@ -139,7 +139,7 @@ jobs:
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
         # Disable wrapper to enable access to terraform output.
         with:
           terraform_wrapper: false
