@@ -127,7 +127,40 @@ git push $FORK_REMOTE HEAD
 
 ---
 
-## Step 5 — Update the PR title and description
+## Step 5 — Audit the test plan
+
+Read the current PR body (already fetched in Step 1). Extract all `- [ ]` and `- [x]` items under the Test plan section.
+
+For each item, evaluate:
+
+**Can it be checked off automatically?**
+- Items about TypeScript passing, unit tests passing, or linting/formatting — these were verified in Step 2. Check them off: `- [ ]` → `- [x]`.
+- Items about E2E tests that ran as part of CI and passed — check them off if you can confirm from the run log.
+- Items about code changes being in place (e.g. "modal closes on mode change") — verify by reading the diff, not by guessing.
+
+**Is it missing something?**
+Compare the checklist against the full diff:
+
+```bash
+git diff origin/main --name-only
+git diff origin/main -- frontend/src/
+```
+
+Ask: does the test plan cover the main behavior change, the edge cases, and any regression risk introduced? Add specific missing items. Manual browser test steps should describe the exact interaction, not vague phrases like "test the feature."
+
+**Is it stale or wrong?**
+If an item refers to code that was removed or refactored, remove or rewrite it.
+
+Produce an updated test plan with:
+- `- [x]` for items that are provably done
+- `- [ ]` for items that still require manual verification
+- Any new items added for gaps
+
+Carry this updated test plan into Step 6 when rewriting the PR body.
+
+---
+
+## Step 6 — Update the PR title and description
 
 Get the full diff to understand what actually changed:
 
@@ -139,7 +172,7 @@ git diff origin/main -- frontend/src/
 Rewrite the PR title (under 70 chars) and body to accurately describe:
 - **What changed** (the specific files and behavior)
 - **Why** (the root cause or motivation)
-- **Test plan** as a bulleted checklist
+- **Test plan** using the audited checklist from Step 5 — do not regenerate from scratch, use the checked/unchecked items produced there
 
 Use this body template:
 
@@ -156,8 +189,8 @@ Use this body template:
 
 ## Test plan
 
-- [ ] <manual test step>
-- [ ] <E2E test or unit test that covers this>
+- [x] <already verified item>
+- [ ] <manual test step still needed>
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
