@@ -41,7 +41,9 @@ Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`s
 
 | Params | Written via | Read via |
 |---|---|---|
-| `mls`, `dt1`, `dt2`, `group1`, `group2`, `mlp` | `setLocationAtom({ searchParams })` → jotai-location → `history.pushState` | `urlParamAtom(key)` |
+| `mls`, `dt1`, `dt2`, `mlp` | `setLocationAtom({ searchParams })` → jotai-location → `history.pushState` | `urlParamAtom(key)` |
+| `group1`, `group2` (user selection) | `setLocationAtom({ searchParams })` → jotai-location → `history.pushState` | `urlParamAtom(key)` |
+| `group1`, `group2` (auto-reset on topic/demo change) | `window.history.replaceState` directly — avoids adding a history entry | `getParameter` on MapCard init |
 | `demo`, `topic-info`, `multiple-maps`, `chlp-maps`, `vote-dot-org`, `report-insight`, `atl`, `extremes` | `useParamState` → `setLocationAtom` | `urlParamAtom(key)` |
 
 `jotai-location` owns `locationAtom` and handles `popstate` automatically — back/forward navigation keeps all atoms in sync with no manual handlers.
