@@ -66,19 +66,17 @@ Do not copy the reviewer's proposed solution verbatim. Read the surrounding code
 
 Then act:
 
-- **Address it**: implement the fix your way, commit, push:
+- **Address it**: implement the fix your way, commit, and push:
   ```bash
   git add <files>
   git commit -m "address review: <short description>"
   git push ben HEAD
   ```
-- **Decline it**: reply explaining why the concern doesn't apply or why the change would be worse.
-
-Reply to each comment to close the loop:
-```bash
-gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments/<comment_id>/replies \
-  -f body="<your response>"
-```
+  Then resolve the thread via GraphQL (requires the thread `node_id` from the comment object):
+  ```bash
+  gh api graphql -f query='mutation { resolveReviewThread(input: {threadId: "<node_id>"}) { thread { isResolved } } }'
+  ```
+- **Decline it**: leave the thread open for the human reviewer to dismiss.
 
 If there are no unresolved reviews or comments, note that and continue.
 
