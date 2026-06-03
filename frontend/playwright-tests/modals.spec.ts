@@ -34,9 +34,11 @@ test('Topic Info Modal from Map Legend', async ({ page }) => {
   const rateMap = page.locator('#rate-map')
   await rateMap.scrollIntoViewIfNeeded()
 
-  await rateMap
-    .getByRole('button', { name: 'Click for more info on uninsured people' })
-    .click()
+  const legendButton = rateMap.getByRole('button', {
+    name: 'Click for more info on uninsured people',
+  })
+  await expect(legendButton).toBeVisible()
+  await legendButton.click()
 
   await expect(page.getByRole('dialog')).toBeVisible()
   await expect

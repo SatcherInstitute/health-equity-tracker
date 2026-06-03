@@ -1,12 +1,10 @@
-import { useNavigate } from 'react-router'
+import { useSetAtom } from 'jotai'
+import { useLayoutEffect } from 'react'
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import type { DataTypeId } from '../../data/config/MetricConfigTypes'
 import { EXPLORE_DATA_PAGE_LINK } from '../internalRoutes'
-import {
-  EXTREMES_1_PARAM_KEY,
-  MADLIB_SELECTIONS_PARAM,
-  useSearchParams,
-} from '../urlutils'
+import { locationAtom } from '../sharedSettingsState'
+import { MADLIB_SELECTIONS_PARAM, useSearchParams } from '../urlutils'
 
 // Ensures backwards compatibility for external links to old DataTypeIds
 // NOTE: these redirects will lose any incoming demographic, data type, and card hash settings
@@ -27,32 +25,42 @@ const dropdownIdSwaps: Record<string, DataTypeId> = {
 }
 
 export default function useDeprecatedParamRedirects() {
-  const navigate = useNavigate()
+  const setLocation = useSetAtom(locationAtom)
   const params = useSearchParams()
   const mlsParam = params[MADLIB_SELECTIONS_PARAM]
-  const extremesParam = params[EXTREMES_1_PARAM_KEY]
+
+  // Compute corrected params synchronously so callers render with valid state
+  // from the first frame, before the URL update fires in useLayoutEffect.
+  let correctedMlsParam = ''
+  let isMalformed = false
 
   if (mlsParam) {
-    // isolate the id from the param string
     const dropdownVarId1 = mlsParam.replace('1.', '').split('-')[0]
-
-    // first check for specific deprecated ids and redirect
     if (dropdownIdSwaps[dropdownVarId1]) {
-      const newMlsParam = mlsParam.replace(
+      correctedMlsParam = mlsParam.replace(
         dropdownVarId1,
         dropdownIdSwaps[dropdownVarId1],
       )
-      navigate(
-        `${EXPLORE_DATA_PAGE_LINK}?${MADLIB_SELECTIONS_PARAM}=${newMlsParam}${extremesParam ? `&${extremesParam}` : ''}`,
-      )
-    } else if (
-      // otherwise handle other malformed ids in param and redirect to helper box
-      !Object.keys(METRIC_CONFIG).includes(dropdownVarId1)
-    ) {
-      navigate(`${EXPLORE_DATA_PAGE_LINK}`)
+    } else if (!Object.keys(METRIC_CONFIG).includes(dropdownVarId1)) {
+      isMalformed = true
     }
   }
 
-  // if there is no MLS param or the id is valid, continue as normal
-  return params
+  useLayoutEffect(() => {
+    if (correctedMlsParam) {
+      setLocation((prev) => {
+        const next = new URLSearchParams(prev.searchParams)
+        next.set(MADLIB_SELECTIONS_PARAM, correctedMlsParam)
+        return { ...prev, searchParams: next }
+      })
+    } else if (isMalformed) {
+      setLocation({
+        pathname: EXPLORE_DATA_PAGE_LINK,
+        searchParams: new URLSearchParams(),
+      })
+    }
+  }, [mlsParam, setLocation])
+
+  if (!correctedMlsParam) return params
+  return { ...params, [MADLIB_SELECTIONS_PARAM]: correctedMlsParam }
 }
