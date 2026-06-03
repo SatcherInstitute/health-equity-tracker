@@ -390,6 +390,33 @@ test('comparevars without dt2 in URL shows report, not blank', async ({
   await expect(page.locator('#rate-map2')).toBeVisible()
 })
 
+test('comparevars: each panel tracks its own data type independently', async ({
+  page,
+}) => {
+  // Load Compare Topics with two topics that both have multiple data types.
+  // Left: HIV (dt1=hiv_prevalence), Right: HIV Black Women (dt2=hiv_prevalence_black_women)
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.hiv_black_women-5.00&mlp=comparevars&dt1=hiv_prevalence&dt2=hiv_prevalence_black_women',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(page.locator('#rate-map')).toBeVisible()
+  await expect(page.locator('#rate-map2')).toBeVisible()
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+  await expect(page).toHaveURL(/dt2=hiv_prevalence_black_women/)
+
+  // Switch the right panel's sub-type — must update dt2 without touching dt1.
+  // "Prevalence for Black Women" only appears in the right panel, so exact: true
+  // is unambiguous even with the left panel's "Prevalence" button also present.
+  await page
+    .getByRole('button', { name: 'Prevalence for Black Women', exact: true })
+    .click()
+  await page.getByRole('menuitem', { name: 'New Diagnoses for Black Women' }).click()
+
+  await expect(page).toHaveURL(/dt2=hiv_diagnoses_black_women/)
+  await expect(page).toHaveURL(/dt1=hiv_prevalence/)
+  await expect(page).not.toHaveURL(/dt1=hiv_diagnoses/)
+})
+
 test('navigating to a topic writes dt1 explicitly to the URL', async ({
   page,
 }) => {
