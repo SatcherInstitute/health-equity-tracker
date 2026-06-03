@@ -136,14 +136,10 @@ function ExploreDataPage() {
     [setLocationAtom],
   )
 
-  const showOnboarding =
-    noTopicChosen && onboardParam === 'true' && location.hash === ''
+  const activelyOnboarding = onboardParam === 'true' && location.hash === ''
 
-  const [activelyOnboarding, setActivelyOnboarding] =
-    useState<boolean>(showOnboarding)
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
-      setActivelyOnboarding(false)
       setLocationAtom((prev) => {
         const next = new URLSearchParams(prev.searchParams)
         next.set(SHOW_ONBOARDING_PARAM, 'false')
