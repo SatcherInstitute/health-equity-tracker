@@ -136,8 +136,7 @@ function ExploreDataPage() {
     [setLocationAtom],
   )
 
-  const showOnboarding =
-    noTopicChosen && onboardParam === 'true' && location.hash === ''
+  const showOnboarding = onboardParam === 'true' && location.hash === ''
 
   const [activelyOnboarding, setActivelyOnboarding] =
     useState<boolean>(showOnboarding)
