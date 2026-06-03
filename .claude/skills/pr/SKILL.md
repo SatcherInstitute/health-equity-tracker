@@ -41,7 +41,7 @@ If any check fails: report the failure with the full error, fix it, re-run, and 
 
 ---
 
-## Step 3 — Address code review feedback
+## Step 3 — Evaluate and address code review feedback
 
 Fetch all reviews and inline comments on the PR:
 
@@ -50,24 +50,35 @@ gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/reviews \
   --jq '[.[] | {user: .user.login, state: .state, body: .body}]'
 
 gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments \
-  --jq '[.[] | {user: .user.login, path: .path, line: .line, body: .body}]'
+  --jq '[.[] | {user: .user.login, path: .path, line: .line, body: .body, id: .id}]'
 ```
 
-For each review or inline comment that is not purely informational:
+For each review or inline comment, work through three questions before touching any code:
 
-1. **Read the concern** — understand what the reviewer is asking.
-2. **Decide**: address it, push back with a reason, or mark it as won't-fix with an explanation.
-3. **If addressing**: make the code change, then commit and push:
-   ```bash
-   git add <files>
-   git commit -m "address review: <short description>"
-   git push ben main
-   ```
-4. **Reply to the comment** on GitHub to close the loop:
-   ```bash
-   gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments/<comment_id>/replies \
-     -f body="<your response>"
-   ```
+**1. Is the concern actually valid?**
+Read the flagged code in context. Check whether the reviewer's premise is correct — automated reviewers (Gemini, CodeRabbit, etc.) frequently misread control flow, miss surrounding context, or flag patterns that are intentional. If the concern is based on a misunderstanding, it is not valid regardless of who raised it.
+
+**2. Is it worth addressing?**
+A valid concern still may not warrant a change. Consider: is this a real bug or a hypothetical edge case that can't happen? Does it conflict with an existing project convention? Is the suggested change more complex than the problem it solves? Cosmetic style suggestions that contradict the project's existing patterns are generally not worth addressing.
+
+**3. If worth addressing — what is the right fix for *this* codebase?**
+Do not copy the reviewer's proposed solution verbatim. Read the surrounding code, check how similar patterns are handled elsewhere in the project, and implement the fix in a way that matches the codebase's conventions. The reviewer's suggestion is a starting point for understanding the problem, not a diff to apply.
+
+Then act:
+
+- **Address it**: implement the fix your way, commit, push:
+  ```bash
+  git add <files>
+  git commit -m "address review: <short description>"
+  git push ben main
+  ```
+- **Decline it**: reply explaining why the concern doesn't apply or why the change would be worse.
+
+Reply to each comment to close the loop:
+```bash
+gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments/<comment_id>/replies \
+  -f body="<your response>"
+```
 
 If there are no unresolved reviews or comments, note that and continue.
 
