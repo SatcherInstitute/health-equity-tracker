@@ -75,7 +75,7 @@ export const justiceResources = [
 
 export const mentalHealthResources = [
   {
-    title: 'NAMI Atlanta/Auburn',
+    title: 'NAMI Georgia',
     description: (
       <>
         Offers resources, support, and education on mental health, helping to
@@ -83,7 +83,7 @@ export const mentalHealthResources = [
         community.
       </>
     ),
-    link: 'https://namiatlantaauburn.org/',
+    link: 'https://namigeorgia.org/',
   },
   {
     title: 'CHRIS 180',
