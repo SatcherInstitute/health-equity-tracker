@@ -37,6 +37,33 @@ git push origin HEAD:infra-test -f
 
 Then run the relevant DAG workflow from GitHub Actions against the test project.
 
+## Git Workflow
+
+This repo uses a **fork-based PR model**. `origin` points to the upstream
+`SatcherInstitute/health-equity-tracker`. Each contributor has their own fork
+added as a personal remote. Push feature branches to your fork, then open a PR
+from there against `origin/main`.
+
+```bash
+# Check your remotes — your fork should be listed alongside origin
+git remote -v
+
+# Push a feature branch to your fork (sets upstream for subsequent git push/pull)
+git push -u <your-remote-name> <branch-name>
+
+# Open a PR from the GitHub URL printed in the push output, or via gh:
+gh pr create --base main --head <your-github-username>:<branch-name>
+```
+
+**Never push feature branches directly to `origin`** (`SatcherInstitute`). The one
+exception is the shared backend test branch:
+
+```bash
+git push origin HEAD:infra-test -f   # backend GCP deploy only
+```
+
+See `README.md` for full fork setup steps including how to add your fork as a remote.
+
 ## Commands
 
 Frontend commands run from `frontend/` — see `frontend/CLAUDE.md`.
