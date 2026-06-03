@@ -158,11 +158,9 @@ function MapCardWithKey(props: MapCardProps) {
       return
     }
     setActiveDemographicGroup(ALL)
-    setLocationAtom((prev) => {
-      const next = new URLSearchParams(prev.searchParams)
-      next.set(MAP_GROUP_PARAM, ALL)
-      return { ...prev, searchParams: next }
-    })
+    const params = new URLSearchParams(window.location.search)
+    params.set(MAP_GROUP_PARAM, ALL)
+    window.history.replaceState(null, '', '?' + params.toString())
   }, [props.dataTypeConfig.dataTypeId, props.demographicType])
 
   const [isAtlantaMode, setIsAtlantaMode] = useParamState<boolean>(
