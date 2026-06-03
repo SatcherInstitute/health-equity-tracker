@@ -125,7 +125,8 @@ export function configsContainsMatchingId(
   bothNeedToMatch?: boolean,
 ) {
   return bothNeedToMatch
-    ? configs.every((config) => ids.includes(config.dataTypeId))
+    ? configs.length > 0 &&
+        configs.every((config) => ids.includes(config.dataTypeId))
     : configs.some((config) => ids.includes(config.dataTypeId))
 }
 
