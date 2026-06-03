@@ -11,13 +11,26 @@ The user may pass a PR number as an argument (e.g. `/pr 4764`). If none is given
 
 ---
 
-## Step 1 — Identify the PR
+## Step 1 — Identify the PR and derive context
 
 ```bash
 gh pr view --json number,title,body,headRefName,baseRefName
 ```
 
 If no open PR is found: print an error and stop.
+
+Then derive two variables used throughout the remaining steps:
+
+```bash
+# Upstream repo (e.g. SatcherInstitute/health-equity-tracker)
+REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+
+# Personal fork remote — the remote whose URL contains the current GitHub user's login
+GH_USER=$(gh api user -q .login)
+FORK_REMOTE=$(git remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
+```
+
+If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fork remote with `git remote -v`, then continue using that name.
 
 ---
 
@@ -46,10 +59,10 @@ If any check fails: report the failure with the full error, fix it, re-run, and 
 Fetch all reviews and inline comments on the PR:
 
 ```bash
-gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/reviews \
+gh api repos/$REPO/pulls/<number>/reviews \
   --jq '[.[] | {user: .user.login, state: .state, body: .body}]'
 
-gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments \
+gh api repos/$REPO/pulls/<number>/comments \
   --jq '[.[] | {user: .user.login, path: .path, line: .line, body: .body, id: .id}]'
 ```
 
@@ -70,11 +83,11 @@ Then act:
   ```bash
   git add <files>
   git commit -m "address review: <short description>"
-  git push ben HEAD
+  git push $FORK_REMOTE HEAD
   ```
   Reply with one short sentence — what you did and why, nothing more:
   ```bash
-  gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments/<comment_id>/replies \
+  gh api repos/$REPO/pulls/<number>/comments/<comment_id>/replies \
     -f body="Fixed — <one line>."
   ```
   Then resolve the thread via GraphQL (requires the thread `node_id` from the comment object):
@@ -83,7 +96,7 @@ Then act:
   ```
 - **Decline it**: reply with one sentence explaining why, then leave the thread open:
   ```bash
-  gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments/<comment_id>/replies \
+  gh api repos/$REPO/pulls/<number>/comments/<comment_id>/replies \
     -f body="Not changing — <one line reason>."
   ```
 
@@ -109,7 +122,7 @@ If updates are needed: edit the relevant docs, then commit:
 ```bash
 git add frontend/CLAUDE.md CLAUDE.md README.md   # only files actually changed
 git commit -m "docs: update CLAUDE.md to reflect <what changed>"
-git push ben main
+git push $FORK_REMOTE HEAD
 ```
 
 ---
@@ -161,6 +174,6 @@ Print the updated PR URL when done.
 
 ## Notes
 
-- Never push directly to `origin` (SatcherInstitute). Always push to `ben` (personal fork).
+- Never push directly to `origin` (SatcherInstitute). Always push to `$FORK_REMOTE` (your personal fork).
 - All test failures must be fixed before proceeding — do not skip or suppress them.
 - Doc updates should reflect durable invariants, not ephemeral task details.
