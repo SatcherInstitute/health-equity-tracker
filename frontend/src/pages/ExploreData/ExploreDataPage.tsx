@@ -9,7 +9,6 @@ import {
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
-import { ALL } from '../../data/utils/Constants'
 import ReportProvider from '../../reports/ReportProvider'
 import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert'
 import { srSpeak } from '../../utils/a11yutils'
@@ -28,10 +27,8 @@ import { locationAtom, urlParamAtom } from '../../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
-  DEMOGRAPHIC_PARAM,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
-  MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
   parseMls,
   SHOW_ONBOARDING_PARAM,
@@ -98,37 +95,40 @@ function ExploreDataPage() {
         isDropdownVarId(ml.activeSelections[3]) &&
         METRIC_CONFIG[ml.activeSelections[3]]?.length > 1
 
-      const current = new URLSearchParams(window.location.search)
-      const groupParam1 = current.get(MAP1_GROUP_PARAM) ?? ALL
-      const groupParam2 = current.get(MAP2_GROUP_PARAM) ?? ALL
-      const demoParam = current.get(DEMOGRAPHIC_PARAM)
+      // Preserve all existing params (extremes, atl, onboard, etc.),
+      // then only set or delete what actually changes.
+      const next = new URLSearchParams(window.location.search)
+
       const dtParam1 =
         dtOverrides?.dt1 !== undefined
           ? dtOverrides.dt1
-          : (current.get(DATA_TYPE_1_PARAM) ?? '')
+          : (next.get(DATA_TYPE_1_PARAM) ?? '')
       const dtParam2 =
         dtOverrides?.dt2 !== undefined
           ? dtOverrides.dt2
-          : (current.get(DATA_TYPE_2_PARAM) ?? '')
+          : (next.get(DATA_TYPE_2_PARAM) ?? '')
 
-      const next = new URLSearchParams()
       next.set(MADLIB_SELECTIONS_PARAM, stringifyMls(ml.activeSelections))
       next.set(MADLIB_PHRASE_PARAM, ml.id)
-      next.set(MAP1_GROUP_PARAM, groupParam1)
 
-      if (ml.id !== 'disparity') next.set(MAP2_GROUP_PARAM, groupParam2)
-      if (demoParam) next.set(DEMOGRAPHIC_PARAM, demoParam)
+      if (ml.id === 'disparity') next.delete(MAP2_GROUP_PARAM)
+
       if (var1HasDataTypes) {
         const defaultDt1 =
           METRIC_CONFIG[ml.activeSelections[1] as DropdownVarId]?.[0]
             ?.dataTypeId ?? ''
         next.set(DATA_TYPE_1_PARAM, dtParam1 || defaultDt1)
+      } else {
+        next.delete(DATA_TYPE_1_PARAM)
       }
+
       if (var2HasDataTypes) {
         const defaultDt2 =
           METRIC_CONFIG[ml.activeSelections[3] as DropdownVarId]?.[0]
             ?.dataTypeId ?? ''
         next.set(DATA_TYPE_2_PARAM, dtParam2 || defaultDt2)
+      } else {
+        next.delete(DATA_TYPE_2_PARAM)
       }
 
       setLocationAtom({ searchParams: next })
@@ -190,19 +190,17 @@ function ExploreDataPage() {
           ? { 1: var1, 3: var2, 5: geo1 }
           : { 1: var1, 3: geo1 }
 
-    const current = new URLSearchParams(window.location.search)
-    const demoParam = current.get(DEMOGRAPHIC_PARAM)
-    const group1Param = current.get(MAP1_GROUP_PARAM) ?? ALL
-    const dt1Param = current.get(DATA_TYPE_1_PARAM)
     const var1HasDataTypes =
       isDropdownVarId(var1) && METRIC_CONFIG[var1]?.length > 1
 
-    const next = new URLSearchParams()
+    // Preserve all existing params (extremes, atl, group1, demo, etc.),
+    // then only set or delete what actually changes with the mode switch.
+    const next = new URLSearchParams(window.location.search)
     next.set(MADLIB_SELECTIONS_PARAM, stringifyMls(updatedSelections))
     next.set(MADLIB_PHRASE_PARAM, mode)
-    next.set(MAP1_GROUP_PARAM, group1Param)
-    if (demoParam) next.set(DEMOGRAPHIC_PARAM, demoParam)
-    if (var1HasDataTypes && dt1Param) next.set(DATA_TYPE_1_PARAM, dt1Param)
+    if (mode === 'disparity') next.delete(MAP2_GROUP_PARAM)
+    next.delete(DATA_TYPE_2_PARAM)
+    if (!var1HasDataTypes) next.delete(DATA_TYPE_1_PARAM)
 
     setLocationAtom({ searchParams: next })
     location.hash = ''

@@ -1,6 +1,6 @@
 import GridView from '@mui/icons-material/GridView'
 import { useSetAtom } from 'jotai'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
 import { createColorScale } from '../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../charts/choroplethMap/index'
@@ -147,6 +147,23 @@ function MapCardWithKey(props: MapCardProps) {
 
   const [activeDemographicGroup, setActiveDemographicGroup] =
     useState<DemographicGroup>(initialGroup)
+
+  // Reset the selected group when the topic or demographic type changes.
+  // A group valid for one topic may not exist in another.
+  // Skip on initial mount — the group is already correctly set from the URL.
+  const isMountRef = useRef(true)
+  useEffect(() => {
+    if (isMountRef.current) {
+      isMountRef.current = false
+      return
+    }
+    setActiveDemographicGroup(ALL)
+    setLocationAtom((prev) => {
+      const next = new URLSearchParams(prev.searchParams)
+      next.set(MAP_GROUP_PARAM, ALL)
+      return { ...prev, searchParams: next }
+    })
+  }, [props.dataTypeConfig.dataTypeId, props.demographicType])
 
   const [isAtlantaMode, setIsAtlantaMode] = useParamState<boolean>(
     ATLANTA_MODE_PARAM_KEY,
@@ -466,22 +483,12 @@ function MapCardWithKey(props: MapCardProps) {
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL
 
-        // if a previously selected group is no longer valid, reset to ALL
-        let dropdownValue = ALL
-        if (
-          filterOptions[DEMOGRAPHIC_DISPLAY_TYPES[demographicType]].includes(
-            activeDemographicGroup,
-          )
-        ) {
-          dropdownValue = activeDemographicGroup
-        } else {
-          setActiveDemographicGroup(ALL)
-          setLocationAtom((prev) => {
-            const next = new URLSearchParams(prev.searchParams)
-            next.set(MAP_GROUP_PARAM, ALL)
-            return { ...prev, searchParams: next }
-          })
-        }
+        // derive current dropdown value; the useEffect above handles the reset
+        const dropdownValue = filterOptions[
+          DEMOGRAPHIC_DISPLAY_TYPES[demographicType]
+        ].includes(activeDemographicGroup)
+          ? activeDemographicGroup
+          : ALL
 
         function handleMapGroupClick(_: any, newGroup: DemographicGroup) {
           setActiveDemographicGroup(newGroup)

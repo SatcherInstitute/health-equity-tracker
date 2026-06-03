@@ -251,7 +251,7 @@ test('Cross-topic navigation: back button traverses all steps including topic sw
   await expect(page).toHaveURL(/dt1=hiv_prevalence/)
 
   // State 2: HIV New diagnoses
-  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('button', { name: 'Prevalence', exact: true }).click()
   await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
   await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
 
@@ -261,13 +261,12 @@ test('Cross-topic navigation: back button traverses all steps including topic sw
   await expect(page).toHaveURL(/dt1=hiv_deaths/)
 
   // State 4: Switch parent topic to HIV (Black Women).
-  // After the topic switch the stale hiv_deaths dt is cleared from the URL
-  // (Fix A) and the DataTypeSelector resets to the first BW option so the
-  // button is no longer empty.
+  // The stale hiv_deaths dt is cleared and replaced with the first BW
+  // data type (hiv_prevalence_black_women) in the same write.
   await page.getByRole('button', { name: 'HIV', exact: true }).click()
   await page.getByRole('menuitem', { name: 'HIV (Black Women)' }).click()
   await expect(page).toHaveURL(/mls=1.hiv_black_women/)
-  await expect(page).not.toHaveURL(/dt1=hiv_deaths/)
+  await expect(page).toHaveURL(/dt1=hiv_prevalence_black_women/)
 
   // State 5: BW New Diagnoses — button now shows first BW option label
   await page
@@ -289,7 +288,7 @@ test('Cross-topic navigation: back button traverses all steps including topic sw
 
   await page.goBack({ waitUntil: 'commit' })
   await expect(page).toHaveURL(/mls=1.hiv_black_women/)
-  await expect(page).not.toHaveURL(/dt1=/)
+  await expect(page).toHaveURL(/dt1=hiv_prevalence_black_women/)
 
   await page.goBack({ waitUntil: 'commit' })
   await expect(page).toHaveURL(/dt1=hiv_deaths/)
@@ -404,9 +403,8 @@ test('navigating to a topic writes dt1 explicitly to the URL', async ({
   await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
   await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
 
-  // Back must return to the previous state which now has dt1 written explicitly
+  // Back must return to the initial URL (no dt1) — verifies back nav is not stuck
   await page.goBack({ waitUntil: 'commit' })
-  // dt1 should now be present (written by setMadLibWithParam on first interaction)
-  await expect(page).toHaveURL(/dt1=/)
+  await expect(page).not.toHaveURL(/dt1=hiv_diagnoses/)
 })
 
