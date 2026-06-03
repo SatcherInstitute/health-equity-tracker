@@ -1,13 +1,13 @@
 ---
-name: force-merge
-description: Force-merge an open PR to main (bypassing review requirements), delete the local branch, pull the updated main, and push it to the ben remote (personal fork). Use when the user wants to close out a PR without waiting for review, or run /force-merge.
+name: merge
+description: Force-merge an open PR to main (bypassing review requirements), delete the local branch, pull the updated main, and push it to the ben remote (personal fork). Use when the user wants to close out a PR without waiting for review, or run /merge.
 ---
 
-# /force-merge
+# /merge
 
 Force-merge a PR, sync local main, and push to the personal fork.
 
-The user may pass a PR number as an argument (e.g. `/force-merge 4764`). If none is given, detect the open PR from the current branch.
+The user may pass a PR number as an argument (e.g. `/merge 4764`). If none is given, detect the open PR from the current branch.
 
 ---
 

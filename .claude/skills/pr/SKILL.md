@@ -1,13 +1,13 @@
 ---
-name: pr-ready
-description: Run all frontend checks, update CLAUDE.md and README docs as needed, then update the open PR's title and description to accurately reflect the changes. Use when the user wants to close out a PR, verify it's ready for review, or run /pr-ready.
+name: pr
+description: Run all frontend checks, update CLAUDE.md and README docs as needed, then update the open PR's title and description to accurately reflect the changes. Use when the user wants to close out a PR, verify it's ready for review, or run /pr.
 ---
 
-# /pr-ready
+# /pr
 
 Run all checks, update docs, and polish the open PR so it's ready for human review.
 
-The user may pass a PR number as an argument (e.g. `/pr-ready 4764`). If none is given, detect the open PR from the current branch.
+The user may pass a PR number as an argument (e.g. `/pr 4764`). If none is given, detect the open PR from the current branch.
 
 ---
 
