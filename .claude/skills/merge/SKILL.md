@@ -1,6 +1,6 @@
 ---
 name: merge
-description: Force-merge an open PR to main (bypassing review requirements), delete the local branch, pull the updated main, and push it to the ben remote (personal fork). Use when the user wants to close out a PR without waiting for review, or run /merge.
+description: Force-merge an open PR to main (bypassing review requirements), delete the local branch, pull the updated main, and push it to the personal fork remote. Use when the user wants to close out a PR without waiting for review, or run /merge.
 ---
 
 # /merge
@@ -11,7 +11,7 @@ The user may pass a PR number as an argument (e.g. `/merge 4764`). If none is gi
 
 ---
 
-## Step 1 — Identify the PR
+## Step 1 — Identify the PR and derive fork remote
 
 ```bash
 gh pr view [<number>] --json number,title,headRefName,baseRefName,state
@@ -22,6 +22,15 @@ Confirm:
 - `baseRefName` is `main`
 
 If the PR is already merged or closed: print a message and stop.
+
+Derive the personal fork remote:
+
+```bash
+GH_USER=$(gh api user -q .login)
+FORK_REMOTE=$(git remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
+```
+
+If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fork remote with `git remote -v`.
 
 Print the PR title and number, then ask the user to confirm before merging:
 > "About to force-merge PR #<number>: '<title>'. Confirm? (yes/no)"
@@ -87,17 +96,17 @@ After a squash merge, local main always diverges (N commits become 1 on origin),
 ## Step 5 — Push main to personal fork
 
 ```bash
-git push ben main --force
+git push $FORK_REMOTE main --force
 ```
 
-Force-push is required after a squash merge because `ben/main` still has the pre-squash commits.
+Force-push is required after a squash merge because the fork's main still has the pre-squash commits.
 
 ---
 
 ## Step 6 — Confirm
 
 Print a summary:
-> "Merged PR #<number>. Local main is up to date with origin/main and pushed to ben/main."
+> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main."
 
 ---
 
