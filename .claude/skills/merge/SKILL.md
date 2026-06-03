@@ -77,18 +77,20 @@ git branch -D <headRefName>
 
 ```bash
 git fetch origin main
-git merge origin/main --ff-only
+git reset --hard origin/main
 ```
 
-If `--ff-only` fails (shouldn't happen after a clean merge): print the error and stop. Do not force-reset main.
+After a squash merge, local main always diverges (N commits become 1 on origin), so `--ff-only` will always fail. `reset --hard` is correct and safe here — local commits are already represented in the squash on origin.
 
 ---
 
 ## Step 5 — Push main to personal fork
 
 ```bash
-git push ben main
+git push ben main --force
 ```
+
+Force-push is required after a squash merge because `ben/main` still has the pre-squash commits.
 
 ---
 
