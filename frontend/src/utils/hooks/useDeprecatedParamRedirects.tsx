@@ -29,21 +29,31 @@ export default function useDeprecatedParamRedirects() {
   const params = useSearchParams()
   const mlsParam = params[MADLIB_SELECTIONS_PARAM]
 
-  useLayoutEffect(() => {
-    if (!mlsParam) return
-    const dropdownVarId1 = mlsParam.replace('1.', '').split('-')[0]
+  // Compute corrected params synchronously so callers render with valid state
+  // from the first frame, before the URL update fires in useLayoutEffect.
+  let correctedMlsParam = ''
+  let isMalformed = false
 
+  if (mlsParam) {
+    const dropdownVarId1 = mlsParam.replace('1.', '').split('-')[0]
     if (dropdownIdSwaps[dropdownVarId1]) {
-      const newMlsParam = mlsParam.replace(
+      correctedMlsParam = mlsParam.replace(
         dropdownVarId1,
         dropdownIdSwaps[dropdownVarId1],
       )
+    } else if (!Object.keys(METRIC_CONFIG).includes(dropdownVarId1)) {
+      isMalformed = true
+    }
+  }
+
+  useLayoutEffect(() => {
+    if (correctedMlsParam) {
       setLocation((prev) => {
         const next = new URLSearchParams(prev.searchParams)
-        next.set(MADLIB_SELECTIONS_PARAM, newMlsParam)
+        next.set(MADLIB_SELECTIONS_PARAM, correctedMlsParam)
         return { ...prev, searchParams: next }
       })
-    } else if (!Object.keys(METRIC_CONFIG).includes(dropdownVarId1)) {
+    } else if (isMalformed) {
       setLocation({
         pathname: EXPLORE_DATA_PAGE_LINK,
         searchParams: new URLSearchParams(),
@@ -51,5 +61,6 @@ export default function useDeprecatedParamRedirects() {
     }
   }, [mlsParam, setLocation])
 
-  return params
+  if (!correctedMlsParam) return params
+  return { ...params, [MADLIB_SELECTIONS_PARAM]: correctedMlsParam }
 }
