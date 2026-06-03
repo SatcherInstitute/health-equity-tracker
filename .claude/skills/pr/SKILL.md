@@ -41,7 +41,39 @@ If any check fails: report the failure with the full error, fix it, re-run, and 
 
 ---
 
-## Step 3 — Assess doc freshness
+## Step 3 — Address code review feedback
+
+Fetch all reviews and inline comments on the PR:
+
+```bash
+gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/reviews \
+  --jq '[.[] | {user: .user.login, state: .state, body: .body}]'
+
+gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments \
+  --jq '[.[] | {user: .user.login, path: .path, line: .line, body: .body}]'
+```
+
+For each review or inline comment that is not purely informational:
+
+1. **Read the concern** — understand what the reviewer is asking.
+2. **Decide**: address it, push back with a reason, or mark it as won't-fix with an explanation.
+3. **If addressing**: make the code change, then commit and push:
+   ```bash
+   git add <files>
+   git commit -m "address review: <short description>"
+   git push ben main
+   ```
+4. **Reply to the comment** on GitHub to close the loop:
+   ```bash
+   gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments/<comment_id>/replies \
+     -f body="<your response>"
+   ```
+
+If there are no unresolved reviews or comments, note that and continue.
+
+---
+
+## Step 4 — Assess doc freshness
 
 Read the current `frontend/CLAUDE.md` and (if relevant) the root `CLAUDE.md` and `README.md`.
 
@@ -64,7 +96,7 @@ git push ben main
 
 ---
 
-## Step 4 — Update the PR title and description
+## Step 5 — Update the PR title and description
 
 Get the full diff to understand what actually changed:
 
