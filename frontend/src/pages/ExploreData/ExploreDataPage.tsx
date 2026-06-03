@@ -27,6 +27,7 @@ import { locationAtom, urlParamAtom } from '../../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
+  DEMOGRAPHIC_PARAM,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   MAP2_GROUP_PARAM,
@@ -86,7 +87,11 @@ function ExploreDataPage() {
   //   { dt1: '' }              — clear (topic changed)
   //   omit key                 — keep current URL value
   const setMadLibWithParam = useCallback(
-    (ml: MadLib, dtOverrides?: { dt1?: string; dt2?: string }) => {
+    (
+      ml: MadLib,
+      dtOverrides?: { dt1?: string; dt2?: string },
+      baseParams?: URLSearchParams,
+    ) => {
       const var1HasDataTypes =
         isDropdownVarId(ml.activeSelections[1]) &&
         METRIC_CONFIG[ml.activeSelections[1]]?.length > 1
@@ -95,9 +100,9 @@ function ExploreDataPage() {
         isDropdownVarId(ml.activeSelections[3]) &&
         METRIC_CONFIG[ml.activeSelections[3]]?.length > 1
 
-      // Preserve all existing params (extremes, atl, onboard, etc.),
-      // then only set or delete what actually changes.
-      const next = new URLSearchParams(window.location.search)
+      // baseParams lets callers start from a clean slate (e.g. mode changes).
+      // When omitted, preserve all existing params and only change what differs.
+      const next = new URLSearchParams(baseParams ?? window.location.search)
 
       const dtParam1 =
         dtOverrides?.dt1 !== undefined
@@ -188,9 +193,23 @@ function ExploreDataPage() {
             : { 1: var1, 3: geo1 }
 
       const idx = MADLIB_LIST.findIndex((el) => el.id === mode)
+
+      // Mode changes reset card-level display state. Carry only demo, dt1, dt2.
+      const current = new URLSearchParams(window.location.search)
+      const fresh = new URLSearchParams()
+      for (const key of [
+        DEMOGRAPHIC_PARAM,
+        DATA_TYPE_1_PARAM,
+        DATA_TYPE_2_PARAM,
+      ]) {
+        const val = current.get(key)
+        if (val !== null) fresh.set(key, val)
+      }
+
       setMadLibWithParam(
         { ...MADLIB_LIST[idx], activeSelections: updatedSelections },
-        { dt2: '' },
+        undefined,
+        fresh,
       )
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
