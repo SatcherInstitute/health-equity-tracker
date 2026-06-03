@@ -70,13 +70,13 @@ Then act:
   ```bash
   git add <files>
   git commit -m "address review: <short description>"
-  git push ben main
+  git push ben HEAD
   ```
 - **Decline it**: reply explaining why the concern doesn't apply or why the change would be worse.
 
 Reply to each comment to close the loop:
 ```bash
-gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments/<comment_id>/replies \
+gh api repos/SatcherInstitute/health-equity-tracker/pulls/comments/<comment_id>/replies \
   -f body="<your response>"
 ```
 
