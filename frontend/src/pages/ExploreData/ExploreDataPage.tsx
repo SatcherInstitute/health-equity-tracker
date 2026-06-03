@@ -172,40 +172,34 @@ function ExploreDataPage() {
 
   const isSingleColumn = madLib.id === 'disparity'
 
-  function handleModeChange(mode: MadLibId) {
-    const var1 = madLib.activeSelections[1]
-    const geo1 =
-      madLib.id === 'comparevars'
-        ? madLib.activeSelections[5]
-        : madLib.activeSelections[3]
+  const handleModeChange = useCallback(
+    (mode: MadLibId) => {
+      const var1 = madLib.activeSelections[1]
+      const geo1 =
+        madLib.id === 'comparevars'
+          ? madLib.activeSelections[5]
+          : madLib.activeSelections[3]
 
-    const var2: DropdownVarId =
-      var1 === 'poverty' ? 'health_insurance' : 'poverty'
-    const geo2 = geo1 === '00' ? '13' : '00'
+      const var2: DropdownVarId =
+        var1 === 'poverty' ? 'health_insurance' : 'poverty'
+      const geo2 = geo1 === '00' ? '13' : '00'
 
-    const updatedSelections: PhraseSelections =
-      mode === 'comparegeos'
-        ? { 1: var1, 3: geo1, 5: geo2 }
-        : mode === 'comparevars'
-          ? { 1: var1, 3: var2, 5: geo1 }
-          : { 1: var1, 3: geo1 }
+      const updatedSelections: PhraseSelections =
+        mode === 'comparegeos'
+          ? { 1: var1, 3: geo1, 5: geo2 }
+          : mode === 'comparevars'
+            ? { 1: var1, 3: var2, 5: geo1 }
+            : { 1: var1, 3: geo1 }
 
-    const var1HasDataTypes =
-      isDropdownVarId(var1) && METRIC_CONFIG[var1]?.length > 1
-
-    // Preserve all existing params (extremes, atl, group1, demo, etc.),
-    // then only set or delete what actually changes with the mode switch.
-    const next = new URLSearchParams(window.location.search)
-    next.set(MADLIB_SELECTIONS_PARAM, stringifyMls(updatedSelections))
-    next.set(MADLIB_PHRASE_PARAM, mode)
-    if (mode === 'disparity') next.delete(MAP2_GROUP_PARAM)
-    next.delete(DATA_TYPE_2_PARAM)
-    if (!var1HasDataTypes) next.delete(DATA_TYPE_1_PARAM)
-
-    setLocationAtom({ searchParams: next })
-    location.hash = ''
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+      const idx = MADLIB_LIST.findIndex((el) => el.id === mode)
+      setMadLibWithParam(
+        { ...MADLIB_LIST[idx], activeSelections: updatedSelections },
+        { dt2: '' },
+      )
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    [madLib, setMadLibWithParam],
+  )
 
   /* on any changes to the madlib settings */
   useEffect(() => {

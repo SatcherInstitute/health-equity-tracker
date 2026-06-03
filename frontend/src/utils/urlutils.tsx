@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router'
-import type { DataTypeId } from '../data/config/MetricConfigTypes'
 import {
   type DemographicGroup,
   raceNameToCodeMap,
@@ -42,16 +41,6 @@ export const ALT_TABLE_VIEW_1_PARAM_KEY = 'alt-table-view1'
 export const ALT_TABLE_VIEW_2_PARAM_KEY = 'alt-table-view2'
 export const ATLANTA_MODE_PARAM_KEY = 'atl'
 export const CHLP_MAPS_PARAM_KEY = 'chlp-maps'
-
-// Ensures backwards compatibility for external links to old DataTypeIds
-export function swapOldDatatypeParams(oldParam: string) {
-  const swaps: Record<string, DataTypeId> = {
-    deaths: 'covid_deaths',
-    cases: 'covid_cases',
-    hospitalizations: 'covid_hospitalizations',
-  }
-  return swaps[oldParam] || oldParam
-}
 
 export function LinkWithStickyParams(props: {
   to: string

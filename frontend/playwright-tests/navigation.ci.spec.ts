@@ -200,7 +200,7 @@ test('Data sub-type change produces one history entry; back returns to previous 
   await expect(page).toHaveURL(/dt1=hiv_prevalence/)
 
   // Switch to New diagnoses via the DataTypeSelector popover
-  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('button', { name: 'Prevalence', exact: true }).click()
   await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
   await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
 
@@ -221,7 +221,7 @@ test('Sequential topic and geo changes each produce one history entry', async ({
   )
 
   // State 2: switch sub-type to Deaths
-  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('button', { name: 'Prevalence', exact: true }).click()
   await page.getByRole('menuitem', { name: 'Deaths' }).click()
   await expect(page).toHaveURL(/dt1=hiv_deaths/)
 
@@ -349,7 +349,7 @@ test('demo param survives sub-type change', async ({ page }) => {
   await expect(page).toHaveURL(/demo=age/)
 
   // Switch sub-type to New diagnoses
-  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('button', { name: 'Prevalence', exact: true }).click()
   await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
   await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
 
@@ -399,7 +399,7 @@ test('navigating to a topic writes dt1 explicitly to the URL', async ({
   })
 
   // Open the DataTypeSelector and pick a sub-type to trigger setMadLibWithParam
-  await page.getByRole('button', { name: 'Prevalence' }).click()
+  await page.getByRole('button', { name: 'Prevalence', exact: true }).click()
   await page.getByRole('menuitem', { name: 'New diagnoses' }).click()
   await expect(page).toHaveURL(/dt1=hiv_diagnoses/)
 
