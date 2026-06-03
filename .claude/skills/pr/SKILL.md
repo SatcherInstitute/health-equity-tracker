@@ -72,11 +72,20 @@ Then act:
   git commit -m "address review: <short description>"
   git push ben HEAD
   ```
+  Reply with one short sentence — what you did and why, nothing more:
+  ```bash
+  gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments/<comment_id>/replies \
+    -f body="Fixed — <one line>."
+  ```
   Then resolve the thread via GraphQL (requires the thread `node_id` from the comment object):
   ```bash
   gh api graphql -f query='mutation { resolveReviewThread(input: {threadId: "<node_id>"}) { thread { isResolved } } }'
   ```
-- **Decline it**: leave the thread open for the human reviewer to dismiss.
+- **Decline it**: reply with one sentence explaining why, then leave the thread open:
+  ```bash
+  gh api repos/SatcherInstitute/health-equity-tracker/pulls/<number>/comments/<comment_id>/replies \
+    -f body="Not changing — <one line reason>."
+  ```
 
 If there are no unresolved reviews or comments, note that and continue.
 
