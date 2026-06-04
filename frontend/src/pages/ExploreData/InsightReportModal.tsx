@@ -19,12 +19,7 @@ export default function InsightReportModal() {
         paper: { style: { borderRadius: '16px 16px 0 0', maxHeight: '90vh' } },
       }}
     >
-      <div
-        role='dialog'
-        aria-modal={true}
-        aria-label='AI Report Summary'
-        className='overflow-y-auto'
-      >
+      <div className='overflow-y-auto'>
         <div className='flex justify-end p-2'>
           <HetCloseButton onClick={close} ariaLabel='close AI report summary' />
         </div>

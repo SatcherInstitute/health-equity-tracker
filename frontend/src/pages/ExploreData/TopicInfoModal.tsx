@@ -49,7 +49,7 @@ export default function TopicInfoModal() {
           },
         }}
       >
-        <div role='dialog' aria-modal={true} className='overflow-y-auto p-4'>
+        <div className='overflow-y-auto p-4'>
           <HetCloseButton onClick={close} ariaLabel='close topic info modal' />
           <DataTypeDefinitionsList />
           {footer}

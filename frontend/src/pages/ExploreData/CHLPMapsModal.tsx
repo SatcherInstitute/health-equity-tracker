@@ -150,7 +150,7 @@ export default function CHLPMapsModal() {
           },
         }}
       >
-        <div role='dialog' aria-modal={true} className='overflow-y-auto p-4'>
+        <div className='overflow-y-auto p-4'>
           <HetCloseButton
             className='absolute top-4 right-4 text-alt-black'
             onClick={close}
