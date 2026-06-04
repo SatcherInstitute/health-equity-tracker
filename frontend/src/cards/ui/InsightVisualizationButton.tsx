@@ -24,17 +24,14 @@ export default function InsightVisualizationButton({
   return (
     <Tooltip title={isOpen ? 'Clear insight' : 'Generate AI insight'}>
       <IconButton
+        className='hide-on-screenshot remove-height-on-screenshot'
         onClick={() =>
           setCardInsightOpen((prev) => ({ ...prev, [openKey]: !isOpen }))
         }
         aria-label={isOpen ? 'Clear insight' : 'Generate insight'}
         size='small'
       >
-        {isOpen ? (
-          <DeleteForever className='hide-on-screenshot remove-height-on-screenshot' />
-        ) : (
-          <AutoAwesome className='text-base' />
-        )}
+        {isOpen ? <DeleteForever /> : <AutoAwesome className='text-base' />}
       </IconButton>
     </Tooltip>
   )

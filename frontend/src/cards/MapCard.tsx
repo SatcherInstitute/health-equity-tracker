@@ -498,9 +498,10 @@ function MapCardWithKey(props: MapCardProps) {
           })
         }
 
-        const displayData = isExtremesMode
-          ? highestValues.concat(lowestValues)
-          : dataForActiveDemographicGroup
+        const displayData =
+          isExtremesMode && dataForActiveDemographicGroup.length > 1
+            ? highestValues.concat(lowestValues)
+            : dataForActiveDemographicGroup
 
         const isPhrmaAdherence =
           PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
@@ -509,8 +510,6 @@ function MapCardWithKey(props: MapCardProps) {
           !isPhrmaAdherence
 
         const mapConfig = props.dataTypeConfig.mapConfig
-
-        if (dataForActiveDemographicGroup?.length <= 1) setIsExtremesMode(false)
 
         const hasMapData =
           !!dataForActiveDemographicGroup?.length && !!metricConfig
