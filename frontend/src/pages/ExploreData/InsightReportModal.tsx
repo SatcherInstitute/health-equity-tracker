@@ -14,7 +14,7 @@ export default function InsightReportModal() {
       onClose={() => setInsightIsOpen(false)}
       maxWidth='sm'
       fullWidth
-      scroll='paper'
+      scroll='body'
       aria-label='AI Report Summary'
     >
       <InsightReportCard />

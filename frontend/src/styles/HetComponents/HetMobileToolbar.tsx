@@ -135,7 +135,11 @@ export default function HetMobileToolbar() {
         }}
       >
         <div className='flex flex-row items-center'>
-          <HetNavLink className='flex items-center pl-0' href='/'>
+          <HetNavLink
+            className='flex items-center pl-0'
+            href='/'
+            onClick={() => setOpen(false)}
+          >
             <img
               src={AppBarLogo}
               className='mr-auto ml-2 h-little-het-logo w-little-het-logo'

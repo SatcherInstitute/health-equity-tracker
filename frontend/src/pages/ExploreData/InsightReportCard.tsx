@@ -112,7 +112,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   }
 
   return (
-    <div className='sticky' style={{ top: props.headerScrollMargin ?? 0 }}>
+    <div className='md:sticky' style={{ top: props.headerScrollMargin ?? 0 }}>
       <div className='flex flex-col gap-3 rounded-sm bg-alt-white p-4 text-left shadow-raised md:m-card-gutter'>
         {/* Header */}
         <div className='flex items-center justify-between gap-2'>
@@ -121,7 +121,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             AI Report Summary
           </span>
           {/* Close button */}
-          <Tooltip title='Close'>
+          <Tooltip title='Close' disableTouchListener>
             <IconButton onClick={handleClose} aria-label='close report'>
               <CloseIcon fontSize='small' />
             </IconButton>
