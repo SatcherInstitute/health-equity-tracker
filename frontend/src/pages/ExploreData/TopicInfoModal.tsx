@@ -30,17 +30,13 @@ export default function TopicInfoModal() {
       open={Boolean(topicInfoModalIsOpen)}
       onClose={close}
       onCloseLabel='close topic info modal'
-      maxWidth='lg'
     >
-      {/* p-4 on mobile; desktop padding comes from DialogContent */}
-      <div className='p-4 sm:p-0'>
-        <DataTypeDefinitionsList />
-        <p className='mt-4 border-t pt-4 text-smallest'>
-          For specific calculations and more detailed information, visit our{' '}
-          <HashLink to={methodologyLink}>methodology</HashLink>, or view the{' '}
-          <HashLink to={DATA_CATALOG_PAGE_LINK}>source data</HashLink>.
-        </p>
-      </div>
+      <DataTypeDefinitionsList />
+      <p className='mt-4 border-t pt-4 text-smallest'>
+        For specific calculations and more detailed information, visit our{' '}
+        <HashLink to={methodologyLink}>methodology</HashLink>, or view the{' '}
+        <HashLink to={DATA_CATALOG_PAGE_LINK}>source data</HashLink>.
+      </p>
     </HetResponsiveDialog>
   )
 }

@@ -138,12 +138,11 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           scrollToHash={'multimap-modal'}
         />
       }
-      maxWidth={false}
       fullWidth
       dialogClassName='z-multiMapModal'
       ariaLabelledBy='modalTitle'
     >
-      <div id={MULTIMAP_MODAL_CONTENT_ID} className='p-2'>
+      <div id={MULTIMAP_MODAL_CONTENT_ID}>
         {/* card heading row */}
         <div className='mb-4 flex justify-between'>
           <h3 className='m-2 w-full md:m-2' id='modalTitle'>

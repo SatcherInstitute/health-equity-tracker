@@ -119,6 +119,10 @@ CSS vars are a Tailwind implementation detail — `@theme` registers tokens so u
 - **To add or change a token:** edit the relevant `tokens/*.tokens.json` file and run `npm run tokens`
 - **Responsive JS:** detect breakpoints with `useIsBreakpointAndUp(breakpoint)` (`src/utils/hooks/useIsBreakpointAndUp.tsx`)
 
+**TypeScript conventions:**
+
+- No JSDoc (`/** */`) — types already document the interface; plain `//` comments are fine when the why is non-obvious
+
 ## Environment Variables
 
 No secrets are stored in `.env` files — all are checked into git. Environments:

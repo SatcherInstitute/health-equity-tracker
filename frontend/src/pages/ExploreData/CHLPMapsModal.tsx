@@ -1,5 +1,5 @@
 import { Button } from '@mui/material'
-import { type SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import HetGalleryDotNav from '../../styles/HetComponents/HetGalleryDotNav'
 import HetResponsiveDialog from '../../styles/HetComponents/HetResponsiveDialog'
 import { useParamState } from '../../utils/hooks/useParamState'
@@ -45,10 +45,6 @@ export default function CHLPMapsModal() {
     setCurrentMapIndex((prev) => (prev === 0 ? mapData.length - 1 : prev - 1))
   }
 
-  const handleMapSelect = (index: SetStateAction<number>) => {
-    setCurrentMapIndex(index)
-  }
-
   const close = () => setModalIsOpen(false)
 
   const galleryContent = (
@@ -74,7 +70,7 @@ export default function CHLPMapsModal() {
           <HetGalleryDotNav
             items={mapData}
             currentIndex={currentMapIndex}
-            onSelect={(index) => handleMapSelect(index)}
+            onSelect={setCurrentMapIndex}
             className='mx-2'
           />
 
@@ -106,13 +102,6 @@ export default function CHLPMapsModal() {
       open={Boolean(modalIsOpen)}
       onClose={close}
       onCloseLabel='close modal'
-      maxWidth={false}
-      dialogPaperStyle={{
-        height: '95vh',
-        width: '100%',
-        maxWidth: '800px',
-        margin: '0 auto',
-      }}
     >
       {galleryContent}
     </HetResponsiveDialog>
