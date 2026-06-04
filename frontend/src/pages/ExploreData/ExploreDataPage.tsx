@@ -194,13 +194,14 @@ function ExploreDataPage() {
 
       const idx = MADLIB_LIST.findIndex((el) => el.id === mode)
 
-      // Mode changes reset card-level display state. Carry only demo, dt1, dt2.
+      // Mode changes reset card-level display state. Carry only demo, dt1, dt2, onboard.
       const current = new URLSearchParams(window.location.search)
       const fresh = new URLSearchParams()
       for (const key of [
         DEMOGRAPHIC_PARAM,
         DATA_TYPE_1_PARAM,
         DATA_TYPE_2_PARAM,
+        SHOW_ONBOARDING_PARAM,
       ]) {
         const val = current.get(key)
         if (val !== null) fresh.set(key, val)
