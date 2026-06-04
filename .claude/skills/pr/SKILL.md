@@ -90,9 +90,14 @@ Then act:
   gh api repos/$REPO/pulls/<number>/comments/<comment_id>/replies \
     -f body="Fixed — <one line>."
   ```
-  Then resolve the thread via GraphQL (requires the thread `node_id` from the comment object):
+  Then resolve the thread via GraphQL. The mutation requires the **thread's** node ID (`PRRT_...`), not the comment's node ID (`PRRC_...`). Fetch it first:
   ```bash
-  gh api graphql -f query='mutation { resolveReviewThread(input: {threadId: "<node_id>"}) { thread { isResolved } } }'
+  gh api graphql -f query='{ repository(owner: "<owner>", name: "<repo>") { pullRequest(number: <number>) { reviewThreads(first: 20) { nodes { id isResolved comments(first: 1) { nodes { databaseId } } } } } } }' \
+    --jq '.data.repository.pullRequest.reviewThreads.nodes[] | select(.comments.nodes[0].databaseId == <comment_id>) | .id'
+  ```
+  Then resolve using the returned `PRRT_...` id:
+  ```bash
+  gh api graphql -f query='mutation { resolveReviewThread(input: {threadId: "<PRRT_id>"}) { thread { isResolved } } }'
   ```
 - **Decline it**: reply with one sentence explaining why, then leave the thread open:
   ```bash
@@ -127,7 +132,82 @@ git push $FORK_REMOTE HEAD
 
 ---
 
-## Step 5 — Update the PR title and description
+## Step 5 — Audit and verify the test plan
+
+Read the current PR body (already fetched in Step 1). Extract all `- [ ]` and `- [x]` items under the Test plan section.
+
+### 5a — Static checks
+
+Check off items already satisfied by Step 2 without running a browser:
+- TypeScript, unit tests, linting/formatting → verified by Step 2, check off.
+- Items asserting a code change is in place → verify by reading the diff, not by guessing.
+
+Remove or rewrite any items that refer to code that was removed or refactored.
+
+### 5b — Run Playwright for browser-verifiable items
+
+For every remaining unchecked item that describes a browser interaction (URL params, navigation behavior, UI state, link resolution), write and run a targeted Playwright test.
+
+**Start the preview server** (build first if no server is already running):
+
+```bash
+cd frontend
+npm run build 2>&1 | tail -5
+npx vite preview --port 4173 &
+PREVIEW_PID=$!
+sleep 3  # wait for server to be ready
+```
+
+**Write a temp test file** at `frontend/playwright-tests/_pr_verify.spec.ts`. Each test should correspond to one checklist item — use a descriptive test name that matches the checklist wording so results map back clearly. Example structure:
+
+```ts
+import { test, expect } from '@playwright/test'
+
+const BASE = 'http://localhost:4173'
+
+test('atl and extremes cleared after mode switch', async ({ page }) => {
+  await page.goto(`${BASE}/exploredata?mls=1.hiv-3.00&mlp=disparity&atl=true&extremes=true`)
+  await page.getByRole('button', { name: /compare geographies/i }).click()
+  await expect(page).not.toHaveURL(/atl=true/)
+  await expect(page).not.toHaveURL(/extremes=true/)
+})
+```
+
+**Run only the temp file** against the `chromium` project:
+
+```bash
+cd frontend
+npx playwright test playwright-tests/_pr_verify.spec.ts --project=chromium --reporter=line 2>&1
+```
+
+**Map results back to checklist:**
+- Test passed → `- [x]`
+- Test failed → leave `- [ ]` and add a note: `(Playwright: <short failure reason)` so the human reviewer knows what to investigate manually
+- Item not automatable (requires human judgment, live external service, or next CI run) → leave `- [ ]` as-is
+
+**Clean up** after all tests run:
+
+```bash
+kill $PREVIEW_PID 2>/dev/null
+rm frontend/playwright-tests/_pr_verify.spec.ts
+```
+
+### 5c — Gap check
+
+Compare the remaining unchecked items against the full diff:
+
+```bash
+git diff origin/main --name-only
+git diff origin/main -- frontend/src/
+```
+
+Add any missing items that the diff introduces but the checklist doesn't cover. New manual items should describe the exact interaction, not vague phrases like "test the feature."
+
+Carry the final audited checklist into Step 6.
+
+---
+
+## Step 6 — Update the PR title and description
 
 Get the full diff to understand what actually changed:
 
@@ -139,7 +219,7 @@ git diff origin/main -- frontend/src/
 Rewrite the PR title (under 70 chars) and body to accurately describe:
 - **What changed** (the specific files and behavior)
 - **Why** (the root cause or motivation)
-- **Test plan** as a bulleted checklist
+- **Test plan** using the audited checklist from Step 5 — do not regenerate from scratch, use the checked/unchecked items produced there
 
 Use this body template:
 
@@ -156,8 +236,8 @@ Use this body template:
 
 ## Test plan
 
-- [ ] <manual test step>
-- [ ] <E2E test or unit test that covers this>
+- [x] <already verified item>
+- [ ] <manual test step still needed>
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
