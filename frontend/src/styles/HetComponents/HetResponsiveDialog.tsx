@@ -7,16 +7,11 @@ interface HetResponsiveDialogProps {
   open: boolean
   onClose: () => void
   children: ReactNode
-  /** aria-label for the X close button; omit to suppress the header bar entirely */
   onCloseLabel?: string
-  /** rendered left of the X button in the header (e.g. CardOptionsMenu) */
   headerActions?: ReactNode
-  maxWidth?: false | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   fullWidth?: boolean
-  dialogPaperStyle?: React.CSSProperties
   dialogClassName?: string
   ariaLabelledBy?: string
-  /** aria-label for the Drawer paper element (accessibility) */
   ariaLabel?: string
 }
 
@@ -26,9 +21,7 @@ export default function HetResponsiveDialog({
   children,
   onCloseLabel,
   headerActions,
-  maxWidth = 'lg',
   fullWidth = false,
-  dialogPaperStyle,
   dialogClassName,
   ariaLabelledBy,
   ariaLabel,
@@ -37,12 +30,14 @@ export default function HetResponsiveDialog({
 
   const header = onCloseLabel ? (
     <div className='flex shrink-0 items-center p-2'>
-      {headerActions && <div>{headerActions}</div>}
-      <HetCloseButton
-        onClick={onClose}
-        ariaLabel={onCloseLabel}
-        className='ml-auto text-alt-black'
-      />
+      <div className='ml-auto flex items-center'>
+        {headerActions}
+        <HetCloseButton
+          onClick={onClose}
+          ariaLabel={onCloseLabel}
+          className='text-alt-black'
+        />
+      </div>
     </div>
   ) : null
 
@@ -62,11 +57,12 @@ export default function HetResponsiveDialog({
               overflow: 'hidden',
             },
             'aria-label': ariaLabel,
+            'aria-labelledby': ariaLabelledBy,
           },
         }}
       >
         {header}
-        <div className='flex-1 overflow-y-auto'>{children}</div>
+        <div className='flex-1 overflow-y-auto p-4'>{children}</div>
       </Drawer>
     )
   }
@@ -75,17 +71,18 @@ export default function HetResponsiveDialog({
     <Dialog
       className={dialogClassName}
       aria-labelledby={ariaLabelledBy}
+      aria-label={ariaLabel}
       open={open}
       onClose={onClose}
-      maxWidth={maxWidth}
+      maxWidth={false}
       fullWidth={fullWidth}
       scroll='paper'
-      slotProps={
-        dialogPaperStyle ? { paper: { style: dialogPaperStyle } } : undefined
-      }
+      slotProps={{ paper: { style: { height: '95vh' } } }}
     >
       {header}
-      <DialogContent dividers>{children}</DialogContent>
+      <DialogContent dividers className='!p-4'>
+        {children}
+      </DialogContent>
     </Dialog>
   )
 }
