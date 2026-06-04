@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import type { PlaywrightTestConfig } from '@playwright/test'
+import { devices, type PlaywrightTestConfig } from '@playwright/test'
 
 const config: PlaywrightTestConfig = {
   webServer: {
@@ -44,6 +44,28 @@ const config: PlaywrightTestConfig = {
     {
       name: 'E2E_CI',
       testMatch: /.*ci.spec.ts/,
+    },
+    // Nightly matrix: mobile/tablet viewports and cross-browser smoke tests.
+    // None of these run on PR CI — they are invoked only by e2eScheduled.yml.
+    {
+      name: 'MOBILE_NIGHTLY',
+      testMatch: /.*mobile\.spec\.ts/,
+      use: { ...devices['iPhone 13'] },
+    },
+    {
+      name: 'TABLET_NIGHTLY',
+      testMatch: /.*mobile\.spec\.ts/,
+      use: { ...devices['iPad (gen 7)'] },
+    },
+    {
+      name: 'FIREFOX_NIGHTLY',
+      testMatch: /.*\.ci\.spec\.ts/,
+      use: { browserName: 'firefox' },
+    },
+    {
+      name: 'WEBKIT_NIGHTLY',
+      testMatch: /.*\.ci\.spec\.ts/,
+      use: { browserName: 'webkit' },
     },
   ],
 }

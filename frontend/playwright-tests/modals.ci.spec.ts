@@ -63,3 +63,17 @@ test('report-insight param opens modal on load; Escape removes param', async ({
   await expect(page.getByRole('dialog')).toBeHidden()
   await expect(page).not.toHaveURL(/report-insight/)
 })
+
+test('topic-info renders as bottom-sheet at phone width; close removes param', async ({
+  page,
+}) => {
+  // TopicInfoModal uses a Drawer (bottom-sheet) below the sm breakpoint (600px)
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto(`${REPORT_URL}&topic-info=true`, {
+    waitUntil: 'domcontentloaded',
+  })
+  await expect(page.getByRole('dialog')).toBeVisible()
+  await page.getByLabel('close topic info modal').click()
+  await expect(page.getByRole('dialog')).toBeHidden()
+  await expect(page).not.toHaveURL(/topic-info/)
+})

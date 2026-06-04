@@ -1,14 +1,16 @@
-import { Button, Dialog, DialogContent } from '@mui/material'
+import { Button, Dialog, DialogContent, Drawer } from '@mui/material'
 import { type SetStateAction, useEffect, useState } from 'react'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import HetGalleryDotNav from '../../styles/HetComponents/HetGalleryDotNav'
 import { colors } from '../../styles/tokens/colors'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { CHLP_MAPS_PARAM_KEY } from '../../utils/urlutils'
 
 export default function CHLPMapsModal() {
   const [modalIsOpen, setModalIsOpen] = useParamState(CHLP_MAPS_PARAM_KEY)
   const [currentMapIndex, setCurrentMapIndex] = useState(0)
+  const isSmAndUp = useIsBreakpointAndUp('sm')
 
   const mapData = [
     {
@@ -51,7 +53,6 @@ export default function CHLPMapsModal() {
   }
 
   useEffect(() => {
-    // Function to load the external script
     const loadScript = (src: string) => {
       return new Promise((resolve, reject) => {
         const script = document.createElement('script')
@@ -63,13 +64,11 @@ export default function CHLPMapsModal() {
       })
     }
 
-    // Load the iframeResizer script and initialize it
     const initializeIframeResizer = async () => {
       try {
         await loadScript(
           'https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.3/iframeResizer.min.js',
         )
-        // Initialize the iframeResizer after the script is loaded
         // @ts-expect-error
         if (window.iFrameResize) {
           // @ts-expect-error
@@ -83,12 +82,90 @@ export default function CHLPMapsModal() {
     initializeIframeResizer()
   }, [])
 
+  const close = () => setModalIsOpen(false)
+
+  const galleryContent = (
+    <div className='flex h-full w-full flex-col items-center justify-center'>
+      <div className='flex w-full grow flex-col items-center justify-center py-8'>
+        <div className='relative flex w-full items-center justify-center'>
+          <img
+            src={mapData[currentMapIndex].imageUrl}
+            alt={`CHLP HIV Map: ${mapData[currentMapIndex].title}`}
+            className='max-h-[60vh] max-w-full rounded-lg object-contain shadow-md'
+          />
+        </div>
+
+        <div className='mt-6 flex items-center justify-center'>
+          <Button
+            className='mx-4 rounded-full bg-alt-white p-2 text-alt-dark hover:bg-alt-gray'
+            onClick={handlePrevious}
+            aria-label='Previous map'
+          >
+            ←
+          </Button>
+
+          <HetGalleryDotNav
+            items={mapData}
+            currentIndex={currentMapIndex}
+            onSelect={(index) => handleMapSelect(index)}
+            className='mx-2'
+          />
+
+          <Button
+            className='mx-4 rounded-full bg-alt-white p-2 text-alt-dark hover:bg-alt-gray'
+            onClick={handleNext}
+            aria-label='Next map'
+          >
+            →
+          </Button>
+        </div>
+      </div>
+
+      <div className='mb-6 text-center'>
+        <a
+          href='https://www.hivlawandpolicy.org/maps'
+          target='_blank'
+          rel='noopener noreferrer'
+          className='rounded px-4 py-2 text-dark-green hover:underline'
+        >
+          Learn more at hivlawandpolicy.org
+        </a>
+      </div>
+    </div>
+  )
+
+  if (!isSmAndUp) {
+    return (
+      <Drawer
+        anchor='bottom'
+        open={Boolean(modalIsOpen)}
+        onClose={close}
+        slotProps={{
+          paper: {
+            style: {
+              backgroundColor: colors.exploreBgColor,
+              borderRadius: '16px 16px 0 0',
+              maxHeight: '90vh',
+            },
+          },
+        }}
+      >
+        <div role='dialog' aria-modal={true} className='overflow-y-auto p-4'>
+          <HetCloseButton
+            className='absolute top-4 right-4 text-alt-black'
+            onClick={close}
+            ariaLabel='close modal'
+          />
+          {galleryContent}
+        </div>
+      </Drawer>
+    )
+  }
+
   return (
     <Dialog
       open={Boolean(modalIsOpen)}
-      onClose={() => {
-        setModalIsOpen(false)
-      }}
+      onClose={close}
       scroll='paper'
       className='h-full'
       slotProps={{
@@ -111,59 +188,10 @@ export default function CHLPMapsModal() {
       >
         <HetCloseButton
           className='absolute top-4 right-4 text-alt-black'
-          onClick={() => setModalIsOpen(false)}
+          onClick={close}
           ariaLabel='close modal'
         />
-        <div className='flex h-full w-full flex-col items-center justify-center'>
-          <div className='flex w-full grow flex-col items-center justify-center py-8'>
-            <div className='relative flex w-full items-center justify-center'>
-              <img
-                src={mapData[currentMapIndex].imageUrl}
-                alt={`CHLP HIV Map: ${mapData[currentMapIndex].title}`}
-                className='max-h-[60vh] max-w-full rounded-lg object-contain shadow-md'
-              />
-            </div>
-
-            {/* Navigation Controls */}
-            <div className='mt-6 flex items-center justify-center'>
-              <Button
-                className='mx-4 rounded-full bg-alt-white p-2 text-alt-dark hover:bg-alt-gray'
-                onClick={handlePrevious}
-                aria-label='Previous map'
-              >
-                ←
-              </Button>
-
-              {/* Map Navigation Dots*/}
-              <HetGalleryDotNav
-                items={mapData}
-                currentIndex={currentMapIndex}
-                onSelect={(index) => handleMapSelect(index)}
-                className='mx-2'
-              />
-
-              <Button
-                className='mx-4 rounded-full bg-alt-white p-2 text-alt-dark hover:bg-alt-gray'
-                onClick={handleNext}
-                aria-label='Next map'
-              >
-                →
-              </Button>
-            </div>
-          </div>
-
-          {/* View Full PDF Link */}
-          <div className='mb-6 text-center'>
-            <a
-              href='https://www.hivlawandpolicy.org/maps'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='rounded px-4 py-2 text-dark-green hover:underline'
-            >
-              Learn more at hivlawandpolicy.org
-            </a>
-          </div>
-        </div>
+        {galleryContent}
       </DialogContent>
     </Dialog>
   )

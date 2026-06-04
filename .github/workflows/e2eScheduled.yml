@@ -40,6 +40,9 @@ jobs:
 
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium firefox webkit
 
       - run: npm run e2e-prod-nightly
+
+      - name: Run nightly browser/viewport matrix (mobile + Firefox + WebKit)
+        run: npm run e2e-nightly-matrix
