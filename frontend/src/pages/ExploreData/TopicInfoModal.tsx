@@ -1,7 +1,8 @@
-import { Dialog, DialogContent, Drawer } from '@mui/material'
+import { Dialog, DialogContent } from '@mui/material'
 import { useAtomValue } from 'jotai'
 import { HashLink } from 'react-router-hash-link'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
+import HetMobileDrawer from '../../styles/HetComponents/HetMobileDrawer'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../../utils/hooks/useParamState'
 import {
@@ -39,22 +40,13 @@ export default function TopicInfoModal() {
 
   if (!isSmAndUp) {
     return (
-      <Drawer
-        anchor='bottom'
-        open={Boolean(topicInfoModalIsOpen)}
-        onClose={close}
-        slotProps={{
-          paper: {
-            style: { borderRadius: '16px 16px 0 0', maxHeight: '90vh' },
-          },
-        }}
-      >
-        <div className='overflow-y-auto p-4'>
+      <HetMobileDrawer open={Boolean(topicInfoModalIsOpen)} onClose={close}>
+        <div className='p-4'>
           <HetCloseButton onClick={close} ariaLabel='close topic info modal' />
           <DataTypeDefinitionsList />
           {footer}
         </div>
-      </Drawer>
+      </HetMobileDrawer>
     )
   }
 

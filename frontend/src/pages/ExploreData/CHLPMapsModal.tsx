@@ -1,7 +1,8 @@
-import { Button, Dialog, DialogContent, Drawer } from '@mui/material'
+import { Button, Dialog, DialogContent } from '@mui/material'
 import { type SetStateAction, useEffect, useState } from 'react'
 import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
 import HetGalleryDotNav from '../../styles/HetComponents/HetGalleryDotNav'
+import HetMobileDrawer from '../../styles/HetComponents/HetMobileDrawer'
 import { colors } from '../../styles/tokens/colors'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../../utils/hooks/useParamState'
@@ -136,21 +137,12 @@ export default function CHLPMapsModal() {
 
   if (!isSmAndUp) {
     return (
-      <Drawer
-        anchor='bottom'
+      <HetMobileDrawer
         open={Boolean(modalIsOpen)}
         onClose={close}
-        slotProps={{
-          paper: {
-            style: {
-              backgroundColor: colors.exploreBgColor,
-              borderRadius: '16px 16px 0 0',
-              maxHeight: '90vh',
-            },
-          },
-        }}
+        paperStyle={{ backgroundColor: colors.exploreBgColor }}
       >
-        <div className='overflow-y-auto p-4'>
+        <div className='relative p-4'>
           <HetCloseButton
             className='absolute top-4 right-4 text-alt-black'
             onClick={close}
@@ -158,7 +150,7 @@ export default function CHLPMapsModal() {
           />
           {galleryContent}
         </div>
-      </Drawer>
+      </HetMobileDrawer>
     )
   }
 

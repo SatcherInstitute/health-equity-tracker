@@ -1,5 +1,4 @@
-import { Drawer } from '@mui/material'
-import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
+import HetMobileDrawer from '../../styles/HetComponents/HetMobileDrawer'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { REPORT_INSIGHT_PARAM_KEY } from '../../utils/urlutils'
 import InsightReportCard from '../ExploreData/InsightReportCard'
@@ -8,23 +7,14 @@ export default function InsightReportModal() {
   const [insightIsOpen, setInsightIsOpen] = useParamState(
     REPORT_INSIGHT_PARAM_KEY,
   )
-  const close = () => setInsightIsOpen(false)
 
   return (
-    <Drawer
-      anchor='bottom'
+    <HetMobileDrawer
       open={Boolean(insightIsOpen)}
-      onClose={close}
-      slotProps={{
-        paper: { style: { borderRadius: '16px 16px 0 0', maxHeight: '90vh' } },
-      }}
+      onClose={() => setInsightIsOpen(false)}
+      ariaLabel='AI Report Summary'
     >
-      <div className='overflow-y-auto'>
-        <div className='flex justify-end p-2'>
-          <HetCloseButton onClick={close} ariaLabel='close AI report summary' />
-        </div>
-        <InsightReportCard />
-      </div>
-    </Drawer>
+      <InsightReportCard />
+    </HetMobileDrawer>
   )
 }
