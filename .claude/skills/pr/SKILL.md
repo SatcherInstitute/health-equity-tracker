@@ -132,36 +132,78 @@ git push $FORK_REMOTE HEAD
 
 ---
 
-## Step 5 — Audit the test plan
+## Step 5 — Audit and verify the test plan
 
 Read the current PR body (already fetched in Step 1). Extract all `- [ ]` and `- [x]` items under the Test plan section.
 
-For each item, evaluate:
+### 5a — Static checks
 
-**Can it be checked off automatically?**
-- Items about TypeScript passing, unit tests passing, or linting/formatting — these were verified in Step 2. Check them off: `- [ ]` → `- [x]`.
-- Items about E2E tests that ran as part of CI and passed — check them off if you can confirm from the run log.
-- Items about code changes being in place (e.g. "modal closes on mode change") — verify by reading the diff, not by guessing.
+Check off items already satisfied by Step 2 without running a browser:
+- TypeScript, unit tests, linting/formatting → verified by Step 2, check off.
+- Items asserting a code change is in place → verify by reading the diff, not by guessing.
 
-**Is it missing something?**
-Compare the checklist against the full diff:
+Remove or rewrite any items that refer to code that was removed or refactored.
+
+### 5b — Run Playwright for browser-verifiable items
+
+For every remaining unchecked item that describes a browser interaction (URL params, navigation behavior, UI state, link resolution), write and run a targeted Playwright test.
+
+**Start the preview server** (build first if no server is already running):
+
+```bash
+cd frontend
+npm run build 2>&1 | tail -5
+npx vite preview --port 4173 &
+PREVIEW_PID=$!
+sleep 3  # wait for server to be ready
+```
+
+**Write a temp test file** at `frontend/playwright-tests/_pr_verify.spec.ts`. Each test should correspond to one checklist item — use a descriptive test name that matches the checklist wording so results map back clearly. Example structure:
+
+```ts
+import { test, expect } from '@playwright/test'
+
+const BASE = 'http://localhost:4173'
+
+test('atl and extremes cleared after mode switch', async ({ page }) => {
+  await page.goto(`${BASE}/exploredata?mls=1.hiv-3.00&mlp=disparity&atl=true&extremes=true`)
+  await page.getByRole('button', { name: /compare geographies/i }).click()
+  await expect(page).not.toHaveURL(/atl=true/)
+  await expect(page).not.toHaveURL(/extremes=true/)
+})
+```
+
+**Run only the temp file** against the `chromium` project:
+
+```bash
+cd frontend
+npx playwright test playwright-tests/_pr_verify.spec.ts --project=chromium --reporter=line 2>&1
+```
+
+**Map results back to checklist:**
+- Test passed → `- [x]`
+- Test failed → leave `- [ ]` and add a note: `(Playwright: <short failure reason)` so the human reviewer knows what to investigate manually
+- Item not automatable (requires human judgment, live external service, or next CI run) → leave `- [ ]` as-is
+
+**Clean up** after all tests run:
+
+```bash
+kill $PREVIEW_PID 2>/dev/null
+rm frontend/playwright-tests/_pr_verify.spec.ts
+```
+
+### 5c — Gap check
+
+Compare the remaining unchecked items against the full diff:
 
 ```bash
 git diff origin/main --name-only
 git diff origin/main -- frontend/src/
 ```
 
-Ask: does the test plan cover the main behavior change, the edge cases, and any regression risk introduced? Add specific missing items. Manual browser test steps should describe the exact interaction, not vague phrases like "test the feature."
+Add any missing items that the diff introduces but the checklist doesn't cover. New manual items should describe the exact interaction, not vague phrases like "test the feature."
 
-**Is it stale or wrong?**
-If an item refers to code that was removed or refactored, remove or rewrite it.
-
-Produce an updated test plan with:
-- `- [x]` for items that are provably done
-- `- [ ]` for items that still require manual verification
-- Any new items added for gaps
-
-Carry this updated test plan into Step 6 when rewriting the PR body.
+Carry the final audited checklist into Step 6.
 
 ---
 
