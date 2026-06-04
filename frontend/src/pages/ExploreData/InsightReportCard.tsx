@@ -121,7 +121,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             AI Report Summary
           </span>
           {/* Close button */}
-          <Tooltip title='Close'>
+          <Tooltip title='Close' disableTouchListener>
             <IconButton onClick={handleClose} aria-label='close report'>
               <CloseIcon fontSize='small' />
             </IconButton>
