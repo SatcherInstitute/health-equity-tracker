@@ -2,9 +2,9 @@
  * Nightly mobile/tablet viewport smoke tests for URL-param-backed modals.
  * Runs in MOBILE_NIGHTLY (iPhone) and TABLET_NIGHTLY (iPad) projects; NOT in E2E_CI.
  *
- * At phone width (< 600px) the InsightReport, TopicInfo, and CHLP modals
- * render as MUI bottom-sheet Drawers. At tablet width (>= 600px) TopicInfo
- * and CHLP fall back to the standard Dialog.
+ * At phone width (< 600px) the InsightReport, TopicInfo, CHLP, and MultiMap modals
+ * render as MUI bottom-sheet Drawers. At tablet width (>= 600px) TopicInfo,
+ * CHLP, and MultiMap fall back to the standard Dialog.
  *
  * Covers issues #4771 (mobile/tablet UI audit) and #4772 (bottom-sheet pattern).
  */
@@ -65,6 +65,19 @@ test.describe('phone width (390px) — bottom-sheet drawers', () => {
     await page.getByLabel('close modal').click()
     await expect(page.getByRole('dialog')).toBeHidden()
     await expect(page).not.toHaveURL(/chlp-maps/)
+  })
+
+  test('multiple-maps opens as bottom-sheet; Close button removes param', async ({
+    page,
+  }) => {
+    await page.goto(
+      '/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison&multiple-maps=true',
+      { waitUntil: 'domcontentloaded' },
+    )
+    await expect(page.getByRole('dialog')).toBeVisible()
+    await page.getByRole('button', { name: 'Close' }).click()
+    await expect(page.getByRole('dialog')).toBeHidden()
+    await expect(page).not.toHaveURL(/multiple-maps=true/)
   })
 })
 
