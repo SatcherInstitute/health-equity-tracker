@@ -17,7 +17,7 @@ export default function InsightReportModal() {
       maxWidth='sm'
       fullWidth
       fullScreen={fullScreen}
-      scroll='paper'
+      scroll='body'
       aria-label='AI Report Summary'
     >
       <InsightReportCard />

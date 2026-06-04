@@ -112,7 +112,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   }
 
   return (
-    <div className='sticky' style={{ top: props.headerScrollMargin ?? 0 }}>
+    <div className='md:sticky' style={{ top: props.headerScrollMargin ?? 0 }}>
       <div className='flex flex-col gap-3 rounded-sm bg-alt-white p-4 text-left shadow-raised md:m-card-gutter'>
         {/* Header */}
         <div className='flex items-center justify-between gap-2'>
