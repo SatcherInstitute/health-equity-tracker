@@ -90,9 +90,14 @@ Then act:
   gh api repos/$REPO/pulls/<number>/comments/<comment_id>/replies \
     -f body="Fixed — <one line>."
   ```
-  Then resolve the thread via GraphQL (requires the thread `node_id` from the comment object):
+  Then resolve the thread via GraphQL. The mutation requires the **thread's** node ID (`PRRT_...`), not the comment's node ID (`PRRC_...`). Fetch it first:
   ```bash
-  gh api graphql -f query='mutation { resolveReviewThread(input: {threadId: "<node_id>"}) { thread { isResolved } } }'
+  gh api graphql -f query='{ repository(owner: "<owner>", name: "<repo>") { pullRequest(number: <number>) { reviewThreads(first: 20) { nodes { id isResolved comments(first: 1) { nodes { databaseId } } } } } } }' \
+    --jq '.data.repository.pullRequest.reviewThreads.nodes[] | select(.comments.nodes[0].databaseId == <comment_id>) | .id'
+  ```
+  Then resolve using the returned `PRRT_...` id:
+  ```bash
+  gh api graphql -f query='mutation { resolveReviewThread(input: {threadId: "<PRRT_id>"}) { thread { isResolved } } }'
   ```
 - **Decline it**: reply with one sentence explaining why, then leave the thread open:
   ```bash
