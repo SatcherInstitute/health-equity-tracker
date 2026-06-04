@@ -1,17 +1,13 @@
-import { Button, Dialog, DialogContent } from '@mui/material'
-import { type SetStateAction, useEffect, useState } from 'react'
-import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
+import { Button } from '@mui/material'
+import { type SetStateAction, useState } from 'react'
 import HetGalleryDotNav from '../../styles/HetComponents/HetGalleryDotNav'
-import HetMobileDrawer from '../../styles/HetComponents/HetMobileDrawer'
-import { colors } from '../../styles/tokens/colors'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import HetResponsiveDialog from '../../styles/HetComponents/HetResponsiveDialog'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { CHLP_MAPS_PARAM_KEY } from '../../utils/urlutils'
 
 export default function CHLPMapsModal() {
   const [modalIsOpen, setModalIsOpen] = useParamState(CHLP_MAPS_PARAM_KEY)
   const [currentMapIndex, setCurrentMapIndex] = useState(0)
-  const isSmAndUp = useIsBreakpointAndUp('sm')
 
   const mapData = [
     {
@@ -52,36 +48,6 @@ export default function CHLPMapsModal() {
   const handleMapSelect = (index: SetStateAction<number>) => {
     setCurrentMapIndex(index)
   }
-
-  useEffect(() => {
-    const loadScript = (src: string) => {
-      return new Promise((resolve, reject) => {
-        const script = document.createElement('script')
-        script.src = src
-        script.type = 'text/javascript'
-        script.onload = resolve
-        script.onerror = reject
-        document.head.appendChild(script)
-      })
-    }
-
-    const initializeIframeResizer = async () => {
-      try {
-        await loadScript(
-          'https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.3/iframeResizer.min.js',
-        )
-        // @ts-expect-error
-        if (window.iFrameResize) {
-          // @ts-expect-error
-          window.iFrameResize({ log: true, checkOrigin: false })
-        }
-      } catch (error) {
-        console.error('Failed to load iframeResizer script:', error)
-      }
-    }
-
-    initializeIframeResizer()
-  }, [])
 
   const close = () => setModalIsOpen(false)
 
@@ -135,52 +101,20 @@ export default function CHLPMapsModal() {
     </div>
   )
 
-  if (!isSmAndUp) {
-    return (
-      <HetMobileDrawer open={Boolean(modalIsOpen)} onClose={close}>
-        <div className='relative p-4'>
-          <HetCloseButton
-            className='absolute top-4 right-4 text-alt-black'
-            onClick={close}
-            ariaLabel='close modal'
-          />
-          {galleryContent}
-        </div>
-      </HetMobileDrawer>
-    )
-  }
-
   return (
-    <Dialog
+    <HetResponsiveDialog
       open={Boolean(modalIsOpen)}
       onClose={close}
-      scroll='paper'
-      className='h-full'
-      slotProps={{
-        paper: {
-          style: {
-            backgroundColor: colors.exploreBgColor,
-            height: '95vh',
-            width: '100%',
-            maxWidth: '800px',
-            margin: '0 auto',
-            display: 'flex',
-            flexDirection: 'column',
-          },
-        },
+      onCloseLabel='close modal'
+      maxWidth={false}
+      dialogPaperStyle={{
+        height: '95vh',
+        width: '100%',
+        maxWidth: '800px',
+        margin: '0 auto',
       }}
     >
-      <DialogContent
-        dividers={true}
-        className='flex flex-col items-center justify-center'
-      >
-        <HetCloseButton
-          className='absolute top-4 right-4 text-alt-black'
-          onClick={close}
-          ariaLabel='close modal'
-        />
-        {galleryContent}
-      </DialogContent>
-    </Dialog>
+      {galleryContent}
+    </HetResponsiveDialog>
   )
 }

@@ -75,7 +75,7 @@ test.describe('phone width (390px) — bottom-sheet drawers', () => {
       { waitUntil: 'domcontentloaded' },
     )
     await expect(page.getByRole('dialog')).toBeVisible()
-    await page.getByRole('button', { name: 'Close' }).click()
+    await page.getByLabel('close multiple maps modal').click()
     await expect(page.getByRole('dialog')).toBeHidden()
     await expect(page).not.toHaveURL(/multiple-maps=true/)
   })

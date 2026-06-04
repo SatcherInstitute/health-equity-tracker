@@ -1,9 +1,6 @@
-import { Dialog, DialogContent } from '@mui/material'
 import { useAtomValue } from 'jotai'
 import { HashLink } from 'react-router-hash-link'
-import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
-import HetMobileDrawer from '../../styles/HetComponents/HetMobileDrawer'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import HetResponsiveDialog from '../../styles/HetComponents/HetResponsiveDialog'
 import { useParamState } from '../../utils/hooks/useParamState'
 import {
   DATA_CATALOG_PAGE_LINK,
@@ -17,10 +14,8 @@ import DataTypeDefinitionsList from '../ui/DataTypeDefinitionsList'
 export default function TopicInfoModal() {
   const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] =
     useParamState(TOPIC_INFO_PARAM_KEY)
-  const isSmAndUp = useIsBreakpointAndUp('sm')
 
   const selectedDataTypeConfig = useAtomValue(selectedDataTypeConfig1Atom)
-
   const category: CategoryTypeId | undefined =
     selectedDataTypeConfig?.categoryId
   let methodologyLink = `${METHODOLOGY_PAGE_LINK}/topic-categories/`
@@ -30,42 +25,22 @@ export default function TopicInfoModal() {
 
   const close = () => setTopicInfoModalIsOpen(false)
 
-  const footer = (
-    <p className='text-smallest'>
-      For specific calculations and more detailed information, visit our{' '}
-      <HashLink to={methodologyLink}>methodology</HashLink>, or view the{' '}
-      <HashLink to={DATA_CATALOG_PAGE_LINK}>source data</HashLink>.
-    </p>
-  )
-
-  if (!isSmAndUp) {
-    return (
-      <HetMobileDrawer open={Boolean(topicInfoModalIsOpen)} onClose={close}>
-        <div className='p-4'>
-          <HetCloseButton onClick={close} ariaLabel='close topic info modal' />
-          <DataTypeDefinitionsList />
-          {footer}
-        </div>
-      </HetMobileDrawer>
-    )
-  }
-
   return (
-    <Dialog
+    <HetResponsiveDialog
       open={Boolean(topicInfoModalIsOpen)}
       onClose={close}
-      maxWidth={'lg'}
-      scroll='paper'
+      onCloseLabel='close topic info modal'
+      maxWidth='lg'
     >
-      <DialogContent dividers={true}>
-        <HetCloseButton onClick={close} ariaLabel='close topic info modal' />
+      {/* p-4 on mobile; desktop padding comes from DialogContent */}
+      <div className='p-4 sm:p-0'>
         <DataTypeDefinitionsList />
-      </DialogContent>
-      <DialogContent dividers={true} className='text-smallest'>
-        For specific calculations and more detailed information, visit our{' '}
-        <HashLink to={methodologyLink}>methodology</HashLink>, or view the{' '}
-        <HashLink to={DATA_CATALOG_PAGE_LINK}>source data</HashLink>.
-      </DialogContent>
-    </Dialog>
+        <p className='mt-4 border-t pt-4 text-smallest'>
+          For specific calculations and more detailed information, visit our{' '}
+          <HashLink to={methodologyLink}>methodology</HashLink>, or view the{' '}
+          <HashLink to={DATA_CATALOG_PAGE_LINK}>source data</HashLink>.
+        </p>
+      </div>
+    </HetResponsiveDialog>
   )
 }

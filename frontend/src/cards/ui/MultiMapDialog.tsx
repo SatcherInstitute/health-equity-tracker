@@ -1,4 +1,3 @@
-import { Dialog, DialogContent } from '@mui/material'
 import { useMemo } from 'react'
 import { createColorScale } from '../../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../../charts/choroplethMap/index'
@@ -29,9 +28,8 @@ import type {
 import { Fips } from '../../data/utils/Fips'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
-import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
-import HetMobileDrawer from '../../styles/HetComponents/HetMobileDrawer'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import HetResponsiveDialog from '../../styles/HetComponents/HetResponsiveDialog'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
@@ -129,200 +127,168 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
   const isSmAndUp = useIsBreakpointAndUp('sm')
 
-  const innerContent = (
-    <>
-      {/* card options button */}
-      <div className='mb-2 flex justify-end'>
+  return (
+    <HetResponsiveDialog
+      open={props.open}
+      onClose={props.handleClose}
+      onCloseLabel='close multiple maps modal'
+      headerActions={
         <CardOptionsMenu
           reportTitle={props.reportTitle}
           scrollToHash={'multimap-modal'}
         />
-      </div>
-
-      {/* card heading row */}
-      <div className='mb-4 flex justify-between'>
-        <h3 className='m-2 w-full md:m-2' id='modalTitle'>
-          {title}
-        </h3>
-      </div>
-
-      {/* Maps container */}
-      <div className='mb-6'>
-        <ul className='grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 smplus:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
-          {props.demographicGroups.map((demographicGroup) => {
-            const mapLabel = CAWP_METRICS.includes(props.metricConfig.metricId)
-              ? getWomenRaceLabel(demographicGroup)
-              : demographicGroup
-            const dataForValue = props.data.filter(
-              (row: HetRow) => row[props.demographicType] === demographicGroup,
-            )
-
-            return (
-              <li
-                key={`${demographicGroup}-grid-item`}
-                className='min-h-multimap-mobile w-full sm:p-1 md:min-h-multimap-desktop md:p-2'
-              >
-                <h3 className='m-0 font-medium text-smallest leading-tight sm:text-small sm:leading-normal md:text-text'>
-                  {mapLabel}
-                </h3>
-                <div>
-                  {props.metricConfig && dataForValue?.length > 0 && (
-                    <ChoroplethMap
-                      colorScale={colorScaleMultiMap}
-                      demographicType={props.demographicType}
-                      activeDemographicGroup={demographicGroup}
-                      countColsMap={props.countColsMap}
-                      data={dataForValue}
-                      fieldRange={props.fieldRange}
-                      filename={title}
-                      fips={props.fips}
-                      geoData={props.geoData}
-                      hideLegend={true}
-                      key={demographicGroup}
-                      legendData={props.data}
-                      metricConfig={props.metricConfig}
-                      showCounties={
-                        !props.fips.isUsa() && !props.hasSelfButNotChildGeoData
-                      }
-                      signalListeners={multimapSignalListeners}
-                      mapConfig={mapConfig}
-                      isMulti={true}
-                      isExtremesMode={false}
-                      isPhrmaAdherence={props.isPhrmaAdherence}
-                      isAtlantaMode={props.isAtlantaMode}
-                      updateFipsCallback={props.updateFipsCallback}
-                    />
-                  )}
-                </div>
-              </li>
-            )
-          })}
-        </ul>
-      </div>
-
-      {/* LEGEND */}
-      <div className='mb-6'>
-        <RateMapLegend
-          dataTypeConfig={props.dataTypeConfig}
-          metricConfig={props.metricConfig}
-          legendTitle={props.metricConfig.shortLabel}
-          data={props.data}
-          description={'Legend for rate map'}
-          mapConfig={mapConfig}
-          isSummaryLegend={false}
-          fieldRange={props.fieldRange}
-          isMulti={true}
-          isPhrmaAdherence={props.isPhrmaAdherence}
-          fips={props.fips}
-          colorScale={colorScaleMultiMap}
-        />
-      </div>
-
-      {/* Breadcrumbs - desktop only */}
-      <div className='mt-4 mb-4 hidden md:block'>
-        <HetBreadcrumbs
-          fips={props.fips}
-          updateFipsCallback={props.updateFipsCallback}
-          scrollToHashId={'rate-map'}
-          totalPopulationPhrase={props.totalPopulationPhrase}
-          subPopulationPhrase={props.subPopulationPhrase}
-          isAtlantaMode={props.isAtlantaMode}
-        />
-      </div>
-
-      {/* Breadcrumbs - mobile only */}
-      <div className='mt-3 mb-4 md:hidden'>
-        <HetBreadcrumbs
-          fips={props.fips}
-          updateFipsCallback={props.updateFipsCallback}
-          scrollToHashId={'rate-map'}
-          totalPopulationPhrase={props.totalPopulationPhrase}
-          subPopulationPhrase={props.subPopulationPhrase}
-          isAtlantaMode={props.isAtlantaMode}
-        />
-      </div>
-
-      {/* Missing Groups */}
-      {props.demographicGroupsNoData.length > 0 && (
-        <div className='hide-on-screenshot mb-4 w-full lg:w-2/3 xl:w-7/12'>
-          <div className='my-3'>
-            <HetNotice kind='data-integrity'>
-              <p className='m-0'>
-                Insufficient {props.metricConfig.shortLabel} data reported at
-                the {props.fips.getChildFipsTypeDisplayName()} level for the
-                following groups:{' '}
-                {props.demographicGroupsNoData.map((group, i) => (
-                  <span key={group}>
-                    <HetTerm>{group}</HetTerm>
-                    {i < props.demographicGroupsNoData.length - 1 && '; '}
-                  </span>
-                ))}
-              </p>
-            </HetNotice>
-          </div>
+      }
+      maxWidth={false}
+      fullWidth
+      dialogClassName='z-multiMapModal'
+      ariaLabelledBy='modalTitle'
+    >
+      <div id={MULTIMAP_MODAL_CONTENT_ID} className='p-2'>
+        {/* card heading row */}
+        <div className='mb-4 flex justify-between'>
+          <h3 className='m-2 w-full md:m-2' id='modalTitle'>
+            {title}
+          </h3>
         </div>
-      )}
 
-      <div className='hide-on-screenshot mb-2'>
-        <HetNotice kind='text-only'>
-          <DataTypeDefinitionsList />
-        </HetNotice>
-      </div>
-    </>
-  )
+        {/* Maps container */}
+        <div className='mb-6'>
+          <ul className='grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 smplus:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
+            {props.demographicGroups.map((demographicGroup) => {
+              const mapLabel = CAWP_METRICS.includes(
+                props.metricConfig.metricId,
+              )
+                ? getWomenRaceLabel(demographicGroup)
+                : demographicGroup
+              const dataForValue = props.data.filter(
+                (row: HetRow) =>
+                  row[props.demographicType] === demographicGroup,
+              )
 
-  const closeFooter = (
-    <footer id='modal-footer'>
-      <div className='flex items-center justify-between pl-2 text-left text-small'>
-        <div className='hidden sm:block'>
-          <Sources
-            queryResponses={props.queryResponses}
-            metadata={props.metadata}
+              return (
+                <li
+                  key={`${demographicGroup}-grid-item`}
+                  className='min-h-multimap-mobile w-full sm:p-1 md:min-h-multimap-desktop md:p-2'
+                >
+                  <h3 className='m-0 font-medium text-smallest leading-tight sm:text-small sm:leading-normal md:text-text'>
+                    {mapLabel}
+                  </h3>
+                  <div>
+                    {props.metricConfig && dataForValue?.length > 0 && (
+                      <ChoroplethMap
+                        colorScale={colorScaleMultiMap}
+                        demographicType={props.demographicType}
+                        activeDemographicGroup={demographicGroup}
+                        countColsMap={props.countColsMap}
+                        data={dataForValue}
+                        fieldRange={props.fieldRange}
+                        filename={title}
+                        fips={props.fips}
+                        geoData={props.geoData}
+                        hideLegend={true}
+                        key={demographicGroup}
+                        legendData={props.data}
+                        metricConfig={props.metricConfig}
+                        showCounties={
+                          !props.fips.isUsa() &&
+                          !props.hasSelfButNotChildGeoData
+                        }
+                        signalListeners={multimapSignalListeners}
+                        mapConfig={mapConfig}
+                        isMulti={true}
+                        isExtremesMode={false}
+                        isPhrmaAdherence={props.isPhrmaAdherence}
+                        isAtlantaMode={props.isAtlantaMode}
+                        updateFipsCallback={props.updateFipsCallback}
+                      />
+                    )}
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+
+        {/* LEGEND */}
+        <div className='mb-6'>
+          <RateMapLegend
+            dataTypeConfig={props.dataTypeConfig}
+            metricConfig={props.metricConfig}
+            legendTitle={props.metricConfig.shortLabel}
+            data={props.data}
+            description={'Legend for rate map'}
+            mapConfig={mapConfig}
+            isSummaryLegend={false}
+            fieldRange={props.fieldRange}
             isMulti={true}
+            isPhrmaAdherence={props.isPhrmaAdherence}
+            fips={props.fips}
+            colorScale={colorScaleMultiMap}
           />
         </div>
-        <div>
-          <HetLinkButton
-            className='hide-on-screenshot justify-center'
-            aria-label='close this multiple maps modal'
-            onClick={props.handleClose}
-          >
-            Close
-          </HetLinkButton>
+
+        {/* Breadcrumbs - desktop only */}
+        <div className='mt-4 mb-4 hidden md:block'>
+          <HetBreadcrumbs
+            fips={props.fips}
+            updateFipsCallback={props.updateFipsCallback}
+            scrollToHashId={'rate-map'}
+            totalPopulationPhrase={props.totalPopulationPhrase}
+            subPopulationPhrase={props.subPopulationPhrase}
+            isAtlantaMode={props.isAtlantaMode}
+          />
         </div>
+
+        {/* Breadcrumbs - mobile only */}
+        <div className='mt-3 mb-4 md:hidden'>
+          <HetBreadcrumbs
+            fips={props.fips}
+            updateFipsCallback={props.updateFipsCallback}
+            scrollToHashId={'rate-map'}
+            totalPopulationPhrase={props.totalPopulationPhrase}
+            subPopulationPhrase={props.subPopulationPhrase}
+            isAtlantaMode={props.isAtlantaMode}
+          />
+        </div>
+
+        {/* Missing Groups */}
+        {props.demographicGroupsNoData.length > 0 && (
+          <div className='hide-on-screenshot mb-4 w-full lg:w-2/3 xl:w-7/12'>
+            <div className='my-3'>
+              <HetNotice kind='data-integrity'>
+                <p className='m-0'>
+                  Insufficient {props.metricConfig.shortLabel} data reported at
+                  the {props.fips.getChildFipsTypeDisplayName()} level for the
+                  following groups:{' '}
+                  {props.demographicGroupsNoData.map((group, i) => (
+                    <span key={group}>
+                      <HetTerm>{group}</HetTerm>
+                      {i < props.demographicGroupsNoData.length - 1 && '; '}
+                    </span>
+                  ))}
+                </p>
+              </HetNotice>
+            </div>
+          </div>
+        )}
+
+        <div className='hide-on-screenshot mb-2'>
+          <HetNotice kind='text-only'>
+            <DataTypeDefinitionsList />
+          </HetNotice>
+        </div>
+
+        {/* Sources - hidden on mobile */}
+        {isSmAndUp && (
+          <div className='mt-2 pl-2 text-left text-small'>
+            <Sources
+              queryResponses={props.queryResponses}
+              metadata={props.metadata}
+              isMulti={true}
+            />
+          </div>
+        )}
       </div>
-    </footer>
-  )
-
-  if (!isSmAndUp) {
-    return (
-      <HetMobileDrawer open={props.open} onClose={props.handleClose}>
-        <div id={MULTIMAP_MODAL_CONTENT_ID} className='bg-alt-white p-2'>
-          {innerContent}
-          {closeFooter}
-        </div>
-      </HetMobileDrawer>
-    )
-  }
-
-  return (
-    <Dialog
-      className='z-multiMapModal'
-      id='multimap-modal'
-      open={props.open}
-      onClose={props.handleClose}
-      maxWidth={false}
-      scroll='paper'
-      aria-labelledby='modalTitle'
-    >
-      <DialogContent
-        dividers={true}
-        className='bg-alt-white p-2'
-        id={MULTIMAP_MODAL_CONTENT_ID}
-      >
-        {innerContent}
-      </DialogContent>
-      {closeFooter}
-    </Dialog>
+    </HetResponsiveDialog>
   )
 }
