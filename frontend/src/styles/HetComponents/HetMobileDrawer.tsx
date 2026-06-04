@@ -6,7 +6,6 @@ interface HetMobileDrawerProps {
   onClose: () => void
   children: ReactNode
   ariaLabel?: string
-  paperStyle?: React.CSSProperties
 }
 
 export default function HetMobileDrawer({
@@ -14,7 +13,6 @@ export default function HetMobileDrawer({
   onClose,
   children,
   ariaLabel,
-  paperStyle,
 }: HetMobileDrawerProps) {
   return (
     <Drawer
@@ -23,11 +21,7 @@ export default function HetMobileDrawer({
       onClose={onClose}
       slotProps={{
         paper: {
-          style: {
-            borderRadius: '16px 16px 0 0',
-            maxHeight: '90vh',
-            ...paperStyle,
-          },
+          style: { borderRadius: '16px 16px 0 0', maxHeight: '90vh' },
           'aria-label': ariaLabel,
         },
       }}

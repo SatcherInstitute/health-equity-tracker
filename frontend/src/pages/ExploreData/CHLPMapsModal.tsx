@@ -98,7 +98,7 @@ export default function CHLPMapsModal() {
 
         <div className='mt-6 flex items-center justify-center'>
           <Button
-            className='mx-4 rounded-full bg-alt-white p-2 text-alt-dark hover:bg-alt-gray'
+            className='mx-4 rounded-full bg-explore-bg-color p-2 text-alt-dark hover:bg-alt-gray'
             onClick={handlePrevious}
             aria-label='Previous map'
           >
@@ -113,7 +113,7 @@ export default function CHLPMapsModal() {
           />
 
           <Button
-            className='mx-4 rounded-full bg-alt-white p-2 text-alt-dark hover:bg-alt-gray'
+            className='mx-4 rounded-full bg-explore-bg-color p-2 text-alt-dark hover:bg-alt-gray'
             onClick={handleNext}
             aria-label='Next map'
           >
@@ -137,11 +137,7 @@ export default function CHLPMapsModal() {
 
   if (!isSmAndUp) {
     return (
-      <HetMobileDrawer
-        open={Boolean(modalIsOpen)}
-        onClose={close}
-        paperStyle={{ backgroundColor: colors.exploreBgColor }}
-      >
+      <HetMobileDrawer open={Boolean(modalIsOpen)} onClose={close}>
         <div className='relative p-4'>
           <HetCloseButton
             className='absolute top-4 right-4 text-alt-black'
