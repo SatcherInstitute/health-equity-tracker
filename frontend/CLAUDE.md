@@ -111,6 +111,7 @@ CSS vars are a Tailwind implementation detail — `@theme` registers tokens so u
 - For inline/computed styles in TypeScript, import from `src/styles/tokens/` and use the raw value
 - Only modify MUI components via `styleOverrides` in `muiTheme.tsx` — avoid `sx` props and inline styles
 - **To add or change a token:** edit the relevant `tokens/*.tokens.json` file and run `npm run tokens`
+- **Responsive JS:** detect breakpoints with `useIsBreakpointAndUp(breakpoint)` (`src/utils/hooks/useIsBreakpointAndUp.tsx`)
 
 ## Environment Variables
 
