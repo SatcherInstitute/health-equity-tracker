@@ -101,23 +101,6 @@ interface MapCardProps {
   trackerMode: MadLibId
 }
 
-function ExtremesResetGuard({
-  dataLength,
-  isExtremesMode,
-  setIsExtremesMode,
-}: {
-  dataLength: number
-  isExtremesMode: boolean
-  setIsExtremesMode: (val: boolean) => void
-}) {
-  useEffect(() => {
-    if (isExtremesMode && dataLength <= 1) {
-      setIsExtremesMode(false)
-    }
-  }, [dataLength, isExtremesMode, setIsExtremesMode])
-  return null
-}
-
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
 export default function MapCard(props: MapCardProps) {
@@ -515,9 +498,10 @@ function MapCardWithKey(props: MapCardProps) {
           })
         }
 
-        const displayData = isExtremesMode
-          ? highestValues.concat(lowestValues)
-          : dataForActiveDemographicGroup
+        const displayData =
+          isExtremesMode && dataForActiveDemographicGroup.length > 1
+            ? highestValues.concat(lowestValues)
+            : dataForActiveDemographicGroup
 
         const isPhrmaAdherence =
           PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
@@ -534,11 +518,6 @@ function MapCardWithKey(props: MapCardProps) {
         if (!hasMapData)
           return (
             <>
-              <ExtremesResetGuard
-                dataLength={dataForActiveDemographicGroup?.length ?? 0}
-                isExtremesMode={isExtremesMode}
-                setIsExtremesMode={setIsExtremesMode}
-              />
               <div className='w-full'>
                 <ChartTitle
                   title={'Rate map unavailable: ' + title}
@@ -595,11 +574,6 @@ function MapCardWithKey(props: MapCardProps) {
 
         return (
           <>
-            <ExtremesResetGuard
-              dataLength={dataForActiveDemographicGroup?.length ?? 0}
-              isExtremesMode={isExtremesMode}
-              setIsExtremesMode={setIsExtremesMode}
-            />
             <MultiMapDialog
               dataTypeConfig={props.dataTypeConfig}
               demographicType={demographicType}
