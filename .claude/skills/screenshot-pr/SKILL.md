@@ -204,8 +204,10 @@ rm /absolute/path/to/frontend/scripts/_dialog-screenshots.ts
 
 ## Step 6 — Upload to GCS
 
+Upload with `Cache-Control: no-cache` so GitHub's image proxy always fetches fresh content (without this, overwritten images show stale versions for hours):
+
 ```bash
-gsutil -m cp \
+gsutil -m -h "Cache-Control:no-cache, no-store" cp \
   /tmp/het-screenshots/pr-{number}/{feature-slug}/*.png \
   gs://het-pr-screenshots/pr-{number}/{feature-slug}/
 ```
@@ -218,7 +220,7 @@ After upload, verify the count:
 gsutil ls gs://het-pr-screenshots/pr-{number}/{feature-slug}/*.png | wc -l
 ```
 
-If the count is less than the number of files captured, upload missing files individually with `gsutil cp`.
+If the count is less than the number of files captured, upload missing files individually with `gsutil cp -h "Cache-Control:no-cache, no-store"`.
 
 If this fails with an authentication error: tell the user to run `gcloud auth application-default login` and retry.
 
@@ -228,36 +230,38 @@ If this fails with an authentication error: tell the user to run `gcloud auth ap
 
 ### Page-level screenshots
 
-For each page route, derive a human-readable name (split on `-`/`/`, title-case, join with spaces). Group by page:
+For each page route, derive a human-readable name (split on `-`/`/`, title-case, join with spaces). Append `?v={unix-timestamp}` to every URL (same timestamp across the whole run). Group by page:
 
 ```markdown
 ### {Page Name}
 
 **Mobile (375px)**
-![{Page Name} mobile]({url}/{slug}-375px.png)
+![{Page Name} mobile]({url}/{slug}-375px.png?v={timestamp})
 
 **Tablet (768px)**
-![{Page Name} tablet]({url}/{slug}-768px.png)
+![{Page Name} tablet]({url}/{slug}-768px.png?v={timestamp})
 
 **Desktop (1280px)**
-![{Page Name} desktop]({url}/{slug}-1280px.png)
+![{Page Name} desktop]({url}/{slug}-1280px.png?v={timestamp})
 ```
 
 ### Dialog screenshots
 
 For each dialog, group by modal name. Note which breakpoints show a drawer vs a dialog. If a modal is mobile/tablet-only, add a note explaining why (e.g. "*(Desktop: rendered inline in sidebar)*"):
 
+Append `?v={unix-timestamp}` to every image URL to bust GitHub's image proxy cache. Use the same timestamp for all images in a single run (capture it once: `TS=$(date +%s)`).
+
 ```markdown
 ### {Modal Name}
 
 **Mobile (375px) — bottom-sheet drawer**
-![{name} mobile]({url}/dialog-{name}-mobile.png)
+![{name} mobile]({url}/dialog-{name}-mobile.png?v={timestamp})
 
 **Tablet (768px) — bottom-sheet drawer**
-![{name} tablet]({url}/dialog-{name}-tablet.png)
+![{name} tablet]({url}/dialog-{name}-tablet.png?v={timestamp})
 
 **Desktop (1280px) — dialog**
-![{name} desktop]({url}/dialog-{name}-desktop.png)
+![{name} desktop]({url}/dialog-{name}-desktop.png?v={timestamp})
 ```
 
 Separate each modal block with `---`. Omit the trailing `---` after the last block.
