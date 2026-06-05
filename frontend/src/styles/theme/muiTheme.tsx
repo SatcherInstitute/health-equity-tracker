@@ -83,18 +83,6 @@ const muiTheme = extendTheme({
       styleOverrides: {
         paper: {
           borderRadius: dimensions.radiusLg,
-          '&:focus, &:focus-visible': {
-            outline: 'none',
-          },
-        },
-      },
-    },
-    MuiDrawer: {
-      styleOverrides: {
-        paper: {
-          '&:focus, &:focus-visible': {
-            outline: 'none',
-          },
         },
       },
     },

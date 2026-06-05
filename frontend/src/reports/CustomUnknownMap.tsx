@@ -27,6 +27,7 @@ const CustomUnknownMap: React.FC<CustomUnknownMapProps> = ({
 
   return (
     <div
+      tabIndex={-1}
       className='w-full'
       id='unknown-demographic-map'
       style={{

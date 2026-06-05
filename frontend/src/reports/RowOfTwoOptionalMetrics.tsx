@@ -43,6 +43,7 @@ export default function RowOfTwoOptionalMetrics(
   return (
     <div id={`${props.id}-row`} className='flex w-full flex-wrap'>
       <div
+        tabIndex={-1}
         className={`w-full gap-2 lg:gap-3 ${props.hideSecondCard ? '' : 'md:w-1/2'}`}
         id={props.id}
         // NOTE: use inline styles to set dynamic scroll margin based on MadLib header height
@@ -62,6 +63,7 @@ export default function RowOfTwoOptionalMetrics(
       </div>
       {!props.hideSecondCard && (
         <div
+          tabIndex={-1}
           className='w-full md:w-1/2'
           id={`${props.id}2`}
           style={{ scrollMarginTop: props.headerScrollMargin }}
