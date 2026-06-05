@@ -82,6 +82,7 @@ const muiTheme = extendTheme({
     MuiDialog: {
       styleOverrides: {
         paper: {
+          borderRadius: dimensions.radiusLg,
           '&:focus, &:focus-visible': {
             outline: 'none',
           },

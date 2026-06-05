@@ -34,25 +34,31 @@ If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fo
 
 ---
 
-## Step 2 — Run Biome auto-fix
+## Step 2 — Run Biome auto-fix and type check
 
-`tsc --noEmit` and `npm run test` (Vitest) both run in CI on every PR push — do NOT run them locally here.
+`npm run test` (Vitest) runs in CI — do NOT run it locally here.
 
-Run only Biome from `frontend/`, since it auto-fixes files (CI runs `biome ci` which only reports, never fixes):
+Run Biome and tsc from `frontend/`. Biome auto-fixes files (CI runs `biome ci` which only reports); tsc is fast and catches type errors before the push:
 
 ```bash
 npm run cleanup
+npx tsc --noEmit
 ```
 
-If cleanup modifies any files, stage and commit them:
+If cleanup modifies any files, stage and commit them before the tsc run:
 
 ```bash
 git add -p   # review what changed
 git commit -m "style: biome auto-fix"
-git push $FORK_REMOTE HEAD
 ```
 
-If cleanup exits non-zero with unfixable errors: report and fix manually before continuing.
+If tsc exits non-zero: fix all errors before continuing — do not push with type errors.
+
+After both pass, push:
+
+```bash
+git push $FORK_REMOTE HEAD
+```
 
 ---
 
@@ -154,7 +160,9 @@ For every remaining unchecked item that describes a browser interaction (URL par
 
 ```bash
 cd frontend
-npm run localhost > /tmp/het-dev-server.log 2>&1 &
+# Kill any leftover dev server so we always land on port 3000
+lsof -ti :3000 | xargs kill -9 2>/dev/null; sleep 1
+npm run dev > /tmp/het-dev-server.log 2>&1 &
 DEV_PID=$!
 # Poll until the server responds rather than sleeping a fixed amount
 until curl -s http://localhost:3000 > /dev/null 2>&1; do sleep 1; done

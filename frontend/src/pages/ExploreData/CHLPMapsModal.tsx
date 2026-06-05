@@ -103,6 +103,7 @@ export default function CHLPMapsModal() {
       onClose={close}
       onCloseLabel='close modal'
       maxWidth='md'
+      fitContent
     >
       {galleryContent}
     </HetResponsiveDialog>

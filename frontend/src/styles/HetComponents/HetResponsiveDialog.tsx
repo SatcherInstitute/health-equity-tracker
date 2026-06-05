@@ -81,9 +81,11 @@ export default function HetResponsiveDialog({
       maxWidth={maxWidth}
       fullWidth={fullWidth}
       scroll='paper'
-      slotProps={
-        fitContent ? undefined : { paper: { style: { height: '95vh' } } }
-      }
+      slotProps={{
+        paper: {
+          style: fitContent ? { maxHeight: '90vh' } : { height: '95vh' },
+        },
+      }}
     >
       {header}
       <DialogContent dividers className='!p-4'>
