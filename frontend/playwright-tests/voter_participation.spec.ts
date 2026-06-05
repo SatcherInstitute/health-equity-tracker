@@ -10,7 +10,7 @@ test('Voter Participation Flow', async ({ page }) => {
     .frameLocator('iframe[title="Vote\\.org Registration Checker"]')
     .getByRole('heading', { name: 'Are You Registered to Vote?' })
     .click()
-  await page.getByLabel('close modal').click()
+  await page.getByLabel('close dialog').click()
   await page
     .locator('#rate-map')
     .getByRole('heading', { name: 'Voter participation in the' })

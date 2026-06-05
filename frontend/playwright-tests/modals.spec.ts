@@ -21,7 +21,7 @@ test('Topic Info Modal from ReportSidebarDesktop', async ({ page }) => {
   await expect(page).toHaveURL(/.*topic-info=true/)
 
   // 5. Close Modal
-  await page.getByRole('button', { name: 'close topic info modal' }).click()
+  await page.getByLabel('close dialog').click()
   await expect(page).not.toHaveURL(/.*topic-info=true/)
 })
 
@@ -45,7 +45,7 @@ test('Topic Info Modal from Map Legend', async ({ page }) => {
     .soft(page.getByRole('heading', { name: 'Uninsured people' }))
     .toBeVisible()
 
-  await page.getByLabel('close topic info modal').click()
+  await page.getByLabel('close dialog').click()
   await expect(page.getByRole('dialog')).toBeHidden()
 })
 

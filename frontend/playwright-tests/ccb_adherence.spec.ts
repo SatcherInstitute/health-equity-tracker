@@ -14,7 +14,7 @@ test('calcium channel blocker adherence', async ({ page }) => {
     .getByRole('heading', { name: 'Population adherent to' })
     .click()
   await page.getByLabel('open the topic info modal').click()
-  await page.getByLabel('close topic info modal').click()
+  await page.getByLabel('close dialog').click()
   await page.getByText('Off').nth(1).click()
   await page.locator('#menu- div').first().click()
   await page
