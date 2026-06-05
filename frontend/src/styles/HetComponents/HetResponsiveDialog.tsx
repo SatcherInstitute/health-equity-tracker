@@ -7,7 +7,7 @@ interface HetResponsiveDialogProps {
   open: boolean
   onClose: () => void
   children: ReactNode
-  onCloseLabel?: string
+  onCloseLabel: string
   headerActions?: ReactNode
   fullWidth?: boolean
   dialogClassName?: string
@@ -22,7 +22,7 @@ export default function HetResponsiveDialog({
   onClose,
   children,
   onCloseLabel,
-  headerActions,
+  headerActions = undefined,
   fullWidth = false,
   dialogClassName,
   ariaLabelledBy,
@@ -32,7 +32,7 @@ export default function HetResponsiveDialog({
 }: HetResponsiveDialogProps) {
   const isSmAndUp = useIsBreakpointAndUp('sm')
 
-  const header = onCloseLabel ? (
+  const header = (
     <div className='flex shrink-0 items-center p-3 sm:p-2'>
       <div className='ml-auto flex items-center'>
         {headerActions}
@@ -43,7 +43,7 @@ export default function HetResponsiveDialog({
         />
       </div>
     </div>
-  ) : null
+  )
 
   if (!isSmAndUp) {
     return (
