@@ -82,9 +82,14 @@ If not `200`: start it automatically:
 
 ```bash
 lsof -ti :3000 | xargs kill -9 2>/dev/null; sleep 1
+cd frontend
 npm run dev > /tmp/het-dev-server.log 2>&1 &
 DEV_PID=$!
-until curl -s http://localhost:3000 > /dev/null 2>&1; do sleep 1; done
+TIMEOUT=60
+until curl -s http://localhost:3000 > /dev/null 2>&1; do
+  if [ $TIMEOUT -le 0 ]; then echo "Dev server failed to start" >&2; kill $DEV_PID 2>/dev/null; exit 1; fi
+  sleep 1; TIMEOUT=$((TIMEOUT - 1))
+done
 echo "Server ready"
 ```
 

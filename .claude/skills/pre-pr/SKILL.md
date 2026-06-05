@@ -106,6 +106,11 @@ Derive a branch name from the cluster description: slugify it, prefix with `refa
 ```bash
 PRE_BRANCH="<prefix>/<slug>"
 
+# Abort if there are uncommitted changes — they would bleed into the new branch
+if [ -n "$(git status --porcelain)" ]; then
+  echo "Error: uncommitted changes present. Commit or stash before extracting." >&2; exit 1
+fi
+
 # Branch from main — never from the feature branch
 git fetch origin main
 git checkout -b $PRE_BRANCH origin/main
@@ -132,7 +137,13 @@ If any step fails: stop, explain what went wrong, and do not proceed to revert t
 Now that the pre-PR branch holds those changes, revert the same files on the feature branch back to their state on main:
 
 ```bash
-git checkout origin/main -- path/to/file1.tsx path/to/file2.tsx ...
+for file in path/to/file1.tsx path/to/file2.tsx ...; do
+  if git show origin/main:"$file" > /dev/null 2>&1; then
+    git checkout origin/main -- "$file"   # file existed on main: restore it
+  else
+    git rm -f "$file"                     # file is new: remove it entirely
+  fi
+done
 git commit -m "revert <description> to main — extracted to pre-PR #<pre-pr-number>"
 git push $FORK_REMOTE HEAD
 ```

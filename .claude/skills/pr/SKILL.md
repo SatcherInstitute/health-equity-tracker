@@ -41,6 +41,7 @@ If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fo
 Run Biome and tsc from `frontend/`. Biome auto-fixes files (CI runs `biome ci` which only reports); tsc is fast and catches type errors before the push:
 
 ```bash
+cd frontend
 npm run cleanup
 npx tsc --noEmit
 ```
@@ -164,8 +165,12 @@ cd frontend
 lsof -ti :3000 | xargs kill -9 2>/dev/null; sleep 1
 npm run dev > /tmp/het-dev-server.log 2>&1 &
 DEV_PID=$!
-# Poll until the server responds rather than sleeping a fixed amount
-until curl -s http://localhost:3000 > /dev/null 2>&1; do sleep 1; done
+# Poll until the server responds (timeout after 60s)
+TIMEOUT=60
+until curl -s http://localhost:3000 > /dev/null 2>&1; do
+  if [ $TIMEOUT -le 0 ]; then echo "Dev server failed to start" >&2; kill $DEV_PID 2>/dev/null; exit 1; fi
+  sleep 1; TIMEOUT=$((TIMEOUT - 1))
+done
 ```
 
 **Write a temp test file** at `frontend/playwright-tests/_pr_verify.spec.ts`. Each test should correspond to one checklist item — use a descriptive test name that matches the checklist wording so results map back clearly. Example structure:
