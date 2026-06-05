@@ -7,7 +7,7 @@ interface HetResponsiveDialogProps {
   open: boolean
   onClose: () => void
   children: ReactNode
-  onCloseLabel: string
+  onCloseLabel?: string
   headerActions?: ReactNode
   fullWidth?: boolean
   dialogClassName?: string
@@ -21,7 +21,7 @@ export default function HetResponsiveDialog({
   open,
   onClose,
   children,
-  onCloseLabel,
+  onCloseLabel = 'close dialog',
   headerActions = undefined,
   fullWidth = false,
   dialogClassName,
