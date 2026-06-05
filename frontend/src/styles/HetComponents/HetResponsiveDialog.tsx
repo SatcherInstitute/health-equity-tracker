@@ -35,7 +35,7 @@ export default function HetResponsiveDialog({
         <HetCloseButton
           onClick={onClose}
           ariaLabel={onCloseLabel}
-          className='!p-3 sm:!p-1 text-alt-black'
+          className='text-alt-black'
         />
       </div>
     </div>
