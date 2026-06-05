@@ -54,16 +54,6 @@ airflow-logs/
 # Misc
 tig
 
-# Temporary Claude Code skill files (prefixed with _ by convention; never commit these)
-frontend/playwright-tests/_*.spec.ts
-frontend/scripts/_*.ts
-
-# Credentials / service account keys (belt-and-suspenders; these should never land here)
-*.key.json
-*-credentials.json
-application_default_credentials.json
-service_account*.json
-
 # JSON Files (with exceptions)
 *.json
 !frontend/cspell.config.json
