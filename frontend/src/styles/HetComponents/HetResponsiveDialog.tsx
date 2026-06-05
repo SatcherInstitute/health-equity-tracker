@@ -29,13 +29,13 @@ export default function HetResponsiveDialog({
   const isSmAndUp = useIsBreakpointAndUp('sm')
 
   const header = onCloseLabel ? (
-    <div className='flex shrink-0 items-center p-2'>
+    <div className='flex shrink-0 items-center p-3 sm:p-2'>
       <div className='ml-auto flex items-center'>
         {headerActions}
         <HetCloseButton
           onClick={onClose}
           ariaLabel={onCloseLabel}
-          className='text-alt-black'
+          className='!p-3 sm:!p-1 text-alt-black'
         />
       </div>
     </div>

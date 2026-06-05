@@ -10,7 +10,6 @@ interface HetCloseButtonProps {
 export default function HetCloseButton(props: HetCloseButtonProps) {
   return (
     <Button
-      sx={{ float: 'right' }}
       onClick={props.onClick}
       color='primary'
       aria-label={props.ariaLabel}

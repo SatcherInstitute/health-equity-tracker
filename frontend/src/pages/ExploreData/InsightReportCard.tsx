@@ -30,6 +30,7 @@ import { REPORT_INSIGHT_PARAM_KEY } from '../../utils/urlutils'
 interface InsightReportCardProps {
   setTrackerMode?: React.Dispatch<React.SetStateAction<MadLibId>>
   headerScrollMargin?: number
+  isFlat?: boolean
 }
 
 type SectionConfig = {
@@ -113,7 +114,9 @@ export default function InsightReportCard(props: InsightReportCardProps) {
 
   return (
     <div className='md:sticky' style={{ top: props.headerScrollMargin ?? 0 }}>
-      <div className='flex flex-col gap-3 rounded-sm bg-alt-white p-4 text-left shadow-raised md:m-card-gutter'>
+      <div
+        className={`flex flex-col gap-3 bg-alt-white p-4 text-left ${props.isFlat ? '' : 'rounded-sm shadow-raised md:m-card-gutter'}`}
+      >
         {/* Header */}
         <div className='flex items-center justify-between gap-2'>
           <span className='flex items-center gap-2 font-semibold text-alt-dark'>
