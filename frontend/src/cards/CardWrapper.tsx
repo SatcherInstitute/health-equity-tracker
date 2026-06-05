@@ -66,7 +66,6 @@ function CardWrapper(props: {
     <div
       className={`relative m-2 flex justify-center rounded bg-alt-white p-3 shadow-raised ${props.className}`}
       style={{ minHeight: props.minHeight }}
-      tabIndex={-1}
     >
       <CircularProgress aria-label='loading' />
     </div>
