@@ -139,7 +139,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       }
       fullWidth
       dialogClassName='z-multiMapModal'
-      ariaLabelledBy='modalTitle'
+      ariaLabel={title}
     >
       <div id={MULTIMAP_MODAL_CONTENT_ID}>
         {/* card heading row */}

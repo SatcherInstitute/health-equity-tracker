@@ -10,23 +10,19 @@ interface HetResponsiveDialogProps {
   headerActions?: ReactNode
   fullWidth?: boolean
   dialogClassName?: string
-  ariaLabelledBy?: string
   ariaLabel?: string
   maxWidth?: false | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
-  fitContent?: boolean
 }
 
 export default function HetResponsiveDialog({
   open,
   onClose,
   children,
-  headerActions = undefined,
+  headerActions,
   fullWidth = false,
   dialogClassName,
-  ariaLabelledBy,
   ariaLabel,
   maxWidth = false,
-  fitContent = false,
 }: HetResponsiveDialogProps) {
   const isSmAndUp = useIsBreakpointAndUp('sm')
 
@@ -59,7 +55,6 @@ export default function HetResponsiveDialog({
               overflow: 'hidden',
             },
             'aria-label': ariaLabel,
-            'aria-labelledby': ariaLabelledBy,
           },
         }}
       >
@@ -72,7 +67,6 @@ export default function HetResponsiveDialog({
   return (
     <Dialog
       className={dialogClassName}
-      aria-labelledby={ariaLabelledBy}
       aria-label={ariaLabel}
       open={open}
       onClose={onClose}
@@ -81,7 +75,8 @@ export default function HetResponsiveDialog({
       scroll='paper'
       slotProps={{
         paper: {
-          style: fitContent ? { maxHeight: '90vh' } : { height: '95vh' },
+          style:
+            maxWidth !== false ? { maxHeight: '90vh' } : { height: '95vh' },
         },
       }}
     >

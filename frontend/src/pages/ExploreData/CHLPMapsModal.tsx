@@ -102,7 +102,6 @@ export default function CHLPMapsModal() {
       open={Boolean(modalIsOpen)}
       onClose={close}
       maxWidth='md'
-      fitContent
     >
       {galleryContent}
     </HetResponsiveDialog>
