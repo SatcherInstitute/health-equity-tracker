@@ -168,7 +168,6 @@ export function Report(props: ReportProps) {
               >
                 {/* 100k MAP CARD */}
                 <div
-                  tabIndex={-1}
                   id='rate-map'
                   // NOTE: use inline styles to set dynamic scroll margin based on MadLib header height
                   style={{
@@ -192,7 +191,6 @@ export function Report(props: ReportProps) {
                 {/* RATE TRENDS LINE CHART CARD */}
                 {rateMetricConfig?.timeSeriesCadence && (
                   <div
-                    tabIndex={-1}
                     className='w-full scroll-m-0 md:scroll-mt-24'
                     id='rates-over-time'
                   >
@@ -207,7 +205,6 @@ export function Report(props: ReportProps) {
 
                 {/* 100K BAR CHART CARD */}
                 <div
-                  tabIndex={-1}
                   className='w-full'
                   id='rate-chart'
                   style={{
@@ -224,7 +221,6 @@ export function Report(props: ReportProps) {
 
                 {/* UNKNOWNS MAP CARD */}
                 <div
-                  tabIndex={-1}
                   className='w-full'
                   id='unknown-demographic-map'
                   style={{
@@ -250,7 +246,6 @@ export function Report(props: ReportProps) {
                 {/* SHARE TRENDS LINE CHART CARD */}
                 {inequityOverTimeConfig?.timeSeriesCadence && (
                   <div
-                    tabIndex={-1}
                     id='inequities-over-time'
                     className='w-full scroll-m-0 md:scroll-mt-24'
                   >
@@ -267,7 +262,6 @@ export function Report(props: ReportProps) {
 
                 {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
                 <div
-                  tabIndex={-1}
                   className='w-full'
                   id='population-vs-distribution'
                   style={{
@@ -288,7 +282,6 @@ export function Report(props: ReportProps) {
 
                 {/* DATA TABLE CARD */}
                 <div
-                  tabIndex={-1}
                   className='w-full'
                   id='data-table'
                   style={{
@@ -306,7 +299,6 @@ export function Report(props: ReportProps) {
                 {/* AGE ADJUSTED TABLE CARD */}
                 {resolvedConfig.metrics?.age_adjusted_ratio && (
                   <div
-                    tabIndex={-1}
                     className='w-full'
                     id='age-adjusted-ratios'
                     style={{

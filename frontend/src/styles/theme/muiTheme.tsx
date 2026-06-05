@@ -79,6 +79,24 @@ const muiTheme = extendTheme({
         },
       },
     },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          '&:focus, &:focus-visible': {
+            outline: 'none',
+          },
+        },
+      },
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          '&:focus, &:focus-visible': {
+            outline: 'none',
+          },
+        },
+      },
+    },
     MuiInputBase: {
       styleOverrides: {
         sizeSmall: {
