@@ -33,42 +33,60 @@ Extract: `number` (PR number), `headRefName` (branch name), `body` (current PR b
 
 ---
 
-## Step 3 — Determine routes and dialogs
+## Step 3 — Determine what to capture
 
-**The goal is screenshots that actually show the change.** A screenshot of a page in its default/empty state is useless. Before proposing any route, ask: "Does loading this URL visibly demonstrate what the PR changed?" If not, skip it or ask the user for a better URL.
+**The goal is screenshots that visibly demonstrate what the PR changed.** A page in its default/empty state is not useful. Work out the most specific URL that actually shows the change, then confirm with the user before proceeding.
 
 **If the user passed routes as arguments** (e.g. `/screenshot-pr /datacatalog`): use those exactly. Skip inference.
 
-**If no routes were given**: infer from changed files:
+**If no routes were given**: investigate the diff to deduce what URLs will reveal the change.
 
 ```bash
 git diff --name-only $(git merge-base HEAD origin/main)
+git diff $(git merge-base HEAD origin/main) -- frontend/src/
 ```
 
-Apply these heuristics, but treat routes marked ⚠️ with extra caution — they need topic/state params to show anything meaningful:
+Read the actual diff. Think like an investigator: what does a user have to load in the browser to see this change? Work through the evidence in this order:
 
-| Changed path pattern | Page-level route | Notes |
+**1. Find URLs already written in the codebase for this change.**
+
+Scan Playwright test files related to the changed code for `goto(...)` calls — these are working URLs someone already chose to exercise the feature:
+
+```bash
+grep -r "goto(" frontend/playwright-tests/ --include="*.ts" -l
+```
+
+Read the matching test files. Extract the full URL strings. These are your best candidates.
+
+**2. Find URL params that activate the changed UI.**
+
+For any component that changed, grep for `useParamState` calls to find the URL param key that triggers it:
+
+```bash
+grep -r "useParamState" frontend/src/ --include="*.tsx" --include="*.ts" -n
+```
+
+If a changed file uses `useParamState('some-param')`, the param `some-param=true` added to a relevant page URL will open that UI.
+
+**3. Map changed files to their page and the minimum state needed.**
+
+| Changed path pattern | Base page | Notes |
 |---|---|---|
-| `src/pages/DataCatalog/**` or `*datacatalog*` | `/datacatalog` | Safe — page is useful in its default state |
-| `src/pages/Landing/**` | `/` | Safe |
-| `src/pages/AboutUs/**` | `/aboutus` | Safe |
-| `src/pages/WhatIsHet/**` | `/whatishet` | Safe |
-| `src/pages/Policy/**` | `/policy` | Safe |
-| `src/styles/**` or design tokens (`tokens/*.json`) | `/` | Safe |
-| `src/pages/ExploreData/**` or `*exploredata*` | ⚠️ Ask user | `/exploredata` without params shows an empty topic picker — not useful. Ask whether a page-level shot is needed at all, and if so, ask for a specific URL (e.g. `?mls=1.hiv-3.00&mlp=disparity`). If the PR only changed modals/dialogs, skip page-level screenshots entirely. |
-| `src/data/providers/**`, `src/data/config/**` | ⚠️ Ask user | Data changes are only visible with a specific topic loaded. Ask the user for the URL or skip. |
+| `src/pages/DataCatalog/**` | `/datacatalog` | Default state is useful |
+| `src/pages/Landing/**` | `/` | Default state is useful |
+| `src/pages/AboutUs/**` | `/aboutus` | Default state is useful |
+| `src/pages/WhatIsHet/**` | `/whatishet` | Default state is useful |
+| `src/pages/Policy/**` | `/policy` | Default state is useful |
+| `src/styles/**` or `tokens/*.json` | `/` | Default state is useful |
+| `src/pages/ExploreData/**` or `src/data/providers/**` or `src/data/config/**` | `/exploredata?...` | Needs topic params — use URLs from test files (step 1) or construct from context |
 
-**Dialog detection**: scan the changed files for modal/dialog components:
+For ExploreData / provider / config changes: look at what topic or metric the changed files reference, find a test file URL that exercises it, and use that. `/exploredata` without params shows nothing useful — never propose it bare.
 
-| Changed file pattern | Action |
-|---|---|
-| `*Modal.tsx` or `*Dialog.tsx` or `HetResponsiveDialog.tsx` | Detect URL-param key by grepping for `useParamState` calls; propose dialog screenshots for each (see Step 5b) |
+**4. Propose a concrete plan.**
 
-If the changed files contain modal components, list the detected dialogs. If the PR is dialog-focused and the underlying page doesn't need its own screenshot, propose skipping page-level shots and only taking dialog screenshots.
+List each URL you plan to screenshot and a one-line reason why it shows the change. If you cannot find any evidence of a meaningful URL for a changed file area (no test URLs, no param keys, no obvious default state), say so and explain what you found — don't guess.
 
-If nothing maps clearly, explain what you found and ask the user what to capture.
-
-**Always confirm before proceeding.** Show exactly what you plan to capture and why — flag any route that requires topic params or user interaction to show the change, and let the user correct the plan before any screenshots are taken.
+**Always confirm before proceeding.** Show the user exactly what you plan to capture and why, and give them a chance to correct the plan before any screenshots are taken.
 
 ---
 
