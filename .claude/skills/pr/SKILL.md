@@ -1,11 +1,11 @@
 ---
 name: pr
-description: Run all frontend checks, update CLAUDE.md and README docs as needed, then update the open PR's title and description to accurately reflect the changes. Use when the user wants to close out a PR, verify it's ready for review, or run /pr.
+description: Run Biome auto-fix (cleanup only — tsc and Vitest run in CI, not locally), address any open review comments, update CLAUDE.md docs if stale, verify the test plan with Playwright against a local dev server (live backend + feature flags), then update the open PR title and description. Use when the user wants to close out a PR, verify it's ready for review, or run /pr.
 ---
 
 # /pr
 
-Run all checks, update docs, and polish the open PR so it's ready for human review.
+Polish the open PR so it's ready for human review: auto-fix formatting, address review comments, update docs, verify tests, and rewrite the PR description.
 
 The user may pass a PR number as an argument (e.g. `/pr 4764`). If none is given, detect the open PR from the current branch.
 
@@ -34,23 +34,32 @@ If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fo
 
 ---
 
-## Step 2 — Run all checks
+## Step 2 — Run Biome auto-fix and type check
 
-Run these from `frontend/` in parallel — they are independent:
+`npm run test` (Vitest) runs in CI — do NOT run it locally here.
+
+Run Biome and tsc from `frontend/`. Biome auto-fixes files (CI runs `biome ci` which only reports); tsc is fast and catches type errors before the push:
 
 ```bash
+cd frontend
+npm run cleanup
 npx tsc --noEmit
 ```
 
-```bash
-npm run test
-```
+If cleanup modifies any files, stage and commit them before the tsc run:
 
 ```bash
-npm run cleanup
+git add -p   # review what changed
+git commit -m "style: biome auto-fix"
 ```
 
-If any check fails: report the failure with the full error, fix it, re-run, and only continue once all three pass. Stage and commit any files that `cleanup` modified automatically.
+If tsc exits non-zero: fix all errors before continuing — do not push with type errors.
+
+After both pass, push:
+
+```bash
+git push $FORK_REMOTE HEAD
+```
 
 ---
 
@@ -148,22 +157,28 @@ Remove or rewrite any items that refer to code that was removed or refactored.
 
 For every remaining unchecked item that describes a browser interaction (URL params, navigation behavior, UI state, link resolution), write and run a targeted Playwright test.
 
-**Start the preview server** (build first if no server is already running):
+**Start the dev server** (connects to the live dev GCP backend — no build step needed, data fetches work):
 
 ```bash
 cd frontend
-npm run build 2>&1 | tail -5
-npx vite preview --port 4173 &
-PREVIEW_PID=$!
-sleep 3  # wait for server to be ready
+# Kill any leftover dev server so we always land on port 3000
+lsof -ti :3000 | xargs kill -9 2>/dev/null; sleep 1
+npm run dev > /tmp/het-dev-server.log 2>&1 &
+DEV_PID=$!
+# Poll until the server responds (timeout after 60s)
+TIMEOUT=60
+until curl -s http://localhost:3000 > /dev/null 2>&1; do
+  if [ $TIMEOUT -le 0 ]; then echo "Dev server failed to start" >&2; kill $DEV_PID 2>/dev/null; exit 1; fi
+  sleep 1; TIMEOUT=$((TIMEOUT - 1))
+done
 ```
 
 **Write a temp test file** at `frontend/playwright-tests/_pr_verify.spec.ts`. Each test should correspond to one checklist item — use a descriptive test name that matches the checklist wording so results map back clearly. Example structure:
 
 ```ts
-import { test, expect } from '@playwright/test'
+import { test, expect } from './utils/fixtures'
 
-const BASE = 'http://localhost:4173'
+const BASE = 'http://localhost:3000'
 
 test('atl and extremes cleared after mode switch', async ({ page }) => {
   await page.goto(`${BASE}/exploredata?mls=1.hiv-3.00&mlp=disparity&atl=true&extremes=true`)
@@ -173,11 +188,11 @@ test('atl and extremes cleared after mode switch', async ({ page }) => {
 })
 ```
 
-**Run only the temp file** against the `chromium` project:
+**Run only the temp file** against the `E2E_NIGHTLY` project (Chromium, no testMatch restriction):
 
 ```bash
 cd frontend
-npx playwright test playwright-tests/_pr_verify.spec.ts --project=chromium --reporter=line 2>&1
+E2E_BASE_URL=http://localhost:3000 npx playwright test playwright-tests/_pr_verify.spec.ts --project=E2E_NIGHTLY --reporter=line 2>&1
 ```
 
 **Map results back to checklist:**
@@ -188,7 +203,7 @@ npx playwright test playwright-tests/_pr_verify.spec.ts --project=chromium --rep
 **Clean up** after all tests run:
 
 ```bash
-kill $PREVIEW_PID 2>/dev/null
+kill $DEV_PID 2>/dev/null
 rm frontend/playwright-tests/_pr_verify.spec.ts
 ```
 
