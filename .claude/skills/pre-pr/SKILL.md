@@ -186,13 +186,11 @@ Pre-PR #<N> is open as a draft at <url>.
 Next steps:
 1. Review the pre-PR diff — it should contain only the extracted files
 2. Mark it ready for review and merge it
-3. After it merges, update your feature branch:
+3. After it merges, pull main into your feature branch and resolve any conflicts:
 
    git fetch origin main
-   git rebase origin/main
-   git push <fork-remote> HEAD --force-with-lease
-
-The rebase will be clean because the feature branch already has those files reverted.
+   git merge origin/main
+   git push <fork-remote> HEAD
 ```
 
 ---
