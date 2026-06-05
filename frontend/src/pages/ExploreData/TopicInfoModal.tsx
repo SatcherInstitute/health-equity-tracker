@@ -30,6 +30,7 @@ export default function TopicInfoModal() {
       open={Boolean(topicInfoModalIsOpen)}
       onClose={close}
       onCloseLabel='close topic info modal'
+      maxWidth='lg'
     >
       <DataTypeDefinitionsList />
       <p className='mt-4 border-t pt-4 text-smallest'>

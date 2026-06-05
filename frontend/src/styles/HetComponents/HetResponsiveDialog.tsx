@@ -13,6 +13,8 @@ interface HetResponsiveDialogProps {
   dialogClassName?: string
   ariaLabelledBy?: string
   ariaLabel?: string
+  maxWidth?: false | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  fitContent?: boolean
 }
 
 export default function HetResponsiveDialog({
@@ -25,6 +27,8 @@ export default function HetResponsiveDialog({
   dialogClassName,
   ariaLabelledBy,
   ariaLabel,
+  maxWidth = false,
+  fitContent = false,
 }: HetResponsiveDialogProps) {
   const isSmAndUp = useIsBreakpointAndUp('sm')
 
@@ -74,10 +78,12 @@ export default function HetResponsiveDialog({
       aria-label={ariaLabel}
       open={open}
       onClose={onClose}
-      maxWidth={false}
+      maxWidth={maxWidth}
       fullWidth={fullWidth}
       scroll='paper'
-      slotProps={{ paper: { style: { height: '95vh' } } }}
+      slotProps={
+        fitContent ? undefined : { paper: { style: { height: '95vh' } } }
+      }
     >
       {header}
       <DialogContent dividers className='!p-4'>

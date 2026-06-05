@@ -13,6 +13,8 @@ export default function InsightReportModal() {
       open={Boolean(insightIsOpen)}
       onClose={() => setInsightIsOpen(false)}
       ariaLabel='AI Report Summary'
+      maxWidth='sm'
+      fitContent
     >
       <InsightReportCard isFlat />
     </HetResponsiveDialog>
