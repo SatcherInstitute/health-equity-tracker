@@ -141,6 +141,13 @@
 	}
 }
 
+/* Suppress focus ring on programmatically-focused containers (tabIndex=-1).
+   These are scroll-to targets and loading placeholders — not keyboard-navigable.
+   Naturally focusable elements (buttons, inputs, links, tabIndex=0) are unaffected. */
+[tabindex="-1"]:focus {
+	outline: none;
+}
+
 /* STYLING OVERRIDES FOR D3 CHARTS */
 .yAxisGroup {
 	>path:first-child {
