@@ -115,8 +115,14 @@ fi
 git fetch origin main
 git checkout -b $SPLIT_BRANCH origin/main
 
-# Copy the extracted file versions from the feature branch
-git checkout $FEATURE_BRANCH -- path/to/file1 path/to/file2 ...
+# Copy the extracted file versions from the feature branch (handle deletions)
+for file in path/to/file1 path/to/file2 ...; do
+  if git show "$FEATURE_BRANCH":"$file" > /dev/null 2>&1; then
+    git checkout "$FEATURE_BRANCH" -- "$file"
+  else
+    git rm -f "$file"   # file was deleted on the feature branch: mirror the deletion
+  fi
+done
 
 git commit -m "<short description of what the extracted changes do>"
 git push $FORK_REMOTE $SPLIT_BRANCH
@@ -204,7 +210,7 @@ Extracted from #<parent-number> as a follow-up.
 Fetch the parent PR's current body and add a `## Related PRs` section before `## Screenshots` (or at the end if no Screenshots section). Do not overwrite the Screenshots section.
 
 ```bash
-gh pr view <parent-number> --json body -q '.body' > /tmp/parent-body.md
+gh pr view <parent-number> --json body -q '.body' | grep -v '^null$' > /tmp/parent-body.md || true
 ```
 
 Append or insert:
