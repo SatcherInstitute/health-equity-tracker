@@ -12,7 +12,6 @@ export default function InsightReportModal() {
     <HetResponsiveDialog
       open={Boolean(insightIsOpen)}
       onClose={() => setInsightIsOpen(false)}
-      onCloseLabel='close AI report summary'
       ariaLabel='AI Report Summary'
       maxWidth='sm'
       fitContent

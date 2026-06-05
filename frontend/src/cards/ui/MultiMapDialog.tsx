@@ -131,7 +131,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     <HetResponsiveDialog
       open={props.open}
       onClose={props.handleClose}
-      onCloseLabel='close multiple maps modal'
       headerActions={
         <CardOptionsMenu
           reportTitle={props.reportTitle}

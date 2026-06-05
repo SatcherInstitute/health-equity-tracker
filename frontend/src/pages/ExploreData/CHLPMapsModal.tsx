@@ -101,7 +101,6 @@ export default function CHLPMapsModal() {
     <HetResponsiveDialog
       open={Boolean(modalIsOpen)}
       onClose={close}
-      onCloseLabel='close modal'
       maxWidth='md'
       fitContent
     >
