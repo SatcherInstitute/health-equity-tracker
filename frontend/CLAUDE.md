@@ -20,6 +20,12 @@ npm run e2e hiv          # Matches any filename containing "hiv"
 
 > **CI note:** In CI, e2e tests run against `vite preview` serving the locally-built `dist/`
 > (not a Netlify preview URL). `VITE_BASE_API_URL` still points to the live dev GCP backend.
+>
+> **E2E file naming convention:**
+> - `*.ci.spec.ts` — runs on every PR push via the `E2E_CI` Playwright project (Chromium only, fast)
+> - `*.spec.ts` (without `.ci.`) — runs nightly only via `E2E_NIGHTLY` + the browser/viewport matrix (`MOBILE_NIGHTLY`, `TABLET_NIGHTLY`, `FIREFOX_NIGHTLY`, `WEBKIT_NIGHTLY`)
+>
+> Use `npm run e2e-nightly-matrix` to run the full nightly matrix locally against the live prod URL.
 
 ## Frontend Data Flow
 
@@ -112,6 +118,10 @@ CSS vars are a Tailwind implementation detail — `@theme` registers tokens so u
 - Only modify MUI components via `styleOverrides` in `muiTheme.tsx` — avoid `sx` props and inline styles
 - **To add or change a token:** edit the relevant `tokens/*.tokens.json` file and run `npm run tokens`
 - **Responsive JS:** detect breakpoints with `useIsBreakpointAndUp(breakpoint)` (`src/utils/hooks/useIsBreakpointAndUp.tsx`)
+
+**TypeScript conventions:**
+
+- No JSDoc (`/** */`) — types already document the interface; plain `//` comments are fine when the why is non-obvious
 
 ## Environment Variables
 

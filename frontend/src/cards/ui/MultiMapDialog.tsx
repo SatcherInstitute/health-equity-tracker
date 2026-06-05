@@ -1,5 +1,3 @@
-// TODO: eventually should make a HetDialog to handle modals
-import { Dialog, DialogContent } from '@mui/material'
 import { useMemo } from 'react'
 import { createColorScale } from '../../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../../charts/choroplethMap/index'
@@ -30,9 +28,10 @@ import type {
 import { Fips } from '../../data/utils/Fips'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
-import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import HetResponsiveDialog from '../../styles/HetComponents/HetResponsiveDialog'
 import HetTerm from '../../styles/HetComponents/HetTerm'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import CardOptionsMenu from './CardOptionsMenu'
 import { Sources } from './Sources'
@@ -126,32 +125,26 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     mapConfig.higherIsBetter,
   ])
 
+  const isSmAndUp = useIsBreakpointAndUp('sm')
+
   return (
-    <Dialog
-      className='z-multiMapModal'
-      id='multimap-modal'
+    <HetResponsiveDialog
       open={props.open}
       onClose={props.handleClose}
-      maxWidth={false}
-      scroll='paper'
-      aria-labelledby='modalTitle'
+      headerActions={
+        <CardOptionsMenu
+          reportTitle={props.reportTitle}
+          scrollToHash={'multimap-modal'}
+        />
+      }
+      fullWidth
+      dialogHeight='full'
+      dialogClassName='z-multiMapModal'
+      ariaLabel={title}
     >
-      <DialogContent
-        dividers={true}
-        className='bg-alt-white p-2'
-        id={MULTIMAP_MODAL_CONTENT_ID}
-      >
-        {/* card options button */}
-        <div className='mb-2 flex justify-end'>
-          <CardOptionsMenu
-            reportTitle={props.reportTitle}
-            scrollToHash={'multimap-modal'}
-          />
-        </div>
-
+      <div id={MULTIMAP_MODAL_CONTENT_ID}>
         {/* card heading row */}
         <div className='mb-4 flex justify-between'>
-          {/* Modal Title */}
           <h3 className='m-2 w-full md:m-2' id='modalTitle'>
             {title}
           </h3>
@@ -160,7 +153,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
         {/* Maps container */}
         <div className='mb-6'>
           <ul className='grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 smplus:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
-            {/* Multiples Maps */}
             {props.demographicGroups.map((demographicGroup) => {
               const mapLabel = CAWP_METRICS.includes(
                 props.metricConfig.metricId,
@@ -284,31 +276,18 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             <DataTypeDefinitionsList />
           </HetNotice>
         </div>
-      </DialogContent>
 
-      {/* MODAL FOOTER */}
-      <footer className='' id='modal-footer'>
-        <div className='flex items-center justify-between pl-2 text-left text-small'>
-          {/* Desktop only Sources and Card Options */}
-          <div className='hidden sm:block'>
+        {/* Sources - hidden on mobile */}
+        {isSmAndUp && (
+          <div className='mt-2 pl-2 text-left text-small'>
             <Sources
               queryResponses={props.queryResponses}
               metadata={props.metadata}
               isMulti={true}
             />
           </div>
-          {/*  CLOSE button */}
-          <div>
-            <HetLinkButton
-              className='hide-on-screenshot justify-center'
-              aria-label='close this multiple maps modal'
-              onClick={props.handleClose}
-            >
-              Close
-            </HetLinkButton>
-          </div>
-        </div>
-      </footer>
-    </Dialog>
+        )}
+      </div>
+    </HetResponsiveDialog>
   )
 }

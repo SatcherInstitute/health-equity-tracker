@@ -1,7 +1,5 @@
-import { Dialog, DialogContent } from '@mui/material'
 import { useEffect } from 'react'
-import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
-import { colors } from '../../styles/tokens/colors'
+import HetResponsiveDialog from '../../styles/HetComponents/HetResponsiveDialog'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { VOTE_DOT_ORG_PARAM_KEY } from '../../utils/urlutils'
 
@@ -9,7 +7,6 @@ export default function VoteDotOrgModal() {
   const [modalIsOpen, setModalIsOpen] = useParamState(VOTE_DOT_ORG_PARAM_KEY)
 
   useEffect(() => {
-    // Function to load the external script
     const loadScript = (src: string) => {
       return new Promise((resolve, reject) => {
         const script = document.createElement('script')
@@ -21,13 +18,11 @@ export default function VoteDotOrgModal() {
       })
     }
 
-    // Load the iframeResizer script and initialize it
     const initializeIframeResizer = async () => {
       try {
         await loadScript(
           'https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.3/iframeResizer.min.js',
         )
-        // Initialize the iframeResizer after the script is loaded
         // @ts-expect-error
         if (window.iFrameResize) {
           // @ts-expect-error
@@ -41,38 +36,23 @@ export default function VoteDotOrgModal() {
     initializeIframeResizer()
   }, [])
 
+  const close = () => setModalIsOpen(false)
+
   return (
-    <Dialog
+    <HetResponsiveDialog
       open={Boolean(modalIsOpen)}
-      onClose={() => {
-        setModalIsOpen(false)
-      }}
-      scroll='paper'
-      className='h-full'
-      slotProps={{
-        paper: {
-          style: {
-            backgroundColor: colors.exploreBgColor,
-            height: '95vh', // Ensure the dialog content also respects the height
-          },
-        },
-      }}
+      onClose={close}
+      ariaLabel='Voter registration checker'
+      maxWidth='sm'
+      dialogHeight='full'
     >
-      <DialogContent dividers={true}>
-        <HetCloseButton
-          className='text-alt-black'
-          onClick={() => setModalIsOpen(false)}
-          ariaLabel='close modal'
-        />
-        <iframe
-          title='Vote.org Registration Checker'
-          src='https://verify.vote.org/?partner=111111&campaign=free-tools'
-          width='100%'
-          height='100%'
-          id='voteDotOrgIframe'
-          className='mt-2 border-0 bg-explore-bg-color p-2 md:px-24'
-        ></iframe>
-      </DialogContent>
-    </Dialog>
+      <iframe
+        title='Vote.org Registration Checker'
+        src='https://verify.vote.org/?partner=111111&campaign=free-tools'
+        width='100%'
+        id='voteDotOrgIframe'
+        className='mt-2 h-[600px] border-0 p-2 sm:h-full md:px-24'
+      />
+    </HetResponsiveDialog>
   )
 }

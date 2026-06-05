@@ -1,7 +1,6 @@
-import { Dialog, DialogContent } from '@mui/material'
 import { useAtomValue } from 'jotai'
 import { HashLink } from 'react-router-hash-link'
-import HetCloseButton from '../../styles/HetComponents/HetCloseButton'
+import HetResponsiveDialog from '../../styles/HetComponents/HetResponsiveDialog'
 import { useParamState } from '../../utils/hooks/useParamState'
 import {
   DATA_CATALOG_PAGE_LINK,
@@ -17,7 +16,6 @@ export default function TopicInfoModal() {
     useParamState(TOPIC_INFO_PARAM_KEY)
 
   const selectedDataTypeConfig = useAtomValue(selectedDataTypeConfig1Atom)
-
   const category: CategoryTypeId | undefined =
     selectedDataTypeConfig?.categoryId
   let methodologyLink = `${METHODOLOGY_PAGE_LINK}/topic-categories/`
@@ -25,27 +23,21 @@ export default function TopicInfoModal() {
   if (category === 'medicare') methodologyLink += 'medication-utilization'
   else methodologyLink += category ?? ''
 
+  const close = () => setTopicInfoModalIsOpen(false)
+
   return (
-    <Dialog
+    <HetResponsiveDialog
       open={Boolean(topicInfoModalIsOpen)}
-      onClose={() => {
-        setTopicInfoModalIsOpen(false)
-      }}
-      maxWidth={'lg'}
-      scroll='paper'
+      onClose={close}
+      ariaLabel='Topic information'
+      maxWidth='lg'
     >
-      <DialogContent dividers={true}>
-        <HetCloseButton
-          onClick={() => setTopicInfoModalIsOpen(false)}
-          ariaLabel='close topic info modal'
-        />
-        <DataTypeDefinitionsList />
-      </DialogContent>
-      <DialogContent dividers={true} className='text-smallest'>
+      <DataTypeDefinitionsList />
+      <p className='mt-4 border-t pt-4 text-smallest'>
         For specific calculations and more detailed information, visit our{' '}
         <HashLink to={methodologyLink}>methodology</HashLink>, or view the{' '}
         <HashLink to={DATA_CATALOG_PAGE_LINK}>source data</HashLink>.
-      </DialogContent>
-    </Dialog>
+      </p>
+    </HetResponsiveDialog>
   )
 }

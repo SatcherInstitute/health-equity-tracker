@@ -33,40 +33,60 @@ Extract: `number` (PR number), `headRefName` (branch name), `body` (current PR b
 
 ---
 
-## Step 3 — Determine routes and dialogs
+## Step 3 — Determine what to capture
 
-**If the user passed routes as arguments** (e.g. `/screenshot-pr /datacatalog`): use those routes. Skip inference.
+**The goal is screenshots that visibly demonstrate what the PR changed.** A page in its default/empty state is not useful. Work out the most specific URL that actually shows the change, then confirm with the user before proceeding.
 
-**If no routes were given**: infer from changed files:
+**If the user passed routes as arguments** (e.g. `/screenshot-pr /datacatalog`): use those exactly. Skip inference.
+
+**If no routes were given**: investigate the diff to deduce what URLs will reveal the change.
 
 ```bash
 git diff --name-only $(git merge-base HEAD origin/main)
+git diff $(git merge-base HEAD origin/main) -- frontend/src/
 ```
 
-Apply these heuristics (first match wins per file; collect all unique routes):
+Read the actual diff. Think like an investigator: what does a user have to load in the browser to see this change? Work through the evidence in this order:
 
-| Changed path pattern | Route |
-|---|---|
-| `src/pages/DataCatalog/**` or `*datacatalog*` | `/datacatalog` |
-| `src/pages/ExploreData/**` or `*exploredata*` | `/exploredata` |
-| `src/pages/Landing/**` | `/` |
-| `src/pages/AboutUs/**` | `/aboutus` |
-| `src/pages/WhatIsHet/**` | `/whatishet` |
-| `src/pages/Policy/**` | `/policy` |
-| `src/styles/**` or design tokens (`tokens/*.json`) | `/` |
-| `src/data/providers/**`, `src/data/config/**` | `/exploredata` |
+**1. Find URLs already written in the codebase for this change.**
 
-**Dialog detection**: also scan the changed files for modal/dialog components. If any of the following patterns appear in the diff, add dialog screenshots too (see Step 5b):
+Scan Playwright test files related to the changed code for `goto(...)` calls — these are working URLs someone already chose to exercise the feature:
 
-| Changed file pattern | Dialogs to screenshot |
-|---|---|
-| `*Modal.tsx` or `*Dialog.tsx` or `HetResponsiveDialog.tsx` | Detect URL-param key from the file name or by grepping for `useParamState` calls; ask the user to confirm which ones to include |
+```bash
+grep -r "goto(" frontend/playwright-tests/ --include="*.ts" -l
+```
 
-If the changed files contain modal components, list the detected dialogs and ask for confirmation in the same message as the page routes.
+Read the matching test files. Extract the full URL strings. These are your best candidates.
 
-If the changed files don't map clearly to any route, explain this and ask the user to specify routes manually.
+**2. Find URL params that activate the changed UI.**
 
-**Always confirm before proceeding** — show inferred routes (and dialogs, if any) and wait for user confirmation.
+For any component that changed, grep for `useParamState` calls to find the URL param key that triggers it:
+
+```bash
+grep -r "useParamState" frontend/src/ --include="*.tsx" --include="*.ts" -n
+```
+
+If a changed file uses `useParamState('some-param')`, the param `some-param=true` added to a relevant page URL will open that UI.
+
+**3. Map changed files to their page and the minimum state needed.**
+
+| Changed path pattern | Base page | Notes |
+|---|---|---|
+| `src/pages/DataCatalog/**` | `/datacatalog` | Default state is useful |
+| `src/pages/Landing/**` | `/` | Default state is useful |
+| `src/pages/AboutUs/**` | `/aboutus` | Default state is useful |
+| `src/pages/WhatIsHet/**` | `/whatishet` | Default state is useful |
+| `src/pages/Policy/**` | `/policy` | Default state is useful |
+| `src/styles/**` or `tokens/*.json` | `/` | Default state is useful |
+| `src/pages/ExploreData/**` or `src/data/providers/**` or `src/data/config/**` | `/exploredata?...` | Needs topic params — use URLs from test files (step 1) or construct from context |
+
+For ExploreData / provider / config changes: look at what topic or metric the changed files reference, find a test file URL that exercises it, and use that. `/exploredata` without params shows nothing useful — never propose it bare.
+
+**4. Propose a concrete plan.**
+
+List each URL you plan to screenshot and a one-line reason why it shows the change. If you cannot find any evidence of a meaningful URL for a changed file area (no test URLs, no param keys, no obvious default state), say so and explain what you found — don't guess.
+
+**Always confirm before proceeding.** Show the user exactly what you plan to capture and why, and give them a chance to correct the plan before any screenshots are taken.
 
 ---
 

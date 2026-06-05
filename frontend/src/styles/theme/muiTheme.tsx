@@ -82,9 +82,17 @@ const muiTheme = extendTheme({
     MuiDialog: {
       styleOverrides: {
         paper: {
+          borderRadius: dimensions.radiusLg,
           '&:focus, &:focus-visible': {
             outline: 'none',
           },
+        },
+      },
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          padding: '1rem',
         },
       },
     },
