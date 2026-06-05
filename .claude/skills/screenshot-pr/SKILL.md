@@ -35,7 +35,9 @@ Extract: `number` (PR number), `headRefName` (branch name), `body` (current PR b
 
 ## Step 3 — Determine routes and dialogs
 
-**If the user passed routes as arguments** (e.g. `/screenshot-pr /datacatalog`): use those routes. Skip inference.
+**The goal is screenshots that actually show the change.** A screenshot of a page in its default/empty state is useless. Before proposing any route, ask: "Does loading this URL visibly demonstrate what the PR changed?" If not, skip it or ask the user for a better URL.
+
+**If the user passed routes as arguments** (e.g. `/screenshot-pr /datacatalog`): use those exactly. Skip inference.
 
 **If no routes were given**: infer from changed files:
 
@@ -43,30 +45,30 @@ Extract: `number` (PR number), `headRefName` (branch name), `body` (current PR b
 git diff --name-only $(git merge-base HEAD origin/main)
 ```
 
-Apply these heuristics (first match wins per file; collect all unique routes):
+Apply these heuristics, but treat routes marked ⚠️ with extra caution — they need topic/state params to show anything meaningful:
 
-| Changed path pattern | Route |
+| Changed path pattern | Page-level route | Notes |
+|---|---|---|
+| `src/pages/DataCatalog/**` or `*datacatalog*` | `/datacatalog` | Safe — page is useful in its default state |
+| `src/pages/Landing/**` | `/` | Safe |
+| `src/pages/AboutUs/**` | `/aboutus` | Safe |
+| `src/pages/WhatIsHet/**` | `/whatishet` | Safe |
+| `src/pages/Policy/**` | `/policy` | Safe |
+| `src/styles/**` or design tokens (`tokens/*.json`) | `/` | Safe |
+| `src/pages/ExploreData/**` or `*exploredata*` | ⚠️ Ask user | `/exploredata` without params shows an empty topic picker — not useful. Ask whether a page-level shot is needed at all, and if so, ask for a specific URL (e.g. `?mls=1.hiv-3.00&mlp=disparity`). If the PR only changed modals/dialogs, skip page-level screenshots entirely. |
+| `src/data/providers/**`, `src/data/config/**` | ⚠️ Ask user | Data changes are only visible with a specific topic loaded. Ask the user for the URL or skip. |
+
+**Dialog detection**: scan the changed files for modal/dialog components:
+
+| Changed file pattern | Action |
 |---|---|
-| `src/pages/DataCatalog/**` or `*datacatalog*` | `/datacatalog` |
-| `src/pages/ExploreData/**` or `*exploredata*` | `/exploredata` |
-| `src/pages/Landing/**` | `/` |
-| `src/pages/AboutUs/**` | `/aboutus` |
-| `src/pages/WhatIsHet/**` | `/whatishet` |
-| `src/pages/Policy/**` | `/policy` |
-| `src/styles/**` or design tokens (`tokens/*.json`) | `/` |
-| `src/data/providers/**`, `src/data/config/**` | `/exploredata` |
+| `*Modal.tsx` or `*Dialog.tsx` or `HetResponsiveDialog.tsx` | Detect URL-param key by grepping for `useParamState` calls; propose dialog screenshots for each (see Step 5b) |
 
-**Dialog detection**: also scan the changed files for modal/dialog components. If any of the following patterns appear in the diff, add dialog screenshots too (see Step 5b):
+If the changed files contain modal components, list the detected dialogs. If the PR is dialog-focused and the underlying page doesn't need its own screenshot, propose skipping page-level shots and only taking dialog screenshots.
 
-| Changed file pattern | Dialogs to screenshot |
-|---|---|
-| `*Modal.tsx` or `*Dialog.tsx` or `HetResponsiveDialog.tsx` | Detect URL-param key from the file name or by grepping for `useParamState` calls; ask the user to confirm which ones to include |
+If nothing maps clearly, explain what you found and ask the user what to capture.
 
-If the changed files contain modal components, list the detected dialogs and ask for confirmation in the same message as the page routes.
-
-If the changed files don't map clearly to any route, explain this and ask the user to specify routes manually.
-
-**Always confirm before proceeding** — show inferred routes (and dialogs, if any) and wait for user confirmation.
+**Always confirm before proceeding.** Show exactly what you plan to capture and why — flag any route that requires topic params or user interaction to show the change, and let the user correct the plan before any screenshots are taken.
 
 ---
 
