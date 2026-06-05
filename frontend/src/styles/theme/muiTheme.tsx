@@ -89,6 +89,13 @@ const muiTheme = extendTheme({
         },
       },
     },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          padding: '1rem',
+        },
+      },
+    },
     MuiDrawer: {
       styleOverrides: {
         paper: {

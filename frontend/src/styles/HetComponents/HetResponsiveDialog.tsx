@@ -12,6 +12,9 @@ interface HetResponsiveDialogProps {
   dialogClassName?: string
   ariaLabel: string
   maxWidth?: false | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  // 'full' fixes the desktop dialog to 95vh (use for iframes/map grids that need all the space)
+  // 'content' caps at 90vh and lets content determine height (default)
+  dialogHeight?: 'full' | 'content'
 }
 
 export default function HetResponsiveDialog({
@@ -23,6 +26,7 @@ export default function HetResponsiveDialog({
   dialogClassName,
   ariaLabel,
   maxWidth = false,
+  dialogHeight = 'content',
 }: HetResponsiveDialogProps) {
   const isSmAndUp = useIsBreakpointAndUp('sm')
 
@@ -76,14 +80,14 @@ export default function HetResponsiveDialog({
       slotProps={{
         paper: {
           style:
-            maxWidth !== false ? { maxHeight: '90vh' } : { height: '95vh' },
+            dialogHeight === 'full'
+              ? { height: '95vh' }
+              : { maxHeight: '90vh' },
         },
       }}
     >
       {header}
-      <DialogContent dividers className='!p-4'>
-        {children}
-      </DialogContent>
+      <DialogContent dividers>{children}</DialogContent>
     </Dialog>
   )
 }

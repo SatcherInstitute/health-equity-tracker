@@ -1,13 +1,5 @@
-/**
- * Nightly mobile/tablet viewport smoke tests for URL-param-backed modals.
- * Runs in MOBILE_NIGHTLY (iPhone) and TABLET_NIGHTLY (iPad) projects; NOT in E2E_CI.
- *
- * At phone width (< 600px) the InsightReport, TopicInfo, CHLP, and MultiMap modals
- * render as MUI bottom-sheet Drawers. At tablet width (>= 600px) TopicInfo,
- * CHLP, and MultiMap fall back to the standard Dialog.
- *
- * Covers issues #4771 (mobile/tablet UI audit) and #4772 (bottom-sheet pattern).
- */
+// Nightly-only (MOBILE_NIGHTLY / TABLET_NIGHTLY projects — not in E2E_CI).
+// Below 600px HetResponsiveDialog renders a Drawer; at 600px+ it renders a Dialog.
 import { expect, test } from './utils/fixtures'
 
 const REPORT_URL =

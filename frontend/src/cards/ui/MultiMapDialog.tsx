@@ -138,6 +138,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
         />
       }
       fullWidth
+      dialogHeight='full'
       dialogClassName='z-multiMapModal'
       ariaLabel={title}
     >

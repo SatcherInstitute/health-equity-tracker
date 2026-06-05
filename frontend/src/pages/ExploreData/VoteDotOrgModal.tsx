@@ -43,6 +43,8 @@ export default function VoteDotOrgModal() {
       open={Boolean(modalIsOpen)}
       onClose={close}
       ariaLabel='Voter registration checker'
+      maxWidth='sm'
+      dialogHeight='full'
     >
       <iframe
         title='Vote.org Registration Checker'
