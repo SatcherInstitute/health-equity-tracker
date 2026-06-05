@@ -5,7 +5,7 @@ description: Scan the current PR for tangential changes that can be extracted in
 
 # /pre-pr
 
-Scan the current PR's commits and diff for changes that are tangential to the PR's stated purpose — unrelated bug fixes, dead-code removal, refactors, style corrections — and offer to extract them into a standalone "pre" PR that can be merged first.
+Scan the current PR's full diff for **topic-based clusters of file changes** that are unrelated to the PR's main purpose and safe to extract. Extraction works at the file level — not the commit level — so it handles changes spread across many commits or mixed with feature work. The extracted changes become a standalone pre-PR that merges first; the feature branch then has those files reverted back to main, keeping both diffs clean.
 
 ---
 
@@ -16,126 +16,134 @@ gh pr view --json number,title,body,headRefName,baseRefName
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
 GH_USER=$(gh api user -q .login)
 FORK_REMOTE=$(git remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
+FEATURE_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 ```
 
 If no open PR: print an error and stop.
 
 ---
 
-## Step 2 — Map the commits
-
-List every commit ahead of main, then read each one's diff:
+## Step 2 — Read the full diff
 
 ```bash
-git log origin/main..HEAD --oneline
-```
-
-For each commit SHA, collect:
-- Its subject line
-- Which files it touched: `git show <sha> --stat --format=''`
-- Its full diff: `git show <sha>`
-
-Also read the overall PR diff to understand the PR's theme:
-
-```bash
+git diff origin/main --name-only
 git diff origin/main --stat
-git diff origin/main -- frontend/src/
+git diff origin/main
 ```
+
+Read every changed file's diff in full. Also read the PR title and body to understand the stated purpose.
 
 ---
 
-## Step 3 — Identify tangential commits
+## Step 3 — Identify tangential file clusters
 
-For each commit, evaluate three questions:
+Group the changed files by topic. For each group, ask:
 
-**1. Is it topically independent?**
-The commit's changed files should have no logical coupling to the PR's stated purpose. Examples that are typically tangential:
-- Removing dead code or attributes that were never needed (like unused `tabIndex`)
-- Fixing an unrelated bug noticed during development
-- Cleanup of a file that happened to be open (comment removal, lint fixes on untouched lines)
-- Updating a skill, doc, or config that isn't part of the feature
+**1. Is this topic independent of the PR's stated purpose?**
+The changes should address something the PR wasn't trying to do. Strong candidates:
+- Removing dead code or unnecessary attributes noticed during the work (e.g. unused `tabIndex`, stale JSDoc)
+- Fixing an unrelated bug or UX issue discovered while working
+- Updating a skill, config, or doc file unrelated to the feature
+- Broad cleanup (removing a pattern across many files) that doesn't set up the feature
 
-**2. Is it self-contained?**
-The commit should compile and make sense on its own without any other commits from this branch. If it touches files that were also modified by the feature work and depends on those changes, it is NOT self-contained.
+**2. Can these files be reverted on the feature branch without breaking anything?**
+Read the feature branch's remaining changed files. If reverting the tangential files to main leaves the feature branch compiling and logically correct — extraction is safe. If the feature code imports or depends on the tangential changes, it is NOT safe to extract.
 
-**3. Would it be easier to review separately?**
-Ask: "Would a reviewer understand this commit in 30 seconds without reading the rest of the PR?" If yes, it's a pre-PR candidate.
+**3. Does the extracted state apply cleanly to main?**
+The tangential files' current state on the feature branch must be a valid, standalone improvement over main — not a halfway step that only makes sense combined with other feature changes.
 
-Commits that fail any of these tests stay in the main PR.
-
-**Mixed commits** (tangential changes bundled with feature changes in one commit) are flagged separately — they require the user to manually split the commit before extraction is possible.
+**Mixed files**: if a single file contains both tangential changes (lines A-B) and feature changes (lines C-D), it cannot be cleanly extracted at the file level. Flag it and skip it — do not attempt to construct a partial patch.
 
 ---
 
 ## Step 4 — Present findings
 
-Print a clear summary. For each candidate commit, explain WHY it's tangential in one sentence — not just what it does, but why it's unrelated to the PR's purpose. Be direct; skip commits that don't clearly qualify.
-
-Format:
+Print a clear, scannable summary. For each candidate cluster, explain WHY it's tangential in one sentence, list the files, and confirm that reverting them on the feature branch is safe.
 
 ```
-## Tangential commits found
+## Tangential change clusters found
 
-These commits appear independent of the PR's main purpose and could land as a pre-PR:
+### 1. <short cluster name>
+Why: <one sentence — what this is and why it's unrelated to the PR's purpose>
+Files:
+  - path/to/file1.tsx
+  - path/to/file2.tsx
+Safe to extract: yes — reverting these files on the feature branch leaves the remaining diff intact and compilable.
 
-1. `<sha>` — <subject>
-   Why: <one sentence. e.g. "Removes tabIndex=-1 attributes that were dead weight unrelated to the responsive dialog work.">
-   Files: <list>
-   Risk: <low | medium — and why if medium>
+### 2. <short cluster name>
+...
 
-2. ...
+## Cannot extract (mixed files)
+- path/to/mixed.tsx — contains both <tangential change> and <feature change> in the same file
 
-## Mixed commits (require manual splitting first)
-
-- `<sha>` — <subject>: <which part is tangential and which isn't>
-
-## Recommendation
-
-<One paragraph: which commits to extract, what to name the pre-PR branch, and whether the extraction is safe.>
+## Nothing found
+(only if truly nothing qualifies — explain why)
 ```
 
-If nothing qualifies, say so clearly and explain why — don't force weak candidates.
+If nothing qualifies, say so directly and explain why each changed file area is too coupled to the PR's purpose.
 
 ---
 
 ## Step 5 — Confirm with user
 
-Ask the user to confirm before taking any action:
+Summarize the proposed extraction and ask for confirmation before touching any branches:
 
-> "Extract commits [1, 2] into a pre-PR? I'll create a branch from main, cherry-pick those commits, push it to your fork, and open a draft PR. The current branch stays unchanged — you'd rebase it on top of the pre-PR once it merges."
+> "I found [N] extractable cluster(s). I'll:
+> 1. Create `<pre-branch>` from main and apply the tangential file versions from your feature branch
+> 2. Commit, push, and open a draft pre-PR
+> 3. Revert those same files on `<feature-branch>` back to main and commit
+>
+> Both branches will compile cleanly. Proceed?"
 
-Wait for explicit confirmation. If the user adjusts the selection, respect that.
+Wait for explicit confirmation. Respect any adjustments to which clusters to extract.
 
 ---
 
 ## Step 6 — Create the pre-PR branch
 
-Once confirmed, derive a branch name: take the commit subjects, pick the most descriptive one, slugify it (lowercase, replace spaces/punctuation with `-`), prefix with `refactor/` or `fix/` or `chore/` based on the nature of the commits.
+Derive a branch name from the cluster description: slugify it, prefix with `refactor/`, `fix/`, or `chore/` based on the nature of the changes.
 
 ```bash
 PRE_BRANCH="<prefix>/<slug>"
 
-# Create branch from main (not from the current feature branch)
+# Branch from main — never from the feature branch
 git fetch origin main
 git checkout -b $PRE_BRANCH origin/main
 
-# Cherry-pick each confirmed tangential commit in original order
-git cherry-pick <sha1>
-git cherry-pick <sha2>
-# ...
+# Pull the tangential file versions from the feature branch
+git checkout $FEATURE_BRANCH -- path/to/file1.tsx path/to/file2.tsx ...
+
+# Commit
+git commit -m "<short description of what the extracted change does>"
 
 # Push to fork
 git push $FORK_REMOTE $PRE_BRANCH
 
-# Return to original branch
-git checkout <original-branch>
+# Return to feature branch
+git checkout $FEATURE_BRANCH
 ```
 
-If a cherry-pick conflicts: stop, explain what conflicted, and tell the user to resolve it manually. Do not force-resolve.
+If any step fails: stop, explain what went wrong, and do not proceed to revert the feature branch.
 
 ---
 
-## Step 7 — Open the pre-PR
+## Step 7 — Revert the extracted files on the feature branch
+
+Now that the pre-PR branch holds those changes, revert the same files on the feature branch back to their state on main:
+
+```bash
+git checkout origin/main -- path/to/file1.tsx path/to/file2.tsx ...
+git commit -m "revert <description> to main — extracted to pre-PR #<pre-pr-number>"
+git push $FORK_REMOTE HEAD
+```
+
+After this commit, the feature branch diff no longer includes those files. The two PRs are cleanly separated.
+
+If the feature branch no longer compiles after the revert: something was coupled that wasn't caught in Step 3. Stop, explain the issue, and undo the revert commit with `git revert HEAD`. Do not push a broken state.
+
+---
+
+## Step 8 — Open the pre-PR
 
 ```bash
 gh pr create \
@@ -143,47 +151,56 @@ gh pr create \
   --head "${GH_USER}:${PRE_BRANCH}" \
   --draft \
   --title "<concise title under 60 chars>" \
-  --body "$(cat <<'EOF'
+  --body-file /tmp/pre-pr-body.md
+```
+
+Body template (write to `/tmp/pre-pr-body.md` first):
+
+```markdown
 ## Summary
 
-<bullet points describing what the extracted changes do>
+- <bullet: what each file change does>
 
 ## Why a separate PR
 
-<one sentence: why these changes are independent of the parent PR>
+<One sentence: why these changes are independent of the parent PR's purpose.>
 
 ## Parent PR
 
-Extracted from #<number> — this should merge first, then the parent PR rebases on top.
+Extracted from #<number>. This should merge first; the parent PR already has these files reverted to main.
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
-EOF
-)"
 ```
 
-Open as **draft** — the user should mark it ready once they've verified it's correct.
+Open as **draft** so the user can verify before requesting review.
 
 ---
 
-## Step 8 — Advise on the rebase
+## Step 9 — Advise on next steps
 
-Print the commands the user will need once the pre-PR merges:
+Print:
 
-```bash
-# After the pre-PR merges to main:
-git fetch origin main
-git rebase origin/main
-# resolve any conflicts if the extracted commits overlap with remaining work
-git push $FORK_REMOTE HEAD --force-with-lease
 ```
+Pre-PR #<N> is open as a draft at <url>.
 
-Explain that `--force-with-lease` is safe here because the rebase only removes commits that have now landed on main.
+Next steps:
+1. Review the pre-PR diff — it should contain only the extracted files
+2. Mark it ready for review and merge it
+3. After it merges, update your feature branch:
+
+   git fetch origin main
+   git rebase origin/main
+   git push <fork-remote> HEAD --force-with-lease
+
+The rebase will be clean because the feature branch already has those files reverted.
+```
 
 ---
 
 ## Notes
 
-- **Never touch the feature branch during extraction.** The cherry-pick creates a new branch from main; the feature branch is untouched until the user manually rebases after merge.
-- **Only extract commits, not partial commits.** If a commit mixes tangential and feature work, tell the user to split it with `git rebase -i` first — do not attempt to reconstruct a partial patch automatically.
-- **Draft by default.** Pre-PRs open as draft so the user can do a quick sanity check before requesting review.
-- **Topical, not cosmetic.** The bar for extraction is "meaningfully independent" — not "happened to touch a different file." Don't extract refactors that set up the feature, only ones that are genuinely unrelated.
+- **File-level extraction, not commit-level.** This handles changes spread across multiple commits or mixed with feature work. It copies the file's final state from the feature branch, not a diff of one commit.
+- **Compilation safety is the hard gate.** If reverting the extracted files would break the feature branch, do not extract. Flag the coupling and move on.
+- **Never push a broken state.** If anything goes wrong during the revert step, undo immediately and explain.
+- **Draft by default.** Pre-PRs open as draft so the user can sanity-check before review.
+- **Topical, not cosmetic.** The bar for extraction is "meaningfully independent" — not "happened to touch a different file." Refactors that set up the feature (new shared components, type changes that feature code imports) stay in the main PR.
