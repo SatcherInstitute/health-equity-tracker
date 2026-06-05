@@ -45,7 +45,7 @@ platformdirs==4.10.0
 pluggy==1.6.0
 proto-plus==1.28.0
 protobuf>=3.20.2,<6.0.0      # Critical constraint
-pyarrow==18.1.0
+pyarrow==23.0.1
 pyasn1-modules==0.4.1
 pyasn1==0.6.3
 pycparser==2.23
