@@ -101,6 +101,7 @@ export default function CHLPMapsModal() {
     <HetResponsiveDialog
       open={Boolean(modalIsOpen)}
       onClose={close}
+      ariaLabel='HIV criminalization law maps'
       maxWidth='md'
     >
       {galleryContent}

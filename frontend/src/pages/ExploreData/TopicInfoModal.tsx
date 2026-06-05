@@ -29,6 +29,7 @@ export default function TopicInfoModal() {
     <HetResponsiveDialog
       open={Boolean(topicInfoModalIsOpen)}
       onClose={close}
+      ariaLabel='Topic information'
       maxWidth='lg'
     >
       <DataTypeDefinitionsList />

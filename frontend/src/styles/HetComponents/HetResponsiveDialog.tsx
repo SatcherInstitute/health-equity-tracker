@@ -10,7 +10,7 @@ interface HetResponsiveDialogProps {
   headerActions?: ReactNode
   fullWidth?: boolean
   dialogClassName?: string
-  ariaLabel?: string
+  ariaLabel: string
   maxWidth?: false | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }
 

@@ -39,7 +39,11 @@ export default function VoteDotOrgModal() {
   const close = () => setModalIsOpen(false)
 
   return (
-    <HetResponsiveDialog open={Boolean(modalIsOpen)} onClose={close}>
+    <HetResponsiveDialog
+      open={Boolean(modalIsOpen)}
+      onClose={close}
+      ariaLabel='Voter registration checker'
+    >
       <iframe
         title='Vote.org Registration Checker'
         src='https://verify.vote.org/?partner=111111&campaign=free-tools'
