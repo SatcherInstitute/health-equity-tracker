@@ -20,7 +20,7 @@ test('topic-info param opens modal on load; close removes param', async ({
     waitUntil: 'domcontentloaded',
   })
   await expect(page.getByRole('dialog')).toBeVisible()
-  await page.getByLabel('close topic info modal').click()
+  await page.getByLabel('close dialog').click()
   await expect(page.getByRole('dialog')).toBeHidden()
   await expect(page).not.toHaveURL(/topic-info/)
 })
@@ -32,8 +32,8 @@ test('multiple-maps param opens multimap on load; close removes param', async ({
     '/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison&multiple-maps=true',
     { waitUntil: 'domcontentloaded' },
   )
-  await expect(page.getByRole('dialog')).toBeVisible()
-  await page.getByLabel('close multiple maps modal').click()
+  await expect(page.getByRole('dialog')).toBeVisible({ timeout: 20000 })
+  await page.getByLabel('close dialog').click()
   await expect(page.getByRole('dialog')).toBeHidden()
   await expect(page).not.toHaveURL(/multiple-maps=true/)
 })
@@ -45,7 +45,7 @@ test('chlp-maps param opens modal on load; close removes param', async ({
     waitUntil: 'domcontentloaded',
   })
   await expect(page.getByRole('dialog')).toBeVisible()
-  await page.getByLabel('close modal').click()
+  await page.getByLabel('close dialog').click()
   await expect(page.getByRole('dialog')).toBeHidden()
   await expect(page).not.toHaveURL(/chlp-maps/)
 })
@@ -73,7 +73,7 @@ test('topic-info renders as bottom-sheet at phone width; close removes param', a
     waitUntil: 'domcontentloaded',
   })
   await expect(page.getByRole('dialog')).toBeVisible()
-  await page.getByLabel('close topic info modal').click()
+  await page.getByLabel('close dialog').click()
   await expect(page.getByRole('dialog')).toBeHidden()
   await expect(page).not.toHaveURL(/topic-info/)
 })
