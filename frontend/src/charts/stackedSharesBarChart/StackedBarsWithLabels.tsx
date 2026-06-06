@@ -105,10 +105,6 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
                 y: touch.clientY,
               })
             }}
-            onTouchEnd={() => {
-              setHoveredDemographic(null)
-              onCloseTooltip()
-            }}
           >
             {/* POPULATION BAR */}
             {lightValue > 0 && (
