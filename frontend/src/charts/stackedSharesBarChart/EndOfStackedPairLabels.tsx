@@ -35,6 +35,7 @@ export default function EndOfStackedPairLabels(
 
   return (
     <text
+      aria-hidden='true'
       tabIndex={-1}
       x={
         darkLabelInside
