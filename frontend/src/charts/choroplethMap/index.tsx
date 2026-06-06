@@ -94,14 +94,28 @@ const ChoroplethMap = ({
     [showTooltip, hideTooltip],
   )
 
-  // Hide tooltip on scroll/click/touchmove outside the map
+  // Hide tooltip on scroll/click/touchmove outside the map.
+  // The click handler skips path/circle elements because touchstart already
+  // shows the tooltip; a subsequent synthetic click on the same element
+  // would otherwise immediately hide it.
   useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as Element | null
+      const tag = target?.tagName?.toLowerCase()
+      if (
+        tag !== 'path' &&
+        tag !== 'circle' &&
+        !target?.closest('[role="tooltip"]')
+      ) {
+        hideTooltip()
+      }
+    }
     window.addEventListener('wheel', hideTooltip)
-    window.addEventListener('click', hideTooltip)
+    window.addEventListener('click', handleOutsideClick)
     window.addEventListener('touchmove', hideTooltip)
     return () => {
       window.removeEventListener('wheel', hideTooltip)
-      window.removeEventListener('click', hideTooltip)
+      window.removeEventListener('click', handleOutsideClick)
       window.removeEventListener('touchmove', hideTooltip)
     }
   }, [hideTooltip])

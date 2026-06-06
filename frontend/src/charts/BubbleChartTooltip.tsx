@@ -21,7 +21,7 @@ export function BubbleChartTooltip({ data }: { data: BubbleChartTooltipData }) {
         {data.yLabel}: {data.yValue}
       </div>
       <div className='font-normal'>
-        Population: {data.population.toLocaleString()}
+        Population: {(data.population ?? 0).toLocaleString()}
       </div>
     </>
   )

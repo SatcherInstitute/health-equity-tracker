@@ -173,11 +173,25 @@ export function TrendsChart({
       const svgRect = e.currentTarget.getBoundingClientRect()
       const invertedDate = xScale.invert(e.clientX - svgRect.left)
       const bisect = bisector((d) => d)
-      const closestIdx = bisect.left(
-        dates.map((d) => new Date(d)),
-        invertedDate,
-      )
-      const nearestDate = dates[closestIdx]
+      const parsedDates = dates.map((d) => new Date(d))
+      let idx = bisect.left(parsedDates, invertedDate)
+
+      // Clamp to valid range
+      if (idx >= dates.length) idx = dates.length - 1
+
+      // Pick nearest neighbor (bisect.left returns the right boundary)
+      if (idx > 0) {
+        const d0 = parsedDates[idx - 1]
+        const d1 = parsedDates[idx]
+        if (
+          invertedDate.getTime() - d0.getTime() <
+          d1.getTime() - invertedDate.getTime()
+        ) {
+          idx -= 1
+        }
+      }
+
+      const nearestDate = dates[idx]
       if (nearestDate) {
         showTooltip(
           nearestDate,

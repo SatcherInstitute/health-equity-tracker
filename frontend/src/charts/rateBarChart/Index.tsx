@@ -93,7 +93,7 @@ export function RateBarChart(props: RateBarChartProps) {
     <div
       ref={containerRef}
       onTouchStart={(e) => {
-        if ((e.target as SVGElement).tagName !== 'path') hideTooltip()
+        if (!(e.target as Element).closest('g[role="img"]')) hideTooltip()
       }}
       className='relative'
     >
