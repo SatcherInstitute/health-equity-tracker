@@ -94,6 +94,21 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
               setHoveredDemographic(null)
               onCloseTooltip()
             }}
+            onTouchStart={(e) => {
+              const touch = e.touches[0]
+              setHoveredDemographic(d[demographicType])
+              onTooltip({
+                lightValue,
+                darkValue,
+                demographic: d[demographicType],
+                x: touch.clientX,
+                y: touch.clientY,
+              })
+            }}
+            onTouchEnd={() => {
+              setHoveredDemographic(null)
+              onCloseTooltip()
+            }}
           >
             {/* POPULATION BAR */}
             {lightValue > 0 && (
