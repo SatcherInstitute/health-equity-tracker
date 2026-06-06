@@ -7,6 +7,7 @@ import {
   createDataMap,
   getDenominatorPhrase,
   getNumeratorPhrase,
+  getTooltipLabel,
 } from './mapHelpers'
 import { TERRITORIES } from './mapTerritoryHelpers'
 import { STROKE_WIDTH } from './mapUtils'
@@ -106,18 +107,6 @@ export const renderMap = (options: RenderMapOptions) => {
     demographicType,
   )
 
-  // Add event listeners
-  window.addEventListener('wheel', hideTooltips)
-  window.addEventListener('click', hideTooltips)
-  window.addEventListener('touchmove', hideTooltips)
-
-  // Create a cleanup function for event listeners
-  const cleanupEventListeners = () => {
-    window.removeEventListener('wheel', hideTooltips)
-    window.removeEventListener('click', hideTooltips)
-    window.removeEventListener('touchmove', hideTooltips)
-  }
-
   // Draw main map
   mapGroup
     .selectAll('path')
@@ -160,21 +149,17 @@ export const renderMap = (options: RenderMapOptions) => {
       return `${name} ${geographyType}: ${label}`
     })
     .on('mouseover', (event: any, d) => {
-      hideTooltips()
+      options.tooltipCallbacks.onHide()
       createEventHandler('mouseover', mouseEventOptions)(event, d)
     })
-    .on('pointerdown', (event: any, d) => {
-      hideTooltips()
-      createEventHandler('pointerdown', mouseEventOptions)(event, d)
-    })
-    .on('mousemove', (event: any, d) => {
-      createEventHandler('mousemove', mouseEventOptions)(event, d)
+    .on('pointerdown', () => {
+      options.tooltipCallbacks.onHide()
     })
     .on('mouseout', (event: any, d) => {
       createEventHandler('mouseout', mouseEventOptions)(event, d)
     })
     .on('touchstart', (event: any, d) => {
-      hideTooltips()
+      options.tooltipCallbacks.onHide()
       createEventHandler('touchstart', mouseEventOptions)(event, d)
     })
     .on('touchend', (event: any, d) => {
@@ -192,7 +177,6 @@ export const renderMap = (options: RenderMapOptions) => {
   return {
     dataMap,
     mapHeight,
-    cleanupEventListeners, // Return the cleanup function for event listeners
   }
 }
 

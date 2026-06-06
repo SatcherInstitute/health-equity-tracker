@@ -1,7 +1,10 @@
+import { HetChartHoverTooltip } from '../HetChartHoverTooltip'
+
 export interface BarChartTooltipData {
   x: number
   y: number
-  content: string
+  group: string
+  value: string
 }
 
 interface BarChartTooltipProps {
@@ -10,19 +13,10 @@ interface BarChartTooltipProps {
 
 export default function BarChartTooltip({ data }: BarChartTooltipProps) {
   if (!data) return null
-  const clickIsLeftHalfOfScreen = data.x < window.innerWidth / 2
   return (
-    <div
-      className='absolute z-top cursor-help rounded-sm bg-alt-white p-3 text-alt-black text-title opacity-95 shadow-raised smplus:whitespace-nowrap'
-      style={{
-        left: `${data.x}px`,
-        top: `${data.y}px`,
-        transform: clickIsLeftHalfOfScreen
-          ? 'translate(0, 5%)'
-          : 'translate(-100%, 5%)',
-      }}
-    >
-      {data.content}
-    </div>
+    <HetChartHoverTooltip x={data.x} y={data.y}>
+      <div className='font-semibold'>{data.group}</div>
+      <div className='font-normal'>{data.value}</div>
+    </HetChartHoverTooltip>
   )
 }

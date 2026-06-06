@@ -46,12 +46,7 @@ export function RateBarChart(props: RateBarChartProps) {
   const [containerRef, width] = useResponsiveWidth()
 
   const { tooltipData, handleTooltip, closeTooltip, handleContainerTouch } =
-    useRateChartTooltip(
-      containerRef,
-      props.metricConfig,
-      props.demographicType,
-      isTinyAndUp,
-    )
+    useRateChartTooltip(props.metricConfig, props.demographicType, isTinyAndUp)
 
   const maxLabelWidth = hasSkinnyGroupLabels(props.demographicType)
     ? MAX_LABEL_WIDTH_SMALL

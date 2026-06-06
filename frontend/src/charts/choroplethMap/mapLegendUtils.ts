@@ -3,7 +3,7 @@ import { scaleLinear } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { colors } from '../../styles/tokens/colors'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
-import { formatMetricValue } from './tooltipUtils'
+import { formatMetricValue } from './mapHelpers'
 import type { ColorScale } from './types'
 
 export function createUnknownLegend(

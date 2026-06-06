@@ -17,6 +17,7 @@ import type { HetRow } from '../data/utils/DatasetTypes'
 import { colors } from '../styles/tokens/colors'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
+import { HetChartHoverTooltip } from './HetChartHoverTooltip'
 import { GROUP_COLOR_MAP } from './trendsChart/constants'
 import {
   HEIGHT_WIDTH_RATIO,
@@ -73,50 +74,36 @@ function weightedRegression(data: WeightedDataPoint[]): [number, number][] {
   ]
 }
 
-interface TooltipProps {
-  content: {
-    fipsName: string
-    raceAndEthnicity: string
-    xLabel: string
-    xValue: number
-    yLabel: string
-    yValue: number
-    population: number
-  } | null
-  position: { x: number; y: number }
+interface BubbleTooltipContent {
+  fipsName: string
+  raceAndEthnicity: string
+  xLabel: string
+  xValue: number
+  yLabel: string
+  yValue: number
+  population: number
 }
 
-const Tooltip: React.FC<TooltipProps> = ({ content, position }) => {
-  if (!content) return null
-
+function BubbleTooltip({ content }: { content: BubbleTooltipContent }) {
   return (
-    <div
-      className={`absolute z-top max-w-sm rounded-sm border border-alt-gray bg-alt-white p-3 text-left`}
-      style={{
-        top: position.y,
-        left: position.x,
-      }}
-    >
-      <p className='m-0'>
-        <strong>
-          {content.fipsName}, {content.raceAndEthnicity}
-        </strong>
-      </p>
-      <p className='m-0'>
+    <>
+      <div className='font-semibold'>
+        {content.fipsName}, {content.raceAndEthnicity}
+      </div>
+      <div className='font-normal'>
         {content.xLabel}: {content.xValue}
-      </p>
-      <p className='m-0'>
+      </div>
+      <div className='font-normal'>
         {content.yLabel}: {content.yValue}
-      </p>
-      <p className='m-0'>Population: {content.population}</p>
-    </div>
+      </div>
+      <div className='font-normal'>
+        Population: {content.population.toLocaleString()}
+      </div>
+    </>
   )
 }
 
-// TODO: this only works for race_and_ethnicity now
-
 const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
-  const chartRef = useRef<HTMLDivElement>(null)
   const isMd = useIsBreakpointAndUp('md')
   const xRate = props.xMetricConfig.metricId
   const yRate = props.yMetricConfig.metricId
@@ -124,8 +111,11 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
   const [resizeCardRef, width] = useResponsiveWidth()
   const svgRef = useRef<SVGSVGElement>(null)
   const [tooltipContent, setTooltipContent] =
-    useState<TooltipProps['content']>(null)
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
+    useState<BubbleTooltipContent | null>(null)
+  const [tooltipPosition, setTooltipPosition] = useState<{
+    x: number
+    y: number
+  } | null>(null)
 
   const height = Math.min(
     isMd ? width * HEIGHT_WIDTH_RATIO : width / HEIGHT_WIDTH_RATIO,
@@ -278,15 +268,15 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
               ] as number)
             : 0,
         })
-        updateTooltipPosition(event)
+        setTooltipPosition({ x: event.clientX, y: event.clientY })
         select(this).attr('fill', colors.timeYellow).attr('opacity', 1)
         if (this.parentNode) {
           this.parentNode.appendChild(this)
         }
       })
-      .on('mousemove', updateTooltipPosition)
       .on('mouseout', function () {
         setTooltipContent(null)
+        setTooltipPosition(null)
         select(this)
           .attr('fill', (d: any) => {
             return (
@@ -356,23 +346,17 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
     props.radiusMetricConfig?.metricId,
   ])
 
-  const updateTooltipPosition = (event: MouseEvent) => {
-    if (chartRef.current) {
-      const chartRect = chartRef.current.getBoundingClientRect()
-      const xPosition = event.clientX - chartRect.left
-      const yPosition = event.clientY - chartRect.top
-      setTooltipPosition({ x: xPosition, y: yPosition })
-    }
-  }
-
   return (
-    <div ref={chartRef} style={{ position: 'relative' }}>
-      <div ref={resizeCardRef} style={{ position: 'relative' }}>
-        <svg ref={svgRef} width={width} height={height}>
-          <title>Bubble chart with Weighted Trend Line</title>
-        </svg>
-        <Tooltip content={tooltipContent} position={tooltipPosition} />
-      </div>
+    <div ref={resizeCardRef} style={{ position: 'relative' }}>
+      <svg ref={svgRef} width={width} height={height}>
+        <title>Bubble chart with Weighted Trend Line</title>
+      </svg>
+      <HetChartHoverTooltip
+        x={tooltipContent && tooltipPosition ? tooltipPosition.x : null}
+        y={tooltipContent && tooltipPosition ? tooltipPosition.y : null}
+      >
+        {tooltipContent && <BubbleTooltip content={tooltipContent} />}
+      </HetChartHoverTooltip>
     </div>
   )
 }

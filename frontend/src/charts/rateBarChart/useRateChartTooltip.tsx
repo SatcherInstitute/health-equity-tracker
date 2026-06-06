@@ -1,11 +1,10 @@
-import { type RefObject, useCallback, useState } from 'react'
+import { useCallback, useState } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import { formatValue } from '../sharedBarChartPieces/helpers'
 import type { BarChartTooltipData } from './BarChartTooltip'
 
 export function useRateChartTooltip(
-  containerRef: RefObject<HTMLDivElement | null>,
   metricConfig: MetricConfig,
   demographicType: string,
   isTinyAndUp: boolean,
@@ -20,15 +19,11 @@ export function useRateChartTooltip(
       d: HetRow,
       isTouchEvent: boolean,
     ) => {
-      const svgRect = containerRef.current?.getBoundingClientRect()
-      if (!svgRect) return
-
       let clientX: number
       let clientY: number
 
       if (isTouchEvent) {
-        const touchEvent = event as React.TouchEvent
-        const touch = touchEvent.touches[0]
+        const touch = (event as React.TouchEvent).touches[0]
         clientX = touch.clientX
         clientY = touch.clientY
       } else {
@@ -37,19 +32,14 @@ export function useRateChartTooltip(
         clientY = mouseEvent.clientY
       }
 
-      const tooltipContent = `${d[demographicType]}: ${formatValue(
-        d[metricConfig.metricId],
-        metricConfig,
-        isTinyAndUp,
-      )}`
-
       setTooltipData({
-        x: clientX - svgRect.left,
-        y: clientY - svgRect.top,
-        content: tooltipContent,
+        x: clientX,
+        y: clientY,
+        group: d[demographicType] as string,
+        value: formatValue(d[metricConfig.metricId], metricConfig, isTinyAndUp),
       })
     },
-    [containerRef, demographicType, metricConfig],
+    [demographicType, metricConfig, isTinyAndUp],
   )
 
   const closeTooltip = useCallback(() => {

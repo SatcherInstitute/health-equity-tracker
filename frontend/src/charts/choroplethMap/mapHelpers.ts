@@ -1,9 +1,13 @@
-import type { GeoProjection } from 'd3'
-import { geoAlbers, geoAlbersUsa } from 'd3'
+import { format, type GeoProjection, geoAlbers, geoAlbersUsa } from 'd3'
 import type { FeatureCollection } from 'geojson'
 import { feature } from 'topojson-client'
 import { GEOGRAPHIES_DATASET_ID } from '../../data/config/MetadataMap'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import { isPctType } from '../../data/config/MetricConfigUtils'
+import {
+  CAWP_METRICS,
+  getWomenRaceLabel,
+} from '../../data/providers/CawpProvider'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { Fips } from '../../data/utils/Fips'
 import {
@@ -165,5 +169,50 @@ export const createDataMap = (
         ...(d.rating && { ['County SVI']: d.rating }),
       },
     ]),
+  )
+}
+
+export const formatMetricValue = (
+  value: number | undefined,
+  metricConfig: MetricConfig,
+  isLegendLabel?: boolean,
+): string => {
+  if (value === undefined || value === null) return 'no data'
+
+  if (metricConfig.type === 'per100k') {
+    const suffix = isLegendLabel ? '' : '  per 100k'
+
+    if (value < 1) {
+      return `${format('.1f')(value)}${suffix}`
+    }
+
+    return `${format(',.2s')(value)}${suffix}`
+  }
+
+  if (isPctType(metricConfig.type)) {
+    return `${format('d')(value)}%`
+  }
+
+  return format(',.2r')(value)
+}
+
+export const getTooltipLabel = (
+  isUnknownsMap: boolean | undefined,
+  metric: MetricConfig,
+  activeDemographicGroup: string,
+  demographicType: DemographicType,
+): string => {
+  if (isUnknownsMap) {
+    return metric.unknownsLabel || '% unknown'
+  }
+
+  if (CAWP_METRICS.includes(metric.metricId)) {
+    return `Rate — ${getWomenRaceLabel(activeDemographicGroup)}`
+  }
+
+  return getMapGroupLabel(
+    demographicType,
+    activeDemographicGroup,
+    metric.type === 'index' ? 'Score' : 'Rate',
   )
 }
