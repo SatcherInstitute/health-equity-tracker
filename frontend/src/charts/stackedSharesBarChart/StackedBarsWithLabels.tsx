@@ -1,5 +1,4 @@
 import type { ScaleBand, ScaleLinear } from 'd3'
-import { useState } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
@@ -21,6 +20,7 @@ interface StackedBarsWithLabelsProps {
   barHeight: number
   pairGap: number
   demographicType: DemographicType
+  activeDemographic: string | null
   showTooltip: (data: StackedBarTooltipData, x: number, y: number) => void
   hideTooltip: () => void
 }
@@ -36,13 +36,10 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
     barHeight,
     pairGap,
     demographicType,
+    activeDemographic,
     showTooltip,
     hideTooltip,
   } = props
-
-  const [hoveredDemographic, setHoveredDemographic] = useState<string | null>(
-    null,
-  )
 
   return (
     <>
@@ -50,7 +47,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
         const yPosition = yScale(d[demographicType]) || 0
         const lightValue = d[lightMetric.metricId]
         const darkValue = d[darkMetric.metricId]
-        const isHovered = hoveredDemographic === d[demographicType]
+        const isHovered = activeDemographic === d[demographicType]
 
         const strokeDetails = {
           stroke: isHovered ? colors.altBlack : 'none',
@@ -76,20 +73,15 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
             tabIndex={0}
             key={d[demographicType]}
             onMouseEnter={(e) => {
-              setHoveredDemographic(d[demographicType])
               showTooltip(
                 { lightValue, darkValue, demographic: d[demographicType] },
                 e.clientX,
                 e.clientY,
               )
             }}
-            onMouseLeave={() => {
-              setHoveredDemographic(null)
-              hideTooltip()
-            }}
+            onMouseLeave={hideTooltip}
             onTouchStart={(e) => {
               const touch = e.touches[0]
-              setHoveredDemographic(d[demographicType])
               showTooltip(
                 { lightValue, darkValue, demographic: d[demographicType] },
                 touch.clientX,

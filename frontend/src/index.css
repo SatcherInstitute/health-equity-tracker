@@ -146,20 +146,17 @@
 	}
 }
 
-/* SVG chart elements: suppress iOS tap highlight; brand focus ring for keyboard nav */
-svg [role="img"],
-svg [tabindex="-1"] {
+/* SVG interactive bar groups: suppress iOS tap highlight; show brand focus ring for keyboard nav */
+svg g[role="img"] {
   -webkit-tap-highlight-color: transparent;
 }
 
-svg [role="img"]:focus-visible,
-svg [tabindex="-1"]:focus-visible {
+svg g[role="img"]:focus-visible {
   outline: 2px solid var(--color-alt-green);
   outline-offset: 2px;
 }
 
-svg [role="img"]:focus:not(:focus-visible),
-svg [tabindex="-1"]:focus:not(:focus-visible) {
+svg g[role="img"]:focus:not(:focus-visible) {
   outline: none;
 }
 

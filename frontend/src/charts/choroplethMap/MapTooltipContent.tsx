@@ -18,7 +18,7 @@ export function MapTooltipContent({ data, onExplore }: MapTooltipContentProps) {
           className='mt-1 cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green underline'
           onClick={() => onExplore(new Fips(data.featureId))}
         >
-          Explore {data.name} {data.geographyType} →
+          Explore →
         </button>
       )}
       {!data.isSummaryLegend && data.eventType === 'mouse' && (

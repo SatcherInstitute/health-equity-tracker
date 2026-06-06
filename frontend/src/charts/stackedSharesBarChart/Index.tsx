@@ -95,7 +95,13 @@ export function StackedBarChart(props: StackedBarChartProps) {
   }
 
   return (
-    <div ref={containerRef} onTouchStart={hideTooltip} className='relative'>
+    <div
+      ref={containerRef}
+      onTouchStart={(e) => {
+        if ((e.target as SVGElement).tagName !== 'path') hideTooltip()
+      }}
+      className='relative'
+    >
       <HetChartHoverTooltip x={tooltipPos?.x ?? null} y={tooltipPos?.y ?? null}>
         {tooltipData && (
           <StackedSharesBarChartTooltip
@@ -135,6 +141,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
               barHeight={BAR_HEIGHT}
               pairGap={PAIR_GAP}
               demographicType={props.demographicType}
+              activeDemographic={tooltipData?.demographic ?? null}
               showTooltip={showTooltip}
               hideTooltip={hideTooltip}
             />
