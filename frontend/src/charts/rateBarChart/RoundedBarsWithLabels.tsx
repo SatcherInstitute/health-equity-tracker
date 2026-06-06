@@ -54,6 +54,7 @@ export default function RoundedBarsWithLabels(
       <g
         key={index + barAriaLabel}
         transform={`translate(0,${yPosition})`}
+        tabIndex={0}
         onMouseMove={(e) => props.handleTooltip(e, d, false)}
         onMouseLeave={props.closeTooltip}
         onTouchStart={(e) => {

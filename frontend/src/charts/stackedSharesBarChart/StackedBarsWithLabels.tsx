@@ -77,6 +77,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
           <g
             aria-label={a11yLabelForPairedBars}
             role='img'
+            tabIndex={0}
             key={d[demographicType]}
             onMouseEnter={(e) => {
               setHoveredDemographic(d[demographicType])

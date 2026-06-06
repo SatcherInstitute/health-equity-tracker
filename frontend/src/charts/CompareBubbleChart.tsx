@@ -237,6 +237,24 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
         )
       })
       .attr('opacity', 0.7)
+      .attr('role', 'img')
+      .attr('tabindex', '-1')
+      .attr('aria-label', (d: HetRow) => {
+        const yDataPoint = props.yData.find(
+          (y) =>
+            y.fips === d.fips && y.race_and_ethnicity === d.race_and_ethnicity,
+        )
+        const radiusDataPoint = props.radiusData.find(
+          (r) =>
+            r.fips === d.fips && r.race_and_ethnicity === d.race_and_ethnicity,
+        )
+        const yVal = (yDataPoint?.[yRate] as number) ?? 0
+        const pop =
+          (radiusDataPoint?.[
+            props.radiusMetricConfig?.metricId || ''
+          ] as number) ?? 0
+        return `${d.fips_name}, ${d.race_and_ethnicity}: ${props.xMetricConfig.shortLabel} ${d[xRate] ?? 0}, ${props.yMetricConfig.shortLabel} ${yVal}, population ${pop.toLocaleString()}`
+      })
 
       .on('mouseover', function (event: MouseEvent, d: HetRow) {
         const yDataPoint = props.yData.find(
