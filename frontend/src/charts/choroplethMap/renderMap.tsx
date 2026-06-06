@@ -5,6 +5,7 @@ import { getCountyAddOn } from '../mapHelperFunctions'
 import { getFillColor } from './colorSchemes'
 import {
   createDataMap,
+  formatMetricValue,
   getDenominatorPhrase,
   getNumeratorPhrase,
   getTooltipLabel,

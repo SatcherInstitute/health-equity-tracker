@@ -353,7 +353,12 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
 
   return (
     <div ref={resizeCardRef} style={{ position: 'relative' }}>
-      <svg ref={svgRef} width={width} height={height}>
+      <svg
+        ref={svgRef}
+        width={width}
+        height={height}
+        aria-label='Bubble chart comparing two health metrics with bubble size representing population'
+      >
         <title>Bubble chart with Weighted Trend Line</title>
       </svg>
       <HetChartHoverTooltip
