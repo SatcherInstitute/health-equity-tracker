@@ -96,14 +96,19 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
     window.innerHeight * HEIGHT_WIDTH_RATIO,
   )
 
-  // On touch, persist the tooltip until the user taps outside a bubble
   useEffect(() => {
     const hideOnOutsideTouch = (e: TouchEvent) => {
       if ((e.target as Element).tagName.toLowerCase() !== 'circle')
         hideTooltip()
     }
     window.addEventListener('touchstart', hideOnOutsideTouch)
-    return () => window.removeEventListener('touchstart', hideOnOutsideTouch)
+    window.addEventListener('wheel', hideTooltip)
+    window.addEventListener('scroll', hideTooltip, { passive: true })
+    return () => {
+      window.removeEventListener('touchstart', hideOnOutsideTouch)
+      window.removeEventListener('wheel', hideTooltip)
+      window.removeEventListener('scroll', hideTooltip)
+    }
   }, [hideTooltip])
 
   useEffect(() => {
