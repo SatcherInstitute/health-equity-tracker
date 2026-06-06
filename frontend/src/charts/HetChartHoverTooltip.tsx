@@ -12,7 +12,7 @@ export function HetTooltipPanel({
   return (
     <div
       role='tooltip'
-      className={`max-w-xs rounded-sm border border-alt-gray border-solid bg-alt-white p-3 font-medium font-sans-text text-small${className ? ` ${className}` : ''}`}
+      className={`rounded-sm border border-alt-gray border-solid bg-alt-white p-3 font-medium font-sans-text text-small${className ? ` ${className}` : ''}`}
       style={style}
     >
       {children}
@@ -35,20 +35,36 @@ export function HetChartHoverTooltip({
 }: HetChartHoverTooltipProps) {
   if (x === null || y === null) return null
 
+  const OFFSET = 16
+  const EDGE_PADDING = 12
   const flipLeft = x > window.innerWidth / 2
   const flipUp = y > window.innerHeight / 2
+
+  const positionStyle: React.CSSProperties = {
+    transition:
+      'left 300ms ease-linear, right 300ms ease-linear, top 300ms ease-linear, bottom 300ms ease-linear',
+  }
+
+  if (flipLeft) {
+    positionStyle.right = `${window.innerWidth - x + OFFSET}px`
+    positionStyle.maxWidth = `${x - OFFSET - EDGE_PADDING}px`
+  } else {
+    positionStyle.left = `${x + OFFSET}px`
+    positionStyle.maxWidth = `${window.innerWidth - x - OFFSET - EDGE_PADDING}px`
+  }
+
+  if (flipUp) {
+    positionStyle.bottom = `${window.innerHeight - y + OFFSET}px`
+  } else {
+    positionStyle.top = `${y + OFFSET}px`
+  }
 
   return (
     <HetTooltipPanel
       className={
         interactive ? 'fixed z-top' : 'pointer-events-none fixed z-top'
       }
-      style={{
-        left: `${x}px`,
-        top: `${y}px`,
-        transition: 'left 300ms ease-linear, top 300ms ease-linear',
-        transform: `translate(${flipLeft ? 'calc(-100% - 16px)' : '16px'}, ${flipUp ? 'calc(-100% - 16px)' : '16px'})`,
-      }}
+      style={positionStyle}
     >
       {children}
     </HetTooltipPanel>
