@@ -146,17 +146,20 @@
 	}
 }
 
-/* SVG interactive bar groups: suppress iOS tap highlight; show brand focus ring for keyboard nav */
-svg g[role="img"] {
+/* SVG bar chart elements: suppress iOS tap highlight; brand focus ring for keyboard nav */
+svg g[role="img"],
+svg text[tabindex="-1"] {
   -webkit-tap-highlight-color: transparent;
 }
 
-svg g[role="img"]:focus-visible {
+svg g[role="img"]:focus-visible,
+svg text[tabindex="-1"]:focus-visible {
   outline: 2px solid var(--color-alt-green);
   outline-offset: 2px;
 }
 
-svg g[role="img"]:focus:not(:focus-visible) {
+svg g[role="img"]:focus:not(:focus-visible),
+svg text[tabindex="-1"]:focus:not(:focus-visible) {
   outline: none;
 }
 
