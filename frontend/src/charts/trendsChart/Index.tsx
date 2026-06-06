@@ -10,6 +10,7 @@ import useEscape from '../../utils/hooks/useEscape'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { HetChartHoverTooltip } from '../HetChartHoverTooltip'
+import { useChartTooltip } from '../useChartTooltip'
 import { X_AXIS_MAX_TICKS } from '../utils'
 import { Axes } from './Axes'
 import { CircleChart } from './CircleChart'
@@ -71,26 +72,19 @@ export function TrendsChart({
   // treat medium screen compare mode like mobile
   const isSkinny = !isSm || isCompareMode || isCompareCard
 
-  const [hoveredDate, setHoveredDate] = useState<string | null>(null)
-  const [tooltipPos, setTooltipPos] = useState<{ x: number; y: number } | null>(
-    null,
-  )
+  const {
+    tooltipData: hoveredDate,
+    tooltipPos,
+    showTooltip,
+    hideTooltip,
+  } = useChartTooltip<string>()
 
-  function handleEscapeKey() {
-    setHoveredDate(null)
-    setTooltipPos(null)
-  }
-
-  useEscape(handleEscapeKey)
+  useEscape(hideTooltip)
 
   useEffect(() => {
-    function clearTooltip() {
-      setHoveredDate(null)
-      setTooltipPos(null)
-    }
-    window.addEventListener('scroll', clearTooltip, { passive: true })
-    return () => window.removeEventListener('scroll', clearTooltip)
-  }, [])
+    window.addEventListener('scroll', hideTooltip, { passive: true })
+    return () => window.removeEventListener('scroll', hideTooltip)
+  }, [hideTooltip])
 
   const filteredData = useMemo(
     () =>
@@ -185,14 +179,14 @@ export function TrendsChart({
       )
       const nearestDate = dates[closestIdx]
       if (nearestDate) {
-        setHoveredDate(nearestDate)
-        setTooltipPos({
-          x: svgRect.left + xScale(new Date(nearestDate)),
-          y: svgRect.top + MARGIN.top,
-        })
+        showTooltip(
+          nearestDate,
+          svgRect.left + xScale(new Date(nearestDate)),
+          svgRect.top + MARGIN.top,
+        )
       }
     },
-    [dates, xScale, MARGIN.top],
+    [dates, xScale, MARGIN.top, showTooltip],
   )
 
   const chartTitleId = `chart-title-label-${axisConfig.type}-${
@@ -221,8 +215,9 @@ export function TrendsChart({
         {!isSm && <ChartTitle title={chartTitle} subtitle={chartSubTitle} />}
       </div>
       <HetChartHoverTooltip
-        x={hoveredDate && tooltipPos ? tooltipPos.x : null}
-        y={hoveredDate && tooltipPos ? tooltipPos.y : null}
+        x={tooltipPos?.x ?? null}
+        y={tooltipPos?.y ?? null}
+        animate
       >
         {hoveredDate && (
           <TrendsTooltip
@@ -238,10 +233,7 @@ export function TrendsChart({
           height={CONFIG.HEIGHT}
           width={width}
           onMouseMove={handleMousemove}
-          onMouseLeave={() => {
-            setHoveredDate(null)
-            setTooltipPos(null)
-          }}
+          onMouseLeave={hideTooltip}
           aria-labelledby={chartTitleId}
         >
           <Axes

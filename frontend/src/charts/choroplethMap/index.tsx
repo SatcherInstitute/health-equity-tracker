@@ -2,13 +2,14 @@ import { select } from 'd3'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { CAWP_METRICS } from '../../data/providers/CawpProvider'
 import { PHRMA_METRICS } from '../../data/providers/PhrmaProvider'
-import { Fips } from '../../data/utils/Fips'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { HetChartHoverTooltip } from '../HetChartHoverTooltip'
 import { INVISIBLE_PRELOAD_WIDTH } from '../mapGlobals'
 import { embedHighestLowestGroups, getCountyAddOn } from '../mapHelperFunctions'
+import { useChartTooltip } from '../useChartTooltip'
 import { HEIGHT_WIDTH_RATIO } from '../utils'
+import { MapTooltipContent } from './MapTooltipContent'
 import {
   createFeatures,
   createProjection,
@@ -22,44 +23,6 @@ import type {
   MapTooltipCallbacks,
   MapTooltipData,
 } from './types'
-
-interface MapTooltipContentProps {
-  data: MapTooltipData
-  onExplore: (fips: Fips) => void
-}
-
-function MapTooltipContent({ data, onExplore }: MapTooltipContentProps) {
-  return (
-    <>
-      <div className='font-semibold'>
-        {data.name} {data.geographyType}
-      </div>
-      {!data.isSummaryLegend && data.eventType === 'touch' && (
-        <button
-          type='button'
-          className='mt-1 cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green underline'
-          onClick={() => onExplore(new Fips(data.featureId))}
-        >
-          Explore {data.name} {data.geographyType} →
-        </button>
-      )}
-      {!data.isSummaryLegend && data.eventType === 'mouse' && (
-        <div className='mt-1 font-normal text-alt-gray'>Click to explore</div>
-      )}
-      {data.entries.length > 0 && <hr className='my-2 border-alt-gray' />}
-      <div className='mt-1'>
-        {data.entries.map((entry, i) => (
-          <div key={i}>
-            {entry.label && (
-              <span className='font-semibold'>{entry.label}: </span>
-            )}
-            <span className='font-normal'>{entry.value}</span>
-          </div>
-        ))}
-      </div>
-    </>
-  )
-}
 
 const ChoroplethMap = ({
   data,
@@ -89,13 +52,12 @@ const ChoroplethMap = ({
   const svgRef = useRef<SVGSVGElement | null>(null)
   const mapInitializedRef = useRef(false)
 
-  const [mapTooltipData, setMapTooltipData] = useState<MapTooltipData | null>(
-    null,
-  )
-  const [mapTooltipPos, setMapTooltipPos] = useState<{
-    x: number
-    y: number
-  } | null>(null)
+  const {
+    tooltipData: mapTooltipData,
+    tooltipPos: mapTooltipPos,
+    showTooltip,
+    hideTooltip,
+  } = useChartTooltip<MapTooltipData>()
 
   // State to store the dataMap created during map rendering
   const [renderResult, setRenderResult] = useState<{
@@ -128,38 +90,24 @@ const ChoroplethMap = ({
   }, [width])
 
   const tooltipCallbacks = useMemo<MapTooltipCallbacks>(
-    () => ({
-      onShow: (data, x, y) => {
-        setMapTooltipData(data)
-        setMapTooltipPos({ x, y })
-      },
-      onHide: () => {
-        setMapTooltipData(null)
-        setMapTooltipPos(null)
-      },
-    }),
-    [],
+    () => ({ onShow: showTooltip, onHide: hideTooltip }),
+    [showTooltip, hideTooltip],
   )
 
   // Hide tooltip on scroll/click/touchmove outside the map
   useEffect(() => {
-    const hide = () => {
-      setMapTooltipData(null)
-      setMapTooltipPos(null)
-    }
-    window.addEventListener('wheel', hide)
-    window.addEventListener('click', hide)
-    window.addEventListener('touchmove', hide)
+    window.addEventListener('wheel', hideTooltip)
+    window.addEventListener('click', hideTooltip)
+    window.addEventListener('touchmove', hideTooltip)
     return () => {
-      window.removeEventListener('wheel', hide)
-      window.removeEventListener('click', hide)
-      window.removeEventListener('touchmove', hide)
+      window.removeEventListener('wheel', hideTooltip)
+      window.removeEventListener('click', hideTooltip)
+      window.removeEventListener('touchmove', hideTooltip)
     }
-  }, [])
+  }, [hideTooltip])
 
   const cleanup = () => {
-    setMapTooltipData(null)
-    setMapTooltipPos(null)
+    hideTooltip()
 
     // Clean up SVG
     if (svgRef.current) {

@@ -4,7 +4,11 @@ import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import { colors } from '../../styles/tokens/colors'
-import { buildRoundedBarString } from '../sharedBarChartPieces/helpers'
+import {
+  buildRoundedBarString,
+  formatValue,
+} from '../sharedBarChartPieces/helpers'
+import type { BarChartTooltipData } from './BarChartTooltip'
 import { LABEL_SWAP_CUTOFF_PERCENT } from './constants'
 import EndOfRateBarLabel from './EndOfRateBarLabel'
 
@@ -16,28 +20,34 @@ interface RoundedBarsWithLabelsProps {
   yScale: ScaleBand<string>
   getYPosition: (index: number, label: string) => number
   isTinyAndUp: boolean
-  handleTooltip: any
-  closeTooltip: any
+  showTooltip: (data: BarChartTooltipData, x: number, y: number) => void
+  hideTooltip: () => void
 }
 
-export default function RoundedBarsWithLabels(
-  props: RoundedBarsWithLabelsProps,
-) {
+export default function RoundedBarsWithLabels({
+  processedData,
+  metricConfig,
+  demographicType,
+  xScale,
+  yScale,
+  getYPosition,
+  isTinyAndUp,
+  showTooltip,
+  hideTooltip,
+}: RoundedBarsWithLabelsProps) {
   const barLabelBreakpoint = useMemo(() => {
-    const maxValue =
-      max(props.processedData, (d) => d[props.metricConfig.metricId]) || 0
+    const maxValue = max(processedData, (d) => d[metricConfig.metricId]) || 0
     return maxValue * (LABEL_SWAP_CUTOFF_PERCENT / 100)
-  }, [props.processedData, props.metricConfig.metricId])
+  }, [processedData, metricConfig.metricId])
 
-  return props.processedData.map((d, index) => {
-    const barWidth = props.xScale(d[props.metricConfig.metricId]) || 0
-    const shouldLabelBeInside =
-      d[props.metricConfig.metricId] > barLabelBreakpoint
-    const yPosition = props.getYPosition(index, d[props.demographicType])
-    const barHeight = props.yScale.bandwidth() || 0
+  return processedData.map((d, index) => {
+    const barWidth = xScale(d[metricConfig.metricId]) || 0
+    const shouldLabelBeInside = d[metricConfig.metricId] > barLabelBreakpoint
+    const yPosition = getYPosition(index, d[demographicType])
+    const barHeight = yScale.bandwidth() || 0
 
     const barLabelColor =
-      shouldLabelBeInside && d[props.demographicType] !== 'All'
+      shouldLabelBeInside && d[demographicType] !== 'All'
         ? 'fill-alt-white'
         : 'fill-current'
 
@@ -48,17 +58,26 @@ export default function RoundedBarsWithLabels(
 
     if (!roundedBarString) return null
 
-    const barAriaLabel = `${d[props.demographicType]}: ${d[props.metricConfig.metricId]} ${props.metricConfig.shortLabel}`
+    const barAriaLabel = `${d[demographicType]}: ${d[metricConfig.metricId]} ${metricConfig.shortLabel}`
+    const tooltipData: BarChartTooltipData = {
+      group: d[demographicType] as string,
+      value: formatValue(
+        d[metricConfig.metricId] as number,
+        metricConfig,
+        isTinyAndUp,
+      ),
+    }
 
     return (
       <g
         key={index + barAriaLabel}
         transform={`translate(0,${yPosition})`}
         tabIndex={0}
-        onMouseMove={(e) => props.handleTooltip(e, d, false)}
-        onMouseLeave={props.closeTooltip}
+        onMouseEnter={(e) => showTooltip(tooltipData, e.clientX, e.clientY)}
+        onMouseLeave={hideTooltip}
         onTouchStart={(e) => {
-          props.handleTooltip(e, d, true)
+          const touch = e.touches[0]
+          showTooltip(tooltipData, touch.clientX, touch.clientY)
         }}
         aria-label={barAriaLabel}
         role='img'
@@ -68,20 +87,20 @@ export default function RoundedBarsWithLabels(
           key={'path' + index + barAriaLabel}
           style={{
             fill:
-              d[props.demographicType] === 'All'
+              d[demographicType] === 'All'
                 ? colors.timeYellow
                 : colors.altGreen,
           }}
           aria-hidden
         />
         <EndOfRateBarLabel
-          {...props}
+          metricConfig={metricConfig}
           d={d}
           shouldLabelBeInside={shouldLabelBeInside}
           barWidth={barWidth}
-          yScale={props.yScale}
+          yScale={yScale}
           barLabelColor={barLabelColor}
-          isTinyAndUp={props.isTinyAndUp}
+          isTinyAndUp={isTinyAndUp}
         />
       </g>
     )

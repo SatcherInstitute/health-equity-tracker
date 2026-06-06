@@ -11,6 +11,7 @@ import type { Fips } from '../../data/utils/Fips'
 import { colors } from '../../styles/tokens/colors'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
+import { HetChartHoverTooltip } from '../HetChartHoverTooltip'
 import {
   MAX_LABEL_WIDTH_BIG,
   MAX_LABEL_WIDTH_SMALL,
@@ -20,10 +21,11 @@ import {
 import VerticalGridlines from '../sharedBarChartPieces/VerticalGridlines'
 import XAxis from '../sharedBarChartPieces/XAxis'
 import YAxis from '../sharedBarChartPieces/YAxis'
+import { useChartTooltip } from '../useChartTooltip'
 import StackedBarLegend from './StackedBarLegend'
 import StackedBarsWithLabels from './StackedBarsWithLabels'
+import type { StackedBarTooltipData } from './StackedSharesBarChartTooltip'
 import { StackedSharesBarChartTooltip } from './StackedSharesBarChartTooltip'
-import { useStackedSharesBarChartTooltip } from './useStackedSharesBarChartTooltip'
 
 export const STACKED_BAR_MARGIN = { top: 40, right: 30, bottom: 50, left: 200 }
 const BAR_HEIGHT = 22
@@ -50,8 +52,8 @@ interface StackedBarChartProps {
 export function StackedBarChart(props: StackedBarChartProps) {
   const isSmAndUp = useIsBreakpointAndUp('sm')
   const [containerRef, width] = useResponsiveWidth()
-  const { tooltipData, handleTooltip, closeTooltip, handleContainerTouch } =
-    useStackedSharesBarChartTooltip()
+  const { tooltipData, tooltipPos, showTooltip, hideTooltip } =
+    useChartTooltip<StackedBarTooltipData>()
 
   const maxLabelWidth = hasSkinnyGroupLabels(props.demographicType)
     ? MAX_LABEL_WIDTH_SMALL
@@ -93,17 +95,17 @@ export function StackedBarChart(props: StackedBarChartProps) {
   }
 
   return (
-    <div
-      ref={containerRef}
-      onTouchStart={handleContainerTouch}
-      className='relative'
-    >
-      <StackedSharesBarChartTooltip
-        data={tooltipData}
-        darkMetric={props.darkMetric}
-        lightMetric={props.lightMetric}
-        demographicType={props.demographicType}
-      />
+    <div ref={containerRef} onTouchStart={hideTooltip} className='relative'>
+      <HetChartHoverTooltip x={tooltipPos?.x ?? null} y={tooltipPos?.y ?? null}>
+        {tooltipData && (
+          <StackedSharesBarChartTooltip
+            data={tooltipData}
+            darkMetric={props.darkMetric}
+            lightMetric={props.lightMetric}
+            demographicType={props.demographicType}
+          />
+        )}
+      </HetChartHoverTooltip>
       <div
         role='graphics-document'
         aria-roledescription='visualization'
@@ -133,8 +135,8 @@ export function StackedBarChart(props: StackedBarChartProps) {
               barHeight={BAR_HEIGHT}
               pairGap={PAIR_GAP}
               demographicType={props.demographicType}
-              onTooltip={handleTooltip}
-              onCloseTooltip={closeTooltip}
+              showTooltip={showTooltip}
+              hideTooltip={hideTooltip}
             />
 
             <XAxis

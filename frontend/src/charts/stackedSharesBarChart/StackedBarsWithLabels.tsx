@@ -6,6 +6,7 @@ import type { HetRow } from '../../data/utils/DatasetTypes'
 import { colors } from '../../styles/tokens/colors'
 import { buildBarPair } from '../sharedBarChartPieces/helpers'
 import EndOfStackedPairLabels from './EndOfStackedPairLabels'
+import type { StackedBarTooltipData } from './StackedSharesBarChartTooltip'
 
 interface StackedBarsWithLabelsProps {
   data: HetRow[]
@@ -20,14 +21,8 @@ interface StackedBarsWithLabelsProps {
   barHeight: number
   pairGap: number
   demographicType: DemographicType
-  onTooltip: (params: {
-    lightValue: number
-    darkValue: number
-    demographic: string
-    x: number
-    y: number
-  }) => void
-  onCloseTooltip: () => void
+  showTooltip: (data: StackedBarTooltipData, x: number, y: number) => void
+  hideTooltip: () => void
 }
 
 const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
@@ -41,8 +36,8 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
     barHeight,
     pairGap,
     demographicType,
-    onTooltip,
-    onCloseTooltip,
+    showTooltip,
+    hideTooltip,
   } = props
 
   const [hoveredDemographic, setHoveredDemographic] = useState<string | null>(
@@ -82,28 +77,24 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
             key={d[demographicType]}
             onMouseEnter={(e) => {
               setHoveredDemographic(d[demographicType])
-              onTooltip({
-                lightValue,
-                darkValue,
-                demographic: d[demographicType],
-                x: e.clientX,
-                y: e.clientY,
-              })
+              showTooltip(
+                { lightValue, darkValue, demographic: d[demographicType] },
+                e.clientX,
+                e.clientY,
+              )
             }}
             onMouseLeave={() => {
               setHoveredDemographic(null)
-              onCloseTooltip()
+              hideTooltip()
             }}
             onTouchStart={(e) => {
               const touch = e.touches[0]
               setHoveredDemographic(d[demographicType])
-              onTooltip({
-                lightValue,
-                darkValue,
-                demographic: d[demographicType],
-                x: touch.clientX,
-                y: touch.clientY,
-              })
+              showTooltip(
+                { lightValue, darkValue, demographic: d[demographicType] },
+                touch.clientX,
+                touch.clientY,
+              )
             }}
           >
             {/* POPULATION BAR */}
