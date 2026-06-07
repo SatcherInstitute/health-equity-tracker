@@ -71,6 +71,10 @@ export const createMouseEventOptions = (
   }
 }
 
+// Tracks the last real touch so synthetic mouse events fired by the browser
+// immediately after a touch are ignored rather than overwriting eventType.
+let lastTouchTime = 0
+
 export const createEventHandler = (
   type: MouseEventType,
   props: MouseEventHandlerOptions,
@@ -92,6 +96,7 @@ const handleMouseEvent = (
     case 'mouseover': {
       event.preventDefault()
       if (!d || !props.dataMap) return
+      if (Date.now() - lastTouchTime < 500) return
 
       select(event.currentTarget)
         .attr(
@@ -122,6 +127,7 @@ const handleMouseEvent = (
     }
     case 'touchstart': {
       event.preventDefault()
+      lastTouchTime = Date.now()
 
       select(event.currentTarget)
         .attr(
