@@ -262,6 +262,7 @@ const ChoroplethMap = ({
           <MapTooltipContent
             data={mapTooltipData}
             onExplore={updateFipsCallback}
+            isTouch={mapTooltipData.eventType === 'touch'}
           />
         )}
       </HetChartHoverTooltip>
