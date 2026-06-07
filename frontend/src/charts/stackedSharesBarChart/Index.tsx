@@ -1,5 +1,5 @@
 import { scaleBand, scaleLinear } from 'd3'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   type DemographicType,
@@ -54,6 +54,15 @@ export function StackedBarChart(props: StackedBarChartProps) {
   const [containerRef, width] = useResponsiveWidth()
   const { tooltipData, tooltipPos, showTooltip, hideTooltip } =
     useChartTooltip<StackedBarTooltipData>()
+
+  useEffect(() => {
+    window.addEventListener('scroll', hideTooltip, { passive: true })
+    window.addEventListener('wheel', hideTooltip, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', hideTooltip)
+      window.removeEventListener('wheel', hideTooltip)
+    }
+  }, [hideTooltip])
 
   const maxLabelWidth = hasSkinnyGroupLabels(props.demographicType)
     ? MAX_LABEL_WIDTH_SMALL

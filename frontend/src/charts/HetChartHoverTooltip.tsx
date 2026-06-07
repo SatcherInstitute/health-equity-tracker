@@ -56,12 +56,17 @@ export function HetChartHoverTooltip({
   if (flipLeft) transforms.push('translateX(-100%)')
   if (flipUp) transforms.push('translateY(-100%)')
 
+  const MIN_WIDTH = 160
+  const MAX_WIDTH = 320
+
+  const availableWidth = flipLeft
+    ? x - OFFSET - EDGE_PADDING
+    : vw - x - OFFSET - EDGE_PADDING
+
   const positionStyle: React.CSSProperties = {
     left: flipLeft ? `${x - OFFSET}px` : `${x + OFFSET}px`,
     top: flipUp ? `${y - OFFSET}px` : `${y + OFFSET}px`,
-    maxWidth: flipLeft
-      ? `${x - OFFSET - EDGE_PADDING}px`
-      : `${vw - x - OFFSET - EDGE_PADDING}px`,
+    maxWidth: `${Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, availableWidth))}px`,
     ...(transforms.length > 0 && { transform: transforms.join(' ') }),
     ...(animate && {
       transition: 'left 300ms ease-linear, top 300ms ease-linear',
