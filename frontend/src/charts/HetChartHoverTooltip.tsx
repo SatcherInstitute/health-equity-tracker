@@ -60,7 +60,7 @@ export function HetChartHoverTooltip({
     ...(flipUp
       ? { bottom: `${vh - y + OFFSET}px` }
       : { top: `${y + OFFSET}px` }),
-    maxWidth: 'min(320px, calc(100vw - 24px))',
+    width: 'min(320px, 60vw)',
     ...(animate && {
       transition:
         'left 300ms ease-linear, right 300ms ease-linear, top 300ms ease-linear, bottom 300ms ease-linear',
