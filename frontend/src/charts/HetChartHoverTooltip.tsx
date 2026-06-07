@@ -1,5 +1,3 @@
-import { useViewportSize } from '../utils/hooks/useViewportSize'
-
 interface HetTooltipPanelProps {
   children: React.ReactNode
   className?: string
@@ -39,34 +37,26 @@ export function HetChartHoverTooltip({
   interactive = false,
   animate = false,
 }: HetChartHoverTooltipProps) {
-  const { width: vw, height: vh } = useViewportSize()
-
   if (x === null || y === null) return null
 
+  // Read directly from window — avoids stale useState on initial renders,
+  // which caused flipLeft to be wrong and the tooltip to overflow off-screen.
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+
   const OFFSET = 16
-  const EDGE_PADDING = 12
   const flipLeft = x > vw / 2
   const flipUp = y > vh / 2
 
-  // Always anchor with left+top and use transform to offset when flipping sides.
-  // This ensures only left and top ever animate — if we used right/bottom on a
-  // flip, both sides would transition simultaneously and the tooltip would fly
-  // across the screen.
   const transforms: string[] = []
   if (flipLeft) transforms.push('translateX(-100%)')
   if (flipUp) transforms.push('translateY(-100%)')
 
-  const MIN_WIDTH = 160
-  const MAX_WIDTH = 320
-
-  const availableWidth = flipLeft
-    ? x - OFFSET - EDGE_PADDING
-    : vw - x - OFFSET - EDGE_PADDING
-
   const positionStyle: React.CSSProperties = {
     left: flipLeft ? `${x - OFFSET}px` : `${x + OFFSET}px`,
     top: flipUp ? `${y - OFFSET}px` : `${y + OFFSET}px`,
-    maxWidth: `${Math.min(MAX_WIDTH, Math.max(MIN_WIDTH, availableWidth))}px`,
+    // CSS min() is always correct — no JS viewport dependency for width
+    maxWidth: 'min(320px, calc(100vw - 24px))',
     ...(transforms.length > 0 && { transform: transforms.join(' ') }),
     ...(animate && {
       transition: 'left 300ms ease-linear, top 300ms ease-linear',
