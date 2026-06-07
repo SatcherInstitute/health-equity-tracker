@@ -256,13 +256,13 @@ const ChoroplethMap = ({
       <HetChartHoverTooltip
         x={mapTooltipData && mapTooltipPos ? mapTooltipPos.x : null}
         y={mapTooltipData && mapTooltipPos ? mapTooltipPos.y : null}
-        interactive={mapTooltipData?.eventType === 'touch'}
+        interactive={window.matchMedia('(pointer: coarse)').matches}
       >
         {mapTooltipData && (
           <MapTooltipContent
             data={mapTooltipData}
             onExplore={updateFipsCallback}
-            isTouch={mapTooltipData.eventType === 'touch'}
+            isTouch={window.matchMedia('(pointer: coarse)').matches}
           />
         )}
       </HetChartHoverTooltip>
