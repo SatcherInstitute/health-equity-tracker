@@ -1,3 +1,5 @@
+import { createPortal } from 'react-dom'
+
 interface HetTooltipPanelProps {
   children: React.ReactNode
   className?: string
@@ -63,7 +65,7 @@ export function HetChartHoverTooltip({
     }),
   }
 
-  return (
+  return createPortal(
     <HetTooltipPanel
       className={
         interactive ? 'fixed z-top' : 'pointer-events-none fixed z-top'
@@ -71,6 +73,7 @@ export function HetChartHoverTooltip({
       style={positionStyle}
     >
       {children}
-    </HetTooltipPanel>
+    </HetTooltipPanel>,
+    document.body,
   )
 }
