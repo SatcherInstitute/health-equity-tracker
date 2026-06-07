@@ -50,18 +50,20 @@ export function HetChartHoverTooltip({
   const flipLeft = x > vw / 2
   const flipUp = y > vh / 2
 
-  const transforms: string[] = []
-  if (flipLeft) transforms.push('translateX(-100%)')
-  if (flipUp) transforms.push('translateY(-100%)')
-
+  // Use right/bottom anchors when flipping so the browser grows the element
+  // away from the cursor — avoids the implicit width constraint that occurs when
+  // left is near the viewport right edge (browser limits width to vw - left).
   const positionStyle: React.CSSProperties = {
-    left: flipLeft ? `${x - OFFSET}px` : `${x + OFFSET}px`,
-    top: flipUp ? `${y - OFFSET}px` : `${y + OFFSET}px`,
-    // CSS min() is always correct — no JS viewport dependency for width
+    ...(flipLeft
+      ? { right: `${vw - x + OFFSET}px` }
+      : { left: `${x + OFFSET}px` }),
+    ...(flipUp
+      ? { bottom: `${vh - y + OFFSET}px` }
+      : { top: `${y + OFFSET}px` }),
     maxWidth: 'min(320px, calc(100vw - 24px))',
-    ...(transforms.length > 0 && { transform: transforms.join(' ') }),
     ...(animate && {
-      transition: 'left 300ms ease-linear, top 300ms ease-linear',
+      transition:
+        'left 300ms ease-linear, right 300ms ease-linear, top 300ms ease-linear, bottom 300ms ease-linear',
     }),
   }
 
