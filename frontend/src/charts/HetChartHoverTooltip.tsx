@@ -47,23 +47,26 @@ export function HetChartHoverTooltip({
   const vh = window.innerHeight
 
   const OFFSET = 16
-  const flipLeft = x > vw / 2
+  const PAD = 12
+  // Compute pixel width to match the CSS value so clamping math is exact.
+  const tooltipWidth = Math.min(320, Math.round(vw * 0.6))
+
+  // Prefer showing to the right of the cursor; flip left when near the right edge.
+  const desiredLeft = x > vw / 2 ? x - OFFSET - tooltipWidth : x + OFFSET
+  // Clamp so the tooltip never overflows either edge.
+  const left = Math.max(PAD, Math.min(vw - tooltipWidth - PAD, desiredLeft))
+
   const flipUp = y > vh / 2
 
-  // Use right/bottom anchors when flipping so the browser grows the element
-  // away from the cursor — avoids the implicit width constraint that occurs when
-  // left is near the viewport right edge (browser limits width to vw - left).
   const positionStyle: React.CSSProperties = {
-    ...(flipLeft
-      ? { right: `${vw - x + OFFSET}px` }
-      : { left: `${x + OFFSET}px` }),
+    left: `${left}px`,
+    width: `${tooltipWidth}px`,
     ...(flipUp
       ? { bottom: `${vh - y + OFFSET}px` }
       : { top: `${y + OFFSET}px` }),
-    width: 'min(320px, 60vw)',
     ...(animate && {
       transition:
-        'left 300ms ease-linear, right 300ms ease-linear, top 300ms ease-linear, bottom 300ms ease-linear',
+        'left 300ms ease-linear, top 300ms ease-linear, bottom 300ms ease-linear',
     }),
   }
 
