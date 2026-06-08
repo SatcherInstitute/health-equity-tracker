@@ -85,14 +85,17 @@ export default function CHLPMapsModal() {
       </div>
 
       <div className='mb-6 text-center'>
-        <a
-          href='https://www.hivlawandpolicy.org/maps'
-          target='_blank'
-          rel='noopener noreferrer'
-          className='rounded px-4 py-2 text-dark-green hover:underline'
-        >
-          Learn more at hivlawandpolicy.org
-        </a>
+        <p>Maps from Center for HIV Law and Policy (CHLP)</p>
+        <p>
+          <a
+            href='https://www.hivlawandpolicy.org/maps'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='rounded px-4 py-2 text-dark-green hover:underline'
+          >
+            Learn more at hivlawandpolicy.org →
+          </a>
+        </p>
       </div>
     </div>
   )
