@@ -1,10 +1,12 @@
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { CHLP_MAPS_PARAM_KEY } from '../../utils/urlutils'
 
 export default function CHLPMapsBanner() {
   const [_, setModalIsOpen] = useParamState(CHLP_MAPS_PARAM_KEY)
+  const isSmAndUp = useIsBreakpointAndUp('sm')
 
   return (
     <HetNotice

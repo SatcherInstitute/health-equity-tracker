@@ -30,6 +30,8 @@ interface HetChartHoverTooltipProps {
   interactive?: boolean
   // opt-in smooth position transitions; only trends chart uses this (date column scanning)
   animate?: boolean
+  // set to true when the tooltip is rendered inside a modal (uses z-multimap-modal-tooltip to clear the dialog z-index)
+  inModal?: boolean
 }
 
 export function HetChartHoverTooltip({
@@ -38,7 +40,9 @@ export function HetChartHoverTooltip({
   children,
   interactive = false,
   animate = false,
+  inModal = false,
 }: HetChartHoverTooltipProps) {
+  const zIndexClass = inModal ? 'z-multimap-modal-tooltip' : 'z-top'
   if (x === null || y === null) return null
 
   // Read directly from window — avoids stale useState on initial renders,
@@ -73,7 +77,9 @@ export function HetChartHoverTooltip({
   return createPortal(
     <HetTooltipPanel
       className={
-        interactive ? 'fixed z-top' : 'pointer-events-none fixed z-top'
+        interactive
+          ? `fixed ${zIndexClass}`
+          : `pointer-events-none fixed ${zIndexClass}`
       }
       style={positionStyle}
     >

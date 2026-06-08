@@ -118,6 +118,7 @@ CSS vars are a Tailwind implementation detail — `@theme` registers tokens so u
 - Only modify MUI components via `styleOverrides` in `muiTheme.tsx` — avoid `sx` props and inline styles
 - **To add or change a token:** edit the relevant `tokens/*.tokens.json` file and run `npm run tokens`
 - **Responsive JS:** detect breakpoints with `useIsBreakpointAndUp(breakpoint)` (`src/utils/hooks/useIsBreakpointAndUp.tsx`)
+- **Never use default Tailwind color utilities** (e.g. `text-zinc-500`, `bg-gray-100`, `text-slate-400`). All colors must come from our design token system — use Tailwind utilities generated from our tokens (e.g. `text-alt-dark`, `bg-alt-green`). To pick a color, consult `tokens/colors.tokens.json`. Do not create new color tokens for one-off use; find the closest existing token. If a new token is genuinely needed, add it to `tokens/colors.tokens.json` and run `npm run tokens`.
 
 **TypeScript conventions:**
 

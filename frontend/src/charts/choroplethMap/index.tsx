@@ -258,6 +258,7 @@ const ChoroplethMap = ({
         x={mapTooltipData && mapTooltipPos ? mapTooltipPos.x : null}
         y={mapTooltipData && mapTooltipPos ? mapTooltipPos.y : null}
         interactive={window.matchMedia('(pointer: coarse)').matches}
+        inModal={isMulti}
       >
         {mapTooltipData && (
           <MapTooltipContent

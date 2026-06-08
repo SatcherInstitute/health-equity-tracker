@@ -16,21 +16,21 @@ export function MapTooltipContent({
     <>
       <div className='font-semibold'>
         {data.name} {data.geographyType}
+        {!data.isSummaryLegend && !isTouch && (
+          <span className='ml-2 font-normal text-alt-dark text-small italic'>
+            · click to explore
+          </span>
+        )}
       </div>
-      {!data.isSummaryLegend &&
-        (isTouch ? (
-          <button
-            type='button'
-            className='mt-1 cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green underline'
-            onClick={() => onExplore(new Fips(data.featureId))}
-          >
-            Explore →
-          </button>
-        ) : (
-          <p className='mt-1 text-alt-gray text-small italic'>
-            Click to explore
-          </p>
-        ))}
+      {!data.isSummaryLegend && isTouch && (
+        <button
+          type='button'
+          className='mt-1 cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green underline'
+          onClick={() => onExplore(new Fips(data.featureId))}
+        >
+          Explore →
+        </button>
+      )}
       {data.entries.length > 0 && <hr className='my-2 border-alt-gray' />}
       <div className='mt-1'>
         {data.entries.map((entry, i) => (
