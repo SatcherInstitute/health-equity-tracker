@@ -11,6 +11,50 @@ The user may pass explicit routes as arguments (e.g. `/screenshot-pr /datacatalo
 
 ---
 
+## Step 0 — Commit any uncommitted changes first
+
+Before screenshotting, ensure all local code changes are committed and pushed. Screenshots taken from a dirty working tree will not match the code in the PR.
+
+```bash
+cd /path/to/frontend   # absolute path
+npm run cleanup
+```
+
+If cleanup modifies files, stage them:
+
+```bash
+git -C /path/to/repo add -u
+```
+
+Check for any remaining unstaged changes:
+
+```bash
+git -C /path/to/repo status --porcelain
+```
+
+If any tracked files are modified (lines starting with ` M` or `M `), stage and commit them:
+
+```bash
+git -C /path/to/repo add frontend/src frontend/CLAUDE.md .claude/skills  # add relevant paths
+git -C /path/to/repo commit -m "$(cat <<'COMMITMSG'
+<short description of changes being screenshotted>
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
+COMMITMSG
+)"
+```
+
+Then push to the fork remote before proceeding:
+
+```bash
+FORK_REMOTE=$(git -C /path/to/repo remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
+git -C /path/to/repo push $FORK_REMOTE HEAD
+```
+
+Only continue to Step 1 once the working tree is clean and all changes are pushed.
+
+---
+
 ## Step 1 — Get PR context
 
 ```bash
