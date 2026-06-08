@@ -49,7 +49,7 @@ export default function CHLPMapsModal() {
 
   const galleryContent = (
     <div className='flex h-full w-full flex-col items-center justify-center'>
-      <div className='flex w-full grow flex-col items-center justify-center py-8'>
+      <div className='flex w-full grow flex-col items-center justify-center py-4'>
         <div className='relative flex w-full items-center justify-center'>
           <img
             src={mapData[currentMapIndex].imageUrl}
@@ -84,7 +84,7 @@ export default function CHLPMapsModal() {
         </div>
       </div>
 
-      <div className='mb-6 text-center'>
+      <div className='mb-3 text-center'>
         <p>Maps from Center for HIV Law and Policy (CHLP)</p>
         <p>
           <a

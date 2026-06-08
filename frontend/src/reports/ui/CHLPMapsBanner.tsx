@@ -19,8 +19,8 @@ export default function CHLPMapsBanner() {
         className='block py-1 font-semibold text-alt-green text-smallest hover:translate-x-1 hover:transition-transform hover:duration-300'
         onClick={() => setModalIsOpen(true)}
       >
-        Open <span className='sm:hidden'>CHLP</span>
-        <span className='hidden sm:inline'>
+        Open <span className='font-semibold sm:hidden'>CHLP</span>
+        <span className='hidden font-semibold sm:inline'>
           Center for HIV Law and Policy (CHLP)
         </span>{' '}
         Maps
