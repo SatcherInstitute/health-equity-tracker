@@ -1,10 +1,12 @@
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { CHLP_MAPS_PARAM_KEY } from '../../utils/urlutils'
 
 export default function CHLPMapsBanner() {
   const [_, setModalIsOpen] = useParamState(CHLP_MAPS_PARAM_KEY)
+  const isSmAndUp = useIsBreakpointAndUp('sm')
 
   return (
     <HetNotice
@@ -16,15 +18,10 @@ export default function CHLPMapsBanner() {
       not criminalized or criminalized less severely for people not living with
       HIV.
       <HetLinkButton
-        className='font-semibold text-alt-black hover:translate-x-1 hover:transition-transform hover:duration-300'
+        className='block py-1 font-semibold text-alt-green text-smallest hover:translate-x-1 hover:transition-transform hover:duration-300'
         onClick={() => setModalIsOpen(true)}
       >
-        {/* Mobile */}
-        <span className='text-smallest sm:hidden'>View CHLP maps →</span>
-        {/* Tablet/Desktop */}
-        <span className='hidden sm:inline'>
-          → View Center for HIV Law and Policy (CHLP) Maps
-        </span>
+        Open {isSmAndUp ? 'Center for HIV Law and Policy (CHLP)' : 'CHLP'} Maps
       </HetLinkButton>
     </HetNotice>
   )
