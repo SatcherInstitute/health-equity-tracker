@@ -50,6 +50,8 @@ const ChoroplethMap = ({
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
   const svgRef = useRef<SVGSVGElement | null>(null)
+  const isCoarsePointer =
+    window.matchMedia?.('(pointer: coarse)').matches ?? false
   const mapInitializedRef = useRef(false)
 
   const {
@@ -257,14 +259,14 @@ const ChoroplethMap = ({
       <HetChartHoverTooltip
         x={mapTooltipData && mapTooltipPos ? mapTooltipPos.x : null}
         y={mapTooltipData && mapTooltipPos ? mapTooltipPos.y : null}
-        interactive={window.matchMedia?.('(pointer: coarse)').matches ?? false}
+        interactive={isCoarsePointer}
         inModal={isMulti}
       >
         {mapTooltipData && (
           <MapTooltipContent
             data={mapTooltipData}
             onExplore={updateFipsCallback}
-            isTouch={window.matchMedia?.('(pointer: coarse)').matches ?? false}
+            isTouch={isCoarsePointer}
           />
         )}
       </HetChartHoverTooltip>

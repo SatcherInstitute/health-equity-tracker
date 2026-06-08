@@ -135,7 +135,6 @@ export interface MapTooltipData {
   geographyType: string
   featureId: string
   isSummaryLegend: boolean
-  eventType: 'mouse' | 'touch'
   entries: MapTooltipEntry[]
 }
 

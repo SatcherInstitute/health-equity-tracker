@@ -114,7 +114,7 @@ export function TrendsChart({
     [isSkinny, MARGIN.right, MOBILE.MARGIN.right],
   )
 
-  const dates = getDates(filteredData)
+  const dates = useMemo(() => getDates(filteredData), [filteredData])
   const parsedDates = useMemo(() => dates.map((d) => new Date(d)), [dates])
   const amounts = getAmounts(filteredData)
 

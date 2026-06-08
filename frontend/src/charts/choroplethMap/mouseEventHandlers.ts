@@ -109,7 +109,6 @@ const handleMouseEvent = (
         geographyType: props.geographyType,
         featureId: String(d.id),
         isSummaryLegend: props.isSummaryLegend,
-        eventType: 'mouse',
         entries: buildTooltipEntries(
           data,
           props.geographyType,
@@ -139,7 +138,6 @@ const handleMouseEvent = (
         geographyType: props.geographyType,
         featureId: String(d.id),
         isSummaryLegend: props.isSummaryLegend,
-        eventType: 'touch',
         entries: buildTooltipEntries(
           data,
           props.geographyType,
