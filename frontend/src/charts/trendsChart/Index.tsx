@@ -115,11 +115,10 @@ export function TrendsChart({
   )
 
   const dates = getDates(filteredData)
+  const parsedDates = useMemo(() => dates.map((d) => new Date(d)), [dates])
   const amounts = getAmounts(filteredData)
 
-  const xExtent: [Date, Date] | [undefined, undefined] = extent(
-    dates.map((date) => new Date(date)),
-  )
+  const xExtent: [Date, Date] | [undefined, undefined] = extent(parsedDates)
 
   const minAmount = min(amounts)
   const maxAmount = max(amounts)
@@ -172,8 +171,7 @@ export function TrendsChart({
     (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
       const svgRect = e.currentTarget.getBoundingClientRect()
       const invertedDate = xScale.invert(e.clientX - svgRect.left)
-      const bisect = bisector((d) => d)
-      const parsedDates = dates.map((d) => new Date(d))
+      const bisect = bisector((d: Date) => d)
       let idx = bisect.left(parsedDates, invertedDate)
 
       // Clamp to valid range
@@ -195,12 +193,12 @@ export function TrendsChart({
       if (nearestDate) {
         showTooltip(
           nearestDate,
-          svgRect.left + xScale(new Date(nearestDate)),
+          svgRect.left + xScale(parsedDates[idx]),
           svgRect.top + MARGIN.top,
         )
       }
     },
-    [dates, xScale, MARGIN.top, showTooltip],
+    [dates, parsedDates, xScale, MARGIN.top, showTooltip],
   )
 
   const chartTitleId = `chart-title-label-${axisConfig.type}-${

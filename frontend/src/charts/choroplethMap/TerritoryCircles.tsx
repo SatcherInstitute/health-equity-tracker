@@ -115,9 +115,6 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           createTerritoryFeature(d.fips),
         )(event, d)
       })
-      .on('pointerdown', () => {
-        props.tooltipCallbacks.onHide()
-      })
       .on('mouseout', (event: any, d) => {
         createEventHandler('mouseout', mouseEventOptions, (d) =>
           createTerritoryFeature(d.fips),

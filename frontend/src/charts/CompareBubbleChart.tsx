@@ -98,7 +98,7 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
 
   useEffect(() => {
     const hideOnOutsideTouch = (e: TouchEvent) => {
-      if ((e.target as Element).tagName?.toLowerCase() !== 'circle')
+      if (svgRef.current && !svgRef.current.contains(e.target as Node))
         hideTooltip()
     }
     window.addEventListener('touchstart', hideOnOutsideTouch)

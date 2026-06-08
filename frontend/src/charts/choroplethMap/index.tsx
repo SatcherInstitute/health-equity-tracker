@@ -101,20 +101,21 @@ const ChoroplethMap = ({
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       const target = e.target as Element | null
-      const tag = target?.tagName?.toLowerCase()
       if (
-        tag !== 'path' &&
-        tag !== 'circle' &&
+        svgRef.current &&
+        !svgRef.current.contains(target) &&
         !target?.closest('[role="tooltip"]')
       ) {
         hideTooltip()
       }
     }
     window.addEventListener('wheel', hideTooltip)
+    window.addEventListener('scroll', hideTooltip, { passive: true })
     window.addEventListener('click', handleOutsideClick)
     window.addEventListener('touchmove', hideTooltip)
     return () => {
       window.removeEventListener('wheel', hideTooltip)
+      window.removeEventListener('scroll', hideTooltip)
       window.removeEventListener('click', handleOutsideClick)
       window.removeEventListener('touchmove', hideTooltip)
     }

@@ -134,9 +134,6 @@ export const renderMap = (options: RenderMapOptions) => {
       options.tooltipCallbacks.onHide()
       createEventHandler('mouseover', mouseEventOptions)(event, d)
     })
-    .on('pointerdown', () => {
-      options.tooltipCallbacks.onHide()
-    })
     .on('mouseout', (event: any, d) => {
       createEventHandler('mouseout', mouseEventOptions)(event, d)
     })
