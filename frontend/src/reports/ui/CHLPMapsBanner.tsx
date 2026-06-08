@@ -1,12 +1,10 @@
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetNotice from '../../styles/HetComponents/HetNotice'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { CHLP_MAPS_PARAM_KEY } from '../../utils/urlutils'
 
 export default function CHLPMapsBanner() {
   const [_, setModalIsOpen] = useParamState(CHLP_MAPS_PARAM_KEY)
-  const isSmAndUp = useIsBreakpointAndUp('sm')
 
   return (
     <HetNotice
@@ -21,7 +19,11 @@ export default function CHLPMapsBanner() {
         className='block py-1 font-semibold text-alt-green text-smallest hover:translate-x-1 hover:transition-transform hover:duration-300'
         onClick={() => setModalIsOpen(true)}
       >
-        Open {isSmAndUp ? 'Center for HIV Law and Policy (CHLP)' : 'CHLP'} Maps
+        Open <span className='sm:hidden'>CHLP</span>
+        <span className='hidden sm:inline'>
+          Center for HIV Law and Policy (CHLP)
+        </span>{' '}
+        Maps
       </HetLinkButton>
     </HetNotice>
   )
