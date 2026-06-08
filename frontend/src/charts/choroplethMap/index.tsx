@@ -257,14 +257,14 @@ const ChoroplethMap = ({
       <HetChartHoverTooltip
         x={mapTooltipData && mapTooltipPos ? mapTooltipPos.x : null}
         y={mapTooltipData && mapTooltipPos ? mapTooltipPos.y : null}
-        interactive={window.matchMedia('(pointer: coarse)').matches}
+        interactive={window.matchMedia?.('(pointer: coarse)').matches ?? false}
         inModal={isMulti}
       >
         {mapTooltipData && (
           <MapTooltipContent
             data={mapTooltipData}
             onExplore={updateFipsCallback}
-            isTouch={window.matchMedia('(pointer: coarse)').matches}
+            isTouch={window.matchMedia?.('(pointer: coarse)').matches ?? false}
           />
         )}
       </HetChartHoverTooltip>

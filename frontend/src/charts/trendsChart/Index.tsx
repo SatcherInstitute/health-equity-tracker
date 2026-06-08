@@ -169,6 +169,7 @@ export function TrendsChart({
 
   const handleMousemove = useCallback(
     (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+      if (dates.length === 0) return
       const svgRect = e.currentTarget.getBoundingClientRect()
       const invertedDate = xScale.invert(e.clientX - svgRect.left)
       const bisect = bisector((d: Date) => d)
