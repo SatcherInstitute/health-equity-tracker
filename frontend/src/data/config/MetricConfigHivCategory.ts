@@ -190,7 +190,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         type: 'per100k',
         rateNumeratorMetric: {
           metricId: 'hiv_prevalence',
-          shortLabel: 'Individuals living with HIV',
+          shortLabel: 'Living with HIV',
           chartTitle: '',
           type: 'count',
         },
