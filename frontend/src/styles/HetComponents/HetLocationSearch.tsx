@@ -52,7 +52,6 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         groupBy={(option) => option.getFipsCategory()}
         clearOnEscape={true}
         getOptionLabel={(fips) => fips.getFullDisplayName()}
-        isOptionEqualToValue={(fips) => fips.code === props.value}
         renderOption={(props, fips: Fips) => {
           return (
             <li {...props} key={props.key}>
@@ -65,7 +64,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         onClose={closeAutoComplete}
         renderInput={(params) => (
           <TextField
-            placeholder=''
+            placeholder='County, state, or territory...'
             /* eslint-disable-next-line */
             autoFocus
             margin='dense'
@@ -120,19 +119,20 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         </div>
       )}
       <p className='mt-3 font-light text-alt-black text-small italic'>
-        County, state, territory, or{' '}
         {isUsa ? (
-          USA_DISPLAY_NAME
+          'Showing United States'
         ) : (
-          <button
-            type='button'
-            className='cursor-pointer border-0 bg-transparent p-0 text-alt-green italic underline'
-            onClick={handleUsaButton}
-          >
-            United States
-          </button>
+          <>
+            Or jump to{' '}
+            <button
+              type='button'
+              className='cursor-pointer border-0 bg-transparent p-0 text-alt-green italic underline'
+              onClick={handleUsaButton}
+            >
+              United States
+            </button>
+          </>
         )}
-        . Some data unavailable at county and territory levels.
       </p>
     </div>
   )
