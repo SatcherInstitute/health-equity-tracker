@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
+import { useRecentLocations } from '../../utils/hooks/useRecentLocations'
 
 interface HetLocationSearchProps {
   options: Fips[]
@@ -12,7 +13,13 @@ interface HetLocationSearchProps {
 }
 
 export default function HetLocationSearch(props: HetLocationSearchProps) {
+  const { recentLocations, addRecentLocation } = useRecentLocations()
+  const visibleRecent = recentLocations.filter(
+    (loc) => loc.code !== props.value,
+  )
+
   function handleUsaButton() {
+    addRecentLocation(USA_FIPS, USA_DISPLAY_NAME)
     props.onOptionUpdate(USA_FIPS)
     props.popover.close()
   }
@@ -83,12 +90,36 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           />
         )}
         onChange={(_e, fips) => {
+          addRecentLocation(fips.code, fips.getFullDisplayName())
           props.onOptionUpdate(fips.code)
           setTextBoxValue('')
           props.popover.close()
         }}
       />
-      <span className='font-light text-alt-black text-small italic'>
+      {visibleRecent.length > 0 && (
+        <div className='mt-3 border-divider-gray border-t pt-3'>
+          <p className='mb-1 font-semibold text-alt-dark text-xs uppercase tracking-wide'>
+            Recent
+          </p>
+          <ul className='flex flex-col gap-1'>
+            {visibleRecent.map((loc) => (
+              <li key={loc.code}>
+                <button
+                  type='button'
+                  className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small underline hover:no-underline'
+                  onClick={() => {
+                    props.onOptionUpdate(loc.code)
+                    props.popover.close()
+                  }}
+                >
+                  {loc.displayName}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <p className='mt-3 font-light text-alt-black text-small italic'>
         County, state, territory, or{' '}
         {isUsa ? (
           USA_DISPLAY_NAME
@@ -101,8 +132,8 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
             United States
           </button>
         )}
-        . Some source data is unavailable at county and territory levels.
-      </span>
+        . Some data unavailable at county and territory levels.
+      </p>
     </div>
   )
 }
