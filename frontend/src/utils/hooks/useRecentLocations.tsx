@@ -13,7 +13,9 @@ export function useRecentLocations() {
     () => {
       try {
         const raw = localStorage.getItem(STORAGE_KEY)
-        return raw ? (JSON.parse(raw) as RecentLocation[]) : []
+        if (!raw) return []
+        const parsed = JSON.parse(raw)
+        return Array.isArray(parsed) ? (parsed as RecentLocation[]) : []
       } catch {
         return []
       }
@@ -23,10 +25,17 @@ export function useRecentLocations() {
   // Reads from localStorage directly so concurrent instances (compare mode)
   // don't overwrite each other with stale React state.
   const addRecentLocation = useCallback((code: string, displayName: string) => {
+    let current: RecentLocation[] = []
     try {
-      const current = JSON.parse(
-        localStorage.getItem(STORAGE_KEY) ?? '[]',
-      ) as RecentLocation[]
+      const raw = localStorage.getItem(STORAGE_KEY)
+      if (raw) {
+        const parsed = JSON.parse(raw)
+        if (Array.isArray(parsed)) current = parsed as RecentLocation[]
+      }
+    } catch {
+      // corrupted storage — start fresh
+    }
+    try {
       const next = [
         { code, displayName },
         ...current.filter((loc) => loc.code !== code),
