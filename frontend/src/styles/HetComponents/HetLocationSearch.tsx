@@ -1,3 +1,4 @@
+import CloseIcon from '@mui/icons-material/Close'
 import { Autocomplete, TextField } from '@mui/material'
 import { useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
@@ -98,16 +99,17 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
       />
       {visibleRecent.length > 0 && (
         <div className='mt-3 border-divider-gray border-t pt-3'>
-          <div className='mb-1 flex items-center justify-between'>
+          <div className='mb-2 flex items-center justify-between'>
             <p className='font-semibold text-alt-dark text-xs uppercase tracking-wide'>
               Recent
             </p>
             <button
               type='button'
-              className='cursor-pointer border-0 bg-transparent p-0 text-alt-dark text-xs hover:text-alt-black hover:underline'
+              aria-label='Clear recent locations'
+              className='cursor-pointer border-0 bg-transparent p-0 text-alt-dark opacity-50 hover:opacity-100'
               onClick={props.clearRecentLocations}
             >
-              Clear
+              <CloseIcon sx={{ fontSize: 14 }} />
             </button>
           </div>
           <ul className='flex flex-col gap-1'>
@@ -130,7 +132,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
       )}
       {showUsaShortcut && (
         <div className='mt-3 border-divider-gray border-t pt-3'>
-          <p className='mb-1 font-semibold text-alt-dark text-xs uppercase tracking-wide'>
+          <p className='mb-2 font-semibold text-alt-dark text-xs uppercase tracking-wide'>
             National
           </p>
           <button
