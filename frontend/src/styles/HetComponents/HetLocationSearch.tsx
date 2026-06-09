@@ -99,10 +99,10 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
       />
       {visibleRecent.length > 0 && (
         <div className='mt-3 border-divider-gray border-t pt-3'>
-          <div className='mb-2 flex items-center justify-between'>
-            <p className='font-semibold text-alt-dark text-xs uppercase tracking-wide'>
+          <div className='mb-1 flex items-center justify-between'>
+            <span className='font-semibold text-alt-dark text-xs uppercase tracking-wide'>
               Recent
-            </p>
+            </span>
             <button
               type='button'
               aria-label='Clear recent locations'
