@@ -106,6 +106,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
             <button
               type='button'
               aria-label='Clear recent locations'
+              title='Clear recent locations'
               className='cursor-pointer border-0 bg-transparent p-0 text-alt-dark opacity-50 hover:opacity-100'
               onClick={props.clearRecentLocations}
             >
