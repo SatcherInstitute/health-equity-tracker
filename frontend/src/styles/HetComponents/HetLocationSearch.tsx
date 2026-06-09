@@ -39,9 +39,11 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
   }
 
   const isUsa = props.value === '00'
+  const showUsaShortcut =
+    !isUsa && !recentLocations.some((loc) => loc.code === USA_FIPS)
 
   return (
-    <div className='p-5'>
+    <div className='min-w-72 p-5'>
       <h3 className='my-1 font-semibold text-small md:text-title'>
         Search for location
       </h3>
@@ -118,22 +120,20 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           </ul>
         </div>
       )}
-      <p className='mt-3 font-light text-alt-black text-small italic'>
-        {isUsa ? (
-          'Showing United States'
-        ) : (
-          <>
-            Or jump to{' '}
-            <button
-              type='button'
-              className='cursor-pointer border-0 bg-transparent p-0 text-alt-green italic underline'
-              onClick={handleUsaButton}
-            >
-              United States
-            </button>
-          </>
-        )}
-      </p>
+      {showUsaShortcut && (
+        <div className='mt-3 border-divider-gray border-t pt-3'>
+          <p className='mb-1 font-semibold text-alt-dark text-xs uppercase tracking-wide'>
+            National
+          </p>
+          <button
+            type='button'
+            className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small underline hover:no-underline'
+            onClick={handleUsaButton}
+          >
+            the United States
+          </button>
+        </div>
+      )}
     </div>
   )
 }
