@@ -60,18 +60,15 @@ git push $FORK_REMOTE HEAD
 
 ---
 
-## Step 2b — Fetch Netlify deploy preview URL
+## Step 2b — Derive Netlify deploy preview URL
 
-Netlify posts a comment on the PR once the deploy preview is ready. Fetch it:
+The preview URL is deterministic from the PR number — no need to fetch a comment:
 
-```bash
-gh api repos/$REPO/issues/<number>/comments \
-  --jq '[.[] | select(.user.login | test("netlify"; "i")) | .body] | last'
+```
+https://deploy-preview-{number}--health-equity-tracker.netlify.app
 ```
 
-Extract the preview URL (typically `https://deploy-preview-NNN--<site>.netlify.app`). If no Netlify comment exists yet, note it as pending and leave a placeholder.
-
-Once you have the URL, identify the 1–3 most useful deep-link routes that show the core feature — append URL params so the reviewer lands directly on the changed UI without hunting. Record these for Step 6.
+Identify the single most useful deep-link route that shows the core feature. Append URL params so the reviewer lands directly on the changed UI. Record the full URL for Step 6.
 
 ---
 
