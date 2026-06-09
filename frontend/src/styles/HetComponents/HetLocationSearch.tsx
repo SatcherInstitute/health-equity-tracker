@@ -105,7 +105,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
               <li key={loc.code}>
                 <button
                   type='button'
-                  className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small underline hover:no-underline'
+                  className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small hover:underline'
                   onClick={() => {
                     props.onOptionUpdate(loc.code)
                     props.popover.close()
