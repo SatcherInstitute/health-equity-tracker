@@ -15,11 +15,6 @@ import {
   createEventHandler,
   createMouseEventOptions,
 } from './mouseEventHandlers'
-import {
-  formatMetricValue,
-  getTooltipLabel,
-  hideTooltips,
-} from './tooltipUtils'
 import type {
   ColorScale,
   InitializeSvgOptions,
