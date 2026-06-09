@@ -37,9 +37,7 @@ If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fo
 
 ## Step 2 — Run Biome auto-fix and type check
 
-`npm run test` (Vitest) runs in CI — do NOT run it locally here.
-
-Run Biome and tsc from `frontend/`. Biome auto-fixes files (CI runs `biome ci` which only reports); tsc is fast and catches type errors before the push:
+Biome, tsc, and Vitest all run in CI. Run Biome and tsc locally anyway to catch issues before the push — but **do not add these to the test plan checklist**; they are CI's job, not the human reviewer's.
 
 ```bash
 cd frontend
@@ -50,17 +48,27 @@ npx tsc --noEmit
 If cleanup modifies any files, stage and commit them before the tsc run:
 
 ```bash
-git add -p   # review what changed
+git add -p
 git commit -m "style: biome auto-fix"
 ```
 
-If tsc exits non-zero: fix all errors before continuing — do not push with type errors.
-
-After both pass, push:
+If tsc exits non-zero: fix all errors before continuing.
 
 ```bash
 git push $FORK_REMOTE HEAD
 ```
+
+---
+
+## Step 2b — Derive Netlify deploy preview URL
+
+The preview URL is deterministic from the PR number — no need to fetch a comment:
+
+```
+https://deploy-preview-{number}--health-equity-tracker.netlify.app
+```
+
+Identify the single most useful deep-link route that shows the core feature. Append URL params so the reviewer lands directly on the changed UI. Record the full URL for Step 6.
 
 ---
 
@@ -144,17 +152,11 @@ git push $FORK_REMOTE HEAD
 
 ## Step 5 — Audit and verify the test plan
 
-Read the current PR body (already fetched in Step 1). Extract all `- [ ]` and `- [x]` items under the Test plan section.
+The test plan checklist is **only for behavioral/interaction tests that go beyond CI** — things a human reviewer or Playwright test can verify in a browser. Do not include TypeScript, Biome, or Vitest results; those are CI's job.
 
-### 5a — Static checks
+Read the current PR body. Extract all `- [ ]` and `- [x]` checklist items. Remove any that reference static tooling (tsc, Biome, lint, unit tests). Remove or rewrite items that refer to code that was removed or refactored.
 
-Check off items already satisfied by Step 2 without running a browser:
-- TypeScript, unit tests, linting/formatting → verified by Step 2, check off.
-- Items asserting a code change is in place → verify by reading the diff, not by guessing.
-
-Remove or rewrite any items that refer to code that was removed or refactored.
-
-### 5b — Run Playwright for browser-verifiable items
+### 5a — Run Playwright for browser-verifiable items
 
 For every remaining unchecked item that describes a browser interaction (URL params, navigation behavior, UI state, link resolution), write and run a targeted Playwright test.
 
@@ -208,16 +210,14 @@ kill $DEV_PID 2>/dev/null
 rm frontend/playwright-tests/_pr_verify.spec.ts
 ```
 
-### 5c — Gap check
-
-Compare the remaining unchecked items against the full diff:
+### 5b — Gap check
 
 ```bash
 git diff origin/main --name-only
 git diff origin/main -- frontend/src/
 ```
 
-Add any missing items that the diff introduces but the checklist doesn't cover. New manual items should describe the exact interaction, not vague phrases like "test the feature."
+Add any missing behavioral items the diff introduces but the checklist doesn't cover. Each item must describe a specific interaction and observable outcome — not vague phrases like "test the feature." Only add items that go beyond what CI already verifies.
 
 Carry the final audited checklist into Step 6.
 
@@ -225,38 +225,41 @@ Carry the final audited checklist into Step 6.
 
 ## Step 6 — Update the PR title and description
 
-Get the full diff to understand what actually changed:
-
 ```bash
 git log origin/main..HEAD --oneline
 git diff origin/main -- frontend/src/
 ```
 
-Rewrite the PR title (under 70 chars) and body to accurately describe:
-- **What changed** (the specific files and behavior)
-- **Why** (the root cause or motivation)
-- **Test plan** using the audited checklist from Step 5 — do not regenerate from scratch, use the checked/unchecked items produced there
+Rewrite the PR title (under 70 chars) and body. Keep the description **short and focused** — a few tight bullets, no padding. The test plan is the audited behavioral checklist from Step 5 only (no static tooling items).
 
-Use this body template:
+Use this template:
 
 ```markdown
+**Preview:** [<short label>](<netlify-url>/<route>?<params>) · [<label 2>](<netlify-url>/<route2>?<params>)
+
+*(Preview URL pending deploy)* — replace the line above once Netlify posts its comment.
+
 ## Summary
 
-- <bullet 1>
-- <bullet 2>
-- <bullet 3>
-
-## Root Cause / Motivation
-
-<one paragraph if non-obvious>
+- <bullet — what changed and why, one line each>
 
 ## Test plan
 
-- [x] <already verified item>
-- [ ] <manual test step still needed>
+- [x] <behavioral item verified by Playwright>
+- [ ] <manual interaction still needed>
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
+
+**Preview line rules:**
+- Always the first line of the body so reviewers can click straight to the feature
+- If the Netlify URL is not yet available, write `*(Preview URL pending deploy)*` as a single line placeholder — do not invent a URL
+- Include 1–3 deep links with the URL params needed to see the feature immediately (e.g. `?mls=1.hiv-3.06&mlp=disparity` to land on a specific report)
+- Remove the placeholder line and replace with real links once the URL is known
+
+**Summary rules:**
+- 3–5 bullets maximum; each one line
+- Omit "Root Cause / Motivation" unless the why is genuinely non-obvious to a reviewer reading the diff
 
 Write the body to `/tmp/pr-body.md`, then apply:
 
