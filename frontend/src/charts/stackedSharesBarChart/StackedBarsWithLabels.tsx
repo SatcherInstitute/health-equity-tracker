@@ -1,11 +1,11 @@
 import type { ScaleBand, ScaleLinear } from 'd3'
-import { useState } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import { colors } from '../../styles/tokens/colors'
 import { buildBarPair } from '../sharedBarChartPieces/helpers'
 import EndOfStackedPairLabels from './EndOfStackedPairLabels'
+import type { StackedBarTooltipData } from './StackedSharesBarChartTooltip'
 
 interface StackedBarsWithLabelsProps {
   data: HetRow[]
@@ -20,13 +20,9 @@ interface StackedBarsWithLabelsProps {
   barHeight: number
   pairGap: number
   demographicType: DemographicType
-  onTooltip: (params: {
-    lightValue: number
-    darkValue: number
-    demographic: string
-    event: React.MouseEvent
-  }) => void
-  onCloseTooltip: () => void
+  activeDemographic: string | null
+  showTooltip: (data: StackedBarTooltipData, x: number, y: number) => void
+  hideTooltip: () => void
 }
 
 const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
@@ -40,13 +36,10 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
     barHeight,
     pairGap,
     demographicType,
-    onTooltip,
-    onCloseTooltip,
+    activeDemographic,
+    showTooltip,
+    hideTooltip,
   } = props
-
-  const [hoveredDemographic, setHoveredDemographic] = useState<string | null>(
-    null,
-  )
 
   return (
     <>
@@ -54,7 +47,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
         const yPosition = yScale(d[demographicType]) || 0
         const lightValue = d[lightMetric.metricId]
         const darkValue = d[darkMetric.metricId]
-        const isHovered = hoveredDemographic === d[demographicType]
+        const isHovered = activeDemographic === d[demographicType]
 
         const strokeDetails = {
           stroke: isHovered ? colors.altBlack : 'none',
@@ -77,20 +70,22 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
           <g
             aria-label={a11yLabelForPairedBars}
             role='img'
-            tabIndex={0}
             key={d[demographicType]}
             onMouseEnter={(e) => {
-              setHoveredDemographic(d[demographicType])
-              onTooltip({
-                lightValue,
-                darkValue,
-                demographic: d[demographicType],
-                event: e,
-              })
+              showTooltip(
+                { lightValue, darkValue, demographic: d[demographicType] },
+                e.clientX,
+                e.clientY,
+              )
             }}
-            onMouseLeave={() => {
-              setHoveredDemographic(null)
-              onCloseTooltip()
+            onMouseLeave={hideTooltip}
+            onTouchStart={(e) => {
+              const touch = e.touches[0]
+              showTooltip(
+                { lightValue, darkValue, demographic: d[demographicType] },
+                touch.clientX,
+                touch.clientY,
+              )
             }}
           >
             {/* POPULATION BAR */}

@@ -1,5 +1,5 @@
 import { max, scaleBand, scaleLinear } from 'd3'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   type DemographicType,
@@ -10,9 +10,12 @@ import type { HetRow } from '../../data/utils/DatasetTypes'
 import type { Fips } from '../../data/utils/Fips'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
+import { HetChartHoverTooltip } from '../HetChartHoverTooltip'
 import VerticalGridlines from '../sharedBarChartPieces/VerticalGridlines'
 import XAxis from '../sharedBarChartPieces/XAxis'
 import YAxis from '../sharedBarChartPieces/YAxis'
+import { useChartTooltip } from '../useChartTooltip'
+import type { BarChartTooltipData } from './BarChartTooltip'
 import BarChartTooltip from './BarChartTooltip'
 import {
   BAR_HEIGHT,
@@ -25,7 +28,6 @@ import {
   Y_AXIS_LABEL_HEIGHT,
 } from './constants'
 import RoundedBarsWithLabels from './RoundedBarsWithLabels'
-import { useRateChartTooltip } from './useRateChartTooltip'
 
 interface RateBarChartProps {
   data: HetRow[]
@@ -45,13 +47,17 @@ export function RateBarChart(props: RateBarChartProps) {
 
   const [containerRef, width] = useResponsiveWidth()
 
-  const { tooltipData, handleTooltip, closeTooltip, handleContainerTouch } =
-    useRateChartTooltip(
-      containerRef,
-      props.metricConfig,
-      props.demographicType,
-      isTinyAndUp,
-    )
+  const { tooltipData, tooltipPos, showTooltip, hideTooltip } =
+    useChartTooltip<BarChartTooltipData>()
+
+  useEffect(() => {
+    window.addEventListener('scroll', hideTooltip, { passive: true })
+    window.addEventListener('wheel', hideTooltip, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', hideTooltip)
+      window.removeEventListener('wheel', hideTooltip)
+    }
+  }, [hideTooltip])
 
   const maxLabelWidth = hasSkinnyGroupLabels(props.demographicType)
     ? MAX_LABEL_WIDTH_SMALL
@@ -95,10 +101,14 @@ export function RateBarChart(props: RateBarChartProps) {
   return (
     <div
       ref={containerRef}
-      onTouchStart={handleContainerTouch}
+      onTouchStart={(e) => {
+        if (!(e.target as Element).closest('g[role="img"]')) hideTooltip()
+      }}
       className='relative'
     >
-      <BarChartTooltip data={tooltipData} />
+      <HetChartHoverTooltip x={tooltipPos?.x ?? null} y={tooltipPos?.y ?? null}>
+        {tooltipData && <BarChartTooltip {...tooltipData} />}
+      </HetChartHoverTooltip>
       <svg
         width={width}
         height={height}
@@ -119,8 +129,8 @@ export function RateBarChart(props: RateBarChartProps) {
             yScale={yScale}
             getYPosition={getYPosition}
             isTinyAndUp={isTinyAndUp}
-            handleTooltip={handleTooltip}
-            closeTooltip={closeTooltip}
+            showTooltip={showTooltip}
+            hideTooltip={hideTooltip}
           />
           <YAxis
             yScale={yScale}

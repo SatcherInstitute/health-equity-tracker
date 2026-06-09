@@ -3,7 +3,6 @@ import type {
   ScaleQuantile,
   ScaleSequential,
   ScaleThreshold,
-  Selection,
 } from 'd3'
 import type {
   Feature,
@@ -126,6 +125,24 @@ export interface MetricData {
   [key: string]: string | number | undefined
 }
 
+export interface MapTooltipEntry {
+  label: string
+  value: string
+}
+
+export interface MapTooltipData {
+  name: string
+  geographyType: string
+  featureId: string
+  isSummaryLegend: boolean
+  entries: MapTooltipEntry[]
+}
+
+export interface MapTooltipCallbacks {
+  onShow: (data: MapTooltipData, x: number, y: number) => void
+  onHide: () => void
+}
+
 export type RenderMapOptions = {
   activeDemographicGroup: DemographicGroup
   colorScale: ColorScale | null
@@ -142,7 +159,7 @@ export type RenderMapOptions = {
   metricConfig: MetricConfig
   showCounties: boolean
   svgRef: RefObject<SVGSVGElement | null>
-  tooltipContainer: Selection<HTMLDivElement, unknown, HTMLElement, any>
+  tooltipCallbacks: MapTooltipCallbacks
   width: number
   fips: Fips
   isMobile: boolean
@@ -172,9 +189,7 @@ declare global {
 
 export type MouseEventType =
   | 'mouseover'
-  | 'pointerdown'
   | 'mouseout'
-  | 'mousemove'
   | 'touchstart'
   | 'touchend'
 
@@ -182,7 +197,7 @@ export interface MouseEventHandlerOptions {
   colorScale: any
   metricConfig: MetricConfig
   dataMap: Map<string, any>
-  tooltipContainer: any
+  tooltipCallbacks: MapTooltipCallbacks
   geographyType: string
   demographicType?: DemographicType
   mapConfig: MapConfig

@@ -1,28 +1,13 @@
 export interface BarChartTooltipData {
-  x: number
-  y: number
-  content: string
+  group: string
+  value: string
 }
 
-interface BarChartTooltipProps {
-  data: BarChartTooltipData | null
-}
-
-export default function BarChartTooltip({ data }: BarChartTooltipProps) {
-  if (!data) return null
-  const clickIsLeftHalfOfScreen = data.x < window.innerWidth / 2
+export default function BarChartTooltip({ group, value }: BarChartTooltipData) {
   return (
-    <div
-      className='absolute z-top cursor-help rounded-sm bg-alt-white p-3 text-alt-black text-title opacity-95 shadow-raised smplus:whitespace-nowrap'
-      style={{
-        left: `${data.x}px`,
-        top: `${data.y}px`,
-        transform: clickIsLeftHalfOfScreen
-          ? 'translate(0, 5%)'
-          : 'translate(-100%, 5%)',
-      }}
-    >
-      {data.content}
-    </div>
+    <>
+      <div className='font-semibold'>{group}</div>
+      <div className='font-normal'>{value}</div>
+    </>
   )
 }

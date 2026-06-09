@@ -16,7 +16,7 @@ export default function CHLPMapsBanner() {
       not criminalized or criminalized less severely for people not living with
       HIV.
       <HetLinkButton
-        className='block py-1 font-semibold text-alt-green text-smallest hover:translate-x-1 hover:transition-transform hover:duration-300'
+        className='font-semibold text-alt-black hover:translate-x-1 hover:transition-transform hover:duration-300'
         onClick={() => setModalIsOpen(true)}
       >
         Open <span className='font-semibold sm:hidden'>CHLP</span>

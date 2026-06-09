@@ -7,6 +7,7 @@ import {
   createDataMap,
   getDenominatorPhrase,
   getNumeratorPhrase,
+  getTooltipLabel,
 } from './mapHelpers'
 import { TERRITORIES } from './mapTerritoryHelpers'
 import { STROKE_WIDTH } from './mapUtils'
@@ -14,11 +15,6 @@ import {
   createEventHandler,
   createMouseEventOptions,
 } from './mouseEventHandlers'
-import {
-  formatMetricValue,
-  getTooltipLabel,
-  hideTooltips,
-} from './tooltipUtils'
 import type {
   ColorScale,
   InitializeSvgOptions,
@@ -106,18 +102,6 @@ export const renderMap = (options: RenderMapOptions) => {
     demographicType,
   )
 
-  // Add event listeners
-  window.addEventListener('wheel', hideTooltips)
-  window.addEventListener('click', hideTooltips)
-  window.addEventListener('touchmove', hideTooltips)
-
-  // Create a cleanup function for event listeners
-  const cleanupEventListeners = () => {
-    window.removeEventListener('wheel', hideTooltips)
-    window.removeEventListener('click', hideTooltips)
-    window.removeEventListener('touchmove', hideTooltips)
-  }
-
   // Draw main map
   mapGroup
     .selectAll('path')
@@ -141,40 +125,15 @@ export const renderMap = (options: RenderMapOptions) => {
     )
     .attr('stroke', isExtremesMode ? colors.altGray : colors.altWhite)
     .attr('stroke-width', STROKE_WIDTH)
-    .attr('role', 'img')
-    .attr('tabindex', '-1')
-    .attr('aria-label', (d: any) => {
-      const id = d.id?.toString()
-      const name = d.properties?.name ?? id ?? 'Unknown'
-      const mapData = dataMap.get(id)
-      if (!mapData || mapData.value == null) {
-        return `${name} ${geographyType}: no data available`
-      }
-      const formattedValue = formatMetricValue(
-        mapData.value as number,
-        metricConfig,
-      )
-      const label = tooltipLabel
-        ? `${tooltipLabel} ${formattedValue}`
-        : formattedValue
-      return `${name} ${geographyType}: ${label}`
-    })
     .on('mouseover', (event: any, d) => {
-      hideTooltips()
+      options.tooltipCallbacks.onHide()
       createEventHandler('mouseover', mouseEventOptions)(event, d)
-    })
-    .on('pointerdown', (event: any, d) => {
-      hideTooltips()
-      createEventHandler('pointerdown', mouseEventOptions)(event, d)
-    })
-    .on('mousemove', (event: any, d) => {
-      createEventHandler('mousemove', mouseEventOptions)(event, d)
     })
     .on('mouseout', (event: any, d) => {
       createEventHandler('mouseout', mouseEventOptions)(event, d)
     })
     .on('touchstart', (event: any, d) => {
-      hideTooltips()
+      options.tooltipCallbacks.onHide()
       createEventHandler('touchstart', mouseEventOptions)(event, d)
     })
     .on('touchend', (event: any, d) => {
@@ -192,7 +151,6 @@ export const renderMap = (options: RenderMapOptions) => {
   return {
     dataMap,
     mapHeight,
-    cleanupEventListeners, // Return the cleanup function for event listeners
   }
 }
 

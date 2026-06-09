@@ -8,7 +8,6 @@ type DomToImage = typeof domToImageMore
 
 import { CITATION_APA } from '../cards/ui/SourcesHelpers'
 import { LEGEND_ITEMS_BOX_CLASS } from '../charts/choroplethMap/RateMapLegend'
-import { colors } from '../styles/tokens/colors'
 import type { ScrollableHashId } from './hooks/useStepObserver'
 
 // Constants
@@ -35,7 +34,6 @@ interface DomToImageOptions {
   filter: (node: HTMLElement) => boolean
   width?: number
   height?: number
-  bgcolor?: string
 }
 
 // Utility functions
@@ -339,7 +337,6 @@ async function captureAndSaveImage(
       filter: hideElementsForScreenshot,
       width: width,
       height: height,
-      bgcolor: colors.altWhite,
     }
 
     // Get all node elements including the card node itself

@@ -1,19 +1,6 @@
-/**
- * Tooltip for the charts that track trends over time
- * @param {object[]} data array of timeseries data objects
- * @param {string} selectedDate the date that is currently hovered
- * @param {object} axisConfig an object containing the configuration for axes - type and labels
- * @param {boolean} isSkinny a flag to determine whether user is viewing app below the mobile breakpoint or with resulting card column in compare mode below mobile breakpoint
- * returns jsx of a div with a grid of names, bar chart viz, and amounts
-
-/* External Imports */
 import { Fragment } from 'react'
-
-/* Local Imports */
 import { raceNameToCodeMap } from '../../data/utils/Constants'
-
 import { COLORS as C, FORMATTERS as F, TYPES } from './constants'
-/* Helpers */
 import {
   getAmountsByDate,
   getWidthHundredK,
@@ -21,10 +8,8 @@ import {
   sortDataDescending,
   translateXPctShare,
 } from './helpers'
-/* Constants */
 import type { AxisConfig, GroupData, TrendsData } from './types'
 
-/* Define type interface */
 interface TrendsTooltipProps {
   data: TrendsData
   selectedDate: string | null
@@ -32,7 +17,6 @@ interface TrendsTooltipProps {
   isSkinny: boolean
 }
 
-/* Render component */
 export function TrendsTooltip({
   data,
   selectedDate,
@@ -82,17 +66,15 @@ export function TrendsTooltip({
     : F.dateFromString_YYYY(selectedDate ?? '')
 
   return (
-    <figure className='h-full w-min whitespace-nowrap rounded-sm border border-alt-gray border-solid bg-alt-white p-3 font-medium font-sans-text text-small'>
-      {/* Date title */}
-      <figcaption className='border-0 border-alt-gray border-b border-solid pb-3 text-center'>
+    <>
+      <div className='border-0 border-alt-gray border-b border-solid pb-3 text-center'>
         <div>{displayDate}</div>
-        {/* if per 100k chart and on mobile, add subtitle with units */}
         {isSkinny && type === TYPES.HUNDRED_K && (
           <div className='mt-1 font-normal font-sans-text text-smallest'>
             {F.capitalize(yAxisLabel)}
           </div>
         )}
-      </figcaption>
+      </div>
       <div
         className='grid items-center justify-items-start gap-x-2 gap-y-1 pt-3 text-smallest'
         style={{ gridTemplateColumns: '1fr 50px 1fr' }}
@@ -107,9 +89,7 @@ export function TrendsTooltip({
 
               return (
                 <Fragment key={`tooltipRow-${group}`}>
-                  {/* group label - get from dictionary, if it doesn't exist, append group as label */}
                   <div>{raceNameToCodeMap[group] ?? group}</div>
-                  {/* rectangle indicator */}
                   <div
                     style={{
                       backgroundColor: C(group),
@@ -122,9 +102,7 @@ export function TrendsTooltip({
                     }}
                     className='h-2.5 transition duration-200 ease-linear'
                   />
-                  {/* amount */}
                   <div className='justify-end whitespace-nowrap'>
-                    {/* // TODO: update way rounding number */}
                     <span className='font-normal font-sans-text'>{value}</span>
                     <span className='font-normal font-sans-text'>
                       {TYPE_CONFIG[type]?.UNIT}
@@ -135,6 +113,6 @@ export function TrendsTooltip({
             },
           )}
       </div>
-    </figure>
+    </>
   )
 }

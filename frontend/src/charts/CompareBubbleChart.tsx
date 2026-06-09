@@ -11,13 +11,17 @@ import {
   select,
 } from 'd3'
 import type React from 'react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import { colors } from '../styles/tokens/colors'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
+import type { BubbleChartTooltipData } from './BubbleChartTooltip'
+import { BubbleChartTooltip } from './BubbleChartTooltip'
+import { HetChartHoverTooltip } from './HetChartHoverTooltip'
 import { GROUP_COLOR_MAP } from './trendsChart/constants'
+import { useChartTooltip } from './useChartTooltip'
 import {
   HEIGHT_WIDTH_RATIO,
   X_AXIS_MAX_TICKS,
@@ -73,64 +77,39 @@ function weightedRegression(data: WeightedDataPoint[]): [number, number][] {
   ]
 }
 
-interface TooltipProps {
-  content: {
-    fipsName: string
-    raceAndEthnicity: string
-    xLabel: string
-    xValue: number
-    yLabel: string
-    yValue: number
-    population: number
-  } | null
-  position: { x: number; y: number }
-}
-
-const Tooltip: React.FC<TooltipProps> = ({ content, position }) => {
-  if (!content) return null
-
-  return (
-    <div
-      className={`absolute z-top max-w-sm rounded-sm border border-alt-gray bg-alt-white p-3 text-left`}
-      style={{
-        top: position.y,
-        left: position.x,
-      }}
-    >
-      <p className='m-0'>
-        <strong>
-          {content.fipsName}, {content.raceAndEthnicity}
-        </strong>
-      </p>
-      <p className='m-0'>
-        {content.xLabel}: {content.xValue}
-      </p>
-      <p className='m-0'>
-        {content.yLabel}: {content.yValue}
-      </p>
-      <p className='m-0'>Population: {content.population}</p>
-    </div>
-  )
-}
-
-// TODO: this only works for race_and_ethnicity now
-
 const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
-  const chartRef = useRef<HTMLDivElement>(null)
   const isMd = useIsBreakpointAndUp('md')
   const xRate = props.xMetricConfig.metricId
   const yRate = props.yMetricConfig.metricId
 
   const [resizeCardRef, width] = useResponsiveWidth()
   const svgRef = useRef<SVGSVGElement>(null)
-  const [tooltipContent, setTooltipContent] =
-    useState<TooltipProps['content']>(null)
-  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
+  const {
+    tooltipData: tooltipContent,
+    tooltipPos: tooltipPosition,
+    showTooltip,
+    hideTooltip,
+  } = useChartTooltip<BubbleChartTooltipData>()
 
   const height = Math.min(
     isMd ? width * HEIGHT_WIDTH_RATIO : width / HEIGHT_WIDTH_RATIO,
     window.innerHeight * HEIGHT_WIDTH_RATIO,
   )
+
+  useEffect(() => {
+    const hideOnOutsideTouch = (e: TouchEvent) => {
+      if (svgRef.current && !svgRef.current.contains(e.target as Node))
+        hideTooltip()
+    }
+    window.addEventListener('touchstart', hideOnOutsideTouch)
+    window.addEventListener('wheel', hideTooltip)
+    window.addEventListener('scroll', hideTooltip, { passive: true })
+    return () => {
+      window.removeEventListener('touchstart', hideOnOutsideTouch)
+      window.removeEventListener('wheel', hideTooltip)
+      window.removeEventListener('scroll', hideTooltip)
+    }
+  }, [hideTooltip])
 
   useEffect(() => {
     if (!props.xData || !props.yData || !props.radiusData) {
@@ -256,37 +235,51 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
         return `${d.fips_name}, ${d.race_and_ethnicity}: ${props.xMetricConfig.shortLabel} ${d[xRate] ?? 0}, ${props.yMetricConfig.shortLabel} ${yVal}, population ${pop.toLocaleString()}`
       })
 
-      .on('mouseover', function (event: MouseEvent, d: HetRow) {
-        const yDataPoint = props.yData.find(
-          (y) =>
-            y.fips === d.fips && y.race_and_ethnicity === d.race_and_ethnicity,
-        )
-        const radiusDataPoint = props.radiusData.find(
-          (r) =>
-            r.fips === d.fips && r.race_and_ethnicity === d.race_and_ethnicity,
-        )
-        setTooltipContent({
-          fipsName: d.fips_name,
-          raceAndEthnicity: d.race_and_ethnicity,
-          xLabel: props.xMetricConfig.shortLabel,
-          xValue: d[xRate] as number,
-          yLabel: props.yMetricConfig.shortLabel,
-          yValue: yDataPoint ? (yDataPoint[yRate] as number) : 0,
-          population: radiusDataPoint
-            ? (radiusDataPoint[
-                props.radiusMetricConfig?.metricId || ''
-              ] as number)
-            : 0,
-        })
-        updateTooltipPosition(event)
-        select(this).attr('fill', colors.timeYellow).attr('opacity', 1)
-        if (this.parentNode) {
-          this.parentNode.appendChild(this)
-        }
-      })
-      .on('mousemove', updateTooltipPosition)
+      .on(
+        'mouseover touchstart',
+        function (event: MouseEvent | TouchEvent, d: HetRow) {
+          const yDataPoint = props.yData.find(
+            (y) =>
+              y.fips === d.fips &&
+              y.race_and_ethnicity === d.race_and_ethnicity,
+          )
+          const radiusDataPoint = props.radiusData.find(
+            (r) =>
+              r.fips === d.fips &&
+              r.race_and_ethnicity === d.race_and_ethnicity,
+          )
+          const isTouch = event.type === 'touchstart'
+          const clientX = isTouch
+            ? (event as TouchEvent).touches[0].clientX
+            : (event as MouseEvent).clientX
+          const clientY = isTouch
+            ? (event as TouchEvent).touches[0].clientY
+            : (event as MouseEvent).clientY
+          showTooltip(
+            {
+              fipsName: d.fips_name,
+              raceAndEthnicity: d.race_and_ethnicity,
+              xLabel: props.xMetricConfig.shortLabel,
+              xValue: d[xRate] as number,
+              yLabel: props.yMetricConfig.shortLabel,
+              yValue: yDataPoint ? (yDataPoint[yRate] as number) : 0,
+              population: radiusDataPoint
+                ? (radiusDataPoint[
+                    props.radiusMetricConfig?.metricId || ''
+                  ] as number)
+                : 0,
+            },
+            clientX,
+            clientY,
+          )
+          select(this).attr('fill', colors.timeYellow).attr('opacity', 1)
+          if (this.parentNode) {
+            this.parentNode.appendChild(this)
+          }
+        },
+      )
       .on('mouseout', function () {
-        setTooltipContent(null)
+        hideTooltip()
         select(this)
           .attr('fill', (d: any) => {
             return (
@@ -354,25 +347,26 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
     props.xMetricConfig.shortLabel,
     props.yMetricConfig.shortLabel,
     props.radiusMetricConfig?.metricId,
+    showTooltip,
+    hideTooltip,
   ])
 
-  const updateTooltipPosition = (event: MouseEvent) => {
-    if (chartRef.current) {
-      const chartRect = chartRef.current.getBoundingClientRect()
-      const xPosition = event.clientX - chartRect.left
-      const yPosition = event.clientY - chartRect.top
-      setTooltipPosition({ x: xPosition, y: yPosition })
-    }
-  }
-
   return (
-    <div ref={chartRef} style={{ position: 'relative' }}>
-      <div ref={resizeCardRef} style={{ position: 'relative' }}>
-        <svg ref={svgRef} width={width} height={height}>
-          <title>Bubble chart with Weighted Trend Line</title>
-        </svg>
-        <Tooltip content={tooltipContent} position={tooltipPosition} />
-      </div>
+    <div ref={resizeCardRef} style={{ position: 'relative' }}>
+      <svg
+        ref={svgRef}
+        width={width}
+        height={height}
+        aria-label='Bubble chart comparing two health metrics with bubble size representing population'
+      >
+        <title>Bubble chart with Weighted Trend Line</title>
+      </svg>
+      <HetChartHoverTooltip
+        x={tooltipPosition?.x ?? null}
+        y={tooltipPosition?.y ?? null}
+      >
+        {tooltipContent && <BubbleChartTooltip data={tooltipContent} />}
+      </HetChartHoverTooltip>
     </div>
   )
 }
