@@ -47,5 +47,14 @@ export function useRecentLocations() {
     }
   }, [])
 
-  return { recentLocations, addRecentLocation }
+  const clearRecentLocations = useCallback(() => {
+    try {
+      localStorage.removeItem(STORAGE_KEY)
+    } catch {
+      // localStorage unavailable
+    }
+    setRecentLocations([])
+  }, [])
+
+  return { recentLocations, addRecentLocation, clearRecentLocations }
 }

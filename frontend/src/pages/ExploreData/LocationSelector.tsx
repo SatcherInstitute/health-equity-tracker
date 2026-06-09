@@ -17,7 +17,8 @@ export default function LocationSelector(props: LocationSelectorProps) {
   const popoverRef = useRef(null)
   const popover = usePopover()
   const dropdownTarget = `${props.newValue}-dropdown-fips`
-  const { recentLocations, addRecentLocation } = useRecentLocations()
+  const { recentLocations, addRecentLocation, clearRecentLocations } =
+    useRecentLocations()
 
   // Track every location the user views, regardless of how they got here —
   // typing, dropdown click, map click, back/forward, or direct URL.
@@ -61,6 +62,7 @@ export default function LocationSelector(props: LocationSelectorProps) {
             popover={popover}
             options={options}
             recentLocations={recentLocations}
+            clearRecentLocations={clearRecentLocations}
           />
         </HetPopover>
       </span>

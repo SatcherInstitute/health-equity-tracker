@@ -6,6 +6,7 @@ import type { PopoverElements } from '../../utils/hooks/usePopover'
 import type { RecentLocation } from '../../utils/hooks/useRecentLocations'
 
 interface HetLocationSearchProps {
+  clearRecentLocations: () => void
   options: Fips[]
   onOptionUpdate: (option: string) => void
   popover: PopoverElements
@@ -97,9 +98,18 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
       />
       {visibleRecent.length > 0 && (
         <div className='mt-3 border-divider-gray border-t pt-3'>
-          <p className='mb-1 font-semibold text-alt-dark text-xs uppercase tracking-wide'>
-            Recent
-          </p>
+          <div className='mb-1 flex items-center justify-between'>
+            <p className='font-semibold text-alt-dark text-xs uppercase tracking-wide'>
+              Recent
+            </p>
+            <button
+              type='button'
+              className='cursor-pointer border-0 bg-transparent p-0 text-alt-dark text-xs hover:text-alt-black hover:underline'
+              onClick={props.clearRecentLocations}
+            >
+              Clear
+            </button>
+          </div>
           <ul className='flex flex-col gap-1'>
             {visibleRecent.map((loc) => (
               <li key={loc.code}>
