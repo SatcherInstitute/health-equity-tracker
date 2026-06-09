@@ -125,7 +125,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           </p>
           <button
             type='button'
-            className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small underline hover:no-underline'
+            className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small hover:underline'
             onClick={handleUsaButton}
           >
             {USA_DISPLAY_NAME}
