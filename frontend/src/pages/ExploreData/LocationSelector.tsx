@@ -1,9 +1,10 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { Fips } from '../../data/utils/Fips'
 import HetLocationSearch from '../../styles/HetComponents/HetLocationSearch'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
 import { usePopover } from '../../utils/hooks/usePopover'
+import { useRecentLocations } from '../../utils/hooks/useRecentLocations'
 
 interface LocationSelectorProps {
   newValue: string // fips location name as string
@@ -16,6 +17,13 @@ export default function LocationSelector(props: LocationSelectorProps) {
   const popoverRef = useRef(null)
   const popover = usePopover()
   const dropdownTarget = `${props.newValue}-dropdown-fips`
+  const { recentLocations, addRecentLocation } = useRecentLocations()
+
+  // Track every location the user views, regardless of how they got here —
+  // typing, dropdown click, map click, back/forward, or direct URL.
+  useEffect(() => {
+    addRecentLocation(props.newValue, currentDisplayName)
+  }, [props.newValue, addRecentLocation, currentDisplayName])
 
   // MUI Autocomplete groupBy requires options sorted by their group key so groups
   // are contiguous. Sort by an explicit priority prefix rather than FIPS code
@@ -51,6 +59,7 @@ export default function LocationSelector(props: LocationSelectorProps) {
             onOptionUpdate={props.onOptionUpdate}
             popover={popover}
             options={options}
+            recentLocations={recentLocations}
           />
         </HetPopover>
       </span>

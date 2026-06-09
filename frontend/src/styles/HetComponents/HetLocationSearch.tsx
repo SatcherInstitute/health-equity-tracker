@@ -3,23 +3,22 @@ import { useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
-import { useRecentLocations } from '../../utils/hooks/useRecentLocations'
+import type { RecentLocation } from '../../utils/hooks/useRecentLocations'
 
 interface HetLocationSearchProps {
   options: Fips[]
   onOptionUpdate: (option: string) => void
   popover: PopoverElements
+  recentLocations: RecentLocation[]
   value: string
 }
 
 export default function HetLocationSearch(props: HetLocationSearchProps) {
-  const { recentLocations, addRecentLocation } = useRecentLocations()
-  const visibleRecent = recentLocations.filter(
+  const visibleRecent = props.recentLocations.filter(
     (loc) => loc.code !== props.value,
   )
 
   function handleUsaButton() {
-    addRecentLocation(USA_FIPS, USA_DISPLAY_NAME)
     props.onOptionUpdate(USA_FIPS)
     props.popover.close()
   }
@@ -38,9 +37,9 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
     setAutoCompleteOpen(false)
   }
 
-  const isUsa = props.value === '00'
+  const isUsa = props.value === USA_FIPS
   const showUsaShortcut =
-    !isUsa && !recentLocations.some((loc) => loc.code === USA_FIPS)
+    !isUsa && !props.recentLocations.some((loc) => loc.code === USA_FIPS)
 
   return (
     <div className='min-w-72 p-5'>
@@ -91,7 +90,6 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           />
         )}
         onChange={(_e, fips) => {
-          addRecentLocation(fips.code, fips.getFullDisplayName())
           props.onOptionUpdate(fips.code)
           setTextBoxValue('')
           props.popover.close()
@@ -130,7 +128,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
             className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small underline hover:no-underline'
             onClick={handleUsaButton}
           >
-            United States
+            {USA_DISPLAY_NAME}
           </button>
         </div>
       )}
