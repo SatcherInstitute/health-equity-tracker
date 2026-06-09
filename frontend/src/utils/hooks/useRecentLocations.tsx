@@ -21,18 +21,16 @@ export function useRecentLocations() {
   )
 
   function addRecentLocation(code: string, displayName: string) {
-    setRecentLocations((prev) => {
-      const next = [
-        { code, displayName },
-        ...prev.filter((loc) => loc.code !== code),
-      ].slice(0, MAX_RECENT)
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
-      } catch {
-        // localStorage unavailable
-      }
-      return next
-    })
+    const next = [
+      { code, displayName },
+      ...recentLocations.filter((loc) => loc.code !== code),
+    ].slice(0, MAX_RECENT)
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
+    } catch {
+      // localStorage unavailable
+    }
+    setRecentLocations(next)
   }
 
   return { recentLocations, addRecentLocation }

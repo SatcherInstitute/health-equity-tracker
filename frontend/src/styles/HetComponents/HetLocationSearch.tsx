@@ -130,7 +130,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
             className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small underline hover:no-underline'
             onClick={handleUsaButton}
           >
-            the United States
+            United States
           </button>
         </div>
       )}
