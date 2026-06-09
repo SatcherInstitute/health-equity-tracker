@@ -17,6 +17,7 @@ import {
   Routes,
   useLocation,
 } from 'react-router'
+import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
 import { methodologyRouteConfigs } from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
 import { policyRouteConfigs } from './pages/Policy/policyContent/policyRouteConfigs'
 import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
@@ -52,9 +53,6 @@ const AboutUsPage = React.lazy(
 )
 const WhatIsHealthEquityPage = React.lazy(
   async () => await import('./pages/WhatIsHealthEquity/WhatIsHealthEquityPage'),
-)
-const ErrorBoundaryDropParams = React.lazy(
-  async () => await import('./ErrorBoundaryDropParams'),
 )
 const ExploreDataFallback = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataFallback'),
