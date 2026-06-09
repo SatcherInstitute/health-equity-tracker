@@ -115,7 +115,7 @@ DEV_PID=$!
 TIMEOUT=60
 until curl -s http://localhost:3000 > /dev/null 2>&1; do
   sleep 1; TIMEOUT=$((TIMEOUT - 1))
-  [ $TIMEOUT -le 0 ] && echo "Dev server failed to start" && exit 1
+  [ $TIMEOUT -le 0 ] && echo "Dev server failed to start" && kill $DEV_PID 2>/dev/null && exit 1
 done
 echo "Server ready"
 ```
@@ -304,7 +304,7 @@ gh pr edit {number} --body-file /tmp/het-screenshots/pr-{number}/body.md
 ## Step 9 — Cleanup and confirm
 
 ```bash
-kill $DEV_PID 2>/dev/null
+[ -n "$DEV_PID" ] && kill $DEV_PID 2>/dev/null
 rm -rf /tmp/het-screenshots/pr-{number}
 ```
 
