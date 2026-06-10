@@ -1,40 +1,32 @@
+import CloseIcon from '@mui/icons-material/Close'
 import { Autocomplete, TextField } from '@mui/material'
 import { useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
-import type { Fips } from '../../data/utils/Fips'
+import { Fips } from '../../data/utils/Fips'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
 
 interface HetLocationSearchProps {
+  clearRecentLocations: () => void
   options: Fips[]
   onOptionUpdate: (option: string) => void
   popover: PopoverElements
+  recentLocations: string[]
   value: string
 }
 
 export default function HetLocationSearch(props: HetLocationSearchProps) {
-  function handleUsaButton() {
-    props.onOptionUpdate(USA_FIPS)
-    props.popover.close()
-  }
+  const visibleRecent = props.recentLocations.filter(
+    (code) => code !== props.value,
+  )
 
-  const [, setTextBoxValue] = useState('')
-  const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTextBoxValue(event.target.value)
-  }
+  const isUsa = props.value === USA_FIPS
+  const showUsaShortcut =
+    !isUsa && !props.recentLocations.some((code) => code === USA_FIPS)
 
   const [autoCompleteOpen, setAutoCompleteOpen] = useState(false)
-  const openAutoComplete = () => {
-    setAutoCompleteOpen(true)
-  }
-
-  const closeAutoComplete = () => {
-    setAutoCompleteOpen(false)
-  }
-
-  const isUsa = props.value === '00'
 
   return (
-    <div className='p-5'>
+    <div className='min-w-72 p-5'>
       <h3 className='my-1 font-semibold text-small md:text-title'>
         Search for location
       </h3>
@@ -45,29 +37,24 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         groupBy={(option) => option.getFipsCategory()}
         clearOnEscape={true}
         getOptionLabel={(fips) => fips.getFullDisplayName()}
-        isOptionEqualToValue={(fips) => fips.code === props.value}
-        renderOption={(props, fips: Fips) => {
-          return (
-            <li {...props} key={props.key}>
-              {fips.getFullDisplayName()}
-            </li>
-          )
-        }}
+        renderOption={(optionProps, fips: Fips) => (
+          <li {...optionProps} key={optionProps.key}>
+            {fips.getFullDisplayName()}
+          </li>
+        )}
         open={autoCompleteOpen}
-        onOpen={openAutoComplete}
-        onClose={closeAutoComplete}
+        onOpen={() => setAutoCompleteOpen(true)}
+        onClose={() => setAutoCompleteOpen(false)}
         renderInput={(params) => (
           <TextField
-            placeholder=''
+            placeholder='County, state, or territory...'
             /* eslint-disable-next-line */
             autoFocus
             margin='dense'
             variant='outlined'
-            onChange={updateTextBox}
             {...params}
             slotProps={{
               ...params.slotProps,
-
               input: {
                 ...params.slotProps?.input,
                 sx: {
@@ -84,25 +71,60 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         )}
         onChange={(_e, fips) => {
           props.onOptionUpdate(fips.code)
-          setTextBoxValue('')
           props.popover.close()
         }}
       />
-      <span className='font-light text-alt-black text-small italic'>
-        County, state, territory, or{' '}
-        {isUsa ? (
-          USA_DISPLAY_NAME
-        ) : (
+      {visibleRecent.length > 0 && (
+        <div className='mt-3 border-divider-gray border-t pt-3'>
+          <div className='mb-1 flex items-center justify-between'>
+            <span className='font-semibold text-alt-dark text-xs uppercase tracking-wide'>
+              Recent
+            </span>
+            <button
+              type='button'
+              aria-label='Clear recent locations'
+              title='Clear recent locations'
+              className='cursor-pointer border-0 bg-transparent p-0 text-alt-dark opacity-50 hover:opacity-100'
+              onClick={props.clearRecentLocations}
+            >
+              <CloseIcon sx={{ fontSize: 14 }} />
+            </button>
+          </div>
+          <ul className='flex flex-col gap-1'>
+            {visibleRecent.map((code) => (
+              <li key={code}>
+                <button
+                  type='button'
+                  className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small hover:underline'
+                  onClick={() => {
+                    props.onOptionUpdate(code)
+                    props.popover.close()
+                  }}
+                >
+                  {new Fips(code).getFullDisplayName()}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {showUsaShortcut && (
+        <div className='mt-3 border-divider-gray border-t pt-3'>
+          <div className='mb-1 font-semibold text-alt-dark text-xs uppercase tracking-wide'>
+            National
+          </div>
           <button
             type='button'
-            className='cursor-pointer border-0 bg-transparent p-0 text-alt-green italic underline'
-            onClick={handleUsaButton}
+            className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small hover:underline'
+            onClick={() => {
+              props.onOptionUpdate(USA_FIPS)
+              props.popover.close()
+            }}
           >
-            United States
+            {USA_DISPLAY_NAME}
           </button>
-        )}
-        . Some source data is unavailable at county and territory levels.
-      </span>
+        </div>
+      )}
     </div>
   )
 }
