@@ -54,6 +54,10 @@ resource "google_storage_bucket" "insights_cache_bucket" {
 resource "google_storage_bucket" "flagged_insights_bucket" {
   name     = var.flagged_insights_bucket
   location = var.gcs_region
+
+  # Manage access exclusively via IAM (no legacy object ACLs) so this sensitive,
+  # user-flagged content can't be accidentally exposed through a stray ACL.
+  uniform_bucket_level_access = true
 }
 
 # Public bucket for PR screenshot images uploaded by the /screenshot-pr Claude Code skill.
