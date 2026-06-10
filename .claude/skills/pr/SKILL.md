@@ -235,9 +235,7 @@ Rewrite the PR title (under 70 chars) and body. Keep the description **short and
 Use this template:
 
 ```markdown
-**Preview:** [<short label>](<netlify-url>/<route>?<params>) · [<label 2>](<netlify-url>/<route2>?<params>)
-
-*(Preview URL pending deploy)* — replace the line above once Netlify posts its comment.
+**Preview:** [<short label>](<netlify-url>/<route>?<params>)
 
 ## Summary
 
@@ -253,9 +251,8 @@ Use this template:
 
 **Preview line rules:**
 - Always the first line of the body so reviewers can click straight to the feature
-- If the Netlify URL is not yet available, write `*(Preview URL pending deploy)*` as a single line placeholder — do not invent a URL
-- Include 1–3 deep links with the URL params needed to see the feature immediately (e.g. `?mls=1.hiv-3.06&mlp=disparity` to land on a specific report)
-- Remove the placeholder line and replace with real links once the URL is known
+- The PR number is always known at this point — construct the URL as `https://deploy-preview-{number}--health-equity-tracker.netlify.app`; never omit it or use a placeholder
+- One deep link with the URL params needed to land directly on the changed UI (e.g. `?mls=1.hiv-3.06&mlp=disparity`)
 
 **Summary rules:**
 - 3–5 bullets maximum; each one line
