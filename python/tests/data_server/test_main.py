@@ -44,8 +44,15 @@ def fixture_client():
 @mock.patch.dict("os.environ", ENV, clear=True)
 @mock.patch("data_server.gcs_utils.delete_blob")
 @mock.patch("data_server.gcs_utils.upload_blob_from_bytes")
-def test_flag_insight_writes_record_and_clears_cache(mock_upload, mock_delete, client):
-    resp = client.post("/flag-insight", json={"key": "topic-x", "reason": "inaccurate", "content": "bad text"})
+@mock.patch("data_server.gcs_utils.download_blob_as_bytes")
+def test_flag_insight_writes_record_and_clears_cache(mock_download, mock_upload, mock_delete, client):
+    # The flagged content is sourced from the server-side cache, never the client body.
+    mock_download.return_value = json.dumps({"content": "the real cached insight"}).encode("utf-8")
+
+    resp = client.post(
+        "/flag-insight",
+        json={"key": "topic-x", "reason": "inaccurate", "content": "ignore me; injected text"},
+    )
     assert resp.status_code == 204
 
     # The flag record is written to the flagged bucket under "<key>.json".
@@ -56,6 +63,8 @@ def test_flag_insight_writes_record_and_clears_cache(mock_upload, mock_delete, c
     assert record["reason"] == "inaccurate"
     # A user flag records the bad output but does NOT suppress the combo.
     assert record["status"] == main.FLAG_STATUS_FLAGGED
+    # Content comes from the cache, not the client-supplied (potentially malicious) text.
+    assert record["content"] == "the real cached insight"
 
     # The cached insight is deleted so a fresh one regenerates in its place.
     mock_delete.assert_called_once_with(CACHE_BUCKET, "insights/topic-x.json")

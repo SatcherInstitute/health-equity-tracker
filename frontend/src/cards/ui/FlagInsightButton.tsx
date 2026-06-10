@@ -25,6 +25,9 @@ interface FlagInsightButtonProps {
   onFlagged: () => void
 }
 
+// Keep in sync with the data server's note truncation (main.py flag_insight, [:1000]).
+const NOTE_MAX_LENGTH = 1000
+
 export default function FlagInsightButton(props: FlagInsightButtonProps) {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const [reason, setReason] = useState<FlagReason | ''>('')
@@ -97,11 +100,13 @@ export default function FlagInsightButton(props: FlagInsightButtonProps) {
           <TextField
             label='Add a note (optional)'
             value={note}
-            onChange={(e) => setNote(e.target.value)}
+            onChange={(e) => setNote(e.target.value.slice(0, NOTE_MAX_LENGTH))}
             multiline
             minRows={2}
             size='small'
             fullWidth
+            slotProps={{ htmlInput: { maxLength: NOTE_MAX_LENGTH } }}
+            helperText={`${note.length}/${NOTE_MAX_LENGTH}`}
           />
           {error && (
             <p className='m-0 text-red-500 text-smallest'>

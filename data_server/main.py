@@ -127,6 +127,28 @@ def _flagged_record(key: str) -> dict | None:
     return record if isinstance(record, dict) else None
 
 
+def _cached_insight_content(key: str) -> str:
+    """Returns the cached insight text for a key, or "" if missing/unreadable. Never raises."""
+    bucket = os.environ.get(INSIGHTS_CACHE_BUCKET_ENV)
+    if not bucket:
+        return ""
+    try:
+        blob = gcs_utils.download_blob_as_bytes(bucket, f"insights/{key}.json")
+    except google.cloud.exceptions.NotFound:
+        return ""
+    except Exception as err:  # pylint: disable=broad-except
+        logging.error(err)
+        return ""
+    try:
+        payload = json.loads(blob)
+    except json.JSONDecodeError:
+        return ""
+    if not isinstance(payload, dict):
+        return ""
+    content = payload.get("content")
+    return content if isinstance(content, str) else ""
+
+
 @app.route("/insight-cache", methods=["GET"])
 def get_insight_cache():
     """Returns a cached AI insight if present and within TTL, otherwise 404.
@@ -210,11 +232,16 @@ def flag_insight():
     if not flagged_bucket:
         return "Insight flagging not configured", 503
 
+    # Source the flagged content from the server-side cache, never from the client. The
+    # content is later fed back into the generation prompt as a negative example, so trusting
+    # client-supplied text would let a caller inject arbitrary instructions into the prompt.
+    content = _cached_insight_content(key)
+
     record = {
         "key": key,
         "reason": reason,
         "note": (body.get("note") or "")[:1000],
-        "content": (body.get("content") or "")[:5000],
+        "content": content[:5000],
         "topic": (body.get("topic") or "")[:200],
         "status": FLAG_STATUS_FLAGGED,
         "timestamp": int(time.time() * 1000),
