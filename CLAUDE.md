@@ -64,8 +64,6 @@ git push origin HEAD:infra-test -f   # backend GCP deploy only
 
 See `README.md` for full fork setup steps including how to add your fork as a remote.
 
-**PR title convention:** Never put an issue number in the PR title (no `(#1234)` suffix). It is visually indistinguishable from a PR number at a glance. Use `Closes #NNNN` in the PR body instead.
-
 ## Commands
 
 Frontend commands run from `frontend/` — see `frontend/CLAUDE.md`.
