@@ -13,6 +13,7 @@ import pytest
 # is what the mocks below patch.
 _MAIN_PATH = Path(__file__).resolve().parents[3] / "data_server" / "main.py"
 _spec = importlib.util.spec_from_file_location("data_server_main", _MAIN_PATH)
+assert _spec is not None and _spec.loader is not None  # narrows Optional types for mypy
 main = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(main)
 
@@ -25,11 +26,17 @@ ENV = {
 
 
 class FakeBlob:
-    """Minimal stand-in for a google.cloud.storage Blob for list_blobs tests."""
+    """Minimal stand-in for a google.cloud.storage Blob for list_blobs tests.
 
-    def __init__(self, name: str, payload: dict):
+    Real GCS blobs expose an `updated` timestamp after a list call; get_flagged_examples
+    sorts on that (newest-first) before downloading content. Default it to the payload's
+    own timestamp so ordering in tests matches the record's logical recency.
+    """
+
+    def __init__(self, name: str, payload: dict, updated=None):
         self.name = name
         self._payload = payload
+        self.updated = updated if updated is not None else payload.get("timestamp", 0)
 
     def download_as_bytes(self) -> bytes:
         return json.dumps(self._payload).encode("utf-8")
@@ -88,6 +95,13 @@ def test_insight_cache_serves_content_for_plain_flagged_key(mock_download, clien
 @mock.patch.dict("os.environ", ENV, clear=True)
 def test_flag_insight_rejects_invalid_reason(client):
     resp = client.post("/flag-insight", json={"key": "topic-x", "reason": "bogus"})
+    assert resp.status_code == 400
+
+
+@mock.patch.dict("os.environ", ENV, clear=True)
+def test_flag_insight_rejects_non_object_body(client):
+    # A non-object JSON body (here a list) must yield a clean 400, not an AttributeError 500.
+    resp = client.post("/flag-insight", json=["not", "an", "object"])
     assert resp.status_code == 400
 
 
@@ -150,6 +164,36 @@ def test_flagged_examples_filters_by_topic_and_status(mock_list, client):
         {"reason": "misleading", "content": "w"},
         {"reason": "inaccurate", "content": "x"},
     ]
+
+
+@mock.patch.dict("os.environ", ENV, clear=True)
+@mock.patch("data_server.gcs_utils.list_blobs")
+def test_flagged_examples_stops_downloading_after_max(mock_list, client):
+    # Far more matching blobs than the cap. The newest MAX_FLAGGED_EXAMPLES (by `updated`)
+    # should be returned, and blobs past the cap must never be downloaded.
+    total = main.MAX_FLAGGED_EXAMPLES + 25
+    blobs = [
+        FakeBlob(
+            f"{i}.json",
+            {"topic": "hiv", "reason": "inaccurate", "content": f"c{i}", "status": "flagged", "timestamp": i},
+        )
+        for i in range(total)
+    ]
+    # Shuffle-ish input order to prove ordering comes from `updated`, not list order.
+    mock_list.return_value = list(reversed(blobs))
+
+    download_spy = mock.Mock(wraps=FakeBlob.download_as_bytes)
+    for b in blobs:
+        b.download_as_bytes = lambda b=b: download_spy(b)
+
+    resp = client.get("/flagged-examples?topic=hiv")
+    assert resp.status_code == 200
+    examples = resp.get_json()["examples"]
+    assert len(examples) == main.MAX_FLAGGED_EXAMPLES
+    # Newest-first: the highest timestamps win.
+    assert examples[0] == {"reason": "inaccurate", "content": f"c{total - 1}"}
+    # Only the cap's worth of blobs were ever downloaded — not all N.
+    assert download_spy.call_count == main.MAX_FLAGGED_EXAMPLES
 
 
 @mock.patch.dict("os.environ", ENV, clear=True)

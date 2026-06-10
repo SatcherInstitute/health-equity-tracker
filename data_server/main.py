@@ -101,6 +101,17 @@ def get_dataset():
     return Response(generate_response(), mimetype="application/json", headers=headers)
 
 
+def _json_object_body() -> dict:
+    """Returns the request's JSON body if it's an object, else {}.
+
+    Guards against a non-object body (a JSON array, string, or number), which would
+    otherwise make the subsequent `.get(...)` raise AttributeError. Returning {} lets the
+    per-field validation below produce a clean 400 instead of a 500.
+    """
+    body = request.get_json(silent=True)
+    return body if isinstance(body, dict) else {}
+
+
 def _validate_insight_key(key: str | None) -> str | None:
     # GCS object names are literal strings, not paths — "/" can't escape the insights/ prefix.
     if not key or len(key) > INSIGHT_KEY_MAX_LEN or ".." in key:
@@ -194,7 +205,7 @@ def get_insight_cache():
 @app.route("/insight-cache", methods=["POST"])
 def put_insight_cache():
     """Stores an AI insight in GCS, keyed by the provided cache key."""
-    body = request.get_json(silent=True) or {}
+    body = _json_object_body()
     key = _validate_insight_key(body.get("key"))
     content = body.get("content")
     if key is None or not content:
@@ -222,7 +233,7 @@ def flag_insight():
     best-effort deletes the matching cached insight so a fresh one regenerates in its place.
     The record is NOT suppressing — only the team can escalate it to hide the combo.
     """
-    body = request.get_json(silent=True) or {}
+    body = _json_object_body()
     key = _validate_insight_key(body.get("key"))
     reason = body.get("reason")
     if key is None or reason not in VALID_FLAG_REASONS:
@@ -268,6 +279,15 @@ def flag_insight():
     return "", 204
 
 
+def _blob_modified_key(blob):
+    """Sort key for newest-first blob ordering using GCS metadata (no content download).
+
+    Real GCS blobs expose `updated`/`time_created` after a list call; fall back to 0 so the
+    sort stays stable for blobs (or test fakes) lacking that metadata.
+    """
+    return getattr(blob, "updated", None) or getattr(blob, "time_created", None) or 0
+
+
 def _iter_flag_records(flagged_bucket: str):
     """Yields all valid flag records in the flagged-insights bucket."""
     for blob in gcs_utils.list_blobs(flagged_bucket):
@@ -286,6 +306,10 @@ def get_flagged_examples():
     """Returns recent flagged {reason, content} pairs, optionally scoped to a topic.
 
     Used to feed prior bad outputs back into the generation prompt as negative examples.
+    This runs on the critical path of every insight generation, so it avoids downloading
+    every blob: it lists once (metadata only), orders blobs newest-first by their GCS
+    modification time, then downloads lazily and stops once MAX_FLAGGED_EXAMPLES matches
+    are collected — O(min(N, MAX)) downloads in the common case instead of O(N).
     """
     flagged_bucket = os.environ.get(FLAGGED_INSIGHTS_BUCKET_ENV)
     if not flagged_bucket:
@@ -293,21 +317,32 @@ def get_flagged_examples():
         return jsonify({"examples": []})
 
     topic = request.args.get("topic")
+    examples: list[dict] = []
     try:
-        records = [r for r in _iter_flag_records(flagged_bucket) if r.get("status") in NEGATIVE_EXAMPLE_STATUSES]
+        blobs = gcs_utils.list_blobs(flagged_bucket)
+        blobs.sort(key=_blob_modified_key, reverse=True)
+        for blob in blobs:
+            if len(examples) >= MAX_FLAGGED_EXAMPLES:
+                break
+            if not blob.name.endswith(".json"):
+                continue
+            try:
+                record = json.loads(blob.download_as_bytes())
+            except (json.JSONDecodeError, google.cloud.exceptions.NotFound):
+                continue
+            if not isinstance(record, dict):
+                continue
+            if record.get("status") not in NEGATIVE_EXAMPLE_STATUSES:
+                continue
+            if topic and record.get("topic") != topic:
+                continue
+            content = record.get("content")
+            if content:
+                examples.append({"reason": record.get("reason"), "content": content})
     except Exception as err:  # pylint: disable=broad-except
         logging.error(err)
         return jsonify({"examples": []})
 
-    if topic:
-        records = [r for r in records if r.get("topic") == topic]
-    records.sort(key=lambda r: r.get("timestamp", 0), reverse=True)
-
-    examples = [
-        {"reason": r.get("reason"), "content": r.get("content", "")}
-        for r in records[:MAX_FLAGGED_EXAMPLES]
-        if r.get("content")
-    ]
     return jsonify({"examples": examples})
 
 
@@ -329,7 +364,7 @@ def list_flagged_insights():
 @app.route("/flagged-insights", methods=["PATCH"])
 def update_flagged_insight():
     """Updates a flag record's status (re-enable or permanently suppress)."""
-    body = request.get_json(silent=True) or {}
+    body = _json_object_body()
     key = _validate_insight_key(body.get("key"))
     status = body.get("status")
     if key is None or status not in VALID_FLAG_STATUSES:
