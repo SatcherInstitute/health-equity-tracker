@@ -21,8 +21,8 @@ export default function CHLPMapsBanner() {
           onClick={() => setModalIsOpen(true)}
         >
           <span className='font-semibold'>
-            Open <span className='sm:hidden'>CHLP</span>
-            <span className='hidden sm:inline'>
+            Open <span className='font-semibold sm:hidden'>CHLP</span>
+            <span className='hidden font-semibold sm:inline'>
               Center for HIV Law and Policy (CHLP)
             </span>{' '}
             Maps
