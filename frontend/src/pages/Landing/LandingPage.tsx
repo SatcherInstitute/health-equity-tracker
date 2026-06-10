@@ -13,6 +13,10 @@ import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import LandingPageListItem from './LandingPageListItem'
+
+// cspell:ignore XBoqT9Jjc8w
+const HET_INTRO_YOUTUBE_ID = 'XBoqT9Jjc8w'
+
 import WebflowNewsPreviewCard, {
   type WebflowArticle,
 } from './WebflowNewsPreviewCard' ////
@@ -173,8 +177,7 @@ function LandingPage() {
               <LandingPageListItem
                 title='Take a tour of the data'
                 description='New to the Health Equity Tracker? Watch a short video demo that highlights major features of the platform.'
-                iframeSrc='https://www.youtube.com/embed/XBoqT9Jjc8w'
-                videoSrc={undefined}
+                youtubeId={HET_INTRO_YOUTUBE_ID}
                 itemNumber={1}
                 prefersReducedMotion={prefersReducedMotion}
               />
@@ -182,7 +185,6 @@ function LandingPage() {
                 title='Search by completing the sentence'
                 description='Select topics and locations you are interested in to complete the sentence and explore the data.'
                 videoSrc='videos/search-by.mp4'
-                iframeSrc={undefined}
                 itemNumber={2}
                 prefersReducedMotion={prefersReducedMotion}
               />
@@ -190,7 +192,6 @@ function LandingPage() {
                 title='Use filters to go deeper'
                 description='Where available, the tracker offers breakdowns by race and ethnicity, sex, and age.'
                 videoSrc='videos/filters.mp4'
-                iframeSrc={undefined}
                 itemNumber={3}
                 prefersReducedMotion={prefersReducedMotion}
               />
@@ -198,7 +199,6 @@ function LandingPage() {
                 title='Explore maps and graphs'
                 description='The interactive maps and graphs are a great way to investigate the data more closely. If a state or county is gray, that means there is no data currently available.'
                 videoSrc='videos/explore-map.mp4'
-                iframeSrc={undefined}
                 itemNumber={4}
                 customClassName='xs:mt-4 xs:mb-12'
                 prefersReducedMotion={prefersReducedMotion}
