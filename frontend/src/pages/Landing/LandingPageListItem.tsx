@@ -65,11 +65,17 @@ export default function LandingPageListItem({
               className='group relative mx-auto block xs:h-[25vh] max-h-[40vh] w-full max-w-[60vw] cursor-pointer overflow-hidden rounded-md border-0 p-0 focus-visible:ring-2 focus-visible:ring-alt-green focus-visible:ring-offset-2'
               onClick={() => setEmbedLoaded(true)}
             >
-              <img
-                src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
-                alt=''
-                className='h-full w-full object-cover'
-              />
+              <picture>
+                <source
+                  srcSet={`https://img.youtube.com/vi_webp/${youtubeId}/hqdefault.webp`}
+                  type='image/webp'
+                />
+                <img
+                  src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
+                  alt=''
+                  className='h-full w-full object-cover'
+                />
+              </picture>
               <div className='absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30'>
                 <svg
                   viewBox='0 0 68 48'
