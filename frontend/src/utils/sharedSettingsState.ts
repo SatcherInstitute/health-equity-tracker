@@ -1,5 +1,6 @@
 import { atom } from 'jotai'
-import { atomFamily, selectAtom } from 'jotai/utils'
+import { selectAtom } from 'jotai/utils'
+import { atomFamily } from 'jotai-family'
 import { atomWithLocation } from 'jotai-location'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
