@@ -53,7 +53,7 @@ export default function LandingPageListItem({
           embedLoaded ? (
             <iframe
               className='mx-auto xs:h-[25vh] max-h-[40vh] w-full max-w-[60vw] rounded-md sm:h-[25vh] md:h-[25vh] lg:min-h-[40vh] xl:min-h-[40vh]'
-              src={`https://www.youtube.com/embed/${youtubeId}?autoplay=1`}
+              src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1`}
               title='YouTube video player'
               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
               allowFullScreen
@@ -62,12 +62,12 @@ export default function LandingPageListItem({
             <button
               type='button'
               aria-label='Play video'
-              className='group relative mx-auto block xs:h-[25vh] max-h-[40vh] w-full max-w-[60vw] cursor-pointer overflow-hidden rounded-md border-0 p-0'
+              className='group relative mx-auto block xs:h-[25vh] max-h-[40vh] w-full max-w-[60vw] cursor-pointer overflow-hidden rounded-md border-0 p-0 focus-visible:ring-2 focus-visible:ring-alt-green focus-visible:ring-offset-2'
               onClick={() => setEmbedLoaded(true)}
             >
               <img
                 src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
-                alt='Video thumbnail'
+                alt=''
                 className='h-full w-full object-cover'
               />
               <div className='absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30'>
