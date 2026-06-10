@@ -12,6 +12,7 @@ import {
   cardInsightOpenAtom,
   cardInsightsAtom,
 } from '../../utils/sharedSettingsState'
+import FlagInsightButton from './FlagInsightButton'
 
 interface InsightVisualizationCardProps {
   scrollToHash: ScrollableHashId
@@ -35,6 +36,12 @@ export default function InsightVisualizationCard({
   const isOpen = useAtomValue(cardInsightOpenAtom)[openKey] ?? false
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  // The exact server cache key used, captured so the flag button targets this insight.
+  const [serverCacheKey, setServerCacheKey] = useState<string | null>(null)
+  // True once this insight is flagged/suppressed — no content is shown.
+  const [suppressed, setSuppressed] = useState(false)
+  // True right after the user flags an insight, to show a thank-you message.
+  const [justFlagged, setJustFlagged] = useState(false)
 
   const cacheKey = `${scrollToHash}-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}${isCompareCard ? '-2' : ''}`
   const insight = cardInsights[cacheKey]
@@ -42,6 +49,8 @@ export default function InsightVisualizationCard({
   const handleGenerate = useCallback(async () => {
     setIsGenerating(true)
     setError(null)
+    setSuppressed(false)
+    setJustFlagged(false)
     try {
       const result = await generateCardInsight(
         scrollToHash,
@@ -51,8 +60,11 @@ export default function InsightVisualizationCard({
         queryResponses,
         isCompareCard,
       )
+      setServerCacheKey(result.cacheKey ?? null)
       if (result.rateLimited) {
         setError('Too many requests. Please wait a moment and try again.')
+      } else if (result.suppressed) {
+        setSuppressed(true)
       } else if (result.error) {
         setError('Unable to generate insight. Please try again.')
       } else {
@@ -72,19 +84,48 @@ export default function InsightVisualizationCard({
     setCardInsights,
   ])
 
-  // Reset error when the cacheKey changes (user switched demographic, fips,
-  // etc.) — otherwise a stale error from old params would block generation
-  // for the new ones.
+  const handleFlagged = () => {
+    // Drop the locally cached insight so it is no longer shown, and mark it flagged.
+    setCardInsights((prev) => {
+      const next = { ...prev }
+      delete next[cacheKey]
+      return next
+    })
+    setJustFlagged(true)
+  }
+
+  // Reset error and flag state when the cacheKey changes (user switched
+  // demographic, fips, etc.) — otherwise stale state from old params would
+  // block generation for the new ones.
   useEffect(() => {
     setError(null)
+    setSuppressed(false)
+    setJustFlagged(false)
   }, [cacheKey])
 
   // `error` is in the guard so a failed call doesn't get auto-retried on the
   // next render — the user must click Try again.
   useEffect(() => {
-    if (!isOpen || insight || error || isGenerating) return
+    if (
+      !isOpen ||
+      insight ||
+      error ||
+      isGenerating ||
+      suppressed ||
+      justFlagged
+    )
+      return
     void handleGenerate()
-  }, [isOpen, insight, error, isGenerating, cacheKey, handleGenerate])
+  }, [
+    isOpen,
+    insight,
+    error,
+    isGenerating,
+    suppressed,
+    justFlagged,
+    cacheKey,
+    handleGenerate,
+  ])
 
   if (!SHOW_INSIGHT_GENERATION || !isOpen) return null
 
@@ -104,6 +145,12 @@ export default function InsightVisualizationCard({
             Try again
           </Button>
         </div>
+      ) : suppressed || justFlagged ? (
+        <p className='m-0 text-alt-dark text-small'>
+          {justFlagged
+            ? 'Thanks for flagging this insight. It has been hidden while our team reviews it.'
+            : 'This insight was flagged for review and is currently hidden.'}
+        </p>
       ) : (
         <>
           <p className='m-0 font-bold text-alt-dark leading-snug'>{insight}</p>
@@ -111,6 +158,14 @@ export default function InsightVisualizationCard({
             AI-generated synthesis powered by the Claude API. Always verify
             findings with the source data shown in the charts above.
           </p>
+          <div className='mt-2 flex justify-end'>
+            <FlagInsightButton
+              cacheKey={serverCacheKey ?? undefined}
+              content={insight}
+              topic={dataTypeConfig.dataTypeId}
+              onFlagged={handleFlagged}
+            />
+          </div>
         </>
       )}
     </div>

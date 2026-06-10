@@ -112,6 +112,11 @@ resource "google_cloud_run_service" "data_server_service" {
           name  = "INSIGHTS_CACHE_BUCKET"
           value = var.insights_cache_bucket
         }
+        env {
+          # GCS bucket for user-flagged insights (read/write/list).
+          name  = "FLAGGED_INSIGHTS_BUCKET"
+          value = var.flagged_insights_bucket
+        }
 
         resources {
           limits = {

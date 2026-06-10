@@ -17,7 +17,22 @@ CORS(app)
 cache = DatasetCache()
 
 INSIGHTS_CACHE_BUCKET_ENV = "INSIGHTS_CACHE_BUCKET"
+# Separate bucket for flagged-insight records. Kept apart from the cache bucket so the
+# cache's 210-day delete lifecycle rule can never sweep away the curated flag archive.
+FLAGGED_INSIGHTS_BUCKET_ENV = "FLAGGED_INSIGHTS_BUCKET"
 INSIGHT_KEY_MAX_LEN = 500
+
+# Reasons a user may select when flagging an insight.
+VALID_FLAG_REASONS = {"inaccurate", "misleading", "offensive", "other"}
+# Flag lifecycle: a flagged insight is suppressed until the team reviews it. They can
+# re-enable it (allowing fresh regeneration) or permanently suppress it.
+FLAG_STATUS_SUPPRESSED = "suppressed"
+FLAG_STATUS_PERMANENT = "permanent"
+FLAG_STATUS_REENABLED = "reenabled"
+SUPPRESSING_STATUSES = {FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT}
+VALID_FLAG_STATUSES = {FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT, FLAG_STATUS_REENABLED}
+# Cap on how many flagged examples we feed back into the generation prompt.
+MAX_FLAGGED_EXAMPLES = 10
 
 
 @app.route("/", methods=["GET"])
@@ -85,12 +100,39 @@ def _validate_insight_key(key: str | None) -> str | None:
     return key
 
 
+def _flagged_record(key: str) -> dict | None:
+    """Returns the flag record for a key if one exists, else None. Never raises."""
+    bucket = os.environ.get(FLAGGED_INSIGHTS_BUCKET_ENV)
+    if not bucket:
+        return None
+    try:
+        blob = gcs_utils.download_blob_as_bytes(bucket, f"{key}.json")
+    except google.cloud.exceptions.NotFound:
+        return None
+    except Exception as err:  # pylint: disable=broad-except
+        logging.error(err)
+        return None
+    try:
+        record = json.loads(blob)
+    except json.JSONDecodeError:
+        return None
+    return record if isinstance(record, dict) else None
+
+
 @app.route("/insight-cache", methods=["GET"])
 def get_insight_cache():
-    """Returns a cached AI insight if present and within TTL, otherwise 404."""
+    """Returns a cached AI insight if present and within TTL, otherwise 404.
+
+    If the key has been flagged and is currently suppressed, returns
+    {"suppressed": true} so the insight is never served, regardless of cache state.
+    """
     key = _validate_insight_key(request.args.get("key"))
     if key is None:
         return "Request missing or invalid required url param 'key'", 400
+
+    flag = _flagged_record(key)
+    if flag is not None and flag.get("status") in SUPPRESSING_STATUSES:
+        return jsonify({"suppressed": True})
 
     bucket = os.environ.get(INSIGHTS_CACHE_BUCKET_ENV)
     if not bucket:
@@ -140,6 +182,153 @@ def put_insight_cache():
         return "Internal server error", 500
 
     return "", 204
+
+
+@app.route("/flag-insight", methods=["POST"])
+def flag_insight():
+    """Records a user-flagged insight and suppresses it for its data combination.
+
+    Writes a flag record to the flagged-insights bucket and best-effort deletes the
+    matching cached insight so it stops being served immediately.
+    """
+    body = request.get_json(silent=True) or {}
+    key = _validate_insight_key(body.get("key"))
+    reason = body.get("reason")
+    if key is None or reason not in VALID_FLAG_REASONS:
+        return "Request body missing or invalid 'key' or 'reason'", 400
+
+    flagged_bucket = os.environ.get(FLAGGED_INSIGHTS_BUCKET_ENV)
+    if not flagged_bucket:
+        return "Insight flagging not configured", 503
+
+    record = {
+        "key": key,
+        "reason": reason,
+        "note": (body.get("note") or "")[:1000],
+        "content": (body.get("content") or "")[:5000],
+        "topic": (body.get("topic") or "")[:200],
+        "status": FLAG_STATUS_SUPPRESSED,
+        "timestamp": int(time.time() * 1000),
+    }
+    try:
+        gcs_utils.upload_blob_from_bytes(
+            flagged_bucket, f"{key}.json", json.dumps(record).encode("utf-8"), "application/json"
+        )
+    except Exception as err:  # pylint: disable=broad-except
+        logging.error(err)
+        return "Internal server error", 500
+
+    # Best-effort delete of the cached insight so it stops being served right away.
+    # Suppression is still enforced on read even if this fails.
+    cache_bucket = os.environ.get(INSIGHTS_CACHE_BUCKET_ENV)
+    if cache_bucket:
+        try:
+            gcs_utils.delete_blob(cache_bucket, f"insights/{key}.json")
+        except google.cloud.exceptions.NotFound:
+            pass
+        except Exception as err:  # pylint: disable=broad-except
+            logging.warning("Failed to delete cached insight after flagging: %s", err)
+
+    return "", 204
+
+
+def _iter_flag_records(flagged_bucket: str):
+    """Yields all valid flag records in the flagged-insights bucket."""
+    for blob in gcs_utils.list_blobs(flagged_bucket):
+        if not blob.name.endswith(".json"):
+            continue
+        try:
+            record = json.loads(blob.download_as_bytes())
+        except (json.JSONDecodeError, google.cloud.exceptions.NotFound):
+            continue
+        if isinstance(record, dict):
+            yield record
+
+
+@app.route("/flagged-examples", methods=["GET"])
+def get_flagged_examples():
+    """Returns recent flagged {reason, content} pairs, optionally scoped to a topic.
+
+    Used to feed prior bad outputs back into the generation prompt as negative examples.
+    """
+    flagged_bucket = os.environ.get(FLAGGED_INSIGHTS_BUCKET_ENV)
+    if not flagged_bucket:
+        # Not an error — flagging just isn't configured in this environment.
+        return jsonify({"examples": []})
+
+    topic = request.args.get("topic")
+    try:
+        records = [r for r in _iter_flag_records(flagged_bucket) if r.get("status") in SUPPRESSING_STATUSES]
+    except Exception as err:  # pylint: disable=broad-except
+        logging.error(err)
+        return jsonify({"examples": []})
+
+    if topic:
+        records = [r for r in records if r.get("topic") == topic]
+    records.sort(key=lambda r: r.get("timestamp", 0), reverse=True)
+
+    examples = [
+        {"reason": r.get("reason"), "content": r.get("content", "")}
+        for r in records[:MAX_FLAGGED_EXAMPLES]
+        if r.get("content")
+    ]
+    return jsonify({"examples": examples})
+
+
+@app.route("/flagged-insights", methods=["GET"])
+def list_flagged_insights():
+    """Returns all flag records for team review (admin)."""
+    flagged_bucket = os.environ.get(FLAGGED_INSIGHTS_BUCKET_ENV)
+    if not flagged_bucket:
+        return "Insight flagging not configured", 503
+    try:
+        records = list(_iter_flag_records(flagged_bucket))
+    except Exception as err:  # pylint: disable=broad-except
+        logging.error(err)
+        return "Internal server error", 500
+    records.sort(key=lambda r: r.get("timestamp", 0), reverse=True)
+    return jsonify({"flagged": records})
+
+
+@app.route("/flagged-insights", methods=["PATCH"])
+def update_flagged_insight():
+    """Updates a flag record's status (re-enable or permanently suppress)."""
+    body = request.get_json(silent=True) or {}
+    key = _validate_insight_key(body.get("key"))
+    status = body.get("status")
+    if key is None or status not in VALID_FLAG_STATUSES:
+        return "Request body missing or invalid 'key' or 'status'", 400
+
+    flagged_bucket = os.environ.get(FLAGGED_INSIGHTS_BUCKET_ENV)
+    if not flagged_bucket:
+        return "Insight flagging not configured", 503
+
+    record = _flagged_record(key)
+    if record is None:
+        return "", 404
+
+    record["status"] = status
+    record["statusUpdatedAt"] = int(time.time() * 1000)
+    try:
+        gcs_utils.upload_blob_from_bytes(
+            flagged_bucket, f"{key}.json", json.dumps(record).encode("utf-8"), "application/json"
+        )
+    except Exception as err:  # pylint: disable=broad-except
+        logging.error(err)
+        return "Internal server error", 500
+
+    # When re-enabling, drop any stale cached insight so it regenerates fresh next time.
+    if status == FLAG_STATUS_REENABLED:
+        cache_bucket = os.environ.get(INSIGHTS_CACHE_BUCKET_ENV)
+        if cache_bucket:
+            try:
+                gcs_utils.delete_blob(cache_bucket, f"insights/{key}.json")
+            except google.cloud.exceptions.NotFound:
+                pass
+            except Exception as err:  # pylint: disable=broad-except
+                logging.warning("Failed to delete cached insight on re-enable: %s", err)
+
+    return jsonify(record)
 
 
 if __name__ == "__main__":

@@ -18,6 +18,9 @@ type ReportInsightResult = {
   sections: ReportInsightSections | null
   rateLimited: boolean
   error?: string
+  suppressed?: boolean
+  // The exact server cache key used — needed to flag this specific insight.
+  cacheKey?: string
 }
 
 function buildReportInsightPrompt(
@@ -84,10 +87,17 @@ export async function generateReportInsight(
     const params = new URLSearchParams(window.location.search)
     params.delete(REPORT_INSIGHT_PARAM_KEY)
     const cacheKey = `${window.location.pathname}?${params.toString()}`
-    const result = await fetchAIInsight(prompt, { cacheKey })
+    const result = await fetchAIInsight(prompt, {
+      cacheKey,
+      topic: dataTypeConfig.dataTypeId,
+    })
 
     if (result.rateLimited) {
-      return { sections: null, rateLimited: true }
+      return { sections: null, rateLimited: true, cacheKey }
+    }
+
+    if (result.suppressed) {
+      return { sections: null, rateLimited: false, suppressed: true, cacheKey }
     }
 
     if (result.error) {
@@ -95,11 +105,12 @@ export async function generateReportInsight(
         sections: null,
         rateLimited: false,
         error: ERROR_GENERATING_INSIGHT,
+        cacheKey,
       }
     }
 
     const sections = parseSections(result.content)
-    return { sections, rateLimited: false }
+    return { sections, rateLimited: false, cacheKey }
   } catch (error) {
     console.error(ERROR_GENERATING_INSIGHT, error)
     return {

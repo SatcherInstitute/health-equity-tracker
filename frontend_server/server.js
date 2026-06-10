@@ -73,6 +73,16 @@ app.use(webflowRouter)
 const insightMemoryCache = new Map()
 const INSIGHT_TTL_MS = 180 * 24 * 60 * 60 * 1000 // 6 months
 
+// Feed prior flagged outputs back into the prompt as negative examples. Off by default
+// so it can be enabled per environment once we've validated it helps.
+const NEGATIVE_EXAMPLES_ENABLED =
+  process.env['INSIGHT_NEGATIVE_EXAMPLES_ENABLED'] === 'true'
+
+// Sanitize a cache key so it is safe to use as a GCS object name (matches data server).
+function sanitizeInsightKey(rawKey) {
+  return (rawKey ?? '').replace(/[^\x20-\x7E]/g, '_').slice(0, 500)
+}
+
 // Calls the data server. In production, attaches an ID token from the metadata server
 // (mirrors the /api proxy middleware above).
 async function dataServerFetch(requestPath, init = {}) {
@@ -94,16 +104,37 @@ async function dataServerFetch(requestPath, init = {}) {
   return fetch(`${dataServerUrl}${requestPath}`, { ...init, headers })
 }
 
+// Fetches recent flagged outputs for a topic and renders them as a negative-examples
+// block to prepend to the generation prompt. Returns '' on any failure or when disabled.
+async function buildNegativeExamplesBlock(topic) {
+  if (!NEGATIVE_EXAMPLES_ENABLED) return ''
+  try {
+    const query = topic ? `?topic=${encodeURIComponent(topic)}` : ''
+    const response = await dataServerFetch(`/flagged-examples${query}`)
+    if (!response.ok) return ''
+    const { examples } = await response.json()
+    if (!Array.isArray(examples) || examples.length === 0) return ''
+    const list = examples
+      .map(
+        (ex, i) =>
+          `${i + 1}. (flagged as ${ex.reason}) ${String(ex.content).slice(0, 500)}`,
+      )
+      .join('\n')
+    return `The following past outputs were flagged by reviewers as problematic. Do NOT produce anything similar in content, tone, or framing:\n${list}\n\n`
+  } catch (err) {
+    console.warn('[insight] Failed to fetch flagged examples:', err.message)
+    return ''
+  }
+}
+
 app.post('/fetch-ai-insight', async (req, res) => {
-  const { prompt, cacheKey: clientCacheKey } = req.body
+  const { prompt, cacheKey: clientCacheKey, topic } = req.body
   if (!prompt) {
     return res.status(400).json({ error: 'Missing prompt parameter' })
   }
 
   // Ensure the key is safe to use as a filename in the cloud by removing any special characters.
-  const cacheKey = (clientCacheKey ?? prompt)
-    .replace(/[^\x20-\x7E]/g, '_')
-    .slice(0, 500)
+  const cacheKey = sanitizeInsightKey(clientCacheKey ?? prompt)
   const now = Date.now()
 
   const memEntry = insightMemoryCache.get(cacheKey)
@@ -116,10 +147,14 @@ app.post('/fetch-ai-insight', async (req, res) => {
       `/insight-cache?key=${encodeURIComponent(cacheKey)}`,
     )
     if (cacheResponse.ok) {
-      const { content } = await cacheResponse.json()
-      if (content) {
-        insightMemoryCache.set(cacheKey, { content, timestamp: now })
-        return res.json({ content })
+      const cached = await cacheResponse.json()
+      // The data server reports suppression for flagged insights — never serve or regenerate.
+      if (cached.suppressed) {
+        return res.json({ suppressed: true })
+      }
+      if (cached.content) {
+        insightMemoryCache.set(cacheKey, { content: cached.content, timestamp: now })
+        return res.json({ content: cached.content })
       }
     } else if (cacheResponse.status !== 404) {
       // 404 is a normal cache miss; anything else is unexpected and worth surfacing.
@@ -134,6 +169,9 @@ app.post('/fetch-ai-insight', async (req, res) => {
 
   const apiKey = assertEnvVar('ANTHROPIC_API_KEY')
 
+  const negativeExamples = await buildNegativeExamplesBlock(topic)
+  const finalPrompt = negativeExamples + prompt
+
   try {
     const anthropicResponse = await fetch(
       'https://api.anthropic.com/v1/messages',
@@ -147,7 +185,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
         body: JSON.stringify({
           model: 'claude-sonnet-4-5-20250929',
           max_tokens: 1024,
-          messages: [{ role: 'user', content: prompt }],
+          messages: [{ role: 'user', content: finalPrompt }],
         }),
       },
     )
@@ -190,6 +228,35 @@ app.post('/fetch-ai-insight', async (req, res) => {
   } catch (err) {
     console.error('Error fetching AI insight:', err)
     res.status(500).json({ error: 'Failed to fetch AI insight' })
+  }
+})
+
+// Records a user-flagged insight. Evicts the local cache entry and forwards the flag to
+// the data server, which persists it and suppresses the insight for its data combination.
+app.post('/flag-insight', async (req, res) => {
+  const { cacheKey: clientCacheKey, reason, note, content, topic } = req.body
+  if (!clientCacheKey || !reason) {
+    return res.status(400).json({ error: 'Missing cacheKey or reason' })
+  }
+
+  const cacheKey = sanitizeInsightKey(clientCacheKey)
+  insightMemoryCache.delete(cacheKey)
+
+  try {
+    const response = await dataServerFetch('/flag-insight', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ key: cacheKey, reason, note, content, topic }),
+    })
+    if (!response.ok) {
+      const body = await response.text().catch(() => '')
+      console.warn(`[flag-insight] Data server returned ${response.status}: ${body}`)
+      return res.status(response.status).json({ error: 'Failed to flag insight' })
+    }
+    res.status(204).end()
+  } catch (err) {
+    console.error('Error flagging insight:', err)
+    res.status(500).json({ error: 'Failed to flag insight' })
   }
 })
 

@@ -48,6 +48,14 @@ resource "google_storage_bucket" "insights_cache_bucket" {
   }
 }
 
+# Bucket for user-flagged insights. Intentionally has NO delete lifecycle rule — this is a
+# curated archive the team reviews periodically, kept separate from the cache (which can be
+# regenerated at any time and is subject to a delete lifecycle rule).
+resource "google_storage_bucket" "flagged_insights_bucket" {
+  name     = var.flagged_insights_bucket
+  location = var.gcs_region
+}
+
 # Public bucket for PR screenshot images uploaded by the /screenshot-pr Claude Code skill.
 # Write access is restricted to msm.edu domain accounts (objectCreator) and the CI deployer SA
 # (objectAdmin for cleanup). allUsers gets objectViewer only — public read, no public write.
