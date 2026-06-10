@@ -33,16 +33,16 @@ export function useRecentLocations() {
       )
       localStorage.setItem(STORAGE_KEY, JSON.stringify(next))
       setRecentLocations(next)
-    } catch {
-      // localStorage unavailable
+    } catch (e) {
+      console.error('useRecentLocations: failed to write to localStorage', e)
     }
   }, [])
 
   const clearRecentLocations = useCallback(() => {
     try {
       localStorage.removeItem(STORAGE_KEY)
-    } catch {
-      // localStorage unavailable
+    } catch (e) {
+      console.error('useRecentLocations: failed to clear localStorage', e)
     }
     setRecentLocations([])
   }, [])
