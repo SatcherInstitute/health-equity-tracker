@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import HetCTABig from '../../styles/HetComponents/HetCTABig'
+import HetPicture from '../../styles/HetComponents/HetPicture'
 import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import {
@@ -39,7 +40,7 @@ function LandingPage() {
       <title>Home - Health Equity Tracker</title>
 
       <section className='relative min-h-5/6 overflow-hidden px-4 py-16 sm:px-16 md:px-24'>
-        <img
+        <HetPicture
           src='/img/graphics/het-hero.png'
           alt='various charts from the health equity tracker'
           className='absolute top-0 right-0 bottom-0 z-0 float-right mx-24 max-w-4xl opacity-35 xs:opacity-15 sm:opacity-15 md:opacity-15'
@@ -63,56 +64,56 @@ function LandingPage() {
           </div>
           <div className='flex w-full flex-wrap justify-start gap-6 py-4'>
             <div className='max-h-4'>
-              <img
+              <HetPicture
                 className='h-4'
                 src='/img/graphics/logo_cdc.png'
                 alt='US CDC logo'
               />
             </div>
             <div className='max-h-4'>
-              <img
+              <HetPicture
                 className='h-4'
                 src='/img/graphics/logo_census.png'
                 alt='US Census logo'
               />
             </div>
             <div className='max-h-4'>
-              <img
+              <HetPicture
                 className='h-4'
                 src='/img/graphics/logo_bjs.png'
                 alt='BJS logo'
               />
             </div>
             <div className='max-h-4'>
-              <img
+              <HetPicture
                 className='h-4'
                 src='/img/graphics/logo_cawp.png'
                 alt='CAWP logo'
               />
             </div>
             <div className='max-h-4'>
-              <img
+              <HetPicture
                 className='h-4'
                 src='/img/graphics/logo_ahr.png'
                 alt='AHR logo'
               />
             </div>
             <div className='max-h-4'>
-              <img
+              <HetPicture
                 className='h-4'
                 src='/img/graphics/logo_cms.png'
                 alt='CMS logo'
               />
             </div>
             <div className='max-h-4'>
-              <img
+              <HetPicture
                 className='h-4'
                 src='/img/graphics/logo_vera.png'
                 alt='VERA logo'
               />
             </div>
             <div className='max-h-4'>
-              <img
+              <HetPicture
                 className='h-4'
                 src='/img/graphics/logo_kff.png'
                 alt='Kaiser Family Foundation logo'
@@ -124,7 +125,7 @@ function LandingPage() {
 
       <section className='flex w-full flex-wrap items-center justify-center'>
         <div className='space-8 lg:space-24 mx-auto my-0 xs:block flex h-auto min-h-[60vh] w-full items-center justify-center bg-white-smoke p-16 sm:block md:flex'>
-          <img
+          <HetPicture
             src='/img/graphics/banner.png'
             className='w-full md:w-2/5'
             alt='phone and laptop mockups displaying the health equity tracker'
@@ -146,7 +147,7 @@ function LandingPage() {
               platform supports efforts to achieve health equity and justice for
               all.
             </p>
-            <img
+            <HetPicture
               src='/img/graphics/msm-new-day-banner.png'
               className='mx-auto w-4/5 rounded-sm md:w-3/5'
               alt='logos for morehouse school of medicine and satcher health leadership institute'

@@ -1,4 +1,5 @@
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
+import HetPicture from '../../../styles/HetComponents/HetPicture'
 
 export default function GunViolencePolicyHomeLink() {
   return (
@@ -18,12 +19,12 @@ export default function GunViolencePolicyHomeLink() {
           </p>
           <article className='mt-4 flex rounded-md bg-alt-white px-8 pt-0 pb-8 shadow-raised lg:mt-8 lg:px-24'>
             <div className='flex flex-col items-center'>
-              <img
+              <HetPicture
                 className='fade-in-up-blur mx-auto my-0 p-0'
                 src='/img/graphics/DrSatcher.png'
                 alt='David Satcher, MD, PhD'
                 style={{ animationDelay: `${0.3}s` }}
-              ></img>
+              />
 
               <p
                 className='fade-in-up-blur my-0 py-0 text-center font-bold text-alt-green text-sansText text-text'
