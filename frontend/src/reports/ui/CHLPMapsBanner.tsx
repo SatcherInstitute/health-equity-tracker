@@ -15,16 +15,20 @@ export default function CHLPMapsBanner() {
       Many states criminalize people living with HIV for conduct that is either
       not criminalized or criminalized less severely for people not living with
       HIV.
-      <HetLinkButton
-        className='font-semibold text-alt-black hover:translate-x-1 hover:transition-transform hover:duration-300'
-        onClick={() => setModalIsOpen(true)}
-      >
-        Open <span className='font-semibold sm:hidden'>CHLP</span>
-        <span className='hidden font-semibold sm:inline'>
-          Center for HIV Law and Policy (CHLP)
-        </span>{' '}
-        Maps
-      </HetLinkButton>
+      <div className='mt-2'>
+        <HetLinkButton
+          className='font-semibold text-alt-black hover:translate-x-1 hover:transition-transform hover:duration-300'
+          onClick={() => setModalIsOpen(true)}
+        >
+          <span className='font-semibold'>
+            Open <span className='font-semibold sm:hidden'>CHLP</span>
+            <span className='hidden font-semibold sm:inline'>
+              Center for HIV Law and Policy (CHLP)
+            </span>{' '}
+            Maps
+          </span>
+        </HetLinkButton>
+      </div>
     </HetNotice>
   )
 }
