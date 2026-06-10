@@ -1,25 +1,17 @@
-import CloseIcon from '@mui/icons-material/Close'
 import { Autocomplete, TextField } from '@mui/material'
 import { useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
-import type { RecentLocation } from '../../utils/hooks/useRecentLocations'
 
 interface HetLocationSearchProps {
-  clearRecentLocations: () => void
   options: Fips[]
   onOptionUpdate: (option: string) => void
   popover: PopoverElements
-  recentLocations: RecentLocation[]
   value: string
 }
 
 export default function HetLocationSearch(props: HetLocationSearchProps) {
-  const visibleRecent = props.recentLocations.filter(
-    (loc) => loc.code !== props.value,
-  )
-
   function handleUsaButton() {
     props.onOptionUpdate(USA_FIPS)
     props.popover.close()
@@ -39,12 +31,10 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
     setAutoCompleteOpen(false)
   }
 
-  const isUsa = props.value === USA_FIPS
-  const showUsaShortcut =
-    !isUsa && !props.recentLocations.some((loc) => loc.code === USA_FIPS)
+  const isUsa = props.value === '00'
 
   return (
-    <div className='min-w-72 p-5'>
+    <div className='p-5'>
       <h3 className='my-1 font-semibold text-small md:text-title'>
         Search for location
       </h3>
@@ -55,6 +45,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         groupBy={(option) => option.getFipsCategory()}
         clearOnEscape={true}
         getOptionLabel={(fips) => fips.getFullDisplayName()}
+        isOptionEqualToValue={(fips) => fips.code === props.value}
         renderOption={(props, fips: Fips) => {
           return (
             <li {...props} key={props.key}>
@@ -67,7 +58,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         onClose={closeAutoComplete}
         renderInput={(params) => (
           <TextField
-            placeholder='County, state, or territory...'
+            placeholder=''
             /* eslint-disable-next-line */
             autoFocus
             margin='dense'
@@ -97,54 +88,21 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
           props.popover.close()
         }}
       />
-      {visibleRecent.length > 0 && (
-        <div className='mt-3 border-divider-gray border-t pt-3'>
-          <div className='mb-1 flex items-center justify-between'>
-            <span className='font-semibold text-alt-dark text-xs uppercase tracking-wide'>
-              Recent
-            </span>
-            <button
-              type='button'
-              aria-label='Clear recent locations'
-              title='Clear recent locations'
-              className='cursor-pointer border-0 bg-transparent p-0 text-alt-dark opacity-50 hover:opacity-100'
-              onClick={props.clearRecentLocations}
-            >
-              <CloseIcon sx={{ fontSize: 14 }} />
-            </button>
-          </div>
-          <ul className='flex flex-col gap-1'>
-            {visibleRecent.map((loc) => (
-              <li key={loc.code}>
-                <button
-                  type='button'
-                  className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small hover:underline'
-                  onClick={() => {
-                    props.onOptionUpdate(loc.code)
-                    props.popover.close()
-                  }}
-                >
-                  {loc.displayName}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-      {showUsaShortcut && (
-        <div className='mt-3 border-divider-gray border-t pt-3'>
-          <p className='mb-2 font-semibold text-alt-dark text-xs uppercase tracking-wide'>
-            National
-          </p>
+      <span className='font-light text-alt-black text-small italic'>
+        County, state, territory, or{' '}
+        {isUsa ? (
+          USA_DISPLAY_NAME
+        ) : (
           <button
             type='button'
-            className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small hover:underline'
+            className='cursor-pointer border-0 bg-transparent p-0 text-alt-green italic underline'
             onClick={handleUsaButton}
           >
-            {USA_DISPLAY_NAME}
+            United States
           </button>
-        </div>
-      )}
+        )}
+        . Some source data is unavailable at county and territory levels.
+      </span>
     </div>
   )
 }
