@@ -44,7 +44,7 @@ def fixture_client():
 @mock.patch.dict("os.environ", ENV, clear=True)
 @mock.patch("data_server.gcs_utils.delete_blob")
 @mock.patch("data_server.gcs_utils.upload_blob_from_bytes")
-def test_flag_insight_writes_record_and_suppresses(mock_upload, mock_delete, client):
+def test_flag_insight_writes_record_and_clears_cache(mock_upload, mock_delete, client):
     resp = client.post("/flag-insight", json={"key": "topic-x", "reason": "inaccurate", "content": "bad text"})
     assert resp.status_code == 204
 
@@ -54,10 +54,26 @@ def test_flag_insight_writes_record_and_suppresses(mock_upload, mock_delete, cli
     assert upload_args.args[1] == "topic-x.json"
     record = json.loads(upload_args.args[2])
     assert record["reason"] == "inaccurate"
-    assert record["status"] == main.FLAG_STATUS_SUPPRESSED
+    # A user flag records the bad output but does NOT suppress the combo.
+    assert record["status"] == main.FLAG_STATUS_FLAGGED
 
-    # The cached insight is deleted so it stops being served.
+    # The cached insight is deleted so a fresh one regenerates in its place.
     mock_delete.assert_called_once_with(CACHE_BUCKET, "insights/topic-x.json")
+
+
+@mock.patch.dict("os.environ", ENV, clear=True)
+@mock.patch("data_server.gcs_utils.download_blob_as_bytes")
+def test_insight_cache_serves_content_for_plain_flagged_key(mock_download, client):
+    # A plain user flag ("flagged") must NOT suppress reads — the combo regenerates.
+    def _download(bucket, filename):
+        if bucket == FLAGGED_BUCKET:
+            return json.dumps({"status": main.FLAG_STATUS_FLAGGED}).encode("utf-8")
+        return json.dumps({"content": "hello", "timestamp": 9_999_999_999_999}).encode("utf-8")
+
+    mock_download.side_effect = _download
+    resp = client.get("/insight-cache?key=topic-x")
+    assert resp.status_code == 200
+    assert resp.get_json()["content"] == "hello"
 
 
 @mock.patch.dict("os.environ", ENV, clear=True)
@@ -111,12 +127,20 @@ def test_flagged_examples_filters_by_topic_and_status(mock_list, client):
             "c.json",
             {"topic": "covid", "reason": "misleading", "content": "z", "status": "permanent", "timestamp": 1},
         ),
+        FakeBlob(
+            "d.json",
+            {"topic": "hiv", "reason": "misleading", "content": "w", "status": "flagged", "timestamp": 4},
+        ),
     ]
     resp = client.get("/flagged-examples?topic=hiv")
     assert resp.status_code == 200
     examples = resp.get_json()["examples"]
-    # Only the suppressed/permanent hiv record qualifies; the reenabled one is excluded.
-    assert examples == [{"reason": "inaccurate", "content": "x"}]
+    # Plain "flagged" and team-"suppressed" hiv records both qualify (newest first);
+    # the "reenabled" one is excluded and the covid one is filtered out by topic.
+    assert examples == [
+        {"reason": "misleading", "content": "w"},
+        {"reason": "inaccurate", "content": "x"},
+    ]
 
 
 @mock.patch.dict("os.environ", ENV, clear=True)

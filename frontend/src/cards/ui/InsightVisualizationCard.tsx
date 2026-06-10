@@ -38,10 +38,8 @@ export default function InsightVisualizationCard({
   const [error, setError] = useState<string | null>(null)
   // The exact server cache key used, captured so the flag button targets this insight.
   const [serverCacheKey, setServerCacheKey] = useState<string | null>(null)
-  // True once this insight is flagged/suppressed — no content is shown.
+  // True only if the team has escalated this insight to hidden — no content is shown.
   const [suppressed, setSuppressed] = useState(false)
-  // True right after the user flags an insight, to show a thank-you message.
-  const [justFlagged, setJustFlagged] = useState(false)
 
   const cacheKey = `${scrollToHash}-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}${isCompareCard ? '-2' : ''}`
   const insight = cardInsights[cacheKey]
@@ -50,7 +48,6 @@ export default function InsightVisualizationCard({
     setIsGenerating(true)
     setError(null)
     setSuppressed(false)
-    setJustFlagged(false)
     try {
       const result = await generateCardInsight(
         scrollToHash,
@@ -85,13 +82,14 @@ export default function InsightVisualizationCard({
   ])
 
   const handleFlagged = () => {
-    // Drop the locally cached insight so it is no longer shown, and mark it flagged.
+    // Drop the cached insight so a fresh one regenerates in its place. Flagging records
+    // the bad output for review but does not hide this data combination — clearing the
+    // entry makes the auto-generate effect below fire again for a new insight.
     setCardInsights((prev) => {
       const next = { ...prev }
       delete next[cacheKey]
       return next
     })
-    setJustFlagged(true)
   }
 
   // Reset error and flag state when the cacheKey changes (user switched
@@ -100,21 +98,13 @@ export default function InsightVisualizationCard({
   useEffect(() => {
     setError(null)
     setSuppressed(false)
-    setJustFlagged(false)
   }, [cacheKey])
 
   // `error` is in the guard so a failed call doesn't get auto-retried on the
-  // next render — the user must click Try again.
+  // next render — the user must click Try again. Clearing the insight (e.g. after
+  // flagging) re-fires this effect and regenerates.
   useEffect(() => {
-    if (
-      !isOpen ||
-      insight ||
-      error ||
-      isGenerating ||
-      suppressed ||
-      justFlagged
-    )
-      return
+    if (!isOpen || insight || error || isGenerating || suppressed) return
     void handleGenerate()
   }, [
     isOpen,
@@ -122,7 +112,6 @@ export default function InsightVisualizationCard({
     error,
     isGenerating,
     suppressed,
-    justFlagged,
     cacheKey,
     handleGenerate,
   ])
@@ -145,11 +134,9 @@ export default function InsightVisualizationCard({
             Try again
           </Button>
         </div>
-      ) : suppressed || justFlagged ? (
+      ) : suppressed ? (
         <p className='m-0 text-alt-dark text-small'>
-          {justFlagged
-            ? 'Thanks for flagging this insight. It has been hidden while our team reviews it.'
-            : 'This insight was flagged for review and is currently hidden.'}
+          This insight was flagged for review and is currently hidden.
         </p>
       ) : (
         <>

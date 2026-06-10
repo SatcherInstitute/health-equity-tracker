@@ -24,13 +24,21 @@ INSIGHT_KEY_MAX_LEN = 500
 
 # Reasons a user may select when flagging an insight.
 VALID_FLAG_REASONS = {"inaccurate", "misleading", "offensive", "other"}
-# Flag lifecycle: a flagged insight is suppressed until the team reviews it. They can
-# re-enable it (allowing fresh regeneration) or permanently suppress it.
+# Flag lifecycle. A user flag records the bad output without hiding the data combination:
+# the cached text is dropped so a fresh insight regenerates in its place, and the record is
+# kept as a negative example. The team can later escalate a record to `suppressed` (hidden
+# pending review) or `permanent` (hidden for good), or `reenabled` to clear it.
+FLAG_STATUS_FLAGGED = "flagged"
 FLAG_STATUS_SUPPRESSED = "suppressed"
 FLAG_STATUS_PERMANENT = "permanent"
 FLAG_STATUS_REENABLED = "reenabled"
+# Statuses that hide an insight on read. Only the team can set these (via PATCH); a plain
+# user flag never suppresses, so the combo immediately regenerates a new insight.
 SUPPRESSING_STATUSES = {FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT}
-VALID_FLAG_STATUSES = {FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT, FLAG_STATUS_REENABLED}
+# Statuses whose stored content is fed back into the prompt as a negative example —
+# everything except `reenabled` (which the team has explicitly cleared).
+NEGATIVE_EXAMPLE_STATUSES = {FLAG_STATUS_FLAGGED, FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT}
+VALID_FLAG_STATUSES = {FLAG_STATUS_FLAGGED, FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT, FLAG_STATUS_REENABLED}
 # Cap on how many flagged examples we feed back into the generation prompt.
 MAX_FLAGGED_EXAMPLES = 10
 
@@ -186,10 +194,11 @@ def put_insight_cache():
 
 @app.route("/flag-insight", methods=["POST"])
 def flag_insight():
-    """Records a user-flagged insight and suppresses it for its data combination.
+    """Records a user-flagged insight without hiding its data combination.
 
-    Writes a flag record to the flagged-insights bucket and best-effort deletes the
-    matching cached insight so it stops being served immediately.
+    Writes a flag record to the flagged-insights bucket (kept as a negative example) and
+    best-effort deletes the matching cached insight so a fresh one regenerates in its place.
+    The record is NOT suppressing — only the team can escalate it to hide the combo.
     """
     body = request.get_json(silent=True) or {}
     key = _validate_insight_key(body.get("key"))
@@ -207,7 +216,7 @@ def flag_insight():
         "note": (body.get("note") or "")[:1000],
         "content": (body.get("content") or "")[:5000],
         "topic": (body.get("topic") or "")[:200],
-        "status": FLAG_STATUS_SUPPRESSED,
+        "status": FLAG_STATUS_FLAGGED,
         "timestamp": int(time.time() * 1000),
     }
     try:
@@ -218,8 +227,8 @@ def flag_insight():
         logging.error(err)
         return "Internal server error", 500
 
-    # Best-effort delete of the cached insight so it stops being served right away.
-    # Suppression is still enforced on read even if this fails.
+    # Best-effort delete of the cached insight so the next read misses and regenerates a
+    # fresh one. If this fails the stale text lingers until its TTL, but no data is lost.
     cache_bucket = os.environ.get(INSIGHTS_CACHE_BUCKET_ENV)
     if cache_bucket:
         try:
@@ -258,7 +267,7 @@ def get_flagged_examples():
 
     topic = request.args.get("topic")
     try:
-        records = [r for r in _iter_flag_records(flagged_bucket) if r.get("status") in SUPPRESSING_STATUSES]
+        records = [r for r in _iter_flag_records(flagged_bucket) if r.get("status") in NEGATIVE_EXAMPLE_STATUSES]
     except Exception as err:  # pylint: disable=broad-except
         logging.error(err)
         return jsonify({"examples": []})

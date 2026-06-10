@@ -79,17 +79,14 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   const [error, setError] = useState<string | null>(null)
   // The exact server cache key used, captured so the flag button targets this insight.
   const [serverCacheKey, setServerCacheKey] = useState<string | null>(null)
-  // True once this insight is flagged/suppressed — no content is shown.
+  // True only if the team has escalated this insight to hidden — no content is shown.
   const [suppressed, setSuppressed] = useState(false)
-  // True right after the user flags an insight, to show a thank-you message.
-  const [justFlagged, setJustFlagged] = useState(false)
 
   const handleGenerate = useCallback(async () => {
     if (!dataTypeConfig || !fips || !demographicType) return
     setIsGenerating(true)
     setError(null)
     setSuppressed(false)
-    setJustFlagged(false)
     try {
       const result = await generateReportInsight(
         dataTypeConfig,
@@ -119,13 +116,14 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   }, [cacheKey, handleGenerate])
 
   const handleFlagged = () => {
-    // Drop the locally cached insight so it is no longer shown, and mark it flagged.
+    // Drop the cached insight and regenerate a fresh one in its place. Flagging records
+    // the bad output for review but does not hide this data combination.
     setReportInsights((prev) => {
       const next = { ...prev }
       delete next[cacheKey]
       return next
     })
-    setJustFlagged(true)
+    void handleGenerate()
   }
 
   const insightText = sections
@@ -179,19 +177,17 @@ export default function InsightReportCard(props: InsightReportCardProps) {
           </div>
         )}
 
-        {/* Flagged / suppressed — no content is shown */}
-        {(suppressed || justFlagged) && !isGenerating && (
+        {/* Hidden — only when the team has escalated this insight */}
+        {suppressed && !isGenerating && (
           <div className='flex flex-col items-center gap-2 py-6'>
             <p className='m-0 text-center text-alt-dark text-small'>
-              {justFlagged
-                ? 'Thanks for flagging this insight. It has been hidden while our team reviews it.'
-                : 'This insight was flagged for review and is currently hidden.'}
+              This insight was flagged for review and is currently hidden.
             </p>
           </div>
         )}
 
         {/* Sections, disclaimer — only when content is ready */}
-        {sections && !isGenerating && !suppressed && !justFlagged && (
+        {sections && !isGenerating && !suppressed && (
           <>
             <div className='flex flex-col gap-5'>
               {SECTIONS.map(({ key, label, icon }) => (
