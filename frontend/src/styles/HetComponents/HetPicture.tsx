@@ -17,7 +17,7 @@ export default function HetPicture({ src, alt, ...imgProps }: HetPictureProps) {
   }
 
   return (
-    <picture>
+    <picture style={{ display: 'contents' }}>
       <source srcSet={webpSrc} type='image/webp' />
       <img src={src} alt={alt} {...imgProps} />
     </picture>
