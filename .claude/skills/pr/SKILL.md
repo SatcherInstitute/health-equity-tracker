@@ -232,6 +232,10 @@ git diff origin/main -- frontend/src/
 
 Rewrite the PR title (under 70 chars) and body. Keep the description **short and focused** — a few tight bullets, no padding. The test plan is the audited behavioral checklist from Step 5 only (no static tooling items).
 
+**Title rules:**
+- Under 70 chars
+- **Never include an issue number in the title** — no `(#1234)` suffix. It looks like a PR number at a glance and makes titles hard to scan. `Closes #NNNN` belongs in the body only.
+
 Use this template:
 
 ```markdown
