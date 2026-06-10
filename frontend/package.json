@@ -28,6 +28,7 @@
 		"dom-to-image-more": "^3.7.1",
 		"geojson": "^0.5.0",
 		"jotai": "^2.19.1",
+		"jotai-family": "^1.0.2",
 		"jotai-location": "^0.6.0",
 		"just-debounce-it": "^3.2.0",
 		"lru-cache": "^11.3.5",
