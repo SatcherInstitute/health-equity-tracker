@@ -42,13 +42,15 @@ export default function RoundedBarsWithLabels({
     return maxValue * (LABEL_SWAP_CUTOFF_PERCENT / 100)
   }, [processedData, metricConfig.metricId])
 
+  const barHeight = yScale.bandwidth() || 0
+  const stepHeight = yScale.step()
+  const normalGap = (stepHeight - barHeight) / 2
+  const hitAreaWidth = xScale.range()[1]
+
   return processedData.map((d, index) => {
     const barWidth = xScale(d[metricConfig.metricId]) || 0
     const shouldLabelBeInside = d[metricConfig.metricId] > barLabelBreakpoint
     const yPosition = getYPosition(index, d[demographicType])
-    const barHeight = yScale.bandwidth() || 0
-    const stepHeight = yScale.step()
-    const normalGap = (stepHeight - barHeight) / 2
     const topGap =
       normalGap +
       (allIndex !== -1 && index === allIndex + 1
@@ -98,7 +100,7 @@ export default function RoundedBarsWithLabels({
         <rect
           x={0}
           y={hitAreaY}
-          width={xScale.range()[1]}
+          width={hitAreaWidth}
           height={hitAreaHeight}
           fill='transparent'
           aria-hidden

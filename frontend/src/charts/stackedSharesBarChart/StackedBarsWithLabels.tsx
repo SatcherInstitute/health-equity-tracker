@@ -41,6 +41,11 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
     hideTooltipDelayed,
   } = props
 
+  // No transform on <g> elements so hit rects need absolute y coords
+  const stepHeight = yScale.step()
+  const halfGap = (stepHeight - yScale.bandwidth()) / 2
+  const hitAreaWidth = xScale.range()[1]
+
   return (
     <>
       {data.map((d) => {
@@ -48,9 +53,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
         const lightValue = d[lightMetric.metricId]
         const darkValue = d[darkMetric.metricId]
         const isHovered = activeDemographic === d[demographicType]
-        const stepHeight = yScale.step()
-        // No transform on <g> so rect uses absolute coords, not relative offset
-        const rectY = yPosition - (stepHeight - yScale.bandwidth()) / 2
+        const rectY = yPosition - halfGap
 
         const strokeDetails = {
           stroke: isHovered ? colors.altBlack : 'none',
@@ -94,7 +97,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
             <rect
               x={0}
               y={rectY}
-              width={xScale.range()[1]}
+              width={hitAreaWidth}
               height={stepHeight}
               fill='transparent'
               aria-hidden

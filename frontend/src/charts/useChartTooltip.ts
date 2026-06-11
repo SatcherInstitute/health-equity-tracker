@@ -30,7 +30,10 @@ export function useChartTooltip<T>() {
   const hideTooltipDelayed = useCallback(
     (delay = 160) => {
       if (hideTimer.current !== null) clearTimeout(hideTimer.current)
-      hideTimer.current = setTimeout(hideTooltip, delay)
+      hideTimer.current = setTimeout(() => {
+        hideTimer.current = null
+        hideTooltip()
+      }, delay)
     },
     [hideTooltip],
   )
@@ -41,6 +44,9 @@ export function useChartTooltip<T>() {
     return () => {
       window.removeEventListener('scroll', hideTooltip)
       window.removeEventListener('wheel', hideTooltip)
+      if (hideTimer.current !== null) {
+        clearTimeout(hideTimer.current)
+      }
     }
   }, [hideTooltip])
 
