@@ -132,6 +132,7 @@ function LandingPage() {
             src='/img/graphics/banner.png'
             className='w-full md:w-2/5'
             alt='phone and laptop mockups displaying the health equity tracker'
+            loading='lazy'
           />
           <div className='flex w-full flex-col items-center justify-center sm:block md:block'>
             <h2
@@ -154,6 +155,7 @@ function LandingPage() {
               src='/img/graphics/msm-new-day-banner.png'
               className='mx-auto w-4/5 rounded-sm md:w-3/5'
               alt='logos for morehouse school of medicine and satcher health leadership institute'
+              loading='lazy'
             />
           </div>
         </div>
