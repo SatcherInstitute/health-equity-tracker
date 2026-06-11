@@ -13,27 +13,28 @@ export default function CHLPMapsModal() {
     {
       id: 1,
       title: 'HIV Exposure and Transmission Offenses',
-      imageUrl: '/img/graphics/exposure_and_transmission_offenses.png',
+      imageUrl: '/img/graphics/exposure_and_transmission_offenses.webp',
     },
     {
       id: 2,
       title: 'Sex Work Penalty Enhancements',
-      imageUrl: '/img/graphics/sex_work_penalty_enhancements.png',
+      imageUrl: '/img/graphics/sex_work_penalty_enhancements.webp',
     },
     {
       id: 3,
       title: 'Bodily Fluid Penalty Enhancements',
-      imageUrl: '/img/graphics/bodily_fluid_penalty_enhancements.png',
+      imageUrl: '/img/graphics/bodily_fluid_penalty_enhancements.webp',
     },
     {
       id: 4,
       title: 'General Criminal Law Penalty Enhancements',
-      imageUrl: '/img/graphics/general_criminal_law_penalty_enhancements.png',
+      imageUrl: '/img/graphics/general_criminal_law_penalty_enhancements.webp',
     },
     {
       id: 5,
       title: 'Needle/Syringe Sharing Penalty Enhancements',
-      imageUrl: '/img/graphics/needle_syringe_sharing_penalty_enhancements.png',
+      imageUrl:
+        '/img/graphics/needle_syringe_sharing_penalty_enhancements.webp',
     },
   ]
 

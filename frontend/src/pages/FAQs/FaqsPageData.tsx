@@ -3,7 +3,6 @@ import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
 import HetButtonSecondary from '../../styles/HetComponents/HetButtonSecondary'
 import HetDivider from '../../styles/HetComponents/HetDivider'
 import HetLaunchLink from '../../styles/HetComponents/HetLaunchLink'
-import HetPicture from '../../styles/HetComponents/HetPicture'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import { urlMap } from '../../utils/externalUrls'
@@ -443,7 +442,7 @@ const additionalFaqs: Faq[] = [
           horizontal dots like this: <MoreHorizIcon />.
         </p>
         <div className='mb-8 flex justify-center'>
-          <HetPicture
+          <img
             src='/img/screenshots/card-menu-options.png'
             alt='options on card menu'
             className='rounded-md shadow-raised-tighter'
