@@ -156,12 +156,7 @@ export const createDataMap = (
       {
         [tooltipLabel]:
           d[metric.metricId] != null
-            ? // Keys starting with '% unknown' are formatted manually in
-              // buildTooltipEntries (appends "% of ... data missing"), so pass
-              // the raw number to avoid double-% and integer rounding.
-              tooltipLabel.startsWith('% unknown')
-              ? d[metric.metricId]
-              : formatMetricValue(d[metric.metricId], metric)
+            ? formatMetricValue(d[metric.metricId], metric)
             : undefined,
         value: d[metric.metricId],
         ...(countColsMap?.numeratorConfig && {
