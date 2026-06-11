@@ -28,8 +28,6 @@ interface HetChartHoverTooltipProps {
   children: React.ReactNode
   // enables pointer-events so interactive content (e.g. buttons) inside the tooltip is tappable
   interactive?: boolean
-  // opt-in smooth position transitions; only trends chart uses this (date column scanning)
-  animate?: boolean
   // set to true when the tooltip is rendered inside a modal (uses z-multimap-modal-tooltip to clear the dialog z-index)
   inModal?: boolean
 }
@@ -39,7 +37,6 @@ export function HetChartHoverTooltip({
   y,
   children,
   interactive = false,
-  animate = false,
   inModal = false,
 }: HetChartHoverTooltipProps) {
   const zIndexClass = inModal ? 'z-multimap-modal-tooltip' : 'z-top'
@@ -62,16 +59,19 @@ export function HetChartHoverTooltip({
 
   const flipUp = y > vh / 2
 
+  // `top` always equals the raw cursor y so it transitions smoothly as the
+  // cursor moves. `transform` handles both the OFFSET and the above/below
+  // flip, so when flipUp changes the tooltip slides from one side to the
+  // other via the transform transition rather than jumping.
   const positionStyle: React.CSSProperties = {
     left: `${left}px`,
     width: `${tooltipWidth}px`,
-    ...(flipUp
-      ? { bottom: `${vh - y + OFFSET}px` }
-      : { top: `${y + OFFSET}px` }),
-    ...(animate && {
-      transition:
-        'left 300ms ease-linear, top 300ms ease-linear, bottom 300ms ease-linear',
-    }),
+    top: `${y}px`,
+    transform: flipUp
+      ? `translateY(calc(-100% - ${OFFSET}px))`
+      : `translateY(${OFFSET}px)`,
+    transition:
+      'left 120ms ease-out, top 120ms ease-out, transform 120ms ease-out',
   }
 
   return createPortal(

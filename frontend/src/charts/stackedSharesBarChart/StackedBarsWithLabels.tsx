@@ -22,7 +22,7 @@ interface StackedBarsWithLabelsProps {
   demographicType: DemographicType
   activeDemographic: string | null
   showTooltip: (data: StackedBarTooltipData, x: number, y: number) => void
-  hideTooltip: () => void
+  hideTooltipDelayed: () => void
 }
 
 const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
@@ -38,8 +38,13 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
     demographicType,
     activeDemographic,
     showTooltip,
-    hideTooltip,
+    hideTooltipDelayed,
   } = props
+
+  // No transform on <g> elements so hit rects need absolute y coords
+  const stepHeight = yScale.step()
+  const halfGap = (stepHeight - yScale.bandwidth()) / 2
+  const hitAreaWidth = xScale.range()[1]
 
   return (
     <>
@@ -48,6 +53,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
         const lightValue = d[lightMetric.metricId]
         const darkValue = d[darkMetric.metricId]
         const isHovered = activeDemographic === d[demographicType]
+        const rectY = yPosition - halfGap
 
         const strokeDetails = {
           stroke: isHovered ? colors.altBlack : 'none',
@@ -78,7 +84,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
                 e.clientY,
               )
             }}
-            onMouseLeave={hideTooltip}
+            onMouseLeave={hideTooltipDelayed}
             onTouchStart={(e) => {
               const touch = e.touches[0]
               showTooltip(
@@ -88,6 +94,14 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
               )
             }}
           >
+            <rect
+              x={0}
+              y={rectY}
+              width={hitAreaWidth}
+              height={stepHeight}
+              fill='transparent'
+              aria-hidden
+            />
             {/* POPULATION BAR */}
             {lightValue > 0 && (
               <path

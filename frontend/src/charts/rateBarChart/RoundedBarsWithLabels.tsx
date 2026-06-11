@@ -9,7 +9,7 @@ import {
   formatValue,
 } from '../sharedBarChartPieces/helpers'
 import type { BarChartTooltipData } from './BarChartTooltip'
-import { LABEL_SWAP_CUTOFF_PERCENT } from './constants'
+import { EXTRA_SPACE_AFTER_ALL, LABEL_SWAP_CUTOFF_PERCENT } from './constants'
 import EndOfRateBarLabel from './EndOfRateBarLabel'
 
 interface RoundedBarsWithLabelsProps {
@@ -20,8 +20,9 @@ interface RoundedBarsWithLabelsProps {
   yScale: ScaleBand<string>
   getYPosition: (index: number, label: string) => number
   isTinyAndUp: boolean
+  allIndex: number
   showTooltip: (data: BarChartTooltipData, x: number, y: number) => void
-  hideTooltip: () => void
+  hideTooltipDelayed: () => void
 }
 
 export default function RoundedBarsWithLabels({
@@ -32,19 +33,34 @@ export default function RoundedBarsWithLabels({
   yScale,
   getYPosition,
   isTinyAndUp,
+  allIndex,
   showTooltip,
-  hideTooltip,
+  hideTooltipDelayed,
 }: RoundedBarsWithLabelsProps) {
   const barLabelBreakpoint = useMemo(() => {
     const maxValue = max(processedData, (d) => d[metricConfig.metricId]) || 0
     return maxValue * (LABEL_SWAP_CUTOFF_PERCENT / 100)
   }, [processedData, metricConfig.metricId])
 
+  const barHeight = yScale.bandwidth() || 0
+  const stepHeight = yScale.step()
+  const normalGap = (stepHeight - barHeight) / 2
+  const hitAreaWidth = xScale.range()[1]
+
   return processedData.map((d, index) => {
     const barWidth = xScale(d[metricConfig.metricId]) || 0
     const shouldLabelBeInside = d[metricConfig.metricId] > barLabelBreakpoint
     const yPosition = getYPosition(index, d[demographicType])
-    const barHeight = yScale.bandwidth() || 0
+    const topGap =
+      normalGap +
+      (allIndex !== -1 && index === allIndex + 1
+        ? EXTRA_SPACE_AFTER_ALL / 2
+        : 0)
+    const bottomGap =
+      normalGap +
+      (allIndex !== -1 && index === allIndex ? EXTRA_SPACE_AFTER_ALL / 2 : 0)
+    const hitAreaY = -topGap
+    const hitAreaHeight = barHeight + topGap + bottomGap
 
     const barLabelColor =
       shouldLabelBeInside && d[demographicType] !== 'All'
@@ -73,7 +89,7 @@ export default function RoundedBarsWithLabels({
         key={index + barAriaLabel}
         transform={`translate(0,${yPosition})`}
         onMouseEnter={(e) => showTooltip(tooltipData, e.clientX, e.clientY)}
-        onMouseLeave={hideTooltip}
+        onMouseLeave={hideTooltipDelayed}
         onTouchStart={(e) => {
           const touch = e.touches[0]
           showTooltip(tooltipData, touch.clientX, touch.clientY)
@@ -81,6 +97,14 @@ export default function RoundedBarsWithLabels({
         aria-label={barAriaLabel}
         role='img'
       >
+        <rect
+          x={0}
+          y={hitAreaY}
+          width={hitAreaWidth}
+          height={hitAreaHeight}
+          fill='transparent'
+          aria-hidden
+        />
         <path
           d={roundedBarString}
           key={'path' + index + barAriaLabel}

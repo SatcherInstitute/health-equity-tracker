@@ -138,11 +138,6 @@ export interface MapTooltipData {
   entries: MapTooltipEntry[]
 }
 
-export interface MapTooltipCallbacks {
-  onShow: (data: MapTooltipData, x: number, y: number) => void
-  onHide: () => void
-}
-
 export type RenderMapOptions = {
   activeDemographicGroup: DemographicGroup
   colorScale: ColorScale | null
@@ -159,7 +154,8 @@ export type RenderMapOptions = {
   metricConfig: MetricConfig
   showCounties: boolean
   svgRef: RefObject<SVGSVGElement | null>
-  tooltipCallbacks: MapTooltipCallbacks
+  showTooltip: (data: MapTooltipData, x: number, y: number) => void
+  hideTooltip: () => void
   width: number
   fips: Fips
   isMobile: boolean
@@ -197,7 +193,8 @@ export interface MouseEventHandlerOptions {
   colorScale: any
   metricConfig: MetricConfig
   dataMap: Map<string, any>
-  tooltipCallbacks: MapTooltipCallbacks
+  showTooltip: (data: MapTooltipData, x: number, y: number) => void
+  hideTooltip: () => void
   geographyType: string
   demographicType?: DemographicType
   mapConfig: MapConfig
