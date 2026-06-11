@@ -39,13 +39,20 @@ export function createUnknownLegend(
     .attr('x1', '0%')
     .attr('x2', '100%')
 
-  // Fix stops at 0%/100% so the gradient matches the actual map color range
+  // Use 10 evenly-spaced stops so multi-hue scales (greenblue, viridis, etc.)
+  // render all intermediate hues, not just a linear RGB blend of the endpoints.
+  const stopCount = 10
+  const stops = Array.from({ length: stopCount }, (_, i) => {
+    const t = i / (stopCount - 1)
+    return {
+      offset: `${t * 100}%`,
+      color: colorScale(legendLowerBound + t * range),
+    }
+  })
+
   gradient
     .selectAll('stop')
-    .data([
-      { offset: '0%', color: colorScale(legendLowerBound) },
-      { offset: '100%', color: colorScale(legendUpperBound) },
-    ])
+    .data(stops)
     .join('stop')
     .attr('offset', (d) => d.offset)
     .attr('stop-color', (d) => d.color)
@@ -77,14 +84,24 @@ export function createUnknownLegend(
     .append('g')
     .attr('transform', `translate(50, ${legendHeight + 10})`)
 
-  // Only label ticks within the actual data range to avoid out-of-bounds positions
-  const constrainedTicks = ticks
-    .filter((tick) => tick >= legendLowerBound && tick <= legendUpperBound)
-    .map((label) => {
-      const position = ((label - legendLowerBound) / range) * gradientLength
-      const clampedPosition = Math.min(Math.max(position, 10), gradientLength)
-      return { label, position: clampedPosition }
-    })
+  const formatLabel = (val: number) =>
+    Number.isInteger(val) ? val.toString() : val.toFixed(1)
+
+  // Always label the actual min/max bounds; add any intermediate nice ticks
+  // that are far enough from the boundaries to avoid overlapping labels.
+  const middleTicks = ticks.filter(
+    (tick) =>
+      tick > legendLowerBound + range * 0.2 &&
+      tick < legendUpperBound - range * 0.2,
+  )
+  const constrainedTicks = [
+    { label: formatLabel(legendLowerBound), position: 0 },
+    ...middleTicks.map((label) => ({
+      label: formatLabel(label),
+      position: ((label - legendLowerBound) / range) * gradientLength,
+    })),
+    { label: formatLabel(legendUpperBound), position: gradientLength },
+  ]
 
   constrainedTicks.forEach(({ label, position }) => {
     labelGroup

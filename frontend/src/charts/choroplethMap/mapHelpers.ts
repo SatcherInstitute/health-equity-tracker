@@ -157,7 +157,7 @@ export const createDataMap = (
         [tooltipLabel]:
           d[metric.metricId] != null
             ? formatMetricValue(d[metric.metricId], metric)
-            : null,
+            : undefined,
         value: d[metric.metricId],
         ...(countColsMap?.numeratorConfig && {
           [`# ${numeratorPhrase}`]:
