@@ -70,6 +70,12 @@ https://deploy-preview-{number}--health-equity-tracker.netlify.app
 
 Identify the single most useful deep-link route that shows the core feature. Append URL params so the reviewer lands directly on the changed UI. Record the full URL for Step 6.
 
+**Never guess route strings.** All app routes are defined as constants in `frontend/src/utils/internalRoutes.ts`. Look up the correct path there before constructing the URL:
+
+```bash
+grep -n "PAGE_LINK\|_PATH\|_ROUTE" frontend/src/utils/internalRoutes.ts
+```
+
 ---
 
 ## Step 3 — Evaluate and address code review feedback
