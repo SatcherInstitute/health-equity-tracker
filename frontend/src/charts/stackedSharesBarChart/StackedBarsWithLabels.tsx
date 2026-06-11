@@ -49,7 +49,8 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
         const darkValue = d[darkMetric.metricId]
         const isHovered = activeDemographic === d[demographicType]
         const stepHeight = yScale.step()
-        const hitAreaY = -(stepHeight - yScale.bandwidth()) / 2
+        // No transform on <g> so rect uses absolute coords, not relative offset
+        const rectY = yPosition - (stepHeight - yScale.bandwidth()) / 2
 
         const strokeDetails = {
           stroke: isHovered ? colors.altBlack : 'none',
@@ -92,7 +93,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
           >
             <rect
               x={0}
-              y={hitAreaY}
+              y={rectY}
               width={xScale.range()[1]}
               height={stepHeight}
               fill='transparent'
