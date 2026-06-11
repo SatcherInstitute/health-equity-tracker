@@ -81,11 +81,6 @@ export function TrendsChart({
 
   useEscape(hideTooltip)
 
-  useEffect(() => {
-    window.addEventListener('scroll', hideTooltip, { passive: true })
-    return () => window.removeEventListener('scroll', hideTooltip)
-  }, [hideTooltip])
-
   const filteredData = useMemo(
     () =>
       selectedTrendGroups?.length

@@ -17,7 +17,7 @@ import {
   createEventHandler,
   createMouseEventOptions,
 } from './mouseEventHandlers'
-import type { DataPoint, MapTooltipCallbacks } from './types'
+import type { DataPoint, MapTooltipData } from './types'
 
 const TERRITORIES_CONFIG = {
   radius: 16,
@@ -37,7 +37,8 @@ interface TerritoryCirclesProps {
   colorScale: any
   metricConfig: MetricConfig
   dataMap: Map<string, any>
-  tooltipCallbacks: MapTooltipCallbacks
+  showTooltip: (data: MapTooltipData, x: number, y: number) => void
+  hideTooltip: () => void
   geographyType: string
   isExtremesMode: boolean
   mapConfig: MapConfig

@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 export interface TooltipPosition {
   x: number
@@ -34,6 +34,15 @@ export function useChartTooltip<T>() {
     },
     [hideTooltip],
   )
+
+  useEffect(() => {
+    window.addEventListener('scroll', hideTooltip, { passive: true })
+    window.addEventListener('wheel', hideTooltip, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', hideTooltip)
+      window.removeEventListener('wheel', hideTooltip)
+    }
+  }, [hideTooltip])
 
   return {
     tooltipData,
