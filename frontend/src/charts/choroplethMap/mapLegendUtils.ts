@@ -17,6 +17,11 @@ export function createUnknownLegend(
   const gradientLength = width * 0.35
   const legendHeight = 15
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
+  const range = legendUpperBound - legendLowerBound
+
+  // Skip gradient when all values are identical (no meaningful range to display)
+  if (range === 0) return
+
   const tickCount = 2
   const ticks = scaleLinear()
     .domain([legendLowerBound, legendUpperBound])
@@ -34,17 +39,13 @@ export function createUnknownLegend(
     .attr('x1', '0%')
     .attr('x2', '100%')
 
+  // Fix stops at 0%/100% so the gradient matches the actual map color range
   gradient
     .selectAll('stop')
-    .data(
-      ticks.map((value) => ({
-        offset: `${
-          ((value - legendLowerBound) / (legendUpperBound - legendLowerBound)) *
-          100
-        }%`,
-        color: colorScale(value),
-      })),
-    )
+    .data([
+      { offset: '0%', color: colorScale(legendLowerBound) },
+      { offset: '100%', color: colorScale(legendUpperBound) },
+    ])
     .join('stop')
     .attr('offset', (d) => d.offset)
     .attr('stop-color', (d) => d.color)
@@ -74,24 +75,21 @@ export function createUnknownLegend(
 
   const labelGroup = legendContainer
     .append('g')
-    .attr('transform', `translate(50, ${legendHeight + 10})`) // Align to gradient start
+    .attr('transform', `translate(50, ${legendHeight + 10})`)
 
-  const constrainedTicks = ticks.map((label) => {
-    // Constrain the positions of ticks to the gradient length
-    const position =
-      ((label - legendLowerBound) / (legendUpperBound - legendLowerBound)) *
-      gradientLength
+  // Only label ticks within the actual data range to avoid out-of-bounds positions
+  const constrainedTicks = ticks
+    .filter((tick) => tick >= legendLowerBound && tick <= legendUpperBound)
+    .map((label) => {
+      const position = ((label - legendLowerBound) / range) * gradientLength
+      const clampedPosition = Math.min(Math.max(position, 10), gradientLength)
+      return { label, position: clampedPosition }
+    })
 
-    // Clamp positions to the gradient bounds
-    const clampedPosition = Math.min(Math.max(position, 10), gradientLength)
-    return { label, position: clampedPosition }
-  })
-
-  // Add labels
   constrainedTicks.forEach(({ label, position }) => {
     labelGroup
       .append('text')
-      .attr('x', position) // Correctly aligned within gradient bounds
+      .attr('x', position)
       .attr('text-anchor', 'middle')
       .style('font', '10px sans-serif')
       .text(`${label}%`)
