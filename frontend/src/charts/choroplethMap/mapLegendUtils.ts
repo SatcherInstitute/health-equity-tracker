@@ -88,12 +88,12 @@ export function createUnknownLegend(
     Number.isInteger(val) ? val.toString() : val.toFixed(1)
 
   // Always label the actual min/max bounds; add any intermediate nice ticks
-  // that are far enough from the boundaries to avoid overlapping labels.
-  const middleTicks = ticks.filter(
-    (tick) =>
-      tick > legendLowerBound + range * 0.2 &&
-      tick < legendUpperBound - range * 0.2,
-  )
+  // that are at least 30px from either boundary to avoid overlapping labels.
+  const minPixelGap = 30
+  const middleTicks = ticks.filter((tick) => {
+    const position = ((tick - legendLowerBound) / range) * gradientLength
+    return position > minPixelGap && position < gradientLength - minPixelGap
+  })
   const constrainedTicks = [
     { label: formatLabel(legendLowerBound), position: 0 },
     ...middleTicks.map((label) => ({
