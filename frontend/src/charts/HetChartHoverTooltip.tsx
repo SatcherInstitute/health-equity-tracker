@@ -59,14 +59,17 @@ export function HetChartHoverTooltip({
 
   const flipUp = y > vh / 2
 
-  // Always use `top` + `transform` so a single property animates through the
-  // flip — switching between `top` and `bottom` produces a jump because CSS
-  // cannot interpolate across different positioned properties.
+  // `top` always equals the raw cursor y so it transitions smoothly as the
+  // cursor moves. `transform` handles both the OFFSET and the above/below
+  // flip, so when flipUp changes the tooltip slides from one side to the
+  // other via the transform transition rather than jumping.
   const positionStyle: React.CSSProperties = {
     left: `${left}px`,
     width: `${tooltipWidth}px`,
-    top: flipUp ? `${y - OFFSET}px` : `${y + OFFSET}px`,
-    transform: flipUp ? 'translateY(-100%)' : 'translateY(0)',
+    top: `${y}px`,
+    transform: flipUp
+      ? `translateY(calc(-100% - ${OFFSET}px))`
+      : `translateY(${OFFSET}px)`,
     transition:
       'left 120ms ease-out, top 120ms ease-out, transform 120ms ease-out',
   }
