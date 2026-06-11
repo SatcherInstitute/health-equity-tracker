@@ -28,7 +28,7 @@ export function useChartTooltip<T>() {
   // Use this for mousemove dead-zone checks so the tooltip glides between
   // discrete elements rather than blinking off between them.
   const hideTooltipDelayed = useCallback(
-    (delay = 160) => {
+    (delay = 400) => {
       if (hideTimer.current !== null) clearTimeout(hideTimer.current)
       hideTimer.current = setTimeout(() => {
         hideTimer.current = null
