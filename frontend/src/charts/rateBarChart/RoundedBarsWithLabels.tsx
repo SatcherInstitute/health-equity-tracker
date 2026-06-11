@@ -21,7 +21,7 @@ interface RoundedBarsWithLabelsProps {
   getYPosition: (index: number, label: string) => number
   isTinyAndUp: boolean
   showTooltip: (data: BarChartTooltipData, x: number, y: number) => void
-  hideTooltip: () => void
+  hideTooltipDelayed: () => void
 }
 
 export default function RoundedBarsWithLabels({
@@ -33,7 +33,7 @@ export default function RoundedBarsWithLabels({
   getYPosition,
   isTinyAndUp,
   showTooltip,
-  hideTooltip,
+  hideTooltipDelayed,
 }: RoundedBarsWithLabelsProps) {
   const barLabelBreakpoint = useMemo(() => {
     const maxValue = max(processedData, (d) => d[metricConfig.metricId]) || 0
@@ -73,7 +73,7 @@ export default function RoundedBarsWithLabels({
         key={index + barAriaLabel}
         transform={`translate(0,${yPosition})`}
         onMouseEnter={(e) => showTooltip(tooltipData, e.clientX, e.clientY)}
-        onMouseLeave={hideTooltip}
+        onMouseLeave={hideTooltipDelayed}
         onTouchStart={(e) => {
           const touch = e.touches[0]
           showTooltip(tooltipData, touch.clientX, touch.clientY)

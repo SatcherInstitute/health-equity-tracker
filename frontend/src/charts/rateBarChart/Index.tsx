@@ -47,8 +47,13 @@ export function RateBarChart(props: RateBarChartProps) {
 
   const [containerRef, width] = useResponsiveWidth()
 
-  const { tooltipData, tooltipPos, showTooltip, hideTooltip } =
-    useChartTooltip<BarChartTooltipData>()
+  const {
+    tooltipData,
+    tooltipPos,
+    showTooltip,
+    hideTooltip,
+    hideTooltipDelayed,
+  } = useChartTooltip<BarChartTooltipData>()
 
   useEffect(() => {
     window.addEventListener('scroll', hideTooltip, { passive: true })
@@ -130,7 +135,7 @@ export function RateBarChart(props: RateBarChartProps) {
             getYPosition={getYPosition}
             isTinyAndUp={isTinyAndUp}
             showTooltip={showTooltip}
-            hideTooltip={hideTooltip}
+            hideTooltipDelayed={hideTooltipDelayed}
           />
           <YAxis
             yScale={yScale}

@@ -22,7 +22,7 @@ interface StackedBarsWithLabelsProps {
   demographicType: DemographicType
   activeDemographic: string | null
   showTooltip: (data: StackedBarTooltipData, x: number, y: number) => void
-  hideTooltip: () => void
+  hideTooltipDelayed: () => void
 }
 
 const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
@@ -38,7 +38,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
     demographicType,
     activeDemographic,
     showTooltip,
-    hideTooltip,
+    hideTooltipDelayed,
   } = props
 
   return (
@@ -78,7 +78,7 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
                 e.clientY,
               )
             }}
-            onMouseLeave={hideTooltip}
+            onMouseLeave={hideTooltipDelayed}
             onTouchStart={(e) => {
               const touch = e.touches[0]
               showTooltip(

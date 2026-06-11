@@ -52,8 +52,13 @@ interface StackedBarChartProps {
 export function StackedBarChart(props: StackedBarChartProps) {
   const isSmAndUp = useIsBreakpointAndUp('sm')
   const [containerRef, width] = useResponsiveWidth()
-  const { tooltipData, tooltipPos, showTooltip, hideTooltip } =
-    useChartTooltip<StackedBarTooltipData>()
+  const {
+    tooltipData,
+    tooltipPos,
+    showTooltip,
+    hideTooltip,
+    hideTooltipDelayed,
+  } = useChartTooltip<StackedBarTooltipData>()
 
   useEffect(() => {
     window.addEventListener('scroll', hideTooltip, { passive: true })
@@ -152,7 +157,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
               demographicType={props.demographicType}
               activeDemographic={tooltipData?.demographic ?? null}
               showTooltip={showTooltip}
-              hideTooltip={hideTooltip}
+              hideTooltipDelayed={hideTooltipDelayed}
             />
 
             <XAxis
