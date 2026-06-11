@@ -48,6 +48,8 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
         const lightValue = d[lightMetric.metricId]
         const darkValue = d[darkMetric.metricId]
         const isHovered = activeDemographic === d[demographicType]
+        const stepHeight = yScale.step()
+        const hitAreaY = -(stepHeight - yScale.bandwidth()) / 2
 
         const strokeDetails = {
           stroke: isHovered ? colors.altBlack : 'none',
@@ -88,6 +90,14 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
               )
             }}
           >
+            <rect
+              x={0}
+              y={hitAreaY}
+              width={xScale.range()[1]}
+              height={stepHeight}
+              fill='transparent'
+              aria-hidden
+            />
             {/* POPULATION BAR */}
             {lightValue > 0 && (
               <path

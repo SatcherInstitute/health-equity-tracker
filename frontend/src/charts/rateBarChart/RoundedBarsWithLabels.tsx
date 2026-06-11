@@ -45,6 +45,8 @@ export default function RoundedBarsWithLabels({
     const shouldLabelBeInside = d[metricConfig.metricId] > barLabelBreakpoint
     const yPosition = getYPosition(index, d[demographicType])
     const barHeight = yScale.bandwidth() || 0
+    const stepHeight = yScale.step()
+    const hitAreaY = -(stepHeight - barHeight) / 2
 
     const barLabelColor =
       shouldLabelBeInside && d[demographicType] !== 'All'
@@ -81,6 +83,14 @@ export default function RoundedBarsWithLabels({
         aria-label={barAriaLabel}
         role='img'
       >
+        <rect
+          x={0}
+          y={hitAreaY}
+          width={xScale.range()[1]}
+          height={stepHeight}
+          fill='transparent'
+          aria-hidden
+        />
         <path
           d={roundedBarString}
           key={'path' + index + barAriaLabel}
