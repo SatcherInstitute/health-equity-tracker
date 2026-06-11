@@ -1,5 +1,5 @@
 import { scaleBand, scaleLinear } from 'd3'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   type DemographicType,
@@ -52,17 +52,13 @@ interface StackedBarChartProps {
 export function StackedBarChart(props: StackedBarChartProps) {
   const isSmAndUp = useIsBreakpointAndUp('sm')
   const [containerRef, width] = useResponsiveWidth()
-  const { tooltipData, tooltipPos, showTooltip, hideTooltip } =
-    useChartTooltip<StackedBarTooltipData>()
-
-  useEffect(() => {
-    window.addEventListener('scroll', hideTooltip, { passive: true })
-    window.addEventListener('wheel', hideTooltip, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', hideTooltip)
-      window.removeEventListener('wheel', hideTooltip)
-    }
-  }, [hideTooltip])
+  const {
+    tooltipData,
+    tooltipPos,
+    showTooltip,
+    hideTooltip,
+    hideTooltipDelayed,
+  } = useChartTooltip<StackedBarTooltipData>()
 
   const maxLabelWidth = hasSkinnyGroupLabels(props.demographicType)
     ? MAX_LABEL_WIDTH_SMALL
@@ -152,7 +148,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
               demographicType={props.demographicType}
               activeDemographic={tooltipData?.demographic ?? null}
               showTooltip={showTooltip}
-              hideTooltip={hideTooltip}
+              hideTooltipDelayed={hideTooltipDelayed}
             />
 
             <XAxis

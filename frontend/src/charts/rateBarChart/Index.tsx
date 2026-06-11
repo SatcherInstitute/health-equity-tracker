@@ -1,5 +1,5 @@
 import { max, scaleBand, scaleLinear } from 'd3'
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   type DemographicType,
@@ -47,17 +47,13 @@ export function RateBarChart(props: RateBarChartProps) {
 
   const [containerRef, width] = useResponsiveWidth()
 
-  const { tooltipData, tooltipPos, showTooltip, hideTooltip } =
-    useChartTooltip<BarChartTooltipData>()
-
-  useEffect(() => {
-    window.addEventListener('scroll', hideTooltip, { passive: true })
-    window.addEventListener('wheel', hideTooltip, { passive: true })
-    return () => {
-      window.removeEventListener('scroll', hideTooltip)
-      window.removeEventListener('wheel', hideTooltip)
-    }
-  }, [hideTooltip])
+  const {
+    tooltipData,
+    tooltipPos,
+    showTooltip,
+    hideTooltip,
+    hideTooltipDelayed,
+  } = useChartTooltip<BarChartTooltipData>()
 
   const maxLabelWidth = hasSkinnyGroupLabels(props.demographicType)
     ? MAX_LABEL_WIDTH_SMALL
@@ -129,8 +125,9 @@ export function RateBarChart(props: RateBarChartProps) {
             yScale={yScale}
             getYPosition={getYPosition}
             isTinyAndUp={isTinyAndUp}
+            allIndex={allIndex}
             showTooltip={showTooltip}
-            hideTooltip={hideTooltip}
+            hideTooltipDelayed={hideTooltipDelayed}
           />
           <YAxis
             yScale={yScale}
