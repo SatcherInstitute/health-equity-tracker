@@ -59,6 +59,7 @@ const ChoroplethMap = ({
     tooltipPos: mapTooltipPos,
     showTooltip,
     hideTooltip,
+    hideTooltipDelayed,
   } = useChartTooltip<MapTooltipData>()
 
   // State to store the dataMap created during map rendering
@@ -92,8 +93,8 @@ const ChoroplethMap = ({
   }, [width])
 
   const tooltipCallbacks = useMemo<MapTooltipCallbacks>(
-    () => ({ onShow: showTooltip, onHide: hideTooltip }),
-    [showTooltip, hideTooltip],
+    () => ({ onShow: showTooltip, onHide: hideTooltipDelayed }),
+    [showTooltip, hideTooltipDelayed],
   )
 
   // Hide tooltip on scroll/click/touchmove outside the map.

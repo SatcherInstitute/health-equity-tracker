@@ -126,14 +126,12 @@ export const renderMap = (options: RenderMapOptions) => {
     .attr('stroke', isExtremesMode ? colors.altGray : colors.altWhite)
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event: any, d) => {
-      options.tooltipCallbacks.onHide()
       createEventHandler('mouseover', mouseEventOptions)(event, d)
     })
     .on('mouseout', (event: any, d) => {
       createEventHandler('mouseout', mouseEventOptions)(event, d)
     })
     .on('touchstart', (event: any, d) => {
-      options.tooltipCallbacks.onHide()
       createEventHandler('touchstart', mouseEventOptions)(event, d)
     })
     .on('touchend', (event: any, d) => {
