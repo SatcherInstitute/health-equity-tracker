@@ -9,7 +9,7 @@ import {
   formatValue,
 } from '../sharedBarChartPieces/helpers'
 import type { BarChartTooltipData } from './BarChartTooltip'
-import { LABEL_SWAP_CUTOFF_PERCENT } from './constants'
+import { EXTRA_SPACE_AFTER_ALL, LABEL_SWAP_CUTOFF_PERCENT } from './constants'
 import EndOfRateBarLabel from './EndOfRateBarLabel'
 
 interface RoundedBarsWithLabelsProps {
@@ -20,6 +20,7 @@ interface RoundedBarsWithLabelsProps {
   yScale: ScaleBand<string>
   getYPosition: (index: number, label: string) => number
   isTinyAndUp: boolean
+  allIndex: number
   showTooltip: (data: BarChartTooltipData, x: number, y: number) => void
   hideTooltipDelayed: () => void
 }
@@ -32,6 +33,7 @@ export default function RoundedBarsWithLabels({
   yScale,
   getYPosition,
   isTinyAndUp,
+  allIndex,
   showTooltip,
   hideTooltipDelayed,
 }: RoundedBarsWithLabelsProps) {
@@ -46,7 +48,17 @@ export default function RoundedBarsWithLabels({
     const yPosition = getYPosition(index, d[demographicType])
     const barHeight = yScale.bandwidth() || 0
     const stepHeight = yScale.step()
-    const hitAreaY = -(stepHeight - barHeight) / 2
+    const normalGap = (stepHeight - barHeight) / 2
+    const topGap =
+      normalGap +
+      (allIndex !== -1 && index === allIndex + 1
+        ? EXTRA_SPACE_AFTER_ALL / 2
+        : 0)
+    const bottomGap =
+      normalGap +
+      (allIndex !== -1 && index === allIndex ? EXTRA_SPACE_AFTER_ALL / 2 : 0)
+    const hitAreaY = -topGap
+    const hitAreaHeight = barHeight + topGap + bottomGap
 
     const barLabelColor =
       shouldLabelBeInside && d[demographicType] !== 'All'
@@ -87,7 +99,7 @@ export default function RoundedBarsWithLabels({
           x={0}
           y={hitAreaY}
           width={xScale.range()[1]}
-          height={stepHeight}
+          height={hitAreaHeight}
           fill='transparent'
           aria-hidden
         />

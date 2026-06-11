@@ -125,6 +125,7 @@ export function RateBarChart(props: RateBarChartProps) {
             yScale={yScale}
             getYPosition={getYPosition}
             isTinyAndUp={isTinyAndUp}
+            allIndex={allIndex}
             showTooltip={showTooltip}
             hideTooltipDelayed={hideTooltipDelayed}
           />
