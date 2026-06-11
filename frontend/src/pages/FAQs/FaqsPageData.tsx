@@ -443,8 +443,8 @@ const additionalFaqs: Faq[] = [
         </p>
         <div className='mb-8 flex justify-center'>
           <img
-            src={'/img/screenshots/card-menu-options.png'}
-            aria-label='options on card menu'
+            src='/img/screenshots/card-menu-options.png'
+            alt='options on card menu'
             className='rounded-md shadow-raised-tighter'
           />
         </div>
