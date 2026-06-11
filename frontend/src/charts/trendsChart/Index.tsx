@@ -227,11 +227,7 @@ export function TrendsChart({
         )}
         {!isSm && <ChartTitle title={chartTitle} subtitle={chartSubTitle} />}
       </div>
-      <HetChartHoverTooltip
-        x={tooltipPos?.x ?? null}
-        y={tooltipPos?.y ?? null}
-        animate
-      >
+      <HetChartHoverTooltip x={tooltipPos?.x ?? null} y={tooltipPos?.y ?? null}>
         {hoveredDate && (
           <TrendsTooltip
             data={filteredData}
