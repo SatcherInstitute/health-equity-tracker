@@ -17,12 +17,7 @@ import {
 } from './mapHelpers'
 import { renderMap } from './renderMap'
 import TerritoryCircles from './TerritoryCircles'
-import type {
-  ChoroplethMapProps,
-  DataPoint,
-  MapTooltipCallbacks,
-  MapTooltipData,
-} from './types'
+import type { ChoroplethMapProps, DataPoint, MapTooltipData } from './types'
 
 const ChoroplethMap = ({
   data,
@@ -59,6 +54,7 @@ const ChoroplethMap = ({
     tooltipPos: mapTooltipPos,
     showTooltip,
     hideTooltip,
+    hideTooltipDelayed,
   } = useChartTooltip<MapTooltipData>()
 
   // State to store the dataMap created during map rendering
@@ -91,15 +87,7 @@ const ChoroplethMap = ({
     }
   }, [width])
 
-  const tooltipCallbacks = useMemo<MapTooltipCallbacks>(
-    () => ({ onShow: showTooltip, onHide: hideTooltip }),
-    [showTooltip, hideTooltip],
-  )
-
-  // Hide tooltip on scroll/click/touchmove outside the map.
-  // The click handler skips path/circle elements because touchstart already
-  // shows the tooltip; a subsequent synthetic click on the same element
-  // would otherwise immediately hide it.
+  // scroll+wheel are handled by useChartTooltip; click-outside and touchmove are map-specific.
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       const target = e.target as Element | null
@@ -111,13 +99,9 @@ const ChoroplethMap = ({
         hideTooltip()
       }
     }
-    window.addEventListener('wheel', hideTooltip)
-    window.addEventListener('scroll', hideTooltip, { passive: true })
     window.addEventListener('click', handleOutsideClick)
     window.addEventListener('touchmove', hideTooltip)
     return () => {
-      window.removeEventListener('wheel', hideTooltip)
-      window.removeEventListener('scroll', hideTooltip)
       window.removeEventListener('click', handleOutsideClick)
       window.removeEventListener('touchmove', hideTooltip)
     }
@@ -168,7 +152,8 @@ const ChoroplethMap = ({
         metricConfig,
         width,
         height: isMulti ? dimensions.height + 100 : dimensions.height,
-        tooltipCallbacks,
+        showTooltip,
+        hideTooltip: hideTooltipDelayed,
         showCounties,
         colorScale,
         fips,
@@ -243,7 +228,8 @@ const ChoroplethMap = ({
           colorScale={colorScale}
           metricConfig={metricConfig}
           dataMap={renderResult.dataMap}
-          tooltipCallbacks={tooltipCallbacks}
+          showTooltip={showTooltip}
+          hideTooltip={hideTooltipDelayed}
           geographyType={getCountyAddOn(fips, showCounties)}
           isExtremesMode={isExtremesMode}
           mapConfig={mapConfig}

@@ -37,7 +37,13 @@ function buildTooltipEntries(
         const demoLabel = demographicType
           ? DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
           : 'demographic'
-        return { label: '', value: `${rawValue}% of ${demoLabel} data missing` }
+        return {
+          label: '',
+          value:
+            rawValue != null
+              ? `${rawValue} of ${demoLabel} data missing`
+              : missingDataValue,
+        }
       }
       return {
         label: key,
@@ -59,7 +65,8 @@ export const createMouseEventOptions = (
     colorScale: options.colorScale,
     metricConfig: options.metricConfig,
     dataMap: dataMap || options.dataMap,
-    tooltipCallbacks: options.tooltipCallbacks,
+    showTooltip: options.showTooltip,
+    hideTooltip: options.hideTooltip,
     geographyType: geographyType || options.geographyType || '',
     mapConfig: options.mapConfig,
     isMultiMap: options.isMultiMap,
@@ -116,7 +123,7 @@ const handleMouseEvent = (
           props.allMissingDataIsSuppressed,
         ),
       }
-      props.tooltipCallbacks.onShow(tooltipData, event.clientX, event.clientY)
+      props.showTooltip(tooltipData, event.clientX, event.clientY)
       break
     }
     case 'touchstart': {
@@ -145,7 +152,7 @@ const handleMouseEvent = (
           props.allMissingDataIsSuppressed,
         ),
       }
-      props.tooltipCallbacks.onShow(tooltipData, touch.clientX, touch.clientY)
+      props.showTooltip(tooltipData, touch.clientX, touch.clientY)
       break
     }
     case 'touchend': {
@@ -171,7 +178,7 @@ const handleMouseEvent = (
         .attr('stroke', props.isExtremesMode ? colors.altGray : colors.altWhite)
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
-      props.tooltipCallbacks.onHide()
+      props.hideTooltip()
       break
     }
   }

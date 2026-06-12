@@ -81,11 +81,6 @@ export function TrendsChart({
 
   useEscape(hideTooltip)
 
-  useEffect(() => {
-    window.addEventListener('scroll', hideTooltip, { passive: true })
-    return () => window.removeEventListener('scroll', hideTooltip)
-  }, [hideTooltip])
-
   const filteredData = useMemo(
     () =>
       selectedTrendGroups?.length
@@ -227,11 +222,7 @@ export function TrendsChart({
         )}
         {!isSm && <ChartTitle title={chartTitle} subtitle={chartSubTitle} />}
       </div>
-      <HetChartHoverTooltip
-        x={tooltipPos?.x ?? null}
-        y={tooltipPos?.y ?? null}
-        animate
-      >
+      <HetChartHoverTooltip x={tooltipPos?.x ?? null} y={tooltipPos?.y ?? null}>
         {hoveredDate && (
           <TrendsTooltip
             data={filteredData}

@@ -14,7 +14,7 @@ export const externalResourceMappings: ExternalResourceMapping[] = [
   {
     href: 'https://satcherinstitute.org/news/why-it-matters-that-information-on-race-ethnicity-gender-and-disability-are-measured-accurately-and-completely',
     ariaLabel: 'Satcher Blog Post on Why Data Matters',
-    imgSrc: '/img/stock/kid-gets-a-mask.png',
+    imgSrc: '/img/stock/kid-gets-a-mask.webp',
     imgAlt: '',
     title:
       'Why it matters that information on race, ethnicity, gender and disability are measured accurately and completely',
@@ -38,7 +38,7 @@ export const externalResourceMappings: ExternalResourceMapping[] = [
   {
     href: 'https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/',
     ariaLabel: 'Read Scientific American Article',
-    imgSrc: '/img/stock/filling-in-forms.png',
+    imgSrc: '/img/stock/filling-in-forms.webp',
     imgAlt: '',
     title: 'Data and technology can help us make progress on COVID inequities',
     description: '',
@@ -48,7 +48,7 @@ export const externalResourceMappings: ExternalResourceMapping[] = [
   {
     href: 'https://satcherinstitute.github.io/analysis/cdc_case_data',
     ariaLabel: 'Satcher Post on COVID Data Completeness',
-    imgSrc: '/img/stock/kids-ukulele.png',
+    imgSrc: '/img/stock/kids-ukulele.webp',
     imgAlt: '',
     title: `How complete are the CDC's COVID-19 case surveillance datasets for race/ethnicity at the state and county levels?`,
     description: '',
@@ -83,7 +83,7 @@ export const externalResourceMappings: ExternalResourceMapping[] = [
   {
     href: 'https://www.msm.edu/Research/research_centersandinstitutes/NCPC/NCRN/index.php',
     ariaLabel: 'NCRN Information',
-    imgSrc: '/img/graphics/NCRN-MSM.png',
+    imgSrc: '/img/graphics/NCRN-MSM.webp',
     imgAlt: 'NCRN Information Thumbnail',
     title: 'Morehouse School of Medicine National COVID-19 Resiliency Network',
     description:

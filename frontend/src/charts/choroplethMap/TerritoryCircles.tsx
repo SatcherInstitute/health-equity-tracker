@@ -17,7 +17,7 @@ import {
   createEventHandler,
   createMouseEventOptions,
 } from './mouseEventHandlers'
-import type { DataPoint, MapTooltipCallbacks } from './types'
+import type { DataPoint, MapTooltipData } from './types'
 
 const TERRITORIES_CONFIG = {
   radius: 16,
@@ -37,7 +37,8 @@ interface TerritoryCirclesProps {
   colorScale: any
   metricConfig: MetricConfig
   dataMap: Map<string, any>
-  tooltipCallbacks: MapTooltipCallbacks
+  showTooltip: (data: MapTooltipData, x: number, y: number) => void
+  hideTooltip: () => void
   geographyType: string
   isExtremesMode: boolean
   mapConfig: MapConfig
@@ -110,7 +111,6 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       .attr('stroke', props.isExtremesMode ? colors.altGray : colors.altWhite)
       .attr('stroke-width', STROKE_WIDTH)
       .on('mouseover', (event: any, d) => {
-        props.tooltipCallbacks.onHide()
         createEventHandler('mouseover', mouseEventOptions, (d) =>
           createTerritoryFeature(d.fips),
         )(event, d)
@@ -121,7 +121,6 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
         )(event, d)
       })
       .on('touchstart', (event: any, d) => {
-        props.tooltipCallbacks.onHide()
         createEventHandler('touchstart', mouseEventOptions, (d) =>
           createTerritoryFeature(d.fips),
         )(event, d)

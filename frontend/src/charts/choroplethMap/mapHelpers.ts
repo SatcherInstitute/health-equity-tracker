@@ -154,7 +154,10 @@ export const createDataMap = (
     dataWithHighestLowest.map((d) => [
       d.fips,
       {
-        [tooltipLabel]: d[metric.metricId],
+        [tooltipLabel]:
+          d[metric.metricId] != null
+            ? formatMetricValue(d[metric.metricId], metric)
+            : undefined,
         value: d[metric.metricId],
         ...(countColsMap?.numeratorConfig && {
           [`# ${numeratorPhrase}`]:
@@ -190,7 +193,7 @@ export const formatMetricValue = (
   }
 
   if (isPctType(metricConfig.type)) {
-    return `${format('d')(value)}%`
+    return `${format('.1~f')(value)}%`
   }
 
   return format(',.2r')(value)

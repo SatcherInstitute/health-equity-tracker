@@ -70,6 +70,12 @@ https://deploy-preview-{number}--health-equity-tracker.netlify.app
 
 Identify the single most useful deep-link route that shows the core feature. Append URL params so the reviewer lands directly on the changed UI. Record the full URL for Step 6.
 
+**Never guess route strings.** All app routes are defined as constants in `frontend/src/utils/internalRoutes.ts`. Look up the correct path there before constructing the URL:
+
+```bash
+grep -n "PAGE_LINK\|_PATH\|_ROUTE" frontend/src/utils/internalRoutes.ts
+```
+
 ---
 
 ## Step 3 — Evaluate and address code review feedback
@@ -231,6 +237,10 @@ git diff origin/main -- frontend/src/
 ```
 
 Rewrite the PR title (under 70 chars) and body. Keep the description **short and focused** — a few tight bullets, no padding. The test plan is the audited behavioral checklist from Step 5 only (no static tooling items).
+
+**Title rules:**
+- Under 70 chars
+- **Never include an issue number in the title** — no `(#1234)` suffix. It looks like a PR number at a glance and makes titles hard to scan. `Closes #NNNN` belongs in the body only.
 
 Use this template:
 

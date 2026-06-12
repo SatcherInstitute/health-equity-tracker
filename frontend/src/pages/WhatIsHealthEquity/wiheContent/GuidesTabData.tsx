@@ -14,7 +14,7 @@ export const guideMappings: GuideMapping[] = [
   {
     href: 'https://youtube.com/embed/1VVDz7Du1ms',
     ariaLabel: 'How to Use the Rate Choropleth Map Video',
-    imgSrc: '/img/graphics/1_rate-map.png',
+    imgSrc: '/img/graphics/1_rate-map.webp',
     imgAlt: '',
     title:
       'Understanding Gun Violence Disparities with the Rate Choropleth Map',
@@ -27,7 +27,7 @@ export const guideMappings: GuideMapping[] = [
   {
     href: 'https://youtube.com/embed/GmG0ebVHV9Y',
     ariaLabel: 'How to Use the Rates Over Time Chart Video',
-    imgSrc: '/img/graphics/2_time-chart.png',
+    imgSrc: '/img/graphics/2_time-chart.webp',
     imgAlt: '',
     title: 'Tracking Gun Deaths Over Time with Our Chart',
     description:
@@ -39,7 +39,7 @@ export const guideMappings: GuideMapping[] = [
   {
     href: 'https://youtube.com/embed/auhSqcGx4ig',
     ariaLabel: 'How to Use the Rate Bar Chart Video',
-    imgSrc: '/img/graphics/3_rate-chart.png',
+    imgSrc: '/img/graphics/3_rate-chart.webp',
     imgAlt: '',
     title: 'Comparing Gun Homicides by Demographics with the Rate Bar Chart',
     description:
@@ -51,7 +51,7 @@ export const guideMappings: GuideMapping[] = [
   {
     href: 'https://youtube.com/embed/oDZ5oNX_Sjw',
     ariaLabel: 'How to Use the Unknown Demographic Choropleth Map Video',
-    imgSrc: '/img/graphics/4_unknown-map.png',
+    imgSrc: '/img/graphics/4_unknown-map.webp',
     imgAlt: '',
     title: 'Exposing Data Gaps with the Unknown Demographic Choropleth Map',
     description:
@@ -63,7 +63,7 @@ export const guideMappings: GuideMapping[] = [
   {
     href: 'https://youtube.com/embed/O1G2CKoM61I',
     ariaLabel: 'How to Use the Relative Inequity Chart Video',
-    imgSrc: '/img/graphics/5_inequity-time-chart.png',
+    imgSrc: '/img/graphics/5_inequity-time-chart.webp',
     imgAlt: '',
     title: 'Revealing Inequities with the Relative Inequity Chart',
     description:
@@ -76,7 +76,7 @@ export const guideMappings: GuideMapping[] = [
     href: 'https://youtube.com/embed/M5fKCtYdmIg',
     ariaLabel:
       'How to Use the Population vs. Distribution Stacked Bar Chart Video',
-    imgSrc: '/img/graphics/6_pop-v-dist-chart.png',
+    imgSrc: '/img/graphics/6_pop-v-dist-chart.webp',
     imgAlt: '',
     title:
       'Examining Disparities with the Population vs. Distribution Stacked Bar Chart',
@@ -89,7 +89,7 @@ export const guideMappings: GuideMapping[] = [
   {
     href: 'https://youtube.com/embed/9PMj9jnr_00',
     ariaLabel: 'How to Use the Breakdown Summary Data Table Video',
-    imgSrc: '/img/graphics/7_summary-table.png',
+    imgSrc: '/img/graphics/7_summary-table.webp',
     imgAlt: '',
     title: 'Unpacking Gun Suicide Rates with the Breakdown Summary Data Table',
     description:
