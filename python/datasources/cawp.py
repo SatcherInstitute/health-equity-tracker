@@ -31,6 +31,7 @@ Instructions for Updating TERRITORIAL LEGISLATURE DENOMINATOR Data:
 Last Updated: Feb. 2024
 """
 
+import os
 import pandas as pd
 from ingestion.merge_utils import ACS_EARLIEST_YEAR, ACS_CURRENT_YEAR
 from ingestion.standardized_columns import Race
@@ -45,6 +46,7 @@ from datasources.data_source import DataSource
 from ingestion.constants import (
     NATIONAL_LEVEL,
     STATE_LEVEL,
+    COUNTY_LEVEL,
     STATE_LEVEL_FIPS_LIST,
     TERRITORY_FIPS_LIST,
     US_ABBR,
@@ -125,9 +127,16 @@ US_CONGRESS_CURRENT_URL = "https://unitedstates.github.io/congress-legislators/l
 US_CONGRESS_HISTORICAL_URL = "https://unitedstates.github.io/congress-legislators/legislators-historical.json"
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity_time_series.csv"
 
+# Census 118th Congress (2022 redistricting) county-to-congressional-district crosswalk.
+# Source: https://www2.census.gov/geo/docs/maps-data/data/rel2020/cd-sld/tab20_cd11820_county20_natl.txt
+# Refresh this file at the start of each new Congress (redistricting occurs every 10 years,
+# but court-ordered redraws can happen mid-decade).
+COUNTY_CD_CROSSWALK_FILE = "tab20_cd11820_county20_natl.txt"
+
 
 CAWP_POP_PCT_COL = "cawp_population_pct"
 CAWP_POP_COL = "cawp_population"
+CONGRESSIONAL_DISTRICTS_COL = "congressional_districts"
 
 
 def get_stleg_url(id: str):
@@ -173,6 +182,7 @@ STATE = "state"
 TERMS = "terms"
 START = "start"
 END = "end"
+DISTRICT = "district"
 FIRST_NAME = "first_name"
 LAST_NAME = "last_name"
 POSITION = "position"
@@ -296,6 +306,50 @@ class CAWPData(DataSource):
                 gcs_to_bq_util.make_bq_table_id(std_col.RACE_OR_HISPANIC_COL, geo_level, CURRENT),
                 column_types=column_types,
             )
+
+        # --- county-level tables (Congress only, ACS years) ---
+        county_df = generate_county_breakdown()
+        county_df = county_df.drop(columns=[std_col.RACE_CATEGORY_ID_COL, std_col.CONGRESS_NAMES])
+
+        county_historical = county_df.drop(
+            columns=[
+                std_col.CONGRESS_COUNT,
+                std_col.W_THIS_RACE_CONGRESS_COUNT,
+                std_col.W_THIS_RACE_CONGRESS_NAMES,
+                std_col.PCT_OF_W_CONGRESS,
+                CAWP_POP_COL,
+                CAWP_POP_PCT_COL,
+                CONGRESSIONAL_DISTRICTS_COL,
+            ]
+        )
+        float_cols = [std_col.PCT_OF_CONGRESS, std_col.W_CONGRESS_PCT_INEQUITY]
+        column_types = gcs_to_bq_util.get_bq_column_types(county_historical, float_cols)
+        county_historical = county_historical.drop_duplicates()
+        gcs_to_bq_util.add_df_to_bq(
+            county_historical,
+            dataset,
+            gcs_to_bq_util.make_bq_table_id(std_col.RACE_OR_HISPANIC_COL, COUNTY_LEVEL, HISTORICAL),
+            column_types=column_types,
+        )
+
+        county_current = county_df.drop(columns=[std_col.W_CONGRESS_PCT_INEQUITY])
+        county_current = preserve_only_current_time_period_rows(county_current)
+        float_cols = [
+            std_col.CONGRESS_COUNT,
+            std_col.W_THIS_RACE_CONGRESS_COUNT,
+            std_col.PCT_OF_CONGRESS,
+            std_col.PCT_OF_W_CONGRESS,
+            CAWP_POP_COL,
+            CAWP_POP_PCT_COL,
+        ]
+        column_types = gcs_to_bq_util.get_bq_column_types(county_current, float_cols)
+        county_current = county_current.drop_duplicates()
+        gcs_to_bq_util.add_df_to_bq(
+            county_current,
+            dataset,
+            gcs_to_bq_util.make_bq_table_id(std_col.RACE_OR_HISPANIC_COL, COUNTY_LEVEL, CURRENT),
+            column_types=column_types,
+        )
 
     # CLASS METHODS
 
@@ -547,31 +601,264 @@ def scaffold_df_by_year_by_state_by_race_list(race_list: List[str], first_year: 
     return df
 
 
-def get_us_congress_totals_df():
-    """Fetches historic and current congress data, combines them, and iterates over
-    each Congress member and their terms served to generate a dataframe.
+def load_county_crosswalk() -> pd.DataFrame:
+    """Loads the 118th Congress county-to-congressional-district crosswalk.
+
+    Returns df with columns: GEOID_CD118_20, county_fips, state_fips, district_num."""
+    df = pd.read_csv(
+        os.path.join(gcs_to_bq_util.DATA_DIR, "cawp", COUNTY_CD_CROSSWALK_FILE),
+        sep="|",
+        dtype=str,
+        encoding="utf-8-sig",
+        usecols=["GEOID_CD118_20", "GEOID_COUNTY_20"],
+    )
+    df = df.rename(columns={"GEOID_COUNTY_20": std_col.COUNTY_FIPS_COL})
+    df["state_fips"] = df["GEOID_CD118_20"].str[:2]
+    df["district_num"] = df["GEOID_CD118_20"].str[2:]
+    # Census uses "98" for territory at-large (non-voting) delegates in the crosswalk,
+    # but unitedstates.io stores territory delegates with district=0, giving cd_geoid
+    # state_fips+"00". Normalize "98"→"00" so the join works.
+    territory_mask = df["state_fips"].isin(TERRITORY_FIPS_LIST) & (df["district_num"] == "98")
+    df.loc[territory_mask, "district_num"] = "00"
+    df.loc[territory_mask, "GEOID_CD118_20"] = df.loc[territory_mask, "state_fips"] + "00"
+    return df
+
+
+def expand_members_to_counties(members_df: pd.DataFrame, crosswalk_df: pd.DataFrame) -> pd.DataFrame:
+    """Expands a per-member-per-year df to per-member-per-county-per-year.
+
+    Senators are attributed to all counties in their state.
+    House reps are attributed to every county whose district overlaps theirs.
+
+    Note: uses 118th Congress (2022 redistricting) boundaries for all years.
+
+    Returns df with columns: time_period, county_fips, state_fips, name."""
+    members_df = merge_utils.merge_state_ids(members_df, keep_postal=True)
+
+    state_to_counties = crosswalk_df[[std_col.COUNTY_FIPS_COL, "state_fips"]].drop_duplicates()
+
+    sens = members_df[members_df[TYPE] == "sen"].copy()
+    sens_county = sens.merge(state_to_counties, on="state_fips", how="left")
+
+    reps = members_df[members_df[TYPE] == "rep"].copy()
+    reps = reps[pd.to_numeric(reps[DISTRICT], errors="coerce").notna()].copy()
+    reps["cd_geoid"] = reps["state_fips"] + reps[DISTRICT].apply(lambda d: str(int(float(d))).zfill(2))
+    reps_county = reps.merge(
+        crosswalk_df[["GEOID_CD118_20", std_col.COUNTY_FIPS_COL]],
+        left_on="cd_geoid",
+        right_on="GEOID_CD118_20",
+        how="left",
+    )
+
+    keep_cols = [std_col.TIME_PERIOD_COL, std_col.COUNTY_FIPS_COL, "state_fips", NAME]
+    combined = pd.concat([sens_county[keep_cols], reps_county[keep_cols]])
+    return combined.dropna(subset=[std_col.COUNTY_FIPS_COL])
+
+
+def get_women_congress_by_county_df(crosswalk_df: pd.DataFrame) -> pd.DataFrame:
+    """Loads CAWP women Congress data with district info and expands to county level.
+
+    Returns df with columns: time_period, county_fips, race_ethnicity, name."""
+    df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+        "cawp",
+        CAWP_LINE_ITEMS_FILE,
+        usecols=[ID, YEAR, STATE, FIRST_NAME, LAST_NAME, POSITION, RACE_ETH, DISTRICT],
+    )
+    df = df.dropna(subset=[STATE, RACE_ETH])
+    df[STATE] = df[STATE].replace(
+        {
+            "Northern Mariana Islands - MI": "Northern Mariana Islands - MP",
+            "American Samoa - AM": "American Samoa - AS",
+        }
+    )
+    df[std_col.STATE_POSTAL_COL] = df[STATE].str[-2:]
+    df = merge_utils.merge_state_ids(df, keep_postal=True)
+    df = df.drop(columns=[STATE])
+    df = df.rename(columns={YEAR: std_col.TIME_PERIOD_COL})
+    df[std_col.TIME_PERIOD_COL] = df[std_col.TIME_PERIOD_COL].astype(str)
+
+    df = df[df[POSITION].isin(POSITION_LABELS[CONGRESS].keys())].copy()
+    df[POSITION] = df[POSITION].apply(lambda x: POSITION_LABELS[CONGRESS][x])
+    df[NAME] = df[POSITION] + " " + df[FIRST_NAME] + " " + df[LAST_NAME]
+
+    state_to_counties = crosswalk_df[[std_col.COUNTY_FIPS_COL, "state_fips"]].drop_duplicates()
+
+    sens = df[df[POSITION] == POSITION_LABELS[CONGRESS]["sen"]].copy()
+    sens_county = sens.merge(state_to_counties, on="state_fips", how="left")
+
+    # territory delegates represent entire territory (like senators represent entire state)
+    delegates = df[df[POSITION] == POSITION_LABELS[CONGRESS]["U.S. Delegate"]].copy()
+    delegates_county = delegates.merge(state_to_counties, on="state_fips", how="left")
+
+    reps = df[df[POSITION] == POSITION_LABELS[CONGRESS]["rep"]].copy()
+    reps = reps[pd.to_numeric(reps[DISTRICT], errors="coerce").notna()].copy()
+    reps["cd_geoid"] = reps["state_fips"] + reps[DISTRICT].apply(lambda d: str(int(float(d))).zfill(2))
+    reps_county = reps.merge(
+        crosswalk_df[["GEOID_CD118_20", std_col.COUNTY_FIPS_COL]],
+        left_on="cd_geoid",
+        right_on="GEOID_CD118_20",
+        how="left",
+    )
+
+    keep_cols = [std_col.TIME_PERIOD_COL, std_col.COUNTY_FIPS_COL, RACE_ETH, NAME]
+    combined = pd.concat([sens_county[keep_cols], delegates_county[keep_cols], reps_county[keep_cols]])
+    return combined.dropna(subset=[std_col.COUNTY_FIPS_COL])
+
+
+def generate_county_breakdown() -> pd.DataFrame:
+    """Builds county-level congressional representation data by race.
+
+    Covers US Congress (House + Senate) only; state legislature has no
+    national county-to-district crosswalk.
+
+    Returns df with one row per county x ACS year x race with Congress metrics
+    and a congressional_districts column (comma-separated district numbers)."""
+    crosswalk_df = load_county_crosswalk()
+    acs_years = get_consecutive_time_periods(first_year=int(ACS_EARLIEST_YEAR), last_year=int(ACS_CURRENT_YEAR))
+
+    # --- total congress members per county per year ---
+    members_df = get_us_congress_members_df()
+    members_county = expand_members_to_counties(members_df, crosswalk_df)
+    members_county = members_county[members_county[std_col.TIME_PERIOD_COL].isin(acs_years)]
+
+    congress_totals = (
+        members_county.groupby([std_col.COUNTY_FIPS_COL, std_col.TIME_PERIOD_COL])[NAME]
+        .apply(list)
+        .reset_index()
+        .rename(columns={NAME: std_col.CONGRESS_NAMES})
+    )
+    congress_totals[std_col.CONGRESS_COUNT] = congress_totals[std_col.CONGRESS_NAMES].apply(len).astype(float)
+
+    # --- districts per county (static; used only in _current table) ---
+    # exclude non-numeric district codes (e.g. "ZZ" for territories without voting districts)
+    crosswalk_voting = crosswalk_df[pd.to_numeric(crosswalk_df["district_num"], errors="coerce").notna()]
+    county_districts = (
+        crosswalk_voting.groupby(std_col.COUNTY_FIPS_COL)["district_num"]
+        .apply(lambda ds: ",".join("At-Large" if d == "00" else str(int(d)) for d in sorted(ds)))
+        .reset_index()
+        .rename(columns={"district_num": CONGRESSIONAL_DISTRICTS_COL})
+    )
+
+    # --- women congress members per county per year per race ---
+    women_county = get_women_congress_by_county_df(crosswalk_df)
+    women_county = women_county[women_county[std_col.TIME_PERIOD_COL].isin(acs_years)]
+
+    # all-races women count and names per county per year
+    women_all = women_county.groupby([std_col.COUNTY_FIPS_COL, std_col.TIME_PERIOD_COL])[NAME].apply(list).reset_index()
+    women_all[std_col.W_ALL_RACES_CONGRESS_COUNT] = women_all[NAME].apply(len).astype(float)
+    women_all[std_col.W_ALL_RACES_CONGRESS_NAMES] = women_all[NAME].apply(lambda names: ",".join(names))
+    women_all = women_all.drop(columns=[NAME])
+
+    # per-race women count and names per county per year
+    women_county = handle_other_and_multi_races(women_county)
+    women_by_race = (
+        women_county.groupby([std_col.COUNTY_FIPS_COL, std_col.TIME_PERIOD_COL, RACE_ETH])[NAME]
+        .apply(list)
+        .reset_index()
+        .rename(columns={NAME: std_col.W_THIS_RACE_CONGRESS_NAMES})
+    )
+    women_by_race[std_col.W_THIS_RACE_CONGRESS_COUNT] = (
+        women_by_race[std_col.W_THIS_RACE_CONGRESS_NAMES].apply(len).astype(float)
+    )
+    women_by_race[std_col.W_THIS_RACE_CONGRESS_NAMES] = women_by_race[std_col.W_THIS_RACE_CONGRESS_NAMES].apply(
+        lambda names: ",".join(names)
+    )
+
+    # --- scaffold: county x year x race ---
+    race_groups = list(CAWP_RACE_GROUPS_TO_STANDARD.keys()) + [Race.ALL.value]
+    all_county_fips = crosswalk_df[std_col.COUNTY_FIPS_COL].unique().tolist()
+    scaffold = pd.DataFrame({std_col.COUNTY_FIPS_COL: all_county_fips})
+    scaffold[std_col.TIME_PERIOD_COL] = [acs_years] * len(scaffold)
+    scaffold = scaffold.explode(std_col.TIME_PERIOD_COL).reset_index(drop=True)
+    scaffold[RACE_ETH] = [race_groups] * len(scaffold)
+    scaffold = scaffold.explode(RACE_ETH).reset_index(drop=True)
+
+    # derive state_fips from county_fips, then merge in state/county names
+    scaffold["state_fips"] = scaffold[std_col.COUNTY_FIPS_COL].str[:2]
+    scaffold = merge_utils.merge_state_ids(scaffold, keep_postal=True)
+    scaffold = merge_utils.merge_county_names(scaffold)
+
+    # --- merge totals and women counts ---
+    df = scaffold.merge(congress_totals, on=[std_col.COUNTY_FIPS_COL, std_col.TIME_PERIOD_COL], how="left")
+    df[std_col.CONGRESS_COUNT] = df[std_col.CONGRESS_COUNT].fillna(0)
+
+    df = df.merge(women_all, on=[std_col.COUNTY_FIPS_COL, std_col.TIME_PERIOD_COL], how="left")
+    df[std_col.W_ALL_RACES_CONGRESS_COUNT] = df[std_col.W_ALL_RACES_CONGRESS_COUNT].fillna(0)
+    df[std_col.W_ALL_RACES_CONGRESS_NAMES] = df[std_col.W_ALL_RACES_CONGRESS_NAMES].fillna("")
+
+    # for ALL race rows, copy all-races count to this_race count
+    df = df.merge(
+        women_by_race,
+        on=[std_col.COUNTY_FIPS_COL, std_col.TIME_PERIOD_COL, RACE_ETH],
+        how="left",
+    )
+    df[std_col.W_THIS_RACE_CONGRESS_COUNT] = df[std_col.W_THIS_RACE_CONGRESS_COUNT].fillna(0)
+    df[std_col.W_THIS_RACE_CONGRESS_NAMES] = df[std_col.W_THIS_RACE_CONGRESS_NAMES].replace("", float("nan"))
+    all_mask = df[RACE_ETH] == Race.ALL.value
+    df.loc[all_mask, std_col.W_THIS_RACE_CONGRESS_COUNT] = df.loc[all_mask, std_col.W_ALL_RACES_CONGRESS_COUNT]
+    df.loc[all_mask, std_col.W_THIS_RACE_CONGRESS_NAMES] = df.loc[all_mask, std_col.W_ALL_RACES_CONGRESS_NAMES]
+
+    # --- standardize race columns ---
+    df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
+        lambda x: "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x)
+    )
+    std_col.add_race_columns_from_category_id(df)
+    df = df.drop(columns=[RACE_ETH, "state_fips"])
+
+    # --- compute pct metrics ---
+    df[std_col.PCT_OF_CONGRESS] = round(df[std_col.W_THIS_RACE_CONGRESS_COUNT] / df[std_col.CONGRESS_COUNT] * 100, 1)
+    df[std_col.PCT_OF_W_CONGRESS] = round(
+        df[std_col.W_THIS_RACE_CONGRESS_COUNT] / df[std_col.W_ALL_RACES_CONGRESS_COUNT] * 100, 1
+    ).fillna(0)
+
+    df = df.drop(columns=[std_col.W_ALL_RACES_CONGRESS_COUNT, std_col.W_ALL_RACES_CONGRESS_NAMES])
+
+    df = merge_utils.merge_yearly_pop_numbers(df, RACE, cast(GEO_TYPE, COUNTY_LEVEL))
+    df = generate_pct_rel_inequity_col(
+        df,
+        std_col.PCT_OF_W_CONGRESS,
+        std_col.POPULATION_PCT_COL,
+        std_col.W_CONGRESS_PCT_INEQUITY,
+    )
+    df = zero_out_pct_rel_inequity(
+        df,
+        cast(GEO_TYPE, COUNTY_LEVEL),
+        RACE,
+        {std_col.PCT_OF_CONGRESS: std_col.W_CONGRESS_PCT_INEQUITY},
+        std_col.POPULATION_PCT_COL,
+    )
+
+    mask = df[std_col.RACE_CATEGORY_ID_COL] == Race.AIAN_API.value
+    df.loc[mask, std_col.PCT_OF_CONGRESS] = None
+
+    df = df.rename(
+        columns={
+            std_col.POPULATION_COL: CAWP_POP_COL,
+            std_col.POPULATION_PCT_COL: CAWP_POP_PCT_COL,
+        }
+    )
+
+    # add districts column (static from crosswalk)
+    df = df.merge(county_districts, on=std_col.COUNTY_FIPS_COL, how="left")
+
+    sort_cols = [
+        std_col.TIME_PERIOD_COL,
+        std_col.COUNTY_FIPS_COL,
+        std_col.RACE_CATEGORY_ID_COL,
+    ]
+    return df.sort_values(by=sort_cols).reset_index(drop=True)
+
+
+def _build_congress_member_entries(raw_legislators_json: list, years: list) -> list:
+    """Iterates over legislators and terms to produce one entry per member per year served.
 
     Returns:
-        df with rows per legislator-term and
-        columns "time_period" by year and "state_postal" """
-
-    # load US congress data for total_counts
-    raw_historical_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_HISTORICAL_URL)
-    raw_current_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_CURRENT_URL)
-
-    raw_legislators_json = [*raw_historical_congress_json, *raw_current_congress_json]
-
-    us_congress_totals_list_of_dict = []
-    years = get_consecutive_time_periods()
-
-    # iterate through each legislator
+        list of dicts with keys: ID, NAME, TYPE, STATE_POSTAL_COL, TIME_PERIOD_COL, DISTRICT.
+        DISTRICT is the House district number (int) for representatives, None for senators."""
+    entries = []
     for legislator in raw_legislators_json:
-        # and each term they served
         for term in legislator[TERMS]:
-
             term_years = extract_term_years(term)
-
-            # and each year of each term
             for year in term_years:
                 year = str(year)
                 title = (
@@ -584,14 +871,43 @@ def get_us_congress_totals_df():
                     TYPE: term[TYPE],
                     std_col.STATE_POSTAL_COL: term[STATE],
                     std_col.TIME_PERIOD_COL: year,
+                    DISTRICT: term.get(DISTRICT),
                 }
-                # add entry of service for id/year/state.
-                # avoid double counting, CAWP only has 1 entry per leg. per year
-                if year in years and entry not in us_congress_totals_list_of_dict:
-                    us_congress_totals_list_of_dict.append(entry)
+                # avoid double counting; CAWP has 1 entry per legislator per year
+                if year in years and entry not in entries:
+                    entries.append(entry)
+    return entries
 
-    # convert to df
-    df = pd.DataFrame.from_dict(us_congress_totals_list_of_dict)
+
+def get_us_congress_members_df():
+    """Fetches historic and current Congress data and returns one row per member per year,
+    preserving the House district number for use in county-level joins.
+
+    Returns:
+        df with columns: ID, NAME, TYPE, state_postal, time_period, DISTRICT.
+        DISTRICT is an int for House members, None for senators."""
+    raw_historical = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_HISTORICAL_URL)
+    raw_current = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_CURRENT_URL)
+    years = get_consecutive_time_periods()
+    entries = _build_congress_member_entries([*raw_historical, *raw_current], years)
+    return pd.DataFrame.from_dict(entries)
+
+
+def get_us_congress_totals_df():
+    """Fetches historic and current congress data, combines them, and iterates over
+    each Congress member and their terms served to generate a dataframe.
+
+    Returns:
+        df with rows per state-year and
+        columns "time_period", "state_postal", CONGRESS_NAMES, CONGRESS_COUNT"""
+
+    raw_historical_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_HISTORICAL_URL)
+    raw_current_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_CURRENT_URL)
+    years = get_consecutive_time_periods()
+
+    entries = _build_congress_member_entries([*raw_historical_congress_json, *raw_current_congress_json], years)
+
+    df = pd.DataFrame.from_dict(entries)
 
     # get names of all TOTAL members in lists per row
     df = df.groupby([std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])[NAME].apply(list).reset_index()
@@ -757,58 +1073,24 @@ def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool
 
 
 def get_state_leg_totals_df():
-    """Fetches each individual CAWP state info page's state legislature
-    table, combines into a single cleaned df. Nulls everything before 1983;
-    CAWPs totals are problematic between 1975-1982 and missing before that.
+    """Loads state legislature denominator tables from locally-cached CSV files
+    (data/cawp/cawp_state_leg_{fips}.csv). Files are maintained by
+    data/cawp/refresh_cawp_data.py and committed to the repo.
 
-    Returns: df with "time_period", "state_fips", and stleg
-        total_ and total_women cols
-
+    Returns: df with "time_period", "state_fips", and total_state_leg_count cols
     """
-
-    territory_dfs = []
-    for fips in TERRITORY_FIPS_LIST:
-        filename = f"cawp_state_leg_{fips}.csv"
-        territory_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            "cawp", filename, dtype={"state_fips": str, "time_period": str}
+    all_fips = list(FIPS_TO_STATE_TABLE_MAP.keys()) + list(TERRITORY_FIPS_LIST)
+    dfs = []
+    for fips in all_fips:
+        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            "cawp",
+            f"cawp_state_leg_{fips}.csv",
+            dtype={"state_fips": str, "time_period": str},
         )
-        territory_dfs.append(territory_df)
-    df_rows_by_territory = pd.concat(territory_dfs)
+        dfs.append(df)
 
-    state_dfs = []
-    for fips, id in FIPS_TO_STATE_TABLE_MAP.items():
-        state_df = gcs_to_bq_util.load_csv_as_df_from_web(get_stleg_url(id), dtype=str)
-
-        # remove weird chars from col headers
-        state_df.columns = state_df.columns.str.replace(r"\W", "", regex=True)
-
-        # standardize the year col
-        state_df = state_df.rename(columns={"Year": std_col.TIME_PERIOD_COL})
-        # Drop rows where year is NaN
-        state_df = state_df.dropna(subset=[std_col.TIME_PERIOD_COL])
-
-        state_df[std_col.TIME_PERIOD_COL] = state_df[std_col.TIME_PERIOD_COL].astype(str)
-
-        # extract totals
-        state_df[[std_col.W_ALL_RACES_STLEG_COUNT, std_col.STLEG_COUNT]] = state_df[
-            "TotalWomenTotalLegislature"
-        ].str.split("/", n=1, expand=True)
-
-        # keep only needed cols
-        state_df = state_df[[std_col.TIME_PERIOD_COL, std_col.STLEG_COUNT]]
-
-        # append this state df to the list
-        state_df[std_col.STATE_FIPS_COL] = fips
-        state_dfs.append(state_df)
-
-    # combine all state ROWS into one big df
-    df_rows_by_state = pd.concat(state_dfs)
-
-    # combine all territory ROWS as well
-    df = pd.concat([df_rows_by_state, df_rows_by_territory])
-    df = df.sort_values(by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]).reset_index(drop=True)
-
-    return df
+    df = pd.concat(dfs)
+    return df.sort_values(by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]).reset_index(drop=True)
 
 
 def combine_states_to_national(df):
