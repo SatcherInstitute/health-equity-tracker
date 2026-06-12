@@ -731,16 +731,11 @@ def generate_county_breakdown() -> pd.DataFrame:
     women_county = get_women_congress_by_county_df(crosswalk_df)
     women_county = women_county[women_county[std_col.TIME_PERIOD_COL].isin(acs_years)]
 
-    # all-races women count per county per year
-    women_all = (
-        women_county.groupby([std_col.COUNTY_FIPS_COL, std_col.TIME_PERIOD_COL])[NAME]
-        .apply(list)
-        .reset_index()
-        .rename(columns={NAME: std_col.W_ALL_RACES_CONGRESS_COUNT})
-    )
-    women_all[std_col.W_ALL_RACES_CONGRESS_COUNT] = (
-        women_all[std_col.W_ALL_RACES_CONGRESS_COUNT].apply(len).astype(float)
-    )
+    # all-races women count and names per county per year
+    women_all = women_county.groupby([std_col.COUNTY_FIPS_COL, std_col.TIME_PERIOD_COL])[NAME].apply(list).reset_index()
+    women_all[std_col.W_ALL_RACES_CONGRESS_COUNT] = women_all[NAME].apply(len).astype(float)
+    women_all[std_col.W_ALL_RACES_CONGRESS_NAMES] = women_all[NAME].apply(lambda names: ",".join(names))
+    women_all = women_all.drop(columns=[NAME])
 
     # per-race women count and names per county per year
     women_county = handle_other_and_multi_races(women_county)
@@ -777,6 +772,7 @@ def generate_county_breakdown() -> pd.DataFrame:
 
     df = df.merge(women_all, on=[std_col.COUNTY_FIPS_COL, std_col.TIME_PERIOD_COL], how="left")
     df[std_col.W_ALL_RACES_CONGRESS_COUNT] = df[std_col.W_ALL_RACES_CONGRESS_COUNT].fillna(0)
+    df[std_col.W_ALL_RACES_CONGRESS_NAMES] = df[std_col.W_ALL_RACES_CONGRESS_NAMES].fillna("")
 
     # for ALL race rows, copy all-races count to this_race count
     df = df.merge(
@@ -788,6 +784,7 @@ def generate_county_breakdown() -> pd.DataFrame:
     df[std_col.W_THIS_RACE_CONGRESS_NAMES] = df[std_col.W_THIS_RACE_CONGRESS_NAMES].replace("", float("nan"))
     all_mask = df[RACE_ETH] == Race.ALL.value
     df.loc[all_mask, std_col.W_THIS_RACE_CONGRESS_COUNT] = df.loc[all_mask, std_col.W_ALL_RACES_CONGRESS_COUNT]
+    df.loc[all_mask, std_col.W_THIS_RACE_CONGRESS_NAMES] = df.loc[all_mask, std_col.W_ALL_RACES_CONGRESS_NAMES]
 
     # --- standardize race columns ---
     df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
@@ -802,7 +799,7 @@ def generate_county_breakdown() -> pd.DataFrame:
         df[std_col.W_THIS_RACE_CONGRESS_COUNT] / df[std_col.W_ALL_RACES_CONGRESS_COUNT] * 100, 1
     ).fillna(0)
 
-    df = df.drop(columns=[std_col.W_ALL_RACES_CONGRESS_COUNT])
+    df = df.drop(columns=[std_col.W_ALL_RACES_CONGRESS_COUNT, std_col.W_ALL_RACES_CONGRESS_NAMES])
 
     df = merge_utils.merge_yearly_pop_numbers(df, RACE, cast(GEO_TYPE, COUNTY_LEVEL))
     df = generate_pct_rel_inequity_col(

@@ -305,7 +305,7 @@ def testWriteToBq(
     assert table_name == "race_and_ethnicity_county_current"
     assert std_col.COUNTY_FIPS_COL in df_county_current.columns
     assert CONGRESSIONAL_DISTRICTS_COL in df_county_current.columns
-    df_county_current.to_csv(os.path.join(GOLDEN_DIR, table_name + ".csv"), index=False)
+    # df_county_current.to_csv(os.path.join(GOLDEN_DIR, table_name + ".csv"), index=False)
     assert_frame_equal(
         df_county_current,
         load_golden_df(GOLDEN_DIR, table_name, {std_col.COUNTY_FIPS_COL: str, std_col.TIME_PERIOD_COL: str}),
