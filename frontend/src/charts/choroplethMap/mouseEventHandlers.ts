@@ -37,7 +37,13 @@ function buildTooltipEntries(
         const demoLabel = demographicType
           ? DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
           : 'demographic'
-        return { label: '', value: `${rawValue}% of ${demoLabel} data missing` }
+        return {
+          label: '',
+          value:
+            rawValue != null
+              ? `${rawValue} of ${demoLabel} data missing`
+              : missingDataValue,
+        }
       }
       return {
         label: key,

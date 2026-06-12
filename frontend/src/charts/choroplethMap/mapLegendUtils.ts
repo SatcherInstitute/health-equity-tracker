@@ -17,6 +17,11 @@ export function createUnknownLegend(
   const gradientLength = width * 0.35
   const legendHeight = 15
   const [legendLowerBound, legendUpperBound] = colorScale.domain()
+  const range = legendUpperBound - legendLowerBound
+
+  // Skip gradient when all values are identical (no meaningful range to display)
+  if (range === 0) return
+
   const tickCount = 2
   const ticks = scaleLinear()
     .domain([legendLowerBound, legendUpperBound])
@@ -34,17 +39,20 @@ export function createUnknownLegend(
     .attr('x1', '0%')
     .attr('x2', '100%')
 
+  // Use 10 evenly-spaced stops so multi-hue scales (greenblue, viridis, etc.)
+  // render all intermediate hues, not just a linear RGB blend of the endpoints.
+  const stopCount = 10
+  const stops = Array.from({ length: stopCount }, (_, i) => {
+    const t = i / (stopCount - 1)
+    return {
+      offset: `${t * 100}%`,
+      color: colorScale(legendLowerBound + t * range),
+    }
+  })
+
   gradient
     .selectAll('stop')
-    .data(
-      ticks.map((value) => ({
-        offset: `${
-          ((value - legendLowerBound) / (legendUpperBound - legendLowerBound)) *
-          100
-        }%`,
-        color: colorScale(value),
-      })),
-    )
+    .data(stops)
     .join('stop')
     .attr('offset', (d) => d.offset)
     .attr('stop-color', (d) => d.color)
@@ -74,24 +82,31 @@ export function createUnknownLegend(
 
   const labelGroup = legendContainer
     .append('g')
-    .attr('transform', `translate(50, ${legendHeight + 10})`) // Align to gradient start
+    .attr('transform', `translate(50, ${legendHeight + 10})`)
 
-  const constrainedTicks = ticks.map((label) => {
-    // Constrain the positions of ticks to the gradient length
-    const position =
-      ((label - legendLowerBound) / (legendUpperBound - legendLowerBound)) *
-      gradientLength
+  const formatLabel = (val: number) =>
+    Number.isInteger(val) ? val.toString() : val.toFixed(1)
 
-    // Clamp positions to the gradient bounds
-    const clampedPosition = Math.min(Math.max(position, 10), gradientLength)
-    return { label, position: clampedPosition }
+  // Always label the actual min/max bounds; add any intermediate nice ticks
+  // that are at least 30px from either boundary to avoid overlapping labels.
+  const minPixelGap = 30
+  const middleTicks = ticks.filter((tick) => {
+    const position = ((tick - legendLowerBound) / range) * gradientLength
+    return position > minPixelGap && position < gradientLength - minPixelGap
   })
+  const constrainedTicks = [
+    { label: formatLabel(legendLowerBound), position: 0 },
+    ...middleTicks.map((label) => ({
+      label: formatLabel(label),
+      position: ((label - legendLowerBound) / range) * gradientLength,
+    })),
+    { label: formatLabel(legendUpperBound), position: gradientLength },
+  ]
 
-  // Add labels
   constrainedTicks.forEach(({ label, position }) => {
     labelGroup
       .append('text')
-      .attr('x', position) // Correctly aligned within gradient bounds
+      .attr('x', position)
       .attr('text-anchor', 'middle')
       .style('font', '10px sans-serif')
       .text(`${label}%`)
