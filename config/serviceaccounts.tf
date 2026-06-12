@@ -108,13 +108,29 @@ resource "google_service_account" "frontend_runner_identity" {
 resource "google_project_iam_custom_role" "insights_cache_writer_role" {
   role_id     = var.insights_cache_writer_role_id
   title       = "Insights Cache Writer"
-  description = "Allows reading and writing objects in the AI insights cache bucket."
-  permissions = ["storage.objects.create", "storage.objects.get", "storage.objects.update", "storage.buckets.get"]
+  description = "Allows reading, writing, and deleting objects in the AI insights cache bucket."
+  # delete is needed so flagging/re-enabling an insight can remove its stale cached copy.
+  permissions = ["storage.objects.create", "storage.objects.delete", "storage.objects.get", "storage.objects.update", "storage.buckets.get"]
 }
 
 resource "google_storage_bucket_iam_member" "data_server_insights_cache_binding" {
   bucket = google_storage_bucket.insights_cache_bucket.name
   role   = google_project_iam_custom_role.insights_cache_writer_role.id
+  member = format("serviceAccount:%s", google_service_account.data_server_runner_identity.email)
+}
+
+# Bucket-scoped role for the flagged-insights bucket. Needs list (to enumerate flags for
+# review and negative-example prompts) and delete (to update flag records).
+resource "google_project_iam_custom_role" "flagged_insights_writer_role" {
+  role_id     = var.flagged_insights_writer_role_id
+  title       = "Flagged Insights Writer"
+  description = "Allows reading, writing, listing, and deleting objects in the flagged insights bucket."
+  permissions = ["storage.objects.create", "storage.objects.delete", "storage.objects.get", "storage.objects.list", "storage.objects.update", "storage.buckets.get"]
+}
+
+resource "google_storage_bucket_iam_member" "data_server_flagged_insights_binding" {
+  bucket = google_storage_bucket.flagged_insights_bucket.name
+  role   = google_project_iam_custom_role.flagged_insights_writer_role.id
   member = format("serviceAccount:%s", google_service_account.data_server_runner_identity.email)
 }
 

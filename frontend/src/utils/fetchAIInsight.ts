@@ -5,10 +5,15 @@ export type InsightResult = {
   content: string
   rateLimited: boolean
   error?: boolean
+  suppressed?: boolean
+  // The exact server cache key the insight was stored under — needed to flag it.
+  cacheKey?: string
 }
 
 export type FetchAIInsightOptions = {
   cacheKey?: string
+  // Topic identifier (e.g. dataTypeId) used to scope flagged-example negative prompts.
+  topic?: string
 }
 
 export async function fetchAIInsight(
@@ -27,6 +32,7 @@ export async function fetchAIInsight(
       body: JSON.stringify({
         prompt,
         cacheKey: options?.cacheKey,
+        topic: options?.topic,
       }),
     })
 
@@ -39,6 +45,10 @@ export async function fetchAIInsight(
     }
 
     const insight = await dataResponse.json()
+    // The insight has been flagged and suppressed — there is no content to show.
+    if (insight.suppressed) {
+      return { content: '', rateLimited: false, suppressed: true }
+    }
     if (!insight.content) {
       throw new Error('No content returned from AI service')
     }

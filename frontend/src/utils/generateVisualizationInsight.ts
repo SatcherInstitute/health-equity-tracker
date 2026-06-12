@@ -156,5 +156,9 @@ export async function generateCardInsight(
   const cardSuffix = isCompareCard ? '-2' : ''
   const cacheKey = `${window.location.pathname}?${params.toString()}#${hashId}${cardSuffix}`
 
-  return fetchAIInsight(prompt, { cacheKey })
+  const result = await fetchAIInsight(prompt, {
+    cacheKey,
+    topic: dataTypeConfig.dataTypeId,
+  })
+  return { ...result, cacheKey }
 }
