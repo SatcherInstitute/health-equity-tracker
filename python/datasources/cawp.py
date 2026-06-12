@@ -1061,58 +1061,24 @@ def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool
 
 
 def get_state_leg_totals_df():
-    """Fetches each individual CAWP state info page's state legislature
-    table, combines into a single cleaned df. Nulls everything before 1983;
-    CAWPs totals are problematic between 1975-1982 and missing before that.
+    """Loads state legislature denominator tables from locally-cached CSV files
+    (data/cawp/cawp_state_leg_{fips}.csv). Files are maintained by
+    data/cawp/refresh_cawp_data.py and committed to the repo.
 
-    Returns: df with "time_period", "state_fips", and stleg
-        total_ and total_women cols
-
+    Returns: df with "time_period", "state_fips", and total_state_leg_count cols
     """
-
-    territory_dfs = []
-    for fips in TERRITORY_FIPS_LIST:
-        filename = f"cawp_state_leg_{fips}.csv"
-        territory_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            "cawp", filename, dtype={"state_fips": str, "time_period": str}
+    all_fips = list(FIPS_TO_STATE_TABLE_MAP.keys()) + list(TERRITORY_FIPS_LIST)
+    dfs = []
+    for fips in all_fips:
+        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            "cawp",
+            f"cawp_state_leg_{fips}.csv",
+            dtype={"state_fips": str, "time_period": str},
         )
-        territory_dfs.append(territory_df)
-    df_rows_by_territory = pd.concat(territory_dfs)
+        dfs.append(df)
 
-    state_dfs = []
-    for fips, id in FIPS_TO_STATE_TABLE_MAP.items():
-        state_df = gcs_to_bq_util.load_csv_as_df_from_web(get_stleg_url(id), dtype=str)
-
-        # remove weird chars from col headers
-        state_df.columns = state_df.columns.str.replace(r"\W", "", regex=True)
-
-        # standardize the year col
-        state_df = state_df.rename(columns={"Year": std_col.TIME_PERIOD_COL})
-        # Drop rows where year is NaN
-        state_df = state_df.dropna(subset=[std_col.TIME_PERIOD_COL])
-
-        state_df[std_col.TIME_PERIOD_COL] = state_df[std_col.TIME_PERIOD_COL].astype(str)
-
-        # extract totals
-        state_df[[std_col.W_ALL_RACES_STLEG_COUNT, std_col.STLEG_COUNT]] = state_df[
-            "TotalWomenTotalLegislature"
-        ].str.split("/", n=1, expand=True)
-
-        # keep only needed cols
-        state_df = state_df[[std_col.TIME_PERIOD_COL, std_col.STLEG_COUNT]]
-
-        # append this state df to the list
-        state_df[std_col.STATE_FIPS_COL] = fips
-        state_dfs.append(state_df)
-
-    # combine all state ROWS into one big df
-    df_rows_by_state = pd.concat(state_dfs)
-
-    # combine all territory ROWS as well
-    df = pd.concat([df_rows_by_state, df_rows_by_territory])
-    df = df.sort_values(by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]).reset_index(drop=True)
-
-    return df
+    df = pd.concat(dfs)
+    return df.sort_values(by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]).reset_index(drop=True)
 
 
 def combine_states_to_national(df):
