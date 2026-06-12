@@ -142,17 +142,14 @@ export default function InsightVisualizationCard({
         <>
           <p className='m-0 font-bold text-alt-dark leading-snug'>{insight}</p>
           <p className='m-0 mt-2 text-alt-dark text-smallest'>
-            AI-generated synthesis powered by the Claude API. Always verify
-            findings with the source data shown in the charts above.
-          </p>
-          <div className='mt-2 flex justify-end'>
+            AI-generated. Verify with chart data.{' '}
             <FlagInsightButton
               cacheKey={serverCacheKey ?? undefined}
               content={insight}
               topic={dataTypeConfig.dataTypeId}
               onFlagged={handleFlagged}
             />
-          </div>
+          </p>
         </>
       )}
     </div>

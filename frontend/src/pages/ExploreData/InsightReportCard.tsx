@@ -211,18 +211,14 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             <Divider />
 
             <p className='m-0 text-alt-dark text-smallest'>
-              AI-generated insights powered by the Claude API. Always verify
-              findings with the source data shown in the charts above.
-            </p>
-
-            <div className='flex justify-end'>
+              AI-generated. Verify with chart data.{' '}
               <FlagInsightButton
                 cacheKey={serverCacheKey ?? undefined}
                 content={insightText}
                 topic={dataTypeConfig?.dataTypeId}
                 onFlagged={handleFlagged}
               />
-            </div>
+            </p>
           </>
         )}
       </div>

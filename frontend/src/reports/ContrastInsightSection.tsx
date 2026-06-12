@@ -172,8 +172,7 @@ export default function ContrastInsightSection({
             {contrastInsight}
           </p>
           <p className='m-0 mt-2 text-alt-dark text-smallest'>
-            AI-generated synthesis powered by the Claude API. Always verify
-            findings with the source data shown in the charts above.
+            AI-generated. Verify with chart data.
           </p>
         </>
       ) : null}

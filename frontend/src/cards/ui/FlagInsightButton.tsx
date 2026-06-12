@@ -1,4 +1,3 @@
-import OutlinedFlag from '@mui/icons-material/OutlinedFlag'
 import {
   Button,
   FormControlLabel,
@@ -64,15 +63,14 @@ export default function FlagInsightButton(props: FlagInsightButtonProps) {
 
   return (
     <>
-      <Button
-        size='small'
-        startIcon={<OutlinedFlag fontSize='small' />}
+      <button
+        type='button'
         onClick={(e) => setAnchorEl(e.currentTarget)}
         disabled={!props.cacheKey}
-        aria-label='flag this insight'
+        className='cursor-pointer border-0 bg-transparent p-0 text-alt-dark text-smallest underline hover:text-alt-black disabled:opacity-50'
       >
-        Flag this insight
-      </Button>
+        Report harmful or inaccurate content
+      </button>
       <Popover
         open={open}
         anchorEl={anchorEl}
@@ -82,7 +80,7 @@ export default function FlagInsightButton(props: FlagInsightButtonProps) {
       >
         <div className='flex w-72 flex-col gap-2 p-4'>
           <span className='font-semibold text-alt-dark text-small'>
-            Why are you flagging this insight?
+            What's the issue?
           </span>
           <RadioGroup
             value={reason}
@@ -110,7 +108,7 @@ export default function FlagInsightButton(props: FlagInsightButtonProps) {
           />
           {error && (
             <p className='m-0 text-red-500 text-smallest'>
-              Could not submit flag. Please try again.
+              Could not submit report. Please try again.
             </p>
           )}
           <div className='flex justify-end gap-2'>
@@ -123,7 +121,7 @@ export default function FlagInsightButton(props: FlagInsightButtonProps) {
               onClick={handleSubmit}
               disabled={!reason || submitting}
             >
-              {submitting ? 'Submitting...' : 'Submit flag'}
+              {submitting ? 'Submitting...' : 'Submit report'}
             </Button>
           </div>
         </div>
