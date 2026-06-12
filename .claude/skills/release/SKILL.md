@@ -54,10 +54,7 @@ git tag --sort=-version:refname | grep -E '^ReleaseV[0-9]+\.[0-9]+$' | head -1
 
 Parse the version number (e.g. `ReleaseV4.029` -> major=4, minor=29). Increment the minor by 1. Zero-pad the minor to match the existing width (e.g. `029` -> `030`). Construct the new tag: `ReleaseV4.030`.
 
-Print the previous tag and the new tag, then ask the user to confirm:
-> "Previous release: ReleaseV4.029. New tag will be: ReleaseV4.030. Proceed?"
-
-Wait for confirmation before continuing.
+Store `PREV_TAG` and `NEW_TAG` for use in later steps. Do not ask for confirmation here -- the single consent gate in Step 4 covers both the tag and the changelog.
 
 ---
 
@@ -74,12 +71,12 @@ const BASE = 'https://dev.healthequitytracker.org'
 
 test('dev: homepage loads with nav', async ({ page }) => {
   await page.goto(BASE)
-  await expect(page.getByRole('navigation')).toBeVisible({ timeout: 15000 })
+  await expect(page.getByRole('navigation').first()).toBeVisible({ timeout: 15000 })
 })
 
 test('dev: explore data page renders a chart', async ({ page }) => {
-  await page.goto(`${BASE}/exploredata?mls=1.diabetes-0.00&mlp=disparity&mlt=per100k`)
-  await expect(page.locator('[data-testid="rate-chart"], svg.vx-bar-group, .recharts-wrapper, canvas').first()).toBeVisible({ timeout: 20000 })
+  await page.goto(`${BASE}/exploredata?mls=1.diabetes-3.00&group1=All`)
+  await expect(page.locator('#rate-chart')).toBeVisible({ timeout: 30000 })
 })
 ```
 
@@ -116,7 +113,7 @@ git log "$PREV_TAG"..HEAD --oneline --no-merges
 Group them by prefix (`feat`, `fix`, `chore`, `docs`, `refactor`, etc.) and print a short summary:
 
 ```
-Ready to publish $NEW_TAG
+Ready to publish $NEW_TAG  (previous: $PREV_TAG)
 
 Features
   - <commit subject>
@@ -222,13 +219,13 @@ const BASE = 'https://healthequitytracker.org'
 
 test('prod: homepage loads with nav', async ({ page }) => {
   await page.goto(BASE)
-  await expect(page.getByRole('navigation')).toBeVisible({ timeout: 15000 })
+  await expect(page.getByRole('navigation').first()).toBeVisible({ timeout: 15000 })
   await expect(page).toHaveTitle(/Health Equity Tracker/i)
 })
 
 test('prod: explore data page renders', async ({ page }) => {
-  await page.goto(`${BASE}/exploredata?mls=1.diabetes-0.00&mlp=disparity&mlt=per100k`)
-  await expect(page.locator('[data-testid="rate-chart"], svg.vx-bar-group, .recharts-wrapper, canvas').first()).toBeVisible({ timeout: 20000 })
+  await page.goto(`${BASE}/exploredata?mls=1.diabetes-3.00&group1=All`)
+  await expect(page.locator('#rate-chart')).toBeVisible({ timeout: 30000 })
 })
 ```
 
