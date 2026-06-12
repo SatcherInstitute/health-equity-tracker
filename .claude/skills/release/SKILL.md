@@ -103,7 +103,45 @@ If either test fails: stop and report. Do not cut the release against a broken d
 
 ---
 
-## Step 4 — Publish the GitHub release
+## Step 4 — Release summary and consent
+
+All pre-checks have passed. Before publishing, show the user exactly what is about to ship.
+
+Fetch the commits between the previous tag and HEAD:
+
+```bash
+git log "$PREV_TAG"..HEAD --oneline --no-merges
+```
+
+Group them by prefix (`feat`, `fix`, `chore`, `docs`, `refactor`, etc.) and print a short summary:
+
+```
+Ready to publish $NEW_TAG
+
+Features
+  - <commit subject>
+
+Fixes
+  - <commit subject>
+
+Other (chore/docs/refactor/etc.)
+  - <commit subject>
+
+$N commits since $PREV_TAG
+Dev smoke: passed
+CI: all green
+```
+
+Omit any group that has no commits. Keep subjects to one line each -- truncate at 80 chars if needed.
+
+Then ask:
+> "Publish $NEW_TAG to production? (yes/no)"
+
+Wait for an explicit "yes" before continuing. Any other answer stops the skill.
+
+---
+
+## Step 5 — Publish the GitHub release
 
 Create the release using GitHub's built-in note generation (compares commits between the previous tag and HEAD):
 
@@ -124,7 +162,7 @@ Print the release URL returned by `gh release create`.
 
 ---
 
-## Step 5 — Monitor the production deploy
+## Step 6 — Monitor the production deploy
 
 Fetch the workflow run in the prod repo that was triggered by the release event. It may take 1-2 minutes to appear:
 
@@ -157,7 +195,7 @@ If the deploy workflow is not found after 3 minutes: warn the user and ask wheth
 
 ---
 
-## Step 6 — Parse release notes for smoke test targets
+## Step 7 — Parse release notes for smoke test targets
 
 Fetch the generated release notes to identify which features landed:
 
@@ -171,7 +209,7 @@ Also extract the full What's Changed list to include in the final summary.
 
 ---
 
-## Step 7 — Playwright smoke against production
+## Step 8 — Playwright smoke against production
 
 Write a temp test file at `frontend/playwright-tests/_release_prod_smoke.spec.ts`.
 
@@ -194,7 +232,7 @@ test('prod: explore data page renders', async ({ page }) => {
 })
 ```
 
-Then add one targeted assertion per notable `feat` commit from Step 6. Base each on what the commit description implies changed. For example:
+Then add one targeted assertion per notable `feat` commit from Step 7. Base each on what the commit description implies changed. For example:
 - A tooltip feature -> assert a tooltip appears on chart hover
 - A geo-selector feature -> assert the geo picker renders
 - A landing page change -> assert specific content on the home page
@@ -220,7 +258,7 @@ Report pass/fail per test. Failures are warnings, not blockers (the release is a
 
 ---
 
-## Step 8 — Trigger the nightly prod E2E
+## Step 9 — Trigger the nightly prod E2E
 
 Dispatch the scheduled nightly E2E workflow to run immediately against prod:
 
@@ -239,7 +277,7 @@ gh run list --workflow=e2eScheduled.yml --limit 3 \
 
 ---
 
-## Step 9 — Final summary
+## Step 10 — Final summary
 
 Print a release summary:
 
@@ -266,4 +304,4 @@ If any backend pipeline changes shipped in this release (any commit touching `py
 - The `--generate-notes` flag uses GitHub's comparison between `--notes-start-tag` and HEAD to build the changelog automatically. Do not manually craft release notes.
 - Only `Set as the latest release` should be set (no pre-release flag). `--latest` in the CLI maps to this.
 - The prod deploy is in a private repo (`health-equity-tracker-prod`). Access via `gh run list --repo SatcherInstitute/health-equity-tracker-prod` works as long as the user has access to that repo.
-- Playwright failures in Step 7 are warnings only -- the release is already published and the prod deploy has completed. Surface them clearly but do not imply the release can be rolled back automatically.
+- Playwright failures in Step 8 are warnings only -- the release is already published and the prod deploy has completed. Surface them clearly but do not imply the release can be rolled back automatically.
