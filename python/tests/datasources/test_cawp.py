@@ -4,6 +4,7 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 import json
 
+import ingestion.standardized_columns as std_col
 from datasources.cawp import (
     CAWPData,
     US_CONGRESS_HISTORICAL_URL,
@@ -12,6 +13,7 @@ from datasources.cawp import (
     extract_term_years,
     get_us_congress_members_df,
     DISTRICT,
+    CONGRESSIONAL_DISTRICTS_COL,
     FIPS_TO_STATE_TABLE_MAP,
 )
 from test_utils import load_golden_df
@@ -160,6 +162,23 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
         )
 
 
+def _load_county_crosswalk():
+    return (
+        pd.read_csv(
+            os.path.join(TEST_DIR, "mock_county_crosswalk.txt"),
+            sep="|",
+            dtype=str,
+            encoding="utf-8-sig",
+            usecols=["GEOID_CD118_20", "GEOID_COUNTY_20"],
+        )
+        .rename(columns={"GEOID_COUNTY_20": "county_fips"})
+        .assign(
+            state_fips=lambda df: df["GEOID_CD118_20"].str[:2],
+            district_num=lambda df: df["GEOID_CD118_20"].str[2:],
+        )
+    )
+
+
 def _load_csv_as_df_from_web(*args, **kwargs):
     url = args[0]
     dtype = kwargs.get("dtype", {})
@@ -183,7 +202,9 @@ def _load_csv_as_df_from_web(*args, **kwargs):
 @mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_as_df_from_data_dir)
 @mock.patch("datasources.cawp.get_consecutive_time_periods", side_effect=_get_consecutive_time_periods)
 @mock.patch("datasources.cawp.get_state_level_fips", return_value=FIPS_TO_TEST)
+@mock.patch("datasources.cawp.load_county_crosswalk", side_effect=_load_county_crosswalk)
 def testWriteToBq(
+    mock_county_crosswalk: mock.MagicMock,  # county crosswalk file from TEST_DIR
     mock_test_fips: mock.MagicMock,  # only use a restricted set of FIPS codes in test
     mock_test_time_periods: mock.MagicMock,  # only use a restricted number of years in test
     mock_data_dir: mock.MagicMock,  # reading either CAWP LINE ITEM CSV or MANUAL TERRITORY LEG.
@@ -209,20 +230,25 @@ def testWriteToBq(
 
     # CONGRESS TOTALS + ADD AIANAPI +
     # SCAFFOLD CONGRESS BY ALL + SCAFFOLD CONGRESS BY RACE +
-    # SCAFFOLD STATELEG BY ALL + SCAFFOLD STATELEG BY RACE
-    assert mock_test_time_periods.call_count == 6
+    # SCAFFOLD STATELEG BY ALL + SCAFFOLD STATELEG BY RACE +
+    # COUNTY: get_us_congress_members_df + generate_county_breakdown acs_years
+    assert mock_test_time_periods.call_count == 8
 
-    # CAWP LINE ITEM CSV + 6 TERRITORY LEG. TOTAL CSVS
-    assert mock_data_dir.call_count == 7
+    # CAWP LINE ITEM CSV + 6 TERRITORY LEG. TOTAL CSVS +
+    # COUNTY: CAWP LINE ITEM CSV in get_women_congress_by_county_df
+    assert mock_data_dir.call_count == 8
 
     # STATE LEG TOTALS FOR 50 STATES
     assert mock_csv_from_web.call_count == 50
 
-    # CURRENT + HISTORICAL CONGRESS TOTALS
-    assert mock_json_from_web.call_count == 2
+    # STATE/NATIONAL: CURRENT + HISTORICAL +
+    # COUNTY: get_us_congress_members_df (CURRENT + HISTORICAL)
+    assert mock_json_from_web.call_count == 4
 
-    # [ NATIONAL+STATE X CURRENT+HISTORICAL ] + STATE NAMES
-    assert mock_bq.call_count == 5
+    # [ NATIONAL+STATE X CURRENT+HISTORICAL ] + STATE NAMES + [ COUNTY X CURRENT+HISTORICAL ]
+    assert mock_bq.call_count == 7
+
+    assert mock_county_crosswalk.call_count == 1
 
     (
         names_call,
@@ -230,6 +256,8 @@ def testWriteToBq(
         state_current_call,
         national_historical_call,
         national_current_call,
+        county_historical_call,
+        county_current_call,
     ) = mock_bq.call_args_list
 
     # NAMES TABLE (can't really test df content due to csv weirdness)
@@ -259,3 +287,28 @@ def testWriteToBq(
     assert table_name == "race_and_ethnicity_national_current"
     # df_national_current.to_csv(table_name, index=False)
     assert_frame_equal(df_national_current, load_golden_df(GOLDEN_DIR, table_name, FIPS_TIME_DTYPE), check_like=True)
+
+    # COUNTY HISTORICAL
+    (df_county_historical, _dataset, table_name), _bq_types = county_historical_call
+    assert table_name == "race_and_ethnicity_county_historical"
+    assert std_col.COUNTY_FIPS_COL in df_county_historical.columns
+    assert CONGRESSIONAL_DISTRICTS_COL not in df_county_historical.columns
+    # df_county_historical.to_csv(os.path.join(GOLDEN_DIR, table_name + ".csv"), index=False)
+    assert_frame_equal(
+        df_county_historical,
+        load_golden_df(GOLDEN_DIR, table_name, {std_col.COUNTY_FIPS_COL: str, std_col.TIME_PERIOD_COL: str}),
+        check_like=True,
+    )
+
+    # COUNTY CURRENT
+    (df_county_current, _dataset, table_name), _bq_types = county_current_call
+    assert table_name == "race_and_ethnicity_county_current"
+    assert std_col.COUNTY_FIPS_COL in df_county_current.columns
+    assert CONGRESSIONAL_DISTRICTS_COL in df_county_current.columns
+    df_county_current.to_csv(os.path.join(GOLDEN_DIR, table_name + ".csv"), index=False)
+    assert_frame_equal(
+        df_county_current,
+        load_golden_df(GOLDEN_DIR, table_name, {std_col.COUNTY_FIPS_COL: str, std_col.TIME_PERIOD_COL: str}),
+        check_like=True,
+        check_exact=False,
+    )
