@@ -720,8 +720,10 @@ def generate_county_breakdown() -> pd.DataFrame:
     congress_totals[std_col.CONGRESS_COUNT] = congress_totals[std_col.CONGRESS_NAMES].apply(len).astype(float)
 
     # --- districts per county (static; used only in _current table) ---
+    # exclude non-numeric district codes (e.g. "ZZ" for territories without voting districts)
+    crosswalk_voting = crosswalk_df[pd.to_numeric(crosswalk_df["district_num"], errors="coerce").notna()]
     county_districts = (
-        crosswalk_df.groupby(std_col.COUNTY_FIPS_COL)["district_num"]
+        crosswalk_voting.groupby(std_col.COUNTY_FIPS_COL)["district_num"]
         .apply(lambda ds: ",".join("At-Large" if d == "00" else str(int(d)) for d in sorted(ds)))
         .reset_index()
         .rename(columns={"district_num": CONGRESSIONAL_DISTRICTS_COL})
