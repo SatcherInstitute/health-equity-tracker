@@ -179,6 +179,7 @@ STATE = "state"
 TERMS = "terms"
 START = "start"
 END = "end"
+DISTRICT = "district"
 FIRST_NAME = "first_name"
 LAST_NAME = "last_name"
 POSITION = "position"
@@ -553,31 +554,16 @@ def scaffold_df_by_year_by_state_by_race_list(race_list: List[str], first_year: 
     return df
 
 
-def get_us_congress_totals_df():
-    """Fetches historic and current congress data, combines them, and iterates over
-    each Congress member and their terms served to generate a dataframe.
+def _build_congress_member_entries(raw_legislators_json: list, years: list) -> list:
+    """Iterates over legislators and terms to produce one entry per member per year served.
 
     Returns:
-        df with rows per legislator-term and
-        columns "time_period" by year and "state_postal" """
-
-    # load US congress data for total_counts
-    raw_historical_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_HISTORICAL_URL)
-    raw_current_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_CURRENT_URL)
-
-    raw_legislators_json = [*raw_historical_congress_json, *raw_current_congress_json]
-
-    us_congress_totals_list_of_dict = []
-    years = get_consecutive_time_periods()
-
-    # iterate through each legislator
+        list of dicts with keys: ID, NAME, TYPE, STATE_POSTAL_COL, TIME_PERIOD_COL, DISTRICT.
+        DISTRICT is the House district number (int) for representatives, None for senators."""
+    entries = []
     for legislator in raw_legislators_json:
-        # and each term they served
         for term in legislator[TERMS]:
-
             term_years = extract_term_years(term)
-
-            # and each year of each term
             for year in term_years:
                 year = str(year)
                 title = (
@@ -590,14 +576,43 @@ def get_us_congress_totals_df():
                     TYPE: term[TYPE],
                     std_col.STATE_POSTAL_COL: term[STATE],
                     std_col.TIME_PERIOD_COL: year,
+                    DISTRICT: term.get(DISTRICT),
                 }
-                # add entry of service for id/year/state.
-                # avoid double counting, CAWP only has 1 entry per leg. per year
-                if year in years and entry not in us_congress_totals_list_of_dict:
-                    us_congress_totals_list_of_dict.append(entry)
+                # avoid double counting; CAWP has 1 entry per legislator per year
+                if year in years and entry not in entries:
+                    entries.append(entry)
+    return entries
 
-    # convert to df
-    df = pd.DataFrame.from_dict(us_congress_totals_list_of_dict)
+
+def get_us_congress_members_df():
+    """Fetches historic and current Congress data and returns one row per member per year,
+    preserving the House district number for use in county-level joins.
+
+    Returns:
+        df with columns: ID, NAME, TYPE, state_postal, time_period, DISTRICT.
+        DISTRICT is an int for House members, None for senators."""
+    raw_historical = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_HISTORICAL_URL)
+    raw_current = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_CURRENT_URL)
+    years = get_consecutive_time_periods()
+    entries = _build_congress_member_entries([*raw_historical, *raw_current], years)
+    return pd.DataFrame.from_dict(entries)
+
+
+def get_us_congress_totals_df():
+    """Fetches historic and current congress data, combines them, and iterates over
+    each Congress member and their terms served to generate a dataframe.
+
+    Returns:
+        df with rows per state-year and
+        columns "time_period", "state_postal", CONGRESS_NAMES, CONGRESS_COUNT"""
+
+    raw_historical_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_HISTORICAL_URL)
+    raw_current_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_CURRENT_URL)
+    years = get_consecutive_time_periods()
+
+    entries = _build_congress_member_entries([*raw_historical_congress_json, *raw_current_congress_json], years)
+
+    df = pd.DataFrame.from_dict(entries)
 
     # get names of all TOTAL members in lists per row
     df = df.groupby([std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])[NAME].apply(list).reset_index()

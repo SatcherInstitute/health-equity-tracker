@@ -10,6 +10,8 @@ from datasources.cawp import (
     US_CONGRESS_CURRENT_URL,
     get_consecutive_time_periods,
     extract_term_years,
+    get_us_congress_members_df,
+    DISTRICT,
     FIPS_TO_STATE_TABLE_MAP,
 )
 from test_utils import load_golden_df
@@ -64,6 +66,33 @@ def test_get_consecutive_time_periods():
     default_time_periods = get_consecutive_time_periods()
     assert default_time_periods[0] == "1915"
     assert default_time_periods[-1] == "2025"  # TODO: make dynamic; see GitHub #2897
+
+
+def _load_test_legislators_json(url, *_args, **_kwargs):
+    if url == US_CONGRESS_HISTORICAL_URL:
+        filename = "test_legislators-historical.json"
+    else:
+        filename = "test_legislators-current.json"
+    with open(os.path.join(TEST_DIR, filename)) as f:
+        return json.load(f)
+
+
+@mock.patch(
+    "ingestion.gcs_to_bq_util.fetch_json_from_web",
+    side_effect=_load_test_legislators_json,
+)
+def test_get_us_congress_members_df(mock_fetch):
+    df = get_us_congress_members_df()
+
+    assert DISTRICT in df.columns
+
+    reps = df[df["type"] == "rep"]
+    sens = df[df["type"] == "sen"]
+
+    assert reps[DISTRICT].notna().all(), "all House reps should have a district number"
+    assert sens[DISTRICT].isna().all(), "all senators should have district=None"
+
+    assert mock_fetch.call_count == 2
 
 
 # INTEGRATION TEST SETUP
