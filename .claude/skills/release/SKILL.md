@@ -134,11 +134,11 @@ PROD_REPO="SatcherInstitute/health-equity-tracker-prod"
 # Poll until the release-triggered run appears (up to 3 minutes)
 for i in $(seq 1 18); do
   RUN=$(gh run list --repo "$PROD_REPO" --limit 5 \
-    --json name,status,conclusion,url,createdAt \
-    --jq '[.[] | select(.name | test("release"; "i"))] | .[0] | "\(.status) \(.conclusion // "pending") \(.url)"' 2>/dev/null)
+    --json name,status,conclusion,url,databaseId \
+    --jq '[.[] | select(.name | test("release"; "i"))] | first | select(. != null) | "\(.databaseId) \(.status) \(.conclusion // "pending") \(.url)"' 2>/dev/null)
   echo "[$i/18] $RUN"
-  echo "$RUN" | grep -qE "^completed" && break
-  echo "$RUN" | grep -qE "^in_progress|^queued|^waiting|^ " && sleep 10 && continue
+  echo "$RUN" | awk '{print $2}' | grep -qE "^completed" && break
+  echo "$RUN" | awk '{print $2}' | grep -qE "^in_progress|^queued|^waiting" && sleep 10 && continue
   # Not found yet
   sleep 10
 done
@@ -147,7 +147,8 @@ done
 Once found, poll until it completes (Cloud Run deploys can take 5-15 minutes if Terraform resources changed):
 
 ```bash
-gh run watch <run-id> --repo "$PROD_REPO" --exit-status
+RUN_ID=$(echo "$RUN" | awk '{print $1}')
+gh run watch "$RUN_ID" --repo "$PROD_REPO" --exit-status
 ```
 
 If the deploy fails: print the URL and stop. Do not proceed to prod verification.
@@ -189,7 +190,7 @@ test('prod: homepage loads with nav', async ({ page }) => {
 
 test('prod: explore data page renders', async ({ page }) => {
   await page.goto(`${BASE}/exploredata?mls=1.diabetes-0.00&mlp=disparity&mlt=per100k`)
-  await expect(page.locator('[data-testid="rate-chart"], svg, canvas').first()).toBeVisible({ timeout: 20000 })
+  await expect(page.locator('[data-testid="rate-chart"], svg.vx-bar-group, .recharts-wrapper, canvas').first()).toBeVisible({ timeout: 20000 })
 })
 ```
 
