@@ -13,6 +13,7 @@ import {
 import { useAtom, useAtomValue } from 'jotai'
 import type React from 'react'
 import { useCallback, useEffect, useState } from 'react'
+import FlagInsightButton from '../../cards/ui/FlagInsightButton'
 import {
   generateReportInsight,
   type ReportInsightSections,
@@ -76,19 +77,27 @@ export default function InsightReportCard(props: InsightReportCardProps) {
 
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  // The exact server cache key used, captured so the flag button targets this insight.
+  const [serverCacheKey, setServerCacheKey] = useState<string | null>(null)
+  // True only if the team has escalated this insight to hidden — no content is shown.
+  const [suppressed, setSuppressed] = useState(false)
 
   const handleGenerate = useCallback(async () => {
     if (!dataTypeConfig || !fips || !demographicType) return
     setIsGenerating(true)
     setError(null)
+    setSuppressed(false)
     try {
       const result = await generateReportInsight(
         dataTypeConfig,
         demographicType,
         fips,
       )
+      setServerCacheKey(result.cacheKey ?? null)
       if (result.rateLimited) {
         setError('Too many requests. Please wait a moment and try again.')
+      } else if (result.suppressed) {
+        setSuppressed(true)
       } else if (result.error || !result.sections) {
         setError('Unable to generate insight. Please try again.')
       } else {
@@ -105,6 +114,21 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   useEffect(() => {
     if (!cachedEntry) void handleGenerate()
   }, [cacheKey, handleGenerate])
+
+  const handleFlagged = () => {
+    // Drop the cached insight and regenerate a fresh one in its place. Flagging records
+    // the bad output for review but does not hide this data combination.
+    setReportInsights((prev) => {
+      const next = { ...prev }
+      delete next[cacheKey]
+      return next
+    })
+    void handleGenerate()
+  }
+
+  const insightText = sections
+    ? SECTIONS.map(({ key }) => sections[key]).join(' ')
+    : ''
 
   const handleClose = () => {
     setIsOpen(false)
@@ -153,8 +177,17 @@ export default function InsightReportCard(props: InsightReportCardProps) {
           </div>
         )}
 
+        {/* Hidden — only when the team has escalated this insight */}
+        {suppressed && !isGenerating && (
+          <div className='flex flex-col items-center gap-2 py-6'>
+            <p className='m-0 text-center text-alt-dark text-small'>
+              This insight was flagged for review and is currently hidden.
+            </p>
+          </div>
+        )}
+
         {/* Sections, disclaimer — only when content is ready */}
-        {sections && !isGenerating && (
+        {sections && !isGenerating && !suppressed && (
           <>
             <div className='flex flex-col gap-5'>
               {SECTIONS.map(({ key, label, icon }) => (
@@ -178,8 +211,13 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             <Divider />
 
             <p className='m-0 text-alt-dark text-smallest'>
-              AI-generated insights powered by the Claude API. Always verify
-              findings with the source data shown in the charts above.
+              AI-generated. Verify with chart data.{' '}
+              <FlagInsightButton
+                cacheKey={serverCacheKey ?? undefined}
+                content={insightText}
+                topic={dataTypeConfig?.dataTypeId}
+                onFlagged={handleFlagged}
+              />
             </p>
           </>
         )}

@@ -181,6 +181,11 @@ variable "insights_cache_writer_role_id" {
   type        = string
 }
 
+variable "flagged_insights_writer_role_id" {
+  description = "Role id of the custom IAM role granting read/write access to the flagged insights bucket"
+  type        = string
+}
+
 variable "ahr_api_key" {
   description = "AHR GraphQL API key for ingestion"
   type        = string
@@ -201,6 +206,11 @@ variable "webflow_api_token" {
 
 variable "insights_cache_bucket" {
   description = "Name of the GCS bucket for caching AI-generated insights"
+  type        = string
+}
+
+variable "flagged_insights_bucket" {
+  description = "Name of the GCS bucket storing user-flagged insights (no TTL — curated archive)"
   type        = string
 }
 

@@ -40,3 +40,7 @@ frontend_runner_identity_id = "frontend-runner"
 
 # Custom IAM role granting read/write on the AI insights cache bucket (bound to the data server SA).
 insights_cache_writer_role_id = "insights_cache_writer_role"
+
+# Bucket storing user-flagged insights (curated archive, no TTL) and its writer role.
+flagged_insights_bucket         = "$USERNAME-flagged-insights"
+flagged_insights_writer_role_id = "flagged_insights_writer_role"

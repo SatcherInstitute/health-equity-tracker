@@ -112,6 +112,11 @@ resource "google_cloud_run_service" "data_server_service" {
           name  = "INSIGHTS_CACHE_BUCKET"
           value = var.insights_cache_bucket
         }
+        env {
+          # GCS bucket for user-flagged insights (read/write/list).
+          name  = "FLAGGED_INSIGHTS_BUCKET"
+          value = var.flagged_insights_bucket
+        }
 
         resources {
           limits = {
@@ -205,6 +210,12 @@ resource "google_cloud_run_service" "frontend_service" {
         env {
           name  = "WEBFLOW_API_TOKEN"
           value = var.webflow_api_token
+        }
+        env {
+          # Feeds flagged insights back into the generation prompt as negative examples
+          # so regenerated insights steer away from previously flagged content.
+          name  = "INSIGHT_NEGATIVE_EXAMPLES_ENABLED"
+          value = "true"
         }
 
         resources {
