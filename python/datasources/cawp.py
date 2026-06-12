@@ -125,6 +125,12 @@ US_CONGRESS_CURRENT_URL = "https://unitedstates.github.io/congress-legislators/l
 US_CONGRESS_HISTORICAL_URL = "https://unitedstates.github.io/congress-legislators/legislators-historical.json"
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity_time_series.csv"
 
+# Census 118th Congress (2022 redistricting) county-to-congressional-district crosswalk.
+# Source: https://www2.census.gov/geo/docs/maps-data/data/rel2020/cd-sld/tab20_cd11820_county20_natl.txt
+# Refresh this file at the start of each new Congress (redistricting occurs every 10 years,
+# but court-ordered redraws can happen mid-decade).
+COUNTY_CD_CROSSWALK_FILE = "tab20_cd11820_county20_natl.txt"
+
 
 CAWP_POP_PCT_COL = "cawp_population_pct"
 CAWP_POP_COL = "cawp_population"
