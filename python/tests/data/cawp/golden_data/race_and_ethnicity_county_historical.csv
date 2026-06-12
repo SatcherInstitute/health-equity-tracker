@@ -29,6 +29,16 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01097,2018,Alabama,AL,Mobile County,Unrepresented race,0.0,-100.0
 01097,2018,Alabama,AL,Mobile County,Unknown race,0.0,
 01097,2018,Alabama,AL,Mobile County,White,25.0,70.1
+60010,2018,American Samoa,AS,Eastern District,"Native American, Alaska Native, & Native Hawaiian",0.0,
+60010,2018,American Samoa,AS,Eastern District,All,100.0,0.0
+60010,2018,American Samoa,AS,Eastern District,Asian American & Pacific Islander,100.0,
+60010,2018,American Samoa,AS,Eastern District,Black or African American,0.0,-100.0
+60010,2018,American Samoa,AS,Eastern District,Hispanic or Latino,0.0,-100.0
+60010,2018,American Samoa,AS,Eastern District,Middle Eastern & North African,0.0,
+60010,2018,American Samoa,AS,Eastern District,Two or more races,0.0,-100.0
+60010,2018,American Samoa,AS,Eastern District,Unrepresented race,0.0,-100.0
+60010,2018,American Samoa,AS,Eastern District,Unknown race,0.0,
+60010,2018,American Samoa,AS,Eastern District,White,0.0,-100.0
 01003,2019,Alabama,AL,Baldwin County,"Native American, Alaska Native, & Native Hawaiian",0.0,
 01003,2019,Alabama,AL,Baldwin County,All,0.0,0.0
 01003,2019,Alabama,AL,Baldwin County,Asian American & Pacific Islander,0.0,
@@ -59,6 +69,16 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01097,2019,Alabama,AL,Mobile County,Unrepresented race,0.0,-100.0
 01097,2019,Alabama,AL,Mobile County,Unknown race,0.0,
 01097,2019,Alabama,AL,Mobile County,White,25.0,70.6
+60010,2019,American Samoa,AS,Eastern District,"Native American, Alaska Native, & Native Hawaiian",0.0,
+60010,2019,American Samoa,AS,Eastern District,All,100.0,0.0
+60010,2019,American Samoa,AS,Eastern District,Asian American & Pacific Islander,100.0,
+60010,2019,American Samoa,AS,Eastern District,Black or African American,0.0,-100.0
+60010,2019,American Samoa,AS,Eastern District,Hispanic or Latino,0.0,-100.0
+60010,2019,American Samoa,AS,Eastern District,Middle Eastern & North African,0.0,
+60010,2019,American Samoa,AS,Eastern District,Two or more races,0.0,-100.0
+60010,2019,American Samoa,AS,Eastern District,Unrepresented race,0.0,-100.0
+60010,2019,American Samoa,AS,Eastern District,Unknown race,0.0,
+60010,2019,American Samoa,AS,Eastern District,White,0.0,-100.0
 01003,2020,Alabama,AL,Baldwin County,"Native American, Alaska Native, & Native Hawaiian",0.0,
 01003,2020,Alabama,AL,Baldwin County,All,0.0,0.0
 01003,2020,Alabama,AL,Baldwin County,Asian American & Pacific Islander,0.0,
@@ -89,6 +109,16 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01097,2020,Alabama,AL,Mobile County,Unrepresented race,0.0,-100.0
 01097,2020,Alabama,AL,Mobile County,Unknown race,0.0,
 01097,2020,Alabama,AL,Mobile County,White,25.0,72.4
+60010,2020,American Samoa,AS,Eastern District,"Native American, Alaska Native, & Native Hawaiian",0.0,
+60010,2020,American Samoa,AS,Eastern District,All,100.0,0.0
+60010,2020,American Samoa,AS,Eastern District,Asian American & Pacific Islander,100.0,
+60010,2020,American Samoa,AS,Eastern District,Black or African American,0.0,-100.0
+60010,2020,American Samoa,AS,Eastern District,Hispanic or Latino,0.0,-100.0
+60010,2020,American Samoa,AS,Eastern District,Middle Eastern & North African,0.0,
+60010,2020,American Samoa,AS,Eastern District,Two or more races,0.0,-100.0
+60010,2020,American Samoa,AS,Eastern District,Unrepresented race,0.0,-100.0
+60010,2020,American Samoa,AS,Eastern District,Unknown race,0.0,
+60010,2020,American Samoa,AS,Eastern District,White,0.0,-100.0
 01003,2021,Alabama,AL,Baldwin County,"Native American, Alaska Native, & Native Hawaiian",0.0,
 01003,2021,Alabama,AL,Baldwin County,All,0.0,0.0
 01003,2021,Alabama,AL,Baldwin County,Asian American & Pacific Islander,0.0,
@@ -119,6 +149,16 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01097,2021,Alabama,AL,Mobile County,Unrepresented race,0.0,0.0
 01097,2021,Alabama,AL,Mobile County,Unknown race,0.0,
 01097,2021,Alabama,AL,Mobile County,White,0.0,0.0
+60010,2021,American Samoa,AS,Eastern District,"Native American, Alaska Native, & Native Hawaiian",0.0,
+60010,2021,American Samoa,AS,Eastern District,All,100.0,0.0
+60010,2021,American Samoa,AS,Eastern District,Asian American & Pacific Islander,100.0,
+60010,2021,American Samoa,AS,Eastern District,Black or African American,0.0,-100.0
+60010,2021,American Samoa,AS,Eastern District,Hispanic or Latino,0.0,-100.0
+60010,2021,American Samoa,AS,Eastern District,Middle Eastern & North African,0.0,
+60010,2021,American Samoa,AS,Eastern District,Two or more races,0.0,-100.0
+60010,2021,American Samoa,AS,Eastern District,Unrepresented race,0.0,-100.0
+60010,2021,American Samoa,AS,Eastern District,Unknown race,0.0,
+60010,2021,American Samoa,AS,Eastern District,White,0.0,-100.0
 01003,2022,Alabama,AL,Baldwin County,"Native American, Alaska Native, & Native Hawaiian",0.0,
 01003,2022,Alabama,AL,Baldwin County,All,0.0,0.0
 01003,2022,Alabama,AL,Baldwin County,Asian American & Pacific Islander,0.0,
@@ -149,6 +189,16 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01097,2022,Alabama,AL,Mobile County,Unrepresented race,0.0,0.0
 01097,2022,Alabama,AL,Mobile County,Unknown race,0.0,
 01097,2022,Alabama,AL,Mobile County,White,0.0,0.0
+60010,2022,American Samoa,AS,Eastern District,"Native American, Alaska Native, & Native Hawaiian",0.0,
+60010,2022,American Samoa,AS,Eastern District,All,100.0,0.0
+60010,2022,American Samoa,AS,Eastern District,Asian American & Pacific Islander,100.0,
+60010,2022,American Samoa,AS,Eastern District,Black or African American,0.0,-100.0
+60010,2022,American Samoa,AS,Eastern District,Hispanic or Latino,0.0,-100.0
+60010,2022,American Samoa,AS,Eastern District,Middle Eastern & North African,0.0,
+60010,2022,American Samoa,AS,Eastern District,Two or more races,0.0,-100.0
+60010,2022,American Samoa,AS,Eastern District,Unrepresented race,0.0,-100.0
+60010,2022,American Samoa,AS,Eastern District,Unknown race,0.0,
+60010,2022,American Samoa,AS,Eastern District,White,0.0,-100.0
 01003,2023,Alabama,AL,Baldwin County,"Native American, Alaska Native, & Native Hawaiian",0.0,
 01003,2023,Alabama,AL,Baldwin County,All,33.3,0.0
 01003,2023,Alabama,AL,Baldwin County,Asian American & Pacific Islander,0.0,
@@ -179,6 +229,16 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01097,2023,Alabama,AL,Mobile County,Unrepresented race,0.0,-100.0
 01097,2023,Alabama,AL,Mobile County,Unknown race,0.0,
 01097,2023,Alabama,AL,Mobile County,White,25.0,76.4
+60010,2023,American Samoa,AS,Eastern District,"Native American, Alaska Native, & Native Hawaiian",0.0,
+60010,2023,American Samoa,AS,Eastern District,All,100.0,0.0
+60010,2023,American Samoa,AS,Eastern District,Asian American & Pacific Islander,100.0,
+60010,2023,American Samoa,AS,Eastern District,Black or African American,0.0,-100.0
+60010,2023,American Samoa,AS,Eastern District,Hispanic or Latino,0.0,-100.0
+60010,2023,American Samoa,AS,Eastern District,Middle Eastern & North African,0.0,
+60010,2023,American Samoa,AS,Eastern District,Two or more races,0.0,-100.0
+60010,2023,American Samoa,AS,Eastern District,Unrepresented race,0.0,-100.0
+60010,2023,American Samoa,AS,Eastern District,Unknown race,0.0,
+60010,2023,American Samoa,AS,Eastern District,White,0.0,-100.0
 01003,2024,Alabama,AL,Baldwin County,"Native American, Alaska Native, & Native Hawaiian",0.0,
 01003,2024,Alabama,AL,Baldwin County,All,33.3,0.0
 01003,2024,Alabama,AL,Baldwin County,Asian American & Pacific Islander,0.0,
@@ -209,3 +269,13 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01097,2024,Alabama,AL,Mobile County,Unrepresented race,0.0,-100.0
 01097,2024,Alabama,AL,Mobile County,Unknown race,0.0,
 01097,2024,Alabama,AL,Mobile County,White,25.0,76.4
+60010,2024,American Samoa,AS,Eastern District,"Native American, Alaska Native, & Native Hawaiian",0.0,
+60010,2024,American Samoa,AS,Eastern District,All,100.0,0.0
+60010,2024,American Samoa,AS,Eastern District,Asian American & Pacific Islander,100.0,
+60010,2024,American Samoa,AS,Eastern District,Black or African American,0.0,-100.0
+60010,2024,American Samoa,AS,Eastern District,Hispanic or Latino,0.0,-100.0
+60010,2024,American Samoa,AS,Eastern District,Middle Eastern & North African,0.0,
+60010,2024,American Samoa,AS,Eastern District,Two or more races,0.0,-100.0
+60010,2024,American Samoa,AS,Eastern District,Unrepresented race,0.0,-100.0
+60010,2024,American Samoa,AS,Eastern District,Unknown race,0.0,
+60010,2024,American Samoa,AS,Eastern District,White,0.0,-100.0

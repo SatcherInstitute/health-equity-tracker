@@ -29,3 +29,13 @@ county_fips,state_name,state_postal,county_name,total_us_congress_count,women_th
 01097,Alabama,AL,Mobile County,4.0,,0.0,Unrepresented race,0.0,0.0,5107.0,1.2,"1,2"
 01097,Alabama,AL,Mobile County,4.0,,0.0,Unknown race,0.0,0.0,,,"1,2"
 01097,Alabama,AL,Mobile County,4.0,U.S. Sen. Katie Britt,1.0,White,25.0,100.0,234657.0,56.7,"1,2"
+60010,American Samoa,AS,Eastern District,1.0,,0.0,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,,At-Large
+60010,American Samoa,AS,Eastern District,1.0,U.S. Del. Aumua Coleman Radewagen,1.0,All,100.0,100.0,17059.0,100.0,At-Large
+60010,American Samoa,AS,Eastern District,1.0,U.S. Del. Aumua Coleman Radewagen,1.0,Asian American & Pacific Islander,100.0,100.0,,,At-Large
+60010,American Samoa,AS,Eastern District,1.0,,0.0,Black or African American,0.0,0.0,10.0,0.1,At-Large
+60010,American Samoa,AS,Eastern District,1.0,,0.0,Hispanic or Latino,0.0,0.0,237.0,1.4,At-Large
+60010,American Samoa,AS,Eastern District,1.0,,0.0,Middle Eastern & North African,0.0,0.0,,,At-Large
+60010,American Samoa,AS,Eastern District,1.0,,0.0,Two or more races,0.0,0.0,704.0,4.1,At-Large
+60010,American Samoa,AS,Eastern District,1.0,,0.0,Unrepresented race,0.0,0.0,119.0,0.7,At-Large
+60010,American Samoa,AS,Eastern District,1.0,,0.0,Unknown race,0.0,0.0,,,At-Large
+60010,American Samoa,AS,Eastern District,1.0,,0.0,White,0.0,0.0,157.0,0.9,At-Large

@@ -164,7 +164,9 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 
 
 def _load_county_crosswalk():
-    return (
+    from ingestion.constants import TERRITORY_FIPS_LIST  # pylint: disable=import-outside-toplevel
+
+    df = (
         pd.read_csv(
             os.path.join(TEST_DIR, "mock_county_crosswalk.txt"),
             sep="|",
@@ -178,6 +180,10 @@ def _load_county_crosswalk():
             district_num=lambda df: df["GEOID_CD118_20"].str[2:],
         )
     )
+    territory_mask = df["state_fips"].isin(TERRITORY_FIPS_LIST) & (df["district_num"] == "98")
+    df.loc[territory_mask, "district_num"] = "00"
+    df.loc[territory_mask, "GEOID_CD118_20"] = df.loc[territory_mask, "state_fips"] + "00"
+    return df
 
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)

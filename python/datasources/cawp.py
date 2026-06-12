@@ -615,6 +615,12 @@ def load_county_crosswalk() -> pd.DataFrame:
     df = df.rename(columns={"GEOID_COUNTY_20": std_col.COUNTY_FIPS_COL})
     df["state_fips"] = df["GEOID_CD118_20"].str[:2]
     df["district_num"] = df["GEOID_CD118_20"].str[2:]
+    # Census uses "98" for territory at-large (non-voting) delegates in the crosswalk,
+    # but unitedstates.io stores territory delegates with district=0, giving cd_geoid
+    # state_fips+"00". Normalize "98"→"00" so the join works.
+    territory_mask = df["state_fips"].isin(TERRITORY_FIPS_LIST) & (df["district_num"] == "98")
+    df.loc[territory_mask, "district_num"] = "00"
+    df.loc[territory_mask, "GEOID_CD118_20"] = df.loc[territory_mask, "state_fips"] + "00"
     return df
 
 
@@ -680,6 +686,10 @@ def get_women_congress_by_county_df(crosswalk_df: pd.DataFrame) -> pd.DataFrame:
     sens = df[df[POSITION] == POSITION_LABELS[CONGRESS]["sen"]].copy()
     sens_county = sens.merge(state_to_counties, on="state_fips", how="left")
 
+    # territory delegates represent entire territory (like senators represent entire state)
+    delegates = df[df[POSITION] == POSITION_LABELS[CONGRESS]["U.S. Delegate"]].copy()
+    delegates_county = delegates.merge(state_to_counties, on="state_fips", how="left")
+
     reps = df[df[POSITION] == POSITION_LABELS[CONGRESS]["rep"]].copy()
     reps = reps[pd.to_numeric(reps[DISTRICT], errors="coerce").notna()].copy()
     reps["cd_geoid"] = reps["state_fips"] + reps[DISTRICT].apply(lambda d: str(int(float(d))).zfill(2))
@@ -691,7 +701,7 @@ def get_women_congress_by_county_df(crosswalk_df: pd.DataFrame) -> pd.DataFrame:
     )
 
     keep_cols = [std_col.TIME_PERIOD_COL, std_col.COUNTY_FIPS_COL, RACE_ETH, NAME]
-    combined = pd.concat([sens_county[keep_cols], reps_county[keep_cols]])
+    combined = pd.concat([sens_county[keep_cols], delegates_county[keep_cols], reps_county[keep_cols]])
     return combined.dropna(subset=[std_col.COUNTY_FIPS_COL])
 
 
