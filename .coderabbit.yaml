@@ -38,6 +38,10 @@ reviews:
       instructions: |
         Flag only: numerator/denominator population mismatches, wrong pct metric type, non-standard race labels (must match Race enum in standardized_columns.py), hardcoded years that should use ACS_EARLIEST_YEAR/ACS_CURRENT_YEAR.
 
+    - path: "python/ingestion/**"
+      instructions: |
+        Flag only: backwards compatibility breaks (changes here affect every DataSource subclass), type safety violations with het_types.py, unsafe FIPS handling (string vs numeric).
+
     - path: "python/tests/**"
       instructions: |
         Flag only: mocks that accept bad input silently, missing golden data regeneration when output shape changes.
