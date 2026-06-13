@@ -21,6 +21,9 @@ Instructions for Downloading NUMERATOR Data:
 Notes:
 - This is simply the "numerator" data; we rely on directly downloaded table data from CAWP
  for state legislature demoninators, and UnitedStates.io for Congress denominators
+- County-level congressional tables (race_and_ethnicity_county_historical/current) are also
+ generated here, using the Census 118th Congress county-to-district crosswalk. All historical
+ years use 118th Congress (2022) district boundaries; see expand_members_to_counties().
 
 Instructions for Updating TERRITORIAL LEGISLATURE DENOMINATOR Data:
 - Once per year, we should also update our custom-made denominator files for territorial leg
@@ -132,6 +135,8 @@ CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity_time_series.csv"
 # Refresh this file at the start of each new Congress (redistricting occurs every 10 years,
 # but court-ordered redraws can happen mid-decade).
 COUNTY_CD_CROSSWALK_FILE = "tab20_cd11820_county20_natl.txt"
+CENSUS_TERRITORY_ATLARGE_CODE = "98"  # Census crosswalk code for non-voting at-large territory districts
+LEGISLATORS_ATLARGE_CODE = "00"  # unitedstates.io code for at-large territory delegates (district=0 → "00")
 
 
 CAWP_POP_PCT_COL = "cawp_population_pct"
@@ -615,12 +620,12 @@ def load_county_crosswalk() -> pd.DataFrame:
     df = df.rename(columns={"GEOID_COUNTY_20": std_col.COUNTY_FIPS_COL})
     df["state_fips"] = df["GEOID_CD118_20"].str[:2]
     df["district_num"] = df["GEOID_CD118_20"].str[2:]
-    # Census uses "98" for territory at-large (non-voting) delegates in the crosswalk,
-    # but unitedstates.io stores territory delegates with district=0, giving cd_geoid
-    # state_fips+"00". Normalize "98"→"00" so the join works.
-    territory_mask = df["state_fips"].isin(TERRITORY_FIPS_LIST) & (df["district_num"] == "98")
-    df.loc[territory_mask, "district_num"] = "00"
-    df.loc[territory_mask, "GEOID_CD118_20"] = df.loc[territory_mask, "state_fips"] + "00"
+    # Census uses CENSUS_TERRITORY_ATLARGE_CODE for non-voting at-large territory districts,
+    # but unitedstates.io stores territory delegates with district=0 → LEGISLATORS_ATLARGE_CODE.
+    # Normalize so the join works.
+    territory_mask = df["state_fips"].isin(TERRITORY_FIPS_LIST) & (df["district_num"] == CENSUS_TERRITORY_ATLARGE_CODE)
+    df.loc[territory_mask, "district_num"] = LEGISLATORS_ATLARGE_CODE
+    df.loc[territory_mask, "GEOID_CD118_20"] = df.loc[territory_mask, "state_fips"] + LEGISLATORS_ATLARGE_CODE
     return df
 
 
