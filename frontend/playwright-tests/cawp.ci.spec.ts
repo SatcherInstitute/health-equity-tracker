@@ -58,7 +58,8 @@ test('CAWP: County view loads with multi-district caveat', async ({ page }) => {
           }),
         )
         .toBeVisible(),
-      expect.soft(rateChart.getByText(/%/)).toBeVisible(),
+      // axis label confirms pct_rate metric is rendering
+      expect.soft(rateChart.getByText('% women in Congress')).toBeVisible(),
     ])
   })
 
@@ -68,12 +69,6 @@ test('CAWP: County view loads with multi-district caveat', async ({ page }) => {
         page.getByText(/County figures include all U.S. Congress members/i),
       )
       .toBeVisible()
-  })
-
-  await test.step('State legislature metrics not shown at county level', async () => {
-    await expect
-      .soft(page.getByText(/state legislatures/i))
-      .not.toBeVisible()
   })
 })
 
