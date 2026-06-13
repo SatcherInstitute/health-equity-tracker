@@ -34,7 +34,6 @@ reviews:
         This is a health equity data pipeline. Focus on:
         - Statistical accuracy: numerators and denominators must cover the same population, geography, and time window
         - Race/ethnicity labels must match HET standard labels defined in ingestion/standardized_columns.py (Race enum); non-standard labels silently produce null joins
-        - Suppression: counts below 100 should be suppressed before percent calculations
         - Percent metric type (pct_share vs pct_rate vs pct_rel_inequity) must match the denominator used
         - Time period alignment: datasets joined across years need explicit handling
         - Person-first language in any user-facing strings or methodology text
@@ -62,7 +61,10 @@ reviews:
         - WCAG 2.1 AA: color contrast >= 4.5:1 for text; no color-only encoding in charts
         - Interactive elements need visible focus rings and accessible names (aria-label or visible text)
         - New charts need an accessible text alternative (summary description or data table)
-        - Use HET design tokens (het-teal, het-purple, het-grey, etc.), not raw hex values
+        - Design tokens are in `src/styles/tokens/colors.ts` (JS: `colors.altGreen`) and
+          generated as Tailwind utilities (CSS: `bg-alt-green`, `text-secondary-dark`).
+          Never use raw hex values or default Tailwind color classes (`text-zinc-500`, `bg-gray-100`).
+          To pick a color, consult `frontend/tokens/colors.tokens.json`.
         - New metric configs belong in MetricConfig<Topic>.ts
         - New providers extend VariableProvider and register in VariableProviderMap.ts
         - Person-first language in all UI strings; avoid "vulnerable populations", "at-risk" without qualification
