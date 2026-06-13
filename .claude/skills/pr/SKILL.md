@@ -207,7 +207,7 @@ E2E_BASE_URL=http://localhost:3000 npx playwright test playwright-tests/_pr_veri
 **Map results back to checklist:**
 - Test passed → `- [x]`
 - Test failed → leave `- [ ]` and add a note: `(Playwright: <short failure reason)` so the human reviewer knows what to investigate manually
-- Item not automatable (requires human judgment, live external service, or next CI run) → **preserve its current state** (`- [x]` stays checked, `- [ ]` stays unchecked). Never un-check a box that was already checked manually.
+- Item not automatable (requires human judgment, live external service, or next CI run) → **preserve its current state** (`- [x]` stays checked, `- [ ]` stays unchecked). The one exception: if recent commits clearly invalidate a previously-checked item (e.g., the feature it described was reverted, the file it references was removed, or the behavior it describes no longer matches the code), un-check it and add a note explaining why.
 
 **Clean up** after all tests run:
 
@@ -240,7 +240,7 @@ Update the PR title (under 70 chars) and body. **Read the existing PR body first
 
 - **Summary bullets:** Keep the existing bullets if they still accurately describe the diff. Only add, remove, or rewrite bullets when the diff has changed significantly since they were written. Do not replace a well-written human summary with a generic one.
 - **Test plan:** Use the audited checklist from Step 5 (checked state preserved). Do not regenerate from scratch.
-- **Closes / issue links:** Preserve any existing `Closes #NNNN` lines.
+- **Issue links:** Preserve any existing issue-closing keywords (`Closes`, `Fixes`, `Resolves`, `Fix`, `Close`, `Resolve` — GitHub recognizes all of these) followed by `#NNNN`.
 - **Bot-generated blocks:** Preserve per the rule below.
 
 Keep the description **short and focused** — a few tight bullets, no padding.
