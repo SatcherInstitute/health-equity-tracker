@@ -149,7 +149,8 @@ class CawpProvider extends VariableProvider {
 
     return (
       (breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
+        breakdowns.geography === 'national' ||
+        breakdowns.geography === 'county') &&
       validDemographicBreakdownRequest
     )
   }

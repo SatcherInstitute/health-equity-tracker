@@ -8,6 +8,7 @@ env:
   GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
   EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
   RACE_AND_ETHNICITY: "race_and_ethnicity"
+  COUNTY: "county"
 jobs:
   trigger-data-pipeline:
     runs-on: ubuntu-latest
@@ -19,11 +20,20 @@ jobs:
           dataset_name: ${{ env.DATASET_NAME }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
           gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
-      - name: Export NDJSON files to GCS buckets from BigQuery tables
+      - name: Export state/national NDJSON files to GCS from BigQuery
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
           gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_AND_ETHNICITY }}
+          should_export_as_alls: "true"
+      - name: Export county NDJSON files to GCS from BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
+          geographic: ${{ env.COUNTY }}
           should_export_as_alls: "true"
