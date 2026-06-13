@@ -833,9 +833,6 @@ def generate_county_breakdown(members_df: pd.DataFrame) -> pd.DataFrame:
         std_col.POPULATION_PCT_COL,
     )
 
-    mask = df[std_col.RACE_CATEGORY_ID_COL] == Race.AIAN_API.value
-    df.loc[mask, std_col.PCT_OF_CONGRESS] = None
-
     df = df.rename(
         columns={
             std_col.POPULATION_COL: CAWP_POP_COL,

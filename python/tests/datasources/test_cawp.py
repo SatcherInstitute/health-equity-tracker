@@ -76,8 +76,10 @@ def test_get_consecutive_time_periods():
 def _load_test_legislators_json(url, *_args, **_kwargs):
     if url == US_CONGRESS_HISTORICAL_URL:
         filename = "test_legislators-historical.json"
-    else:
+    elif url == US_CONGRESS_CURRENT_URL:
         filename = "test_legislators-current.json"
+    else:
+        raise ValueError(f"Unexpected URL in test: {url}")
     with open(os.path.join(TEST_DIR, filename)) as f:
         return json.load(f)
 
@@ -94,6 +96,8 @@ def test_get_us_congress_members_df(mock_fetch):
     reps = df[df["type"] == "rep"]
     sens = df[df["type"] == "sen"]
 
+    assert not reps.empty, "expected at least one House member row"
+    assert not sens.empty, "expected at least one Senate member row"
     assert reps[DISTRICT].notna().all(), "all House reps should have a district number"
     assert sens[DISTRICT].isna().all(), "all senators should have district=None"
 
