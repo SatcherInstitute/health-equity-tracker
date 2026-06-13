@@ -207,7 +207,7 @@ E2E_BASE_URL=http://localhost:3000 npx playwright test playwright-tests/_pr_veri
 **Map results back to checklist:**
 - Test passed → `- [x]`
 - Test failed → leave `- [ ]` and add a note: `(Playwright: <short failure reason)` so the human reviewer knows what to investigate manually
-- Item not automatable (requires human judgment, live external service, or next CI run) → leave `- [ ]` as-is
+- Item not automatable (requires human judgment, live external service, or next CI run) → **preserve its current state** (`- [x]` stays checked, `- [ ]` stays unchecked). Never un-check a box that was already checked manually.
 
 **Clean up** after all tests run:
 
@@ -236,7 +236,14 @@ git log origin/main..HEAD --oneline
 git diff origin/main -- frontend/src/
 ```
 
-Rewrite the PR title (under 70 chars) and body. Keep the description **short and focused** — a few tight bullets, no padding. The test plan is the audited behavioral checklist from Step 5 only (no static tooling items).
+Update the PR title (under 70 chars) and body. **Read the existing PR body first** (already fetched in Step 1). Use it as the starting point:
+
+- **Summary bullets:** Keep the existing bullets if they still accurately describe the diff. Only add, remove, or rewrite bullets when the diff has changed significantly since they were written. Do not replace a well-written human summary with a generic one.
+- **Test plan:** Use the audited checklist from Step 5 (checked state preserved). Do not regenerate from scratch.
+- **Closes / issue links:** Preserve any existing `Closes #NNNN` lines.
+- **Bot-generated blocks:** Preserve per the rule below.
+
+Keep the description **short and focused** — a few tight bullets, no padding.
 
 **Title rules:**
 - Under 70 chars
