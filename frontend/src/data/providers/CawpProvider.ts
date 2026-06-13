@@ -155,7 +155,8 @@ class CawpProvider extends VariableProvider {
     const validDemographicBreakdownRequest = breakdowns.hasOnlyRace()
     const isValidCountyRequest =
       breakdowns.geography === 'county' &&
-      (metricIds?.some((id) => CAWP_CONGRESS_METRICS.includes(id)) ?? false)
+      (!metricIds ||
+        metricIds.every((id) => CAWP_CONGRESS_METRICS.includes(id)))
 
     return (
       (isValidCountyRequest ||

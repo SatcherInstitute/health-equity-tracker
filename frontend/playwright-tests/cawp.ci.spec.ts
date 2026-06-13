@@ -49,7 +49,7 @@ test('CAWP: County view loads with multi-district caveat', async ({ page }) => {
   const rateChart = page.locator('#rate-chart')
   await rateChart.scrollIntoViewIfNeeded()
 
-  await test.step('County congress data renders', async () => {
+  await test.step('County congress data renders with percentage values', async () => {
     await Promise.all([
       expect
         .soft(
@@ -58,6 +58,7 @@ test('CAWP: County view loads with multi-district caveat', async ({ page }) => {
           }),
         )
         .toBeVisible(),
+      expect.soft(rateChart.getByText(/%/)).toBeVisible(),
     ])
   })
 
@@ -67,6 +68,12 @@ test('CAWP: County view loads with multi-district caveat', async ({ page }) => {
         page.getByText(/County figures include all U.S. Congress members/i),
       )
       .toBeVisible()
+  })
+
+  await test.step('State legislature metrics not shown at county level', async () => {
+    await expect
+      .soft(page.getByText(/state legislatures/i))
+      .not.toBeVisible()
   })
 })
 
