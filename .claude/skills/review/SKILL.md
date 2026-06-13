@@ -201,7 +201,7 @@ Write `/tmp/het-review.md` with the verdict on the first line, then the body:
 
 ```
 VERDICT: <request-changes|comment>
-## Health Equity Tracker: Senior Review
+## 🤖 Health Equity Tracker: Auto-Review
 
 **PR type:** <backend data / frontend UI / infra / docs>
 **Mission alignment:** <one sentence on how this advances health equity or devX, or flag if unclear>
