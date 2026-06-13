@@ -232,7 +232,8 @@ class CAWPData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CAWPData")
 
     def write_to_bq(self, dataset: str, gcs_bucket: str, write_local_instead_of_bq=False, **attrs) -> None:
-        base_df = self.generate_base_df()
+        members_df = get_us_congress_members_df()
+        base_df = self.generate_base_df(members_df.copy())
         df_names = base_df.copy()
         df_names = self.generate_names_breakdown(df_names)
         column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
@@ -313,7 +314,7 @@ class CAWPData(DataSource):
             )
 
         # --- county-level tables (Congress only, ACS years) ---
-        county_df = generate_county_breakdown()
+        county_df = generate_county_breakdown(members_df.copy())
         county_df = county_df.drop(columns=[std_col.RACE_CATEGORY_ID_COL, std_col.CONGRESS_NAMES])
 
         county_historical = county_df.drop(
@@ -358,7 +359,7 @@ class CAWPData(DataSource):
 
     # CLASS METHODS
 
-    def generate_base_df(self):
+    def generate_base_df(self, members_df: pd.DataFrame):
         """Creates a dataframe with the raw counts by state by year by race of:
         all congress members, all women congress members,
         and women congress members of the row's race"""
@@ -371,7 +372,7 @@ class CAWPData(DataSource):
             raise
 
         try:
-            us_congress_totals_df = get_us_congress_totals_df()
+            us_congress_totals_df = get_us_congress_totals_df(members_df)
         except Exception as e:
             print(f"ERROR in get_us_congress_totals_df(): {e}")
             print(f"Full error details: {str(e)}")
@@ -710,7 +711,7 @@ def get_women_congress_by_county_df(crosswalk_df: pd.DataFrame) -> pd.DataFrame:
     return combined.dropna(subset=[std_col.COUNTY_FIPS_COL])
 
 
-def generate_county_breakdown() -> pd.DataFrame:
+def generate_county_breakdown(members_df: pd.DataFrame) -> pd.DataFrame:
     """Builds county-level congressional representation data by race.
 
     Covers US Congress (House + Senate) only; state legislature has no
@@ -722,8 +723,7 @@ def generate_county_breakdown() -> pd.DataFrame:
     acs_years = get_consecutive_time_periods(first_year=int(ACS_EARLIEST_YEAR), last_year=int(ACS_CURRENT_YEAR))
 
     # --- total congress members per county per year ---
-    members_df = get_us_congress_members_df()
-    members_county = expand_members_to_counties(members_df, crosswalk_df)
+    members_county = expand_members_to_counties(members_df.copy(), crosswalk_df)
     members_county = members_county[members_county[std_col.TIME_PERIOD_COL].isin(acs_years)]
 
     congress_totals = (
@@ -898,29 +898,14 @@ def get_us_congress_members_df():
     return pd.DataFrame.from_dict(entries)
 
 
-def get_us_congress_totals_df():
-    """Fetches historic and current congress data, combines them, and iterates over
-    each Congress member and their terms served to generate a dataframe.
+def get_us_congress_totals_df(members_df: pd.DataFrame):
+    """Aggregates the pre-fetched members df to one row per state-year.
 
-    Returns:
-        df with rows per state-year and
-        columns "time_period", "state_postal", CONGRESS_NAMES, CONGRESS_COUNT"""
-
-    raw_historical_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_HISTORICAL_URL)
-    raw_current_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_CURRENT_URL)
-    years = get_consecutive_time_periods()
-
-    entries = _build_congress_member_entries([*raw_historical_congress_json, *raw_current_congress_json], years)
-
-    df = pd.DataFrame.from_dict(entries)
-
-    # get names of all TOTAL members in lists per row
+    Returns df with columns: time_period, state_postal, CONGRESS_NAMES, CONGRESS_COUNT"""
+    df = members_df.copy()
     df = df.groupby([std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])[NAME].apply(list).reset_index()
     df = df.rename(columns={NAME: std_col.CONGRESS_NAMES})
-
-    # get counts of all TOTAL members in lists per row
-    df[std_col.CONGRESS_COUNT] = df[std_col.CONGRESS_NAMES].apply(lambda list: len(list)).astype(float)
-
+    df[std_col.CONGRESS_COUNT] = df[std_col.CONGRESS_NAMES].apply(len).astype(float)
     return df
 
 
