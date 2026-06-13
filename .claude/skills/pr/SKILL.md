@@ -268,7 +268,9 @@ Use this template:
 - 3–5 bullets maximum; each one line
 - Omit "Root Cause / Motivation" unless the why is genuinely non-obvious to a reviewer reading the diff
 
-Write the body to `/tmp/pr-body.md`, then apply:
+Before writing the body, fetch the current PR body and check for any auto-generated bot sections (CodeRabbit "Summary by CodeRabbit", or similar blocks appended by review bots). These are delimited by HTML comments like `<!-- This is an auto-generated comment: ... -->`. **Preserve them verbatim** — append them after your written body so they survive the `--body-file` overwrite.
+
+Write the body to `/tmp/pr-body.md`, appending any bot-generated blocks after the human-authored content, then apply:
 
 ```bash
 gh pr edit --title "<new title>" --body-file /tmp/pr-body.md
