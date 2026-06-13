@@ -29,6 +29,13 @@ const CAWP_CONGRESS_COUNTS: MetricId[] = [
   'total_us_congress_count',
 ]
 
+const CAWP_CONGRESS_METRICS: MetricId[] = [
+  'pct_share_of_us_congress',
+  'pct_share_of_women_us_congress',
+  'women_us_congress_pct_relative_inequity',
+  ...CAWP_CONGRESS_COUNTS,
+]
+
 const CAWP_STLEG_COUNTS: MetricId[] = [
   'women_this_race_state_leg_count',
   'total_state_leg_count',
@@ -144,13 +151,16 @@ class CawpProvider extends VariableProvider {
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
+  allowsBreakdowns(breakdowns: Breakdowns, metricIds?: MetricId[]): boolean {
     const validDemographicBreakdownRequest = breakdowns.hasOnlyRace()
+    const isValidCountyRequest =
+      breakdowns.geography === 'county' &&
+      (metricIds?.some((id) => CAWP_CONGRESS_METRICS.includes(id)) ?? false)
 
     return (
-      (breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national' ||
-        breakdowns.geography === 'county') &&
+      (isValidCountyRequest ||
+        breakdowns.geography === 'state' ||
+        breakdowns.geography === 'national') &&
       validDemographicBreakdownRequest
     )
   }

@@ -39,6 +39,37 @@ test('CAWP: Congress', async ({ page }) => {
     .toBeVisible()
 })
 
+test('CAWP: County view loads with multi-district caveat', async ({ page }) => {
+  // Fulton County GA (13121) spans multiple congressional districts
+  await page.goto(
+    '/exploredata?mls=1.women_in_gov-3.13121&group1=All&dt1=women_in_us_congress',
+    { waitUntil: 'domcontentloaded' },
+  )
+
+  const rateChart = page.locator('#rate-chart')
+  await rateChart.scrollIntoViewIfNeeded()
+
+  await test.step('County congress data renders', async () => {
+    await Promise.all([
+      expect
+        .soft(
+          rateChart.getByRole('heading', {
+            name: /US Congress members identifying as women/i,
+          }),
+        )
+        .toBeVisible(),
+    ])
+  })
+
+  await test.step('Multi-district caveat alert is visible', async () => {
+    await expect
+      .soft(
+        page.getByText(/County figures include all U.S. Congress members/i),
+      )
+      .toBeVisible()
+  })
+})
+
 test('CAWP: State Legislature', async ({ page }) => {
   await page.goto('/exploredata?mls=1.women_in_gov-3.00&group1=All', {
     waitUntil: 'domcontentloaded',
