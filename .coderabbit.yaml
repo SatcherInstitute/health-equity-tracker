@@ -17,6 +17,7 @@ reviews:
     base_branches:
       - main
   path_filters:
+    - "**"
     # Source data files: large CSVs committed for pipeline reference, not code
     - "!data/**"
     # Test golden data: auto-generated expected output, not hand-written code
