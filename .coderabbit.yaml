@@ -4,12 +4,13 @@
 language: "en-US"
 
 tone_instructions: >
+  Be brief. Lead each finding with a priority label: [HIGH], [MEDIUM], or [LOW].
+  Only flag real bugs, data errors, or security issues at [HIGH].
   Be constructive and welcoming to new contributors.
-  Flag health data accuracy issues strictly.
-  Skip suggestions that do not improve correctness or maintainability.
+  Skip [LOW] findings unless trivially fixable.
 
 reviews:
-  profile: "assertive"
+  profile: "chill"
   poem: false
   high_level_summary: true
   auto_review:
