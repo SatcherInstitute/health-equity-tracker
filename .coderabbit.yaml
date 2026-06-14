@@ -2,17 +2,25 @@
 # yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
 
 language: "en-US"
+early_access: false
 
 tone_instructions: >
-  Be brief. Lead each finding with a priority label: [HIGH], [MEDIUM], or [LOW].
-  Only flag real bugs, data errors, or security issues at [HIGH].
-  Be constructive and welcoming to new contributors.
-  Skip [LOW] findings unless trivially fixable.
+  Be extremely terse. One sentence per finding. No bullet lists.
+  Only flag genuine bugs, data errors, or security issues.
+  Skip style, naming, and refactor suggestions entirely.
 
 reviews:
   profile: "chill"
   poem: false
-  high_level_summary: true
+  high_level_summary: false
+  review_status: false
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+    simplify:
+      enabled: false
   auto_review:
     enabled: true
     auto_incremental_review: true
@@ -20,59 +28,28 @@ reviews:
       - main
   path_filters:
     - "**"
-    # Source data files: large CSVs committed for pipeline reference, not code
     - "!data/**"
-    # Test golden data: auto-generated expected output, not hand-written code
     - "!python/tests/**/golden_data/**"
-    # Lock files and build output
     - "!package-lock.json"
     - "!frontend/dist/**"
     - "!**/__pycache__/**"
   path_instructions:
     - path: "python/datasources/**"
       instructions: |
-        This is a health equity data pipeline. Focus on:
-        - Statistical accuracy: numerators and denominators must cover the same population, geography, and time window
-        - Race/ethnicity labels must match HET standard labels defined in ingestion/standardized_columns.py (Race enum); non-standard labels silently produce null joins
-        - Percent metric type (pct_share vs pct_rate vs pct_rel_inequity) must match the denominator used
-        - Time period alignment: datasets joined across years need explicit handling
-        - Person-first language in any user-facing strings or methodology text
-        - AIAN/NHPI grouping: verify logic matches add_aian_api and the Race enum
-        - Hardcoded years should reference shared constants (ACS_EARLIEST_YEAR, ACS_CURRENT_YEAR)
+        Flag only: numerator/denominator population mismatches, wrong pct metric type, non-standard race labels (must match Race enum in standardized_columns.py), hardcoded years that should use ACS_EARLIEST_YEAR/ACS_CURRENT_YEAR.
 
     - path: "python/ingestion/**"
       instructions: |
-        Shared ingestion utilities used by all data sources. Focus on:
-        - Backwards compatibility: changes here affect every DataSource subclass
-        - Type safety with het_types.py definitions
-        - GCS/BQ utility functions should handle both string and numeric FIPS codes safely
+        Flag only: backwards compatibility breaks (changes here affect every DataSource subclass), type safety violations with het_types.py, unsafe FIPS handling (string vs numeric).
 
     - path: "python/tests/**"
       instructions: |
-        Data pipeline tests. Focus on:
-        - Mocks should be faithful to the real API signature; a mock that accepts bad input and returns good output is worse than no test
-        - Golden data CSVs should be regenerated when output table shape changes
-        - Integration tests that exercise the full write_to_bq path catch join and aggregation bugs that unit tests miss
-        - Fixture files belong in python/tests/data/<source>/, not in the repo-root data/ directory
+        Flag only: mocks that accept bad input silently, missing golden data regeneration when output shape changes.
 
     - path: "frontend/src/**"
       instructions: |
-        React/TypeScript frontend using MUI, Tailwind, D3, and Jotai. Focus on:
-        - WCAG 2.1 AA: color contrast >= 4.5:1 for text; no color-only encoding in charts
-        - Interactive elements need visible focus rings and accessible names (aria-label or visible text)
-        - New charts need an accessible text alternative (summary description or data table)
-        - Design tokens are in `src/styles/tokens/colors.ts` (JS: `colors.altGreen`) and
-          generated as Tailwind utilities (CSS: `bg-alt-green`, `text-secondary-dark`).
-          Never use raw hex values or default Tailwind color classes (`text-zinc-500`, `bg-gray-100`).
-          To pick a color, consult `frontend/tokens/colors.tokens.json`.
-        - New metric configs belong in MetricConfig<Topic>.ts
-        - New providers extend VariableProvider and register in VariableProviderMap.ts
-        - Person-first language in all UI strings; avoid "vulnerable populations", "at-risk" without qualification
-        - Race/ethnicity labels must match HET standard display names
+        Flag only: WCAG contrast failures, color-only chart encoding, missing aria-label on interactive elements, raw hex values instead of design tokens.
 
     - path: ".github/workflows/dag*.yml"
       instructions: |
-        Data pipeline DAG workflows. Focus on:
-        - Workflow must include a failure notification step
-        - New workflows should follow the infra-test pattern used by other DAG workflows
-        - Secrets references should use existing org/repo secrets, not new ad hoc ones
+        Flag only: missing failure notification step, wrong secrets references.

@@ -78,6 +78,43 @@ grep -n "PAGE_LINK\|_PATH\|_ROUTE" frontend/src/utils/internalRoutes.ts
 
 ---
 
+## Step 2c — Check if branch is behind main
+
+```bash
+git fetch origin main --quiet
+git log --oneline --left-right origin/main...HEAD
+```
+
+Parse the output for lines starting with `<` (commits on `origin/main` not on this branch). If any exist, the branch is behind.
+
+**If behind:** Print the missing commits clearly, e.g.:
+
+> Branch is behind `origin/main` by N commit(s):
+> - `abc1234` commit message
+
+Then ask the user to confirm before merging:
+
+```
+About to merge origin/main into <headRefName>. Confirm? (yes/no)
+```
+
+Use `AskUserQuestion` to gate this — do not proceed without confirmation.
+
+**If user confirms:**
+
+```bash
+git merge origin/main --no-edit
+git push $FORK_REMOTE HEAD
+```
+
+If the merge produces conflicts: stop, print the conflicting files, and ask the user to resolve them manually before continuing.
+
+**If user declines:** Note that the branch will remain behind main and continue with the rest of the skill.
+
+**If up to date:** Note "Branch is up to date with origin/main" and continue.
+
+---
+
 ## Step 3 — Evaluate and address code review feedback
 
 Fetch all reviews and inline comments on the PR:
