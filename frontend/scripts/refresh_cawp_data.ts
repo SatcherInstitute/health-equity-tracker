@@ -447,42 +447,49 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     }
     console.log('  Batch running (~12 min) — progress below...')
 
-    // Poll every 2 minutes for progress (selector confirmed via DOM inspection)
-    const batchStart = Date.now()
-    const pollTimer = setInterval(async () => {
-      if (!page.url().includes('/batch?id=')) return
-      const elapsed = Math.round((Date.now() - batchStart) / 60000)
-      const progress = await page
-        .$eval('#updateprogress', (el) => el.textContent?.trim() ?? '?')
-        .catch(() => '?')
-      console.log(`  [${elapsed} min] ${progress}`)
-    }, 2 * 60 * 1000)
-
-    // Drupal batch completion fires a download event; the page URL stays at /batch?id=
-    // throughout. We also handle the rare case where it redirects to a file URL instead.
-    const BATCH_TIMEOUT_MS = 20 * 60 * 1000
+    // Avoid page.waitForURL / page.waitForEvent inside Promise.race — these Playwright
+    // promise-based waiters intermittently block the batch JS from making progress.
+    // Use a raw page.once listener for downloads and a 3-second polling loop for URL
+    // changes, which matches the approach used in the working diagnostic scripts.
     let downloadSaved = false
-    try {
-      await Promise.race([
-        page
-          .waitForEvent('download', { timeout: BATCH_TIMEOUT_MS })
-          .then(async (dl) => {
-            await dl.saveAs(dest)
-            downloadSaved = true
-            console.log('  Download complete.')
-          }),
-        page.waitForURL((url) => !url.includes('/batch?id='), {
-          timeout: BATCH_TIMEOUT_MS,
-        }),
-      ])
-    } catch {
-      clearInterval(pollTimer)
+    page.once('download', async (dl) => {
+      console.log('  Download event fired — saving...')
+      await dl.saveAs(dest)
+      downloadSaved = true
+    })
+
+    const BATCH_TIMEOUT_MS = 20 * 60 * 1000
+    const batchEnd = Date.now() + BATCH_TIMEOUT_MS
+    const batchStart = Date.now()
+    let lastLogMin = -1
+
+    while (Date.now() < batchEnd) {
+      await page.waitForTimeout(3000)
+      if (downloadSaved) break
+
+      const currentUrl = page.url()
+      if (!currentUrl.includes('/batch?id=')) {
+        console.log(`  Batch redirected to: ${currentUrl}`)
+        break
+      }
+
+      // Log progress every 2 minutes
+      const elapsedMin = Math.floor((Date.now() - batchStart) / 60000)
+      if (elapsedMin > lastLogMin && elapsedMin % 2 === 0) {
+        lastLogMin = elapsedMin
+        const progress = await page
+          .$eval('#updateprogress', (el) => el.textContent?.trim() ?? '?')
+          .catch(() => '?')
+        console.log(`  [${elapsedMin} min] ${progress}`)
+      }
+    }
+
+    if (!downloadSaved && page.url().includes('/batch?id=')) {
       const progress = await page
         .$eval('#updateprogress', (el) => el.textContent?.trim())
         .catch(() => 'unknown')
       throw new Error(`Batch timed out after 20 minutes (progress: ${progress})`)
     }
-    clearInterval(pollTimer)
 
     if (!downloadSaved) {
       // Batch redirected to a completion page (observed: /download-complete?...).
