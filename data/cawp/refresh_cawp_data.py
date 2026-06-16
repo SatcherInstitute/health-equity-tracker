@@ -138,7 +138,9 @@ def is_fresh(cache: dict, key: str, ttl_days: int = CACHE_TTL_DAYS) -> bool:
 
 
 def mark_done(cache: dict, key: str):
-    cache[key] = {"last_run": datetime.now().isoformat()}
+    if key not in cache:
+        cache[key] = {}
+    cache[key]["last_run"] = datetime.now().isoformat()
     save_cache(cache)
 
 
@@ -254,7 +256,7 @@ def _scrape_state(browser, stealth, fips: str, slug: str) -> pd.DataFrame:
 
         df = matches[0]
         df["total_state_leg_count"] = (
-            df[STLEG_TOTAL_COL].str.split("/", n=1).str[1].str.extract(r"(\d+)").astype("Int64")
+            df[STLEG_TOTAL_COL].str.split("/", n=1).str[1].str.extract(r"(\d+)", expand=False).astype("Int64")
         )
         df = df.rename(columns={"Year": "time_period"})
         df["state_fips"] = fips
