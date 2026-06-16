@@ -76,6 +76,7 @@ import {
 } from '../utils/urlutils'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
+import CAWPCountyMultiDistrictAlert from './ui/CAWPCountyMultiDistrictAlert'
 import DemographicGroupMenu from './ui/DemographicGroupMenu'
 import { ExtremesListBox } from './ui/ExtremesListBox'
 import GeoContext from './ui/GeoContext'
@@ -762,6 +763,8 @@ function MapCardWithKey(props: MapCardProps) {
                       activeDemographicGroup={activeDemographicGroup}
                     />
                   )}
+                {props.dataTypeConfig.dataTypeId === 'women_in_us_congress' &&
+                  props.fips.isState() && <CAWPCountyMultiDistrictAlert />}
                 {percentRateTooHigh && (
                   <HetNotice
                     title='Percentages Over 100%'
