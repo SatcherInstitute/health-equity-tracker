@@ -25,7 +25,7 @@
  *   data/cawp/tab20_cd11820_county20_natl.txt  118th Congress county crosswalk (Census)
  *
  * The numerator download requires no account. It uses Drupal's Views Data Export batch
- * processor (~60-90 min for 100k rows) and requires a headed browser to pass Cloudflare.
+ * processor (~12 min for 100k rows) and requires a headed browser to pass Cloudflare.
  * Run via: npm run refresh-cawp -- --section numerator
  */
 
@@ -383,19 +383,19 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
 
   // The download uses Drupal's Views Data Export batch processor.
   // Flow:
-  //   1. Navigate to the filtered URL (full page load, no AJAX form submission needed)
-  //   2. Reveal the hidden CSV feed link (the "Download Data" toggle is broken — its target
-  //      element #download-dialog does not exist in the DOM, so we force-show .feed-icons)
-  //   3. Click the CSV link — Drupal creates a batch job and redirects to /batch?id=...
-  //   4. The batch processes all rows (~60-90 min for ~100k rows) then triggers a browser download
+  //   1. Navigate to the filtered URL (full page load — the /views/ajax endpoint is blocked)
+  //   2. Reveal the hidden CSV feed link (.feed-icons has display:none; the "Download Data"
+  //      button calls toggleModal('download-dialog') but #download-dialog is never rendered)
+  //   3. Click the CSV link — Drupal starts a batch job at /batch?id=...
+  //   4. The batch processes all rows in ~12 minutes, then fires a download event.
+  //      The page URL stays at /batch?id=... throughout — it never navigates away.
   //
   // Cloudflare notes:
-  //   - Headless mode is blocked; headed mode passes.
-  //   - The AJAX search endpoint (/views/ajax) is blocked, so we use URL params instead.
-  //   - AutomationControlled flag + webdriver override suppresses Playwright detection.
+  //   - Headless mode is blocked; headed mode passes with AutomationControlled suppressed.
+  //   - The AJAX search form (/views/ajax) is blocked, so we use URL params instead.
   console.log('  Opening browser window (Cloudflare requires non-headless)...')
   console.log(
-    '  Export batch takes ~60-90 minutes (100k rows) - please do not close the browser.',
+    '  Export batch takes ~12 minutes - please do not close the browser.',
   )
   const browser = await chromium.launch({
     headless: false,
@@ -411,7 +411,7 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
   const page = await context.newPage()
 
   try {
-    // Navigate with filter params — full page load avoids the blocked /views/ajax endpoint
+    // Navigate with filter params — avoids the blocked /views/ajax endpoint
     const filteredUrl =
       `${CAWP_NUMERATOR_URL}?current=2&yearend_filter=All` +
       '&level[]=Federal+Congress&level[]=State+Legislative&level[]=Territorial%2FDC+Legislative'
@@ -421,15 +421,12 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     })
     await page.waitForTimeout(3000)
 
-    // Force-show the hidden CSV feed link (.feed-icons has display:none;
-    // toggleModal('download-dialog') on the button fails because #download-dialog
-    // is not in the DOM — it is never rendered by the current page template)
+    // Force-show the hidden CSV feed link
     await page.evaluate(() => {
       const feedIcons = document.querySelector('.feed-icons') as HTMLElement
       if (feedIcons) feedIcons.style.display = 'block'
     })
 
-    // Click the CSV link — this starts the Drupal batch export
     const csvLink = await page.$('a[href*="export-roles/csv"]')
     if (!csvLink) throw new Error('CSV download link not found in page DOM')
 
@@ -437,69 +434,60 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
       '  Starting batch export (Drupal will process rows in batches)...',
     )
 
-    // Background download listener - fires if Drupal sends Content-Disposition: attachment
-    // after batch completes. Timeout matches the main waitForURL below.
-    let downloadSaved = false
-    const downloadPromise = page
-      .waitForEvent('download', { timeout: 90 * 60 * 1000 })
-      .then(async (dl) => {
-        await dl.saveAs(dest)
-        downloadSaved = true
-      })
-      .catch(() => {})
-
     await csvLink.click()
 
-    // Wait for batch page - fail explicitly if the click didn't start a batch
+    // Wait for batch page to confirm the click worked
     try {
       await page.waitForURL(/\/batch\?id=/, { timeout: 30000 })
     } catch {
-      const currentUrl = page.url()
       throw new Error(
-        `CSV link click did not start a batch export (expected /batch?id= URL, got: ${currentUrl})`,
+        `CSV link click did not start a batch export (got: ${page.url()})`,
       )
     }
-    console.log('  Batch running (~100k rows, allow 60-90 minutes)...')
+    console.log('  Batch running (~12 min) — progress below...')
 
-    // Poll every 10 minutes for progress logging
-    let lastProgress = '?'
+    // Poll every 2 minutes for progress (selector confirmed via DOM inspection)
     const batchStart = Date.now()
-    const pollTimer = setInterval(
-      async () => {
-        const elapsed = Math.round((Date.now() - batchStart) / 60000)
-        const url = page.url()
-        if (url.includes('/batch?id=')) {
-          lastProgress = await page
-            .$eval('.percentage', (el) => el.textContent?.trim() ?? '?')
-            .catch(() => '?')
-          console.log(`  [${elapsed} min] Batch ${lastProgress} complete...`)
-        }
-      },
-      10 * 60 * 1000,
-    )
+    const pollTimer = setInterval(async () => {
+      if (!page.url().includes('/batch?id=')) return
+      const elapsed = Math.round((Date.now() - batchStart) / 60000)
+      const progress = await page
+        .$eval('#updateprogress', (el) => el.textContent?.trim() ?? '?')
+        .catch(() => '?')
+      console.log(`  [${elapsed} min] ${progress}`)
+    }, 2 * 60 * 1000)
 
-    // Wait until the URL leaves the batch page (batch done, browser redirects to download)
+    // Drupal batch completion fires a download event; the page URL stays at /batch?id=
+    // throughout. We also handle the rare case where it redirects to a file URL instead.
+    const BATCH_TIMEOUT_MS = 20 * 60 * 1000
+    let downloadSaved = false
     try {
-      await page.waitForURL((url) => !url.includes('/batch?id='), {
-        timeout: 90 * 60 * 1000,
-      })
+      await Promise.race([
+        page
+          .waitForEvent('download', { timeout: BATCH_TIMEOUT_MS })
+          .then(async (dl) => {
+            await dl.saveAs(dest)
+            downloadSaved = true
+            console.log('  Download complete.')
+          }),
+        page.waitForURL((url) => !url.includes('/batch?id='), {
+          timeout: BATCH_TIMEOUT_MS,
+        }),
+      ])
     } catch {
       clearInterval(pollTimer)
-      throw new Error(
-        `Batch export timed out after 90 minutes (last progress: ${lastProgress})`,
-      )
+      const progress = await page
+        .$eval('#updateprogress', (el) => el.textContent?.trim())
+        .catch(() => 'unknown')
+      throw new Error(`Batch timed out after 20 minutes (progress: ${progress})`)
     }
-
     clearInterval(pollTimer)
 
-    if (downloadSaved) {
-      // download event already fired and saved the file above
-    } else {
-      // Batch redirected to a page rather than triggering a download event.
-      // Give Cloudflare a moment to auto-resolve any challenge.
-      await page.waitForTimeout(5000)
+    if (!downloadSaved) {
+      // URL changed — batch redirected to a file URL rather than triggering a download event
+      await page.waitForTimeout(3000)
       const currentUrl = page.url()
-      console.log(`  Batch complete, browser at: ${currentUrl}`)
+      console.log(`  Batch redirected to: ${currentUrl}`)
 
       const content = await page.content()
       const bodyText = await page
@@ -507,7 +495,6 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
         .catch(() => '')
 
       if (content.includes('Just a moment') || content.includes('Cloudflare')) {
-        // Cloudflare is blocking the file URL — use context.request with cookies
         const res = await context.request.get(currentUrl)
         if (!res.ok()) {
           throw new Error(
@@ -516,10 +503,8 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
         }
         writeFileSync(dest, await res.text())
       } else if (bodyText.length > 5000 && bodyText.includes(',')) {
-        // CSV rendered inline in the browser
         writeFileSync(dest, bodyText)
       } else {
-        // Completion page — look for a download link
         const dlLink = await page.$(
           'a[href*=".csv"], a[href*="export"], a[download]',
         )
@@ -536,9 +521,6 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
         }
       }
     }
-
-    // Cancel the download listener if still pending (no-op if already resolved)
-    void downloadPromise
 
     markDone(cache, key)
 
