@@ -458,37 +458,26 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
       downloadSaved = true
     })
 
+    // Do NOT call page.$eval inside this loop — evaluating JS in the page
+    // interferes with the batch page's own AJAX polling and stalls progress.
+    // page.url() is synchronous (cached internally) and safe to call in a tight loop.
     const BATCH_TIMEOUT_MS = 20 * 60 * 1000
     const batchEnd = Date.now() + BATCH_TIMEOUT_MS
     const batchStart = Date.now()
-    let lastLogMin = -1
 
     while (Date.now() < batchEnd) {
-      await page.waitForTimeout(3000)
+      await page.waitForTimeout(5000)
       if (downloadSaved) break
-
       const currentUrl = page.url()
       if (!currentUrl.includes('/batch?id=')) {
-        console.log(`  Batch redirected to: ${currentUrl}`)
+        const elapsed = Math.round((Date.now() - batchStart) / 60000)
+        console.log(`  [${elapsed} min] Batch redirected to: ${currentUrl}`)
         break
-      }
-
-      // Log progress every 2 minutes
-      const elapsedMin = Math.floor((Date.now() - batchStart) / 60000)
-      if (elapsedMin > lastLogMin && elapsedMin % 2 === 0) {
-        lastLogMin = elapsedMin
-        const progress = await page
-          .$eval('#updateprogress', (el) => el.textContent?.trim() ?? '?')
-          .catch(() => '?')
-        console.log(`  [${elapsedMin} min] ${progress}`)
       }
     }
 
     if (!downloadSaved && page.url().includes('/batch?id=')) {
-      const progress = await page
-        .$eval('#updateprogress', (el) => el.textContent?.trim())
-        .catch(() => 'unknown')
-      throw new Error(`Batch timed out after 20 minutes (progress: ${progress})`)
+      throw new Error(`Batch timed out after 20 minutes`)
     }
 
     if (!downloadSaved) {
