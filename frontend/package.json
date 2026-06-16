@@ -104,6 +104,7 @@
 		"test:coverage": "vitest run --coverage",
 		"test:watch": "vitest watch",
 		"test": "vitest run",
+		"refresh-cawp": "tsx ../scripts/refresh_cawp_data.ts",
 		"screenshots": "tsx scripts/take-screenshots.ts",
 		"tokens": "tsx run-tokens.ts",
 		"postinstall": "npm run tokens",
