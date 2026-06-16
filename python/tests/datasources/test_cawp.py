@@ -12,6 +12,7 @@ from datasources.cawp import (
     extract_term_years,
     FIPS_TO_STATE_TABLE_MAP,
 )
+from ingestion.constants import TERRITORY_FIPS_LIST
 from test_utils import load_golden_df
 
 FIPS_TO_TEST = ["02", "60"]
@@ -121,7 +122,8 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
             usecols=usecols,
         )
     else:
-        if filename != "cawp_state_leg_60.csv":
+        # fips 02 and 60 have specific fixtures; everything else uses a generic stub
+        if filename not in ("cawp_state_leg_02.csv", "cawp_state_leg_60.csv"):
             filename = "cawp_state_leg_ZZ_territory.csv"
         test_input_data_types = {"state_fips": str, "time_period": str}
         return pd.read_csv(
@@ -131,34 +133,15 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
         )
 
 
-def _load_csv_as_df_from_web(*args, **kwargs):
-    url = args[0]
-    dtype = kwargs.get("dtype", {})
-
-    fips = next(fips for fips, state in FIPS_TO_STATE_TABLE_MAP.items() if state in url)
-
-    if fips in FIPS_TO_TEST:
-        print("\t\tread mock stleg table by fips:", fips)
-    else:
-        fips = "XX"
-
-    return pd.read_csv(
-        os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f"cawp_state_leg_{fips}.csv"),
-        dtype=dtype,
-    )
-
-
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch("ingestion.gcs_to_bq_util.fetch_json_from_web", side_effect=_fetch_json_from_web)
-@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_web", side_effect=_load_csv_as_df_from_web)
 @mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_as_df_from_data_dir)
 @mock.patch("datasources.cawp.get_consecutive_time_periods", side_effect=_get_consecutive_time_periods)
 @mock.patch("datasources.cawp.get_state_level_fips", return_value=FIPS_TO_TEST)
 def testWriteToBq(
     mock_test_fips: mock.MagicMock,  # only use a restricted set of FIPS codes in test
     mock_test_time_periods: mock.MagicMock,  # only use a restricted number of years in test
-    mock_data_dir: mock.MagicMock,  # reading either CAWP LINE ITEM CSV or MANUAL TERRITORY LEG.
-    mock_csv_from_web: mock.MagicMock,  # reading STATE LEG TOTAL from CAWP site
+    mock_data_dir: mock.MagicMock,  # CAWP line items CSV + all 50-state + 6-territory leg CSVs
     mock_json_from_web: mock.MagicMock,  # reading CONGRESS TOTALS from UNITEDSTATES.IO
     mock_bq: mock.MagicMock,  # writing HET tables to HET BQ
 ):
@@ -183,11 +166,8 @@ def testWriteToBq(
     # SCAFFOLD STATELEG BY ALL + SCAFFOLD STATELEG BY RACE
     assert mock_test_time_periods.call_count == 6
 
-    # CAWP LINE ITEM CSV + 6 TERRITORY LEG. TOTAL CSVS
-    assert mock_data_dir.call_count == 7
-
-    # STATE LEG TOTALS FOR 50 STATES
-    assert mock_csv_from_web.call_count == 50
+    # CAWP LINE ITEM CSV + 50 STATE LEG CSVS + 6 TERRITORY LEG CSVS
+    assert mock_data_dir.call_count == 1 + len(FIPS_TO_STATE_TABLE_MAP) + len(TERRITORY_FIPS_LIST)
 
     # CURRENT + HISTORICAL CONGRESS TOTALS
     assert mock_json_from_web.call_count == 2
