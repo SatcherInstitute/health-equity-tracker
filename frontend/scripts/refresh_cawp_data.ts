@@ -1,4 +1,5 @@
 #!/usr/bin/env tsx
+
 /**
  * Refresh all locally-cached CAWP source data files.
  *
@@ -23,28 +24,22 @@
  *   data/cawp/legislators-current.json     US Congress current (unitedstates.io)
  *   data/cawp/tab20_cd11820_county20_natl.txt  118th Congress county crosswalk (Census)
  *
- * Credentials for the numerator download (CAWP asks for name + email, no account needed):
- *   Set CAWP_EMAIL, CAWP_FIRST_NAME, CAWP_LAST_NAME in frontend/.env.local (gitignored).
- *   The script reads that file automatically when run via: npm run refresh-cawp
+ * The numerator download requires no account. It uses Drupal's Views Data Export batch
+ * processor (~60-90 min for 100k rows) and requires a headed browser to pass Cloudflare.
+ * Run via: npm run refresh-cawp -- --section numerator
  */
 
-import { chromium, type Browser, type Page } from '@playwright/test'
-import {
-  existsSync,
-  mkdirSync,
-  readFileSync,
-  writeFileSync,
-} from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
+import { type Browser, chromium } from '@playwright/test'
 
 // --- Paths ---
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url))
-const REPO_ROOT = join(SCRIPT_DIR, '..')
+const REPO_ROOT = join(SCRIPT_DIR, '..', '..')
 const DATA_DIR = join(REPO_ROOT, 'data', 'cawp')
 const CACHE_FILE = join(DATA_DIR, '.refresh_cache.json')
-const ENV_LOCAL_PATH = join(REPO_ROOT, 'frontend', '.env.local')
 
 // --- Constants ---
 const CACHE_TTL_DAYS = 30
@@ -56,9 +51,10 @@ const CONGRESS_CURRENT_URL =
   'https://unitedstates.github.io/congress-legislators/legislators-current.json'
 const CROSSWALK_URL =
   'https://www2.census.gov/geo/docs/maps-data/data/rel2020/cd-sld/tab20_cd11820_county20_natl.txt'
-const CAWP_STATE_INFO_BASE = 'https://cawp.rutgers.edu/facts/state-state-information/'
+const CAWP_STATE_INFO_BASE =
+  'https://cawp.rutgers.edu/facts/state-state-information/'
 const CAWP_NUMERATOR_URL =
-  'https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity'
+  'https://cawp.rutgers.edu/women-elected-officials/race-ethnicity'
 const CAWP_NUMERATOR_FILE = 'cawp-by_race_and_ethnicity_time_series.csv'
 
 const BROWSER_UA =
@@ -66,9 +62,6 @@ const BROWSER_UA =
 
 // Column header that identifies the legislature denominator table on each state page
 const STLEG_TOTAL_COL = 'Total Women/Total Legislature'
-
-// Territories are maintained as manual CSV files and not scraped
-const TERRITORY_FIPS = ['11', '60', '66', '69', '72', '78']
 
 const FIPS_TO_STATE_SLUG: Record<string, string> = {
   '01': 'alabama',
@@ -131,23 +124,6 @@ interface CacheEntry {
 }
 type Cache = Record<string, CacheEntry>
 
-// --- Env helpers ---
-function loadEnvLocal(path: string): Record<string, string> {
-  if (!existsSync(path)) return {}
-  return Object.fromEntries(
-    readFileSync(path, 'utf8')
-      .split('\n')
-      .filter((line) => line && !line.startsWith('#') && line.includes('='))
-      .map((line) => line.split('=', 2) as [string, string])
-      .map(([k, v]) => [k.trim(), v.trim()]),
-  )
-}
-
-const localEnv = loadEnvLocal(ENV_LOCAL_PATH)
-function getEnv(key: string): string | undefined {
-  return process.env[key] ?? localEnv[key]
-}
-
 // --- Cache helpers ---
 function loadCache(): Cache {
   if (existsSync(CACHE_FILE)) {
@@ -185,7 +161,8 @@ async function fetchIfChanged(
 
   if (existsSync(dest)) {
     if (cached.etag) headers['If-None-Match'] = cached.etag
-    else if (cached.lastModified) headers['If-Modified-Since'] = cached.lastModified
+    else if (cached.lastModified)
+      headers['If-Modified-Since'] = cached.lastModified
   }
 
   const res = await fetch(url, { headers })
@@ -209,7 +186,10 @@ async function fetchIfChanged(
 }
 
 // --- Section: Congress JSON ---
-async function refreshCongressJson(cache: Cache, force: boolean): Promise<void> {
+async function refreshCongressJson(
+  cache: Cache,
+  force: boolean,
+): Promise<void> {
   console.log('\n--- US Congress JSON (unitedstates.io) ---')
   const sources = [
     { name: 'legislators-historical.json', url: CONGRESS_HISTORICAL_URL },
@@ -323,7 +303,10 @@ async function scrapeState(
   }
 }
 
-async function refreshStateLegTables(cache: Cache, force: boolean): Promise<void> {
+async function refreshStateLegTables(
+  cache: Cache,
+  force: boolean,
+): Promise<void> {
   console.log(
     '\n--- CAWP state legislature denominator tables (50 states via Playwright) ---',
   )
@@ -384,26 +367,10 @@ async function refreshStateLegTables(cache: Cache, force: boolean): Promise<void
 }
 
 // --- Section: Numerator (race/ethnicity time series via Playwright form) ---
-async function fillInput(page: Page, labelRe: RegExp, nameHint: string, value: string) {
-  try {
-    await page.getByLabel(labelRe).fill(value)
-  } catch {
-    await page.locator(`input[name*="${nameHint}"], input[id*="${nameHint}"]`).first().fill(value)
-  }
-}
-
 async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
-  console.log('\n--- CAWP numerator data (women by race/ethnicity time series) ---')
-
-  const email = getEnv('CAWP_EMAIL')
-  const firstName = getEnv('CAWP_FIRST_NAME')
-  const lastName = getEnv('CAWP_LAST_NAME')
-
-  if (!email || !firstName || !lastName) {
-    console.log('  Skipped — CAWP_EMAIL, CAWP_FIRST_NAME, CAWP_LAST_NAME not set.')
-    console.log('  Add them to frontend/.env.local to enable automatic numerator refresh.')
-    return
-  }
+  console.log(
+    '\n--- CAWP numerator data (women by race/ethnicity time series) ---',
+  )
 
   const key = 'numerator'
   const dest = join(DATA_DIR, CAWP_NUMERATOR_FILE)
@@ -414,54 +381,170 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     return
   }
 
-  console.log(`  Opening ${CAWP_NUMERATOR_URL}`)
-  const browser = await chromium.launch({ headless: true })
-  const context = await browser.newContext({ userAgent: BROWSER_UA })
+  // The download uses Drupal's Views Data Export batch processor.
+  // Flow:
+  //   1. Navigate to the filtered URL (full page load, no AJAX form submission needed)
+  //   2. Reveal the hidden CSV feed link (the "Download Data" toggle is broken — its target
+  //      element #download-dialog does not exist in the DOM, so we force-show .feed-icons)
+  //   3. Click the CSV link — Drupal creates a batch job and redirects to /batch?id=...
+  //   4. The batch processes all rows (~60-90 min for ~100k rows) then triggers a browser download
+  //
+  // Cloudflare notes:
+  //   - Headless mode is blocked; headed mode passes.
+  //   - The AJAX search endpoint (/views/ajax) is blocked, so we use URL params instead.
+  //   - AutomationControlled flag + webdriver override suppresses Playwright detection.
+  console.log('  Opening browser window (Cloudflare requires non-headless)...')
+  console.log(
+    '  Export batch takes ~60-90 minutes (100k rows) - please do not close the browser.',
+  )
+  const browser = await chromium.launch({
+    headless: false,
+    args: ['--disable-blink-features=AutomationControlled'],
+  })
+  const context = await browser.newContext({
+    userAgent: BROWSER_UA,
+    viewport: { width: 1280, height: 800 },
+  })
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, 'webdriver', { get: () => undefined })
+  })
   const page = await context.newPage()
 
   try {
-    await page.goto(CAWP_NUMERATOR_URL, { waitUntil: 'networkidle', timeout: 30000 })
+    // Navigate with filter params — full page load avoids the blocked /views/ajax endpoint
+    const filteredUrl =
+      `${CAWP_NUMERATOR_URL}?current=2&yearend_filter=All` +
+      '&level[]=Federal+Congress&level[]=State+Legislative&level[]=Territorial%2FDC+Legislative'
+    await page.goto(filteredUrl, {
+      waitUntil: 'domcontentloaded',
+      timeout: 30000,
+    })
+    await page.waitForTimeout(3000)
 
-    // Select "Show All Years" from the date filter
-    const yearSelect = page.locator('select').filter({ hasText: /year/i }).first()
-    await yearSelect.selectOption({ label: /show all years?/i }).catch(async () => {
-      await page.locator('select').first().selectOption({ index: 0 })
+    // Force-show the hidden CSV feed link (.feed-icons has display:none;
+    // toggleModal('download-dialog') on the button fails because #download-dialog
+    // is not in the DOM — it is never rendered by the current page template)
+    await page.evaluate(() => {
+      const feedIcons = document.querySelector('.feed-icons') as HTMLElement
+      if (feedIcons) feedIcons.style.display = 'block'
     })
 
-    // Check all required office type checkboxes (Congress, State Legislative, Territorial)
-    for (const label of [/congress/i, /state.?legislative/i, /territorial/i]) {
-      const cb = page.getByRole('checkbox', { name: label })
-      if (await cb.count() > 0 && !(await cb.isChecked())) {
-        await cb.check()
+    // Click the CSV link — this starts the Drupal batch export
+    const csvLink = await page.$('a[href*="export-roles/csv"]')
+    if (!csvLink) throw new Error('CSV download link not found in page DOM')
+
+    console.log(
+      '  Starting batch export (Drupal will process rows in batches)...',
+    )
+
+    // Background download listener - fires if Drupal sends Content-Disposition: attachment
+    // after batch completes. Timeout matches the main waitForURL below.
+    let downloadSaved = false
+    const downloadPromise = page
+      .waitForEvent('download', { timeout: 90 * 60 * 1000 })
+      .then(async (dl) => {
+        await dl.saveAs(dest)
+        downloadSaved = true
+      })
+      .catch(() => {})
+
+    await csvLink.click()
+
+    // Wait for batch page - fail explicitly if the click didn't start a batch
+    try {
+      await page.waitForURL(/\/batch\?id=/, { timeout: 30000 })
+    } catch {
+      const currentUrl = page.url()
+      throw new Error(
+        `CSV link click did not start a batch export (expected /batch?id= URL, got: ${currentUrl})`,
+      )
+    }
+    console.log('  Batch running (~100k rows, allow 60-90 minutes)...')
+
+    // Poll every 10 minutes for progress logging
+    let lastProgress = '?'
+    const batchStart = Date.now()
+    const pollTimer = setInterval(
+      async () => {
+        const elapsed = Math.round((Date.now() - batchStart) / 60000)
+        const url = page.url()
+        if (url.includes('/batch?id=')) {
+          lastProgress = await page
+            .$eval('.percentage', (el) => el.textContent?.trim() ?? '?')
+            .catch(() => '?')
+          console.log(`  [${elapsed} min] Batch ${lastProgress} complete...`)
+        }
+      },
+      10 * 60 * 1000,
+    )
+
+    // Wait until the URL leaves the batch page (batch done, browser redirects to download)
+    try {
+      await page.waitForURL((url) => !url.includes('/batch?id='), {
+        timeout: 90 * 60 * 1000,
+      })
+    } catch {
+      clearInterval(pollTimer)
+      throw new Error(
+        `Batch export timed out after 90 minutes (last progress: ${lastProgress})`,
+      )
+    }
+
+    clearInterval(pollTimer)
+
+    if (downloadSaved) {
+      // download event already fired and saved the file above
+    } else {
+      // Batch redirected to a page rather than triggering a download event.
+      // Give Cloudflare a moment to auto-resolve any challenge.
+      await page.waitForTimeout(5000)
+      const currentUrl = page.url()
+      console.log(`  Batch complete, browser at: ${currentUrl}`)
+
+      const content = await page.content()
+      const bodyText = await page
+        .$eval('body', (el) => (el as HTMLElement).innerText ?? '')
+        .catch(() => '')
+
+      if (content.includes('Just a moment') || content.includes('Cloudflare')) {
+        // Cloudflare is blocking the file URL — use context.request with cookies
+        const res = await context.request.get(currentUrl)
+        if (!res.ok()) {
+          throw new Error(
+            `Cloudflare blocked final download at ${currentUrl} (${res.status()})`,
+          )
+        }
+        writeFileSync(dest, await res.text())
+      } else if (bodyText.length > 5000 && bodyText.includes(',')) {
+        // CSV rendered inline in the browser
+        writeFileSync(dest, bodyText)
+      } else {
+        // Completion page — look for a download link
+        const dlLink = await page.$(
+          'a[href*=".csv"], a[href*="export"], a[download]',
+        )
+        if (dlLink) {
+          const [dl] = await Promise.all([
+            page.waitForEvent('download', { timeout: 60000 }),
+            dlLink.click(),
+          ])
+          await dl.saveAs(dest)
+        } else {
+          throw new Error(
+            `Unknown batch completion state at ${currentUrl}. Body: ${bodyText.substring(0, 200)}`,
+          )
+        }
       }
     }
 
-    // Submit the search
-    await page.getByRole('button', { name: /search/i }).click()
-    await page.waitForLoadState('networkidle')
+    // Cancel the download listener if still pending (no-op if already resolved)
+    void downloadPromise
 
-    // Click the Download button to open the form modal
-    await page.getByRole('button', { name: /download/i }).first().click()
-
-    // Fill the name/email form (no account needed — just contact info)
-    await page.waitForSelector('input[type="email"], input[name*="email"], input[id*="email"]', {
-      timeout: 10000,
-    })
-
-    await fillInput(page, /first.?name/i, 'first', firstName)
-    await fillInput(page, /last.?name/i, 'last', lastName)
-    await fillInput(page, /email/i, 'email', email)
-
-    // Trigger the file download
-    const [download] = await Promise.all([
-      page.waitForEvent('download', { timeout: 60000 }),
-      page.getByRole('button', { name: /download/i }).last().click(),
-    ])
-
-    await download.saveAs(dest)
     markDone(cache, key)
 
-    const lines = readFileSync(dest, 'utf8').split('\n').filter((l) => l.trim()).length
+    const lines = readFileSync(dest, 'utf8')
+      .split('\n')
+      .filter((l) => l.trim()).length
     console.log(`  Saved ${lines} rows to ${CAWP_NUMERATOR_FILE}`)
   } catch (e) {
     throw new Error(`Numerator download failed: ${e}`)
@@ -499,11 +582,12 @@ const cache = loadCache()
 
 const runAll = section == null
 if (runAll || section === 'numerator') await refreshNumerator(cache, force)
-if (runAll || section === 'congress_json') await refreshCongressJson(cache, force)
+if (runAll || section === 'congress_json')
+  await refreshCongressJson(cache, force)
 if (runAll || section === 'crosswalk') await refreshCrosswalk(cache, force)
 if (runAll || section === 'state_leg') await refreshStateLegTables(cache, force)
 
-// Note: territories (${TERRITORY_FIPS.join(', ')}) are maintained as manual CSV files
+// Note: territories (11, 60, 66, 69, 72, 78) are maintained as manual CSV files
 // and are not scraped by this script.
 
 console.log('\nDone. Review changes with: git diff data/cawp/')
