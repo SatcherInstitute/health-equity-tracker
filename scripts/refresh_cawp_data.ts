@@ -10,24 +10,25 @@
  *
  * Options:
  *   --force           Bypass the 30-day freshness cache and re-download everything
- *   --section NAME    Only run one section: state_leg | congress_json | crosswalk
+ *   --section NAME    Only run one section: numerator | state_leg | congress_json | crosswalk
  *
  * Cache: each section records its last-run timestamp in data/cawp/.refresh_cache.json.
  * By default the script skips any section that ran successfully within the last 30 days.
  * Individual failed states are retried on the next run even within the cache window.
  *
  * What this updates:
+ *   data/cawp/cawp-by_race_and_ethnicity_time_series.csv  numerator: women by race/ethnicity
  *   data/cawp/cawp_state_leg_{fips}.csv  50 state legislature denominator tables
  *   data/cawp/legislators-historical.json  US Congress historical (unitedstates.io)
  *   data/cawp/legislators-current.json     US Congress current (unitedstates.io)
  *   data/cawp/tab20_cd11820_county20_natl.txt  118th Congress county crosswalk (Census)
  *
- * What this does NOT update automatically:
- *   cawp-by_race_and_ethnicity_time_series.csv  (requires form submission at cawpdata.rutgers.edu)
- *   See download instructions at the top of python/datasources/cawp.py
+ * Credentials for the numerator download (CAWP asks for name + email, no account needed):
+ *   Set CAWP_EMAIL, CAWP_FIRST_NAME, CAWP_LAST_NAME in frontend/.env.local (gitignored).
+ *   The script reads that file automatically when run via: npm run refresh-cawp
  */
 
-import { chromium, type Browser } from '@playwright/test'
+import { chromium, type Browser, type Page } from '@playwright/test'
 import {
   existsSync,
   mkdirSync,
@@ -43,6 +44,7 @@ const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url))
 const REPO_ROOT = join(SCRIPT_DIR, '..')
 const DATA_DIR = join(REPO_ROOT, 'data', 'cawp')
 const CACHE_FILE = join(DATA_DIR, '.refresh_cache.json')
+const ENV_LOCAL_PATH = join(REPO_ROOT, 'frontend', '.env.local')
 
 // --- Constants ---
 const CACHE_TTL_DAYS = 30
@@ -55,6 +57,12 @@ const CONGRESS_CURRENT_URL =
 const CROSSWALK_URL =
   'https://www2.census.gov/geo/docs/maps-data/data/rel2020/cd-sld/tab20_cd11820_county20_natl.txt'
 const CAWP_STATE_INFO_BASE = 'https://cawp.rutgers.edu/facts/state-state-information/'
+const CAWP_NUMERATOR_URL =
+  'https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity'
+const CAWP_NUMERATOR_FILE = 'cawp-by_race_and_ethnicity_time_series.csv'
+
+const BROWSER_UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
 
 // Column header that identifies the legislature denominator table on each state page
 const STLEG_TOTAL_COL = 'Total Women/Total Legislature'
@@ -122,6 +130,23 @@ interface CacheEntry {
   lastModified?: string
 }
 type Cache = Record<string, CacheEntry>
+
+// --- Env helpers ---
+function loadEnvLocal(path: string): Record<string, string> {
+  if (!existsSync(path)) return {}
+  return Object.fromEntries(
+    readFileSync(path, 'utf8')
+      .split('\n')
+      .filter((line) => line && !line.startsWith('#') && line.includes('='))
+      .map((line) => line.split('=', 2) as [string, string])
+      .map(([k, v]) => [k.trim(), v.trim()]),
+  )
+}
+
+const localEnv = loadEnvLocal(ENV_LOCAL_PATH)
+function getEnv(key: string): string | undefined {
+  return process.env[key] ?? localEnv[key]
+}
 
 // --- Cache helpers ---
 function loadCache(): Cache {
@@ -234,11 +259,7 @@ async function scrapeState(
   fips: string,
   slug: string,
 ): Promise<string> {
-  const context = await browser.newContext({
-    userAgent:
-      // Impersonate a real browser; CAWP may serve Cloudflare challenges to bots
-      'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
-  })
+  const context = await browser.newContext({ userAgent: BROWSER_UA })
   const page = await context.newPage()
 
   try {
@@ -362,6 +383,94 @@ async function refreshStateLegTables(cache: Cache, force: boolean): Promise<void
   }
 }
 
+// --- Section: Numerator (race/ethnicity time series via Playwright form) ---
+async function fillInput(page: Page, labelRe: RegExp, nameHint: string, value: string) {
+  try {
+    await page.getByLabel(labelRe).fill(value)
+  } catch {
+    await page.locator(`input[name*="${nameHint}"], input[id*="${nameHint}"]`).first().fill(value)
+  }
+}
+
+async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
+  console.log('\n--- CAWP numerator data (women by race/ethnicity time series) ---')
+
+  const email = getEnv('CAWP_EMAIL')
+  const firstName = getEnv('CAWP_FIRST_NAME')
+  const lastName = getEnv('CAWP_LAST_NAME')
+
+  if (!email || !firstName || !lastName) {
+    console.log('  Skipped — CAWP_EMAIL, CAWP_FIRST_NAME, CAWP_LAST_NAME not set.')
+    console.log('  Add them to frontend/.env.local to enable automatic numerator refresh.')
+    return
+  }
+
+  const key = 'numerator'
+  const dest = join(DATA_DIR, CAWP_NUMERATOR_FILE)
+
+  if (!force && isFresh(cache, key)) {
+    const last = cache[key].lastRun.slice(0, 10)
+    console.log(`  Fresh (last run ${last}), skipping`)
+    return
+  }
+
+  console.log(`  Opening ${CAWP_NUMERATOR_URL}`)
+  const browser = await chromium.launch({ headless: true })
+  const context = await browser.newContext({ userAgent: BROWSER_UA })
+  const page = await context.newPage()
+
+  try {
+    await page.goto(CAWP_NUMERATOR_URL, { waitUntil: 'networkidle', timeout: 30000 })
+
+    // Select "Show All Years" from the date filter
+    const yearSelect = page.locator('select').filter({ hasText: /year/i }).first()
+    await yearSelect.selectOption({ label: /show all years?/i }).catch(async () => {
+      await page.locator('select').first().selectOption({ index: 0 })
+    })
+
+    // Check all required office type checkboxes (Congress, State Legislative, Territorial)
+    for (const label of [/congress/i, /state.?legislative/i, /territorial/i]) {
+      const cb = page.getByRole('checkbox', { name: label })
+      if (await cb.count() > 0 && !(await cb.isChecked())) {
+        await cb.check()
+      }
+    }
+
+    // Submit the search
+    await page.getByRole('button', { name: /search/i }).click()
+    await page.waitForLoadState('networkidle')
+
+    // Click the Download button to open the form modal
+    await page.getByRole('button', { name: /download/i }).first().click()
+
+    // Fill the name/email form (no account needed — just contact info)
+    await page.waitForSelector('input[type="email"], input[name*="email"], input[id*="email"]', {
+      timeout: 10000,
+    })
+
+    await fillInput(page, /first.?name/i, 'first', firstName)
+    await fillInput(page, /last.?name/i, 'last', lastName)
+    await fillInput(page, /email/i, 'email', email)
+
+    // Trigger the file download
+    const [download] = await Promise.all([
+      page.waitForEvent('download', { timeout: 60000 }),
+      page.getByRole('button', { name: /download/i }).last().click(),
+    ])
+
+    await download.saveAs(dest)
+    markDone(cache, key)
+
+    const lines = readFileSync(dest, 'utf8').split('\n').filter((l) => l.trim()).length
+    console.log(`  Saved ${lines} rows to ${CAWP_NUMERATOR_FILE}`)
+  } catch (e) {
+    throw new Error(`Numerator download failed: ${e}`)
+  } finally {
+    await context.close()
+    await browser.close()
+  }
+}
+
 // --- Main ---
 const { values } = parseArgs({
   args: process.argv.slice(2),
@@ -374,6 +483,7 @@ const { values } = parseArgs({
 
 const force = values.force ?? false
 const section = values.section as
+  | 'numerator'
   | 'state_leg'
   | 'congress_json'
   | 'crosswalk'
@@ -388,6 +498,7 @@ mkdirSync(DATA_DIR, { recursive: true })
 const cache = loadCache()
 
 const runAll = section == null
+if (runAll || section === 'numerator') await refreshNumerator(cache, force)
 if (runAll || section === 'congress_json') await refreshCongressJson(cache, force)
 if (runAll || section === 'crosswalk') await refreshCrosswalk(cache, force)
 if (runAll || section === 'state_leg') await refreshStateLegTables(cache, force)
