@@ -436,10 +436,11 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
 
     await csvLink.click()
 
-    // Wait for batch page to confirm the click worked
-    try {
-      await page.waitForURL(/\/batch\?id=/, { timeout: 30000 })
-    } catch {
+    // Give the navigation to /batch?id=... time to happen. Using waitForURL here
+    // caused intermittent "Initializing." hangs in testing; a plain wait + URL check
+    // matches the approach used in the working diagnostic scripts.
+    await page.waitForTimeout(5000)
+    if (!page.url().includes('/batch?id=')) {
       throw new Error(
         `CSV link click did not start a batch export (got: ${page.url()})`,
       )
@@ -484,40 +485,51 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     clearInterval(pollTimer)
 
     if (!downloadSaved) {
-      // URL changed — batch redirected to a file URL rather than triggering a download event
+      // Batch redirected to a completion page (observed: /download-complete?...).
+      // Give the page a moment to fully load.
       await page.waitForTimeout(3000)
       const currentUrl = page.url()
       console.log(`  Batch redirected to: ${currentUrl}`)
 
       const content = await page.content()
-      const bodyText = await page
-        .$eval('body', (el) => (el as HTMLElement).innerText ?? '')
-        .catch(() => '')
-
-      if (content.includes('Just a moment') || content.includes('Cloudflare')) {
+      if (content.includes('Just a moment') || content.includes('challenge-form')) {
+        // Cloudflare challenge — use session cookies to fetch directly
         const res = await context.request.get(currentUrl)
         if (!res.ok()) {
           throw new Error(
-            `Cloudflare blocked final download at ${currentUrl} (${res.status()})`,
+            `Cloudflare blocked final download (${res.status()})`,
           )
         }
         writeFileSync(dest, await res.text())
-      } else if (bodyText.length > 5000 && bodyText.includes(',')) {
-        writeFileSync(dest, bodyText)
       } else {
+        // Look for a download/export link on the completion page
         const dlLink = await page.$(
-          'a[href*=".csv"], a[href*="export"], a[download]',
+          'a[href*=".csv"], a[href*="export-roles"], a[href*="download"], a[download]',
         )
         if (dlLink) {
+          console.log('  Found download link on completion page — clicking...')
           const [dl] = await Promise.all([
             page.waitForEvent('download', { timeout: 60000 }),
             dlLink.click(),
           ])
           await dl.saveAs(dest)
         } else {
-          throw new Error(
-            `Unknown batch completion state at ${currentUrl}. Body: ${bodyText.substring(0, 200)}`,
-          )
+          // No link found — the completion URL itself may serve the CSV
+          const res = await context.request.get(currentUrl)
+          const contentType = res.headers()['content-type'] ?? ''
+          if (res.ok() && (contentType.includes('csv') || contentType.includes('text/plain'))) {
+            writeFileSync(dest, await res.text())
+          } else {
+            // Save page screenshot for debugging and report the body
+            await page.screenshot({ path: '/tmp/cawp-download-complete.png' })
+            const bodySnippet = await page
+              .$eval('body', (el) => (el as HTMLElement).innerText?.slice(0, 400))
+              .catch(() => '')
+            throw new Error(
+              `No download link on completion page (${currentUrl}). ` +
+              `Screenshot: /tmp/cawp-download-complete.png. Body: ${bodySnippet}`,
+            )
+          }
         }
       }
     }
