@@ -759,7 +759,7 @@ def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool
 def get_state_leg_totals_df():
     """Loads state legislature denominator tables from locally-cached CSV files
     (data/cawp/cawp_state_leg_{fips}.csv). Files are maintained by
-    data/cawp/refresh_cawp_data.py and committed to the repo.
+    scripts/refresh_cawp_data.py and committed to the repo.
 
     Returns: df with "time_period", "state_fips", and total_state_leg_count cols
     """

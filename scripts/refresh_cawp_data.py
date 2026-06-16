@@ -4,7 +4,7 @@ Refresh all locally-cached CAWP source data files.
 
 Run from repo root when CAWP data needs updating:
 
-    python data/cawp/refresh_cawp_data.py [--force] [--section SECTION]
+    python scripts/refresh_cawp_data.py [--force] [--section SECTION]
 
 Options:
     --force           Bypass the 30-day freshness cache and re-download everything

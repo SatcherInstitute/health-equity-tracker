@@ -22,6 +22,8 @@
 	"allowCompoundWords": true,
 	"minWordLength": 3,
 	"words": [
+		"KHTML",
+		"usr",
 		"aafp",
 		"aamc",
 		"AAMC",
