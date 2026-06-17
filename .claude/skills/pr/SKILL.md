@@ -78,6 +78,43 @@ grep -n "PAGE_LINK\|_PATH\|_ROUTE" frontend/src/utils/internalRoutes.ts
 
 ---
 
+## Step 2c — Check if branch is behind main
+
+```bash
+git fetch origin main --quiet
+git log --oneline --left-right origin/main...HEAD
+```
+
+Parse the output for lines starting with `<` (commits on `origin/main` not on this branch). If any exist, the branch is behind.
+
+**If behind:** Print the missing commits clearly, e.g.:
+
+> Branch is behind `origin/main` by N commit(s):
+> - `abc1234` commit message
+
+Then ask the user to confirm before merging:
+
+```
+About to merge origin/main into <headRefName>. Confirm? (yes/no)
+```
+
+Use `AskUserQuestion` to gate this — do not proceed without confirmation.
+
+**If user confirms:**
+
+```bash
+git merge origin/main --no-edit
+git push $FORK_REMOTE HEAD
+```
+
+If the merge produces conflicts: stop, print the conflicting files, and ask the user to resolve them manually before continuing.
+
+**If user declines:** Note that the branch will remain behind main and continue with the rest of the skill.
+
+**If up to date:** Note "Branch is up to date with origin/main" and continue.
+
+---
+
 ## Step 3 — Evaluate and address code review feedback
 
 Fetch all reviews and inline comments on the PR:
@@ -207,7 +244,7 @@ E2E_BASE_URL=http://localhost:3000 npx playwright test playwright-tests/_pr_veri
 **Map results back to checklist:**
 - Test passed → `- [x]`
 - Test failed → leave `- [ ]` and add a note: `(Playwright: <short failure reason)` so the human reviewer knows what to investigate manually
-- Item not automatable (requires human judgment, live external service, or next CI run) → leave `- [ ]` as-is
+- Item not automatable (requires human judgment, live external service, or next CI run) → **preserve its current state** (`- [x]` stays checked, `- [ ]` stays unchecked). The one exception: if recent commits clearly invalidate a previously-checked item (e.g., the feature it described was reverted, the file it references was removed, or the behavior it describes no longer matches the code), un-check it and add a note explaining why.
 
 **Clean up** after all tests run:
 
@@ -236,7 +273,14 @@ git log origin/main..HEAD --oneline
 git diff origin/main -- frontend/src/
 ```
 
-Rewrite the PR title (under 70 chars) and body. Keep the description **short and focused** — a few tight bullets, no padding. The test plan is the audited behavioral checklist from Step 5 only (no static tooling items).
+Update the PR title (under 70 chars) and body. **Read the existing PR body first** (already fetched in Step 1). Use it as the starting point:
+
+- **Summary bullets:** Keep the existing bullets if they still accurately describe the diff. Only add, remove, or rewrite bullets when the diff has changed significantly since they were written. Do not replace a well-written human summary with a generic one.
+- **Test plan:** Use the audited checklist from Step 5 (checked state preserved). Do not regenerate from scratch.
+- **Issue links:** Preserve any existing issue-closing keywords (`Closes`, `Fixes`, `Resolves`, `Fix`, `Close`, `Resolve` — GitHub recognizes all of these) followed by `#NNNN`.
+- **Bot-generated blocks:** Preserve per the rule below.
+
+Keep the description **short and focused** — a few tight bullets, no padding.
 
 **Title rules:**
 - Under 70 chars
@@ -268,7 +312,9 @@ Use this template:
 - 3–5 bullets maximum; each one line
 - Omit "Root Cause / Motivation" unless the why is genuinely non-obvious to a reviewer reading the diff
 
-Write the body to `/tmp/pr-body.md`, then apply:
+Before writing the body, fetch the current PR body and check for any auto-generated bot sections (CodeRabbit "Summary by CodeRabbit", or similar blocks appended by review bots). These are delimited by HTML comments like `<!-- This is an auto-generated comment: ... -->`. **Preserve them verbatim** — append them after your written body so they survive the `--body-file` overwrite.
+
+Write the body to `/tmp/pr-body.md`, appending any bot-generated blocks after the human-authored content, then apply:
 
 ```bash
 gh pr edit --title "<new title>" --body-file /tmp/pr-body.md

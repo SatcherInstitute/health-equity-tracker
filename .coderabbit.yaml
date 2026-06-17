@@ -1,0 +1,55 @@
+# CodeRabbit configuration — see https://docs.coderabbit.ai
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+
+language: "en-US"
+early_access: false
+
+tone_instructions: >
+  Be extremely terse. One sentence per finding. No bullet lists.
+  Only flag genuine bugs, data errors, or security issues.
+  Skip style, naming, and refactor suggestions entirely.
+
+reviews:
+  profile: "chill"
+  poem: false
+  high_level_summary: false
+  review_status: false
+  finishing_touches:
+    docstrings:
+      enabled: false
+    unit_tests:
+      enabled: false
+    simplify:
+      enabled: false
+  auto_review:
+    enabled: true
+    auto_incremental_review: true
+    base_branches:
+      - main
+  path_filters:
+    - "**"
+    - "!data/**"
+    - "!python/tests/**/golden_data/**"
+    - "!package-lock.json"
+    - "!frontend/dist/**"
+    - "!**/__pycache__/**"
+  path_instructions:
+    - path: "python/datasources/**"
+      instructions: |
+        Flag only: numerator/denominator population mismatches, wrong pct metric type, non-standard race labels (must match Race enum in standardized_columns.py), hardcoded years that should use ACS_EARLIEST_YEAR/ACS_CURRENT_YEAR.
+
+    - path: "python/ingestion/**"
+      instructions: |
+        Flag only: backwards compatibility breaks (changes here affect every DataSource subclass), type safety violations with het_types.py, unsafe FIPS handling (string vs numeric).
+
+    - path: "python/tests/**"
+      instructions: |
+        Flag only: mocks that accept bad input silently, missing golden data regeneration when output shape changes.
+
+    - path: "frontend/src/**"
+      instructions: |
+        Flag only: WCAG contrast failures, color-only chart encoding, missing aria-label on interactive elements, raw hex values instead of design tokens.
+
+    - path: ".github/workflows/dag*.yml"
+      instructions: |
+        Flag only: missing failure notification step, wrong secrets references.
