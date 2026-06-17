@@ -35,9 +35,11 @@ FLAG_STATUS_REENABLED = "reenabled"
 # Statuses that hide an insight on read. Only the team can set these (via PATCH); a plain
 # user flag never suppresses, so the combo immediately regenerates a new insight.
 SUPPRESSING_STATUSES = {FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT}
-# Statuses whose stored content is fed back into the prompt as a negative example —
-# everything except `reenabled` (which the team has explicitly cleared).
-NEGATIVE_EXAMPLE_STATUSES = {FLAG_STATUS_FLAGGED, FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT}
+# Statuses whose stored content is fed back into the prompt as a negative example. Only
+# team-confirmed records (`suppressed`/`permanent`) qualify — a raw user `flagged` record is
+# excluded so a bad-faith or mistaken public flag can't poison the prompt, and `reenabled`
+# is excluded because the team has explicitly cleared it.
+NEGATIVE_EXAMPLE_STATUSES = {FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT}
 VALID_FLAG_STATUSES = {FLAG_STATUS_FLAGGED, FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT, FLAG_STATUS_REENABLED}
 # Cap on how many flagged examples we feed back into the generation prompt.
 MAX_FLAGGED_EXAMPLES = 10

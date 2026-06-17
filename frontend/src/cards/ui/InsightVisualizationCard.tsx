@@ -136,7 +136,7 @@ export default function InsightVisualizationCard({
         </div>
       ) : suppressed ? (
         <p className='m-0 text-alt-dark text-small'>
-          This insight was flagged for review and is currently hidden.
+          This insight was reported for review and is currently hidden.
         </p>
       ) : (
         <>

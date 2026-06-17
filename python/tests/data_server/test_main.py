@@ -158,10 +158,10 @@ def test_flagged_examples_filters_by_topic_and_status(mock_list, client):
     resp = client.get("/flagged-examples?topic=hiv")
     assert resp.status_code == 200
     examples = resp.get_json()["examples"]
-    # Plain "flagged" and team-"suppressed" hiv records both qualify (newest first);
-    # the "reenabled" one is excluded and the covid one is filtered out by topic.
+    # Only team-confirmed "suppressed"/"permanent" records feed the prompt. The raw user
+    # "flagged" record (w) is now excluded, the "reenabled" one (y) is excluded, and the
+    # "permanent" covid one (z) is filtered out by topic — leaving only the suppressed hiv one.
     assert examples == [
-        {"reason": "misleading", "content": "w"},
         {"reason": "inaccurate", "content": "x"},
     ]
 
@@ -175,7 +175,7 @@ def test_flagged_examples_stops_downloading_after_max(mock_list, client):
     blobs = [
         FakeBlob(
             f"{i}.json",
-            {"topic": "hiv", "reason": "inaccurate", "content": f"c{i}", "status": "flagged", "timestamp": i},
+            {"topic": "hiv", "reason": "inaccurate", "content": f"c{i}", "status": "suppressed", "timestamp": i},
         )
         for i in range(total)
     ]

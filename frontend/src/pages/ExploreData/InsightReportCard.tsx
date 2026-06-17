@@ -162,7 +162,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
           <div className='flex flex-col items-center gap-3 py-8'>
             <CircularProgress size={28} />
             <p className='text-alt-dark text-small'>
-              Synthesizing data across all charts with AI...
+              Reviewing all charts with AI...
             </p>
           </div>
         )}
@@ -181,7 +181,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
         {suppressed && !isGenerating && (
           <div className='flex flex-col items-center gap-2 py-6'>
             <p className='m-0 text-center text-alt-dark text-small'>
-              This insight was flagged for review and is currently hidden.
+              This insight was reported for review and is currently hidden.
             </p>
           </div>
         )}
