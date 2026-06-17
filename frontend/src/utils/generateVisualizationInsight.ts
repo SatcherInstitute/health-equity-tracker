@@ -131,7 +131,7 @@ function buildPrompt(
 
   if (MAP_CHART_IDS.includes(hashId)) {
     if (isSingleRegionMap) {
-      return `This is a choropleth map showing ${topic} in ${location}. Because this covers a single county, the map shows just one area; the data below breaks that rate down by ${demographicLabel} group.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that names which ${demographicLabel} groups carry the highest and lowest rates and captures why this gap matters for the people who live there — focus on the "so what", not the chart mechanics.`
+      return `This is a choropleth map showing ${topic} in ${location}. The map covers a single area, so instead of a geographic comparison the data below breaks that rate down by ${demographicLabel} group.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that names which ${demographicLabel} groups carry the highest and lowest rates and captures why this gap matters for the people who live there — focus on the "so what", not the chart mechanics.`
     }
     return `This is a choropleth map showing ${topic} in ${location} across all ${demographicLabel} groups. The intended message is to highlight geographic health equity disparities.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that names the specific states or regions with the highest rates, contrasts them with those with the lowest, and captures why this geographic gap matters — focus on the "so what", not the chart mechanics.`
   }
