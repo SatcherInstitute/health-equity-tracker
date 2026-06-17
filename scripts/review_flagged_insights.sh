@@ -23,7 +23,7 @@
 #
 # Optional: -p PROJECT_ID  -b FLAGGED_BUCKET  -c CACHE_BUCKET  -h
 
-set -euo pipefail
+set -e -u -o pipefail
 
 DEFAULT_PROJECT_ID="het-infra-test-05"
 DEFAULT_FLAGGED_BUCKET="het-flagged-insights"
@@ -219,7 +219,7 @@ for f in "${FILES[@]}"; do
 
     action=""
     while [[ -z "$action" ]]; do
-        read -r -p "Action [s]uppress / [b]an permanently / [r]e-enable / s[k]ip / [q]uit: " choice </dev/tty
+        read -r -p "Action  s = suppress  b = ban permanently  r = re-enable  k = skip  q = quit: " choice </dev/tty
         case "$choice" in
             s|S) action="suppressed" ;;
             b|B) action="permanent" ;;
