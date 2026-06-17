@@ -12,6 +12,7 @@ import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
 import { useCompareMode } from '../reports/CompareModeContext'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { hasEnoughDataForInsight } from '../utils/generateVisualizationInsight'
 import { cardQueryResponsesAtom } from '../utils/sharedSettingsState'
 import CardOptionsMenu from './ui/CardOptionsMenu'
 import InsightVisualizationButton from './ui/InsightVisualizationButton'
@@ -118,6 +119,18 @@ function CardWrapper(props: {
           overrideCardHasData,
         )
 
+        // Only offer an insight when there are at least two values to compare.
+        // A single group or region has no disparity to describe.
+        const showInsight =
+          insightProps != null &&
+          !inCompareMode &&
+          hasEnoughDataForInsight(
+            props.scrollToHash,
+            insightProps.dataTypeConfig,
+            insightProps.demographicType,
+            queryResponses,
+          )
+
         return (
           <article
             className={`relative m-2 rounded-sm bg-alt-white p-3 shadow-raised ${props.className}`}
@@ -129,7 +142,7 @@ function CardWrapper(props: {
               />
             )}
             <div className='absolute top-2 right-2 flex items-center'>
-              {cardHasData && insightProps && !inCompareMode && (
+              {cardHasData && showInsight && insightProps && (
                 <InsightVisualizationButton
                   scrollToHash={props.scrollToHash}
                   isCompareCard={insightProps.isCompareCard}
@@ -141,7 +154,7 @@ function CardWrapper(props: {
               />
             </div>
             <div className='pt-8'>
-              {insightProps && !inCompareMode && (
+              {showInsight && insightProps && (
                 <InsightVisualizationCard
                   scrollToHash={props.scrollToHash}
                   queryResponses={queryResponses}

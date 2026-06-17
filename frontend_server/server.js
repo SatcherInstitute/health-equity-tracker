@@ -92,6 +92,18 @@ app.use(webflowRouter)
 const insightMemoryCache = new Map()
 const INSIGHT_TTL_MS = 180 * 24 * 60 * 60 * 1000 // 6 months
 
+// Steers voice for every insight. The reader is a member of the public who can
+// only see the chart, never the prompt or its data — so the model must never
+// describe its inputs or its own limitations. When it can't find a disparity,
+// it should fall back to a plain fact rather than explaining why it can't.
+const INSIGHT_SYSTEM_PROMPT = `You write short, friendly insights about public health data for the general public on the Health Equity Tracker website. Use plain, warm, person-first language at an 8th-grade reading level.
+
+Never break character as a public-facing writer:
+- Never mention the data you were given, its format, its labels, or anything missing from it. The reader cannot see your inputs and must never be told what you were or weren't given.
+- Never address a developer or narrate your own process. Do not write phrases like "I don't have enough information", "the data only shows", "your data", "it doesn't indicate", or "I can't".
+- If you cannot find a meaningful disparity, simply state the single clearest fact (such as the overall rate for the place shown) in one plain sentence. Never explain why you could not say more.
+- Provide only what the prompt asks for, with no preamble, caveats, or apology.`
+
 // Feed prior flagged outputs back into the prompt as negative examples. Off by default
 // so it can be enabled per environment once we've validated it helps.
 const NEGATIVE_EXAMPLES_ENABLED =
@@ -217,6 +229,7 @@ app.post('/fetch-ai-insight', async (req, res) => {
         body: JSON.stringify({
           model: 'claude-sonnet-4-5-20250929',
           max_tokens: 1024,
+          system: INSIGHT_SYSTEM_PROMPT,
           messages: [{ role: 'user', content: finalPrompt }],
         }),
       },

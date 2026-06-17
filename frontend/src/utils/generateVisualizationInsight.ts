@@ -7,6 +7,7 @@ import {
   type DemographicType,
 } from '../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../data/query/MetricQuery'
+import { ALL } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
 import { fetchAIInsight, type InsightResult } from './fetchAIInsight'
@@ -42,7 +43,26 @@ export function formatDataRows(
   hashId: ScrollableHashId,
   demographicType: DemographicType,
   metricConfig: MetricConfig,
+  isSingleRegionMap = false,
 ): string {
+  // A county-level map shows just one area, so there is no geography to
+  // contrast. Label rows by demographic group instead, and drop the aggregate
+  // "All" row so the model compares real subgroups within that one place.
+  if (isSingleRegionMap) {
+    return rows
+      .filter(
+        (row) =>
+          row[demographicType] != null &&
+          row[demographicType] !== ALL &&
+          row[metricConfig.metricId] != null,
+      )
+      .map(
+        (row) =>
+          `- ${row[demographicType]}: ${row[metricConfig.metricId]} ${metricConfig.shortLabel}`,
+      )
+      .join('\n')
+  }
+
   const isMap = MAP_CHART_IDS.includes(hashId)
   const isTimeSeries = TIME_SERIES_CHART_IDS.includes(hashId)
   const groupKey = isMap ? 'fips_name' : demographicType
@@ -105,10 +125,14 @@ function buildPrompt(
   location: string,
   demographicLabel: string,
   dataSection: string,
+  isSingleRegionMap = false,
 ): string {
   const dataBlock = dataSection ? `\n\nData:\n${dataSection}` : ''
 
   if (MAP_CHART_IDS.includes(hashId)) {
+    if (isSingleRegionMap) {
+      return `This is a choropleth map showing ${topic} in ${location}. Because this covers a single county, the map shows just one area; the data below breaks that rate down by ${demographicLabel} group.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that names which ${demographicLabel} groups carry the highest and lowest rates and captures why this gap matters for the people who live there — focus on the "so what", not the chart mechanics.`
+    }
     return `This is a choropleth map showing ${topic} in ${location} across all ${demographicLabel} groups. The intended message is to highlight geographic health equity disparities.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that names the specific states or regions with the highest rates, contrasts them with those with the lowest, and captures why this geographic gap matters — focus on the "so what", not the chart mechanics.`
   }
 
@@ -127,6 +151,64 @@ function buildPrompt(
   return `This is a ${hashId.replace(/-/g, ' ')} showing ${topic} in ${location} by ${demographicLabel}. The intended message is to highlight health equity disparities.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that captures the key inequity a viewer should walk away with — focus on the "so what", not the chart mechanics.`
 }
 
+interface InsightData {
+  dataSection: string
+  isSingleRegionMap: boolean
+  // Number of comparison entries (groups or regions) the model would receive.
+  entryCount: number
+}
+
+// Shapes the chart's query response into the exact text the model is given.
+// Kept separate from generation so the UI can gate on entryCount up front,
+// guaranteeing the visibility check and the generated text never disagree.
+export function prepareInsightData(
+  hashId: ScrollableHashId,
+  dataTypeConfig: DataTypeConfig,
+  demographicType: DemographicType,
+  queryResponses?: MetricQueryResponse[],
+): InsightData {
+  let dataSection = ''
+  let isSingleRegionMap = false
+  if (queryResponses?.[0]) {
+    const metricConfig = getPrimaryMetricConfig(hashId, dataTypeConfig.metrics)
+    if (metricConfig) {
+      const rows = queryResponses[0].getValidRowsForField(metricConfig.metricId)
+      // A county-level map has only one geographic unit, so every row shares the
+      // same place name and there is no geographic comparison to draw.
+      isSingleRegionMap =
+        MAP_CHART_IDS.includes(hashId) &&
+        new Set(rows.map((row) => row.fips_name)).size <= 1
+      dataSection = formatDataRows(
+        rows,
+        hashId,
+        demographicType,
+        metricConfig,
+        isSingleRegionMap,
+      )
+    }
+  }
+  const entryCount = dataSection
+    ? dataSection.split('\n').filter(Boolean).length
+    : 0
+  return { dataSection, isSingleRegionMap, entryCount }
+}
+
+// An insight is only worth showing when there are at least two values to
+// compare. With a single group or region (e.g. a county where every other
+// race is suppressed), there is no disparity to describe, so the card hides
+// the insight UI entirely rather than restating one number.
+export function hasEnoughDataForInsight(
+  hashId: ScrollableHashId,
+  dataTypeConfig: DataTypeConfig,
+  demographicType: DemographicType,
+  queryResponses?: MetricQueryResponse[],
+): boolean {
+  return (
+    prepareInsightData(hashId, dataTypeConfig, demographicType, queryResponses)
+      .entryCount >= 2
+  )
+}
+
 export async function generateCardInsight(
   hashId: ScrollableHashId,
   dataTypeConfig: DataTypeConfig,
@@ -139,17 +221,21 @@ export async function generateCardInsight(
   const location = fips?.getSentenceDisplayName() ?? 'the United States'
   const demographic = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
 
-  // Build the data section from query responses when available
-  let dataSection = ''
-  if (queryResponses?.[0]) {
-    const metricConfig = getPrimaryMetricConfig(hashId, dataTypeConfig.metrics)
-    if (metricConfig) {
-      const rows = queryResponses[0].getValidRowsForField(metricConfig.metricId)
-      dataSection = formatDataRows(rows, hashId, demographicType, metricConfig)
-    }
-  }
+  const { dataSection, isSingleRegionMap } = prepareInsightData(
+    hashId,
+    dataTypeConfig,
+    demographicType,
+    queryResponses,
+  )
 
-  const prompt = buildPrompt(hashId, topic, location, demographic, dataSection)
+  const prompt = buildPrompt(
+    hashId,
+    topic,
+    location,
+    demographic,
+    dataSection,
+    isSingleRegionMap,
+  )
 
   const params = new URLSearchParams(window.location.search)
   params.delete(REPORT_INSIGHT_PARAM_KEY)
