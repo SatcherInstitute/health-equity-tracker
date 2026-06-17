@@ -55,7 +55,11 @@ describe('formatDataRows', () => {
 describe('prepareInsightData', () => {
   test('flags a county-level map as single-region', () => {
     const response = new MetricQueryResponse([
-      { fips_name: 'Bartow County', race_and_ethnicity: 'White (NH)', rate: 13 },
+      {
+        fips_name: 'Bartow County',
+        race_and_ethnicity: 'White (NH)',
+        rate: 13,
+      },
     ])
     const result = prepareInsightData('rate-map', dataTypeConfig, DEMO, [
       response,
@@ -68,7 +72,11 @@ describe('prepareInsightData', () => {
 describe('hasEnoughDataForInsight', () => {
   test('false when only one group has data (nothing to compare)', () => {
     const response = new MetricQueryResponse([
-      { fips_name: 'Bartow County', race_and_ethnicity: 'White (NH)', rate: 13 },
+      {
+        fips_name: 'Bartow County',
+        race_and_ethnicity: 'White (NH)',
+        rate: 13,
+      },
     ])
     expect(
       hasEnoughDataForInsight('data-table', dataTypeConfig, DEMO, [response]),
@@ -78,7 +86,11 @@ describe('hasEnoughDataForInsight', () => {
   test('true when two or more groups have data', () => {
     const response = new MetricQueryResponse([
       { fips_name: 'Bartow County', race_and_ethnicity: 'Black (NH)', rate: 9 },
-      { fips_name: 'Bartow County', race_and_ethnicity: 'White (NH)', rate: 13 },
+      {
+        fips_name: 'Bartow County',
+        race_and_ethnicity: 'White (NH)',
+        rate: 13,
+      },
     ])
     expect(
       hasEnoughDataForInsight('data-table', dataTypeConfig, DEMO, [response]),
