@@ -46,6 +46,11 @@ const CACHE_FILE = join(DATA_DIR, '.refresh_cache.json')
 // --- Constants ---
 const CACHE_TTL_DAYS = 30
 const CRAWL_DELAY_MS = 2000
+// Sized generously: the Level of Office filter is intentionally left empty so the export
+// includes all levels (Congress, State Legislative, Territorial/D.C.). This produces a
+// larger file than a Congress-only export and may grow as CAWP adds data. 90 min gives
+// headroom for the server-side job without blocking indefinitely on a hung export.
+const EXPORT_TIMEOUT_MS = 90 * 60 * 1000
 
 const CONGRESS_HISTORICAL_URL =
   'https://unitedstates.github.io/congress-legislators/legislators-historical.json'
@@ -398,7 +403,7 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
   //
   // Cloudflare: headless mode is blocked; headed mode with AutomationControlled suppressed passes.
   console.log('  Opening browser window (Cloudflare requires non-headless)...')
-  console.log('  Export takes ~30 minutes - please do not close the browser.')
+  console.log('  Export may take 30-60 min (all office levels) - please do not close the browser.')
   const browser = await chromium.launch({
     headless: false,
     args: ['--disable-blink-features=AutomationControlled'],
@@ -448,46 +453,70 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     const resultCount = await page.locator('text=/Displaying.*unique individuals/').first().textContent()
     console.log(`  Search result: ${resultCount?.trim() ?? 'unknown'}`)
 
-    // Step 5: click "Download CSV"
-    console.log('  Starting CSV export (~30 min)...')
-    await page.getByRole('button', { name: /download csv/i })
-      .or(page.getByRole('link', { name: /download csv/i }))
-      .first()
-      .click()
-
-    // Step 6: wait for the progress bar to finish and the download link to appear.
-    // The page shows: "Export complete. Download the file here if not automatically downloaded."
-    // Listen for an auto-download event in parallel with polling for the link.
+    // Step 5: click "Download CSV" and wait for the server-side export to finish.
+    // The CAWP Drupal batch processor may return a 502 if the job takes too long to queue.
+    // When that happens we reload the search page and retry — the server often recovers.
+    // On success the page either fires an auto-download event or shows a "here" link.
+    const MAX_DOWNLOAD_ATTEMPTS = 3
     let downloadSaved = false
-    page.once('download', async (dl) => {
-      console.log('  Auto-download event fired — saving...')
-      await dl.saveAs(dest)
-      downloadSaved = true
-    })
 
-    const EXPORT_TIMEOUT_MS = 45 * 60 * 1000
-    const exportEnd = Date.now() + EXPORT_TIMEOUT_MS
+    for (let attempt = 1; attempt <= MAX_DOWNLOAD_ATTEMPTS && !downloadSaved; attempt++) {
+      if (attempt > 1) {
+        console.log(`  Retrying export (attempt ${attempt}/${MAX_DOWNLOAD_ATTEMPTS})...`)
+        // Navigate back to the search page and re-run the search before retrying Download CSV.
+        await page.goto(CAWP_NUMERATOR_URL, { waitUntil: 'domcontentloaded', timeout: 30000 })
+        await page.waitForTimeout(2000)
+        await page.getByLabel(/show all years/i).first().click()
+        await page.waitForTimeout(500)
+        await page.getByRole('button', { name: /^search$/i }).first().click()
+        await page.waitForLoadState('domcontentloaded')
+        await page.waitForTimeout(3000)
+      }
 
-    while (Date.now() < exportEnd) {
-      await page.waitForTimeout(3000)
-      if (downloadSaved) break
+      console.log(`  Starting CSV export (~30-60 min, attempt ${attempt})...`)
+      await page.getByRole('button', { name: /download csv/i })
+        .or(page.getByRole('link', { name: /download csv/i }))
+        .first()
+        .click()
 
-      const dlLink = await page.$('a[href*="views_data_export"], a[href*="search_officeholders"]')
-      if (dlLink) {
-        console.log('  Export complete — downloading via link...')
-        const [dl] = await Promise.all([
-          page.waitForEvent('download', { timeout: 60000 }),
-          dlLink.click(),
-        ])
+      page.once('download', async (dl) => {
+        console.log('  Auto-download event fired — saving...')
         await dl.saveAs(dest)
         downloadSaved = true
-        break
+      })
+
+      const attemptEnd = Date.now() + EXPORT_TIMEOUT_MS
+      while (Date.now() < attemptEnd) {
+        await page.waitForTimeout(5000)
+        if (downloadSaved) break
+
+        // Check for a server-side 502 error page — bail out of this attempt early.
+        const is502 = await page.$('text=HTTP Result Code: 502')
+        if (is502) {
+          console.log(`  Server returned 502 on attempt ${attempt} — will retry.`)
+          break
+        }
+
+        const dlLink = await page.$('a[href*="views_data_export"], a[href*="search_officeholders"]')
+        if (dlLink) {
+          console.log('  Export complete — downloading via link...')
+          const [dl] = await Promise.all([
+            page.waitForEvent('download', { timeout: 60000 }),
+            dlLink.click(),
+          ])
+          await dl.saveAs(dest)
+          downloadSaved = true
+          break
+        }
       }
     }
 
     if (!downloadSaved) {
       await page.screenshot({ path: '/tmp/cawp-export-timeout.png' })
-      throw new Error('Export timed out after 45 minutes. Screenshot: /tmp/cawp-export-timeout.png')
+      throw new Error(
+        `Export failed after ${MAX_DOWNLOAD_ATTEMPTS} attempts (server 502 or timeout). ` +
+        'Screenshot: /tmp/cawp-export-timeout.png',
+      )
     }
 
     markDone(cache, key)
