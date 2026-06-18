@@ -20,9 +20,14 @@ export function useCardImage(
   const cardUrlWithHash = `${urlWithoutHash}#${scrollToHash}`
 
   const handleImageAction = async (
-    destination: 'clipboard' | 'download',
-    isRowOfTwo: boolean = false,
+  destination: 'clipboard' | 'download',
+  isRowOfTwo: boolean = false,
   ) => {
+    if (destination === 'clipboard') {
+      setConfirmationOpen(false)
+      setErrorOpen(false)
+    }
+
     setIsThinking(true)
     try {
       const result = await saveCardImage({
@@ -33,11 +38,13 @@ export function useCardImage(
       })
       if (destination === 'clipboard') {
         if (typeof result === 'string') {
-            setImgDataUrl(result)
-            setConfirmationOpen(true)
-        } else {
-          setErrorOpen(true)
-        }
+          setErrorOpen(false)
+          setImgDataUrl(result)
+          setConfirmationOpen(true)
+          } else {
+              setConfirmationOpen(false)
+              setErrorOpen(true)
+          }
       }
       if (destination === 'download') {
         cardMenuPopover?.close()
