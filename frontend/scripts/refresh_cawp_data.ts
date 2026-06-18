@@ -135,7 +135,11 @@ type Cache = Record<string, CacheEntry>
 // --- Cache helpers ---
 function loadCache(): Cache {
   if (existsSync(CACHE_FILE)) {
-    return JSON.parse(readFileSync(CACHE_FILE, 'utf8')) as Cache
+    try {
+      return JSON.parse(readFileSync(CACHE_FILE, 'utf8')) as Cache
+    } catch (e) {
+      console.warn(`  Warning: cache file corrupt, ignoring (${e})`)
+    }
   }
   return {}
 }
@@ -277,6 +281,8 @@ async function scrapeState(
           if (totalIdx === -1) continue
 
           const yearIdx = headers.indexOf('Year')
+          if (yearIdx === -1) continue
+
           const dataRows = Array.from(
             table.querySelectorAll('tbody tr, tr'),
           ).filter((tr) => tr.querySelectorAll('td').length > 0)
@@ -294,17 +300,18 @@ async function scrapeState(
       { totalCol: STLEG_TOTAL_COL },
     )
 
-    if (!rows) {
+    if (!rows || rows.length === 0) {
       throw new Error(`No table with '${STLEG_TOTAL_COL}' column found`)
     }
 
     const csvLines = rows
       .filter((r) => r.year.length > 0)
       .map((r) => {
+        // Strip footnote markers (e.g. "1982*") so years match the downstream scaffold.
+        const year = r.year.match(/\d{4}/)?.[0] ?? r.year
         // Extract total legislature count from "X women / Y total" format.
-        // Source values like "1982*" or missing rows are preserved as-is from CAWP.
         const denominator = r.total.split('/')[1]?.match(/(\d+)/)?.[1] ?? ''
-        return `${r.year},${fips},${denominator}`
+        return `${year},${fips},${denominator}`
       })
 
     return `time_period,state_fips,total_state_leg_count\n${csvLines.join('\n')}\n`
@@ -343,28 +350,30 @@ async function refreshStateLegTables(
   const browser = await chromium.launch({ headless: true })
   const total = statesToScrape.length
 
-  for (let i = 0; i < statesToScrape.length; i++) {
-    const [fips, slug] = statesToScrape[i]
-    const outPath = join(DATA_DIR, `cawp_state_leg_${fips}.csv`)
-    const idx = String(i + 1).padStart(2)
+  try {
+    for (let i = 0; i < statesToScrape.length; i++) {
+      const [fips, slug] = statesToScrape[i]
+      const outPath = join(DATA_DIR, `cawp_state_leg_${fips}.csv`)
+      const idx = String(i + 1).padStart(2)
 
-    try {
-      const csv = await scrapeState(browser, fips, slug)
-      writeFileSync(outPath, csv)
-      markDone(cache, `state_leg_${fips}`)
-      const rowCount = csv.split('\n').filter((l) => l.trim()).length - 1
-      console.log(`  [${idx}/${total}] ${slug.padEnd(22)} ${rowCount} rows`)
-    } catch (e) {
-      console.log(`  [${idx}/${total}] ${slug.padEnd(22)} FAILED: ${e}`)
-      errors.push([fips, slug, String(e)])
-    }
+      try {
+        const csv = await scrapeState(browser, fips, slug)
+        writeFileSync(outPath, csv)
+        markDone(cache, `state_leg_${fips}`)
+        const rowCount = csv.split('\n').filter((l) => l.trim()).length - 1
+        console.log(`  [${idx}/${total}] ${slug.padEnd(22)} ${rowCount} rows`)
+      } catch (e) {
+        console.log(`  [${idx}/${total}] ${slug.padEnd(22)} FAILED: ${e}`)
+        errors.push([fips, slug, String(e)])
+      }
 
-    if (i < statesToScrape.length - 1) {
-      await new Promise((resolve) => setTimeout(resolve, CRAWL_DELAY_MS))
+      if (i < statesToScrape.length - 1) {
+        await new Promise((resolve) => setTimeout(resolve, CRAWL_DELAY_MS))
+      }
     }
+  } finally {
+    await browser.close()
   }
-
-  await browser.close()
 
   if (errors.length > 0) {
     console.log(`\n  ${errors.length} states failed (will retry on next run):`)
@@ -441,14 +450,15 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     let saved = false
     let got502 = false
 
-    page.once('download', async (dl) => {
+    const onDownload = async (dl: import('@playwright/test').Download): Promise<void> => {
       console.log('  Auto-download event fired — saving...')
       await dl.saveAs(dest)
       saved = true
-    })
+    }
     const onResponse = (r: import('@playwright/test').Response): void => {
       if (r.status() === 502) got502 = true
     }
+    page.on('download', onDownload)
     page.on('response', onResponse)
 
     try {
@@ -483,6 +493,7 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
       }
       return 'timeout'
     } finally {
+      page.off('download', onDownload)
       page.off('response', onResponse)
     }
   }
