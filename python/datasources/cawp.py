@@ -6,17 +6,21 @@ Description:
 - The downloaded data is stored locally in /data/cawp
 
 Instructions for Downloading NUMERATOR Data:
+  Prefer the automated script: npm run refresh-cawp -- --section numerator (from frontend/)
+  Manual steps if the script is unavailable:
 1. Visit the CAWP Database by Race website:
-    https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity
-2. Under "Filter By Date", select "Show All Years"
-3. Under "Level of Office", select "Congress", "State Legislative", and "Territorial/D.C."
-4. Click the "Search" button at the bottom to refresh the page with the new selections
-5. Once the page loads, click "Download" button
-6. In the modal that pops up, log in with valid account info (it's free)
-7. Once logged in, click the "Download" button again
-8. In the next modal, download, slowly, as a .csv file
-9. Once exported, save (renaming) as /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
-10. Commit to the repo, and if needed rerun the DEV/INFRA-TESTand PROD DAG pipelines
+    https://cawp.rutgers.edu/data/women-elected-officials-database
+2. Click "Download Data" button to open the modal
+3. In the modal, enter a first name and email address (no account needed, free)
+4. Click the "Download Data" button inside the modal to close it
+5. Under "Filter By Date", re-select "Show All Years" (the modal resets it to "Currently In Office")
+6. Click "Search" to populate results with all years and all office levels
+7. Click the "Download CSV" button
+8. Wait ~30 minutes for the progress bar; when done a link appears:
+    "Export complete. Download the file here if file is not automatically downloaded."
+9. Click that link to download the .csv file
+10. Save over the existing file at /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
+11. Commit to the repo, and if needed rerun the DEV/INFRA-TEST and PROD DAG pipelines
 
 Notes:
 - This is simply the "numerator" data; we rely on directly downloaded table data from CAWP
@@ -56,7 +60,6 @@ from ingestion.constants import (
 )
 from typing import cast, List
 from ingestion.het_types import GEO_TYPE, SEX_RACE_AGE_TYPE
-
 
 RACE = cast(SEX_RACE_AGE_TYPE, "race")
 
@@ -168,16 +171,17 @@ NAME = "name"
 FIRST = "first"
 LAST = "last"
 TYPE = "type"
-ID = "id"
+ID = "ID"
+CONGRESS_JSON_ID = "id"  # unitedstates.io JSON uses lowercase "id"
 STATE = "state"
 TERMS = "terms"
 START = "start"
 END = "end"
-FIRST_NAME = "first_name"
-LAST_NAME = "last_name"
-POSITION = "position"
-LEVEL = "level"
-YEAR = "year"
+FIRST_NAME = "First Name"
+LAST_NAME = "Last Name"
+POSITION = "Position"
+LEVEL = "Level"
+YEAR = "Years Served"
 
 CONGRESS = "Congress"
 STATE_LEG = "State Legislative"
@@ -579,7 +583,7 @@ def get_us_congress_totals_df():
                 )
                 full_name = f"{title} {legislator[NAME][FIRST]} {legislator[NAME][LAST]}"
                 entry = {
-                    ID: legislator[ID]["govtrack"],
+                    ID: legislator[CONGRESS_JSON_ID]["govtrack"],
                     NAME: full_name,
                     TYPE: term[TYPE],
                     std_col.STATE_POSTAL_COL: term[STATE],
@@ -757,58 +761,27 @@ def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool
 
 
 def get_state_leg_totals_df():
-    """Fetches each individual CAWP state info page's state legislature
-    table, combines into a single cleaned df. Nulls everything before 1983;
-    CAWPs totals are problematic between 1975-1982 and missing before that.
+    """Loads state legislature denominator tables from locally-cached CSV files
+    (data/cawp/cawp_state_leg_{fips}.csv). Files are maintained by
+    scripts/refresh_cawp_data.py and committed to the repo.
 
-    Returns: df with "time_period", "state_fips", and stleg
-        total_ and total_women cols
-
+    Returns: df with "time_period", "state_fips", and total_state_leg_count cols
     """
-
-    territory_dfs = []
-    for fips in TERRITORY_FIPS_LIST:
-        filename = f"cawp_state_leg_{fips}.csv"
-        territory_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            "cawp", filename, dtype={"state_fips": str, "time_period": str}
+    all_fips = list(FIPS_TO_STATE_TABLE_MAP.keys()) + list(TERRITORY_FIPS_LIST)
+    dfs = []
+    for fips in all_fips:
+        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            "cawp",
+            f"cawp_state_leg_{fips}.csv",
+            dtype={"state_fips": str, "time_period": str},
         )
-        territory_dfs.append(territory_df)
-    df_rows_by_territory = pd.concat(territory_dfs)
+        dfs.append(df)
 
-    state_dfs = []
-    for fips, id in FIPS_TO_STATE_TABLE_MAP.items():
-        state_df = gcs_to_bq_util.load_csv_as_df_from_web(get_stleg_url(id), dtype=str)
-
-        # remove weird chars from col headers
-        state_df.columns = state_df.columns.str.replace(r"\W", "", regex=True)
-
-        # standardize the year col
-        state_df = state_df.rename(columns={"Year": std_col.TIME_PERIOD_COL})
-        # Drop rows where year is NaN
-        state_df = state_df.dropna(subset=[std_col.TIME_PERIOD_COL])
-
-        state_df[std_col.TIME_PERIOD_COL] = state_df[std_col.TIME_PERIOD_COL].astype(str)
-
-        # extract totals
-        state_df[[std_col.W_ALL_RACES_STLEG_COUNT, std_col.STLEG_COUNT]] = state_df[
-            "TotalWomenTotalLegislature"
-        ].str.split("/", n=1, expand=True)
-
-        # keep only needed cols
-        state_df = state_df[[std_col.TIME_PERIOD_COL, std_col.STLEG_COUNT]]
-
-        # append this state df to the list
-        state_df[std_col.STATE_FIPS_COL] = fips
-        state_dfs.append(state_df)
-
-    # combine all state ROWS into one big df
-    df_rows_by_state = pd.concat(state_dfs)
-
-    # combine all territory ROWS as well
-    df = pd.concat([df_rows_by_state, df_rows_by_territory])
-    df = df.sort_values(by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]).reset_index(drop=True)
-
-    return df
+    df = pd.concat(dfs)
+    # Strip footnote markers (e.g. "1982*") so years join cleanly against the scaffold.
+    df[std_col.TIME_PERIOD_COL] = df[std_col.TIME_PERIOD_COL].str.extract(r"(\d{4})")[0]
+    df = df.dropna(subset=[std_col.TIME_PERIOD_COL])
+    return df.sort_values(by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]).reset_index(drop=True)
 
 
 def combine_states_to_national(df):
