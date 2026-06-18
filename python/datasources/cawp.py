@@ -7,15 +7,21 @@ Description:
 
 Instructions for Downloading NUMERATOR Data:
 1. Visit the CAWP Database by Race website:
-    https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity
-2. Under "Filter By Date", select "Show All Years"
+    https://cawp.rutgers.edu/data/women-elected-officials-database
+2. Under "Filter By Date", select radio button "Show All Years"
 3. Under "Level of Office", select "Congress", "State Legislative", and "Territorial/D.C."
 4. Click the "Search" button at the bottom to refresh the page with the new selections
-5. Once the page loads, click "Download" button
-6. In the modal that pops up, log in with valid account info (it's free)
-7. Once logged in, click the "Download" button again
-8. In the next modal, download, slowly, as a .csv file
-9. Once exported, save (renaming) as /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
+5. Once the page loads, click "Download Data" button
+6. In the modal that pops up, log in with a first name and an email address
+    (no account needed, no payment or card etc)
+7. In the modal once name/email fields are filled, click the new "Download Data" button
+8. The page will refresh with a "Thank you for submitting the form" banner
+9. Click the "Download CSV" button
+10. Watch as the progress bar completes, around 30 seconds?, then the message
+    "Export complete. Download the file here if file is not automatically downloaded."
+11. Use that new link to save the actual .csv file: here is a sample location it provided for the "here" link
+https://cawp.rutgers.edu/sites/default/files/views_data_export/search_officeholders_csv_export_roles/1781757743/search_officeholders-1781757743.csv
+12. Save as (renaming) /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
 10. Commit to the repo, and if needed rerun the DEV/INFRA-TESTand PROD DAG pipelines
 
 Notes:
@@ -56,7 +62,6 @@ from ingestion.constants import (
 )
 from typing import cast, List
 from ingestion.het_types import GEO_TYPE, SEX_RACE_AGE_TYPE
-
 
 RACE = cast(SEX_RACE_AGE_TYPE, "race")
 
