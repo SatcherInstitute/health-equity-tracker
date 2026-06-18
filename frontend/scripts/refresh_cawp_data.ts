@@ -12,10 +12,16 @@
  * Options:
  *   --force           Bypass the 30-day freshness cache and re-download everything
  *   --section NAME    Only run one section: numerator | state_leg | congress_json | crosswalk
+ *   --levels LIST     Comma-separated Level of Office values to download for the numerator.
+ *                     Default: congress,state_leg,territorial
+ *                     Available: congress, state_leg, territorial, statewide
+ *                     Each level is downloaded separately then concatenated, which keeps
+ *                     individual exports small enough to avoid CAWP server timeouts.
  *
  * Cache: each section records its last-run timestamp in data/cawp/.refresh_cache.json.
  * By default the script skips any section that ran successfully within the last 30 days.
  * Individual failed states are retried on the next run even within the cache window.
+ * The numerator cache key includes the level set, so changing --levels triggers a re-run.
  *
  * What this updates:
  *   data/cawp/cawp-by_race_and_ethnicity_time_series.csv  numerator: women by race/ethnicity
@@ -26,12 +32,12 @@
  *
  * The numerator download requires only a name and email (no account, no payment). It opens
  * a headed browser (required to pass Cloudflare), fills a modal form, re-applies the
- * "Show All Years" filter (the modal resets it), runs a Search, then clicks Download CSV.
- * The server-side export takes roughly 30 minutes before a download link appears.
+ * "Show All Years" filter (the modal resets it), sets the Level of Office filter, runs
+ * Search, then clicks Download CSV. Each level's export takes roughly 15-30 minutes.
  * Run via: npm run refresh-cawp -- --section numerator
  */
 
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { basename, dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { parseArgs } from 'node:util'
@@ -46,11 +52,21 @@ const CACHE_FILE = join(DATA_DIR, '.refresh_cache.json')
 // --- Constants ---
 const CACHE_TTL_DAYS = 30
 const CRAWL_DELAY_MS = 2000
-// Sized generously: the Level of Office filter is intentionally left empty so the export
-// includes all levels (Congress, State Legislative, Territorial/D.C.). This produces a
-// larger file than a Congress-only export and may grow as CAWP adds data. 90 min gives
-// headroom for the server-side job without blocking indefinitely on a hung export.
-const EXPORT_TIMEOUT_MS = 90 * 60 * 1000
+// Per-level exports are much smaller than an all-levels download, so 45 min per level is
+// generous. The retry loop (MAX_DOWNLOAD_ATTEMPTS) handles transient 502s from the CAWP
+// Drupal batch processor.
+const EXPORT_TIMEOUT_MS = 45 * 60 * 1000
+
+// Maps short keys (used in --levels arg and cache keys) to the option text CAWP uses in
+// the Level of Office select. DEFAULT_LEVELS are the three currently ingested by HET.
+// Add new keys here once ingestion support exists — they will not run by default.
+const LEVEL_OPTION_TEXT: Record<string, string> = {
+  congress: 'Congress',
+  state_leg: 'State Legislative',
+  territorial: 'Territorial/D.C.',
+  statewide: 'Statewide',
+}
+const DEFAULT_LEVELS = ['congress', 'state_leg', 'territorial']
 
 const CONGRESS_HISTORICAL_URL =
   'https://unitedstates.github.io/congress-legislators/legislators-historical.json'
@@ -378,32 +394,51 @@ async function refreshStateLegTables(
 }
 
 // --- Section: Numerator (race/ethnicity time series via Playwright form) ---
-async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
+async function refreshNumerator(
+  cache: Cache,
+  force: boolean,
+  levels: string[],
+): Promise<void> {
   console.log(
     '\n--- CAWP numerator data (women by race/ethnicity time series) ---',
   )
 
-  const key = 'numerator'
+  // Include the sorted level set in the cache key so changing --levels triggers a re-run.
+  const key = `numerator_${[...levels].sort().join('_')}`
   const dest = join(DATA_DIR, CAWP_NUMERATOR_FILE)
 
   if (!force && isFresh(cache, key)) {
     const last = (cache[key].lastRun ?? cache[key].last_run ?? '').slice(0, 10)
-    console.log(`  Fresh (last run ${last}), skipping`)
+    console.log(`  Fresh (last run ${last}, levels: ${levels.join(',')}), skipping`)
     return
   }
 
-  // Flow (CAWP's form-gated export, ~30 min total):
-  //   1. Navigate to the "All Data" tab (includes all office levels — Congress, State Leg, Territorial)
-  //   2. Click "Download Data" to open the registration modal
-  //   3. Fill name + email, click "Download Data" to close the modal
-  //   4. Re-apply "Show All Years" — the modal resets the radio to "Currently In Office"
-  //   5. Click Search — required to populate all-years results before the download reflects them
-  //   6. Click "Download CSV" — triggers a server-side export (~30 min); a link appears when done
-  //   7. Save the file via the auto-download event or by clicking the resulting link
+  const unknownLevels = levels.filter((l) => !(l in LEVEL_OPTION_TEXT))
+  if (unknownLevels.length > 0) {
+    throw new Error(
+      `Unknown level(s): ${unknownLevels.join(', ')}. ` +
+      `Available: ${Object.keys(LEVEL_OPTION_TEXT).join(', ')}`,
+    )
+  }
+
+  // Flow: one browser session, modal filled once, then one Search+Download per level.
+  // Each level is downloaded to a temp file then concatenated into the final dest.
+  // Downloading per level keeps files small enough to avoid CAWP server 502s.
+  //
+  //   1. Navigate to the "All Data" tab
+  //   2. Fill + submit the registration modal (only needed once per session)
+  //   For each level:
+  //   3. Re-apply "Show All Years" (modal resets it) + set Level of Office filter
+  //   4. Click Search to populate results for this level
+  //   5. Click "Download CSV" — Drupal batch export, 15-30 min per level
+  //   6. Save to a temp file
+  //   Concatenate all temp files into the final CSV.
   //
   // Cloudflare: headless mode is blocked; headed mode with AutomationControlled suppressed passes.
+  console.log(`  Levels: ${levels.join(', ')}`)
   console.log('  Opening browser window (Cloudflare requires non-headless)...')
-  console.log('  Export may take 30-60 min (all office levels) - please do not close the browser.')
+  console.log('  Export takes ~15-30 min per level — please do not close the browser.')
+
   const browser = await chromium.launch({
     headless: false,
     args: ['--disable-blink-features=AutomationControlled'],
@@ -417,117 +452,151 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
   })
   const page = await context.newPage()
 
-  try {
-    await page.goto(CAWP_NUMERATOR_URL, {
-      waitUntil: 'domcontentloaded',
-      timeout: 30000,
-    })
+  // Helper: apply filters (Show All Years + level) and run Search.
+  // Called once per level, and again on retries.
+  const applyFiltersAndSearch = async (level: string): Promise<void> => {
+    await page.goto(CAWP_NUMERATOR_URL, { waitUntil: 'domcontentloaded', timeout: 30000 })
     await page.waitForTimeout(2000)
-
-    // Step 1: open the download modal
-    console.log('  Opening download modal...')
-    await page.getByRole('button', { name: /download data/i }).first().click()
-    await page.waitForTimeout(1500)
-
-    // Step 2: fill in name + email (no account needed)
-    const firstNameField = page.locator('input[name*="first"], input[placeholder*="First"]').first()
-    const emailField = page.locator('input[type="email"], input[name*="email"], input[placeholder*="mail"]').first()
-    await firstNameField.fill('HET')
-    await emailField.fill('data@healthequitytracker.org')
-
-    // Step 3: submit the modal — closes it and returns to the main page
-    console.log('  Submitting modal form...')
-    await page.getByRole('button', { name: /download data/i }).last().click()
-    await page.waitForTimeout(2000)
-
-    // Step 4: Re-apply "Show All Years" — the modal submission resets the radio to
-    // "Currently In Office". After re-selecting, click Search to populate all-years results.
-    // Leave Level of Office blank (no filter = all levels included).
-    console.log('  Re-applying Show All Years and running search...')
     await page.getByLabel(/show all years/i).first().click()
+    await page.waitForTimeout(500)
+    // Set Level of Office select to this level's option text.
+    const optionText = LEVEL_OPTION_TEXT[level]
+    await page.getByLabel(/level of office/i).first().selectOption({ label: optionText })
     await page.waitForTimeout(500)
     await page.getByRole('button', { name: /^search$/i }).first().click()
     await page.waitForLoadState('domcontentloaded')
     await page.waitForTimeout(3000)
+    const resultCount = await page
+      .locator('text=/Displaying.*unique individuals/')
+      .first()
+      .textContent()
+      .catch(() => null)
+    console.log(`    Result: ${resultCount?.trim() ?? 'unknown'}`)
+  }
 
-    const resultCount = await page.locator('text=/Displaying.*unique individuals/').first().textContent()
-    console.log(`  Search result: ${resultCount?.trim() ?? 'unknown'}`)
+  // Helper: click Download CSV and wait for the Drupal batch export to complete.
+  // Returns 'success' | '502' | 'timeout'.
+  const attemptDownload = async (
+    tmpDest: string,
+  ): Promise<'success' | '502' | 'timeout'> => {
+    let saved = false
+    let got502 = false
 
-    // Step 5: click "Download CSV" and wait for the server-side export to finish.
-    // The CAWP Drupal batch processor may return a 502 if the job takes too long to queue.
-    // When that happens we reload the search page and retry — the server often recovers.
-    // On success the page either fires an auto-download event or shows a "here" link.
-    const MAX_DOWNLOAD_ATTEMPTS = 3
-    let downloadSaved = false
+    page.once('download', async (dl) => {
+      await dl.saveAs(tmpDest)
+      saved = true
+    })
+    const onResponse = (r: import('@playwright/test').Response): void => {
+      if (r.status() === 502) got502 = true
+    }
+    page.on('response', onResponse)
 
-    for (let attempt = 1; attempt <= MAX_DOWNLOAD_ATTEMPTS && !downloadSaved; attempt++) {
-      if (attempt > 1) {
-        console.log(`  Retrying export (attempt ${attempt}/${MAX_DOWNLOAD_ATTEMPTS})...`)
-        // Navigate back to the search page and re-run the search before retrying Download CSV.
-        await page.goto(CAWP_NUMERATOR_URL, { waitUntil: 'domcontentloaded', timeout: 30000 })
-        await page.waitForTimeout(2000)
-        await page.getByLabel(/show all years/i).first().click()
-        await page.waitForTimeout(500)
-        await page.getByRole('button', { name: /^search$/i }).first().click()
-        await page.waitForLoadState('domcontentloaded')
-        await page.waitForTimeout(3000)
-      }
-
-      console.log(`  Starting CSV export (~30-60 min, attempt ${attempt})...`)
-      await page.getByRole('button', { name: /download csv/i })
+    try {
+      await page
+        .getByRole('button', { name: /download csv/i })
         .or(page.getByRole('link', { name: /download csv/i }))
         .first()
         .click()
 
-      page.once('download', async (dl) => {
-        console.log('  Auto-download event fired — saving...')
-        await dl.saveAs(dest)
-        downloadSaved = true
-      })
-
-      const attemptEnd = Date.now() + EXPORT_TIMEOUT_MS
-      while (Date.now() < attemptEnd) {
+      const end = Date.now() + EXPORT_TIMEOUT_MS
+      while (Date.now() < end) {
         await page.waitForTimeout(5000)
-        if (downloadSaved) break
+        if (saved) return 'success'
+        if (got502) return '502'
+        try {
+          await page.waitForLoadState('domcontentloaded', { timeout: 3000 })
+          const dlLink = await page.$(
+            'a[href*="views_data_export"], a[href*="search_officeholders"]',
+          )
+          if (dlLink) {
+            const [dl] = await Promise.all([
+              page.waitForEvent('download', { timeout: 60000 }),
+              dlLink.click(),
+            ])
+            await dl.saveAs(tmpDest)
+            return 'success'
+          }
+        } catch {
+          // Page navigating through batch steps — keep waiting.
+        }
+      }
+      return 'timeout'
+    } finally {
+      page.off('response', onResponse)
+    }
+  }
 
-        // Check for a server-side 502 error page — bail out of this attempt early.
-        const is502 = await page.$('text=HTTP Result Code: 502')
-        if (is502) {
-          console.log(`  Server returned 502 on attempt ${attempt} — will retry.`)
+  const MAX_ATTEMPTS = 3
+  const tempFiles: string[] = []
+
+  try {
+    // Fill the modal once at session start.
+    await page.goto(CAWP_NUMERATOR_URL, { waitUntil: 'domcontentloaded', timeout: 30000 })
+    await page.waitForTimeout(2000)
+    console.log('  Opening download modal...')
+    await page.getByRole('button', { name: /download data/i }).first().click()
+    await page.waitForTimeout(1500)
+    const firstNameField = page
+      .locator('input[name*="first"], input[placeholder*="First"]')
+      .first()
+    const emailField = page
+      .locator('input[type="email"], input[name*="email"], input[placeholder*="mail"]')
+      .first()
+    await firstNameField.fill('HET')
+    await emailField.fill('data@healthequitytracker.org')
+    console.log('  Submitting modal...')
+    await page.getByRole('button', { name: /download data/i }).last().click()
+    await page.waitForTimeout(2000)
+
+    // Download each level separately.
+    for (const level of levels) {
+      const optionText = LEVEL_OPTION_TEXT[level]
+      const tmpDest = join(DATA_DIR, `.tmp_numerator_${level}.csv`)
+      console.log(`\n  [${level}] Applying filters...`)
+
+      let success = false
+      for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+        await applyFiltersAndSearch(level)
+        console.log(`  [${level}] Downloading (attempt ${attempt}/${MAX_ATTEMPTS})...`)
+        const result = await attemptDownload(tmpDest)
+        if (result === 'success') {
+          const rows = readFileSync(tmpDest, 'utf8').split('\n').filter((l) => l.trim()).length
+          console.log(`  [${level}] Saved ${rows} rows (${optionText})`)
+          tempFiles.push(tmpDest)
+          success = true
           break
         }
-
-        const dlLink = await page.$('a[href*="views_data_export"], a[href*="search_officeholders"]')
-        if (dlLink) {
-          console.log('  Export complete — downloading via link...')
-          const [dl] = await Promise.all([
-            page.waitForEvent('download', { timeout: 60000 }),
-            dlLink.click(),
-          ])
-          await dl.saveAs(dest)
-          downloadSaved = true
-          break
-        }
+        console.log(`  [${level}] Attempt ${attempt} ${result} — ${attempt < MAX_ATTEMPTS ? 'retrying' : 'giving up'}.`)
+      }
+      if (!success) {
+        await page.screenshot({ path: `/tmp/cawp-export-fail-${level}.png` })
+        throw new Error(
+          `Export failed for level "${optionText}" after ${MAX_ATTEMPTS} attempts. ` +
+          `Screenshot: /tmp/cawp-export-fail-${level}.png`,
+        )
       }
     }
 
-    if (!downloadSaved) {
-      await page.screenshot({ path: '/tmp/cawp-export-timeout.png' })
-      throw new Error(
-        `Export failed after ${MAX_DOWNLOAD_ATTEMPTS} attempts (server 502 or timeout). ` +
-        'Screenshot: /tmp/cawp-export-timeout.png',
-      )
-    }
+    // Concatenate: keep header from first file, strip it from the rest.
+    const combined = tempFiles
+      .map((f, i) => {
+        const content = readFileSync(f, 'utf8').trimEnd()
+        return i === 0 ? content : content.split('\n').slice(1).join('\n')
+      })
+      .filter(Boolean)
+      .join('\n') + '\n'
 
+    writeFileSync(dest, combined)
     markDone(cache, key)
 
-    const lines = readFileSync(dest, 'utf8')
-      .split('\n')
-      .filter((l) => l.trim()).length
-    console.log(`  Saved ${lines} rows to ${CAWP_NUMERATOR_FILE}`)
+    const totalRows = combined.split('\n').filter((l) => l.trim()).length
+    console.log(`\n  Combined ${levels.length} levels → ${totalRows} rows saved to ${CAWP_NUMERATOR_FILE}`)
   } catch (e) {
     throw new Error(`Numerator download failed: ${e}`)
   } finally {
+    for (const f of tempFiles) {
+      try { rmSync(f) } catch { /* ignore */ }
+    }
     await context.close()
     await browser.close()
   }
@@ -539,6 +608,7 @@ const { values } = parseArgs({
   options: {
     force: { type: 'boolean', default: false },
     section: { type: 'string' },
+    levels: { type: 'string' },
   },
   strict: false,
 })
@@ -550,6 +620,10 @@ const section = values.section as
   | 'congress_json'
   | 'crosswalk'
   | undefined
+const levels = (values.levels ?? DEFAULT_LEVELS.join(','))
+  .split(',')
+  .map((l) => l.trim())
+  .filter(Boolean)
 
 console.log(
   `CAWP data refresh  |  cache TTL: ${CACHE_TTL_DAYS} days  |  force: ${String(force)}`,
@@ -560,7 +634,7 @@ mkdirSync(DATA_DIR, { recursive: true })
 const cache = loadCache()
 
 const runAll = section == null
-if (runAll || section === 'numerator') await refreshNumerator(cache, force)
+if (runAll || section === 'numerator') await refreshNumerator(cache, force, levels)
 if (runAll || section === 'congress_json')
   await refreshCongressJson(cache, force)
 if (runAll || section === 'crosswalk') await refreshCrosswalk(cache, force)
