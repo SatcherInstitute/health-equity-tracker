@@ -24,8 +24,8 @@
  *   data/cawp/legislators-current.json     US Congress current (unitedstates.io)
  *   data/cawp/tab20_cd11820_county20_natl.txt  118th Congress county crosswalk (Census)
  *
- * The numerator download requires no account. It uses Drupal's Views Data Export batch
- * processor (~12 min for 100k rows) and requires a headed browser to pass Cloudflare.
+ * The numerator download requires only a name and email (no account, no payment). It uses
+ * a form-gated CSV export (~30 sec) and requires a headed browser to pass Cloudflare.
  * Run via: npm run refresh-cawp -- --section numerator
  */
 
@@ -54,7 +54,7 @@ const CROSSWALK_URL =
 const CAWP_STATE_INFO_BASE =
   'https://cawp.rutgers.edu/facts/state-state-information/'
 const CAWP_NUMERATOR_URL =
-  'https://cawp.rutgers.edu/women-elected-officials/race-ethnicity'
+  'https://cawp.rutgers.edu/data/women-elected-officials-database'
 const CAWP_NUMERATOR_FILE = 'cawp-by_race_and_ethnicity_time_series.csv'
 
 const BROWSER_UA =
@@ -381,22 +381,18 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     return
   }
 
-  // The download uses Drupal's Views Data Export batch processor.
-  // Flow:
-  //   1. Navigate to the filtered URL (full page load — the /views/ajax endpoint is blocked)
-  //   2. Reveal the hidden CSV feed link (.feed-icons has display:none; the "Download Data"
-  //      button calls toggleModal('download-dialog') but #download-dialog is never rendered)
-  //   3. Click the CSV link — Drupal starts a batch job at /batch?id=...
-  //   4. The batch processes all rows in ~12 minutes, then fires a download event.
-  //      The page URL stays at /batch?id=... throughout — it never navigates away.
+  // Flow (CAWP's new form-gated export, ~30 sec total):
+  //   1. Navigate to the database page
+  //   2. Click "Download Data" to open the modal
+  //   3. Fill name + email in the modal (no account needed), click "Download Data" to close it
+  //   4. Apply filters: "Show All Years" radio, check Congress / State Legislative / Territorial/D.C.
+  //   5. Click "Search" to populate the results
+  //   6. Click "Download CSV" — the page shows a progress bar then a download link
+  //   7. Click the link ("here") to save the file
   //
-  // Cloudflare notes:
-  //   - Headless mode is blocked; headed mode passes with AutomationControlled suppressed.
-  //   - The AJAX search form (/views/ajax) is blocked, so we use URL params instead.
+  // Cloudflare: headless mode is blocked; headed mode with AutomationControlled suppressed passes.
   console.log('  Opening browser window (Cloudflare requires non-headless)...')
-  console.log(
-    '  Export batch takes ~12 minutes - please do not close the browser.',
-  )
+  console.log('  Export takes ~30 seconds - please do not close the browser.')
   const browser = await chromium.launch({
     headless: false,
     args: ['--disable-blink-features=AutomationControlled'],
@@ -411,123 +407,89 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
   const page = await context.newPage()
 
   try {
-    // Navigate with filter params — avoids the blocked /views/ajax endpoint
-    const filteredUrl =
-      `${CAWP_NUMERATOR_URL}?current=2&yearend_filter=All` +
-      '&level[]=Federal+Congress&level[]=State+Legislative&level[]=Territorial%2FDC+Legislative'
-    await page.goto(filteredUrl, {
+    await page.goto(CAWP_NUMERATOR_URL, {
       waitUntil: 'domcontentloaded',
       timeout: 30000,
     })
-    await page.waitForTimeout(3000)
+    await page.waitForTimeout(2000)
 
-    // Force-show the hidden CSV feed link
-    await page.evaluate(() => {
-      const feedIcons = document.querySelector('.feed-icons') as HTMLElement
-      if (feedIcons) feedIcons.style.display = 'block'
+    // Step 1: open the download modal
+    console.log('  Opening download modal...')
+    await page.getByRole('button', { name: /download data/i }).first().click()
+    await page.waitForTimeout(1500)
+
+    // Step 2: fill in name + email (no account needed)
+    const firstNameField = page.locator('input[name*="first"], input[placeholder*="First"]').first()
+    const emailField = page.locator('input[type="email"], input[name*="email"], input[placeholder*="mail"]').first()
+    await firstNameField.fill('HET')
+    await emailField.fill('data@healthequitytracker.org')
+
+    // Step 3: submit the modal — closes it and returns to the main page
+    console.log('  Submitting modal form...')
+    await page.getByRole('button', { name: /download data/i }).last().click()
+    await page.waitForTimeout(2000)
+
+    // Step 4: apply filters
+    console.log('  Applying filters (Show All Years + all office levels)...')
+    // "Show All Years" radio
+    await page.locator('input[type="radio"]').filter({ hasText: /all years/i }).click().catch(async () => {
+      // fallback: find by label text
+      await page.getByLabel(/show all years/i).click()
     })
 
-    const csvLink = await page.$('a[href*="export-roles/csv"]')
-    if (!csvLink) throw new Error('CSV download link not found in page DOM')
-
-    console.log(
-      '  Starting batch export (Drupal will process rows in batches)...',
-    )
-
-    await csvLink.click()
-
-    // Give the navigation to /batch?id=... time to happen. Using waitForURL here
-    // caused intermittent "Initializing." hangs in testing; a plain wait + URL check
-    // matches the approach used in the working diagnostic scripts.
-    await page.waitForTimeout(5000)
-    if (!page.url().includes('/batch?id=')) {
-      throw new Error(
-        `CSV link click did not start a batch export (got: ${page.url()})`,
-      )
+    // Level of Office checkboxes
+    for (const level of ['Congress', 'State Legislative', 'Territorial']) {
+      await page.getByLabel(new RegExp(level, 'i')).check().catch(() => {
+        // ignore if already checked
+      })
     }
-    console.log('  Batch running (~12 min) — progress below...')
 
-    // Avoid page.waitForURL / page.waitForEvent inside Promise.race — these Playwright
-    // promise-based waiters intermittently block the batch JS from making progress.
-    // Use a raw page.once listener for downloads and a 3-second polling loop for URL
-    // changes, which matches the approach used in the working diagnostic scripts.
+    // Step 5: run the search
+    console.log('  Running search...')
+    await page.getByRole('button', { name: /^search$/i }).click()
+    await page.waitForLoadState('domcontentloaded')
+    await page.waitForTimeout(2000)
+
+    // Step 6: click "Download CSV"
+    console.log('  Starting CSV export (~30 sec)...')
+    await page.getByRole('button', { name: /download csv/i })
+      .or(page.getByRole('link', { name: /download csv/i }))
+      .first()
+      .click()
+
+    // Step 7: wait for the progress bar to finish and the download link to appear.
+    // The page shows: "Export complete. Download the file here if not automatically downloaded."
+    // Listen for an auto-download event in parallel with polling for the link.
     let downloadSaved = false
     page.once('download', async (dl) => {
-      console.log('  Download event fired — saving...')
+      console.log('  Auto-download event fired — saving...')
       await dl.saveAs(dest)
       downloadSaved = true
     })
 
-    // Do NOT call page.$eval inside this loop — evaluating JS in the page
-    // interferes with the batch page's own AJAX polling and stalls progress.
-    // page.url() is synchronous (cached internally) and safe to call in a tight loop.
-    const BATCH_TIMEOUT_MS = 20 * 60 * 1000
-    const batchEnd = Date.now() + BATCH_TIMEOUT_MS
-    const batchStart = Date.now()
+    const EXPORT_TIMEOUT_MS = 3 * 60 * 1000
+    const exportEnd = Date.now() + EXPORT_TIMEOUT_MS
 
-    while (Date.now() < batchEnd) {
-      await page.waitForTimeout(5000)
+    while (Date.now() < exportEnd) {
+      await page.waitForTimeout(3000)
       if (downloadSaved) break
-      const currentUrl = page.url()
-      if (!currentUrl.includes('/batch?id=')) {
-        const elapsed = Math.round((Date.now() - batchStart) / 60000)
-        console.log(`  [${elapsed} min] Batch redirected to: ${currentUrl}`)
+
+      const dlLink = await page.$('a[href*="views_data_export"], a[href*="search_officeholders"]')
+      if (dlLink) {
+        console.log('  Export complete — downloading via link...')
+        const [dl] = await Promise.all([
+          page.waitForEvent('download', { timeout: 60000 }),
+          dlLink.click(),
+        ])
+        await dl.saveAs(dest)
+        downloadSaved = true
         break
       }
     }
 
-    if (!downloadSaved && page.url().includes('/batch?id=')) {
-      throw new Error(`Batch timed out after 20 minutes`)
-    }
-
     if (!downloadSaved) {
-      // Batch redirected to a completion page (observed: /download-complete?...).
-      // Give the page a moment to fully load.
-      await page.waitForTimeout(3000)
-      const currentUrl = page.url()
-      console.log(`  Batch redirected to: ${currentUrl}`)
-
-      const content = await page.content()
-      if (content.includes('Just a moment') || content.includes('challenge-form')) {
-        // Cloudflare challenge — use session cookies to fetch directly
-        const res = await context.request.get(currentUrl)
-        if (!res.ok()) {
-          throw new Error(
-            `Cloudflare blocked final download (${res.status()})`,
-          )
-        }
-        writeFileSync(dest, await res.text())
-      } else {
-        // Look for a download/export link on the completion page
-        const dlLink = await page.$(
-          'a[href*=".csv"], a[href*="export-roles"], a[href*="download"], a[download]',
-        )
-        if (dlLink) {
-          console.log('  Found download link on completion page — clicking...')
-          const [dl] = await Promise.all([
-            page.waitForEvent('download', { timeout: 60000 }),
-            dlLink.click(),
-          ])
-          await dl.saveAs(dest)
-        } else {
-          // No link found — the completion URL itself may serve the CSV
-          const res = await context.request.get(currentUrl)
-          const contentType = res.headers()['content-type'] ?? ''
-          if (res.ok() && (contentType.includes('csv') || contentType.includes('text/plain'))) {
-            writeFileSync(dest, await res.text())
-          } else {
-            // Save page screenshot for debugging and report the body
-            await page.screenshot({ path: '/tmp/cawp-download-complete.png' })
-            const bodySnippet = await page
-              .$eval('body', (el) => (el as HTMLElement).innerText?.slice(0, 400))
-              .catch(() => '')
-            throw new Error(
-              `No download link on completion page (${currentUrl}). ` +
-              `Screenshot: /tmp/cawp-download-complete.png. Body: ${bodySnippet}`,
-            )
-          }
-        }
-      }
+      await page.screenshot({ path: '/tmp/cawp-export-timeout.png' })
+      throw new Error('Export timed out after 3 minutes. Screenshot: /tmp/cawp-export-timeout.png')
     }
 
     markDone(cache, key)
