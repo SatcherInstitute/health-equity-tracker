@@ -24,8 +24,10 @@
  *   data/cawp/legislators-current.json     US Congress current (unitedstates.io)
  *   data/cawp/tab20_cd11820_county20_natl.txt  118th Congress county crosswalk (Census)
  *
- * The numerator download requires only a name and email (no account, no payment). It uses
- * a form-gated CSV export (~30 min) and requires a headed browser to pass Cloudflare.
+ * The numerator download requires only a name and email (no account, no payment). It opens
+ * a headed browser (required to pass Cloudflare), fills a modal form, re-applies the
+ * "Show All Years" filter (the modal resets it), runs a Search, then clicks Download CSV.
+ * The server-side export takes roughly 30 minutes before a download link appears.
  * Run via: npm run refresh-cawp -- --section numerator
  */
 
@@ -385,14 +387,14 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     return
   }
 
-  // Flow (CAWP's new form-gated export, ~30 min total):
-  //   1. Navigate to the database page
-  //   2. Click "Download Data" to open the modal
-  //   3. Fill name + email in the modal (no account needed), click "Download Data" to close it
-  //   4. Apply filters: "Show All Years" radio, check Congress / State Legislative / Territorial/D.C.
-  //   5. Click "Search" to populate the results
-  //   6. Click "Download CSV" — the page shows a progress bar then a download link
-  //   7. Click the link ("here") to save the file
+  // Flow (CAWP's form-gated export, ~30 min total):
+  //   1. Navigate to the "All Data" tab (includes all office levels — Congress, State Leg, Territorial)
+  //   2. Click "Download Data" to open the registration modal
+  //   3. Fill name + email, click "Download Data" to close the modal
+  //   4. Re-apply "Show All Years" — the modal resets the radio to "Currently In Office"
+  //   5. Click Search — required to populate all-years results before the download reflects them
+  //   6. Click "Download CSV" — triggers a server-side export (~30 min); a link appears when done
+  //   7. Save the file via the auto-download event or by clicking the resulting link
   //
   // Cloudflare: headless mode is blocked; headed mode with AutomationControlled suppressed passes.
   console.log('  Opening browser window (Cloudflare requires non-headless)...')
@@ -433,35 +435,27 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     await page.getByRole('button', { name: /download data/i }).last().click()
     await page.waitForTimeout(2000)
 
-    // Step 4: apply filters
-    console.log('  Applying filters (Show All Years + all office levels)...')
-    // "Show All Years" radio
-    await page.locator('input[type="radio"]').filter({ hasText: /all years/i }).click().catch(async () => {
-      // fallback: find by label text
-      await page.getByLabel(/show all years/i).click()
-    })
-
-    // Level of Office checkboxes
-    for (const level of ['Congress', 'State Legislative', 'Territorial']) {
-      await page.getByLabel(new RegExp(level, 'i')).check().catch(() => {
-        // ignore if already checked
-      })
-    }
-
-    // Step 5: run the search
-    console.log('  Running search...')
-    await page.getByRole('button', { name: /^search$/i }).click()
+    // Step 4: Re-apply "Show All Years" — the modal submission resets the radio to
+    // "Currently In Office". After re-selecting, click Search to populate all-years results.
+    // Leave Level of Office blank (no filter = all levels included).
+    console.log('  Re-applying Show All Years and running search...')
+    await page.getByLabel(/show all years/i).first().click()
+    await page.waitForTimeout(500)
+    await page.getByRole('button', { name: /^search$/i }).first().click()
     await page.waitForLoadState('domcontentloaded')
-    await page.waitForTimeout(2000)
+    await page.waitForTimeout(3000)
 
-    // Step 6: click "Download CSV"
+    const resultCount = await page.locator('text=/Displaying.*unique individuals/').first().textContent()
+    console.log(`  Search result: ${resultCount?.trim() ?? 'unknown'}`)
+
+    // Step 5: click "Download CSV"
     console.log('  Starting CSV export (~30 min)...')
     await page.getByRole('button', { name: /download csv/i })
       .or(page.getByRole('link', { name: /download csv/i }))
       .first()
       .click()
 
-    // Step 7: wait for the progress bar to finish and the download link to appear.
+    // Step 6: wait for the progress bar to finish and the download link to appear.
     // The page shows: "Export complete. Download the file here if not automatically downloaded."
     // Listen for an auto-download event in parallel with polling for the link.
     let downloadSaved = false
@@ -493,7 +487,7 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
 
     if (!downloadSaved) {
       await page.screenshot({ path: '/tmp/cawp-export-timeout.png' })
-      throw new Error('Export timed out after 3 minutes. Screenshot: /tmp/cawp-export-timeout.png')
+      throw new Error('Export timed out after 45 minutes. Screenshot: /tmp/cawp-export-timeout.png')
     }
 
     markDone(cache, key)

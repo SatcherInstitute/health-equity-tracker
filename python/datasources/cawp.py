@@ -6,20 +6,21 @@ Description:
 - The downloaded data is stored locally in /data/cawp
 
 Instructions for Downloading NUMERATOR Data:
+  Prefer the automated script: npm run refresh-cawp -- --section numerator (from frontend/)
+  Manual steps if the script is unavailable:
 1. Visit the CAWP Database by Race website:
     https://cawp.rutgers.edu/data/women-elected-officials-database
 2. Click "Download Data" button to open the modal
 3. In the modal, enter a first name and email address (no account needed, free)
 4. Click the "Download Data" button inside the modal to close it
-5. Under "Filter By Date", select the "Show All Years" radio button
-6. Under "Level of Office", check "Congress", "State Legislative", and "Territorial/D.C."
-7. Click the "Search" button to populate the page with those filters applied
-8. Click the "Download CSV" button that now appears on the page
-9. Wait ~30 minutes for the progress bar; when done a link appears:
+5. Under "Filter By Date", re-select "Show All Years" (the modal resets it to "Currently In Office")
+6. Click "Search" to populate results with all years and all office levels
+7. Click the "Download CSV" button
+8. Wait ~30 minutes for the progress bar; when done a link appears:
     "Export complete. Download the file here if file is not automatically downloaded."
-10. Click that link to download the .csv file
-11. Save over the existing file at /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
-12. Commit to the repo, and if needed rerun the DEV/INFRA-TEST and PROD DAG pipelines
+9. Click that link to download the .csv file
+10. Save over the existing file at /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
+11. Commit to the repo, and if needed rerun the DEV/INFRA-TEST and PROD DAG pipelines
 
 Notes:
 - This is simply the "numerator" data; we rely on directly downloaded table data from CAWP
