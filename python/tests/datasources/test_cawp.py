@@ -17,6 +17,7 @@ from datasources.cawp import (
     FIPS_TO_STATE_TABLE_MAP,
     CENSUS_TERRITORY_ATLARGE_CODE,
     LEGISLATORS_ATLARGE_CODE,
+    get_state_leg_totals_df,
 )
 from ingestion.constants import TERRITORY_FIPS_LIST
 from test_utils import load_golden_df
@@ -102,6 +103,23 @@ def test_get_us_congress_members_df(mock_fetch):
     assert sens[DISTRICT].isna().all(), "all senators should have district=None"
 
     assert mock_fetch.call_count == 2
+
+
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir")
+def test_get_state_leg_totals_df_strips_footnote_markers(mock_load):
+    """Years like '1982*' from manual CAWP downloads must be cleaned to '1982'
+    so they join against the scaffold correctly."""
+    mock_load.return_value = pd.DataFrame(
+        {
+            "time_period": ["2020", "1982*", "2019*", "bad"],
+            "state_fips": ["01", "01", "01", "01"],
+            "total_state_leg_count": [140, 130, 135, 0],
+        }
+    )
+    df = get_state_leg_totals_df()
+    assert set(df["time_period"].unique()) == {"1982", "2019", "2020"}
+    assert "1982*" not in df["time_period"].values
+    assert "bad" not in df["time_period"].values
 
 
 # INTEGRATION TEST SETUP
