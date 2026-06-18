@@ -25,7 +25,7 @@
  *   data/cawp/tab20_cd11820_county20_natl.txt  118th Congress county crosswalk (Census)
  *
  * The numerator download requires only a name and email (no account, no payment). It uses
- * a form-gated CSV export (~30 sec) and requires a headed browser to pass Cloudflare.
+ * a form-gated CSV export (~30 min) and requires a headed browser to pass Cloudflare.
  * Run via: npm run refresh-cawp -- --section numerator
  */
 
@@ -381,7 +381,7 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     return
   }
 
-  // Flow (CAWP's new form-gated export, ~30 sec total):
+  // Flow (CAWP's new form-gated export, ~30 min total):
   //   1. Navigate to the database page
   //   2. Click "Download Data" to open the modal
   //   3. Fill name + email in the modal (no account needed), click "Download Data" to close it
@@ -392,7 +392,7 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
   //
   // Cloudflare: headless mode is blocked; headed mode with AutomationControlled suppressed passes.
   console.log('  Opening browser window (Cloudflare requires non-headless)...')
-  console.log('  Export takes ~30 seconds - please do not close the browser.')
+  console.log('  Export takes ~30 minutes - please do not close the browser.')
   const browser = await chromium.launch({
     headless: false,
     args: ['--disable-blink-features=AutomationControlled'],
@@ -451,7 +451,7 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     await page.waitForTimeout(2000)
 
     // Step 6: click "Download CSV"
-    console.log('  Starting CSV export (~30 sec)...')
+    console.log('  Starting CSV export (~30 min)...')
     await page.getByRole('button', { name: /download csv/i })
       .or(page.getByRole('link', { name: /download csv/i }))
       .first()
@@ -467,7 +467,7 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
       downloadSaved = true
     })
 
-    const EXPORT_TIMEOUT_MS = 3 * 60 * 1000
+    const EXPORT_TIMEOUT_MS = 45 * 60 * 1000
     const exportEnd = Date.now() + EXPORT_TIMEOUT_MS
 
     while (Date.now() < exportEnd) {
