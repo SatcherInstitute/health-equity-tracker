@@ -119,6 +119,8 @@ const FIPS_TO_STATE_SLUG: Record<string, string> = {
 // --- Types ---
 interface CacheEntry {
   lastRun: string
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  last_run?: string // legacy key written by the old Python script
   etag?: string
   lastModified?: string
 }
@@ -139,7 +141,9 @@ function saveCache(cache: Cache): void {
 function isFresh(cache: Cache, key: string, ttlDays = CACHE_TTL_DAYS): boolean {
   const entry = cache[key]
   if (!entry) return false
-  const diffMs = Date.now() - new Date(entry.lastRun).getTime()
+  const ts = entry.lastRun ?? entry.last_run // last_run = legacy Python format
+  if (!ts) return false
+  const diffMs = Date.now() - new Date(ts).getTime()
   return diffMs < ttlDays * 24 * 60 * 60 * 1000
 }
 
@@ -199,7 +203,7 @@ async function refreshCongressJson(
   for (const { name, url } of sources) {
     const key = `congress_json_${name}`
     if (!force && isFresh(cache, key)) {
-      const last = cache[key].lastRun.slice(0, 10)
+      const last = (cache[key].lastRun ?? cache[key].last_run ?? '').slice(0, 10)
       console.log(`  ${name}: fresh (last run ${last}), skipping`)
       continue
     }
@@ -219,7 +223,7 @@ async function refreshCrosswalk(cache: Cache, force: boolean): Promise<void> {
   console.log('\n--- Census county-to-congressional-district crosswalk ---')
   const key = 'crosswalk'
   if (!force && isFresh(cache, key)) {
-    const last = cache[key].lastRun.slice(0, 10)
+    const last = (cache[key].lastRun ?? cache[key].last_run ?? '').slice(0, 10)
     console.log(`  Fresh (last run ${last}), skipping`)
     return
   }
@@ -319,7 +323,7 @@ async function refreshStateLegTables(
 
   if (statesToScrape.length === 0) {
     const lastDates = Object.keys(FIPS_TO_STATE_SLUG)
-      .map((f) => cache[`state_leg_${f}`]?.lastRun?.slice(0, 10))
+      .map((f) => (cache[`state_leg_${f}`]?.lastRun ?? cache[`state_leg_${f}`]?.last_run)?.slice(0, 10))
       .filter((d): d is string => Boolean(d))
       .sort()
     const oldest = lastDates[0] ?? 'unknown'
@@ -376,7 +380,7 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
   const dest = join(DATA_DIR, CAWP_NUMERATOR_FILE)
 
   if (!force && isFresh(cache, key)) {
-    const last = cache[key].lastRun.slice(0, 10)
+    const last = (cache[key].lastRun ?? cache[key].last_run ?? '').slice(0, 10)
     console.log(`  Fresh (last run ${last}), skipping`)
     return
   }
