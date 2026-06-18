@@ -778,6 +778,9 @@ def get_state_leg_totals_df():
         dfs.append(df)
 
     df = pd.concat(dfs)
+    # Strip footnote markers (e.g. "1982*") so years join cleanly against the scaffold.
+    df[std_col.TIME_PERIOD_COL] = df[std_col.TIME_PERIOD_COL].str.extract(r"(\d{4})")[0]
+    df = df.dropna(subset=[std_col.TIME_PERIOD_COL])
     return df.sort_values(by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]).reset_index(drop=True)
 
 
