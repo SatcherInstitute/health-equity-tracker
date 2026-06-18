@@ -8,21 +8,18 @@ Description:
 Instructions for Downloading NUMERATOR Data:
 1. Visit the CAWP Database by Race website:
     https://cawp.rutgers.edu/data/women-elected-officials-database
-2. Under "Filter By Date", select radio button "Show All Years"
-3. Under "Level of Office", select "Congress", "State Legislative", and "Territorial/D.C."
-4. Click the "Search" button at the bottom to refresh the page with the new selections
-5. Once the page loads, click "Download Data" button
-6. In the modal that pops up, log in with a first name and an email address
-    (no account needed, no payment or card etc)
-7. In the modal once name/email fields are filled, click the new "Download Data" button
-8. The page will refresh with a "Thank you for submitting the form" banner
-9. Click the "Download CSV" button
-10. Watch as the progress bar completes, around 30 seconds?, then the message
+2. Click "Download Data" button to open the modal
+3. In the modal, enter a first name and email address (no account needed, free)
+4. Click the "Download Data" button inside the modal to close it
+5. Under "Filter By Date", select the "Show All Years" radio button
+6. Under "Level of Office", check "Congress", "State Legislative", and "Territorial/D.C."
+7. Click the "Search" button to populate the page with those filters applied
+8. Click the "Download CSV" button that now appears on the page
+9. Wait ~30 seconds for the progress bar; when done a link appears:
     "Export complete. Download the file here if file is not automatically downloaded."
-11. Use that new link to save the actual .csv file: here is a sample location it provided for the "here" link
-https://cawp.rutgers.edu/sites/default/files/views_data_export/search_officeholders_csv_export_roles/1781757743/search_officeholders-1781757743.csv
-12. Save as (renaming) /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
-10. Commit to the repo, and if needed rerun the DEV/INFRA-TESTand PROD DAG pipelines
+10. Click that link to download the .csv file
+11. Save over the existing file at /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
+12. Commit to the repo, and if needed rerun the DEV/INFRA-TEST and PROD DAG pipelines
 
 Notes:
 - This is simply the "numerator" data; we rely on directly downloaded table data from CAWP
