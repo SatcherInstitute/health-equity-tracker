@@ -30,6 +30,7 @@ const CAWP_CONGRESS_COUNTS: MetricId[] = [
 ]
 
 const CAWP_CONGRESS_METRICS: MetricId[] = [
+  'cawp_population_pct', // needed for pct_share disparity comparison at county level
   'pct_share_of_us_congress',
   'pct_share_of_women_us_congress',
   'women_us_congress_pct_relative_inequity',

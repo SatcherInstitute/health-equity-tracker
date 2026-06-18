@@ -70,6 +70,12 @@ test('CAWP: County view loads with multi-district caveat', async ({ page }) => {
       )
       .toBeVisible()
   })
+
+  await test.step('State legislature metrics are not shown at county level', async () => {
+    await expect
+      .soft(page.getByText(/state legislature/i))
+      .not.toBeVisible()
+  })
 })
 
 test('CAWP: State Legislature', async ({ page }) => {
