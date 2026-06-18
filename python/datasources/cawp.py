@@ -170,16 +170,17 @@ NAME = "name"
 FIRST = "first"
 LAST = "last"
 TYPE = "type"
-ID = "id"
+ID = "ID"
+CONGRESS_JSON_ID = "id"  # unitedstates.io JSON uses lowercase "id"
 STATE = "state"
 TERMS = "terms"
 START = "start"
 END = "end"
-FIRST_NAME = "first_name"
-LAST_NAME = "last_name"
-POSITION = "position"
-LEVEL = "level"
-YEAR = "year"
+FIRST_NAME = "First Name"
+LAST_NAME = "Last Name"
+POSITION = "Position"
+LEVEL = "Level"
+YEAR = "Years Served"
 
 CONGRESS = "Congress"
 STATE_LEG = "State Legislative"
@@ -581,7 +582,7 @@ def get_us_congress_totals_df():
                 )
                 full_name = f"{title} {legislator[NAME][FIRST]} {legislator[NAME][LAST]}"
                 entry = {
-                    ID: legislator[ID]["govtrack"],
+                    ID: legislator[CONGRESS_JSON_ID]["govtrack"],
                     NAME: full_name,
                     TYPE: term[TYPE],
                     std_col.STATE_POSTAL_COL: term[STATE],
