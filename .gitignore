@@ -58,6 +58,9 @@ tig
 frontend/playwright-tests/_*.spec.ts
 frontend/scripts/_*.ts
 
+# Claude Code runtime lock file
+.claude/scheduled_tasks.lock
+
 # Credentials / service account keys (belt-and-suspenders; these should never land here)
 *.key.json
 *-credentials.json
