@@ -7,16 +7,19 @@ Description:
 
 Instructions for Downloading NUMERATOR Data:
 1. Visit the CAWP Database by Race website:
-    https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity
-2. Under "Filter By Date", select "Show All Years"
-3. Under "Level of Office", select "Congress", "State Legislative", and "Territorial/D.C."
-4. Click the "Search" button at the bottom to refresh the page with the new selections
-5. Once the page loads, click "Download" button
-6. In the modal that pops up, log in with valid account info (it's free)
-7. Once logged in, click the "Download" button again
-8. In the next modal, download, slowly, as a .csv file
-9. Once exported, save (renaming) as /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
-10. Commit to the repo, and if needed rerun the DEV/INFRA-TESTand PROD DAG pipelines
+    https://cawp.rutgers.edu/data/women-elected-officials-database
+2. Click "Download Data" button to open the modal
+3. In the modal, enter a first name and email address (no account needed, free)
+4. Click the "Download Data" button inside the modal to close it
+5. Under "Filter By Date", select the "Show All Years" radio button
+6. Under "Level of Office", check "Congress", "State Legislative", and "Territorial/D.C."
+7. Click the "Search" button to populate the page with those filters applied
+8. Click the "Download CSV" button that now appears on the page
+9. Wait ~30 minutes for the progress bar; when done a link appears:
+    "Export complete. Download the file here if file is not automatically downloaded."
+10. Click that link to download the .csv file
+11. Save over the existing file at /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
+12. Commit to the repo, and if needed rerun the DEV/INFRA-TEST and PROD DAG pipelines
 
 Notes:
 - This is simply the "numerator" data; we rely on directly downloaded table data from CAWP
@@ -56,7 +59,6 @@ from ingestion.constants import (
 )
 from typing import cast, List
 from ingestion.het_types import GEO_TYPE, SEX_RACE_AGE_TYPE
-
 
 RACE = cast(SEX_RACE_AGE_TYPE, "race")
 
@@ -168,16 +170,17 @@ NAME = "name"
 FIRST = "first"
 LAST = "last"
 TYPE = "type"
-ID = "id"
+ID = "ID"
+CONGRESS_JSON_ID = "id"  # unitedstates.io JSON uses lowercase "id"
 STATE = "state"
 TERMS = "terms"
 START = "start"
 END = "end"
-FIRST_NAME = "first_name"
-LAST_NAME = "last_name"
-POSITION = "position"
-LEVEL = "level"
-YEAR = "year"
+FIRST_NAME = "First Name"
+LAST_NAME = "Last Name"
+POSITION = "Position"
+LEVEL = "Level"
+YEAR = "Years Served"
 
 CONGRESS = "Congress"
 STATE_LEG = "State Legislative"
@@ -579,7 +582,7 @@ def get_us_congress_totals_df():
                 )
                 full_name = f"{title} {legislator[NAME][FIRST]} {legislator[NAME][LAST]}"
                 entry = {
-                    ID: legislator[ID]["govtrack"],
+                    ID: legislator[CONGRESS_JSON_ID]["govtrack"],
                     NAME: full_name,
                     TYPE: term[TYPE],
                     std_col.STATE_POSTAL_COL: term[STATE],
