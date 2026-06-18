@@ -15,7 +15,7 @@ Instructions for Downloading NUMERATOR Data:
 6. Under "Level of Office", check "Congress", "State Legislative", and "Territorial/D.C."
 7. Click the "Search" button to populate the page with those filters applied
 8. Click the "Download CSV" button that now appears on the page
-9. Wait ~30 seconds for the progress bar; when done a link appears:
+9. Wait ~30 minutes for the progress bar; when done a link appears:
     "Export complete. Download the file here if file is not automatically downloaded."
 10. Click that link to download the .csv file
 11. Save over the existing file at /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
