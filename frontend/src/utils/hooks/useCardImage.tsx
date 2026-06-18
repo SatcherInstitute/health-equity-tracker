@@ -12,6 +12,7 @@ export function useCardImage(
 ) {
   const [isThinking, setIsThinking] = useState(false)
   const [confirmationOpen, setConfirmationOpen] = useState(false)
+  const [errorOpen, setErrorOpen] = useState(false)
   const [imgDataUrl, setImgDataUrl] = useState<string | null>(null)
 
   const cardName = reportProviderSteps[scrollToHash].label
@@ -30,9 +31,13 @@ export function useCardImage(
         destination,
         isRowOfTwo,
       })
-      if (destination === 'clipboard' && typeof result === 'string') {
-        setImgDataUrl(result)
-        setConfirmationOpen(true)
+      if (destination === 'clipboard') {
+        if (typeof result === 'string') {
+            setImgDataUrl(result)
+            setConfirmationOpen(true)
+        } else {
+          setErrorOpen(true)
+        }
       }
       if (destination === 'download') {
         cardMenuPopover?.close()
@@ -49,6 +54,7 @@ export function useCardImage(
     setIsThinking,
     imgDataUrl,
     confirmationOpen,
+    errorOpen,
     handleCopyImgToClipboard: () => handleImageAction('clipboard'),
     handleDownloadImg: () => handleImageAction('download'),
     handleDownloadRowImg: () => handleImageAction('download', true),
@@ -60,10 +66,11 @@ export function useCardImage(
       }
     },
     handleClose: () => {
-      setIsThinking(false)
-      setConfirmationOpen(false)
-      cardMenuPopover.close()
-      setImgDataUrl(null)
+    setIsThinking(false)
+    setConfirmationOpen(false)
+    setErrorOpen(false)
+    cardMenuPopover.close()
+    setImgDataUrl(null)
     },
   }
 }
