@@ -20,8 +20,8 @@ export function useCardImage(
   const cardUrlWithHash = `${urlWithoutHash}#${scrollToHash}`
 
   const handleImageAction = async (
-  destination: 'clipboard' | 'download',
-  isRowOfTwo: boolean = false,
+    destination: 'clipboard' | 'download',
+    isRowOfTwo: boolean = false,
   ) => {
     if (destination === 'clipboard') {
       setConfirmationOpen(false)
@@ -41,10 +41,10 @@ export function useCardImage(
           setErrorOpen(false)
           setImgDataUrl(result)
           setConfirmationOpen(true)
-          } else {
-              setConfirmationOpen(false)
-              setErrorOpen(true)
-          }
+        } else {
+          setConfirmationOpen(false)
+          setErrorOpen(true)
+        }
       }
       if (destination === 'download') {
         cardMenuPopover?.close()
@@ -73,11 +73,11 @@ export function useCardImage(
       }
     },
     handleClose: () => {
-    setIsThinking(false)
-    setConfirmationOpen(false)
-    setErrorOpen(false)
-    cardMenuPopover.close()
-    setImgDataUrl(null)
+      setIsThinking(false)
+      setConfirmationOpen(false)
+      setErrorOpen(false)
+      cardMenuPopover.close()
+      setImgDataUrl(null)
     },
   }
 }
