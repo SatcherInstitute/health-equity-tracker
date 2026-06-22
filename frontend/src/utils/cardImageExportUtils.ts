@@ -65,22 +65,32 @@ async function handleDestination(dataUrl: string, options: SaveImageOptions) {
   if (options.destination === 'clipboard') {
     try {
       const blob = await dataURLtoBlob(dataUrl)
+
       await navigator.clipboard.write([
         new ClipboardItem({
           [blob.type]: blob,
         }),
       ])
+
+      return dataUrl
     } catch (clipboardError) {
       console.error('Failed to write to clipboard:', clipboardError)
+      return undefined
     }
-  } else if (options.destination === 'download') {
+  }
+
+  if (options.destination === 'download') {
     const fileName = createFileName(options.cardTitle)
+
     const link = document.createElement('a')
     link.download = fileName
     link.href = dataUrl
     link.click()
+
+    return dataUrl
   }
-  return dataUrl
+
+  return undefined
 }
 
 function removeLegendBorders(): void {
