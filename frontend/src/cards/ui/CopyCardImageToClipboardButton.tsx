@@ -16,15 +16,16 @@ export function CopyCardImageToClipboardButton(
   props: CopyCardImageToClipboardButtonProps,
 ) {
   const {
-    cardName,
-    isThinking,
-    setIsThinking,
-    imgDataUrl,
-    confirmationOpen,
-    handleCopyImgToClipboard,
-    handleCopyRowImgToClipboard,
-    handleClose,
-  } = useCardImage(props.popover, props.scrollToHash)
+  cardName,
+  isThinking,
+  setIsThinking,
+  imgDataUrl,
+  confirmationOpen,
+  errorOpen,
+  handleCopyImgToClipboard,
+  handleCopyRowImgToClipboard,
+  handleClose,
+} = useCardImage(props.popover, props.scrollToHash)
 
   const isCompareMode = window.location.href.includes('compare')
   const imgTerm = isCompareMode ? 'Side-by-Side Images' : 'Image'
@@ -54,6 +55,9 @@ export function CopyCardImageToClipboardButton(
             />
           </div>
         )}
+      </HetSnackbar>
+      <HetSnackbar open={errorOpen} handleClose={handleClose}>
+        Unable to copy image. Please keep this tab focused and try again.
       </HetSnackbar>
     </>
   )
