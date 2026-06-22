@@ -16,16 +16,16 @@ export function CopyCardImageToClipboardButton(
   props: CopyCardImageToClipboardButtonProps,
 ) {
   const {
-  cardName,
-  isThinking,
-  setIsThinking,
-  imgDataUrl,
-  confirmationOpen,
-  errorOpen,
-  handleCopyImgToClipboard,
-  handleCopyRowImgToClipboard,
-  handleClose,
-} = useCardImage(props.popover, props.scrollToHash)
+    cardName,
+    isThinking,
+    setIsThinking,
+    imgDataUrl,
+    confirmationOpen,
+    errorOpen,
+    handleCopyImgToClipboard,
+    handleCopyRowImgToClipboard,
+    handleClose,
+  } = useCardImage(props.popover, props.scrollToHash)
 
   const isCompareMode = window.location.href.includes('compare')
   const imgTerm = isCompareMode ? 'Side-by-Side Images' : 'Image'
