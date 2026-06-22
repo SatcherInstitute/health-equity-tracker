@@ -862,26 +862,33 @@ def _build_congress_member_entries(raw_legislators_json: list, years: list) -> l
         list of dicts with keys: ID, NAME, TYPE, STATE_POSTAL_COL, TIME_PERIOD_COL, DISTRICT.
         DISTRICT is the House district number (int) for representatives, None for senators."""
     entries = []
+    seen_keys: set = set()
     for legislator in raw_legislators_json:
         for term in legislator[TERMS]:
             term_years = extract_term_years(term)
             for year in term_years:
                 year = str(year)
+                if year not in years:
+                    continue
+                govtrack_id = legislator[CONGRESS_JSON_ID]["govtrack"]
+                key = (govtrack_id, year)
+                if key in seen_keys:
+                    continue
+                seen_keys.add(key)
                 title = (
                     f"{POSITION_LABELS[CONGRESS][term[TYPE]]}" if term[STATE] not in TERRITORY_POSTALS else "U.S. Del."
                 )
                 full_name = f"{title} {legislator[NAME][FIRST]} {legislator[NAME][LAST]}"
-                entry = {
-                    ID: legislator[CONGRESS_JSON_ID]["govtrack"],
-                    NAME: full_name,
-                    TYPE: term[TYPE],
-                    std_col.STATE_POSTAL_COL: term[STATE],
-                    std_col.TIME_PERIOD_COL: year,
-                    DISTRICT: term.get("district"),
-                }
-                # avoid double counting; CAWP has 1 entry per legislator per year
-                if year in years and entry not in entries:
-                    entries.append(entry)
+                entries.append(
+                    {
+                        ID: govtrack_id,
+                        NAME: full_name,
+                        TYPE: term[TYPE],
+                        std_col.STATE_POSTAL_COL: term[STATE],
+                        std_col.TIME_PERIOD_COL: year,
+                        DISTRICT: term.get("district"),
+                    }
+                )
     return entries
 
 
