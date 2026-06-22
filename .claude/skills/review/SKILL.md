@@ -190,7 +190,7 @@ Consider a follow-up PR:
 
 ---
 
-## Step 9: Write review body and hand off to /review-post
+## Step 9: Present findings inline and wait for user confirmation
 
 Determine verdict:
 - Any BLOCKING findings: `request-changes`
@@ -230,7 +230,14 @@ VERDICT: <request-changes|comment>
 *Review by Claude Code (/review skill). Blocking issues require resolution before merge; important suggestions are at the author's discretion.*
 ```
 
-Then invoke `/review-post` to handle the mechanical posting and thread-resolution. That skill runs on haiku and handles Steps 9-10 at a fraction of this skill's token cost.
+**Present the full review body inline in the conversation** — paste it as a markdown block so the user can read every finding before it goes to GitHub.
+
+Then use `AskUserQuestion` to ask: "Post this review to GitHub?"
+
+- Option A: **Yes, post it** — invoke `/review-post` to handle the mechanical posting and thread-resolution (runs on haiku at a fraction of this skill's token cost)
+- Option B: **No, don't post** — stop here; the user can give feedback and re-run if needed
+
+Do not call `/review-post` until the user explicitly confirms.
 
 ---
 
