@@ -7,7 +7,7 @@ import {
   type DemographicType,
 } from '../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../data/query/MetricQuery'
-import { ALL } from '../data/utils/Constants'
+import { ALL, type DemographicGroup } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
 import { fetchAIInsight, type InsightResult } from './fetchAIInsight'
@@ -43,29 +43,17 @@ export function formatDataRows(
   hashId: ScrollableHashId,
   demographicType: DemographicType,
   metricConfig: MetricConfig,
-  isSingleRegionMap = false,
+  // When the user has focused a chart (e.g. the trend legend) on a subset of
+  // groups, restrict the rows to those groups so the insight describes only
+  // what is on screen. Empty/undefined means "all groups".
+  selectedGroups?: DemographicGroup[],
 ): string {
-  // A county-level map shows just one area, so there is no geography to
-  // contrast. Label rows by demographic group instead, and drop the aggregate
-  // "All" row so the model compares real subgroups within that one place.
-  if (isSingleRegionMap) {
-    return rows
-      .filter(
-        (row) =>
-          row[demographicType] != null &&
-          row[demographicType] !== ALL &&
-          row[metricConfig.metricId] != null,
-      )
-      .map(
-        (row) =>
-          `- ${row[demographicType]}: ${row[metricConfig.metricId]} ${metricConfig.shortLabel}`,
-      )
-      .join('\n')
-  }
-
   const isMap = MAP_CHART_IDS.includes(hashId)
   const isTimeSeries = TIME_SERIES_CHART_IDS.includes(hashId)
-  const groupKey = isMap ? 'fips_name' : demographicType
+  const groupFilter =
+    selectedGroups && selectedGroups.length > 0
+      ? new Set<string>(selectedGroups.map(String))
+      : null
 
   if (isTimeSeries) {
     // Group by demographic subgroup, then show the first and most recent year per group
@@ -73,6 +61,7 @@ export function formatDataRows(
     const byGroup: Record<string, HetRow[]> = {}
     for (const row of rows) {
       const group = String(row[demographicType] ?? 'Unknown')
+      if (groupFilter && !groupFilter.has(group)) continue
       if (!byGroup[group]) byGroup[group] = []
       byGroup[group].push(row)
     }
@@ -106,15 +95,29 @@ export function formatDataRows(
       : null
 
   return rows
-    .filter(
-      (row) => row[groupKey] != null && row[metricConfig.metricId] != null,
-    )
+    .filter((row) => {
+      // Maps always have a place name; other charts key off the demographic group.
+      const hasLabel = isMap
+        ? row.fips_name != null
+        : row[demographicType] != null
+      if (!hasLabel || row[metricConfig.metricId] == null) return false
+      if (groupFilter && !groupFilter.has(String(row[demographicType])))
+        return false
+      return true
+    })
     .map((row) => {
+      // On a map, label each row with BOTH its place and demographic group so
+      // the model can read either a geographic gap (across places) or a
+      // within-place gap (across groups, with "All" as the baseline). Other
+      // charts already vary only by demographic group, so the group alone suffices.
+      const label = isMap
+        ? `${row.fips_name} (${row[demographicType]})`
+        : `${row[demographicType]}`
       const val = `${row[metricConfig.metricId]} ${metricConfig.shortLabel}`
       if (popMetric && row[popMetric.metricId] != null) {
-        return `- ${row[groupKey]}: outcome share ${val}, population share ${row[popMetric.metricId]} ${popMetric.shortLabel}`
+        return `- ${label}: outcome share ${val}, population share ${row[popMetric.metricId]} ${popMetric.shortLabel}`
       }
-      return `- ${row[groupKey]}: ${val}`
+      return `- ${label}: ${val}`
     })
     .join('\n')
 }
@@ -125,15 +128,20 @@ function buildPrompt(
   location: string,
   demographicLabel: string,
   dataSection: string,
-  isSingleRegionMap = false,
+  activeDemographicGroup?: DemographicGroup,
 ): string {
   const dataBlock = dataSection ? `\n\nData:\n${dataSection}` : ''
 
   if (MAP_CHART_IDS.includes(hashId)) {
-    if (isSingleRegionMap) {
-      return `This is a choropleth map showing ${topic} in ${location}. The map covers a single area, so instead of a geographic comparison the data below breaks that rate down by ${demographicLabel} group.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that names which ${demographicLabel} groups carry the highest and lowest rates and captures why this gap matters for the people who live there — focus on the "so what", not the chart mechanics.`
-    }
-    return `This is a choropleth map showing ${topic} in ${location} across all ${demographicLabel} groups. The intended message is to highlight geographic health equity disparities.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that names the specific states or regions with the highest rates, contrasts them with those with the lowest, and captures why this geographic gap matters — focus on the "so what", not the chart mechanics.`
+    // Each data row is labeled `Place (Group)`, and an "All" row gives the
+    // overall rate for that place. A map can be multi-region (compare places)
+    // or single-region (compare groups within one place). Tell the model which
+    // group the user is currently highlighting so it can lead with that story.
+    const focus =
+      activeDemographicGroup && activeDemographicGroup !== ALL
+        ? ` The map currently highlights the ${activeDemographicGroup} group, so lead with that group and use the "All" baseline for comparison.`
+        : ''
+    return `This is a choropleth map showing ${topic} in ${location} by ${demographicLabel}. Each data row is labeled with its place and ${demographicLabel} group; an "All" row gives the overall rate for that place.${focus}${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that highlights the most important health equity disparity — either a geographic gap between places or a gap between ${demographicLabel} groups within a place — and captures why it matters for real people. Focus on the "so what", not the chart mechanics.`
   }
 
   if (hashId === 'rates-over-time') {
@@ -153,9 +161,18 @@ function buildPrompt(
 
 interface InsightData {
   dataSection: string
-  isSingleRegionMap: boolean
   // Number of comparison entries (groups or regions) the model would receive.
   entryCount: number
+}
+
+// Optional context about which groups the user has focused the chart on.
+export interface InsightContext {
+  // The demographic group currently highlighted on a map (e.g. the active
+  // choropleth group). Used only to steer the prompt, not to filter rows.
+  activeDemographicGroup?: DemographicGroup
+  // The subset of groups the user has selected (e.g. via the trend legend).
+  // Filters the rows the model sees so the insight matches what is on screen.
+  selectedGroups?: DemographicGroup[]
 }
 
 // Shapes the chart's query response into the exact text the model is given.
@@ -166,46 +183,48 @@ export function prepareInsightData(
   dataTypeConfig: DataTypeConfig,
   demographicType: DemographicType,
   queryResponses?: MetricQueryResponse[],
+  selectedGroups?: DemographicGroup[],
 ): InsightData {
   let dataSection = ''
-  let isSingleRegionMap = false
   if (queryResponses?.[0]) {
     const metricConfig = getPrimaryMetricConfig(hashId, dataTypeConfig.metrics)
     if (metricConfig) {
       const rows = queryResponses[0].getValidRowsForField(metricConfig.metricId)
-      // A county-level map has only one geographic unit, so every row shares the
-      // same place name and there is no geographic comparison to draw.
-      isSingleRegionMap =
-        MAP_CHART_IDS.includes(hashId) &&
-        new Set(rows.map((row) => row.fips_name)).size <= 1
       dataSection = formatDataRows(
         rows,
         hashId,
         demographicType,
         metricConfig,
-        isSingleRegionMap,
+        selectedGroups,
       )
     }
   }
   const entryCount = dataSection
     ? dataSection.split('\n').filter(Boolean).length
     : 0
-  return { dataSection, isSingleRegionMap, entryCount }
+  return { dataSection, entryCount }
 }
 
 // An insight is only worth showing when there are at least two values to
 // compare. With a single group or region (e.g. a county where every other
-// race is suppressed), there is no disparity to describe, so the card hides
-// the insight UI entirely rather than restating one number.
+// race is suppressed, leaving only the "All" row), there is no disparity to
+// describe, so the card hides the insight UI entirely rather than restating
+// one number.
 export function hasEnoughDataForInsight(
   hashId: ScrollableHashId,
   dataTypeConfig: DataTypeConfig,
   demographicType: DemographicType,
   queryResponses?: MetricQueryResponse[],
+  selectedGroups?: DemographicGroup[],
 ): boolean {
   return (
-    prepareInsightData(hashId, dataTypeConfig, demographicType, queryResponses)
-      .entryCount >= 2
+    prepareInsightData(
+      hashId,
+      dataTypeConfig,
+      demographicType,
+      queryResponses,
+      selectedGroups,
+    ).entryCount >= 2
   )
 }
 
@@ -216,16 +235,18 @@ export async function generateCardInsight(
   fips?: Fips,
   queryResponses?: MetricQueryResponse[],
   isCompareCard?: boolean,
+  context?: InsightContext,
 ): Promise<InsightResult> {
   const topic = dataTypeConfig.fullDisplayName
   const location = fips?.getSentenceDisplayName() ?? 'the United States'
   const demographic = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
 
-  const { dataSection, isSingleRegionMap } = prepareInsightData(
+  const { dataSection } = prepareInsightData(
     hashId,
     dataTypeConfig,
     demographicType,
     queryResponses,
+    context?.selectedGroups,
   )
 
   const prompt = buildPrompt(
@@ -234,7 +255,7 @@ export async function generateCardInsight(
     location,
     demographic,
     dataSection,
-    isSingleRegionMap,
+    context?.activeDemographicGroup,
   )
 
   const params = new URLSearchParams(window.location.search)
