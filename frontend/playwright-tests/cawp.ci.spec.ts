@@ -65,16 +65,15 @@ test('CAWP: County view loads with multi-district caveat', async ({ page }) => {
 
   await test.step('Multi-district caveat alert is visible', async () => {
     await expect
-      .soft(
-        page.getByText(/County figures include all U.S. Congress members/i),
-      )
+      .soft(page.getByText(/A county may span multiple districts/i))
       .toBeVisible()
   })
 
   await test.step('State legislature metrics are not shown at county level', async () => {
+    // State legislature topic appears at county level but with a no-data notice
     await expect
-      .soft(page.getByText(/state legislature/i))
-      .not.toBeVisible()
+      .soft(page.getByText(/unable to locate reliable data/i))
+      .toBeVisible()
   })
 })
 
