@@ -323,6 +323,7 @@ function MapCardWithKey(props: MapCardProps) {
       fips={props.fips}
       dataTypeConfig={props.dataTypeConfig}
       demographicType={props.demographicType}
+      activeDemographicGroup={activeDemographicGroup}
     >
       {(queryResponses, metadata, geoData, overrideCardHasData) => {
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
