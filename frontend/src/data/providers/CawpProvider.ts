@@ -147,7 +147,16 @@ class CawpProvider extends VariableProvider {
       df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
     } else {
       df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      const hasDistricts =
+        breakdowns.geography === 'county' &&
+        df.getColumnNames().includes('congressional_districts')
+      const districtSeries = hasDistricts
+        ? df.getSeries('congressional_districts')
+        : null
       df = this.removeUnrequestedColumns(df, metricQuery)
+      if (districtSeries) {
+        df = df.withSeries('congressional_districts', districtSeries)
+      }
     }
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
