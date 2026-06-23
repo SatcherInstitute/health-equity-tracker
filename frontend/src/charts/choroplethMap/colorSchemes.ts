@@ -179,6 +179,19 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
       .range(colorArray)
   }
 
+  const uniqueDomainValues = [...new Set(domain)].sort((a, b) => a - b)
+  if (
+    uniqueDomainValues.length > 0 &&
+    uniqueDomainValues.length <= colorArray.length
+  ) {
+    // Discrete data: use threshold scale so each distinct value gets its own
+    // color bucket rather than letting quantile over-represent common values
+    // (e.g. CAWP county percentages where most counties share a single value).
+    return scaleThreshold<number, string>()
+      .domain(uniqueDomainValues)
+      .range(colorArray.slice(0, uniqueDomainValues.length + 1))
+  }
+
   return scaleQuantile<string, number>().domain(domain).range(colorArray)
 }
 
