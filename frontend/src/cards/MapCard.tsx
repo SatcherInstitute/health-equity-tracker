@@ -735,6 +735,13 @@ function MapCardWithKey(props: MapCardProps) {
                     sviQueryResponse={sviQueryResponse}
                     isAtlantaMode={isAtlantaMode}
                   />
+                  {props.dataTypeConfig.dataTypeId === 'women_in_us_congress' &&
+                    props.fips.isCounty() && (
+                      <CAWPCountyMultiDistrictAlert
+                        queryResponse={mapQueryResponse}
+                        demographicType={demographicType}
+                      />
+                    )}
                 </div>
               </div>
               <div
@@ -763,8 +770,7 @@ function MapCardWithKey(props: MapCardProps) {
                       activeDemographicGroup={activeDemographicGroup}
                     />
                   )}
-                {props.dataTypeConfig.dataTypeId === 'women_in_us_congress' &&
-                  props.fips.isState() && <CAWPCountyMultiDistrictAlert />}
+
                 {percentRateTooHigh && (
                   <HetNotice
                     title='Percentages Over 100%'

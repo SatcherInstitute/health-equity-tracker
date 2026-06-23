@@ -27,7 +27,7 @@ import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
-import CAWPCountyMultiDistrictAlert from './ui/CAWPCountyMultiDistrictAlert'
+
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
@@ -64,9 +64,6 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
   const isGunDeaths = GUN_VIOLENCE_DATATYPES.includes(
     props.dataTypeConfig.dataTypeId,
   )
-  const isCawpCounty =
-    props.dataTypeConfig.dataTypeId === 'women_in_us_congress' &&
-    props.fips.isCounty()
 
   const metricIdsToFetch: MetricId[] = []
   metricIdsToFetch.push(rateConfig.metricId)
@@ -222,12 +219,6 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
                     demographicType={props.demographicType}
                     metadata={metadata}
                     queryResponse={rateQueryResponseRate}
-                  />
-                )}
-                {isCawpCounty && (
-                  <CAWPCountyMultiDistrictAlert
-                    queryResponse={rateQueryResponseRate}
-                    demographicType={props.demographicType}
                   />
                 )}
               </>
