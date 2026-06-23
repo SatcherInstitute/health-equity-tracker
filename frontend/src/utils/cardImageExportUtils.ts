@@ -64,6 +64,7 @@ async function dataURLtoBlob(dataURL: string): Promise<Blob> {
 async function handleDestination(dataUrl: string, options: SaveImageOptions) {
   if (options.destination === 'clipboard') {
     try {
+      window.focus()
       const blob = await dataURLtoBlob(dataUrl)
 
       await navigator.clipboard.write([

@@ -11,7 +11,7 @@ export default function ChartTitle(props: ChartTitleProps) {
         {props.title}
       </h2>
       {props.subtitle && (
-        <h3 className='m-0 p-0 text-center font-normal text-small italic'>
+        <h3 className='m-0 mt-2 p-0 text-center font-normal text-small italic'>
           {props.subtitle}
         </h3>
       )}
