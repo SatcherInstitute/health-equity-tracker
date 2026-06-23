@@ -17,7 +17,7 @@ export default function EndOfRateBarLabel(props: EndOfRateBarLabelProps) {
     <text
       x={props.shouldLabelBeInside ? props.barWidth - 5 : props.barWidth + 5}
       y={props.yScale.bandwidth() / 2}
-      dy='1.3em'
+      dy='0.35em'
       textAnchor={props.shouldLabelBeInside ? 'end' : 'start'}
       className={`text-smallest ${props.barLabelColor}`}
       aria-hidden='true'
