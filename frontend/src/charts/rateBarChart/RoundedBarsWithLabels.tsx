@@ -49,7 +49,9 @@ export default function RoundedBarsWithLabels({
 
   return processedData.map((d, index) => {
     const barWidth = xScale(d[metricConfig.metricId]) || 0
-    const shouldLabelBeInside = d[metricConfig.metricId] > barLabelBreakpoint
+    const shouldLabelBeInside =
+      d[metricConfig.metricId] > barLabelBreakpoint ||
+      hitAreaWidth - barWidth < 90
     const yPosition = getYPosition(index, d[demographicType])
     const topGap =
       normalGap +
