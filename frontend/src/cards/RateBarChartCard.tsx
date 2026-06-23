@@ -224,7 +224,12 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
                     queryResponse={rateQueryResponseRate}
                   />
                 )}
-                {isCawpCounty && <CAWPCountyMultiDistrictAlert />}
+                {isCawpCounty && (
+                  <CAWPCountyMultiDistrictAlert
+                    queryResponse={rateQueryResponseRate}
+                    demographicType={props.demographicType}
+                  />
+                )}
               </>
             )}
           </>
