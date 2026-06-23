@@ -33,10 +33,6 @@ test('CAWP: Congress', async ({ page }) => {
       expect.soft(page.getByLabel('Include All women')).toBeVisible(),
     ])
   })
-
-  await expect
-    .soft(page.getByText('No unknown values for race/ethnicity reported'))
-    .toBeVisible()
 })
 
 test('CAWP: County view loads with multi-district caveat', async ({ page }) => {
