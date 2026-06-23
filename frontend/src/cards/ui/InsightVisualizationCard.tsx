@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import { ALL, type DemographicGroup } from '../../data/utils/Constants'
 import type { Fips } from '../../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
 import { generateCardInsight } from '../../utils/generateVisualizationInsight'
@@ -21,6 +22,8 @@ interface InsightVisualizationCardProps {
   dataTypeConfig: DataTypeConfig
   demographicType: DemographicType
   isCompareCard?: boolean
+  activeDemographicGroup?: DemographicGroup
+  selectedGroups?: DemographicGroup[]
 }
 
 export default function InsightVisualizationCard({
@@ -30,6 +33,8 @@ export default function InsightVisualizationCard({
   dataTypeConfig,
   demographicType,
   isCompareCard,
+  activeDemographicGroup,
+  selectedGroups,
 }: InsightVisualizationCardProps) {
   const [cardInsights, setCardInsights] = useAtom(cardInsightsAtom)
   const openKey = `${scrollToHash}${isCompareCard ? '-2' : ''}`
@@ -41,7 +46,20 @@ export default function InsightVisualizationCard({
   // True only if the team has escalated this insight to hidden — no content is shown.
   const [suppressed, setSuppressed] = useState(false)
 
-  const cacheKey = `${scrollToHash}-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}${isCompareCard ? '-2' : ''}`
+  // A stable suffix so the insight regenerates when the user changes which
+  // group(s) the chart is focused on (highlighted map group / selected trend
+  // legend lines) — those change the data the model sees.
+  const focusSuffix = [
+    activeDemographicGroup && activeDemographicGroup !== ALL
+      ? activeDemographicGroup
+      : '',
+    selectedGroups && selectedGroups.length > 0
+      ? [...selectedGroups].sort().join(',')
+      : '',
+  ]
+    .filter(Boolean)
+    .join('|')
+  const cacheKey = `${scrollToHash}-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}${isCompareCard ? '-2' : ''}${focusSuffix ? `-${focusSuffix}` : ''}`
   const insight = cardInsights[cacheKey]
 
   const handleGenerate = useCallback(async () => {
@@ -56,6 +74,7 @@ export default function InsightVisualizationCard({
         fips,
         queryResponses,
         isCompareCard,
+        { activeDemographicGroup, selectedGroups },
       )
       setServerCacheKey(result.cacheKey ?? null)
       if (result.rateLimited) {
@@ -79,6 +98,8 @@ export default function InsightVisualizationCard({
     queryResponses,
     scrollToHash,
     setCardInsights,
+    activeDemographicGroup,
+    selectedGroups,
   ])
 
   const handleFlagged = () => {
