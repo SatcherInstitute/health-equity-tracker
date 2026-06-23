@@ -182,7 +182,7 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
   const uniqueDomainValues = [...new Set(domain)].sort((a, b) => a - b)
   if (
     uniqueDomainValues.length > 0 &&
-    uniqueDomainValues.length <= colorArray.length
+    uniqueDomainValues.length < colorArray.length
   ) {
     // Discrete data: use threshold scale so each distinct value gets its own
     // color bucket rather than letting quantile over-represent common values
