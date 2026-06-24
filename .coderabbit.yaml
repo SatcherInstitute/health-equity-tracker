@@ -9,11 +9,10 @@ tone_instructions: >
   Only flag genuine bugs, data errors, or security issues.
   Skip style, naming, and refactor suggestions entirely.
 
-pre_merge_checks:
-  docstrings:
-    mode: "off"
-
 reviews:
+  pre_merge_checks:
+    docstrings:
+      mode: "off"
   profile: "chill"
   poem: false
   high_level_summary: false
