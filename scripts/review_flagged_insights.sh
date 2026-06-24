@@ -12,8 +12,9 @@
 #   flagged    - raw user report. Does NOT hide the insight and is NOT fed to the prompt.
 #                Awaits team review (this script). Counts as "unhandled".
 #   suppressed - team-confirmed bad output. Hidden on the site AND fed back into the
-#                generation prompt as a negative example.
-#   permanent  - same as suppressed, intended as a lasting ban.
+#                generation prompt as a negative example. Can be re-enabled later.
+#   permanent  - like suppressed, but a one-way ban: the data server refuses to re-enable
+#                it via the API, so lifting it requires a deliberate manual GCS edit.
 #   reenabled  - team cleared the report. Insight is shown again; cached copy is dropped
 #                so it regenerates fresh.
 #

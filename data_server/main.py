@@ -380,6 +380,13 @@ def update_flagged_insight():
     if record is None:
         return "", 404
 
+    # A `permanent` ban is intentionally a one-way door: it can't be lifted through the API
+    # (neither this endpoint nor the review script, which only ever touches `flagged`
+    # records). Re-enabling one requires a deliberate manual edit of the GCS object. This is
+    # what distinguishes `permanent` from `suppressed`, which the team can freely re-enable.
+    if record.get("status") == FLAG_STATUS_PERMANENT and status == FLAG_STATUS_REENABLED:
+        return "Cannot re-enable a permanently banned insight; edit the GCS record directly", 409
+
     record["status"] = status
     record["statusUpdatedAt"] = int(time.time() * 1000)
     try:

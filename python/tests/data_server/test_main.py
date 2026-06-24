@@ -211,6 +211,20 @@ def test_update_flagged_insight_reenable_clears_cache(mock_download, mock_upload
 
 
 @mock.patch.dict("os.environ", ENV, clear=True)
+@mock.patch("data_server.gcs_utils.delete_blob")
+@mock.patch("data_server.gcs_utils.upload_blob_from_bytes")
+@mock.patch("data_server.gcs_utils.download_blob_as_bytes")
+def test_update_flagged_insight_permanent_cannot_be_reenabled(mock_download, mock_upload, mock_delete, client):
+    # A `permanent` ban is a one-way door: the API refuses to re-enable it, and nothing is
+    # written or cache-cleared. Lifting it requires a manual GCS edit.
+    mock_download.return_value = json.dumps({"key": "topic-x", "status": "permanent", "timestamp": 1}).encode("utf-8")
+    resp = client.patch("/flagged-insights", json={"key": "topic-x", "status": "reenabled"})
+    assert resp.status_code == 409
+    mock_upload.assert_not_called()
+    mock_delete.assert_not_called()
+
+
+@mock.patch.dict("os.environ", ENV, clear=True)
 @mock.patch("data_server.gcs_utils.download_blob_as_bytes", side_effect=google.cloud.exceptions.NotFound("x"))
 def test_update_flagged_insight_404_when_missing(mock_download, client):
     resp = client.patch("/flagged-insights", json={"key": "missing", "status": "permanent"})
