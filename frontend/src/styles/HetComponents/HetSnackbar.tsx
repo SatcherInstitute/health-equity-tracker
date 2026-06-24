@@ -5,6 +5,7 @@ interface HetSnackbarProps {
   children?: ReactNode
   open: boolean
   handleClose: () => void
+  severity?: 'success' | 'error' | 'warning' | 'info'
 }
 export default function HetSnackbar(props: HetSnackbarProps) {
   return (
@@ -19,6 +20,7 @@ export default function HetSnackbar(props: HetSnackbarProps) {
     >
       <Alert
         onClose={props.handleClose}
+        severity={props.severity ?? 'success'}
         className='border border-bar-chart-light border-solid'
         role='alert'
       >

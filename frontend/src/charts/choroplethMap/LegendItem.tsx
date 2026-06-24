@@ -11,7 +11,7 @@ export default function LegendItem({ color, label }: LegendItemProps) {
       <svg width={SWATCH_SIZE} height={SWATCH_SIZE} className='shrink-0'>
         <rect width={SWATCH_SIZE} height={SWATCH_SIZE} fill={color} />
       </svg>
-      <span className='text-smallest'>{label}</span>
+      <span className='whitespace-nowrap text-smallest'>{label}</span>
     </div>
   )
 }

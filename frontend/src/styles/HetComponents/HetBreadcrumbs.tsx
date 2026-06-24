@@ -24,60 +24,56 @@ export default function HetBreadcrumbs(props: {
   )
 
   return (
-    <Breadcrumbs
-      className='mx-3 my-1 justify-center'
-      separator='›'
-      aria-label={`Breadcrumb navigation for ${
-        props.ariaLabel ?? 'data'
-      } in ${props.fips.getDisplayName()} report`}
-    >
-      <Crumb
-        text={USA_DISPLAY_NAME}
-        isClickable={!props.fips.isUsa()}
-        onClick={() => {
-          props.updateFipsCallback(new Fips(USA_FIPS))
-          location.hash = `#${props.scrollToHashId}`
-        }}
-      />
-      {!props.fips.isUsa() && !props.isAtlantaMode && (
+    <div className='mx-3 my-1'>
+      <Breadcrumbs
+        separator='›'
+        aria-label={`Breadcrumb navigation for ${
+          props.ariaLabel ?? 'data'
+        } in ${props.fips.getDisplayName()} report`}
+      >
         <Crumb
-          text={props.fips.getStateDisplayName()}
-          isClickable={!props.fips.isStateOrTerritory()}
+          text={USA_DISPLAY_NAME}
+          isClickable={!props.fips.isUsa()}
           onClick={() => {
-            props.updateFipsCallback(props.fips.getParentFips())
+            props.updateFipsCallback(new Fips(USA_FIPS))
             location.hash = `#${props.scrollToHashId}`
           }}
         />
-      )}
-      {props.isAtlantaMode && (
-        <Crumb
-          text={'Georgia'}
-          isClickable={true}
-          onClick={() => {
-            setIsAtlantaMode(false)
-          }}
-        />
-      )}
-      {props.fips.isCounty() && (
-        <Crumb text={props.fips.getDisplayName()} isClickable={false} />
-      )}
+        {!props.fips.isUsa() && !props.isAtlantaMode && (
+          <Crumb
+            text={props.fips.getStateDisplayName()}
+            isClickable={!props.fips.isStateOrTerritory()}
+            onClick={() => {
+              props.updateFipsCallback(props.fips.getParentFips())
+              location.hash = `#${props.scrollToHashId}`
+            }}
+          />
+        )}
+        {props.isAtlantaMode && (
+          <Crumb
+            text={'Georgia'}
+            isClickable={true}
+            onClick={() => {
+              setIsAtlantaMode(false)
+            }}
+          />
+        )}
+        {props.fips.isCounty() && (
+          <Crumb text={props.fips.getDisplayName()} isClickable={false} />
+        )}
+      </Breadcrumbs>
 
-      {props.totalPopulationPhrase && (
-        <Crumb
-          text={props.totalPopulationPhrase}
-          isClickable={false}
-          isNote={true}
-        />
+      {(props.totalPopulationPhrase || props.subPopulationPhrase) && (
+        <div className='px-1 text-left text-alt-black text-smallest'>
+          {props.totalPopulationPhrase && (
+            <p className='my-0.5'>{props.totalPopulationPhrase}</p>
+          )}
+          {props.subPopulationPhrase && (
+            <p className='my-0.5'>{props.subPopulationPhrase}</p>
+          )}
+        </div>
       )}
-
-      {props.subPopulationPhrase && (
-        <Crumb
-          text={props.subPopulationPhrase}
-          isClickable={false}
-          isNote={true}
-        />
-      )}
-    </Breadcrumbs>
+    </div>
   )
 }
 
