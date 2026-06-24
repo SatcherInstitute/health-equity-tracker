@@ -92,19 +92,19 @@ export default function RateMapLegend(props: RateMapLegendProps) {
 
           <div
             // all views
-            className={`${LEGEND_ITEMS_BOX_CLASS} w-2/3 columns-1 tiny:columns-2 gap-1 space-y-1 border-0 border-gray-grid-color-darker border-t border-solid px-4 pt-4 ${
+            className={`${LEGEND_ITEMS_BOX_CLASS} grid w-2/3 grid-cols-1 tiny:grid-cols-2 gap-x-3 gap-y-1.5 border-0 border-gray-grid-color-darker border-t border-solid px-4 pt-4 ${
               props.isMulti
                 ? // multimap only
-                  'columns-auto sm:columns-3 lg:columns-4'
+                  'sm:grid-cols-3 lg:grid-cols-4'
                 : props.isCompareMode
                   ? // compare mode only
-                    'smplus:columns-3 md:columns-2 lg:columns-3'
+                    'smplus:grid-cols-3 md:grid-cols-2 lg:grid-cols-3'
                   : // non-compare mode only
-                    'sm:columns-1'
+                    'sm:grid-cols-1'
             }`}
           >
             {legendItems.map((item) => (
-              <div key={item.label} className='mb-1 break-inside-avoid'>
+              <div key={item.label}>
                 <LegendItem color={item.color} label={item.label} />
               </div>
             ))}
