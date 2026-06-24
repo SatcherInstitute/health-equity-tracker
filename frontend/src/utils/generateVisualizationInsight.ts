@@ -174,10 +174,12 @@ export function prepareInsightData(
     if (metricConfig) {
       const rows = queryResponses[0].getValidRowsForField(metricConfig.metricId)
       // A county-level map has only one geographic unit, so every row shares the
-      // same place name and there is no geographic comparison to draw.
+      // same place name and there is no geographic comparison to draw. Drop empty
+      // names before counting so a stray undefined fips_name can't inflate the set
+      // and misclassify a single-place map as a multi-region comparison.
       isSingleRegionMap =
         MAP_CHART_IDS.includes(hashId) &&
-        new Set(rows.map((row) => row.fips_name)).size <= 1
+        new Set(rows.map((row) => row.fips_name).filter(Boolean)).size <= 1
       dataSection = formatDataRows(
         rows,
         hashId,

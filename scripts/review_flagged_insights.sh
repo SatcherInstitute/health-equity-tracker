@@ -56,15 +56,25 @@ EOF
     exit "${1:-0}"
 }
 
+# Guards a value-taking flag: errors out if no value follows. Without this, under `set -u`
+# a trailing `-p`/`-b`/`-c` would dereference an unbound $2, and `shift 2` would trip `set -e`.
+# $1 = flag name, $2 = remaining arg count ($#).
+require_value() {
+    if [[ "$2" -lt 2 ]]; then
+        echo "Error: $1 requires a value." >&2
+        show_help 1
+    fi
+}
+
 # --- Parse args (supports long flags, unlike getopts) ---
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --list) MODE="list"; shift ;;
         --review) MODE="review"; shift ;;
         --ci) MODE="ci"; shift ;;
-        -p) PROJECT_ID="$2"; shift 2 ;;
-        -b) FLAGGED_BUCKET="$2"; shift 2 ;;
-        -c) CACHE_BUCKET="$2"; shift 2 ;;
+        -p) require_value "$1" "$#"; PROJECT_ID="$2"; shift 2 ;;
+        -b) require_value "$1" "$#"; FLAGGED_BUCKET="$2"; shift 2 ;;
+        -c) require_value "$1" "$#"; CACHE_BUCKET="$2"; shift 2 ;;
         -h|--help) show_help 0 ;;
         *) echo "Unknown argument: $1" >&2; show_help 1 ;;
     esac
@@ -77,8 +87,6 @@ for cmd in gcloud jq; do
         exit 2
     fi
 done
-
-NOW_MS=$(( $(date +%s) * 1000 ))
 
 WORKDIR="$(mktemp -d)"
 trap 'rm -rf "$WORKDIR"' EXIT
@@ -117,25 +125,42 @@ fi
 # is built from the literal key; guard against wildcard chars that `rm` would expand and
 # could match unintended objects (these effectively never appear in real report URLs).
 clear_cache() {
-    local key="$1"
+    local key="$1" err
     case "$key" in
         *'*'*|*'['*|*']'*)
             echo "  note: cached insight not auto-cleared (key contains a wildcard char); clear it manually if needed."
             return ;;
     esac
-    if gcloud storage rm "gs://$CACHE_BUCKET/insights/${key}.json" \
-            --project "$PROJECT_ID" >/dev/null 2>&1; then
+    if err=$(gcloud storage rm "gs://$CACHE_BUCKET/insights/${key}.json" \
+            --project "$PROJECT_ID" 2>&1); then
         echo "  cleared cached insight so it regenerates fresh."
-    else
-        echo "  no cached insight to clear."
+        return
     fi
+    # A missing object is the normal case (nothing was cached). Anything else — auth,
+    # network, permissions — is a real failure the reviewer needs to see, since the stale
+    # insight will keep being served until the cache is cleared.
+    case "$err" in
+        *[Nn]ot' '[Ff]ound*|*404*|*"does not match any"*|*"no URLs matched"*)
+            echo "  no cached insight to clear." ;;
+        *)
+            echo "  WARNING: could not clear cached insight — it may keep serving the stale text:" >&2
+            echo "    $err" >&2 ;;
+    esac
 }
 
 # Writes a new status onto a record and uploads it back to its literal object name.
+# Returns 0 on a successful upload, non-zero otherwise so the caller only counts records
+# it actually changed.
 update_status() {
-    local file="$1" key="$2" new_status="$3" tmp
-    tmp="$(mktemp)"
-    jq --arg s "$new_status" --argjson t "$NOW_MS" \
+    local file="$1" key="$2" new_status="$3" tmp now_ms rc=0
+    # Stamp the write time at the moment of the write, not at script startup — a long
+    # interactive review session would otherwise back-date every record to launch time.
+    now_ms=$(( $(date +%s) * 1000 ))
+    # Stage inside WORKDIR so the EXIT trap cleans it up even if an early `set -e` exit
+    # skips the rm below. FILES was already collected before the review loop, so this
+    # never affects iteration.
+    tmp="${WORKDIR}/tmp_status.json"
+    jq --arg s "$new_status" --argjson t "$now_ms" \
         '.status = $s | .statusUpdatedAt = $t' "$file" > "$tmp"
     if gcloud storage cp "$tmp" "gs://$FLAGGED_BUCKET/${key}.json" \
             --project "$PROJECT_ID" >/dev/null 2>&1; then
@@ -143,8 +168,10 @@ update_status() {
         [[ "$new_status" == "reenabled" ]] && clear_cache "$key"
     else
         echo "  FAILED to update status (no changes written)." >&2
+        rc=1
     fi
     rm -f "$tmp"
+    return "$rc"
 }
 
 # --- Mode: list ---
@@ -230,8 +257,11 @@ for f in "${FILES[@]}"; do
         esac
     done
     if [[ "$action" != "skip" ]]; then
-        update_status "$f" "$key" "$action"
-        REVIEWED=$(( REVIEWED + 1 ))
+        # Only count records whose upload actually succeeded; a failed write leaves the
+        # record untouched and must not inflate the session tally.
+        if update_status "$f" "$key" "$action"; then
+            REVIEWED=$(( REVIEWED + 1 ))
+        fi
     fi
 done
 

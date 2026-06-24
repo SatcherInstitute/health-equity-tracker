@@ -22,6 +22,8 @@ jobs:
           fetch-depth: 1
           sparse-checkout: scripts/review_flagged_insights.sh
           sparse-checkout-cone-mode: false
+          # No git operations run after checkout, so don't leave the token in .git/config.
+          persist-credentials: false
       - id: auth
         uses: google-github-actions/auth@v3
         with:
