@@ -56,7 +56,7 @@ export function CopyCardImageToClipboardButton(
           </div>
         )}
       </HetSnackbar>
-      <HetSnackbar open={errorOpen} handleClose={handleClose}>
+      <HetSnackbar open={errorOpen} handleClose={handleClose} severity='error'>
         Unable to copy image. Please keep this tab focused and try again.
       </HetSnackbar>
     </>

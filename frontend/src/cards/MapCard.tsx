@@ -629,12 +629,12 @@ function MapCardWithKey(props: MapCardProps) {
                   onClick={() => {
                     setMultimapOpen(true)
                   }}
-                  className='flex items-center'
+                  className='flex items-start'
                   ariaLabel={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
                 >
-                  <GridView />
-                  <span className='mt-1 px-1 text-alt-green'>
-                    View {prettyDemoType} disparties across multiple small maps
+                  <GridView className='mt-0.5 shrink-0' />
+                  <span className='px-1 text-left text-alt-green'>
+                    View small multiples
                   </span>
                 </HetLinkButton>
               </div>

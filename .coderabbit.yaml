@@ -10,6 +10,9 @@ tone_instructions: >
   Skip style, naming, and refactor suggestions entirely.
 
 reviews:
+  pre_merge_checks:
+    docstrings:
+      mode: "off"
   profile: "chill"
   poem: false
   high_level_summary: false
