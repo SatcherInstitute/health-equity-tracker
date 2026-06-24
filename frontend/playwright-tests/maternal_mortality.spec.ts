@@ -11,7 +11,7 @@ test('Maternal Mortality', async ({ page }) => {
     .getByRole('heading', { name: 'New Mothers, Ages 10-' })
     .click()
   await page
-    .locator('li')
+    .locator('p')
     .filter({ hasText: 'Total population of New' })
     .click()
   await page

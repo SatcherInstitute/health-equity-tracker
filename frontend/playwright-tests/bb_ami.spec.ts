@@ -38,7 +38,7 @@ test('PHRMA: Beta Blockers after Heart Attack (AMI)', async ({ page }) => {
       expect
         .soft(
           page
-            .locator('li')
+            .locator('p')
             .filter({ hasText: 'Total population of Medicare Beta-Blocker' })
             .first(),
         )
