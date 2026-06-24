@@ -11,12 +11,12 @@
 #
 #   flagged    - raw user report. Does NOT hide the insight and is NOT fed to the prompt.
 #                Awaits team review (this script). Counts as "unhandled".
-#   suppressed - team-confirmed bad output. Hidden on the site AND fed back into the
-#                generation prompt as a negative example. Can be re-enabled later.
-#   permanent  - like suppressed, but a one-way ban: the data server refuses to re-enable
-#                it via the API, so lifting it requires a deliberate manual GCS edit.
-#   reenabled  - team cleared the report. Insight is shown again; cached copy is dropped
-#                so it regenerates fresh.
+#   suppressed - team-confirmed bad output. The combo stays live, but its stored content is
+#                fed back into the generation prompt as a negative example and the cached
+#                insight is dropped, so it regenerates steered away from the bad output.
+#
+# A false-alarm report is deleted outright (this script's `d` action) rather than given a
+# status — nothing is ever hidden, so there is nothing to "re-enable".
 #
 # Access is gated by GCP IAM on the buckets — only team members with credentials can run
 # this. Auth uses your ambient `gcloud auth` (or a CI service account via ADC).
@@ -48,7 +48,7 @@ Review AI-insight flag records in the flagged-insights GCS bucket.
 Modes:
   (default)    List every flag record grouped by status.
   --review     Interactively triage each unhandled ("flagged") report: suppress,
-               permanently ban, re-enable, skip, or quit.
+               delete (false alarm), skip, or quit.
   --ci         Non-interactive check used by CI. Prints any unhandled reports and
                exits 1 if there are any, else exits 0.
 
@@ -126,9 +126,10 @@ if [[ ${#FILES[@]} -eq 0 ]]; then
     exit 0
 fi
 
-# Clears a cached insight so a re-enabled combo regenerates fresh. The cache object name
-# is built from the literal key; guard against wildcard chars that `rm` would expand and
-# could match unintended objects (these effectively never appear in real report URLs).
+# Clears a cached insight so a suppressed combo regenerates fresh (this time with the
+# suppressed content fed in as a negative example). The cache object name is built from the
+# literal key; guard against wildcard chars that `rm` would expand and could match
+# unintended objects (these effectively never appear in real report URLs).
 clear_cache() {
     local key="$1" err err_lc
     case "$key" in
@@ -172,7 +173,7 @@ update_status() {
     if gcloud storage cp "$tmp" "gs://$FLAGGED_BUCKET/${key}.json" \
             --project "$PROJECT_ID" >/dev/null 2>&1; then
         echo "  set status -> $new_status"
-        [[ "$new_status" == "reenabled" ]] && clear_cache "$key"
+        [[ "$new_status" == "suppressed" ]] && clear_cache "$key"
     else
         echo "  FAILED to update status (no changes written)." >&2
         rc=1
@@ -181,9 +182,26 @@ update_status() {
     return "$rc"
 }
 
+# Deletes a flag record outright — used when a report turns out to be a false alarm. The
+# combo's currently cached insight (regenerated when the report was first filed) is left in
+# place: nothing was hidden, and with the record gone there is no negative example to keep.
+# Returns 0 on a successful delete, non-zero otherwise so the caller only counts real deletes.
+delete_record() {
+    local key="$1"
+    if gcloud storage rm "gs://$FLAGGED_BUCKET/${key}.json" \
+            --project "$PROJECT_ID" >/dev/null 2>&1; then
+        echo "  deleted report (false alarm)."
+        return 0
+    fi
+    echo "  FAILED to delete report (no changes made)." >&2
+    return 1
+}
+
 # --- Mode: list ---
 if [[ "$MODE" == "list" ]]; then
-    declare -i n_flagged=0 n_suppressed=0 n_permanent=0 n_reenabled=0 n_other=0
+    # `other` catches any legacy status (e.g. a pre-existing `permanent`/`reenabled` record
+    # left over from the old vocabulary) so it stays visible rather than silently vanishing.
+    declare -i n_flagged=0 n_suppressed=0 n_other=0
     echo
     for f in "${FILES[@]}"; do
         status=$(jq -r '.status // "unknown"' "$f")
@@ -194,15 +212,13 @@ if [[ "$MODE" == "list" ]]; then
         case "$status" in
             flagged) n_flagged+=1 ;;
             suppressed) n_suppressed+=1 ;;
-            permanent) n_permanent+=1 ;;
-            reenabled) n_reenabled+=1 ;;
             *) n_other+=1 ;;
         esac
         printf '[%-10s] %s | topic=%s reason=%s\n' "$status" "$(fmt_ts "$ts")" "${topic:-—}" "${reason:-—}"
         printf '             %s\n' "$key"
     done
     echo
-    echo "Totals: flagged(unhandled)=$n_flagged  suppressed=$n_suppressed  permanent=$n_permanent  reenabled=$n_reenabled  other=$n_other"
+    echo "Totals: flagged(unhandled)=$n_flagged  suppressed=$n_suppressed  other=$n_other"
     exit 0
 fi
 
@@ -253,23 +269,27 @@ for f in "${FILES[@]}"; do
 
     action=""
     while [[ -z "$action" ]]; do
-        read -r -p "Action  s = suppress  b = ban permanently  r = re-enable  k = skip  q = quit: " choice </dev/tty
+        read -r -p "Action  s = suppress  d = delete (false alarm)  k = skip  q = quit: " choice </dev/tty
         case "$choice" in
-            s|S) action="suppressed" ;;
-            b|B) action="permanent" ;;
-            r|R) action="reenabled" ;;
+            s|S) action="suppress" ;;
+            d|D) action="delete" ;;
             k|K) echo "  skipped."; action="skip" ;;
             q|Q) echo "Quitting. Reviewed $REVIEWED report(s) this session."; exit 0 ;;
-            *) echo "  Please enter s, b, r, k, or q." ;;
+            *) echo "  Please enter s, d, k, or q." ;;
         esac
     done
-    if [[ "$action" != "skip" ]]; then
-        # Only count records whose upload actually succeeded; a failed write leaves the
-        # record untouched and must not inflate the session tally.
-        if update_status "$f" "$key" "$action"; then
-            REVIEWED=$(( REVIEWED + 1 ))
-        fi
-    fi
+    # Only count records whose write actually succeeded; a failed write/delete leaves the
+    # record untouched and must not inflate the session tally.
+    case "$action" in
+        suppress)
+            if update_status "$f" "$key" "suppressed"; then
+                REVIEWED=$(( REVIEWED + 1 ))
+            fi ;;
+        delete)
+            if delete_record "$key"; then
+                REVIEWED=$(( REVIEWED + 1 ))
+            fi ;;
+    esac
 done
 
 echo

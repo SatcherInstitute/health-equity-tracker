@@ -79,14 +79,11 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   const [error, setError] = useState<string | null>(null)
   // The exact server cache key used, captured so the flag button targets this insight.
   const [serverCacheKey, setServerCacheKey] = useState<string | null>(null)
-  // True only if the team has escalated this insight to hidden — no content is shown.
-  const [suppressed, setSuppressed] = useState(false)
 
   const handleGenerate = useCallback(async () => {
     if (!dataTypeConfig || !fips || !demographicType) return
     setIsGenerating(true)
     setError(null)
-    setSuppressed(false)
     try {
       const result = await generateReportInsight(
         dataTypeConfig,
@@ -96,8 +93,6 @@ export default function InsightReportCard(props: InsightReportCardProps) {
       setServerCacheKey(result.cacheKey ?? null)
       if (result.rateLimited) {
         setError('Too many requests. Please wait a moment and try again.')
-      } else if (result.suppressed) {
-        setSuppressed(true)
       } else if (result.error || !result.sections) {
         setError('Unable to generate insight. Please try again.')
       } else {
@@ -177,17 +172,8 @@ export default function InsightReportCard(props: InsightReportCardProps) {
           </div>
         )}
 
-        {/* Hidden — only when the team has escalated this insight */}
-        {suppressed && !isGenerating && (
-          <div className='flex flex-col items-center gap-2 py-6'>
-            <p className='m-0 text-center text-alt-dark text-small'>
-              This insight was reported for review and is currently hidden.
-            </p>
-          </div>
-        )}
-
         {/* Sections, disclaimer — only when content is ready */}
-        {sections && !isGenerating && !suppressed && (
+        {sections && !isGenerating && (
           <>
             <div className='flex flex-col gap-5'>
               {SECTIONS.map(({ key, label, icon }) => (
