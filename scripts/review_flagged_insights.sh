@@ -3,7 +3,11 @@
 # Review AI-insight flag records held in the flagged-insights GCS bucket.
 #
 # A flag record is a JSON object ({key}.json) written when a site visitor reports an
-# insight. Its `status` drives behavior on the live site and in the generation prompt:
+# insight. Its `status` drives behavior on the live site and in the generation prompt.
+#
+# Source of truth for these status values is data_server/main.py (FLAG_STATUS_* constants).
+# bash can't import them, so the strings are duplicated below — keep the two in sync if the
+# vocabulary ever changes.
 #
 #   flagged    - raw user report. Does NOT hide the insight and is NOT fed to the prompt.
 #                Awaits team review (this script). Counts as "unhandled".

@@ -33,4 +33,10 @@ jobs:
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - name: Review flagged insights (CI check)
-        run: ./scripts/review_flagged_insights.sh --ci -p "${{ secrets.TEST_PROJECT_ID }}"
+        # Pass the buckets explicitly rather than relying on the script's defaults, so the
+        # CI contract is visible here and a future default change can't silently break this.
+        run: >-
+          ./scripts/review_flagged_insights.sh --ci
+          -p "${{ secrets.TEST_PROJECT_ID }}"
+          -b het-flagged-insights
+          -c het-insights-cache
