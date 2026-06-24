@@ -76,6 +76,7 @@ import {
 } from '../utils/urlutils'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
+import CAWPCountyMultiDistrictAlert from './ui/CAWPCountyMultiDistrictAlert'
 import DemographicGroupMenu from './ui/DemographicGroupMenu'
 import { ExtremesListBox } from './ui/ExtremesListBox'
 import GeoContext from './ui/GeoContext'
@@ -322,6 +323,7 @@ function MapCardWithKey(props: MapCardProps) {
       fips={props.fips}
       dataTypeConfig={props.dataTypeConfig}
       demographicType={props.demographicType}
+      activeDemographicGroup={activeDemographicGroup}
     >
       {(queryResponses, metadata, geoData, overrideCardHasData) => {
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
@@ -734,6 +736,13 @@ function MapCardWithKey(props: MapCardProps) {
                     sviQueryResponse={sviQueryResponse}
                     isAtlantaMode={isAtlantaMode}
                   />
+                  {props.dataTypeConfig.dataTypeId === 'women_in_us_congress' &&
+                    props.fips.isCounty() && (
+                      <CAWPCountyMultiDistrictAlert
+                        queryResponse={mapQueryResponse}
+                        demographicType={demographicType}
+                      />
+                    )}
                 </div>
               </div>
               <div
@@ -762,6 +771,7 @@ function MapCardWithKey(props: MapCardProps) {
                       activeDemographicGroup={activeDemographicGroup}
                     />
                   )}
+
                 {percentRateTooHigh && (
                   <HetNotice
                     title='Percentages Over 100%'

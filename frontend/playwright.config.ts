@@ -30,6 +30,7 @@ const config: PlaywrightTestConfig = {
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    permissions: ['clipboard-read', 'clipboard-write'],
   },
 
   projects: [

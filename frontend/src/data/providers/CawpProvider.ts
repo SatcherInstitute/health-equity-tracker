@@ -29,6 +29,14 @@ const CAWP_CONGRESS_COUNTS: MetricId[] = [
   'total_us_congress_count',
 ]
 
+const CAWP_CONGRESS_METRICS: MetricId[] = [
+  'cawp_population_pct', // needed for pct_share disparity comparison at county level
+  'pct_share_of_us_congress',
+  'pct_share_of_women_us_congress',
+  'women_us_congress_pct_relative_inequity',
+  ...CAWP_CONGRESS_COUNTS,
+]
+
 const CAWP_STLEG_COUNTS: MetricId[] = [
   'women_this_race_state_leg_count',
   'total_state_leg_count',
@@ -139,16 +147,30 @@ class CawpProvider extends VariableProvider {
       df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
     } else {
       df = this.applyDemographicBreakdownFilters(df, breakdowns)
+      const hasDistricts =
+        breakdowns.geography === 'county' &&
+        df.getColumnNames().includes('congressional_districts')
+      const districtSeries = hasDistricts
+        ? df.getSeries('congressional_districts')
+        : null
       df = this.removeUnrequestedColumns(df, metricQuery)
+      if (districtSeries) {
+        df = df.withSeries('congressional_districts', districtSeries)
+      }
     }
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
+  allowsBreakdowns(breakdowns: Breakdowns, metricIds?: MetricId[]): boolean {
     const validDemographicBreakdownRequest = breakdowns.hasOnlyRace()
+    const isValidCountyRequest =
+      breakdowns.geography === 'county' &&
+      (!metricIds ||
+        metricIds.every((id) => CAWP_CONGRESS_METRICS.includes(id)))
 
     return (
-      (breakdowns.geography === 'state' ||
+      (isValidCountyRequest ||
+        breakdowns.geography === 'state' ||
         breakdowns.geography === 'national') &&
       validDemographicBreakdownRequest
     )

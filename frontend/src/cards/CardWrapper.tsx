@@ -8,6 +8,7 @@ import type {
   MetricQueryResponse,
 } from '../data/query/MetricQuery'
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
+import type { DemographicGroup } from '../data/utils/Constants'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import type { Fips } from '../data/utils/Fips'
 import { useCompareMode } from '../reports/CompareModeContext'
@@ -62,6 +63,12 @@ function CardWrapper(props: {
   fips?: Fips
   dataTypeConfig?: DataTypeConfig
   demographicType?: DemographicType
+  // The demographic group currently highlighted on a map. Steers the insight
+  // prompt so it leads with that group's story.
+  activeDemographicGroup?: DemographicGroup
+  // The subset of groups the user has focused a trend chart on (via the legend).
+  // Filters the insight data so it describes only the visible lines.
+  selectedGroups?: DemographicGroup[]
 }) {
   const loadingComponent = (
     <div
@@ -79,6 +86,8 @@ function CardWrapper(props: {
           dataTypeConfig: props.dataTypeConfig,
           demographicType: props.demographicType,
           isCompareCard: props.isCompareCard,
+          activeDemographicGroup: props.activeDemographicGroup,
+          selectedGroups: props.selectedGroups,
         }
       : null
 
@@ -129,6 +138,7 @@ function CardWrapper(props: {
             insightProps.dataTypeConfig,
             insightProps.demographicType,
             queryResponses,
+            insightProps.selectedGroups,
           )
 
         return (

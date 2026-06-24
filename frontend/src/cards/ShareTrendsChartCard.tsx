@@ -127,6 +127,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       fips={props.fips}
       dataTypeConfig={props.dataTypeConfig}
       demographicType={props.demographicType}
+      selectedGroups={selectedTableGroups}
     >
       {(
         [queryResponseInequity, queryResponsePctShares],
