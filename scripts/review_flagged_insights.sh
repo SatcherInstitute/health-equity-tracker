@@ -125,7 +125,7 @@ fi
 # is built from the literal key; guard against wildcard chars that `rm` would expand and
 # could match unintended objects (these effectively never appear in real report URLs).
 clear_cache() {
-    local key="$1" err
+    local key="$1" err err_lc
     case "$key" in
         *'*'*|*'['*|*']'*)
             echo "  note: cached insight not auto-cleared (key contains a wildcard char); clear it manually if needed."
@@ -138,9 +138,11 @@ clear_cache() {
     fi
     # A missing object is the normal case (nothing was cached). Anything else — auth,
     # network, permissions — is a real failure the reviewer needs to see, since the stale
-    # insight will keep being served until the cache is cleared.
-    case "$err" in
-        *[Nn]ot' '[Ff]ound*|*404*|*"does not match any"*|*"no URLs matched"*)
+    # insight will keep being served until the cache is cleared. Lowercase the message
+    # first (portably, via tr) so the match is case-insensitive without glob char classes.
+    err_lc=$(printf '%s' "$err" | tr '[:upper:]' '[:lower:]')
+    case "$err_lc" in
+        *"not found"*|*404*|*"does not match any"*|*"no urls matched"*)
             echo "  no cached insight to clear." ;;
         *)
             echo "  WARNING: could not clear cached insight — it may keep serving the stale text:" >&2
