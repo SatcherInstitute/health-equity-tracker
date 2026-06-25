@@ -56,6 +56,7 @@ let _iamTokenExpiry = 0
 
 function getIamToken(fetchUrl) {
   if (_iamTokenPromise && Date.now() < _iamTokenExpiry) return _iamTokenPromise
+  console.info('[iam-token] fetching new token')
   _iamTokenExpiry = Date.now() + 55 * 60 * 1000
   _iamTokenPromise = fetch(fetchUrl, { headers: { 'Metadata-Flavor': 'Google' } })
     .then((res) => {
@@ -63,6 +64,7 @@ function getIamToken(fetchUrl) {
       return res.text()
     })
     .catch((err) => {
+      console.warn('[iam-token] fetch failed, clearing cache:', err.message)
       _iamTokenPromise = null
       _iamTokenExpiry = 0
       throw err
