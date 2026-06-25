@@ -93,7 +93,7 @@ class PhrmaBrfssProvider extends VariableProvider {
       : appendFipsIfNeeded(datasetId, breakdowns)
 
     const phrma = await getDataManager().loadDataset(specificDatasetId)
-    let df = phrma.toDataFrame()
+    let df = phrma.rows
 
     df = this.filterByGeo(df, breakdowns)
     df = this.renameGeoColumns(df, breakdowns)
@@ -106,7 +106,7 @@ class PhrmaBrfssProvider extends VariableProvider {
     }
 
     const consumedDatasetIds = [datasetId]
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+    return new MetricQueryResponse(df, consumedDatasetIds)
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

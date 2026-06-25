@@ -1,4 +1,3 @@
-import { DataFrame, type IDataFrame } from 'data-forge'
 import { LRUCache } from 'lru-cache'
 import { getDataFetcher, getDataManager, getLogger } from '../../utils/globals'
 import type {
@@ -8,7 +7,6 @@ import type {
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { Dataset, type MapOfDatasetMetadata } from '../utils/DatasetTypes'
-import { joinOnCols } from '../utils/datasetutils'
 import VariableProviderMap from './VariableProviderMap'
 
 // Max size for the dataset and query cache is measured by number of rows in the
@@ -219,24 +217,14 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
       return potentialErrorResponse
     }
 
-    const dataframes: IDataFrame[] = queryResponses.map(
-      (response) => new DataFrame(response.data),
-    )
-
-    const joined = dataframes.reduce((prev, next) => {
-      return joinOnCols(prev, next, query.breakdowns.getJoinColumns(), 'outer')
-    })
-
-    const consumedDatasetIds = queryResponses.reduce(
-      (
-        accumulator: Array<DatasetId | DatasetIdWithStateFIPSCode>,
-        response: MetricQueryResponse,
-      ) => accumulator.concat(response.consumedDatasetIds),
-      [],
+    const consumedDatasetIds = queryResponses.flatMap(
+      (r) => r.consumedDatasetIds,
     )
     const uniqueConsumedDatasetIds = Array.from(new Set(consumedDatasetIds))
+    // Each MetricQuery always resolves to a single provider — multi-provider
+    // queries were removed when population data was baked into topic tables.
     const resp = new MetricQueryResponse(
-      joined.toArray(),
+      queryResponses[0].data,
       uniqueConsumedDatasetIds,
     )
 

@@ -64,7 +64,7 @@ class HivBlackWomenProvider extends VariableProvider {
       : appendFipsIfNeeded(datasetId, breakdowns)
 
     const hiv = await getDataManager().loadDataset(specificDatasetId)
-    let df = hiv.toDataFrame()
+    let df = hiv.rows
     df = this.filterByGeo(df, breakdowns)
     df = this.renameGeoColumns(df, breakdowns)
 
@@ -75,7 +75,7 @@ class HivBlackWomenProvider extends VariableProvider {
       df = this.removeUnrequestedColumns(df, metricQuery)
     }
 
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+    return new MetricQueryResponse(df, consumedDatasetIds)
   }
 
   allowsBreakdowns(breakdowns: Breakdowns, _metricIds: MetricId[]): boolean {
