@@ -49,15 +49,25 @@ app.use('/api', (req, res, next) => {
 // Add Authorization header for all requests proxied to the data server.
 // Token is cached for 55 minutes - Cloud Run identity tokens are valid for
 // 1 hour, and we refresh 5 minutes early to avoid serving an expiring token.
-let _iamToken = null
+// The promise itself is cached so concurrent requests during cold start or
+// expiry coalesce onto a single fetch rather than stampeding the metadata server.
+let _iamTokenPromise = null
 let _iamTokenExpiry = 0
 
-async function getIamToken(fetchUrl) {
-  if (_iamToken && Date.now() < _iamTokenExpiry) return _iamToken
-  const res = await fetch(fetchUrl, { headers: { 'Metadata-Flavor': 'Google' } })
-  _iamToken = await res.text()
+function getIamToken(fetchUrl) {
+  if (_iamTokenPromise && Date.now() < _iamTokenExpiry) return _iamTokenPromise
   _iamTokenExpiry = Date.now() + 55 * 60 * 1000
-  return _iamToken
+  _iamTokenPromise = fetch(fetchUrl, { headers: { 'Metadata-Flavor': 'Google' } })
+    .then((res) => {
+      if (!res.ok) throw new Error(`Metadata server returned ${res.status}`)
+      return res.text()
+    })
+    .catch((err) => {
+      _iamTokenPromise = null
+      _iamTokenExpiry = 0
+      throw err
+    })
+  return _iamTokenPromise
 }
 
 app.use('/api', (req, _res, next) => {
