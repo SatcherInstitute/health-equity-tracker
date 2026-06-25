@@ -47,19 +47,24 @@ app.use('/api', (req, res, next) => {
 })
 
 // Add Authorization header for all requests proxied to the data server.
-// TODO: The token can be cached and only refreshed when needed
+// Token is cached for 55 minutes - Cloud Run identity tokens are valid for
+// 1 hour, and we refresh 5 minutes early to avoid serving an expiring token.
+let _iamToken = null
+let _iamTokenExpiry = 0
+
+async function getIamToken(fetchUrl) {
+  if (_iamToken && Date.now() < _iamTokenExpiry) return _iamToken
+  const res = await fetch(fetchUrl, { headers: { 'Metadata-Flavor': 'Google' } })
+  _iamToken = await res.text()
+  _iamTokenExpiry = Date.now() + 55 * 60 * 1000
+  return _iamToken
+}
+
 app.use('/api', (req, _res, next) => {
   if (assertEnvVar('NODE_ENV') === 'production') {
     const metadataServerTokenURL = assertEnvVar('METADATA_SERVER_TOKEN_URL')
     const targetUrl = assertEnvVar('DATA_SERVER_URL')
-    const fetchUrl = metadataServerTokenURL + targetUrl
-    const options = {
-      headers: {
-        'Metadata-Flavor': 'Google',
-      },
-    }
-    fetch(fetchUrl, options)
-      .then((res) => res.text())
+    getIamToken(metadataServerTokenURL + targetUrl)
       .then((token) => {
         req.headers['Authorization_DataServer'] = `bearer ${token}`
         next()
