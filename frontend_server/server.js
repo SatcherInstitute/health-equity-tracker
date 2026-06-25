@@ -64,7 +64,7 @@ function getIamToken(fetchUrl) {
       return res.text()
     })
     .catch((err) => {
-      console.warn('[iam-token] fetch failed, clearing cache:', err.message)
+      console.warn('[iam-token] fetch failed, clearing cache:', err)
       _iamTokenPromise = null
       _iamTokenExpiry = 0
       throw err
