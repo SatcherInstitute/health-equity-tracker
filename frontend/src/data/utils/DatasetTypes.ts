@@ -1,4 +1,3 @@
-import { DataFrame, type IDataFrame } from 'data-forge'
 import type { CategoryTypeId } from '../config/CategoryTypes'
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataSourceId } from '../config/MetadataMap'
@@ -60,10 +59,6 @@ export class Dataset {
   constructor(rows: HetRow[], metadata: DatasetMetadata) {
     this.rows = rows
     this.metadata = metadata
-  }
-
-  toDataFrame(): IDataFrame | DataFrame {
-    return new DataFrame(this.rows)
   }
 
   getAllColumnNames(): string[] {

@@ -46,7 +46,7 @@ class AcsConditionProvider extends VariableProvider {
       : appendFipsIfNeeded(datasetId, breakdowns)
     const acsDataset = await getDataManager().loadDataset(specificDatasetId)
 
-    let df = acsDataset.toDataFrame()
+    let df = acsDataset.rows
 
     // If requested, filter geography by state or county level
     // We apply the geo filter right away to reduce subsequent calculation times
@@ -59,7 +59,7 @@ class AcsConditionProvider extends VariableProvider {
       df = this.applyDemographicBreakdownFilters(df, breakdowns)
       df = this.removeUnrequestedColumns(df, metricQuery)
     }
-    return new MetricQueryResponse(df.toArray(), [datasetId])
+    return new MetricQueryResponse(df, [datasetId])
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

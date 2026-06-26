@@ -110,7 +110,7 @@ class CawpProvider extends VariableProvider {
       ? datasetId
       : appendFipsIfNeeded(datasetId, breakdowns)
     const cawp = await getDataManager().loadDataset(specificDatasetId)
-    let df = cawp.toDataFrame()
+    let df = cawp.rows
 
     df = this.filterByGeo(df, breakdowns)
     df = this.renameGeoColumns(df, breakdowns)
@@ -151,7 +151,7 @@ class CawpProvider extends VariableProvider {
       df = this.applyDemographicBreakdownFilters(df, breakdowns)
       df = this.removeUnrequestedColumns(df, metricQuery)
     }
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+    return new MetricQueryResponse(df, consumedDatasetIds)
   }
 
   allowsBreakdowns(breakdowns: Breakdowns, metricIds?: MetricId[]): boolean {

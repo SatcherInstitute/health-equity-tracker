@@ -73,7 +73,7 @@ class IncarcerationProvider extends VariableProvider {
       ? datasetId
       : appendFipsIfNeeded(datasetId, breakdowns)
     const dataSource = await getDataManager().loadDataset(specificDatasetId)
-    let df = dataSource.toDataFrame()
+    let df = dataSource.rows
 
     df = this.filterByGeo(df, breakdowns)
     df = this.renameGeoColumns(df, breakdowns)
@@ -114,7 +114,7 @@ class IncarcerationProvider extends VariableProvider {
       df = this.applyDemographicBreakdownFilters(df, breakdowns)
       df = this.removeUnrequestedColumns(df, metricQuery)
     }
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+    return new MetricQueryResponse(df, consumedDatasetIds)
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

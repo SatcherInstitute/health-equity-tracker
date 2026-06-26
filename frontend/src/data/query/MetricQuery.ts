@@ -81,11 +81,11 @@ export class MetricQueryResponse {
   readonly consumedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode>
 
   constructor(
-    data: HetRow[],
+    data: readonly HetRow[],
     consumedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode> = [],
     missingDataMessage: string | undefined = undefined,
   ) {
-    this.data = data
+    this.data = Array.from(data)
     this.consumedDatasetIds = consumedDatasetIds
     this.invalidValues = getInvalidValues(this.data)
     this.missingDataMessage = missingDataMessage // possibly undefined
