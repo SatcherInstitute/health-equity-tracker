@@ -71,7 +71,7 @@ func metadataHandler(w http.ResponseWriter, r *http.Request) {
 	data, err := cachedDownload(bucket, filename)
 	if err != nil {
 		log.Printf("metadata error: %v", err)
-		http.Error(w, "Internal server error: "+err.Error(), http.StatusInternalServerError)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Disposition", "attachment; filename="+filename)
@@ -90,7 +90,7 @@ func datasetHandler(w http.ResponseWriter, r *http.Request) {
 	data, err := cachedDownload(bucket, name)
 	if err != nil {
 		log.Printf("dataset error for %q: %v", name, err)
-		http.Error(w, "Internal server error: "+err.Error(), http.StatusInternalServerError)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
 		return
 	}
 	w.Header().Set("Content-Disposition", "attachment; filename="+name)

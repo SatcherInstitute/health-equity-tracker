@@ -54,6 +54,10 @@ func (c *byteCache) get(key string) ([]byte, bool) {
 }
 
 func (c *byteCache) set(key string, data []byte) {
+	// Ignore items larger than the entire cache budget
+	if int64(len(data)) > c.maxBytes {
+		return
+	}
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if el, ok := c.items[key]; ok {
@@ -63,6 +67,10 @@ func (c *byteCache) set(key string, data []byte) {
 		entry.data = data
 		entry.expires = time.Now().Add(c.ttl)
 		c.size += int64(len(data))
+		// Re-enforce byte budget after updating existing entry
+		for c.size > c.maxBytes && c.ll.Len() > 0 {
+			c.removeElement(c.ll.Back())
+		}
 		return
 	}
 	entry := &cacheEntry{key: key, data: data, expires: time.Now().Add(c.ttl)}

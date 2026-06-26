@@ -4,11 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"io"
 	"log"
 	"net/http"
 	"os"
 	"sort"
 	"strings"
+	"sync"
 	"time"
 
 	"cloud.google.com/go/storage"
@@ -43,7 +45,7 @@ func validateInsightKey(key string) bool {
 
 func jsonBody(r *http.Request) map[string]any {
 	var body map[string]any
-	if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+	if err := json.NewDecoder(io.LimitReader(r.Body, 1024*1024)).Decode(&body); err != nil {
 		return map[string]any{}
 	}
 	return body
@@ -64,7 +66,7 @@ func flaggedRecord(ctx context.Context, flaggedBucket, key string) (map[string]a
 	}
 	var record map[string]any
 	if err := json.Unmarshal(data, &record); err != nil {
-		return nil, nil
+		return nil, err
 	}
 	return record, nil
 }
@@ -100,7 +102,10 @@ func getInsightCacheHandler(w http.ResponseWriter, r *http.Request) {
 		record, err := flaggedRecord(ctx, flaggedBucket, key)
 		if err != nil {
 			log.Printf("flag record error: %v", err)
-		} else if record != nil {
+			http.Error(w, "Internal server error", http.StatusInternalServerError)
+			return
+		}
+		if record != nil {
 			if status, _ := record["status"].(string); suppressingStatuses[status] {
 				writeJSON(w, map[string]bool{"suppressed": true})
 				return
@@ -188,6 +193,18 @@ func flagInsightHandler(w http.ResponseWriter, r *http.Request) {
 	ctx, cancel := context.WithTimeout(r.Context(), 15*time.Second)
 	defer cancel()
 
+	// Preserve existing suppression status if key was already suppressed/permanent
+	status := flagStatusFlagged
+	if existing, err := flaggedRecord(ctx, flaggedBucket, key); err != nil {
+		log.Printf("flagged record read error: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	} else if existing != nil {
+		if existingStatus, _ := existing["status"].(string); suppressingStatuses[existingStatus] {
+			status = existingStatus
+		}
+	}
+
 	cacheBucket := os.Getenv("INSIGHTS_CACHE_BUCKET")
 	content := cachedInsightContent(ctx, cacheBucket, key)
 
@@ -209,7 +226,7 @@ func flagInsightHandler(w http.ResponseWriter, r *http.Request) {
 		"note":      note,
 		"content":   content,
 		"topic":     topic,
-		"status":    flagStatusFlagged,
+		"status":    status,
 		"timestamp": time.Now().UnixMilli(),
 	})
 
@@ -308,21 +325,35 @@ func listFlaggedInsightsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	var mu sync.Mutex
 	var records []map[string]any
+	sem := make(chan struct{}, 10) // Limit concurrent downloads
+	var wg sync.WaitGroup
+
 	for _, blob := range blobs {
 		if !strings.HasSuffix(blob.Name, ".json") {
 			continue
 		}
-		data, err := blob.download(ctx)
-		if err != nil {
-			continue
-		}
-		var record map[string]any
-		if err := json.Unmarshal(data, &record); err != nil {
-			continue
-		}
-		records = append(records, record)
+		wg.Add(1)
+		go func(b *blobMeta) {
+			defer wg.Done()
+			sem <- struct{}{}        // Acquire
+			defer func() { <-sem }() // Release
+
+			data, err := b.download(ctx)
+			if err != nil {
+				return
+			}
+			var record map[string]any
+			if err := json.Unmarshal(data, &record); err != nil {
+				return
+			}
+			mu.Lock()
+			records = append(records, record)
+			mu.Unlock()
+		}(blob)
 	}
+	wg.Wait()
 
 	sort.Slice(records, func(i, j int) bool {
 		ti, _ := records[i]["timestamp"].(float64)

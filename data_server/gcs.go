@@ -3,28 +3,23 @@ package main
 import (
 	"context"
 	"io"
-	"sync"
 	"time"
 
 	"cloud.google.com/go/storage"
 	"google.golang.org/api/iterator"
 )
 
-var (
-	gcsOnce   sync.Once
-	gcsClient *storage.Client
-)
+var gcsClient *storage.Client
+
+func initGCSClient() error {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	var err error
+	gcsClient, err = storage.NewClient(ctx)
+	return err
+}
 
 func getGCSClient() *storage.Client {
-	gcsOnce.Do(func() {
-		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-		defer cancel()
-		var err error
-		gcsClient, err = storage.NewClient(ctx)
-		if err != nil {
-			panic("failed to create GCS client: " + err.Error())
-		}
-	})
 	return gcsClient
 }
 
