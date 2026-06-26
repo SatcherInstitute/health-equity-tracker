@@ -31,6 +31,7 @@ const CAWP_CONGRESS_COUNTS: MetricId[] = [
 
 const CAWP_CONGRESS_METRICS: MetricId[] = [
   'cawp_population_pct', // needed for pct_share disparity comparison at county level
+  'congressional_districts',
   'pct_share_of_us_congress',
   'pct_share_of_women_us_congress',
   'women_us_congress_pct_relative_inequity',
@@ -44,6 +45,7 @@ const CAWP_STLEG_COUNTS: MetricId[] = [
 
 export const CAWP_METRICS: MetricId[] = [
   'cawp_population_pct',
+  'congressional_districts',
   'pct_share_of_state_leg',
   'pct_share_of_women_state_leg',
   'women_state_leg_pct_relative_inequity',
@@ -147,19 +149,7 @@ class CawpProvider extends VariableProvider {
       df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
     } else {
       df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      const hasDistricts =
-        breakdowns.geography === 'county' &&
-        df.some((row) => 'congressional_districts' in row)
-      const districtsByFips = hasDistricts
-        ? new Map(df.map((row) => [row.fips, row.congressional_districts]))
-        : null
       df = this.removeUnrequestedColumns(df, metricQuery)
-      if (districtsByFips) {
-        df = df.map((row) => ({
-          ...row,
-          congressional_districts: districtsByFips.get(row.fips),
-        }))
-      }
     }
     return new MetricQueryResponse(df, consumedDatasetIds)
   }
