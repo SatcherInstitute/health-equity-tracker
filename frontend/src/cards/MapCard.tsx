@@ -247,6 +247,10 @@ function MapCardWithKey(props: MapCardProps) {
   const subPopulationId = metricConfig?.rateDenominatorMetric?.metricId
   if (subPopulationId) initialMetridIds.push(subPopulationId)
 
+  if (props.dataTypeConfig.dataTypeId === 'women_in_us_congress') {
+    initialMetridIds.push('congressional_districts')
+  }
+
   const queries = [
     metricQuery(
       initialMetridIds,
