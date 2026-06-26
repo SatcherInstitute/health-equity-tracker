@@ -223,6 +223,11 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     const uniqueConsumedDatasetIds = Array.from(new Set(consumedDatasetIds))
     // Each MetricQuery always resolves to a single provider — multi-provider
     // queries were removed when population data was baked into topic tables.
+    if (queryResponses.length !== 1) {
+      throw new Error(
+        `Expected exactly 1 provider response, got ${queryResponses.length}`,
+      )
+    }
     const resp = new MetricQueryResponse(
       queryResponses[0].data,
       uniqueConsumedDatasetIds,

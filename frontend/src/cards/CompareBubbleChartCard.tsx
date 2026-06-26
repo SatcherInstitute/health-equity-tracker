@@ -110,7 +110,7 @@ export default function CompareBubbleChartCard(
           dataTopicY.map((row) => [
             row.fips +
               row.fips_name +
-              String(row.race_and_ethnicity ?? '').replace(' (NH)', ''),
+              String(row[props.demographicType] ?? '').replace(' (NH)', ''),
             row,
           ]),
         )
@@ -118,7 +118,7 @@ export default function CompareBubbleChartCard(
           const key =
             rowX.fips +
             rowX.fips_name +
-            String(rowX.race_and_ethnicity ?? '').replace(' (NH)', '')
+            String(rowX[props.demographicType] ?? '').replace(' (NH)', '')
           const rowY = yIndex.get(key)
           return rowY ? [{ ...rowX, ...rowY }] : []
         })

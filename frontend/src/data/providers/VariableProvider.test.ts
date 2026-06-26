@@ -8,7 +8,7 @@ import VariableProvider from './VariableProvider'
 // Minimal concrete subclass — only the abstract methods need stubs
 class TestProvider extends VariableProvider {
   constructor() {
-    super('test_provider', [])
+    super('acs_condition_provider', [])
   }
 
   async getDataInternal() {

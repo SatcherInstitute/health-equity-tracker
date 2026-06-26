@@ -299,9 +299,11 @@ export function dropRecentPartialMonth(rows: readonly HetRow[]): HetRow[] {
 }
 
 function getMostRecentMonth(rows: readonly HetRow[]): string {
-  const maxTimestamp = Math.max(
-    ...rows.map((row) => new Date(`${row.time_period}-01`).getTime()),
-  )
+  if (rows.length === 0) return ''
+  const maxTimestamp = rows.reduce((max, row) => {
+    const t = new Date(`${row.time_period}-01`).getTime()
+    return t > max ? t : max
+  }, Number.NEGATIVE_INFINITY)
   const maxDate = new Date(maxTimestamp)
   const year = maxDate.getUTCFullYear()
   const month = String(maxDate.getUTCMonth() + 1).padStart(2, '0')
