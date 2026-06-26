@@ -150,14 +150,14 @@ class CawpProvider extends VariableProvider {
       const hasDistricts =
         breakdowns.geography === 'county' &&
         df.some((row) => 'congressional_districts' in row)
-      const districts = hasDistricts
-        ? df.map((row) => row.congressional_districts)
+      const districtsByFips = hasDistricts
+        ? new Map(df.map((row) => [row.fips, row.congressional_districts]))
         : null
       df = this.removeUnrequestedColumns(df, metricQuery)
-      if (districts) {
-        df = df.map((row, i) => ({
+      if (districtsByFips) {
+        df = df.map((row) => ({
           ...row,
-          congressional_districts: districts[i],
+          congressional_districts: districtsByFips.get(row.fips),
         }))
       }
     }
