@@ -32,6 +32,15 @@ jobs:
             requirements
             .github
 
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: data_server/go.mod
+
+      - name: Run Go tests
+        working-directory: data_server
+        run: go test ./...
+
       - name: Setup Python
         uses: actions/setup-python@v6
         with:
@@ -44,7 +53,6 @@ jobs:
           pip install mypy pytest pytest-xdist types-requests types-PyYAML types-setuptools
 
           pip install -r requirements/tests.txt
-          pip install -r data_server/requirements.txt
           pip install -r run_ingestion/requirements.txt
           pip install -r run_gcs_to_bq/requirements.txt
           pip install -r exporter/requirements.txt
@@ -54,11 +62,6 @@ jobs:
 
       - name: Run Mypy
         run: |
-          mypy --install-types --non-interactive \
-            --ignore-missing-imports --show-error-codes \
-            --config-file=.github/linters/mypy.ini \
-            data_server/
-
           mypy --install-types --non-interactive \
             --ignore-missing-imports --show-error-codes \
             --config-file=.github/linters/mypy.ini \
@@ -82,7 +85,6 @@ jobs:
       - name: Run Pytest
         run: |
           pytest python/
-          pytest data_server/
           pytest exporter/
           pytest run_gcs_to_bq/
           pytest run_ingestion/
