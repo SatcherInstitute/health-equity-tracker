@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/subtle"
 	"log"
 	"net/http"
 	"os"
@@ -14,7 +15,7 @@ func adminOnly(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		token := r.Header.Get("Authorization")
 		expectedToken := os.Getenv("ADMIN_TOKEN")
-		if expectedToken == "" || token != "Bearer "+expectedToken {
+		if expectedToken == "" || subtle.ConstantTimeCompare([]byte(token), []byte("Bearer "+expectedToken)) != 1 {
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return
 		}
