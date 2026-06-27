@@ -14,11 +14,11 @@ const cacheControlHeader = "public, max-age=7200"
 
 var datasetCache = newByteCache(maxCacheBytes, cacheTTL)
 
-func cachedDownload(bucket, name string) ([]byte, error) {
+func cachedDownload(ctx context.Context, bucket, name string) ([]byte, error) {
 	if data, ok := datasetCache.get(name); ok {
 		return data, nil
 	}
-	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
 	defer cancel()
 	data, err := downloadBlob(ctx, bucket, name)
 	if err != nil {
@@ -52,7 +52,7 @@ func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PATCH, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
 		if r.Method == http.MethodOptions {
 			w.WriteHeader(http.StatusNoContent)
 			return
@@ -68,7 +68,7 @@ func healthHandler(w http.ResponseWriter, _ *http.Request) {
 func metadataHandler(w http.ResponseWriter, r *http.Request) {
 	bucket := os.Getenv("GCS_BUCKET")
 	filename := os.Getenv("METADATA_FILENAME")
-	data, err := cachedDownload(bucket, filename)
+	data, err := cachedDownload(r.Context(), bucket, filename)
 	if err != nil {
 		log.Printf("metadata error: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
@@ -87,7 +87,7 @@ func datasetHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	bucket := os.Getenv("GCS_BUCKET")
-	data, err := cachedDownload(bucket, name)
+	data, err := cachedDownload(r.Context(), bucket, name)
 	if err != nil {
 		log.Printf("dataset error for %q: %v", name, err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)

@@ -210,14 +210,14 @@ func flagInsightHandler(w http.ResponseWriter, r *http.Request) {
 
 	note, _ := body["note"].(string)
 	topic, _ := body["topic"].(string)
-	if len(note) > 1000 {
-		note = note[:1000]
+	if r := []rune(note); len(r) > 1000 {
+		note = string(r[:1000])
 	}
-	if len(content) > 5000 {
-		content = content[:5000]
+	if r := []rune(content); len(r) > 5000 {
+		content = string(r[:5000])
 	}
-	if len(topic) > 200 {
-		topic = topic[:200]
+	if r := []rune(topic); len(r) > 200 {
+		topic = string(r[:200])
 	}
 
 	record, _ := json.Marshal(map[string]any{
