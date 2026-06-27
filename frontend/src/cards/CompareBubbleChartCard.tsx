@@ -1,4 +1,3 @@
-import { DataFrame } from 'data-forge'
 import CompareBubbleChart from '../charts/CompareBubbleChart'
 import type {
   DataTypeConfig,
@@ -107,40 +106,30 @@ export default function CompareBubbleChartCard(
 
         const dataPopRadius = rateQueryResponsePop.data
 
-        // Create DataFrames from your arrays
-        const df1 = new DataFrame(dataTopicX)
-        const df2 = new DataFrame(dataTopicY)
-        const dfPop = new DataFrame(dataPopRadius)
-
-        // Merge the DataFrames based on "fips" and "race_and_ethnicity"
-        const mergedXYData = df1.join(
-          df2,
-          (rowX) =>
+        const yIndex = new Map(
+          dataTopicY.map((row) => [
+            row.fips +
+              row.fips_name +
+              String(row[props.demographicType] ?? '').replace(' (NH)', ''),
+            row,
+          ]),
+        )
+        const mergedXY = dataTopicX.flatMap((rowX) => {
+          const key =
             rowX.fips +
             rowX.fips_name +
-            rowX.race_and_ethnicity?.replace(' (NH)', ''),
-          (rowY) =>
-            rowY.fips +
-            rowY.fips_name +
-            rowY.race_and_ethnicity?.replace(' (NH)', ''),
-          (leftRow, rightRow) => ({
-            ...leftRow, // Merge fields from df1
-            ...rightRow, // Merge fields from df2
-          }),
-        )
+            String(rowX[props.demographicType] ?? '').replace(' (NH)', '')
+          const rowY = yIndex.get(key)
+          return rowY ? [{ ...rowX, ...rowY }] : []
+        })
 
-        const mergedData = mergedXYData.join(
-          dfPop,
-          (row) => row.fips + row.fips_name,
-          (rowPop) => rowPop.fips + rowPop.fips_name,
-          (leftRow, rightRow) => ({
-            ...leftRow,
-            ...rightRow,
-          }),
+        const popIndex = new Map(
+          dataPopRadius.map((row) => [row.fips + row.fips_name, row]),
         )
-
-        // Convert the merged DataFrame back to an array of objects
-        const mergedArray = mergedData.toArray()
+        const mergedArray = mergedXY.flatMap((row) => {
+          const rowPop = popIndex.get(row.fips + row.fips_name)
+          return rowPop ? [{ ...row, ...rowPop }] : []
+        })
 
         const validXData = mergedArray.map((row) => ({
           fips: row.fips,

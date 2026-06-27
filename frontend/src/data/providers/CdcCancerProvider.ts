@@ -85,7 +85,7 @@ class CdcCancerProvider extends VariableProvider {
       }
 
       const cancerData = await getDataManager().loadDataset(datasetId)
-      let df = cancerData.toDataFrame()
+      let df = cancerData.rows
 
       df = this.filterByGeo(df, breakdowns)
       df = this.renameGeoColumns(df, breakdowns)
@@ -97,7 +97,7 @@ class CdcCancerProvider extends VariableProvider {
       }
 
       const consumedDatasetIds = [datasetId]
-      return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+      return new MetricQueryResponse(df, consumedDatasetIds)
     } catch (error) {
       console.error('Error fetching cancer data:', error)
       throw error

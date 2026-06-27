@@ -1,4 +1,3 @@
-import { DataFrame } from 'data-forge'
 import type { TrendsData } from '../../charts/trendsChart/types'
 import { METRIC_CONFIG } from '../config/MetricConfig'
 import {
@@ -249,33 +248,28 @@ describe('dropRecentPartialMonth', () => {
       { time_period: '2024-03', value: 30 },
     ]
 
-    const df = new DataFrame(data)
-    const result = dropRecentPartialMonth(df)
+    const result = dropRecentPartialMonth(data)
 
-    expect(result.toArray()).toEqual([
+    expect(result).toEqual([
       { time_period: '2024-01', value: 10 },
       { time_period: '2024-02', value: 20 },
     ])
   })
 
-  it('should handle an empty DataFrame', () => {
-    const df = new DataFrame([])
-    const result = dropRecentPartialMonth(df)
-
-    expect(result.toArray()).toEqual([])
+  it('should handle an empty array', () => {
+    expect(dropRecentPartialMonth([])).toEqual([])
   })
 
-  it('should handle a DataFrame with non-sequential time periods', () => {
+  it('should handle non-sequential time periods', () => {
     const data = [
       { time_period: '2023-12', value: 10 },
       { time_period: '2024-01', value: 20 },
       { time_period: '2024-03', value: 30 },
     ]
 
-    const df = new DataFrame(data)
-    const result = dropRecentPartialMonth(df)
+    const result = dropRecentPartialMonth(data)
 
-    expect(result.toArray()).toEqual([
+    expect(result).toEqual([
       { time_period: '2023-12', value: 10 },
       { time_period: '2024-01', value: 20 },
     ])
