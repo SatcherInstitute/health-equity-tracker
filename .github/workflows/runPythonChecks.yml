@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - 'data_server/**'
+      - 'server/**'
       - 'python/**'
       - 'exporter/**'
       - 'run_**/**'
@@ -25,6 +26,7 @@ jobs:
             python
             data
             data_server
+            server
             exporter
             run_ingestion
             run_gcs_to_bq
@@ -37,8 +39,12 @@ jobs:
         with:
           go-version-file: data_server/go.mod
 
-      - name: Run Go tests
+      - name: Run Go tests (data_server)
         working-directory: data_server
+        run: go test ./...
+
+      - name: Run Go tests (server)
+        working-directory: server
         run: go test ./...
 
       - name: Setup Python
