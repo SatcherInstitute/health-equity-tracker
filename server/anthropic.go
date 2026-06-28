@@ -217,17 +217,19 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 
 	insightMemCache.Store(cacheKey, insightMemEntry{content: insightText, ts: time.Now()})
 
-	// Persist to GCS — best effort, never block the response
+	// Persist to GCS in a background goroutine — best effort, never block the response.
 	if cacheBucket != "" {
 		payload, _ := json.Marshal(map[string]any{
 			"content":   insightText,
 			"timestamp": time.Now().UnixMilli(),
 		})
-		persistCtx, persistCancel := context.WithTimeout(context.Background(), 10*time.Second)
-		defer persistCancel()
-		if err := uploadBlob(persistCtx, cacheBucket, "insights/"+cacheKey+".json", payload, "application/json"); err != nil {
-			log.Printf("[insight] GCS write error: %v", err)
-		}
+		go func() {
+			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+			defer cancel()
+			if err := uploadBlob(ctx, cacheBucket, "insights/"+cacheKey+".json", payload, "application/json"); err != nil {
+				log.Printf("[insight] GCS write error: %v", err)
+			}
+		}()
 	}
 
 	writeJSON(w, map[string]string{"content": insightText})

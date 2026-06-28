@@ -93,6 +93,10 @@ func datasetHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Request missing required url param 'name'", http.StatusBadRequest)
 		return
 	}
+	if strings.Contains(name, "..") {
+		http.Error(w, "Invalid dataset name", http.StatusBadRequest)
+		return
+	}
 	bucket := os.Getenv("GCS_BUCKET")
 	data, err := cachedDownload(r.Context(), bucket, name)
 	if err != nil {

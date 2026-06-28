@@ -365,10 +365,12 @@ func listFlaggedInsightsHandler(w http.ResponseWriter, r *http.Request) {
 
 			data, err := b.download(ctx)
 			if err != nil {
+				log.Printf("failed to download flagged insight %q: %v", b.Name, err)
 				return
 			}
 			var record map[string]any
 			if err := json.Unmarshal(data, &record); err != nil {
+				log.Printf("failed to unmarshal flagged insight %q: %v", b.Name, err)
 				return
 			}
 			mu.Lock()
@@ -436,6 +438,7 @@ func updateFlaggedInsightHandler(w http.ResponseWriter, r *http.Request) {
 				log.Printf("failed to delete cached insight on re-enable: %v", err)
 			}
 		}
+		insightMemCache.Delete(sanitizeInsightKey(key))
 	}
 
 	writeJSON(w, record)
