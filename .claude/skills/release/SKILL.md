@@ -65,7 +65,15 @@ gh run list --repo "$PROD_REPO" --limit 10 \
   --jq '[.[] | select(.name | test("release"; "i"))] | .[0:3] | .[] | "\(.conclusion // .status) \(.createdAt) \(.url)"'
 ```
 
-Find the most recent run with `conclusion == "success"`. Then find which release tag triggered it by correlating timestamps with `git tag --sort=-version:refname`.
+Find the most recent run with `conclusion == "success"`. Then find which release tag triggered it by correlating timestamps. Use `git for-each-ref` (not `git tag`) because it includes tagger dates:
+
+```bash
+git for-each-ref --sort=-version:refname \
+  --format='%(refname:short) %(taggerdate:iso8601)' \
+  'refs/tags/ReleaseV*' | grep -v '\-test' | head -5
+```
+
+Compare each tag's date against the successful workflow run's `createdAt` to find the tag that triggered it.
 
 Set two variables:
 - `PREV_TAG`: the highest existing tag (used for version increment only)
