@@ -1,13 +1,25 @@
-# Build stage
-FROM golang:1.26.3-alpine AS builder
-WORKDIR /build
-COPY data_server/go.mod data_server/go.sum ./
-RUN go mod download
-COPY data_server/*.go ./
-RUN CGO_ENABLED=0 GOOS=linux go build -ldflags="-s -w" -o data_server .
+# Use the official lightweight Python image.
+# https://hub.docker.com/_/python
+FROM python:3.12-slim
 
-# Runtime stage — minimal image, no shell or package manager
-FROM gcr.io/distroless/static-debian12:nonroot
-COPY --from=builder /build/data_server /data_server
-USER nonroot
-CMD ["/data_server"]
+# Allow statements and log messages to immediately appear in the Knative logs
+ENV PYTHONUNBUFFERED True
+
+# Copy local code to the container image.
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+COPY ./data_server ./data_server
+COPY ./python/data_server ./python/data_server
+COPY ./shared_requirements ./shared_requirements
+
+# Install production dependencies.
+RUN python -m pip install --upgrade pip
+RUN pip install -r data_server/requirements.txt
+# Install shared packages.
+RUN pip install ./python/data_server
+
+# Run the web service on container startup. Here we use the gunicorn
+# webserver, with one worker process and 8 threads.
+# For environments with multiple CPU cores, increase the number of workers
+# to be equal to the cores available.
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 --chdir data_server main:app

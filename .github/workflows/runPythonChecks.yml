@@ -37,11 +37,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version-file: data_server/go.mod
-
-      - name: Run Go tests (data_server)
-        working-directory: data_server
-        run: go test ./...
+          go-version-file: server/go.mod
 
       - name: Run Go tests (server)
         working-directory: server

@@ -1,22 +1,14 @@
 # Data Server
 
-Go HTTP server that responds to data requests by serving pre-exported JSON files from GCS.
+Python Flask server that responds to data requests by serving pre-exported JSON files from GCS.
 
 ## Commands
 
 ```bash
-# Run locally (from data_server/ directory)
-go run .
-
-# Build and run
-go build -o data_server . && ./data_server
-
-# Run tests
-go test ./...
+# Run locally (from repo root with venv active)
+pip install python/data_server/ && python data_server/main.py
 ```
 
 ## How it works
 
-Reads data files from a GCS bucket (or local `frontend/public/tmp/` during development). Each endpoint maps to a file exported by the `exporter/` service. The frontend sets `VITE_BASE_API_URL` to point at whichever data server environment to use.
-
-The `/dataset` endpoint serves both CSV and NDJSON formats -- CSV files are streamed as-is, while NDJSON files are converted to JSON arrays on the fly. All responses are cached in a 150 MB byte-aware LRU cache with a 2-hour TTL.
+Reads JSON files from a GCS bucket (or local `frontend/public/tmp/` during development). Each endpoint maps to a file exported by the `exporter/` service. The frontend sets `VITE_BASE_API_URL` to point at whichever data server environment to use.
