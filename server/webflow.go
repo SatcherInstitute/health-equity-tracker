@@ -40,6 +40,8 @@ type webflowState struct {
 
 var wfState webflowState
 
+var webflowClient = &http.Client{Timeout: 10 * time.Second}
+
 func webflowHeaders() map[string]string {
 	token := os.Getenv("WEBFLOW_API_TOKEN")
 	return map[string]string{
@@ -56,7 +58,7 @@ func webflowGet(url string) (*http.Response, error) {
 	for k, v := range webflowHeaders() {
 		req.Header.Set(k, v)
 	}
-	return http.DefaultClient.Do(req)
+	return webflowClient.Do(req)
 }
 
 func getTagMap(forceRefresh bool) (map[string]string, error) {

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
@@ -45,63 +46,20 @@ type mockNotFoundError struct{ name string }
 
 func (e *mockNotFoundError) Error() string { return "not found: " + e.name }
 
-type downloadFn func(bucket, name string) ([]byte, error)
-
-func newTestRouter(mock *mockGCS) http.Handler {
+// newTestRouter wires the real metadataHandler and datasetHandler against a
+// mock GCS backend. Tests exercise the actual handler code rather than a
+// reimplementation, so routing bugs and middleware changes are caught.
+func newTestRouter(t *testing.T, mock *mockGCS) http.Handler {
+	t.Helper()
+	t.Setenv("GCS_BUCKET", "test-bucket")
+	t.Setenv("METADATA_FILENAME", "test_data.ndjson")
 	datasetCache = newByteCache(maxCacheBytes, cacheTTL)
-	return newRouterWith(func(bucket, name string) ([]byte, error) {
+	gcsDownload = func(_ context.Context, bucket, name string) ([]byte, error) {
 		return mock.download(bucket, name)
-	})
-}
-
-func newRouterWith(dl downloadFn) http.Handler {
-	c := newByteCache(maxCacheBytes, cacheTTL)
-	cachedDl := func(bucket, name string) ([]byte, error) {
-		if data, ok := c.get(name); ok {
-			return data, nil
-		}
-		data, err := dl(bucket, name)
-		if err != nil {
-			return nil, err
-		}
-		c.set(name, data)
-		return data, nil
 	}
-
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /metadata", func(w http.ResponseWriter, r *http.Request) {
-		data, err := cachedDl("test-bucket", "test_data.ndjson")
-		if err != nil {
-			http.Error(w, "Internal server error: "+err.Error(), http.StatusInternalServerError)
-			return
-		}
-		w.Header().Set("Content-Disposition", "attachment; filename=test_data.ndjson")
-		w.Header().Set("Vary", "Accept-Encoding")
-		w.Header().Set("Content-Type", "application/json")
-		w.Write(ndjsonToArray(data))
-	})
-	mux.HandleFunc("GET /dataset", func(w http.ResponseWriter, r *http.Request) {
-		name := r.URL.Query().Get("name")
-		if name == "" {
-			http.Error(w, "Request missing required url param 'name'", http.StatusBadRequest)
-			return
-		}
-		data, err := cachedDl("test-bucket", name)
-		if err != nil {
-			http.Error(w, "Internal server error: "+err.Error(), http.StatusInternalServerError)
-			return
-		}
-		w.Header().Set("Content-Disposition", "attachment; filename="+name)
-		w.Header().Set("Vary", "Accept-Encoding")
-		w.Header().Set("Cache-Control", cacheControlHeader)
-		if strings.HasSuffix(name, ".csv") {
-			w.Header().Set("Content-Type", "text/csv")
-			w.Write(data)
-			return
-		}
-		w.Header().Set("Content-Type", "application/json")
-		w.Write(ndjsonToArray(data))
-	})
+	mux.HandleFunc("GET /metadata", metadataHandler)
+	mux.HandleFunc("GET /dataset", datasetHandler)
 	return corsMiddleware(mux)
 }
 
@@ -125,7 +83,7 @@ func TestHealthHandler(t *testing.T) {
 
 func TestGetMetadata(t *testing.T) {
 	mock := &mockGCS{data: map[string][]byte{"test_data.ndjson": testNDJSON}}
-	h := newTestRouter(mock)
+	h := newTestRouter(t, mock)
 	rr := get(h, "/metadata")
 
 	if rr.Code != http.StatusOK {
@@ -148,7 +106,7 @@ func TestGetMetadata(t *testing.T) {
 
 func TestGetMetadataFromCache(t *testing.T) {
 	mock := &mockGCS{data: map[string][]byte{"test_data.ndjson": testNDJSON}}
-	h := newTestRouter(mock)
+	h := newTestRouter(t, mock)
 	get(h, "/metadata")
 	get(h, "/metadata")
 	if mock.hits != 1 {
@@ -158,7 +116,7 @@ func TestGetMetadataFromCache(t *testing.T) {
 
 func TestGetMetadataInternalError(t *testing.T) {
 	mock := &mockGCS{err: &mockNotFoundError{name: "test_data.ndjson"}}
-	h := newTestRouter(mock)
+	h := newTestRouter(t, mock)
 	rr := get(h, "/metadata")
 	if rr.Code != http.StatusInternalServerError {
 		t.Errorf("expected 500, got %d", rr.Code)
@@ -169,7 +127,7 @@ func TestGetMetadataInternalError(t *testing.T) {
 
 func TestGetDatasetJSON(t *testing.T) {
 	mock := &mockGCS{data: map[string][]byte{"test_dataset": testNDJSON}}
-	h := newTestRouter(mock)
+	h := newTestRouter(t, mock)
 	rr := get(h, "/dataset?name=test_dataset")
 
 	if rr.Code != http.StatusOK {
@@ -186,7 +144,7 @@ func TestGetDatasetJSON(t *testing.T) {
 
 func TestGetDatasetMissingParam(t *testing.T) {
 	mock := &mockGCS{}
-	h := newTestRouter(mock)
+	h := newTestRouter(t, mock)
 	for _, path := range []string{"/dataset", "/dataset?random_param=stuff"} {
 		rr := get(h, path)
 		if rr.Code != http.StatusBadRequest {
@@ -197,7 +155,7 @@ func TestGetDatasetMissingParam(t *testing.T) {
 
 func TestGetDatasetCSV(t *testing.T) {
 	mock := &mockGCS{data: map[string][]byte{"test.csv": testCSV}}
-	h := newTestRouter(mock)
+	h := newTestRouter(t, mock)
 	rr := get(h, "/dataset?name=test.csv")
 
 	if rr.Code != http.StatusOK {

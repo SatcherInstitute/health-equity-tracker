@@ -15,10 +15,17 @@ import (
 )
 
 const (
-	insightMemTTL = 180 * 24 * time.Hour // 6 months
-	anthropicURL  = "https://api.anthropic.com/v1/messages"
-	insightModel  = "claude-sonnet-4-5-20250929"
+	insightMemTTL       = 180 * 24 * time.Hour // 6 months
+	anthropicURL        = "https://api.anthropic.com/v1/messages"
+	anthropicModelDefault = "claude-sonnet-4-5-20250929"
 )
+
+func anthropicModel() string {
+	if m := os.Getenv("ANTHROPIC_MODEL"); m != "" {
+		return m
+	}
+	return anthropicModelDefault
+}
 
 // insightMemCache stores generated insights in-process to avoid redundant GCS reads.
 // Key is the sanitized cache key, value is insightMemEntry.
@@ -154,7 +161,7 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 	finalPrompt := negExamples + prompt
 
 	reqBody, _ := json.Marshal(map[string]any{
-		"model":      insightModel,
+		"model":      anthropicModel(),
 		"max_tokens": 1024,
 		"system":     insightSystemPrompt,
 		"messages":   []map[string]string{{"role": "user", "content": finalPrompt}},

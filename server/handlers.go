@@ -14,13 +14,20 @@ const cacheControlHeader = "public, max-age=7200"
 
 var datasetCache = newByteCache(maxCacheBytes, cacheTTL)
 
+// gcsDownload is the function used to fetch blobs from GCS. Tests replace it
+// with a mock so that metadataHandler and datasetHandler can be exercised
+// through the real code path without needing a GCS connection.
+var gcsDownload = func(ctx context.Context, bucket, name string) ([]byte, error) {
+	return downloadBlob(ctx, bucket, name)
+}
+
 func cachedDownload(ctx context.Context, bucket, name string) ([]byte, error) {
 	if data, ok := datasetCache.get(name); ok {
 		return data, nil
 	}
 	ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
 	defer cancel()
-	data, err := downloadBlob(ctx, bucket, name)
+	data, err := gcsDownload(ctx, bucket, name)
 	if err != nil {
 		return nil, err
 	}

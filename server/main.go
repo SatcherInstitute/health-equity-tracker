@@ -39,13 +39,16 @@ func main() {
 	r.Use(middleware.Compress(5))
 	r.Use(corsMiddleware)
 
+	// Health probe
+	r.Get("/healthz", healthHandler)
+
 	// Data endpoints (replaces data_server)
 	r.Get("/metadata", metadataHandler)
 	r.Get("/dataset", datasetHandler)
 
 	// Insight cache and flagging (replaces data_server insight routes)
 	r.Get("/insight-cache", getInsightCacheHandler)
-	r.Post("/insight-cache", putInsightCacheHandler)
+	r.With(adminOnly).Post("/insight-cache", putInsightCacheHandler)
 	r.Post("/flag-insight", flagInsightHandler)
 	r.Get("/flagged-examples", getFlaggedExamplesHandler)
 

@@ -83,6 +83,10 @@ func cachedInsightContent(ctx context.Context, cacheBucket, key string) string {
 	if err := json.Unmarshal(data, &payload); err != nil {
 		return ""
 	}
+	ts, _ := payload["timestamp"].(float64)
+	if int64(time.Now().UnixMilli())-int64(ts) >= insightTTLMs {
+		return ""
+	}
 	content, _ := payload["content"].(string)
 	return content
 }
@@ -227,7 +231,11 @@ func putInsightCacheHandler(w http.ResponseWriter, r *http.Request) {
 
 func flagInsightHandler(w http.ResponseWriter, r *http.Request) {
 	body := jsonBody(r)
-	key, _ := body["key"].(string)
+	// Frontend sends "cacheKey"; fall back to legacy "key" for any callers still on the old contract.
+	key, _ := body["cacheKey"].(string)
+	if key == "" {
+		key, _ = body["key"].(string)
+	}
 	reason, _ := body["reason"].(string)
 	if !validateInsightKey(key) || !validFlagReasons[reason] {
 		http.Error(w, "Request body missing or invalid 'key' or 'reason'", http.StatusBadRequest)
@@ -293,7 +301,7 @@ func flagInsightHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Clear the in-process Anthropic memory cache so the next call regenerates
-	insightMemCache.Delete(key)
+	insightMemCache.Delete(sanitizeInsightKey(key))
 
 	w.WriteHeader(http.StatusNoContent)
 }

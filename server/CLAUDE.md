@@ -33,6 +33,7 @@ go test ./...
 | `FLAGGED_INSIGHTS_BUCKET` | No | - | GCS bucket for flagged insight records |
 | `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) |
 | `ANTHROPIC_API_KEY` | No | - | Required for `/fetch-ai-insight` |
+| `ANTHROPIC_MODEL` | No | `claude-sonnet-4-5-20250929` | Anthropic model used for insight generation |
 | `WEBFLOW_API_TOKEN` | No | - | Required for `/het-news` |
 | `INSIGHT_NEGATIVE_EXAMPLES_ENABLED` | No | `false` | Feed prior flagged outputs back into prompts |
 | `STATIC_DIR` | No | `/static` | Directory containing the React build |

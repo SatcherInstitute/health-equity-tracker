@@ -1,6 +1,7 @@
 # Stage 1: Build the React frontend
 FROM node:24-slim AS react_build
 ARG DEPLOY_CONTEXT
+RUN test -n "$DEPLOY_CONTEXT" || (echo "DEPLOY_CONTEXT build arg is required (dev|prod|deploy_preview)" && exit 1)
 WORKDIR /usr/src/build
 COPY ./frontend/package*.json ./
 # --ignore-scripts defers postinstall (npm run tokens) until source files exist.
