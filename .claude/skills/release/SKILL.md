@@ -43,18 +43,46 @@ If conclusion is `failure`: stop and report. If `in_progress`: note it and ask t
 
 ---
 
-## Step 2 — Determine next release tag
+## Step 2 — Determine next release tag and changelog base
 
 Fetch all tags and find the latest `ReleaseVX.XX` tag (exclude `-test` suffixes):
 
 ```bash
 git fetch --tags origin
-git tag --sort=-version:refname | grep -E '^ReleaseV[0-9]+\.[0-9]+$' | head -1
+git tag --sort=-version:refname | grep -E '^ReleaseV[0-9]+\.[0-9]+$' | head -3
 ```
 
-Parse the version number (e.g. `ReleaseV4.029` -> major=4, minor=29). Increment the minor by 1. Zero-pad the minor to match the existing width (e.g. `029` -> `030`). Construct the new tag: `ReleaseV4.030`.
+Parse the version number of the highest tag (e.g. `ReleaseV4.030` -> major=4, minor=30). Increment the minor by 1. Zero-pad to match the existing width. Construct `NEW_TAG` (e.g. `ReleaseV4.031`).
 
-Store `PREV_TAG` and `NEW_TAG` for use in later steps. Do not ask for confirmation here -- the single consent gate in Step 4 covers both the tag and the changelog.
+**Then check whether the highest existing tag actually deployed successfully to prod.** A tag that was published but whose prod deploy failed is still the correct base for incrementing the version number -- but NOT the correct base for the changelog diff. Shipping a new tag without including those changes in the diff means the release notes will be incomplete and the user won't know what they're actually shipping.
+
+Check the prod repo for the most recent release workflow run:
+
+```bash
+PROD_REPO="SatcherInstitute/health-equity-tracker-prod"
+gh run list --repo "$PROD_REPO" --limit 10 \
+  --json name,status,conclusion,url,createdAt \
+  --jq '[.[] | select(.name | test("release"; "i"))] | .[0:3] | .[] | "\(.conclusion // .status) \(.createdAt) \(.url)"'
+```
+
+Find the most recent run with `conclusion == "success"`. Then find which release tag triggered it by correlating timestamps with `git tag --sort=-version:refname`.
+
+Set two variables:
+- `PREV_TAG`: the highest existing tag (used for version increment only)
+- `DIFF_BASE`: the last tag whose prod deploy succeeded (used for changelog diff)
+
+If `DIFF_BASE != PREV_TAG`, there are one or more tags whose deploys failed. Print a clear warning:
+
+```
+WARNING: $PREV_TAG was tagged but its prod deploy failed (or is unverified).
+New tag will be $NEW_TAG.
+Changelog will diff from $DIFF_BASE (last confirmed successful deploy) — this includes all changes from $DIFF_BASE through HEAD, across $N failed/skipped releases.
+Never re-run a failed deploy. Always cut a new tag so the release history stays accurate.
+```
+
+If all recent tags deployed successfully, `DIFF_BASE == PREV_TAG` and there is nothing special to note.
+
+Store `PREV_TAG`, `DIFF_BASE`, and `NEW_TAG` for use in later steps. Do not ask for confirmation here -- the single consent gate in Step 4 covers both the tag and the changelog.
 
 ---
 
@@ -104,16 +132,19 @@ If either test fails: stop and report. Do not cut the release against a broken d
 
 All pre-checks have passed. Before publishing, show the user exactly what is about to ship.
 
-Fetch the commits between the previous tag and HEAD:
+Fetch the commits between `DIFF_BASE` and HEAD:
 
 ```bash
-git log "$PREV_TAG"..HEAD --oneline --no-merges
+git log "$DIFF_BASE"..HEAD --oneline --no-merges
 ```
 
 Group them by prefix (`feat`, `fix`, `chore`, `docs`, `refactor`, etc.) and print a short summary:
 
 ```
-Ready to publish $NEW_TAG  (previous: $PREV_TAG)
+Ready to publish $NEW_TAG  (previous tag: $PREV_TAG, changelog from: $DIFF_BASE)
+
+[if DIFF_BASE != PREV_TAG]
+NOTE: $PREV_TAG deploy failed — this release includes all changes since $DIFF_BASE.
 
 Features
   - <commit subject>
@@ -124,7 +155,7 @@ Fixes
 Other (chore/docs/refactor/etc.)
   - <commit subject>
 
-$N commits since $PREV_TAG
+$N commits since $DIFF_BASE
 Dev smoke: passed
 CI: all green
 ```
@@ -144,18 +175,43 @@ Create the release using GitHub's built-in note generation (compares commits bet
 
 ```bash
 NEW_TAG="<new tag from Step 2>"
-PREV_TAG="<prev tag from Step 2>"
+DIFF_BASE="<diff base from Step 2>"
 
 gh release create "$NEW_TAG" \
   --title "$NEW_TAG" \
   --generate-notes \
-  --notes-start-tag "$PREV_TAG" \
+  --notes-start-tag "$DIFF_BASE" \
   --latest
 ```
+
+If `DIFF_BASE != PREV_TAG`, the generated notes will correctly span all commits since the last successful deploy -- not just since the failed tag.
 
 This publishes the release immediately and automatically triggers `triggerRelease.yml`, which dispatches a `release-triggered` event to the production repo to begin the prod deploy.
 
 Print the release URL returned by `gh release create`.
+
+---
+
+## Step 5b — Annotate any failed-deploy tags
+
+If `DIFF_BASE != PREV_TAG`, there are one or more tags between `DIFF_BASE` and `PREV_TAG` (inclusive of `PREV_TAG`, exclusive of `DIFF_BASE`) whose deploys failed. Annotate each one so the release history is self-documenting.
+
+For each failed tag, fetch its current release notes and prepend a warning block:
+
+```bash
+FAILED_TAG="<each tag between DIFF_BASE and PREV_TAG>"
+
+CURRENT_BODY=$(gh release view "$FAILED_TAG" --json body -q .body)
+
+HEADER="> [!WARNING]
+> **Deploy failed.** This tag was published but never successfully deployed to production. Its changes shipped in $NEW_TAG."
+
+gh release edit "$FAILED_TAG" --notes "${HEADER}
+
+${CURRENT_BODY}"
+```
+
+Run this for every failed tag (there may be more than one if multiple tags piled up). Do not alter the title or latest flag on the failed tags -- just prepend the warning to the body.
 
 ---
 
