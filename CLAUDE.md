@@ -16,7 +16,7 @@ The [Health Equity Tracker](https://healthequitytracker.org/) aggregates demogra
 ```plaintext
 frontend/         React app (TypeScript, Vite, MUI, Tailwind, D3, Jotai)
 frontend_server/  Lightweight Node server — serves React static files, proxies data requests
-data_server/      Go HTTP server — responds with JSON/CSV files exported from BigQuery
+data_server/      Python Flask server — responds with JSON/CSV files exported from BigQuery
 server/           Combined Go server (experimental) — replaces both frontend_server and data_server
                   with a single ~15 MB binary: static files + GCS data + Anthropic + Webflow
 ```
