@@ -7,6 +7,7 @@ on:
     branches: [main]
     paths:
       - 'data_server/**'
+      - 'server/**'
       - 'python/**'
       - 'exporter/**'
       - 'run_**/**'
@@ -25,12 +26,22 @@ jobs:
             python
             data
             data_server
+            server
             exporter
             run_ingestion
             run_gcs_to_bq
             shared_requirements
             requirements
             .github
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: server/go.mod
+
+      - name: Run Go tests (server)
+        working-directory: server
+        run: go test ./...
 
       - name: Setup Python
         uses: actions/setup-python@v6
@@ -44,7 +55,6 @@ jobs:
           pip install mypy pytest pytest-xdist types-requests types-PyYAML types-setuptools
 
           pip install -r requirements/tests.txt
-          pip install -r data_server/requirements.txt
           pip install -r run_ingestion/requirements.txt
           pip install -r run_gcs_to_bq/requirements.txt
           pip install -r exporter/requirements.txt
@@ -54,11 +64,6 @@ jobs:
 
       - name: Run Mypy
         run: |
-          mypy --install-types --non-interactive \
-            --ignore-missing-imports --show-error-codes \
-            --config-file=.github/linters/mypy.ini \
-            data_server/
-
           mypy --install-types --non-interactive \
             --ignore-missing-imports --show-error-codes \
             --config-file=.github/linters/mypy.ini \
@@ -82,7 +87,6 @@ jobs:
       - name: Run Pytest
         run: |
           pytest python/
-          pytest data_server/
           pytest exporter/
           pytest run_gcs_to_bq/
           pytest run_ingestion/

@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 The [Health Equity Tracker](https://healthequitytracker.org/) aggregates demographic health data by race, ethnicity, sex, and socioeconomic status across the US. It consists of a React frontend, lightweight Node server, Python data server, and a GCP-hosted data pipeline.
 
 > **Service-specific guidance:** See each service's own `CLAUDE.md` for details.
-> `frontend/` · `frontend_server/` · `data_server/` · `exporter/` · `python/`
+> `frontend/` · `frontend_server/` · `data_server/` · `server/` · `exporter/` · `python/`
 
 ## Architecture
 
@@ -16,7 +16,9 @@ The [Health Equity Tracker](https://healthequitytracker.org/) aggregates demogra
 ```plaintext
 frontend/         React app (TypeScript, Vite, MUI, Tailwind, D3, Jotai)
 frontend_server/  Lightweight Node server — serves React static files, proxies data requests
-data_server/      Python Flask server — responds with JSON files exported from BigQuery
+data_server/      Python Flask server — responds with JSON/CSV files exported from BigQuery
+server/           Combined Go server (experimental) — replaces both frontend_server and data_server
+                  with a single ~15 MB binary: static files + GCS data + Anthropic + Webflow
 ```
 
 ### Backend Data Pipeline
