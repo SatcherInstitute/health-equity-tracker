@@ -108,23 +108,14 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 		cacheKey = sanitizeInsightKey(prompt)
 	}
 
-	// Check in-memory cache first
-	if v, ok := insightMemCache.Load(cacheKey); ok {
-		entry := v.(insightMemEntry)
-		if time.Since(entry.ts) < insightMemTTL {
-			writeJSON(w, map[string]string{"content": entry.content})
-			return
-		}
-		insightMemCache.Delete(cacheKey)
-	}
-
 	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
 	defer cancel()
 
 	flaggedBucket := os.Getenv("FLAGGED_INSIGHTS_BUCKET")
 	cacheBucket := os.Getenv("INSIGHTS_CACHE_BUCKET")
 
-	// Check suppression before serving cached content
+	// Suppression check runs first — a suppressed insight must never be served
+	// even if it is still warm in the in-process cache.
 	if flaggedBucket != "" {
 		record, err := flaggedRecord(ctx, flaggedBucket, cacheKey)
 		if err != nil {
@@ -138,6 +129,16 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
+	}
+
+	// Check in-memory cache
+	if v, ok := insightMemCache.Load(cacheKey); ok {
+		entry := v.(insightMemEntry)
+		if time.Since(entry.ts) < insightMemTTL {
+			writeJSON(w, map[string]string{"content": entry.content})
+			return
+		}
+		insightMemCache.Delete(cacheKey)
 	}
 
 	// Check GCS persistent cache
