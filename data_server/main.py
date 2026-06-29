@@ -24,21 +24,20 @@ INSIGHT_KEY_MAX_LEN = 500
 
 # Reasons a user may select when flagging an insight.
 VALID_FLAG_REASONS = {"inaccurate", "misleading", "offensive", "other"}
-# Flag lifecycle. A user flag records the bad output without hiding the data combination:
-# the cached text is dropped so a fresh insight regenerates in its place, and the record is
-# kept as a negative example. The team can later escalate a record to `suppressed` (hidden
-# pending review) or `permanent` (hidden for good), or `reenabled` to clear it.
+# Flag lifecycle — just two states. A user flag records the bad output without hiding the
+# data combination: the cached text is dropped so a fresh insight regenerates in its place,
+# but the raw report is NOT fed back into the prompt. The team can then confirm a record as
+# `suppressed`, which keeps the combo live but steers future generations away from the bad
+# output — the stored content becomes a negative example and the cache is cleared so the
+# combo regenerates fresh. A false-alarm report is deleted outright rather than given a
+# status (nothing is hidden, so there is nothing to "re-enable").
 FLAG_STATUS_FLAGGED = "flagged"
 FLAG_STATUS_SUPPRESSED = "suppressed"
-FLAG_STATUS_PERMANENT = "permanent"
-FLAG_STATUS_REENABLED = "reenabled"
-# Statuses that hide an insight on read. Only the team can set these (via PATCH); a plain
-# user flag never suppresses, so the combo immediately regenerates a new insight.
-SUPPRESSING_STATUSES = {FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT}
-# Statuses whose stored content is fed back into the prompt as a negative example —
-# everything except `reenabled` (which the team has explicitly cleared).
-NEGATIVE_EXAMPLE_STATUSES = {FLAG_STATUS_FLAGGED, FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT}
-VALID_FLAG_STATUSES = {FLAG_STATUS_FLAGGED, FLAG_STATUS_SUPPRESSED, FLAG_STATUS_PERMANENT, FLAG_STATUS_REENABLED}
+# Statuses whose stored content is fed back into the prompt as a negative example. Only a
+# team-confirmed `suppressed` record qualifies — a raw user `flagged` record is excluded so a
+# bad-faith or mistaken public flag can't poison the prompt.
+NEGATIVE_EXAMPLE_STATUSES = {FLAG_STATUS_SUPPRESSED}
+VALID_FLAG_STATUSES = {FLAG_STATUS_FLAGGED, FLAG_STATUS_SUPPRESSED}
 # Cap on how many flagged examples we feed back into the generation prompt.
 MAX_FLAGGED_EXAMPLES = 10
 
@@ -162,18 +161,10 @@ def _cached_insight_content(key: str) -> str:
 
 @app.route("/insight-cache", methods=["GET"])
 def get_insight_cache():
-    """Returns a cached AI insight if present and within TTL, otherwise 404.
-
-    If the key has been flagged and is currently suppressed, returns
-    {"suppressed": true} so the insight is never served, regardless of cache state.
-    """
+    """Returns a cached AI insight if present and within TTL, otherwise 404."""
     key = _validate_insight_key(request.args.get("key"))
     if key is None:
         return "Request missing or invalid required url param 'key'", 400
-
-    flag = _flagged_record(key)
-    if flag is not None and flag.get("status") in SUPPRESSING_STATUSES:
-        return jsonify({"suppressed": True})
 
     bucket = os.environ.get(INSIGHTS_CACHE_BUCKET_ENV)
     if not bucket:
@@ -363,7 +354,13 @@ def list_flagged_insights():
 
 @app.route("/flagged-insights", methods=["PATCH"])
 def update_flagged_insight():
-    """Updates a flag record's status (re-enable or permanently suppress)."""
+    """Confirms a flag record as `suppressed` (or resets it to `flagged`).
+
+    Suppressing keeps the combo live but clears its cached insight so the next read
+    regenerates fresh — this time with the stored content fed into the prompt as a negative
+    example to steer the model away from the bad output. A false alarm should be deleted
+    outright (e.g. via the review script) rather than left with a status.
+    """
     body = _json_object_body()
     key = _validate_insight_key(body.get("key"))
     status = body.get("status")
@@ -388,8 +385,9 @@ def update_flagged_insight():
         logging.error(err)
         return "Internal server error", 500
 
-    # When re-enabling, drop any stale cached insight so it regenerates fresh next time.
-    if status == FLAG_STATUS_REENABLED:
+    # Suppressing drops the stale cached insight so the combo regenerates fresh, now with the
+    # suppressed content feeding into the prompt as a negative example to steer the new output.
+    if status == FLAG_STATUS_SUPPRESSED:
         cache_bucket = os.environ.get(INSIGHTS_CACHE_BUCKET_ENV)
         if cache_bucket:
             try:
@@ -397,7 +395,7 @@ def update_flagged_insight():
             except google.cloud.exceptions.NotFound:
                 pass
             except Exception as err:  # pylint: disable=broad-except
-                logging.warning("Failed to delete cached insight on re-enable: %s", err)
+                logging.warning("Failed to delete cached insight on suppress: %s", err)
 
     return jsonify(record)
 

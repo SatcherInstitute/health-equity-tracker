@@ -113,11 +113,18 @@ def test_flag_insight_returns_503_when_unconfigured(client):
 
 @mock.patch.dict("os.environ", ENV, clear=True)
 @mock.patch("data_server.gcs_utils.download_blob_as_bytes")
-def test_insight_cache_returns_suppressed_for_flagged_key(mock_download, client):
-    mock_download.return_value = json.dumps({"status": main.FLAG_STATUS_SUPPRESSED}).encode("utf-8")
+def test_insight_cache_does_not_hide_suppressed_keys(mock_download, client):
+    # Suppression no longer hides a combo on read — the read path serves whatever is cached
+    # and never consults the flag record. (Suppressing clears the cache so the combo
+    # regenerates steered by the negative example; it does not produce a dead card.)
+    mock_download.return_value = json.dumps(
+        {"content": "hello", "timestamp": 9_999_999_999_999}
+    ).encode("utf-8")
     resp = client.get("/insight-cache?key=topic-x")
     assert resp.status_code == 200
-    assert resp.get_json() == {"suppressed": True}
+    assert resp.get_json()["content"] == "hello"
+    # Only the cache bucket is read; the flagged bucket is never consulted on this path.
+    mock_download.assert_called_once_with(CACHE_BUCKET, "insights/topic-x.json")
 
 
 @mock.patch.dict("os.environ", ENV, clear=True)
@@ -144,24 +151,20 @@ def test_flagged_examples_filters_by_topic_and_status(mock_list, client):
         ),
         FakeBlob(
             "b.json",
-            {"topic": "hiv", "reason": "offensive", "content": "y", "status": "reenabled", "timestamp": 3},
+            {"topic": "hiv", "reason": "offensive", "content": "y", "status": "flagged", "timestamp": 3},
         ),
         FakeBlob(
             "c.json",
-            {"topic": "covid", "reason": "misleading", "content": "z", "status": "permanent", "timestamp": 1},
-        ),
-        FakeBlob(
-            "d.json",
-            {"topic": "hiv", "reason": "misleading", "content": "w", "status": "flagged", "timestamp": 4},
+            {"topic": "covid", "reason": "misleading", "content": "z", "status": "suppressed", "timestamp": 1},
         ),
     ]
     resp = client.get("/flagged-examples?topic=hiv")
     assert resp.status_code == 200
     examples = resp.get_json()["examples"]
-    # Plain "flagged" and team-"suppressed" hiv records both qualify (newest first);
-    # the "reenabled" one is excluded and the covid one is filtered out by topic.
+    # Only team-confirmed "suppressed" records feed the prompt. The raw user "flagged" record
+    # (y) is excluded so a public flag can't poison the prompt, and the suppressed "covid" one
+    # (z) is filtered out by topic — leaving only the suppressed hiv one.
     assert examples == [
-        {"reason": "misleading", "content": "w"},
         {"reason": "inaccurate", "content": "x"},
     ]
 
@@ -175,7 +178,7 @@ def test_flagged_examples_stops_downloading_after_max(mock_list, client):
     blobs = [
         FakeBlob(
             f"{i}.json",
-            {"topic": "hiv", "reason": "inaccurate", "content": f"c{i}", "status": "flagged", "timestamp": i},
+            {"topic": "hiv", "reason": "inaccurate", "content": f"c{i}", "status": "suppressed", "timestamp": i},
         )
         for i in range(total)
     ]
@@ -200,18 +203,26 @@ def test_flagged_examples_stops_downloading_after_max(mock_list, client):
 @mock.patch("data_server.gcs_utils.delete_blob")
 @mock.patch("data_server.gcs_utils.upload_blob_from_bytes")
 @mock.patch("data_server.gcs_utils.download_blob_as_bytes")
-def test_update_flagged_insight_reenable_clears_cache(mock_download, mock_upload, mock_delete, client):
-    mock_download.return_value = json.dumps({"key": "topic-x", "status": "suppressed", "timestamp": 1}).encode("utf-8")
-    resp = client.patch("/flagged-insights", json={"key": "topic-x", "status": "reenabled"})
+def test_update_flagged_insight_suppress_clears_cache(mock_download, mock_upload, mock_delete, client):
+    mock_download.return_value = json.dumps({"key": "topic-x", "status": "flagged", "timestamp": 1}).encode("utf-8")
+    resp = client.patch("/flagged-insights", json={"key": "topic-x", "status": "suppressed"})
     assert resp.status_code == 200
-    assert resp.get_json()["status"] == "reenabled"
+    assert resp.get_json()["status"] == "suppressed"
     mock_upload.assert_called_once()
-    # Re-enabling drops the stale cached insight so it regenerates fresh.
+    # Suppressing drops the stale cached insight so the combo regenerates fresh, now steered
+    # by the suppressed content as a negative example.
     mock_delete.assert_called_once_with(CACHE_BUCKET, "insights/topic-x.json")
+
+
+@mock.patch.dict("os.environ", ENV, clear=True)
+def test_update_flagged_insight_rejects_invalid_status(client):
+    # `permanent`/`reenabled` are no longer part of the vocabulary.
+    resp = client.patch("/flagged-insights", json={"key": "topic-x", "status": "permanent"})
+    assert resp.status_code == 400
 
 
 @mock.patch.dict("os.environ", ENV, clear=True)
 @mock.patch("data_server.gcs_utils.download_blob_as_bytes", side_effect=google.cloud.exceptions.NotFound("x"))
 def test_update_flagged_insight_404_when_missing(mock_download, client):
-    resp = client.patch("/flagged-insights", json={"key": "missing", "status": "permanent"})
+    resp = client.patch("/flagged-insights", json={"key": "missing", "status": "suppressed"})
     assert resp.status_code == 404

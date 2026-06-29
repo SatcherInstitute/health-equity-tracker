@@ -21,9 +21,9 @@ export interface FlagInsightParams {
 }
 
 // Reports a problematic AI insight. The data server records the flag and
-// clears the cached text so a fresh insight regenerates in place.
-// Only the team can escalate to suppressed/hidden via PATCH /flagged-insights.
-// Returns true on success.
+// clears the cached text so a fresh insight regenerates in place. The team can later
+// confirm the report as `suppressed`, which steers future generations away from the bad
+// output (it never hides the chart). Returns true on success.
 export async function flagInsight(params: FlagInsightParams): Promise<boolean> {
   const baseApiUrl = import.meta.env.VITE_BASE_API_URL
   const url = baseApiUrl ? `${baseApiUrl}${API_ENDPOINT}` : API_ENDPOINT

@@ -1,0 +1,42 @@
+# Fails when an AI insight has been flagged by a site visitor but not yet triaged by the
+# team. The job authenticates to GCP with the deployer service account, then runs the
+# review script in --ci mode against the flagged-insights bucket. A red X on this workflow
+# (surfaced via the badge in README.md) is the team's signal to run:
+#   scripts/review_flagged_insights.sh --review
+name: CRON Review Flagged AI Insights
+
+on:
+  schedule:
+    - cron: "0 13 * * 1" # Every Monday at 1PM UTC (9AM EST)
+  workflow_dispatch:
+
+jobs:
+  check-flagged-insights:
+    if: github.repository == 'SatcherInstitute/health-equity-tracker'
+    name: Check for untriaged flagged insights
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+          sparse-checkout: scripts/review_flagged_insights.sh
+          sparse-checkout-cone-mode: false
+          # No git operations run after checkout, so don't leave the token in .git/config.
+          persist-credentials: false
+      - id: auth
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: ${{ secrets.DEPLOYER_SA_KEY }}
+      - name: Set Up gcloud
+        uses: google-github-actions/setup-gcloud@v3
+        with:
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
+      - name: Review flagged insights (CI check)
+        # Pass the buckets explicitly rather than relying on the script's defaults, so the
+        # CI contract is visible here and a future default change can't silently break this.
+        run: >-
+          ./scripts/review_flagged_insights.sh --ci
+          -p "${{ secrets.TEST_PROJECT_ID }}"
+          -b het-flagged-insights
+          -c het-insights-cache
