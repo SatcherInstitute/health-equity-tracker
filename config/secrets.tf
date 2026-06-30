@@ -6,14 +6,12 @@
 # secret *values* still originate from GitHub Actions secrets passed in as Terraform
 # variables; this only changes where Cloud Run reads them from at runtime — see the
 # value_from.secret_key_ref blocks in run.tf.
-
-# disable_on_destroy = false so tearing down infra-test (runDestroyInfraTest.yml) does
-# not disable the API for any other resources in the project.
-resource "google_project_service" "secret_manager" {
-  project            = var.project_id
-  service            = "secretmanager.googleapis.com"
-  disable_on_destroy = false
-}
+#
+# NOTE: the Secret Manager API (secretmanager.googleapis.com) must be enabled once in
+# each target GCP project before deploying. We intentionally do NOT manage API
+# enablement in Terraform — consistent with the rest of this config (Cloud Run,
+# BigQuery, etc. are all enabled manually) — because the deployer service account
+# cannot enable APIs (the Service Usage API is disabled in these projects).
 
 # --- AHR_API_KEY: read by the gcs_to_bq service during America's Health Rankings ingestion ---
 resource "google_secret_manager_secret" "ahr_api_key" {
@@ -23,8 +21,6 @@ resource "google_secret_manager_secret" "ahr_api_key" {
   replication {
     auto {}
   }
-
-  depends_on = [google_project_service.secret_manager]
 }
 
 resource "google_secret_manager_secret_version" "ahr_api_key" {
@@ -47,8 +43,6 @@ resource "google_secret_manager_secret" "anthropic_api_key" {
   replication {
     auto {}
   }
-
-  depends_on = [google_project_service.secret_manager]
 }
 
 resource "google_secret_manager_secret_version" "anthropic_api_key" {
@@ -71,8 +65,6 @@ resource "google_secret_manager_secret" "webflow_api_token" {
   replication {
     auto {}
   }
-
-  depends_on = [google_project_service.secret_manager]
 }
 
 resource "google_secret_manager_secret_version" "webflow_api_token" {
