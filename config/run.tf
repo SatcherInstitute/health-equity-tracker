@@ -65,8 +65,15 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
           value = var.manual_uploads_project_id
         }
         env {
-          name  = "AHR_API_KEY"
-          value = var.ahr_api_key
+          name = "AHR_API_KEY"
+          value_from {
+            secret_key_ref {
+              name = google_secret_manager_secret.ahr_api_key.secret_id
+              # Pin to the exact version Terraform created (not "latest"), so rotating the
+              # secret bumps this version number and forces a new Cloud Run revision.
+              key = google_secret_manager_secret_version.ahr_api_key.version
+            }
+          }
         }
 
         resources {
@@ -79,6 +86,13 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
       service_account_name = google_service_account.gcs_to_bq_runner_identity.email
     }
   }
+
+  # Ensure the secret version and the runner's accessor binding exist before the
+  # revision that mounts the secret is deployed.
+  depends_on = [
+    google_secret_manager_secret_version.ahr_api_key,
+    google_secret_manager_secret_iam_member.gcs_to_bq_ahr_api_key_accessor,
+  ]
 
   traffic {
     percent         = 100
@@ -204,12 +218,22 @@ resource "google_cloud_run_service" "frontend_service" {
         }
 
         env {
-          name  = "ANTHROPIC_API_KEY"
-          value = var.anthropic_api_key
+          name = "ANTHROPIC_API_KEY"
+          value_from {
+            secret_key_ref {
+              name = google_secret_manager_secret.anthropic_api_key.secret_id
+              key  = google_secret_manager_secret_version.anthropic_api_key.version
+            }
+          }
         }
         env {
-          name  = "WEBFLOW_API_TOKEN"
-          value = var.webflow_api_token
+          name = "WEBFLOW_API_TOKEN"
+          value_from {
+            secret_key_ref {
+              name = google_secret_manager_secret.webflow_api_token.secret_id
+              key  = google_secret_manager_secret_version.webflow_api_token.version
+            }
+          }
         }
         env {
           # Feeds flagged insights back into the generation prompt as negative examples
@@ -229,6 +253,15 @@ resource "google_cloud_run_service" "frontend_service" {
       service_account_name = google_service_account.frontend_runner_identity.email
     }
   }
+
+  # Ensure the secret versions and the runner's accessor bindings exist before the
+  # revision that mounts the secrets is deployed.
+  depends_on = [
+    google_secret_manager_secret_version.anthropic_api_key,
+    google_secret_manager_secret_version.webflow_api_token,
+    google_secret_manager_secret_iam_member.frontend_anthropic_api_key_accessor,
+    google_secret_manager_secret_iam_member.frontend_webflow_api_token_accessor,
+  ]
 
   traffic {
     percent         = 100
