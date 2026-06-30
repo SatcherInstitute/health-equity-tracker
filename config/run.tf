@@ -69,7 +69,9 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
           value_from {
             secret_key_ref {
               name = google_secret_manager_secret.ahr_api_key.secret_id
-              key  = "latest"
+              # Pin to the exact version Terraform created (not "latest"), so rotating the
+              # secret bumps this version number and forces a new Cloud Run revision.
+              key = google_secret_manager_secret_version.ahr_api_key.version
             }
           }
         }
@@ -220,7 +222,7 @@ resource "google_cloud_run_service" "frontend_service" {
           value_from {
             secret_key_ref {
               name = google_secret_manager_secret.anthropic_api_key.secret_id
-              key  = "latest"
+              key  = google_secret_manager_secret_version.anthropic_api_key.version
             }
           }
         }
@@ -229,7 +231,7 @@ resource "google_cloud_run_service" "frontend_service" {
           value_from {
             secret_key_ref {
               name = google_secret_manager_secret.webflow_api_token.secret_id
-              key  = "latest"
+              key  = google_secret_manager_secret_version.webflow_api_token.version
             }
           }
         }

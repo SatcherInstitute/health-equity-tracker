@@ -23,9 +23,20 @@ resource "google_secret_manager_secret" "ahr_api_key" {
   }
 }
 
+# secret_data_wo is a write-only argument: the value is sent to the Secret Manager
+# API but is NEVER persisted to Terraform state (unlike secret_data, which would store
+# the plaintext token in the GCS-backed state file). Keeping the tokens out of state is
+# the whole point of this migration, so we use the write-only form for all three secrets.
+#
+# ROTATION: because Terraform cannot read a write-only value, it only pushes a new secret
+# version when secret_data_wo_version changes. To rotate a token, update the upstream
+# GitHub Actions secret AND bump the matching integer below (e.g. 1 -> 2). Bumping it
+# creates a new Secret Manager version whose new version number flows into the Cloud Run
+# secret_key_ref (see run.tf) and forces a fresh revision.
 resource "google_secret_manager_secret_version" "ahr_api_key" {
-  secret      = google_secret_manager_secret.ahr_api_key.id
-  secret_data = var.ahr_api_key
+  secret                 = google_secret_manager_secret.ahr_api_key.id
+  secret_data_wo         = var.ahr_api_key
+  secret_data_wo_version = 1
 }
 
 resource "google_secret_manager_secret_iam_member" "gcs_to_bq_ahr_api_key_accessor" {
@@ -45,9 +56,11 @@ resource "google_secret_manager_secret" "anthropic_api_key" {
   }
 }
 
+# Write-only secret data (see rotation note above the ahr_api_key version resource).
 resource "google_secret_manager_secret_version" "anthropic_api_key" {
-  secret      = google_secret_manager_secret.anthropic_api_key.id
-  secret_data = var.anthropic_api_key
+  secret                 = google_secret_manager_secret.anthropic_api_key.id
+  secret_data_wo         = var.anthropic_api_key
+  secret_data_wo_version = 1
 }
 
 resource "google_secret_manager_secret_iam_member" "frontend_anthropic_api_key_accessor" {
@@ -67,9 +80,11 @@ resource "google_secret_manager_secret" "webflow_api_token" {
   }
 }
 
+# Write-only secret data (see rotation note above the ahr_api_key version resource).
 resource "google_secret_manager_secret_version" "webflow_api_token" {
-  secret      = google_secret_manager_secret.webflow_api_token.id
-  secret_data = var.webflow_api_token
+  secret                 = google_secret_manager_secret.webflow_api_token.id
+  secret_data_wo         = var.webflow_api_token
+  secret_data_wo_version = 1
 }
 
 resource "google_secret_manager_secret_iam_member" "frontend_webflow_api_token_accessor" {
