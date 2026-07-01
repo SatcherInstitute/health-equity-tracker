@@ -13,7 +13,7 @@ jobs:
       image-digest: ${{ steps.ingestion.outputs.image-digest }}
     steps:
       - name: Check Out Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - id: auth
         uses: google-github-actions/auth@v3
         with:
@@ -36,7 +36,7 @@ jobs:
       image-digest: ${{ steps.gcstobq.outputs.image-digest }}
     steps:
       - name: Check Out Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - id: auth
         uses: google-github-actions/auth@v3
         with:
@@ -59,7 +59,7 @@ jobs:
       image-digest: ${{ steps.exporter.outputs.image-digest }}
     steps:
       - name: Check Out Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - id: auth
         uses: google-github-actions/auth@v3
         with:
@@ -82,7 +82,7 @@ jobs:
       image-digest: ${{ steps.serving.outputs.image-digest }}
     steps:
       - name: Check Out Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - id: auth
         uses: google-github-actions/auth@v3
         with:
@@ -105,7 +105,7 @@ jobs:
       image-digest: ${{ steps.frontend.outputs.image-digest }}
     steps:
       - name: Check Out Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - id: auth
         uses: google-github-actions/auth@v3
         with:
@@ -129,7 +129,7 @@ jobs:
 
     steps:
       - name: Check Out Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - id: auth
         uses: google-github-actions/auth@v3
         with:
