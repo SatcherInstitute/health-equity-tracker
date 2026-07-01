@@ -45,6 +45,9 @@ export default function HetListItemButton(props: HetListItemButtonProps) {
         component={Link}
         to={props.to}
         className={sharedClassName}
+        id={props.id}
+        style={props.style}
+        onClick={props.onClick}
         aria-label={props.ariaLabel}
         selected={props.selected}
         role='menuitem'
@@ -58,6 +61,8 @@ export default function HetListItemButton(props: HetListItemButtonProps) {
     <ListItemButton
       tabIndex={props.onClick ? undefined : -1}
       className={sharedClassName}
+      id={props.id}
+      style={props.style}
       onClick={props.onClick}
       aria-label={props.ariaLabel}
       selected={props.selected}
