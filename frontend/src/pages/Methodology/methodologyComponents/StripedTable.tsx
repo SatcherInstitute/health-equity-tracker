@@ -1,50 +1,4 @@
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material'
-
-interface StripedTableRowProps {
-  children: React.ReactNode
-  index: number
-  applyThickBorder?: boolean
-  rowCount?: number
-}
-
-function StripedTableRow({
-  children,
-  index,
-  applyThickBorder,
-  rowCount,
-  ...props
-}: StripedTableRowProps) {
-  return (
-    <TableRow
-      className={index % 2 === 0 ? 'bg-alt-white' : 'bg-methodology-green/10'}
-      sx={{
-        '&:last-child td, &:last-child th': {
-          border: 0,
-        },
-        ...(applyThickBorder && rowCount !== 3 && (index + 1) % 2 === 0
-          ? {
-              borderBottom: '2px solid',
-              borderColor: 'methodologyGreen',
-              borderLeft: 0,
-              borderRight: 0,
-              borderTop: 0,
-            }
-          : {}),
-      }}
-      {...props}
-    >
-      {children}
-    </TableRow>
-  )
-}
+import HetTable from '../../../styles/HetComponents/HetTable'
 
 interface StripedTableProps {
   rows: Record<string, any>[]
@@ -53,39 +7,30 @@ interface StripedTableProps {
   applyThickBorder?: boolean
 }
 
-export default function StripedTable(props: StripedTableProps) {
+export default function StripedTable({
+  rows,
+  columns,
+  id,
+  applyThickBorder,
+}: StripedTableProps) {
+  const hetColumns = columns.map((col) => ({
+    key: col.accessor,
+    header: col.header,
+  }))
+
+  const hetRows = rows.map((row) =>
+    Object.fromEntries(
+      columns.map((col) => [col.accessor, row[col.accessor] ?? null]),
+    ),
+  )
+
   return (
-    <TableContainer className='w-full' component={Paper} id={props.id}>
-      <Table>
-        <TableHead>
-          <TableRow className='bg-methodology-green text-alt-black'>
-            {props.columns.map((col) => (
-              <TableCell key={col.accessor}>{col.header}</TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.rows.map((row, rowIndex) => (
-            <StripedTableRow
-              key={rowIndex}
-              index={rowIndex}
-              applyThickBorder={props.applyThickBorder}
-              rowCount={props.rows.length}
-            >
-              {props.columns.map((col) => (
-                <TableCell
-                  key={col.accessor}
-                  component='td'
-                  className='text-left font-normal font-sans-text text-small'
-                  scope='row'
-                >
-                  {row[col.accessor]}
-                </TableCell>
-              ))}
-            </StripedTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <HetTable
+      rows={hetRows}
+      columns={hetColumns}
+      id={id}
+      applyThickBorder={applyThickBorder}
+      variant='methodology'
+    />
   )
 }
