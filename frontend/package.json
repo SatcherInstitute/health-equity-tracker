@@ -126,9 +126,5 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
-	},
-	"optionalDependencies": {
-		"@emnapi/core": "1.11.1",
-		"@emnapi/runtime": "1.11.1"
 	}
 }
