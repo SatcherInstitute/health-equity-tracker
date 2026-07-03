@@ -66,9 +66,14 @@ export default function HetTable({
         {caption && <caption className='font-medium'>{caption}</caption>}
         <TableHead>
           <TableRow className={headerClass}>
-            {columns.map((col) => (
-              <TableCell key={col.key}>{col.header}</TableCell>
-            ))}
+            {columns.map((col) => {
+              const headerCellClass = `wrap-break-word ${variant === 'methodology' ? 'font-sans-text text-small font-medium' : ''}`
+              return (
+                <TableCell key={col.key} className={headerCellClass}>
+                  {col.header}
+                </TableCell>
+              )
+            })}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -82,15 +87,18 @@ export default function HetTable({
               <TableRow key={rowIndex} className={rowClass}>
                 {columns.map((col) => {
                   const value = row[col.key]
-                  return value === null ? (
-                    <TableCell key={col.key}>
+                  const cellClass = `wrap-break-word ${variant === 'methodology' ? 'font-sans-text text-small' : ''}`
+                  return value == null ? (
+                    <TableCell key={col.key} className={cellClass}>
                       <Tooltip title={nullMessage}>
                         <WarningRoundedIcon />
                       </Tooltip>
                       <span className='sr-only'>{nullMessage}</span>
                     </TableCell>
                   ) : (
-                    <TableCell key={col.key}>{value}</TableCell>
+                    <TableCell key={col.key} className={cellClass}>
+                      {value}
+                    </TableCell>
                   )
                 })}
               </TableRow>

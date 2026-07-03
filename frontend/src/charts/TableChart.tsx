@@ -54,15 +54,17 @@ export function TableChart(props: TableChartProps) {
 
         const mc = metricConfigs[colIndex - 1]
 
-        const numeratorCount = props.countColsMap.numeratorConfig?.metricId
-          ? row[props.countColsMap.numeratorConfig.metricId]?.toLocaleString()
-          : ''
+        const rawNumerator = props.countColsMap.numeratorConfig?.metricId
+          ? row[props.countColsMap.numeratorConfig.metricId]
+          : undefined
+        const numeratorCount =
+          rawNumerator != null ? rawNumerator.toLocaleString() : ''
         const denominatorCount = props.countColsMap.denominatorConfig?.metricId
           ? row[props.countColsMap.denominatorConfig.metricId]?.toLocaleString()
           : ''
         let numeratorLabel =
           props.countColsMap.numeratorConfig?.shortLabel ?? ''
-        if (numeratorCount === 1) numeratorLabel = removeLastS(numeratorLabel)
+        if (rawNumerator === 1) numeratorLabel = removeLastS(numeratorLabel)
         const denominatorLabel =
           props.countColsMap.denominatorConfig?.shortLabel ?? ''
 
