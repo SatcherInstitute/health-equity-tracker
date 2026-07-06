@@ -68,8 +68,9 @@ export default function AltTableView(props: AltTableViewProps) {
     const isUnknownPctCol = key.includes('with unknown ')
 
     let header: React.ReactNode = key.replaceAll('_', ' ')
-    if (!isTimeCol && key !== ALL && !isUnknownPctCol) {
-      header = `${optionalAgesPrefix}${key.replaceAll('_', ' ')} ${dataColumnLabel}`
+    if (!isTimeCol && !isUnknownPctCol) {
+      const prefix = key !== ALL ? optionalAgesPrefix : ''
+      header = `${prefix}${key.replaceAll('_', ' ')} ${dataColumnLabel}`
     } else if (isTimeCol) {
       header = `${key.replaceAll('_', ' ')} (${earliestTimePeriod} - ${latestTimePeriod})`
     }
