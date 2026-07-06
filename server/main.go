@@ -39,8 +39,8 @@ func main() {
 	r.Use(middleware.Compress(5))
 	r.Use(corsMiddleware)
 
-	// Health probe
-	r.Get("/healthz", healthHandler)
+	// Health probe — /health avoids Google Frontend interception of /healthz
+	r.Get("/health", healthHandler)
 
 	// Data endpoints (replaces data_server)
 	r.Get("/metadata", metadataHandler)

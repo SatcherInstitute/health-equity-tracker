@@ -69,7 +69,8 @@ func corsMiddleware(next http.Handler) http.Handler {
 }
 
 func healthHandler(w http.ResponseWriter, _ *http.Request) {
-	w.Write([]byte("ok"))
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(`{"status":"ok"}`))
 }
 
 func metadataHandler(w http.ResponseWriter, r *http.Request) {

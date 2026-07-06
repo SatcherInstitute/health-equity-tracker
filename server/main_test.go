@@ -73,9 +73,12 @@ func get(handler http.Handler, path string) *httptest.ResponseRecorder {
 
 func TestHealthHandler(t *testing.T) {
 	rr := httptest.NewRecorder()
-	healthHandler(rr, httptest.NewRequest(http.MethodGet, "/", nil))
+	healthHandler(rr, httptest.NewRequest(http.MethodGet, "/health", nil))
 	if rr.Code != http.StatusOK {
 		t.Errorf("expected 200, got %d", rr.Code)
+	}
+	if ct := rr.Header().Get("Content-Type"); ct != "application/json" {
+		t.Errorf("expected application/json, got %s", ct)
 	}
 }
 

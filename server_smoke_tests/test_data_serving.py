@@ -7,7 +7,7 @@ def testServerHealth():
     service_url = os.environ.get("SERVICE_URL").strip('"')
     print(f"SERVICE_URL={service_url}")
 
-    resp = requests.get(f"{service_url}/healthz", timeout=30)  # cspell:ignore healthz
+    resp = requests.get(f"{service_url}/health", timeout=30)
     assert resp.status_code == 200
     assert resp.json().get("status") == "ok"
 
