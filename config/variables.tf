@@ -161,6 +161,11 @@ variable "metadata_filename" {
   type        = string
 }
 
+variable "frontend_domain" {
+  description = "Custom domain mapped to the server Cloud Run service (e.g. dev.healthequitytracker.org)"
+  type        = string
+}
+
 variable "insights_cache_writer_role_id" {
   description = "Role id of the custom IAM role granting read/write access to the AI insights cache bucket"
   type        = string

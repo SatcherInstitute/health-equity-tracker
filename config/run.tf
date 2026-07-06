@@ -195,6 +195,25 @@ resource "google_cloud_run_service" "exporter_service" {
 }
 
 
+# Bind the custom domain to the server service.
+# The pre-existing Cloud Run domain mapping (previously pointing to frontend-service) is not
+# in Terraform state. On first apply Terraform will create this resource. If the old mapping
+# still exists in GCP after frontend-service is destroyed, the apply will fail with a conflict.
+# Fix: delete the stale mapping manually and re-run the workflow:
+#   gcloud alpha run domain-mappings delete <domain> --project=<project> --region=us-central1
+resource "google_cloud_run_domain_mapping" "frontend_domain" {
+  location = var.compute_region
+  name     = var.frontend_domain
+
+  metadata {
+    namespace = var.project_id
+  }
+
+  spec {
+    route_name = google_cloud_run_service.server_service.name
+  }
+}
+
 # Output the URL of the server for use in e2e tests and the buildAllAndDeploy action.
 # frontend_url kept for backward compatibility with callers that reference this output.
 output "frontend_url" {

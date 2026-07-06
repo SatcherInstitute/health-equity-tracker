@@ -35,6 +35,7 @@ exporter_runner_role_id     = "exporter_runner_role"
 server_service_name = "server-service"
 server_image_name   = "server"
 metadata_filename   = "all_metadata.ndjson"
+frontend_domain     = "$YOUR_DOMAIN"  # e.g. dev.healthequitytracker.org
 
 # Custom IAM role granting read/write on the AI insights cache bucket (bound to the data server SA).
 insights_cache_writer_role_id = "insights_cache_writer_role"
