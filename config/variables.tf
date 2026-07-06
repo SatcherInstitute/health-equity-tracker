@@ -103,22 +103,7 @@ variable "gcs_to_bq_runner_role_id" {
   type        = string
 }
 
-# Data Server Cloud Run Service Vars
-variable "data_server_service_name" {
-  description = "Name of the Cloud Run service for serving data to client frontends"
-  type        = string
-}
-
-variable "data_server_image_name" {
-  description = "Name of container image for the Cloud Run data server service"
-  type        = string
-}
-
-variable "data_server_image_digest" {
-  description = "Digest of container image for the Cloud Run data server service"
-  type        = string
-}
-
+# Data Server Service Account Vars (SA reused by the Go server)
 variable "data_server_runner_identity_id" {
   description = "Account id of the service account used when running the data server service"
   type        = string
@@ -155,24 +140,24 @@ variable "exporter_runner_role_id" {
   type        = string
 }
 
-# Frontend Cloud Run Service Vars
-variable "frontend_service_name" {
-  description = "Name of the Cloud Run service that serves the frontend"
+# Combined Go Server Cloud Run Service Vars
+variable "server_service_name" {
+  description = "Name of the Cloud Run service that serves the frontend and data APIs"
   type        = string
 }
 
-variable "frontend_image_name" {
-  description = "Name of container image for the Cloud Run frontend service"
+variable "server_image_name" {
+  description = "Name of container image for the Go combined server service"
   type        = string
 }
 
-variable "frontend_image_digest" {
-  description = "Digest of container image for the Cloud Run frontend service"
+variable "server_image_digest" {
+  description = "Digest of container image for the Go combined server service"
   type        = string
 }
 
-variable "frontend_runner_identity_id" {
-  description = "Account id of the service account used when running the frontend service"
+variable "metadata_filename" {
+  description = "GCS object name of the metadata NDJSON file"
   type        = string
 }
 

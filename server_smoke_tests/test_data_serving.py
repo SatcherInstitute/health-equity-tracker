@@ -1,42 +1,30 @@
 import os
 import pandas as pd
 import requests  # type: ignore
-from google.oauth2 import service_account
-from google.auth.transport.requests import AuthorizedSession
 
 
-def testUnauthed_permissionDenied():
-    # Get the url of the service.
+def testServerHealth():
     service_url = os.environ.get("SERVICE_URL").strip('"')
     print(f"SERVICE_URL={service_url}")
 
-    resp = requests.get(service_url, timeout=600)
-    assert resp.status_code == 200  # this service used to require authorization but not anymore
+    resp = requests.get(f"{service_url}/healthz", timeout=30)  # cspell:ignore healthz
+    assert resp.status_code == 200
+    assert resp.json().get("status") == "ok"
 
 
-def testDataServerDataServing():
-    # Get the url of the service.
+def testServerRootServesFrontend():
     service_url = os.environ.get("SERVICE_URL").strip('"')
-    print(f"SERVICE_URL={service_url}")
-
-    # Get service account credentials to make request to private URL
-    creds = service_account.IDTokenCredentials.from_service_account_file(
-        os.environ.get("PATH_TO_SA_CREDS"), target_audience=service_url
-    )
-
-    authed_session = AuthorizedSession(creds)
-
-    resp = authed_session.get(service_url)
-    assert resp.ok
-    assert b"Running data server." in resp.content
+    resp = requests.get(service_url, timeout=30)
+    assert resp.status_code == 200
+    assert b"<!doctype html>" in resp.content.lower() or b"<html" in resp.content.lower()
 
 
-def testDataServingThroughFrontend():
-    # Get the url of the frontend.
-    frontend_url = os.environ.get("FRONTEND_URL").strip('"') + "/api/dataset?name=acs_population-sex_state_current.json"
-    print(f"FRONTEND_URL={frontend_url}")
+def testDataServingThroughServer():
+    service_url = os.environ.get("SERVICE_URL").strip('"')
+    dataset_url = f"{service_url}/dataset?name=acs_population-sex_state_current.json"
+    print(f"Dataset URL={dataset_url}")
 
-    frame = pd.DataFrame(pd.read_json(frontend_url, orient="values"))
+    frame = pd.DataFrame(pd.read_json(dataset_url, orient="values"))
     assert len(frame.index) == 156
     assert frame.columns.size == 5
     assert frame.columns[0] == "state_fips"
