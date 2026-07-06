@@ -77,6 +77,8 @@ func buildNegativeExamplesBlock(ctx context.Context, flaggedBucket, topic string
 		if len(runes) > 500 {
 			s = string(runes[:500])
 		}
+		s = strings.ReplaceAll(s, "<<<", "«««")
+		s = strings.ReplaceAll(s, ">>>", "»»»")
 		return strings.TrimSpace(s)
 	}
 
