@@ -1,7 +1,7 @@
 ---
 name: review
 model: opus
-description: Senior engineer review of the open PR (or a specified PR number) across four lenses - scientific accuracy, sensitive language, maintainability, and accessibility. Posts a formal GitHub review (request-changes if any BLOCKING issues found, otherwise comment). Nits are routed to tooling suggestions rather than inline comments. Advances health equity by catching data errors, harmful language, and a11y failures before they reach users.
+description: Senior engineer review of the open PR (or a specified PR number) across four lenses - scientific accuracy, sensitive language, maintainability, and accessibility. Delivers findings inline in the conversation as plain readable prose. Silently writes a GitHub-formatted version to /tmp/het-review.md for optional posting via /review-post. Advances health equity by catching data errors, harmful language, and a11y failures before they reach users.
 ---
 
 # /review
