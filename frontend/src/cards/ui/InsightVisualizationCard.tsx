@@ -43,8 +43,6 @@ export default function InsightVisualizationCard({
   const [error, setError] = useState<string | null>(null)
   // The exact server cache key used, captured so the flag button targets this insight.
   const [serverCacheKey, setServerCacheKey] = useState<string | null>(null)
-  // True only if the team has escalated this insight to hidden — no content is shown.
-  const [suppressed, setSuppressed] = useState(false)
 
   // A stable suffix so the insight regenerates when the user changes which
   // group(s) the chart is focused on (highlighted map group / selected trend
@@ -65,7 +63,6 @@ export default function InsightVisualizationCard({
   const handleGenerate = useCallback(async () => {
     setIsGenerating(true)
     setError(null)
-    setSuppressed(false)
     try {
       const result = await generateCardInsight(
         scrollToHash,
@@ -79,8 +76,6 @@ export default function InsightVisualizationCard({
       setServerCacheKey(result.cacheKey ?? null)
       if (result.rateLimited) {
         setError('Too many requests. Please wait a moment and try again.')
-      } else if (result.suppressed) {
-        setSuppressed(true)
       } else if (result.error) {
         setError('Unable to generate insight. Please try again.')
       } else {
@@ -118,24 +113,15 @@ export default function InsightVisualizationCard({
   // block generation for the new ones.
   useEffect(() => {
     setError(null)
-    setSuppressed(false)
   }, [cacheKey])
 
   // `error` is in the guard so a failed call doesn't get auto-retried on the
   // next render — the user must click Try again. Clearing the insight (e.g. after
   // flagging) re-fires this effect and regenerates.
   useEffect(() => {
-    if (!isOpen || insight || error || isGenerating || suppressed) return
+    if (!isOpen || insight || error || isGenerating) return
     void handleGenerate()
-  }, [
-    isOpen,
-    insight,
-    error,
-    isGenerating,
-    suppressed,
-    cacheKey,
-    handleGenerate,
-  ])
+  }, [isOpen, insight, error, isGenerating, cacheKey, handleGenerate])
 
   if (!SHOW_INSIGHT_GENERATION || !isOpen) return null
 
@@ -155,10 +141,6 @@ export default function InsightVisualizationCard({
             Try again
           </Button>
         </div>
-      ) : suppressed ? (
-        <p className='m-0 text-alt-dark text-small'>
-          This insight was flagged for review and is currently hidden.
-        </p>
       ) : (
         <>
           <p className='m-0 font-bold text-alt-dark leading-snug'>{insight}</p>

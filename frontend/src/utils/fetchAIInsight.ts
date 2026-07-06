@@ -5,7 +5,6 @@ export type InsightResult = {
   content: string
   rateLimited: boolean
   error?: boolean
-  suppressed?: boolean
   // The exact server cache key the insight was stored under — needed to flag it.
   cacheKey?: string
 }
@@ -45,10 +44,6 @@ export async function fetchAIInsight(
     }
 
     const insight = await dataResponse.json()
-    // The insight has been flagged and suppressed — there is no content to show.
-    if (insight.suppressed) {
-      return { content: '', rateLimited: false, suppressed: true }
-    }
     if (!insight.content) {
       throw new Error('No content returned from AI service')
     }

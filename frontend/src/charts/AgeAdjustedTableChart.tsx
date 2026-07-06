@@ -1,28 +1,9 @@
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import { Tooltip } from '@mui/material'
-import Paper from '@mui/material/Paper'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableFooter from '@mui/material/TableFooter'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import {
-  type ColumnDef,
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getSortedRowModel,
-  type SortingState,
-  useReactTable,
-} from '@tanstack/react-table'
-import { useMemo } from 'react'
 import ChartTitle from '../cards/ChartTitle'
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import { formatFieldValue } from '../data/config/MetricConfigUtils'
 import { DEMOGRAPHIC_DISPLAY_TYPES } from '../data/query/Breakdowns'
 import { RACE } from '../data/utils/Constants'
+import HetTable, { type HetTableColumn } from '../styles/HetComponents/HetTable'
 
 interface AgeAdjustedTableChartProps {
   data: Array<Readonly<Record<string, any>>>
@@ -32,111 +13,36 @@ interface AgeAdjustedTableChartProps {
 
 export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
   const { data, metricConfigs } = props
-  const columnHelper = createColumnHelper<Record<string, any>>()
 
-  const columns = useMemo(() => {
-    const cols: ColumnDef<any>[] = []
+  if (data.length <= 0 || metricConfigs.length <= 0) {
+    return <h1>No Data provided</h1>
+  }
 
-    cols.push(
-      columnHelper.accessor(RACE as string, {
-        header: DEMOGRAPHIC_DISPLAY_TYPES[RACE],
-        cell: (info) => info.getValue(),
+  const columns: HetTableColumn[] = [
+    { key: RACE, header: DEMOGRAPHIC_DISPLAY_TYPES[RACE] },
+    ...metricConfigs.map((mc) => ({ key: mc.metricId, header: mc.shortLabel })),
+  ]
+
+  const rows = data.map((row) =>
+    Object.fromEntries(
+      columns.map((col) => {
+        const value = row[col.key]
+        if (value == null) return [col.key, null]
+        const mc = metricConfigs.find((m) => m.metricId === col.key)
+        return [
+          col.key,
+          mc ? formatFieldValue(mc.type, value, true) : String(value),
+        ]
       }),
-    )
-
-    metricConfigs.forEach((metricConfig) => {
-      cols.push(
-        columnHelper.accessor(metricConfig.metricId, {
-          header: metricConfig.shortLabel,
-          cell: (info) =>
-            formatFieldValue(metricConfig.type, info.getValue(), true),
-        }),
-      )
-    })
-
-    return cols
-  }, [metricConfigs, columnHelper])
-
-  const initialSorting = useMemo<SortingState>(
-    () => [{ id: RACE, desc: false }],
-    [],
+    ),
   )
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    initialState: {
-      sorting: initialSorting,
-    },
-  })
-
   return (
-    <>
-      {props.data.length <= 0 || props.metricConfigs.length <= 0 ? (
-        <h1>No Data provided</h1>
-      ) : (
-        <figure className='m-3'>
-          <figcaption>
-            <ChartTitle title={props.title} />
-          </figcaption>
-          <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
-            <Table>
-              <TableHead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <TableCell
-                        key={header.id}
-                        className='w-[200px] bg-secondary-dark/20'
-                      >
-                        {header.isPlaceholder ? null : (
-                          <div>
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                          </div>
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableHead>
-              <TableBody>
-                {table.getRowModel().rows.map((row, rowIndex) => (
-                  <TableRow key={row.id}>
-                    {row.getVisibleCells().map((cell) => {
-                      const value = cell.getValue()
-                      const cellClass = `w-[200px] ${rowIndex % 2 === 0 ? '' : 'bg-secondary-dark/10'}`
-
-                      return value == null ? (
-                        <TableCell key={cell.id} className={cellClass}>
-                          <Tooltip title='No data available'>
-                            <WarningRoundedIcon />
-                          </Tooltip>
-                          <span className='sr-only'>No Data Available</span>
-                        </TableCell>
-                      ) : (
-                        <TableCell key={cell.id} className={cellClass}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </TableCell>
-                      )
-                    })}
-                  </TableRow>
-                ))}
-              </TableBody>
-              <TableFooter>
-                <TableRow />
-              </TableFooter>
-            </Table>
-          </TableContainer>
-        </figure>
-      )}
-    </>
+    <figure className='m-3'>
+      <figcaption>
+        <ChartTitle title={props.title} />
+      </figcaption>
+      <HetTable rows={rows} columns={columns} variant='info' />
+    </figure>
   )
 }

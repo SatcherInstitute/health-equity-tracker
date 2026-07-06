@@ -1,0 +1,62 @@
+# Explicitly exclude what Cloud Build doesn't need, rather than including .gitignore
+# (the root .gitignore has *.json which would break Docker builds that need package.json)
+
+.gcloudignore
+.gitignore
+.git/
+
+# OS / editor
+.DS_Store
+~$*
+.vscode/
+.idea/
+*.iml
+
+# Python build artifacts
+__pycache__/
+*.egg-info/
+.venv*/
+venv*/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node build artifacts
+node_modules/
+/frontend/build/
+/frontend_server/build/
+/frontend/playwright-report/
+/frontend/test-results/
+/frontend/coverage/
+/frontend/stats.html
+/frontend/playwright/.auth/
+
+# Terraform state (never needed by Cloud Build)
+.terraform/
+*.tfstate
+*.tfstate.backup
+config/.terraform.lock.hcl
+
+# Secrets
+.env.secrets
+/frontend/.env.local
+/frontend_server/.env.local
+/frontend_server/.env.development
+/scripts/.env.secrets
+
+# Large data files not needed for building images (/ prefix anchors to repo root)
+/data/
+frontend/public/tmp/
+
+# Archives / misc
+*.zip
+.cspellcache
+tig
+airflow-logs/
+
+# Generated token files (rebuilt inside container by npm run tokens)
+frontend/src/styles/tokens/
+
+# Temp Claude Code test files
+frontend/playwright-tests/_*.spec.ts
+frontend/scripts/_*.ts

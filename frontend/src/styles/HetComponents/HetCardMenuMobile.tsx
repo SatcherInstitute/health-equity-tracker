@@ -1,6 +1,6 @@
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material'
 import Toolbar from '@mui/material/Toolbar'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 
 interface HetCardMenuMobileProps {
   className?: string
@@ -10,6 +10,7 @@ interface HetCardMenuMobileProps {
 
 export default function HetCardMenuMobile(props: HetCardMenuMobileProps) {
   const navigate = useNavigate()
+  const location = useLocation()
 
   const handleSelected = (event: any) => {
     navigate(event.target.value)
@@ -27,7 +28,7 @@ export default function HetCardMenuMobile(props: HetCardMenuMobileProps) {
             <InputLabel id='context-select-label'>{props.label}</InputLabel>
             <Select
               labelId='context-select-label'
-              value={window.location.pathname}
+              value={location.pathname}
               onChange={handleSelected}
               label={props.label}
             >

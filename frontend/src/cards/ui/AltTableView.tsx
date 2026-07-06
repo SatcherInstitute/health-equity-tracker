@@ -1,14 +1,3 @@
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
-} from '@mui/material'
-import { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
@@ -25,6 +14,7 @@ import {
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 import HetExpandableBoxButton from '../../styles/HetComponents/HetExpandableBoxButton'
+import HetTable from '../../styles/HetComponents/HetTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
@@ -47,8 +37,6 @@ interface AltTableViewProps {
 }
 
 export default function AltTableView(props: AltTableViewProps) {
-  const tableRef = useRef(null)
-  const linkRef = useRef(null)
   const optionalAgesPrefix = props.demographicType === AGE ? 'Ages ' : ''
 
   const accessibleData = makeA11yTableData(
@@ -73,6 +61,45 @@ export default function AltTableView(props: AltTableViewProps) {
       : ALT_TABLE_VIEW_1_PARAM_KEY
   }`
 
+  const dataColumnLabel = props.knownMetricConfig.shortLabel
+
+  const hetColumns = Object.keys(accessibleData[0]).map((key) => {
+    const isTimeCol = key === TIME_PERIOD_LABEL
+    const isUnknownPctCol = key.includes('with unknown ')
+
+    let header: React.ReactNode = key.replaceAll('_', ' ')
+    if (!isTimeCol && !isUnknownPctCol) {
+      const prefix = key !== ALL ? optionalAgesPrefix : ''
+      header = `${prefix}${key.replaceAll('_', ' ')} ${dataColumnLabel}`
+    } else if (isTimeCol) {
+      header = `${key.replaceAll('_', ' ')} (${earliestTimePeriod} - ${latestTimePeriod})`
+    }
+
+    return { key, header }
+  })
+
+  const hetRows = accessibleData.map((row) =>
+    Object.fromEntries(
+      Object.keys(row).map((key) => {
+        if (row[key] == null) return [key, null]
+        const isTimePeriod = key === TIME_PERIOD_LABEL
+        const appendPct =
+          key.includes('with unknown ') ||
+          isPctType(props.knownMetricConfig.type)
+        return [
+          key,
+          isTimePeriod
+            ? row[key]
+            : formatFieldValue(
+                props.knownMetricConfig.type,
+                row[key],
+                !appendPct,
+              ),
+        ]
+      }),
+    ),
+  )
+
   return (
     <AnimateHeight
       duration={500}
@@ -94,104 +121,17 @@ export default function AltTableView(props: AltTableViewProps) {
             Add or remove columns by toggling demographic groups above the
             chart.
           </p>
-          <TableContainer className='flex max-h-150 caption-top self-center overflow-auto'>
-            <Table
-              tabIndex={0}
-              ref={tableRef}
-              className='m-3 w-98p whitespace-nowrap rounded-sm border border-alt-dark'
-              size='small'
-              stickyHeader
-            >
-              <caption className='font-medium'>{props.tableCaption}</caption>
-              <TableHead>
-                <TableRow>
-                  {Object.keys(accessibleData[0]).map((key) => {
-                    const isTimeCol = key === TIME_PERIOD_LABEL
-                    const isUnknownPctCol = key.includes('with unknown ')
-
-                    const dataColumnLabel = props.knownMetricConfig.shortLabel
-
-                    return (
-                      <TableCell
-                        key={key}
-                        style={{
-                          whiteSpace: 'normal',
-                          wordWrap: 'break-word',
-                        }}
-                        className='wrap-break-word border-0 border-alt-dark border-b bg-alt-white leading-some-space'
-                      >
-                        {!isTimeCol &&
-                          key !== ALL &&
-                          !isUnknownPctCol &&
-                          optionalAgesPrefix}
-                        {key.replaceAll('_', ' ')}
-                        {!isTimeCol &&
-                          !isUnknownPctCol &&
-                          ` ${dataColumnLabel}`}
-                        {isTimeCol &&
-                          ` (${earliestTimePeriod} - ${latestTimePeriod})`}
-                      </TableCell>
-                    )
-                  })}
-                </TableRow>
-              </TableHead>
-
-              <TableBody>
-                {accessibleData.map((row) => {
-                  const keys = Object.keys(row)
-                  return (
-                    <TableRow
-                      key={row[TIME_PERIOD_LABEL]}
-                      className='odd:bg-methodology-green/10 even:bg-alt-white'
-                    >
-                      {keys.map((key) => {
-                        const isTimePeriod = key === TIME_PERIOD_LABEL
-
-                        const appendPct =
-                          key.includes('with unknown ') ||
-                          isPctType(props.knownMetricConfig.type)
-                        return (
-                          <TableCell
-                            key={key}
-                            style={{
-                              whiteSpace: 'normal',
-                              wordWrap: 'break-word',
-                            }}
-                          >
-                            {row[key] == null ? (
-                              <>
-                                <Tooltip title='Insufficient data'>
-                                  <WarningRoundedIcon />
-                                </Tooltip>
-                                <span className='sr-only'>
-                                  Insufficient data
-                                </span>
-                              </>
-                            ) : (
-                              <>
-                                {isTimePeriod
-                                  ? row[key]
-                                  : formatFieldValue(
-                                      props.knownMetricConfig.type,
-                                      row[key],
-                                      !appendPct,
-                                    )}
-                              </>
-                            )}
-                          </TableCell>
-                        )
-                      })}
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
+          <HetTable
+            rows={hetRows}
+            columns={hetColumns}
+            caption={props.tableCaption}
+            variant='methodology'
+            stickyHeader
+            size='small'
+          />
           <p className='m-0 p-4'>
             View and download full .csv files on the{' '}
-            <a href={DATA_CATALOG_PAGE_LINK} ref={linkRef}>
-              Downloads page.
-            </a>
+            <a href={DATA_CATALOG_PAGE_LINK}>Downloads page.</a>
           </p>
         </>
       )}

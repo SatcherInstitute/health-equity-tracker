@@ -206,10 +206,6 @@ app.post('/fetch-ai-insight', async (req, res) => {
     )
     if (cacheResponse.ok) {
       const cached = await cacheResponse.json()
-      // The data server reports suppression for flagged insights — never serve or regenerate.
-      if (cached.suppressed) {
-        return res.json({ suppressed: true })
-      }
       if (cached.content) {
         insightMemoryCache.set(cacheKey, {
           content: cached.content,

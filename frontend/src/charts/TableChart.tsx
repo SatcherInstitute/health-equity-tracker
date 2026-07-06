@@ -1,25 +1,3 @@
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import { Tooltip } from '@mui/material'
-import Paper from '@mui/material/Paper'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableFooter from '@mui/material/TableFooter'
-import TableHead from '@mui/material/TableHead'
-import TablePagination from '@mui/material/TablePagination'
-import TableRow from '@mui/material/TableRow'
-import {
-  type ColumnDef,
-  createColumnHelper,
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  type SortingState,
-  useReactTable,
-} from '@tanstack/react-table'
-import { useMemo } from 'react'
 import ChartTitle from '../cards/ChartTitle'
 import type { DataTypeId, MetricConfig } from '../data/config/MetricConfigTypes'
 import { formatFieldValue } from '../data/config/MetricConfigUtils'
@@ -29,12 +7,11 @@ import {
   type DemographicType,
 } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
+import HetTable, { type HetTableColumn } from '../styles/HetComponents/HetTable'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
-import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
+import type { CountColsMap } from './mapGlobals'
 import Units from './Units'
 import { removeLastS } from './utils'
-
-const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
 interface TableChartProps {
   countColsMap: CountColsMap
@@ -49,189 +26,75 @@ interface TableChartProps {
 
 export function TableChart(props: TableChartProps) {
   const { data, metricConfigs, demographicType } = props
-  const columnHelper = createColumnHelper<Record<string, any>>()
 
-  const columns = useMemo(() => {
-    const cols: ColumnDef<any>[] = []
+  if (data.length <= 0 || metricConfigs.length <= 0) {
+    return <h1>Insufficient Data</h1>
+  }
 
-    cols.push(
-      columnHelper.accessor(demographicType as string, {
-        header: DEMOGRAPHIC_DISPLAY_TYPES[demographicType],
-        cell: (info) => info.getValue(),
-      }),
-    )
-
-    if (
-      metricConfigs.length > 0 &&
-      metricConfigs[0].metricId === 'hiv_stigma_index'
-    ) {
-      const firstMetricConfig = metricConfigs[0]
-      cols.push(
-        columnHelper.accessor(firstMetricConfig.metricId, {
-          header:
-            firstMetricConfig.columnTitleHeader ?? firstMetricConfig.shortLabel,
-          cell: (info) =>
-            formatFieldValue(firstMetricConfig.type, info.getValue(), true),
-        }),
-      )
-    } else {
-      metricConfigs.forEach((metricConfig) => {
-        cols.push(
-          columnHelper.accessor(metricConfig.metricId, {
-            header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
-            cell: (info) =>
-              formatFieldValue(metricConfig.type, info.getValue(), true),
-          }),
-        )
-      })
-    }
-
-    return cols
-  }, [metricConfigs, demographicType, columnHelper])
-
-  const initialSorting = useMemo<SortingState>(() => {
-    if (demographicType !== 'income') {
-      return [{ id: demographicType, desc: false }]
-    }
-    return []
-  }, [demographicType])
-
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    initialState: {
-      pagination: {
-        pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
-      },
-      sorting: initialSorting,
+  const columns: HetTableColumn[] = [
+    {
+      key: demographicType,
+      header: DEMOGRAPHIC_DISPLAY_TYPES[demographicType],
     },
-  })
+    ...metricConfigs.map((mc) => ({
+      key: mc.metricId,
+      header: mc.columnTitleHeader ?? mc.shortLabel,
+    })),
+  ]
+
+  const rows = data.map((row) =>
+    Object.fromEntries(
+      columns.map((col, colIndex) => {
+        const value = row[col.key]
+        if (value == null) return [col.key, null]
+
+        if (colIndex === 0) {
+          return [col.key, value]
+        }
+
+        const mc = metricConfigs[colIndex - 1]
+
+        const rawNumerator = props.countColsMap.numeratorConfig?.metricId
+          ? row[props.countColsMap.numeratorConfig.metricId]
+          : undefined
+        const numeratorCount =
+          rawNumerator != null ? rawNumerator.toLocaleString() : ''
+        const denominatorCount = props.countColsMap.denominatorConfig?.metricId
+          ? row[props.countColsMap.denominatorConfig.metricId]?.toLocaleString()
+          : ''
+        let numeratorLabel =
+          props.countColsMap.numeratorConfig?.shortLabel ?? ''
+        if (rawNumerator === 1) numeratorLabel = removeLastS(numeratorLabel)
+        const denominatorLabel =
+          props.countColsMap.denominatorConfig?.shortLabel ?? ''
+
+        return [
+          col.key,
+          <>
+            {formatFieldValue(mc.type, value, true)}
+            <Units column={colIndex} metric={metricConfigs} />
+            {colIndex === 1 && numeratorCount && denominatorCount ? (
+              <HetUnitLabel>
+                {' '}
+                ( {numeratorCount} {numeratorLabel} / {denominatorCount}{' '}
+                {denominatorLabel} )
+              </HetUnitLabel>
+            ) : null}
+          </>,
+        ]
+      }),
+    ),
+  )
 
   return (
-    <>
-      {props.data.length <= 0 || props.metricConfigs.length <= 0 ? (
-        <h1>Insufficient Data</h1>
-      ) : (
-        <figure className='m-3'>
-          <figcaption>
-            <ChartTitle
-              title={`${props.dataTableTitle} in ${props.fips.getSentenceDisplayName()} by ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}`}
-              subtitle={props.subtitle}
-            />
-          </figcaption>
-
-          <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
-            <Table>
-              <TableHead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <TableRow key={headerGroup.id}>
-                    {headerGroup.headers.map((header) => (
-                      <TableCell
-                        key={header.id}
-                        className='w-[200px] bg-standard-info'
-                      >
-                        {header.isPlaceholder ? null : (
-                          <div>
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                          </div>
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
-              </TableHead>
-              <TableBody>
-                {table.getRowModel().rows.map((row, rowIndex) => (
-                  <TableRow key={row.id}>
-                    {row.getVisibleCells().map((cell, cellIndex) => {
-                      const value = cell.getValue()
-                      const cellClass = `w-[200px] ${rowIndex % 2 === 0 ? '' : 'bg-standard-info/50'}`
-
-                      const numeratorCount = props.countColsMap.numeratorConfig
-                        ?.metricId
-                        ? row.original[
-                            props.countColsMap.numeratorConfig.metricId
-                          ]?.toLocaleString()
-                        : ''
-                      const denominatorCount = props.countColsMap
-                        .denominatorConfig?.metricId
-                        ? row.original[
-                            props.countColsMap.denominatorConfig.metricId
-                          ]?.toLocaleString()
-                        : ''
-                      let numeratorLabel =
-                        props.countColsMap.numeratorConfig?.shortLabel ?? ''
-                      if (numeratorCount === 1)
-                        numeratorLabel = removeLastS(numeratorLabel)
-                      const denominatorLabel =
-                        props.countColsMap.denominatorConfig?.shortLabel ?? ''
-
-                      return value == null ? (
-                        <TableCell key={cell.id} className={cellClass}>
-                          <Tooltip title={NO_DATA_MESSAGE}>
-                            <WarningRoundedIcon />
-                          </Tooltip>
-                          <span className='sr-only'>{NO_DATA_MESSAGE}</span>
-                        </TableCell>
-                      ) : (
-                        <TableCell key={cell.id} className={cellClass}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                          <Units
-                            column={cellIndex}
-                            metric={props.metricConfigs}
-                          />
-                          {cellIndex === 1 &&
-                          numeratorCount &&
-                          denominatorCount ? (
-                            <HetUnitLabel>
-                              {' '}
-                              ( {numeratorCount} {numeratorLabel} /{' '}
-                              {denominatorCount} {denominatorLabel} )
-                            </HetUnitLabel>
-                          ) : (
-                            <></>
-                          )}
-                        </TableCell>
-                      )
-                    })}
-                  </TableRow>
-                ))}
-              </TableBody>
-              {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
-                <TableFooter>
-                  <TableRow>
-                    <TablePagination
-                      count={data.length}
-                      rowsPerPage={table.getState().pagination.pageSize}
-                      page={table.getState().pagination.pageIndex}
-                      onPageChange={(_, newPage) => {
-                        table.setPageIndex(newPage)
-                      }}
-                      onRowsPerPageChange={(event) => {
-                        table.setPageSize(Number(event.target.value))
-                      }}
-                      rowsPerPageOptions={[
-                        MAX_NUM_ROWS_WITHOUT_PAGINATION,
-                        MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
-                        MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
-                      ]}
-                    />
-                  </TableRow>
-                </TableFooter>
-              )}
-            </Table>
-          </TableContainer>
-        </figure>
-      )}
-    </>
+    <figure className='m-3'>
+      <figcaption>
+        <ChartTitle
+          title={`${props.dataTableTitle} in ${props.fips.getSentenceDisplayName()} by ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}`}
+          subtitle={props.subtitle}
+        />
+      </figcaption>
+      <HetTable rows={rows} columns={columns} variant='info' />
+    </figure>
   )
 }
