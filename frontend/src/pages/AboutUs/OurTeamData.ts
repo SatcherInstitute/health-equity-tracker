@@ -12,7 +12,6 @@ import Megan from '../../assets/team/DouglasMegan.jpg'
 import Ben from '../../assets/team/HammondBen.jpg'
 import Jammie from '../../assets/team/HopkinsJammie.jpg'
 import Evan from '../../assets/team/MartinE.jpg'
-import Donrie from '../../assets/team/PurcellDonrie.png'
 import DrHH from '../../assets/team/SHarris-Hooker.jpg'
 import Shaneeta from '../../assets/team/ShaneetaJohnson.png'
 import Maisha from '../../assets/team/StandiferM.png'
@@ -43,11 +42,6 @@ export const LEADERSHIP_TEAM = [
     name: 'Allyson Belton, MPH',
     role: 'Coalition/Engagement',
     imageUrl: Allyson,
-  },
-  {
-    name: 'Donrie Purcell, PhD, MPH',
-    role: 'Senior Health Systems Data Analyst',
-    imageUrl: Donrie,
   },
   {
     name: 'Maisha Standifer, PhD, MPH',
@@ -135,6 +129,10 @@ export const HET_ALUMNI = [
   {
     name: 'Jareese Stroud, MPH',
     role: 'Researcher',
+  },
+  {
+    name: 'Donrie Purcell, PhD, MPH',
+    role: 'Senior Health Systems Data Analyst',
   },
 ]
 export const GOOGLE_FELLOWS = [
