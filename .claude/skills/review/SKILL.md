@@ -1,12 +1,12 @@
 ---
 name: review
 model: opus
-description: Senior engineer review of the open PR (or a specified PR number) across four lenses - scientific accuracy, sensitive language, maintainability, and accessibility. Posts a formal GitHub review (request-changes if any BLOCKING issues found, otherwise comment). Nits are routed to tooling suggestions rather than inline comments. Advances health equity by catching data errors, harmful language, and a11y failures before they reach users.
+description: Senior engineer review of the open PR (or a specified PR number) across four lenses - scientific accuracy, sensitive language, maintainability, and accessibility. Delivers findings inline in the conversation as plain readable prose. Silently writes a GitHub-formatted version to /tmp/het-review.md for optional posting via /review-post. Advances health equity by catching data errors, harmful language, and a11y failures before they reach users.
 ---
 
 # /review
 
-Perform a senior engineer review of the open PR. The review evaluates the change through four lenses weighted by PR type, posts findings as a formal GitHub review, and routes nits to tooling suggestions rather than cluttering the review thread.
+Perform a senior engineer review of the open PR. The review evaluates the change through four lenses weighted by PR type.
 
 The user may pass a PR number as an argument (e.g. `/review 4764`). If none is given, detect the open PR from the current branch.
 
@@ -37,21 +37,17 @@ Read each changed file in full (not just the diff). The diff alone can be mislea
 
 Determine which of these categories best describes the PR (may be multiple):
 
-| Type | Key signals |
-|---|---|
-| **Backend data pipeline** | Changes in `python/datasources/`, `python/ingestion/`, `data/` |
-| **Frontend UI** | Changes in `frontend/src/` |
-| **Infrastructure / DAG** | Changes in `.github/workflows/dag*.yml`, `run_ingestion/`, `run_gcs_to_bq/` |
-| **Docs / config** | Changes only in `*.md`, `CLAUDE.md`, config files |
+- Backend data pipeline: changes in `python/datasources/`, `python/ingestion/`, `data/`
+- Frontend UI: changes in `frontend/src/`
+- Infrastructure / DAG: changes in `.github/workflows/dag*.yml`, `run_ingestion/`, `run_gcs_to_bq/`
+- Docs / config: changes only in `*.md`, `CLAUDE.md`, config files
 
-Lens weights by type:
+Lens weights:
 
-| Lens | Backend | Frontend | Infra | Docs |
-|---|---|---|---|---|
-| Scientific accuracy | HIGH | MEDIUM | LOW | LOW |
-| Sensitive language | HIGH | HIGH | LOW | HIGH |
-| Maintainability | HIGH | HIGH | MEDIUM | LOW |
-| Accessibility | LOW | HIGH | LOW | LOW |
+- Scientific accuracy: HIGH for backend, MEDIUM for frontend, LOW for infra/docs
+- Sensitive language: HIGH for backend and frontend, LOW for infra/docs
+- Maintainability: HIGH for backend and frontend, MEDIUM for infra, LOW for docs
+- Accessibility: HIGH for frontend, LOW for everything else
 
 Apply all four lenses but focus depth and blocking thresholds on the HIGH-weight ones for this PR type.
 
@@ -61,7 +57,7 @@ Apply all four lenses but focus depth and blocking thresholds on the HIGH-weight
 
 Before the detailed review, answer this question explicitly:
 
-> Does this PR make the Health Equity Tracker more accurate, more accessible to users, or easier to maintain so more health equity data can flow? Does it improve developer experience in a way that broadens the contributor pool or makes the codebase more approachable? Or does it directly advance the Satcher Institute's mission of eliminating health disparities?
+Does this PR make the Health Equity Tracker more accurate, more accessible to users, or easier to maintain so more health equity data can flow? Does it improve developer experience in a way that broadens the contributor pool or makes the codebase more approachable? Or does it directly advance the Satcher Institute's mission of eliminating health disparities?
 
 HET is an open-source project that actively welcomes early-career developers making their first open-source or production-grade commits. A PR that improves devX (better tooling, cleaner abstractions, modern patterns, documentation) is a valid and valuable contribution even if it does not touch health data directly. It expands the contributor pool that can eventually improve the data. PRs that let contributors work with interesting or resume-relevant technologies are genuinely good for the project.
 
@@ -75,7 +71,7 @@ If the answer to all mission alignment questions is genuinely no: flag it as a q
 
 Check each item below. Mark as BLOCKING, IMPORTANT, or skip based on whether it applies.
 
-**Data integrity:**
+Data integrity:
 - Denominators and numerators cover the same population, geography, and time window. A rate computed over mismatched scopes is a data error, not a style issue.
 - Race/ethnicity categories match HET standard labels. Reference `ingestion/standardized_columns.py` (`Race` enum) and the source's grouping logic. Non-standard labels silently produce null joins.
 - Suppression thresholds: counts below 100 should be suppressed or flagged per HET policy. Verify suppression is applied before percent calculations, not after.
@@ -85,7 +81,7 @@ Check each item below. Mark as BLOCKING, IMPORTANT, or skip based on whether it 
 - AIAN/API grouping: CAWP and some other sources combine AIAN+NHPI as AIANAPI. Verify the grouping logic matches `add_aian_api` and the downstream Race enum.
 - Hardcoded years or thresholds that should reference shared constants (`ACS_EARLIEST_YEAR`, `ACS_CURRENT_YEAR`).
 
-**Source fidelity:**
+Source fidelity:
 - Does the methodology comment or PR description accurately describe what the data measures? If the source changed format, is that reflected in the code and docs?
 - Are `TODO` comments tied to a specific GitHub issue number? Floating TODOs rot.
 
@@ -93,38 +89,38 @@ Check each item below. Mark as BLOCKING, IMPORTANT, or skip based on whether it 
 
 ## Step 5: Sensitive language lens (HIGH weight for frontend and data pipeline PRs)
 
-**Person-first language:** "people with diabetes," not "diabetics"; "people experiencing homelessness," not "the homeless." Check all UI strings, column names that surface to users, and methodology text.
+Person-first language: "people with diabetes," not "diabetics"; "people experiencing homelessness," not "the homeless." Check all UI strings, column names that surface to users, and methodology text.
 
-**Avoid:**
+Avoid:
 - "vulnerable populations" (use specific: "communities with lower income," "rural communities")
 - "at-risk" without qualification
 - "minority" as a noun without context (prefer "people of color," "Black and Latino communities," etc., matching the data source's own framing)
 - Stigmatizing disease language: "substance abuser" should be "person with substance use disorder"; "addict" should be "person in recovery"
 - Ableist defaults: "see the chart," "click here" in accessible contexts
 
-**Race/ethnicity labels:** UI labels must match the HET standard display names (e.g., "Black or African American," "Hispanic or Latino"). Check `MetricConfig` tooltip labels and axis labels against `RACE_LABELS` or equivalent constants.
+Race/ethnicity labels: UI labels must match the HET standard display names (e.g., "Black or African American," "Hispanic or Latino"). Check `MetricConfig` tooltip labels and axis labels against `RACE_LABELS` or equivalent constants.
 
-**Data source attribution:** If the PR surfaces data from a new source, verify the source name and methodology description are accurate and not inadvertently editorialized.
+Data source attribution: If the PR surfaces data from a new source, verify the source name and methodology description are accurate and not inadvertently editorialized.
 
 ---
 
 ## Step 6: Maintainability lens (HIGH weight for backend and frontend PRs)
 
-**Abstraction level:**
+Abstraction level:
 - Is new logic duplicating something in `ingestion/merge_utils.py`, `ingestion/dataset_utils.py`, or a shared frontend hook/util? Check before flagging; don't demand abstraction that doesn't exist yet.
 - Is new abstraction created for a single call site? Three similar uses justify extraction; one does not.
 
-**Patterns:**
+Patterns:
 - Backend: new `DataSource` subclasses should follow the `write_to_bq` / `get_breakdowns` split used by `CdcHiv`, `Phrma`, etc.
 - Frontend: new metric configs belong in `MetricConfig<Topic>.ts`; new providers extend `VariableProvider` and register in `VariableProviderMap.ts`; new UI components use MUI + HET design tokens (`het-teal`, `het-purple`, `het-grey`, etc.), not raw hex values.
 - Shared components: check `frontend/src/styles/HetComponents/` and `frontend/src/utils/` before suggesting a new component is needed.
 
-**Test coverage:**
+Test coverage:
 - Is the right thing tested? Unit tests on pure transforms are good. Integration tests that exercise the full `write_to_bq` path (like CAWP's `testWriteToBq`) catch join and aggregation bugs that unit tests miss.
 - Golden data: if output tables changed shape, were golden CSVs regenerated?
 - Are mocks faithful to the real API? A mock that accepts bad input and returns good output is worse than no test.
 
-**Operational concerns:**
+Operational concerns:
 - New DAG workflows: does the workflow have a failure notification step? Does it respect the infra-test pattern?
 - Data files committed to `data/`: is there a refresh script or documented process for keeping them current?
 
@@ -132,112 +128,72 @@ Check each item below. Mark as BLOCKING, IMPORTANT, or skip based on whether it 
 
 ## Step 7: Accessibility lens (HIGH weight for frontend PRs)
 
-**WCAG 2.1 AA baseline:**
+WCAG 2.1 AA baseline:
 - Color contrast: text on background >= 4.5:1; large text >= 3:1. Especially critical for data viz labels and map legends that use the HET color palette.
 - No color-only encoding: every color distinction must also have a shape, pattern, or label distinction. Check D3 charts and map gradients.
 - Interactive elements: buttons, links, and controls must have visible focus rings and accessible names (`aria-label` or visible text). Check any new `IconButton` or custom click targets.
 - Screen reader: new charts need an accessible text alternative, either a summary description or a data table. Check whether `HetNotice` or equivalent is used for chart descriptions.
 - Keyboard navigation: any new modal, dropdown, or drawer must trap focus correctly and release it on close.
 
-**Motion:**
-- Animations should respect `prefers-reduced-motion`. Check new CSS transitions or D3 transitions.
+Motion: animations should respect `prefers-reduced-motion`. Check new CSS transitions or D3 transitions.
 
-**Forms and inputs:**
-- Every input needs a visible label (not just a placeholder). Error messages must be associated via `aria-describedby`.
+Forms and inputs: every input needs a visible label (not just a placeholder). Error messages must be associated via `aria-describedby`.
 
 ---
 
-## Step 8: Compile findings and draft review
+## Step 8: Compile findings
 
 Organize findings into three buckets:
 
-### BLOCKING (must fix before merge)
-Issues that produce incorrect data, harmful language, a11y failures that exclude users, or security problems. Request changes for any of these.
+BLOCKING (must fix before merge): issues that produce incorrect data, harmful language, a11y failures that exclude users, or security problems.
 
-Format each as:
-```
-**[BLOCKING] <short title>**
-File: `path/to/file.py`, line N
-Issue: <what is wrong and why it matters>
-Fix: <specific suggested change>
-```
+IMPORTANT (should address, not a merge blocker): pattern violations, missing tests for significant logic, suboptimal abstractions, language that is imprecise but not harmful.
 
-### IMPORTANT (should address, not a merge blocker)
-Pattern violations, missing tests for significant logic, suboptimal abstractions, language that is imprecise but not harmful.
-
-Format each as:
-```
-**[IMPORTANT] <short title>**
-File: `path/to/file.py`, line N
-Issue: <what and why>
-Suggestion: <what to do>
-```
-
-### TOOLING SUGGESTIONS (do not post as inline comments)
-Pure nits: import order, formatting, naming conventions that could be enforced by Biome, cspell word additions, pylint rules. Draft the actual config change so the author can open a quick follow-up PR:
-
-```
-**Tooling: <description>**
-Consider a follow-up PR:
-<details>
-<summary>Suggested config change</summary>
-
-\`\`\`json
-// .biome.json
-\`\`\`
-</details>
-```
+NITS: pure style/formatting issues that could be enforced by tooling. Collect these but do not clutter the conversation with them — only surface if there are three or more and a single config change would fix them all.
 
 ---
 
-## Step 9: Present findings inline and wait for user confirmation
+## Step 9: Deliver the review in conversation, then silently write the GitHub version
 
-Determine verdict:
-- Any BLOCKING findings: `request-changes`
-- No BLOCKING, but IMPORTANT findings or tooling suggestions: `comment`
-- No findings: `comment` with a brief positive note (human reviewer still approves formally)
+### Conversation output (primary — what the user reads)
 
-Write `/tmp/het-review.md` with the verdict on the first line, then the body:
+Lead with a one-sentence verdict:
+- Blocking issues found: say what they are and why upfront
+- No blockers: say so clearly
+
+Then list findings in plain prose. No markdown tables. Use short paragraphs or dashes. Cite file and line number inline (e.g., "config/run.tf line 136"). Keep each finding to 2-3 sentences: what's wrong, why it matters, what to do.
+
+Group by severity:
+1. Blockers (if any)
+2. Important items
+3. Nits (brief, one line each)
+
+End with a one-sentence summary of what the PR does well.
+
+### GitHub version (write silently, no need to show the user)
+
+After delivering the conversation output, write `/tmp/het-review.md` for the rare case the user wants to post it. Use this format:
 
 ```
 VERDICT: <request-changes|comment>
-## 🤖 Health Equity Tracker: Auto-Review
+## Health Equity Tracker: Auto-Review
 
 **PR type:** <backend data / frontend UI / infra / docs>
-**Mission alignment:** <one sentence on how this advances health equity or devX, or flag if unclear>
+**Mission alignment:** <one sentence>
 
----
+### Blocking Issues
+<findings or "None">
 
-### Scientific Accuracy
-<findings or "No issues found">
+### Important Suggestions
+<findings or "None">
 
-### Sensitive Language
-<findings or "No issues found">
+### Nits / Tooling
+<items or omit>
 
-### Maintainability
-<findings or "No issues found">
-
-### Accessibility
-<findings or "No issues found">
-
----
-
-### Tooling Suggestions
-<tooling items, or omit section if none>
-
----
-
-*Review by Claude Code (/review skill). Blocking issues require resolution before merge; important suggestions are at the author's discretion.*
+*Review by Claude Code (/review skill).*
 ```
 
-**Present the full review body inline in the conversation** — paste it as a markdown block so the user can read every finding before it goes to GitHub.
-
-Then use `AskUserQuestion` to ask: "Post this review to GitHub?"
-
-- Option A: **Yes, post it** — invoke `/review-post` to handle the mechanical posting and thread-resolution (runs on haiku at a fraction of this skill's token cost)
-- Option B: **No, don't post** — stop here; the user can give feedback and re-run if needed
-
-Do not call `/review-post` until the user explicitly confirms.
+Do NOT ask the user whether to post. Just mention at the end: "The GitHub-formatted version is at /tmp/het-review.md if you want to post it — run /review-post to do that."
 
 ---
 

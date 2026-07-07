@@ -118,6 +118,7 @@ export function HetCarouselCard({
                   </div>
                   {readMoreHref && (
                     <div className='mb-4 flex w-full flex-row items-center justify-start gap-2 py-0'>
+                      {/* biome-ignore lint/a11y/noAmbiguousAnchorText: accessible name comes from the dynamic aria-label, which Biome can't evaluate statically */}
                       <a
                         target='_blank'
                         rel='noopener noreferrer'
@@ -167,6 +168,7 @@ export function HetCarouselCard({
                   </div>
                   {readMoreHref && (
                     <div className='mb-4 flex w-full flex-row items-center justify-start gap-2 py-0'>
+                      {/* biome-ignore lint/a11y/noAmbiguousAnchorText: accessible name comes from the dynamic aria-label, which Biome can't evaluate statically */}
                       <a
                         className='ml-auto font-medium text-small leading-some-space no-underline'
                         aria-label={`Learn more about ${ariaLabel}`}
