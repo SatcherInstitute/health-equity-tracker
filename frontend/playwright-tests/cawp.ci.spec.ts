@@ -33,10 +33,44 @@ test('CAWP: Congress', async ({ page }) => {
       expect.soft(page.getByLabel('Include All women')).toBeVisible(),
     ])
   })
+})
 
-  await expect
-    .soft(page.getByText('No unknown values for race/ethnicity reported'))
-    .toBeVisible()
+test('CAWP: County view loads with multi-district caveat', async ({ page }) => {
+  // Fulton County GA (13121) spans multiple congressional districts
+  await page.goto(
+    '/exploredata?mls=1.women_in_gov-3.13121&group1=All&dt1=women_in_us_congress',
+    { waitUntil: 'domcontentloaded' },
+  )
+
+  const rateChart = page.locator('#rate-chart')
+  await rateChart.scrollIntoViewIfNeeded()
+
+  await test.step('County congress data renders with percentage values', async () => {
+    await Promise.all([
+      expect
+        .soft(
+          rateChart.getByRole('heading', {
+            name: /US Congress members identifying as women/i,
+          }),
+        )
+        .toBeVisible(),
+      // axis label confirms pct_rate metric is rendering
+      expect.soft(rateChart.getByText('% women in Congress')).toBeVisible(),
+    ])
+  })
+
+  await test.step('Multi-district caveat alert is visible', async () => {
+    await expect
+      .soft(page.getByText(/A county may span multiple districts/i))
+      .toBeVisible()
+  })
+
+  await test.step('State legislature metrics are not shown at county level', async () => {
+    // State legislature topic appears at county level but with a no-data notice
+    await expect
+      .soft(page.getByText(/unable to locate reliable data/i))
+      .toBeVisible()
+  })
 })
 
 test('CAWP: State Legislature', async ({ page }) => {

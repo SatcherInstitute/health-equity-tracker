@@ -107,4 +107,46 @@ describe('CAWP Unit Tests', () => {
       'rate-map',
     )
   })
+
+  test('congressional_districts flows through to query response when requested', async () => {
+    const cawpProvider = new CawpProvider()
+    const breakdowns = Breakdowns.forChildrenFips(new Fips('06')).addBreakdown(
+      RACE,
+    )
+    const datasetId = 'cawp_data-race_and_ethnicity_county_current-06'
+    dataFetcher.setFakeDatasetLoaded(datasetId, [
+      {
+        county_fips: '06001',
+        county_name: 'Alameda',
+        state_fips: '06',
+        fips: '06001',
+        fips_name: 'Alameda',
+        race_and_ethnicity: 'All',
+        pct_share_of_us_congress: 10,
+        congressional_districts: '13,14',
+      },
+      {
+        county_fips: '06003',
+        county_name: 'Alpine',
+        state_fips: '06',
+        fips: '06003',
+        fips_name: 'Alpine',
+        race_and_ethnicity: 'All',
+        pct_share_of_us_congress: 5,
+        congressional_districts: '4',
+      },
+    ])
+
+    const response = await cawpProvider.getData(
+      new MetricQuery(
+        ['pct_share_of_us_congress', 'congressional_districts'],
+        breakdowns,
+        'women_in_us_congress',
+        'current',
+      ),
+    )
+
+    const districts = response.data.map((row) => row.congressional_districts)
+    expect(districts).toEqual(['13,14', '4'])
+  })
 })

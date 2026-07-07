@@ -1,5 +1,5 @@
-import { useAtom } from 'jotai'
-import { useEffect } from 'react'
+import { useAtomValue, useSetAtom } from 'jotai'
+import { useEffect, useMemo } from 'react'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import MapCard from '../cards/MapCard'
 import RateBarChartCard from '../cards/RateBarChartCard'
@@ -11,29 +11,34 @@ import UnknownsMapCard from '../cards/UnknownsMapCard'
 import type { DropdownVarId } from '../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
-import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
+import {
+  applyGeoOverrides,
+  metricConfigFromDtConfig,
+} from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
-import Sidebar from '../pages/ui/Sidebar'
+import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
+import InsightReportCard from '../pages/ExploreData/InsightReportCard'
+import InsightReportModal from '../pages/ExploreData/InsightReportModal'
+import ReportSidebarDesktop from '../pages/ui/ReportSidebarDesktop'
 import HetLazyLoader from '../styles/HetComponents/HetLazyLoader'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import type { MadLibId } from '../utils/MadLibs'
-import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import {
-  DATA_TYPE_1_PARAM,
-  DEMOGRAPHIC_PARAM,
-  getParameter,
-  psSubscribe,
-  swapOldDatatypeParams,
-} from '../utils/urlutils'
+  selectedDataTypeConfig1Atom,
+  selectedDemographicTypeAtom,
+  selectedFipsAtom,
+} from '../utils/sharedSettingsState'
+import { DEMOGRAPHIC_PARAM, REPORT_INSIGHT_PARAM_KEY } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
 import { getAllDemographicOptions } from './reportUtils'
-import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
+import ReportTopbarMobile from './ui/ReportTopbarMobile'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 
 interface ReportProps {
@@ -46,7 +51,6 @@ interface ReportProps {
   setReportStepHashIds?: (hashIdsOnScreen: any[]) => void
   headerScrollMargin: number
   reportTitle: string
-  isMobile: boolean
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
   dataTypesToDefine: Array<[string, DataTypeConfig[]]>
@@ -58,6 +62,7 @@ export interface ChartData {
 }
 
 export function Report(props: ReportProps) {
+  const isDesktopLayout = useIsBreakpointAndUp('md')
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
@@ -66,46 +71,43 @@ export function Report(props: ReportProps) {
     defaultDemo,
   )
 
-  const [dataTypeConfig, setDataTypeConfig] = useAtom(
-    selectedDataTypeConfig1Atom,
+  const [insightIsOpen] = useParamState(REPORT_INSIGHT_PARAM_KEY)
+  const insightMode = Boolean(SHOW_INSIGHT_GENERATION && insightIsOpen)
+
+  const dataTypeConfig = useAtomValue(selectedDataTypeConfig1Atom)
+  const setSelectedFips = useSetAtom(selectedFipsAtom)
+  const setSelectedDemographicType = useSetAtom(selectedDemographicTypeAtom)
+
+  const resolvedConfig = useMemo(
+    () =>
+      applyGeoOverrides(
+        dataTypeConfig ?? METRIC_CONFIG[props.dropdownVarId]?.[0],
+        props.fips.getGeographicBreakdown(),
+      ),
+    [dataTypeConfig, props.dropdownVarId, props.fips.code],
   )
 
-  const { enabledDemographicOptionsMap, disabledDemographicOptions } =
-    getAllDemographicOptions(dataTypeConfig, props.fips)
+  const { enabledDemographicOptionsMap, disabledDemographicOptions } = useMemo(
+    () => getAllDemographicOptions(resolvedConfig, props.fips),
+    [resolvedConfig, props.fips],
+  )
 
   // if the DemographicType in state doesn't work for the selected datatype, reset to the first demographic type option that works
-  if (
-    dataTypeConfig &&
-    !Object.values(enabledDemographicOptionsMap).includes(demographicType)
-  ) {
-    setDemographicType(
-      Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
-    )
-  }
+  useEffect(() => {
+    if (
+      resolvedConfig &&
+      !Object.values(enabledDemographicOptionsMap).includes(demographicType)
+    ) {
+      setDemographicType(
+        Object.values(enabledDemographicOptionsMap)[0] as DemographicType,
+      )
+    }
+  }, [resolvedConfig, demographicType, enabledDemographicOptionsMap])
 
   useEffect(() => {
-    const readParams = () => {
-      const dtParam1 = getParameter(
-        DATA_TYPE_1_PARAM,
-        undefined,
-        (val: string) => {
-          val = swapOldDatatypeParams(val)
-          return METRIC_CONFIG[props.dropdownVarId]?.find(
-            (cfg) => cfg.dataTypeId === val,
-          )
-        },
-      )
-      setDataTypeConfig(dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
-    }
-    const psHandler = psSubscribe(readParams, 'vardisp')
-    readParams()
-
-    return () => {
-      if (psHandler) {
-        psHandler.unsubscribe()
-      }
-    }
-  }, [props.dropdownVarId, demographicType])
+    setSelectedFips(props.fips)
+    setSelectedDemographicType(demographicType)
+  }, [props.fips, demographicType])
 
   // when variable config changes (new data type), re-calc available card steps TableOfContents
   useEffect(() => {
@@ -114,13 +116,13 @@ export function Report(props: ReportProps) {
     )
 
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
-  }, [dataTypeConfig])
+  }, [resolvedConfig])
 
   const demographicTypeString: string =
-    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType] ?? 'demographic'
+    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
 
   const browserTitle = `${
-    (dataTypeConfig?.fullDisplayName as string) ?? 'Data'
+    (resolvedConfig?.fullDisplayName as string) ?? 'Data'
   } by ${demographicTypeString} in ${props.fips.getFullDisplayName()}`
 
   const offerJumpToAgeAdjustment = [
@@ -129,11 +131,16 @@ export function Report(props: ReportProps) {
   ].includes(props.dropdownVarId)
 
   const rateMetricConfig =
-    dataTypeConfig && metricConfigFromDtConfig('rate', dataTypeConfig)
+    resolvedConfig && metricConfigFromDtConfig('rate', resolvedConfig)
   const shareMetricConfig =
-    dataTypeConfig && metricConfigFromDtConfig('share', dataTypeConfig)
+    resolvedConfig && metricConfigFromDtConfig('share', resolvedConfig)
   const inequityOverTimeConfig =
-    dataTypeConfig && metricConfigFromDtConfig('inequity', dataTypeConfig)
+    resolvedConfig && metricConfigFromDtConfig('inequity', resolvedConfig)
+
+  const showInsightsButton =
+    resolvedConfig &&
+    SHOW_INSIGHT_GENERATION &&
+    props.trackerMode === 'disparity'
 
   return (
     <>
@@ -141,22 +148,26 @@ export function Report(props: ReportProps) {
 
       <div className='flex'>
         {/* CARDS COLUMN */}
-        <div className='w-full md:w-10/12'>
+        <div className={`w-full ${insightMode ? 'md:w-6/12' : 'md:w-10/12'}`}>
+          {!isDesktopLayout && <InsightReportModal />}
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
-          <ModeSelectorBoxMobile
+          <ReportTopbarMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
+            showInsightsButton={showInsightsButton}
           />
 
           <div className='flex w-full items-center justify-center'>
-            {dataTypeConfig && (
-              <div className='flex w-full flex-col content-center'>
+            {resolvedConfig && (
+              <div
+                key={String(insightMode)}
+                className='flex w-full flex-col content-center'
+              >
                 {/* 100k MAP CARD */}
                 <div
-                  tabIndex={-1}
                   id='rate-map'
                   // NOTE: use inline styles to set dynamic scroll margin based on MadLib header height
                   style={{
@@ -164,7 +175,9 @@ export function Report(props: ReportProps) {
                   }}
                 >
                   <MapCard
-                    dataTypeConfig={dataTypeConfig}
+                    dataTypeConfig={
+                      dataTypeConfig ?? METRIC_CONFIG[props.dropdownVarId]?.[0]
+                    } // map card handles its own geo overrides, so use original config not resolved
                     fips={props.fips}
                     updateFipsCallback={(fips: Fips) => {
                       props.updateFipsCallback(fips)
@@ -178,12 +191,11 @@ export function Report(props: ReportProps) {
                 {/* RATE TRENDS LINE CHART CARD */}
                 {rateMetricConfig?.timeSeriesCadence && (
                   <div
-                    tabIndex={-1}
                     className='w-full scroll-m-0 md:scroll-mt-24'
                     id='rates-over-time'
                   >
                     <RateTrendsChartCard
-                      dataTypeConfig={dataTypeConfig}
+                      dataTypeConfig={resolvedConfig}
                       demographicType={demographicType}
                       fips={props.fips}
                       reportTitle={props.reportTitle}
@@ -193,7 +205,6 @@ export function Report(props: ReportProps) {
 
                 {/* 100K BAR CHART CARD */}
                 <div
-                  tabIndex={-1}
                   className='w-full'
                   id='rate-chart'
                   style={{
@@ -201,7 +212,7 @@ export function Report(props: ReportProps) {
                   }}
                 >
                   <RateBarChartCard
-                    dataTypeConfig={dataTypeConfig}
+                    dataTypeConfig={resolvedConfig}
                     demographicType={demographicType}
                     fips={props.fips}
                     reportTitle={props.reportTitle}
@@ -210,7 +221,6 @@ export function Report(props: ReportProps) {
 
                 {/* UNKNOWNS MAP CARD */}
                 <div
-                  tabIndex={-1}
                   className='w-full'
                   id='unknown-demographic-map'
                   style={{
@@ -221,7 +231,7 @@ export function Report(props: ReportProps) {
                     {shareMetricConfig && (
                       <UnknownsMapCard
                         overrideAndWithOr={demographicType === RACE}
-                        dataTypeConfig={dataTypeConfig}
+                        dataTypeConfig={resolvedConfig}
                         fips={props.fips}
                         updateFipsCallback={(fips: Fips) => {
                           props.updateFipsCallback(fips)
@@ -236,13 +246,12 @@ export function Report(props: ReportProps) {
                 {/* SHARE TRENDS LINE CHART CARD */}
                 {inequityOverTimeConfig?.timeSeriesCadence && (
                   <div
-                    tabIndex={-1}
                     id='inequities-over-time'
                     className='w-full scroll-m-0 md:scroll-mt-24'
                   >
-                    <HetLazyLoader offset={600} height={750} once>
+                    <HetLazyLoader offset={600} height={250} once>
                       <ShareTrendsChartCard
-                        dataTypeConfig={dataTypeConfig}
+                        dataTypeConfig={resolvedConfig}
                         demographicType={demographicType}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
@@ -253,7 +262,6 @@ export function Report(props: ReportProps) {
 
                 {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
                 <div
-                  tabIndex={-1}
                   className='w-full'
                   id='population-vs-distribution'
                   style={{
@@ -263,7 +271,7 @@ export function Report(props: ReportProps) {
                   <HetLazyLoader offset={800} height={0} once>
                     {shareMetricConfig && (
                       <StackedSharesBarChartCard
-                        dataTypeConfig={dataTypeConfig}
+                        dataTypeConfig={resolvedConfig}
                         demographicType={demographicType}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
@@ -274,7 +282,6 @@ export function Report(props: ReportProps) {
 
                 {/* DATA TABLE CARD */}
                 <div
-                  tabIndex={-1}
                   className='w-full'
                   id='data-table'
                   style={{
@@ -283,16 +290,15 @@ export function Report(props: ReportProps) {
                 >
                   <TableCard
                     fips={props.fips}
-                    dataTypeConfig={dataTypeConfig}
+                    dataTypeConfig={resolvedConfig}
                     demographicType={demographicType}
                     reportTitle={props.reportTitle}
                   />
                 </div>
 
                 {/* AGE ADJUSTED TABLE CARD */}
-                {dataTypeConfig.metrics?.age_adjusted_ratio && (
+                {resolvedConfig.metrics?.age_adjusted_ratio && (
                   <div
-                    tabIndex={-1}
                     className='w-full'
                     id='age-adjusted-ratios'
                     style={{
@@ -302,7 +308,7 @@ export function Report(props: ReportProps) {
                     <HetLazyLoader offset={800} height={800} once>
                       <AgeAdjustedTableCard
                         fips={props.fips}
-                        dataTypeConfig={dataTypeConfig}
+                        dataTypeConfig={resolvedConfig}
                         dropdownVarId={props.dropdownVarId}
                         demographicType={demographicType}
                         reportTitle={props.reportTitle}
@@ -314,25 +320,33 @@ export function Report(props: ReportProps) {
                   <p>{SHARE_LABEL}</p>
                   <ShareButtons
                     reportTitle={props.reportTitle}
-                    isMobile={props.isMobile}
+                    isMobile={!isDesktopLayout}
                   />{' '}
                 </div>
               </div>
             )}
           </div>
         </div>
+        {/* INSIGHT CARD COLUMN - shown when insight is open */}
+        {insightMode && resolvedConfig && (
+          <div className='hidden md:flex md:w-4/12 md:flex-col'>
+            <InsightReportCard headerScrollMargin={props.headerScrollMargin} />
+          </div>
+        )}
+
         <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
-          <Sidebar
+          <ReportSidebarDesktop
             floatTopOffset={props.headerScrollMargin}
             isScrolledToTop={props.isScrolledToTop}
             reportStepHashIds={props.reportStepHashIds ?? []}
             reportTitle={props.reportTitle}
-            isMobile={props.isMobile}
+            isMobile={!isDesktopLayout}
             // Mode selectors are in sidebar only on larger screens
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
+            showInsightsButton={showInsightsButton}
           />
         </div>
       </div>

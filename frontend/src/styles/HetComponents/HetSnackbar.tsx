@@ -5,6 +5,7 @@ interface HetSnackbarProps {
   children?: ReactNode
   open: boolean
   handleClose: () => void
+  severity?: 'success' | 'error' | 'warning' | 'info'
 }
 export default function HetSnackbar(props: HetSnackbarProps) {
   return (
@@ -13,10 +14,13 @@ export default function HetSnackbar(props: HetSnackbarProps) {
       autoHideDuration={5000}
       onClose={props.handleClose}
       anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-      TransitionComponent={SlideTransition}
+      slots={{
+        transition: SlideTransition,
+      }}
     >
       <Alert
         onClose={props.handleClose}
+        severity={props.severity ?? 'success'}
         className='border border-bar-chart-light border-solid'
         role='alert'
       >

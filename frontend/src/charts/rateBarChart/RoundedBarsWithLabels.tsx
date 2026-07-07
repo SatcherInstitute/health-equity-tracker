@@ -3,8 +3,13 @@ import { useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
-import { buildRoundedBarString } from '../sharedBarChartPieces/helpers'
-import { LABEL_SWAP_CUTOFF_PERCENT } from './constants'
+import { colors } from '../../styles/tokens/colors'
+import {
+  buildRoundedBarString,
+  formatValue,
+} from '../sharedBarChartPieces/helpers'
+import type { BarChartTooltipData } from './BarChartTooltip'
+import { EXTRA_SPACE_AFTER_ALL, LABEL_SWAP_CUTOFF_PERCENT } from './constants'
 import EndOfRateBarLabel from './EndOfRateBarLabel'
 
 interface RoundedBarsWithLabelsProps {
@@ -15,29 +20,51 @@ interface RoundedBarsWithLabelsProps {
   yScale: ScaleBand<string>
   getYPosition: (index: number, label: string) => number
   isTinyAndUp: boolean
-  handleTooltip: any
-  closeTooltip: any
+  allIndex: number
+  showTooltip: (data: BarChartTooltipData, x: number, y: number) => void
+  hideTooltipDelayed: () => void
 }
 
-export default function RoundedBarsWithLabels(
-  props: RoundedBarsWithLabelsProps,
-) {
+export default function RoundedBarsWithLabels({
+  processedData,
+  metricConfig,
+  demographicType,
+  xScale,
+  yScale,
+  getYPosition,
+  isTinyAndUp,
+  allIndex,
+  showTooltip,
+  hideTooltipDelayed,
+}: RoundedBarsWithLabelsProps) {
   const barLabelBreakpoint = useMemo(() => {
-    const maxValue =
-      max(props.processedData, (d) => d[props.metricConfig.metricId]) || 0
+    const maxValue = max(processedData, (d) => d[metricConfig.metricId]) || 0
     return maxValue * (LABEL_SWAP_CUTOFF_PERCENT / 100)
-  }, [props.processedData, props.metricConfig.metricId])
+  }, [processedData, metricConfig.metricId])
 
-  return props.processedData.map((d, index) => {
-    const barWidth = props.xScale(d[props.metricConfig.metricId]) || 0
-    const shouldLabelBeInside =
-      d[props.metricConfig.metricId] > barLabelBreakpoint
-    const yPosition = props.getYPosition(index, d[props.demographicType])
-    const barHeight = props.yScale.bandwidth() || 0
+  const barHeight = yScale.bandwidth() || 0
+  const stepHeight = yScale.step()
+  const normalGap = (stepHeight - barHeight) / 2
+  const hitAreaWidth = xScale.range()[1]
+
+  return processedData.map((d, index) => {
+    const barWidth = xScale(d[metricConfig.metricId]) || 0
+    const shouldLabelBeInside = d[metricConfig.metricId] > barLabelBreakpoint
+    const yPosition = getYPosition(index, d[demographicType])
+    const topGap =
+      normalGap +
+      (allIndex !== -1 && index === allIndex + 1
+        ? EXTRA_SPACE_AFTER_ALL / 2
+        : 0)
+    const bottomGap =
+      normalGap +
+      (allIndex !== -1 && index === allIndex ? EXTRA_SPACE_AFTER_ALL / 2 : 0)
+    const hitAreaY = -topGap
+    const hitAreaHeight = barHeight + topGap + bottomGap
 
     const barLabelColor =
-      shouldLabelBeInside && d[props.demographicType] !== 'All'
-        ? 'fill-white'
+      shouldLabelBeInside && d[demographicType] !== 'All'
+        ? 'fill-alt-white'
         : 'fill-current'
 
     const roundedBarString = buildRoundedBarString({
@@ -47,38 +74,56 @@ export default function RoundedBarsWithLabels(
 
     if (!roundedBarString) return null
 
-    const barAriaLabel = `${d[props.demographicType]}: ${d[props.metricConfig.metricId]} ${props.metricConfig.shortLabel}`
+    const barAriaLabel = `${d[demographicType]}: ${d[metricConfig.metricId]} ${metricConfig.shortLabel}`
+    const tooltipData: BarChartTooltipData = {
+      group: d[demographicType] as string,
+      value: formatValue(
+        d[metricConfig.metricId] as number,
+        metricConfig,
+        isTinyAndUp,
+      ),
+    }
 
     return (
       <g
         key={index + barAriaLabel}
         transform={`translate(0,${yPosition})`}
-        onMouseMove={(e) => props.handleTooltip(e, d, false)}
-        onMouseLeave={props.closeTooltip}
+        onMouseEnter={(e) => showTooltip(tooltipData, e.clientX, e.clientY)}
+        onMouseLeave={hideTooltipDelayed}
         onTouchStart={(e) => {
-          props.handleTooltip(e, d, true)
+          const touch = e.touches[0]
+          showTooltip(tooltipData, touch.clientX, touch.clientY)
         }}
         aria-label={barAriaLabel}
         role='img'
       >
+        <rect
+          x={0}
+          y={hitAreaY}
+          width={hitAreaWidth}
+          height={hitAreaHeight}
+          fill='transparent'
+          aria-hidden
+        />
         <path
           d={roundedBarString}
           key={'path' + index + barAriaLabel}
-          className={
-            d[props.demographicType] === 'All'
-              ? 'fill-time-yellow'
-              : 'fill-alt-green'
-          }
+          style={{
+            fill:
+              d[demographicType] === 'All'
+                ? colors.timeYellow
+                : colors.altGreen,
+          }}
           aria-hidden
         />
         <EndOfRateBarLabel
-          {...props}
+          metricConfig={metricConfig}
           d={d}
           shouldLabelBeInside={shouldLabelBeInside}
           barWidth={barWidth}
-          yScale={props.yScale}
+          yScale={yScale}
           barLabelColor={barLabelColor}
-          isTinyAndUp={props.isTinyAndUp}
+          isTinyAndUp={isTinyAndUp}
         />
       </g>
     )

@@ -21,6 +21,7 @@ from datasources.decia_2020_territory_population import Decia2020TerritoryPopula
 from datasources.geo_context import GeoContext
 from datasources.graphql_ahr import GraphQlAHRData
 from datasources.kff_vaccination import KFFVaccination
+from datasources.nci_cancer import NciCancerData
 from datasources.phrma import PhrmaData
 from datasources.phrma_brfss import PhrmaBrfssData
 from datasources.maternal_mortality import MaternalMortalityData
@@ -52,6 +53,7 @@ DATA_SOURCES_DICT = {
     GeoContext.get_id(): GeoContext(),
     GraphQlAHRData.get_id(): GraphQlAHRData(),
     KFFVaccination.get_id(): KFFVaccination(),
+    NciCancerData.get_id(): NciCancerData(),
     PhrmaData.get_id(): PhrmaData(),  # cv, hiv, mental health
     PhrmaBrfssData.get_id(): PhrmaBrfssData(),  # cancer screenings
     MaternalMortalityData.get_id(): MaternalMortalityData(),

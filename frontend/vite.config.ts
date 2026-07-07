@@ -1,8 +1,6 @@
 import react from '@vitejs/plugin-react'
-import { visualizer } from 'rollup-plugin-visualizer'
 import { defineConfig } from 'vite'
 import svgrPlugin from 'vite-plugin-svgr'
-import viteTsconfigPaths from 'vite-tsconfig-paths'
 import { configDefaults } from 'vitest/config'
 
 // biome-ignore lint/correctness/noUnusedFunctionParameters: dont need it
@@ -14,15 +12,8 @@ export default defineConfig(({ mode }) => {
       outDir: 'build',
       sourcemap: !isDeployPreview, // Disable sourcemaps for deploy previews
       minify: !isDeployPreview,
-
-      rollupOptions: isDeployPreview
-        ? {
-            output: {
-              manualChunks: undefined, // Disable code splitting for deploy previews
-            },
-          }
-        : {},
     },
+    resolve: { tsconfigPaths: true },
     cache: true,
     server: {
       open: true,
@@ -37,13 +28,7 @@ export default defineConfig(({ mode }) => {
       ...(isDeployPreview
         ? []
         : [
-            viteTsconfigPaths(), // Keep only for non-preview environments
             svgrPlugin(), // Keep only for non-preview environments
-            visualizer({
-              open: !process.env.CI,
-              gzipSize: true,
-              brotliSize: true,
-            }),
           ]),
     ],
     test: {

@@ -77,7 +77,7 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
       <div className='mt-8 rounded-md bg-methodology-green px-2 py-1'>
         <p className='px-8 py-4 text-center'>
           Do you have information that belongs on the Health Equity Tracker?{' '}
-          <LinkWithStickyParams to={ABOUT_US_PAGE_LINK}>
+          <LinkWithStickyParams to={ABOUT_US_PAGE_LINK} className='font-bold'>
             We would love to hear from you!
           </LinkWithStickyParams>
         </p>

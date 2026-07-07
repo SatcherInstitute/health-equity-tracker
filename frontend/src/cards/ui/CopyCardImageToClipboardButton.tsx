@@ -1,4 +1,4 @@
-import { ContentCopy } from '@mui/icons-material'
+import ContentCopy from '@mui/icons-material/ContentCopy'
 import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
 import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
 import HetSnackbar from '../../styles/HetComponents/HetSnackbar'
@@ -21,6 +21,7 @@ export function CopyCardImageToClipboardButton(
     setIsThinking,
     imgDataUrl,
     confirmationOpen,
+    errorOpen,
     handleCopyImgToClipboard,
     handleCopyRowImgToClipboard,
     handleClose,
@@ -50,10 +51,13 @@ export function CopyCardImageToClipboardButton(
             <img
               src={imgDataUrl}
               alt={`Preview of ${cardName} ${imgTerm}`}
-              className='h-auto max-h-sm w-full bg-gray-50 object-contain'
+              className='h-auto max-h-150 w-full bg-alt-white object-contain'
             />
           </div>
         )}
+      </HetSnackbar>
+      <HetSnackbar open={errorOpen} handleClose={handleClose} severity='error'>
+        Unable to copy image. Please keep this tab focused and try again.
       </HetSnackbar>
     </>
   )

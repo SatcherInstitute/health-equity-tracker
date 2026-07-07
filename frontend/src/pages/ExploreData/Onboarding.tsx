@@ -1,5 +1,6 @@
 import Joyride from 'react-joyride-react-19' // TODO: ideally revert back to react-joyride and not this temporary fork
-import { het, ThemeZIndexValues } from '../../styles/DesignTokens'
+import { colors } from '../../styles/tokens/colors'
+import { dimensions } from '../../styles/tokens/dimensions'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { getOnboardingSteps } from './OnboardingSteps'
 
@@ -8,6 +9,7 @@ export default function Onboarding(props: {
   activelyOnboarding: boolean
 }) {
   const isMd = useIsBreakpointAndUp('md')
+  const zAlmostTop = Number.parseInt(dimensions.zIndexAlmostTop, 10)
 
   return (
     <Joyride
@@ -25,12 +27,12 @@ export default function Onboarding(props: {
       run={props.activelyOnboarding}
       styles={{
         options: {
-          arrowColor: het.altGreen,
-          backgroundColor: het.altGreen,
-          primaryColor: het.altGreen,
-          textColor: het.white,
+          arrowColor: colors.altGreen,
+          backgroundColor: colors.altGreen,
+          primaryColor: colors.altGreen,
+          textColor: colors.altWhite,
           width: 900,
-          zIndex: ThemeZIndexValues.almostTop,
+          zIndex: zAlmostTop,
         },
       }}
     />

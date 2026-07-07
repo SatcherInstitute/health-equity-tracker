@@ -1,6 +1,6 @@
 from unittest import mock
 from pandas._testing import assert_frame_equal
-from datasources.chr import CHRData, CHR_DIR
+from datasources.chr import CHRData, CHR_DIR, CHR_FILE_LOOKUP
 import pandas as pd
 import os
 from test_utils import _load_xlsx_as_df_from_real_data_dir
@@ -26,9 +26,9 @@ def test_write_to_bq_race_county(
     mock_bq: mock.MagicMock,
 ):
     subset_dict = {
-        "2011": "2011 County Health Rankings National Data_v2_0.xls",
-        "2024": "2024_county_health_release_data_-_v1.xlsx",
-        "2025": "2025 County Health Rankings Data - v3.xlsx",
+        "2011": CHR_FILE_LOOKUP["2011"],
+        "2024": CHR_FILE_LOOKUP["2024"],
+        "2025": CHR_FILE_LOOKUP["2025"],
     }
 
     with mock.patch.dict("datasources.chr.CHR_FILE_LOOKUP", subset_dict, clear=True):

@@ -14,6 +14,7 @@ import {
 } from './DatasetMetadataCovidCategory'
 import { datasourceMetadataHivCategory } from './DatasetMetadataHivCategory'
 import { datasourceMetadataMaternalHealthCategory } from './DatasetMetadataMaternalHealthCategory'
+import { datasourceMetadataNciCancer } from './DatasetMetadataNciCancer'
 import { datasourceMetadataVera } from './DatasetMetadataVera'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
@@ -39,6 +40,7 @@ export type DataSourceId =
   | 'geo_context'
   | 'kff_vaccination'
   | 'maternal_health'
+  | 'nci_cancer'
   | 'phrma'
   | 'phrma_brfss'
   | 'the_unitedstates_project'
@@ -53,6 +55,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   cdc_vaccination_county: datasourceMetadataCdcVaccinationCounty,
   cdc_vaccination_national: datasourceMetadataCdcVaccinationNational,
   kff_vaccination: datasourceMetadataKffVaccinationState,
+  nci_cancer: datasourceMetadataNciCancer,
   ahr: datasourceMetadataAhr,
   chr: datasourceMetadataChr,
   bjs: datasourceMetadataBjs,
@@ -135,6 +138,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     dataset_ids: ['the_unitedstates_project'],
     downloadable: false,
     data_source_release_years: null,
+    topic_categories: ['pdoh'],
   },
   geo_context: {
     id: 'geo_context',
@@ -155,6 +159,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     ],
     downloadable: true,
     data_source_release_years: null,
+    topic_categories: ['sdoh'],
   },
   phrma: {
     id: 'phrma',
@@ -196,6 +201,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'Disease rates and medication adherence percentages for multiple HIV, mental health, and cardiovascular conditions within the Medicare beneficiary population.',
     downloadable_data_dictionary: true,
     data_source_release_years: null,
+    topic_categories: ['medicare'],
   },
   phrma_brfss: {
     id: 'phrma_brfss',
@@ -217,6 +223,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'The 2022 Behavioral Risk Factor Surveillance System (BRFSS) database from the Centers for Disease Control and Prevention (CDC) was analyzed for five different cancer screening rates. Breast, colorectal, cervical, and lung cancer use data from the 50 states and Washington DC. Prostate cancer screening data is not part of the core BRFSS database so are available only for Arkansas, Delaware, Massachusetts, Mississippi, New Jersey, and South Carolina.',
     downloadable: true,
     data_source_release_years: null,
+    topic_categories: ['cancer'],
     dataset_ids: [
       'phrma_brfss_data-race_and_ethnicity_national_current-with_age_adjust',
       'phrma_brfss_data-age_national_current',
@@ -251,6 +258,7 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     ],
     downloadable: true,
     data_source_release_years: null,
+    topic_categories: ['covid'],
   },
   geographies_source: {
     id: 'geographies_source',
@@ -287,5 +295,6 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
     update_frequency: 'Yearly',
     downloadable: false,
     data_source_release_years: '2019 - current',
+    topic_categories: ['community-safety'],
   },
 }

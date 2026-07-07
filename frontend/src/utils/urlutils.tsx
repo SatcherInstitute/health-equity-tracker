@@ -1,27 +1,15 @@
 import type { ReactNode } from 'react'
 import { Link, useLocation } from 'react-router'
-import type { DataTypeId } from '../data/config/MetricConfigTypes'
 import {
   type DemographicGroup,
   raceNameToCodeMap,
 } from '../data/utils/Constants'
-import { urlMap } from './externalUrls'
-import { getLogger } from './globals'
-import {
-  ABOUT_SEED_LINK,
-  ABOUT_US_PAGE_LINK,
-  DATA_CATALOG_PAGE_LINK,
-  EXPLORE_DATA_PAGE_LINK,
-  FULL_FAQS_LINK,
-  GUN_VIOLENCE_POLICY,
-  METHODOLOGY_PAGE_LINK,
-  NEWS_PAGE_LINK,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-} from './internalRoutes'
 import type { PhraseSelections } from './MadLibs'
 
-// OLDER HANDLING PARAMS
+// LLM INSIGHTS FEATURE
+export const REPORT_INSIGHT_PARAM_KEY = 'report-insight'
 
+// OG PARAMS
 const STICKY_VERSION_PARAM = 'sv'
 export const DATA_SOURCE_PRE_FILTERS = 'dpf'
 // Value is index of the phrase to jump to
@@ -54,16 +42,6 @@ export const ALT_TABLE_VIEW_2_PARAM_KEY = 'alt-table-view2'
 export const ATLANTA_MODE_PARAM_KEY = 'atl'
 export const CHLP_MAPS_PARAM_KEY = 'chlp-maps'
 
-// Ensures backwards compatibility for external links to old DataTypeIds
-export function swapOldDatatypeParams(oldParam: string) {
-  const swaps: Record<string, DataTypeId> = {
-    deaths: 'covid_deaths',
-    cases: 'covid_cases',
-    hospitalizations: 'covid_hospitalizations',
-  }
-  return swaps[oldParam] || oldParam
-}
-
 export function LinkWithStickyParams(props: {
   to: string
   target?: string
@@ -82,32 +60,24 @@ export function LinkWithStickyParams(props: {
   return <Link {...linkProps}>{props.children}</Link>
 }
 
-export const NAVIGATION_STRUCTURE = {
-  about: {
-    label: 'About',
-    pages: {
-      [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
-      [ABOUT_US_PAGE_LINK]: 'About Us',
-      [ABOUT_SEED_LINK]: 'SEED Program',
-    },
-  },
-  exploreTheData: {
-    label: 'Insights Hub',
-    pages: {
-      [EXPLORE_DATA_PAGE_LINK]: 'Data Dashboard',
-      [DATA_CATALOG_PAGE_LINK]: 'Source Files',
-      [METHODOLOGY_PAGE_LINK]: 'Methodology',
-      [GUN_VIOLENCE_POLICY]: 'Policy Context',
-    },
-  },
-  mediaAndUpdates: {
-    label: 'Media & Updates',
-    pages: {
-      [NEWS_PAGE_LINK]: 'News',
-      [urlMap.hetYouTubeShorts]: 'Videos on YouTube',
-    },
-  },
-  faqs: { label: 'FAQs', link: FULL_FAQS_LINK },
+type NavigationPage = string | { label: string }
+
+export type NavigationItem =
+  | {
+      label: string
+      pages: Record<string, NavigationPage>
+    }
+  | {
+      label: string
+      link: string
+    }
+
+export function isExternalLink(href: string): boolean {
+  return (
+    href.startsWith('https://') ||
+    href.startsWith('http://') ||
+    href.startsWith('mailto:')
+  )
 }
 
 export function useSearchParams() {
@@ -115,54 +85,10 @@ export function useSearchParams() {
   return Object.fromEntries(params.entries())
 }
 
-export function setParameter(
-  paramName: string,
-  paramValue: string | null = null,
-) {
-  setParameters([{ name: paramName, value: paramValue }])
-}
-
-interface ParamKeyValue {
-  name: string
-  value: string | null
-}
-
-export function setParameters(paramMap: ParamKeyValue[]) {
-  const searchParams = new URLSearchParams(window.location.search)
-
-  paramMap.forEach((kv) => {
-    const paramName = kv.name
-    const paramValue = kv.value
-
-    if (paramValue) {
-      searchParams.set(paramName, paramValue)
-    } else {
-      searchParams.delete(paramName)
-    }
-  })
-
-  const base =
-    window.location.protocol +
-    '//' +
-    window.location.host +
-    window.location.pathname
-
-  window.history.pushState({}, '', base + '?' + searchParams.toString())
-}
-
-const defaultHandler = <T,>(input: string | null): T => {
-  return input as unknown as T
-}
-
-function removeParamAndReturnValue<T1>(paramName: string, defaultValue: T1) {
-  setParameter(paramName, null)
-  return defaultValue
-}
-
 export function getParameter<T1>(
   paramName: string,
   defaultValue: T1,
-  formatter: (x: any) => T1 = defaultHandler,
+  formatter: (x: any) => T1 = (input: string | null) => input as unknown as T1,
 ): T1 {
   const searchParams = new URLSearchParams(window.location.search)
   try {
@@ -171,7 +97,7 @@ export function getParameter<T1>(
       : defaultValue
   } catch (err) {
     console.error(err)
-    return removeParamAndReturnValue(paramName, defaultValue)
+    return defaultValue
   }
 }
 
@@ -197,59 +123,6 @@ export const stringifyMls = (selection: PhraseSelections): string => {
   })
 
   return kvPair.join(partsSeparator)
-}
-
-type PSEventHandler = () => void
-
-const psSubscriptions: any = {}
-let psCount: number = 0
-
-export const psSubscribe = (
-  handler: PSEventHandler,
-  keyPrefix = 'unk',
-): { unsubscribe: () => void } => {
-  const key = keyPrefix + '_' + psCount
-  getLogger().debugLog('Adding PSHandler: ' + key)
-  psSubscriptions[key] = handler
-  psCount++
-  return {
-    unsubscribe: () => {
-      psUnsubscribe(key)
-    },
-  }
-}
-
-const psUnsubscribe = (k: string) => {
-  getLogger().debugLog('Removing PSHandler: ' + k)
-  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-  delete psSubscriptions[k]
-}
-
-window.onpopstate = () => {
-  Object.keys(psSubscriptions).forEach((key) => {
-    const handler = psSubscriptions[key]
-    if (handler) {
-      getLogger().debugLog('Firing PSHandler: ' + key)
-      handler()
-    }
-  })
-}
-
-export function getHtml(item: string | undefined, asString = false) {
-  // If only a string is needed (not setting inner HTML)
-  if (asString) {
-    const span = document.createElement('span')
-    span.innerHTML = item || ''
-    return span.textContent || span.innerText || ''
-  }
-
-  // Return a div with dangerouslySetInnerHTML
-  return (
-    <div
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: needed to render headless WordPress
-      dangerouslySetInnerHTML={{ __html: item || '' }}
-    />
-  )
 }
 
 /* for converting selected group long name into URL safe param value */

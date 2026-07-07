@@ -1,4 +1,5 @@
-import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 
 interface HetExpandableBoxButtonProps {
   expanded: boolean
@@ -15,7 +16,7 @@ export default function HetExpandableBoxButton(
       onClick={() => {
         props.setExpanded(!props.expanded)
       }}
-      className={`flex w-full cursor-pointer items-center justify-between border-none bg-listbox-color px-4 text-left text-black text-smallest leading-list-box-title sm:text-text ${
+      className={`flex w-full cursor-pointer items-center justify-between border-none bg-standard-info px-4 text-left text-alt-black text-smallest leading-list-box-title sm:text-text ${
         props.expanded
           ? ''
           : 'text-ellipsis whitespace-nowrap sm:overflow-hidden'

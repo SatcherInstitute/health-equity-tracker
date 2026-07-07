@@ -1,3 +1,4 @@
+import { HIV_DISEASE_METRICS } from '../data/config/MetricConfigHivCategory'
 import {
   VOTER_PARTICIPATION_METRICS,
   WOMEN_IN_GOV_METRICS,
@@ -80,6 +81,16 @@ describe('Test configsContainsMatchingId()', () => {
       ),
     ).toBe(false)
   })
+
+  test('empty configs with bothNeedToMatch returns false, not vacuous true', () => {
+    expect(
+      configsContainsMatchingId(
+        /* configs */ [],
+        /* ids */ ['voter_participation' as DataTypeId],
+        /* bothNeedToMatch? */ true,
+      ),
+    ).toBe(false)
+  })
 })
 
 describe('Test getAllDemographicOptions()', () => {
@@ -99,5 +110,28 @@ describe('Test getAllDemographicOptions()', () => {
       ['Age', 'unavailable for Women in elective office topics'],
       ['Sex', 'unavailable for Women in elective office topics'],
     ])
+  })
+
+  test('null config (no dt1 in URL) returns standard options, not PHRMA income/insurance', () => {
+    const { enabledDemographicOptionsMap: opts } = getAllDemographicOptions(
+      null,
+      new Fips('00'),
+    )
+    expect(opts).toEqual({
+      'Race/Ethnicity': 'race_and_ethnicity',
+      'Sex at Birth': 'sex',
+      Age: 'age',
+    })
+    expect(Object.values(opts)).not.toContain('income')
+    expect(Object.values(opts)).not.toContain('insurance_status')
+  })
+
+  test('HIV config returns standard options without income or insurance', () => {
+    const { enabledDemographicOptionsMap: opts } = getAllDemographicOptions(
+      HIV_DISEASE_METRICS[0],
+      new Fips('00'),
+    )
+    expect(Object.values(opts)).not.toContain('income')
+    expect(Object.values(opts)).not.toContain('insurance_status')
   })
 })

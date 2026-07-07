@@ -70,7 +70,7 @@ export function HetCarouselCard({
     <>
       <article
         ref={cardRef}
-        className='group mr-4 flex h-full max-w-tiny shrink-0 flex-col overflow-hidden rounded-md border border-alt-green border-solid bg-white text-left text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'
+        className='group mr-4 flex h-full max-w-tiny shrink-0 flex-col overflow-hidden rounded-md border border-alt-green border-solid bg-alt-white text-left text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'
       >
         {isVisible && (
           <>
@@ -112,12 +112,13 @@ export function HetCarouselCard({
                         {ariaLabel}
                       </h3>
                     </button>
-                    <p className='my-2 hidden text-left text-black text-small leading-some-space md:block'>
+                    <p className='my-2 hidden text-left text-alt-black text-small leading-some-space md:block'>
                       {description}
                     </p>
                   </div>
                   {readMoreHref && (
                     <div className='mb-4 flex w-full flex-row items-center justify-start gap-2 py-0'>
+                      {/* biome-ignore lint/a11y/noAmbiguousAnchorText: accessible name comes from the dynamic aria-label, which Biome can't evaluate statically */}
                       <a
                         target='_blank'
                         rel='noopener noreferrer'
@@ -127,7 +128,10 @@ export function HetCarouselCard({
                       >
                         Learn more
                       </a>
-                      <HetLaunchLink href={readMoreHref} />
+                      <HetLaunchLink
+                        svgClassName='flex my-auto text-text'
+                        href={readMoreHref}
+                      />
                     </div>
                   )}
                 </div>
@@ -157,13 +161,14 @@ export function HetCarouselCard({
                       </h4>
                     </a>
                     {description && (
-                      <p className='my-0 hidden text-black text-smallest leading-some-space md:block'>
+                      <p className='my-0 hidden text-alt-black text-smallest leading-some-space md:block'>
                         {description}
                       </p>
                     )}
                   </div>
                   {readMoreHref && (
                     <div className='mb-4 flex w-full flex-row items-center justify-start gap-2 py-0'>
+                      {/* biome-ignore lint/a11y/noAmbiguousAnchorText: accessible name comes from the dynamic aria-label, which Biome can't evaluate statically */}
                       <a
                         className='ml-auto font-medium text-small leading-some-space no-underline'
                         aria-label={`Learn more about ${ariaLabel}`}
@@ -183,12 +188,12 @@ export function HetCarouselCard({
 
       {/* Custom modal using HTML and Tailwind instead of MUI */}
       {isVideo && open && (
-        <div className='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50'>
-          <div className='relative w-4/5 max-w-6xl rounded-lg bg-white p-6 shadow-xl'>
+        <div className='fixed inset-0 z-50 flex items-center justify-center bg-alt-black bg-opacity-50'>
+          <div className='relative w-4/5 max-w-6xl rounded-lg bg-alt-white p-6 shadow-xl'>
             <button
               onClick={handleClose}
               type='button'
-              className='absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300'
+              className='absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-bg-color text-alt-dark hover:bg-alt-gray'
               aria-label='Close modal'
             >
               ×
@@ -213,7 +218,7 @@ export function HetCarouselCard({
               <button
                 onClick={handleClose}
                 type='button'
-                className='rounded-md bg-alt-green px-4 py-2 text-white hover:bg-opacity-90'
+                className='rounded-md bg-alt-green px-4 py-2 text-alt-white hover:bg-opacity-90'
               >
                 Close
               </button>

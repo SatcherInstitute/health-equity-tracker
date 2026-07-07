@@ -29,6 +29,11 @@ import {
   DatasetMetadataMapMaternalHealthCategory,
 } from './DatasetMetadataMaternalHealthCategory'
 import {
+  type DatasetIdNciCancer,
+  DatasetMetadataMapNciCancer,
+} from './DatasetMetadataNciCancer'
+
+import {
   type DatasetIdVera,
   DatasetMetadataMapVera,
 } from './DatasetMetadataVera'
@@ -46,6 +51,7 @@ export type DatasetId =
   | DatasetIdVera
   | DatasetIdCawp
   | DatasetIdCdcWonder
+  | DatasetIdNciCancer
   | 'census_pop_estimates-race_and_ethnicity'
   | 'covid_tracking_project-cases_by_race_state'
   | 'covid_tracking_project-deaths_by_race_state'
@@ -107,6 +113,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   ...DatasetMetadataMapVera,
   ...DatasetMetadataMapCawp,
   ...DatasetMetadataMapCdcWonder,
+  ...DatasetMetadataMapNciCancer,
 
   'decia_2010_territory_population-race_and_ethnicity_state_current': {
     name: 'Population by race/ethnicity and Census Island Area territory',

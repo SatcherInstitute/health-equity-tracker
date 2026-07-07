@@ -206,4 +206,5 @@ export const datasourceMetadataAhr: DataSourceMetadataAhr = {
   ],
   downloadable: true,
   data_source_release_years: null,
+  topic_categories: ['behavioral-health', 'chronic-disease', 'sdoh'],
 }

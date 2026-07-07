@@ -10,7 +10,7 @@ export default function DataCollectionTab() {
     <>
       <title>Data Collection - Health Equity Tracker</title>
       <section id='source-profile'>
-        <article className='group mt-8 mb-8 rounded-md border border-methodology-green border-solid bg-white p-4 shadow-raised-tighter'>
+        <article className='group mt-8 mb-8 rounded-md border border-methodology-green border-solid bg-alt-white p-4 shadow-raised-tighter'>
           <HetOverline className='my-0' text='Source Profile' />
           <h2 className='my-0 font-medium text-title'>
             CDC's WISQARS™(Web-based Injury Statistics Query and Reporting

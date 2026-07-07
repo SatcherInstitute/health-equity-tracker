@@ -6,17 +6,15 @@ import {
   FacebookShareButton,
   LinkedinIcon,
   LinkedinShareButton,
-  TwitterShareButton,
-  XIcon,
 } from 'react-share'
-import { het } from '../../styles/DesignTokens'
 import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
+import { colors } from '../../styles/tokens/colors'
 import { useCardImage } from '../../utils/hooks/useCardImage'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 const shareIconAttributes = {
-  iconFillColor: het.hexShareIconGray,
+  iconFillColor: colors.hexShareIconGray,
   bgStyle: { fill: 'none' },
   size: 39,
 }
@@ -44,16 +42,6 @@ export default function CardShareIconButtons(props: CardShareIconButtonsProps) {
   )
 
   const shareButtons: ShareButtonConfig[] = [
-    {
-      ShareButton: TwitterShareButton,
-      Icon: XIcon,
-      label: 'Share on X',
-      options: {
-        hashtags: ['healthequity'],
-        related: ['@SatcherHealth', '@MSMEDU'],
-        'aria-label': 'Share to X (formerly Twitter)',
-      },
-    },
     {
       ShareButton: FacebookShareButton,
       Icon: FacebookIcon,

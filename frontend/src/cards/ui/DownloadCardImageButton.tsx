@@ -1,4 +1,4 @@
-import { SaveAlt } from '@mui/icons-material'
+import SaveAlt from '@mui/icons-material/SaveAlt'
 import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
 import { HetCardExportMenuItem } from '../../styles/HetComponents/HetCardExportMenuItem'
 import { useCardImage } from '../../utils/hooks/useCardImage'

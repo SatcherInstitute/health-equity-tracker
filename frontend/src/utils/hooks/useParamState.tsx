@@ -1,58 +1,35 @@
-import { useAtom } from 'jotai'
-import { locationAtom } from '../sharedSettingsState'
-import {
-  DATA_TYPE_1_PARAM,
-  DATA_TYPE_2_PARAM,
-  MADLIB_PHRASE_PARAM,
-  MADLIB_SELECTIONS_PARAM,
-  MAP1_GROUP_PARAM,
-  MAP2_GROUP_PARAM,
-} from '../urlutils'
-
-const paramsNotHandledByJotai = [
-  MADLIB_SELECTIONS_PARAM,
-  MADLIB_PHRASE_PARAM,
-  DATA_TYPE_1_PARAM,
-  DATA_TYPE_2_PARAM,
-  MAP1_GROUP_PARAM,
-  MAP2_GROUP_PARAM,
-]
+import { useAtomValue, useSetAtom } from 'jotai'
+import { locationAtom, urlParamAtom } from '../sharedSettingsState'
 
 export function useParamState<ParamStateType>(
   paramKey: string,
   paramDefaultValue?: ParamStateType,
 ): [ParamStateType, (newValue: ParamStateType) => void] {
-  const [locationState, setLocationState] = useAtom(locationAtom)
+  const paramValue = useAtomValue(urlParamAtom(paramKey))
+  const setLocationState = useSetAtom(locationAtom)
 
-  const paramState =
-    locationState.searchParams?.get(paramKey) ?? paramDefaultValue ?? ''
+  const paramState = (paramValue ?? paramDefaultValue ?? '') as ParamStateType
 
   function setParamState(newValue: ParamStateType): void {
-    const existingURLParams = new URLSearchParams(window.location.search)
-    const existingJotaiParams = new URLSearchParams(locationState.searchParams)
+    // Guard outside the setter: jotai-location always calls applyLocation
+    // (pushState) even when the updater returns prev unchanged.
+    const currentValue = paramValue ?? ''
+    const nextValue =
+      newValue == null || newValue === false || newValue === ''
+        ? ''
+        : String(newValue)
+    if (currentValue === nextValue) return
 
-    for (const param of paramsNotHandledByJotai) {
-      existingJotaiParams.delete(param)
-    }
-
-    const combinedParams = new URLSearchParams({
-      ...Object.fromEntries(existingURLParams),
-      ...Object.fromEntries(existingJotaiParams),
+    setLocationState((prev) => {
+      const params = new URLSearchParams(prev.searchParams)
+      if (newValue == null || newValue === false || newValue === '') {
+        params.delete(paramKey)
+      } else {
+        params.set(paramKey, nextValue)
+      }
+      return { ...prev, searchParams: params }
     })
-
-    newValue
-      ? combinedParams.set(paramKey, newValue as string)
-      : combinedParams.delete(paramKey)
-
-    const paramsHaveChanged =
-      existingURLParams.toString() !== combinedParams.toString()
-
-    paramsHaveChanged &&
-      setLocationState((prev) => ({
-        ...prev,
-        searchParams: combinedParams,
-      }))
   }
 
-  return [paramState as ParamStateType, setParamState]
+  return [paramState, setParamState]
 }

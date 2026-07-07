@@ -31,7 +31,12 @@ function IncarceratedChildrenShortAlert(
       </strong>{' '}
       confined in {adultFacilities} in{' '}
       <span>{props.fips.getSentenceDisplayName()}</span>.{' '}
-      <a href={urlMap.childrenInPrison}>Learn more.</a>
+      <a
+        href={urlMap.childrenInPrison}
+        aria-label='Learn more about children confined in adult facilities'
+      >
+        Learn more.
+      </a>
     </HetNotice>
   )
 }

@@ -37,6 +37,7 @@ interface StackedSharesBarChartCardProps {
   fips: Fips
   reportTitle: string
   className?: string
+  isCompareCard?: boolean
 }
 
 export default function StackedSharesBarChartCard(
@@ -89,10 +90,12 @@ export default function StackedSharesBarChartCard(
       minHeight={preloadHeight}
       reportTitle={props.reportTitle}
       className={props.className}
-      shareConfig={shareConfig}
-      metricIds={metricIds}
+      isCompareCard={props.isCompareCard}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
-      {([queryResponse]) => {
+      {([queryResponse], _metadata, _geoData, overrideCardHasData) => {
         const validData = queryResponse.getValidRowsForField(
           shareConfig.metricId,
         )
@@ -124,6 +127,8 @@ export default function StackedSharesBarChartCard(
         const dataAvailable =
           knownData.length > 0 &&
           !queryResponse.shouldShowMissingDataMessage([shareConfig.metricId])
+
+        overrideCardHasData?.(dataAvailable)
 
         return (
           <>

@@ -6,6 +6,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
 [![Run Playwright E2E Nightly Against PROD](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/e2eScheduled.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/e2eScheduled.yml)
 [![Check Outgoing Links](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronUrlChecker.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronUrlChecker.yml)
+[![Review Flagged AI Insights](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronReviewFlaggedInsights.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronReviewFlaggedInsights.yml)
 
 ## Frontend Quick-Start
 
@@ -119,7 +120,7 @@ Note: If you are using VSCode or one of its forks, ensure you install the recomm
 1. While still in the `health-equity-tracker/frontend/` folder, run
 
    ```bash
-   npm run local
+   npm run localhost
    ```
 
 2. In your browser, visit <http://localhost:3000>
@@ -255,9 +256,76 @@ Everything below is more detailed, advanced info that you probably won't need ri
 
 The frontend consists of
 
-1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, TS, CSS, images). This app was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and later migrated to Vite.
+1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, TS, CSS, images). Built with [Vite 8](https://vite.dev/) (Rolldown-powered) and tested with [Vitest 4](https://vitest.dev/).
 2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
 3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
+
+### Frontend Design System & Theme Architecture
+
+Design tokens are defined once in [W3C DTCG](https://design-tokens.github.io/community-group/format/) JSON and generated into all downstream consumers by [Terrazzo](https://terrazzo.app/). This keeps Tailwind v4, MUI v9, and D3.js in sync from a single source of truth with full IntelliSense and no style drift.
+
+#### The Token Pipeline
+
+```mermaid
+flowchart TD
+    %% Source Layer
+    subgraph Source["Source (edit these)"]
+        CT["<code>tokens/colors.tokens.json</code><br/><i>Hex color values</i>"]
+        TT["<code>tokens/typography.tokens.json</code><br/><i>Fonts &amp; sizes</i>"]
+        DT["<code>tokens/dimensions.tokens.json</code><br/><i>Spacing, breakpoints, z-index…</i>"]
+    end
+
+    %% Build Step
+    BUILD["<code>npm run tokens</code><br/><i>Terrazzo — auto-runs on install, predev, prebuild</i>"]
+
+    %% Generated Layer
+    subgraph Generated["Generated — src/styles/tokens/ (DO NOT EDIT, gitignored)"]
+        COLORS_TS["<code>colors.ts</code><br/><i>colors { altGreen: '#0b5240', … }</i>"]
+        COLORS_CSS["<code>colors.css</code><br/><i>@theme block</i>"]
+        TYPO_TS["<code>typography.ts</code><br/><i>typography { fontSansText: '…', … }</i>"]
+        TYPO_CSS["<code>typography.css</code><br/><i>@theme block</i>"]
+        DIM_TS["<code>dimensions.ts</code><br/><i>dimensions + breakpoints</i>"]
+        DIM_CSS["<code>dimensions.css</code><br/><i>@theme block</i>"]
+    end
+
+    %% Consumption Layer
+    subgraph Consumption
+        MUI_T["<code>muiTheme.tsx</code><br/><i>colors, typography, dimensions</i>"]
+        TW["Tailwind Classes<br/><i>bg-alt-green, font-sans-text…</i>"]
+        APP["App Code<br/><i>SVG, D3, React styles</i>"]
+    end
+
+    CT --> BUILD
+    TT --> BUILD
+    DT --> BUILD
+    BUILD --> COLORS_TS & COLORS_CSS & TYPO_TS & TYPO_CSS & DIM_TS & DIM_CSS
+
+    COLORS_TS & TYPO_TS & DIM_TS -->|"raw values"| MUI_T
+    COLORS_TS & DIM_TS -->|"raw values"| APP
+    COLORS_CSS & TYPO_CSS & DIM_CSS -->|"@theme → CSS vars"| TW
+    TW -->|"utility classes"| APP
+```
+
+#### Token API
+
+All tokens are plain values — no CSS var wrappers in application code:
+
+```ts
+import { colors }                  from '../../styles/tokens/colors'
+import { typography }              from '../../styles/tokens/typography'
+import { dimensions, breakpoints } from '../../styles/tokens/dimensions'
+
+colors.altGreen          // '#0b5240'
+typography.fontSansText  // "'Inter Variable', sans-serif"
+dimensions.radiusSm      // '4px'
+breakpoints.sm           // '600px'  ← short keys for useIsBreakpointAndUp
+```
+
+CSS vars are a Tailwind implementation detail. The `@theme` blocks register tokens so utility classes (`bg-alt-green`, `font-sans-text`, `rounded-sm`, `sm:`) work. App code never references `var(--color-*)` directly.
+
+- **To add or change a token:** edit `tokens/*.tokens.json` and run `npm run tokens`.
+- **Styling priority:** Tailwind utility classes first; import from `src/styles/tokens/` for inline/computed styles.
+- **MUI theme:** `muiTheme.tsx` imports `colors`, `typography`, and `dimensions` directly.
 
 ### Frontend Environment Configuration
 
@@ -267,10 +335,10 @@ The frontend uses multiple environments to assist with development, testing, and
 
 | Environment | .env File | Frontend Deployment | Backend GCP Project | Description |
 |-------------|-----------|---------------------|---------------------|-------------|
-| Local Development | `.env.local` (create from template) | Local machine's <http://localhost:3000> | het-infra-test | For developer workstations. |
+| Local Development | `.env.localhost` | Local machine's <http://localhost:3000> | het-infra-test | For developer workstations. |
 | PR Preview | `.env.deploy_preview` | Netlify PR Preview; URL in GitHub PR comment | het-infra-test | Temporary deployments for pull request reviews. |
 | Development | `.env.dev` | dev.healthequitytracker.org | het-infra-test | Stable environment for testing features before production. |
-| Production | `.env.production` | healthequitytracker.org | het-infra-prod | Live environment for end users. |
+| Production | `.env.prod` | healthequitytracker.org | het-infra-prod | Live environment for end users. |
 
 **IMPORTANT!** All of these `.env` files are checked in to git, meaning that we **DO NOT store secret information** such as API keys, passwords, or other sensitive data in these files.
 
@@ -298,7 +366,7 @@ The backend consists of:
 - `health-equity-tracker/.github/workflows/`: Workflow code that controls the DAGs which orchestrate the execution of these various microservices via GitHub Actions
 - `health-equity-tracker/config/`: Terraform configuration for setting permissions and provisioning needed resources for cloud computing
 - `health-equity-tracker/data/`: In code-base "bucket" used to store manually downloaded data from outside sources where it isn't possible to fetch new data directly via and API endpoint or linkable file URL
-- `health-equity-tracker/e2e_tests/`: Automated tests ensuring all services work together as expected; not to be confused with the Playwright E2E tests found in `/frontend`
+- `health-equity-tracker/server_smoke_tests/`: Post-deploy smoke tests that hit the live `data_server` and `frontend_server` GCP services to verify they are responding correctly
 - `health-equity-tracker/exporter/`: Code for the microservice responsible for taking HET-style data from HET BigQuery tables and storing them in buckets as .json files. NOTE: County-level files are broken up by state when exporting.
 - `health-equity-tracker/python/`: Code for the Python modules responsible for fetching data from outside sources and wrangling into a HET-style table with rows for every combination of demographic group, geographic area, and optionally time period, and columns for each measured metric
 - `health-equity-tracker/requirements/`: Packages required for the HET

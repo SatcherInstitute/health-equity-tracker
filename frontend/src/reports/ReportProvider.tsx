@@ -37,7 +37,6 @@ interface ReportProviderProps {
   showCHLPMapsBanner: boolean
   isScrolledToTop: boolean
   headerScrollMargin: number
-  isMobile: boolean
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -94,7 +93,6 @@ function ReportProvider(props: ReportProviderProps) {
               setReportStepHashIds={setReportStepHashIds}
               headerScrollMargin={props.headerScrollMargin}
               reportTitle={reportTitle}
-              isMobile={props.isMobile}
               trackerMode={props.madLib.id}
               setTrackerMode={props.handleModeChange}
               dataTypesToDefine={metricConfigSubset}
@@ -127,7 +125,6 @@ function ReportProvider(props: ReportProviderProps) {
               setReportStepHashIds={setReportStepHashIds}
               headerScrollMargin={props.headerScrollMargin}
               reportTitle={reportTitle}
-              isMobile={props.isMobile}
               trackerMode={props.madLib.id}
               setTrackerMode={props.handleModeChange}
             />
@@ -154,7 +151,6 @@ function ReportProvider(props: ReportProviderProps) {
             setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
             reportTitle={reportTitle}
-            isMobile={props.isMobile}
             trackerMode={props.madLib.id}
             setTrackerMode={props.handleModeChange}
           />
@@ -178,15 +174,14 @@ function ReportProvider(props: ReportProviderProps) {
         {props.showLifeLineAlert && <LifelineAlert />}
         {props.showVoteDotOrgBanner && <VoteDotOrgBanner />}
         {props.showCHLPMapsBanner && <CHLPMapsBanner />}
-        {/* TODO: why is this always false? */}
-        {props.showIncarceratedChildrenAlert && false && (
+        {props.showIncarceratedChildrenAlert && (
           <IncarceratedChildrenLongAlert />
         )}
 
         {getReport()}
       </div>
 
-      <div className='mt-20 flex min-h-preload-article w-full justify-center bg-white'>
+      <div className='mt-20 flex min-h-preload-article w-full justify-center bg-alt-white'>
         <aside className='m-8 max-w-explore-data-page text-left sm:m-16'>
           {/* Display condition definition(s) based on the tracker madlib settings */}
           {definedConditions?.length > 0 && (
@@ -197,7 +192,10 @@ function ReportProvider(props: ReportProviderProps) {
               >
                 Definitions:
               </h2>
-              <DefinitionsList dataTypesToDefine={metricConfigSubset} />
+              <DefinitionsList
+                dataTypesToDefine={metricConfigSubset}
+                fips={fips1}
+              />
               <RaceRelabelingsList />
 
               <HetTextArrowLink

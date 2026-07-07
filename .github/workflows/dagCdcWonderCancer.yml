@@ -24,6 +24,7 @@ jobs:
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
   age-national-bq:
     runs-on: ubuntu-latest
@@ -36,6 +37,7 @@ jobs:
           demographic: ${{ env.AGE }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
   sex-national-bq:
     runs-on: ubuntu-latest
@@ -48,6 +50,7 @@ jobs:
           demographic: ${{ env.SEX }}
           geographic: ${{ env.NATIONAL }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
   race-state-bq:
     runs-on: ubuntu-latest
@@ -60,6 +63,7 @@ jobs:
           demographic: ${{ env.RACE_AND_ETHNICITY }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
   age-state-bq:
     runs-on: ubuntu-latest
@@ -72,6 +76,7 @@ jobs:
           demographic: ${{ env.AGE }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
   sex-state-bq:
     runs-on: ubuntu-latest
@@ -84,6 +89,7 @@ jobs:
           demographic: ${{ env.SEX }}
           geographic: ${{ env.STATE }}
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
   race-exporter:
     needs: [race-national-bq, race-state-bq]
@@ -93,6 +99,7 @@ jobs:
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.RACE_AND_ETHNICITY }}
 
@@ -104,6 +111,7 @@ jobs:
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.AGE }}
 
@@ -115,6 +123,7 @@ jobs:
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
         with:
           service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
           dataset_name: ${{ env.DATASET_NAME }}
           demographic: ${{ env.SEX }}
           should_export_as_alls: "true"

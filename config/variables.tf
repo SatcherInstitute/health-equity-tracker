@@ -103,7 +103,8 @@ variable "gcs_to_bq_runner_role_id" {
   type        = string
 }
 
-# Data Server Cloud Run Service Vars
+# TEMPORARY (prod cutover): legacy Data Server Cloud Run Service vars — remove with the
+# legacy services once the prod domain mapping points at server-service.
 variable "data_server_service_name" {
   description = "Name of the Cloud Run service for serving data to client frontends"
   type        = string
@@ -119,6 +120,7 @@ variable "data_server_image_digest" {
   type        = string
 }
 
+# Data Server Service Account Vars (SA reused by the Go server)
 variable "data_server_runner_identity_id" {
   description = "Account id of the service account used when running the data server service"
   type        = string
@@ -155,7 +157,8 @@ variable "exporter_runner_role_id" {
   type        = string
 }
 
-# Frontend Cloud Run Service Vars
+# TEMPORARY (prod cutover): legacy Frontend Cloud Run Service vars — remove with the
+# legacy services once the prod domain mapping points at server-service.
 variable "frontend_service_name" {
   description = "Name of the Cloud Run service that serves the frontend"
   type        = string
@@ -174,4 +177,57 @@ variable "frontend_image_digest" {
 variable "frontend_runner_identity_id" {
   description = "Account id of the service account used when running the frontend service"
   type        = string
+}
+
+# Combined Go Server Cloud Run Service Vars
+variable "server_service_name" {
+  description = "Name of the Cloud Run service that serves the frontend and data APIs"
+  type        = string
+}
+
+variable "server_image_name" {
+  description = "Name of container image for the Go combined server service"
+  type        = string
+}
+
+variable "server_image_digest" {
+  description = "Digest of container image for the Go combined server service"
+  type        = string
+}
+
+variable "metadata_filename" {
+  description = "GCS object name of the metadata NDJSON file"
+  type        = string
+}
+
+variable "insights_cache_writer_role_id" {
+  description = "Role id of the custom IAM role granting read/write access to the AI insights cache bucket"
+  type        = string
+}
+
+variable "flagged_insights_writer_role_id" {
+  description = "Role id of the custom IAM role granting read/write access to the flagged insights bucket"
+  type        = string
+}
+
+variable "insights_cache_bucket" {
+  description = "Name of the GCS bucket for caching AI-generated insights"
+  type        = string
+}
+
+variable "flagged_insights_bucket" {
+  description = "Name of the GCS bucket storing user-flagged insights (no TTL — curated archive)"
+  type        = string
+}
+
+variable "pr_screenshots_bucket" {
+  description = "Name of the GCS bucket for PR screenshot images (public read, team-write, 90-day TTL). Leave empty to skip creation."
+  type        = string
+  default     = ""
+}
+
+variable "pr_screenshots_deployer_sa" {
+  description = "Email of the service account used by CI to delete PR screenshot folders on PR close."
+  type        = string
+  default     = ""
 }

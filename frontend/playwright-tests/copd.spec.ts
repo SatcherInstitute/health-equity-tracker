@@ -3,7 +3,7 @@ import { test } from '@playwright/test'
 test('COPD Flow', async ({ page }) => {
   await page.goto('/exploredata?mls=1.copd-3.00&group1=All')
   await page.getByLabel('open the topic info modal').click()
-  await page.getByLabel('close topic info modal').click()
+  await page.getByLabel('close dialog').click()
   await page
     .locator('#rate-map')
     .getByRole('heading', { name: 'COPD in the United States' })

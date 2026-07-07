@@ -1,11 +1,11 @@
 import type { ScaleBand, ScaleLinear } from 'd3'
-import { useState } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
-import { het } from '../../styles/DesignTokens'
+import { colors } from '../../styles/tokens/colors'
 import { buildBarPair } from '../sharedBarChartPieces/helpers'
 import EndOfStackedPairLabels from './EndOfStackedPairLabels'
+import type { StackedBarTooltipData } from './StackedSharesBarChartTooltip'
 
 interface StackedBarsWithLabelsProps {
   data: HetRow[]
@@ -13,20 +13,16 @@ interface StackedBarsWithLabelsProps {
   darkMetric: MetricConfig
   xScale: ScaleLinear<number, number>
   yScale: ScaleBand<string>
-  colors: {
+  barColors: {
     population: string
     distribution: string
   }
   barHeight: number
   pairGap: number
   demographicType: DemographicType
-  onTooltip: (params: {
-    lightValue: number
-    darkValue: number
-    demographic: string
-    event: React.MouseEvent
-  }) => void
-  onCloseTooltip: () => void
+  activeDemographic: string | null
+  showTooltip: (data: StackedBarTooltipData, x: number, y: number) => void
+  hideTooltipDelayed: () => void
 }
 
 const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
@@ -36,17 +32,19 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
     darkMetric,
     xScale,
     yScale,
-    colors,
+    barColors,
     barHeight,
     pairGap,
     demographicType,
-    onTooltip,
-    onCloseTooltip,
+    activeDemographic,
+    showTooltip,
+    hideTooltipDelayed,
   } = props
 
-  const [hoveredDemographic, setHoveredDemographic] = useState<string | null>(
-    null,
-  )
+  // No transform on <g> elements so hit rects need absolute y coords
+  const stepHeight = yScale.step()
+  const halfGap = (stepHeight - yScale.bandwidth()) / 2
+  const hitAreaWidth = xScale.range()[1]
 
   return (
     <>
@@ -54,10 +52,11 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
         const yPosition = yScale(d[demographicType]) || 0
         const lightValue = d[lightMetric.metricId]
         const darkValue = d[darkMetric.metricId]
-        const isHovered = hoveredDemographic === d[demographicType]
+        const isHovered = activeDemographic === d[demographicType]
+        const rectY = yPosition - halfGap
 
         const strokeDetails = {
-          stroke: isHovered ? het.altBlack : 'none',
+          stroke: isHovered ? colors.altBlack : 'none',
           strokeWidth: isHovered ? 1 : 0,
           strokeOpacity: 0.5,
         }
@@ -79,27 +78,46 @@ const StackedBarsWithLabels = (props: StackedBarsWithLabelsProps) => {
             role='img'
             key={d[demographicType]}
             onMouseEnter={(e) => {
-              setHoveredDemographic(d[demographicType])
-              onTooltip({
-                lightValue,
-                darkValue,
-                demographic: d[demographicType],
-                event: e,
-              })
+              showTooltip(
+                { lightValue, darkValue, demographic: d[demographicType] },
+                e.clientX,
+                e.clientY,
+              )
             }}
-            onMouseLeave={() => {
-              setHoveredDemographic(null)
-              onCloseTooltip()
+            onMouseLeave={hideTooltipDelayed}
+            onTouchStart={(e) => {
+              const touch = e.touches[0]
+              showTooltip(
+                { lightValue, darkValue, demographic: d[demographicType] },
+                touch.clientX,
+                touch.clientY,
+              )
             }}
           >
+            <rect
+              x={0}
+              y={rectY}
+              width={hitAreaWidth}
+              height={stepHeight}
+              fill='transparent'
+              aria-hidden
+            />
             {/* POPULATION BAR */}
             {lightValue > 0 && (
-              <path d={lightBar} fill={colors.population} {...strokeDetails} />
+              <path
+                d={lightBar}
+                fill={barColors.population}
+                {...strokeDetails}
+              />
             )}
 
             {/* DISTRIBUTION BAR */}
             {darkValue > 0 && (
-              <path d={darkBar} fill={colors.distribution} {...strokeDetails} />
+              <path
+                d={darkBar}
+                fill={barColors.distribution}
+                {...strokeDetails}
+              />
             )}
 
             {/* BAR LABELS */}

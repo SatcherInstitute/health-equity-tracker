@@ -1,4 +1,5 @@
-import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import React, { useState } from 'react'
 
 const TogglePreview: React.FC<{ index: number; report: any }> = ({
@@ -22,7 +23,7 @@ const TogglePreview: React.FC<{ index: number; report: any }> = ({
           e.preventDefault()
           togglePreview(index)
         }}
-        className='w-auto cursor-pointer rounded-md border-none bg-methodology-green py-4 font-medium text-black text-text no-underline'
+        className='w-auto cursor-pointer rounded-md border-none bg-methodology-green py-4 font-medium text-alt-black text-text no-underline'
         aria-expanded={showPreview[index] ? 'true' : 'false'}
         aria-controls={`preview-${index}`}
       >

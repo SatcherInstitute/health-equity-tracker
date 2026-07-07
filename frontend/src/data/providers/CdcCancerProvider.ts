@@ -1,3 +1,4 @@
+import { SHOW_NCI_COUNTY_CANCER } from '../../featureFlags'
 import { getDataManager } from '../../utils/globals'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { Breakdowns } from '../query/Breakdowns'
@@ -21,31 +22,32 @@ export const CDC_CANCER_ALL_SEXES_DATATYPES: DataTypeId[] = [
 
 const CDC_CANCER_METRICS: MetricId[] = [
   'breast_per_100k',
-  'breast_count_estimated_total',
+  'breast_estimated_total',
   'breast_population_pct',
   'breast_population_estimated_total',
   'breast_pct_share',
   'breast_pct_relative_inequity',
   'cervical_per_100k',
-  'cervical_count_estimated_total',
+  'cervical_per_100k_is_suppressed',
+  'cervical_estimated_total',
   'cervical_population_pct',
   'cervical_population_estimated_total',
   'cervical_pct_share',
   'cervical_pct_relative_inequity',
   'prostate_per_100k',
-  'prostate_count_estimated_total',
+  'prostate_estimated_total',
   'prostate_population_pct',
   'prostate_population_estimated_total',
   'prostate_pct_share',
   'prostate_pct_relative_inequity',
   'colorectal_per_100k',
-  'colorectal_count_estimated_total',
+  'colorectal_estimated_total',
   'colorectal_population_pct',
   'colorectal_population_estimated_total',
   'colorectal_pct_share',
   'colorectal_pct_relative_inequity',
   'lung_per_100k',
-  'lung_count_estimated_total',
+  'lung_estimated_total',
   'lung_population_pct',
   'lung_population_estimated_total',
   'lung_pct_share',
@@ -68,8 +70,13 @@ class CdcCancerProvider extends VariableProvider {
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
     try {
+      const bq_dataset =
+        metricQuery.breakdowns.geography === 'county'
+          ? 'nci_cancer'
+          : 'cdc_wonder_data'
+
       const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
-        'cdc_wonder_data',
+        bq_dataset,
         '',
         metricQuery,
       )
@@ -78,7 +85,7 @@ class CdcCancerProvider extends VariableProvider {
       }
 
       const cancerData = await getDataManager().loadDataset(datasetId)
-      let df = cancerData.toDataFrame()
+      let df = cancerData.rows
 
       df = this.filterByGeo(df, breakdowns)
       df = this.renameGeoColumns(df, breakdowns)
@@ -90,7 +97,7 @@ class CdcCancerProvider extends VariableProvider {
       }
 
       const consumedDatasetIds = [datasetId]
-      return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+      return new MetricQueryResponse(df, consumedDatasetIds)
     } catch (error) {
       console.error('Error fetching cancer data:', error)
       throw error
@@ -103,7 +110,8 @@ class CdcCancerProvider extends VariableProvider {
 
     return (
       (breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
+        breakdowns.geography === 'national' ||
+        (breakdowns.geography === 'county' && SHOW_NCI_COUNTY_CANCER)) &&
       validDemographicBreakdownRequest
     )
   }

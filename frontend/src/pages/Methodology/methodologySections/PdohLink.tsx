@@ -261,6 +261,38 @@ const PdohLink = () => {
           appear in multiple race groups based on their identification.
         </p>
 
+        <h3
+          className='mt-12 font-medium text-title'
+          id='county-level-congress-data'
+        >
+          County-Level U.S. Congress Data
+        </h3>
+        <p>
+          Women in U.S. Congress data is also available at the county level.
+          County figures are derived by mapping congressional districts to
+          counties using the{' '}
+          <strong>
+            U.S. Census Bureau TIGER 2022 county-to-congressional-district
+            crosswalk
+          </strong>{' '}
+          (118th Congress boundaries). Every Congress member whose district
+          overlaps a county is counted for that county.
+        </p>
+        <p>
+          Because each county shares two U.S. senators with every other county
+          in its state, the denominator is typically <strong>3 members</strong>{' '}
+          (2 senators + 1 representative). This produces only four possible
+          percentages: 0%, 33%, 67%, or 100%. Counties that span multiple House
+          districts will have a higher denominator and proportionally more
+          gradations. Members from multi-county districts are counted once in
+          each overlapping county.
+        </p>
+        <p>
+          Note: county-level data reflects 118th Congress district boundaries
+          and will not automatically update when new boundaries are certified
+          after a redistricting cycle.
+        </p>
+
         <p>
           For each of those data types we calculate and present two metrics to
           study the proportion of women legislators:

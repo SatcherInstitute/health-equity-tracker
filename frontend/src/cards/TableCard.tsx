@@ -47,6 +47,7 @@ interface TableCardProps {
   dataTypeConfig: DataTypeConfig
   reportTitle: string
   className?: string
+  isCompareCard?: boolean
 }
 
 export default function TableCard(props: TableCardProps) {
@@ -126,8 +127,12 @@ export default function TableCard(props: TableCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       className={props.className}
+      isCompareCard={props.isCompareCard}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
-      {([queryResponse]) => {
+      {([queryResponse], _metadata, _geoData, overrideCardHasData) => {
         let data = queryResponse.data
         if (shouldShowAltPopCompare(props)) data = fillInAltPops(data)
         let normalMetricIds = metricIds
@@ -145,6 +150,8 @@ export default function TableCard(props: TableCardProps) {
         const showMissingDataAlert =
           queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
           data.length <= 0
+
+        overrideCardHasData?.(!showMissingDataAlert)
 
         if (props.demographicType === 'income') {
           data = sortByIncome(data)

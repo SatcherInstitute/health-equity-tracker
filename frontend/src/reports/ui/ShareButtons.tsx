@@ -6,19 +6,14 @@ import {
   FacebookShareButton,
   LinkedinIcon,
   LinkedinShareButton,
-  TwitterShareButton,
-  XIcon,
 } from 'react-share'
-import type { Article } from '../../pages/News/ArticleTypes'
-import { het } from '../../styles/DesignTokens'
-import { getHtml } from '../../utils/urlutils'
+import { colors } from '../../styles/tokens/colors'
 
 export const SHARE_LABEL = 'Share this report:'
 
 interface ShareButtonProps {
   isMobile: boolean
   reportTitle?: string
-  article?: Article
 }
 
 export default function ShareButtons(props: ShareButtonProps) {
@@ -27,15 +22,9 @@ export default function ShareButtons(props: ShareButtonProps) {
   if (props.reportTitle) {
     title += ': ' + props.reportTitle
   }
-  if (props.article) {
-    const htmlTitle = getHtml(props.article.title.rendered, true)
-    if (typeof htmlTitle === 'string') {
-      title += ': “' + htmlTitle + '”'
-    }
-  }
 
   const shareIconAttributes = {
-    iconFillColor: het.altDark,
+    iconFillColor: colors.altDark,
     bgStyle: { fill: 'none' },
     size: props.isMobile ? 64 : 32,
   }
@@ -48,17 +37,6 @@ export default function ShareButtons(props: ShareButtonProps) {
     >
       <div>
         {/* SOCIAL SHARE BUTTONS */}
-
-        <Tooltip title='Tweet this page'>
-          <TwitterShareButton
-            url={sharedUrl}
-            hashtags={['healthequity']}
-            related={['@SatcherHealth', '@MSMEDU']}
-            aria-label={'Share to X (formerly Twitter)'}
-          >
-            <XIcon {...shareIconAttributes} fontSize={'small'} />
-          </TwitterShareButton>
-        </Tooltip>
 
         <Tooltip title='Post this page to Facebook'>
           <FacebookShareButton

@@ -46,6 +46,7 @@ export type PDOHMetricId =
   | 'voter_participation_pct_share'
   | 'women_state_leg_pct_relative_inequity'
   | 'women_this_race_state_leg_count'
+  | 'congressional_districts'
   | 'women_this_race_us_congress_count'
   | 'women_this_race_us_congress_names'
   | 'women_us_congress_pct_relative_inequity'

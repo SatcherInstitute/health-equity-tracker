@@ -1,9 +1,6 @@
 name: "Build and Push"
 description: "Build a docker image and push the image to GCR"
 inputs:
-  ahr-api-key:
-    description: "AHR API key used to fetch AHR data from the GraphQL endpoint"
-    required: false
   dockerfile:
     description: "Relative path to dockerfile"
     required: true
@@ -17,9 +14,7 @@ inputs:
   deploy-context:
     description: 'String value for deploy context. Should be "prod" or "dev". Only used for the frontend'
     required: false
-  openai-api-key:
-    description: "OpenAI API key for generating insights"
-    required: false
+
 outputs:
   image-digest:
     description: "Digest of image pushed to GCR"
@@ -30,13 +25,9 @@ runs:
     - name: Set Up Docker to Use gcloud Credentials
       run: gcloud auth configure-docker -q
       shell: bash
-    # Note: it is not generally recommended to pass secrets as build args
-    # More info here: https://docs.docker.com/engine/reference/builder/#arg
     - run: |
         docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} ${{ inputs.build-directory }} \
-        --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
-        --build-arg="AHR_API_KEY=${{ inputs.ahr-api-key }}" \
-        --build-arg="OPENAI_API_KEY=${{ inputs.openai-api-key }}"
+        --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}"
       shell: bash
     - run: docker push ${{ inputs.image-path }}
       shell: bash

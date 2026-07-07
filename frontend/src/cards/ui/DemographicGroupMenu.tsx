@@ -1,4 +1,6 @@
-import { ArrowDropDown, ArrowRight } from '@mui/icons-material'
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
+import ArrowRight from '@mui/icons-material/ArrowRight'
+
 import {
   Button,
   List,
@@ -140,7 +142,7 @@ function DemographicGroupMenu(props: DemographicGroupMenuProps) {
   return (
     <div className='flex'>
       <label
-        className='flex items-center px-2 py-[6px] text-small'
+        className='flex items-center px-2 py-1.5 text-small'
         htmlFor={`groupMenu${props?.idSuffix ?? ''}`}
         aria-hidden={true}
       >

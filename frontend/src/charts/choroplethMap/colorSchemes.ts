@@ -1,7 +1,15 @@
-import * as d3 from 'd3'
-import { het } from '../../styles/DesignTokens'
+import {
+  interpolateRgb,
+  piecewise,
+  scaleQuantile,
+  scaleSequential,
+  scaleSequentialSymlog,
+  scaleThreshold,
+} from 'd3'
+import { colors } from '../../styles/tokens/colors'
 import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { getLegendDataBounds } from '../mapHelperFunctions'
+
 import type {
   ColorScale,
   ColorScheme,
@@ -9,89 +17,110 @@ import type {
   GetFillColorOptions,
 } from './types'
 
-const { altGrey: ALT_GREY, white: WHITE } = het
+let _colorSchemes: Record<ColorScheme, string[]> | null = null
 
-const COLOR_SCHEMES: Record<ColorScheme, string[]> = {
-  darkgreen: [
-    het.mapDarker,
-    het.mapDark,
-    het.mapMid,
-    het.mapLight,
-    het.mapLighter,
-    het.mapLightest,
-  ],
-  plasma: [
-    het.mapWomenDarker,
-    het.mapWomenDark,
-    het.mapWomenMid,
-    het.mapWomenLight,
-    het.mapWomenLighter,
-    het.mapWomenLightest,
-  ],
-  inferno: [
-    het.mapMenDarker,
-    het.mapMenDark,
-    het.mapMenMid,
-    het.mapMenLight,
-    het.mapMenLighter,
-    het.mapMenLightest,
-  ],
-  viridis: [
-    het.mapMedicareDarkest,
-    het.mapMedicareDark,
-    het.mapMedicareMid,
-    het.mapMedicareLight,
-    het.mapMedicareLighter,
-    het.mapMedicareLightest,
-  ],
-  viridisAdherence: [
-    het.mapMedicareDarkest,
-    het.mapMedicareDark,
-    het.mapMedicareMid,
-    het.mapMedicareLight,
-    het.mapMedicareLighter,
-    het.mapMedicareEvenLighter,
-    het.mapMedicareLightest,
-  ],
-  greenblue: [
-    het.unknownMapLeast,
-    het.unknownMapLesser,
-    het.unknownMapLess,
-    het.unknownMapMid,
-    het.unknownMapMore,
-    het.unknownMapMost,
-  ],
-  darkred: [
-    het.mapYouthDarkest,
-    het.mapYouthDarker,
-    het.mapYouthDark,
-    het.mapYouthLight,
-    het.mapYouthLighter,
-    het.mapYouthLightest,
-  ],
+function getColorSchemes(): Record<ColorScheme, string[]> {
+  if (_colorSchemes) return _colorSchemes
+
+  _colorSchemes = {
+    darkgreen: [
+      colors.mapDarker,
+      colors.mapDark,
+      colors.mapMid,
+      colors.mapLight,
+      colors.mapLighter,
+      colors.mapLightest,
+    ],
+
+    plasma: [
+      colors.mapWomenDarker,
+      colors.mapWomenDark,
+      colors.mapWomenMid,
+      colors.mapWomenLight,
+      colors.mapWomenLighter,
+      colors.mapWomenLightest,
+    ],
+
+    inferno: [
+      colors.mapMenDarker,
+      colors.mapMenDark,
+      colors.mapMenMid,
+      colors.mapMenLight,
+      colors.mapMenLighter,
+      colors.mapMenLightest,
+    ],
+
+    viridis: [
+      colors.mapMedicareDarkest,
+      colors.mapMedicareDark,
+      colors.mapMedicareMid,
+      colors.mapMedicareLight,
+      colors.mapMedicareLighter,
+      colors.mapMedicareLightest,
+    ],
+
+    viridisAdherence: [
+      colors.mapMedicareDarkest,
+      colors.mapMedicareDark,
+      colors.mapMedicareMid,
+      colors.mapMedicareLight,
+      colors.mapMedicareLighter,
+      colors.mapMedicareEvenLighter,
+      colors.mapMedicareLightest,
+    ],
+
+    greenblue: [
+      colors.unknownMapLeast,
+      colors.unknownMapLesser,
+      colors.unknownMapLess,
+      colors.unknownMapMid,
+      colors.unknownMapMore,
+      colors.unknownMapMost,
+    ],
+
+    darkred: [
+      colors.mapYouthDarkest,
+      colors.mapYouthDarker,
+      colors.mapYouthDark,
+      colors.mapYouthLight,
+      colors.mapYouthLighter,
+      colors.mapYouthLightest,
+    ],
+  }
+
+  return _colorSchemes
 }
 
-// A mapping of color scheme names to their corresponding interpolated color functions.
-const COLOR_SCHEME_INTERPOLATORS: Record<ColorScheme, (t: number) => string> = {
-  darkgreen: d3.piecewise(
-    d3.interpolateRgb.gamma(2.2),
-    COLOR_SCHEMES.darkgreen,
-  ),
-  plasma: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.plasma),
-  inferno: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.inferno),
-  viridis: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.viridis),
-  viridisAdherence: d3.piecewise(
-    d3.interpolateRgb.gamma(2.2),
-    COLOR_SCHEMES.viridisAdherence,
-  ),
-  greenblue: d3.piecewise(
-    d3.interpolateRgb.gamma(2.2),
-    COLOR_SCHEMES.greenblue,
-  ),
-  darkred: d3.piecewise(d3.interpolateRgb.gamma(2.2), COLOR_SCHEMES.darkred),
+// Static — built once at module load. getColorSchemes() is itself cached,
+// and interpolateRgb.gamma(2.2) has no runtime dependencies.
+const _interpolator = interpolateRgb.gamma(2.2)
+let _colorSchemeInterpolators: Record<
+  ColorScheme,
+  (t: number) => string
+> | null = null
+
+function getColorSchemeInterpolators(): Record<
+  ColorScheme,
+  (t: number) => string
+> {
+  if (_colorSchemeInterpolators) return _colorSchemeInterpolators
+  const COLOR_SCHEMES = getColorSchemes()
+  _colorSchemeInterpolators = {
+    darkgreen: piecewise(_interpolator, COLOR_SCHEMES.darkgreen),
+    plasma: piecewise(_interpolator, COLOR_SCHEMES.plasma),
+    inferno: piecewise(_interpolator, COLOR_SCHEMES.inferno),
+    viridis: piecewise(_interpolator, COLOR_SCHEMES.viridis),
+    viridisAdherence: piecewise(_interpolator, COLOR_SCHEMES.viridisAdherence),
+    greenblue: piecewise(_interpolator, COLOR_SCHEMES.greenblue),
+    darkred: piecewise(_interpolator, COLOR_SCHEMES.darkred),
+  }
+  return _colorSchemeInterpolators
 }
 
 export function createColorScale(options: CreateColorScaleOptions): ColorScale {
+  const COLOR_SCHEMES = getColorSchemes()
+  const COLOR_SCHEME_INTERPOLATORS = getColorSchemeInterpolators()
+
   const {
     data,
     metricId,
@@ -103,9 +132,8 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
     mapConfig,
     isUnknown,
   } = options
-  let interpolatorFn
 
-  let colorArray = COLOR_SCHEMES[colorScheme] || COLOR_SCHEMES['darkgreen']
+  let colorArray = COLOR_SCHEMES[colorScheme] || COLOR_SCHEMES.darkgreen
 
   if (isSummaryLegend && !isPhrmaAdherence) {
     colorArray = [mapConfig.mid]
@@ -113,11 +141,11 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
 
   colorArray = reverse ? [...colorArray].reverse() : colorArray
 
-  interpolatorFn = d3.piecewise(d3.interpolateRgb.gamma(2.2), colorArray)
+  let interpolatorFn = piecewise(_interpolator, colorArray)
 
   const resolvedScheme = colorScheme
     ? COLOR_SCHEME_INTERPOLATORS[colorScheme]
-    : colorScheme
+    : interpolatorFn
 
   interpolatorFn = reverse
     ? (t: number) => resolvedScheme(1 - t)
@@ -138,28 +166,42 @@ export function createColorScale(options: CreateColorScaleOptions): ColorScale {
     : [legendLowerBound, legendUpperBound]
 
   if (min === undefined || max === undefined || isNaN(min) || isNaN(max)) {
-    return d3.scaleSequential(interpolatorFn).domain([0, 1])
+    return scaleSequential(interpolatorFn).domain([0, 1])
   }
 
   if (isUnknown) {
-    return d3.scaleSequentialSymlog(interpolatorFn).domain([min, max])
+    return scaleSequentialSymlog(interpolatorFn).domain([min, max])
   }
 
   if (isPhrmaAdherence) {
-    return d3
-      .scaleThreshold<number, string>()
+    return scaleThreshold<number, string>()
       .domain(PHRMA_ADHERENCE_BREAKPOINTS)
       .range(colorArray)
   }
 
-  return d3.scaleQuantile<string, number>().domain(domain).range(colorArray)
+  const uniqueDomainValues = [...new Set(domain)].sort((a, b) => a - b)
+  if (
+    uniqueDomainValues.length > 0 &&
+    uniqueDomainValues.length < colorArray.length
+  ) {
+    // Discrete data: use threshold scale so each distinct value gets its own
+    // color bucket rather than letting quantile over-represent common values
+    // (e.g. CAWP county percentages where most counties share a single value).
+    return scaleThreshold<number, string>()
+      .domain(uniqueDomainValues)
+      .range(colorArray.slice(0, uniqueDomainValues.length + 1))
+  }
+
+  return scaleQuantile<string, number>().domain(domain).range(colorArray)
 }
 
 export function getFillColor(options: GetFillColorOptions): string {
   const { d, dataMap, mapConfig, isExtremesMode, colorScale, isMultiMap } =
     options
 
-  if (!isMultiMap && dataMap.size === 1) return mapConfig.mid
+  if (!isMultiMap && dataMap.size === 1) {
+    return mapConfig.mid
+  }
 
   const value = dataMap.get(d.id as string)?.value as number
 
@@ -171,5 +213,5 @@ export function getFillColor(options: GetFillColorOptions): string {
     return colorScale(value)
   }
 
-  return isExtremesMode ? WHITE : ALT_GREY
+  return isExtremesMode ? '#fff' : colors.altGray
 }

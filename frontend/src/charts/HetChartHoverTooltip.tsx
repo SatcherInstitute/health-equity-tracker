@@ -1,0 +1,90 @@
+import { createPortal } from 'react-dom'
+
+interface HetTooltipPanelProps {
+  children: React.ReactNode
+  className?: string
+  style?: React.CSSProperties
+}
+
+export function HetTooltipPanel({
+  children,
+  className = '',
+  style,
+}: HetTooltipPanelProps) {
+  return (
+    <div
+      role='tooltip'
+      className={`rounded-sm border border-alt-gray border-solid bg-alt-white/[0.97] p-3 font-medium font-sans-text shadow-lg text-small${className ? ` ${className}` : ''}`}
+      style={style}
+    >
+      {children}
+    </div>
+  )
+}
+
+interface HetChartHoverTooltipProps {
+  x: number | null
+  y: number | null
+  children: React.ReactNode
+  // enables pointer-events so interactive content (e.g. buttons) inside the tooltip is tappable
+  interactive?: boolean
+  // set to true when the tooltip is rendered inside a modal (uses z-multimap-modal-tooltip to clear the dialog z-index)
+  inModal?: boolean
+}
+
+export function HetChartHoverTooltip({
+  x,
+  y,
+  children,
+  interactive = false,
+  inModal = false,
+}: HetChartHoverTooltipProps) {
+  const zIndexClass = inModal ? 'z-multimap-modal-tooltip' : 'z-top'
+  if (x === null || y === null) return null
+
+  // Read directly from window — avoids stale useState on initial renders,
+  // which caused flipLeft to be wrong and the tooltip to overflow off-screen.
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+
+  const OFFSET = 16
+  const PAD = 12
+  // Compute pixel width to match the CSS value so clamping math is exact.
+  const tooltipWidth = Math.min(320, Math.round(vw * 0.6))
+
+  // Prefer showing to the right of the cursor; flip left when near the right edge.
+  const desiredLeft = x > vw / 2 ? x - OFFSET - tooltipWidth : x + OFFSET
+  // Clamp so the tooltip never overflows either edge.
+  const left = Math.max(PAD, Math.min(vw - tooltipWidth - PAD, desiredLeft))
+
+  const flipUp = y > vh / 2
+
+  // `top` always equals the raw cursor y so it transitions smoothly as the
+  // cursor moves. `transform` handles both the OFFSET and the above/below
+  // flip, so when flipUp changes the tooltip slides from one side to the
+  // other via the transform transition rather than jumping.
+  const positionStyle: React.CSSProperties = {
+    left: `${left}px`,
+    width: `${tooltipWidth}px`,
+    top: `${y}px`,
+    transform: flipUp
+      ? `translateY(calc(-100% - ${OFFSET}px))`
+      : `translateY(${OFFSET}px)`,
+    transition:
+      'left 120ms ease-out, top 120ms ease-out, transform 120ms ease-out',
+  }
+
+  return createPortal(
+    <HetTooltipPanel
+      className={
+        interactive
+          ? `fixed ${zIndexClass}`
+          : `pointer-events-none fixed ${zIndexClass}`
+      }
+      style={positionStyle}
+    >
+      {children}
+    </HetTooltipPanel>,
+    document.body,
+  )
+}

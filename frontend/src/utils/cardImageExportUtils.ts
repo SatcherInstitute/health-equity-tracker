@@ -1,5 +1,11 @@
-import domtoimage from 'dom-to-image-more'
+// dom-to-image-more exports a namespace as its default, so `import type` alone
+// cannot be used as a type annotation (TS2709). `typeof` in the type alias
+// extracts the usable instance type from the namespace.
+import type domToImageMore from 'dom-to-image-more'
 import { MULTIMAP_MODAL_CONTENT_ID } from '../cards/ui/MultiMapDialog'
+
+type DomToImage = typeof domToImageMore
+
 import { CITATION_APA } from '../cards/ui/SourcesHelpers'
 import { LEGEND_ITEMS_BOX_CLASS } from '../charts/choroplethMap/RateMapLegend'
 import type { ScrollableHashId } from './hooks/useStepObserver'
@@ -58,23 +64,34 @@ async function dataURLtoBlob(dataURL: string): Promise<Blob> {
 async function handleDestination(dataUrl: string, options: SaveImageOptions) {
   if (options.destination === 'clipboard') {
     try {
+      window.focus()
       const blob = await dataURLtoBlob(dataUrl)
+
       await navigator.clipboard.write([
         new ClipboardItem({
           [blob.type]: blob,
         }),
       ])
+
+      return dataUrl
     } catch (clipboardError) {
       console.error('Failed to write to clipboard:', clipboardError)
+      return undefined
     }
-  } else if (options.destination === 'download') {
+  }
+
+  if (options.destination === 'download') {
     const fileName = createFileName(options.cardTitle)
+
     const link = document.createElement('a')
     link.download = fileName
     link.href = dataUrl
     link.click()
+
+    return dataUrl
   }
-  return dataUrl
+
+  return undefined
 }
 
 function removeLegendBorders(): void {
@@ -84,7 +101,7 @@ function removeLegendBorders(): void {
   legendItemsBoxes.forEach((box) => {
     box.classList.remove(
       'border-0',
-      'border-grey-grid-color-darker',
+      'border-gray-grid-color-darker',
       'border-t',
       'border-solid',
     )
@@ -100,7 +117,7 @@ function restoreLegendBorders(): void {
     box.classList.remove('border-none')
     box.classList.add(
       'border-0',
-      'border-grey-grid-color-darker',
+      'border-gray-grid-color-darker',
       'border-t',
       'border-solid',
     )
@@ -151,7 +168,7 @@ function handleFooterForCard(
       'w-full',
       'border-b',
       'border-solid',
-      'border-divider-grey',
+      'border-divider-gray',
     )
     mapDivider.style.height = '0px'
     footer.parentNode?.insertBefore(mapDivider, footer)
@@ -290,7 +307,7 @@ function cleanupRowOfTwoCards(
   elementsToRemove.forEach((element) => element.remove())
 
   restoreAllShadows(rowNode)
-  rowNode.classList.remove('bg-white', 'm-0', 'w-full')
+  rowNode.classList.remove('bg-alt-white', 'm-0', 'w-full')
   restoreLegendBorders()
 }
 
@@ -314,6 +331,7 @@ async function captureAndSaveImage(
   node: HTMLElement,
   addedElements: AddedElements,
   options: SaveImageOptions,
+  domtoimage: DomToImage,
 ): Promise<string | undefined> {
   try {
     // For modal content, we need to use the full scrollHeight
@@ -355,6 +373,7 @@ async function captureAndSaveImage(
 async function saveSingleCardImage(
   targetNode: HTMLElement,
   options: SaveImageOptions,
+  domtoimage: DomToImage,
 ): Promise<string | undefined> {
   const articleChild = targetNode.querySelector('article') as HTMLElement | null
   const nodeToCapture = articleChild || targetNode
@@ -366,7 +385,12 @@ async function saveSingleCardImage(
       : prepareNodeForCapture(nodeToCapture, options)
 
   try {
-    return await captureAndSaveImage(nodeToCapture, addedElements, options)
+    return await captureAndSaveImage(
+      nodeToCapture,
+      addedElements,
+      options,
+      domtoimage,
+    )
   } finally {
     if (options.cardId === 'multimap-modal') {
       cleanupModalContent(addedElements, nodeToCapture)
@@ -379,11 +403,17 @@ async function saveSingleCardImage(
 async function saveRowOfTwoCardsImage(
   rowNode: HTMLElement,
   options: SaveImageOptions,
+  domtoimage: DomToImage,
 ): Promise<string | undefined> {
   const addedElements = prepareRowForCapture(rowNode)
 
   try {
-    return await captureAndSaveImage(rowNode, addedElements, options)
+    return await captureAndSaveImage(
+      rowNode,
+      addedElements,
+      options,
+      domtoimage,
+    )
   } finally {
     cleanupRowOfTwoCards(rowNode, addedElements)
   }
@@ -393,6 +423,17 @@ export async function saveCardImage(
   options: SaveImageOptions,
 ): Promise<string | undefined> {
   const { cardId, isRowOfTwo = false } = options
+
+  // Import before any DOM mutations so the library is ready before the user
+  // sees the card in its "pre-screenshot" state on slow connections.
+  const domtoimage = await import('dom-to-image-more')
+    .then((m) => m.default)
+    .catch((error: unknown) => {
+      console.error('Failed to load image export library:', error)
+      return undefined
+    })
+
+  if (!domtoimage) return
 
   let targetNode: HTMLElement | null = null
 
@@ -410,9 +451,9 @@ export async function saveCardImage(
   if (!targetNode) return
 
   if (isRowOfTwo) {
-    targetNode.classList.add('bg-white', 'm-0', 'w-full')
-    return saveRowOfTwoCardsImage(targetNode, options)
+    targetNode.classList.add('bg-alt-white', 'm-0', 'w-full')
+    return saveRowOfTwoCardsImage(targetNode, options, domtoimage)
   }
 
-  return saveSingleCardImage(targetNode, options)
+  return saveSingleCardImage(targetNode, options, domtoimage)
 }

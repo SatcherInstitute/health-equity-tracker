@@ -42,6 +42,7 @@
 				"noNoninteractiveElementToInteractiveRole": "off"
 			},
 			"suspicious": {
+				"noExportsInTest": "off",
 				"useIterableCallbackReturn": "off",
 				"noExplicitAny": "off",
 				"noImplicitAnyLet": "off",

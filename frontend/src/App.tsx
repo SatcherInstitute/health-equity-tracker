@@ -6,7 +6,6 @@ import '@fontsource/taviraj/200.css'
 import '@fontsource/taviraj/300.css'
 import '@fontsource/taviraj/400.css'
 import '@fontsource/taviraj/500.css'
-
 import { CircularProgress } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider } from '@mui/material/styles'
@@ -18,14 +17,15 @@ import {
   Routes,
   useLocation,
 } from 'react-router'
+import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
 import { methodologyRouteConfigs } from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
-import NewsAndStoriesPage from './pages/News/NewsAndStoriesPage'
 import { policyRouteConfigs } from './pages/Policy/policyContent/policyRouteConfigs'
 import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
-import MaterialTheme from './styles/MaterialTheme'
+import Banner from './reports/ui/Banner'
+import SkipLink from './SkipLink'
+import HetAppBar from './styles/HetComponents/HetAppBar'
+import muiTheme from './styles/theme/muiTheme'
 import { autoInitGlobals } from './utils/globals'
-import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
-import { useMakeCssVariables } from './utils/hooks/useMakeCssVariables'
 import {
   ABOUT_SEED_LINK,
   ABOUT_US_PAGE_LINK,
@@ -35,14 +35,12 @@ import {
   FULL_FAQS_LINK,
   GUN_VIOLENCE_POLICY,
   METHODOLOGY_PAGE_LINK,
-  NEWS_PAGE_LINK,
   OLD_AGE_ADJUSTMENT_LINK,
   OLD_CONTACT_LINK,
   OLD_OURTEAM_LINK,
   OLD_TERMS_OF_SERVICE_LINK,
   POLICY_PAGE_LINK,
   SHARE_YOUR_STORY_PATH,
-  SHARE_YOUR_STORY_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from './utils/internalRoutes'
@@ -56,30 +54,15 @@ const AboutUsPage = React.lazy(
 const WhatIsHealthEquityPage = React.lazy(
   async () => await import('./pages/WhatIsHealthEquity/WhatIsHealthEquityPage'),
 )
-const ErrorBoundaryDropParams = React.lazy(
-  async () => await import('./ErrorBoundaryDropParams'),
-)
 const ExploreDataFallback = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataFallback'),
 )
-const NewsPage = React.lazy(async () => await import('./pages/News/NewsPage'))
-const SkipLink = React.lazy(async () => await import('./SkipLink'))
 const MethodologyPage = React.lazy(
   async () =>
     await import('./pages/Methodology/methodologyComponents/MethodologyPage'),
 )
-const HetAppBar = React.lazy(
-  async () => await import('./styles/HetComponents/HetAppBar'),
-)
-const Banner = React.lazy(async () => await import('./reports/ui/Banner'))
 const PolicyPage = React.lazy(
   async () => await import('./pages/Policy/policyComponents/PolicyPage'),
-)
-const ShareYourStory = React.lazy(
-  async () => await import('./pages/News/ShareYourStory'),
-)
-const SinglePost = React.lazy(
-  async () => await import('./pages/News/SinglePost'),
 )
 const FaqsPage = React.lazy(async () => await import('./pages/FAQs/FaqsPage'))
 
@@ -89,6 +72,9 @@ const ExploreDataPage = React.lazy(
 const Footer = React.lazy(async () => await import('./Footer'))
 const LandingPage = React.lazy(
   async () => await import('./pages/Landing/LandingPage'),
+)
+const ShareYourStoryPage = React.lazy(
+  async () => await import('./pages/ShareYourStory/ShareYourStoryPage'),
 )
 const TermsOfUsePage = React.lazy(
   async () => await import('./pages/TermsOfUsePage/TermsOfUsePage'),
@@ -108,13 +94,10 @@ function ScrollToTop() {
 }
 
 export default function App() {
-  useMakeCssVariables()
-  const isSm = useIsBreakpointAndUp('sm')
-
   return (
-    <ThemeProvider theme={MaterialTheme} defaultMode='light'>
+    <ThemeProvider theme={muiTheme} defaultMode='light'>
       <CssBaseline />
-      <div className='relative min-h-full bg-white text-center'>
+      <div className='relative min-h-full bg-alt-white text-center'>
         <SkipLink />
 
         <div className='relative h-full'>
@@ -145,7 +128,7 @@ export default function App() {
                       <ErrorBoundaryDropParams
                         fallback={<ExploreDataFallback />}
                       >
-                        <ExploreDataPage isMobile={isSm} />
+                        <ExploreDataPage />
                       </ErrorBoundaryDropParams>
                     }
                   />
@@ -200,16 +183,6 @@ export default function App() {
                     </>
                   </Route>
 
-                  {/* NESTED NEWS ROUTES */}
-                  <Route path={NEWS_PAGE_LINK} element={<NewsPage />}>
-                    <Route
-                      path={SHARE_YOUR_STORY_TAB_LINK}
-                      element={<ShareYourStory />}
-                    />
-                    <Route path={''} element={<NewsAndStoriesPage />} />
-                    <Route path='/news/:slug' element={<SinglePost />} />
-                  </Route>
-
                   <Route
                     path={TERMS_OF_USE_PAGE_LINK}
                     element={<TermsOfUsePage />}
@@ -230,7 +203,7 @@ export default function App() {
                   />
                   <Route
                     path={SHARE_YOUR_STORY_PATH}
-                    element={<Navigate to={SHARE_YOUR_STORY_TAB_LINK} />}
+                    element={<ShareYourStoryPage />}
                   />
 
                   <Route
