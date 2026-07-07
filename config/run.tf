@@ -93,11 +93,10 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
   autogenerate_revision_name = true
 }
 
-# TEMPORARY (prod cutover): the legacy data_server_service and frontend_service below
-# run in parallel with the new server_service so the prod domain mapping can be
-# repointed to server-service with zero downtime and an instant rollback path.
-# Remove both legacy services (and their SA/bindings/vars/image builds) once the
-# prod cutover is verified.
+# TEMPORARY (prod cutover): the legacy data_server_service below stays running so
+# that a rolled-back frontend_service revision (the legacy Node proxy, which
+# forwards /api to it) still works. Remove it, along with the legacy SA/bindings/
+# vars/image builds, once the prod cutover (#4901) is verified stable (#4902).
 resource "google_cloud_run_service" "data_server_service" {
   name     = var.data_server_service_name
   location = var.compute_region
@@ -146,18 +145,16 @@ resource "google_cloud_run_service" "data_server_service" {
   autogenerate_revision_name = true
 }
 
-# TEMPORARY (prod cutover): see comment on data_server_service above.
+# Serves healthequitytracker.org. The Cloud Run service name is pinned to
+# "frontend-service" by the manually-managed domain mapping (see the domain
+# mapping note below), but since the cutover flip (#4901) it runs the exact
+# same Go server image and spec as server_service. Rollback path: shift traffic
+# back to the previous (legacy Node proxy) revision with
+#   gcloud run services update-traffic frontend-service --to-revisions=<rev>=100
 resource "google_cloud_run_service" "frontend_service" {
   name     = var.frontend_service_name
   location = var.compute_region
   project  = var.project_id
-
-  # The secret accessor grants must exist before Cloud Run validates the
-  # revision's secret references at deploy time.
-  depends_on = [
-    google_secret_manager_secret_iam_member.frontend_runner_anthropic_accessor,
-    google_secret_manager_secret_iam_member.frontend_runner_webflow_accessor,
-  ]
 
   template {
     metadata {
@@ -167,11 +164,22 @@ resource "google_cloud_run_service" "frontend_service" {
     }
     spec {
       containers {
-        image = format("gcr.io/%s/%s@%s", var.project_id, var.frontend_image_name, var.frontend_image_digest)
+        image = format("gcr.io/%s/%s@%s", var.project_id, var.server_image_name, var.server_image_digest)
         env {
-          # URL of the Data Server Cloud Run service.
-          name  = "DATA_SERVER_URL"
-          value = google_cloud_run_service.data_server_service.status.0.url
+          name  = "GCS_BUCKET"
+          value = var.export_bucket
+        }
+        env {
+          name  = "METADATA_FILENAME"
+          value = var.metadata_filename
+        }
+        env {
+          name  = "INSIGHTS_CACHE_BUCKET"
+          value = var.insights_cache_bucket
+        }
+        env {
+          name  = "FLAGGED_INSIGHTS_BUCKET"
+          value = var.flagged_insights_bucket
         }
         env {
           name = "ANTHROPIC_API_KEY"
@@ -194,21 +202,18 @@ resource "google_cloud_run_service" "frontend_service" {
           }
         }
         env {
-          # Feeds flagged insights back into the generation prompt as negative examples
-          # so regenerated insights steer away from previously flagged content.
           name  = "INSIGHT_NEGATIVE_EXAMPLES_ENABLED"
           value = "true"
         }
 
         resources {
           limits = {
-            memory = "8Gi"
-            cpu    = 4
+            memory = "512Mi"
+            cpu    = 1
           }
         }
-
       }
-      service_account_name = google_service_account.frontend_runner_identity.email
+      service_account_name = google_service_account.data_server_runner_identity.email
     }
   }
 
