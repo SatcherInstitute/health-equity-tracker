@@ -42,9 +42,13 @@ func main() {
 	// Health probe — /health avoids Google Frontend interception of /healthz
 	r.Get("/health", healthHandler)
 
-	// Data endpoints (replaces data_server)
+	// Data endpoints — both /dataset and /api/dataset are registered because the
+	// frontend constructs URLs as BASE_API_URL + "/api/dataset", matching the
+	// path the old Node frontend_server proxied to the Python data_server.
 	r.Get("/metadata", metadataHandler)
+	r.Get("/api/metadata", metadataHandler)
 	r.Get("/dataset", datasetHandler)
+	r.Get("/api/dataset", datasetHandler)
 
 	// Insight cache and flagging (replaces data_server insight routes)
 	r.Get("/insight-cache", getInsightCacheHandler)
