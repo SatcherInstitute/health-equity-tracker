@@ -22,6 +22,9 @@ import type {
 } from './types'
 
 const MARGIN = { top: 0, right: 0, bottom: 0, left: 0 }
+// Extra downward nudge of the map group on mobile; must also be subtracted
+// from the projection fit height or the bottom of the map clips off the SVG
+const MOBILE_TOP_OFFSET = 10
 
 export const renderMap = (options: RenderMapOptions) => {
   const {
@@ -51,7 +54,8 @@ export const renderMap = (options: RenderMapOptions) => {
   const territoryHeight = fips.isUsa()
     ? TERRITORIES.marginTop + TERRITORIES.radius * 2
     : 0
-  const mapHeight = height - territoryHeight
+  const mapHeight =
+    height - territoryHeight - (isMobile ? MOBILE_TOP_OFFSET : 0)
 
   const { mapGroup } = initializeSvg({
     svgRef: svgRef,
@@ -162,6 +166,9 @@ const initializeSvg = (options: InitializeSvgOptions) => {
     mapGroup: svg
       .append('g')
       .attr('class', 'map-container')
-      .attr('transform', `translate(${left}, ${isMobile ? top + 10 : top})`),
+      .attr(
+        'transform',
+        `translate(${left}, ${isMobile ? top + MOBILE_TOP_OFFSET : top})`,
+      ),
   }
 }
