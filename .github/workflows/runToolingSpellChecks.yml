@@ -19,7 +19,10 @@ jobs:
         uses: streetsidesoftware/cspell-action@v8
         with:
           config: 'cspell.config.json'
-          files: '**/*.{ts,tsx,js,jsx,py,md,mdx,json,yml,yaml,css,scss,sh,tf}'
+          # Only file types that can contain user- or contributor-facing prose.
+          # Infra/tooling types (tf, sh, css, scss) and non-prose folders are
+          # excluded here or via ignorePaths in cspell.config.json.
+          files: '**/*.{ts,tsx,js,jsx,py,md,mdx,json,yml,yaml}'
           incremental_files_only: false
           strict: true
 
