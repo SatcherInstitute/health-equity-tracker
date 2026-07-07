@@ -38,12 +38,10 @@ jobs:
 
       # --- CODE QUALITY (fails fast) ---
 
-      - name: Setup Biome
-        uses: biomejs/setup-biome@v2
-        with:
-          version: 2.2.5
+      # Use the Biome version from package.json (installed by npm ci) so CI
+      # can't drift from the version the pre-commit hook runs locally
       - name: Run Biome
-        run: biome ci src/
+        run: npx @biomejs/biome ci src/
 
       - name: Run Vitest unit tests
         run: npm test
