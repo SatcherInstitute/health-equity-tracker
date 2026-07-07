@@ -93,6 +93,132 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
   autogenerate_revision_name = true
 }
 
+# TEMPORARY (prod cutover): the legacy data_server_service and frontend_service below
+# run in parallel with the new server_service so the prod domain mapping can be
+# repointed to server-service with zero downtime and an instant rollback path.
+# Remove both legacy services (and their SA/bindings/vars/image builds) once the
+# prod cutover is verified.
+resource "google_cloud_run_service" "data_server_service" {
+  name     = var.data_server_service_name
+  location = var.compute_region
+  project  = var.project_id
+
+  template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "50" # User-facing can scale to handle many requests
+      }
+    }
+    spec {
+      containers {
+        image = format("gcr.io/%s/%s@%s", var.project_id, var.data_server_image_name, var.data_server_image_digest)
+        env {
+          # GCS bucket from where the data tables are read.
+          name  = "GCS_BUCKET"
+          value = var.export_bucket
+        }
+        env {
+          # GCS bucket for the AI insights cache (read/write).
+          name  = "INSIGHTS_CACHE_BUCKET"
+          value = var.insights_cache_bucket
+        }
+        env {
+          # GCS bucket for user-flagged insights (read/write/list).
+          name  = "FLAGGED_INSIGHTS_BUCKET"
+          value = var.flagged_insights_bucket
+        }
+
+        resources {
+          limits = {
+            memory = "8Gi"
+            cpu    = 4
+          }
+        }
+      }
+      service_account_name = google_service_account.data_server_runner_identity.email
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+  autogenerate_revision_name = true
+}
+
+# TEMPORARY (prod cutover): see comment on data_server_service above.
+resource "google_cloud_run_service" "frontend_service" {
+  name     = var.frontend_service_name
+  location = var.compute_region
+  project  = var.project_id
+
+  # The secret accessor grants must exist before Cloud Run validates the
+  # revision's secret references at deploy time.
+  depends_on = [
+    google_secret_manager_secret_iam_member.frontend_runner_anthropic_accessor,
+    google_secret_manager_secret_iam_member.frontend_runner_webflow_accessor,
+  ]
+
+  template {
+    metadata {
+      annotations = {
+        "autoscaling.knative.dev/maxScale" = "50" # User-facing can scale to handle many requests
+      }
+    }
+    spec {
+      containers {
+        image = format("gcr.io/%s/%s@%s", var.project_id, var.frontend_image_name, var.frontend_image_digest)
+        env {
+          # URL of the Data Server Cloud Run service.
+          name  = "DATA_SERVER_URL"
+          value = google_cloud_run_service.data_server_service.status.0.url
+        }
+        env {
+          name = "ANTHROPIC_API_KEY"
+          value_from {
+            secret_key_ref {
+              # Secret is created/rotated manually in Secret Manager (see secrets.tf).
+              name = "anthropic-api-key"
+              key  = "latest"
+            }
+          }
+        }
+        env {
+          name = "WEBFLOW_API_TOKEN"
+          value_from {
+            secret_key_ref {
+              # Secret is created/rotated manually in Secret Manager (see secrets.tf).
+              name = "webflow-api-token"
+              key  = "latest"
+            }
+          }
+        }
+        env {
+          # Feeds flagged insights back into the generation prompt as negative examples
+          # so regenerated insights steer away from previously flagged content.
+          name  = "INSIGHT_NEGATIVE_EXAMPLES_ENABLED"
+          value = "true"
+        }
+
+        resources {
+          limits = {
+            memory = "8Gi"
+            cpu    = 4
+          }
+        }
+
+      }
+      service_account_name = google_service_account.frontend_runner_identity.email
+    }
+  }
+
+  traffic {
+    percent         = 100
+    latest_revision = true
+  }
+  autogenerate_revision_name = true
+}
+
 # Combined Go server: serves the React frontend and all data/AI/news APIs.
 resource "google_cloud_run_service" "server_service" {
   name     = var.server_service_name

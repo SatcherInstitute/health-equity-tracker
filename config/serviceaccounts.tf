@@ -132,3 +132,49 @@ resource "google_cloud_run_service_iam_member" "server_invoker_binding" {
   role     = "roles/run.invoker"
   member   = "allUsers"
 }
+
+# TEMPORARY (prod cutover): the resources below support the legacy frontend_service +
+# data_server_service that run in parallel with server_service until the prod domain
+# mapping is repointed. Remove together with the legacy services in run.tf.
+
+# Service account whose identity is used when running the legacy frontend service.
+resource "google_service_account" "frontend_runner_identity" {
+  # The account id that is used to generate the service account email. Must be 6-30 characters long and
+  # match the regex [a-z]([-a-z0-9]*[a-z0-9]).
+  account_id = var.frontend_runner_identity_id
+}
+
+# Allow the legacy frontend service to make calls to the legacy data server
+resource "google_cloud_run_service_iam_member" "data_server_invoker_binding" {
+  location = google_cloud_run_service.data_server_service.location
+  project  = google_cloud_run_service.data_server_service.project
+  service  = google_cloud_run_service.data_server_service.name
+  role     = "roles/run.invoker"
+  member   = format("serviceAccount:%s", google_service_account.frontend_runner_identity.email)
+}
+
+# Make the legacy frontend service public
+resource "google_cloud_run_service_iam_member" "frontend_invoker_binding" {
+  location = google_cloud_run_service.frontend_service.location
+  project  = google_cloud_run_service.frontend_service.project
+  service  = google_cloud_run_service.frontend_service.name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}
+
+# The secrets themselves are created manually (see secrets.tf), but the accessor grants
+# for the Terraform-managed frontend SA are managed here so a fresh apply (test project)
+# can bring up the legacy frontend service without a manual IAM step.
+resource "google_secret_manager_secret_iam_member" "frontend_runner_anthropic_accessor" {
+  project   = var.project_id
+  secret_id = "anthropic-api-key"
+  role      = "roles/secretmanager.secretAccessor"
+  member    = format("serviceAccount:%s", google_service_account.frontend_runner_identity.email)
+}
+
+resource "google_secret_manager_secret_iam_member" "frontend_runner_webflow_accessor" {
+  project   = var.project_id
+  secret_id = "webflow-api-token"
+  role      = "roles/secretmanager.secretAccessor"
+  member    = format("serviceAccount:%s", google_service_account.frontend_runner_identity.email)
+}
