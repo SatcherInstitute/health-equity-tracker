@@ -78,7 +78,7 @@ app.use('/api', (req, _res, next) => {
     const targetUrl = assertEnvVar('DATA_SERVER_URL')
     getIamToken(metadataServerTokenURL + targetUrl)
       .then((token) => {
-        req.headers['Authorization_DataServer'] = `bearer ${token}`
+        req.dataServerToken = token
         next()
       })
       .catch(next)
@@ -91,12 +91,15 @@ const apiProxyOptions = {
   target: assertEnvVar('DATA_SERVER_URL'),
   changeOrigin: true,
   pathRewrite: { '^/api': '' },
-  onProxyReq: (proxyReq) => {
-    proxyReq.setHeader(
-      'Authorization',
-      proxyReq.getHeader('Authorization_DataServer'),
-    )
-    proxyReq.removeHeader('Authorization_DataServer')
+  // http-proxy-middleware v3+ only fires handlers registered under `on:` —
+  // a top-level onProxyReq is silently ignored, which sends the request with
+  // no Authorization header and gets a 403 from Cloud Run IAM.
+  on: {
+    proxyReq: (proxyReq, req) => {
+      if (req.dataServerToken) {
+        proxyReq.setHeader('Authorization', `bearer ${req.dataServerToken}`)
+      }
+    },
   },
 }
 const apiProxy = createProxyMiddleware(apiProxyOptions)
