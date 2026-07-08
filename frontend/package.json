@@ -105,9 +105,10 @@
 		"refresh-cawp": "tsx scripts/refresh_cawp_data.ts",
 		"screenshots": "tsx scripts/take-screenshots.ts",
 		"tokens": "tsx run-tokens.ts",
-		"postinstall": "npm run tokens",
-		"predev": "npm run tokens",
-		"prebuild": "npm run tokens",
+		"geo": "tsx scripts/geo/split-geographies.ts",
+		"postinstall": "npm run tokens && npm run geo",
+		"predev": "npm run tokens && npm run geo",
+		"prebuild": "npm run tokens && npm run geo",
 		"tsc:watch": "npx tsc --watch",
 		"url": "npx playwright install chromium && npx playwright test --project=URL"
 	},

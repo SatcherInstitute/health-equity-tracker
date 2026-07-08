@@ -16,7 +16,10 @@ describe('Test Data Source URLs', () => {
 describe('Test Data Source IDs', () => {
   const datasetMetadaIds = Object.keys(DatasetMetadataMap)
 
-  const dataSourceMetadataIds: DatasetId[] = ['geographies']
+  const dataSourceMetadataIds: DatasetId[] = [
+    'geographies_states',
+    'geographies_counties',
+  ]
   for (const item of Object.values(dataSourceMetadataMap)) {
     dataSourceMetadataIds.push(...item.dataset_ids)
   }

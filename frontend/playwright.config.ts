@@ -58,15 +58,17 @@ const config: PlaywrightTestConfig = {
       testMatch: /.*mobile\.spec\.ts/,
       use: { ...devices['iPad (gen 7)'] },
     },
+    // Firefox and WebKit reject clipboard-* permissions at context/page
+    // creation, and no .ci spec uses the clipboard, so grant none here.
     {
       name: 'FIREFOX_NIGHTLY',
       testMatch: /.*\.ci\.spec\.ts/,
-      use: { browserName: 'firefox' },
+      use: { browserName: 'firefox', permissions: [] },
     },
     {
       name: 'WEBKIT_NIGHTLY',
       testMatch: /.*\.ci\.spec\.ts/,
-      use: { browserName: 'webkit' },
+      use: { browserName: 'webkit', permissions: [] },
     },
   ],
 }

@@ -10,6 +10,7 @@ import type {
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import type { DemographicGroup } from '../data/utils/Constants'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
+import { getGeographiesDatasetId } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
 import { useCompareMode } from '../reports/CompareModeContext'
 import { hasEnoughDataForInsight } from '../utils/generateVisualizationInsight'
@@ -104,7 +105,11 @@ function CardWrapper(props: {
 
   return (
     <WithMetadataAndMetrics
-      loadGeographies={props.loadGeographies}
+      geographiesDataset={
+        props.loadGeographies && props.fips
+          ? getGeographiesDatasetId(props.fips)
+          : undefined
+      }
       loadingComponent={loadingComponent}
       queries={props.queries ?? []}
     >

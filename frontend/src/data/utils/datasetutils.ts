@@ -2,6 +2,10 @@ import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
+import {
+  GEOGRAPHIES_COUNTIES_DATASET_ID,
+  GEOGRAPHIES_STATES_DATASET_ID,
+} from '../config/MetadataMap'
 import type {
   DataTypeConfig,
   DataTypeId,
@@ -357,6 +361,17 @@ export function appendFipsIfNeeded(
     : breakdowns?.filterFips?.getParentFips()?.code
 
   return fipsToAppend ? `${baseId}-${fipsToAppend}` : baseId
+}
+
+// National maps render states/territories; state and county level maps render
+// counties, so they load only the relevant state's county topology. State
+// outlines are derived at render time by merging that state's counties.
+export function getGeographiesDatasetId(
+  fips: Fips,
+): DatasetId | DatasetIdWithStateFIPSCode {
+  return fips.isUsa()
+    ? GEOGRAPHIES_STATES_DATASET_ID
+    : (`${GEOGRAPHIES_COUNTIES_DATASET_ID}-${fips.getStateFipsCode()}` as DatasetIdWithStateFIPSCode)
 }
 
 export function addAcsIdToConsumed(

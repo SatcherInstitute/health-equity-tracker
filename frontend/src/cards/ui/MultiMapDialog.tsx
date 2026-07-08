@@ -65,8 +65,8 @@ interface MultiMapDialogProps {
   metadata: MapOfDatasetMetadata
   demographicGroupsNoData: DemographicGroup[]
   countColsMap: CountColsMap
-  // Geography data, in topojson format. Must include both states and counties.
-  // If not provided, defaults to directly loading /tmp/geographies.json
+  // Geography topology for the current view: the states file for national
+  // maps, or the current state's counties file otherwise
   geoData?: Record<string, any>
   // optional to show state data when county not available
   hasSelfButNotChildGeoData?: boolean

@@ -4,7 +4,6 @@ import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
-import { GEOGRAPHIES_DATASET_ID } from '../config/MetadataMap'
 import { MetadataCache } from '../loading/DataManager'
 import type { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import type { Dataset, MapOfDatasetMetadata } from '../utils/DatasetTypes'
@@ -129,14 +128,16 @@ interface WithMetadataAndMetricsProps {
     geoData?: Record<string, any>,
   ) => React.ReactNode
   loadingComponent?: React.ReactNode
-  loadGeographies?: boolean
+  // When set, also loads this geographies topology (states file for national
+  // views, a single state's counties file otherwise) and passes it to children.
+  geographiesDataset?: DatasetId | DatasetIdWithStateFIPSCode
 }
 
 export function WithMetadataAndMetrics(props: WithMetadataAndMetricsProps) {
   const key = props.queries.reduce(
     (accumulator: string, query: MetricQuery) =>
       (accumulator += query.getUniqueKey()),
-    String(!!props.loadGeographies),
+    props.geographiesDataset ?? '',
   )
 
   return <WithMetadataAndMetricsWithKey key={key} {...props} />
@@ -156,12 +157,13 @@ function WithMetadataAndMetricsWithKey(props: WithMetadataAndMetricsProps) {
           loadingComponent={props.loadingComponent}
         >
           {(queryResponses) => {
-            if (!props.loadGeographies) {
+            const { geographiesDataset } = props
+            if (!geographiesDataset) {
               return props.children(metadata, queryResponses)
             }
             return (
               <WithDatasets
-                datasetIds={[GEOGRAPHIES_DATASET_ID]}
+                datasetIds={[geographiesDataset]}
                 loadingComponent={props.loadingComponent}
               >
                 {(datasets) => {

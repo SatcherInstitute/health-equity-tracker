@@ -9,10 +9,13 @@ import {
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
+import { getGeographiesDatasetId } from '../../data/utils/datasetutils'
+import { Fips } from '../../data/utils/Fips'
 import ReportProvider from '../../reports/ReportProvider'
 import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert'
 import { srSpeak } from '../../utils/a11yutils'
 import { urlMap } from '../../utils/externalUrls'
+import { getDataManager } from '../../utils/globals'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import {
@@ -79,6 +82,44 @@ function ExploreDataPage() {
   )
 
   const noTopicChosen = getSelectedConditions(madLib)?.length === 0
+
+  // Prefetch the geographies topologies (the largest map payloads) into the
+  // browser cache and the DataManager LRU. The map cards request them only
+  // after their metric queries resolve, so starting them here removes a full
+  // serial stage from map load; DataManager dedupes the in-flight requests.
+  useEffect(() => {
+    // Fips selections in the MadLib are numeric strings; each one maps to the
+    // geography file its map will render (states file for national, a single
+    // state's counties file otherwise).
+    const geoDatasetIds = new Set(
+      Object.values(madLib.activeSelections)
+        .filter((selection) => /^\d/.test(selection))
+        .map((code) => getGeographiesDatasetId(new Fips(code))),
+    )
+    const prefetch = () => {
+      for (const datasetId of geoDatasetIds) {
+        getDataManager()
+          .loadDataset(datasetId)
+          .catch(() => {}) // best-effort; a real map load will surface errors
+      }
+    }
+    // Deep link straight into a report: geographies is on the critical path,
+    // so fetch immediately, in parallel with the metric queries.
+    if (!noTopicChosen) {
+      prefetch()
+      return
+    }
+    // Default page: the user is still deciding what to view, so warm the
+    // cache during browser idle time to avoid competing with rendering the
+    // suggested reports and MadLib UI.
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(prefetch, { timeout: 5000 })
+      return () => window.cancelIdleCallback(id)
+    }
+    // Safari has no requestIdleCallback
+    const id = setTimeout(prefetch, 2000)
+    return () => clearTimeout(id)
+  }, [noTopicChosen, madLib])
 
   // Single write path for all MadLib URL changes.
   // Builds the complete new search string and calls pushState once.

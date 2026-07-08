@@ -12,6 +12,7 @@ npm run test:watch       # Run Vitest in watch mode
 npm run cleanup          # Lint + format with Biome (runs pre-commit)
 npx tsc --noEmit         # Type-check TypeScript
 npm run tokens           # Regenerate design token files (auto-runs on install/dev/build)
+npm run geo              # Regenerate split geography topojson files (auto-runs on install/dev/build)
 
 # Run a single E2E test file (dev server must be running)
 npm run e2e statins.nightly.spec.ts
@@ -153,3 +154,5 @@ To serve local data files instead of a real API during development, set `VITE_BA
 | Design token sources | `tokens/*.tokens.json` |
 | Token build script | `run-tokens.ts`, `terrazzo.config.ts` |
 | Generated token files | `src/styles/tokens/` (gitignored) |
+| Geography topojson source + split script | `scripts/geo/` |
+| Generated geography files | `src/assets/geo/` (gitignored) |
