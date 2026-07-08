@@ -16,7 +16,9 @@ export function getStackedBarA11ySummary(
     (row) =>
       row[demographicType] !== ALL &&
       typeof row[lightMetric.metricId] === 'number' &&
-      typeof row[darkMetric.metricId] === 'number',
+      !Number.isNaN(row[lightMetric.metricId]) &&
+      typeof row[darkMetric.metricId] === 'number' &&
+      !Number.isNaN(row[darkMetric.metricId]),
   )
   if (rows.length === 0) return ''
 

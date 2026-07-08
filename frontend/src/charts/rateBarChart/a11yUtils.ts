@@ -13,7 +13,9 @@ export function getRateBarA11ySummary(
   demographicType: DemographicType,
 ): string {
   const metricId = metricConfig.metricId
-  const validRows = data.filter((row) => typeof row[metricId] === 'number')
+  const validRows = data.filter(
+    (row) => typeof row[metricId] === 'number' && !Number.isNaN(row[metricId]),
+  )
   const comparisonRows = validRows.filter((row) => row[demographicType] !== ALL)
   if (comparisonRows.length === 0) return ''
 

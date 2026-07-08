@@ -12,7 +12,9 @@ export function getMapA11ySummary(
   fips: Fips,
 ): string {
   const metricId = metricConfig.metricId
-  const validRows = data.filter((row) => typeof row[metricId] === 'number')
+  const validRows = data.filter(
+    (row) => typeof row[metricId] === 'number' && !Number.isNaN(row[metricId]),
+  )
   if (validRows.length === 0) return 'No data available for this map.'
 
   const highest = validRows.reduce((a, b) =>
@@ -25,17 +27,20 @@ export function getMapA11ySummary(
     ? ` Data available for ${validRows.length} ${childType}.`
     : ''
 
+  const highestName = highest.fips_name ?? highest.fips ?? 'Unknown'
+  const lowestName = lowest.fips_name ?? lowest.fips ?? 'Unknown'
+
   if (highest === lowest) {
-    return `${highest.fips_name} has a value of ${formatMetricValue(
+    return `${highestName} has a value of ${formatMetricValue(
       highest[metricId],
       metricConfig,
     )}.${coverageSentence}`
   }
 
-  return `${highest.fips_name} has the highest value at ${formatMetricValue(
+  return `${highestName} has the highest value at ${formatMetricValue(
     highest[metricId],
     metricConfig,
-  )}. ${lowest.fips_name} has the lowest at ${formatMetricValue(
+  )}. ${lowestName} has the lowest at ${formatMetricValue(
     lowest[metricId],
     metricConfig,
   )}.${coverageSentence}`
