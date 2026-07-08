@@ -35,7 +35,7 @@ import HetNotice from '../styles/HetComponents/HetNotice'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
 import CardWrapper from './CardWrapper'
-import { getChartTitleId } from './ChartTitle'
+import ChartTitle, { getChartTitleId } from './ChartTitle'
 import MissingDataAlert from './ui/MissingDataAlert'
 import UnknownsAlert from './ui/UnknownsAlert'
 
@@ -134,13 +134,19 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
         if (queries.length < 2) {
           overrideCardHasData?.(false)
           return (
-            <MissingDataAlert
-              demographicTypeString={
-                DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-              }
-              dataName={chartTitle}
-              fips={props.fips}
-            />
+            <>
+              <ChartTitle
+                id={getChartTitleId(HASH_ID, props.isCompareCard)}
+                title={'Table unavailable: ' + chartTitle}
+              />
+              <MissingDataAlert
+                demographicTypeString={
+                  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                }
+                dataName={chartTitle}
+                fips={props.fips}
+              />
+            </>
           )
         }
 
@@ -165,6 +171,11 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
         const noRatios = knownRaceData.every(
           (row) => row[ratioId] === undefined,
         )
+
+        const tableIsShown =
+          !raceQueryResponse.dataIsMissing() &&
+          !noRatios &&
+          !isWrongDemographicType
 
         return (
           <>
@@ -191,27 +202,34 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               isWrongDemographicType ||
               raceQueryResponse.dataIsMissing() ||
               raceQueryResponse.shouldShowMissingDataMessage(metricIds)) && (
-              <MissingDataAlert
-                dataName={chartTitle}
-                demographicTypeString={
-                  DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
-                }
-                ageAdjustedDataTypes={ageAdjustedDataTypes}
-                fips={props.fips}
-              />
+              <>
+                {/* keep the article's aria-labelledby id reference valid when the table can't render */}
+                {!tableIsShown && (
+                  <ChartTitle
+                    id={getChartTitleId(HASH_ID, props.isCompareCard)}
+                    title={'Table unavailable: ' + chartTitle}
+                  />
+                )}
+                <MissingDataAlert
+                  dataName={chartTitle}
+                  demographicTypeString={
+                    DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
+                  }
+                  ageAdjustedDataTypes={ageAdjustedDataTypes}
+                  fips={props.fips}
+                />
+              </>
             )}
 
             {/* values are present or partially null, implying we have at least some age-adjustments */}
-            {!raceQueryResponse.dataIsMissing() &&
-              !noRatios &&
-              !isWrongDemographicType && (
-                <AgeAdjustedTableChart
-                  chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}
-                  data={knownRaceData}
-                  metricConfigs={ratioConfigs}
-                  title={chartTitle}
-                />
-              )}
+            {tableIsShown && (
+              <AgeAdjustedTableChart
+                chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}
+                data={knownRaceData}
+                metricConfigs={ratioConfigs}
+                title={chartTitle}
+              />
+            )}
             {/* Always show info on what age-adj is */}
             <HetNotice>
               Age-adjustment is a statistical process applied to rates of

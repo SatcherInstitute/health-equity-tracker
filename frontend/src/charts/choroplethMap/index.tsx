@@ -2,6 +2,7 @@ import { select } from 'd3'
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
 import { CAWP_METRICS } from '../../data/providers/CawpProvider'
 import { PHRMA_METRICS } from '../../data/providers/PhrmaProvider'
+import { DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE } from '../../data/query/Breakdowns'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 import { HetChartHoverTooltip } from '../HetChartHoverTooltip'
@@ -82,8 +83,15 @@ const ChoroplethMap = ({
 
   const a11ySummaryId = useId()
   const a11ySummary = useMemo(
-    () => getMapA11ySummary(dataWithHighestLowest, metricConfig, fips),
-    [dataWithHighestLowest, metricConfig, fips],
+    () =>
+      getMapA11ySummary(
+        dataWithHighestLowest,
+        metricConfig,
+        fips,
+        isUnknownsMap,
+        DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType],
+      ),
+    [dataWithHighestLowest, metricConfig, fips, isUnknownsMap, demographicType],
   )
 
   const dimensions = useMemo(() => {

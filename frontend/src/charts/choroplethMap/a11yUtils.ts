@@ -6,10 +6,14 @@ import type { DataPoint } from './types'
 // Builds a deterministic screen-reader-only summary of the choropleth map,
 // e.g. "Mississippi has the highest value at 720 per 100k. Utah has the
 // lowest at 45 per 100k. Data available for 48 of 52 states/territories."
+// On the unknowns map: "Georgia has the largest share of cases with unknown
+// race and ethnicity at 12%."
 export function getMapA11ySummary(
   data: DataPoint[],
   metricConfig: MetricConfig,
   fips: Fips,
+  isUnknownsMap?: boolean,
+  demographicLabel?: string,
 ): string {
   const metricId = metricConfig.metricId
   const validRows = data.filter(
@@ -29,6 +33,12 @@ export function getMapA11ySummary(
 
   const highestName = highest.fips_name ?? highest.fips ?? 'Unknown'
   const lowestName = lowest.fips_name ?? lowest.fips ?? 'Unknown'
+
+  if (isUnknownsMap) {
+    return `${highestName} has the largest share of cases with unknown ${
+      demographicLabel ?? 'demographic'
+    } at ${formatMetricValue(highest[metricId], metricConfig)}.`
+  }
 
   if (highest === lowest) {
     return `${highestName} has a value of ${formatMetricValue(

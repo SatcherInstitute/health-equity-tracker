@@ -37,7 +37,7 @@ import { urlMap } from '../utils/externalUrls'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
-import { getChartTitleId } from './ChartTitle'
+import ChartTitle, { getChartTitleId } from './ChartTitle'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -148,6 +148,8 @@ export default function TableCard(props: TableCardProps) {
           )
         }
 
+        const tableIsShown = !queryResponse.dataIsMissing() && data.length > 0
+
         const showMissingDataAlert =
           queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
           data.length <= 0
@@ -160,7 +162,7 @@ export default function TableCard(props: TableCardProps) {
 
         return (
           <>
-            {!queryResponse.dataIsMissing() && data.length > 0 && (
+            {tableIsShown && (
               <TableChart
                 chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}
                 countColsMap={countColsMap}
@@ -192,13 +194,24 @@ export default function TableCard(props: TableCardProps) {
               />
             )}
             {showMissingDataAlert && (
-              <MissingDataAlert
-                dataName={props.dataTypeConfig.fullDisplayName + ' '}
-                demographicTypeString={
-                  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-                }
-                fips={props.fips}
-              />
+              <>
+                {/* keep the article's aria-labelledby id reference valid when the table can't render */}
+                {!tableIsShown && (
+                  <ChartTitle
+                    id={getChartTitleId(HASH_ID, props.isCompareCard)}
+                    title={`Table unavailable: ${
+                      props.dataTypeConfig.dataTableTitle ?? 'Summary'
+                    }`}
+                  />
+                )}
+                <MissingDataAlert
+                  dataName={props.dataTypeConfig.fullDisplayName + ' '}
+                  demographicTypeString={
+                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                  }
+                  fips={props.fips}
+                />
+              </>
             )}
             {!queryResponse.dataIsMissing() &&
               displayingCovidData &&
