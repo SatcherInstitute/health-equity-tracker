@@ -327,18 +327,22 @@ Print the updated PR URL when done.
 The skill is not done until CI has run on the final push. Watch the PR's checks until every one completes:
 
 ```bash
-gh pr checks <number> --watch --interval 30
+gh pr checks <number> --watch --interval 30 --fail-fast
 ```
 
-This blocks until all checks finish (exit code 0 = all passed, nonzero = at least one failed or was cancelled). Run it in the background with a generous timeout if the check suite is long; do not poll manually in a sleep loop.
+This blocks until all checks finish (exit code 0 = all passed, nonzero = at least one failed or was cancelled); `--fail-fast` exits at the first failure so diagnosis can start immediately. Run it in the foreground with a generous timeout (10 minutes). If the suite outlasts the timeout, just re-run the same command — it is idempotent. Do not poll manually in a sleep loop.
 
 **If all checks pass:** report back to the user that the PR is polished and all CI checks are green. Done.
 
 **If any check fails:**
 
-1. Diagnose before touching anything. Pull the failing logs and read the actual error:
+1. Diagnose before touching anything. List the non-passing checks, then pull the failing run's logs:
    ```bash
-   gh pr checks <number> | grep -v pass
+   gh pr checks <number> --json name,bucket,link \
+     --jq '.[] | select(.bucket != "pass" and .bucket != "skipping")'
+
+   # run id is the number in the check's link after /runs/; or find it via:
+   gh run list --branch <headRefName> --limit 10
    gh run view <run-id> --log-failed | tail -100
    ```
 2. Determine the root cause: a real defect in this PR, a flaky/nondeterministic test, or a failure unrelated to the branch (e.g. broken main, expired secret, infra outage).
