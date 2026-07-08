@@ -13,8 +13,8 @@ import Ben from '../../assets/team/HammondBen.jpg'
 import Jammie from '../../assets/team/HopkinsJammie.jpg'
 import Evan from '../../assets/team/MartinE.jpg'
 import Donrie from '../../assets/team/PurcellDonrie.png'
-import DrHH from '../../assets/team/SHarris-Hooker.jpg'
 import Shaneeta from '../../assets/team/ShaneetaJohnson.png'
+import DrHH from '../../assets/team/SHarris-Hooker.jpg'
 import Maisha from '../../assets/team/StandiferM.png'
 import Eric from '../../assets/team/WarrenE.png'
 
@@ -165,7 +165,7 @@ export const GOOGLE_FELLOWS = [
   {
     name: 'Ken Moore',
     role: 'UX Designer',
-    link: 'https://kenstatus.com',
+    link: 'http://web.archive.org/web/20220401002736/https://kenstatus.com/',
     text: 'In memoriam,',
   },
   {
