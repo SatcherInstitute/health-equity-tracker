@@ -61,7 +61,9 @@ const config: PlaywrightTestConfig = {
     {
       name: 'FIREFOX_NIGHTLY',
       testMatch: /.*\.ci\.spec\.ts/,
-      use: { browserName: 'firefox' },
+      // Firefox's Playwright driver rejects clipboard-* permissions at context
+      // creation, and no .ci spec uses the clipboard, so grant none here.
+      use: { browserName: 'firefox', permissions: [] },
     },
     {
       name: 'WEBKIT_NIGHTLY',
