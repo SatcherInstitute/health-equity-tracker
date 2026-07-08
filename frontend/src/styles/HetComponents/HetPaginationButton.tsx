@@ -1,4 +1,5 @@
-import { ArrowBack, ArrowForward } from '@mui/icons-material'
+import ArrowBack from '@mui/icons-material/ArrowBack'
+import ArrowForward from '@mui/icons-material/ArrowForward'
 import { Button } from '@mui/material'
 
 type HetPaginationDirection = 'previous' | 'next'
@@ -33,11 +34,11 @@ export default function HetPaginationButton({
         }`}
       >
         {isPrevious ? (
-          <span className='flex align-center'>
+          <span className='flex items-center'>
             <ArrowBack /> <span>Previous</span>
           </span>
         ) : (
-          <span className='flex align-center'>
+          <span className='flex items-center'>
             <span>Up Next</span> <ArrowForward />
           </span>
         )}

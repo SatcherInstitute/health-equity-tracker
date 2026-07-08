@@ -83,4 +83,5 @@ export const datasourceMetadataBjs: DataSourceMetadataBjs = {
   ],
   downloadable: true,
   data_source_release_years: null,
+  topic_categories: ['pdoh'],
 }

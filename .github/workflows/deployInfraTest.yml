@@ -8,9 +8,10 @@ on:
       - 'config/**'
       - 'data/**'
       - 'data_server/**'
-      - 'e2e_tests/**'
-      - 'exporter/**'
       - 'frontend_server/**'
+      - 'server/**'
+      - 'server_smoke_tests/**'
+      - 'exporter/**'
       - 'python/**'
       - 'requirements/**'
       - 'run_gcs_to_bq/**'
@@ -25,7 +26,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: main
 
@@ -37,6 +38,3 @@ jobs:
           deployer-sa-key: ${{ secrets.DEPLOYER_SA_KEY }}
           project-id: ${{ secrets.TEST_PROJECT_ID }}
           tf-state-bucket: ${{ secrets.TEST_TF_STATE_BUCKET }}
-          ahr-api-key: ${{ secrets.AHR_API_KEY }}
-          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
-          webflow-api-token: ${{ secrets.WEBFLOW_API_TOKEN }}

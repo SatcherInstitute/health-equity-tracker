@@ -4,12 +4,14 @@ for the general population from the CDC WONDER database. The data, once download
 is stored locally in the `data/cdc_wonder` directory for further processing and
 analysis.
 
+
 Instructions for Downloading Data:
 - Access the CDC WONDER website at https://wonder.cdc.gov/cancer.html
-- Select the `Cancer Incidence 1999 - 2021` report and click `Data Request`
+- Select the `Cancer Incidence 1999 - 2022` report and click `Data Request`
 
-Section 1 - Group Results By:
-- And By: Leading Cancer Sites
+Section 1
+- Group Results By: Leading Cancer Sites
+- And By: Year
 - And By: States and Puerto Rico OR States
 - And By: [SELECT ONE DEMOGRAPHIC OPTION]:
   * Age Groups
@@ -26,17 +28,25 @@ Section 2 - Select Locations:
 - Note: Some race breakdowns only have states (without PR) breakdown
 
 Section 3 - Select Year and Demographics:
-- Year: All Years (1999-2021)
-- Age Groups: All Ages (or specific age ranges if Age Groups selected in Section 1)
-- Sex: Both (or specific sex if Sex selected in Section 1)
-- Race: All Races (or specific races if Race selected in Section 1)
-- Ethnicity: All Ethnicities (or specific ethnicities if Ethnicity selected in Section 1)
+- Year: All Years
+- Age Groups: All Ages
+  * (or each specific age range if Age Groups selected in Section 1)
+- Sex:
+  * Male for prostate
+  * Female for breast and cervical
+  * Both for other cancers
+  * (or each specific sex if Sex selected in Section 1)
+- Race: All Races
+  * (or specific race if Race selected in Section 1)
+- Ethnicity: All Ethnicities
+  * (or each specific ethnicity if Ethnicity selected in Section 1)
 
 Section 4 - Select Cancers of Interest:
 - Pick between: Leading Cancer Sites
 
 Section 5 - Other Options:
 - Export Results ✓
+- Export Type: CSV
 - Show Totals ✓
 - Show Zero Values ✓
 - Show Suppressed Values ✓
@@ -47,17 +57,16 @@ CANCER INCIDENCE - BY RACE National Level:
 `Leading Cancer Sites`, `None`, `Race`, `Ethnicity`
 Age Groups: All years
 
-
 CANCER INCIDENCE - BY RACE State Level:
 Options: `Leading Cancer Sites`, `States and Puerto Rico`, `Race`, `Ethnicity`
 
 CANCER INCIDENCE - BY AGE National Level:
 Options: `Leading Cancer Sites`, `None`, `Age Groups`, `None`
-Age Groups: Select 50-54 years, 55-59 years, 60-64 years, 65-69 years, 70-74 years
+Age Groups: Select All Ages
 
 CANCER INCIDENCE - BY AGE State Level:
 Options: `Leading Cancer Sites`, `States and Puerto Rico`, `Age Groups`, `None`
-Age Groups: Select 50-54 years, 55-59 years, 60-64 years, 65-69 years, 70-74 years
+Age Groups: Select Ages
 
 CANCER INCIDENCE - BY SEX National Level:
 Options: `Leading Cancer Sites`, `None`, `Sex`, `None`
@@ -65,7 +74,7 @@ Options: `Leading Cancer Sites`, `None`, `Sex`, `None`
 CANCER INCIDENCE - BY SEX State Level:
 Options: `Leading Cancer Sites`, `States and Puerto Rico`, `Sex`, `None`
 
-Last Updated: 5/27/2025
+Last Updated: 4/27/2026
 """
 
 import pandas as pd
@@ -160,7 +169,7 @@ class CdcWonderData(DataSource):
         for condition in conditions:
             # HET cols to make
             cancer_type = condition.lower()
-            het_rate_numerator = f"{cancer_type}_count_{std_col.RAW_SUFFIX}"
+            het_rate_numerator = f"{cancer_type}_{std_col.RAW_SUFFIX}"
             het_rate_denominator = f"{cancer_type}_{std_col.RAW_POP_SUFFIX}"
             het_pct_share = f"{cancer_type}_{std_col.PCT_SHARE_SUFFIX}"
             het_pop_pct_share = f"{cancer_type}_{std_col.POP_PCT_SUFFIX}"
@@ -178,16 +187,6 @@ class CdcWonderData(DataSource):
 
             if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
                 std_col.add_race_columns_from_category_id(df)
-
-        if demo_breakdown == std_col.AGE_COL:
-            # For age breakdowns, calculate totals from available age groups
-            non_all_df = df[df[demo_breakdown] != ALL_VALUE]
-            for condition in conditions:
-                count_col = f"{condition.lower()}_count_{std_col.RAW_SUFFIX}"
-                if count_col in df.columns:
-                    # Update the 'All' row with sum of available age groups
-                    available_total = non_all_df[count_col].sum()
-                    df.loc[df[demo_breakdown] == ALL_VALUE, count_col] = available_total
 
         if demo_breakdown in [std_col.AGE_COL, std_col.SEX_COL]:
             df = generate_pct_share_col_without_unknowns(

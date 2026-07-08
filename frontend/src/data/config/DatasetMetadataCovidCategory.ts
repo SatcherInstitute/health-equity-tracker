@@ -245,6 +245,7 @@ export const datasourceMetadataCdcRestricted: DataSourceMetadataCovidCategory =
       'cdc_restricted_data-alls_state_historical',
     ],
     downloadable: true,
+    topic_categories: ['covid'],
   }
 
 export const datasourceMetadataCdcVaccinationCounty: DataSourceMetadataCovidCategory =
@@ -263,6 +264,7 @@ export const datasourceMetadataCdcVaccinationCounty: DataSourceMetadataCovidCate
     dataset_ids: ['cdc_vaccination_county-alls_county_current'],
     downloadable: true,
     data_source_release_years: null,
+    topic_categories: ['covid'],
   }
 export const datasourceMetadataCdcVaccinationNational: DataSourceMetadataCovidCategory =
   {
@@ -285,6 +287,7 @@ export const datasourceMetadataCdcVaccinationNational: DataSourceMetadataCovidCa
     ],
     downloadable: true,
     data_source_release_years: null,
+    topic_categories: ['covid'],
   }
 export const datasourceMetadataKffVaccinationState: DataSourceMetadataCovidCategory =
   {
@@ -304,4 +307,5 @@ export const datasourceMetadataKffVaccinationState: DataSourceMetadataCovidCateg
     ],
     downloadable: true,
     data_source_release_years: null,
+    topic_categories: ['covid'],
   }

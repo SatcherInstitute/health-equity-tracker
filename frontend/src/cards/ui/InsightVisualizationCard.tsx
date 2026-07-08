@@ -1,40 +1,66 @@
 import { Button, CircularProgress } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
 import { useCallback, useEffect, useState } from 'react'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
+import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
+import { ALL, type DemographicGroup } from '../../data/utils/Constants'
+import type { Fips } from '../../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
 import { generateCardInsight } from '../../utils/generateVisualizationInsight'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
   cardInsightOpenAtom,
   cardInsightsAtom,
-  selectedDataTypeConfig1Atom,
-  selectedDemographicTypeAtom,
-  selectedFipsAtom,
 } from '../../utils/sharedSettingsState'
+import FlagInsightButton from './FlagInsightButton'
 
 interface InsightVisualizationCardProps {
   scrollToHash: ScrollableHashId
   queryResponses: MetricQueryResponse[]
+  fips: Fips
+  dataTypeConfig: DataTypeConfig
+  demographicType: DemographicType
+  isCompareCard?: boolean
+  activeDemographicGroup?: DemographicGroup
+  selectedGroups?: DemographicGroup[]
 }
 
 export default function InsightVisualizationCard({
   scrollToHash,
   queryResponses,
+  fips,
+  dataTypeConfig,
+  demographicType,
+  isCompareCard,
+  activeDemographicGroup,
+  selectedGroups,
 }: InsightVisualizationCardProps) {
-  const dataTypeConfig = useAtomValue(selectedDataTypeConfig1Atom)
-  const fips = useAtomValue(selectedFipsAtom)
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
   const [cardInsights, setCardInsights] = useAtom(cardInsightsAtom)
-  const isOpen = useAtomValue(cardInsightOpenAtom)[scrollToHash] ?? false
+  const openKey = `${scrollToHash}${isCompareCard ? '-2' : ''}`
+  const isOpen = useAtomValue(cardInsightOpenAtom)[openKey] ?? false
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  // The exact server cache key used, captured so the flag button targets this insight.
+  const [serverCacheKey, setServerCacheKey] = useState<string | null>(null)
 
-  const cacheKey = `${scrollToHash}-${dataTypeConfig?.dataTypeId ?? ''}-${fips?.code ?? ''}-${demographicType ?? ''}`
+  // A stable suffix so the insight regenerates when the user changes which
+  // group(s) the chart is focused on (highlighted map group / selected trend
+  // legend lines) — those change the data the model sees.
+  const focusSuffix = [
+    activeDemographicGroup && activeDemographicGroup !== ALL
+      ? activeDemographicGroup
+      : '',
+    selectedGroups && selectedGroups.length > 0
+      ? [...selectedGroups].sort().join(',')
+      : '',
+  ]
+    .filter(Boolean)
+    .join('|')
+  const cacheKey = `${scrollToHash}-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}${isCompareCard ? '-2' : ''}${focusSuffix ? `-${focusSuffix}` : ''}`
   const insight = cardInsights[cacheKey]
 
   const handleGenerate = useCallback(async () => {
-    if (!dataTypeConfig || !demographicType) return
     setIsGenerating(true)
     setError(null)
     try {
@@ -42,9 +68,12 @@ export default function InsightVisualizationCard({
         scrollToHash,
         dataTypeConfig,
         demographicType,
-        fips ?? undefined,
+        fips,
         queryResponses,
+        isCompareCard,
+        { activeDemographicGroup, selectedGroups },
       )
+      setServerCacheKey(result.cacheKey ?? null)
       if (result.rateLimited) {
         setError('Too many requests. Please wait a moment and try again.')
       } else if (result.error) {
@@ -60,20 +89,44 @@ export default function InsightVisualizationCard({
     dataTypeConfig,
     demographicType,
     fips,
+    isCompareCard,
     queryResponses,
     scrollToHash,
     setCardInsights,
+    activeDemographicGroup,
+    selectedGroups,
   ])
 
-  useEffect(() => {
-    if (!isOpen || insight || !dataTypeConfig || !demographicType) return
-    void handleGenerate()
-  }, [isOpen, cacheKey, handleGenerate])
+  const handleFlagged = () => {
+    // Drop the cached insight so a fresh one regenerates in its place. Flagging records
+    // the bad output for review but does not hide this data combination — clearing the
+    // entry makes the auto-generate effect below fire again for a new insight.
+    setCardInsights((prev) => {
+      const next = { ...prev }
+      delete next[cacheKey]
+      return next
+    })
+  }
 
-  if (!SHOW_INSIGHT_GENERATION || !dataTypeConfig || !isOpen) return null
+  // Reset error and flag state when the cacheKey changes (user switched
+  // demographic, fips, etc.) — otherwise stale state from old params would
+  // block generation for the new ones.
+  useEffect(() => {
+    setError(null)
+  }, [cacheKey])
+
+  // `error` is in the guard so a failed call doesn't get auto-retried on the
+  // next render — the user must click Try again. Clearing the insight (e.g. after
+  // flagging) re-fires this effect and regenerates.
+  useEffect(() => {
+    if (!isOpen || insight || error || isGenerating) return
+    void handleGenerate()
+  }, [isOpen, insight, error, isGenerating, cacheKey, handleGenerate])
+
+  if (!SHOW_INSIGHT_GENERATION || !isOpen) return null
 
   return (
-    <div className='mb-3 rounded-md bg-green-50 p-3'>
+    <div className='mb-3 animate-expand-down rounded-md bg-footer-color p-3'>
       {isGenerating ? (
         <div className='flex items-center gap-2 py-1'>
           <CircularProgress size={14} className='shrink-0' />
@@ -92,8 +145,13 @@ export default function InsightVisualizationCard({
         <>
           <p className='m-0 font-bold text-alt-dark leading-snug'>{insight}</p>
           <p className='m-0 mt-2 text-alt-dark text-smallest'>
-            AI-generated synthesis powered by the Claude API. Always verify
-            findings with the source data shown in the charts above.
+            AI-generated. Verify with chart data.{' '}
+            <FlagInsightButton
+              cacheKey={serverCacheKey ?? undefined}
+              content={insight}
+              topic={dataTypeConfig.dataTypeId}
+              onFlagged={handleFlagged}
+            />
           </p>
         </>
       )}

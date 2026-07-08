@@ -1,3 +1,8 @@
+import { useMemo, useState } from 'react'
+import {
+  CategoryMap,
+  type CategoryTypeId,
+} from '../../data/config/CategoryTypes'
 import {
   type DataSourceId,
   dataSourceMetadataMap,
@@ -20,6 +25,15 @@ type Filters = Record<string, DataSourceId[]>
 // The id of the filter by dataset name. This is the only one that supports
 // pre-filtering from url params.
 const NAME_FILTER_ID = 'name_filter'
+const CATEGORY_FILTER_ID = 'category_filter'
+
+const availableCategories = (
+  Object.keys(CategoryMap) as CategoryTypeId[]
+).filter((catId) =>
+  Object.values(dataSourceMetadataMap).some((src) =>
+    src.topic_categories?.includes(catId),
+  ),
+)
 
 /**
  * Returns the ids of the sources to display based on the provided filter. The
@@ -49,8 +63,38 @@ export default function DataCatalogPage() {
     ? params[DATA_SOURCE_PRE_FILTERS].split(',')
     : []
 
+  const [activeCategories, setActiveCategories] = useState<Set<CategoryTypeId>>(
+    new Set(),
+  )
+
+  const handleCategoryClick = (catId: CategoryTypeId) => {
+    setActiveCategories((prev) => {
+      const next = new Set(prev)
+      next.has(catId) ? next.delete(catId) : next.add(catId)
+      return next
+    })
+  }
+
+  const activeCategoryNames = useMemo(
+    () => new Set([...activeCategories].map((cat) => CategoryMap[cat])),
+    [activeCategories],
+  )
+
+  const categoryFilteredIds = useMemo(
+    () =>
+      activeCategories.size > 0
+        ? Object.values(dataSourceMetadataMap)
+            .filter((src) =>
+              src.topic_categories?.some((cat) => activeCategories.has(cat)),
+            )
+            .map((src) => src.id)
+        : [],
+    [activeCategories],
+  )
+
   const activeFilter = {
     [NAME_FILTER_ID]: datasets as DataSourceId[],
+    [CATEGORY_FILTER_ID]: categoryFilteredIds,
   }
 
   return (
@@ -79,6 +123,43 @@ export default function DataCatalogPage() {
         >
           Explore the data dashboard
         </HetCTASmall>
+
+        <div className='mt-10 mb-2 rounded-md bg-methodology-green/20 p-6'>
+          <p className='my-0 mb-3 font-semibold text-alt-black text-small'>
+            Filter by topic
+          </p>
+          <div className='flex flex-wrap gap-2'>
+            {availableCategories.map((catId) => {
+              const isActive = activeCategories.has(catId)
+              return (
+                <button
+                  key={catId}
+                  type='button'
+                  aria-pressed={isActive}
+                  onClick={() => handleCategoryClick(catId)}
+                  className={`rounded-sm border-none px-2 py-1 font-bold font-sans-title text-tiny-tag uppercase transition-colors duration-150 ${
+                    isActive
+                      ? 'cursor-pointer bg-alt-green text-alt-white hover:bg-alt-green/80'
+                      : 'cursor-pointer bg-tiny-tag-gray text-alt-black hover:bg-methodology-green'
+                  }`}
+                >
+                  {CategoryMap[catId]}
+                </button>
+              )
+            })}
+            {activeCategories.size > 0 && (
+              <button
+                type='button'
+                onClick={() => setActiveCategories(new Set())}
+                aria-label='Clear all topic filters'
+                className='cursor-pointer rounded-sm border border-alt-green border-solid bg-transparent px-2 py-1 font-bold font-sans-title text-alt-green text-tiny-tag uppercase transition-colors duration-150 hover:bg-alt-green/10'
+              >
+                Clear ×
+              </button>
+            )}
+          </div>
+        </div>
+
         <ul className='list-none pl-0'>
           <WithMetadata>
             {(datasetMetadata) => {
@@ -86,11 +167,9 @@ export default function DataCatalogPage() {
                 dataSourceMetadataMap,
                 activeFilter,
               )
-              // Check if more than the default filters are enabled to see if you're viewing
-              // a subset of sources
               const viewingSubsetOfSources =
-                Object.keys(activeFilter).length > 1 ||
-                activeFilter[NAME_FILTER_ID].length > 0
+                activeFilter[NAME_FILTER_ID].length > 0 ||
+                activeCategories.size > 0
 
               return (
                 <>
@@ -100,6 +179,8 @@ export default function DataCatalogPage() {
                         key={dataSourceMetadataMap[sourceId].id}
                         source_metadata={dataSourceMetadataMap[sourceId]}
                         dataset_metadata={datasetMetadata}
+                        onCategoryTagClick={handleCategoryClick}
+                        activeCategoryNames={activeCategoryNames}
                       />
                     </li>
                   ))}

@@ -21,11 +21,18 @@ gcs_to_bq_image_name         = "gcs-to-bq-service"
 gcs_to_bq_runner_identity_id = "gcs-to-bq-runner"
 gcs_to_bq_runner_role_id     = "gcs_to_bq_runner_role2"
 
-# Data server Cloud Run Service vars
-data_server_service_name       = "data-server-service"
-data_server_image_name         = "data-server-service"
+# TEMPORARY (prod cutover): legacy Data Server Cloud Run vars
+data_server_service_name = "data-server-service"
+data_server_image_name   = "data-server-service"
+
+# Data server Service Account vars (SA reused by the Go server)
 data_server_runner_identity_id = "data-server-runner"
 data_server_runner_role_id     = "data_server_runner_role"
+
+# TEMPORARY (prod cutover): legacy Frontend Cloud Run vars
+frontend_service_name       = "frontend-service"
+frontend_image_name         = "frontend-service"
+frontend_runner_identity_id = "frontend-runner"
 
 # Exporter Cloud Run vars
 exporter_service_name       = "exporter-service"
@@ -33,9 +40,14 @@ exporter_image_name         = "exporter-service"
 exporter_runner_identity_id = "exporter-runner"
 exporter_runner_role_id     = "exporter_runner_role"
 
-# Frontend Cloud Run vars
-frontend_service_name       = "frontend-service"
-frontend_image_name         = "frontend-service"
-frontend_runner_identity_id = "frontend-runner"
-frontend_runner_role_id     = "frontend_runner_role"
+# Combined Go server Cloud Run vars
+server_service_name = "server-service"
+server_image_name   = "server"
+metadata_filename   = "all_metadata.ndjson"
 
+# Custom IAM role granting read/write on the AI insights cache bucket (bound to the data server SA).
+insights_cache_writer_role_id = "insights_cache_writer_role"
+
+# Bucket storing user-flagged insights (curated archive, no TTL) and its writer role.
+flagged_insights_bucket         = "$USERNAME-flagged-insights"
+flagged_insights_writer_role_id = "flagged_insights_writer_role"

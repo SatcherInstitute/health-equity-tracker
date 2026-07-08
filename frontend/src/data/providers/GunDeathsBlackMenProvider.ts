@@ -48,7 +48,7 @@ class GunViolenceBlackMenProvider extends VariableProvider {
 
       const gunViolenceBlackMenData =
         await getDataManager().loadDataset(datasetId)
-      let df = gunViolenceBlackMenData.toDataFrame()
+      let df = gunViolenceBlackMenData.rows
 
       df = this.filterByGeo(df, breakdowns)
       df = this.renameGeoColumns(df, breakdowns)
@@ -60,7 +60,7 @@ class GunViolenceBlackMenProvider extends VariableProvider {
       }
 
       const consumedDatasetIds = [datasetId]
-      return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+      return new MetricQueryResponse(df, consumedDatasetIds)
     } catch (error) {
       console.error('Error fetching gun homicides of Black men data:', error)
       throw error

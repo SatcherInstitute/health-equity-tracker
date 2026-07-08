@@ -1,278 +1,410 @@
-﻿Notes,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,Race,Race Code,Ethnicity,Ethnicity Code,Count,Population,Crude Rate
-,1999,1999,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,626,2196216,28.5
-,1999,1999,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,30,393756,7.6
-,1999,1999,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,2766,10997000,25.2
-,1999,1999,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,241,1446375,16.7
-,1999,1999,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,18528,33683744,55
-,1999,1999,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,5686,31491980,18.1
-,1999,1999,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,163393,194689423,83.9
-,1999,1999,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,35,Not Applicable,Not Applicable
-,1999,1999,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,332,Not Applicable,Not Applicable
-,2000,2000,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,684,2260880,30.3
-,2000,2000,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,39,415601,9.4
-,2000,2000,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,3075,11515537,26.7
-,2000,2000,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,170,1516861,11.2
-,2000,2000,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,18377,34162304,53.8
-,2000,2000,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,5702,33020109,17.3
-,2000,2000,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,164440,195012186,84.3
-,2000,2000,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,35,Not Applicable,Not Applicable
-,2000,2000,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,350,Not Applicable,Not Applicable
-,2001,2001,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,749,2348625,31.9
-,2001,2001,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,54,450525,12
-,2001,2001,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,3116,12023804,25.9
-,2001,2001,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,168,1604528,10.5
-,2001,2001,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,18764,34598872,54.2
-,2001,2001,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,6074,34305207,17.7
-,2001,2001,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,166557,196048607,85
-,2001,2001,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,45,Not Applicable,Not Applicable
-,2001,2001,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,322,Not Applicable,Not Applicable
-,2002,2002,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,775,2370991,32.7
-,2002,2002,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,42,486143,8.6
-,2002,2002,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,3283,12514348,26.2
-,2002,2002,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,176,1691417,10.4
-,2002,2002,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,19273,35007813,55.1
-,2002,2002,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,6257,35569923,17.6
-,2002,2002,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,168636,196307809,85.9
-,2002,2002,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,47,Not Applicable,Not Applicable
-,2002,2002,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,343,Not Applicable,Not Applicable
-,2003,2003,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,23,907535,2.5
-,2003,2003,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,823,2404476,34.2
-,2003,2003,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,52,524594,9.9
-,2003,2003,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,3546,13006553,27.3
-,2003,2003,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,159,1787536,8.9
-,2003,2003,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,20504,36422205,56.3
-,2003,2003,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,6585,36825649,17.9
-,2003,2003,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,172831,198229385,87.2
-,2003,2003,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,60,Not Applicable,Not Applicable
-,2003,2003,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,365,Not Applicable,Not Applicable
-,2004,2004,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,17,1000953,1.7
-,2004,2004,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,921,2428499,37.9
-,2004,2004,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,73,566680,12.9
-,2004,2004,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,3634,13472066,27
-,2004,2004,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,223,1889807,11.8
-,2004,2004,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,20688,36848991,56.1
-,2004,2004,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,6792,38039945,17.9
-,2004,2004,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,173394,198558357,87.3
-,2004,2004,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,63,Not Applicable,Not Applicable
-,2004,2004,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,380,Not Applicable,Not Applicable
-,2005,2005,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,16,1101334,1.5
-,2005,2005,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,951,2452148,38.8
-,2005,2005,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,71,612659,11.6
-,2005,2005,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,3889,13952475,27.9
-,2005,2005,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,195,2009211,9.7
-,2005,2005,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,21129,37177294,56.8
-,2005,2005,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,7006,39290799,17.8
-,2005,2005,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,176913,198716742,89
-,2005,2005,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,80,Not Applicable,Not Applicable
-,2005,2005,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,394,Not Applicable,Not Applicable
-,2006,2006,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,23,1209963,1.9
-,2006,2006,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,943,2477720,38.1
-,2006,2006,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,63,660860,9.5
-,2006,2006,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,3993,14446498,27.6
-,2006,2006,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,215,2137612,10.1
-,2006,2006,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,21108,37719495,56
-,2006,2006,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,7177,40593711,17.7
-,2006,2006,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,177782,199134053,89.3
-,2006,2006,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,77,Not Applicable,Not Applicable
-,2006,2006,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,351,Not Applicable,Not Applicable
-,2007,2007,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,24,1327365,1.8
-,2007,2007,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,963,2502533,38.5
-,2007,2007,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,65,711657,9.1
-,2007,2007,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,4228,14921979,28.3
-,2007,2007,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,227,2266409,10
-,2007,2007,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,21421,38184699,56.1
-,2007,2007,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,7502,41887524,17.9
-,2007,2007,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,178411,199429041,89.5
-,2007,2007,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,105,Not Applicable,Not Applicable
-,2007,2007,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,381,Not Applicable,Not Applicable
-,2008,2008,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,30,1455459,2.1
-,2008,2008,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1088,2528470,43
-,2008,2008,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,87,765780,11.4
-,2008,2008,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,4376,15404209,28.4
-,2008,2008,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,240,2397226,10
-,2008,2008,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,21727,38651733,56.2
-,2008,2008,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,7738,43171320,17.9
-,2008,2008,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,180756,199719769,90.5
-,2008,2008,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,135,Not Applicable,Not Applicable
-,2008,2008,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,365,Not Applicable,Not Applicable
-,2009,2009,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,33,1589064,2.1
-,2009,2009,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1071,2552151,42
-,2009,2009,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,86,822365,10.5
-,2009,2009,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,4707,15860886,29.7
-,2009,2009,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,256,2527635,10.1
-,2009,2009,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,22454,39104815,57.4
-,2009,2009,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,7900,44384323,17.8
-,2009,2009,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,180165,199930290,90.1
-,2009,2009,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,134,Not Applicable,Not Applicable
-,2009,2009,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,395,Not Applicable,Not Applicable
-,2010,2010,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,23,1702370,1.4
-,2010,2010,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1191,2570957,46.3
-,2010,2010,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,63,873885,7.2
-,2010,2010,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,4817,16318160,29.5
-,2010,2010,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,254,2650588,9.6
-,2010,2010,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,22293,39563081,56.3
-,2010,2010,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,7982,45515673,17.5
-,2010,2010,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,177277,200187533,88.6
-,2010,2010,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,122,Not Applicable,Not Applicable
-,2010,2010,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,385,Not Applicable,Not Applicable
-,2011,2011,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,38,1742461,2.2
-,2011,2011,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1160,2591268,44.8
-,2011,2011,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,83,898831,9.2
-,2011,2011,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,4978,16855269,29.5
-,2011,2011,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,311,2741422,11.3
-,2011,2011,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,22426,40032885,56
-,2011,2011,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,8260,46492237,17.8
-,2011,2011,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,177259,200506251,88.4
-,2011,2011,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,113,Not Applicable,Not Applicable
-,2011,2011,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,378,Not Applicable,Not Applicable
-,2012,2012,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,35,1784591,2
-,2012,2012,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1210,2612003,46.3
-,2012,2012,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,89,925130,9.6
-,2012,2012,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,5287,17408856,30.4
-,2012,2012,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,307,2835455,10.8
-,2012,2012,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,23006,40513653,56.8
-,2012,2012,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,8305,47420520,17.5
-,2012,2012,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,178959,200871238,89.1
-,2012,2012,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,151,Not Applicable,Not Applicable
-,2012,2012,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,385,Not Applicable,Not Applicable
-,2013,2013,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,58,1825109,3.2
-,2013,2013,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1269,2631354,48.2
-,2013,2013,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,103,951780,10.8
-,2013,2013,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,5648,17978928,31.4
-,2013,2013,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,325,2931133,11.1
-,2013,2013,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,22830,40977235,55.7
-,2013,2013,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,8695,48342856,18
-,2013,2013,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,179773,201126653,89.4
-,2013,2013,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,209,Not Applicable,Not Applicable
-,2013,2013,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,469,Not Applicable,Not Applicable
-,2014,2014,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,44,1867568,2.4
-,2014,2014,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1334,2650777,50.3
-,2014,2014,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,95,978596,9.7
-,2014,2014,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,5633,18584825,30.3
-,2014,2014,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,359,3029211,11.9
-,2014,2014,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,23152,41449816,55.9
-,2014,2014,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,8713,49296015,17.7
-,2014,2014,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,181438,201437908,90.1
-,2014,2014,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,226,Not Applicable,Not Applicable
-,2014,2014,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,489,Not Applicable,Not Applicable
-,2015,2015,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,32,1912806,1.7
-,2015,2015,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1359,2667921,50.9
-,2015,2015,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,96,1006901,9.5
-,2015,2015,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,6132,19220822,31.9
-,2015,2015,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,333,3129909,10.6
-,2015,2015,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,23339,41924720,55.7
-,2015,2015,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,9227,50311383,18.3
-,2015,2015,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,183658,201676059,91.1
-,2015,2015,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,219,Not Applicable,Not Applicable
-,2015,2015,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,454,Not Applicable,Not Applicable
-,2016,2016,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,43,1958108,2.2
-,2016,2016,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1325,2684284,49.4
-,2016,2016,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,84,1035927,8.1
-,2016,2016,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,6368,19838599,32.1
-,2016,2016,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,360,3232529,11.1
-,2016,2016,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,23695,42392636,55.9
-,2016,2016,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,9656,51356058,18.8
-,2016,2016,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,183189,201879766,90.7
-,2016,2016,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,254,Not Applicable,Not Applicable
-,2016,2016,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,508,Not Applicable,Not Applicable
-,2017,2017,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,51,2004614,2.5
-,2017,2017,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1456,2698191,54
-,2017,2017,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,108,1064572,10.1
-,2017,2017,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,6703,20409985,32.8
-,2017,2017,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,390,3337630,11.7
-,2017,2017,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,23878,42835979,55.7
-,2017,2017,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,9557,52352074,18.3
-,2017,2017,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,184758,201908140,91.5
-,2017,2017,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,342,Not Applicable,Not Applicable
-,2017,2017,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,593,Not Applicable,Not Applicable
-,2018,2018,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,47,2052969,2.3
-,2018,2018,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1481,2708959,54.7
-,2018,2018,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,126,1092934,11.5
-,2018,2018,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,6760,20859410,32.4
-,2018,2018,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,392,3445130,11.4
-,2018,2018,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,24056,43247854,55.6
-,2018,2018,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,9984,53295808,18.7
-,2018,2018,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,183701,201822869,91
-,2018,2018,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,357,Not Applicable,Not Applicable
-,2018,2018,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,669,Not Applicable,Not Applicable
-,2019,2019,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,48,2098488,2.3
-,2019,2019,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1505,2719215,55.3
-,2019,2019,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,146,1120880,13
-,2019,2019,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,7200,21276902,33.8
-,2019,2019,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,411,3541720,11.6
-,2019,2019,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,24444,43642745,56
-,2019,2019,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,10183,54124314,18.8
-,2019,2019,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,185524,201697744,92
-,2019,2019,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,492,Not Applicable,Not Applicable
-,2019,2019,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,803,Not Applicable,Not Applicable
-,2020,2020,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,42,2132704,2
-,2020,2020,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1382,2716967,50.9
-,2020,2020,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,92,1144451,8
-,2020,2020,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,6360,21415237,29.7
-,2020,2020,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,386,3605413,10.7
-,2020,2020,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,21476,43229842,49.7
-,2020,2020,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,9186,54436409,16.9
-,2020,2020,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,163747,196041690,83.5
-,2020,2020,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,524,Not Applicable,Not Applicable
-,2020,2020,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,823,Not Applicable,Not Applicable
-,2021,2021,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Hispanic,2135-2,36,2175496,1.7
-,2021,2021,Lung and Bronchus,22030,American Indian or Alaska Native,1002-5,Non-Hispanic,2186-5,1510,2726587,55.4
-,2021,2021,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Hispanic,2135-2,129,1168614,11
-,2021,2021,Lung and Bronchus,22030,Asian or Pacific Islander,A-PI,Non-Hispanic,2186-5,7041,21677626,32.5
-,2021,2021,Lung and Bronchus,22030,Black or African American,2054-5,Hispanic,2135-2,399,3684877,10.8
-,2021,2021,Lung and Bronchus,22030,Black or African American,2054-5,Non-Hispanic,2186-5,22484,43402838,51.8
-,2021,2021,Lung and Bronchus,22030,White,2106-3,Hispanic,2135-2,10018,55062041,18.2
-,2021,2021,Lung and Bronchus,22030,White,2106-3,Non-Hispanic,2186-5,166193,195319943,85.1
-,2021,2021,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Hispanic,2135-2,605,Not Applicable,Not Applicable
-,2021,2021,Lung and Bronchus,22030,Other Races and Unknown combined,2131-1,Non-Hispanic,2186-5,1085,Not Applicable,Not Applicable
----,,,,,,,,,,,
-"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2021 Incidence",,,,,,,,,,,
-Query Parameters:,,,,,,,,,,,
-Leading Cancer Sites: Lung and Bronchus,,,,,,,,,,,
-Group By: Year; Leading Cancer Sites; Race; Ethnicity,,,,,,,,,,,
-Show Totals: Disabled,,,,,,,,,,,
-Show Zero Values: False,,,,,,,,,,,
-Show Suppressed: False,,,,,,,,,,,
-"Calculate Rates Per: 100,000",,,,,,,,,,,
-Standard Population: 2000 U.S. Std. Million,,,,,,,,,,,
----,,,,,,,,,,,
-Help: See http://wonder.cdc.gov/wonder/help/cancer-v2021.html for more information.,,,,,,,,,,,
----,,,,,,,,,,,
-"Query Date: Aug 20, 2024 11:07:43 AM",,,,,,,,,,,
----,,,,,,,,,,,
-"Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2021, WONDER Online Database. United States Department",,,,,,,,,,,
-"of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2023 submission; 2024",,,,,,,,,,,
-"release. Accessed at http://wonder.cdc.gov/cancer-v2021.html on Aug 20, 2024 11:07:43 AM",,,,,,,,,,,
----,,,,,,,,,,,
-Messages:,,,,,,,,,,,
-1. Totals are not available for these results due to suppression constraints. More Information:,,,,,,,,,,,
-http://wonder.cdc.gov/wonder/help/faq.html#Privacy.,,,,,,,,,,,
-2. Rows with zero Count are hidden. Use Quick Options above to show zero rows.,,,,,,,,,,,
-3. Rows with suppressed Count are hidden. Use Quick Options above to show suppressed rows.,,,,,,,,,,,
----,,,,,,,,,,,
-Caveats:,,,,,,,,,,,
-"1. Statistics are suppressed to protect personal privacy, for the following conditions: <ol><li> Data are suppressed if the",,,,,,,,,,,
-figures represent fewer than 16 cases for the specific category in the table cell. </li><li> Counts and rates are suppressed for,,,,,,,,,,,
-"cells at the Metropolitan Statistical Area (MSA) level for the race categories ""American Indian or Alaska Native"" or ""Asian",,,,,,,,,,,
-"or Pacific Islander"" when the specific category's population for rate calculations is less than 50,000 persons. </li><li> Data",,,,,,,,,,,
-are suppressed at the state and MSA level for certain race and ethnicity groups: <ul><li> American Indian or Alaska Native data,,,,,,,,,,,
-"are suppressed at the state and MSA level for residents of Illinois, Kansas, New Jersey, and New York; </li><li> Hispanic Asian",,,,,,,,,,,
-or Pacific Islander and Hispanic Black or African American data are suppressed at the state and MSA level for residents of,,,,,,,,,,,
-Kansas; </li><li> Race by ethnicity data are suppressed for state specific statistics for residents of North Dakota and,,,,,,,,,,,
-Wisconsin. Ethnicity data are also suppressed for residents of North Dakota and Wisconsin. </li></ul> </li></ol> States decide,,,,,,,,,,,
-whether to suppress data for specific race and ethnicity categories. The suppression criteria may vary in previous releases of,,,,,,,,,,,
-these data More information: http://wonder.cdc.gov/wonder/help/cancer-v2021.html#Confidentiality.,,,,,,,,,,,
-"2. 'Not Applicable' is displayed for Population when it is not available, and for Age Adjusted Rates, Crude Rates, 95%",,,,,,,,,,,
-"Confidence Interval, and Standard Error when they cannot be calculated due to lack of denominator population.",,,,,,,,,,,
-"3. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate",,,,,,,,,,,
-values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be,,,,,,,,,,,
-misleading.,,,,,,,,,,,
-4. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data,,,,,,,,,,,
-shown for the United States are diagnoses and populations from included registries only.,,,,,,,,,,,
-"5. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for",,,,,,,,,,,
-"Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define",,,,,,,,,,,
-standard groupings of primary cancer sites.,,,,,,,,,,,
-"6. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and",,,,,,,,,,,
-Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for,,,,,,,,,,,
-"these states, nor are these counts included in the summary populations for the affected division, regions or national",,,,,,,,,,,
-"population. However, the USCS web site does include these displaced persons in the national population figures for 2005.",,,,,,,,,,,
+﻿"Notes","Year","Year Code","Leading Cancer Sites","Leading Cancer Sites Code","Race","Race Code","Ethnicity","Ethnicity Code",Count,Population,Crude Rate
+,"1999","1999","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",Suppressed,562854,Suppressed
+,"1999","1999","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",623,2196216,28.4
+,"1999","1999","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"1999","1999","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",32,393756,8.1
+,"1999","1999","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",2764,10997000,25.1
+,"1999","1999","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"1999","1999","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",242,1446375,16.7
+,"1999","1999","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",18527,33683744,55.0
+,"1999","1999","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"1999","1999","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",5689,31491980,18.1
+,"1999","1999","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",163435,194689423,83.9
+,"1999","1999","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"1999","1999","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",32,Not Applicable,Not Applicable
+,"1999","1999","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",327,Not Applicable,Not Applicable
+,"1999","1999","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2000","2000","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",Suppressed,654736,Suppressed
+,"2000","2000","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",683,2260880,30.2
+,"2000","2000","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2000","2000","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",40,415601,9.6
+,"2000","2000","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",3074,11515537,26.7
+,"2000","2000","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2000","2000","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",174,1516861,11.5
+,"2000","2000","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",18384,34162304,53.8
+,"2000","2000","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2000","2000","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",5711,33020109,17.3
+,"2000","2000","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",164476,195012186,84.3
+,"2000","2000","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2000","2000","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",34,Not Applicable,Not Applicable
+,"2000","2000","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",345,Not Applicable,Not Applicable
+,"2000","2000","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2001","2001","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",Suppressed,735793,Suppressed
+,"2001","2001","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",752,2348625,32.0
+,"2001","2001","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2001","2001","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",54,450525,12.0
+,"2001","2001","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",3116,12023804,25.9
+,"2001","2001","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2001","2001","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",167,1604528,10.4
+,"2001","2001","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",18772,34598872,54.3
+,"2001","2001","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2001","2001","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",6084,34305207,17.7
+,"2001","2001","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",166564,196048607,85.0
+,"2001","2001","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2001","2001","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",43,Not Applicable,Not Applicable
+,"2001","2001","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",318,Not Applicable,Not Applicable
+,"2001","2001","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2002","2002","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",Suppressed,818068,Suppressed
+,"2002","2002","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",776,2370991,32.7
+,"2002","2002","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2002","2002","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",43,486143,8.8
+,"2002","2002","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",3284,12514348,26.2
+,"2002","2002","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2002","2002","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",177,1691417,10.5
+,"2002","2002","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",19274,35007813,55.1
+,"2002","2002","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2002","2002","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",6264,35569923,17.6
+,"2002","2002","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",168656,196307809,85.9
+,"2002","2002","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2002","2002","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",44,Not Applicable,Not Applicable
+,"2002","2002","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",335,Not Applicable,Not Applicable
+,"2002","2002","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2003","2003","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",23,907535,2.5
+,"2003","2003","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",824,2404476,34.3
+,"2003","2003","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2003","2003","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",54,524594,10.3
+,"2003","2003","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",3545,13006553,27.3
+,"2003","2003","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2003","2003","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",160,1787536,9.0
+,"2003","2003","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",20501,36422205,56.3
+,"2003","2003","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2003","2003","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",6584,36825649,17.9
+,"2003","2003","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",172840,198229385,87.2
+,"2003","2003","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2003","2003","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",57,Not Applicable,Not Applicable
+,"2003","2003","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",358,Not Applicable,Not Applicable
+,"2003","2003","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2004","2004","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",17,1000953,1.7
+,"2004","2004","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",921,2428499,37.9
+,"2004","2004","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2004","2004","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",73,566680,12.9
+,"2004","2004","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",3636,13472066,27.0
+,"2004","2004","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2004","2004","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",223,1889807,11.8
+,"2004","2004","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",20685,36848991,56.1
+,"2004","2004","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2004","2004","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",6799,38039945,17.9
+,"2004","2004","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",173402,198558357,87.3
+,"2004","2004","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2004","2004","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",60,Not Applicable,Not Applicable
+,"2004","2004","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",373,Not Applicable,Not Applicable
+,"2004","2004","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2005","2005","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",17,1101334,1.5
+,"2005","2005","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",953,2452148,38.9
+,"2005","2005","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2005","2005","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",73,612659,11.9
+,"2005","2005","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",3889,13952475,27.9
+,"2005","2005","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2005","2005","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",200,2009211,10.0
+,"2005","2005","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",21135,37177294,56.8
+,"2005","2005","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2005","2005","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",7010,39290799,17.8
+,"2005","2005","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",176955,198716742,89.0
+,"2005","2005","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2005","2005","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",76,Not Applicable,Not Applicable
+,"2005","2005","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",389,Not Applicable,Not Applicable
+,"2005","2005","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2006","2006","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",23,1209963,1.9
+,"2006","2006","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",942,2477720,38.0
+,"2006","2006","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2006","2006","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",64,660860,9.7
+,"2006","2006","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",3994,14446498,27.6
+,"2006","2006","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2006","2006","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",214,2137612,10.0
+,"2006","2006","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",21123,37719495,56.0
+,"2006","2006","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2006","2006","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",7177,40593711,17.7
+,"2006","2006","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",177844,199134053,89.3
+,"2006","2006","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2006","2006","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",76,Not Applicable,Not Applicable
+,"2006","2006","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",340,Not Applicable,Not Applicable
+,"2006","2006","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2007","2007","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",26,1327365,2.0
+,"2007","2007","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",967,2502533,38.6
+,"2007","2007","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2007","2007","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",67,711657,9.4
+,"2007","2007","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",4225,14921979,28.3
+,"2007","2007","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2007","2007","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",227,2266409,10.0
+,"2007","2007","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",21433,38184699,56.1
+,"2007","2007","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2007","2007","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",7511,41887524,17.9
+,"2007","2007","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",178449,199429041,89.5
+,"2007","2007","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2007","2007","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",93,Not Applicable,Not Applicable
+,"2007","2007","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",363,Not Applicable,Not Applicable
+,"2007","2007","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2008","2008","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",30,1455459,2.1
+,"2008","2008","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1087,2528470,43.0
+,"2008","2008","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2008","2008","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",91,765780,11.9
+,"2008","2008","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",4376,15404209,28.4
+,"2008","2008","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2008","2008","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",239,2397226,10.0
+,"2008","2008","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",21749,38651733,56.3
+,"2008","2008","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2008","2008","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",7751,43171320,18.0
+,"2008","2008","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",180868,199719769,90.6
+,"2008","2008","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2008","2008","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",115,Not Applicable,Not Applicable
+,"2008","2008","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",342,Not Applicable,Not Applicable
+,"2008","2008","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2009","2009","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",34,1589064,2.1
+,"2009","2009","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1071,2552151,42.0
+,"2009","2009","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2009","2009","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",87,822365,10.6
+,"2009","2009","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",4712,15860886,29.7
+,"2009","2009","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2009","2009","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",256,2527635,10.1
+,"2009","2009","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",22485,39104815,57.5
+,"2009","2009","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2009","2009","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",7927,44384323,17.9
+,"2009","2009","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",180424,199930290,90.2
+,"2009","2009","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2009","2009","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",117,Not Applicable,Not Applicable
+,"2009","2009","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",370,Not Applicable,Not Applicable
+,"2009","2009","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2010","2010","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",23,1702619,1.4
+,"2010","2010","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1198,2571064,46.6
+,"2010","2010","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2010","2010","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",65,873817,7.4
+,"2010","2010","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",4826,16317870,29.6
+,"2010","2010","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2010","2010","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",258,2650774,9.7
+,"2010","2010","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",22355,39562101,56.5
+,"2010","2010","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2010","2010","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",8008,45523389,17.6
+,"2010","2010","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",177520,200177795,88.7
+,"2010","2010","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2010","2010","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",107,Not Applicable,Not Applicable
+,"2010","2010","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",356,Not Applicable,Not Applicable
+,"2010","2010","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2011","2011","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",37,1743739,2.1
+,"2011","2011","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1163,2591807,44.9
+,"2011","2011","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2011","2011","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",87,898476,9.7
+,"2011","2011","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",4982,16853772,29.6
+,"2011","2011","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2011","2011","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",314,2742489,11.4
+,"2011","2011","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",22486,40027499,56.2
+,"2011","2011","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2011","2011","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",8277,46531422,17.8
+,"2011","2011","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",177477,200457876,88.5
+,"2011","2011","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2011","2011","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",101,Not Applicable,Not Applicable
+,"2011","2011","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",351,Not Applicable,Not Applicable
+,"2011","2011","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2012","2012","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",38,1786994,2.1
+,"2012","2012","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1215,2612984,46.5
+,"2012","2012","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2012","2012","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",94,924482,10.2
+,"2012","2012","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",5295,17406253,30.4
+,"2012","2012","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2012","2012","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",304,2837542,10.7
+,"2012","2012","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",23072,40503841,57.0
+,"2012","2012","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2012","2012","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",8319,47492455,17.5
+,"2012","2012","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",179285,200785335,89.3
+,"2012","2012","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2012","2012","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",141,Not Applicable,Not Applicable
+,"2012","2012","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",361,Not Applicable,Not Applicable
+,"2012","2012","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2013","2013","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",59,1828727,3.2
+,"2013","2013","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1279,2632838,48.6
+,"2013","2013","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2013","2013","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",111,950843,11.7
+,"2013","2013","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",5651,17975138,31.4
+,"2013","2013","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2013","2013","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",330,2934379,11.2
+,"2013","2013","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",22916,40964022,55.9
+,"2013","2013","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2013","2013","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",8721,48449086,18.0
+,"2013","2013","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",180022,201005716,89.6
+,"2013","2013","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2013","2013","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",191,Not Applicable,Not Applicable
+,"2013","2013","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",431,Not Applicable,Not Applicable
+,"2013","2013","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2014","2014","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",47,1872500,2.5
+,"2014","2014","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1342,2652857,50.6
+,"2014","2014","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2014","2014","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",102,977334,10.4
+,"2014","2014","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",5645,18579730,30.4
+,"2014","2014","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2014","2014","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",367,3033791,12.1
+,"2014","2014","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",23219,41434786,56.0
+,"2014","2014","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2014","2014","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",8747,49438358,17.7
+,"2014","2014","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",181754,201283400,90.3
+,"2014","2014","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2014","2014","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",200,Not Applicable,Not Applicable
+,"2014","2014","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",439,Not Applicable,Not Applicable
+,"2014","2014","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2015","2015","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",32,1919106,1.7
+,"2015","2015","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1377,2670618,51.6
+,"2015","2015","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2015","2015","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",100,1005321,9.9
+,"2015","2015","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",6155,19214263,32.0
+,"2015","2015","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2015","2015","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",335,3135928,10.7
+,"2015","2015","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",23422,41908901,55.9
+,"2015","2015","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2015","2015","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",9259,50491699,18.3
+,"2015","2015","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",184084,201490278,91.4
+,"2015","2015","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2015","2015","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",189,Not Applicable,Not Applicable
+,"2015","2015","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",418,Not Applicable,Not Applicable
+,"2015","2015","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2016","2016","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",43,1965874,2.2
+,"2016","2016","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1333,2687550,49.6
+,"2016","2016","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2016","2016","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",88,1034012,8.5
+,"2016","2016","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",6395,19830650,32.2
+,"2016","2016","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2016","2016","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",363,3240059,11.2
+,"2016","2016","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",23755,42375653,56.1
+,"2016","2016","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2016","2016","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",9698,51575886,18.8
+,"2016","2016","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",183553,201662866,91.0
+,"2016","2016","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2016","2016","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",225,Not Applicable,Not Applicable
+,"2016","2016","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",462,Not Applicable,Not Applicable
+,"2016","2016","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2017","2017","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",54,2013912,2.7
+,"2017","2017","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1475,2701979,54.6
+,"2017","2017","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2017","2017","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",116,1062320,10.9
+,"2017","2017","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",6731,20400884,33.0
+,"2017","2017","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2017","2017","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",395,3346721,11.8
+,"2017","2017","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",24007,42817497,56.1
+,"2017","2017","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2017","2017","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",9633,52611610,18.3
+,"2017","2017","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",185287,201660099,91.9
+,"2017","2017","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2017","2017","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",322,Not Applicable,Not Applicable
+,"2017","2017","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",544,Not Applicable,Not Applicable
+,"2017","2017","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2018","2018","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",52,2063869,2.5
+,"2018","2018","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1498,2713197,55.2
+,"2018","2018","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2018","2018","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",133,1090293,12.2
+,"2018","2018","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",6840,20848922,32.8
+,"2018","2018","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2018","2018","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",397,3455764,11.5
+,"2018","2018","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",24228,43226926,56.0
+,"2018","2018","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2018","2018","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",10094,53594153,18.8
+,"2018","2018","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",184781,201542133,91.7
+,"2018","2018","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2018","2018","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",331,Not Applicable,Not Applicable
+,"2018","2018","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",608,Not Applicable,Not Applicable
+,"2018","2018","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2019","2019","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",50,2110969,2.4
+,"2019","2019","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1535,2723889,56.4
+,"2019","2019","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2019","2019","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",156,1117852,14.0
+,"2019","2019","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",7267,21263954,34.2
+,"2019","2019","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2019","2019","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",422,3553918,11.9
+,"2019","2019","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",24671,43618731,56.6
+,"2019","2019","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2019","2019","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",10320,54460129,18.9
+,"2019","2019","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",186962,201382675,92.8
+,"2019","2019","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2019","2019","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",462,Not Applicable,Not Applicable
+,"2019","2019","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",724,Not Applicable,Not Applicable
+,"2019","2019","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2020","2020","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",55,2161706,2.5
+,"2020","2020","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1422,2740481,51.9
+,"2020","2020","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2020","2020","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",106,1148375,9.2
+,"2020","2020","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",6495,21590865,30.1
+,"2020","2020","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2020","2020","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",398,3651082,10.9
+,"2020","2020","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",22117,43920128,50.4
+,"2020","2020","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2020","2020","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",9394,55257471,17.0
+,"2020","2020","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",170531,201056825,84.8
+,"2020","2020","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2020","2020","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",490,Not Applicable,Not Applicable
+,"2020","2020","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",749,Not Applicable,Not Applicable
+,"2020","2020","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2021","2021","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",49,2205218,2.2
+,"2021","2021","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1613,2749224,58.7
+,"2021","2021","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2021","2021","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",152,1173129,13.0
+,"2021","2021","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",7284,21851581,33.3
+,"2021","2021","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2021","2021","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",423,3733139,11.3
+,"2021","2021","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",23461,44105611,53.2
+,"2021","2021","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2021","2021","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",10530,55879924,18.8
+,"2021","2021","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",175818,200351151,87.8
+,"2021","2021","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2021","2021","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",543,Not Applicable,Not Applicable
+,"2021","2021","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",974,Not Applicable,Not Applicable
+,"2021","2021","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2022","2022","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Hispanic","2135-2",67,2270995,3.0
+,"2022","2022","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Non-Hispanic","2186-5",1522,2757920,55.2
+,"2022","2022","Lung and Bronchus","22030","American Indian or Alaska Native","1002-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2022","2022","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Hispanic","2135-2",162,1203614,13.5
+,"2022","2022","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Non-Hispanic","2186-5",7516,22326886,33.7
+,"2022","2022","Lung and Bronchus","22030","Asian or Pacific Islander","A-PI","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2022","2022","Lung and Bronchus","22030","Black or African American","2054-5","Hispanic","2135-2",407,3839767,10.6
+,"2022","2022","Lung and Bronchus","22030","Black or African American","2054-5","Non-Hispanic","2186-5",23411,44379530,52.8
+,"2022","2022","Lung and Bronchus","22030","Black or African American","2054-5","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2022","2022","Lung and Bronchus","22030","White","2106-3","Hispanic","2135-2",10426,56737030,18.4
+,"2022","2022","Lung and Bronchus","22030","White","2106-3","Non-Hispanic","2186-5",173713,199755669,87.0
+,"2022","2022","Lung and Bronchus","22030","White","2106-3","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+,"2022","2022","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Hispanic","2135-2",635,Not Applicable,Not Applicable
+,"2022","2022","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Non-Hispanic","2186-5",1034,Not Applicable,Not Applicable
+,"2022","2022","Lung and Bronchus","22030","Other Races and Unknown combined","2131-1","Unknown or Missing","UNK",0,Not Applicable,Not Applicable
+"---"
+"Dataset: United States and Puerto Rico Cancer Statistics, 1999-2022 Incidence"
+"Query Parameters:"
+"Title: CDC_Wonder_Lung_Cancer-Race_US"
+"Leading Cancer Sites: Lung and Bronchus"
+"Group By: Year; Leading Cancer Sites; Race; Ethnicity"
+"Show Totals: Disabled"
+"Show Zero Values: True"
+"Show Suppressed: True"
+"Calculate Rates Per: 100,000"
+"Standard Population: 2000 U.S. Std. Million"
+"---"
+"Help: See http://wonder.cdc.gov/wonder/help/cancer-v2022.html for more information."
+"---"
+"Query Date: Apr 28, 2026 2:35:04 AM"
+"---"
+"Suggested Citation: United States Cancer Statistics - Incidence: 1999 - 2022, WONDER Online Database. United States Department"
+"of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2024 submission; 2025"
+"release. Accessed at http://wonder.cdc.gov/cancer-v2022.html on Apr 28, 2026 2:35:04 AM"
+"---"
+Messages:
+"1. Totals are not available for these results due to suppression constraints. More Information:"
+"http://wonder.cdc.gov/wonder/help/faq.html#Privacy."
+"---"
+Caveats:
+"1. Statistics are suppressed to protect personal privacy, for the following conditions: <ol><li> Data are suppressed if the"
+"figures represent fewer than 16 cases for the specific category in the table cell. </li><li> Counts and rates are suppressed for"
+"cells at the Metropolitan Statistical Area (MSA) level for the race categories ""American Indian or Alaska Native"" or ""Asian"
+"or Pacific Islander"" when the specific category's population for rate calculations is less than 50,000 persons. </li><li> Data"
+"are suppressed at the state and MSA level for certain race and ethnicity groups: <ul><li> American Indian or Alaska Native data"
+"are suppressed at the state and MSA level for residents of Illinois, Kansas, New Jersey, and New York; </li><li> Hispanic Asian"
+"or Pacific Islander and Hispanic Black or African American data are suppressed at the state and MSA level for all years and for"
+"Non-Hispanic Asian or Pacific Islanders for 1999 for residents of Kansas. </li></ul> </li></ol> States decide whether to"
+"suppress data for specific race and ethnicity categories. The suppression criteria may vary in previous releases of these data"
+"More information: http://wonder.cdc.gov/wonder/help/cancer-v2022.html#Confidentiality."
+"2. 'Not Applicable' is displayed for Population when it is not available, and for Age Adjusted Rates, Crude Rates, 95%"
+"Confidence Interval, and Standard Error when they cannot be calculated due to lack of denominator population."
+"3. The ""Show Totals"" checkbox is disabled when data are grouped by Cancer Sites or by Childhood Cancer, because aggregate"
+"values are displayed in the table. Also be aware that charts and maps containing both aggregate and detail data could be"
+"misleading."
+"4. Data are from selected statewide and metropolitan area cancer registries that meet data quality criteria. Incidence data"
+"shown for the United States are diagnoses and populations from included registries only."
+"5. Information on primary site, behavior, and histology was coded according to the International Classification of Diseases for"
+"Oncology, Third Edition (ICD-O-3) and categorized according to the revised SEER recodes dated March 1, 2018, which define"
+"standard groupings of primary cancer sites."
+"6. For the 2005 year, the Census Bureau estimates that 203,937 persons were displaced from Alabama, Louisiana, Mississippi and"
+"Texas due to Hurricanes Katrina and Rita. CDC WONDER does not include the displaced persons in the 2005 population counts for"
+"these states, nor are these counts included in the summary populations for the affected division, regions or national"
+"population. However, the USCS web site does include these displaced persons in the national population figures for 2005."

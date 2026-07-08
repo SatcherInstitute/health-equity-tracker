@@ -1,5 +1,6 @@
 import { format, scaleOrdinal, utcFormat } from 'd3'
 import type { MetricType } from '../../data/config/MetricConfigTypes'
+
 import {
   AAPI_W,
   AIAN,
@@ -32,127 +33,122 @@ import {
   WHITE_NH,
   WHITE_W,
 } from '../../data/utils/Constants'
-import { het } from '../../styles/DesignTokens'
 
-// get colors from css variables
-const {
-  unknownMapLeast,
-  unknownMapMost,
-  timePastelGreen,
-  darkBlue,
-  redOrange,
-  black,
-  timeCyanBlue,
-  timePurple,
-  timePink,
-  timeDarkRed,
-  timeYellow,
-  mapLight,
-  mapLighter,
-} = het
+import { colors } from '../../styles/tokens/colors'
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
-  // shared between breakdown types
-  All: black,
-  Unknown: darkBlue,
+  All: colors.altBlack,
+  Unknown: colors.darkBlue,
+
   // race and ethnicity (NH)
-  [AIAN_NH]: timeCyanBlue,
-  [ASIAN_NH]: timePastelGreen,
-  [BLACK_NH]: mapLight,
-  [HISPANIC]: timePurple,
-  [NHPI_NH]: timePink,
-  [MULTI_OR_OTHER_STANDARD_NH]: timeDarkRed,
-  [WHITE_NH]: redOrange,
+  [AIAN_NH]: colors.timeCyanBlue,
+  [ASIAN_NH]: colors.timePastelGreen,
+  [BLACK_NH]: colors.mapLight,
+  [HISPANIC]: colors.timePurple,
+  [NHPI_NH]: colors.timePink,
+  [MULTI_OR_OTHER_STANDARD_NH]: colors.timeDarkRed,
+  [WHITE_NH]: colors.redOrange,
+
   // race and ethnicity (not NH)
-  [AIAN]: timeCyanBlue,
-  [ASIAN]: timePastelGreen,
-  [BLACK]: mapLight,
-  [NHPI]: timePink,
-  [MULTI_OR_OTHER_STANDARD]: timeDarkRed,
-  [OTHER_STANDARD]: darkBlue,
-  [MULTI]: timeDarkRed,
-  [WHITE]: redOrange,
+  [AIAN]: colors.timeCyanBlue,
+  [ASIAN]: colors.timePastelGreen,
+  [BLACK]: colors.mapLight,
+  [NHPI]: colors.timePink,
+  [MULTI_OR_OTHER_STANDARD]: colors.timeDarkRed,
+  [OTHER_STANDARD]: colors.darkBlue,
+  [MULTI]: colors.timeDarkRed,
+  [WHITE]: colors.redOrange,
+
   // race and ethnicity for CAWP
-  [ALL_W]: black,
-  [AIANNH_W]: timeCyanBlue,
-  [AAPI_W]: timePastelGreen,
-  [AIAN_API_W]: timePastelGreen,
-  [BLACK_W]: mapLight,
-  [HISP_W]: timePurple,
-  [MENA_W]: timeYellow,
-  [OTHER_W]: timePink,
-  [WHITE_W]: redOrange,
-  [UNKNOWN_W]: darkBlue,
-  [MULTI_W]: timeDarkRed,
+  [ALL_W]: colors.altBlack,
+  [AIANNH_W]: colors.timeCyanBlue,
+  [AAPI_W]: colors.timePastelGreen,
+  [AIAN_API_W]: colors.timePastelGreen,
+  [BLACK_W]: colors.mapLight,
+  [HISP_W]: colors.timePurple,
+  [MENA_W]: colors.timeYellow,
+  [OTHER_W]: colors.timePink,
+  [WHITE_W]: colors.redOrange,
+  [UNKNOWN_W]: colors.darkBlue,
+  [MULTI_W]: colors.timeDarkRed,
+
   // race and ethnicity for HIV
-  [MULTI_NH]: timeDarkRed,
-  [OTHER_NONSTANDARD_NH]: darkBlue,
-  //  race and ethnicity for INCARCERATION
-  [API_NH]: timePink,
+  [MULTI_NH]: colors.timeDarkRed,
+  [OTHER_NONSTANDARD_NH]: colors.darkBlue,
+
+  // race and ethnicity for INCARCERATION
+  [API_NH]: colors.timePink,
+
   // sex
-  Female: timeCyanBlue,
-  Male: timePurple,
-  Other: timeYellow,
+  Female: colors.timeCyanBlue,
+  Male: colors.timePurple,
+  Other: colors.timeYellow,
+
   // age
-  '0-9': timeCyanBlue,
-  '10-19': timePastelGreen,
-  '20-29': darkBlue,
-  '30-39': timePurple,
-  '40-49': timePink,
-  '50-59': timeDarkRed,
-  '60-69': redOrange,
-  '70-79': timeYellow,
-  '80+': mapLight,
+  '0-9': colors.timeCyanBlue,
+  '10-19': colors.timePastelGreen,
+  '20-29': colors.darkBlue,
+  '30-39': colors.timePurple,
+  '40-49': colors.timePink,
+  '50-59': colors.timeDarkRed,
+  '60-69': colors.redOrange,
+  '70-79': colors.timeYellow,
+  '80+': colors.mapLight,
+
   // age for HIV + ACS CONDITION
-  '0-5': timeCyanBlue,
-  '6-11': timePastelGreen,
-  '6-17': timePastelGreen,
-  '6-18': timePastelGreen,
-  '12-17': darkBlue,
-  '13-24': darkBlue,
-  '16-24': darkBlue,
-  '18-24': timePurple,
-  '19-25': timePurple,
-  '17-24': timePurple,
-  '25-34': timePink,
-  '26-34': timePink,
-  '35-44': timeDarkRed,
-  '45-54': redOrange,
-  '55+': timeYellow,
-  '55-64': timeYellow,
-  '65-74': mapLight,
-  '75+': mapLighter,
-  // added age buckeds for WISQARS
-  '0-14': timeCyanBlue,
-  '15-19': timePurple,
-  '20-24': timePink,
-  '25-29': timePastelGreen,
-  '30-34': redOrange,
+  '0-5': colors.timeCyanBlue,
+  '6-11': colors.timePastelGreen,
+  '6-17': colors.timePastelGreen,
+  '6-18': colors.timePastelGreen,
+  '12-17': colors.darkBlue,
+  '13-24': colors.darkBlue,
+  '16-24': colors.darkBlue,
+  '18-24': colors.timePurple,
+  '19-25': colors.timePurple,
+  '17-24': colors.timePurple,
+  '25-34': colors.timePink,
+  '26-34': colors.timePink,
+  '35-44': colors.timeDarkRed,
+  '45-54': colors.redOrange,
+  '55+': colors.timeYellow,
+  '55-64': colors.timeYellow,
+  '65-74': colors.mapLight,
+  '75+': colors.mapLighter,
+
+  // added age buckets for WISQARS
+  '0-14': colors.timeCyanBlue,
+  '15-19': colors.timePurple,
+  '20-24': colors.timePink,
+  '25-29': colors.timePastelGreen,
+  '30-34': colors.redOrange,
+
   // age for AHR
-  '15-24': timeCyanBlue,
-  '18-44': timeCyanBlue,
-  '24-34': timePink,
-  '45-64': mapLight,
-  '65+': timeYellow,
-  '75-84': mapLighter,
+  '15-24': colors.timeCyanBlue,
+  '18-44': colors.timeCyanBlue,
+  '24-34': colors.timePink,
+  '45-64': colors.mapLight,
+  '65+': colors.timeYellow,
+  '75-84': colors.mapLighter,
 
   // urbanicity / City Size
-  Metro: timePurple,
-  'Non-Metro': timeYellow,
+  Metro: colors.timePurple,
+  'Non-Metro': colors.timeYellow,
 }
 
-// domain for color scale
 const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP)
-// range of colors for groups
 const COLOR_RANGE = Object.values(GROUP_COLOR_MAP)
-// color scale
+
 const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE)
-// color range for unknowns
-const UNKNOWN_GROUP_COLOR_EXTENT = [unknownMapLeast, unknownMapMost]
+
+const UNKNOWN_GROUP_COLOR_EXTENT: [string, string] = [
+  colors.unknownMapLeast,
+  colors.unknownMapMost,
+]
 
 /* Config */
 const CONFIG = {
   HEIGHT: 506,
+
   MARGIN: {
     top: 10,
     right: 55,
@@ -160,18 +156,25 @@ const CONFIG = {
     bottom_with_unknowns: 144,
     left: 80,
   },
+
   TICK_PADDING: 18,
+
   Y_AXIS_LABEL_PADDING: 18,
+
   RADIUS_EXTENT: [4, 10],
+
   // special spacing rules for mobile
   MOBILE: {
     MARGIN: {
       left: 60,
       right: 20,
     },
+
     Y_AXIS_LABEL_PADDING: 10,
+
     RADIUS_EXTENT: [3, 8],
   },
+
   // width of tooltip bars
   BAR_WIDTH: 100,
 }
@@ -186,15 +189,30 @@ const TYPES: Record<string, MetricType> = {
 }
 
 const FORMATTERS = {
-  pct: (d: number) => `${format('.1~f')(d)}%`, // have to treat percent as truncated number and then interpolate % b/c they are received as integers
+  pct: (d: number) => `${format('.1~f')(d)}%`,
+
+  // have to treat percent as truncated number and then interpolate %
+  // because they are received as integers
+
   dateShort: utcFormat('%m/%y'),
+
   dateYear: utcFormat('%Y'),
+
   dateFromString_YYYY: (str: string) => str && utcFormat('%Y')(new Date(str)),
+
   dateFromString_MM_YYYY: (str: string) =>
     str && utcFormat('%B %Y')(new Date(str)),
+
   num: format('.2~f'),
-  num100k: (d: number) => (d < 10 ? format('.1~f')(d) : format('.0~f')(d)), // show single decimal if less than 10, remove trailling zeros
-  plusNum: (d: number) => `${d > 0 ? '+' : ''}${format('.1~f')(d)}`, // add "+" only to positive numbers (not 0)
+
+  num100k: (d: number) => (d < 10 ? format('.1~f')(d) : format('.0~f')(d)),
+
+  // show single decimal if less than 10, remove trailing zeros
+
+  plusNum: (d: number) => `${d > 0 ? '+' : ''}${format('.1~f')(d)}`,
+
+  // add "+" only to positive numbers (not 0)
+
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ''),
 }
 

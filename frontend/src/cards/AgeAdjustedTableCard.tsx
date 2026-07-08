@@ -55,6 +55,7 @@ interface AgeAdjustedTableCardProps {
   demographicType: DemographicType
   dropdownVarId?: DropdownVarId
   reportTitle: string
+  isCompareCard?: boolean
 }
 
 export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
@@ -123,9 +124,14 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       queries={queries}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
+      isCompareCard={props.isCompareCard}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
-      {(queries) => {
-        if (queries.length < 2)
+      {(queries, _metadata, _geoData, overrideCardHasData) => {
+        if (queries.length < 2) {
+          overrideCardHasData?.(false)
           return (
             <MissingDataAlert
               demographicTypeString={
@@ -135,6 +141,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               fips={props.fips}
             />
           )
+        }
 
         const [raceQueryResponse, ageQueryResponse] = queries
 

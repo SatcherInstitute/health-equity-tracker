@@ -1,9 +1,8 @@
-import {
-  Close,
-  ExpandLess,
-  ExpandMore,
-  Menu as MenuIcon,
-} from '@mui/icons-material'
+import Close from '@mui/icons-material/Close'
+import ExpandLess from '@mui/icons-material/ExpandLess'
+import ExpandMore from '@mui/icons-material/ExpandMore'
+import LaunchRounded from '@mui/icons-material/LaunchRounded'
+import MenuIcon from '@mui/icons-material/Menu'
 import {
   Collapse,
   Drawer,
@@ -17,12 +16,13 @@ import {
 import { useState } from 'react'
 import { Link } from 'react-router'
 import AppBarLogo from '../../assets/AppbarLogo.png'
+import { NAVIGATION_STRUCTURE } from '../../pages/navigationData'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
-import { NAVIGATION_STRUCTURE } from '../../utils/urlutils'
+import { isExternalLink } from '../../utils/urlutils'
 import HetCTASmall from './HetCTASmall'
 import HetNavLink from './HetNavLink'
 
-export default function HetMobileAppToolbar() {
+export default function HetMobileToolbar() {
   const [open, setOpen] = useState(false)
   const [expandedMenu, setExpandedMenu] = useState<string | null>(null)
 
@@ -43,24 +43,60 @@ export default function HetMobileAppToolbar() {
               {expandedMenu === key ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={expandedMenu === key} timeout='auto' unmountOnExit>
-              {Object.entries(value.pages).map(([subKey, subValue]) => (
-                <ListItem
-                  key={subKey}
-                  component={Link}
-                  to={subKey}
-                  className='pl-8 no-underline'
-                  onClick={() => setOpen(false)}
-                >
-                  <ListItemText className='text-alt-black' primary={subValue} />
-                </ListItem>
-              ))}
+              {Object.entries(value.pages).map(([subKey, subValue]) => {
+                const external = isExternalLink(subKey)
+                const label =
+                  typeof subValue === 'string' ? subValue : subValue.label
+
+                return (
+                  <ListItem
+                    key={subKey}
+                    component={external ? 'a' : Link}
+                    {...(external
+                      ? {
+                          href: subKey,
+                          target: '_blank',
+                          rel: 'noopener noreferrer',
+                        }
+                      : { to: subKey })}
+                    className='pl-8 no-underline'
+                    onClick={() => setOpen(false)}
+                  >
+                    <div className='flex w-full items-center justify-between gap-2'>
+                      <ListItemText
+                        className='text-alt-black'
+                        primary={label}
+                      />
+                      {external && (
+                        <LaunchRounded className='my-auto text-alt-black' />
+                      )}
+                    </div>
+                  </ListItem>
+                )
+              })}
             </Collapse>
           </div>
         )
       }
 
       if ('link' in value) {
-        return (
+        const external = isExternalLink(value.link)
+
+        return external ? (
+          <ListItem
+            key={key}
+            component='a'
+            href={value.link}
+            target='_blank'
+            rel='noopener noreferrer'
+            onClick={() => setOpen(false)}
+          >
+            <div className='flex w-full items-center justify-between gap-2'>
+              <ListItemText className='text-alt-black' primary={value.label} />
+              <LaunchRounded className='my-auto text-alt-black' />
+            </div>
+          </ListItem>
+        ) : (
           <ListItem
             onClick={() => setOpen(false)}
             component={Link}
@@ -71,7 +107,6 @@ export default function HetMobileAppToolbar() {
           </ListItem>
         )
       }
-
       return null
     })
   }
@@ -84,7 +119,7 @@ export default function HetMobileAppToolbar() {
         size='large'
         sx={{ borderRadius: 1 }}
       >
-        <MenuIcon className='text-white' />
+        <MenuIcon className='text-alt-white' />
       </IconButton>
       <Drawer
         variant='temporary'
@@ -100,7 +135,11 @@ export default function HetMobileAppToolbar() {
         }}
       >
         <div className='flex flex-row items-center'>
-          <HetNavLink className='flex items-center pl-0' href='/'>
+          <HetNavLink
+            className='flex items-center pl-0'
+            href='/'
+            onClick={() => setOpen(false)}
+          >
             <img
               src={AppBarLogo}
               className='mr-auto ml-2 h-little-het-logo w-little-het-logo'

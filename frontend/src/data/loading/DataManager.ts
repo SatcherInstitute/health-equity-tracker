@@ -1,4 +1,3 @@
-import { DataFrame, type IDataFrame } from 'data-forge'
 import { LRUCache } from 'lru-cache'
 import { getDataFetcher, getDataManager, getLogger } from '../../utils/globals'
 import type {
@@ -8,10 +7,7 @@ import type {
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { Dataset, type MapOfDatasetMetadata } from '../utils/DatasetTypes'
-import { joinOnCols } from '../utils/datasetutils'
 import VariableProviderMap from './VariableProviderMap'
-
-// TODO: test this out on the real website and tweak these numbers as needed.
 
 // Max size for the dataset and query cache is measured by number of rows in the
 // data plus a constant factor per entry.
@@ -21,8 +17,8 @@ import VariableProviderMap from './VariableProviderMap'
 // 2. The total site memory usage is reasonable. This is a bit of a judgement
 //    call, but it should be comparable with other applications. This can be
 //    viewed in the browser task manager.
-const MAX_CACHE_SIZE_DATASETS = 100_000
-const MAX_CACHE_SIZE_QUERIES = 10_000
+const MAX_CACHE_SIZE_DATASETS = 500_000
+const MAX_CACHE_SIZE_QUERIES = 50_000
 
 // We only expect one metadata entry so we can set cache size to 1.
 const MAX_CACHE_SIZE_METADATA = 1
@@ -39,9 +35,9 @@ abstract class ResourceCache<K, R extends {}> {
   }
 
   private createLruCache(maxSize: number): LRUCache<string, R> {
-    const options = {
-      max: maxSize,
-      size: this.getResourceSize,
+    const options: LRUCache.Options<string, R, unknown> = {
+      maxSize: maxSize,
+      sizeCalculation: (resource, id) => this.getResourceSize(resource, id),
       // dispose: onDispose,
       // If it has been more than 24 hours, the next time the resource is
       // requested it will trigger a new load to make sure the data doesn't get
@@ -88,13 +84,11 @@ abstract class ResourceCache<K, R extends {}> {
       // TODO: handle errors at the DataFetcher level
       // TODO: handle re-load periodically so long-lived tabs don't get stale.
       // Also need to reset the variable cache when datasets are reloaded.
-
       const resource = this.lruCache.get(resourceId)
       if (resource) {
         return resource
       }
       const loadingResource = this.loadingResources[resourceId]
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       if (loadingResource) {
         return await loadingResource
       }
@@ -105,15 +99,16 @@ abstract class ResourceCache<K, R extends {}> {
       const result = await loadPromise
 
       this.lruCache.set(resourceId, result)
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.loadingResources[resourceId]
       getLogger().debugLog(
-        'Loaded ' + resourceId + '. Cache size: ' + this.lruCache.size,
+        'Loaded ' +
+          resourceId +
+          '. Cache size: ' +
+          this.lruCache.calculatedSize,
       )
 
       return result
     } catch (e) {
-      // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
       delete this.loadingResources[resourceId]
       this.failedResources.add(resourceId)
       await getLogger().logError(e as Error, 'WARNING', {
@@ -163,10 +158,8 @@ class DatasetCache extends ResourceCache<string, Dataset> {
     const promise = getDataFetcher().loadDataset(datasetId)
     const metadataPromise = getDataManager().loadMetadata()
     const [data, metadata] = await Promise.all([promise, metadataPromise])
-    // TODO: throw specific error message if metadata is missing for this dataset
-    // id.
-    // TODO: validate metadata against data, and also process variables out
-    // of it?
+    // TODO: throw specific error message if metadata is missing for this dataset id.
+    // TODO: validate metadata against data, and also process variables out of it?
     return new Dataset(data, metadata[datasetId])
   }
 
@@ -183,7 +176,7 @@ class DatasetCache extends ResourceCache<string, Dataset> {
    * to a small number of rows.
    */
   getResourceSize(resource: Dataset): number {
-    return resource.rows.length + 5
+    return Math.max(1, (resource.rows?.length ?? 0) + 5)
   }
 }
 
@@ -224,24 +217,19 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
       return potentialErrorResponse
     }
 
-    const dataframes: IDataFrame[] = queryResponses.map(
-      (response) => new DataFrame(response.data),
-    )
-
-    const joined = dataframes.reduce((prev, next) => {
-      return joinOnCols(prev, next, query.breakdowns.getJoinColumns(), 'outer')
-    })
-
-    const consumedDatasetIds = queryResponses.reduce(
-      (
-        accumulator: Array<DatasetId | DatasetIdWithStateFIPSCode>,
-        response: MetricQueryResponse,
-      ) => accumulator.concat(response.consumedDatasetIds),
-      [],
+    const consumedDatasetIds = queryResponses.flatMap(
+      (r) => r.consumedDatasetIds,
     )
     const uniqueConsumedDatasetIds = Array.from(new Set(consumedDatasetIds))
+    // Each MetricQuery always resolves to a single provider — multi-provider
+    // queries were removed when population data was baked into topic tables.
+    if (queryResponses.length !== 1) {
+      throw new Error(
+        `Expected exactly 1 provider response, got ${queryResponses.length}`,
+      )
+    }
     const resp = new MetricQueryResponse(
-      joined.toArray(),
+      queryResponses[0].data,
       uniqueConsumedDatasetIds,
     )
 
@@ -260,7 +248,7 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
    * to a small number of rows.
    */
   getResourceSize(resource: MetricQueryResponse): number {
-    return resource.data.length + 5
+    return Math.max(1, (resource.data?.length ?? 0) + 5)
   }
 }
 

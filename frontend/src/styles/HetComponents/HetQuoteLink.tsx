@@ -1,4 +1,4 @@
-import { FormatQuote } from '@mui/icons-material'
+import FormatQuote from '@mui/icons-material/FormatQuote'
 import type React from 'react'
 
 interface HetQuoteLinkProps {

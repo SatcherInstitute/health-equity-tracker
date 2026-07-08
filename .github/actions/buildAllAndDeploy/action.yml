@@ -17,20 +17,8 @@ inputs:
   tf-state-bucket:
     description: "Terraform state bucket"
     required: true
-  ahr-api-key:
-    description: "AHR API key"
-    required: true
-  anthropic-api-key:
-    description: "Claude API key"
-    required: true
-  webflow-api-token:
-    description: "Webflow CMS API token"
-    required: true
 
 outputs:
-  data-server-url:
-    description: "URL of the deployed data server"
-    value: ${{ steps.terraform.outputs.data_server_url }}
   ingestion-url:
     description: "URL of the deployed ingestion service"
     value: ${{ steps.terraform.outputs.ingestion_url }}
@@ -41,7 +29,7 @@ outputs:
     description: "URL of the deployed exporter service"
     value: ${{ steps.terraform.outputs.exporter_url }}
   frontend-url:
-    description: "URL of the deployed frontend"
+    description: "URL of the deployed server (serves frontend and all APIs)"
     value: ${{ steps.terraform.outputs.frontend_url }}
 
 runs:
@@ -71,7 +59,6 @@ runs:
       id: gcstobq
       uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
       with:
-        ahr-api-key: ${{ inputs.ahr-api-key }}
         dockerfile: "run_gcs_to_bq/Dockerfile"
         image-path: "gcr.io/${{ inputs.project-id }}/gcs-to-bq"
         deploy-context: ${{ inputs.environment }}
@@ -85,7 +72,18 @@ runs:
         image-path: "gcr.io/${{ inputs.project-id }}/exporter"
         deploy-context: ${{ inputs.environment }}
 
-    # Build data server image
+    # Build combined Go server image (replaces data_server + frontend_server)
+    - name: Build and Push Server Image
+      id: server
+      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
+      with:
+        dockerfile: "server/Dockerfile"
+        image-path: "gcr.io/${{ inputs.project-id }}/server"
+        deploy-context: ${{ inputs.environment }}
+
+    # TEMPORARY (prod cutover): build legacy data server image so the legacy
+    # data_server_service stays deployable until the prod domain mapping is
+    # repointed at server-service. Remove with the legacy services.
     - name: Build and Push Data Server Image
       id: serving
       uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
@@ -94,8 +92,7 @@ runs:
         image-path: "gcr.io/${{ inputs.project-id }}/data-server"
         deploy-context: ${{ inputs.environment }}
 
-    # Build frontend image
-
+    # TEMPORARY (prod cutover): build legacy frontend image (see above).
     - name: Build and Push Frontend Image
       id: frontend
       uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
@@ -103,7 +100,6 @@ runs:
         dockerfile: "frontend_server/Dockerfile"
         image-path: "gcr.io/${{ inputs.project-id }}/frontend"
         deploy-context: ${{ inputs.environment }}
-        anthropic-api-key: ${{ inputs.anthropic-api-key }}
 
     # Terraform and deployment
     - name: Setup Terraform
@@ -137,14 +133,11 @@ runs:
           -var 'project_id=${{ inputs.project-id }}' \
           -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
           -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
+          -var 'server_image_digest=${{ steps.server.outputs.image-digest }}' \
           -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}' \
-          -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}' \
           -var 'frontend_image_digest=${{ steps.frontend.outputs.image-digest }}' \
-          -var 'anthropic_api_key=${{ inputs.anthropic-api-key }}' \
-          -var 'webflow_api_token=${{ inputs.webflow-api-token }}' \
+          -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}'
 
-        data_server_url=$(terraform output data_server_url)
-        echo "data_server_url=$data_server_url" >> $GITHUB_OUTPUT
         ingestion_url=$(terraform output ingestion_url)
         echo "ingestion_url=$ingestion_url" >> $GITHUB_OUTPUT
         gcs_to_bq_url=$(terraform output gcs_to_bq_url)
@@ -160,15 +153,12 @@ runs:
       with:
         python-version: "3.12"
 
-    - name: Run Python E2E Tests
+    - name: Run Server Smoke Tests
       shell: bash
       run: |
-        pip install -r e2e_tests/requirements.txt
-        pytest e2e_tests/data_serving.py
+        pip install -r server_smoke_tests/requirements.txt
+        pytest server_smoke_tests/
       env:
-        SERVICE_URL: ${{ steps.terraform.outputs.data_server_url }}
+        SERVICE_URL: ${{ steps.terraform.outputs.frontend_url }}
         FRONTEND_URL: ${{ steps.terraform.outputs.frontend_url }}
         PATH_TO_SA_CREDS: config/creds.json
-        AHR_API_KEY: ${{ inputs.ahr-api-key }}
-        ANTHROPIC_API_KEY: ${{ inputs.anthropic-api-key }}
-        WEBFLOW_API_TOKEN: ${{ inputs.webflow-api-token }}

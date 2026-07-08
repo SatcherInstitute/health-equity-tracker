@@ -11,9 +11,14 @@ import {
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
-import type { WebflowArticle } from '../News/ArticleTypes'
-import WebflowNewsPreviewCard from '../News/WebflowNewsPreviewCard'
 import LandingPageListItem from './LandingPageListItem'
+
+// cspell:ignore XBoqT9Jjc8w
+const HET_INTRO_YOUTUBE_ID = 'XBoqT9Jjc8w'
+
+import WebflowNewsPreviewCard, {
+  type WebflowArticle,
+} from './WebflowNewsPreviewCard' ////
 
 function LandingPage() {
   const { data, isLoading, error } = useQuery<WebflowArticle[]>({
@@ -23,6 +28,7 @@ function LandingPage() {
   })
 
   const isMd = useIsBreakpointAndUp('md')
+
   const isLg = useIsBreakpointAndUp('lg')
 
   let numberOfArticlePreviews = 1
@@ -43,7 +49,7 @@ function LandingPage() {
           className='absolute top-0 right-0 bottom-0 z-0 float-right mx-24 max-w-4xl opacity-35 xs:opacity-15 sm:opacity-15 md:opacity-15'
         />
         <div className='relative m-0 p-0 text-left sm:w-full md:w-full lg:w-3/4'>
-          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-black xs:text-header leading-some-space sm:text-big-header lg:text-hero-header'>
+          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-alt-black xs:text-header leading-some-space sm:text-big-header lg:text-hero-header'>
             Where will the <br aria-hidden />
             <span className='font-medium font-serif text-alt-green xs:text-header leading-some-space sm:text-big-header lg:text-hero-header'>
               Health Equity Tracker
@@ -121,11 +127,12 @@ function LandingPage() {
       </section>
 
       <section className='flex w-full flex-wrap items-center justify-center'>
-        <div className='space-8 lg:space-24 mx-auto my-0 xs:block flex h-auto min-h-[60vh] w-full items-center justify-center bg-white-smoke80 p-16 sm:block md:flex'>
+        <div className='space-8 lg:space-24 mx-auto my-0 xs:block flex h-auto min-h-[60vh] w-full items-center justify-center bg-white-smoke p-16 sm:block md:flex'>
           <img
             src='/img/graphics/banner.png'
             className='w-full md:w-2/5'
             alt='phone and laptop mockups displaying the health equity tracker'
+            loading='lazy'
           />
           <div className='flex w-full flex-col items-center justify-center sm:block md:block'>
             <h2
@@ -148,6 +155,7 @@ function LandingPage() {
               src='/img/graphics/msm-new-day-banner.png'
               className='mx-auto w-4/5 rounded-sm md:w-3/5'
               alt='logos for morehouse school of medicine and satcher health leadership institute'
+              loading='lazy'
             />
           </div>
         </div>
@@ -170,8 +178,7 @@ function LandingPage() {
               <LandingPageListItem
                 title='Take a tour of the data'
                 description='New to the Health Equity Tracker? Watch a short video demo that highlights major features of the platform.'
-                iframeSrc='https://www.youtube.com/embed/XBoqT9Jjc8w'
-                videoSrc={undefined}
+                youtubeId={HET_INTRO_YOUTUBE_ID}
                 itemNumber={1}
                 prefersReducedMotion={prefersReducedMotion}
               />
@@ -179,7 +186,6 @@ function LandingPage() {
                 title='Search by completing the sentence'
                 description='Select topics and locations you are interested in to complete the sentence and explore the data.'
                 videoSrc='videos/search-by.mp4'
-                iframeSrc={undefined}
                 itemNumber={2}
                 prefersReducedMotion={prefersReducedMotion}
               />
@@ -187,7 +193,6 @@ function LandingPage() {
                 title='Use filters to go deeper'
                 description='Where available, the tracker offers breakdowns by race and ethnicity, sex, and age.'
                 videoSrc='videos/filters.mp4'
-                iframeSrc={undefined}
                 itemNumber={3}
                 prefersReducedMotion={prefersReducedMotion}
               />
@@ -195,7 +200,6 @@ function LandingPage() {
                 title='Explore maps and graphs'
                 description='The interactive maps and graphs are a great way to investigate the data more closely. If a state or county is gray, that means there is no data currently available.'
                 videoSrc='videos/explore-map.mp4'
-                iframeSrc={undefined}
                 itemNumber={4}
                 customClassName='xs:mt-4 xs:mb-12'
                 prefersReducedMotion={prefersReducedMotion}

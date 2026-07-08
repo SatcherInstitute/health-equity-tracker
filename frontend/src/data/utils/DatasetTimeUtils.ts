@@ -1,4 +1,3 @@
-import type { IDataFrame } from 'data-forge'
 import type { TimeSeries, TrendsData } from '../../charts/trendsChart/types'
 import type { MetricConfig, MetricId } from '../config/MetricConfigTypes'
 import type { DemographicType } from '../query/Breakdowns'
@@ -294,24 +293,19 @@ export function getElectionYearData(data: HetRow[]): HetRow[] {
   return data
 }
 
-export function dropRecentPartialMonth(df: IDataFrame): IDataFrame {
-  const partialMonth = getMostRecentMonth(df)
-  return df.where((row) => row.time_period !== partialMonth)
+export function dropRecentPartialMonth(rows: readonly HetRow[]): HetRow[] {
+  const partialMonth = getMostRecentMonth(rows)
+  return rows.filter((row) => row.time_period !== partialMonth)
 }
 
-function getMostRecentMonth(df: IDataFrame): string {
-  // Convert YYYY-MM strings to Date objects
-  const dates = df
-    .getSeries('time_period')
-    .toArray()
-    .map((period) => new Date(`${period}-01`).getTime()) // Get timestamp
-
-  // Find the maximum date
-  const maxTimestamp = Math.max(...dates)
+function getMostRecentMonth(rows: readonly HetRow[]): string {
+  if (rows.length === 0) return ''
+  const maxTimestamp = rows.reduce((max, row) => {
+    const t = new Date(`${row.time_period}-01`).getTime()
+    return t > max ? t : max
+  }, Number.NEGATIVE_INFINITY)
   const maxDate = new Date(maxTimestamp)
-
-  // Convert the maximum date back to YYYY-MM format
   const year = maxDate.getUTCFullYear()
-  const month = String(maxDate.getUTCMonth() + 1).padStart(2, '0') // getUTCMonth is zero-indexed
+  const month = String(maxDate.getUTCMonth() + 1).padStart(2, '0')
   return `${year}-${month}`
 }

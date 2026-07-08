@@ -1,4 +1,4 @@
-import * as d3 from 'd3'
+import { select } from 'd3'
 import { useEffect, useRef } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import type { Fips } from '../../data/utils/Fips'
@@ -27,9 +27,9 @@ const UnknownMapGradientLegend = ({
       return
     }
 
-    d3.select(svgRef.current).selectAll('*').remove()
+    select(svgRef.current).selectAll('*').remove()
 
-    const svg = d3.select(svgRef.current)
+    const svg = select(svgRef.current)
     const legendGroup = svg
       .append('g')
       .attr('class', 'unknown-legend-container')
@@ -51,7 +51,7 @@ const UnknownMapGradientLegend = ({
   return (
     <div className='mt-4'>
       <div>
-        <h3 className='pl-16 text-left font-bold text-gray-700 text-tiny-tag'>
+        <h3 className='pl-16 text-left font-bold text-alt-black text-tiny-tag'>
           {legendTitle}
         </h3>
         <p className='sr-only'>

@@ -13,7 +13,7 @@ test('PHRMA MENTAL HEALTH conditions and medication adherence', async ({
     .getByRole('heading', { name: 'Medicare beneficiaries with' })
     .click()
   await page
-    .getByRole('listitem')
+    .locator('p')
     .filter({ hasText: 'Total population of Medicare' })
     .click()
   await page

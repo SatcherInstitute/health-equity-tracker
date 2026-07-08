@@ -1,14 +1,3 @@
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
-} from '@mui/material'
-import { useRef } from 'react'
 import CardWrapper from '../cards/CardWrapper'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import { formatFieldValue, isPctType } from '../data/config/MetricConfigUtils'
@@ -25,6 +14,7 @@ import { makeA11yTableData } from '../data/utils/DatasetTimeUtils'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
+import HetTable from '../styles/HetComponents/HetTable'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 const HASH_ID_RATES_OVER_TIME: ScrollableHashId = 'rates-over-time'
@@ -59,16 +49,17 @@ export default function CustomAltTable(props: CustomAltTableProps) {
     'historical',
   )
 
-  const queries = [ratesQuery]
-
   return (
     <CardWrapper
       downloadTitle={props.reportTitle}
-      queries={queries}
+      queries={[ratesQuery]}
       minHeight={400}
       reportTitle={props.reportTitle}
       scrollToHash={HASH_ID_RATES_OVER_TIME}
-      className={`relative m-2 rounded-sm bg-white p-3 shadow-raised ${props.className}`}
+      className={`relative m-2 rounded-sm bg-alt-white p-3 shadow-raised ${props.className}`}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
       {([queryResponseRates]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
@@ -92,105 +83,54 @@ export default function CustomAltTable(props: CustomAltTableProps) {
         const earliestTimePeriod: string =
           accessibleData[accessibleData.length - 1][TIME_PERIOD_LABEL]
 
-        const tableRef = useRef(null)
         const optionalAgesPrefix = props.demographicType === AGE ? 'Ages ' : ''
+        const dataColumnLabel = metricConfigRates.shortLabel
+
+        const hetColumns = Object.keys(accessibleData[0]).map((key) => {
+          const isTimeCol = key === TIME_PERIOD_LABEL
+          const isUnknownPctCol = key.includes('with unknown ')
+
+          let header: React.ReactNode = key.replaceAll('_', ' ')
+          if (!isTimeCol && !isUnknownPctCol) {
+            const prefix = key !== ALL ? optionalAgesPrefix : ''
+            header = `${prefix}${key.replaceAll('_', ' ')} ${dataColumnLabel}`
+          } else if (isTimeCol) {
+            header = `${key.replaceAll('_', ' ')} (${earliestTimePeriod} - ${latestTimePeriod})`
+          }
+
+          return { key, header }
+        })
+
+        const hetRows = accessibleData.map((row) =>
+          Object.fromEntries(
+            Object.keys(row).map((key) => {
+              if (row[key] == null) return [key, null]
+              const isTimePeriod = key === TIME_PERIOD_LABEL
+              const appendPct =
+                key.includes('with unknown ') ||
+                isPctType(metricConfigRates.type)
+              return [
+                key,
+                isTimePeriod
+                  ? row[key]
+                  : formatFieldValue(
+                      metricConfigRates.type,
+                      row[key],
+                      !appendPct,
+                    ),
+              ]
+            }),
+          ),
+        )
 
         return (
-          <>
-            {/* Render the Table */}
-            <TableContainer className='flex max-h-sm caption-top self-center overflow-auto'>
-              <Table
-                tabIndex={0}
-                ref={tableRef}
-                className='m-3 w-98p whitespace-nowrap rounded-sm border border-alt-dark'
-                size='small'
-                stickyHeader
-              >
-                <TableHead>
-                  <TableRow>
-                    {Object.keys(accessibleData[0]).map((key) => {
-                      const isTimeCol = key === TIME_PERIOD_LABEL
-                      const isUnknownPctCol = key.includes('with unknown ')
-
-                      const dataColumnLabel = metricConfigRates.shortLabel
-
-                      return (
-                        <TableCell
-                          key={key}
-                          style={{
-                            whiteSpace: 'normal',
-                            wordWrap: 'break-word',
-                          }}
-                          className='break-words border-0 border-alt-dark border-b bg-white leading-some-space'
-                        >
-                          {!isTimeCol &&
-                            key !== ALL &&
-                            !isUnknownPctCol &&
-                            optionalAgesPrefix}
-                          {key.replaceAll('_', ' ')}
-                          {!isTimeCol &&
-                            !isUnknownPctCol &&
-                            ` ${dataColumnLabel}`}
-                          {isTimeCol &&
-                            ` (${earliestTimePeriod} - ${latestTimePeriod})`}
-                        </TableCell>
-                      )
-                    })}
-                  </TableRow>
-                </TableHead>
-
-                <TableBody>
-                  {accessibleData.map((row) => {
-                    const keys = Object.keys(row)
-                    return (
-                      <TableRow
-                        key={row[TIME_PERIOD_LABEL]}
-                        className='odd:bg-table-zebra even:bg-white'
-                      >
-                        {keys.map((key) => {
-                          const isTimePeriod = key === TIME_PERIOD_LABEL
-
-                          const appendPct =
-                            key.includes('with unknown ') ||
-                            isPctType(metricConfigRates.type)
-                          return (
-                            <TableCell
-                              key={key}
-                              style={{
-                                whiteSpace: 'normal',
-                                wordWrap: 'break-word',
-                              }}
-                            >
-                              {row[key] == null ? (
-                                <>
-                                  <Tooltip title='Insufficient data'>
-                                    <WarningRoundedIcon />
-                                  </Tooltip>
-                                  <span className='sr-only'>
-                                    Insufficient data
-                                  </span>
-                                </>
-                              ) : (
-                                <>
-                                  {isTimePeriod
-                                    ? row[key]
-                                    : formatFieldValue(
-                                        metricConfigRates.type,
-                                        row[key],
-                                        !appendPct,
-                                      )}
-                                </>
-                              )}
-                            </TableCell>
-                          )
-                        })}
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </>
+          <HetTable
+            rows={hetRows}
+            columns={hetColumns}
+            variant='methodology'
+            stickyHeader
+            size='small'
+          />
         )
       }}
     </CardWrapper>

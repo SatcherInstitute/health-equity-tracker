@@ -1,12 +1,13 @@
-import * as d3 from 'd3'
+import { geoPath, select } from 'd3'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
-import { het } from '../../styles/DesignTokens'
+import { colors } from '../../styles/tokens/colors'
 import { getCountyAddOn } from '../mapHelperFunctions'
 import { getFillColor } from './colorSchemes'
 import {
   createDataMap,
   getDenominatorPhrase,
   getNumeratorPhrase,
+  getTooltipLabel,
 } from './mapHelpers'
 import { TERRITORIES } from './mapTerritoryHelpers'
 import { STROKE_WIDTH } from './mapUtils'
@@ -14,15 +15,16 @@ import {
   createEventHandler,
   createMouseEventOptions,
 } from './mouseEventHandlers'
-import { getTooltipLabel, hideTooltips } from './tooltipUtils'
 import type {
   ColorScale,
   InitializeSvgOptions,
   RenderMapOptions,
 } from './types'
 
-const { white: WHITE, borderColor: BORDER_GREY } = het
 const MARGIN = { top: 0, right: 0, bottom: 0, left: 0 }
+// Extra downward nudge of the map group on mobile; must also be subtracted
+// from the projection fit height or the bottom of the map clips off the SVG
+const MOBILE_TOP_OFFSET = 10
 
 export const renderMap = (options: RenderMapOptions) => {
   const {
@@ -47,12 +49,13 @@ export const renderMap = (options: RenderMapOptions) => {
     colorScale,
   } = options
 
-  d3.select(svgRef.current).selectAll('*').remove()
+  select(svgRef.current).selectAll('*').remove()
 
   const territoryHeight = fips.isUsa()
     ? TERRITORIES.marginTop + TERRITORIES.radius * 2
     : 0
-  const mapHeight = height - territoryHeight
+  const mapHeight =
+    height - territoryHeight - (isMobile ? MOBILE_TOP_OFFSET : 0)
 
   const { mapGroup } = initializeSvg({
     svgRef: svgRef,
@@ -66,7 +69,7 @@ export const renderMap = (options: RenderMapOptions) => {
   const geographyType = getCountyAddOn(fips, showCounties)
 
   projection.fitSize([width, mapHeight], features)
-  const path = d3.geoPath(projection)
+  const path = geoPath(projection)
 
   const tooltipLabel = getTooltipLabel(
     isUnknownsMap,
@@ -103,18 +106,6 @@ export const renderMap = (options: RenderMapOptions) => {
     demographicType,
   )
 
-  // Add event listeners
-  window.addEventListener('wheel', hideTooltips)
-  window.addEventListener('click', hideTooltips)
-  window.addEventListener('touchmove', hideTooltips)
-
-  // Create a cleanup function for event listeners
-  const cleanupEventListeners = () => {
-    window.removeEventListener('wheel', hideTooltips)
-    window.removeEventListener('click', hideTooltips)
-    window.removeEventListener('touchmove', hideTooltips)
-  }
-
   // Draw main map
   mapGroup
     .selectAll('path')
@@ -136,24 +127,15 @@ export const renderMap = (options: RenderMapOptions) => {
         isMultiMap: isMulti,
       }),
     )
-    .attr('stroke', isExtremesMode ? BORDER_GREY : WHITE)
+    .attr('stroke', isExtremesMode ? colors.altGray : colors.altWhite)
     .attr('stroke-width', STROKE_WIDTH)
     .on('mouseover', (event: any, d) => {
-      hideTooltips()
       createEventHandler('mouseover', mouseEventOptions)(event, d)
-    })
-    .on('pointerdown', (event: any, d) => {
-      hideTooltips()
-      createEventHandler('pointerdown', mouseEventOptions)(event, d)
-    })
-    .on('mousemove', (event: any, d) => {
-      createEventHandler('mousemove', mouseEventOptions)(event, d)
     })
     .on('mouseout', (event: any, d) => {
       createEventHandler('mouseout', mouseEventOptions)(event, d)
     })
     .on('touchstart', (event: any, d) => {
-      hideTooltips()
       createEventHandler('touchstart', mouseEventOptions)(event, d)
     })
     .on('touchend', (event: any, d) => {
@@ -171,7 +153,6 @@ export const renderMap = (options: RenderMapOptions) => {
   return {
     dataMap,
     mapHeight,
-    cleanupEventListeners, // Return the cleanup function for event listeners
   }
 }
 
@@ -179,15 +160,15 @@ const initializeSvg = (options: InitializeSvgOptions) => {
   const { svgRef, width, height, isMobile } = options
   const { left, top } = MARGIN
 
-  const svg = d3
-    .select(svgRef.current)
-    .attr('width', width)
-    .attr('height', height)
+  const svg = select(svgRef.current).attr('width', width).attr('height', height)
 
   return {
     mapGroup: svg
       .append('g')
       .attr('class', 'map-container')
-      .attr('transform', `translate(${left}, ${isMobile ? top + 10 : top})`),
+      .attr(
+        'transform',
+        `translate(${left}, ${isMobile ? top + MOBILE_TOP_OFFSET : top})`,
+      ),
   }
 }

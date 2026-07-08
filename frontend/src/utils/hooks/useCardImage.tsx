@@ -12,6 +12,7 @@ export function useCardImage(
 ) {
   const [isThinking, setIsThinking] = useState(false)
   const [confirmationOpen, setConfirmationOpen] = useState(false)
+  const [errorOpen, setErrorOpen] = useState(false)
   const [imgDataUrl, setImgDataUrl] = useState<string | null>(null)
 
   const cardName = reportProviderSteps[scrollToHash].label
@@ -22,6 +23,11 @@ export function useCardImage(
     destination: 'clipboard' | 'download',
     isRowOfTwo: boolean = false,
   ) => {
+    if (destination === 'clipboard') {
+      setConfirmationOpen(false)
+      setErrorOpen(false)
+    }
+
     setIsThinking(true)
     try {
       const result = await saveCardImage({
@@ -30,9 +36,15 @@ export function useCardImage(
         destination,
         isRowOfTwo,
       })
-      if (destination === 'clipboard' && typeof result === 'string') {
-        setImgDataUrl(result)
-        setConfirmationOpen(true)
+      if (destination === 'clipboard') {
+        if (typeof result === 'string') {
+          setErrorOpen(false)
+          setImgDataUrl(result)
+          setConfirmationOpen(true)
+        } else {
+          setConfirmationOpen(false)
+          setErrorOpen(true)
+        }
       }
       if (destination === 'download') {
         cardMenuPopover?.close()
@@ -49,6 +61,7 @@ export function useCardImage(
     setIsThinking,
     imgDataUrl,
     confirmationOpen,
+    errorOpen,
     handleCopyImgToClipboard: () => handleImageAction('clipboard'),
     handleDownloadImg: () => handleImageAction('download'),
     handleDownloadRowImg: () => handleImageAction('download', true),
@@ -62,6 +75,7 @@ export function useCardImage(
     handleClose: () => {
       setIsThinking(false)
       setConfirmationOpen(false)
+      setErrorOpen(false)
       cardMenuPopover.close()
       setImgDataUrl(null)
     },

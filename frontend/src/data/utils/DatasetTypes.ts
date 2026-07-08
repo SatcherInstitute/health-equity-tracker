@@ -1,4 +1,4 @@
-import { DataFrame, type IDataFrame } from 'data-forge'
+import type { CategoryTypeId } from '../config/CategoryTypes'
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataSourceId } from '../config/MetadataMap'
 import type { DemographicType, GeographicBreakdown } from '../query/Breakdowns'
@@ -21,6 +21,7 @@ export interface DataSourceMetadata {
   readonly downloadable: boolean
   readonly downloadable_blurb?: string
   readonly downloadable_data_dictionary?: boolean
+  readonly topic_categories?: CategoryTypeId[]
 }
 
 // Datasets contain data with specified breakdowns
@@ -58,10 +59,6 @@ export class Dataset {
   constructor(rows: HetRow[], metadata: DatasetMetadata) {
     this.rows = rows
     this.metadata = metadata
-  }
-
-  toDataFrame(): IDataFrame | DataFrame {
-    return new DataFrame(this.rows)
   }
 
   getAllColumnNames(): string[] {

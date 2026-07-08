@@ -20,6 +20,8 @@ export const urlMap: Record<string, string> = {
   hetLinkedIn: 'https://www.linkedin.com/company/healthequitytracker/',
   hetTikTok: 'https://www.tiktok.com/@healthequitytracker',
   hetYouTubeShorts: 'https://www.youtube.com/@HealthEquityTracker/shorts',
+  hivCriminalization:
+    'https://satcherinstitute.org/news/hiv-criminalization-in-georgia-a-call-for-reform',
   lifeline: 'https://988lifeline.org',
   msm: 'https://www.msm.edu/',
   newsletterSignup:

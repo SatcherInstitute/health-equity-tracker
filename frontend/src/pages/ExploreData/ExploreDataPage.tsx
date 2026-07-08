@@ -1,5 +1,5 @@
-import { useAtomValue } from 'jotai'
-import { lazy, useCallback, useEffect, useState } from 'react'
+import { useAtomValue, useSetAtom } from 'jotai'
+import { lazy, useCallback, useEffect, useMemo, useState } from 'react'
 import { STATUS } from 'react-joyride-react-19' // TODO: ideally revert back to react-joyride and not this temporary fork
 import { useLocation } from 'react-router'
 import {
@@ -7,16 +7,15 @@ import {
   isDropdownVarId,
 } from '../../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
-import type {
-  DataTypeConfig,
-  DataTypeId,
-} from '../../data/config/MetricConfigTypes'
+import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
-import { ALL } from '../../data/utils/Constants'
+import { getGeographiesDatasetId } from '../../data/utils/datasetutils'
+import { Fips } from '../../data/utils/Fips'
 import ReportProvider from '../../reports/ReportProvider'
 import { LIFELINE_IDS } from '../../reports/ui/LifelineAlert'
 import { srSpeak } from '../../utils/a11yutils'
 import { urlMap } from '../../utils/externalUrls'
+import { getDataManager } from '../../utils/globals'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import {
@@ -25,26 +24,18 @@ import {
   MADLIB_LIST,
   type MadLib,
   type MadLibId,
-  type PhraseSegment,
   type PhraseSelections,
 } from '../../utils/MadLibs'
-import {
-  selectedDataTypeConfig1Atom,
-  selectedDataTypeConfig2Atom,
-} from '../../utils/sharedSettingsState'
+import { locationAtom, urlParamAtom } from '../../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
-  getParameter,
+  DEMOGRAPHIC_PARAM,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
-  MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
   parseMls,
-  psSubscribe,
   SHOW_ONBOARDING_PARAM,
-  setParameter,
-  setParameters,
   stringifyMls,
 } from '../../utils/urlutils'
 import CHLPMapsModal from './CHLPMapsModal'
@@ -57,165 +48,149 @@ const Onboarding = lazy(async () => await import('./Onboarding'))
 
 const EXPLORE_DATA_ID = 'main'
 
-interface ExploreDataPageProps {
-  isMobile: boolean
-}
-
-function ExploreDataPage(props: ExploreDataPageProps) {
+function ExploreDataPage() {
   const location: any = useLocation()
   const [showVoteDotOrgBanner, setShowVoteDotOrgBanner] = useState(false)
   const [showCHLPMapsBanner, setshowCHLPMapsBanner] = useState(false)
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
     useState(false)
 
-  const dtId1: DataTypeId | undefined = useAtomValue(
-    selectedDataTypeConfig1Atom,
-  )?.dataTypeId
-  const dtId2: DataTypeId | undefined = useAtomValue(
-    selectedDataTypeConfig2Atom,
-  )?.dataTypeId
+  const setLocationAtom = useSetAtom(locationAtom)
+  const onboardParam = useAtomValue(urlParamAtom(SHOW_ONBOARDING_PARAM))
+
+  // Deprecated param redirects fire once on mount via useLayoutEffect
+  useDeprecatedParamRedirects()
+
+  // madLib is derived from URL atoms — never owned state.
+  // Components re-render only when mls or mlp actually changes.
+  const mlsParam = useAtomValue(urlParamAtom(MADLIB_SELECTIONS_PARAM))
+  const mlpParam = useAtomValue(urlParamAtom(MADLIB_PHRASE_PARAM))
+
+  const madLib = useMemo<MadLib>(() => {
+    const index = MADLIB_LIST.findIndex((el) => el.id === mlpParam)
+    const idx = index !== -1 ? index : 0
+    const selections: PhraseSelections = mlsParam
+      ? parseMls(mlsParam)
+      : MADLIB_LIST[idx].defaultSelections
+    return { ...MADLIB_LIST[idx], activeSelections: selections }
+  }, [mlsParam, mlpParam])
+
   const showStickyLifeline = LIFELINE_IDS.some(
-    (id) => id === dtId1 || id === dtId2,
+    (id) =>
+      id === (madLib.activeSelections[1] as DropdownVarId) ||
+      id === (madLib.activeSelections[3] as DropdownVarId),
   )
-
-  // Set up initial mad lib values based on defaults and query params, redirecting from deprecated ones
-  const params = useDeprecatedParamRedirects()
-
-  // swap out old variable ids for backwards compatibility of outside links
-  const foundIndex = MADLIB_LIST.findIndex(
-    (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM],
-  )
-  const initialIndex = foundIndex !== -1 ? foundIndex : 0
-  const defaultValuesWithOverrides = MADLIB_LIST[initialIndex].defaultSelections
-  if (params[MADLIB_SELECTIONS_PARAM]) {
-    params[MADLIB_SELECTIONS_PARAM].split(',').forEach((override) => {
-      const [phraseSegmentIndex, value] = override.split(':')
-      const phraseSegments: PhraseSegment[] = MADLIB_LIST[initialIndex].phrase
-      if (
-        Object.keys(phraseSegments).includes(phraseSegmentIndex) &&
-        Object.keys(phraseSegments[Number(phraseSegmentIndex)]).includes(value)
-      ) {
-        defaultValuesWithOverrides[Number(phraseSegmentIndex)] = value
-      }
-    })
-  }
-
-  const [madLib, setMadLib] = useState<MadLib>({
-    ...MADLIB_LIST[initialIndex],
-    activeSelections: defaultValuesWithOverrides,
-  })
 
   const noTopicChosen = getSelectedConditions(madLib)?.length === 0
 
+  // Prefetch the geographies topologies (the largest map payloads) into the
+  // browser cache and the DataManager LRU. The map cards request them only
+  // after their metric queries resolve, so starting them here removes a full
+  // serial stage from map load; DataManager dedupes the in-flight requests.
   useEffect(() => {
-    const readParams = () => {
-      const index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
-        return MADLIB_LIST.findIndex((element) => element.id === str)
-      })
-      const selection = getParameter(
-        MADLIB_SELECTIONS_PARAM,
-        MADLIB_LIST[index].defaultSelections,
-        parseMls,
-      )
-
-      setMadLib({
-        ...MADLIB_LIST[index],
-        activeSelections: selection,
-      })
-    }
-    const psSub = psSubscribe(readParams, 'explore')
-
-    readParams()
-
-    return () => {
-      if (psSub) {
-        psSub.unsubscribe()
+    // Fips selections in the MadLib are numeric strings; each one maps to the
+    // geography file its map will render (states file for national, a single
+    // state's counties file otherwise).
+    const geoDatasetIds = new Set(
+      Object.values(madLib.activeSelections)
+        .filter((selection) => /^\d/.test(selection))
+        .map((code) => getGeographiesDatasetId(new Fips(code))),
+    )
+    const prefetch = () => {
+      for (const datasetId of geoDatasetIds) {
+        getDataManager()
+          .loadDataset(datasetId)
+          .catch(() => {}) // best-effort; a real map load will surface errors
       }
     }
-  }, [])
-
-  const setMadLibWithParam = (ml: MadLib) => {
-    // ONLY SOME TOPICS HAVE SUB DATA TYPES
-    const var1HasDataTypes =
-      isDropdownVarId(ml.activeSelections[1]) &&
-      METRIC_CONFIG[ml.activeSelections[1]]?.length > 1
-    const var2HasDataTypes =
-      ml.id === 'comparevars' &&
-      isDropdownVarId(ml.activeSelections[3]) &&
-      METRIC_CONFIG[ml.activeSelections[3]]?.length > 1
-
-    // DELETE DATA TYPE PARAM FROM URL IF NEW TOPIC(S) HAVE NO SUB DATA TYPES
-    if (!var1HasDataTypes || !var2HasDataTypes) {
-      const params = new URLSearchParams(window.location.search)
-      !var1HasDataTypes && params.delete(DATA_TYPE_1_PARAM)
-      !var2HasDataTypes && params.delete(DATA_TYPE_2_PARAM)
-      history.replaceState(null, '', '?' + params + window.location.hash)
+    // Deep link straight into a report: geographies is on the critical path,
+    // so fetch immediately, in parallel with the metric queries.
+    if (!noTopicChosen) {
+      prefetch()
+      return
     }
-
-    //  GET REMAINING PARAMS FROM URL
-    const groupParam1 = getParameter(MAP1_GROUP_PARAM, ALL)
-    const groupParam2 = getParameter(MAP2_GROUP_PARAM, ALL)
-    const dtParam1 = getParameter(DATA_TYPE_1_PARAM, '')
-    const dtParam2 = getParameter(DATA_TYPE_2_PARAM, '')
-
-    // BUILD REPLACEMENT PARAMS
-    const newParams = [
-      {
-        name: MADLIB_SELECTIONS_PARAM,
-        value: stringifyMls(ml.activeSelections),
-      },
-      {
-        name: MAP1_GROUP_PARAM,
-        value: groupParam1,
-      },
-    ]
-
-    // EITHER COMPARE MODE SHOULD STORE MAP2 GROUP IN URL
-    ml.id !== 'disparity' &&
-      newParams.push({
-        name: MAP2_GROUP_PARAM,
-        value: groupParam2,
-      })
-
-    // ONLY STORE DATA TYPES IN URL WHEN NEEDED
-    var1HasDataTypes &&
-      newParams.push({
-        name: DATA_TYPE_1_PARAM,
-        value: dtParam1,
-      })
-    var2HasDataTypes &&
-      newParams.push({
-        name: DATA_TYPE_2_PARAM,
-        value: dtParam2,
-      })
-
-    // UPDATE URL
-    setParameters(newParams)
-
-    // UPDATE GEO/TOPIC IN MADLIB
-    setMadLib(ml)
-  }
-
-  // Set up warm welcome onboarding behaviors
-  let showOnboarding = false
-  if (noTopicChosen) {
-    if (params?.[SHOW_ONBOARDING_PARAM] === 'true') {
-      showOnboarding = true
+    // Default page: the user is still deciding what to view, so warm the
+    // cache during browser idle time to avoid competing with rendering the
+    // suggested reports and MadLib UI.
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(prefetch, { timeout: 5000 })
+      return () => window.cancelIdleCallback(id)
     }
-    if (params?.[SHOW_ONBOARDING_PARAM] === 'false') {
-      showOnboarding = false
-    }
-  }
+    // Safari has no requestIdleCallback
+    const id = setTimeout(prefetch, 2000)
+    return () => clearTimeout(id)
+  }, [noTopicChosen, madLib])
 
-  // if there is an incoming #hash; bypass the warm welcome entirely
-  if (location.hash !== '') showOnboarding = false
+  // Single write path for all MadLib URL changes.
+  // Builds the complete new search string and calls pushState once.
+  // dtOverrides lets callers set dt1/dt2 in the same write:
+  //   { dt1: 'hiv_prevalence' } — set to value
+  //   { dt1: '' }              — clear (topic changed)
+  //   omit key                 — keep current URL value
+  const setMadLibWithParam = useCallback(
+    (
+      ml: MadLib,
+      dtOverrides?: { dt1?: string; dt2?: string },
+      baseParams?: URLSearchParams,
+    ) => {
+      const var1HasDataTypes =
+        isDropdownVarId(ml.activeSelections[1]) &&
+        METRIC_CONFIG[ml.activeSelections[1]]?.length > 1
+      const var2HasDataTypes =
+        ml.id === 'comparevars' &&
+        isDropdownVarId(ml.activeSelections[3]) &&
+        METRIC_CONFIG[ml.activeSelections[3]]?.length > 1
 
-  const [activelyOnboarding, setActivelyOnboarding] =
-    useState<boolean>(showOnboarding)
+      // baseParams lets callers start from a clean slate (e.g. mode changes).
+      // When omitted, preserve all existing params and only change what differs.
+      const next = new URLSearchParams(baseParams ?? window.location.search)
+
+      const dtParam1 =
+        dtOverrides?.dt1 !== undefined
+          ? dtOverrides.dt1
+          : (next.get(DATA_TYPE_1_PARAM) ?? '')
+      const dtParam2 =
+        dtOverrides?.dt2 !== undefined
+          ? dtOverrides.dt2
+          : (next.get(DATA_TYPE_2_PARAM) ?? '')
+
+      next.set(MADLIB_SELECTIONS_PARAM, stringifyMls(ml.activeSelections))
+      next.set(MADLIB_PHRASE_PARAM, ml.id)
+
+      if (ml.id === 'disparity') next.delete(MAP2_GROUP_PARAM)
+
+      if (var1HasDataTypes) {
+        const defaultDt1 =
+          METRIC_CONFIG[ml.activeSelections[1] as DropdownVarId]?.[0]
+            ?.dataTypeId ?? ''
+        next.set(DATA_TYPE_1_PARAM, dtParam1 || defaultDt1)
+      } else {
+        next.delete(DATA_TYPE_1_PARAM)
+      }
+
+      if (var2HasDataTypes) {
+        const defaultDt2 =
+          METRIC_CONFIG[ml.activeSelections[3] as DropdownVarId]?.[0]
+            ?.dataTypeId ?? ''
+        next.set(DATA_TYPE_2_PARAM, dtParam2 || defaultDt2)
+      } else {
+        next.delete(DATA_TYPE_2_PARAM)
+      }
+
+      setLocationAtom({ searchParams: next })
+    },
+    [setLocationAtom],
+  )
+
+  const activelyOnboarding = onboardParam === 'true' && location.hash === ''
+
   const onboardingCallback = (data: any) => {
     if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
-      setActivelyOnboarding(false)
-      setParameter(SHOW_ONBOARDING_PARAM, 'false')
+      setLocationAtom((prev) => {
+        const next = new URLSearchParams(prev.searchParams)
+        next.set(SHOW_ONBOARDING_PARAM, 'false')
+        return { ...prev, searchParams: next }
+      })
     }
   }
 
@@ -237,57 +212,54 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   }, [])
   const isStickyEnabled = !noTopicChosen && isSticking
 
-  // calculate page size to determine if mobile or not
   const isSingleColumn = madLib.id === 'disparity'
 
-  function handleModeChange(mode: MadLibId) {
-    const modeIndexMap: Record<MadLibId, number> = {
-      disparity: 0,
-      comparegeos: 1,
-      comparevars: 2,
-    }
+  const handleModeChange = useCallback(
+    (mode: MadLibId) => {
+      const var1 = madLib.activeSelections[1]
+      const geo1 =
+        madLib.id === 'comparevars'
+          ? madLib.activeSelections[5]
+          : madLib.activeSelections[3]
 
-    const modeIndex = modeIndexMap[mode]
+      const var2: DropdownVarId =
+        var1 === 'poverty' ? 'health_insurance' : 'poverty'
+      const geo2 = geo1 === '00' ? '13' : '00'
 
-    // Extract values from the current madlib
-    const var1 = madLib.activeSelections[1]
+      const updatedSelections: PhraseSelections =
+        mode === 'comparegeos'
+          ? { 1: var1, 3: geo1, 5: geo2 }
+          : mode === 'comparevars'
+            ? { 1: var1, 3: var2, 5: geo1 }
+            : { 1: var1, 3: geo1 }
 
-    const geo1 =
-      madLib.id === 'comparevars'
-        ? madLib.activeSelections[5]
-        : madLib.activeSelections[3]
+      const idx = MADLIB_LIST.findIndex((el) => el.id === mode)
 
-    // default non-duplicate settings for compare modes
-    const var2: DropdownVarId =
-      var1 === 'poverty' ? 'health_insurance' : 'poverty'
-    const geo2 = geo1 === '00' ? '13' : '00' // default to US or Georgia
+      // Mode changes reset card-level display state. Carry only demo, dt1, dt2, onboard.
+      const current = new URLSearchParams(window.location.search)
+      const fresh = new URLSearchParams()
+      for (const key of [
+        DEMOGRAPHIC_PARAM,
+        DATA_TYPE_1_PARAM,
+        DATA_TYPE_2_PARAM,
+        SHOW_ONBOARDING_PARAM,
+      ]) {
+        const val = current.get(key)
+        if (val !== null) fresh.set(key, val)
+      }
 
-    // Construct UPDATED madlib based on the future mode's Madlib shape
-    let updatedMadLib: PhraseSelections = { 1: var1, 3: geo1 } // disparity "Investigate Rates"
-    if (modeIndex === 1) updatedMadLib = { 1: var1, 3: geo1, 5: geo2 } // comparegeos "Compare Rates"
-    if (modeIndex === 2) updatedMadLib = { 1: var1, 3: var2, 5: geo1 } // comparevars "Explore Relationships"
-
-    setMadLib({
-      ...MADLIB_LIST[modeIndex],
-      activeSelections: updatedMadLib,
-    })
-    setParameters([
-      {
-        name: MADLIB_SELECTIONS_PARAM,
-        value: stringifyMls(updatedMadLib),
-      },
-      {
-        name: MADLIB_PHRASE_PARAM,
-        value: MADLIB_LIST[modeIndex].id,
-      },
-    ])
-    location.hash = ''
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
+      setMadLibWithParam(
+        { ...MADLIB_LIST[idx], activeSelections: updatedSelections },
+        undefined,
+        fresh,
+      )
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    },
+    [madLib, setMadLibWithParam],
+  )
 
   /* on any changes to the madlib settings */
   useEffect(() => {
-    // A11y - create then delete an invisible alert that the report mode has changed
     srSpeak(`Now viewing report: ${getMadLibPhraseText(madLib)}`)
     setShowVoteDotOrgBanner(
       getSelectedConditions(madLib)?.some((condition: DataTypeConfig) =>
@@ -342,7 +314,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       >
         <div
           ref={madlibRef}
-          className={`z-sticky-mad-lib mb-1 bg-white p-4 shadow-raised-tighter md:top-0 md:w-full ${!noTopicChosen ? 'md:sticky' : ''} `}
+          className={`z-sticky-mad-lib mb-1 bg-alt-white p-4 shadow-raised-tighter md:top-0 md:w-full ${!noTopicChosen ? 'md:sticky' : ''} `}
           id='madlib-container'
         >
           <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />
@@ -369,7 +341,6 @@ function ExploreDataPage(props: ExploreDataPageProps) {
               setMadLib={setMadLibWithParam}
               isScrolledToTop={!isSticking}
               headerScrollMargin={headerScrollMargin}
-              isMobile={props.isMobile}
             />
           )}
         </div>

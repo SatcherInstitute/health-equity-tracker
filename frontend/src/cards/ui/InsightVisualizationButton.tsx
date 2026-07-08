@@ -1,4 +1,5 @@
-import { AutoAwesome, DeleteForever } from '@mui/icons-material'
+import AutoAwesome from '@mui/icons-material/AutoAwesome'
+import DeleteForever from '@mui/icons-material/DeleteForever'
 import { IconButton, Tooltip } from '@mui/material'
 import { useAtom } from 'jotai'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
@@ -7,33 +8,31 @@ import { cardInsightOpenAtom } from '../../utils/sharedSettingsState'
 
 interface InsightVisualizationButtonProps {
   scrollToHash: ScrollableHashId
+  isCompareCard?: boolean
 }
 
 export default function InsightVisualizationButton({
   scrollToHash,
+  isCompareCard,
 }: InsightVisualizationButtonProps) {
   const [cardInsightOpen, setCardInsightOpen] = useAtom(cardInsightOpenAtom)
-  const isOpen = cardInsightOpen[scrollToHash] ?? false
+  const openKey = `${scrollToHash}${isCompareCard ? '-2' : ''}`
+  const isOpen = cardInsightOpen[openKey] ?? false
 
   if (!SHOW_INSIGHT_GENERATION) return null
 
   return (
-    <div className='absolute top-5 right-20'>
-      <Tooltip title={isOpen ? 'Clear insight' : 'Generate AI insight'}>
-        <IconButton
-          onClick={() =>
-            setCardInsightOpen((prev) => ({ ...prev, [scrollToHash]: !isOpen }))
-          }
-          aria-label={isOpen ? 'Clear insight' : 'Generate insight'}
-          size='small'
-        >
-          {isOpen ? (
-            <DeleteForever fontSize='small' />
-          ) : (
-            <AutoAwesome fontSize='small' />
-          )}
-        </IconButton>
-      </Tooltip>
-    </div>
+    <Tooltip title={isOpen ? 'Clear insight' : 'Generate AI insight'}>
+      <IconButton
+        className='hide-on-screenshot remove-height-on-screenshot'
+        onClick={() =>
+          setCardInsightOpen((prev) => ({ ...prev, [openKey]: !isOpen }))
+        }
+        aria-label={isOpen ? 'Clear insight' : 'Generate insight'}
+        size='small'
+      >
+        {isOpen ? <DeleteForever /> : <AutoAwesome className='text-base' />}
+      </IconButton>
+    </Tooltip>
   )
 }

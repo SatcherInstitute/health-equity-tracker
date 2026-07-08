@@ -14,8 +14,8 @@ const HetGalleryDotNav: React.FC<HetGalleryDotNavProps> = ({
   currentIndex,
   onSelect,
   className = '',
-  activeColor = 'bg-methodology-green',
-  inactiveColor = 'bg-gray-300',
+  activeColor = 'bg-alt-green',
+  inactiveColor = 'bg-alt-white',
 }) => {
   return (
     <div className={`flex justify-center space-x-2 ${className}`}>
@@ -27,7 +27,7 @@ const HetGalleryDotNav: React.FC<HetGalleryDotNavProps> = ({
         return (
           <button
             key={item.id}
-            className={`h-3 w-3 cursor-pointer rounded-full ${
+            className={`h-3 w-3 cursor-pointer rounded-full border border-alt-green/50 ${
               index === currentIndex ? activeColor : inactiveColor
             }`}
             onClick={() => onSelect(index)}

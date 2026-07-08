@@ -12,7 +12,7 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
     .getByRole('heading', { name: 'Medicare ARV Beneficiaries,' })
     .click()
   await page
-    .getByRole('listitem')
+    .locator('p')
     .filter({ hasText: 'Total population of Medicare' })
     .click()
   await page

@@ -54,7 +54,28 @@ airflow-logs/
 # Misc
 tig
 
+# Temporary Claude Code skill files (prefixed with _ by convention; never commit these)
+frontend/playwright-tests/_*.spec.ts
+frontend/scripts/_*.ts
+
+# Claude Code runtime lock file
+.claude/scheduled_tasks.lock
+
+# Credentials / service account keys (belt-and-suspenders; these should never land here)
+*.key.json
+*-credentials.json
+application_default_credentials.json
+service_account*.json
+
 # JSON Files (with exceptions)
 *.json
 !frontend/cspell.config.json
 !python/ingestion/ahr_config/graphql_ahr_measure_ids.json
+!frontend/tokens/*.tokens.json
+!frontend/scripts/geo/geographies.json
+
+# Generated design token files — edit tokens/*.tokens.json and run `npm run tokens`
+frontend/src/styles/tokens/
+
+# Generated geography topojson splits — edit scripts/geo/geographies.json and run `npm run geo`
+frontend/src/assets/geo/

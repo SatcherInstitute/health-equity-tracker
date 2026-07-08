@@ -29,10 +29,18 @@ import {
   DatasetMetadataMapMaternalHealthCategory,
 } from './DatasetMetadataMaternalHealthCategory'
 import {
+  type DatasetIdNciCancer,
+  DatasetMetadataMapNciCancer,
+} from './DatasetMetadataNciCancer'
+
+import {
   type DatasetIdVera,
   DatasetMetadataMapVera,
 } from './DatasetMetadataVera'
-import { GEOGRAPHIES_DATASET_ID } from './MetadataMap'
+import {
+  GEOGRAPHIES_COUNTIES_DATASET_ID,
+  GEOGRAPHIES_STATES_DATASET_ID,
+} from './MetadataMap'
 
 export type DatasetId =
   | DatasetIdAcs
@@ -46,6 +54,7 @@ export type DatasetId =
   | DatasetIdVera
   | DatasetIdCawp
   | DatasetIdCdcWonder
+  | DatasetIdNciCancer
   | 'census_pop_estimates-race_and_ethnicity'
   | 'covid_tracking_project-cases_by_race_state'
   | 'covid_tracking_project-deaths_by_race_state'
@@ -60,7 +69,8 @@ export type DatasetId =
   | 'decia_2020_territory_population-race_and_ethnicity_state_current'
   | 'decia_2020_territory_population-sex_county_current'
   | 'decia_2020_territory_population-sex_state_current'
-  | 'geographies'
+  | 'geographies_states'
+  | 'geographies_counties'
   | 'geo_context-alls_national_current'
   | 'geo_context-alls_state_current'
   | 'geo_context-alls_county_current'
@@ -107,6 +117,7 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   ...DatasetMetadataMapVera,
   ...DatasetMetadataMapCawp,
   ...DatasetMetadataMapCdcWonder,
+  ...DatasetMetadataMapNciCancer,
 
   'decia_2010_territory_population-race_and_ethnicity_state_current': {
     name: 'Population by race/ethnicity and Census Island Area territory',
@@ -194,8 +205,13 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     original_data_sourced: '2022',
     source_id: 'geo_context',
   },
-  [GEOGRAPHIES_DATASET_ID]: {
-    name: 'U.S. Geographic Data',
+  [GEOGRAPHIES_STATES_DATASET_ID]: {
+    name: 'U.S. Geographic Data (states and territories)',
+    original_data_sourced: '2023',
+    source_id: 'geographies_source',
+  },
+  [GEOGRAPHIES_COUNTIES_DATASET_ID]: {
+    name: 'U.S. Geographic Data (counties, by state)',
     original_data_sourced: '2023',
     source_id: 'geographies_source',
   },

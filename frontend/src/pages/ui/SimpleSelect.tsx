@@ -12,6 +12,7 @@ interface SimpleSelectProps<ListItemType> {
   disabledOptions?: string[][]
   selected: ListItemType
   setSelected: (selected: ListItemType) => void
+  minWidth?: number
 }
 
 export default function SimpleSelect<ListItemType>(
@@ -30,7 +31,10 @@ export default function SimpleSelect<ListItemType>(
   const id = `${safeLabel}-select`
 
   return (
-    <FormControl sx={{ m: 1, minWidth: MIN_TOP_LABEL_WIDTH }} size='small'>
+    <FormControl
+      sx={{ m: 1, minWidth: props.minWidth ?? MIN_TOP_LABEL_WIDTH }}
+      size='small'
+    >
       <InputLabel id={labelId}>{props.label}</InputLabel>
       <Select
         autoWidth

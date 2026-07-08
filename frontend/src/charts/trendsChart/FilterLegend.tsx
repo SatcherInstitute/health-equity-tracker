@@ -18,7 +18,7 @@ import {
   UNKNOWN_W,
 } from '../../data/utils/Constants'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
-import { het } from '../../styles/DesignTokens'
+import { colors } from '../../styles/tokens/colors'
 import { COLORS as C } from './constants'
 /* Constants */
 import type { TrendsData } from './types'
@@ -66,7 +66,7 @@ export function FilterLegend({
             className={`rounded-l-sm border border-alt-black p-4 text-alt-black ${
               groupsAreMinMax
                 ? 'cursor-default bg-methodology-green font-bold'
-                : 'cursor-pointer bg-white hover:bg-methodology-green hover:bg-opacity-[0.08]'
+                : 'cursor-pointer bg-alt-white hover:bg-methodology-green hover:bg-opacity-[0.08]'
             }`}
             aria-label={`Highlight groups with lowest and highest average values over time`}
             onClick={() => {
@@ -86,7 +86,7 @@ export function FilterLegend({
             className={`rounded-r-sm border border-alt-black p-4 text-alt-black ${
               noGroupsAreFiltered
                 ? 'cursor-default bg-methodology-green font-bold'
-                : 'cursor-pointer bg-white hover:bg-methodology-green hover:bg-opacity-[0.08]'
+                : 'cursor-pointer bg-alt-white hover:bg-methodology-green hover:bg-opacity-[0.08]'
             }`}
             onClick={() => {
               handleClick(null)
@@ -109,8 +109,7 @@ export function FilterLegend({
           const groupEnabled = selectedGroups.includes(group)
 
           const isUnknown = group === UNKNOWN_W
-          const gradient = `linear-gradient(30deg, ${het.unknownMapMost}, ${het.unknownMapMid},${het.unknownMapMost})`
-
+          const gradient = `linear-gradient(30deg, ${colors.unknownMapMost}, ${colors.unknownMapMid}, ${colors.unknownMapMost})`
           // Legend Item Filter Button
           return (
             <button

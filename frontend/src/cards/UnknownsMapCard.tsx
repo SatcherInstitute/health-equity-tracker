@@ -24,8 +24,8 @@ import {
 } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import { Fips } from '../data/utils/Fips'
-import { het } from '../styles/DesignTokens'
 import HetNotice from '../styles/HetComponents/HetNotice'
+import { colors } from '../styles/tokens/colors'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -46,6 +46,7 @@ interface UnknownsMapCardProps {
   // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
   overrideAndWithOr?: boolean
   reportTitle: string
+  isCompareCard?: boolean
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -118,8 +119,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   const unknownMapConfig: MapConfig = {
     scheme: MAP_SCHEMES.unknown,
-    zero: het.unknownMapLeast,
-    mid: het.unknownMapMid,
+    zero: colors.unknownMapLeast,
+    mid: colors.unknownMapMid,
   }
 
   return (
@@ -131,8 +132,17 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       hideNH={true}
+      isCompareCard={props.isCompareCard}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
-      {([mapQueryResponse, alertQueryResponse], _metadata, geoData) => {
+      {(
+        [mapQueryResponse, alertQueryResponse],
+        _metadata,
+        geoData,
+        overrideCardHasData,
+      ) => {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
         //  e.g. if you look at the United States, we are dealing with the Unknown pct_share at the state level
         // the exception is the <UnknownsAlert /> which presents the amount of unknown demographic at the SELECTED level
@@ -209,6 +219,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         // show the UNKNOWNS MAP when there is unknowns data and it's not undefined/suppressed
         const showingVisualization =
           !unknownsArrayEmpty && !unknownsUndefined && !unknownsAllZero
+
+        overrideCardHasData?.(showingVisualization)
 
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 

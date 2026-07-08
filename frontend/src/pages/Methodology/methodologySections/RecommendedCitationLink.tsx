@@ -16,7 +16,7 @@ export default function RecommendedCitationLink() {
         </p>
         <div className='text-left font-sans-text text-alt-black text-small'>
           <Card elevation={3}>
-            <p className='first-of-type:-indent-8 mx-0 my-4 pr-4 pl-12'>
+            <p className='mx-0 my-4 pr-4 pl-12 first-of-type:-indent-8'>
               {CITATION_APA}
             </p>
           </Card>

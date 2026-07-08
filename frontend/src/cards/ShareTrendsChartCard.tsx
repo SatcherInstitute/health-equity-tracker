@@ -123,8 +123,18 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       reportTitle={props.reportTitle}
       expanded={a11yTableExpanded}
       className={props.className}
+      isCompareCard={props.isCompareCard}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
+      selectedGroups={selectedTableGroups}
     >
-      {([queryResponseInequity, queryResponsePctShares]) => {
+      {(
+        [queryResponseInequity, queryResponsePctShares],
+        _metadata,
+        _geoData,
+        overrideCardHasData,
+      ) => {
         const inequityData = queryResponseInequity.getValidRowsForField(
           metricConfigInequitable.metricId,
         )
@@ -192,6 +202,8 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           queryResponseInequity.shouldShowMissingDataMessage([
             metricConfigInequitable.metricId,
           ]) || nestedInequityData.length === 0
+
+        overrideCardHasData?.(!shouldShowMissingData)
 
         return (
           <>

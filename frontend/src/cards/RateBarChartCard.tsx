@@ -27,6 +27,7 @@ import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle from './ChartTitle'
+
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
@@ -41,6 +42,7 @@ interface RateBarChartCardProps {
   fips: Fips
   reportTitle: string
   className?: string
+  isCompareCard?: boolean
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -59,7 +61,6 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
   const isHIV = DATATYPES_NEEDING_13PLUS.includes(
     props.dataTypeConfig.dataTypeId,
   )
-
   const isGunDeaths = GUN_VIOLENCE_DATATYPES.includes(
     props.dataTypeConfig.dataTypeId,
   )
@@ -130,8 +131,17 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
       reportTitle={props.reportTitle}
       className={props.className}
       hasIntersectionalAllCompareBar={rateComparisonConfig !== undefined}
+      isCompareCard={props.isCompareCard}
+      fips={props.fips}
+      dataTypeConfig={props.dataTypeConfig}
+      demographicType={props.demographicType}
     >
-      {([rateQueryResponseRate, rateQueryResponseRateAlls], metadata) => {
+      {(
+        [rateQueryResponseRate, rateQueryResponseRateAlls],
+        metadata,
+        _geoData,
+        overrideCardHasData,
+      ) => {
         // for consistency, filter out any 'Unknown' rows that might have rates (like PHRMA)
         let data = rateQueryResponseRate
           .getValidRowsForField(rateConfig.metricId)
@@ -153,6 +163,8 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
           rateQueryResponseRate.shouldShowMissingDataMessage([
             rateConfig.metricId,
           ])
+
+        overrideCardHasData?.(!hideChart)
 
         const comparisonAllSubGroup = props.dataTypeConfig.ageSubPopulationLabel
 

@@ -27,7 +27,7 @@ test('Prison by Race', async ({ page }) => {
   // Ensure the modal actually works
   await page.getByLabel('Click for more info on people').click()
   await expect(page.getByRole('dialog')).toBeVisible()
-  await page.getByLabel('close topic info modal').click()
+  await page.getByLabel('close dialog').click()
   await expect(page.getByRole('dialog')).toBeHidden()
 
   // --- Missing Data Section ---

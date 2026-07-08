@@ -6,12 +6,6 @@ FROM python:3.12-slim
 # Allow statements and log messages to immediately appear in the Knative logs
 ENV PYTHONUNBUFFERED True
 
-# Define the build-time variable
-ARG AHR_API_KEY
-
-# Set the environment variable using the ARG value
-ENV AHR_API_KEY=$AHR_API_KEY
-
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME

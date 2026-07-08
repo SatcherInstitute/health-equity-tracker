@@ -61,13 +61,13 @@ export default function MedicareMedicationLink() {
         </p>
 
         <table className='m-4 border-collapse border-bg-color border-solid p-1'>
-          <thead className='bg-join-effort-bg1 font-bold'>
+          <thead className='bg-methodology-green font-bold'>
             <tr>
               <th>Field from data dictionary</th>
               <th>Description</th>
             </tr>
           </thead>
-          <tbody className='even:bg-explore-bg-color'>
+          <tbody className='[&>tr:nth-child(even)]:bg-methodology-green/20'>
             <tr>
               <td className='border-collapse border-bg-color border-solid p-1'>
                 <>RTI_RACE_CD</>

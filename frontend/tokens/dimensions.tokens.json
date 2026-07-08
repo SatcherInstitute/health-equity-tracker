@@ -1,0 +1,119 @@
+{
+  "$name": "HET Dimension Tokens",
+
+  "height": {
+    "$type": "string",
+    "littleHetLogo":  { "$value": "30px" },
+    "joinEffortLogo": { "$value": "720px" }
+  },
+
+  "width": {
+    "$type": "string",
+    "littleHetLogo":         { "$value": "30px" },
+    "joinEffortLogo":        { "$value": "600px" },
+    "90p":                   { "$value": "90%" },
+    "98p":                   { "$value": "98%" },
+    "onThisPageMenuDesktop": { "$value": "192px" }
+  },
+
+  "maxHeight": {
+    "$type": "string",
+    "aimToGo":      { "$value": "255px" },
+    "articleLogo":  { "$value": "700px" }
+  },
+
+  "maxWidth": {
+    "$type": "string",
+    "aimToGo":                  { "$value": "255px" },
+    "menu":                     { "$value": "800px" },
+    "onThisPageMenuDesktop":    { "$value": "200px" },
+    "articleLogo":              { "$value": "700px" },
+    "teamHeadshot":             { "$value": "181px" },
+    "teamLogo":                 { "$value": "250px" },
+    "exploreDataPage":          { "$value": "1500px" },
+    "exploreDataTwoColumnPage": { "$value": "2500px" },
+    "newsText":                 { "$value": "800px" },
+    "equityLogo":               { "$value": "400px" },
+    "helperBox":                { "$value": "1200px" }
+  },
+
+  "minHeight": {
+    "$type": "string",
+    "multimapMobile":   { "$value": "125px" },
+    "multimapDesktop":  { "$value": "175px" },
+    "preloadArticle":   { "$value": "750px" },
+    "toolbar":          { "$value": "65px" }
+  },
+
+  "padding": {
+    "$type": "string",
+    "1p":  { "$value": "1%" },
+    "15p": { "$value": "15%" }
+  },
+
+  "spacing": {
+    "$type": "string",
+    "cardGutter":  { "$value": "8px" },
+    "footer":      { "$value": "10rem" },
+    "socialIcon":  { "$value": "7px" }
+  },
+
+  "strokeWidth": {
+    "$type": "string",
+    "trendLineNormal": { "$value": "2.5" },
+    "trendLineThick":  { "$value": "5.5" }
+  },
+
+  "breakpoint": {
+    "$type": "string",
+    "xs":     { "$value": "0px" },
+    "tiny":   { "$value": "350px" },
+    "sm":     { "$value": "600px" },
+    "smplus": { "$value": "768px" },
+    "md":     { "$value": "960px" },
+    "lg":     { "$value": "1280px" },
+    "lgplus": { "$value": "1440px" },
+    "xl":     { "$value": "1920px" }
+  },
+
+  "container": {
+    "$type": "string",
+    "tiny":   { "$value": "350px" },
+    "sm":     { "$value": "600px" },
+    "smplus": { "$value": "768px" },
+    "md":     { "$value": "960px" },
+    "lg":     { "$value": "1280px" },
+    "lgplus": { "$value": "1440px" },
+    "xl":     { "$value": "1920px" }
+  },
+
+  "radius": {
+    "$type": "string",
+    "xs":  { "$value": "2px" },
+    "sm":  { "$value": "4px" },
+    "md":  { "$value": "8px" },
+    "lg":  { "$value": "16px" },
+    "xl":  { "$value": "30px" },
+    "2xl": { "$value": "40px" },
+    "3xl": { "$value": "64px" }
+  },
+
+  "shadow": {
+    "$type": "string",
+    "raised": { "$value": "rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px" },
+    "raisedTighter": { "$value": "rgba(0, 0, 0, 0.1) 0px 3px 3px -2px, rgba(0, 0, 0, 0.08) 0px 6px 7px 0px, rgba(0, 0, 0, 0.06) 0px 2px 9px 1px" }
+  },
+
+  "zIndex": {
+    "$type": "string",
+    "bottom":               { "$value": "-999" },
+    "middle":               { "$value": "0" },
+    "almostTop":            { "$value": "3" },
+    "mapTooltip":           { "$value": "98" },
+    "top":                  { "$value": "99" },
+    "stickyMadLib":         { "$value": "100" },
+    "multimapModal":        { "$value": "101" },
+    "skipLink":             { "$value": "102" },
+    "multimapModalTooltip": { "$value": "1300" }
+  }
+}

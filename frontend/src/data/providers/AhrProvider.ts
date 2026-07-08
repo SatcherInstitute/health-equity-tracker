@@ -156,7 +156,7 @@ class AhrProvider extends VariableProvider {
       ? datasetId
       : appendFipsIfNeeded(datasetId, breakdowns)
     const ahr = await getDataManager().loadDataset(specificDatasetId)
-    let df = ahr.toDataFrame()
+    let df = ahr.rows
 
     const consumedDatasetIds = [datasetId]
 
@@ -170,7 +170,7 @@ class AhrProvider extends VariableProvider {
       df = this.removeUnrequestedColumns(df, metricQuery)
     }
 
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+    return new MetricQueryResponse(df, consumedDatasetIds)
   }
 
   allowsBreakdowns(breakdowns: Breakdowns, metricIds?: MetricId[]): boolean {

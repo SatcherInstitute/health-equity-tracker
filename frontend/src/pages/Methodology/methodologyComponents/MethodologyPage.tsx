@@ -41,7 +41,7 @@ export default function MethodologyPage() {
                   routeConfig.subLinks && routeConfig.subLinks.length > 0
                 return match && hasSublinks ? (
                   <div className='mt-2 mb-12' key={routeConfig.path}>
-                    <p className='my-0 text-left font-roboto font-semibold text-black text-smallest uppercase'>
+                    <p className='my-0 text-left font-roboto font-semibold text-alt-black text-smallest uppercase'>
                       On this page
                     </p>
                     <HetOnThisPageMenu
@@ -84,7 +84,7 @@ export default function MethodologyPage() {
                     className='sticky top-24 z-almost-top hidden h-min w-48 min-w-40 max-w-menu flex-col smplus:flex'
                     key={routeConfig.path}
                   >
-                    <p className='my-0 text-left font-roboto font-semibold text-black text-smallest uppercase'>
+                    <p className='my-0 text-left font-roboto font-semibold text-alt-black text-smallest uppercase'>
                       On this page
                     </p>
 

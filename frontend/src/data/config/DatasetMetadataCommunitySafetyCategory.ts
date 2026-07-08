@@ -276,4 +276,5 @@ export const datasourceMetadataCommunitySafetyCategory: DataSourceMetadataCommun
     ) as DatasetIdCommunitySafetyCategory[],
     downloadable: true,
     data_source_release_years: '2001 - current',
+    topic_categories: ['community-safety'],
   }

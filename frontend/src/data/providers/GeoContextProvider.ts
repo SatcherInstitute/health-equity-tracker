@@ -32,7 +32,7 @@ class GeoContextProvider extends VariableProvider {
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const geoContext = await getDataManager().loadDataset(specificDatasetId)
 
-    let df = geoContext.toDataFrame()
+    let df = geoContext.rows
     df = this.filterByGeo(df, breakdowns)
     df = this.renameGeoColumns(df, breakdowns)
 
@@ -64,7 +64,7 @@ class GeoContextProvider extends VariableProvider {
       populationId && consumedDatasetIds.push(populationId)
     }
 
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
+    return new MetricQueryResponse(df, consumedDatasetIds)
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

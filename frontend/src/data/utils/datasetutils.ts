@@ -1,8 +1,11 @@
-import type { IDataFrame } from 'data-forge'
 import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
+import {
+  GEOGRAPHIES_COUNTIES_DATASET_ID,
+  GEOGRAPHIES_STATES_DATASET_ID,
+} from '../config/MetadataMap'
 import type {
   DataTypeConfig,
   DataTypeId,
@@ -56,42 +59,6 @@ import {
 import type { HetRow } from './DatasetTypes'
 import type { Fips } from './Fips'
 import type { StateFipsCode } from './FipsData'
-
-type JoinType = 'inner' | 'left' | 'outer'
-
-// TODO: consider finding different library for joins, or write our own. This
-// library doesn't support multi-col joins naturally, so this uses a workaround.
-// I've also seen occasional issues with the page hanging that have been
-// difficult to consistently reproduce.
-/**
- * Joins two data frames on the specified columns, keeping all the remaining
- * columns from both.
- */
-export function joinOnCols(
-  df1: IDataFrame,
-  df2: IDataFrame,
-  cols: DemographicType[],
-  joinType: JoinType = 'inner',
-): IDataFrame {
-  const keySelector = (row: any) => {
-    const keys = cols.map((col) => col + ': ' + row[col])
-    return keys.join(',')
-  }
-  const aggFn = (row1: any, row2: any) => ({ ...row2, ...row1 })
-  let joined
-  switch (joinType) {
-    case 'inner':
-      joined = df1.join(df2, keySelector, keySelector, aggFn)
-      break
-    case 'left':
-      joined = df1.joinOuterLeft(df2, keySelector, keySelector, aggFn)
-      break
-    case 'outer':
-      joined = df1.joinOuter(df2, keySelector, keySelector, aggFn)
-      break
-  }
-  return joined.resetIndex()
-}
 
 /*
 Returns the lowest `listSize` & highest `listSize` values, unless there are ties for first and/or last in which case the only the tied values are returned. If there is overlap, it is removed from the highest values.
@@ -394,6 +361,17 @@ export function appendFipsIfNeeded(
     : breakdowns?.filterFips?.getParentFips()?.code
 
   return fipsToAppend ? `${baseId}-${fipsToAppend}` : baseId
+}
+
+// National maps render states/territories; state and county level maps render
+// counties, so they load only the relevant state's county topology. State
+// outlines are derived at render time by merging that state's counties.
+export function getGeographiesDatasetId(
+  fips: Fips,
+): DatasetId | DatasetIdWithStateFIPSCode {
+  return fips.isUsa()
+    ? GEOGRAPHIES_STATES_DATASET_ID
+    : (`${GEOGRAPHIES_COUNTIES_DATASET_ID}-${fips.getStateFipsCode()}` as DatasetIdWithStateFIPSCode)
 }
 
 export function addAcsIdToConsumed(

@@ -59,4 +59,5 @@ export const datasourceMetadataChr: DataSourceMetadataChr = {
   downloadable: true,
   data_source_release_years: '2011 - 2025',
   primary_data_time_period_range: '2008 - 2022 (varies by topic)',
+  topic_categories: ['chronic-disease', 'behavioral-health', 'sdoh'],
 }

@@ -1,15 +1,6 @@
 name: "Build and Push"
 description: "Build a docker image and push the image to GCR"
 inputs:
-  ahr-api-key:
-    description: "AHR API key used to fetch AHR data from the GraphQL endpoint"
-    required: false
-  anthropic-api-key:
-    description: "Claude API key used to fetch insights from Claude endpoint"
-    required: false
-  webflow-api-token:
-    description: "Webflow CMS API token to read news / blog content"
-    required: false
   dockerfile:
     description: "Relative path to dockerfile"
     required: true
@@ -34,14 +25,9 @@ runs:
     - name: Set Up Docker to Use gcloud Credentials
       run: gcloud auth configure-docker -q
       shell: bash
-    # Note: it is not generally recommended to pass secrets as build args
-    # More info here: https://docs.docker.com/engine/reference/builder/#arg
     - run: |
         docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} ${{ inputs.build-directory }} \
-        --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
-        --build-arg="AHR_API_KEY=${{ inputs.ahr-api-key }}" \
-        --build-arg="ANTHROPIC_API_KEY=${{ inputs.anthropic-api-key }}" \
-        --build-arg="WEBFLOW_API_TOKEN=${{ inputs.webflow-api-token }}"
+        --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}"
       shell: bash
     - run: docker push ${{ inputs.image-path }}
       shell: bash

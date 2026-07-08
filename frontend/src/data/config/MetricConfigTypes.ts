@@ -1,5 +1,6 @@
 import type { ColorScheme } from '../../charts/choroplethMap/types'
 import type { CategoryTypeId } from '../../utils/MadLibs'
+import type { GeographicBreakdown } from '../query/Breakdowns'
 import type { DropdownVarId } from './DropDownIds'
 import type {
   BehavioralHealthDataTypeId,
@@ -120,6 +121,14 @@ interface InfoWithCitations {
   citations?: Citation[]
 }
 
+export type DeepPartial<T> = {
+  [K in keyof T]?: T[K] extends Array<any>
+    ? T[K]
+    : T[K] extends object
+      ? DeepPartial<T[K]>
+      : T[K]
+}
+
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   rateComparisonDataTypeId?: DataTypeId
@@ -145,6 +154,21 @@ export interface DataTypeConfig {
   categoryId: CategoryTypeId
   ageSubPopulationLabel?: string
   otherSubPopulationLabel?: string
+  // Optional: override specific, deeply nested fields
+  // Used for topics with different sources per geographic breakdown
+  // Note: `undefined` override values won't work, but `null` will work and will override default values
+  geoOverrides?: Partial<Record<GeographicBreakdown, DataTypeConfigOverride>>
+}
+
+export type MetricConfigOverride = DeepPartial<MetricConfig>
+
+export type DataTypeConfigOverride = Omit<
+  DeepPartial<DataTypeConfig>,
+  'metrics' | 'geoOverrides'
+> & {
+  metrics?: {
+    [K in keyof DataTypeConfig['metrics']]?: MetricConfigOverride
+  }
 }
 
 export type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'

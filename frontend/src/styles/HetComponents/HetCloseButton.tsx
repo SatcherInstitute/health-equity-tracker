@@ -1,5 +1,5 @@
 import CloseIcon from '@mui/icons-material/Close'
-import { Button } from '@mui/material'
+import { IconButton } from '@mui/material'
 
 interface HetCloseButtonProps {
   onClick: () => void
@@ -9,14 +9,12 @@ interface HetCloseButtonProps {
 
 export default function HetCloseButton(props: HetCloseButtonProps) {
   return (
-    <Button
-      sx={{ float: 'right' }}
+    <IconButton
       onClick={props.onClick}
-      color='primary'
       aria-label={props.ariaLabel}
       className={props.className}
     >
       <CloseIcon />
-    </Button>
+    </IconButton>
   )
 }

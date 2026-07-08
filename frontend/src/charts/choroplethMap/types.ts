@@ -1,4 +1,9 @@
-import type * as d3 from 'd3'
+import type {
+  GeoProjection,
+  ScaleQuantile,
+  ScaleSequential,
+  ScaleThreshold,
+} from 'd3'
 import type {
   Feature,
   FeatureCollection,
@@ -28,13 +33,13 @@ export type ColorScheme =
   | 'darkred'
 
 export type ColorScale =
-  | d3.ScaleSequential<any, never>
-  | d3.ScaleThreshold<number, string, never>
-  | d3.ScaleQuantile<string, number>
+  | ScaleSequential<any, never>
+  | ScaleThreshold<number, string, never>
+  | ScaleQuantile<string, number>
 
 export function isQuantileScale(
   scale: ColorScale,
-): scale is d3.ScaleQuantile<string, number> {
+): scale is ScaleQuantile<string, number> {
   return 'quantiles' in scale && typeof scale.quantiles === 'function'
 }
 
@@ -120,6 +125,19 @@ export interface MetricData {
   [key: string]: string | number | undefined
 }
 
+export interface MapTooltipEntry {
+  label: string
+  value: string
+}
+
+export interface MapTooltipData {
+  name: string
+  geographyType: string
+  featureId: string
+  isSummaryLegend: boolean
+  entries: MapTooltipEntry[]
+}
+
 export type RenderMapOptions = {
   activeDemographicGroup: DemographicGroup
   colorScale: ColorScale | null
@@ -128,7 +146,7 @@ export type RenderMapOptions = {
   demographicType: DemographicType
   geoData: {
     features: FeatureCollection<Geometry, GeoJsonProperties>
-    projection: d3.GeoProjection
+    projection: GeoProjection
   }
   height: number
   hideLegend?: boolean
@@ -136,7 +154,8 @@ export type RenderMapOptions = {
   metricConfig: MetricConfig
   showCounties: boolean
   svgRef: RefObject<SVGSVGElement | null>
-  tooltipContainer: d3.Selection<HTMLDivElement, unknown, HTMLElement, any>
+  showTooltip: (data: MapTooltipData, x: number, y: number) => void
+  hideTooltip: () => void
   width: number
   fips: Fips
   isMobile: boolean
@@ -166,9 +185,7 @@ declare global {
 
 export type MouseEventType =
   | 'mouseover'
-  | 'pointerdown'
   | 'mouseout'
-  | 'mousemove'
   | 'touchstart'
   | 'touchend'
 
@@ -176,7 +193,8 @@ export interface MouseEventHandlerOptions {
   colorScale: any
   metricConfig: MetricConfig
   dataMap: Map<string, any>
-  tooltipContainer: any
+  showTooltip: (data: MapTooltipData, x: number, y: number) => void
+  hideTooltip: () => void
   geographyType: string
   demographicType?: DemographicType
   mapConfig: MapConfig

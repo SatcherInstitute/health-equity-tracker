@@ -5,10 +5,14 @@ export type InsightResult = {
   content: string
   rateLimited: boolean
   error?: boolean
+  // The exact server cache key the insight was stored under — needed to flag it.
+  cacheKey?: string
 }
 
 export type FetchAIInsightOptions = {
   cacheKey?: string
+  // Topic identifier (e.g. dataTypeId) used to scope flagged-example negative prompts.
+  topic?: string
 }
 
 export async function fetchAIInsight(
@@ -27,6 +31,7 @@ export async function fetchAIInsight(
       body: JSON.stringify({
         prompt,
         cacheKey: options?.cacheKey,
+        topic: options?.topic,
       }),
     })
 

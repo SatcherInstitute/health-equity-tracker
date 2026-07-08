@@ -2,3 +2,6 @@
 base = "frontend"
 publish = "build"
 command = "npm run build:deploy_preview"
+
+[build.environment]
+  NODE_VERSION = "22"

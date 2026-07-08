@@ -1,0 +1,32 @@
+name: DAG - NCI_CANCER
+on:
+  workflow_dispatch:
+  workflow_call:
+env:
+  WORKFLOW_ID: "NCI_CANCER"
+  DATASET_NAME: "nci_cancer"
+  GCS_TO_BQ_SERVICE_URL: ${{ secrets.GCS_TO_BQ_SERVICE_URL }}
+  EXPORTER_SERVICE_URL: ${{ secrets.EXPORTER_SERVICE_URL }}
+  COUNTY: "county"
+  RACE_AND_ETHNICITY: "race_and_ethnicity"
+
+jobs:
+  trigger-data-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write tables to BigQuery
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
+          demographic: ${{ env.RACE_AND_ETHNICITY }}
+          geographic: ${{ env.COUNTY }}
+      - name: Export NDJSON files to GCS buckets from BigQuery tables
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runExportBqToGcsJsonPipeline@main
+        with:
+          service_url: ${{ env.EXPORTER_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          should_export_as_alls: "true"

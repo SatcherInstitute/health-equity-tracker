@@ -27,9 +27,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
       case 'start':
         return (
           <>
-            <HetTermUnderline className='text-black' tabIndex={0}>
-              {emphasizedText}
-            </HetTermUnderline>{' '}
+            <HetTermUnderline tabIndex={0}>{emphasizedText}</HetTermUnderline>{' '}
             {description.replace(emphasizedText, '').trim()}
           </>
         )
@@ -43,9 +41,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
           return (
             <>
               {beforeText}{' '}
-              <HetTermUnderline className='text-black' tabIndex={0}>
-                {emphasizedText}
-              </HetTermUnderline>{' '}
+              <HetTermUnderline tabIndex={0}>{emphasizedText}</HetTermUnderline>{' '}
               {afterText}
             </>
           )
@@ -56,9 +52,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
         return (
           <>
             {description.replace(emphasizedText, '').trim()}{' '}
-            <HetTermUnderline className='text-black' tabIndex={0}>
-              {emphasizedText}
-            </HetTermUnderline>
+            <HetTermUnderline tabIndex={0}>{emphasizedText}</HetTermUnderline>
           </>
         )
       default:
@@ -68,12 +62,12 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
 
   return (
     <div
-      className={`group fade-in-up-blur my-0 rounded-md border border-methodology-green border-solid bg-white p-4 shadow-raised-tighter ${className}`}
+      className={`group fade-in-up-blur my-0 rounded-md border border-methodology-green border-solid bg-alt-white p-4 shadow-raised-tighter ${className}`}
     >
       {source && (
         <span
           id='term-source'
-          className='mt-1 mr-2 rounded-sm bg-tiny-tag-gray px-2 py-1 font-bold font-sans-title text-black text-tiny-tag uppercase'
+          className='mt-1 mr-2 rounded-sm bg-tiny-tag-gray px-2 py-1 font-bold font-sans-title text-alt-black text-tiny-tag uppercase'
         >
           {source}
         </span>

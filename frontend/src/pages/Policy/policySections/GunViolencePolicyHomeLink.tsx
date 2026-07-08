@@ -16,14 +16,15 @@ export default function GunViolencePolicyHomeLink() {
             understand its impacts on mental, physical, and social health, often
             exacerbated by racial motives.
           </p>
-          <article className='mt-4 flex rounded-md bg-white px-8 pt-0 pb-8 shadow-raised lg:mt-8 lg:px-24'>
-            <div className='flex flex-col align-center'>
+          <article className='mt-4 flex rounded-md bg-alt-white px-8 pt-0 pb-8 shadow-raised lg:mt-8 lg:px-24'>
+            <div className='flex flex-col items-center'>
               <img
                 className='fade-in-up-blur mx-auto my-0 p-0'
-                src='/img/graphics/DrSatcher.png'
+                src='/img/graphics/DrSatcher.webp'
                 alt='David Satcher, MD, PhD'
+                loading='lazy'
                 style={{ animationDelay: `${0.3}s` }}
-              ></img>
+              />
 
               <p
                 className='fade-in-up-blur my-0 py-0 text-center font-bold text-alt-green text-sansText text-text'
@@ -36,7 +37,7 @@ export default function GunViolencePolicyHomeLink() {
               </p>
 
               <div className='relative text-center'>
-                <span className='xs:-top-60 xs:-left-8 md:-top-52 md:-left-4 lg:-top-56 lg:-left-20 absolute m-0 p-0 text-[20rem] text-hover-alt-green'>
+                <span className='absolute xs:-top-60 xs:-left-8 m-0 p-0 text-[20rem] text-hover-alt-green md:-top-52 md:-left-4 lg:-top-56 lg:-left-20'>
                   &#10077;
                 </span>
                 <p
