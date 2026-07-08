@@ -35,9 +35,7 @@ test('Excessive Drinking Flow', async ({ page }) => {
     })
     .click()
   await page
-    .getByLabel(
-      'Comparison bar chart showing Population vs. distribution of total adult excessive drinking cases in the United States',
-    )
+    .locator('#population-vs-distribution div[role="graphics-document"]')
     .click()
   await page
     .getByRole('heading', {

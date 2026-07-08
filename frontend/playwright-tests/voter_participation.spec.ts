@@ -31,8 +31,8 @@ test('Voter Participation Flow', async ({ page }) => {
     .click()
   await page.getByRole('heading', { name: 'Summary for voter' }).click()
   await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
-  await page.getByRole('cell', { name: 'Asian (NH)' }).click()
+  await page.getByRole('rowheader', { name: 'Asian (NH)' }).click()
   await page
-    .getByRole('cell', { name: 'Black or African American (NH)' })
+    .getByRole('rowheader', { name: 'Black or African American (NH)' })
     .click()
 })

@@ -31,7 +31,10 @@ test('Maternal Mortality', async ({ page }) => {
     .locator('#rate-chart')
     .getByRole('heading', { name: 'New Mothers, Ages 10-' })
     .click()
-  await page.getByLabel('Bar Chart showing Maternal').click()
+  await page
+    .locator('#rate-chart')
+    .getByRole('img', { name: 'Maternal mortality in the' })
+    .click()
   await page
     .getByRole('heading', { name: 'Share of maternal mortality' })
     .click()
@@ -47,7 +50,9 @@ test('Maternal Mortality', async ({ page }) => {
     .locator('#population-vs-distribution')
     .getByRole('heading', { name: 'New Mothers, Ages 10-' })
     .click()
-  await page.getByLabel('Comparison bar chart showing').click()
+  await page
+    .locator('#population-vs-distribution div[role="graphics-document"]')
+    .click()
   await page.getByRole('heading', { name: 'Summary for maternal' }).click()
   await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
   await page.getByRole('columnheader', { name: 'Maternal mortality' }).click()

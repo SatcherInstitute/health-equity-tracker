@@ -61,7 +61,10 @@ test('Suicide Los Angeles County', async ({ page }) => {
     .locator('#rate-chart')
     .getByRole('heading', { name: 'Suicides in Los Angeles County,' })
     .click()
-  await page.getByLabel('Bar Chart showing Suicides in').click()
+  await page
+    .locator('#rate-chart')
+    .getByRole('img', { name: 'Suicides in Los Angeles County,' })
+    .click()
   await page
     .getByRole('heading', { name: 'Share of total suicides with' })
     .click()
@@ -74,8 +77,8 @@ test('Suicide Los Angeles County', async ({ page }) => {
     .getByRole('columnheader', { name: 'Suicides per 100k people' })
     .click()
   // Update values if data changes
-  await page.getByRole('cell', { name: 'Asian (NH)' }).click()
+  await page.getByRole('rowheader', { name: 'Asian (NH)' }).click()
   await page
-    .getByRole('cell', { name: 'Black or African American (NH)' })
+    .getByRole('rowheader', { name: 'Black or African American (NH)' })
     .click()
 })

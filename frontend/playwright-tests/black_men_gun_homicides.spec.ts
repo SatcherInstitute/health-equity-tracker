@@ -111,8 +111,8 @@ test('Black Men Homicide Test: Bottom Half of Cards', async ({ page }) => {
         .toBeVisible(),
       expect
         .soft(
-          page
-            .getByLabel('Comparison bar chart showing')
+          popDist
+            .locator('div[role="graphics-document"]')
             .getByRole('img')
             .first(),
         )

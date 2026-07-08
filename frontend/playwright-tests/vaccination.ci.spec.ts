@@ -34,7 +34,11 @@ test('National Vaccination Full Test', async ({ page }) => {
         )
         .toBeVisible(),
       expect
-        .soft(page.getByLabel('Bar Chart Showing COVID-19'))
+        .soft(
+          rateChart.getByRole('img', {
+            name: 'COVID-19 vaccination rates in',
+          }),
+        )
         .toBeVisible(),
     ])
   })
