@@ -260,6 +260,7 @@ Update the PR title (under 70 chars) and body. **Read the existing PR body first
 
 - **Summary bullets:** Keep the existing bullets if they still accurately describe the diff. Only add, remove, or rewrite bullets when the diff has changed significantly since they were written. Do not replace a well-written human summary with a generic one.
 - **Test plan:** Use the audited checklist from Step 5 (checked state preserved). Do not regenerate from scratch.
+- **Impact:** Always aim to quantify what the PR improves — see Impact rules below.
 - **Issue links:** Preserve any existing issue-closing keywords (`Closes`, `Fixes`, `Resolves`, `Fix`, `Close`, `Resolve` — GitHub recognizes all of these) followed by `#NNNN`.
 - **Bot-generated blocks:** Preserve per the rule below.
 
@@ -278,6 +279,10 @@ Use this template:
 
 - <bullet — what changed and why, one line each>
 
+## Impact
+
+- <measured number, % delta, or cited best practice — see Impact rules>
+
 ## Test plan
 
 - [x] <behavioral item verified by Playwright>
@@ -294,6 +299,16 @@ Use this template:
 **Summary rules:**
 - 3–5 bullets maximum; each one line
 - Omit "Root Cause / Motivation" unless the why is genuinely non-obvious to a reviewer reading the diff
+
+**Impact rules:**
+
+Every PR body gets an `## Impact` section so improvements are recorded per-PR and can be synthesized into periodic meta-reviews. Quantify in this order of preference:
+
+1. **Hard measured data** — actually measure before/after whenever feasible: payload bytes (gzipped, from the prod build), request counts, load/render timings, bundle sizes, query counts. Report absolute numbers *and* % deltas (e.g. "241 KB → 11 KB gz, -95%"). A small table is ideal when there are multiple scenarios.
+2. **Derived estimates from measured data** — when direct timing isn't measurable locally, translate measured bytes into transfer time at a stated bandwidth, or cite cache behavior changes (e.g. "repeat visits: 0 B, immutable 1-year cache"). Label estimates as estimates.
+3. **Best-practice rationale** — for UX, a11y, or maintainability changes with no measurable number, cite the specific practice or guideline the change satisfies (e.g. WCAG criterion, Core Web Vitals threshold, established design-system convention) in one line.
+
+Never invent numbers. If nothing is measurable and no recognized practice applies (pure refactor, chore), write the one concrete thing the PR makes better (e.g. "removes 300 LOC of dead code") — or state "No user-facing impact" for pure chores.
 
 Before writing the body, fetch the current PR body and check for any auto-generated bot sections (CodeRabbit "Summary by CodeRabbit", or similar blocks appended by review bots). These are delimited by HTML comments like `<!-- This is an auto-generated comment: ... -->`. **Preserve them verbatim** — append them after your written body so they survive the `--body-file` overwrite.
 
