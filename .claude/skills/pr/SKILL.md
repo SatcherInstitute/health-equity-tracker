@@ -1,12 +1,12 @@
 ---
 name: pr
 model: haiku
-description: Run Biome auto-fix (cleanup only — tsc and Vitest run in CI, not locally), address any open review comments, update CLAUDE.md docs if stale, verify the test plan with Playwright against a local dev server (live backend + feature flags), then update the open PR title and description. Use when the user wants to close out a PR, verify it's ready for review, or run /pr.
+description: Run Biome auto-fix (cleanup only — tsc and Vitest run in CI, not locally), address any open review comments, update CLAUDE.md docs if stale, verify the test plan with Playwright against a local dev server (live backend + feature flags), update the open PR title and description, then watch CI until all checks pass (diagnosing and reporting any failures). Use when the user wants to close out a PR, verify it's ready for review, or run /pr.
 ---
 
 # /pr
 
-Polish the open PR so it's ready for human review: auto-fix formatting, address review comments, update docs, verify tests, and rewrite the PR description.
+Polish the open PR so it's ready for human review: auto-fix formatting, address review comments, update docs, verify tests, rewrite the PR description, then wait for all CI checks to pass and report the result.
 
 The user may pass a PR number as an argument (e.g. `/pr 4764`). If none is given, detect the open PR from the current branch.
 
@@ -319,6 +319,30 @@ gh pr edit --title "<new title>" --body-file /tmp/pr-body.md
 ```
 
 Print the updated PR URL when done.
+
+---
+
+## Step 7 — Wait for CI checks and report
+
+The skill is not done until CI has run on the final push. Watch the PR's checks until every one completes:
+
+```bash
+gh pr checks <number> --watch --interval 30
+```
+
+This blocks until all checks finish (exit code 0 = all passed, nonzero = at least one failed or was cancelled). Run it in the background with a generous timeout if the check suite is long; do not poll manually in a sleep loop.
+
+**If all checks pass:** report back to the user that the PR is polished and all CI checks are green. Done.
+
+**If any check fails:**
+
+1. Diagnose before touching anything. Pull the failing logs and read the actual error:
+   ```bash
+   gh pr checks <number> | grep -v pass
+   gh run view <run-id> --log-failed | tail -100
+   ```
+2. Determine the root cause: a real defect in this PR, a flaky/nondeterministic test, or a failure unrelated to the branch (e.g. broken main, expired secret, infra outage).
+3. Alert the user with a short diagnosis — which check failed, why, and what the fix would be — then **ask whether to push up a fix / keep working on it**. Do not push a fix, re-run the workflow, or dismiss the failure without the user's go-ahead.
 
 ---
 
