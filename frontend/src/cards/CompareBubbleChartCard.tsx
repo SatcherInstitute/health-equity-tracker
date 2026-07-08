@@ -13,7 +13,7 @@ import { SHOW_CORRELATION_CARD } from '../featureFlags'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
-import ChartTitle from './ChartTitle'
+import ChartTitle, { getChartTitleId } from './ChartTitle'
 
 interface CompareBubbleChartCardProps {
   fips1: Fips
@@ -163,9 +163,16 @@ export default function CompareBubbleChartCard(
 
         return (
           <>
-            <ChartTitle title={chartTitle} subtitle={''} />
+            <ChartTitle
+              id={getChartTitleId('compare-bubble-chart' as ScrollableHashId)}
+              title={chartTitle}
+              subtitle={''}
+            />
 
             <CompareBubbleChart
+              chartTitleId={getChartTitleId(
+                'compare-bubble-chart' as ScrollableHashId,
+              )}
               xData={validXData}
               xMetricConfig={props.rateConfig1}
               yData={validYData}

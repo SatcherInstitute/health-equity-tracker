@@ -40,6 +40,7 @@ interface TrendsChartProps {
   setExpanded: (expanded: boolean) => void
   hasUnknowns: boolean
   keepOnlyElectionYears?: boolean
+  chartTitleId?: string
 }
 
 export function TrendsChart({
@@ -54,6 +55,7 @@ export function TrendsChart({
   expanded,
   hasUnknowns,
   keepOnlyElectionYears,
+  chartTitleId: chartTitleIdProp,
 }: TrendsChartProps) {
   const isSm = useIsBreakpointAndUp('sm')
   const { HEIGHT, MARGIN, MOBILE } = CONFIG
@@ -197,14 +199,20 @@ export function TrendsChart({
     [dates, parsedDates, xScale, MARGIN.top, showTooltip],
   )
 
-  const chartTitleId = `chart-title-label-${axisConfig.type}-${
-    isCompareCard ? '2' : '1'
-  }`
+  const chartTitleId =
+    chartTitleIdProp ??
+    `chart-title-label-${axisConfig.type}-${isCompareCard ? '2' : '1'}`
 
   return (
     <figure className='m-0 font-normal font-sans-text' ref={containerRef}>
       <div className={isSkinny ? 'mb-5 ml-2' : 'mb-5 ml-12'}>
-        {isSm && <ChartTitle title={chartTitle} subtitle={chartSubTitle} />}
+        {isSm && (
+          <ChartTitle
+            id={chartTitleId}
+            title={chartTitle}
+            subtitle={chartSubTitle}
+          />
+        )}
         {data && (
           <FilterLegend
             data={data}
@@ -220,7 +228,13 @@ export function TrendsChart({
             }`}
           />
         )}
-        {!isSm && <ChartTitle title={chartTitle} subtitle={chartSubTitle} />}
+        {!isSm && (
+          <ChartTitle
+            id={chartTitleId}
+            title={chartTitle}
+            subtitle={chartSubTitle}
+          />
+        )}
       </div>
       <HetChartHoverTooltip x={tooltipPos?.x ?? null} y={tooltipPos?.y ?? null}>
         {hoveredDate && (

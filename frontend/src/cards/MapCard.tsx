@@ -75,7 +75,7 @@ import {
   MULTIPLE_MAPS_2_PARAM_KEY,
 } from '../utils/urlutils'
 import CardWrapper from './CardWrapper'
-import ChartTitle from './ChartTitle'
+import ChartTitle, { getChartTitleId } from './ChartTitle'
 import CAWPCountyMultiDistrictAlert from './ui/CAWPCountyMultiDistrictAlert'
 import DemographicGroupMenu from './ui/DemographicGroupMenu'
 import { ExtremesListBox } from './ui/ExtremesListBox'
@@ -529,6 +529,7 @@ function MapCardWithKey(props: MapCardProps) {
             <>
               <div className='w-full'>
                 <ChartTitle
+                  id={getChartTitleId(HASH_ID, props.isCompareCard)}
                   title={'Rate map unavailable: ' + title}
                   subtitle={subtitle}
                 />
@@ -651,6 +652,7 @@ function MapCardWithKey(props: MapCardProps) {
               <div className='flex flex-wrap'>
                 <div className='w-full'>
                   <ChartTitle
+                    id={getChartTitleId(HASH_ID, props.isCompareCard)}
                     title={title}
                     subtitle={subtitle}
                     filterButton={

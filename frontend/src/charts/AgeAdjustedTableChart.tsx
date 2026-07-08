@@ -9,6 +9,7 @@ interface AgeAdjustedTableChartProps {
   data: Array<Readonly<Record<string, any>>>
   metricConfigs: MetricConfig[]
   title: string
+  chartTitleId?: string
 }
 
 export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
@@ -40,7 +41,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
   return (
     <figure className='m-3'>
       <figcaption>
-        <ChartTitle title={props.title} />
+        <ChartTitle id={props.chartTitleId} title={props.title} />
       </figcaption>
       <HetTable rows={rows} columns={columns} variant='info' />
     </figure>

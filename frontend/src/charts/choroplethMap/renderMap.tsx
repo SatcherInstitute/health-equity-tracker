@@ -5,6 +5,7 @@ import { getCountyAddOn } from '../mapHelperFunctions'
 import { getFillColor } from './colorSchemes'
 import {
   createDataMap,
+  formatMetricValue,
   getDenominatorPhrase,
   getNumeratorPhrase,
   getTooltipLabel,
@@ -129,6 +130,25 @@ export const renderMap = (options: RenderMapOptions) => {
     )
     .attr('stroke', isExtremesMode ? colors.altGray : colors.altWhite)
     .attr('stroke-width', STROKE_WIDTH)
+    .attr('role', 'img')
+    .attr('tabindex', '-1')
+    .attr('aria-label', (d: any) => {
+      const id = d.id?.toString()
+      const name = d.properties?.name ?? id ?? 'Unknown'
+      const namePlace = geographyType ? `${name} ${geographyType}` : name
+      const mapData = dataMap.get(id)
+      if (!mapData || mapData.value == null) {
+        return `${namePlace}: no data available`
+      }
+      const formattedValue = formatMetricValue(
+        mapData.value as number,
+        metricConfig,
+      )
+      const label = tooltipLabel
+        ? `${tooltipLabel} ${formattedValue}`
+        : formattedValue
+      return `${namePlace}: ${label}`
+    })
     .on('mouseover', (event: any, d) => {
       createEventHandler('mouseover', mouseEventOptions)(event, d)
     })

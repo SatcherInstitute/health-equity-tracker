@@ -16,6 +16,7 @@ import { useCompareMode } from '../reports/CompareModeContext'
 import { hasEnoughDataForInsight } from '../utils/generateVisualizationInsight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { cardQueryResponsesAtom } from '../utils/sharedSettingsState'
+import { getChartTitleId } from './ChartTitle'
 import CardOptionsMenu from './ui/CardOptionsMenu'
 import InsightVisualizationButton from './ui/InsightVisualizationButton'
 import InsightVisualizationCard from './ui/InsightVisualizationCard'
@@ -148,6 +149,10 @@ function CardWrapper(props: {
 
         return (
           <article
+            aria-labelledby={getChartTitleId(
+              props.scrollToHash,
+              props.isCompareCard,
+            )}
             className={`relative m-2 rounded-sm bg-alt-white p-3 shadow-raised ${props.className}`}
           >
             {cardDataCacheKey && (

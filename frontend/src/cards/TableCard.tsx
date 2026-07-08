@@ -37,6 +37,7 @@ import { urlMap } from '../utils/externalUrls'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
+import { getChartTitleId } from './ChartTitle'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -161,6 +162,7 @@ export default function TableCard(props: TableCardProps) {
           <>
             {!queryResponse.dataIsMissing() && data.length > 0 && (
               <TableChart
+                chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}
                 countColsMap={countColsMap}
                 data={data}
                 demographicType={props.demographicType}

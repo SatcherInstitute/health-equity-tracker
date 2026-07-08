@@ -22,6 +22,7 @@ interface TableChartProps {
   fips: Fips
   dataTableTitle: string
   subtitle?: string
+  chartTitleId?: string
 }
 
 export function TableChart(props: TableChartProps) {
@@ -90,6 +91,7 @@ export function TableChart(props: TableChartProps) {
     <figure className='m-3'>
       <figcaption>
         <ChartTitle
+          id={props.chartTitleId}
           title={`${props.dataTableTitle} in ${props.fips.getSentenceDisplayName()} by ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]}`}
           subtitle={props.subtitle}
         />

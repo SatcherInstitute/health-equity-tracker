@@ -8,6 +8,7 @@ import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
 import { colors } from '../../styles/tokens/colors'
 import { getFillColor } from './colorSchemes'
+import { formatMetricValue } from './mapHelpers'
 import {
   createTerritoryFeature,
   extractTerritoryData,
@@ -110,6 +111,21 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       )
       .attr('stroke', props.isExtremesMode ? colors.altGray : colors.altWhite)
       .attr('stroke-width', STROKE_WIDTH)
+      .attr('role', 'img')
+      .attr('tabindex', '-1')
+      .attr('aria-label', (d) => {
+        const name =
+          d.fips_name ?? TERRITORY_CODES[d.fips] ?? 'Unknown territory'
+        const mapData = props.dataMap.get(d.fips)
+        if (!mapData || mapData.value == null) {
+          return `${name}: no data available`
+        }
+        const formattedValue = formatMetricValue(
+          mapData.value as number,
+          props.metricConfig,
+        )
+        return `${name} territory: ${formattedValue}`
+      })
       .on('mouseover', (event: any, d) => {
         createEventHandler('mouseover', mouseEventOptions, (d) =>
           createTerritoryFeature(d.fips),

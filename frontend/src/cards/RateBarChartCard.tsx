@@ -26,7 +26,7 @@ import {
 import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
-import ChartTitle from './ChartTitle'
+import ChartTitle, { getChartTitleId } from './ChartTitle'
 
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
@@ -173,6 +173,7 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
             {hideChart ? (
               <>
                 <ChartTitle
+                  id={getChartTitleId(HASH_ID, props.isCompareCard)}
                   title={'Graph unavailable: ' + chartTitle}
                   subtitle={subtitle}
                 />
@@ -187,8 +188,13 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
               </>
             ) : (
               <>
-                <ChartTitle title={chartTitle} subtitle={subtitle} />
+                <ChartTitle
+                  id={getChartTitleId(HASH_ID, props.isCompareCard)}
+                  title={chartTitle}
+                  subtitle={subtitle}
+                />
                 <RateBarChart
+                  chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}
                   data={data}
                   demographicType={props.demographicType}
                   metricConfig={rateConfig}

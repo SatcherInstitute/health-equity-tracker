@@ -25,7 +25,7 @@ import HetNotice from '../styles/HetComponents/HetNotice'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
-import ChartTitle from './ChartTitle'
+import ChartTitle, { getChartTitleId } from './ChartTitle'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import MissingDataAlert from './ui/MissingDataAlert'
 import UnknownsAlert from './ui/UnknownsAlert'
@@ -134,9 +134,14 @@ export default function StackedSharesBarChartCard(
           <>
             {dataAvailable && knownData.length !== 0 && (
               <>
-                <ChartTitle title={chartTitle} subtitle={subtitle} />
+                <ChartTitle
+                  id={getChartTitleId(HASH_ID, props.isCompareCard)}
+                  title={chartTitle}
+                  subtitle={subtitle}
+                />
 
                 <StackedBarChart
+                  chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}
                   fips={props.fips}
                   data={knownData}
                   lightMetric={
@@ -165,7 +170,10 @@ export default function StackedSharesBarChartCard(
               />
             ) : (
               <>
-                <ChartTitle title={'Graph unavailable: ' + chartTitle} />
+                <ChartTitle
+                  id={getChartTitleId(HASH_ID, props.isCompareCard)}
+                  title={'Graph unavailable: ' + chartTitle}
+                />
                 <MissingDataAlert
                   dataName={chartTitle}
                   demographicTypeString={

@@ -1,5 +1,5 @@
 import { max, scaleBand, scaleLinear } from 'd3'
-import { useMemo } from 'react'
+import { useId, useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   type DemographicType,
@@ -15,6 +15,7 @@ import VerticalGridlines from '../sharedBarChartPieces/VerticalGridlines'
 import XAxis from '../sharedBarChartPieces/XAxis'
 import YAxis from '../sharedBarChartPieces/YAxis'
 import { useChartTooltip } from '../useChartTooltip'
+import { getRateBarA11ySummary } from './a11yUtils'
 import type { BarChartTooltipData } from './BarChartTooltip'
 import BarChartTooltip from './BarChartTooltip'
 import {
@@ -39,6 +40,7 @@ interface RateBarChartProps {
   className?: string
   useIntersectionalComparisonAlls?: boolean
   comparisonAllSubGroup?: string
+  chartTitleId?: string
 }
 
 export function RateBarChart(props: RateBarChartProps) {
@@ -94,6 +96,16 @@ export function RateBarChart(props: RateBarChartProps) {
     return position
   }
 
+  const generatedSummaryId = useId()
+  const a11ySummary = getRateBarA11ySummary(
+    processedData,
+    props.metricConfig,
+    props.demographicType,
+  )
+  const a11ySummaryId = props.chartTitleId
+    ? `${props.chartTitleId}-summary`
+    : generatedSummaryId
+
   return (
     <div
       ref={containerRef}
@@ -105,10 +117,21 @@ export function RateBarChart(props: RateBarChartProps) {
       <HetChartHoverTooltip x={tooltipPos?.x ?? null} y={tooltipPos?.y ?? null}>
         {tooltipData && <BarChartTooltip {...tooltipData} />}
       </HetChartHoverTooltip>
+      {a11ySummary && (
+        <p id={a11ySummaryId} className='sr-only'>
+          {a11ySummary}
+        </p>
+      )}
       <svg
         width={width}
         height={height}
-        aria-label={`Bar Chart Showing ${props?.filename || 'Data'}`}
+        aria-labelledby={props.chartTitleId}
+        aria-label={
+          props.chartTitleId
+            ? undefined
+            : `Bar Chart Showing ${props?.filename || 'Data'}`
+        }
+        aria-describedby={a11ySummary ? a11ySummaryId : undefined}
       >
         <g transform={`translate(${MARGIN.left},${MARGIN.top})`}>
           <VerticalGridlines

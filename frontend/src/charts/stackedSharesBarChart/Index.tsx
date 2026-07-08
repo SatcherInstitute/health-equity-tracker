@@ -1,5 +1,5 @@
 import { scaleBand, scaleLinear } from 'd3'
-import { useMemo } from 'react'
+import { useId, useMemo } from 'react'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   type DemographicType,
@@ -22,6 +22,7 @@ import VerticalGridlines from '../sharedBarChartPieces/VerticalGridlines'
 import XAxis from '../sharedBarChartPieces/XAxis'
 import YAxis from '../sharedBarChartPieces/YAxis'
 import { useChartTooltip } from '../useChartTooltip'
+import { getStackedBarA11ySummary } from './a11yUtils'
 import StackedBarLegend from './StackedBarLegend'
 import StackedBarsWithLabels from './StackedBarsWithLabels'
 import type { StackedBarTooltipData } from './StackedSharesBarChartTooltip'
@@ -47,6 +48,7 @@ interface StackedBarChartProps {
   demographicType: DemographicType
   metricDisplayName: string
   filename?: string
+  chartTitleId?: string
 }
 
 export function StackedBarChart(props: StackedBarChartProps) {
@@ -99,6 +101,17 @@ export function StackedBarChart(props: StackedBarChartProps) {
     return yScale(demographicValue) || 0
   }
 
+  const generatedSummaryId = useId()
+  const a11ySummary = getStackedBarA11ySummary(
+    processedData,
+    props.lightMetric,
+    props.darkMetric,
+    props.demographicType,
+  )
+  const a11ySummaryId = props.chartTitleId
+    ? `${props.chartTitleId}-summary`
+    : generatedSummaryId
+
   return (
     <div
       ref={containerRef}
@@ -117,10 +130,21 @@ export function StackedBarChart(props: StackedBarChartProps) {
           />
         )}
       </HetChartHoverTooltip>
+      {a11ySummary && (
+        <p id={a11ySummaryId} className='sr-only'>
+          {a11ySummary}
+        </p>
+      )}
       <div
         role='graphics-document'
         aria-roledescription='visualization'
-        aria-label={`Comparison bar chart showing ${props.filename || 'Data'}`}
+        aria-labelledby={props.chartTitleId}
+        aria-label={
+          props.chartTitleId
+            ? undefined
+            : `Comparison bar chart showing ${props.filename || 'Data'}`
+        }
+        aria-describedby={a11ySummary ? a11ySummaryId : undefined}
       >
         <svg width={width} height={height}>
           <g

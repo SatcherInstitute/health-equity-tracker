@@ -30,7 +30,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
-import ChartTitle from './ChartTitle'
+import ChartTitle, { getChartTitleId } from './ChartTitle'
 import MissingDataAlert from './ui/MissingDataAlert'
 import UnknownsAlert from './ui/UnknownsAlert'
 
@@ -241,7 +241,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         return (
           <>
-            <ChartTitle title={chartTitle} subtitle={subtitle} />
+            <ChartTitle
+              id={getChartTitleId(HASH_ID, props.isCompareCard)}
+              title={chartTitle}
+              subtitle={subtitle}
+            />
             {showingVisualization && (
               <div
                 className={

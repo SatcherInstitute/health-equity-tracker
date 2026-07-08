@@ -126,7 +126,10 @@ export default function InsightVisualizationCard({
   if (!SHOW_INSIGHT_GENERATION || !isOpen) return null
 
   return (
-    <div className='mb-3 animate-expand-down rounded-md bg-footer-color p-3'>
+    <div
+      role='status'
+      className='mb-3 animate-expand-down rounded-md bg-footer-color p-3'
+    >
       {isGenerating ? (
         <div className='flex items-center gap-2 py-1'>
           <CircularProgress size={14} className='shrink-0' />

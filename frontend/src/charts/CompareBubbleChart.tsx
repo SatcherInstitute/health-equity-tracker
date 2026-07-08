@@ -37,6 +37,7 @@ interface CompareBubbleChartProps {
   radiusMetricConfig?: MetricConfig
   width?: number
   height?: number
+  chartTitleId?: string
 }
 
 interface WeightedDataPoint {
@@ -357,7 +358,12 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
         ref={svgRef}
         width={width}
         height={height}
-        aria-label='Bubble chart comparing two health metrics with bubble size representing population'
+        aria-labelledby={props.chartTitleId}
+        aria-label={
+          props.chartTitleId
+            ? undefined
+            : 'Bubble chart comparing two health metrics with bubble size representing population'
+        }
       >
         <title>Bubble chart with Weighted Trend Line</title>
       </svg>

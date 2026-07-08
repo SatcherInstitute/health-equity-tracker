@@ -31,7 +31,7 @@ import HetNotice from '../styles/HetComponents/HetNotice'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { METHODOLOGY_PAGE_LINK } from '../utils/internalRoutes'
 import CardWrapper from './CardWrapper'
-import ChartTitle from './ChartTitle'
+import ChartTitle, { getChartTitleId } from './ChartTitle'
 import AltTableView from './ui/AltTableView'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -210,7 +210,10 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             {shouldShowMissingData ? (
               <>
                 {/* Chart Title Missing Data */}
-                <ChartTitle title={'Graph unavailable: ' + chartTitle} />
+                <ChartTitle
+                  id={getChartTitleId(HASH_ID, props.isCompareCard)}
+                  title={'Graph unavailable: ' + chartTitle}
+                />
                 <MissingDataAlert
                   dataName={chartTitle}
                   demographicTypeString={
@@ -222,6 +225,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             ) : (
               <>
                 <TrendsChart
+                  chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}
                   data={nestedInequityData}
                   chartTitle={chartTitle}
                   chartSubTitle={subtitle}

@@ -35,6 +35,7 @@ import HetNotice from '../styles/HetComponents/HetNotice'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
 import CardWrapper from './CardWrapper'
+import { getChartTitleId } from './ChartTitle'
 import MissingDataAlert from './ui/MissingDataAlert'
 import UnknownsAlert from './ui/UnknownsAlert'
 
@@ -205,6 +206,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               !noRatios &&
               !isWrongDemographicType && (
                 <AgeAdjustedTableChart
+                  chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}
                   data={knownRaceData}
                   metricConfigs={ratioConfigs}
                   title={chartTitle}
