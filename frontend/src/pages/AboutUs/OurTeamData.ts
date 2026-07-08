@@ -12,7 +12,6 @@ import Megan from '../../assets/team/DouglasMegan.webp'
 import Ben from '../../assets/team/HammondBen.webp'
 import Jammie from '../../assets/team/HopkinsJammie.webp'
 import Evan from '../../assets/team/MartinE.webp'
-import Donrie from '../../assets/team/PurcellDonrie.webp'
 import DrHH from '../../assets/team/SHarris-Hooker.webp'
 import Shaneeta from '../../assets/team/ShaneetaJohnson.webp'
 import Maisha from '../../assets/team/StandiferM.webp'
@@ -43,11 +42,6 @@ export const LEADERSHIP_TEAM = [
     name: 'Allyson Belton, MPH',
     role: 'Coalition/Engagement',
     imageUrl: Allyson,
-  },
-  {
-    name: 'Donrie Purcell, PhD, MPH',
-    role: 'Senior Health Systems Data Analyst',
-    imageUrl: Donrie,
   },
   {
     name: 'Maisha Standifer, PhD, MPH',
@@ -136,6 +130,10 @@ export const HET_ALUMNI = [
     name: 'Jareese Stroud, MPH',
     role: 'Researcher',
   },
+  {
+    name: 'Donrie Purcell, PhD, MPH',
+    role: 'Senior Health Systems Data Analyst',
+  },
 ]
 export const GOOGLE_FELLOWS = [
   {
@@ -165,7 +163,7 @@ export const GOOGLE_FELLOWS = [
   {
     name: 'Ken Moore',
     role: 'UX Designer',
-    link: 'https://kenstatus.com',
+    link: 'https://web.archive.org/web/20220401002736/https://kenstatus.com/',
     text: 'In memoriam,',
   },
   {
