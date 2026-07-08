@@ -12,6 +12,23 @@ import type { HetRow, MapOfDatasetMetadata } from '../utils/DatasetTypes'
 
 type FileFormat = 'json' | 'csv'
 
+// The geographies topojson files are static app assets generated at build
+// time (see scripts/geo/split-geographies.ts), served fingerprinted from
+// /assets/ with immutable caching rather than fetched from the data API.
+const geoAssetUrls = import.meta.glob<string>('../../assets/geo/*.json', {
+  query: '?url',
+  import: 'default',
+  eager: true,
+})
+
+function getGeographiesAssetUrl(fileName: string): string {
+  const url = geoAssetUrls[`../../assets/geo/${fileName}`]
+  if (!url) {
+    throw new Error(`Unknown geographies file: ${fileName}`)
+  }
+  return url
+}
+
 export interface DataFetcher {
   /**
    * Fetches and returns the dataset associated with the provided ID.
@@ -61,6 +78,9 @@ export class ApiDataFetcher implements DataFetcher {
     format: FileFormat = 'json',
   ) {
     const fullDatasetName = datasetId + '.' + format
+    if (datasetId.startsWith('geographies')) {
+      return getGeographiesAssetUrl(fullDatasetName)
+    }
     const basePath = this.shouldFetchAsStaticFile(fullDatasetName)
       ? '/tmp/'
       : this.getApiUrl() + '/dataset?name='

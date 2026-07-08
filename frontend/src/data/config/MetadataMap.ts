@@ -17,7 +17,8 @@ import { datasourceMetadataMaternalHealthCategory } from './DatasetMetadataMater
 import { datasourceMetadataNciCancer } from './DatasetMetadataNciCancer'
 import { datasourceMetadataVera } from './DatasetMetadataVera'
 
-export const GEOGRAPHIES_DATASET_ID = 'geographies'
+export const GEOGRAPHIES_STATES_DATASET_ID = 'geographies_states'
+export const GEOGRAPHIES_COUNTIES_DATASET_ID = 'geographies_counties'
 
 export type DataSourceId =
   | 'acs'

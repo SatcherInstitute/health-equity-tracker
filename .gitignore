@@ -72,6 +72,10 @@ service_account*.json
 !frontend/cspell.config.json
 !python/ingestion/ahr_config/graphql_ahr_measure_ids.json
 !frontend/tokens/*.tokens.json
+!frontend/scripts/geo/geographies.json
 
 # Generated design token files — edit tokens/*.tokens.json and run `npm run tokens`
 frontend/src/styles/tokens/
+
+# Generated geography topojson splits — edit scripts/geo/geographies.json and run `npm run geo`
+frontend/src/assets/geo/
