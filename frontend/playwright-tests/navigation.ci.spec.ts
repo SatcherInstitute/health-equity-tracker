@@ -318,7 +318,10 @@ test('Default reset from Compare Topics mode creates one history entry; back ret
 
   // One back-press should return to the comparevars report, not stay on /exploredata.
   // A double-pushState bug would leave the previous comparevars state unreachable.
-  await page.goBack({ waitUntil: 'commit' })
+  // Use history.back() instead of page.goBack(): Firefox flakes with
+  // NS_BINDING_ABORTED when goBack's navigation-wait races the SPA's URL writes.
+  await page.waitForLoadState('networkidle')
+  await page.evaluate(() => window.history.back())
   await expect(page).toHaveURL(/mlp=comparevars/)
 })
 
