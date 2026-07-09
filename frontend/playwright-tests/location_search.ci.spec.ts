@@ -1,4 +1,4 @@
-/* cSpell:ignore anasco, Añasco, sarsota */
+/* cSpell:ignore anasco, Añasco, sarsota, denv */
 import { expect, test } from './utils/fixtures'
 
 const BASE_URL = '/exploredata?mls=1.hiv-3.00&mlp=disparity'
@@ -68,4 +68,17 @@ test('typo tolerance: "sarsota" still finds Sarasota County', async ({
   await expect(
     page.getByRole('option', { name: 'Sarasota County, Florida' }),
   ).toBeVisible()
+})
+
+test('options list stays below the input in short viewports', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 500 })
+  const input = await openLocationSearch(page)
+  await input.fill('denv')
+  const listbox = page.locator('ul[role="listbox"]')
+  await expect(listbox).toBeVisible()
+  const inputBox = await input.boundingBox()
+  const listboxBox = await listbox.boundingBox()
+  expect(listboxBox!.y).toBeGreaterThan(inputBox!.y + inputBox!.height - 1)
 })

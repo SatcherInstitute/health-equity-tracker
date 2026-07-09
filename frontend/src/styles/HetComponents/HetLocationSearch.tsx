@@ -57,6 +57,13 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         open={autoCompleteOpen}
         onOpen={() => setAutoCompleteOpen(true)}
         onClose={() => setAutoCompleteOpen(false)}
+        slotProps={{
+          // With the on-screen keyboard open, Popper's flip renders the list
+          // above the input and covers it. Always drop down and keep the
+          // list short enough to scroll in the remaining space.
+          popper: { modifiers: [{ name: 'flip', enabled: false }] },
+          listbox: { style: { maxHeight: '30vh' } },
+        }}
         renderInput={(params) => (
           <TextField
             placeholder='County, state, or territory...'
