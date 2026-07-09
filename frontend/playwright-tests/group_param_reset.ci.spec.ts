@@ -49,6 +49,26 @@ test('group1 cleared when data type changes', async ({ page }) => {
   await expect(page).toHaveURL(/dt1=beta_blockers_adherence/)
 })
 
+test('group selection stays in sync across back/forward', async ({ page }) => {
+  await page.goto(AMI_URL, { waitUntil: 'domcontentloaded' })
+  await expect(
+    page.getByText('Medicare Beneficiaries diagnosed with AMI, Ages 85+'),
+  ).toBeVisible()
+
+  await page.getByText('Age:').first().click()
+  await page.getByRole('button', { name: '75-79' }).click()
+  await expect(page).toHaveURL(/group1=75-79/)
+  await expect(
+    page.getByText('Medicare Beneficiaries diagnosed with AMI, Ages 75-79'),
+  ).toBeVisible()
+
+  await page.goBack()
+  await expect(page).toHaveURL(/group1=85PLUS/)
+  await expect(
+    page.getByText('Medicare Beneficiaries diagnosed with AMI, Ages 85+'),
+  ).toBeVisible()
+})
+
 test('group1 cleared when topic changes', async ({ page }) => {
   await page.goto(AMI_URL, { waitUntil: 'domcontentloaded' })
   await expect(

@@ -49,8 +49,8 @@ Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`s
 | Params | Written via | Read via |
 |---|---|---|
 | `mls`, `dt1`, `dt2`, `mlp` | `setLocationAtom({ searchParams })` → jotai-location → `history.pushState` | `urlParamAtom(key)` |
-| `group1`, `group2` (user selection) | `setLocationAtom({ searchParams })` → jotai-location → `history.pushState` | `urlParamAtom(key)` |
-| `group1`, `group2` (auto-reset on topic/data-type/demo change) | deleted inside the same `setLocationAtom` write as the triggering change: `setMadLibWithParam` clears the group when `dtOverrides` is passed; `DemographicSelector` clears both groups when `demo` changes | `getParameter` on MapCard init |
+| `group1`, `group2` (user selection) | `setLocationAtom({ searchParams })` → jotai-location → `history.pushState` | `urlParamAtom(key)` (derived in MapCard, no local state) |
+| `group1`, `group2` (auto-reset on topic/data-type/demo change) | deleted inside the same `setLocationAtom` write as the triggering change: `setMadLibWithParam` clears the group when `dtOverrides` is passed; `DemographicSelector` clears both groups when `demo` changes | `urlParamAtom(key)` (derived in MapCard, no local state) |
 | `demo`, `topic-info`, `multiple-maps`, `chlp-maps`, `vote-dot-org`, `report-insight`, `atl`, `extremes` | `useParamState` → `setLocationAtom` (`demo` writes directly via `setLocationAtom` to bundle the group reset) | `urlParamAtom(key)` |
 
 `jotai-location` owns `locationAtom` and handles `popstate` automatically — back/forward navigation keeps all atoms in sync with no manual handlers.
