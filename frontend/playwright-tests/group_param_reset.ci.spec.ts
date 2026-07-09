@@ -69,6 +69,30 @@ test('group selection stays in sync across back/forward', async ({ page }) => {
   ).toBeVisible()
 })
 
+test('group2 cleared when data type changes in comparegeos mode', async ({
+  page,
+}) => {
+  // Both comparegeos panels share dt1, so a dt1 change must clear group2 too.
+  await page.goto(
+    '/exploredata?mls=1.medicare_cardiovascular-3.12-5.13&mlp=comparegeos&group2=85PLUS&dt1=medicare_ami&demo=age',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await expect(
+    page.getByText('Medicare Beneficiaries diagnosed with AMI, Ages 85+'),
+  ).toBeVisible()
+
+  await page
+    .locator('#madlib-box')
+    .getByRole('button', { name: 'Cases of Heart Attacks (Acute MI)' })
+    .click()
+  await page
+    .getByRole('menuitem', { name: 'Adherence to Beta Blockers' })
+    .click()
+
+  await expect(page).not.toHaveURL(/group2=/)
+  await expect(page).toHaveURL(/dt1=beta_blockers_adherence/)
+})
+
 test('group1 cleared when topic changes', async ({ page }) => {
   await page.goto(AMI_URL, { waitUntil: 'domcontentloaded' })
   await expect(

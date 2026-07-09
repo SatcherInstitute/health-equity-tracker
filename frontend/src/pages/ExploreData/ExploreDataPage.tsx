@@ -163,7 +163,11 @@ function ExploreDataPage() {
       // A group selection valid for one topic or data type may not exist in
       // another, so clear it whenever the corresponding dt changes hands.
       // Callers pass dtOverrides exactly on topic and data type changes.
-      if (dtOverrides?.dt1 !== undefined) next.delete(MAP1_GROUP_PARAM)
+      if (dtOverrides?.dt1 !== undefined) {
+        next.delete(MAP1_GROUP_PARAM)
+        // Both comparegeos panels share dt1, so group2 goes stale too.
+        if (ml.id === 'comparegeos') next.delete(MAP2_GROUP_PARAM)
+      }
       if (dtOverrides?.dt2 !== undefined) next.delete(MAP2_GROUP_PARAM)
 
       if (var1HasDataTypes) {
