@@ -1,6 +1,6 @@
 import GridView from '@mui/icons-material/GridView'
 import { useSetAtom } from 'jotai'
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router'
 import { createColorScale } from '../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../charts/choroplethMap/index'
@@ -148,33 +148,6 @@ function MapCardWithKey(props: MapCardProps) {
 
   const [activeDemographicGroup, setActiveDemographicGroup] =
     useState<DemographicGroup>(initialGroup)
-
-  // Reset the selected group when the topic or demographic type changes.
-  // A group valid for one topic may not exist in another.
-  // Compare against the previously seen values rather than guarding "first
-  // run" — StrictMode double-invokes effects in dev, which would defeat a
-  // mount flag and clobber the group set from the URL on initial load.
-  const prevGroupResetKeyRef = useRef({
-    dataTypeId: props.dataTypeConfig.dataTypeId,
-    demographicType: props.demographicType,
-  })
-  useEffect(() => {
-    const prev = prevGroupResetKeyRef.current
-    if (
-      prev.dataTypeId === props.dataTypeConfig.dataTypeId &&
-      prev.demographicType === props.demographicType
-    ) {
-      return
-    }
-    prevGroupResetKeyRef.current = {
-      dataTypeId: props.dataTypeConfig.dataTypeId,
-      demographicType: props.demographicType,
-    }
-    setActiveDemographicGroup(ALL)
-    const params = new URLSearchParams(window.location.search)
-    params.set(MAP_GROUP_PARAM, ALL)
-    window.history.replaceState(null, '', '?' + params.toString())
-  }, [props.dataTypeConfig.dataTypeId, props.demographicType])
 
   const [isAtlantaMode, setIsAtlantaMode] = useParamState<boolean>(
     ATLANTA_MODE_PARAM_KEY,
@@ -502,7 +475,6 @@ function MapCardWithKey(props: MapCardProps) {
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL
 
-        // derive current dropdown value; the useEffect above handles the reset
         const dropdownValue = filterOptions[
           DEMOGRAPHIC_DISPLAY_TYPES[demographicType]
         ].includes(activeDemographicGroup)

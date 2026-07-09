@@ -50,8 +50,8 @@ Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`s
 |---|---|---|
 | `mls`, `dt1`, `dt2`, `mlp` | `setLocationAtom({ searchParams })` → jotai-location → `history.pushState` | `urlParamAtom(key)` |
 | `group1`, `group2` (user selection) | `setLocationAtom({ searchParams })` → jotai-location → `history.pushState` | `urlParamAtom(key)` |
-| `group1`, `group2` (auto-reset on topic/demo change) | `window.history.replaceState` directly — avoids adding a history entry | `getParameter` on MapCard init |
-| `demo`, `topic-info`, `multiple-maps`, `chlp-maps`, `vote-dot-org`, `report-insight`, `atl`, `extremes` | `useParamState` → `setLocationAtom` | `urlParamAtom(key)` |
+| `group1`, `group2` (auto-reset on topic/data-type/demo change) | deleted inside the same `setLocationAtom` write as the triggering change: `setMadLibWithParam` clears the group when `dtOverrides` is passed; `DemographicSelector` clears both groups when `demo` changes | `getParameter` on MapCard init |
+| `demo`, `topic-info`, `multiple-maps`, `chlp-maps`, `vote-dot-org`, `report-insight`, `atl`, `extremes` | `useParamState` → `setLocationAtom` (`demo` writes directly via `setLocationAtom` to bundle the group reset) | `urlParamAtom(key)` |
 
 `jotai-location` owns `locationAtom` and handles `popstate` automatically — back/forward navigation keeps all atoms in sync with no manual handlers.
 
@@ -61,7 +61,7 @@ Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`s
 
 - `setMadLibWithParam` is the single point of truth for all MadLib URL writes. It builds the complete new `URLSearchParams` and calls `setLocationAtom` once (one `pushState`). Never write to the URL separately before or after — that creates duplicate history entries.
 - Pass `dtOverrides: { dt1: newId }` (or `dt2`) when changing data sub-types so the new value is included in the same write.
-- On topic changes (`handleOptionUpdate` with a non-Fips value), pass `dtOverrides: { dt1: '' }` to clear the stale dt. `setMadLibWithParam` will then write the new topic's first data type as the default, keeping `dt1` always present in the URL for topics with multiple data types.
+- On topic changes (`handleOptionUpdate` with a non-Fips value), pass `dtOverrides: { dt1: '' }` to clear the stale dt. `setMadLibWithParam` will then write the new topic's first data type as the default, keeping `dt1` always present in the URL for topics with multiple data types. Passing `dtOverrides` also clears the corresponding `group1`/`group2` param, since a group valid for one topic or data type may not exist in another.
 - On mode changes (`handleModeChange`), pass a `baseParams` containing only `demo`, `dt1`, `dt2`, and `onboard`. This resets all card-level display state (extremes, atl, multiple-maps, alt-table-view, group selections, modals) so the user sees a clean report layout in the new mode. `onboard` is preserved so an active guided tour is not abruptly terminated. `setMadLibWithParam` accepts an optional `baseParams?: URLSearchParams`; when omitted it seeds from `window.location.search` (preserving all params).
 - `dt1` (and `dt2` in comparevars mode) is always written to the URL when the topic has multiple data types, defaulting to the first config's `dataTypeId` if no explicit value is provided. This prevents the demographic selector from showing options from unrelated topics.
 - `selectedDataTypeConfig1Atom` and `selectedDataTypeConfig2Atom` are **read-only derived atoms** — they derive from `urlParamAtom('dt1')` / `urlParamAtom('dt2')`. Never call their setters directly. Update dt values by writing the URL param via `setMadLibWithParam` with `dtOverrides`.

@@ -1,8 +1,6 @@
 import { expect, test } from './utils/fixtures'
 
-// fixme: in dev mode, StrictMode's effect double-run defeats MapCard's
-// isMountRef guard and resets the group1 URL selection to All on load
-test.fixme('PHRMA: Medicare AMI', async ({ page }) => {
+test('PHRMA: Medicare AMI', async ({ page }) => {
   await page.goto(
     '/exploredata?mls=1.medicare_cardiovascular-3.12&group1=85PLUS&dt1=medicare_ami&demo=age',
     { waitUntil: 'domcontentloaded' },
