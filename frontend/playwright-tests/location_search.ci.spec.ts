@@ -1,4 +1,3 @@
-/* cSpell:ignore anasco, Añasco, sarsota, denv */
 import { expect, test } from './utils/fixtures'
 
 const BASE_URL = '/exploredata?mls=1.hiv-3.00&mlp=disparity'

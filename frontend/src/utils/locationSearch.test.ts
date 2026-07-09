@@ -1,4 +1,3 @@
-/* cSpell:ignore anasco, Añasco, sarsota, usvi, Doña, salle */
 import { describe, expect, it } from 'vitest'
 import { Fips } from '../data/utils/Fips'
 import { COUNTY_FIPS_MAP, STATE_FIPS_MAP } from '../data/utils/FipsData'

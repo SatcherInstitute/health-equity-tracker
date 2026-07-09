@@ -3,6 +3,7 @@ import { Autocomplete, TextField } from '@mui/material'
 import { useMemo, useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
 import {
   buildFipsSearchIndex,
@@ -28,6 +29,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
     !isUsa && !props.recentLocations.some((code) => code === USA_FIPS)
 
   const [autoCompleteOpen, setAutoCompleteOpen] = useState(false)
+  const isSmAndUp = useIsBreakpointAndUp('sm')
 
   const searchIndex = useMemo(
     () => buildFipsSearchIndex(props.options),
@@ -59,10 +61,10 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         onClose={() => setAutoCompleteOpen(false)}
         slotProps={{
           // With the on-screen keyboard open, Popper's flip renders the list
-          // above the input and covers it. Always drop down and keep the
-          // list short enough to scroll in the remaining space.
+          // above the input and covers it. Always drop down, and on phones
+          // keep the list short enough to scroll in the remaining space.
           popper: { modifiers: [{ name: 'flip', enabled: false }] },
-          listbox: { style: { maxHeight: '30vh' } },
+          listbox: isSmAndUp ? undefined : { style: { maxHeight: '30vh' } },
         }}
         renderInput={(params) => (
           <TextField

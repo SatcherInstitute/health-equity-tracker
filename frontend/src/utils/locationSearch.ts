@@ -1,4 +1,3 @@
-/* cSpell:ignore leeoniya, ufuzzy, usvi, NFD, salle, Trn, idxs, Idxs */
 import uFuzzy from '@leeoniya/ufuzzy'
 import type { Fips } from '../data/utils/Fips'
 
@@ -64,7 +63,9 @@ const STATE_POSTAL_ALIASES: Record<string, string> = {
 }
 
 export const SEARCH_ALIASES: Record<string, string> = {
+  // State and territory postal abbreviations
   ...STATE_POSTAL_ALIASES,
+  // Abbreviation-style shorthand
   st: 'saint',
   us: 'united states',
   usa: 'united states',
