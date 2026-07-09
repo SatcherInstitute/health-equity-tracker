@@ -151,12 +151,24 @@ function MapCardWithKey(props: MapCardProps) {
 
   // Reset the selected group when the topic or demographic type changes.
   // A group valid for one topic may not exist in another.
-  // Skip on initial mount — the group is already correctly set from the URL.
-  const isMountRef = useRef(true)
+  // Compare against the previously seen values rather than guarding "first
+  // run" — StrictMode double-invokes effects in dev, which would defeat a
+  // mount flag and clobber the group set from the URL on initial load.
+  const prevGroupResetKeyRef = useRef({
+    dataTypeId: props.dataTypeConfig.dataTypeId,
+    demographicType: props.demographicType,
+  })
   useEffect(() => {
-    if (isMountRef.current) {
-      isMountRef.current = false
+    const prev = prevGroupResetKeyRef.current
+    if (
+      prev.dataTypeId === props.dataTypeConfig.dataTypeId &&
+      prev.demographicType === props.demographicType
+    ) {
       return
+    }
+    prevGroupResetKeyRef.current = {
+      dataTypeId: props.dataTypeConfig.dataTypeId,
+      demographicType: props.demographicType,
     }
     setActiveDemographicGroup(ALL)
     const params = new URLSearchParams(window.location.search)
