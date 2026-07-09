@@ -43,7 +43,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
 
   // The virtualized listbox needs the highlighted option and current query to
   // keep the highlighted row mounted and reset scroll when results change.
-  const listboxSync = useMemo(createListboxSyncStore, [])
+  const [listboxSync] = useState(createListboxSyncStore)
 
   return (
     <div className='min-w-72 p-5'>

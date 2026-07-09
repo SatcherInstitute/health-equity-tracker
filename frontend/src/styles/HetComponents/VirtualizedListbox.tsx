@@ -156,7 +156,12 @@ const VirtualizedListbox = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>(
 
     const { rows, offsets, totalHeight } = useMemo(() => {
       const flattened: RowData[] = []
-      for (const group of (children as VirtualizedGroupParams[]) ?? []) {
+      const childrenArray = Array.isArray(children)
+        ? children
+        : children
+          ? [children]
+          : []
+      for (const group of childrenArray as VirtualizedGroupParams[]) {
         flattened.push({ variant: 'header', label: group.group })
         for (const [optionProps, fips] of (group.children ??
           []) as VirtualizedOptionTuple[]) {
@@ -188,12 +193,13 @@ const VirtualizedListbox = forwardRef<HTMLElement, HTMLAttributes<HTMLElement>>(
       if (rows.length > 0) {
         listApi?.scrollToRow({ index: 0, behavior: 'instant' })
       }
-    }, [inputValue, listApi])
+    }, [inputValue, listApi, rows.length])
 
     // Keyboard highlight moves (including wrap-around) must keep the
     // highlighted row mounted so aria-activedescendant resolves.
+    // Guard on keyboard flag to avoid scrolling on mouse hover.
     useEffect(() => {
-      if (!highlighted) return
+      if (!highlighted?.keyboard) return
       const index = rows.findIndex(
         (row) => row.variant === 'option' && row.fips.code === highlighted.code,
       )
