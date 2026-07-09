@@ -1,3 +1,6 @@
+// Intentional misspellings and stripped variants under test; keep them out
+// of the shared dictionary so real typos elsewhere still get caught.
+/* cSpell:ignore anasco, sarsota, salle */
 import { describe, expect, it } from 'vitest'
 import { Fips } from '../data/utils/Fips'
 import { COUNTY_FIPS_MAP, STATE_FIPS_MAP } from '../data/utils/FipsData'

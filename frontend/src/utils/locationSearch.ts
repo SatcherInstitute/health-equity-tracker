@@ -1,3 +1,4 @@
+/* cSpell:ignore salle */
 import uFuzzy from '@leeoniya/ufuzzy'
 import type { Fips } from '../data/utils/Fips'
 

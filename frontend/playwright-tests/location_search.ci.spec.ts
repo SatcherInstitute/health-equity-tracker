@@ -1,3 +1,6 @@
+// Intentional misspellings and partial queries under test; keep them out
+// of the shared dictionary so real typos elsewhere still get caught.
+/* cSpell:ignore anasco, sarsota, denv */
 import { expect, test } from './utils/fixtures'
 
 const BASE_URL = '/exploredata?mls=1.hiv-3.00&mlp=disparity'
