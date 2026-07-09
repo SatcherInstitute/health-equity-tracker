@@ -72,6 +72,55 @@ test('typo tolerance: "sarsota" still finds Sarasota County', async ({
   ).toBeVisible()
 })
 
+test('virtualization mounts only a small slice of the options', async ({
+  page,
+}) => {
+  const input = await openLocationSearch(page)
+  await input.press('ArrowDown')
+  await expect(page.getByRole('listbox')).toBeVisible()
+  const optionCount = await page.getByRole('option').count()
+  expect(optionCount).toBeGreaterThan(0)
+  expect(optionCount).toBeLessThan(40)
+  expect(
+    await page.locator('ul[role="listbox"] li[role="presentation"]').count(),
+  ).toBeGreaterThan(0)
+})
+
+test('aria-activedescendant resolves to a mounted option after scrolling', async ({
+  page,
+}) => {
+  const input = await openLocationSearch(page)
+  await input.press('ArrowDown')
+  await expect(page.getByRole('listbox')).toBeVisible()
+  // Cross the initially mounted window so rows must scroll and remount.
+  for (let i = 0; i < 20; i++) {
+    await input.press('ArrowDown')
+  }
+  const activeId = await input.getAttribute('aria-activedescendant')
+  expect(activeId).toBeTruthy()
+  const activeOption = page.locator(`[id="${activeId}"]`)
+  await expect(activeOption).toBeVisible()
+  expect(await activeOption.getAttribute('role')).toBe('option')
+})
+
+test('arrow keys plus Enter navigate to the highlighted option', async ({
+  page,
+}) => {
+  const input = await openLocationSearch(page)
+  await input.press('ArrowDown')
+  await expect(page.getByRole('listbox')).toBeVisible()
+  // Wait for autoHighlight to land on the first option and for the list to
+  // finish measuring and mounting its first window of rows.
+  await expect(input).toHaveAttribute('aria-activedescendant', /.+/)
+  await expect(page.getByRole('option').nth(5)).toBeAttached()
+  // Empty query keeps original order: United States, Alabama, Alaska, Arizona.
+  await input.press('ArrowDown')
+  await input.press('ArrowDown')
+  await input.press('ArrowDown')
+  await input.press('Enter')
+  await expect(page).toHaveURL(/3\.04/, { timeout: 8000 })
+})
+
 test('options list stays below the input in short viewports', async ({
   page,
 }) => {
