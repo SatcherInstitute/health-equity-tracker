@@ -1,9 +1,13 @@
 import CloseIcon from '@mui/icons-material/Close'
 import { Autocomplete, TextField } from '@mui/material'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'
 import type { PopoverElements } from '../../utils/hooks/usePopover'
+import {
+  buildFipsSearchIndex,
+  filterAndRankFips,
+} from '../../utils/locationSearch'
 
 interface HetLocationSearchProps {
   clearRecentLocations: () => void
@@ -25,6 +29,11 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
 
   const [autoCompleteOpen, setAutoCompleteOpen] = useState(false)
 
+  const searchIndex = useMemo(
+    () => buildFipsSearchIndex(props.options),
+    [props.options],
+  )
+
   return (
     <div className='min-w-72 p-5'>
       <h3 className='my-1 font-semibold text-small md:text-title'>
@@ -34,6 +43,9 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         disableClearable={true}
         autoHighlight={true}
         options={props.options}
+        filterOptions={(options, { inputValue }) =>
+          filterAndRankFips(options, searchIndex, inputValue)
+        }
         groupBy={(option) => option.getFipsCategory()}
         clearOnEscape={true}
         getOptionLabel={(fips) => fips.getFullDisplayName()}

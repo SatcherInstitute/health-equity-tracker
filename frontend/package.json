@@ -19,6 +19,7 @@
 		"@fontsource/roboto": "^5.2.10",
 		"@fontsource/roboto-condensed": "^5.2.8",
 		"@fontsource/taviraj": "^5.2.8",
+		"@leeoniya/ufuzzy": "^1.0.19",
 		"@mui/icons-material": "^9.1.1",
 		"@mui/material": "^9.0.0",
 		"@tanstack/react-query": "^5.101.0",
