@@ -1,6 +1,6 @@
 // Intentional misspellings and partial queries under test; keep them out
 // of the shared dictionary so real typos elsewhere still get caught.
-/* cSpell:ignore anasco, sarsota, denv */
+/* cSpell:ignore anasco, sarsota, denv, manua */
 import { expect, test } from './utils/fixtures'
 
 const BASE_URL = '/exploredata?mls=1.hiv-3.00&mlp=disparity'
@@ -70,6 +70,19 @@ test('typo tolerance: "sarsota" still finds Sarasota County', async ({
   await expect(
     page.getByRole('option', { name: 'Sarasota County, Florida' }),
   ).toBeVisible()
+})
+
+test('American Samoa districts are searchable and navigate', async ({
+  page,
+}) => {
+  const input = await openLocationSearch(page)
+  await input.fill('manua')
+  const district = page.getByRole('option', {
+    name: "Manu'a District, American Samoa",
+  })
+  await expect(district).toBeVisible()
+  await district.click()
+  await expect(page).toHaveURL(/3\.60020/, { timeout: 8000 })
 })
 
 test('virtualization mounts only a small slice of the options', async ({
