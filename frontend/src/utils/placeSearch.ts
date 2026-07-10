@@ -72,7 +72,7 @@ export function buildPlaceSearchIndex(file: PlaceIndexFile): PlaceSearchIndex {
         option: {
           kind: 'city',
           id: `${name}|${statePostal}|${countyFips}`,
-          label: `${name}, ${statePostal} (${new Fips(countyFips).getDisplayName()})`,
+          label: `${name}, ${statePostal} → ${new Fips(countyFips).getDisplayName()}`,
           countyFips,
         },
         coreName,

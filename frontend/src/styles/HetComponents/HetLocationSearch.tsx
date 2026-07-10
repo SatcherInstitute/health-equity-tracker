@@ -83,7 +83,9 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
             return [...fipsResults, ...cityResults]
           }}
           groupBy={(option) =>
-            option instanceof Fips ? option.getFipsCategory() : 'Cities'
+            option instanceof Fips
+              ? option.getFipsCategory()
+              : 'Cities (shows data for the containing county)'
           }
           clearOnEscape={true}
           getOptionLabel={locationOptionLabel}

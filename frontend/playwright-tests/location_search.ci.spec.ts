@@ -140,7 +140,7 @@ test('"Atlanta" offers a city option that navigates to Fulton County', async ({
   const input = await openLocationSearch(page)
   await input.fill('Atlanta')
   const cityOption = page.getByRole('option', {
-    name: 'Atlanta, GA (Fulton County)',
+    name: 'Atlanta, GA → Fulton County',
   })
   await expect(cityOption).toBeVisible()
   await expect(

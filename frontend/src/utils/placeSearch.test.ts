@@ -19,8 +19,8 @@ describe('buildPlaceSearchIndex', () => {
   test('expands multi-county places into one option per county', () => {
     const atlanta = index.entries.filter((e) => e.coreName === 'atlanta')
     expect(atlanta.map((e) => e.option.label)).toEqual([
-      'Atlanta, GA (DeKalb County)',
-      'Atlanta, GA (Fulton County)',
+      'Atlanta, GA → DeKalb County',
+      'Atlanta, GA → Fulton County',
     ])
     expect(atlanta.map((e) => e.option.countyFips)).toEqual(['13089', '13121'])
   })
@@ -35,7 +35,7 @@ describe('searchPlaces', () => {
   test('matches by name, postal code, and full state name', () => {
     for (const query of ['atlanta', 'atlanta ga', 'atlanta georgia']) {
       const labels = searchPlaces(index, query).map((o) => o.label)
-      expect(labels).toContain('Atlanta, GA (Fulton County)')
+      expect(labels).toContain('Atlanta, GA → Fulton County')
     }
   })
 
