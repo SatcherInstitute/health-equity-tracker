@@ -4,27 +4,36 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-The [Health Equity Tracker](https://healthequitytracker.org/) aggregates demographic health data by race, ethnicity, sex, and socioeconomic status across the US. It consists of a React frontend, lightweight Node server, Python data server, and a GCP-hosted data pipeline.
+The [Health Equity Tracker](https://healthequitytracker.org/) aggregates demographic health data by race, ethnicity, sex, and socioeconomic status across the US. It consists of a React frontend, a combined Go server that serves the app and its data APIs, and a GCP-hosted data pipeline.
 
 > **Service-specific guidance:** See each service's own `CLAUDE.md` for details.
-> `frontend/` · `frontend_server/` · `data_server/` · `server/` · `exporter/` · `python/`
+> `frontend/` · `server/` · `exporter/` · `python/`
+> (Legacy `frontend_server/` and `data_server/` are deprecated and slated for removal; see #4902.)
 
 ## Architecture
 
-### Three-Tier Frontend
+### Serving Architecture
+
+Since the 2026-07 production cutover (#4901), a single combined Go server is the live serving path for both dev and prod, handling the frontend and all data APIs:
 
 ```plaintext
-frontend/         React app (TypeScript, Vite, MUI, Tailwind, D3, Jotai)
-frontend_server/  Lightweight Node server — serves React static files, proxies data requests
-data_server/      Python Flask server — responds with JSON/CSV files exported from BigQuery
-server/           Combined Go server (experimental) — replaces both frontend_server and data_server
-                  with a single ~15 MB binary: static files + GCS data + Anthropic + Webflow
+frontend/  React app (TypeScript, Vite, MUI, Tailwind, D3, Jotai)
+server/    Combined Go server: the live serving path for dev and prod. One
+           ~15 MB binary (static files + GCS data + Anthropic + Webflow) that
+           replaces frontend_server and data_server.
+```
+
+The two original services are deprecated and pending removal (#4902); do not build new functionality on them:
+
+```plaintext
+frontend_server/  (legacy) Node server that served React static files and proxied data requests
+data_server/      (legacy) Python Flask server that served JSON/CSV files exported from BigQuery
 ```
 
 ### Backend Data Pipeline
 
 ```plaintext
-run_ingestion/  →  GCS bucket  →  run_gcs_to_bq/  →  BigQuery  →  exporter/  →  GCS JSON  →  data_server/
+run_ingestion/  →  GCS bucket  →  run_gcs_to_bq/  →  BigQuery  →  exporter/  →  GCS JSON  →  server/
 (fetch raw data)                  (runs DataSource                  (splits county
                                    modules in /python)               files by state)
 ```

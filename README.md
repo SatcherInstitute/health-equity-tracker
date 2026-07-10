@@ -267,8 +267,12 @@ Everything below is more detailed, advanced info that you probably won't need ri
 The frontend consists of
 
 1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, TS, CSS, images). Built with [Vite 8](https://vite.dev/) (Rolldown-powered) and tested with [Vitest 4](https://vitest.dev/).
-2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
-3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
+2. `health-equity-tracker/server/`: A combined Go server that is the live serving path for both dev and prod. It serves the React app's static files and responds to data requests with files exported from the data pipeline, in a single binary.
+
+Two original services are now deprecated and pending removal (see #4902); do not build new functionality on them:
+
+- `health-equity-tracker/frontend_server/`: (legacy) A lightweight Node server that served the React app as static files and forwarded data requests to the data server.
+- `health-equity-tracker/data_server/`: (legacy) A server that responded to data requests by serving data files exported from the data pipeline.
 
 ### Frontend Design System & Theme Architecture
 
@@ -376,7 +380,7 @@ The backend consists of:
 - `health-equity-tracker/.github/workflows/`: Workflow code that controls the DAGs which orchestrate the execution of these various microservices via GitHub Actions
 - `health-equity-tracker/config/`: Terraform configuration for setting permissions and provisioning needed resources for cloud computing
 - `health-equity-tracker/data/`: In code-base "bucket" used to store manually downloaded data from outside sources where it isn't possible to fetch new data directly via and API endpoint or linkable file URL
-- `health-equity-tracker/server_smoke_tests/`: Post-deploy smoke tests that hit the live `data_server` and `frontend_server` GCP services to verify they are responding correctly
+- `health-equity-tracker/server_smoke_tests/`: Post-deploy smoke tests that hit the live combined Go `server` GCP service to verify it is responding correctly
 - `health-equity-tracker/exporter/`: Code for the microservice responsible for taking HET-style data from HET BigQuery tables and storing them in buckets as .json files. NOTE: County-level files are broken up by state when exporting.
 - `health-equity-tracker/python/`: Code for the Python modules responsible for fetching data from outside sources and wrangling into a HET-style table with rows for every combination of demographic group, geographic area, and optionally time period, and columns for each measured metric
 - `health-equity-tracker/requirements/`: Packages required for the HET
