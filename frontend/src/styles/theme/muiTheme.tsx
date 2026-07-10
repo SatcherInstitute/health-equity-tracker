@@ -93,12 +93,13 @@ const muiTheme = extendTheme({
             '&[aria-selected="true"]': {
               backgroundColor: theme.alpha(
                 (theme.vars || theme).palette.primary.main,
-                (theme.vars || theme).palette.action.selectedOpacity,
+                theme.palette.action.selectedOpacity,
               ),
               '&.Mui-focused': {
                 backgroundColor: theme.alpha(
                   (theme.vars || theme).palette.primary.main,
-                  `${(theme.vars || theme).palette.action.selectedOpacity} + ${(theme.vars || theme).palette.action.hoverOpacity}`,
+                  theme.palette.action.selectedOpacity +
+                    theme.palette.action.hoverOpacity,
                 ),
                 '@media (hover: none)': {
                   backgroundColor: (theme.vars || theme).palette.action
