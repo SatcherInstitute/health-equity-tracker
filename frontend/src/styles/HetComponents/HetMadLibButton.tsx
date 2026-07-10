@@ -7,6 +7,8 @@ interface HetMadLibButtonProps {
   handleClick: (event: MouseEvent<HTMLButtonElement>) => void
   isOpen: boolean
   className?: string
+  onPointerEnter?: () => void
+  onFocus?: () => void
 }
 
 export default function HetMadLibButton(props: HetMadLibButtonProps) {
@@ -18,6 +20,8 @@ export default function HetMadLibButton(props: HetMadLibButtonProps) {
         props.className ?? ''
       } `}
       onClick={props.handleClick}
+      onPointerEnter={props.onPointerEnter}
+      onFocus={props.onFocus}
     >
       <span>
         {props.children}

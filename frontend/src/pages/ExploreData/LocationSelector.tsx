@@ -5,6 +5,7 @@ import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
 import { usePopover } from '../../utils/hooks/usePopover'
 import { useRecentLocations } from '../../utils/hooks/useRecentLocations'
+import { loadPlaceIndex } from '../../utils/placeSearch'
 
 interface LocationSelectorProps {
   newValue: string
@@ -47,7 +48,12 @@ export default function LocationSelector(props: LocationSelectorProps) {
 
   return (
     <span>
-      <HetMadLibButton handleClick={popover.open} isOpen={popover.isOpen}>
+      <HetMadLibButton
+        handleClick={popover.open}
+        isOpen={popover.isOpen}
+        onPointerEnter={loadPlaceIndex}
+        onFocus={loadPlaceIndex}
+      >
         <span className={dropdownTarget}>{currentDisplayName}</span>
       </HetMadLibButton>
 
