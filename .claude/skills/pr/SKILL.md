@@ -12,13 +12,25 @@ The user may pass a PR number as an argument (e.g. `/pr 4764`). If none is given
 
 ---
 
-## Step 1 — Identify the PR and derive context
+## Step 1 — Identify the PR, check out its branch, and derive context
+
+Pass the PR number through when one was given (`gh pr view <number> ...`); omit it to detect the PR from the current branch.
 
 ```bash
-gh pr view --json number,title,body,headRefName,baseRefName
+gh pr view <number> --json number,title,body,headRefName,baseRefName
 ```
 
 If no open PR is found: print an error and stop.
+
+**Check out the PR's branch before doing anything else.** When a PR number is passed, the working tree is often still on `main` (or another branch). Every later step — Biome, tsc, the behind-main merge check, review fixes — must run against the PR's own branch, so switch to it now:
+
+```bash
+gh pr checkout <number>
+```
+
+`gh pr checkout` fetches the head branch from a fork if it isn't local yet, sets up tracking, and checks it out — a raw `git checkout <headRefName>` would fail for a not-yet-fetched fork branch, which is the norm in this repo's fork-based workflow. Skip this when no PR number was given (you are already on the branch).
+
+If the working tree is dirty and the checkout fails, stop and ask the user to commit or stash first — do not discard changes.
 
 Then derive two variables used throughout the remaining steps:
 

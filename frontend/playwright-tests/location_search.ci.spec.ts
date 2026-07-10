@@ -1,6 +1,6 @@
 // Intentional misspellings and partial queries under test; keep them out
 // of the shared dictionary so real typos elsewhere still get caught.
-/* cSpell:ignore anasco, sarsota, denv */
+/* cSpell:ignore anasco, sarsota, denv, manua */
 import { expect, test } from './utils/fixtures'
 
 const BASE_URL = '/exploredata?mls=1.hiv-3.00&mlp=disparity'
@@ -72,6 +72,19 @@ test('typo tolerance: "sarsota" still finds Sarasota County', async ({
   ).toBeVisible()
 })
 
+test('American Samoa districts are searchable and navigate', async ({
+  page,
+}) => {
+  const input = await openLocationSearch(page)
+  await input.fill('manua')
+  const district = page.getByRole('option', {
+    name: "Manu'a District, American Samoa",
+  })
+  await expect(district).toBeVisible()
+  await district.click()
+  await expect(page).toHaveURL(/3\.60020/, { timeout: 8000 })
+})
+
 test('virtualization mounts only a small slice of the options', async ({
   page,
 }) => {
@@ -119,6 +132,30 @@ test('arrow keys plus Enter navigate to the highlighted option', async ({
   await input.press('ArrowDown')
   await input.press('Enter')
   await expect(page).toHaveURL(/3\.04/, { timeout: 8000 })
+})
+
+test('virtualized options keep MUI option styling', async ({ page }) => {
+  const input = await openLocationSearch(page)
+  await input.press('ArrowDown')
+  await expect(page.getByRole('listbox')).toBeVisible()
+  // The custom listbox slot replaces MUI's default listbox, which is where
+  // MUI defines option styles; the muiTheme paper override must restore them.
+  const styles = await page
+    .getByRole('option')
+    .first()
+    .evaluate((el) => {
+      const cs = getComputedStyle(el)
+      return {
+        display: cs.display,
+        alignItems: cs.alignItems,
+        paddingLeft: cs.paddingLeft,
+      }
+    })
+  expect(styles).toEqual({
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: '24px',
+  })
 })
 
 test('options list stays below the input in short viewports', async ({
