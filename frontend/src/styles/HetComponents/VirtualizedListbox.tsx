@@ -111,14 +111,24 @@ function Row({
     top: offsets[index],
   }
   if (row.variant === 'header') {
+    // MUI's ListSubheader defaults to line-height 48px so a single line sits
+    // centered in the row; but the long "Cities" label wraps on narrow
+    // popovers, and at that line-height each wrapped line is 48px tall and
+    // overflows the fixed-height row. Center a tightly-leaded, clamped label
+    // within the row instead.
     return (
       <ListSubheader
         component='li'
         role='presentation'
         disableSticky
-        style={positioned}
+        style={{
+          ...positioned,
+          display: 'flex',
+          alignItems: 'center',
+          lineHeight: 1.2,
+        }}
       >
-        {row.label}
+        <span className='line-clamp-2'>{row.label}</span>
       </ListSubheader>
     )
   }
