@@ -108,7 +108,7 @@
 		"screenshots": "tsx scripts/take-screenshots.ts",
 		"tokens": "tsx run-tokens.ts",
 		"geo": "tsx scripts/geo/split-geographies.ts",
-		"places:refresh": "tsx scripts/geo/build-place-index.ts",
+		"places:refresh": "tsx scripts/geo/build-place-index.ts && npx @biomejs/biome format --write src/assets/geo/place-index.json",
 		"postinstall": "npm run tokens && npm run geo",
 		"predev": "npm run tokens && npm run geo",
 		"prebuild": "npm run tokens && npm run geo",
