@@ -22,15 +22,13 @@ gh pr view <number> --json number,title,body,headRefName,baseRefName
 
 If no open PR is found: print an error and stop.
 
-**Check out the PR's branch before doing anything else.** When a PR number is passed, the working tree is often still on `main` (or another branch). Every later step — Biome, tsc, the behind-main merge check, review fixes — must run against the PR's own branch, so switch to `headRefName` now if you are not already on it:
+**Check out the PR's branch before doing anything else.** When a PR number is passed, the working tree is often still on `main` (or another branch). Every later step — Biome, tsc, the behind-main merge check, review fixes — must run against the PR's own branch, so switch to it now:
 
 ```bash
-HEAD_REF=$(gh pr view <number> --json headRefName -q .headRefName)
-CURRENT=$(git rev-parse --abbrev-ref HEAD)
-if [ "$CURRENT" != "$HEAD_REF" ]; then
-  git checkout "$HEAD_REF"
-fi
+gh pr checkout <number>
 ```
+
+`gh pr checkout` fetches the head branch from a fork if it isn't local yet, sets up tracking, and checks it out — a raw `git checkout <headRefName>` would fail for a not-yet-fetched fork branch, which is the norm in this repo's fork-based workflow. Skip this when no PR number was given (you are already on the branch).
 
 If the working tree is dirty and the checkout fails, stop and ask the user to commit or stash first — do not discard changes.
 
