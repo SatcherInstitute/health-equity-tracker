@@ -133,7 +133,8 @@ export function searchPlaces(
       INFO_THRESHOLD,
     )
     if (!idxs) continue
-    const rankedIdxs = order ? order.map((infoIdx) => info.idx[infoIdx]) : idxs
+    const rankedIdxs =
+      order && info ? order.map((infoIdx) => info.idx[infoIdx]) : idxs
     rankedIdxs.forEach((haystackIdx, rank) => {
       const previous = bestRank.get(haystackIdx)
       if (previous === undefined || rank < previous) {
