@@ -7,9 +7,10 @@ import {
   STATE_POSTAL_ALIASES,
 } from './locationSearch'
 
-// The place index is a static app asset generated at build time (see
-// scripts/geo/build-place-index.ts), served fingerprinted from /assets/ and
-// only fetched once the user opens the location search.
+// The place index is a committed asset (regenerate via npm run
+// places:refresh, see scripts/geo/build-place-index.ts), served
+// fingerprinted from /assets/ and only fetched once the user opens the
+// location search.
 const placeIndexUrls = import.meta.glob<string>(
   '../assets/geo/place-index.json',
   {

@@ -78,4 +78,6 @@ service_account*.json
 frontend/src/styles/tokens/
 
 # Generated geography topojson splits — edit scripts/geo/geographies.json and run `npm run geo`
-frontend/src/assets/geo/
+# (the committed place-index.json is refreshed manually via `npm run places:refresh`)
+frontend/src/assets/geo/*
+!frontend/src/assets/geo/place-index.json

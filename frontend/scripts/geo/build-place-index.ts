@@ -1,28 +1,25 @@
 #!/usr/bin/env tsx
-// Builds the city/place search index (src/assets/geo/place-index.json,
-// gitignored, regenerated on install/predev/prebuild) from the checked-in
-// 2020 Census national place-by-county relationship file
-// (scripts/geo/national_place_by_county2020.txt.gz).
+// Regenerates the committed city/place search index
+// (src/assets/geo/place-index.json) from the 2020 Census national
+// place-by-county relationship file, downloaded from census.gov:
+//
+//   npm run places:refresh
 //
 // Each place row maps a Census place (incorporated place or CDP) to the
 // county (or counties) containing it, letting the location search offer
 // "Atlanta, GA (Fulton County)" style options that navigate to the county.
 //
-// Refresh the snapshot from the Census Bureau with:
-//   npm run places:refresh
-// which downloads
-//   https://www2.census.gov/geo/docs/reference/codes2020/national_place_by_county2020.txt
-// re-gzips it, and rebuilds. The header row is asserted so format drift
-// fails loudly instead of producing a wrong index.
+// The header row is asserted so Census format drift fails loudly instead of
+// producing a wrong index. The unit tests also assert the committed index
+// stays consistent with the app's county map, so a COUNTY_FIPS_MAP change
+// that invalidates the index fails CI until this script is re-run.
 
-import { readFile, writeFile } from 'node:fs/promises'
+import { writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { gunzipSync, gzipSync } from 'node:zlib'
 import { COUNTY_FIPS_MAP } from '../../src/data/utils/FipsData'
 
 const __dir = dirname(fileURLToPath(import.meta.url))
-const SOURCE = resolve(__dir, 'national_place_by_county2020.txt.gz')
 const OUT_FILE = resolve(__dir, '../../src/assets/geo/place-index.json')
 const CENSUS_URL =
   'https://www2.census.gov/geo/docs/reference/codes2020/national_place_by_county2020.txt'
@@ -131,30 +128,15 @@ export function buildPlaceIndex(fileText: string): PlaceIndexFile {
   return { v: 1, places }
 }
 
-async function refreshSnapshot(): Promise<void> {
+async function main(): Promise<void> {
   const response = await fetch(CENSUS_URL)
   if (!response.ok) {
     throw new Error(`Census download failed: ${response.status} ${CENSUS_URL}`)
   }
-  const text = await response.text()
-  if (text.split('\n')[0].trim() !== EXPECTED_HEADER) {
-    throw new Error(
-      'Downloaded file header does not match the expected Census format; not overwriting the snapshot.',
-    )
-  }
-  await writeFile(SOURCE, gzipSync(Buffer.from(text), { level: 9 }))
-  console.log(`✔  refreshed ${SOURCE} from census.gov`)
-}
-
-async function main(): Promise<void> {
-  if (process.argv.includes('--refresh')) {
-    await refreshSnapshot()
-  }
-  const fileText = gunzipSync(await readFile(SOURCE)).toString('utf8')
-  const index = buildPlaceIndex(fileText)
+  const index = buildPlaceIndex(await response.text())
   await writeFile(OUT_FILE, JSON.stringify(index))
   console.log(
-    `✔  place index built → ${index.places.length} places in src/assets/geo/place-index.json`,
+    `✔  place index refreshed → ${index.places.length} places in src/assets/geo/place-index.json`,
   )
 }
 
