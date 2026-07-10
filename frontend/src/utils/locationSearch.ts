@@ -2,7 +2,7 @@
 import uFuzzy from '@leeoniya/ufuzzy'
 import type { Fips } from '../data/utils/Fips'
 
-const STATE_POSTAL_ALIASES: Record<string, string> = {
+export const STATE_POSTAL_ALIASES: Record<string, string> = {
   /* cSpell:disable */
   al: 'alabama',
   ak: 'alaska',
@@ -85,7 +85,7 @@ export function normalizeText(raw: string): string {
 
 // "st" is expanded on both sides (haystack build and query aliases) so
 // "St. John", "Saint John", and "st john" all land on the same tokens.
-function canonicalizeTokens(normalized: string): string {
+export function canonicalizeTokens(normalized: string): string {
   return normalized
     .split(' ')
     .map((token) => (token === 'st' ? 'saint' : token))

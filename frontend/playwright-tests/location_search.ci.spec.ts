@@ -121,6 +121,48 @@ test('arrow keys plus Enter navigate to the highlighted option', async ({
   await expect(page).toHaveURL(/3\.04/, { timeout: 8000 })
 })
 
+test('"Atlanta" offers a city option that navigates to Fulton County', async ({
+  page,
+}) => {
+  const input = await openLocationSearch(page)
+  await input.fill('Atlanta')
+  const cityOption = page.getByRole('option', {
+    name: 'Atlanta, GA (Fulton County)',
+  })
+  await expect(cityOption).toBeVisible()
+  await expect(
+    page.locator('ul[role="listbox"] li[role="presentation"]', {
+      hasText: 'Cities',
+    }),
+  ).toBeVisible()
+  await cityOption.click()
+  await expect(page).toHaveURL(/3\.13121/, { timeout: 8000 })
+})
+
+test('place index is fetched only after the search opens', async ({
+  page,
+}) => {
+  const placeIndexRequests: string[] = []
+  page.on('request', (request) => {
+    // In dev, Vite also serves the tiny ?url helper module at page load;
+    // only the fetch() of the JSON payload counts as loading the index.
+    if (
+      request.url().includes('place-index') &&
+      request.resourceType() === 'fetch'
+    ) {
+      placeIndexRequests.push(request.url())
+    }
+  })
+  await page.goto(BASE_URL, { waitUntil: 'networkidle' })
+  expect(placeIndexRequests).toHaveLength(0)
+  await page
+    .getByRole('button', { name: /united states/i })
+    .first()
+    .click()
+  await expect(page.locator('.MuiPopover-paper')).toBeVisible()
+  await expect.poll(() => placeIndexRequests.length).toBeGreaterThan(0)
+})
+
 test('options list stays below the input in short viewports', async ({
   page,
 }) => {

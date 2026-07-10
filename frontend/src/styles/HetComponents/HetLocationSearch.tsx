@@ -1,7 +1,7 @@
 import CloseIcon from '@mui/icons-material/Close'
 import { Autocomplete, TextField } from '@mui/material'
 import type { ReactNode } from 'react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
@@ -10,6 +10,14 @@ import {
   buildFipsSearchIndex,
   filterAndRankFips,
 } from '../../utils/locationSearch'
+import {
+  type LocationOption,
+  loadPlaceIndex,
+  locationOptionKey,
+  locationOptionLabel,
+  type PlaceSearchIndex,
+  searchPlaces,
+} from '../../utils/placeSearch'
 import VirtualizedListbox, {
   createListboxSyncStore,
   ListboxSyncContext,
@@ -36,6 +44,14 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
   const [autoCompleteOpen, setAutoCompleteOpen] = useState(false)
   const isSmAndUp = useIsBreakpointAndUp('sm')
 
+  // City results come from a place index fetched when the search popover
+  // mounts (never on page load); until it arrives (or if the fetch fails)
+  // the search still works over states and counties.
+  const [placeIndex, setPlaceIndex] = useState<PlaceSearchIndex | null>(null)
+  useEffect(() => {
+    loadPlaceIndex().then(setPlaceIndex, () => {})
+  }, [])
+
   const searchIndex = useMemo(
     () => buildFipsSearchIndex(props.options),
     [props.options],
@@ -51,29 +67,42 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         Search for location
       </h3>
       <ListboxSyncContext.Provider value={listboxSync}>
-        <Autocomplete
+        <Autocomplete<LocationOption, false, true, false>
           disableClearable={true}
           autoHighlight={true}
           options={props.options}
-          filterOptions={(options, { inputValue }) =>
-            filterAndRankFips(options, searchIndex, inputValue)
+          filterOptions={(options, { inputValue }) => {
+            const fipsResults = filterAndRankFips(
+              options as Fips[],
+              searchIndex,
+              inputValue,
+            )
+            const cityResults = placeIndex
+              ? searchPlaces(placeIndex, inputValue)
+              : []
+            return [...fipsResults, ...cityResults]
+          }}
+          groupBy={(option) =>
+            option instanceof Fips ? option.getFipsCategory() : 'Cities'
           }
-          groupBy={(option) => option.getFipsCategory()}
           clearOnEscape={true}
-          getOptionLabel={(fips) => fips.getFullDisplayName()}
+          getOptionLabel={locationOptionLabel}
           // The listbox slot receives these raw [props, option] tuples and
           // group params and renders only the visible rows itself.
-          renderOption={(optionProps, fips: Fips) =>
-            [optionProps, fips] as unknown as ReactNode
+          renderOption={(optionProps, option) =>
+            [optionProps, option] as unknown as ReactNode
           }
           renderGroup={(params) => params as unknown as ReactNode}
           onInputChange={(_e, value) => {
             listboxSync.update({ inputValue: value, highlighted: null })
           }}
-          onHighlightChange={(_e, fips, reason) =>
+          onHighlightChange={(_e, option, reason) =>
             listboxSync.update({
-              highlighted: fips
-                ? { code: fips.code, keyboard: reason === 'keyboard' }
+              highlighted: option
+                ? {
+                    code: locationOptionKey(option),
+                    keyboard: reason === 'keyboard',
+                  }
                 : null,
             })
           }
@@ -112,8 +141,10 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
               }}
             />
           )}
-          onChange={(_e, fips) => {
-            props.onOptionUpdate(fips.code)
+          onChange={(_e, option) => {
+            props.onOptionUpdate(
+              option instanceof Fips ? option.code : option.countyFips,
+            )
             props.popover.close()
           }}
         />
