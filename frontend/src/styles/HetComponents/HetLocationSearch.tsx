@@ -1,5 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close'
 import { Autocomplete, TextField } from '@mui/material'
+import type { ReactNode } from 'react'
 import { useMemo, useState } from 'react'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'
@@ -9,6 +10,10 @@ import {
   buildFipsSearchIndex,
   filterAndRankFips,
 } from '../../utils/locationSearch'
+import VirtualizedListbox, {
+  createListboxSyncStore,
+  ListboxSyncContext,
+} from './VirtualizedListbox'
 
 interface HetLocationSearchProps {
   clearRecentLocations: () => void
@@ -36,65 +41,83 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
     [props.options],
   )
 
+  // The virtualized listbox needs the highlighted option and current query to
+  // keep the highlighted row mounted and reset scroll when results change.
+  const [listboxSync] = useState(createListboxSyncStore)
+
   return (
     <div className='min-w-72 p-5'>
       <h3 className='my-1 font-semibold text-small md:text-title'>
         Search for location
       </h3>
-      <Autocomplete
-        disableClearable={true}
-        autoHighlight={true}
-        options={props.options}
-        filterOptions={(options, { inputValue }) =>
-          filterAndRankFips(options, searchIndex, inputValue)
-        }
-        groupBy={(option) => option.getFipsCategory()}
-        clearOnEscape={true}
-        getOptionLabel={(fips) => fips.getFullDisplayName()}
-        renderOption={(optionProps, fips: Fips) => (
-          <li {...optionProps} key={optionProps.key}>
-            {fips.getFullDisplayName()}
-          </li>
-        )}
-        open={autoCompleteOpen}
-        onOpen={() => setAutoCompleteOpen(true)}
-        onClose={() => setAutoCompleteOpen(false)}
-        slotProps={{
-          // With the on-screen keyboard open, Popper's flip renders the list
-          // above the input and covers it. Always drop down, and on phones
-          // keep the list short enough to scroll in the remaining space.
-          popper: { modifiers: [{ name: 'flip', enabled: false }] },
-          listbox: isSmAndUp ? undefined : { style: { maxHeight: '30vh' } },
-        }}
-        renderInput={(params) => (
-          <TextField
-            placeholder='County, state, or territory...'
-            /* eslint-disable-next-line */
-            autoFocus
-            margin='dense'
-            variant='outlined'
-            {...params}
-            slotProps={{
-              ...params.slotProps,
-              input: {
-                ...params.slotProps?.input,
-                sx: {
-                  '& .MuiAutocomplete-endAdornment': {
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    position: 'absolute',
-                    right: '9px',
+      <ListboxSyncContext.Provider value={listboxSync}>
+        <Autocomplete
+          disableClearable={true}
+          autoHighlight={true}
+          options={props.options}
+          filterOptions={(options, { inputValue }) =>
+            filterAndRankFips(options, searchIndex, inputValue)
+          }
+          groupBy={(option) => option.getFipsCategory()}
+          clearOnEscape={true}
+          getOptionLabel={(fips) => fips.getFullDisplayName()}
+          // The listbox slot receives these raw [props, option] tuples and
+          // group params and renders only the visible rows itself.
+          renderOption={(optionProps, fips: Fips) =>
+            [optionProps, fips] as unknown as ReactNode
+          }
+          renderGroup={(params) => params as unknown as ReactNode}
+          onInputChange={(_e, value) => {
+            listboxSync.update({ inputValue: value, highlighted: null })
+          }}
+          onHighlightChange={(_e, fips, reason) =>
+            listboxSync.update({
+              highlighted: fips
+                ? { code: fips.code, keyboard: reason === 'keyboard' }
+                : null,
+            })
+          }
+          open={autoCompleteOpen}
+          onOpen={() => setAutoCompleteOpen(true)}
+          onClose={() => setAutoCompleteOpen(false)}
+          slots={{ listbox: VirtualizedListbox }}
+          slotProps={{
+            // With the on-screen keyboard open, Popper's flip renders the list
+            // above the input and covers it. Always drop down, and on phones
+            // keep the list short enough to scroll in the remaining space.
+            popper: { modifiers: [{ name: 'flip', enabled: false }] },
+            listbox: isSmAndUp ? undefined : { style: { maxHeight: '30vh' } },
+          }}
+          renderInput={(params) => (
+            <TextField
+              placeholder='County, state, or territory...'
+              /* eslint-disable-next-line */
+              autoFocus
+              margin='dense'
+              variant='outlined'
+              {...params}
+              slotProps={{
+                ...params.slotProps,
+                input: {
+                  ...params.slotProps?.input,
+                  sx: {
+                    '& .MuiAutocomplete-endAdornment': {
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      position: 'absolute',
+                      right: '9px',
+                    },
                   },
                 },
-              },
-            }}
-          />
-        )}
-        onChange={(_e, fips) => {
-          props.onOptionUpdate(fips.code)
-          props.popover.close()
-        }}
-      />
+              }}
+            />
+          )}
+          onChange={(_e, fips) => {
+            props.onOptionUpdate(fips.code)
+            props.popover.close()
+          }}
+        />
+      </ListboxSyncContext.Provider>
       {visibleRecent.length > 0 && (
         <div className='mt-3 border-divider-gray border-t pt-3'>
           <div className='mb-1 flex items-center justify-between'>
