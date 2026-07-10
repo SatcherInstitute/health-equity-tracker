@@ -134,6 +134,30 @@ test('arrow keys plus Enter navigate to the highlighted option', async ({
   await expect(page).toHaveURL(/3\.04/, { timeout: 8000 })
 })
 
+test('virtualized options keep MUI option styling', async ({ page }) => {
+  const input = await openLocationSearch(page)
+  await input.press('ArrowDown')
+  await expect(page.getByRole('listbox')).toBeVisible()
+  // The custom listbox slot replaces MUI's default listbox, which is where
+  // MUI defines option styles; the muiTheme paper override must restore them.
+  const styles = await page
+    .getByRole('option')
+    .first()
+    .evaluate((el) => {
+      const cs = getComputedStyle(el)
+      return {
+        display: cs.display,
+        alignItems: cs.alignItems,
+        paddingLeft: cs.paddingLeft,
+      }
+    })
+  expect(styles).toEqual({
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: '24px',
+  })
+})
+
 test('options list stays below the input in short viewports', async ({
   page,
 }) => {
