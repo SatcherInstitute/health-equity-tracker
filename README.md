@@ -150,6 +150,16 @@ Note: If you are using VSCode or one of its forks, ensure you install the recomm
   - `npm run e2e hiv` runs all tests that include the string `hiv` in the filename
 - To run the tests locally, but target either the production or dev-site deployments instead of localhost: `npm run e2e-prod` and `npm run e2e-dev` respectively. Target specific test files the same way described above.
 
+## How We Track Work
+
+We use GitHub's built-in tools as a progression from idea to prioritized work:
+
+- **[Discussions](https://github.com/SatcherInstitute/health-equity-tracker/discussions)** — unformed ideas. Use these to propose a feature, debate whether we should do it, and refine what it would actually look like.
+- **[Issues](https://github.com/SatcherInstitute/health-equity-tracker/issues)** — concrete pieces of work. By the time something is an issue, the problem (or feature) and the intended solution are basically known; only the timeline is open.
+- **[Milestones](https://github.com/SatcherInstitute/health-equity-tracker/milestones)** — groups of related issues that form a major, prioritized team push.
+
+New ideas start as discussions and get promoted to issues once refined; don't skip stages. If you're unsure where your idea fits, open a discussion.
+
 ## Making a Pull Request (PR)
 
 1. Ensure you assign yourself to the [issue(s)](https://github.com/SatcherInstitute/health-equity-tracker/issues?q=is%3Aissue+is%3Aopen) that this PR will address. Create one if it doesn't exist, assigning the correct Milestones if needed.

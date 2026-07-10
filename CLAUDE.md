@@ -68,6 +68,16 @@ See `README.md` for full fork setup steps including how to add your fork as a re
 
 **PR title convention:** Never put an issue number in the PR title (no `(#1234)` suffix). It is visually indistinguishable from a PR number at a glance. Use `Closes #NNNN` in the PR body instead.
 
+## Work Tracking
+
+Ideas progress through GitHub tools in stages — don't skip them:
+
+- **Discussions** — unformed ideas; debate whether to build it and refine what it looks like
+- **Issues** — concrete work; problem and intended solution are known, timeline is open
+- **Milestones** — related issues grouped into a major prioritized push
+
+Promote a discussion to issue(s) only once the solution is refined; create a milestone only when a group of issues becomes the team's next big push.
+
 ## Commands
 
 Frontend commands run from `frontend/` — see `frontend/CLAUDE.md`.
