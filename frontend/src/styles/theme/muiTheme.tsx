@@ -66,6 +66,49 @@ const muiTheme = extendTheme({
         endAdornment: {
           top: 'inherit',
         },
+        // MUI defines option styles on its default listbox slot, which the
+        // virtualized listbox in VirtualizedListbox.tsx replaces. Re-declare
+        // them (copied from MUI's AutocompleteListbox/GroupUl) on the paper
+        // slot, which still renders, so option rows keep MUI's look.
+        paper: ({ theme }) => ({
+          '& .MuiAutocomplete-option': {
+            display: 'flex',
+            overflow: 'hidden',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            cursor: 'pointer',
+            boxSizing: 'border-box',
+            outline: '0',
+            WebkitTapHighlightColor: 'transparent',
+            padding: '6px 16px 6px 24px',
+            '&.Mui-focused': {
+              backgroundColor: (theme.vars || theme).palette.action.hover,
+              '@media (hover: none)': {
+                backgroundColor: 'transparent',
+              },
+            },
+            '&.Mui-focusVisible': {
+              backgroundColor: (theme.vars || theme).palette.action.focus,
+            },
+            '&[aria-selected="true"]': {
+              backgroundColor: theme.alpha(
+                (theme.vars || theme).palette.primary.main,
+                theme.palette.action.selectedOpacity,
+              ),
+              '&.Mui-focused': {
+                backgroundColor: theme.alpha(
+                  (theme.vars || theme).palette.primary.main,
+                  theme.palette.action.selectedOpacity +
+                    theme.palette.action.hoverOpacity,
+                ),
+                '@media (hover: none)': {
+                  backgroundColor: (theme.vars || theme).palette.action
+                    .selected,
+                },
+              },
+            },
+          },
+        }),
       },
     },
     MuiButton: {
