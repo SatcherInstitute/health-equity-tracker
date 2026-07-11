@@ -167,16 +167,21 @@ If there are no unresolved reviews or comments, note that and continue.
 
 ## Step 4 — Assess doc freshness
 
-Read the current `frontend/CLAUDE.md` and (if relevant) the root `CLAUDE.md` and `README.md`.
+Identify which docs cover the code this PR touches: the service-level `CLAUDE.md` nearest the changed files (`frontend/CLAUDE.md`, `server/CLAUDE.md`, `python/CLAUDE.md`, `exporter/CLAUDE.md`), plus the root `CLAUDE.md` and `README.md`. Read the relevant ones in full.
 
-Compare against the changes in this PR:
+Compare against the full PR diff:
 
 ```bash
 git diff origin/main --name-only
-git diff origin/main -- frontend/CLAUDE.md frontend/src/utils/sharedSettingsState.ts frontend/src/pages/ExploreData/ExploreDataPage.tsx
+git diff origin/main
 ```
 
-Ask: do any of the MadLib navigation invariants, URL param table, or architecture sections need updating to reflect what this PR changed? Only update if something is genuinely stale or missing — do not add commentary about the PR itself (those belong in the PR description, not the docs).
+Ask two questions, and treat both as first-class:
+
+1. **Staleness:** does anything this PR changed contradict something the docs already say? Any section counts: commands, key file tables, architecture descriptions, invariants, conventions, workflows, environment setup. If the docs describe behavior or structure this PR altered, update them.
+2. **Missing coverage:** does this PR introduce something a new contributor (human or LLM) would need for onboarding that is as important as what the docs already cover? New patterns, new invariants, new commands or scripts, new key files worth adding to the tables. If yes, add it, matching the style and brevity of the surrounding doc.
+
+Only write durable invariants, never ephemeral task details, and no commentary about the PR itself (that belongs in the PR description, not the docs).
 
 If updates are needed: edit the relevant docs, then commit:
 
