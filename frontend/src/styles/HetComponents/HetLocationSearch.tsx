@@ -62,7 +62,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
   const [listboxSync] = useState(createListboxSyncStore)
 
   return (
-    <div className='min-w-72 p-5'>
+    <div className='w-[min(90vw,26rem)] p-5'>
       <h3 className='my-1 font-semibold text-small md:text-title'>
         Search for location
       </h3>
