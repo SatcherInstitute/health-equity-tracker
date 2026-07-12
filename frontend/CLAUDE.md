@@ -39,7 +39,7 @@ URL params (mls, dt1, demo, etc.)
     → MetricQuery (src/data/query/MetricQuery.ts)
       → DataManager (src/data/loading/DataManager.ts) — LRU cache
         → VariableProvider (per-topic, src/data/providers/)
-          → JSON fetch from data_server
+          → JSON fetch from server (Go server GCS proxy)
             → MetricQueryResponse → Cards render charts
 ```
 

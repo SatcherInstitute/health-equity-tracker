@@ -7,7 +7,7 @@ Shared modules for data ingestion, transformation, and loading to BigQuery.
 ```bash
 # From repo root with venv active
 source .venv/bin/activate
-pip install python/data_server/ python/datasources/ python/ingestion/ && pytest python/tests/
+pip install python/datasources/ python/ingestion/ && pytest python/tests/
 
 # Single datasource test
 pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.py -s

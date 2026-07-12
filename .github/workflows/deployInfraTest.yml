@@ -7,8 +7,6 @@ on:
       # Run only if data pipeline services or the frontend/ changes
       - 'config/**'
       - 'data/**'
-      - 'data_server/**'
-      - 'frontend_server/**'
       - 'server/**'
       - 'server_smoke_tests/**'
       - 'exporter/**'

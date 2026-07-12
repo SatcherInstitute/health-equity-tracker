@@ -269,11 +269,6 @@ The frontend consists of
 1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, TS, CSS, images). Built with [Vite 8](https://vite.dev/) (Rolldown-powered) and tested with [Vitest 4](https://vitest.dev/).
 2. `health-equity-tracker/server/`: A combined Go server that is the live serving path for both dev and prod. It serves the React app's static files and responds to data requests with files exported from the data pipeline, in a single binary.
 
-Two original services are now deprecated and pending removal (see #4902); do not build new functionality on them:
-
-- `health-equity-tracker/frontend_server/`: (legacy) A lightweight Node server that served the React app as static files and forwarded data requests to the data server.
-- `health-equity-tracker/data_server/`: (legacy) A server that responded to data requests by serving data files exported from the data pipeline.
-
 ### Frontend Design System & Theme Architecture
 
 Design tokens are defined once in [W3C DTCG](https://design-tokens.github.io/community-group/format/) JSON and generated into all downstream consumers by [Terrazzo](https://terrazzo.app/). This keeps Tailwind v4, MUI v9, and D3.js in sync from a single source of truth with full IntelliSense and no style drift.
@@ -425,7 +420,7 @@ To install, ensure your venv is activated, and run: `pip install pytest`
 To run pytest against your entire, updated backend code:
 
 ```bash
-pip install python/data_server/ python/datasources/ python/ingestion/ && pytest python/tests/
+pip install python/datasources/ python/ingestion/ && pytest python/tests/
 ```
 
 To run single test file follow this pattern (the `-s` flag enables `print()` statements to log even on passing tests):
@@ -445,45 +440,6 @@ Much of the guidance in this readme is aimed towards ongoing development of the 
 The following section is not required for regular maintenance of the Health Equity Tracker, but can be extremely helpful for local development and cloud deployment of similar, forked projects.
 
 <details><summary>Expand advanced configuration details</summary>
-
-## Advanced Frontend Configuration
-
-### Running the Frontend Server locally
-
-#### If you need to run the frontend server locally to test server-side changes
-
-Copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
-
-To run the frontend server locally, navigate to the `frontend_server/` directory and run:
-
-```bash
-node -r dotenv/config server.js dotenv_config_path=.env.development
-```
-
-This will start the server at `http://localhost:8080`. However, since it mostly serves static files from the `build/` directory, you will either need to
-
-1. run the frontend server separately and set the `VITE_BASE_API_URL` url to `http://localhost:8080` (see above), or
-2. go to the `frontend/` directory and run `npm run build:development`. Then copy the `frontend/build/` directory to `frontend_server/build/`
-
-Similarly to the frontend React app, the frontend server can be configured for local development by changing environment variables in `frontend_server/.env.development`. Copy `frontend_server/.env.example` to get started.
-
-#### Running the Frontend Server with Docker locally
-
-If you need to test Dockerfile changes or run the frontend in a way that more closely mirrors the production environment, you can run it using Docker. This will build both the frontend React app and the frontend server.
-
-Run the following commands from the root project directory:
-
-1. Build the frontend Docker image:
-   `docker build -t <some-identifying-tag> -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"`
-2. Run the frontend Docker image:
-   `docker run -p 49160:8080 -d <some-identifying-tag>`
-3. Navigate to `http://localhost:49160`.
-
-When building with Docker, changes will not automatically be applied; you will need to rebuild the Docker image.
-
-#### Running the Frontend Server in your own GCP project
-
-Refer to [Deploying your own instance with terraform](#deploying-your-own-instance-with-terraform) for instructions on deploying the frontend server to your own GCP project.
 
 ## Advanced Backend Configuration
 

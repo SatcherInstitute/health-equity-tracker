@@ -103,23 +103,6 @@ variable "gcs_to_bq_runner_role_id" {
   type        = string
 }
 
-# TEMPORARY (prod cutover): legacy Data Server Cloud Run Service vars — remove with the
-# legacy services once the prod domain mapping points at server-service.
-variable "data_server_service_name" {
-  description = "Name of the Cloud Run service for serving data to client frontends"
-  type        = string
-}
-
-variable "data_server_image_name" {
-  description = "Name of container image for the Cloud Run data server service"
-  type        = string
-}
-
-variable "data_server_image_digest" {
-  description = "Digest of container image for the Cloud Run data server service"
-  type        = string
-}
-
 # Data Server Service Account Vars (SA reused by the Go server)
 variable "data_server_runner_identity_id" {
   description = "Account id of the service account used when running the data server service"
@@ -157,31 +140,9 @@ variable "exporter_runner_role_id" {
   type        = string
 }
 
-# TEMPORARY (prod cutover): legacy Frontend Cloud Run Service vars — remove with the
-# legacy services once the prod domain mapping points at server-service.
+# The Cloud Run service name is pinned to "frontend-service" by the domain mapping.
 variable "frontend_service_name" {
-  description = "Name of the Cloud Run service that serves the frontend"
-  type        = string
-}
-
-variable "frontend_image_name" {
-  description = "Name of container image for the Cloud Run frontend service"
-  type        = string
-}
-
-variable "frontend_image_digest" {
-  description = "Digest of container image for the Cloud Run frontend service"
-  type        = string
-}
-
-variable "frontend_runner_identity_id" {
-  description = "Account id of the service account used when running the frontend service"
-  type        = string
-}
-
-# Combined Go Server Cloud Run Service Vars
-variable "server_service_name" {
-  description = "Name of the Cloud Run service that serves the frontend and data APIs"
+  description = "Name of the Cloud Run service that serves the frontend and all APIs (pinned by domain mapping)"
   type        = string
 }
 

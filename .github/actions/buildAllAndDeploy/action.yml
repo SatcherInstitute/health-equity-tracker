@@ -81,26 +81,6 @@ runs:
         image-path: "gcr.io/${{ inputs.project-id }}/server"
         deploy-context: ${{ inputs.environment }}
 
-    # TEMPORARY (prod cutover): build legacy data server image so the legacy
-    # data_server_service stays deployable until the prod domain mapping is
-    # repointed at server-service. Remove with the legacy services.
-    - name: Build and Push Data Server Image
-      id: serving
-      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
-      with:
-        dockerfile: "data_server/Dockerfile"
-        image-path: "gcr.io/${{ inputs.project-id }}/data-server"
-        deploy-context: ${{ inputs.environment }}
-
-    # TEMPORARY (prod cutover): build legacy frontend image (see above).
-    - name: Build and Push Frontend Image
-      id: frontend
-      uses: SatcherInstitute/health-equity-tracker/.github/actions/buildAndPush@main
-      with:
-        dockerfile: "frontend_server/Dockerfile"
-        image-path: "gcr.io/${{ inputs.project-id }}/frontend"
-        deploy-context: ${{ inputs.environment }}
-
     # Terraform and deployment
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
@@ -134,8 +114,6 @@ runs:
           -var 'ingestion_image_digest=${{ steps.ingestion.outputs.image-digest }}' \
           -var 'gcs_to_bq_image_digest=${{ steps.gcstobq.outputs.image-digest }}' \
           -var 'server_image_digest=${{ steps.server.outputs.image-digest }}' \
-          -var 'data_server_image_digest=${{ steps.serving.outputs.image-digest }}' \
-          -var 'frontend_image_digest=${{ steps.frontend.outputs.image-digest }}' \
           -var 'exporter_image_digest=${{ steps.exporter.outputs.image-digest }}'
 
         ingestion_url=$(terraform output ingestion_url)

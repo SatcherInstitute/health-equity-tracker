@@ -8,26 +8,17 @@ The [Health Equity Tracker](https://healthequitytracker.org/) aggregates demogra
 
 > **Service-specific guidance:** See each service's own `CLAUDE.md` for details.
 > `frontend/` · `server/` · `exporter/` · `python/`
-> (Legacy `frontend_server/` and `data_server/` are deprecated and slated for removal; see #4902.)
 
 ## Architecture
 
 ### Serving Architecture
 
-Since the 2026-07 production cutover (#4901), a single combined Go server is the live serving path for both dev and prod, handling the frontend and all data APIs:
+A single combined Go server handles both the React frontend and all data APIs:
 
 ```plaintext
 frontend/  React app (TypeScript, Vite, MUI, Tailwind, D3, Jotai)
-server/    Combined Go server: the live serving path for dev and prod. One
-           ~15 MB binary (static files + GCS data + Anthropic + Webflow) that
-           replaces frontend_server and data_server.
-```
-
-The two original services are deprecated and pending removal (#4902); do not build new functionality on them:
-
-```plaintext
-frontend_server/  (legacy) Node server that served React static files and proxied data requests
-data_server/      (legacy) Python Flask server that served JSON/CSV files exported from BigQuery
+server/    Combined Go server: serves the frontend and all data/AI/news APIs.
+           One ~15 MB binary (static files + GCS data + Anthropic + Webflow).
 ```
 
 ### Backend Data Pipeline
@@ -95,7 +86,7 @@ Python tests run from the repo root with the venv activated:
 
 ```bash
 source .venv/bin/activate
-pip install python/data_server/ python/datasources/ python/ingestion/ && pytest python/tests/
+pip install python/datasources/ python/ingestion/ && pytest python/tests/
 pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.py -s
 ```
 

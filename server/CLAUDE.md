@@ -1,7 +1,6 @@
 # Server
 
-Combined Go HTTP server that replaces both `frontend_server/` (Node/Express) and `data_server/`
-(Go, standalone). A single binary and a single Docker image (~15 MB) serves:
+Combined Go HTTP server. A single binary and a single Docker image (~15 MB) serves:
 
 - React static files with correct Cache-Control headers and SPA fallback
 - GCS dataset and metadata endpoints
