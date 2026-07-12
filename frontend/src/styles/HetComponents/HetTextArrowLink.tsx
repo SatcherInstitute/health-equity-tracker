@@ -21,7 +21,7 @@ const HetTextArrowLink: React.FC<HetTextArrowLinkProps> = ({
     >
       <a
         href={link}
-        className={`m-0 xs:m-auto xs:mb-4 flex h-auto items-center justify-start p-0 no-underline sm:m-auto md:m-0 lg:m-0 xl:m-0 ${linkClassName}`}
+        className={`m-0 xs:m-auto flex h-auto items-center justify-start p-0 no-underline sm:m-auto md:m-0 lg:m-0 xl:m-0 ${linkClassName}`}
       >
         <HetTextArrow linkText={linkText} textClassName={textClassName} />
       </a>
