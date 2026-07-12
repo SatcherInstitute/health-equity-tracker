@@ -35,7 +35,7 @@ const Banner: React.FC = () => {
 
   return (
     <section
-      className='bg-infobar-color p-4 text-center'
+      className='bg-infobar-color px-4 py-2 text-center md:p-4'
       aria-labelledby='banner-heading'
     >
       <div className='flex justify-between'>
@@ -53,7 +53,7 @@ const Banner: React.FC = () => {
           <HetTextArrowLink
             link={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
             linkText='Learn more about the data limitations'
-            containerClassName='block md:mx-2 md:my-0 mx-0 my-4'
+            containerClassName='block md:mx-2 md:my-0 mx-0 my-1'
             linkClassName='text-alt-black'
           />
         </div>
