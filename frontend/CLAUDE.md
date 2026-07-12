@@ -125,6 +125,16 @@ CSS vars are a Tailwind implementation detail — `@theme` registers tokens so u
 **TypeScript conventions:**
 
 - No JSDoc (`/** */`) — types already document the interface; plain `//` comments are fine when the why is non-obvious
+- **JSX quote rules:** Typographic apostrophes (’ U+2019) are fine in JSX *text content* (e.g. `We’re`). They break Biome only as *attribute string delimiters* — `className='...'` with curly quotes causes a parse error. AI editing tools can silently introduce curly-quote delimiters. Symptom: pre-commit Biome fails with `Unexpected token` on a `className=` line. Fix (only replaces curly-quote delimiter *pairs* after `=`, leaves text apostrophes intact):
+  ```bash
+  python3 -c '
+  import re, sys
+  f = sys.argv[1]
+  b = open(f, "rb").read()
+  b = re.sub(b"=\\xe2\\x80\\x98(.*?)\\xe2\\x80\\x99", lambda m: b"='" + m.group(1) + b"'", b, flags=re.DOTALL)
+  open(f, "wb").write(b)
+  ' -- <file>
+  ```
 
 ## Environment Variables
 
