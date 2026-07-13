@@ -1,13 +1,14 @@
 import { Tooltip } from '@mui/material'
+import { colors } from '../../styles/tokens/colors'
 import {
   EmailIcon,
-  EmailShareButton,
+  emailShareUrl,
   FacebookIcon,
-  FacebookShareButton,
+  facebookShareUrl,
   LinkedinIcon,
-  LinkedinShareButton,
-} from 'react-share'
-import { colors } from '../../styles/tokens/colors'
+  linkedinShareUrl,
+  openShareWindow,
+} from '../../utils/socialShare'
 
 export const SHARE_LABEL = 'Share this report:'
 
@@ -23,11 +24,16 @@ export default function ShareButtons(props: ShareButtonProps) {
     title += ': ' + props.reportTitle
   }
 
-  const shareIconAttributes = {
-    iconFillColor: colors.altDark,
-    bgStyle: { fill: 'none' },
-    size: props.isMobile ? 64 : 32,
-  }
+  const iconSize = props.isMobile ? 64 : 32
+  const iconFillColor = colors.altDark
+
+  const fbHref = facebookShareUrl(sharedUrl)
+  const liHref = linkedinShareUrl(sharedUrl)
+  const emailHref = emailShareUrl(
+    sharedUrl,
+    'Sharing from healthequitytracker.org',
+    `${title}\n\n`, // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
+  )
 
   return (
     <div
@@ -36,39 +42,40 @@ export default function ShareButtons(props: ShareButtonProps) {
       }`}
     >
       <div>
-        {/* SOCIAL SHARE BUTTONS */}
-
         <Tooltip title='Post this page to Facebook'>
-          <FacebookShareButton
-            url={sharedUrl}
-            hashtag={'#healthequity'}
-            aria-label={'Post this page to Facebook'}
+          <a
+            href={fbHref}
+            target='_blank'
+            rel='noopener noreferrer'
+            aria-label='Post this page to Facebook'
+            onClick={(e) => {
+              e.preventDefault()
+              openShareWindow(fbHref)
+            }}
           >
-            <FacebookIcon {...shareIconAttributes} />
-          </FacebookShareButton>
+            <FacebookIcon size={iconSize} iconFillColor={iconFillColor} />
+          </a>
         </Tooltip>
 
         <Tooltip title='Post this page to LinkedIn'>
-          <LinkedinShareButton
-            source={'Health Equity Tracker'}
-            url={sharedUrl}
-            aria-label={'Share to LinkedIn'}
+          <a
+            href={liHref}
+            target='_blank'
+            rel='noopener noreferrer'
+            aria-label='Share to LinkedIn'
+            onClick={(e) => {
+              e.preventDefault()
+              openShareWindow(liHref)
+            }}
           >
-            <LinkedinIcon {...shareIconAttributes} />
-          </LinkedinShareButton>
+            <LinkedinIcon size={iconSize} iconFillColor={iconFillColor} />
+          </a>
         </Tooltip>
 
         <Tooltip title='Share this page by email'>
-          <EmailShareButton
-            aria-label={'Share by email'}
-            subject={`Sharing from healthequitytracker.org`}
-            body={`${title}
-
-`} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
-            url={sharedUrl}
-          >
-            <EmailIcon {...shareIconAttributes} />
-          </EmailShareButton>
+          <a href={emailHref} aria-label='Share by email'>
+            <EmailIcon size={iconSize} iconFillColor={iconFillColor} />
+          </a>
         </Tooltip>
       </div>
     </div>

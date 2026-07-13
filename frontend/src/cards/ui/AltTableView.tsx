@@ -1,4 +1,3 @@
-import AnimateHeight from 'react-animate-height'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import {
   formatFieldValue,
@@ -101,10 +100,7 @@ export default function AltTableView(props: AltTableViewProps) {
   )
 
   return (
-    <AnimateHeight
-      duration={500}
-      height={props.expanded ? 'auto' : 47}
-      onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
+    <div
       className='hide-on-screenshot mx-2 mt-4 rounded-md bg-standard-info text-left'
       id={uniqueId}
     >
@@ -114,9 +110,11 @@ export default function AltTableView(props: AltTableViewProps) {
         expandBoxLabel={props.expandBoxLabel}
       />
 
-      {/* Don't render collapsed info, so keyboard nav will skip */}
-      {props.expanded && (
-        <>
+      <div
+        className={`grid transition-[grid-template-rows] duration-500 ${props.expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+        onTransitionEnd={() => window.dispatchEvent(new Event('resize'))}
+      >
+        <div className='min-h-0 overflow-hidden' inert={!props.expanded}>
           <p className='m-0 p-4'>
             Add or remove columns by toggling demographic groups above the
             chart.
@@ -133,8 +131,8 @@ export default function AltTableView(props: AltTableViewProps) {
             View and download full .csv files on the{' '}
             <a href={DATA_CATALOG_PAGE_LINK}>Downloads page.</a>
           </p>
-        </>
-      )}
-    </AnimateHeight>
+        </div>
+      </div>
+    </div>
   )
 }
