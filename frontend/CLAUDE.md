@@ -20,6 +20,19 @@ npm run e2e statins.nightly.spec.ts
 npm run e2e hiv          # Matches any filename containing "hiv"
 ```
 
+**Important: Package Dependency Workflow**
+
+Any time you modify `package.json` (add, remove, or update packages), you must run `npm install` afterward and **commit the resulting lock file changes**. The lock file must always be in sync with package.json, or CI's `npm ci` step will fail with "package-lock.json or npm-shrinkwrap.json are not in sync."
+
+```bash
+# After modifying package.json
+npm install               # Resolves full dependency tree and updates package-lock.json
+git add frontend/package-lock.json
+git commit -m "chore(deps): update lock file"
+```
+
+If you forget and push without updating the lock file, the CI will fail. If that happens, pull the latest, run `npm install`, and commit the lock file fix.
+
 > **CI note:** In CI, e2e tests run against `vite preview` serving the locally-built `dist/`
 > (not a Netlify preview URL). `VITE_BASE_API_URL` still points to the live dev GCP backend.
 >
