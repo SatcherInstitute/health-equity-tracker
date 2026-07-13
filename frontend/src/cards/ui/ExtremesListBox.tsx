@@ -68,7 +68,10 @@ export function ExtremesListBox(props: ExtremesListBoxProps) {
 
       <div
         className={`grid transition-[grid-template-rows] duration-500 ${props.isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
-        onTransitionEnd={() => window.dispatchEvent(new Event('resize'))}
+        onTransitionEnd={(e) => {
+          if (e.target === e.currentTarget)
+            window.dispatchEvent(new Event('resize'))
+        }}
       >
         <div className='min-h-0 overflow-hidden' inert={!props.isOpen}>
           <div className='mx-4 my-0'>

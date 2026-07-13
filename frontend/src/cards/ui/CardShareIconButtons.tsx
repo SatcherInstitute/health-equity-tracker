@@ -16,8 +16,6 @@ import {
 
 const shareIconAttributes = {
   iconFillColor: colors.hexShareIconGray,
-  bgStyle: { fill: 'none' },
-  size: 39,
 }
 
 interface CardShareIconButtonsProps {
@@ -86,6 +84,7 @@ export default function CardShareIconButtons(props: CardShareIconButtonsProps) {
             aria-label={ariaLabel}
             target={openInWindow ? '_blank' : undefined}
             rel={openInWindow ? 'noopener noreferrer' : undefined}
+            className='text-inherit no-underline'
             onClick={
               openInWindow
                 ? (e) => {

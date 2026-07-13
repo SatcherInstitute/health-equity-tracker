@@ -112,7 +112,10 @@ export default function AltTableView(props: AltTableViewProps) {
 
       <div
         className={`grid transition-[grid-template-rows] duration-500 ${props.expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
-        onTransitionEnd={() => window.dispatchEvent(new Event('resize'))}
+        onTransitionEnd={(e) => {
+          if (e.target === e.currentTarget)
+            window.dispatchEvent(new Event('resize'))
+        }}
       >
         <div className='min-h-0 overflow-hidden' inert={!props.expanded}>
           <p className='m-0 p-4'>
