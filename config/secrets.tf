@@ -23,7 +23,7 @@
 #
 # Secrets and their consumers:
 #   ahr-api-key        -> gcs_to_bq runner  (America's Health Rankings ingestion)
-#   anthropic-api-key  -> frontend runner   (AI insight generation)
-#   webflow-api-token  -> frontend runner   (CMS blog read access)
+#   anthropic-api-key  -> data-server-runner SA / Go server  (AI insight generation)
+#   webflow-api-token  -> data-server-runner SA / Go server  (CMS blog read access)
 
 /* [END] Secret Manager Setup */
