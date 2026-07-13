@@ -1,35 +1,5 @@
-import { type ReactNode, useEffect, useRef, useState } from 'react'
-
-function useInView({
-  triggerOnce,
-  rootMargin,
-  threshold,
-}: {
-  triggerOnce: boolean
-  rootMargin: string
-  threshold: number
-}) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [inView, setInView] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true)
-          if (triggerOnce) observer.disconnect()
-        }
-      },
-      { rootMargin, threshold },
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [rootMargin, threshold, triggerOnce])
-
-  return { ref, inView }
-}
+import type { ReactNode } from 'react'
+import { useInView } from '../../utils/hooks/useInView'
 
 interface HetLazyLoaderProps {
   children: ReactNode

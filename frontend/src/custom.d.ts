@@ -1,5 +1,5 @@
 declare module 'dom-to-image-more'
 declare module '@fontsource-variable/dm-sans'
 declare module '@fontsource-variable/inter'
-declare module '@fontsource/roboto'
-declare module '@fontsource/roboto-condensed'
+declare module '@fontsource/roboto/*'
+declare module '@fontsource/roboto-condensed/*'
