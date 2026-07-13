@@ -1,5 +1,4 @@
 import { Step, StepButton, Stepper } from '@mui/material'
-import { scrollIntoView } from 'seamless-scroll-polyfill'
 import { reportProviderSteps } from '../../reports/ReportProviderSteps'
 import {
   type ScrollableHashId,
@@ -21,7 +20,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
     const clickedElem: HTMLElement | null = document.querySelector(`#${stepId}`)
 
     if (clickedElem) {
-      scrollIntoView(clickedElem, { behavior: 'smooth' })
+      clickedElem.scrollIntoView({ behavior: 'smooth' })
       // for a11y focus should shift to subsequent tab goes to next interactive element after the targeted card
       clickedElem.focus({ preventScroll: true })
       // manually set the browser url#hash for actual clicks

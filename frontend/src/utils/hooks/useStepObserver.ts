@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
-import { scrollIntoView } from 'seamless-scroll-polyfill'
 
 export type ScrollableHashId =
   | 'rate-map'
@@ -112,7 +111,7 @@ export function useStepObserver(
         if (urlHashOverrideRef.current === hashId) {
           const targetElem = document.querySelector(`#${hashId as string}`)
           if (targetElem) {
-            scrollIntoView(targetElem, {
+            targetElem.scrollIntoView({
               behavior: 'smooth',
             })
           }
