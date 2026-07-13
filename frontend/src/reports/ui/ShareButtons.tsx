@@ -32,7 +32,7 @@ export default function ShareButtons(props: ShareButtonProps) {
   const emailHref = emailShareUrl(
     sharedUrl,
     'Sharing from healthequitytracker.org',
-    `${title}\n\n`, // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
+    `${title}\n\n`,
   )
 
   return (

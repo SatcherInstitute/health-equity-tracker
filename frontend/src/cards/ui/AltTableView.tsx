@@ -111,7 +111,7 @@ export default function AltTableView(props: AltTableViewProps) {
       />
 
       <div
-        className={`grid transition-[grid-template-rows] duration-500 ${props.expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+        className={`grid motion-safe:transition-[grid-template-rows] motion-safe:duration-500 ${props.expanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
         onTransitionEnd={(e) => {
           if (e.target === e.currentTarget)
             window.dispatchEvent(new Event('resize'))

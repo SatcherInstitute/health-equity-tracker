@@ -12,6 +12,7 @@ import {
   LinkedinIcon,
   linkedinShareUrl,
   openShareWindow,
+  type ShareIconProps,
 } from '../../utils/socialShare'
 
 const shareIconAttributes = {
@@ -25,7 +26,7 @@ interface CardShareIconButtonsProps {
 }
 
 interface ShareConfig {
-  Icon: ComponentType<any>
+  Icon: ComponentType<ShareIconProps>
   label: string
   href: string
   ariaLabel: string
@@ -34,7 +35,7 @@ interface ShareConfig {
 
 export default function CardShareIconButtons(props: CardShareIconButtonsProps) {
   const title = `Health Equity Tracker - ${props.reportTitle}`
-  const emailBody = `${title}${'\n'}${'\n'}`
+  const emailBody = `${title}\n\n`
 
   const { cardUrlWithHash, handleClose } = useCardImage(
     props.popover,

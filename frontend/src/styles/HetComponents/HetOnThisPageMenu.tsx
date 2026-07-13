@@ -38,6 +38,10 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
   const [activeLink, setActiveLink] = useState<string | null>(null)
   const scrollToAnchor = useScrollToAnchor()
 
+  // TODO: Re-implement passive scroll-spy. activeLink currently only updates on explicit click;
+  // the prior scroll-end event listener was removed as dead code, but the use case (highlight
+  // current section during scroll) remains valid and should be restored via IntersectionObserver.
+
   useEffect(() => {
     const storedActiveLink = sessionStorage.getItem('activeLink')
     if (storedActiveLink) {
