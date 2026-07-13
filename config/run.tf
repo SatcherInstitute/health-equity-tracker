@@ -95,10 +95,14 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
 
 # Serves healthequitytracker.org. The Cloud Run service name is pinned to
 # "frontend-service" by the manually-managed domain mapping (see the domain
-# mapping note below). Terraform resource label stays frontend_service to avoid
-# a state conflict during this cleanup; rename to server_service follows in #4945
-# once "server-service" is gone from state.
-resource "google_cloud_run_service" "frontend_service" {
+# mapping note below). Terraform resource label is server_service; the Cloud
+# Run name must stay "frontend-service" or the domain mapping breaks.
+moved {
+  from = google_cloud_run_service.frontend_service
+  to   = google_cloud_run_service.server_service
+}
+
+resource "google_cloud_run_service" "server_service" {
   name     = var.frontend_service_name
   location = var.compute_region
   project  = var.project_id
@@ -227,7 +231,7 @@ resource "google_cloud_run_service" "exporter_service" {
 
 # Output the URL of the server for use in e2e tests and the buildAllAndDeploy action.
 output "frontend_url" {
-  value = google_cloud_run_service.frontend_service.status.0.url
+  value = google_cloud_run_service.server_service.status.0.url
 }
 
 # Output the URLs of the pipeline services (previously used for DAGs)
