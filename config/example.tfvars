@@ -35,8 +35,8 @@ exporter_runner_identity_id = "exporter-runner"
 exporter_runner_role_id     = "exporter_runner_role"
 
 # Combined Go server Cloud Run vars
-server_image_name   = "server"
-metadata_filename   = "all_metadata.ndjson"
+server_image_name = "server"
+metadata_filename = "all_metadata.ndjson"
 
 # Custom IAM role granting read/write on the AI insights cache bucket (bound to the data server SA).
 insights_cache_writer_role_id = "insights_cache_writer_role"
