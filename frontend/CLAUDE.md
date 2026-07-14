@@ -35,7 +35,6 @@ If you forget and push without updating the lock file, the CI will fail. If that
 
 **You must use npm >= 11.16.0 (matching CI).** Older npm writes lock files that omit hoisted transitive entries (e.g. `@emnapi/core`), which newer npm's stricter `npm ci` rejects as out of sync. `frontend/.npmrc` sets `engine-strict=true` and `package.json` pins `engines.npm`, so an under-versioned npm fails fast with a bad-engine error instead of silently corrupting the lock file. Upgrade with `npm install -g npm@latest` if blocked.
 
-
 > **CI note:** In CI, e2e tests run against `vite preview` serving the locally-built `dist/`
 > (not a Netlify preview URL). `VITE_BASE_API_URL` still points to the live dev GCP backend.
 >
