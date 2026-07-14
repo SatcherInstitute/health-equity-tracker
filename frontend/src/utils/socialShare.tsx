@@ -1,4 +1,4 @@
-interface ShareIconProps {
+export interface ShareIconProps {
   size?: number
   iconFillColor?: string
   className?: string

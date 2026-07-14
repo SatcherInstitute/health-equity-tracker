@@ -108,9 +108,11 @@
 		"tsc:watch": "npx tsc --watch",
 		"url": "npx playwright install chromium && npx playwright test --project=URL"
 	},
+	"packageManager": "npm@11.16.0",
+	"packageManager": "npm@11.16.0",
 	"engines": {
 		"node": ">=24.0.0",
-		"npm": ">=10.9.0"
+		"npm": ">=11.16.0"
 	},
 	"browserslist": {
 		"production": [
