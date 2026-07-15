@@ -70,7 +70,7 @@ export function RateBarChart(props: RateBarChartProps) {
     (d) => d[props.demographicType] === 'All',
   )
   const totalExtraSpace = allIndex !== -1 ? EXTRA_SPACE_AFTER_ALL : 0
-  // floor keeps innerHeight positive for single-row charts (e.g. ALLs fallback)
+  // minimum height keeps innerHeight positive for single-row charts (e.g. ALLs fallback)
   const height = Math.max(
     processedData.length * (BAR_HEIGHT + 10) + totalExtraSpace,
     BAR_HEIGHT + MARGIN.top + MARGIN.bottom + totalExtraSpace,

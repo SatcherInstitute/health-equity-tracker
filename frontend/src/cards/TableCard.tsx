@@ -52,6 +52,8 @@ interface TableCardProps {
   isCompareCard?: boolean
 }
 
+const HASH_ID: ScrollableHashId = 'data-table'
+
 export default function TableCard(props: TableCardProps) {
   const preloadHeight = useGuessPreloadHeight(
     [700, 1500],
@@ -105,14 +107,12 @@ export default function TableCard(props: TableCardProps) {
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ 'current',
-    /* scrollToHashId */ 'data-table',
+    /* scrollToHashId */ HASH_ID,
   )
 
   const displayingCovidData = COVID_DISEASE_METRICS.includes(
     props.dataTypeConfig,
   )
-
-  const HASH_ID: ScrollableHashId = 'data-table'
 
   const subtitle = generateSubtitle(
     ALL,
@@ -145,9 +145,12 @@ export default function TableCard(props: TableCardProps) {
           normalMetricIds = metricIds.filter(
             (id) => id !== 'confined_children_estimated_total',
           )
-          data = data.filter(
-            (row: HetRow) => row[props.demographicType] !== ALL,
-          )
+          // on fallback the 'All' row is the only data, so keep it
+          if (!queryResponse.usedAllsFallback) {
+            data = data.filter(
+              (row: HetRow) => row[props.demographicType] !== ALL,
+            )
+          }
         }
 
         const tableIsShown = !queryResponse.dataIsMissing() && data.length > 0
