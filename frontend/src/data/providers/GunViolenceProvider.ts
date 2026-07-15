@@ -115,8 +115,8 @@ class GunViolenceProvider extends VariableProvider {
         df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
       } else {
         df = this.applyDemographicBreakdownFilters(df, breakdowns)
-        df = this.removeUnrequestedColumns(df, metricQuery)
       }
+      df = this.removeUnrequestedColumns(df, metricQuery)
 
       const consumedDatasetIds = [datasetId]
       return new MetricQueryResponse(
