@@ -46,6 +46,8 @@ interface RateBarChartCardProps {
   isCompareCard?: boolean
 }
 
+const HASH_ID: ScrollableHashId = 'rate-chart'
+
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
 export default function RateBarChartCard(props: RateBarChartCardProps) {
@@ -84,7 +86,7 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ 'current',
-    /* scrollToHashId */ 'rate-chart',
+    /* scrollToHashId */ HASH_ID,
   )
 
   const queries = [query]
@@ -102,8 +104,6 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
   const filename = `${chartTitle}, by ${
     DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
   }`
-
-  const HASH_ID: ScrollableHashId = 'rate-chart'
 
   const rateComparisonConfig = rateConfig?.rateComparisonMetricForAlls
 
