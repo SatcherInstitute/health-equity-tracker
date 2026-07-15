@@ -97,7 +97,12 @@ class CdcCancerProvider extends VariableProvider {
       }
 
       const consumedDatasetIds = [datasetId]
-      return new MetricQueryResponse(df, consumedDatasetIds)
+      return new MetricQueryResponse(
+        df,
+        consumedDatasetIds,
+        undefined,
+        !!isFallbackId,
+      )
     } catch (error) {
       console.error('Error fetching cancer data:', error)
       throw error

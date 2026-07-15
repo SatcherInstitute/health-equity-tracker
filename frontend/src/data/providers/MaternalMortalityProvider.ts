@@ -58,7 +58,12 @@ class MaternalMortalityProvider extends VariableProvider {
         df = this.removeUnrequestedColumns(df, metricQuery)
       }
 
-      return new MetricQueryResponse(df, consumedDatasetIds)
+      return new MetricQueryResponse(
+        df,
+        consumedDatasetIds,
+        undefined,
+        !!isFallbackId,
+      )
     } catch (error) {
       console.error('Error fetching maternal mortality data:', error)
       throw error

@@ -32,6 +32,7 @@ import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle, { getChartTitleId } from './ChartTitle'
 import UnknownPctRateGradient from './UnknownPctRateGradient'
+import AllsFallbackAlert from './ui/AllsFallbackAlert'
 import AltTableView from './ui/AltTableView'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -260,6 +261,12 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
               <>
                 {/* ensure we don't render two of these in compare mode */}
                 {!props.isCompareCard && <UnknownPctRateGradient />}
+                {queryResponseRates.usedAllsFallback && (
+                  <AllsFallbackAlert
+                    dataName={props.dataTypeConfig.fullDisplayName}
+                    demographicType={props.demographicType}
+                  />
+                )}
                 <TrendsChart
                   chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}
                   data={nestedRatesData}

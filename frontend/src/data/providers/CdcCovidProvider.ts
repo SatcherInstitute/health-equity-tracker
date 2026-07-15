@@ -133,7 +133,12 @@ class CdcCovidProvider extends VariableProvider {
       df = this.removeUnrequestedColumns(df, metricQuery)
     }
 
-    return new MetricQueryResponse(df, consumedDatasetIds)
+    return new MetricQueryResponse(
+      df,
+      consumedDatasetIds,
+      undefined,
+      !!isFallbackId,
+    )
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

@@ -79,15 +79,18 @@ export class MetricQueryResponse {
   readonly missingDataMessage: string | undefined
   readonly invalidValues: Record<string, number>
   readonly consumedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode>
+  readonly usedAllsFallback: boolean
 
   constructor(
     data: readonly HetRow[],
     consumedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode> = [],
     missingDataMessage: string | undefined = undefined,
+    usedAllsFallback = false,
   ) {
     this.data = Array.from(data)
     this.consumedDatasetIds = consumedDatasetIds
     this.invalidValues = getInvalidValues(this.data)
+    this.usedAllsFallback = usedAllsFallback
     this.missingDataMessage = missingDataMessage // possibly undefined
     if (this.missingDataMessage === undefined && this.data.length <= 0) {
       this.missingDataMessage = 'No rows returned'

@@ -231,6 +231,8 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     const resp = new MetricQueryResponse(
       queryResponses[0].data,
       uniqueConsumedDatasetIds,
+      undefined,
+      queryResponses[0].usedAllsFallback,
     )
 
     new DatasetOrganizer(resp.data, query.breakdowns).organize()

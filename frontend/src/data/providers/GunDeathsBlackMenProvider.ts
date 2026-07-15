@@ -60,7 +60,12 @@ class GunViolenceBlackMenProvider extends VariableProvider {
       }
 
       const consumedDatasetIds = [datasetId]
-      return new MetricQueryResponse(df, consumedDatasetIds)
+      return new MetricQueryResponse(
+        df,
+        consumedDatasetIds,
+        undefined,
+        !!isFallbackId,
+      )
     } catch (error) {
       console.error('Error fetching gun homicides of Black men data:', error)
       throw error

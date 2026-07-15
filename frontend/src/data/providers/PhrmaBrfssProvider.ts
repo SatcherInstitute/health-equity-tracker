@@ -106,7 +106,12 @@ class PhrmaBrfssProvider extends VariableProvider {
     }
 
     const consumedDatasetIds = [datasetId]
-    return new MetricQueryResponse(df, consumedDatasetIds)
+    return new MetricQueryResponse(
+      df,
+      consumedDatasetIds,
+      undefined,
+      !!isFallbackId,
+    )
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
