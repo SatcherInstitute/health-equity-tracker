@@ -313,6 +313,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 }
                 isMapCard={true}
                 fips={props.fips}
+                mentionAllsCards={dataIsMissing || noDemographicInfo}
               />
             )}
 

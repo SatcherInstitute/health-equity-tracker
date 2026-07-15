@@ -325,4 +325,6 @@ export function getAllDemographicOptions(
 export const CARDS_THAT_SHOULD_FALLBACK_TO_ALLS: ScrollableHashId[] = [
   'rate-map',
   'rates-over-time',
+  'rate-chart',
+  'data-table',
 ]

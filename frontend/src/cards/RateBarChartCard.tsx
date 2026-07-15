@@ -28,6 +28,7 @@ import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle, { getChartTitleId } from './ChartTitle'
 
+import AllsFallbackAlert from './ui/AllsFallbackAlert'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import LawEnforcementAlert from './ui/LawEnforcementAlert'
@@ -83,6 +84,7 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ 'current',
+    /* scrollToHashId */ 'rate-chart',
   )
 
   const queries = [query]
@@ -159,7 +161,8 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
 
         const hideChart =
           data.length === 0 ||
-          data.every((row) => row[props.demographicType] === 'All') ||
+          (!rateQueryResponseRate.usedAllsFallback &&
+            data.every((row) => row[props.demographicType] === 'All')) ||
           rateQueryResponseRate.shouldShowMissingDataMessage([
             rateConfig.metricId,
           ])
@@ -193,6 +196,12 @@ export default function RateBarChartCard(props: RateBarChartCardProps) {
                   title={chartTitle}
                   subtitle={subtitle}
                 />
+                {rateQueryResponseRate.usedAllsFallback && (
+                  <AllsFallbackAlert
+                    dataName={props.dataTypeConfig.fullDisplayName}
+                    demographicType={props.demographicType}
+                  />
+                )}
                 <RateBarChart
                   chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}
                   data={data}

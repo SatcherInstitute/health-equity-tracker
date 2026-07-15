@@ -180,6 +180,7 @@ export default function StackedSharesBarChartCard(
                     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
                   }
                   fips={props.fips}
+                  mentionAllsCards={true}
                 />
               </>
             )}

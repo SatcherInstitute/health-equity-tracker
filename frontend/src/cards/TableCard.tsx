@@ -38,6 +38,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle, { getChartTitleId } from './ChartTitle'
+import AllsFallbackAlert from './ui/AllsFallbackAlert'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -104,6 +105,7 @@ export default function TableCard(props: TableCardProps) {
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ 'current',
+    /* scrollToHashId */ 'data-table',
   )
 
   const displayingCovidData = COVID_DISEASE_METRICS.includes(
@@ -162,6 +164,12 @@ export default function TableCard(props: TableCardProps) {
 
         return (
           <>
+            {tableIsShown && queryResponse.usedAllsFallback && (
+              <AllsFallbackAlert
+                dataName={props.dataTypeConfig.fullDisplayName}
+                demographicType={props.demographicType}
+              />
+            )}
             {tableIsShown && (
               <TableChart
                 chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}
