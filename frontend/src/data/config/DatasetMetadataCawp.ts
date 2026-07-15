@@ -8,6 +8,12 @@ export type DatasetIdCawp =
   | 'cawp_data-race_and_ethnicity_state_historical'
   | 'cawp_data-race_and_ethnicity_county_historical'
   | 'cawp_data-race_and_ethnicity_state_historical_names'
+  | 'cawp_data-alls_national_current'
+  | 'cawp_data-alls_state_current'
+  | 'cawp_data-alls_county_current'
+  | 'cawp_data-alls_national_historical'
+  | 'cawp_data-alls_state_historical'
+  | 'cawp_data-alls_county_historical'
 
 export const DatasetMetadataMapCawp: Record<DatasetIdCawp, DatasetMetadata> = {
   'cawp_data-race_and_ethnicity_national_current': {
@@ -48,6 +54,38 @@ export const DatasetMetadataMapCawp: Record<DatasetIdCawp, DatasetMetadata> = {
       '1915-2025 for Congress, 1983-2025 for state/territory legislatures',
     source_id: 'cawp',
   },
+  'cawp_data-alls_national_current': {
+    name: 'Current, national representation of all women combined in the U.S. Congress and state/territory legislatures',
+    original_data_sourced: 'February 2025',
+    source_id: 'cawp',
+  },
+  'cawp_data-alls_state_current': {
+    name: 'Current representation of all women combined from each state and territory to the U.S. Congress and to their respective state/territory legislature',
+    original_data_sourced: 'February 2025',
+    source_id: 'cawp',
+  },
+  'cawp_data-alls_county_current': {
+    name: 'Current county-level representation of all women combined in U.S. Congress (House and Senate members whose districts overlap the county)',
+    original_data_sourced: 'February 2025',
+    source_id: 'cawp',
+  },
+  'cawp_data-alls_national_historical': {
+    name: 'National representation of all women combined in the U.S. Congress and state/territory legislatures, over time',
+    original_data_sourced:
+      '1915-2025 for Congress, 1983-2025 for state/territory legislatures',
+    source_id: 'cawp',
+  },
+  'cawp_data-alls_state_historical': {
+    name: 'Representation of all women combined from each state and territory to the U.S. Congress and to their respective state/territory legislature over time',
+    original_data_sourced:
+      '1915-2025 for Congress, 1983-2025 for state/territory legislatures',
+    source_id: 'cawp',
+  },
+  'cawp_data-alls_county_historical': {
+    name: 'County-level representation of all women combined in U.S. Congress over time (House and Senate members whose districts overlap the county)',
+    original_data_sourced: '1915-2025',
+    source_id: 'cawp',
+  },
 }
 
 interface DataSourceMetadataCawp
@@ -76,6 +114,12 @@ export const datasourceMetadataCawp: DataSourceMetadataCawp = {
     'cawp_data-race_and_ethnicity_state_historical',
     'cawp_data-race_and_ethnicity_county_historical',
     'cawp_data-race_and_ethnicity_state_historical_names',
+    'cawp_data-alls_national_current',
+    'cawp_data-alls_state_current',
+    'cawp_data-alls_county_current',
+    'cawp_data-alls_national_historical',
+    'cawp_data-alls_state_historical',
+    'cawp_data-alls_county_historical',
   ],
   downloadable: true,
   topic_categories: ['pdoh'],

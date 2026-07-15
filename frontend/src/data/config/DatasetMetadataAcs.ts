@@ -19,6 +19,12 @@ export type DatasetIdAcs =
   | 'acs_condition-sex_state_current'
   | 'acs_condition-sex_national_historical'
   | 'acs_condition-sex_national_current'
+  | 'acs_condition-alls_county_historical'
+  | 'acs_condition-alls_county_current'
+  | 'acs_condition-alls_state_historical'
+  | 'acs_condition-alls_state_current'
+  | 'acs_condition-alls_national_historical'
+  | 'acs_condition-alls_national_current'
   | 'acs_population-age_county_current'
   | 'acs_population-age_national_current'
   | 'acs_population-age_state_current'
@@ -227,6 +233,42 @@ export const DatasetMetadataMapAcs: Record<DatasetIdAcs, DatasetMetadata> = {
     original_data_sourced: '2022',
     source_id: 'acs',
   },
+
+  'acs_condition-alls_county_historical': {
+    name: 'Health insurance and poverty, yearly, by county',
+    original_data_sourced: '2012-2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-alls_county_current': {
+    name: 'Health insurance and poverty, yearly, by county',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-alls_state_historical': {
+    name: 'Health insurance and poverty, yearly, by state',
+    original_data_sourced: '2012-2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-alls_state_current': {
+    name: 'Health insurance and poverty, yearly, by state',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-alls_national_historical': {
+    name: 'Health insurance and poverty, yearly, at the national level',
+    original_data_sourced: '2012-2022',
+    source_id: 'acs',
+  },
+
+  'acs_condition-alls_national_current': {
+    name: 'Health insurance and poverty, yearly, at the national level',
+    original_data_sourced: '2022',
+    source_id: 'acs',
+  },
 }
 
 interface DataSourceMetadataAcs
@@ -283,6 +325,12 @@ export const datasourceMetadataAcs: DataSourceMetadataAcs = {
     'acs_condition-sex_state_current',
     'acs_condition-sex_national_historical',
     'acs_condition-sex_national_current',
+    'acs_condition-alls_county_historical',
+    'acs_condition-alls_county_current',
+    'acs_condition-alls_state_historical',
+    'acs_condition-alls_state_current',
+    'acs_condition-alls_national_historical',
+    'acs_condition-alls_national_current',
   ],
   downloadable: true,
   data_source_release_years:

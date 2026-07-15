@@ -74,6 +74,9 @@ export type DatasetId =
   | 'geo_context-alls_national_current'
   | 'geo_context-alls_state_current'
   | 'geo_context-alls_county_current'
+  | 'phrma_data-alls_county_current'
+  | 'phrma_data-alls_national_current'
+  | 'phrma_data-alls_state_current'
   | 'phrma_data-age_county_current'
   | 'phrma_data-age_national_current'
   | 'phrma_data-age_state_current'
@@ -89,6 +92,8 @@ export type DatasetId =
   | 'phrma_data-sex_county_current'
   | 'phrma_data-sex_national_current'
   | 'phrma_data-sex_state_current'
+  | 'phrma_brfss_data-alls_national_current'
+  | 'phrma_brfss_data-alls_state_current'
   | 'phrma_brfss_data-race_and_ethnicity_national_current-with_age_adjust'
   | 'phrma_brfss_data-age_national_current'
   | 'phrma_brfss_data-sex_national_current'
@@ -298,6 +303,31 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     name: 'medicare adherence by Medicare eligibility reason, by county',
     original_data_sourced: '2020',
     source_id: 'phrma',
+  },
+  'phrma_data-alls_national_current': {
+    name: 'medicare adherence, nationally',
+    original_data_sourced: '2020',
+    source_id: 'phrma',
+  },
+  'phrma_data-alls_state_current': {
+    name: 'medicare adherence, by state',
+    original_data_sourced: '2020',
+    source_id: 'phrma',
+  },
+  'phrma_data-alls_county_current': {
+    name: 'medicare adherence, by county',
+    original_data_sourced: '2020',
+    source_id: 'phrma',
+  },
+  'phrma_brfss_data-alls_national_current': {
+    name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, nationally',
+    original_data_sourced: '2022',
+    source_id: 'phrma_brfss',
+  },
+  'phrma_brfss_data-alls_state_current': {
+    name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by state',
+    original_data_sourced: '2022',
+    source_id: 'phrma_brfss',
   },
   'phrma_brfss_data-race_and_ethnicity_national_current-with_age_adjust': {
     name: 'Screening adherence breast, prostate, lung, colorectal, and cervical cancers, by race/ethnicity, nationally',

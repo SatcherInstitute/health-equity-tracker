@@ -160,7 +160,9 @@ class CawpProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns, metricIds?: MetricId[]): boolean {
-    const validDemographicBreakdownRequest = breakdowns.hasOnlyRace()
+    // non-race demographics resolve to the alls fallback datasets
+    const validDemographicBreakdownRequest =
+      breakdowns.hasExactlyOneDemographic()
     const isValidCountyRequest =
       breakdowns.geography === 'county' &&
       (!metricIds ||
