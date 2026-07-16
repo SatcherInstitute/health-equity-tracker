@@ -54,6 +54,8 @@ def testExportDatasetTables(mock_bq_client: mock.MagicMock, mock_split_county: m
     # Set up mocks
     mock_bq_instance = mock_bq_client.return_value
     mock_bq_instance.list_tables.return_value = TEST_TABLES
+    # None signals a successful county split (no error to propagate)
+    mock_split_county.return_value = None
 
     payload = {"dataset_name": "my-dataset", "demographic": "age"}
     response = client.post("/", json=payload)
@@ -116,6 +118,7 @@ def testExportDatasetTables_ExtractJobFailure(
     # Set up mocks
     mock_bq_instance = mock_bq_client.return_value
     mock_bq_instance.list_tables.return_value = TEST_TABLES
+    mock_split_county.return_value = None
     mock_extract_job = Mock()
     mock_bq_instance.extract_table.return_value = mock_extract_job
     mock_extract_job.result.side_effect = google.cloud.exceptions.InternalServerError("Internal")
@@ -190,3 +193,57 @@ def testExportSplitCountyTables(
         table = TEST_TABLES[3]
         expected_file_name = f"{table.dataset_id}-{table.table_id}-{fips}.json"
         assert state_file_name == expected_file_name
+
+
+# TEST THAT SWALLOWED FAILURES NOW SURFACE AS 500
+
+
+@mock.patch("main.export_nd_json_to_blob")
+@mock.patch("main.prepare_blob")
+@mock.patch("main.prepare_bucket")
+@mock.patch("main.get_query_results_as_df", side_effect=Exception("boom"))
+@mock.patch("google.cloud.bigquery.Client")
+def testExportAllsFailureReturns500(
+    mock_bq_client: mock.MagicMock,
+    mock_query_df: mock.MagicMock,
+    mock_prepare_bucket: mock.MagicMock,
+    mock_prepare_blob: mock.MagicMock,
+    mock_export: mock.MagicMock,
+    client: FlaskClient,
+):
+    # An ALLs export failure must fail the request (and thus the DAG step),
+    # not be swallowed while the endpoint reports success.
+    mock_bq_instance = mock_bq_client.return_value
+    mock_bq_instance.list_tables.return_value = [
+        bigquery.Table("my-project.my-dataset.non-behavioral_health_sex_national_current")
+    ]
+
+    payload = {"dataset_name": "my-dataset", "demographic": "sex", "should_export_as_alls": True}
+    response = client.post("/", json=payload)
+
+    assert response.status_code == 500
+    assert b"ALLS rows" in response.data
+
+
+@mock.patch("main.export_nd_json_to_blob")
+@mock.patch("main.prepare_blob")
+@mock.patch("main.prepare_bucket")
+@mock.patch("main.get_query_results_as_df", side_effect=Exception("boom"))
+@mock.patch("google.cloud.bigquery.Client")
+def testExportSplitCountyFailureReturns500(
+    mock_bq_client: mock.MagicMock,
+    mock_query_df: mock.MagicMock,
+    mock_prepare_bucket: mock.MagicMock,
+    mock_prepare_blob: mock.MagicMock,
+    mock_export: mock.MagicMock,
+    client: FlaskClient,
+):
+    # A county-split failure must likewise fail the request.
+    mock_bq_instance = mock_bq_client.return_value
+    mock_bq_instance.list_tables.return_value = [bigquery.Table("my-project.my-county-dataset.t4-age")]
+
+    payload = {"dataset_name": "my-dataset", "demographic": "age"}
+    response = client.post("/", json=payload)
+
+    assert response.status_code == 500
+    assert b"county-level" in response.data

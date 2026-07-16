@@ -67,9 +67,12 @@ def export_dataset_tables():
         return (f'Dataset has no tables with "{demographic}" in the table_id.', 500)
 
     for table in tables:
-        # split up county-level tables by state and export those individually
+        # split up county-level tables by state and export those individually.
+        # Propagate any error so the DAG step fails instead of reporting success.
         if not has_multi_demographics(table.table_id):
-            export_split_county_tables(bq_client, table, export_bucket)
+            error = export_split_county_tables(bq_client, table, export_bucket)
+            if error is not None:
+                return error
 
         # export the full table
         dest_uri = f"gs://{export_bucket}/{dataset_name}-{table.table_id}.json"
@@ -84,8 +87,12 @@ def export_dataset_tables():
                 500,
             )
 
+        # Propagate any ALLs export error; a swallowed failure here silently
+        # drops the file the frontend fallback depends on.
         if should_export_as_alls:
-            export_alls(bq_client, table, export_bucket, demographic)
+            error = export_alls(bq_client, table, export_bucket, demographic)
+            if error is not None:
+                return error
 
     return ("", 204)
 
@@ -124,11 +131,9 @@ def export_split_county_tables(bq_client: bigquery.Client, table: bigquery.Table
             export_nd_json_to_blob(blob, nd_json)
 
         except Exception as err:
-            logging.error(err)
-            return (
-                f"Error splitting county-level table {table_name} into {state_file_name}:\n {err}",
-                500,
-            )
+            message = f"Error splitting county-level table {table_name} into {state_file_name}:\n {err}"
+            logging.error(message)
+            return (message, 500)
 
 
 def has_multi_demographics(table_id: str):
@@ -187,11 +192,9 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
         export_nd_json_to_blob(blob, nd_json)
 
     except Exception as err:
-        logging.error(err)
-        return (
-            f"Error extracting the ALLS rows from table {table_name} into {alls_file_name}:\n {err}",
-            500,
-        )
+        message = f"Error extracting the ALLS rows from table {table_name} into {alls_file_name}:\n {err}"
+        logging.error(message)
+        return (message, 500)
 
 
 def get_table_name(table):
