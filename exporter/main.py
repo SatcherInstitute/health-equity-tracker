@@ -114,7 +114,12 @@ def export_split_county_tables(bq_client: bigquery.Client, table: bigquery.Table
         return
 
     logging.info(f"Exporting county-level data from {table_name} into additional files, split by state/territory.")
-    bucket = prepare_bucket(export_bucket)
+    try:
+        bucket = prepare_bucket(export_bucket)
+    except Exception as err:
+        message = f"Error preparing bucket for county-level table {table_name}:\n {err}"
+        logging.error(message)
+        return (message, 500)
 
     for fips in STATE_LEVEL_FIPS_LIST:
         state_file_name = f"{table.dataset_id}-{table.table_id}-{fips}.json"
@@ -178,7 +183,6 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
     if demographic == "race":
         demo_cols.append("race_category_id")
 
-    bucket = prepare_bucket(export_bucket)
     # Backticks are required: fully-qualified names contain hyphens (the project id
     # and hyphenated table ids like `non-behavioral_health_...`), which are a BigQuery
     # syntax error when unquoted.
@@ -189,6 +193,7 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
     """
 
     try:
+        bucket = prepare_bucket(export_bucket)
         blob = prepare_blob(bucket, alls_file_name)
         alls_df = get_query_results_as_df(bq_client, query)
         alls_df.drop(columns=demo_cols, inplace=True)
