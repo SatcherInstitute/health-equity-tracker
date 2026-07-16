@@ -25,6 +25,17 @@ def export_dataset_tables():
     if data.get("category") is not None:
         category = data.get("category")
     should_export_as_alls = data.get("should_export_as_alls", False)
+
+    # The ALLs export filters on and renames the demographic column, so it
+    # cannot run without one. Fail loudly on a misconfigured DAG rather than
+    # silently skipping the alls file (which the frontend fallback relies on).
+    if should_export_as_alls and not demographic:
+        return (
+            'Request set "should_export_as_alls" but did not include a "demographic". '
+            "Add the demographic input to the DAG's export step.",
+            400,
+        )
+
     dataset_name = data["dataset_name"]
     project_id = os.environ.get("PROJECT_ID")
     export_bucket = os.environ.get("EXPORT_BUCKET")

@@ -77,6 +77,23 @@ def testExportDatasetTables_InvalidInput(
 
 @mock.patch("main.export_split_county_tables")
 @mock.patch("google.cloud.bigquery.Client")
+def testExportDatasetTables_AllsWithoutDemographic(
+    mock_bq_client: mock.MagicMock, mock_split_county: mock.MagicMock, client: FlaskClient
+):
+    # should_export_as_alls requires a demographic; a missing one (or the
+    # action's empty-string default) must fail loudly before any BQ work.
+    for demographic in ({}, {"demographic": ""}):
+        payload = {"dataset_name": "my-dataset", "should_export_as_alls": True, **demographic}
+        response = client.post("/", json=payload)
+
+        assert response.status_code == 400
+        assert b"should_export_as_alls" in response.data
+    assert mock_bq_client.call_count == 0
+    assert mock_split_county.call_count == 0
+
+
+@mock.patch("main.export_split_county_tables")
+@mock.patch("google.cloud.bigquery.Client")
 def testExportDatasetTables_NoTables(
     mock_bq_client: mock.MagicMock, mock_split_county: mock.MagicMock, client: FlaskClient
 ):
