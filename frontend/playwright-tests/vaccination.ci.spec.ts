@@ -147,9 +147,9 @@ test('County Vaccination Quick Test', async ({ page }) => {
     await Promise.all([
       expect
         .soft(
-          page.getByRole('heading', {
-            name: 'COVID-19 vaccination rates in Los Angeles County, California',
-            exact: true,
+          page.locator('#rate-map-title', {
+            hasText:
+              'COVID-19 vaccination rates in Los Angeles County, California',
           }),
         )
         .toBeVisible(),
