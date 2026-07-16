@@ -29,6 +29,10 @@ export type DatasetIdAhr =
   | 'graphql_ahr_data-behavioral_health_alls_state_current'
   | 'graphql_ahr_data-behavioral_health_alls_national_historical'
   | 'graphql_ahr_data-behavioral_health_alls_state_historical'
+  | 'graphql_ahr_data-non-behavioral_health_alls_national_current'
+  | 'graphql_ahr_data-non-behavioral_health_alls_state_current'
+  | 'graphql_ahr_data-non-behavioral_health_alls_national_historical'
+  | 'graphql_ahr_data-non-behavioral_health_alls_state_historical'
 
 export const DatasetMetadataMapAhr: Record<DatasetIdAhr, DatasetMetadata> = {
   'graphql_ahr_data-behavioral_health_age_national_current': {
@@ -183,6 +187,26 @@ export const DatasetMetadataMapAhr: Record<DatasetIdAhr, DatasetMetadata> = {
     original_data_sourced: '1995-2022',
     source_id: 'ahr',
   },
+  'graphql_ahr_data-non-behavioral_health_alls_national_current': {
+    name: 'Prevalence of multiple behavioral and mental health conditions, nationally',
+    original_data_sourced: '2022',
+    source_id: 'ahr',
+  },
+  'graphql_ahr_data-non-behavioral_health_alls_state_current': {
+    name: 'Prevalence of multiple behavioral and mental health conditions by state',
+    original_data_sourced: '2022',
+    source_id: 'ahr',
+  },
+  'graphql_ahr_data-non-behavioral_health_alls_national_historical': {
+    name: 'Prevalence of multiple behavioral and mental health conditions by year, nationally',
+    original_data_sourced: '1995-2022',
+    source_id: 'ahr',
+  },
+  'graphql_ahr_data-non-behavioral_health_alls_state_historical': {
+    name: 'Prevalence of multiple behavioral and mental health conditions by year, by state',
+    original_data_sourced: '1995-2022',
+    source_id: 'ahr',
+  },
 }
 
 interface DataSourceMetadataAhr
@@ -231,6 +255,10 @@ export const datasourceMetadataAhr: DataSourceMetadataAhr = {
     'graphql_ahr_data-behavioral_health_alls_state_current',
     'graphql_ahr_data-behavioral_health_alls_national_historical',
     'graphql_ahr_data-behavioral_health_alls_state_historical',
+    'graphql_ahr_data-non-behavioral_health_alls_national_current',
+    'graphql_ahr_data-non-behavioral_health_alls_state_current',
+    'graphql_ahr_data-non-behavioral_health_alls_national_historical',
+    'graphql_ahr_data-non-behavioral_health_alls_state_historical',
   ],
   downloadable: true,
   data_source_release_years: null,
