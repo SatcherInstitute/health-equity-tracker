@@ -26,6 +26,7 @@ async function ensureCorrectDatasetsDownloaded(
   timeView?: TimeView,
   metricIds?: MetricId[],
   scrollToHashId?: ScrollableHashId,
+  isFallback?: boolean,
 ) {
   // If these aren't sent as args, default to []
   metricIds = metricIds || []
@@ -53,7 +54,7 @@ async function ensureCorrectDatasetsDownloaded(
   const consumedDatasetIds = [gunViolenceDatasetId]
 
   expect(responseIncludingAll).toEqual(
-    new MetricQueryResponse([], consumedDatasetIds),
+    new MetricQueryResponse([], consumedDatasetIds, undefined, isFallback),
   )
 }
 
@@ -116,6 +117,7 @@ describe('GunViolenceProvider', () => {
       'current',
       ['gun_violence_homicide_per_100k'],
       'rate-map', // these metricQuery tests need a scrollToHashId to enable the fallbackId logic
+      true, // falls back to ALLS, so usedAllsFallback is true
     )
   })
 })
