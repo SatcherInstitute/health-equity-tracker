@@ -1,7 +1,12 @@
 import type { DatasetId } from '../config/DatasetMetadata'
 import type { MetricId } from '../config/MetricConfigTypes'
-import { MetricQueryResponse } from '../query/MetricQuery'
 import { RACE } from '../utils/Constants'
+import { Breakdowns } from './Breakdowns'
+import {
+  MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from './MetricQuery'
 
 let metricQueryResponse: MetricQueryResponse
 
@@ -94,5 +99,62 @@ describe('MetricQueryResponse', () => {
       invalid: 7,
     })
     expect(metricQueryResponse.isFieldMissing('covid_cases')).toEqual(false)
+  })
+})
+
+describe('resolveDatasetId ALLs fallback', () => {
+  const BQ = 'graphql_ahr_data'
+  const PREFIX = 'non-behavioral_health_'
+
+  const query = (
+    breakdowns: Breakdowns,
+    scrollToHashId?: 'rate-map' | 'unknown-demographic-map',
+  ) => new MetricQuery([], breakdowns, 'diabetes', 'current', scrollToHashId)
+
+  test('returns the requested demographic id when registered', () => {
+    const result = resolveDatasetId(
+      BQ,
+      PREFIX,
+      query(Breakdowns.national().andSex()),
+    )
+    expect(result.datasetId).toBe(
+      'graphql_ahr_data-non-behavioral_health_sex_national_current',
+    )
+    expect(result.isFallbackId).toBeUndefined()
+  })
+
+  test('falls back to the alls id for a fallback-eligible card', () => {
+    const result = resolveDatasetId(
+      BQ,
+      PREFIX,
+      query(Breakdowns.national().addBreakdown('urbanicity'), 'rate-map'),
+    )
+    expect(result.datasetId).toBe(
+      'graphql_ahr_data-non-behavioral_health_alls_national_current',
+    )
+    expect(result.isFallbackId).toBe(true)
+  })
+
+  test('does not fall back for a card not in CARDS_THAT_SHOULD_FALLBACK_TO_ALLS', () => {
+    const result = resolveDatasetId(
+      BQ,
+      PREFIX,
+      query(
+        Breakdowns.national().addBreakdown('urbanicity'),
+        'unknown-demographic-map',
+      ),
+    )
+    expect(result.datasetId).toBeUndefined()
+    expect(result.isFallbackId).toBe(false)
+  })
+
+  test('returns no datasetId when neither the demographic nor an alls id is registered', () => {
+    const result = resolveDatasetId(
+      BQ,
+      PREFIX,
+      query(Breakdowns.byCounty().addBreakdown('urbanicity'), 'rate-map'),
+    )
+    expect(result.datasetId).toBeUndefined()
+    expect(result.isFallbackId).toBeUndefined()
   })
 })
