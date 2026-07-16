@@ -160,10 +160,10 @@ export function getAllDemographicOptions(
       ...options1.disabledDemographicOptions,
       ...options2.disabledDemographicOptions,
     ]) {
-      const currentOptions = disabledDemographicOptions.map(
-        ([option]) => option,
-      )
-      if (!enabledLabels.includes(option) && !currentOptions.includes(option)) {
+      if (
+        !enabledLabels.includes(option) &&
+        !disabledDemographicOptions.some(([opt]) => opt === option)
+      ) {
         disabledDemographicOptions.push([option, reason])
       }
     }
