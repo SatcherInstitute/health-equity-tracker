@@ -13,14 +13,11 @@ interface AllsFallbackAlertProps {
 export default function AllsFallbackAlert(props: AllsFallbackAlertProps) {
   const demographicName =
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-  // cSpell:ignore aeiou
-  const article = /^[aeiou]/i.test(demographicName) ? 'An' : 'A'
 
   return (
     <HetNotice kind='helpful-info'>
-      {article} <HetTerm>{demographicName}</HetTerm> breakdown isn't available
-      for <HetTerm>{props.dataName}</HetTerm>, so this card shows the overall
-      rate.
+      Breakdown by <HetTerm>{demographicName}</HetTerm> isn't available for{' '}
+      <HetTerm>{props.dataName}</HetTerm>, so this card shows the overall rate.
     </HetNotice>
   )
 }
