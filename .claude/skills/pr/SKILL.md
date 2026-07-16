@@ -1,7 +1,7 @@
 ---
 name: pr
 model: haiku
-description: Run Biome auto-fix (cleanup only — tsc and Vitest run in CI, not locally), address any open review comments, update CLAUDE.md docs if stale, verify the test plan with Playwright against a local dev server (live backend + feature flags), update the open PR title and description, then watch CI until all checks pass (diagnosing and reporting any failures). Use when the user wants to close out a PR, verify it's ready for review, or run /pr.
+description: Polish an open PR for review. Classify the diff by bucket (frontend / python / go) and run only the relevant checks — Biome+tsc+Playwright for frontend, black+pylint+pytest for python, build+test for go. Address open review comments, update CLAUDE.md docs if stale, rewrite the PR title and description, then watch CI until all checks pass (diagnosing and reporting any failures). Use when the user wants to close out a PR, verify it's ready for review, or run /pr.
 ---
 
 # /pr
@@ -47,7 +47,26 @@ If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fo
 
 ---
 
-## Step 2 — Run Biome auto-fix and type check
+## Step 1b — Classify the PR by changed files
+
+Not every step applies to every PR. The frontend steps (Biome/tsc, Netlify preview, Playwright) waste time on a backend PR, and the backend checks (pytest, `go test`) are pointless on a frontend PR. Classify the diff once, up front, and gate the later steps on the result:
+
+```bash
+git diff origin/main --name-only
+```
+
+Bucket the changed paths:
+
+- **frontend** — any path under `frontend/`
+- **python** — any path under `python/` or `exporter/`
+- **go** — any path under `server/` (ignore the embedded frontend build output)
+- **infra/docs** — only `.github/`, `*.md`, or config files changed
+
+A PR can land in more than one bucket (a new health topic touches both `frontend/` and `python/`); run every matching bucket's checks. Each check step below is tagged with the bucket(s) it belongs to — **skip a step whose bucket the PR doesn't touch** and note the skip briefly. Steps with no bucket tag (behind-main, review feedback, doc freshness, PR description, CI watch) always run.
+
+---
+
+## Step 2 — Frontend static checks: Biome auto-fix and type check — *frontend bucket only*
 
 Biome, tsc, and Vitest all run in CI. Run Biome and tsc locally anyway to catch issues before the push — but **do not add these to the test plan checklist**; they are CI's job, not the human reviewer's.
 
@@ -72,7 +91,56 @@ git push $FORK_REMOTE HEAD
 
 ---
 
-## Step 2b — Derive Netlify deploy preview URL
+## Step 2-py — Python checks: format, lint, and scoped tests — *python bucket only*
+
+Backend PRs have no browser preview and no Playwright step, so `pytest` **is** the behavioral verification here — the equivalent of what Playwright does for the frontend. Run it locally (scoped to the affected package) rather than leaving it entirely to CI. Unlike the large Vitest suite, a single Python package's tests run in ~1s and are deterministic.
+
+`black` and `pylint` are the static-check parallel to Biome/tsc; the pre-commit hook already ran them, but run them here too so a hook that was skipped or an unstaged file can't slip through.
+
+```bash
+# From repo root with the venv active
+source .venv/bin/activate
+black --check python/ exporter/
+pylint <changed-package>            # e.g. exporter or python/datasources
+```
+
+Then run the tests for the package(s) this PR touched:
+
+```bash
+# Exporter changes
+python -m pytest exporter/test_exporter.py -q
+
+# python/ datasource or ingestion changes — scope to the touched module(s)
+pip install python/datasources/ python/ingestion/ && pytest python/tests/<touched_test>.py -q
+```
+
+If `black` reformats or `pylint` flags anything: fix, stage explicitly, commit, and push. If any test fails: fix it before continuing — a red test here is a red DAG later. Record the passing test command and count; it becomes the test plan checklist in Step 6.
+
+```bash
+git push $FORK_REMOTE HEAD
+```
+
+---
+
+## Step 2-go — Go checks: build and test — *go bucket only*
+
+`server/` is the combined Go binary. Build and test the affected packages locally; `go test` is the behavioral verification for Go changes, the same role `pytest` plays for Python.
+
+```bash
+cd server
+go build ./...
+go test ./...            # or scope to the touched package, e.g. go test ./pkg/... 
+```
+
+Fix any build or test failure before continuing. Record the passing `go test` command for the Step 6 test plan.
+
+```bash
+git push $FORK_REMOTE HEAD
+```
+
+---
+
+## Step 2b — Derive Netlify deploy preview URL — *frontend bucket only*
 
 The preview URL is deterministic from the PR number — no need to fetch a comment:
 
@@ -195,11 +263,16 @@ git push $FORK_REMOTE HEAD
 
 ## Step 5 — Audit and verify the test plan
 
-The test plan checklist is **only for behavioral/interaction tests that go beyond CI** — things a human reviewer or Playwright test can verify in a browser. Do not include TypeScript, Biome, or Vitest results; those are CI's job.
+The test plan checklist is **only for behavioral tests that verify the change actually works** — not static tooling. Never list TypeScript, Biome, or Vitest results; those are CI's job.
 
-Read the current PR body. Extract all `- [ ]` and `- [x]` checklist items. Remove any that reference static tooling (tsc, Biome, lint, unit tests). Remove or rewrite items that refer to code that was removed or refactored.
+What counts as behavioral verification depends on the bucket:
 
-### 5a — Run Playwright for browser-verifiable items
+- **frontend** — a browser interaction a human reviewer or Playwright test can confirm (URL params, navigation, UI state, link resolution). Verify these with Playwright in **Step 5a**.
+- **python / go** — the scoped `pytest` / `go test` run from Step 2-py / Step 2-go. Backend has no browser, so these tests *are* the behavioral verification; list the passing command and count (e.g. `pytest exporter/test_exporter.py` — 9 passed) as checked items. **Skip Step 5a** (no dev server, no Playwright) for a backend-only PR.
+
+Read the current PR body. Extract all `- [ ]` and `- [x]` checklist items. Remove any that reference static tooling (tsc, Biome, lint). Remove or rewrite items that refer to code that was removed or refactored.
+
+### 5a — Run Playwright for browser-verifiable items — *frontend bucket only*
 
 For every remaining unchecked item that describes a browser interaction (URL params, navigation behavior, UI state, link resolution), write and run a targeted Playwright test.
 
@@ -309,6 +382,7 @@ Use this template:
 ```
 
 **Preview line rules:**
+- *Frontend bucket only* — a backend-only PR has no UI to preview, so **omit the Preview line entirely** rather than linking a preview that shows nothing changed
 - Always the first line of the body so reviewers can click straight to the feature
 - The PR number is always known at this point — construct the URL as `https://deploy-preview-{number}--health-equity-tracker.netlify.app`; never omit it or use a placeholder
 - One deep link with the URL params needed to land directly on the changed UI (e.g. `?mls=1.hiv-3.06&mlp=disparity`)
