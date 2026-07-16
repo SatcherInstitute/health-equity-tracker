@@ -111,9 +111,10 @@ def export_split_county_tables(bq_client: bigquery.Client, table: bigquery.Table
 
     for fips in STATE_LEVEL_FIPS_LIST:
         state_file_name = f"{table.dataset_id}-{table.table_id}-{fips}.json"
+        # Backticks required so hyphens in the project id / table id don't break the query.
         query = f"""
             SELECT *
-            FROM {table_name}
+            FROM `{table_name}`
             WHERE county_fips LIKE '{fips}___'
             """
 
@@ -173,9 +174,12 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
         demo_cols.append("race_category_id")
 
     bucket = prepare_bucket(export_bucket)
+    # Backticks are required: fully-qualified names contain hyphens (the project id
+    # and hyphenated table ids like `non-behavioral_health_...`), which are a BigQuery
+    # syntax error when unquoted.
     query = f"""
         SELECT *
-        FROM {table_name}
+        FROM `{table_name}`
         WHERE {demo_col} = 'All'
     """
 

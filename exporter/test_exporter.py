@@ -8,7 +8,7 @@ from flask.testing import FlaskClient
 from google.cloud import bigquery  # type: ignore
 import pandas as pd
 
-from main import app, STATE_LEVEL_FIPS_LIST, get_table_name, has_multi_demographics
+from main import app, STATE_LEVEL_FIPS_LIST, export_alls, get_table_name, has_multi_demographics
 
 # UNIT TESTS
 
@@ -178,7 +178,7 @@ def testExportSplitCountyTables(
         table_names = [get_table_name(x) for x in TEST_TABLES]
         expected_query_string = f"""
             SELECT *
-            FROM {table_names[3]}
+            FROM `{table_names[3]}`
             WHERE county_fips LIKE '{fips}___'
             """
 
@@ -190,3 +190,25 @@ def testExportSplitCountyTables(
         table = TEST_TABLES[3]
         expected_file_name = f"{table.dataset_id}-{table.table_id}-{fips}.json"
         assert state_file_name == expected_file_name
+
+
+# TEST ALLS EXPORT
+
+
+@mock.patch("main.export_nd_json_to_blob")
+@mock.patch("main.prepare_blob")
+@mock.patch("main.prepare_bucket")
+@mock.patch("main.get_query_results_as_df", return_value=pd.DataFrame({"sex": ["All"], "value": [1]}))
+def testExportAllsBacktickQuotesHyphenatedTable(
+    mock_query_df: mock.MagicMock,
+    mock_prepare_bucket: mock.MagicMock,
+    mock_prepare_blob: mock.MagicMock,
+    mock_export: mock.MagicMock,
+):
+    # Hyphenated table ids (e.g. `non-behavioral_health_...`) must be backtick-quoted
+    # or BigQuery rejects the query as a syntax error.
+    table = bigquery.Table("my-project.my-dataset.non-behavioral_health_sex_national_current")
+    export_alls(mock.Mock(), table, "my-bucket", "sex")
+
+    generated_query_string = mock_query_df.call_args[0][1]
+    assert f"FROM `{get_table_name(table)}`" in generated_query_string
