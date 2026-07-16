@@ -75,6 +75,7 @@ import {
 } from '../utils/urlutils'
 import CardWrapper from './CardWrapper'
 import ChartTitle, { getChartTitleId } from './ChartTitle'
+import AllsFallbackAlert from './ui/AllsFallbackAlert'
 import CAWPCountyMultiDistrictAlert from './ui/CAWPCountyMultiDistrictAlert'
 import DemographicGroupMenu from './ui/DemographicGroupMenu'
 import { ExtremesListBox } from './ui/ExtremesListBox'
@@ -648,6 +649,12 @@ function MapCardWithKey(props: MapCardProps) {
                       ) : null
                     }
                   />
+                  {mapQueryResponse.usedAllsFallback && (
+                    <AllsFallbackAlert
+                      dataName={props.dataTypeConfig.fullDisplayName}
+                      demographicType={demographicType}
+                    />
+                  )}
                   {isGeorgiaWithCountyData && !isExtremesMode && (
                     <div className='flex justify-center'>
                       <HetLinkButton

@@ -19,6 +19,7 @@ interface MissingDataAlertProps {
   fips: Fips
   ageAdjustedDataTypes?: DataTypeConfig[]
   dueToSuppression?: boolean
+  mentionAllsCards?: boolean
 }
 
 function MissingDataAlert(props: MissingDataAlertProps) {
@@ -60,6 +61,8 @@ function MissingDataAlert(props: MissingDataAlertProps) {
           {'. '}
         </>
       )}
+      {props.mentionAllsCards &&
+        'Where available, other cards on this report show combined rates for all people. '}
       {props.ageAdjustedDataTypes && props.ageAdjustedDataTypes.length > 0 && (
         <AltDataTypesMessage
           ageAdjustedDataTypes={props.ageAdjustedDataTypes}

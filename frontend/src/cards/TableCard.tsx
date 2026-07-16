@@ -38,6 +38,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
 import ChartTitle, { getChartTitleId } from './ChartTitle'
+import AllsFallbackAlert from './ui/AllsFallbackAlert'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -50,6 +51,8 @@ interface TableCardProps {
   className?: string
   isCompareCard?: boolean
 }
+
+const HASH_ID: ScrollableHashId = 'data-table'
 
 export default function TableCard(props: TableCardProps) {
   const preloadHeight = useGuessPreloadHeight(
@@ -104,13 +107,12 @@ export default function TableCard(props: TableCardProps) {
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ 'current',
+    /* scrollToHashId */ HASH_ID,
   )
 
   const displayingCovidData = COVID_DISEASE_METRICS.includes(
     props.dataTypeConfig,
   )
-
-  const HASH_ID: ScrollableHashId = 'data-table'
 
   const subtitle = generateSubtitle(
     ALL,
@@ -143,9 +145,12 @@ export default function TableCard(props: TableCardProps) {
           normalMetricIds = metricIds.filter(
             (id) => id !== 'confined_children_estimated_total',
           )
-          data = data.filter(
-            (row: HetRow) => row[props.demographicType] !== ALL,
-          )
+          // on fallback the 'All' row is the only data, so keep it
+          if (!queryResponse.usedAllsFallback) {
+            data = data.filter(
+              (row: HetRow) => row[props.demographicType] !== ALL,
+            )
+          }
         }
 
         const tableIsShown = !queryResponse.dataIsMissing() && data.length > 0
@@ -162,6 +167,12 @@ export default function TableCard(props: TableCardProps) {
 
         return (
           <>
+            {tableIsShown && queryResponse.usedAllsFallback && (
+              <AllsFallbackAlert
+                dataName={props.dataTypeConfig.fullDisplayName}
+                demographicType={props.demographicType}
+              />
+            )}
             {tableIsShown && (
               <TableChart
                 chartTitleId={getChartTitleId(HASH_ID, props.isCompareCard)}

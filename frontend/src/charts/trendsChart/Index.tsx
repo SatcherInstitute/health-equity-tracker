@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import ChartTitle from '../../cards/ChartTitle'
 import type { DemographicType } from '../../data/query/Breakdowns'
-import type { DemographicGroup } from '../../data/utils/Constants'
+import { ALL, type DemographicGroup } from '../../data/utils/Constants'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import useEscape from '../../utils/hooks/useEscape'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
@@ -213,7 +213,7 @@ export function TrendsChart({
             subtitle={chartSubTitle}
           />
         )}
-        {data && (
+        {data && !(data.length === 1 && data[0][0] === ALL) && (
           <FilterLegend
             data={data}
             selectedGroups={selectedTrendGroups}

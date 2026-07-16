@@ -196,6 +196,9 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'phrma_data-eligibility_national_current',
       'phrma_data-eligibility_state_current',
       'phrma_data-eligibility_county_current',
+      'phrma_data-alls_national_current',
+      'phrma_data-alls_state_current',
+      'phrma_data-alls_county_current',
     ],
     downloadable: true,
     downloadable_blurb:
@@ -238,6 +241,8 @@ export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
       'phrma_brfss_data-insurance_status_state_current',
       'phrma_brfss_data-income_state_current',
       'phrma_brfss_data-education_state_current',
+      'phrma_brfss_data-alls_national_current',
+      'phrma_brfss_data-alls_state_current',
     ],
   },
   covid_tracking_project: {

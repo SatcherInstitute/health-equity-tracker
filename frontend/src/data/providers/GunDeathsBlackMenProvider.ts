@@ -56,11 +56,16 @@ class GunViolenceBlackMenProvider extends VariableProvider {
         df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
       } else {
         df = this.applyDemographicBreakdownFilters(df, breakdowns)
-        df = this.removeUnrequestedColumns(df, metricQuery)
       }
+      df = this.removeUnrequestedColumns(df, metricQuery)
 
       const consumedDatasetIds = [datasetId]
-      return new MetricQueryResponse(df, consumedDatasetIds)
+      return new MetricQueryResponse(
+        df,
+        consumedDatasetIds,
+        undefined,
+        !!isFallbackId,
+      )
     } catch (error) {
       console.error('Error fetching gun homicides of Black men data:', error)
       throw error

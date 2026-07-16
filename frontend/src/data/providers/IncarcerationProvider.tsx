@@ -114,7 +114,12 @@ class IncarcerationProvider extends VariableProvider {
       df = this.applyDemographicBreakdownFilters(df, breakdowns)
       df = this.removeUnrequestedColumns(df, metricQuery)
     }
-    return new MetricQueryResponse(df, consumedDatasetIds)
+    return new MetricQueryResponse(
+      df,
+      consumedDatasetIds,
+      undefined,
+      !!isFallbackId,
+    )
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {

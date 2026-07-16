@@ -134,4 +134,37 @@ describe('Test getAllDemographicOptions()', () => {
     expect(Object.values(opts)).not.toContain('income')
     expect(Object.values(opts)).not.toContain('insurance_status')
   })
+
+  test('comparing two different topics offers the union of their options', () => {
+    const { enabledDemographicOptionsMap: opts, disabledDemographicOptions } =
+      getAllDemographicOptions(
+        HIV_DISEASE_METRICS[0],
+        new Fips('00'),
+        womenCongressConfig,
+        new Fips('00'),
+      )
+    // HIV brings race/sex/age even though CAWP alone is race-only;
+    // the CAWP side falls back to combined 'All' rates
+    expect(opts).toEqual({
+      'Race/Ethnicity': 'race_and_ethnicity',
+      'Sex at Birth': 'sex',
+      Age: 'age',
+    })
+    const disabledLabels = disabledDemographicOptions.map(
+      ([option]: string[]) => option,
+    )
+    expect(disabledLabels).not.toContain('Age')
+  })
+
+  test('comparing the same topic in two places keeps single-topic options', () => {
+    const { enabledDemographicOptionsMap: opts } = getAllDemographicOptions(
+      womenCongressConfig,
+      new Fips('01'),
+      womenCongressConfig,
+      new Fips('13'),
+    )
+    expect(opts).toEqual({
+      'Race/Ethnicity': 'race_and_ethnicity',
+    })
+  })
 })

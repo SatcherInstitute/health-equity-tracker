@@ -24,7 +24,12 @@ test('Poverty', async ({ page }) => {
   await page
     .getByRole('button', { name: 'Expand rates over time table' })
     .click()
-  await page.getByText('Add or remove columns by').click()
+  await page
+    .locator(
+      '[id="Rates-of-poverty-over-time-in-the-United-States-by-race/ethnicity-alt-table-view1"]',
+    )
+    .getByText('Add or remove columns by')
+    .click()
   await page.getByText('View and download full .csv').click()
   await page
     .locator('#rate-chart')

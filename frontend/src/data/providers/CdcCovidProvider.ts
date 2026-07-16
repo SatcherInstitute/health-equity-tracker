@@ -130,10 +130,15 @@ class CdcCovidProvider extends VariableProvider {
       df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
     } else {
       df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      df = this.removeUnrequestedColumns(df, metricQuery)
     }
+    df = this.removeUnrequestedColumns(df, metricQuery)
 
-    return new MetricQueryResponse(df, consumedDatasetIds)
+    return new MetricQueryResponse(
+      df,
+      consumedDatasetIds,
+      undefined,
+      !!isFallbackId,
+    )
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
