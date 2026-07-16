@@ -153,6 +153,7 @@ const muiTheme = extendTheme({
         sizeSmall: {
           '& .MuiInputBase-input': {
             fontSize: typography.textSmallest,
+            color: colors.altBlack,
           },
         },
       },

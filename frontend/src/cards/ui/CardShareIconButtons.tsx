@@ -85,7 +85,7 @@ export default function CardShareIconButtons(props: CardShareIconButtonsProps) {
             aria-label={ariaLabel}
             target={openInWindow ? '_blank' : undefined}
             rel={openInWindow ? 'noopener noreferrer' : undefined}
-            className='text-alt-black no-underline'
+            className='font-normal text-alt-black no-underline'
             onClick={
               openInWindow
                 ? (e) => {
