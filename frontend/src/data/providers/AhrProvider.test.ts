@@ -47,7 +47,7 @@ async function ensureCorrectDatasetsDownloaded(
     ahrDatasetId,
   ]
   expect(responseIncludingAll).toEqual(
-    new MetricQueryResponse([], consumedDatasetIds),
+    new MetricQueryResponse([], consumedDatasetIds, undefined, isFallback),
   )
 }
 
