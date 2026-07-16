@@ -58,13 +58,10 @@ def export_dataset_tables():
     if category is not None:
         tables = [table for table in tables if category in table.table_id]
 
-    if not tables:
-        return (f'Dataset has no tables with "{demographic}" and "{category}" in the table_id.', 500)
-
     # If there are no tables in the dataset, return an error so the pipeline will alert
     # and a human can look into any potential issues.
     if not tables:
-        return (f'Dataset has no tables with "{demographic}" in the table_id.', 500)
+        return (f'Dataset has no tables with "{demographic}" and "{category}" in the table_id.', 500)
 
     for table in tables:
         # split up county-level tables by state and export those individually.
