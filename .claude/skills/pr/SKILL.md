@@ -98,8 +98,8 @@ Backend PRs have no browser preview and no Playwright step, so `pytest` **is** t
 `black` and `pylint` are the static-check parallel to Biome/tsc; the pre-commit hook already ran them, but run them here too so a hook that was skipped or an unstaged file can't slip through.
 
 ```bash
-# From repo root with the venv active
-source .venv/bin/activate
+# Return to repo root first — Step 2 (frontend) may have left us in frontend/
+cd "$(git rev-parse --show-toplevel)" && source .venv/bin/activate
 black --check python/ exporter/
 pylint <changed-package>            # e.g. exporter or python/datasources
 ```
@@ -110,8 +110,9 @@ Then run the tests for the package(s) this PR touched:
 # Exporter changes
 python -m pytest exporter/test_exporter.py -q
 
-# python/ datasource or ingestion changes — scope to the touched module(s)
-pip install python/datasources/ python/ingestion/ && pytest python/tests/<touched_test>.py -q
+# python/ datasource or ingestion changes — scope to the touched module(s).
+# Editable installs (-e) so a mid-run code fix is reflected without reinstalling.
+pip install -e python/datasources/ -e python/ingestion/ && pytest python/tests/<touched_test>.py -q
 ```
 
 If `black` reformats or `pylint` flags anything: fix, stage explicitly, commit, and push. If any test fails: fix it before continuing — a red test here is a red DAG later. Record the passing test command and count; it becomes the test plan checklist in Step 6.
@@ -127,9 +128,8 @@ git push $FORK_REMOTE HEAD
 `server/` is the combined Go binary. Build and test the affected packages locally; `go test` is the behavioral verification for Go changes, the same role `pytest` plays for Python.
 
 ```bash
-cd server
-go build ./...
-go test ./...            # or scope to the touched package, e.g. go test ./pkg/... 
+# Subshell keeps the working dir clean for later steps that expect repo root
+(cd server && go build ./... && go test ./...)   # or scope: (cd server && go test ./pkg/...)
 ```
 
 Fix any build or test failure before continuing. Record the passing `go test` command for the Step 6 test plan.
