@@ -61,6 +61,8 @@ URL params (mls, dt1, demo, etc.)
 
 Each `VariableProvider` computes `usedAllsFallback` via `resolveDatasetId()` when the requested demographic dataset is not registered but its `alls_` fallback is (see `MetricQuery.ts`). The flag flows through `DataManager` into `MetricQueryResponse` and informs whether cards render `AllsFallbackAlert` (bar, trend, and table cards show it; the map card does not, since showing the overall rate is its default behavior) and which card-level features are available (e.g., compare mode fallback behavior).
 
+For intersectional topics (e.g. HIV prevalence for Black women), `MetricConfig.metrics.per100k.rateComparisonMetricForAlls` names a second metric from a reference dataset. `RateBarChartCard` and `RateTrendsChartCard` both detect this field, issue a second `MetricQuery` for the reference "All" population, and merge the result into the chart data so a comparison series renders alongside the intersectional group.
+
 Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`src/utils/sharedSettingsState.ts`).
 
 **Unified URL param system** — all params written through a single path:
