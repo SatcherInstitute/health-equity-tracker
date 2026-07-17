@@ -73,7 +73,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   [AIAN_API_W]: colors.timePastelGreen,
   [BLACK_W]: colors.mapLight,
   [HISP_W]: colors.timePurple,
-  [MENA_W]: colors.timeYellow,
+  [MENA_W]: colors.altBlack,
   [OTHER_W]: colors.timePink,
   [WHITE_W]: colors.redOrange,
   [UNKNOWN_W]: colors.darkBlue,
@@ -89,7 +89,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   // sex
   Female: colors.timeCyanBlue,
   Male: colors.timePurple,
-  Other: colors.timeYellow,
+  Other: colors.altBlack,
 
   // age
   '0-9': colors.timeCyanBlue,
@@ -99,7 +99,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '40-49': colors.timePink,
   '50-59': colors.timeDarkRed,
   '60-69': colors.redOrange,
-  '70-79': colors.timeYellow,
+  '70-79': colors.altBlack,
   '80+': colors.mapLight,
 
   // age for HIV + ACS CONDITION
@@ -117,8 +117,8 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '26-34': colors.timePink,
   '35-44': colors.timeDarkRed,
   '45-54': colors.redOrange,
-  '55+': colors.timeYellow,
-  '55-64': colors.timeYellow,
+  '55+': colors.altBlack,
+  '55-64': colors.altBlack,
   '65-74': colors.mapLight,
   '75+': colors.mapLighter,
 
@@ -134,12 +134,12 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '18-44': colors.timeCyanBlue,
   '24-34': colors.timePink,
   '45-64': colors.mapLight,
-  '65+': colors.timeYellow,
+  '65+': colors.altBlack,
   '75-84': colors.mapLighter,
 
   // urbanicity / City Size
   Metro: colors.timePurple,
-  'Non-Metro': colors.timeYellow,
+  'Non-Metro': colors.altBlack,
 }
 
 const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP)
