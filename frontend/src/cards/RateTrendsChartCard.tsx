@@ -112,7 +112,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   // second historical series for the reference "All" population so the trend
   // chart can show both lines, mirroring what the rate bar card already does.
   const allsQueryIndex = queries.length
-  if (rateComparisonConfig) {
+  if (rateComparisonConfig && props.dataTypeConfig.rateComparisonDataTypeId) {
     const breakdownsForAlls = Breakdowns.forFips(props.fips).addBreakdown(
       'sex',
       exclude('Male', 'Female'),
@@ -190,7 +190,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           const referenceRows: HetRow[] = allsRows.map((allsRow) => ({
             fips: allsRow.fips,
             fips_name: allsRow.fips_name,
-            time_period: allsRow[TIME_PERIOD],
+            [TIME_PERIOD]: allsRow[TIME_PERIOD],
             [props.demographicType]: ALL,
             [metricConfigRates.metricId]:
               allsRow[rateComparisonConfig.metricId],
@@ -229,9 +229,9 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         const allDemographicGroups: DemographicGroup[] = rateComparisonConfig
           ? [
               ...new Set(
-                ratesData.map(
-                  (row) => row[props.demographicType] as DemographicGroup,
-                ),
+                ratesData
+                  .map((row) => row[props.demographicType] as DemographicGroup)
+                  .filter(Boolean),
               ),
             ]
           : queryResponseRates.getFieldValues(
