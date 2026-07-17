@@ -17,7 +17,7 @@ export default function AllsFallbackAlert(props: AllsFallbackAlertProps) {
   return (
     <HetNotice kind='helpful-info'>
       Breakdown by <HetTerm>{demographicName}</HetTerm> isn't available for{' '}
-      <HetTerm>{props.dataName}</HetTerm>, so this card shows the overall rate.
+      <HetTerm>{props.dataName}</HetTerm>, so overall rates are shown.
     </HetNotice>
   )
 }
