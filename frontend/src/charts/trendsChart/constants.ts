@@ -7,6 +7,8 @@ import {
   AIAN_API_W,
   AIAN_NH,
   AIANNH_W,
+  ALL_BLACK_MEN_LABEL,
+  ALL_BLACK_WOMEN_13PLUS_LABEL,
   ALL_W,
   API_NH,
   ASIAN,
@@ -37,7 +39,12 @@ import {
 import { colors } from '../../styles/tokens/colors'
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
-  All: colors.altBlack,
+  // For intersectional topics the trend chart shows exactly two lines:
+  //   "All" = reference overall population (yellow, matching the rate bar chart)
+  //   shortLabel = subgroup overall rate (black)
+  All: colors.timeYellow,
+  [ALL_BLACK_WOMEN_13PLUS_LABEL]: colors.altBlack,
+  [ALL_BLACK_MEN_LABEL]: colors.altBlack,
   Unknown: colors.darkBlue,
 
   // race and ethnicity (NH)

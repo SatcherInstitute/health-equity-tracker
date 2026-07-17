@@ -326,8 +326,24 @@ const SEX_GROUPS = [MALE, FEMALE, OTHER, UNKNOWN, ALL] as const
 // CREATE SEX-GROUP TYPE
 type SexGroup = (typeof SEX_GROUPS)[number]
 
+// Labels used as the renamed "All" subgroup in intersectional comparison charts
+// (rateComparisonMetricForAlls.shortLabel). Defined here so GROUP_COLOR_MAP can
+// key on them without widening to Record<string, string>.
+export const ALL_BLACK_WOMEN_13PLUS_LABEL = 'All Black Women Ages 13+' as const
+export const ALL_BLACK_MEN_LABEL = 'All Black Men' as const
+const INTERSECTIONAL_COMPARISON_LABELS = [
+  ALL_BLACK_WOMEN_13PLUS_LABEL,
+  ALL_BLACK_MEN_LABEL,
+] as const
+type IntersectionalComparisonLabel =
+  (typeof INTERSECTIONAL_COMPARISON_LABELS)[number]
+
 // CREATE A DEMOGRAPHIC GROUP TYPE INCL ALL SEX/AGE/RACE OPTIONS
-export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup
+export type DemographicGroup =
+  | AgeBucket
+  | SexGroup
+  | RaceAndEthnicityGroup
+  | IntersectionalComparisonLabel
 
 // TIME SERIES CONSTANTS
 

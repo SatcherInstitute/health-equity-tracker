@@ -1,6 +1,7 @@
 import type { ColorScheme } from '../../charts/choroplethMap/types'
 import type { CategoryTypeId } from '../../utils/MadLibs'
 import type { GeographicBreakdown } from '../query/Breakdowns'
+import type { DemographicGroup } from '../utils/Constants'
 import type { DropdownVarId } from './DropDownIds'
 import type {
   BehavioralHealthDataTypeId,
@@ -81,6 +82,13 @@ export type MetricType =
 
 export type TimeSeriesCadenceType = 'monthly' | 'yearly' | 'fourYearly'
 
+// Narrowed MetricConfig for rateComparisonMetricForAlls: shortLabel must be a
+// DemographicGroup so GROUP_COLOR_MAP can key on it without widening to string.
+export interface ComparisonMetricConfig
+  extends Omit<MetricConfig, 'shortLabel'> {
+  shortLabel: DemographicGroup
+}
+
 export interface MetricConfig {
   metricId: MetricId
   columnTitleHeader?: string
@@ -92,7 +100,7 @@ export interface MetricConfig {
   populationComparisonMetric?: MetricConfig
   rateNumeratorMetric?: MetricConfig
   rateDenominatorMetric?: MetricConfig
-  rateComparisonMetricForAlls?: MetricConfig
+  rateComparisonMetricForAlls?: ComparisonMetricConfig
   timeSeriesCadence?: TimeSeriesCadenceType
 
   // This metric is one where the denominator only includes records where

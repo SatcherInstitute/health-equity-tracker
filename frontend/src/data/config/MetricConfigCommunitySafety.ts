@@ -3,6 +3,7 @@ import {
   menHigherIsWorseMapConfig,
   youthHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
+import { ALL_BLACK_MEN_LABEL } from '../../data/utils/Constants'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -419,7 +420,7 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
         rateComparisonMetricForAlls: {
           chartTitle: '',
           metricId: 'gun_violence_homicide_per_100k',
-          shortLabel: 'All Black Men',
+          shortLabel: ALL_BLACK_MEN_LABEL,
           type: 'per100k',
         },
         rateNumeratorMetric: {

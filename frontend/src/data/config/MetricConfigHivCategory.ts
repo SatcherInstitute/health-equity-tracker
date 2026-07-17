@@ -3,6 +3,7 @@ import {
   defaultHigherIsWorseMapConfig,
   womenHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
+import { ALL_BLACK_WOMEN_13PLUS_LABEL } from '../../data/utils/Constants'
 import { populationPctShortLabel } from './MetricConfigConstants'
 import type { DataTypeConfig } from './MetricConfigTypes'
 
@@ -435,7 +436,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         rateComparisonMetricForAlls: {
           chartTitle: '',
           metricId: 'hiv_prevalence_per_100k',
-          shortLabel: 'All Black Women Ages 13+',
+          shortLabel: ALL_BLACK_WOMEN_13PLUS_LABEL,
           type: 'per100k',
         },
         rateNumeratorMetric: {
@@ -509,7 +510,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         rateComparisonMetricForAlls: {
           chartTitle: '',
           metricId: 'hiv_diagnoses_per_100k',
-          shortLabel: 'All Black Women Ages 13+',
+          shortLabel: ALL_BLACK_WOMEN_13PLUS_LABEL,
           type: 'per100k',
         },
         rateNumeratorMetric: {
@@ -582,7 +583,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
         rateComparisonMetricForAlls: {
           chartTitle: '',
           metricId: 'hiv_deaths_per_100k',
-          shortLabel: 'All Black Women Ages 13+',
+          shortLabel: ALL_BLACK_WOMEN_13PLUS_LABEL,
           type: 'per100k',
         },
         rateNumeratorMetric: {
