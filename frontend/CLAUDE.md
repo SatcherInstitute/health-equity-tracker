@@ -61,7 +61,7 @@ URL params (mls, dt1, demo, etc.)
 
 Each `VariableProvider` computes `usedAllsFallback` via `resolveDatasetId()` when the requested demographic dataset is not registered but its `alls_` fallback is (see `MetricQuery.ts`). The flag flows through `DataManager` into `MetricQueryResponse` and informs whether cards render `AllsFallbackAlert` (bar, trend, and table cards show it; the map card does not, since showing the overall rate is its default behavior) and which card-level features are available (e.g., compare mode fallback behavior).
 
-For intersectional topics (e.g. HIV prevalence for Black women), `MetricConfig.metrics.per100k.rateComparisonMetricForAlls` names a second metric from a reference dataset. `RateBarChartCard` and `RateTrendsChartCard` both detect this field, issue a second `MetricQuery` for the reference "All" population, and merge the result into the chart data so a comparison series renders alongside the intersectional group.
+For intersectional topics (e.g. HIV prevalence for Black women), `MetricConfig.metrics.per100k.rateComparisonMetricForAlls` names a second metric from a reference dataset. `RateBarChartCard` and `RateTrendsChartCard` both detect this field, issue a second `MetricQuery` for the reference "All" population, and merge the result into the chart data so a comparison series renders alongside the intersectional group. The `shortLabel` on `rateComparisonMetricForAlls` is typed as `DemographicGroup` (via `ComparisonMetricConfig`) — add the label as a named constant in `Constants.ts` and include it in `INTERSECTIONAL_COMPARISON_LABELS` so `GROUP_COLOR_MAP` can key on it with the correct color.
 
 Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`src/utils/sharedSettingsState.ts`).
 
