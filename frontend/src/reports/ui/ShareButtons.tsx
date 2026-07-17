@@ -24,7 +24,7 @@ export default function ShareButtons(props: ShareButtonProps) {
     title += ': ' + props.reportTitle
   }
 
-  const iconSize = props.isMobile ? 64 : 32
+  const iconSize = props.isMobile ? 40 : 32
   const iconFillColor = colors.altDark
 
   const fbHref = facebookShareUrl(sharedUrl)
@@ -41,7 +41,7 @@ export default function ShareButtons(props: ShareButtonProps) {
         props.reportTitle ? 'justify-center' : 'justify-start'
       }`}
     >
-      <div>
+      <div className='flex items-center gap-4'>
         <Tooltip title='Post this page to Facebook'>
           <a
             href={fbHref}
