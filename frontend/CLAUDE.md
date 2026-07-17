@@ -59,7 +59,7 @@ URL params (mls, dt1, demo, etc.)
               → Cards render charts, surface fallback alert when needed
 ```
 
-Each `VariableProvider` computes `usedAllsFallback` via `resolveDatasetId()` when the requested demographic dataset is not registered but its `alls_` fallback is (see `MetricQuery.ts`). The flag flows through `DataManager` into `MetricQueryResponse` and informs whether cards render `AllsFallbackAlert` and which card-level features are available (e.g., compare mode fallback behavior).
+Each `VariableProvider` computes `usedAllsFallback` via `resolveDatasetId()` when the requested demographic dataset is not registered but its `alls_` fallback is (see `MetricQuery.ts`). The flag flows through `DataManager` into `MetricQueryResponse` and informs whether cards render `AllsFallbackAlert` (bar, trend, and table cards show it; the map card does not, since showing the overall rate is its default behavior) and which card-level features are available (e.g., compare mode fallback behavior).
 
 Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`src/utils/sharedSettingsState.ts`).
 
