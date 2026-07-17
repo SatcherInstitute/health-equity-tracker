@@ -73,7 +73,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   [AIAN_API_W]: colors.timePastelGreen,
   [BLACK_W]: colors.mapLight,
   [HISP_W]: colors.timePurple,
-  [MENA_W]: colors.altBlack,
+  [MENA_W]: colors.altGreen,
   [OTHER_W]: colors.timePink,
   [WHITE_W]: colors.redOrange,
   [UNKNOWN_W]: colors.darkBlue,
