@@ -43,8 +43,8 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   //   "All" = reference overall population (yellow, matching the rate bar chart)
   //   shortLabel = subgroup overall rate (black)
   All: colors.timeYellow,
-  [ALL_BLACK_WOMEN_13PLUS_LABEL]: colors.altBlack,
-  [ALL_BLACK_MEN_LABEL]: colors.altBlack,
+  [ALL_BLACK_WOMEN_13PLUS_LABEL]: colors.altGreen,
+  [ALL_BLACK_MEN_LABEL]: colors.altGreen,
   Unknown: colors.darkBlue,
 
   // race and ethnicity (NH)
@@ -73,7 +73,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   [AIAN_API_W]: colors.timePastelGreen,
   [BLACK_W]: colors.mapLight,
   [HISP_W]: colors.timePurple,
-  [MENA_W]: colors.altGreen,
+  [MENA_W]: colors.altBlack,
   [OTHER_W]: colors.timePink,
   [WHITE_W]: colors.redOrange,
   [UNKNOWN_W]: colors.darkBlue,
