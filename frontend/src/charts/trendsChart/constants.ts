@@ -67,13 +67,13 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   [WHITE]: colors.redOrange,
 
   // race and ethnicity for CAWP
-  [ALL_W]: colors.altBlack,
+  [ALL_W]: colors.altGreen,
   [AIANNH_W]: colors.timeCyanBlue,
   [AAPI_W]: colors.timePastelGreen,
   [AIAN_API_W]: colors.timePastelGreen,
   [BLACK_W]: colors.mapLight,
   [HISP_W]: colors.timePurple,
-  [MENA_W]: colors.altGreen,
+  [MENA_W]: colors.altBlack,
   [OTHER_W]: colors.timePink,
   [WHITE_W]: colors.redOrange,
   [UNKNOWN_W]: colors.darkBlue,
