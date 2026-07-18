@@ -1,4 +1,4 @@
-import CompareArrows from '@mui/icons-material/CompareArrows'
+import AutoAwesome from '@mui/icons-material/AutoAwesome'
 import { Button, CircularProgress, Tooltip } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
 import { useCallback, useEffect, useState } from 'react'
@@ -117,7 +117,7 @@ export default function ContrastInsightSection({
   if (!SHOW_INSIGHT_GENERATION) return null
 
   const buttonLabel = bothDataLoaded
-    ? 'Compare these views with AI'
+    ? 'AI insights comparing these two views'
     : 'Loading card data…'
 
   if (!isOpen) {
@@ -127,11 +127,11 @@ export default function ContrastInsightSection({
           <span>
             <Button
               size='small'
-              startIcon={<CompareArrows />}
+              startIcon={<AutoAwesome fontSize='small' />}
               disabled={!bothDataLoaded}
               onClick={() => setIsOpen(true)}
             >
-              Compare these views
+              Comparison insights
             </Button>
           </span>
         </Tooltip>
@@ -143,10 +143,8 @@ export default function ContrastInsightSection({
     <article className='relative m-2 animate-expand-down rounded-sm bg-alt-white p-3 shadow-raised'>
       <div className='mb-2 flex items-center justify-between'>
         <div className='flex items-center gap-2'>
-          <CompareArrows className='text-alt-dark' />
-          <span className='font-bold text-alt-dark'>
-            Comparing these two views
-          </span>
+          <AutoAwesome fontSize='small' className='text-alt-green' />
+          <span className='font-bold text-alt-dark'>Comparison insights</span>
         </div>
         <Button size='small' onClick={() => setIsOpen(false)}>
           Clear
@@ -156,7 +154,7 @@ export default function ContrastInsightSection({
         <div className='flex items-center gap-2 py-1'>
           <CircularProgress size={14} className='shrink-0' />
           <p className='m-0 text-alt-dark text-small'>
-            Analyzing the contrast with AI...
+            Generating comparison insights...
           </p>
         </div>
       ) : error ? (
