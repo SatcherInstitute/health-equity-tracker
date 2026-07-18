@@ -24,6 +24,9 @@ export const cardInsightsAtom = atom<Record<string, string>>({})
 /* CARD INSIGHT OPEN STATE — keyed by scrollToHash (+ '-2' for compare card) */
 export const cardInsightOpenAtom = atom<Record<string, boolean>>({})
 
+/* CONTRAST INSIGHT OPEN STATE — keyed by scrollToHash; shared between InsightVisualizationButton and ContrastInsightSection */
+export const contrastInsightOpenAtom = atom<Record<string, boolean>>({})
+
 /* CONTRAST INSIGHT CACHE — keyed by scrollToHash + both dataTypeIds + both fipsCodes + demographicType */
 export const contrastInsightsAtom = atom<Record<string, string>>({})
 

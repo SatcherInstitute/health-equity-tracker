@@ -134,7 +134,7 @@ function CardWrapper(props: {
           overrideCardHasData,
         )
 
-        // Only offer an insight when there are at least two values to compare.
+        // Only offer a per-card insight when there are at least two values to compare.
         // A single group or region has no disparity to describe.
         const showInsight =
           insightProps != null &&
@@ -146,6 +146,10 @@ function CardWrapper(props: {
             queryResponses,
             insightProps.selectedGroups,
           )
+
+        // In compare mode, show the sparkle to trigger the shared contrast insight.
+        const showContrastInsightButton =
+          inCompareMode && cardHasData && insightProps != null
 
         return (
           <article
@@ -162,7 +166,7 @@ function CardWrapper(props: {
               />
             )}
             <div className='absolute top-2 right-2 flex items-center'>
-              {cardHasData && showInsight && insightProps && (
+              {(showInsight || showContrastInsightButton) && insightProps && (
                 <InsightVisualizationButton
                   scrollToHash={props.scrollToHash}
                   isCompareCard={insightProps.isCompareCard}
