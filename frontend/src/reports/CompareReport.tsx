@@ -208,14 +208,6 @@ export default function CompareReport(props: CompareReportProps) {
               />
             )}
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
-            <ContrastInsightSection
-              hashId='rate-map'
-              dataTypeConfig1={resolvedConfig1}
-              dataTypeConfig2={resolvedConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              demographicType={demographicType}
-            />
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='rate-map'
@@ -247,18 +239,18 @@ export default function CompareReport(props: CompareReportProps) {
                 />
               )}
             />
+            <ContrastInsightSection
+              hashId='rate-map'
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              demographicType={demographicType}
+            />
 
             {/* SIDE-BY-SIDE RATE TREND CARDS */}
             {showRatesOverTimeCardRow && (
               <>
-                <ContrastInsightSection
-                  hashId='rates-over-time'
-                  dataTypeConfig1={resolvedConfig1}
-                  dataTypeConfig2={resolvedConfig2}
-                  fips1={props.fips1}
-                  fips2={props.fips2}
-                  demographicType={demographicType}
-                />
                 <RowOfTwoOptionalMetrics
                   trackerMode={props.trackerMode}
                   id='rates-over-time'
@@ -283,19 +275,18 @@ export default function CompareReport(props: CompareReportProps) {
                     />
                   )}
                 />
+                <ContrastInsightSection
+                  hashId='rates-over-time'
+                  dataTypeConfig1={resolvedConfig1}
+                  dataTypeConfig2={resolvedConfig2}
+                  fips1={props.fips1}
+                  fips2={props.fips2}
+                  demographicType={demographicType}
+                />
               </>
             )}
 
             {/* SIDE-BY-SIDE 100K BAR GRAPH CARDS */}
-
-            <ContrastInsightSection
-              hashId='rate-chart'
-              dataTypeConfig1={resolvedConfig1}
-              dataTypeConfig2={resolvedConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              demographicType={demographicType}
-            />
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='rate-chart'
@@ -319,6 +310,14 @@ export default function CompareReport(props: CompareReportProps) {
                   reportTitle={props.reportTitle}
                 />
               )}
+            />
+            <ContrastInsightSection
+              hashId='rate-chart'
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              demographicType={demographicType}
             />
 
             {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
@@ -357,14 +356,6 @@ export default function CompareReport(props: CompareReportProps) {
 
             {showInequitiesOverTimeCardRow && (
               <>
-                <ContrastInsightSection
-                  hashId='inequities-over-time'
-                  dataTypeConfig1={resolvedConfig1}
-                  dataTypeConfig2={resolvedConfig2}
-                  fips1={props.fips1}
-                  fips2={props.fips2}
-                  demographicType={demographicType}
-                />
                 <RowOfTwoOptionalMetrics
                   trackerMode={props.trackerMode}
                   id='inequities-over-time'
@@ -389,18 +380,18 @@ export default function CompareReport(props: CompareReportProps) {
                     />
                   )}
                 />
+                <ContrastInsightSection
+                  hashId='inequities-over-time'
+                  dataTypeConfig1={resolvedConfig1}
+                  dataTypeConfig2={resolvedConfig2}
+                  fips1={props.fips1}
+                  fips2={props.fips2}
+                  demographicType={demographicType}
+                />
               </>
             )}
 
             {/* SIDE-BY-SIDE STACKED SHARES BAR CHARTS CARDS */}
-            <ContrastInsightSection
-              hashId='population-vs-distribution'
-              dataTypeConfig1={resolvedConfig1}
-              dataTypeConfig2={resolvedConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              demographicType={demographicType}
-            />
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='population-vs-distribution'
@@ -425,16 +416,16 @@ export default function CompareReport(props: CompareReportProps) {
                 />
               )}
             />
-
-            {/* SIDE-BY-SIDE DATA TABLE CARDS */}
             <ContrastInsightSection
-              hashId='data-table'
+              hashId='population-vs-distribution'
               dataTypeConfig1={resolvedConfig1}
               dataTypeConfig2={resolvedConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               demographicType={demographicType}
             />
+
+            {/* SIDE-BY-SIDE DATA TABLE CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
               id='data-table'
@@ -461,19 +452,19 @@ export default function CompareReport(props: CompareReportProps) {
                 />
               )}
             />
+            <ContrastInsightSection
+              hashId='data-table'
+              dataTypeConfig1={resolvedConfig1}
+              dataTypeConfig2={resolvedConfig2}
+              fips1={props.fips1}
+              fips2={props.fips2}
+              demographicType={demographicType}
+            />
 
             {/* SIDE-BY-SIDE AGE-ADJUSTED TABLE CARDS */}
 
             {showAgeAdjustCardRow && (
               <>
-                <ContrastInsightSection
-                  hashId='age-adjusted-ratios'
-                  dataTypeConfig1={resolvedConfig1}
-                  dataTypeConfig2={resolvedConfig2}
-                  fips1={props.fips1}
-                  fips2={props.fips2}
-                  demographicType={demographicType}
-                />
                 <RowOfTwoOptionalMetrics
                   trackerMode={props.trackerMode}
                   id='age-adjusted-ratios'
@@ -504,6 +495,14 @@ export default function CompareReport(props: CompareReportProps) {
                       reportTitle={props.reportTitle}
                     />
                   )}
+                />
+                <ContrastInsightSection
+                  hashId='age-adjusted-ratios'
+                  dataTypeConfig1={resolvedConfig1}
+                  dataTypeConfig2={resolvedConfig2}
+                  fips1={props.fips1}
+                  fips2={props.fips2}
+                  demographicType={demographicType}
                 />
               </>
             )}

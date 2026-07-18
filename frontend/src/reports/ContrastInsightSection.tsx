@@ -122,7 +122,7 @@ export default function ContrastInsightSection({
 
   if (!isOpen) {
     return (
-      <div className='mx-2 mb-2'>
+      <div className='mx-2 mb-4 flex items-center rounded-sm border border-light-outline bg-alt-white px-3 py-1'>
         <Tooltip title={buttonLabel}>
           <span>
             <Button
