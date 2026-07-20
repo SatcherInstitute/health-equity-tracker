@@ -16,7 +16,7 @@ export const reportProviderSteps: Record<ScrollableHashId, StepLabelInfo> = {
   },
   'rate-chart': {
     label: 'Rate chart',
-    pluralOnCompare: false,
+    pluralOnCompare: true,
   },
   'unknown-demographic-map': {
     label: 'Unknown demographic map',
