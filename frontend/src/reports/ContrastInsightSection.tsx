@@ -2,7 +2,7 @@ import AutoAwesome from '@mui/icons-material/AutoAwesome'
 import DeleteForever from '@mui/icons-material/DeleteForever'
 import { Button, CircularProgress, IconButton, Tooltip } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import FlagInsightButton from '../cards/ui/FlagInsightButton'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
@@ -40,6 +40,7 @@ export default function ContrastInsightSection({
     contrastInsightOpenAtom,
   )
   const isOpen = contrastInsightOpen[hashId] ?? false
+  const articleRef = useRef<HTMLElement>(null)
 
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -129,10 +130,29 @@ export default function ContrastInsightSection({
     handleGenerate,
   ])
 
+  useEffect(() => {
+    if (!isOpen || !articleRef.current) return
+    const el = articleRef.current
+    const id = setTimeout(() => {
+      const header = document.querySelector(
+        '#madlib-container',
+      ) as HTMLElement | null
+      const headerBottom = header ? header.getBoundingClientRect().bottom : 0
+      const box = el.getBoundingClientRect()
+      if (box.top < headerBottom + 8) {
+        window.scrollBy({ top: box.top - headerBottom - 8, behavior: 'smooth' })
+      }
+    }, 80)
+    return () => clearTimeout(id)
+  }, [isOpen])
+
   if (!SHOW_INSIGHT_GENERATION || !isOpen) return null
 
   return (
-    <article className='relative m-2 animate-expand-down rounded-sm bg-alt-white p-3 shadow-raised'>
+    <article
+      ref={articleRef}
+      className='relative m-2 animate-expand-down rounded-sm bg-alt-white p-3 shadow-raised'
+    >
       <div className='mb-2 flex items-center justify-between'>
         <p className='m-0 flex items-center gap-1 text-alt-dark text-smallest'>
           <AutoAwesome sx={{ fontSize: 12 }} />
