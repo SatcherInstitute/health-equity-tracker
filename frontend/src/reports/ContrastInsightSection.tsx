@@ -112,8 +112,14 @@ export default function ContrastInsightSection({
     })
   }
 
-  const handleClose = () =>
+  const handleClose = () => {
     setContrastInsightOpen((prev) => ({ ...prev, [hashId]: false }))
+    setTimeout(() => {
+      document
+        .querySelector<HTMLElement>('[aria-label="Comparison insights"]')
+        ?.focus()
+    }, 0)
+  }
 
   useEffect(() => {
     setError(null)
@@ -156,6 +162,8 @@ export default function ContrastInsightSection({
   return (
     <article
       ref={articleRef}
+      role='status'
+      aria-label={`${sectionLabel} comparison insight`}
       className='relative m-2 animate-expand-down rounded-sm bg-alt-white p-3 shadow-raised'
     >
       <div className='mb-2 flex items-center justify-between'>
