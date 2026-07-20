@@ -1,6 +1,5 @@
 import AutoAwesome from '@mui/icons-material/AutoAwesome'
-import DeleteForever from '@mui/icons-material/DeleteForever'
-import { Button, CircularProgress, IconButton, Tooltip } from '@mui/material'
+import { Button, CircularProgress } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
 import { useCallback, useEffect, useState } from 'react'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
@@ -35,7 +34,7 @@ export default function ContrastInsightSection({
 }: ContrastInsightSectionProps) {
   const cardQueryResponses = useAtomValue(cardQueryResponsesAtom)
   const [contrastInsights, setContrastInsights] = useAtom(contrastInsightsAtom)
-  const [contrastInsightOpen, setContrastInsightOpen] = useAtom(
+  const [contrastInsightOpen, _setContrastInsightOpen] = useAtom(
     contrastInsightOpenAtom,
   )
   const isOpen = contrastInsightOpen[hashId] ?? false
@@ -117,34 +116,19 @@ export default function ContrastInsightSection({
 
   if (!SHOW_INSIGHT_GENERATION || !isOpen) return null
 
-  const handleClose = () =>
-    setContrastInsightOpen((prev) => ({ ...prev, [hashId]: false }))
-
   return (
-    <article className='relative m-2 animate-expand-down rounded-sm bg-alt-white p-3 shadow-raised'>
-      <div className='mb-2 flex items-center justify-between'>
-        <div className='flex items-center gap-2'>
-          <AutoAwesome fontSize='small' className='text-alt-green' />
-          <span className='font-bold text-alt-dark'>
-            {sectionLabel} insights
-          </span>
-        </div>
-        <Tooltip title='Clear comparison insights'>
-          <IconButton
-            size='small'
-            onClick={handleClose}
-            aria-label='Clear comparison insights'
-          >
-            <DeleteForever fontSize='small' />
-          </IconButton>
-        </Tooltip>
-      </div>
+    <div
+      role='status'
+      className='mx-2 mb-3 animate-expand-down rounded-md bg-footer-color p-3'
+    >
+      <p className='m-0 mb-1 flex items-center gap-1 text-alt-dark text-smallest'>
+        <AutoAwesome sx={{ fontSize: 12 }} />
+        {sectionLabel} comparison
+      </p>
       {isGenerating ? (
         <div className='flex items-center gap-2 py-1'>
           <CircularProgress size={14} className='shrink-0' />
-          <p className='m-0 text-alt-dark text-small'>
-            Generating comparison insights...
-          </p>
+          <p className='m-0 text-alt-dark text-small'>Analyzing with AI...</p>
         </div>
       ) : error ? (
         <div className='flex flex-col gap-1'>
@@ -163,6 +147,6 @@ export default function ContrastInsightSection({
           </p>
         </>
       ) : null}
-    </article>
+    </div>
   )
 }
