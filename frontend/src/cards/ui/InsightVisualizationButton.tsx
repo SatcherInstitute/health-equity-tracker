@@ -34,6 +34,7 @@ export default function InsightVisualizationButton({
         title={isOpen ? 'Clear comparison insights' : 'Comparison insights'}
       >
         <IconButton
+          className='hide-on-screenshot remove-height-on-screenshot'
           onClick={() =>
             setContrastInsightOpen((prev) => ({
               ...prev,
