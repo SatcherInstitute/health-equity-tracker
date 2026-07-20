@@ -175,7 +175,7 @@ export default function ContrastInsightSection({
         </div>
       ) : error ? (
         <div className='flex flex-col gap-1 rounded-md bg-footer-color p-3'>
-          <p className='m-0 text-red-500 text-small'>{error}</p>
+          <p className='m-0 text-red-orange text-small'>{error}</p>
           <Button size='small' onClick={handleGenerate}>
             Try again
           </Button>
