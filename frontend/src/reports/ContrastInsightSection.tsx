@@ -55,7 +55,12 @@ export default function ContrastInsightSection({
   const contrastCacheKey = `${hashId}-${dataTypeConfig1.dataTypeId}-${fips1.code}-${dataTypeConfig2.dataTypeId}-${fips2.code}-${demographicType}`
   const contrastInsight = contrastInsights[contrastCacheKey]
 
-  const sectionLabel = reportProviderSteps[hashId]?.label ?? hashId
+  const stepInfo = reportProviderSteps[hashId]
+  const baseLabel = stepInfo?.label ?? hashId
+  const sectionLabel =
+    stepInfo?.pluralOnCompare && !baseLabel.endsWith('s')
+      ? `${baseLabel}s`
+      : baseLabel
 
   const handleGenerate = useCallback(async () => {
     if (!queryResponses1 || !queryResponses2) return
