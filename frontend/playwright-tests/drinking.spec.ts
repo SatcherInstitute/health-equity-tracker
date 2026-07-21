@@ -45,7 +45,7 @@ test('Excessive Drinking Flow', async ({ page }) => {
   await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
   await page
     .getByRole('columnheader', {
-      name: 'Excessive drinking cases per 100k adults',
+      name: 'Excessive drinking rate',
     })
     .click()
   await page
