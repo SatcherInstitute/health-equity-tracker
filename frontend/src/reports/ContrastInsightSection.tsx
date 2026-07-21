@@ -17,6 +17,16 @@ import {
 } from '../utils/sharedSettingsState'
 import { reportProviderSteps } from './ReportProviderSteps'
 
+export const CONTRAST_SECTION_HASH_IDS = new Set<ScrollableHashId>([
+  'rate-map',
+  'rates-over-time',
+  'rate-chart',
+  'inequities-over-time',
+  'population-vs-distribution',
+  'data-table',
+  'age-adjusted-ratios',
+])
+
 interface ContrastInsightSectionProps {
   hashId: ScrollableHashId
   dataTypeConfig1: DataTypeConfig

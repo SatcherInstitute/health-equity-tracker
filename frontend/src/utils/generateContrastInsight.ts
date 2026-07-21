@@ -101,5 +101,9 @@ export async function generateContrastInsight(
   params.delete(REPORT_INSIGHT_PARAM_KEY)
   const cacheKey = `${window.location.pathname}?${params.toString()}#${hashId}-contrast`
 
-  return fetchAIInsight(prompt, { cacheKey })
+  const result = await fetchAIInsight(prompt, {
+    cacheKey,
+    topic: dataTypeConfig1.dataTypeId,
+  })
+  return { ...result, cacheKey }
 }

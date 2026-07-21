@@ -13,6 +13,7 @@ import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import { getGeographiesDatasetId } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
 import { useCompareMode } from '../reports/CompareModeContext'
+import { CONTRAST_SECTION_HASH_IDS } from '../reports/ContrastInsightSection'
 import { hasEnoughDataForInsight } from '../utils/generateVisualizationInsight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { cardQueryResponsesAtom } from '../utils/sharedSettingsState'
@@ -147,9 +148,12 @@ function CardWrapper(props: {
             insightProps.selectedGroups,
           )
 
-        // In compare mode, show the sparkle to trigger the shared contrast insight.
+        // In compare mode, show the sparkle only for sections that have a ContrastInsightSection.
         const showContrastInsightButton =
-          inCompareMode && cardHasData && insightProps != null
+          inCompareMode &&
+          cardHasData &&
+          insightProps != null &&
+          CONTRAST_SECTION_HASH_IDS.has(props.scrollToHash)
 
         return (
           <article
