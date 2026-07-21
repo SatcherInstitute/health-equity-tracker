@@ -139,7 +139,7 @@ export default function InsightVisualizationCard({
         </div>
       ) : error ? (
         <div className='flex flex-col gap-1'>
-          <p className='m-0 text-red-500 text-small'>{error}</p>
+          <p className='m-0 text-red-orange text-small'>{error}</p>
           <Button size='small' onClick={handleGenerate}>
             Try again
           </Button>

@@ -215,6 +215,7 @@ export default function CompareReport(props: CompareReportProps) {
               fips1={props.fips1}
               fips2={props.fips2}
               demographicType={demographicType}
+              headerScrollMargin={props.headerScrollMargin}
             />
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
@@ -258,6 +259,7 @@ export default function CompareReport(props: CompareReportProps) {
                   fips1={props.fips1}
                   fips2={props.fips2}
                   demographicType={demographicType}
+                  headerScrollMargin={props.headerScrollMargin}
                 />
                 <RowOfTwoOptionalMetrics
                   trackerMode={props.trackerMode}
@@ -294,6 +296,7 @@ export default function CompareReport(props: CompareReportProps) {
               fips1={props.fips1}
               fips2={props.fips2}
               demographicType={demographicType}
+              headerScrollMargin={props.headerScrollMargin}
             />
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
@@ -363,6 +366,7 @@ export default function CompareReport(props: CompareReportProps) {
                   fips1={props.fips1}
                   fips2={props.fips2}
                   demographicType={demographicType}
+                  headerScrollMargin={props.headerScrollMargin}
                 />
                 <RowOfTwoOptionalMetrics
                   trackerMode={props.trackerMode}
@@ -399,6 +403,7 @@ export default function CompareReport(props: CompareReportProps) {
               fips1={props.fips1}
               fips2={props.fips2}
               demographicType={demographicType}
+              headerScrollMargin={props.headerScrollMargin}
             />
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
@@ -433,6 +438,7 @@ export default function CompareReport(props: CompareReportProps) {
               fips1={props.fips1}
               fips2={props.fips2}
               demographicType={demographicType}
+              headerScrollMargin={props.headerScrollMargin}
             />
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
@@ -472,6 +478,7 @@ export default function CompareReport(props: CompareReportProps) {
                   fips1={props.fips1}
                   fips2={props.fips2}
                   demographicType={demographicType}
+                  headerScrollMargin={props.headerScrollMargin}
                 />
                 <RowOfTwoOptionalMetrics
                   trackerMode={props.trackerMode}

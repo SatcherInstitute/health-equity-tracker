@@ -17,16 +17,6 @@ import {
 } from '../utils/sharedSettingsState'
 import { reportProviderSteps } from './ReportProviderSteps'
 
-export const CONTRAST_SECTION_HASH_IDS = new Set<ScrollableHashId>([
-  'rate-map',
-  'rates-over-time',
-  'rate-chart',
-  'inequities-over-time',
-  'population-vs-distribution',
-  'data-table',
-  'age-adjusted-ratios',
-])
-
 interface ContrastInsightSectionProps {
   hashId: ScrollableHashId
   dataTypeConfig1: DataTypeConfig
@@ -34,6 +24,7 @@ interface ContrastInsightSectionProps {
   fips1: Fips
   fips2: Fips
   demographicType: DemographicType
+  headerScrollMargin?: number
 }
 
 export default function ContrastInsightSection({
@@ -43,6 +34,7 @@ export default function ContrastInsightSection({
   fips1,
   fips2,
   demographicType,
+  headerScrollMargin,
 }: ContrastInsightSectionProps) {
   const cardQueryResponses = useAtomValue(cardQueryResponsesAtom)
   const [contrastInsights, setContrastInsights] = useAtom(contrastInsightsAtom)
@@ -50,7 +42,7 @@ export default function ContrastInsightSection({
     contrastInsightOpenAtom,
   )
   const isOpen = contrastInsightOpen[hashId] ?? false
-  const articleRef = useRef<HTMLElement>(null)
+  const articleRef = useRef<HTMLDivElement>(null)
 
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -136,44 +128,31 @@ export default function ContrastInsightSection({
   }, [contrastCacheKey])
 
   useEffect(() => {
-    if (!isOpen) return
-    if (contrastInsight) return
-    if (isGenerating) return
-    if (error) return
-    if (!bothDataLoaded) return
+    if (!isOpen || contrastInsight || error || isGenerating || !bothDataLoaded)
+      return
     void handleGenerate()
   }, [
     isOpen,
     contrastInsight,
-    isGenerating,
     error,
+    isGenerating,
     bothDataLoaded,
     handleGenerate,
   ])
 
   useEffect(() => {
-    if (!isOpen || !articleRef.current) return
-    const el = articleRef.current
-    const id = setTimeout(() => {
-      const header = document.querySelector(
-        '#madlib-container',
-      ) as HTMLElement | null
-      const headerBottom = header ? header.getBoundingClientRect().bottom : 0
-      const box = el.getBoundingClientRect()
-      if (box.top < headerBottom + 8) {
-        window.scrollBy({ top: box.top - headerBottom - 8, behavior: 'smooth' })
-      }
-    }, 80)
-    return () => clearTimeout(id)
+    if (!isOpen) return
+    articleRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
   }, [isOpen])
 
   if (!SHOW_INSIGHT_GENERATION || !isOpen) return null
 
   return (
-    <article
+    <div
       ref={articleRef}
       role='status'
       aria-label={`${sectionLabel} comparison insight`}
+      style={{ scrollMarginTop: headerScrollMargin }}
       className='relative m-2 animate-expand-down rounded-sm bg-alt-white p-3 shadow-raised'
     >
       <div className='mb-2 flex items-center justify-between'>
@@ -219,6 +198,6 @@ export default function ContrastInsightSection({
           </p>
         </div>
       ) : null}
-    </article>
+    </div>
   )
 }

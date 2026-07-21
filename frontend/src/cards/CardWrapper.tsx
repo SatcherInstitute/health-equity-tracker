@@ -13,7 +13,7 @@ import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import { getGeographiesDatasetId } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
 import { useCompareMode } from '../reports/CompareModeContext'
-import { CONTRAST_SECTION_HASH_IDS } from '../reports/ContrastInsightSection'
+import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { hasEnoughDataForInsight } from '../utils/generateVisualizationInsight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { cardQueryResponsesAtom } from '../utils/sharedSettingsState'
@@ -153,7 +153,7 @@ function CardWrapper(props: {
           inCompareMode &&
           cardHasData &&
           insightProps != null &&
-          CONTRAST_SECTION_HASH_IDS.has(props.scrollToHash)
+          (reportProviderSteps[props.scrollToHash]?.hasContrastSection ?? false)
 
         return (
           <article
