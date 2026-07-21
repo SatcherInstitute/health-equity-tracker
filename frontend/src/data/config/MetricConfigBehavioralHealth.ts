@@ -22,7 +22,7 @@ export type BehavioralHealthMetricId =
   | 'depression_per_100k'
   | 'depression_estimated_total'
   | 'excessive_drinking_pct_share'
-  | 'excessive_drinking_per_100k'
+  | 'excessive_drinking_pct_rate'
   | 'excessive_drinking_estimated_total'
   | 'frequent_mental_distress_pct_share'
   | 'frequent_mental_distress_per_100k'
@@ -139,26 +139,13 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
           type: 'pct_share',
         },
       },
-      per100k: {
+      pct_rate: {
         timeSeriesCadence: 'yearly',
-        metricId: 'excessive_drinking_per_100k',
-        columnTitleHeader: 'Excessive drinking cases per 100k adults',
+        metricId: 'excessive_drinking_pct_rate',
+        columnTitleHeader: 'Excessive drinking rate',
         chartTitle: 'Excessive drinking cases',
-        shortLabel: 'cases per 100k adults',
-        type: 'per100k',
-        rateNumeratorMetric: {
-          metricId: 'excessive_drinking_estimated_total',
-          chartTitle: 'Cases of excessive drinking',
-          columnTitleHeader: 'Cases of excessive drinking',
-          shortLabel: 'cases',
-          type: 'count',
-        },
-        rateDenominatorMetric: {
-          metricId: 'ahr_population_18plus',
-          chartTitle: '',
-          shortLabel: 'Total pop. 18+',
-          type: 'count',
-        },
+        shortLabel: '% of adults',
+        type: 'pct_rate',
       },
     },
   },

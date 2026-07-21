@@ -43,7 +43,7 @@ def test_write_to_bq_race_county(
     actual_current_df, _, table_name = mock_bq.call_args_list[0][0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=EXP_DTYPE)
     assert table_name == "race_and_ethnicity_county_current"
-    # actual_current_df.to_csv(table_name, index=False)
+    # actual_current_df.to_csv(GOLDEN_DATA[table_name], index=False)
 
     assert_frame_equal(
         actual_current_df,
@@ -54,7 +54,7 @@ def test_write_to_bq_race_county(
     actual_historical_df, _, table_name = mock_bq.call_args_list[1][0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=EXP_DTYPE)
     assert table_name == "race_and_ethnicity_county_historical"
-    # actual_historical_df.to_csv(table_name, index=False)
+    # actual_historical_df.to_csv(GOLDEN_DATA[table_name], index=False)
 
     assert_frame_equal(
         actual_historical_df,

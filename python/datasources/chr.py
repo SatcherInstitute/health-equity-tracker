@@ -299,7 +299,6 @@ def convert_some_pct_rate_to_100k(df: pd.DataFrame, float_cols: List[str]) -> Tu
     """
 
     cols_conversion_map = {
-        "excessive_drinking_pct_rate": "excessive_drinking_per_100k",
         "frequent_mental_distress_pct_rate": "frequent_mental_distress_per_100k",
         "diabetes_pct_rate": "diabetes_per_100k",
     }
