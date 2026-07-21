@@ -274,7 +274,12 @@ Read the current PR body. Extract all `- [ ]` and `- [x]` checklist items. Remov
 
 ### 5-0 — Regression-check existing E2E specs for changed features — *frontend bucket only*
 
-**Critical context:** The E2E suite (`e2eDev.yml`) only runs *after* code merges to main and the dev site deploys. PRs never trigger E2E in CI. This means a PR can break an existing E2E spec and CI will show green — the failure only surfaces post-merge. This step catches those regressions before they land.
+**Critical context:** CI runs two Playwright projects with different scopes:
+
+- `E2E_CI` (`*.ci.spec.ts`) — runs on every PR push via `runFrontendTests.yml` against a local `vite preview` build
+- `E2E_NIGHTLY` (`*.spec.ts` without `.ci.`) — runs only after merging to main and deploying the dev site (`e2eDev.yml`)
+
+Most existing topic/feature specs (e.g. `drinking.spec.ts`, `hiv.spec.ts`) are nightly-only. If a PR changes how one of those features renders (column headers, chart titles, metric type switches like `per_100k` → `pct_rate`), CI shows green on the PR but the nightly spec fails post-merge. This step catches those regressions locally before they land.
 
 Any PR that changes how a metric is labeled, typed, or displayed (column headers, chart titles, aria-labels, short labels, metric type switches like `per_100k` → `pct_rate`) can silently break an existing spec that expects the old wording.
 
