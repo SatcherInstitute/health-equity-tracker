@@ -1,4 +1,5 @@
 from unittest import mock
+import datetime
 import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
@@ -10,6 +11,7 @@ from datasources.cawp import (
     US_CONGRESS_HISTORICAL_URL,
     US_CONGRESS_CURRENT_URL,
     get_consecutive_time_periods,
+    get_data_recent_year,
     extract_term_years,
     get_us_congress_members_df,
     DISTRICT,
@@ -67,11 +69,12 @@ def test_extract_term_years():
     assert term_years_special_election == [2023, 2024]
 
 
-def test_get_consecutive_time_periods():
+@mock.patch("datasources.cawp.get_data_recent_year", return_value=2025)
+def test_get_consecutive_time_periods(_mock_last_year):
     assert get_consecutive_time_periods(2020, 2022) == ["2020", "2021", "2022"]
     default_time_periods = get_consecutive_time_periods()
     assert default_time_periods[0] == "1915"
-    assert default_time_periods[-1] == "2025"  # TODO: make dynamic; see GitHub #2897
+    assert default_time_periods[-1] == "2025"
 
 
 def _load_test_legislators_json(url, *_args, **_kwargs):
@@ -85,11 +88,12 @@ def _load_test_legislators_json(url, *_args, **_kwargs):
         return json.load(f)
 
 
+@mock.patch("datasources.cawp.get_data_recent_year", return_value=2025)
 @mock.patch(
     "ingestion.gcs_to_bq_util.fetch_json_from_web",
     side_effect=_load_test_legislators_json,
 )
-def test_get_us_congress_members_df(mock_fetch):
+def test_get_us_congress_members_df(mock_fetch, _mock_last_year):
     df = get_us_congress_members_df()
 
     assert DISTRICT in df.columns
@@ -204,6 +208,14 @@ def _load_county_crosswalk():
     df.loc[territory_mask, "district_num"] = LEGISLATORS_ATLARGE_CODE
     df.loc[territory_mask, "GEOID_CD118_20"] = df.loc[territory_mask, "state_fips"] + LEGISLATORS_ATLARGE_CODE
     return df
+
+
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_as_df_from_data_dir)
+def test_get_data_recent_year(_mock_load):
+    result = get_data_recent_year()
+    assert isinstance(result, int)
+    assert result >= 2024
+    assert result <= datetime.date.today().year
 
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)

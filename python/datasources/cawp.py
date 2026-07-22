@@ -38,6 +38,7 @@ Instructions for Updating TERRITORIAL LEGISLATURE DENOMINATOR Data:
 Last Updated: Feb. 2024
 """
 
+import datetime
 import os
 import pandas as pd
 from ingestion.merge_utils import ACS_EARLIEST_YEAR, ACS_CURRENT_YEAR
@@ -125,8 +126,6 @@ FIPS_TO_STATE_TABLE_MAP = {
 # time_periods for entire dataset
 DEFAULT_CONGRESS_FIRST_YR = 1915
 DEFAULT_STLEG_FIRST_YR = 1983
-# TODO should be calc from most recent year in numerator source data. see GitHub #2897
-DEFAULT_LAST_YR = 2025
 
 # data urls
 US_CONGRESS_CURRENT_URL = "https://unitedstates.github.io/congress-legislators/legislators-current.json"
@@ -1094,6 +1093,24 @@ def get_state_leg_totals_df():
     return df.sort_values(by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]).reset_index(drop=True)
 
 
+def get_data_recent_year() -> int:
+    """Returns the most recent year for which all CAWP source data is available.
+
+    Takes the minimum of:
+    - max "Years Served" in the CAWP numerator CSV, capped at the current calendar year
+      (the CSV contains future projected terms for already-elected members)
+    - max time_period across all state legislature denominator CSVs
+
+    Capping at today's year prevents including future election cycles that exist
+    in the source data but have not yet occurred."""
+    current_year = datetime.date.today().year
+    numerator_df = gcs_to_bq_util.load_csv_as_df_from_data_dir("cawp", CAWP_LINE_ITEMS_FILE, usecols=[YEAR])
+    max_numerator = min(int(numerator_df[YEAR].max()), current_year)
+    state_leg_df = get_state_leg_totals_df()
+    max_stleg = min(int(state_leg_df[std_col.TIME_PERIOD_COL].max()), current_year)
+    return min(max_numerator, max_stleg)
+
+
 def combine_states_to_national(df):
     """Takes the df that contains rows for every year/race by state and territory,
     and combines those rows into a national dataset
@@ -1128,16 +1145,18 @@ def combine_states_to_national(df):
     return df_counts
 
 
-def get_consecutive_time_periods(first_year: int = DEFAULT_CONGRESS_FIRST_YR, last_year: int = DEFAULT_LAST_YR):
+def get_consecutive_time_periods(first_year: int = DEFAULT_CONGRESS_FIRST_YR, last_year: int = None):
     """Generates a list of consecutive time periods in the "YYYY" format
 
     Parameters:
         first_year: optional int to start the list; defaults to 1915
             which is two years before the first woman in US Congress
-        last_year: optional int to be the last element in the list
-            other than the default
+        last_year: optional int to be the last element in the list;
+            defaults to get_data_recent_year() when not provided
     Returns:
         a list of string years (e.g. ["1999", "2000", "2001"])"""
+    if last_year is None:
+        last_year = get_data_recent_year()
     return [str(x) for x in list(range(first_year, last_year + 1))]
 
 
