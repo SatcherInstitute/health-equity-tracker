@@ -272,11 +272,85 @@ What counts as behavioral verification depends on the bucket:
 
 Read the current PR body. Extract all `- [ ]` and `- [x]` checklist items. Remove any that reference static tooling (tsc, Biome, lint). Remove or rewrite items that refer to code that was removed or refactored.
 
+### 5-0 — Regression-check existing E2E specs for changed features — *frontend bucket only*
+
+**Critical context:** CI runs two Playwright projects with different scopes:
+
+- `E2E_CI` (`*.ci.spec.ts`) — runs on every PR push via `runFrontendTests.yml` against a local `vite preview` build
+- `E2E_NIGHTLY` (`*.spec.ts` without `.ci.`) — runs only after merging to main and deploying the dev site (`e2eDev.yml`)
+
+Most existing topic/feature specs (e.g. `drinking.spec.ts`, `hiv.spec.ts`) are nightly-only. If a PR changes how one of those features renders (column headers, chart titles, metric type switches like `per_100k` → `pct_rate`), CI shows green on the PR but the nightly spec fails post-merge. This step catches those regressions locally before they land.
+
+Any PR that changes how a metric is labeled, typed, or displayed (column headers, chart titles, aria-labels, short labels, metric type switches like `per_100k` → `pct_rate`) can silently break an existing spec that expects the old wording.
+
+**Identify affected spec files:**
+
+```bash
+# See what source files changed
+git diff origin/main --name-only -- frontend/src/
+```
+
+For each changed config or component file, extract candidate selector strings from the diff — any quoted string in a `columnTitleHeader`, `chartTitle`, `fullDisplayName`, `shortLabel`, or aria-label field is likely used as a locator in a spec:
+
+```bash
+git diff origin/main -- frontend/src/ | grep -E '^\+.*"[A-Z][^"]{5,}"' | head -30
+```
+
+Then grep the spec directory for files that reference the changed feature name or any of those strings:
+
+```bash
+# Example: if excessive_drinking changed
+grep -rl "excessive.drinking\|Excessive drinking" frontend/playwright-tests/*.spec.ts
+
+# Also check for the old string directly — if it no longer exists in the UI, specs using it will fail
+git diff origin/main -- frontend/src/ | grep -E '^-.*"[A-Z][^"]{5,}"' | \
+  sed -E 's/.*"([^"]+)".*/\1/' | while read s; do
+    grep -rl "$s" frontend/playwright-tests/*.spec.ts 2>/dev/null
+  done | sort -u
+```
+
+**Start the dev server** (connects to the live dev GCP backend — no build step needed, data fetches work):
+
+```bash
+cd frontend
+lsof -ti :3000 | xargs kill -9 2>/dev/null; sleep 1
+npm run dev > /tmp/het-dev-server.log 2>&1 &
+DEV_PID=$!
+TIMEOUT=60
+until curl -s http://localhost:3000 > /dev/null 2>&1; do
+  if [ $TIMEOUT -le 0 ]; then echo "Dev server failed to start" >&2; kill $DEV_PID 2>/dev/null; exit 1; fi
+  sleep 1; TIMEOUT=$((TIMEOUT - 1))
+done
+```
+
+**Run the matched existing specs:**
+
+```bash
+cd frontend
+E2E_BASE_URL=http://localhost:3000 npx playwright test \
+  playwright-tests/<matched>.spec.ts \
+  --project=E2E_NIGHTLY --reporter=line 2>&1
+```
+
+If no spec files match, note that and skip this step.
+
+**If a spec fails:** the test expected the old behavior. Update the spec to match the new labels or selectors introduced by this PR, commit the fix, and re-run until it passes:
+
+```bash
+git add frontend/playwright-tests/<spec>.spec.ts
+git commit -m "fix(e2e): update <topic> spec to match <what changed>"
+git push $FORK_REMOTE HEAD
+```
+
+Do not proceed until all matched existing specs pass. This is the only gate that catches E2E regressions before they hit the post-merge CI run.
+
+---
+
 ### 5a — Run Playwright for browser-verifiable items — *frontend bucket only*
 
 For every remaining unchecked item that describes a browser interaction (URL params, navigation behavior, UI state, link resolution), write and run a targeted Playwright test.
 
-**Start the dev server** (connects to the live dev GCP backend — no build step needed, data fetches work):
+**If the dev server was already started in step 5-0, skip the startup block below and reuse `$DEV_PID`.** Otherwise, start it now:
 
 ```bash
 cd frontend

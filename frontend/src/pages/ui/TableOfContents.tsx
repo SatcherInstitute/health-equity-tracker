@@ -55,7 +55,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
             >
               <span
                 // hide labels visually but not from screen readers on small screens
-                className='sr-only text-smallest md:not-sr-only'
+                className='sr-only text-alt-dark text-smallest md:not-sr-only'
               >
                 {reportProviderSteps[stepId].label}
               </span>
