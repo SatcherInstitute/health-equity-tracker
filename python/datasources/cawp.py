@@ -1099,7 +1099,8 @@ def get_data_recent_year() -> int:
     Takes the minimum of:
     - max "Years Served" in the CAWP numerator CSV, capped at the current calendar year
       (the CSV contains future projected terms for already-elected members)
-    - max time_period across all state legislature denominator CSVs
+    - min of the max time_period for each state/territory in the denominator CSVs
+      (ensures all populations have data for the returned year)
 
     Capping at today's year prevents including future election cycles that exist
     in the source data but have not yet occurred."""
@@ -1107,7 +1108,10 @@ def get_data_recent_year() -> int:
     numerator_df = gcs_to_bq_util.load_csv_as_df_from_data_dir("cawp", CAWP_LINE_ITEMS_FILE, usecols=[YEAR])
     max_numerator = min(int(numerator_df[YEAR].max()), current_year)
     state_leg_df = get_state_leg_totals_df()
-    max_stleg = min(int(state_leg_df[std_col.TIME_PERIOD_COL].max()), current_year)
+    # For each state/territory, find its max year; then take the minimum across all states.
+    # This ensures we only claim a year is "current" when all states have data for it.
+    per_state_max_years = state_leg_df.groupby(std_col.STATE_FIPS_COL)[std_col.TIME_PERIOD_COL].max().astype(int)
+    max_stleg = min(int(per_state_max_years.min()), current_year)
     return min(max_numerator, max_stleg)
 
 

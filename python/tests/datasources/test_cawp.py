@@ -1,5 +1,4 @@
 from unittest import mock
-import datetime
 import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
@@ -192,6 +191,42 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
         )
 
 
+def _load_csv_strict_for_data_recent_year(*args, **kwargs):
+    """Strict CSV loader for test_get_data_recent_year: only accepts the two fixture files."""
+    [_folder, filename] = args
+    usecols = kwargs.get("usecols", None)
+
+    if filename == "cawp-by_race_and_ethnicity_time_series.csv":
+        test_input_data_types = {
+            "id": str,
+            "year": str,
+            "first_name": str,
+            "middle_name": str,
+            "last_name": str,
+            "party": str,
+            "level": str,
+            "position": str,
+            "state": str,
+            "district": str,
+            "race_ethnicity": str,
+        }
+        return pd.read_csv(
+            os.path.join(TEST_DIR, f"test_input_{filename}"),
+            dtype=test_input_data_types,
+            index_col=False,
+            usecols=usecols,
+        )
+    elif filename in ("cawp_state_leg_02.csv", "cawp_state_leg_60.csv"):
+        test_input_data_types = {"state_fips": str, "time_period": str}
+        return pd.read_csv(
+            os.path.join(TEST_DIR, "mock_territory_leg_tables", filename),
+            dtype=test_input_data_types,
+            index_col=False,
+        )
+    else:
+        raise ValueError(f"Unexpected CSV filename in test_get_data_recent_year: {filename}")
+
+
 def _load_county_crosswalk():
     print("mocking load_county_crosswalk from mock_county_crosswalk.txt")
     df = pd.read_csv(
@@ -210,12 +245,21 @@ def _load_county_crosswalk():
     return df
 
 
-@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_as_df_from_data_dir)
-def test_get_data_recent_year(_mock_load):
+@mock.patch("datasources.cawp.get_state_leg_totals_df")
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_strict_for_data_recent_year)
+def test_get_data_recent_year(_mock_load, mock_stleg):
+    # Mock get_state_leg_totals_df to return only the two test fixtures.
+    mock_stleg.return_value = pd.DataFrame(
+        {
+            "state_fips": ["02", "02", "60", "60"],
+            "time_period": ["2024", "2023", "2025", "2024"],
+            "total_state_leg_count": [60, 60, 39, 39],
+        }
+    )
     result = get_data_recent_year()
-    assert isinstance(result, int)
-    assert result >= 2024
-    assert result <= datetime.date.today().year
+    # Fixture max year: AK (02) = 2024, AS (60) = 2025. min(2024, 2025) = 2024.
+    # (Test numerator max is 2028, but current_year caps at today; min(today, 2024) = 2024 if today >= 2024.)
+    assert result == 2024
 
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
