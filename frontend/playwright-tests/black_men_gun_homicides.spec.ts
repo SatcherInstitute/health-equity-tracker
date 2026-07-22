@@ -17,7 +17,7 @@ test('Black Men Homicide Test: Top Half of Cards', async ({ page }) => {
       expect
         .soft(page.getByText('City Size:'))
         .toBeVisible(),
-      expect.soft(page.getByRole('button', { name: 'All' })).toBeVisible(),
+      expect.soft(page.getByRole('button', { name: 'Include All', exact: true })).toBeVisible(),
 
       // Check Map Headers
       expect
