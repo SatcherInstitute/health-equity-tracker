@@ -35,7 +35,7 @@ Instructions for Updating TERRITORIAL LEGISLATURE DENOMINATOR Data:
 - Data source: ncsl.org/resources/details/number-of-legislators-and-length-of-terms-in-years
 
 
-Last Updated: Feb. 2024
+Last Updated: July 2026
 """
 
 import datetime
