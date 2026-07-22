@@ -1149,7 +1149,7 @@ def combine_states_to_national(df):
     return df_counts
 
 
-def get_consecutive_time_periods(first_year: int = DEFAULT_CONGRESS_FIRST_YR, last_year: int = None):
+def get_consecutive_time_periods(first_year: int = DEFAULT_CONGRESS_FIRST_YR, last_year: int | None = None):
     """Generates a list of consecutive time periods in the "YYYY" format
 
     Parameters:
