@@ -11,6 +11,7 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import Resources from '../methodologyComponents/Resources'
 import StripedTable from '../methodologyComponents/StripedTable'
+import { MissingCAWPData } from '../methodologyContent/missingDataBlurbs'
 import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
@@ -370,21 +371,9 @@ const PdohLink = () => {
             the ACS.
           </li>
         </ul>
-        <h3 className='mt-12 font-medium text-title' id='pdoh-missing-data'>
-          Missing Data
-        </h3>
-        <p>
-          The CAWP dataset's unique race/ethnicity groupings don't align with
-          U.S. Census categories. Consequently, certain groups (Middle Eastern &
-          North African Women, Asian American & Pacific Islander Women, Native
-          American, Alaska Native, & Native Hawaiian Women) lack corresponding
-          population comparison metrics.
-        </p>
-        <p>
-          We're currently unable to source reliable data on state legislature
-          totals by state and year before 1983, preventing historical
-          representation calculations before that year.
-        </p>
+        <div id='pdoh-missing-data'>
+          <MissingCAWPData />
+        </div>
 
         <h3
           className='mt-12 font-medium text-title'
