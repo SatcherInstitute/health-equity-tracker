@@ -122,6 +122,18 @@ export function MissingCAWPData() {
           totals, by state, by year prior to 1983. For that reason, we cannot
           calculate rates of representation historically before that year.
         </li>
+        <li>
+          <b>Legislature seat totals (denominator):</b> Annual seat counts for
+          all 50 states and DC are scraped from{' '}
+          <a href={urlMap.cawpStateInfo}>CAWP's state information pages</a>.
+          Seat totals for territories (American Samoa, Guam, CNMI, Puerto Rico,
+          and the U.S. Virgin Islands) are sourced from{' '}
+          <a href={urlMap.ncslLegislators}>NCSL</a> and updated manually each
+          year. Note: Puerto Rico's Legislative Assembly has a constitutional
+          baseline of 78 seats (27 Senate + 51 House), but a minority-protection
+          clause can temporarily expand it following certain election results;
+          the current 20th Assembly (2025-2029) sits at 81 seats.
+        </li>
       </BulletList>
     </MissingDataSection>
   )
