@@ -235,8 +235,16 @@ class CAWPData(DataSource):
         raise NotImplementedError("upload_to_gcs should not be called for CAWPData")
 
     def write_to_bq(self, dataset: str, gcs_bucket: str, write_local_instead_of_bq=False, **attrs) -> None:
-        members_df = get_us_congress_members_df()
-        base_df = self.generate_base_df(members_df.copy())
+        try:
+            state_leg_totals_df = get_state_leg_totals_df()
+        except Exception as e:
+            print(f"ERROR in get_state_leg_totals_df(): {e}")
+            print(f"Full error details: {str(e)}")
+            raise
+
+        recent_year = get_data_recent_year(state_leg_totals_df)
+        members_df = get_us_congress_members_df(last_year=recent_year)
+        base_df = self.generate_base_df(members_df.copy(), state_leg_totals_df, recent_year)
         df_names = base_df.copy()
         df_names = self.generate_names_breakdown(df_names)
         column_types = gcs_to_bq_util.get_bq_column_types(df_names, [])
@@ -362,7 +370,7 @@ class CAWPData(DataSource):
 
     # CLASS METHODS
 
-    def generate_base_df(self, members_df: pd.DataFrame):
+    def generate_base_df(self, members_df: pd.DataFrame, state_leg_totals_df: pd.DataFrame, recent_year: int):
         """Creates a dataframe with the raw counts by state by year by race of:
         all congress members, all women congress members,
         and women congress members of the row's race"""
@@ -380,15 +388,6 @@ class CAWPData(DataSource):
             print(f"ERROR in get_us_congress_totals_df(): {e}")
             print(f"Full error details: {str(e)}")
             raise
-
-        try:
-            state_leg_totals_df = get_state_leg_totals_df()
-        except Exception as e:
-            print(f"ERROR in get_state_leg_totals_df(): {e}")
-            print(f"Full error details: {str(e)}")
-            raise
-
-        recent_year = get_data_recent_year(state_leg_df=state_leg_totals_df)
 
         # create ROWS for the "All" race
         df_alls_rows = build_base_rows_df(
@@ -896,16 +895,18 @@ def _build_congress_member_entries(raw_legislators_json: list, years: list) -> l
     return entries
 
 
-def get_us_congress_members_df():
+def get_us_congress_members_df(last_year: int | None = None):
     """Fetches historic and current Congress data and returns one row per member per year,
     preserving the House district number for use in county-level joins.
 
+    Parameters:
+        last_year: optional final year for the time range; derived from source data if not provided
     Returns:
         df with columns: ID, NAME, TYPE, state_postal, time_period, DISTRICT.
         DISTRICT is an int for House members, None for senators."""
     raw_historical = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_HISTORICAL_URL)
     raw_current = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_CURRENT_URL)
-    years = get_consecutive_time_periods()
+    years = get_consecutive_time_periods(last_year=last_year)
     entries = _build_congress_member_entries([*raw_historical, *raw_current], years)
     return pd.DataFrame.from_dict(entries)
 

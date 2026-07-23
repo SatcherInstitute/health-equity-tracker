@@ -69,7 +69,8 @@ def test_extract_term_years():
 
 
 @mock.patch("datasources.cawp.get_data_recent_year", return_value=2025)
-def test_get_consecutive_time_periods(_mock_last_year):
+@mock.patch("datasources.cawp.get_state_leg_totals_df", return_value=pd.DataFrame())
+def test_get_consecutive_time_periods(_mock_stleg, _mock_recent_year):
     assert get_consecutive_time_periods(2020, 2022) == ["2020", "2021", "2022"]
     default_time_periods = get_consecutive_time_periods()
     assert default_time_periods[0] == "1915"
@@ -87,13 +88,12 @@ def _load_test_legislators_json(url, *_args, **_kwargs):
         return json.load(f)
 
 
-@mock.patch("datasources.cawp.get_data_recent_year", return_value=2025)
 @mock.patch(
     "ingestion.gcs_to_bq_util.fetch_json_from_web",
     side_effect=_load_test_legislators_json,
 )
-def test_get_us_congress_members_df(mock_fetch, _mock_last_year):
-    df = get_us_congress_members_df()
+def test_get_us_congress_members_df(mock_fetch):
+    df = get_us_congress_members_df(last_year=2025)
 
     assert DISTRICT in df.columns
 
@@ -192,7 +192,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 
 
 def _load_csv_strict_for_data_recent_year(*args, **kwargs):
-    """Strict CSV loader for test_get_data_recent_year: only accepts the two fixture files."""
+    """Strict CSV loader for test_get_data_recent_year: only accepts the numerator fixture."""
     [_folder, filename] = args
     usecols = kwargs.get("usecols", None)
 
@@ -215,13 +215,6 @@ def _load_csv_strict_for_data_recent_year(*args, **kwargs):
             dtype=test_input_data_types,
             index_col=False,
             usecols=usecols,
-        )
-    elif filename in ("cawp_state_leg_02.csv", "cawp_state_leg_60.csv"):
-        test_input_data_types = {"state_fips": str, "time_period": str}
-        return pd.read_csv(
-            os.path.join(TEST_DIR, "mock_territory_leg_tables", filename),
-            dtype=test_input_data_types,
-            index_col=False,
         )
     else:
         raise ValueError(f"Unexpected CSV filename in test_get_data_recent_year: {filename}")
