@@ -1098,7 +1098,7 @@ def get_state_leg_totals_df():
     return df.sort_values(by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]).reset_index(drop=True)
 
 
-def get_data_recent_year(state_leg_df: pd.DataFrame | None = None) -> int:
+def get_data_recent_year(state_leg_df: pd.DataFrame) -> int:
     """Returns the most recent year for which all CAWP source data is available.
 
     Takes the minimum of:
@@ -1108,15 +1108,10 @@ def get_data_recent_year(state_leg_df: pd.DataFrame | None = None) -> int:
       (ensures all populations have data for the returned year)
 
     Capping at today's year prevents including future election cycles that exist
-    in the source data but have not yet occurred.
-
-    Parameters:
-        state_leg_df: optional pre-loaded state leg totals df; loaded from disk if not provided."""
+    in the source data but have not yet occurred."""
     current_year = datetime.date.today().year
     numerator_df = gcs_to_bq_util.load_csv_as_df_from_data_dir("cawp", CAWP_LINE_ITEMS_FILE, usecols=[YEAR])
     max_numerator = min(int(numerator_df[YEAR].max()), current_year)
-    if state_leg_df is None:
-        state_leg_df = get_state_leg_totals_df()
     # For each state/territory, find its max year; then take the minimum across all states.
     # This ensures we only claim a year is "current" when all states have data for it.
     per_state_max_years = state_leg_df.groupby(std_col.STATE_FIPS_COL)[std_col.TIME_PERIOD_COL].max().astype(int)
@@ -1169,7 +1164,7 @@ def get_consecutive_time_periods(first_year: int = DEFAULT_CONGRESS_FIRST_YR, la
     Returns:
         a list of string years (e.g. ["1999", "2000", "2001"])"""
     if last_year is None:
-        last_year = get_data_recent_year()
+        last_year = get_data_recent_year(get_state_leg_totals_df())
     return [str(x) for x in list(range(first_year, last_year + 1))]
 
 

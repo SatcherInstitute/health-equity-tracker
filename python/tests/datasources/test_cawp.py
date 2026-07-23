@@ -245,18 +245,16 @@ def _load_county_crosswalk():
     return df
 
 
-@mock.patch("datasources.cawp.get_state_leg_totals_df")
 @mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_strict_for_data_recent_year)
-def test_get_data_recent_year(_mock_load, mock_stleg):
-    # Mock get_state_leg_totals_df to return only the two test fixtures.
-    mock_stleg.return_value = pd.DataFrame(
+def test_get_data_recent_year(_mock_load):
+    state_leg_df = pd.DataFrame(
         {
             "state_fips": ["02", "02", "60", "60"],
             "time_period": ["2024", "2023", "2025", "2024"],
             "total_state_leg_count": [60, 60, 39, 39],
         }
     )
-    result = get_data_recent_year()
+    result = get_data_recent_year(state_leg_df)
     # Fixture max year: AK (02) = 2024, AS (60) = 2025. min(2024, 2025) = 2024.
     # (Test numerator max is 2028, but current_year caps at today; min(today, 2024) = 2024 if today >= 2024.)
     assert result == 2024
