@@ -37,9 +37,9 @@ function HetDesktopMenuItem(props: HetDesktopMenuItemProps) {
   return (
     <>
       {props.routeConfig.isTopLevel && (
-        <li className='m-0 list-none p-0' aria-hidden>
+        <div className='m-0 p-0' aria-hidden>
           <HetDivider />
-        </li>
+        </div>
       )}
 
       <HetListItemButton
