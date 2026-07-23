@@ -209,7 +209,7 @@ const HivLink = () => {
           </p>
         </HetNotice>
         <div id='hiv-missing-and-suppressed-data'>
-          <MissingHIVData />
+          <MissingHIVData headingLevel='h3' />
         </div>
         <h3 className='mt-12 font-medium text-title' id='prep-coverage'>
           Defining PrEP Coverage as a Percentage
@@ -346,7 +346,7 @@ const HivLink = () => {
           ]}
         />
         <div id='prep-missing-and-suppressed-data'>
-          <MissingPrepData />
+          <MissingPrepData headingLevel='h3' />
         </div>
 
         <h3 className='mt-12 font-medium text-title' id='linkage-to-care'>

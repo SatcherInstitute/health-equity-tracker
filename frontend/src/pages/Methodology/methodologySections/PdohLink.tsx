@@ -372,7 +372,7 @@ const PdohLink = () => {
           </li>
         </ul>
         <div id='pdoh-missing-data'>
-          <MissingCAWPData />
+          <MissingCAWPData headingLevel='h3' />
         </div>
 
         <h3
