@@ -388,6 +388,8 @@ class CAWPData(DataSource):
             print(f"Full error details: {str(e)}")
             raise
 
+        recent_year = get_data_recent_year(state_leg_df=state_leg_totals_df)
+
         # create ROWS for the "All" race
         df_alls_rows = build_base_rows_df(
             us_congress_totals_df,
@@ -395,6 +397,7 @@ class CAWPData(DataSource):
             women_us_congress_df,
             women_state_leg_df,
             [Race.ALL.value],
+            last_year=recent_year,
         )
 
         # create ROWS for each CAWP race group
@@ -404,6 +407,7 @@ class CAWPData(DataSource):
             women_us_congress_df,
             women_state_leg_df,
             list(CAWP_RACE_GROUPS_TO_STANDARD.keys()),
+            last_year=recent_year,
         )
 
         # append ROWS for combo race AIAN_API
@@ -581,11 +585,12 @@ class CAWPData(DataSource):
 # HELPER FUNCTIONS
 
 
-def scaffold_df_by_year_by_state_by_race_list(race_list: List[str], first_year: int):
+def scaffold_df_by_year_by_state_by_race_list(race_list: List[str], first_year: int, last_year: int | None = None):
     """Creates the scaffold df with a row for every STATE/YEAR/RACE_ETH IN race_list combo
     Parameters:
         race_list: list of strings to serve as values in the "race_ethnicity" column
         first_year: int year to start building the scaffold e.g. 1983
+        last_year: optional final year; derived from source data if not provided
     Returns:
         df with a row for every combo of `race_list` race, years, and state/territories
         including columns for "state_name", "state_postal" and "state_fips" """
@@ -598,7 +603,7 @@ def scaffold_df_by_year_by_state_by_race_list(race_list: List[str], first_year: 
     )
 
     # explode to every combo of state/year
-    years = get_consecutive_time_periods(first_year=first_year)
+    years = get_consecutive_time_periods(first_year=first_year, last_year=last_year)
     df[std_col.TIME_PERIOD_COL] = [years] * len(df)
     df = df.explode(std_col.TIME_PERIOD_COL).reset_index(drop=True)
 
@@ -1093,7 +1098,7 @@ def get_state_leg_totals_df():
     return df.sort_values(by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]).reset_index(drop=True)
 
 
-def get_data_recent_year() -> int:
+def get_data_recent_year(state_leg_df: pd.DataFrame | None = None) -> int:
     """Returns the most recent year for which all CAWP source data is available.
 
     Takes the minimum of:
@@ -1103,11 +1108,15 @@ def get_data_recent_year() -> int:
       (ensures all populations have data for the returned year)
 
     Capping at today's year prevents including future election cycles that exist
-    in the source data but have not yet occurred."""
+    in the source data but have not yet occurred.
+
+    Parameters:
+        state_leg_df: optional pre-loaded state leg totals df; loaded from disk if not provided."""
     current_year = datetime.date.today().year
     numerator_df = gcs_to_bq_util.load_csv_as_df_from_data_dir("cawp", CAWP_LINE_ITEMS_FILE, usecols=[YEAR])
     max_numerator = min(int(numerator_df[YEAR].max()), current_year)
-    state_leg_df = get_state_leg_totals_df()
+    if state_leg_df is None:
+        state_leg_df = get_state_leg_totals_df()
     # For each state/territory, find its max year; then take the minimum across all states.
     # This ensures we only claim a year is "current" when all states have data for it.
     per_state_max_years = state_leg_df.groupby(std_col.STATE_FIPS_COL)[std_col.TIME_PERIOD_COL].max().astype(int)
@@ -1270,6 +1279,7 @@ def build_base_rows_df(
     women_us_congress_df,
     women_state_leg_df,
     race_list: List[str],
+    last_year: int | None = None,
 ):
     """Builds out a scaffold of rows with YEAR/STATE/RACE combos,
     then merges columns for:
@@ -1282,14 +1292,19 @@ def build_base_rows_df(
         women_us_congress_df: prev. processed df with women in US Congress info from CAWP database
         women_state_leg_df: prev. processed df with women in state leg. info from CAWP database
         race_list: a list of strings representing which races should be included in this base chunk
+        last_year: optional final year for the scaffold; derived from source data if not provided
 
     Returns: a df with rows per year/state/race from race list, with columns incl.
         US CONGRESS and STATE LEG counts for TOTAL, WOMEN ALL RACE, and WOMEN THIS RACE
     """
 
     # create chunks with needed COLUMNS
-    df_congress_scaffold = scaffold_df_by_year_by_state_by_race_list(race_list, DEFAULT_CONGRESS_FIRST_YR)
-    df_stleg_scaffold = scaffold_df_by_year_by_state_by_race_list(race_list, DEFAULT_STLEG_FIRST_YR)
+    df_congress_scaffold = scaffold_df_by_year_by_state_by_race_list(
+        race_list, DEFAULT_CONGRESS_FIRST_YR, last_year=last_year
+    )
+    df_stleg_scaffold = scaffold_df_by_year_by_state_by_race_list(
+        race_list, DEFAULT_STLEG_FIRST_YR, last_year=last_year
+    )
 
     df_total_cols = merge_total_cols(
         df_congress_scaffold.copy(),

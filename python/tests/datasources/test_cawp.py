@@ -299,8 +299,9 @@ def testWriteToBq(
     assert mock_test_time_periods.call_count == 7
 
     # CAWP LINE ITEM CSV + 50 STATE LEG CSVS + 6 TERRITORY LEG CSVS +
+    # get_data_recent_year() numerator CSV (usecols=[YEAR]) +
     # COUNTY: CAWP LINE ITEM CSV in get_women_congress_by_county_df
-    assert mock_data_dir.call_count == 1 + len(FIPS_TO_STATE_TABLE_MAP) + len(TERRITORY_FIPS_LIST) + 1
+    assert mock_data_dir.call_count == 1 + len(FIPS_TO_STATE_TABLE_MAP) + len(TERRITORY_FIPS_LIST) + 1 + 1
 
     # CURRENT + HISTORICAL CONGRESS TOTALS (fetched once in write_to_bq, passed down)
     assert mock_json_from_web.call_count == 2
