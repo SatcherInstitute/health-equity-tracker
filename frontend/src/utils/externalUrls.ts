@@ -2,6 +2,7 @@ export const urlMap: Record<string, string> = {
   acs5: 'https://www.census.gov/data/developers/data-sets/acs-5year.html',
   ahr: 'https://www.americashealthrankings.org/explore/measures',
   ahrGraphQl: 'https://developers.americashealthrankings.org/',
+  cawpStateInfo: 'https://cawp.rutgers.edu/facts/state-state-information/',
   cdcBrfss: 'https://www.cdc.gov/brfss/index.html',
   cdcCovidRestricted:
     'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
@@ -24,6 +25,8 @@ export const urlMap: Record<string, string> = {
     'https://satcherinstitute.org/news/hiv-criminalization-in-georgia-a-call-for-reform',
   lifeline: 'https://988lifeline.org',
   msm: 'https://www.msm.edu/',
+  ncslLegislators:
+    'https://www.ncsl.org/resources/details/number-of-legislators-and-length-of-terms-in-years',
   newsletterSignup:
     'https://satcherinstitute.us11.list-manage.com/subscribe?u=6a52e908d61b03e0bbbd4e790&id=3ec1ba23cd&',
   prisonPolicy: 'https://www.prisonpolicy.org/reports/youth2019.html',

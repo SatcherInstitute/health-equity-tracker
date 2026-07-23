@@ -3,14 +3,17 @@ import { urlMap } from '../../../utils/externalUrls'
 // Shared component for consistent styling
 function MissingDataSection({
   title,
+  headingLevel = 'h4',
   children,
 }: {
   title: string
+  headingLevel?: 'h3' | 'h4'
   children: React.ReactNode
 }) {
+  const Heading = headingLevel
   return (
     <>
-      <h4 className='mt-8 mb-2'>{title}</h4>
+      <Heading className='mt-8 mb-2'>{title}</Heading>
       <div className='m-0 ml-1 self-start text-alt-black text-small'>
         {children}
       </div>
@@ -104,9 +107,16 @@ export function MissingCovidVaccinationData() {
   )
 }
 
-export function MissingCAWPData() {
+export function MissingCAWPData({
+  headingLevel,
+}: {
+  headingLevel?: 'h3' | 'h4'
+} = {}) {
   return (
-    <MissingDataSection title='Missing data for women in legislative office'>
+    <MissingDataSection
+      title='Missing data for women in legislative office'
+      headingLevel={headingLevel}
+    >
       <BulletList>
         <li>
           The Center for American Women in Politics (CAWP) dataset uses unique
@@ -122,14 +132,36 @@ export function MissingCAWPData() {
           totals, by state, by year prior to 1983. For that reason, we cannot
           calculate rates of representation historically before that year.
         </li>
+        <li>
+          <b>Legislature seat totals (denominator):</b> Annual seat counts for
+          all 50 states and DC are scraped from{' '}
+          <a href={urlMap.cawpStateInfo}>CAWP's state information pages</a>.
+          Seat totals for territories (American Samoa, Guam, CNMI, Puerto Rico,
+          and the U.S. Virgin Islands) are sourced from{' '}
+          <a href={urlMap.ncslLegislators}>
+            NCSL (National Conference of State Legislatures)
+          </a>{' '}
+          and updated manually each year. Note: Puerto Rico's Legislative
+          Assembly has a constitutional baseline of 78 seats (27 Senate + 51
+          House), but a minority-protection clause can temporarily expand it
+          following certain election results; the current 20th Assembly
+          (2025-2029) sits at 81 seats.
+        </li>
       </BulletList>
     </MissingDataSection>
   )
 }
 
-export function MissingHIVData() {
+export function MissingHIVData({
+  headingLevel,
+}: {
+  headingLevel?: 'h3' | 'h4'
+} = {}) {
   return (
-    <MissingDataSection title='Missing data for HIV deaths, diagnoses, and prevalence'>
+    <MissingDataSection
+      title='Missing data for HIV deaths, diagnoses, and prevalence'
+      headingLevel={headingLevel}
+    >
       <BulletList>
         <li>
           County-level data is suppressed when the population denominator is
@@ -160,9 +192,16 @@ export function MissingHIVData() {
   )
 }
 
-export function MissingPrepData() {
+export function MissingPrepData({
+  headingLevel,
+}: {
+  headingLevel?: 'h3' | 'h4'
+} = {}) {
   return (
-    <MissingDataSection title='PrEP Coverage and Prescriptions'>
+    <MissingDataSection
+      title='Missing and suppressed PrEP data'
+      headingLevel={headingLevel}
+    >
       <BulletList>
         <li>
           The race and ethnicity of individuals prescribed PrEP are only
@@ -176,8 +215,8 @@ export function MissingPrepData() {
         <li>
           PrEP coverage data are suppressed at any level if the number of
           persons prescribed PrEP is suppressed, the estimated number of persons
-          with indications for PrEP (PreEP-eligible population) is suppressed,
-          or if the number of persons prescribed PrEP is less than 40.
+          with indications for PrEP (PrEP-eligible population) is suppressed, or
+          if the number of persons prescribed PrEP is less than 40.
         </li>
       </BulletList>
     </MissingDataSection>
