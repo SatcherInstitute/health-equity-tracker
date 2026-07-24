@@ -73,7 +73,11 @@ export default function InsightVisualizationCard({
   const peerResponses = useMetrics(
     peerMode && isOpen && peerConfig ? [peerConfig.peerQuery] : [],
   )
-  const peersReady = Array.isArray(peerResponses)
+  // Require the peer query to have actually resolved — not just any array.
+  // useMetrics keeps its prior value (the empty [] from before the insight was
+  // opened) until the new fetch lands, so `Array.isArray` alone is true during
+  // that window and would let the insight generate before peers arrive.
+  const peersReady = Array.isArray(peerResponses) && peerResponses.length > 0
   const peersLoading = peerMode && isOpen && peerResponses === 'loading'
   const peersErrored = peerMode && isOpen && peerResponses === 'error'
   const peerComparison: PeerComparison | undefined =

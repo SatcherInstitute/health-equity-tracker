@@ -20,7 +20,8 @@ import { REPORT_INSIGHT_PARAM_KEY } from './urlutils'
 // Bump when the prompt wording changes materially, so already-cached insights
 // (keyed by view, not by prompt text) are invalidated instead of served stale.
 // v2: parent/national reference rates → same-level peer ranking + no-preamble rule.
-export const INSIGHT_CACHE_VERSION = 'v2'
+// v3: fixed a lazy-fetch race that cached peer insights generated before peers loaded.
+export const INSIGHT_CACHE_VERSION = 'v3'
 
 const MAP_CHART_IDS: ScrollableHashId[] = [
   'rate-map',
