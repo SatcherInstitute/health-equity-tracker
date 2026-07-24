@@ -6,6 +6,7 @@ from ingestion import standardized_columns as std_col
 from ingestion.constants import CURRENT, Sex, HISTORICAL
 from ingestion.dataset_utils import (
     generate_estimated_total_col,
+    generate_pct_rel_inequity_col,
     generate_pct_share_col_of_summed_alls,
     get_timeview_df_and_cols,
 )
@@ -254,6 +255,18 @@ class GraphQlAHRData(DataSource):
             }
         )
 
+        all_share_cols = {
+            **RAW_TO_SHARE_ALL_AGES_MAP,
+            **RAW_TO_SHARE_18PLUS_MAP,
+        }
+        for share_col in all_share_cols.values():
+            if share_col in breakdown_df.columns:
+                prefix = std_col.extract_prefix(share_col)
+                inequity_col = f"{prefix}_{std_col.PCT_REL_INEQUITY_SUFFIX}"
+                breakdown_df = generate_pct_rel_inequity_col(
+                    breakdown_df, share_col, std_col.AHR_POPULATION_PCT, inequity_col
+                )
+
         breakdown_df = breakdown_df.sort_values(
             by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
         )
@@ -347,6 +360,11 @@ def get_float_cols(
             float_cols.extend(list(RATE_TO_RAW_18PLUS_MAP.values()))
             float_cols.extend(list(RAW_TO_SHARE_18PLUS_MAP.values()))
 
-    # TODO: historical tables will get pct_relative_inequity cols
+    if time_type == HISTORICAL:
+        inequity_cols = [
+            f"{std_col.extract_prefix(share_col)}_{std_col.PCT_REL_INEQUITY_SUFFIX}"
+            for share_col in {**RAW_TO_SHARE_ALL_AGES_MAP, **RAW_TO_SHARE_18PLUS_MAP}.values()
+        ]
+        float_cols.extend(inequity_cols)
 
     return float_cols
