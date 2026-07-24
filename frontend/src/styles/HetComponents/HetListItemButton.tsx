@@ -14,7 +14,6 @@ interface HetListItemButtonProps {
   selected?: boolean
   option?: HetListItemButtonOptionType
   style?: React.CSSProperties
-  hoverStyle?: React.CSSProperties
 }
 
 const optionsToClasses: Record<HetListItemButtonOptionType, string> = {
@@ -50,7 +49,6 @@ export default function HetListItemButton(props: HetListItemButtonProps) {
         onClick={props.onClick}
         aria-label={props.ariaLabel}
         selected={props.selected}
-        role='menuitem'
       >
         {inner}
       </ListItemButton>
@@ -66,7 +64,6 @@ export default function HetListItemButton(props: HetListItemButtonProps) {
       onClick={props.onClick}
       aria-label={props.ariaLabel}
       selected={props.selected}
-      role='menuitem'
     >
       {inner}
     </ListItemButton>
