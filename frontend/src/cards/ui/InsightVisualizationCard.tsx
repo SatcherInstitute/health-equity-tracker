@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from 'react'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
-import { useMetrics } from '../../data/react/useResources'
 import type { DemographicGroup } from '../../data/utils/Constants'
 import type { Fips } from '../../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
@@ -19,6 +18,7 @@ import {
   INSIGHT_CACHE_VERSION,
   summarizePeerComparison,
 } from '../../utils/generateVisualizationInsight'
+import { getDataManager } from '../../utils/globals'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
   cardInsightOpenAtom,
@@ -70,31 +70,46 @@ export default function InsightVisualizationCard({
   // so multi-region maps and unopened insights never trigger the extra load.
   const peerMode =
     dataStatus === 'single-region' && Boolean(peerConfig) && Boolean(regionRate)
-  const peerResponses = useMetrics(
-    peerMode && isOpen && peerConfig ? [peerConfig.peerQuery] : [],
-  )
-  // Require the peer query to have actually resolved — not just any array.
-  // useMetrics keeps its prior value (the empty [] from before the insight was
-  // opened) until the new fetch lands, so `Array.isArray` alone is true during
-  // that window and would let the insight generate before peers arrive.
-  const peersReady = Array.isArray(peerResponses) && peerResponses.length > 0
-  const peersErrored = peerMode && isOpen && peerResponses === 'error'
-  // Show the spinner for the whole pre-ready window, not just the literal
-  // 'loading' state: useMetrics briefly returns the stale empty [] right after
-  // the insight opens (before the peer fetch lands), which is neither 'loading'
-  // nor ready — without this it would render an empty box during that gap.
+  // Controlled fetch (not useMetrics): the shared hook retains its prior value
+  // across query-array changes, so toggling the query on open left it stuck on
+  // the stale empty result. Loading the peer query directly through the
+  // DataManager (LRU-cached) gives an explicit, reliable loading→ready state.
+  const [peerResult, setPeerResult] = useState<
+    MetricQueryResponse | 'loading' | 'error' | null
+  >(null)
+  const peerQueryKey = peerConfig?.peerQuery.getUniqueKey()
+  useEffect(() => {
+    if (!(peerMode && isOpen && peerConfig)) return
+    let cancelled = false
+    setPeerResult('loading')
+    getDataManager()
+      .loadMetrics(peerConfig.peerQuery)
+      .then((response) => {
+        if (!cancelled) setPeerResult(response)
+      })
+      .catch(() => {
+        if (!cancelled) setPeerResult('error')
+      })
+    return () => {
+      cancelled = true
+    }
+    // peerConfig.peerQuery is a fresh object each render; peerQueryKey identifies it.
+    // biome-ignore lint/correctness/useExhaustiveDependencies: fetch is keyed by peerQueryKey
+  }, [peerMode, isOpen, peerQueryKey])
+
+  const peersReady =
+    peerResult != null && peerResult !== 'loading' && peerResult !== 'error'
+  const peersErrored = peerMode && isOpen && peerResult === 'error'
+  // Covers both the initial null and the explicit 'loading' state so the spinner
+  // shows continuously until peers arrive (never an empty box).
   const peersLoading = peerMode && isOpen && !peersReady && !peersErrored
   const peerComparison: PeerComparison | undefined =
-    peerMode &&
-    peerConfig &&
-    regionRate &&
-    peersReady &&
-    peerResponses.length > 0
+    peerMode && peerConfig && regionRate && peersReady
       ? {
           regionLabel: regionRate.label,
           regionValue: regionRate.value,
           peerNoun: peerConfig.peerNoun,
-          peerValues: peerConfig.getPeerValues(peerResponses),
+          peerValues: peerConfig.getPeerValues([peerResult]),
           shortLabel: regionRate.shortLabel,
         }
       : undefined
@@ -102,7 +117,6 @@ export default function InsightVisualizationCard({
   const peerInsufficient =
     peerMode &&
     peersReady &&
-    peerResponses.length > 0 &&
     (!peerComparison || summarizePeerComparison(peerComparison) === null)
 
   // A stable suffix so the insight regenerates when the user changes which
@@ -199,7 +213,14 @@ export default function InsightVisualizationCard({
       role='status'
       className='mb-3 animate-expand-down rounded-md bg-footer-color p-3'
     >
-      {isGenerating || peersLoading ? (
+      {peersLoading ? (
+        <div className='flex items-center gap-2 py-1'>
+          <CircularProgress size={14} className='shrink-0' />
+          <p className='m-0 text-alt-dark text-small'>
+            Gathering peer comparison data...
+          </p>
+        </div>
+      ) : isGenerating ? (
         <div className='flex items-center gap-2 py-1'>
           <CircularProgress size={14} className='shrink-0' />
           <p className='m-0 text-alt-dark text-small'>
