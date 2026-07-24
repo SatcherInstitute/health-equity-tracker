@@ -78,8 +78,12 @@ export default function InsightVisualizationCard({
   // opened) until the new fetch lands, so `Array.isArray` alone is true during
   // that window and would let the insight generate before peers arrive.
   const peersReady = Array.isArray(peerResponses) && peerResponses.length > 0
-  const peersLoading = peerMode && isOpen && peerResponses === 'loading'
   const peersErrored = peerMode && isOpen && peerResponses === 'error'
+  // Show the spinner for the whole pre-ready window, not just the literal
+  // 'loading' state: useMetrics briefly returns the stale empty [] right after
+  // the insight opens (before the peer fetch lands), which is neither 'loading'
+  // nor ready — without this it would render an empty box during that gap.
+  const peersLoading = peerMode && isOpen && !peersReady && !peersErrored
   const peerComparison: PeerComparison | undefined =
     peerMode &&
     peerConfig &&
