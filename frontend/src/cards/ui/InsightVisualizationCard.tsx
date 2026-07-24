@@ -16,6 +16,7 @@ import type {
 import {
   buildInsightFocusSuffix,
   generateCardInsight,
+  INSIGHT_CACHE_VERSION,
   summarizePeerComparison,
 } from '../../utils/generateVisualizationInsight'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
@@ -104,7 +105,7 @@ export default function InsightVisualizationCard({
     activeDemographicGroup,
     selectedGroups,
   })
-  const cacheKey = `${scrollToHash}-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}${isCompareCard ? '-2' : ''}${focusSuffix ? `-${focusSuffix}` : ''}`
+  const cacheKey = `${scrollToHash}-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}${isCompareCard ? '-2' : ''}${focusSuffix ? `-${focusSuffix}` : ''}-${INSIGHT_CACHE_VERSION}`
   const insight = cardInsights[cacheKey]
 
   const handleGenerate = useCallback(async () => {

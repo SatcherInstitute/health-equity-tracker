@@ -17,6 +17,11 @@ import { fetchAIInsight, type InsightResult } from './fetchAIInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
 import { REPORT_INSIGHT_PARAM_KEY } from './urlutils'
 
+// Bump when the prompt wording changes materially, so already-cached insights
+// (keyed by view, not by prompt text) are invalidated instead of served stale.
+// v2: parent/national reference rates → same-level peer ranking + no-preamble rule.
+export const INSIGHT_CACHE_VERSION = 'v2'
+
 const MAP_CHART_IDS: ScrollableHashId[] = [
   'rate-map',
   'unknown-demographic-map',
@@ -392,15 +397,20 @@ export async function generateCardInsight(
     ? formatPeerComparison(peerSummary)
     : dataSection
 
-  const prompt = buildPrompt(
-    hashId,
-    topic,
-    location,
-    demographic,
-    finalDataSection,
-    context?.activeDemographicGroup,
-    Boolean(peerSummary),
-  )
+  // Keep the model from narrating the prompt (e.g. "Since only the overall rate
+  // is available, here's a sentence...") — the card wants the bare insight.
+  const outputRule =
+    ' Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.'
+  const prompt =
+    buildPrompt(
+      hashId,
+      topic,
+      location,
+      demographic,
+      finalDataSection,
+      context?.activeDemographicGroup,
+      Boolean(peerSummary),
+    ) + outputRule
 
   const params = new URLSearchParams(window.location.search)
   params.delete(REPORT_INSIGHT_PARAM_KEY)
@@ -409,7 +419,7 @@ export async function generateCardInsight(
   // not the URL, so it must be folded into the key or the server returns the
   // insight cached for the previous focus even though the prompt has changed.
   const focusSuffix = buildInsightFocusSuffix(context)
-  const cacheKey = `${window.location.pathname}?${params.toString()}#${hashId}${cardSuffix}${focusSuffix ? `-${focusSuffix}` : ''}`
+  const cacheKey = `${window.location.pathname}?${params.toString()}#${hashId}${cardSuffix}${focusSuffix ? `-${focusSuffix}` : ''}-${INSIGHT_CACHE_VERSION}`
 
   const result = await fetchAIInsight(prompt, {
     cacheKey,
