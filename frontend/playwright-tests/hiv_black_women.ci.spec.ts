@@ -39,6 +39,11 @@ test('HIV Black Women: Prevalance Top Cards', async ({ page }) => {
         )
         .toBeVisible(),
       expect.soft(page.getByLabel('Include 65+')).toBeVisible(),
+      // Regression for #4996: PR #4978 added a second comparison series for
+      // all Black women ages 13+; verify the label renders in the chart.
+      expect
+        .soft(ratesOverTime.getByText('All Black Women Ages 13+').first())
+        .toBeVisible({ timeout: 15000 }),
     ])
   })
 
