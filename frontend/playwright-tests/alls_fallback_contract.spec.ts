@@ -28,14 +28,12 @@ test('every registered alls_ DatasetId is exported', async ({ request }) => {
 
   const missing: string[] = []
 
-  await Promise.all(
-    allsDatasetIds.map(async (id) => {
-      const resp = await request.get(`${API_BASE}/api/dataset?name=${id}.json`)
-      if (resp.status() !== 200) {
-        missing.push(`${id} → ${resp.status()}`)
-      }
-    }),
-  )
+  for (const id of allsDatasetIds) {
+    const resp = await request.get(`${API_BASE}/api/dataset?name=${id}.json`)
+    if (resp.status() !== 200) {
+      missing.push(`${id} → ${resp.status()}`)
+    }
+  }
 
   expect(
     missing,
