@@ -10,6 +10,10 @@ import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import Resources from '../methodologyComponents/Resources'
 import StripedTable from '../methodologyComponents/StripedTable'
+import {
+  MissingHIVData,
+  MissingPrepData,
+} from '../methodologyContent/missingDataBlurbs'
 import { HIV_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
@@ -204,48 +208,9 @@ const HivLink = () => {
             People.
           </p>
         </HetNotice>
-        <h3
-          className='mt-12 font-medium text-title'
-          id='hiv-missing-and-suppressed-data'
-        >
-          Addressing Missing and Suppressed Data
-        </h3>
-        <HetNotice
-          kind='data-integrity'
-          title='Upholding the Confidentiality of People Living with HIV/AIDS (PLWHA)'
-        >
-          <p>
-            To protect personal privacy, prevent revealing information that
-            might identify specific individuals, and ensure the reliability of
-            statistical estimates, small data values may not be available in
-            some circumstances.
-          </p>
-        </HetNotice>
-        <p>
-          County-level data is suppressed when the population denominator is:
-        </p>
-        <ul className='list-disc pl-4'>
-          <li>less than 100,</li>
-          <li>the total case count is between 1–4 cases, or </li>
-          <li>when querying HIV or AIDS deaths.</li>
-        </ul>
-
-        <p>
-          For the Census Island Areas (US territories other than Puerto Rico),
-          there isn't enough data to accurately calculate subpopulation rates by
-        </p>
-        <ul className='list-disc pl-4'>
-          <li>age</li>
-          <li>sex</li>
-          <li>race/ethnicity</li>
-        </ul>
-        <p>
-          As a result, the analysis or report will not provide detailed
-          information about these specific groups in those regions. The Asian
-          category includes cases previously classified as "Asian/Pacific
-          Islander" under the pre-1997 Office of Management and Budget (OMB)
-          race/ethnicity classification system when querying HIV prevalence.
-        </p>
+        <div id='hiv-missing-and-suppressed-data'>
+          <MissingHIVData headingLevel='h3' />
+        </div>
         <h3 className='mt-12 font-medium text-title' id='prep-coverage'>
           Defining PrEP Coverage as a Percentage
         </h3>
@@ -380,33 +345,9 @@ const HivLink = () => {
             '* 100',
           ]}
         />
-        <h3
-          className='mt-12 font-medium text-title'
-          id='prep-missing-and-suppressed-data'
-        >
-          Addressing Missing and Suppressed PrEP Coverage and Prescriptions Data
-        </h3>
-        <p>
-          State-level and county-level PrEP data are not available for race and
-          ethnicity. The race and ethnicity of individuals prescribed PrEP are
-          only available for less than 40% of all people prescribed PrEP and are
-          limited to four categories:
-        </p>
-        <ol>
-          <li>White</li>
-          <li>Black</li>
-          <li>Hispanic/Latino</li>
-          <li>Other</li>
-        </ol>
-        <p>PrEP coverage data are suppressed at any level if</p>
-        <ul className='list-disc pl-4'>
-          <li>the number of persons prescribed PrEP is suppressed,</li>
-          <li>
-            the estimated number of persons with indications for PrEP
-            (PreEP-eligible population) is suppressed, or
-          </li>
-          <li>if the number of persons prescribed PrEP is less than 40.</li>
-        </ul>
+        <div id='prep-missing-and-suppressed-data'>
+          <MissingPrepData headingLevel='h3' />
+        </div>
 
         <h3 className='mt-12 font-medium text-title' id='linkage-to-care'>
           Linkage to Care

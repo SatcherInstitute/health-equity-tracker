@@ -210,7 +210,9 @@ export function createQuantileLegend(
   colorScale: ColorScale & { quantiles(): number[] },
   labelFormat: (value: number) => string,
 ): LegendItemData[] {
-  const thresholds = colorScale.quantiles()
+  // Deduplicate: when many data points share the same value, quantile boundaries
+  // can repeat (e.g. [11, 11, 31, 31]), producing labels like "31 – 31".
+  const thresholds = [...new Set(colorScale.quantiles())]
 
   if (thresholds.length <= 1) {
     return []
