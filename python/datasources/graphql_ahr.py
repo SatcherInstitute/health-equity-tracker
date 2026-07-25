@@ -249,8 +249,9 @@ class GraphQlAHRData(DataSource):
 
             # Compute the 18+ population share using the same summed-alls method so it matches
             # the pct_share numerator basis for 18+ metrics. This gives a statistically consistent
-            # denominator for pct_rel_inequity on race/sex 18+ topics.
-            ahr_pop_18plus_pct_col = "ahr_pop_18plus_pct"
+            # denominator for pct_rel_inequity on race/sex 18+ topics, and surfaces in _current
+            # tables for the frontend pop-share comparison bars.
+            ahr_pop_18plus_pct_col = "ahr_18plus_population_pct"
             breakdown_df = generate_pct_share_col_of_summed_alls(
                 breakdown_df, {ahr_pop18plus_col: ahr_pop_18plus_pct_col}, share_demo
             )
@@ -284,9 +285,6 @@ class GraphQlAHRData(DataSource):
                 else std_col.AHR_POPULATION_PCT
             )
             breakdown_df = generate_pct_rel_inequity_col(breakdown_df, share_col, pop_col, inequity_col)
-
-        if ahr_pop_18plus_pct_col is not None:
-            breakdown_df = breakdown_df.drop(columns=[ahr_pop_18plus_pct_col])
 
         breakdown_df = breakdown_df.sort_values(
             by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
