@@ -67,7 +67,6 @@ export type MetricId =
   | 'population'
   | 'svi'
   | 'ahr_population_estimated_total'
-  | 'ahr_population_18plus'
   | 'ahr_18plus_population_estimated_total'
   | 'ahr_18plus_population_pct'
 

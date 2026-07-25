@@ -74,7 +74,7 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'ahr_population_18plus',
+          metricId: 'ahr_18plus_population_estimated_total',
           chartTitle: '',
           shortLabel: 'Total pop. 18+',
           type: 'count',
@@ -138,7 +138,7 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'ahr_population_18plus',
+          metricId: 'ahr_18plus_population_estimated_total',
           chartTitle: '',
           shortLabel: 'Total pop. 18+',
           type: 'count',
@@ -203,7 +203,7 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'ahr_population_18plus',
+          metricId: 'ahr_18plus_population_estimated_total',
           chartTitle: '',
           shortLabel: 'Total pop. 18+',
           type: 'count',
@@ -275,7 +275,7 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'ahr_population_18plus',
+          metricId: 'ahr_18plus_population_estimated_total',
           chartTitle: '',
           shortLabel: 'Total pop. 18+',
           type: 'count',
@@ -338,7 +338,7 @@ export const COPD_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'ahr_population_18plus',
+          metricId: 'ahr_18plus_population_estimated_total',
           chartTitle: '',
           shortLabel: 'Total pop. 18+',
           type: 'count',

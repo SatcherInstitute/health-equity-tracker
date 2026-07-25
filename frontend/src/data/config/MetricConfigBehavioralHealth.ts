@@ -92,7 +92,7 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'ahr_population_18plus',
+          metricId: 'ahr_18plus_population_estimated_total',
           chartTitle: '',
           shortLabel: 'Total pop. 18+',
           type: 'count',
@@ -211,7 +211,7 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'ahr_population_18plus',
+          metricId: 'ahr_18plus_population_estimated_total',
           chartTitle: '',
           shortLabel: 'Total pop. 18+',
           type: 'count',
@@ -277,7 +277,7 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'ahr_population_18plus',
+          metricId: 'ahr_18plus_population_estimated_total',
           chartTitle: '',
           shortLabel: 'Total pop. 18+',
           type: 'count',
