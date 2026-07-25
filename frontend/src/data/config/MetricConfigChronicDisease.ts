@@ -1,7 +1,7 @@
 import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import {
-  populationPctShortLabel,
-  populationPctTitle,
+  adultPopulationPctShortLabel,
+  adultPopulationPctTitle,
 } from './MetricConfigConstants'
 import type { DataTypeConfig } from './MetricConfigTypes'
 
@@ -18,6 +18,7 @@ export type ChronicDiseaseDataTypeId =
 
 export type ChronicDiseaseMetricId =
   | 'ahr_population_pct'
+  | 'ahr_18plus_population_pct'
   | 'asthma_pct_share'
   | 'asthma_per_100k'
   | 'asthma_estimated_total'
@@ -86,10 +87,11 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
         shortLabel: '% of cases',
         type: 'pct_share',
         populationComparisonMetric: {
-          chartTitle: 'Population vs. distribution of total adult asthma cases',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+          chartTitle:
+            'Adult population vs. distribution of total adult asthma cases',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
           type: 'pct_share',
         },
       },
@@ -151,10 +153,10 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total adult cases of cardiovascular diseases',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+            'Adult population vs. distribution of total adult cases of cardiovascular diseases',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
           type: 'pct_share',
         },
       },
@@ -215,10 +217,10 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total adult cases of chronic kidney disease',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+            'Adult population vs. distribution of total adult cases of chronic kidney disease',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
           type: 'pct_share',
         },
       },
@@ -252,10 +254,10 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total adult diabetes cases',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+            'Adult population vs. distribution of total adult diabetes cases',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
           type: 'pct_share',
         },
       },
@@ -314,10 +316,11 @@ export const COPD_METRICS: DataTypeConfig[] = [
         shortLabel: '% of cases',
         type: 'pct_share',
         populationComparisonMetric: {
-          chartTitle: 'Population vs. distribution of total adult COPD cases',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+          chartTitle:
+            'Adult population vs. distribution of total adult COPD cases',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
           type: 'pct_share',
         },
       },

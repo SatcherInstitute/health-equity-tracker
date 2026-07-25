@@ -3,6 +3,8 @@ import {
   medicareHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
 import {
+  adultPopulationPctShortLabel,
+  adultPopulationPctTitle,
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigConstants'
@@ -23,6 +25,7 @@ export type SDOHDataTypeId =
 
 export type SDOHMetricId =
   | 'ahr_population_pct'
+  | 'ahr_18plus_population_pct'
   | 'avoided_care_pct_rate'
   | 'avoided_care_pct_share'
   | 'avoided_care_estimated_total'
@@ -218,10 +221,10 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total care avoidance due to cost',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+            'Adult population vs. distribution of total care avoidance due to cost',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
           type: 'pct_share',
         },
       },

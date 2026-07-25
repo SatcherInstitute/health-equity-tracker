@@ -49,6 +49,8 @@ export const AHR_METRICS: MetricId[] = [
   'ahr_population_pct',
   'ahr_population_estimated_total',
   'ahr_population_18plus',
+  'ahr_18plus_population_estimated_total',
+  'ahr_18plus_population_pct',
   'asthma_pct_share',
   'asthma_per_100k',
   'asthma_estimated_total',

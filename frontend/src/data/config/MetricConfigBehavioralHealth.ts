@@ -1,5 +1,7 @@
 import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import {
+  adultPopulationPctShortLabel,
+  adultPopulationPctTitle,
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigConstants'
@@ -18,6 +20,7 @@ export type BehavioralHealthDataTypeId = 'non_medical_drug_use'
 
 export type BehavioralHealthMetricId =
   | 'ahr_population_pct'
+  | 'ahr_18plus_population_pct'
   | 'depression_pct_share'
   | 'depression_per_100k'
   | 'depression_estimated_total'
@@ -67,10 +70,10 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total adult depression cases',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+            'Adult population vs. distribution of total adult depression cases',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
           type: 'pct_share',
         },
       },
@@ -132,10 +135,10 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total adult excessive drinking cases',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+            'Adult population vs. distribution of total adult excessive drinking cases',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
           type: 'pct_share',
         },
       },
@@ -185,10 +188,10 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total adult non-medical drug use',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+            'Adult population vs. distribution of total adult non-medical drug use',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
           type: 'pct_share',
         },
       },
@@ -251,10 +254,10 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total adult frequent mental distress cases',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+            'Adult population vs. distribution of total adult frequent mental distress cases',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
           type: 'pct_share',
         },
       },
