@@ -80,12 +80,10 @@ export const AHR_METRICS: MetricId[] = [
   'non_medical_drug_use_pct_share',
   'non_medical_drug_use_per_100k',
   'non_medical_drug_use_estimated_total',
-  'preventable_hospitalizations_pct_share',
   'preventable_hospitalizations_per_100k',
 ]
 
 export const AHR_VOTER_AGE_METRICS: MetricId[] = [
-  'voter_participation_pct_share',
   'voter_participation_pct_rate',
 ]
 
@@ -96,7 +94,6 @@ export const AHR_DECADE_PLUS_5_AGE_METRICS: MetricId[] = [
 ]
 
 export const AHR_API_NH_METRICS: MetricId[] = [
-  'preventable_hospitalizations_pct_share',
   'preventable_hospitalizations_per_100k',
 ]
 

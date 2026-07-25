@@ -37,7 +37,6 @@ export type SDOHMetricId =
   | 'poverty_pop_estimated_total'
   | 'poverty_population_pct'
   | 'preventable_hospitalizations_per_100k'
-  | 'preventable_hospitalizations_pct_share'
   | 'uninsured_estimated_total'
   | 'uninsured_pop_estimated_total'
   | 'uninsured_pct_rate'
@@ -257,21 +256,6 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
           'Preventable hospitalizations per 100k adult Medicare enrollees',
         shortLabel: 'cases per 100k',
         type: 'per100k',
-      },
-      pct_share: {
-        chartTitle: 'Share of all preventable hospitalizations',
-        metricId: 'preventable_hospitalizations_pct_share',
-        columnTitleHeader: 'Share of all preventable hospitalizations',
-        shortLabel: '% of hospitalizations',
-        type: 'pct_share',
-        populationComparisonMetric: {
-          chartTitle:
-            'Population vs. distribution of total preventable hospitalizations',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
-          type: 'pct_share',
-        },
       },
     },
   },
