@@ -271,13 +271,22 @@ export function MissingAHRData() {
     <MissingDataSection title="Missing America's Health Rankings data">
       <BulletList>
         <li>
-          <b>Population data:</b> AHR does not have population data available
-          for: preventable hospitalizations, voter participation, and
-          non-medical drug use. We have chosen not to show any percent share
-          metrics for the measures without population data because the source
-          only provides the metrics as rates. Without population data, it is
-          difficult to accurately calculate percent share measures, which could
-          potentially result in misleading data.
+          <b>Population data:</b> AHR publishes its measures as rates only,
+          without the underlying case counts or population denominators. To
+          display estimated totals and percent share metrics, we merge in
+          American Community Survey (ACS) population estimates. Because most AHR
+          measures describe adults only, we use the adult (18+) population as
+          the comparison denominator for those measures, so that a group's share
+          of cases and its share of the population are measured on the same
+          population basis.
+        </li>
+        <li>
+          <b>Approximated denominators:</b> Voter participation is reported
+          among citizens ages 18+, and preventable hospitalizations among
+          Medicare enrollees ages 18+. We do not have population counts for
+          those specific sub-populations, so the percent share and population
+          comparison figures for these two measures use the total population as
+          an approximation and should be interpreted with caution.
         </li>
       </BulletList>
     </MissingDataSection>
