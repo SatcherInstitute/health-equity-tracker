@@ -49,6 +49,11 @@ AGE_GROUPS_TO_STANDARD = {
     "Age 85+": "85+",
 }
 
+# AHR reports its 18+ measures against these three non-overlapping adult buckets.
+# Every other age group either subdivides one of them ("25-34", "65-74") or spans
+# minors ("15-24"), so summing across all age rows would double count.
+ADULT_AGE_GROUPS_18PLUS = ["18-44", "45-64", "65+"]
+
 RACE_GROUPS_TO_STANDARD = {
     "American Indian/Alaska Native": std_col.Race.AIAN_NH.value,
     "Asian": std_col.Race.ASIAN_NH.value,
@@ -214,7 +219,8 @@ class GraphQlAHRData(DataSource):
         breakdown_df = generate_pct_share_col_of_summed_alls(breakdown_df, raw_to_share_all_ages_map, share_demo)
         breakdown_df = generate_pct_share_col_of_summed_alls(breakdown_df, raw_to_share_18plus, share_demo)
 
-        # merge another col with 18+ population if by race or by sex
+        # build the 18+ population count and share cols; race/sex need an intersectional
+        # merge to get them, age can derive them from the adult buckets it already has
         if demographic != std_col.AGE_COL:
 
             breakdown_df, pop_18plus_col = merge_intersectional_pop(
@@ -235,7 +241,7 @@ class GraphQlAHRData(DataSource):
             )
 
             # all columns need to be provider-specific for the frontend
-            ahr_pop18plus_col = "ahr_18plus_population_estimated_total"
+            ahr_pop18plus_col = std_col.AHR_18PLUS_POPULATION_RAW
             # save the generated intersectional population column for later use writing to bq
             breakdown_df = breakdown_df.rename(columns={pop_18plus_col: ahr_pop18plus_col})
             self.intersectional_pop_cols.append(ahr_pop18plus_col)
@@ -254,13 +260,23 @@ class GraphQlAHRData(DataSource):
             # the pct_share numerator basis for 18+ metrics. This gives a statistically consistent
             # denominator for pct_rel_inequity on race/sex 18+ topics, and surfaces in _current
             # tables for the frontend pop-share comparison bars.
-            ahr_pop_18plus_pct_col = "ahr_18plus_population_pct"
+            ahr_pop_18plus_pct_col = std_col.AHR_18PLUS_POPULATION_PCT
             breakdown_df = generate_pct_share_col_of_summed_alls(
                 breakdown_df, {ahr_pop18plus_col: ahr_pop_18plus_pct_col}, share_demo
             )
 
         else:
-            ahr_pop_18plus_pct_col = None
+            # For an age breakdown each adult bucket's 18+ population is its own population.
+            # See ADULT_AGE_GROUPS_18PLUS for why finer buckets are excluded.
+            ahr_pop18plus_col = std_col.AHR_18PLUS_POPULATION_RAW
+            breakdown_df[ahr_pop18plus_col] = breakdown_df[std_col.POPULATION_COL].where(
+                breakdown_df[std_col.AGE_COL].isin(ADULT_AGE_GROUPS_18PLUS)
+            )
+
+            ahr_pop_18plus_pct_col = std_col.AHR_18PLUS_POPULATION_PCT
+            breakdown_df = generate_pct_share_col_of_summed_alls(
+                breakdown_df, {ahr_pop18plus_col: ahr_pop_18plus_pct_col}, share_demo
+            )
 
         # need unique pop col names per provider
         breakdown_df = breakdown_df.rename(
@@ -280,13 +296,9 @@ class GraphQlAHRData(DataSource):
                 continue
             prefix = std_col.extract_prefix(share_col)
             inequity_col = f"{prefix}_{std_col.PCT_REL_INEQUITY_SUFFIX}"
-            # Use the 18+ pop share as denominator for 18+ metrics (race/sex only) so
-            # numerator and denominator are on the same population basis.
-            pop_col = (
-                ahr_pop_18plus_pct_col
-                if share_col in share_18plus_cols and ahr_pop_18plus_pct_col is not None
-                else std_col.AHR_POPULATION_PCT
-            )
+            # Use the 18+ pop share as denominator for 18+ metrics so numerator and
+            # denominator are on the same population basis.
+            pop_col = ahr_pop_18plus_pct_col if share_col in share_18plus_cols else std_col.AHR_POPULATION_PCT
             breakdown_df = generate_pct_rel_inequity_col(breakdown_df, share_col, pop_col, inequity_col)
 
         breakdown_df = breakdown_df.sort_values(
