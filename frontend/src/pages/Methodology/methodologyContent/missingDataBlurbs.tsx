@@ -143,6 +143,17 @@ export function MissingHIVData() {
           circumstances.
         </li>
         <li>
+          State legislature seat totals for the 50 states and the District of
+          Columbia are sourced from the Center for American Women and Politics
+          (CAWP) state pages and are refreshed annually. Territory legislature
+          seat totals (American Samoa, Guam, the Northern Mariana Islands,
+          Puerto Rico, and the U.S. Virgin Islands) are maintained from National
+          Conference of State Legislatures (NCSL) data and are also refreshed
+          annually. Puerto Rico's legislature normally has 78 seats, but may
+          temporarily expand after an election due to constitutional
+          minority-representation provisions.
+        </li>
+        <li>
           There isn't enough data to accurately calculate subpopulation rates by
           age, sex, and race/ethnicity for the Census Island Areas (US
           territories other than Puerto Rico). As a result, the analysis or
