@@ -88,7 +88,7 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
       {
         key: 'Measurement Definition',
         description:
-          "To demonstrate the often inequitable distribution of a condition or disease, we calculate each demographic group's relative inequity using the formula: (OBSERVED - EXPECTED) / EXPECTED. OBSERVED is each group's percent share of the condition, and EXPECTED is that group's share of the total population.",
+          "To demonstrate the often inequitable distribution of a condition or disease, we calculate each demographic group's relative inequity using the formula: (OBSERVED - EXPECTED) / EXPECTED. OBSERVED is each group's percent share of the condition, and EXPECTED is that group's share of the reference population. For most metrics this is the total population; for adult-only metrics (such as those from America's Health Rankings), EXPECTED uses the adult (18+) population share so numerator and denominator are measured on the same population basis.",
       },
     ],
   },

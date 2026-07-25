@@ -271,13 +271,31 @@ export function MissingAHRData() {
     <MissingDataSection title="Missing America's Health Rankings data">
       <BulletList>
         <li>
-          <b>Population data:</b> AHR does not have population data available
-          for: preventable hospitalizations, voter participation, and
-          non-medical drug use. We have chosen not to show any percent share
-          metrics for the measures without population data because the source
-          only provides the metrics as rates. Without population data, it is
-          difficult to accurately calculate percent share measures, which could
-          potentially result in misleading data.
+          <b>Population data:</b> AHR publishes its measures as rates only,
+          without the underlying case counts or population denominators. To
+          display estimated totals and percent share metrics, we merge in
+          American Community Survey (ACS) population estimates. Because most AHR
+          measures describe adults only, we use the adult (18+) population as
+          the comparison denominator for those measures, so that a group's share
+          of cases and its share of the population are measured on the same
+          population basis.
+        </li>
+        <li>
+          <b>Measures without a matching denominator:</b> Two measures are
+          reported over a narrower sub-population than we have population counts
+          for. Voter participation is measured among citizens ages 18+, and
+          preventable hospitalizations among Medicare enrollees ages 18+.
+          Because we cannot break those sub-populations down by race, ethnicity,
+          or sex, we show these two measures as rates only, and do not display
+          percent share or population comparison metrics for them.
+        </li>
+        <li>
+          <b>Age reports:</b> AHR reports its adult measures against three broad
+          age groups (18-44, 45-64, and 65+), but reports its all-ages measures
+          against narrower groups such as 15-24 and 65-74. Because the narrower
+          groups overlap the broad ones, and because 15-24 includes minors, the
+          adult population share is shown only for the three broad groups, where
+          it accounts for 100% of the adult population.
         </li>
       </BulletList>
     </MissingDataSection>

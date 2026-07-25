@@ -30,25 +30,6 @@ test('Preventable Hospitalizations', async ({ page }) => {
     .click()
   await page
     .getByRole('heading', {
-      name: 'Share of all preventable hospitalizations with unknown race/ethnicity in the United States',
-    })
-    .click()
-  await page
-    .getByText(
-      'No unknown values for race/ethnicity reported in this dataset at the state/territory level.',
-    )
-    .click()
-  await page
-    .getByRole('heading', {
-      name: 'Graph unavailable: Population vs. distribution of total preventable hospitalizations in the United States',
-    })
-    .click()
-  await page
-    .locator('#population-vs-distribution')
-    .getByText('race/ethnicity')
-    .click()
-  await page
-    .getByRole('heading', {
       name: 'Summary for preventable hospitalizations in the United States',
     })
     .click()
@@ -74,5 +55,5 @@ test('Preventable Hospitalizations', async ({ page }) => {
   await page.getByText('Native Hawaiian and Pacific').click()
   await page.getByRole('heading', { name: "Missing America's Health" }).click()
   await page.getByText('Population data:').click()
-  await page.getByText('Population data: AHR does not').click()
+  await page.getByText('AHR publishes its measures as rates only').click()
 })

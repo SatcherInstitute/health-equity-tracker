@@ -3,10 +3,7 @@ import {
   defaultHigherIsWorseMapConfig,
   womenHigherIsBetterMapConfig,
 } from '../../charts/mapGlobals'
-import {
-  populationPctShortLabel,
-  populationPctTitle,
-} from './MetricConfigConstants'
+import { populationPctShortLabel } from './MetricConfigConstants'
 import type { DataTypeConfig } from './MetricConfigTypes'
 
 export const PDOH_CATEGORY_DROPDOWNIDS = [
@@ -43,7 +40,6 @@ export type PDOHMetricId =
   | 'total_us_congress_count'
   | 'total_us_congress_names'
   | 'voter_participation_pct_rate'
-  | 'voter_participation_pct_share'
   | 'women_state_leg_pct_relative_inequity'
   | 'women_this_race_state_leg_count'
   | 'congressional_districts'
@@ -78,21 +74,6 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
         shortLabel: '% voter participation',
         type: 'pct_rate',
         timeSeriesCadence: 'fourYearly',
-      },
-      pct_share: {
-        chartTitle: 'Share of all voter participation',
-        metricId: 'voter_participation_pct_share',
-        columnTitleHeader: 'Share of all voter participation',
-        shortLabel: '% of voters',
-        type: 'pct_share',
-        populationComparisonMetric: {
-          chartTitle:
-            'Population vs. distribution of total voter participation',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
-          type: 'pct_share',
-        },
       },
     },
   },

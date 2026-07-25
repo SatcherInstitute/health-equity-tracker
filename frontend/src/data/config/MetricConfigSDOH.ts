@@ -3,6 +3,8 @@ import {
   medicareHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
 import {
+  adultPopulationPctShortLabel,
+  adultPopulationPctTitle,
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigConstants'
@@ -23,6 +25,7 @@ export type SDOHDataTypeId =
 
 export type SDOHMetricId =
   | 'ahr_population_pct'
+  | 'ahr_18plus_population_pct'
   | 'avoided_care_pct_rate'
   | 'avoided_care_pct_share'
   | 'avoided_care_estimated_total'
@@ -34,7 +37,6 @@ export type SDOHMetricId =
   | 'poverty_pop_estimated_total'
   | 'poverty_population_pct'
   | 'preventable_hospitalizations_per_100k'
-  | 'preventable_hospitalizations_pct_share'
   | 'uninsured_estimated_total'
   | 'uninsured_pop_estimated_total'
   | 'uninsured_pct_rate'
@@ -204,7 +206,7 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'ahr_population_18plus',
+          metricId: 'ahr_18plus_population_estimated_total',
           shortLabel: 'Total pop. 18+',
           chartTitle: '',
           type: 'count',
@@ -218,10 +220,10 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Population vs. distribution of total care avoidance due to cost',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+            'Adult population vs. distribution of total care avoidance due to cost',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
           type: 'pct_share',
         },
       },
@@ -254,21 +256,6 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
           'Preventable hospitalizations per 100k adult Medicare enrollees',
         shortLabel: 'cases per 100k',
         type: 'per100k',
-      },
-      pct_share: {
-        chartTitle: 'Share of all preventable hospitalizations',
-        metricId: 'preventable_hospitalizations_pct_share',
-        columnTitleHeader: 'Share of all preventable hospitalizations',
-        shortLabel: '% of hospitalizations',
-        type: 'pct_share',
-        populationComparisonMetric: {
-          chartTitle:
-            'Population vs. distribution of total preventable hospitalizations',
-          metricId: 'ahr_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
-          type: 'pct_share',
-        },
       },
     },
   },
