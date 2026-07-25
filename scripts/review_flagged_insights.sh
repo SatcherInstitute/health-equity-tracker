@@ -22,9 +22,10 @@
 # this. Auth uses your ambient `gcloud auth` (or a CI service account via ADC).
 #
 # Usage:
-#   ./review_flagged_insights.sh            # list all flag records grouped by status
-#   ./review_flagged_insights.sh --review   # interactively triage each unhandled report
-#   ./review_flagged_insights.sh --ci       # exit non-zero if any unhandled reports exist
+#   ./review_flagged_insights.sh              # list all flag records grouped by status
+#   ./review_flagged_insights.sh --review     # interactively triage each unhandled report
+#   ./review_flagged_insights.sh --ci         # exit non-zero if any unhandled reports exist
+#   ./review_flagged_insights.sh --flush-cache  # delete ALL cached insights (requires typed confirmation)
 #
 # Optional: -p PROJECT_ID  -b FLAGGED_BUCKET  -c CACHE_BUCKET  -h
 
@@ -37,20 +38,23 @@ DEFAULT_CACHE_BUCKET="het-insights-cache"
 PROJECT_ID="$DEFAULT_PROJECT_ID"
 FLAGGED_BUCKET="$DEFAULT_FLAGGED_BUCKET"
 CACHE_BUCKET="$DEFAULT_CACHE_BUCKET"
-MODE="list" # list | review | ci
+MODE="list" # list | review | ci | flush-cache
 
 show_help() {
     cat <<EOF
-Usage: $0 [--review | --ci] [-p PROJECT_ID] [-b FLAGGED_BUCKET] [-c CACHE_BUCKET]
+Usage: $0 [--review | --ci | --flush-cache] [-p PROJECT_ID] [-b FLAGGED_BUCKET] [-c CACHE_BUCKET]
 
 Review AI-insight flag records in the flagged-insights GCS bucket.
 
 Modes:
-  (default)    List every flag record grouped by status.
-  --review     Interactively triage each unhandled ("flagged") report: suppress,
-               delete (false alarm), skip, or quit.
-  --ci         Non-interactive check used by CI. Prints any unhandled reports and
-               exits 1 if there are any, else exits 0.
+  (default)      List every flag record grouped by status.
+  --review       Interactively triage each unhandled ("flagged") report: suppress,
+                 delete (false alarm), skip, or quit.
+  --ci           Non-interactive check used by CI. Prints any unhandled reports and
+                 exits 1 if there are any, else exits 0.
+  --flush-cache  Delete ALL cached insights from the insights-cache bucket so they
+                 regenerate fresh on next request. Requires typed confirmation.
+                 Use when a prompt change makes old cached insights stale.
 
 Options:
   -p PROJECT_ID      GCP project (default: $DEFAULT_PROJECT_ID)
@@ -77,6 +81,7 @@ while [[ $# -gt 0 ]]; do
         --list) MODE="list"; shift ;;
         --review) MODE="review"; shift ;;
         --ci) MODE="ci"; shift ;;
+        --flush-cache) MODE="flush-cache"; shift ;;
         -p) require_value "$1" "$#"; PROJECT_ID="$2"; shift 2 ;;
         -b) require_value "$1" "$#"; FLAGGED_BUCKET="$2"; shift 2 ;;
         -c) require_value "$1" "$#"; CACHE_BUCKET="$2"; shift 2 ;;
@@ -84,6 +89,50 @@ while [[ $# -gt 0 ]]; do
         *) echo "Unknown argument: $1" >&2; show_help 1 ;;
     esac
 done
+
+# --- Mode: flush-cache (runs before the flag-bucket fetch; needs only gcloud) ---
+if [[ "$MODE" == "flush-cache" ]]; then
+    if ! command -v gcloud >/dev/null 2>&1; then
+        echo "Error: 'gcloud' is required but not installed." >&2
+        exit 2
+    fi
+
+    # Count objects first so the confirmation prompt can show the scope.
+    echo "Counting cached insights in gs://$CACHE_BUCKET/insights/ ..." >&2
+    count=$(gcloud storage ls "gs://$CACHE_BUCKET/insights/**" \
+        --project "$PROJECT_ID" 2>/dev/null | wc -l | tr -d ' ') || count=0
+
+    echo
+    echo "  WARNING: This will permanently delete ALL cached AI insights."
+    echo
+    echo "  Bucket : gs://$CACHE_BUCKET"
+    echo "  Objects: $count file(s) under insights/"
+    echo
+    echo "  Every insight will be regenerated from scratch the next time a"
+    echo "  visitor opens a sparkle card. This cannot be undone."
+    echo
+    echo "  To confirm, type exactly:  flush all insights"
+    echo
+    read -r -p "  Confirmation: " answer </dev/tty
+    if [[ "$answer" != "flush all insights" ]]; then
+        echo
+        echo "Aborted — confirmation did not match. Nothing was deleted."
+        exit 1
+    fi
+
+    echo
+    echo "Flushing gs://$CACHE_BUCKET/insights/ ..."
+    if gcloud storage rm "gs://$CACHE_BUCKET/insights/**" \
+            --project "$PROJECT_ID"; then
+        echo
+        echo "Done. All cached insights deleted."
+    else
+        echo
+        echo "Error: flush failed (partial deletion may have occurred). Check GCP console." >&2
+        exit 2
+    fi
+    exit 0
+fi
 
 # --- Preconditions ---
 for cmd in gcloud jq; do
