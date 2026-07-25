@@ -247,6 +247,17 @@ class GraphQlAHRData(DataSource):
 
             breakdown_df = generate_pct_share_col_of_summed_alls(breakdown_df, raw_to_share_18plus_map, share_demo)
 
+            # Compute the 18+ population share using the same summed-alls method so it matches
+            # the pct_share numerator basis for 18+ metrics. This gives a statistically consistent
+            # denominator for pct_rel_inequity on race/sex 18+ topics.
+            ahr_pop_18plus_pct_col = "ahr_pop_18plus_pct"
+            breakdown_df = generate_pct_share_col_of_summed_alls(
+                breakdown_df, {ahr_pop18plus_col: ahr_pop_18plus_pct_col}, share_demo
+            )
+
+        else:
+            ahr_pop_18plus_pct_col = None
+
         # need unique pop col names per provider
         breakdown_df = breakdown_df.rename(
             columns={
@@ -255,17 +266,27 @@ class GraphQlAHRData(DataSource):
             }
         )
 
+        share_18plus_cols = set(RAW_TO_SHARE_18PLUS_MAP.values())
         all_share_cols = {
             **RAW_TO_SHARE_ALL_AGES_MAP,
             **RAW_TO_SHARE_18PLUS_MAP,
         }
         for share_col in all_share_cols.values():
-            if share_col in breakdown_df.columns:
-                prefix = std_col.extract_prefix(share_col)
-                inequity_col = f"{prefix}_{std_col.PCT_REL_INEQUITY_SUFFIX}"
-                breakdown_df = generate_pct_rel_inequity_col(
-                    breakdown_df, share_col, std_col.AHR_POPULATION_PCT, inequity_col
-                )
+            if share_col not in breakdown_df.columns:
+                continue
+            prefix = std_col.extract_prefix(share_col)
+            inequity_col = f"{prefix}_{std_col.PCT_REL_INEQUITY_SUFFIX}"
+            # Use the 18+ pop share as denominator for 18+ metrics (race/sex only) so
+            # numerator and denominator are on the same population basis.
+            pop_col = (
+                ahr_pop_18plus_pct_col
+                if share_col in share_18plus_cols and ahr_pop_18plus_pct_col is not None
+                else std_col.AHR_POPULATION_PCT
+            )
+            breakdown_df = generate_pct_rel_inequity_col(breakdown_df, share_col, pop_col, inequity_col)
+
+        if ahr_pop_18plus_pct_col is not None:
+            breakdown_df = breakdown_df.drop(columns=[ahr_pop_18plus_pct_col])
 
         breakdown_df = breakdown_df.sort_values(
             by=[std_col.STATE_FIPS_COL, std_col.TIME_PERIOD_COL], ascending=[True, False]
