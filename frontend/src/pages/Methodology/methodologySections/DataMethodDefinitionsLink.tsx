@@ -17,10 +17,19 @@ export default function DataMethodDefinitionsLink() {
           Unless otherwise noted throughout this methodology, population counts
           and rates are obtained from the American Community Survey (ACS) 5-year
           estimates. Wherever possible, we utilize source data population
-          counts, and when those are unavilable we match historical condition
+          counts, and when those are unavailable we match historical condition
           numerators with population denominators from the same years. For
           current, single-year reports, we utilize the ACS 5-year estimates from{' '}
           {acsYear}.
+        </p>
+        <p>
+          Some sources report on a specific sub-population rather than everyone
+          living in a place. For measures that describe adults only, such as
+          most of those from America's Health Rankings, we use the adult (18+)
+          population as the denominator for percent share and relative inequity
+          calculations. This keeps the numerator and denominator on the same
+          population basis, and avoids overstating disadvantage for groups with
+          younger age distributions.
         </p>
 
         <h2 className='mt-12 font-medium text-title'>
