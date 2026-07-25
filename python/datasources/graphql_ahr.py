@@ -241,7 +241,7 @@ class GraphQlAHRData(DataSource):
             )
 
             # all columns need to be provider-specific for the frontend
-            ahr_pop18plus_col = "ahr_18plus_population_estimated_total"
+            ahr_pop18plus_col = std_col.AHR_18PLUS_POPULATION_RAW
             # save the generated intersectional population column for later use writing to bq
             breakdown_df = breakdown_df.rename(columns={pop_18plus_col: ahr_pop18plus_col})
             self.intersectional_pop_cols.append(ahr_pop18plus_col)
@@ -260,22 +260,20 @@ class GraphQlAHRData(DataSource):
             # the pct_share numerator basis for 18+ metrics. This gives a statistically consistent
             # denominator for pct_rel_inequity on race/sex 18+ topics, and surfaces in _current
             # tables for the frontend pop-share comparison bars.
-            ahr_pop_18plus_pct_col = "ahr_18plus_population_pct"
+            ahr_pop_18plus_pct_col = std_col.AHR_18PLUS_POPULATION_PCT
             breakdown_df = generate_pct_share_col_of_summed_alls(
                 breakdown_df, {ahr_pop18plus_col: ahr_pop_18plus_pct_col}, share_demo
             )
 
         else:
-            # For an age breakdown the adult buckets are themselves the demographic groups,
-            # so each one's 18+ population is simply its own population. Restrict the column
-            # to the non-overlapping adult buckets so the summed-alls denominator is the
-            # adult total rather than a double count of the finer age rows.
-            ahr_pop18plus_col = "ahr_18plus_population_estimated_total"
+            # For an age breakdown each adult bucket's 18+ population is its own population.
+            # See ADULT_AGE_GROUPS_18PLUS for why finer buckets are excluded.
+            ahr_pop18plus_col = std_col.AHR_18PLUS_POPULATION_RAW
             breakdown_df[ahr_pop18plus_col] = breakdown_df[std_col.POPULATION_COL].where(
                 breakdown_df[std_col.AGE_COL].isin(ADULT_AGE_GROUPS_18PLUS)
             )
 
-            ahr_pop_18plus_pct_col = "ahr_18plus_population_pct"
+            ahr_pop_18plus_pct_col = std_col.AHR_18PLUS_POPULATION_PCT
             breakdown_df = generate_pct_share_col_of_summed_alls(
                 breakdown_df, {ahr_pop18plus_col: ahr_pop_18plus_pct_col}, share_demo
             )

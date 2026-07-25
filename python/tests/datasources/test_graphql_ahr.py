@@ -15,7 +15,6 @@ DATA_DIR = os.path.join(THIS_DIR, os.pardir, "data", "graphql_ahr")
 GOLDEN_DIR = os.path.join(DATA_DIR, "golden_data")
 
 EXP_DTYPE = {STATE_FIPS_COL: str, "time_period": str}
-AHR_POP_18PLUS_PCT = "ahr_18plus_population_pct"
 
 
 def _fetch_ahr_data_from_graphql(demographic: str, geo_level: str, category: str):
@@ -153,29 +152,27 @@ def testWriteToBqNonBehavioralHealthSexNational(_mock_fetch: mock.MagicMock, moc
     assert_frame_equal(actual_df, expected_df, check_like=True)
 
 
+@pytest.mark.parametrize("category", ["behavioral_health", "non-behavioral_health"])
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch("datasources.graphql_ahr.fetch_ahr_data_from_graphql", side_effect=_fetch_ahr_data_from_graphql)
-def testAdultPopSharesByAgeSumTo100(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: mock.MagicMock):
+def testAdultPopSharesByAgeSumTo100(_mock_fetch: mock.MagicMock, mock_add_df_to_bq: mock.MagicMock, category: str):
     """The 18+ population share must be spread across only the non-overlapping adult
     buckets. Summing every age row would double count the finer groups nested inside
     them and silently deflate each group's share."""
     datasource = GraphQlAHRData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="age", geographic="national", category="behavioral_health"
-    )
+    datasource.write_to_bq("dataset", "gcs_bucket", demographic="age", geographic="national", category=category)
 
     df, _, table_name = mock_add_df_to_bq.call_args_list[0][0]
-    assert table_name == "behavioral_health_age_national_current"
+    assert table_name == f"{category}_age_national_current"
 
     adult_rows = df[df[std_col.AGE_COL].isin(ADULT_AGE_GROUPS_18PLUS)]
-    assert adult_rows[AHR_POP_18PLUS_PCT].sum() == pytest.approx(100, abs=0.1)
+    assert not adult_rows[std_col.AHR_18PLUS_POPULATION_PCT].isna().any()
+    assert adult_rows[std_col.AHR_18PLUS_POPULATION_PCT].sum() == pytest.approx(100, abs=0.1)
 
     # groups that nest inside an adult bucket, or that span minors, carry no 18+ share
     other_rows = df[~df[std_col.AGE_COL].isin([*ADULT_AGE_GROUPS_18PLUS, ALL_VALUE])]
     assert not other_rows.empty
-    assert other_rows[AHR_POP_18PLUS_PCT].isna().all()
+    assert other_rows[std_col.AHR_18PLUS_POPULATION_PCT].isna().all()
 
     all_row = df[df[std_col.AGE_COL] == ALL_VALUE]
-    assert (
-        all_row["ahr_18plus_population_estimated_total"].iloc[0] == adult_rows["ahr_population_estimated_total"].sum()
-    )
+    assert all_row[std_col.AHR_18PLUS_POPULATION_RAW].iloc[0] == adult_rows[std_col.AHR_POPULATION_RAW].sum()
