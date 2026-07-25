@@ -233,7 +233,7 @@ class GraphQlAHRData(DataSource):
             )
 
             # all columns need to be provider-specific for the frontend
-            ahr_pop18plus_col = "ahr_" + pop_18plus_col
+            ahr_pop18plus_col = "ahr_18plus_population_estimated_total"
             # save the generated intersectional population column for later use writing to bq
             breakdown_df = breakdown_df.rename(columns={pop_18plus_col: ahr_pop18plus_col})
             self.intersectional_pop_cols.append(ahr_pop18plus_col)
