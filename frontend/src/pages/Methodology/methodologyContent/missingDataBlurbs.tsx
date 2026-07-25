@@ -281,12 +281,13 @@ export function MissingAHRData() {
           population basis.
         </li>
         <li>
-          <b>Approximated denominators:</b> Voter participation is reported
-          among citizens ages 18+, and preventable hospitalizations among
-          Medicare enrollees ages 18+. We do not have population counts for
-          those specific sub-populations, so the percent share and population
-          comparison figures for these two measures use the total population as
-          an approximation and should be interpreted with caution.
+          <b>Measures without a matching denominator:</b> Two measures are
+          reported over a narrower sub-population than we have population counts
+          for. Voter participation is measured among citizens ages 18+, and
+          preventable hospitalizations among Medicare enrollees ages 18+.
+          Because we cannot break those sub-populations down by race, ethnicity,
+          or sex, we show these two measures as rates only, and do not display
+          percent share or population comparison metrics for them.
         </li>
       </BulletList>
     </MissingDataSection>
