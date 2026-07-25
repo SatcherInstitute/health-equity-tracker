@@ -289,6 +289,14 @@ export function MissingAHRData() {
           or sex, we show these two measures as rates only, and do not display
           percent share or population comparison metrics for them.
         </li>
+        <li>
+          <b>Age reports:</b> AHR reports its adult measures against three broad
+          age groups (18-44, 45-64, and 65+), but reports its all-ages measures
+          against narrower groups such as 15-24 and 65-74. Because the narrower
+          groups overlap the broad ones, and because 15-24 includes minors, the
+          adult population share is shown only for the three broad groups, where
+          it accounts for 100% of the adult population.
+        </li>
       </BulletList>
     </MissingDataSection>
   )
