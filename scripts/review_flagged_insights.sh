@@ -52,9 +52,10 @@ Modes:
                  delete (false alarm), skip, or quit.
   --ci           Non-interactive check used by CI. Prints any unhandled reports and
                  exits 1 if there are any, else exits 0.
-  --flush-cache  Delete ALL cached insights from the insights-cache bucket so they
-                 regenerate fresh on next request. Requires typed confirmation.
-                 Use when a prompt change makes old cached insights stale.
+  --flush-cache  Delete ALL cached insights from the dev/infra-test cache bucket
+                 so they regenerate fresh on next request. Requires typed
+                 confirmation. Use when a prompt change makes old cached insights
+                 stale. Dev only — prod flush not yet supported (see issue #5017).
 
 Options:
   -p PROJECT_ID      GCP project (default: $DEFAULT_PROJECT_ID)
@@ -103,7 +104,7 @@ if [[ "$MODE" == "flush-cache" ]]; then
         --project "$PROJECT_ID" 2>/dev/null | wc -l | tr -d ' ') || count=0
 
     echo
-    echo "  WARNING: This will permanently delete ALL cached AI insights."
+    echo "  WARNING: This will permanently delete ALL cached AI insights (dev/infra-test only)."
     echo
     echo "  Bucket : gs://$CACHE_BUCKET"
     echo "  Objects: $count file(s) under insights/"
