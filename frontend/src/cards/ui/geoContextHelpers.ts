@@ -1,12 +1,11 @@
+import { DATA_UNAVAILABLE } from '../../charts/mapGlobals'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 
-const POP_MISSING_VALUE = 'unavailable'
-
 export function getTotalACSPopulationPhrase(populationData: HetRow[]): string {
   const popAllCount: string = populationData?.[0]?.population?.toLocaleString()
-  return `Total population: ${popAllCount ?? POP_MISSING_VALUE} (from ACS 2022)`
+  return `Total population: ${popAllCount ?? DATA_UNAVAILABLE} (from ACS 2022)`
 }
 
 export function getSubPopulationPhrase(
@@ -24,7 +23,7 @@ export function getSubPopulationPhrase(
   const popAllCount: string =
     rawPop != null && !isNaN(rawPop)
       ? rawPop.toLocaleString('en-US', { maximumFractionDigits: 0 })
-      : POP_MISSING_VALUE
+      : DATA_UNAVAILABLE
 
   const combinedSubPop = [
     dataTypeConfig.otherSubPopulationLabel,

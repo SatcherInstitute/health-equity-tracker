@@ -13,7 +13,7 @@ import {
   ATLANTA_METRO_COUNTY_FIPS,
   type CountColsMap,
   DATA_SUPPRESSED,
-  NO_DATA_MESSAGE,
+  DATA_UNAVAILABLE,
 } from '../mapGlobals'
 import {
   getCawpMapGroupDenominatorLabel,
@@ -167,6 +167,8 @@ export const createDataMap = (
   denominatorPhrase: string,
   countColsMap: any,
 ): Map<string, MetricData> => {
+  const rateIsSuppressedColumn = `${metric.metricId}_is_suppressed`
+
   return new Map(
     dataWithHighestLowest.map((d) => [
       d.fips,
@@ -178,11 +180,14 @@ export const createDataMap = (
         value: d[metric.metricId],
         ...(countColsMap?.numeratorConfig && {
           [`# ${numeratorPhrase}`]:
-            d?.[countColsMap.numeratorConfig.metricId] ?? NO_DATA_MESSAGE,
+            d?.[countColsMap.numeratorConfig.metricId] ??
+            (d?.[rateIsSuppressedColumn] === true
+              ? DATA_SUPPRESSED
+              : DATA_UNAVAILABLE),
         }),
         ...(countColsMap?.denominatorConfig && {
           [`# ${denominatorPhrase}`]:
-            d[countColsMap.denominatorConfig.metricId],
+            d[countColsMap.denominatorConfig.metricId] ?? DATA_UNAVAILABLE,
         }),
         ...(d.highestGroup && { ['Highest rate group']: d.highestGroup }),
         ...(d.lowestGroup && { ['Lowest rate group']: d.lowestGroup }),
