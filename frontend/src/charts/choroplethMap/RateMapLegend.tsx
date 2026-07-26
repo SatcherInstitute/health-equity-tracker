@@ -31,7 +31,6 @@ interface RateMapLegendProps {
   legendTitle: string
   isCompareMode?: boolean
   colorScale: ColorScale
-  allMissingDataIsSuppressed?: boolean
 }
 
 export default function RateMapLegend(props: RateMapLegendProps) {
@@ -45,7 +44,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     isPhrmaAdherence,
     isSummaryLegend,
     colorScale,
-    allMissingDataIsSuppressed,
   } = props
 
   const [containerRef] = useResponsiveWidth()
@@ -70,7 +68,6 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     isPhrmaAdherence,
     isSummaryLegend,
     colorScale,
-    allMissingDataIsSuppressed,
   ])
 
   return (

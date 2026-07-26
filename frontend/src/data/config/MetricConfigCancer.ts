@@ -168,6 +168,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         shortLabel: 'cases per 100k',
+        suppressionFlagMetricId: 'cervical_per_100k_is_suppressed',
         timeSeriesCadence: 'yearly',
         trendsCardTitleName: 'Rates of cervical cancer over time',
         type: 'per100k',

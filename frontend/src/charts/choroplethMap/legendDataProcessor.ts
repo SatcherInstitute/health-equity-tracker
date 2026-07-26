@@ -22,7 +22,6 @@ export interface ProcessLegendDataParams {
   isPhrmaAdherence?: boolean
   isSummaryLegend?: boolean
   fipsTypeDisplayName?: GeographicBreakdown
-  allMissingDataIsSuppressed?: boolean
 }
 
 export interface ProcessedLegendData {
@@ -51,7 +50,6 @@ export function processLegendData(
     isPhrmaAdherence,
     isSummaryLegend,
     fipsTypeDisplayName,
-    allMissingDataIsSuppressed,
   } = params
 
   const labelFormat = createLabelFormatter(metricConfig)
@@ -61,11 +59,18 @@ export function processLegendData(
   const nonZeroData = data.filter((row) => row[metricConfig.metricId] > 0)
   const missingData = data.filter((row) => row[metricConfig.metricId] == null)
 
+  const suppressionFlag = metricConfig.suppressionFlagMetricId
+  const suppressedData = suppressionFlag
+    ? missingData.filter((row) => row[suppressionFlag] === true)
+    : []
+  const unexplainedMissingData = missingData.filter(
+    (row) => !suppressedData.includes(row),
+  )
+
   const uniqueNonZeroValues = Array.from(
     new Set(nonZeroData.map((row) => row[metricConfig.metricId])),
   ).sort((a, b) => a - b)
 
-  const hasMissingData = missingData.length > 0
   const hasZeroData = zeroData.length > 0
 
   const regularItems: LegendItemData[] = []
@@ -102,8 +107,10 @@ export function processLegendData(
     }
   }
 
-  // Handle summary legend case
-  if (isSummaryLegend || uniqueNonZeroValues.length === 1) {
+  // Handle summary legend case. A summary map can be a single geography whose
+  // only rate is absent, in which case there is no value to summarize and the
+  // special items below carry the whole story.
+  if ((isSummaryLegend || uniqueNonZeroValues.length === 1) && nonZeroData[0]) {
     const summaryValue = nonZeroData[0][metricConfig.metricId]
     regularItems.push({
       value: summaryValue,
@@ -112,11 +119,20 @@ export function processLegendData(
     })
   }
 
-  // Create special legend items (missing data, zero data)
-  if (hasMissingData) {
+  // A map can hold both kinds of absence at once, so they get separate swatches
+  // rather than one label standing in for whichever kind happens to dominate
+  if (unexplainedMissingData.length > 0) {
     specialItems.push({
       color: colors.altGray,
-      label: allMissingDataIsSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE,
+      label: NO_DATA_MESSAGE,
+      value: null,
+    })
+  }
+
+  if (suppressedData.length > 0) {
+    specialItems.push({
+      color: colors.altGray,
+      label: DATA_SUPPRESSED,
       value: null,
     })
   }

@@ -2,7 +2,7 @@ import type { Selection } from 'd3'
 import { scaleLinear } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { colors } from '../../styles/tokens/colors'
-import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
+import { NO_DATA_MESSAGE, PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { formatMetricValue } from './mapHelpers'
 import type { ColorScale } from './types'
 
@@ -78,7 +78,7 @@ export function createUnknownLegend(
     .attr('x', 50 + gradientLength + 50)
     .attr('y', 12)
     .style('font', '10px sans-serif')
-    .text('no data')
+    .text(NO_DATA_MESSAGE)
 
   const labelGroup = legendContainer
     .append('g')

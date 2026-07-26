@@ -1,6 +1,7 @@
 import { geoPath, select } from 'd3'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import { colors } from '../../styles/tokens/colors'
+import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getCountyAddOn } from '../mapHelperFunctions'
 import { getFillColor } from './colorSchemes'
 import {
@@ -138,7 +139,9 @@ export const renderMap = (options: RenderMapOptions) => {
       const namePlace = geographyType ? `${name} ${geographyType}` : name
       const mapData = dataMap.get(id)
       if (!mapData || mapData.value == null) {
-        return `${namePlace}: no data available`
+        return `${namePlace}: ${
+          mapData?.isSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE
+        }`
       }
       const formattedValue = formatMetricValue(
         mapData.value as number,

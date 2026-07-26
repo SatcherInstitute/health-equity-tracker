@@ -6,9 +6,18 @@ import type { DemographicGroup } from '../data/utils/Constants'
 import { colors } from '../styles/tokens/colors'
 import type { ColorScheme } from './choroplethMap/types'
 
+// Three distinct reasons a value can be absent. Picking the wrong one tells the
+// user something false about why the gap exists, so they are not interchangeable:
+//
+//   DATA_SUPPRESSED  the source measured this and withheld it to protect privacy.
+//                    Only ever provable from the rate's own suppressionFlagMetricId
+//                    on that same row, and only for the rate and its numerator.
+//   NO_DATA_MESSAGE  the source publishes this field but has no value for this geo.
+//   DATA_UNAVAILABLE the source does not publish this field at all. Denominators
+//                    come from a separate source (ACS), so a topic's suppression
+//                    rules can never apply to them.
 export const DATA_SUPPRESSED = 'Data suppressed'
-// only ever provable for a numerator, and only from its rate's own _is_suppressed
-// flag; denominators come from a separate source so suppression never applies
+export const NO_DATA_MESSAGE = 'no data'
 export const DATA_UNAVAILABLE = 'unavailable'
 export const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -87,7 +96,6 @@ export const youthHigherIsWorseMapConfig: MapConfig = {
   higherIsBetter: false,
 }
 
-export const NO_DATA_MESSAGE = 'no data'
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
 
 export interface HighestLowest {

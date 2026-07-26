@@ -7,6 +7,7 @@ import type {
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
 import { colors } from '../../styles/tokens/colors'
+import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getFillColor } from './colorSchemes'
 import { formatMetricValue } from './mapHelpers'
 import {
@@ -118,7 +119,9 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           d.fips_name ?? TERRITORY_CODES[d.fips] ?? 'Unknown territory'
         const mapData = props.dataMap.get(d.fips)
         if (!mapData || mapData.value == null) {
-          return `${name}: no data available`
+          return `${name}: ${
+            mapData?.isSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE
+          }`
         }
         const formattedValue = formatMetricValue(
           mapData.value as number,
