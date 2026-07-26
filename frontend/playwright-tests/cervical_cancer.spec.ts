@@ -21,6 +21,9 @@ test('Cervical Cancer: state-level uses standard labels', async ({ page }) => {
     await expect
       .soft(definitionsList.getByText('CDC WONDER'))
       .toBeVisible()
+    await expect
+      .soft(definitionsList.getByText('crude rates'))
+      .toBeVisible()
   })
 
   await page.getByRole('button', { name: 'Data table' }).click()
