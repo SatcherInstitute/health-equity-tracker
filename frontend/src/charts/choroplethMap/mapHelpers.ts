@@ -167,6 +167,8 @@ export const createDataMap = (
   denominatorPhrase: string,
   countColsMap: any,
 ): Map<string, MetricData> => {
+  // sources that carry no suppression semantics never emit this column, so the
+  // lookup is undefined and every missing numerator falls through to unavailable
   const rateIsSuppressedColumn = `${metric.metricId}_is_suppressed`
 
   return new Map(

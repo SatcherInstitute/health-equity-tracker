@@ -4,8 +4,12 @@ import type { DemographicType } from '../../data/query/Breakdowns'
 import type { HetRow } from '../../data/utils/DatasetTypes'
 
 export function getTotalACSPopulationPhrase(populationData: HetRow[]): string {
-  const popAllCount: string = populationData?.[0]?.population?.toLocaleString()
-  return `Total population: ${popAllCount ?? DATA_UNAVAILABLE} (from ACS 2022)`
+  const rawPop = populationData?.[0]?.population
+  const popAllCount: string =
+    rawPop != null && !isNaN(rawPop)
+      ? rawPop.toLocaleString()
+      : DATA_UNAVAILABLE
+  return `Total population: ${popAllCount} (from ACS 2022)`
 }
 
 export function getSubPopulationPhrase(

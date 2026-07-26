@@ -48,7 +48,7 @@ describe('createDataMap suppressed vs unavailable labels', () => {
       gun_violence_homicide_per_100k: null,
       gun_violence_homicide_per_100k_is_suppressed: true,
       gun_homicides_estimated_total: null,
-      fatal_population: undefined,
+      fatal_population: null,
     })
     expect(entry['# people']).toEqual(DATA_UNAVAILABLE)
   })
