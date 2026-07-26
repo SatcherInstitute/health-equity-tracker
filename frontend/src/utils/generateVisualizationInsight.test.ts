@@ -312,12 +312,12 @@ describe('formatPeerComparison', () => {
         reportingCount: total,
         higherThanCount: higher,
       })
-    expect(label(9, 10)).toContain('among the highest') // 0.90
-    expect(label(8, 10)).toContain('higher than most') // 0.80
-    expect(label(6, 10)).toContain('above the typical') // 0.60
-    expect(label(5, 10)).toContain('near the typical') // 0.50
-    expect(label(3, 10)).toContain('below the typical') // 0.30
-    expect(label(2, 10)).toContain('lower than most') // 0.20
+    expect(label(9, 10)).toContain('among the highest') // 0.90 (>=0.9 boundary)
+    expect(label(3, 4)).toContain('higher than most') // 0.75 (>=0.75 boundary)
+    expect(label(6, 10)).toContain('above the typical') // 0.60 (>=0.6 boundary)
+    expect(label(2, 5)).toContain('near the typical') // 0.40 (>=0.4 boundary)
+    expect(label(1, 4)).toContain('below the typical') // 0.25 (>=0.25 boundary)
+    expect(label(1, 10)).toContain('lower than most') // 0.10 (>=0.1 boundary)
     expect(label(0, 10)).toContain('among the lowest') // 0.00
   })
 })
