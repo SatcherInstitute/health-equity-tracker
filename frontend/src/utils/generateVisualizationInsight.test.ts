@@ -277,7 +277,7 @@ describe('summarizePeerComparison', () => {
 })
 
 describe('formatPeerComparison', () => {
-  test('renders the region rate, its rank, and the peer spread', () => {
+  test('renders the region rate, its qualitative standing, and the peer spread', () => {
     const text = formatPeerComparison({
       regionLabel: 'Bartow County',
       regionValue: 13,
@@ -290,10 +290,35 @@ describe('formatPeerComparison', () => {
       shortLabel: 'per 100k',
     })
     expect(text).toContain('- Bartow County: 13 per 100k')
-    expect(text).toContain(
-      'Ranked against 52 Georgia counties that report this measure: higher than 41 of them',
-    )
+    // 41/52 = 0.788 -> "higher than most"; raw fraction must not appear
+    expect(text).toContain('Among 52 Georgia counties: higher than most')
+    expect(text).not.toContain('41 of')
     expect(text).toContain('Peer median 8.1 per 100k; range 2.3–21 per 100k')
+  })
+
+  test('uses correct label at each tier boundary', () => {
+    const base = {
+      regionLabel: 'X',
+      regionValue: 10,
+      peerNoun: 'places',
+      median: 8,
+      min: 2,
+      max: 20,
+      shortLabel: 'per 100k',
+    }
+    const label = (higher: number, total: number) =>
+      formatPeerComparison({
+        ...base,
+        reportingCount: total,
+        higherThanCount: higher,
+      })
+    expect(label(9, 10)).toContain('among the highest') // 0.90 (>=0.9 boundary)
+    expect(label(3, 4)).toContain('higher than most') // 0.75 (>=0.75 boundary)
+    expect(label(6, 10)).toContain('above the typical') // 0.60 (>=0.6 boundary)
+    expect(label(2, 5)).toContain('near the typical') // 0.40 (>=0.4 boundary)
+    expect(label(1, 4)).toContain('below the typical') // 0.25 (>=0.25 boundary)
+    expect(label(1, 10)).toContain('lower than most') // 0.10 (>=0.1 boundary)
+    expect(label(0, 10)).toContain('among the lowest') // 0.00
   })
 })
 

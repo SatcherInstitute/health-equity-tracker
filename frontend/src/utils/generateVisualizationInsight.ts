@@ -233,18 +233,38 @@ export function summarizePeerComparison(
     reportingCount: values.length,
     higherThanCount: values.filter((v) => v < peer.regionValue).length,
     median: Math.round(median * 10) / 10,
-    min: sorted[0],
-    max: sorted[sorted.length - 1],
+    min: Math.round(sorted[0] * 10) / 10,
+    max: Math.round(sorted[sorted.length - 1] * 10) / 10,
     shortLabel: peer.shortLabel,
   }
 }
 
+// Maps a rank ratio to a plain-English standing label so the model never sees
+// raw fractions like "higher than 23 of 28" and restates them verbatim.
+function peerRankLabel(
+  higherThanCount: number,
+  reportingCount: number,
+): string {
+  const ratio = higherThanCount / reportingCount
+  if (ratio >= 0.9) return 'among the highest'
+  if (ratio >= 0.75) return 'higher than most'
+  if (ratio >= 0.6) return 'above the typical'
+  if (ratio >= 0.4) return 'near the typical'
+  if (ratio >= 0.25) return 'below the typical'
+  if (ratio >= 0.1) return 'lower than most'
+  return 'among the lowest'
+}
+
 // Renders a peer rank summary as prompt bullet lines. Leads with the region's
-// own rate, then its standing among peers and the peer distribution.
+// own rate, then its qualitative standing and the peer distribution.
 export function formatPeerComparison(summary: PeerRankSummary): string {
+  const rankLabel = peerRankLabel(
+    summary.higherThanCount,
+    summary.reportingCount,
+  )
   return [
     `- ${summary.regionLabel}: ${summary.regionValue} ${summary.shortLabel}`,
-    `- Ranked against ${summary.reportingCount} ${summary.peerNoun} that report this measure: higher than ${summary.higherThanCount} of them`,
+    `- Among ${summary.reportingCount} ${summary.peerNoun}: ${rankLabel}`,
     `- Peer median ${summary.median} ${summary.shortLabel}; range ${summary.min}–${summary.max} ${summary.shortLabel}`,
   ].join('\n')
 }
