@@ -1,10 +1,6 @@
 import { geoPath, select } from 'd3'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
-import {
-  DATA_SUPPRESSED,
-  NO_DATA_MESSAGE,
-  NOT_IN_EXTREMES,
-} from '../mapGlobals'
+import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getCountyAddOn } from '../mapHelperFunctions'
 import { getFillColor, getStrokeColor } from './colorSchemes'
 import {
@@ -111,6 +107,13 @@ export const renderMap = (options: RenderMapOptions) => {
     demographicType,
   )
 
+  // Extremes mode draws only the highest and lowest geographies; the rest are
+  // background context carrying no value. Announcing each one would make a
+  // screen reader user walk thousands of counties to reach the handful that
+  // hold the answer, so they leave the accessibility tree entirely.
+  const isExtremesContext = (d: any) =>
+    isExtremesMode && dataMap.get(d.id?.toString())?.value == null
+
   // Draw main map
   mapGroup
     .selectAll('path')
@@ -143,15 +146,16 @@ export const renderMap = (options: RenderMapOptions) => {
       }),
     )
     .attr('stroke-width', STROKE_WIDTH)
-    .attr('role', 'img')
+    .attr('aria-hidden', (d: any) => (isExtremesContext(d) ? 'true' : null))
+    .attr('role', (d: any) => (isExtremesContext(d) ? null : 'img'))
     .attr('tabindex', '-1')
     .attr('aria-label', (d: any) => {
+      if (isExtremesContext(d)) return null
       const id = d.id?.toString()
       const name = d.properties?.name ?? id ?? 'Unknown'
       const namePlace = geographyType ? `${name} ${geographyType}` : name
       const mapData = dataMap.get(id)
       if (!mapData || mapData.value == null) {
-        if (isExtremesMode) return `${namePlace}: ${NOT_IN_EXTREMES}`
         return `${namePlace}: ${
           mapData?.isSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE
         }`

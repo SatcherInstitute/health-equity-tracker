@@ -6,11 +6,7 @@ import type {
 } from '../../data/config/MetricConfigTypes'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
-import {
-  DATA_SUPPRESSED,
-  NO_DATA_MESSAGE,
-  NOT_IN_EXTREMES,
-} from '../mapGlobals'
+import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getFillColor, getStrokeColor } from './colorSchemes'
 import { formatMetricValue } from './mapHelpers'
 import {
@@ -72,6 +68,11 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     // Draw territory circles
     const territoryData = extractTerritoryData(props.dataWithHighestLowest)
 
+    // See renderMap: outside the extremes selection a territory carries no
+    // value, so it is hidden from screen readers rather than announced.
+    const isExtremesContext = (d: any) =>
+      props.isExtremesMode && props.dataMap.get(d.fips)?.value == null
+
     const marginRightForTerrRow = props.isMulti
       ? 10
       : TERRITORIES_CONFIG.marginRightForRow
@@ -124,14 +125,15 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
         }),
       )
       .attr('stroke-width', STROKE_WIDTH)
-      .attr('role', 'img')
+      .attr('aria-hidden', (d) => (isExtremesContext(d) ? 'true' : null))
+      .attr('role', (d) => (isExtremesContext(d) ? null : 'img'))
       .attr('tabindex', '-1')
       .attr('aria-label', (d) => {
+        if (isExtremesContext(d)) return null
         const name =
           d.fips_name ?? TERRITORY_CODES[d.fips] ?? 'Unknown territory'
         const mapData = props.dataMap.get(d.fips)
         if (!mapData || mapData.value == null) {
-          if (props.isExtremesMode) return `${name}: ${NOT_IN_EXTREMES}`
           return `${name}: ${
             mapData?.isSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE
           }`
@@ -181,6 +183,9 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       .attr('y', territoryRadius + TERRITORIES_CONFIG.verticalGapFromUsa + 5)
       .attr('text-anchor', 'middle')
       .attr('font-size', '12px')
+      // the circle's aria-label already names the territory in full, so the
+      // two-letter code beneath it is purely visual
+      .attr('aria-hidden', 'true')
       .text((d) => TERRITORY_CODES[d.fips] || d.fips)
   }, [
     // Dependencies that should trigger a re-render of territories
