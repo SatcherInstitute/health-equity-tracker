@@ -54,7 +54,7 @@ test('National Vaccination Full Test', async ({ page }) => {
         .soft(page.getByRole('heading', { name: 'Share of total COVID-19' }))
         .toBeVisible(),
       expect.soft(page.getByText('% unknown', { exact: true })).toBeVisible(),
-      expect.soft(unknownMap.getByText('no data')).toBeVisible(),
+      expect.soft(unknownMap.getByText('No data')).toBeVisible(),
     ])
   })
 

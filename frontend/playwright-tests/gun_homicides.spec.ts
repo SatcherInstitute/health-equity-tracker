@@ -14,9 +14,9 @@ test('Gun Homicide Test: suppressed counties are drawn and named as suppressed',
   // a suppressed county must still be rendered rather than dropped from the map,
   // and must say why it is blank instead of claiming the data simply does not exist
   await expect
-    .poll(() => page.locator('path[aria-label*="Data suppressed"]').count(), {
+    .poll(() => page.locator('path[aria-label*="Suppressed"]').count(), {
       timeout: 30000,
     })
     .toBeGreaterThan(0)
-  await expect(page.getByText('Data suppressed').first()).toBeVisible()
+  await expect(page.getByText('Suppressed').first()).toBeVisible()
 })

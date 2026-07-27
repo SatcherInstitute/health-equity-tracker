@@ -121,7 +121,7 @@ describe('test getSubPopulationPhrase()', () => {
       /* dataTypeConfig */ statinsAdherenceConfig,
     )
     expect(medicarePopPhrase).toEqual(
-      'Total population of Medicare Statins Beneficiaries, Ages 18+: unavailable (from CMS)',
+      'Total population of Medicare Statins Beneficiaries, Ages 18+: Unavailable (from CMS)',
     )
   })
 

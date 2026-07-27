@@ -13,12 +13,14 @@ import type { ColorScheme } from './choroplethMap/types'
 //                    Only ever provable from the rate's own suppressionFlagMetricId
 //                    on that same row, and only for the rate and its numerator.
 //   NO_DATA_MESSAGE  the source publishes this field but has no value for this geo.
+//                    Sits beside the others as a legend swatch and a tooltip value,
+//                    so all three read as capitalized labels rather than prose.
 //   DATA_UNAVAILABLE the source does not publish this field at all. Denominators
 //                    come from a separate source (ACS), so a topic's suppression
 //                    rules can never apply to them.
-export const DATA_SUPPRESSED = 'Data suppressed'
-export const NO_DATA_MESSAGE = 'no data'
-export const DATA_UNAVAILABLE = 'unavailable'
+export const DATA_SUPPRESSED = 'Suppressed'
+export const NO_DATA_MESSAGE = 'No data'
+export const DATA_UNAVAILABLE = 'Unavailable'
 export const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
 type PopulationSubset =
