@@ -199,11 +199,16 @@ export function getFillColor(options: GetFillColorOptions): string {
   const { d, dataMap, mapConfig, isExtremesMode, colorScale, isMultiMap } =
     options
 
+  const entry = dataMap.get(d.id as string)
+
+  if (entry?.isSuppressed) {
+    return colors.altGray
+  }
+
   if (!isMultiMap && dataMap.size === 1) {
     return mapConfig.mid
   }
 
-  const entry = dataMap.get(d.id as string)
   const value = entry?.value as number
 
   if (value === 0) {
@@ -220,7 +225,7 @@ export function getFillColor(options: GetFillColorOptions): string {
 
   // Grey reads as a value that exists and was withheld; white reads as a hole in
   // the data. Both are outlined by the caller so the white shape stays visible.
-  return entry?.isSuppressed ? colors.altGray : colors.altWhite
+  return colors.altWhite
 }
 
 // A geography filled white would otherwise vanish against the card behind it,
