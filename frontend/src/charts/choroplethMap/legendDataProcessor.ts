@@ -123,7 +123,8 @@ export function processLegendData(
   // rather than one label standing in for whichever kind happens to dominate
   if (unexplainedMissingData.length > 0) {
     specialItems.push({
-      color: colors.altGray,
+      color: colors.altWhite,
+      borderColor: colors.altGray,
       label: NO_DATA_MESSAGE,
       value: null,
     })

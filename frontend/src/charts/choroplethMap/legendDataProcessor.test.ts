@@ -3,6 +3,7 @@ import type {
   MapConfig,
   MetricConfig,
 } from '../../data/config/MetricConfigTypes'
+import { colors } from '../../styles/tokens/colors'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { processLegendData } from './legendDataProcessor'
 import type { ColorScale } from './types'
@@ -81,5 +82,28 @@ describe('processLegendData absence swatches', () => {
         { gun_violence_homicide_per_100k: 12 },
       ]),
     ).toEqual([])
+  })
+
+  it('gives the two kinds of absence distinguishable swatches', () => {
+    const items = processLegendData({
+      data: [
+        { gun_violence_homicide_per_100k: 5 },
+        {
+          gun_violence_homicide_per_100k: null,
+          gun_violence_homicide_per_100k_is_suppressed: true,
+        },
+        { gun_violence_homicide_per_100k: null },
+      ],
+      metricConfig,
+      mapConfig,
+      colorScale,
+    }).specialItems
+    const missing = items.find((item) => item.label === NO_DATA_MESSAGE)
+    const suppressed = items.find((item) => item.label === DATA_SUPPRESSED)
+    expect(missing?.color).toEqual(colors.altWhite)
+    // without this the white swatch is invisible against the legend background
+    expect(missing?.borderColor).toEqual(colors.altGray)
+    expect(suppressed?.color).toEqual(colors.altGray)
+    expect(missing?.color).not.toEqual(suppressed?.color)
   })
 })

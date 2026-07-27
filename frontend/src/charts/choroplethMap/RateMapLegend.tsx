@@ -102,7 +102,11 @@ export default function RateMapLegend(props: RateMapLegendProps) {
           >
             {legendItems.map((item) => (
               <div key={item.label} className='break-inside-avoid'>
-                <LegendItem color={item.color} label={item.label} />
+                <LegendItem
+                  color={item.color}
+                  label={item.label}
+                  borderColor={item.borderColor}
+                />
               </div>
             ))}
           </div>

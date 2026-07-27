@@ -18,6 +18,9 @@ import type { ColorScheme } from './choroplethMap/types'
 //   DATA_UNAVAILABLE the source does not publish this field at all. Denominators
 //                    come from a separate source (ACS), so a topic's suppression
 //                    rules can never apply to them.
+// Extremes mode draws only the highest and lowest geographies. Everything else
+// is outside the selection, which is not a claim about whether data exists.
+export const NOT_IN_EXTREMES = 'not among the highest or lowest rates'
 export const DATA_SUPPRESSED = 'Suppressed'
 export const NO_DATA_MESSAGE = 'No data'
 export const DATA_UNAVAILABLE = 'Unavailable'

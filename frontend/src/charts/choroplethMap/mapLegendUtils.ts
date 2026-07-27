@@ -71,7 +71,9 @@ export function createUnknownLegend(
     .attr('y', 0)
     .attr('width', 20)
     .attr('height', legendHeight)
-    .style('fill', colors.altGray)
+    .style('fill', colors.altWhite)
+    .style('stroke', colors.altGray)
+    .style('stroke-width', 1)
 
   legendContainer
     .append('text')
@@ -117,6 +119,7 @@ export interface LegendItemData {
   color: string
   label: string
   value: any
+  borderColor?: string
 }
 
 /**

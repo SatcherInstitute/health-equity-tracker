@@ -6,9 +6,12 @@ import type {
 } from '../../data/config/MetricConfigTypes'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import type { Fips } from '../../data/utils/Fips'
-import { colors } from '../../styles/tokens/colors'
-import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
-import { getFillColor } from './colorSchemes'
+import {
+  DATA_SUPPRESSED,
+  NO_DATA_MESSAGE,
+  NOT_IN_EXTREMES,
+} from '../mapGlobals'
+import { getFillColor, getStrokeColor } from './colorSchemes'
 import { formatMetricValue } from './mapHelpers'
 import {
   createTerritoryFeature,
@@ -110,7 +113,16 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           isMultiMap: props.isMulti,
         }),
       )
-      .attr('stroke', props.isExtremesMode ? colors.altGray : colors.altWhite)
+      .attr('stroke', (d) =>
+        getStrokeColor({
+          d: createTerritoryFeature(d.fips),
+          dataMap: props.dataMap,
+          colorScale: props.colorScale,
+          isExtremesMode: props.isExtremesMode,
+          mapConfig: props.mapConfig,
+          isMultiMap: props.isMulti,
+        }),
+      )
       .attr('stroke-width', STROKE_WIDTH)
       .attr('role', 'img')
       .attr('tabindex', '-1')
@@ -119,6 +131,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           d.fips_name ?? TERRITORY_CODES[d.fips] ?? 'Unknown territory'
         const mapData = props.dataMap.get(d.fips)
         if (!mapData || mapData.value == null) {
+          if (props.isExtremesMode) return `${name}: ${NOT_IN_EXTREMES}`
           return `${name}: ${
             mapData?.isSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE
           }`

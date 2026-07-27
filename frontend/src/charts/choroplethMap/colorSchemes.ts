@@ -203,7 +203,8 @@ export function getFillColor(options: GetFillColorOptions): string {
     return mapConfig.mid
   }
 
-  const value = dataMap.get(d.id as string)?.value as number
+  const entry = dataMap.get(d.id as string)
+  const value = entry?.value as number
 
   if (value === 0) {
     return mapConfig.zero
@@ -213,5 +214,21 @@ export function getFillColor(options: GetFillColorOptions): string {
     return colorScale(value)
   }
 
-  return isExtremesMode ? '#fff' : colors.altGray
+  // Extremes mode narrows the map to the top and bottom geographies, so nothing
+  // absent is ever drawn there and white keeps its "outside the selection" meaning.
+  if (isExtremesMode) return colors.altWhite
+
+  // Grey reads as a value that exists and was withheld; white reads as a hole in
+  // the data. Both are outlined by the caller so the white shape stays visible.
+  return entry?.isSuppressed ? colors.altGray : colors.altWhite
+}
+
+// A geography filled white would otherwise vanish against the card behind it,
+// since the usual stroke is white too. Outline exactly those shapes in grey.
+// Derived from the fill rather than recomputed so the two cannot disagree.
+export function getStrokeColor(options: GetFillColorOptions): string {
+  if (options.isExtremesMode) return colors.altGray
+  return getFillColor(options) === colors.altWhite
+    ? colors.altGray
+    : colors.altWhite
 }

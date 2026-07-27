@@ -1,9 +1,12 @@
 import { geoPath, select } from 'd3'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
-import { colors } from '../../styles/tokens/colors'
-import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
+import {
+  DATA_SUPPRESSED,
+  NO_DATA_MESSAGE,
+  NOT_IN_EXTREMES,
+} from '../mapGlobals'
 import { getCountyAddOn } from '../mapHelperFunctions'
-import { getFillColor } from './colorSchemes'
+import { getFillColor, getStrokeColor } from './colorSchemes'
 import {
   createDataMap,
   formatMetricValue,
@@ -129,7 +132,16 @@ export const renderMap = (options: RenderMapOptions) => {
         isMultiMap: isMulti,
       }),
     )
-    .attr('stroke', isExtremesMode ? colors.altGray : colors.altWhite)
+    .attr('stroke', (d) =>
+      getStrokeColor({
+        d,
+        dataMap,
+        colorScale: colorScale as ColorScale,
+        isExtremesMode: isExtremesMode,
+        mapConfig: mapConfig,
+        isMultiMap: isMulti,
+      }),
+    )
     .attr('stroke-width', STROKE_WIDTH)
     .attr('role', 'img')
     .attr('tabindex', '-1')
@@ -139,6 +151,7 @@ export const renderMap = (options: RenderMapOptions) => {
       const namePlace = geographyType ? `${name} ${geographyType}` : name
       const mapData = dataMap.get(id)
       if (!mapData || mapData.value == null) {
+        if (isExtremesMode) return `${namePlace}: ${NOT_IN_EXTREMES}`
         return `${namePlace}: ${
           mapData?.isSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE
         }`
