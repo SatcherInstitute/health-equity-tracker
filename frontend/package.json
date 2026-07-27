@@ -60,7 +60,7 @@
 		"cspell": "^8.19.2",
 		"env-cmd": "^10.1.0",
 		"jsdom": "^26.1.0",
-		"postcss": "^8.5.10",
+		"postcss": "^8.5.23",
 		"tailwindcss": "^4.2.4",
 		"tsx": "^4.22.3",
 		"typescript": "^5.9.3",
