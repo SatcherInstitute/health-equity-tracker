@@ -395,6 +395,9 @@ export function allMissingValuesAreSuppressed(
 ) {
   const rateIsSuppressedColumn = metricId + '_is_suppressed'
   const rowsWithMissingRates = data.filter((row) => row[metricId] == null)
+  // an empty array would vacuously satisfy .every(), reporting suppression on a
+  // map that is missing nothing at all
+  if (rowsWithMissingRates.length === 0) return false
   return rowsWithMissingRates.every(
     (row) => row[rateIsSuppressedColumn] === true,
   )

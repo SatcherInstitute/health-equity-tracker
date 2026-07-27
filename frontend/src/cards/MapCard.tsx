@@ -52,10 +52,12 @@ import {
   getExtremeValues,
 } from '../data/utils/datasetutils'
 import { Fips } from '../data/utils/Fips'
+import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
 import HetDivider from '../styles/HetComponents/HetDivider'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import HetTerm from '../styles/HetComponents/HetTerm'
+import type { InsightPeerConfig } from '../utils/generateVisualizationInsight'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
@@ -260,6 +262,54 @@ function MapCardWithKey(props: MapCardProps) {
     queries.push(sviQuery)
   }
 
+  // A single-region map (a county whose subgroups are all suppressed, or a state
+  // with no county-level data) has nothing local to compare. Rather than compare
+  // against parent geographies — whose rates often come from different files,
+  // time windows, and aggregations — rank the region against its SAME-LEVEL
+  // peers (other counties in the state, or other states), which share its data
+  // source and methodology. The peer file is NOT added to `queries`; the insight
+  // card fetches it lazily only when opened on such a view, so multi-region maps
+  // never pay for it. Gated to the flag and non-national geographies (national
+  // has no same-level peers).
+  const parentFips = props.fips.getParentFips()
+  const insightPeerConfig: InsightPeerConfig | undefined =
+    SHOW_INSIGHT_GENERATION && !props.fips.isUsa()
+      ? {
+          peerQuery: metricQuery(
+            initialMetridIds,
+            Breakdowns.forChildrenFips(parentFips),
+          ),
+          peerNoun: props.fips.isCounty()
+            ? `${parentFips.getDisplayName()} ${parentFips.getPluralChildFipsTypeDisplayName()}`
+            : 'states',
+          getRegionAllRate: (responses) => {
+            const allRow = responses[1]
+              ?.getValidRowsForField(metricConfig.metricId)
+              .find((row) => row[demographicType] === ALL)
+            const value = allRow?.[metricConfig.metricId]
+            return typeof value === 'number'
+              ? {
+                  label: props.fips.getDisplayName(),
+                  value,
+                  shortLabel: metricConfig.shortLabel,
+                }
+              : undefined
+          },
+          getPeerValues: (peerResponses) =>
+            (
+              peerResponses[0]?.getValidRowsForField(metricConfig.metricId) ??
+              []
+            )
+              .filter(
+                (row) =>
+                  row[demographicType] === ALL &&
+                  row.fips !== props.fips.code &&
+                  typeof row[metricConfig.metricId] === 'number',
+              )
+              .map((row) => row[metricConfig.metricId] as number),
+        }
+      : undefined
+
   let selectedRaceSuffix = ''
   if (
     CAWP_METRICS.includes(metricConfig.metricId) &&
@@ -315,6 +365,7 @@ function MapCardWithKey(props: MapCardProps) {
       dataTypeConfig={props.dataTypeConfig}
       demographicType={props.demographicType}
       activeDemographicGroup={activeDemographicGroup}
+      insightPeerConfig={insightPeerConfig}
     >
       {(queryResponses, metadata, geoData, overrideCardHasData) => {
         // contains rows for sub-geos (if viewing US, this data will be STATE level)

@@ -6,9 +6,12 @@ import { MetricQueryResponse } from '../data/query/MetricQuery'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import {
   buildInsightFocusSuffix,
+  buildPrompt,
   formatDataRows,
-  hasEnoughDataForInsight,
+  formatPeerComparison,
+  getInsightDataStatus,
   prepareInsightData,
+  summarizePeerComparison,
 } from './generateVisualizationInsight'
 
 const DEMO = 'race_and_ethnicity'
@@ -148,38 +151,174 @@ describe('prepareInsightData', () => {
   })
 })
 
-describe('hasEnoughDataForInsight', () => {
-  test('false when only one group has data (nothing to compare)', () => {
-    const response = new MetricQueryResponse([
-      {
-        fips_name: 'Bartow County',
-        race_and_ethnicity: 'White (NH)',
-        rate: 13,
-      },
-    ])
+describe('getInsightDataStatus', () => {
+  const oneRow = new MetricQueryResponse([
+    { fips_name: 'Bartow County', race_and_ethnicity: 'All', rate: 13 },
+  ])
+  const twoRows = new MetricQueryResponse([
+    { fips_name: 'Fulton County', race_and_ethnicity: 'All', rate: 9 },
+    { fips_name: 'Bartow County', race_and_ethnicity: 'All', rate: 13 },
+  ])
+  const empty = new MetricQueryResponse([])
+
+  test("'multi' when two or more values are present, regardless of region rate", () => {
     expect(
-      hasEnoughDataForInsight('data-table', dataTypeConfig, DEMO, [response]),
-    ).toBe(false)
+      getInsightDataStatus('rate-map', dataTypeConfig, DEMO, [twoRows]),
+    ).toBe('multi')
   })
 
-  test('true when two or more groups have data', () => {
-    const response = new MetricQueryResponse([
-      { fips_name: 'Bartow County', race_and_ethnicity: 'Black (NH)', rate: 9 },
-      {
-        fips_name: 'Bartow County',
-        race_and_ethnicity: 'White (NH)',
-        rate: 13,
-      },
-    ])
+  test("'single-region' when a map has under two values but the region has an overall rate", () => {
     expect(
-      hasEnoughDataForInsight('data-table', dataTypeConfig, DEMO, [response]),
-    ).toBe(true)
+      getInsightDataStatus(
+        'rate-map',
+        dataTypeConfig,
+        DEMO,
+        [oneRow],
+        undefined,
+        true,
+      ),
+    ).toBe('single-region')
   })
 
-  test('false when there is no query response at all', () => {
+  test("'empty' when the region has no overall rate to rank (regionHasAllRate false)", () => {
+    // A lone subgroup row leaves no overall rate, so the region can't be ranked
+    // as an overall value against its peers — it stays hidden.
     expect(
-      hasEnoughDataForInsight('data-table', dataTypeConfig, DEMO, undefined),
-    ).toBe(false)
+      getInsightDataStatus(
+        'rate-map',
+        dataTypeConfig,
+        DEMO,
+        [oneRow],
+        undefined,
+        false,
+      ),
+    ).toBe('empty')
+  })
+
+  test("a non-map chart is 'empty' even with an overall region rate", () => {
+    // Peer ranking only makes sense for maps.
+    expect(
+      getInsightDataStatus(
+        'data-table',
+        dataTypeConfig,
+        DEMO,
+        [oneRow],
+        undefined,
+        true,
+      ),
+    ).toBe('empty')
+  })
+
+  test("'single-region' for a state with no on-screen children but an overall rate", () => {
+    // A state map whose county children have no data: entryCount 0, but the
+    // state's own rate lets it rank against peer states.
+    expect(
+      getInsightDataStatus(
+        'rate-map',
+        dataTypeConfig,
+        DEMO,
+        [empty],
+        undefined,
+        true,
+      ),
+    ).toBe('single-region')
+  })
+
+  test("'empty' when there is no query response at all", () => {
+    expect(
+      getInsightDataStatus('rate-map', dataTypeConfig, DEMO, undefined),
+    ).toBe('empty')
+  })
+})
+
+describe('summarizePeerComparison', () => {
+  const base = { regionLabel: 'Bartow County', peerNoun: 'Georgia counties' }
+
+  test('ranks the region among reporting peers and summarizes the spread', () => {
+    const summary = summarizePeerComparison({
+      ...base,
+      regionValue: 13,
+      peerValues: [2, 5, 8, 9, 21],
+      shortLabel: 'per 100k',
+    })
+    expect(summary).toEqual({
+      regionLabel: 'Bartow County',
+      regionValue: 13,
+      peerNoun: 'Georgia counties',
+      reportingCount: 5,
+      higherThanCount: 4, // 2, 5, 8, 9 are below 13
+      median: 8,
+      min: 2,
+      max: 21,
+      shortLabel: 'per 100k',
+    })
+  })
+
+  test('averages the two middle values for an even peer count', () => {
+    const summary = summarizePeerComparison({
+      ...base,
+      regionValue: 10,
+      peerValues: [4, 6, 8, 10], // median of 6 and 8 = 7
+      shortLabel: 'per 100k',
+    })
+    expect(summary?.median).toBe(7)
+  })
+
+  test('returns null when too few peers report', () => {
+    expect(
+      summarizePeerComparison({
+        ...base,
+        regionValue: 13,
+        peerValues: [8, 9], // below MIN_REPORTING_PEERS
+        shortLabel: 'per 100k',
+      }),
+    ).toBeNull()
+  })
+})
+
+describe('formatPeerComparison', () => {
+  test('renders the region rate, its qualitative standing, and the peer spread', () => {
+    const text = formatPeerComparison({
+      regionLabel: 'Bartow County',
+      regionValue: 13,
+      peerNoun: 'Georgia counties',
+      reportingCount: 52,
+      higherThanCount: 41,
+      median: 8.1,
+      min: 2.3,
+      max: 21,
+      shortLabel: 'per 100k',
+    })
+    expect(text).toContain('- Bartow County: 13 per 100k')
+    // 41/52 = 0.788 -> "higher than most"; raw fraction must not appear
+    expect(text).toContain('Among 52 Georgia counties: higher than most')
+    expect(text).not.toContain('41 of')
+    expect(text).toContain('Peer median 8.1 per 100k; range 2.3–21 per 100k')
+  })
+
+  test('uses correct label at each tier boundary', () => {
+    const base = {
+      regionLabel: 'X',
+      regionValue: 10,
+      peerNoun: 'places',
+      median: 8,
+      min: 2,
+      max: 20,
+      shortLabel: 'per 100k',
+    }
+    const label = (higher: number, total: number) =>
+      formatPeerComparison({
+        ...base,
+        reportingCount: total,
+        higherThanCount: higher,
+      })
+    expect(label(9, 10)).toContain('among the highest') // 0.90 (>=0.9 boundary)
+    expect(label(3, 4)).toContain('higher than most') // 0.75 (>=0.75 boundary)
+    expect(label(6, 10)).toContain('above the typical') // 0.60 (>=0.6 boundary)
+    expect(label(2, 5)).toContain('near the typical') // 0.40 (>=0.4 boundary)
+    expect(label(1, 4)).toContain('below the typical') // 0.25 (>=0.25 boundary)
+    expect(label(1, 10)).toContain('lower than most') // 0.10 (>=0.1 boundary)
+    expect(label(0, 10)).toContain('among the lowest') // 0.00
   })
 })
 
@@ -219,5 +358,29 @@ describe('buildInsightFocusSuffix', () => {
 
   test('empty selectedGroups array contributes nothing', () => {
     expect(buildInsightFocusSuffix({ selectedGroups: [] })).toBe('')
+  })
+})
+
+describe('buildPrompt peer framing', () => {
+  const args = [
+    'rate-map',
+    'Gun Deaths',
+    'Bartow County, Georgia',
+    'race and ethnicity',
+    '- Bartow County: 13 per 100k\n- Ranked against 52 Georgia counties...',
+  ] as const
+
+  test('uses same-level peer framing when a peer comparison is present', () => {
+    const prompt = buildPrompt(...args, undefined, true)
+    expect(prompt).toContain('ranked against its peer places')
+    expect(prompt).toContain('same data source and methodology')
+    // Must not imply a cross-level (state/national) comparison.
+    expect(prompt).not.toContain('national average')
+  })
+
+  test('falls back to the standard disparity framing without a peer comparison', () => {
+    const prompt = buildPrompt(...args, undefined, false)
+    expect(prompt).not.toContain('peer places')
+    expect(prompt).toContain('most important health equity disparity')
   })
 })

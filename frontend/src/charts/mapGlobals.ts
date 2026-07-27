@@ -7,6 +7,9 @@ import { colors } from '../styles/tokens/colors'
 import type { ColorScheme } from './choroplethMap/types'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
+// only ever provable for a numerator, and only from its rate's own _is_suppressed
+// flag; denominators come from a separate source so suppression never applies
+export const DATA_UNAVAILABLE = 'unavailable'
 export const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
 type PopulationSubset =
