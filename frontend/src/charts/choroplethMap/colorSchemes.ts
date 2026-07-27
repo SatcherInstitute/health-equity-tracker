@@ -214,9 +214,10 @@ export function getFillColor(options: GetFillColorOptions): string {
   // absent is ever drawn there and white keeps its "outside the selection" meaning.
   if (isExtremesMode) return colors.altWhite
 
-  // For a single-row map without data in extremes mode, check suppression before
-  // the single-row shortcut. If this entry was suppressed but didn't make extremes,
-  // we've already returned white above.
+  // Extremes mode wins over suppression: a geography outside the selection reads as
+  // white regardless of why its rate is absent. Past that, suppression has to settle
+  // before the single-row mapConfig.mid shortcut below, or a one-row map whose only
+  // rate was withheld would render as ordinary data.
   if (entry?.isSuppressed) {
     return colors.altGray
   }
