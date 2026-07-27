@@ -200,15 +200,6 @@ export function getFillColor(options: GetFillColorOptions): string {
     options
 
   const entry = dataMap.get(d.id as string)
-
-  if (entry?.isSuppressed) {
-    return colors.altGray
-  }
-
-  if (!isMultiMap && dataMap.size === 1) {
-    return mapConfig.mid
-  }
-
   const value = entry?.value as number
 
   if (value === 0) {
@@ -222,6 +213,17 @@ export function getFillColor(options: GetFillColorOptions): string {
   // Extremes mode narrows the map to the top and bottom geographies, so nothing
   // absent is ever drawn there and white keeps its "outside the selection" meaning.
   if (isExtremesMode) return colors.altWhite
+
+  // For a single-row map without data in extremes mode, check suppression before
+  // the single-row shortcut. If this entry was suppressed but didn't make extremes,
+  // we've already returned white above.
+  if (entry?.isSuppressed) {
+    return colors.altGray
+  }
+
+  if (!isMultiMap && dataMap.size === 1) {
+    return mapConfig.mid
+  }
 
   // Grey reads as a value that exists and was withheld; white reads as a hole in
   // the data. Both are outlined by the caller so the white shape stays visible.
