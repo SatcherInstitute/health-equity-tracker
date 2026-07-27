@@ -3,6 +3,8 @@ import type {
   MapConfig,
   MetricConfig,
 } from '../../data/config/MetricConfigTypes'
+import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
+import { Fips } from '../../data/utils/Fips'
 import { colors } from '../../styles/tokens/colors'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { processLegendData } from './legendDataProcessor'
@@ -105,5 +107,42 @@ describe('processLegendData absence swatches', () => {
     expect(missing?.borderColor).toEqual(colors.altGray)
     expect(suppressed?.color).toEqual(colors.altGray)
     expect(missing?.color).not.toEqual(suppressed?.color)
+  })
+})
+
+describe('processLegendData territory coverage', () => {
+  const everyTerritory = Object.keys(TERRITORY_CODES).map((fips) => ({
+    fips,
+    gun_violence_homicide_per_100k: 5,
+  }))
+
+  const labelsForUsa = (data: Array<Record<string, any>>) =>
+    processLegendData({
+      data,
+      metricConfig,
+      mapConfig,
+      colorScale,
+      fips: new Fips('00'),
+    }).specialItems.map((item) => item.label)
+
+  it('explains a territory the source omits entirely', () => {
+    // the national map still draws a circle for it, so the legend must too
+    expect(labelsForUsa(everyTerritory.slice(1))).toEqual([NO_DATA_MESSAGE])
+  })
+
+  it('adds no swatch when every territory is covered', () => {
+    expect(labelsForUsa(everyTerritory)).toEqual([])
+  })
+
+  it('ignores absent territories on a state map, which draws no circles', () => {
+    expect(
+      processLegendData({
+        data: everyTerritory.slice(1),
+        metricConfig,
+        mapConfig,
+        colorScale,
+        fips: new Fips('01'),
+      }).specialItems,
+    ).toEqual([])
   })
 })

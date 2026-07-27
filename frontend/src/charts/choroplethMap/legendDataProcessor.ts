@@ -3,6 +3,8 @@ import type {
   MetricConfig,
 } from '../../data/config/MetricConfigTypes'
 import type { GeographicBreakdown } from '../../data/query/Breakdowns'
+import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
+import type { Fips } from '../../data/utils/Fips'
 import { colors } from '../../styles/tokens/colors'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import {
@@ -22,6 +24,7 @@ export interface ProcessLegendDataParams {
   isPhrmaAdherence?: boolean
   isSummaryLegend?: boolean
   fipsTypeDisplayName?: GeographicBreakdown
+  fips?: Fips
 }
 
 export interface ProcessedLegendData {
@@ -50,6 +53,7 @@ export function processLegendData(
     isPhrmaAdherence,
     isSummaryLegend,
     fipsTypeDisplayName,
+    fips,
   } = params
 
   const labelFormat = createLabelFormatter(metricConfig)
@@ -66,6 +70,16 @@ export function processLegendData(
   const unexplainedMissingData = missingData.filter(
     (row) => !suppressedData.includes(row),
   )
+
+  // A national map draws a circle for every territory whether or not the
+  // dataset carries a row for it, so a territory the source omits entirely
+  // renders white while never appearing in `data`. Without this the map shows
+  // a swatch the legend has no key for.
+  const hasAbsentTerritory =
+    fips?.isUsa() === true &&
+    Object.keys(TERRITORY_CODES).some(
+      (code) => !data.some((row) => row.fips === code),
+    )
 
   const uniqueNonZeroValues = Array.from(
     new Set(nonZeroData.map((row) => row[metricConfig.metricId])),
@@ -121,7 +135,7 @@ export function processLegendData(
 
   // A map can hold both kinds of absence at once, so they get separate swatches
   // rather than one label standing in for whichever kind happens to dominate
-  if (unexplainedMissingData.length > 0) {
+  if (unexplainedMissingData.length > 0 || hasAbsentTerritory) {
     specialItems.push({
       color: colors.altWhite,
       borderColor: colors.altGray,
