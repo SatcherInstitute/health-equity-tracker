@@ -1,8 +1,13 @@
 import type { DatasetId } from '../config/DatasetMetadata'
 import { METRIC_CONFIG } from '../config/MetricConfig'
-import type { DataTypeConfig, MetricId } from '../config/MetricConfigTypes'
+import type {
+  DataTypeConfig,
+  MetricConfig,
+  MetricId,
+} from '../config/MetricConfigTypes'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import {
+  allMissingValuesAreSuppressed,
   appendFipsIfNeeded,
   getExclusionList,
   getExtremeValues,
@@ -80,6 +85,62 @@ describe('DatasetUtils.getExtremeValues() Unit Tests', () => {
     )
     expect(highestValues).toEqual([])
     expect(lowestValues).toEqual([])
+  })
+
+  test("All-null rows don't break", async () => {
+    const { lowestValues, highestValues } = getExtremeValues(
+      [{ some_condition: null }, { some_condition: null }],
+      'some_condition' as MetricId,
+      5,
+    )
+    expect(highestValues).toEqual([])
+    expect(lowestValues).toEqual([])
+  })
+})
+
+describe('DatasetUtils.allMissingValuesAreSuppressed() Unit Tests', () => {
+  const metricConfig = {
+    metricId: 'some_condition' as MetricId,
+    suppressionFlagMetricId: 'some_condition_is_suppressed' as MetricId,
+  } as MetricConfig
+
+  test('true only when every gap is flagged suppressed', async () => {
+    expect(
+      allMissingValuesAreSuppressed(
+        [
+          { some_condition: 5 },
+          { some_condition: null, some_condition_is_suppressed: true },
+        ],
+        metricConfig,
+      ),
+    ).toBe(true)
+  })
+
+  test('false when any gap is unexplained', async () => {
+    expect(
+      allMissingValuesAreSuppressed(
+        [
+          { some_condition: null, some_condition_is_suppressed: true },
+          { some_condition: null },
+        ],
+        metricConfig,
+      ),
+    ).toBe(false)
+  })
+
+  test('false when nothing is missing at all', async () => {
+    expect(
+      allMissingValuesAreSuppressed([{ some_condition: 5 }], metricConfig),
+    ).toBe(false)
+  })
+
+  test('false when the metric declares no suppression flag', async () => {
+    expect(
+      allMissingValuesAreSuppressed(
+        [{ some_condition: null, some_condition_is_suppressed: true }],
+        { metricId: 'some_condition' as MetricId } as MetricConfig,
+      ),
+    ).toBe(false)
   })
 })
 
