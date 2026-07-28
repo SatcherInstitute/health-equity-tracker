@@ -27,12 +27,17 @@ export function scrollToHashTarget(
   let animating = options.smooth ?? true
   let stopped = false
 
-  // measured against the document, not the viewport, so it changes only when
-  // layout shifts and not while we are scrolling toward the target
-  const measureDocumentTop = () =>
-    target.getBoundingClientRect().top + window.scrollY
+  // the scroll position this target wants, in document coordinates. Measured
+  // against the document rather than the viewport so it stays constant while we
+  // animate toward it, and it subtracts scroll-margin because the sticky header
+  // grows when it starts sticking, which moves the goal without moving the card.
+  const measureGoal = () => {
+    const scrollMargin =
+      Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0
+    return target.getBoundingClientRect().top + window.scrollY - scrollMargin
+  }
 
-  let lastDocumentTop = measureDocumentTop()
+  let lastGoal = measureGoal()
 
   const scroll = () => {
     target.scrollIntoView({
@@ -41,14 +46,19 @@ export function scrollToHashTarget(
     })
   }
 
-  const correctIfMoved = () => {
-    const documentTop = measureDocumentTop()
-    if (Math.abs(documentTop - lastDocumentTop) < POSITION_EPSILON_PX) return
-    lastDocumentTop = documentTop
+  // only when the goal itself moves, never merely because we are partway to it,
+  // so an in-flight animation is not restarted on every observation
+  const correctIfGoalMoved = () => {
+    const goal = measureGoal()
+    if (Math.abs(goal - lastGoal) < POSITION_EPSILON_PX) return
+    lastGoal = goal
     scroll()
   }
 
-  const observer = new ResizeObserver(correctIfMoved)
+  const observer = new ResizeObserver(correctIfGoalMoved)
+  // scroll-margin is re-rendered as an inline style when the header starts
+  // sticking, which no ResizeObserver would report
+  const styleObserver = new MutationObserver(correctIfGoalMoved)
   const settleTimer = window.setTimeout(() => stop(), SETTLE_TIMEOUT_MS)
   let animationTimer = 0
 
@@ -66,6 +76,7 @@ export function scrollToHashTarget(
     if (stopped) return
     stopped = true
     observer.disconnect()
+    styleObserver.disconnect()
     window.clearTimeout(settleTimer)
     window.clearTimeout(animationTimer)
     window.removeEventListener('scrollend', endAnimation)
@@ -87,10 +98,22 @@ export function scrollToHashTarget(
     target.focus({ preventScroll: true })
   }
 
-  // body catches cards above the target growing; the target itself catches its
-  // own content resolving
-  observer.observe(document.body)
+  // body, html and #root are all pinned to the viewport height in this app, so
+  // they never report content growth. The wrappers between the target and the
+  // root are the elements that actually resize when a card above the target
+  // finishes loading, so the whole ancestor chain is observed.
   observer.observe(target)
+  for (
+    let ancestor = target.parentElement;
+    ancestor;
+    ancestor = ancestor.parentElement
+  ) {
+    observer.observe(ancestor)
+  }
+  styleObserver.observe(target, {
+    attributes: true,
+    attributeFilter: ['style', 'class'],
+  })
 
   window.addEventListener('wheel', stop, { passive: true })
   window.addEventListener('pointerdown', stop)
