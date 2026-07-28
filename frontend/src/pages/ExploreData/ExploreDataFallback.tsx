@@ -23,11 +23,11 @@ export default function ExploreDataFallback() {
       <h1
         ref={headingRef}
         tabIndex={-1}
-        className='m-0 font-bold font-sans-title text-alt-green text-header leading-modal-heading focus:outline-none'
+        className='m-0 font-bold font-sans-title text-alt-green text-header leading-modal-heading focus-visible:outline-none'
       >
         This report could not be displayed
       </h1>
-      <HetNotice kind='technical-error'>
+      <HetNotice kind='technical-error' role='alert'>
         <p className='mt-0'>
           Something went wrong while building this report. Your link has not
           been changed, so you can try it again, or share it with us when

@@ -15,7 +15,7 @@ export interface ReportIntent {
 // topic; index 3 is a FIPS code in disparity/comparegeos mode and a second
 // topic in comparevars mode, where the FIPS lands at index 5 instead.
 const TOPIC_INDEX = 1
-const PLACE_INDICES = [3, 5]
+const PLACE_INDICES = [3, 5] as const
 
 function getPlaceLabel(code: string | undefined): string | undefined {
   if (!code) return undefined
@@ -43,11 +43,12 @@ export function deriveReportIntent(search: string): ReportIntent | null {
     const placeLabel = getPlaceLabel(placeCode)
 
     // deliberately rebuilt from the topic and place alone: demo, group, and dt
-    // params are the likelier culprits if the URL really was malformed. mls
-    // replaces defaultSelections wholesale, so the place has to be written even
-    // when we could not recover one.
+    // params are the likelier culprits if the URL really was malformed. The
+    // suggestion is always disparity mode, so the place goes at PLACE_INDICES[0].
+    // mls replaces defaultSelections wholesale, so the place has to be written
+    // even when we could not recover one.
     const params = new URLSearchParams({
-      [MADLIB_SELECTIONS_PARAM]: `${TOPIC_INDEX}.${topicId}-3.${placeCode ?? USA_FIPS}`,
+      [MADLIB_SELECTIONS_PARAM]: `${TOPIC_INDEX}.${topicId}-${PLACE_INDICES[0]}.${placeCode ?? USA_FIPS}`,
     })
 
     return {
