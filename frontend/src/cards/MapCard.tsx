@@ -57,7 +57,11 @@ import HetDivider from '../styles/HetComponents/HetDivider'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import HetTerm from '../styles/HetComponents/HetTerm'
-import type { InsightPeerConfig } from '../utils/generateVisualizationInsight'
+import {
+  getPeerValues,
+  getRegionAllRate,
+  type InsightPeerConfig,
+} from '../utils/generateVisualizationInsight'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
@@ -282,31 +286,23 @@ function MapCardWithKey(props: MapCardProps) {
           peerNoun: props.fips.isCounty()
             ? `${parentFips.getDisplayName()} ${parentFips.getPluralChildFipsTypeDisplayName()}`
             : 'states',
-          getRegionAllRate: (responses) => {
-            const allRow = responses[1]
-              ?.getValidRowsForField(metricConfig.metricId)
-              .find((row) => row[demographicType] === ALL)
-            const value = allRow?.[metricConfig.metricId]
-            return typeof value === 'number'
-              ? {
-                  label: props.fips.getDisplayName(),
-                  value,
-                  shortLabel: metricConfig.shortLabel,
-                }
-              : undefined
-          },
+          // responses[1] is the region-self query; peerResponses[0] is the peer
+          // query. Index here (MapCard owns the query order); the pure helpers
+          // do the row shaping and carry the unit tests.
+          getRegionAllRate: (responses) =>
+            getRegionAllRate(
+              responses[1],
+              metricConfig,
+              demographicType,
+              props.fips.getDisplayName(),
+            ),
           getPeerValues: (peerResponses) =>
-            (
-              peerResponses[0]?.getValidRowsForField(metricConfig.metricId) ??
-              []
-            )
-              .filter(
-                (row) =>
-                  row[demographicType] === ALL &&
-                  row.fips !== props.fips.code &&
-                  typeof row[metricConfig.metricId] === 'number',
-              )
-              .map((row) => row[metricConfig.metricId] as number),
+            getPeerValues(
+              peerResponses[0],
+              metricConfig,
+              demographicType,
+              props.fips.code,
+            ),
         }
       : undefined
 

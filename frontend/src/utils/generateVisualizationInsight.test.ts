@@ -10,6 +10,8 @@ import {
   formatDataRows,
   formatPeerComparison,
   getInsightDataStatus,
+  getPeerValues,
+  getRegionAllRate,
   prepareInsightData,
   summarizePeerComparison,
 } from './generateVisualizationInsight'
@@ -382,5 +384,71 @@ describe('buildPrompt peer framing', () => {
     const prompt = buildPrompt(...args, undefined, false)
     expect(prompt).not.toContain('peer places')
     expect(prompt).toContain('most important health equity disparity')
+  })
+})
+
+describe('getRegionAllRate', () => {
+  const label = 'Bartow County'
+
+  test('returns the labeled overall rate from the region-self response', () => {
+    const response = new MetricQueryResponse([
+      { fips: '13015', race_and_ethnicity: 'All', rate: 2.6 },
+      { fips: '13015', race_and_ethnicity: 'White (NH)', rate: 1.9 },
+    ])
+    expect(getRegionAllRate(response, metricConfig, DEMO, label)).toEqual({
+      label: 'Bartow County',
+      value: 2.6,
+      shortLabel: 'per 100k',
+    })
+  })
+
+  test('returns undefined when the region has no "All" row', () => {
+    const response = new MetricQueryResponse([
+      { fips: '13015', race_and_ethnicity: 'White (NH)', rate: 1.9 },
+    ])
+    expect(
+      getRegionAllRate(response, metricConfig, DEMO, label),
+    ).toBeUndefined()
+  })
+
+  test('returns undefined when the "All" rate is non-numeric', () => {
+    const response = new MetricQueryResponse([
+      { fips: '13015', race_and_ethnicity: 'All', rate: null },
+    ])
+    expect(
+      getRegionAllRate(response, metricConfig, DEMO, label),
+    ).toBeUndefined()
+  })
+
+  test('returns undefined when the response is undefined', () => {
+    expect(
+      getRegionAllRate(undefined, metricConfig, DEMO, label),
+    ).toBeUndefined()
+  })
+})
+
+describe('getPeerValues', () => {
+  const SELF = '13015' // Bartow County
+
+  test('returns peer "All" rates, excluding the selected region and non-numeric values', () => {
+    const peers = new MetricQueryResponse([
+      { fips: '13015', race_and_ethnicity: 'All', rate: 2.6 }, // self — excluded
+      { fips: '13089', race_and_ethnicity: 'All', rate: 8.1 },
+      { fips: '13121', race_and_ethnicity: 'All', rate: 12.4 },
+      { fips: '13135', race_and_ethnicity: 'All', rate: null }, // suppressed — excluded
+      { fips: '13089', race_and_ethnicity: 'Black (NH)', rate: 15 }, // subgroup — excluded
+    ])
+    expect(getPeerValues(peers, metricConfig, DEMO, SELF)).toEqual([8.1, 12.4])
+  })
+
+  test('returns an empty array when only the selected region reports', () => {
+    const peers = new MetricQueryResponse([
+      { fips: '13015', race_and_ethnicity: 'All', rate: 2.6 },
+    ])
+    expect(getPeerValues(peers, metricConfig, DEMO, SELF)).toEqual([])
+  })
+
+  test('returns an empty array when the response is undefined', () => {
+    expect(getPeerValues(undefined, metricConfig, DEMO, SELF)).toEqual([])
   })
 })

@@ -269,6 +269,50 @@ export function formatPeerComparison(summary: PeerRankSummary): string {
   ].join('\n')
 }
 
+// The selected region's own overall ("All") rate, labeled for display.
+export interface RegionAllRate {
+  label: string
+  value: number
+  shortLabel: string
+}
+
+// Reads the selected region's overall ("All") rate from its region-self query
+// response. Returns undefined when the region has no numeric overall value (e.g.
+// only a subgroup survived suppression). Pure so the peer-ranking gate can be
+// unit-tested independent of MapCard's query wiring.
+export function getRegionAllRate(
+  regionResponse: MetricQueryResponse | undefined,
+  metricConfig: MetricConfig,
+  demographicType: DemographicType,
+  regionLabel: string,
+): RegionAllRate | undefined {
+  const allRow = regionResponse
+    ?.getValidRowsForField(metricConfig.metricId)
+    .find((row) => row[demographicType] === ALL)
+  const value = allRow?.[metricConfig.metricId]
+  return typeof value === 'number'
+    ? { label: regionLabel, value, shortLabel: metricConfig.shortLabel }
+    : undefined
+}
+
+// Extracts the overall ("All") rates of the peer places from the peer query
+// response, excluding the selected region itself and any non-numeric values.
+export function getPeerValues(
+  peerResponse: MetricQueryResponse | undefined,
+  metricConfig: MetricConfig,
+  demographicType: DemographicType,
+  selfFipsCode: string,
+): number[] {
+  return (peerResponse?.getValidRowsForField(metricConfig.metricId) ?? [])
+    .filter(
+      (row) =>
+        row[demographicType] === ALL &&
+        row.fips !== selfFipsCode &&
+        typeof row[metricConfig.metricId] === 'number',
+    )
+    .map((row) => row[metricConfig.metricId] as number)
+}
+
 // Supplied by MapCard so a single-region insight can lazily fetch and rank the
 // region's same-level peers. Co-located here so MapCard and CardWrapper share it.
 export interface InsightPeerConfig {
@@ -282,7 +326,7 @@ export interface InsightPeerConfig {
   // query response. Undefined when the region has no overall rate.
   getRegionAllRate: (
     queryResponses: MetricQueryResponse[],
-  ) => { label: string; value: number; shortLabel: string } | undefined
+  ) => RegionAllRate | undefined
   // Overall ("All") rates of the peer places, with the selected region excluded.
   getPeerValues: (peerResponses: MetricQueryResponse[]) => number[]
 }
