@@ -61,6 +61,7 @@ export function scrollToHashTarget(
   const styleObserver = new MutationObserver(correctIfGoalMoved)
   const settleTimer = window.setTimeout(() => stop(), SETTLE_TIMEOUT_MS)
   let animationTimer = 0
+  let observerTimerId = 0
 
   const endAnimation = () => {
     if (stopped || !animating) return
@@ -79,6 +80,7 @@ export function scrollToHashTarget(
     styleObserver.disconnect()
     window.clearTimeout(settleTimer)
     window.clearTimeout(animationTimer)
+    window.clearTimeout(observerTimerId)
     window.removeEventListener('scrollend', endAnimation)
     window.removeEventListener('wheel', stop)
     window.removeEventListener('pointerdown', stop)
@@ -102,18 +104,24 @@ export function scrollToHashTarget(
   // they never report content growth. The wrappers between the target and the
   // root are the elements that actually resize when a card above the target
   // finishes loading, so the whole ancestor chain is observed.
-  observer.observe(target)
-  for (
-    let ancestor = target.parentElement;
-    ancestor;
-    ancestor = ancestor.parentElement
-  ) {
-    observer.observe(ancestor)
-  }
-  styleObserver.observe(target, {
-    attributes: true,
-    attributeFilter: ['style', 'class'],
-  })
+  // delay observer startup to give initial scroll time to complete, reducing
+  // layout instability during rapid page changes (e.g., testing interactions)
+  observerTimerId = window.setTimeout(() => {
+    if (!stopped) {
+      observer.observe(target)
+      for (
+        let ancestor = target.parentElement;
+        ancestor;
+        ancestor = ancestor.parentElement
+      ) {
+        observer.observe(ancestor)
+      }
+      styleObserver.observe(target, {
+        attributes: true,
+        attributeFilter: ['style', 'class'],
+      })
+    }
+  }, 100)
 
   window.addEventListener('wheel', stop, { passive: true })
   window.addEventListener('pointerdown', stop)
