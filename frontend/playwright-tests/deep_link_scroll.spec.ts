@@ -48,3 +48,46 @@ for (const hashId of ['rate-chart', 'unknown-demographic-map']) {
     expect(settled.focusedId).toBe(hashId)
   })
 }
+
+// The "on this page" menus share the same scroll mechanism but get their offset
+// from CSS rather than the measured madlib header. A missing scroll-margin-top
+// leaves the section under the app bar, which is invisible to a type check.
+const MENU_PAGES = [
+  '/methodology/data-sources',
+  '/policy/gun-violence/data-collection',
+]
+
+for (const path of MENU_PAGES) {
+  test(`on-this-page menu on ${path} lands clear of the app bar`, async ({
+    page,
+  }) => {
+    await page.goto(path, { waitUntil: 'domcontentloaded' })
+    const links = page
+      .getByRole('navigation', { name: 'on this page quick navigation' })
+      .first()
+      .locator('ul button')
+    await links.first().waitFor({ timeout: 30000 })
+    await links.last().click()
+
+    await expect
+      .poll(
+        async () => {
+          const focusedId = await page.evaluate(
+            () => document.activeElement?.id ?? '',
+          )
+          if (!focusedId) return 'no focus'
+          const { top, appBarBottom } = await page.evaluate((id: string) => {
+            const el = document.getElementById(id)
+            const bar = document.querySelector('.MuiAppBar-root')
+            return {
+              top: Math.round(el?.getBoundingClientRect().top ?? -1),
+              appBarBottom: Math.round(bar?.getBoundingClientRect().bottom ?? 0),
+            }
+          }, focusedId)
+          return top >= appBarBottom ? 'clear' : `occluded by ${appBarBottom - top}px`
+        },
+        { timeout: 20000, intervals: [500] },
+      )
+      .toBe('clear')
+  })
+}

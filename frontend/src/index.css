@@ -24,6 +24,14 @@
 		font-size: 100%;
 	}
 
+	/* the app bar is sticky at top:0, so anything scrolled flush to the top of the
+	   viewport lands underneath it. Written with :where() so it carries no
+	   specificity: report cards measure their own offset against the madlib header
+	   and override this, and any element with a scroll-mt-* utility wins too. */
+	:where([id]) {
+		scroll-margin-top: calc(var(--min-height-toolbar) + 0.5rem);
+	}
+
 	body {
 		margin: 0;
 		-webkit-font-smoothing: antialiased;
