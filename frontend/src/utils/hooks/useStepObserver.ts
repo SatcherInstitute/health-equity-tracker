@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
+import { useScrollToHash } from './useScrollToHash'
 
 export type ScrollableHashId =
   | 'rate-map'
@@ -79,50 +80,20 @@ export function useStepObserver(
     return () => observer.current?.disconnect()
   }, [stepIds, recentlyClicked, isScrolledToTop])
 
-  const urlHashOverrideRef = useRef(recentlyClicked)
-
-  useEffect(() => {
-    // any updates to the focused id updates the ref
-    urlHashOverrideRef.current = recentlyClicked
-  }, [activeId, recentlyClicked])
-
   const hashLink = location?.hash
   const hashId = hashLink.substring(1) || ''
+  const isKnownStep = Boolean(hashLink) && stepIds.includes(hashId)
 
   useEffect(() => {
     // updates to the URL or available stepIds results in recalculated focus for the Table of Contents
 
-    if (hashLink && stepIds.includes(hashId)) {
+    if (isKnownStep) {
       setActiveId(hashId)
       setRecentlyClicked(hashId)
     }
   }, [location?.hash, stepIds])
 
-  useEffect(() => {
-    //  on render, set up a timer to auto scroll user to the focused card (counteracting layout shift from loading/resizing cards)
-    // timer is stopped when the urlHashOverrideRef is reset, which is caused by a user interaction like scrolling, swiping, or key presses
-    if (hashLink && stepIds.includes(hashId)) {
-      let pulseIdCounter = 0
-
-      const pulseId = setInterval(() => {
-        // clear the auto-scroll regardless of user interaction after set time
-        pulseIdCounter += 500
-        if (pulseIdCounter > 500 * 2 * 30) clearInterval(pulseId)
-        if (urlHashOverrideRef.current === hashId) {
-          const targetElem = document.querySelector(`#${hashId as string}`)
-          if (targetElem) {
-            targetElem.scrollIntoView({
-              behavior: 'smooth',
-            })
-          }
-        }
-      }, 500)
-
-      return () => {
-        clearInterval(pulseId)
-      }
-    }
-  }, [hashId, hashLink, stepIds])
+  useScrollToHash(isKnownStep ? hashId : null)
 
   return [activeId, setRecentlyClicked] as const
 }

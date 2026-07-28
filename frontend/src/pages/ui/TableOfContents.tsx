@@ -1,5 +1,7 @@
 import { Step, StepButton, Stepper } from '@mui/material'
 import { reportProviderSteps } from '../../reports/ReportProviderSteps'
+import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
+import { scrollToHashTarget } from '../../utils/hooks/useScrollToHash'
 import {
   type ScrollableHashId,
   useStepObserver,
@@ -15,18 +17,13 @@ export default function TableOfContents(props: TableOfContentsProps) {
     props.reportStepHashIds,
     props.isScrolledToTop,
   )
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   function handleStepClick(stepId: ScrollableHashId) {
-    const clickedElem: HTMLElement | null = document.querySelector(`#${stepId}`)
-
-    if (clickedElem) {
-      clickedElem.scrollIntoView({ behavior: 'smooth' })
-      // for a11y focus should shift to subsequent tab goes to next interactive element after the targeted card
-      clickedElem.focus({ preventScroll: true })
-      // manually set the browser url#hash for actual clicks
-      window.history.replaceState(undefined, '', `#${stepId}`)
-    }
-
+    // same settling and focus behavior a deep link into this card would get
+    scrollToHashTarget(stepId, { smooth: !prefersReducedMotion })
+    // manually set the browser url#hash for actual clicks
+    window.history.replaceState(undefined, '', `#${stepId}`)
     setRecentlyClicked(stepId)
   }
 
