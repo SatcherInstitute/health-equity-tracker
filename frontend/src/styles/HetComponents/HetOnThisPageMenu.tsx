@@ -26,6 +26,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
 
   const handleClick = (path: string) => {
     setActiveLink(path)
+    sessionStorage.setItem('activeLink', path)
     scrollToHashTarget(path, { smooth: !prefersReducedMotion })
   }
 
