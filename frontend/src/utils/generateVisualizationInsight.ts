@@ -290,8 +290,14 @@ export function getRegionAllRate(
     ?.getValidRowsForField(metricConfig.metricId)
     .find((row) => row[demographicType] === ALL)
   const value = allRow?.[metricConfig.metricId]
-  return typeof value === 'number'
-    ? { label: regionLabel, value, shortLabel: metricConfig.shortLabel }
+  // Number.isFinite (not typeof === 'number') so NaN/Infinity, which would
+  // poison the ranking, are treated as missing.
+  return Number.isFinite(value)
+    ? {
+        label: regionLabel,
+        value: value as number,
+        shortLabel: metricConfig.shortLabel,
+      }
     : undefined
 }
 
@@ -308,7 +314,7 @@ export function getPeerValues(
       (row) =>
         row[demographicType] === ALL &&
         row.fips !== selfFipsCode &&
-        typeof row[metricConfig.metricId] === 'number',
+        Number.isFinite(row[metricConfig.metricId]),
     )
     .map((row) => row[metricConfig.metricId] as number)
 }

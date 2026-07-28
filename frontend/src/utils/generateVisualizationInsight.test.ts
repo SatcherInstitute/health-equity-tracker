@@ -411,13 +411,15 @@ describe('getRegionAllRate', () => {
     ).toBeUndefined()
   })
 
-  test('returns undefined when the "All" rate is non-numeric', () => {
-    const response = new MetricQueryResponse([
-      { fips: '13015', race_and_ethnicity: 'All', rate: null },
-    ])
-    expect(
-      getRegionAllRate(response, metricConfig, DEMO, label),
-    ).toBeUndefined()
+  test('returns undefined when the "All" rate is non-finite (null or NaN)', () => {
+    for (const rate of [null, Number.NaN, Number.POSITIVE_INFINITY]) {
+      const response = new MetricQueryResponse([
+        { fips: '13015', race_and_ethnicity: 'All', rate },
+      ])
+      expect(
+        getRegionAllRate(response, metricConfig, DEMO, label),
+      ).toBeUndefined()
+    }
   })
 
   test('returns undefined when the response is undefined', () => {
@@ -430,12 +432,13 @@ describe('getRegionAllRate', () => {
 describe('getPeerValues', () => {
   const SELF = '13015' // Bartow County
 
-  test('returns peer "All" rates, excluding the selected region and non-numeric values', () => {
+  test('returns peer "All" rates, excluding self, subgroups, and non-finite values', () => {
     const peers = new MetricQueryResponse([
       { fips: '13015', race_and_ethnicity: 'All', rate: 2.6 }, // self — excluded
       { fips: '13089', race_and_ethnicity: 'All', rate: 8.1 },
       { fips: '13121', race_and_ethnicity: 'All', rate: 12.4 },
       { fips: '13135', race_and_ethnicity: 'All', rate: null }, // suppressed — excluded
+      { fips: '13157', race_and_ethnicity: 'All', rate: Number.NaN }, // NaN — excluded
       { fips: '13089', race_and_ethnicity: 'Black (NH)', rate: 15 }, // subgroup — excluded
     ])
     expect(getPeerValues(peers, metricConfig, DEMO, SELF)).toEqual([8.1, 12.4])
