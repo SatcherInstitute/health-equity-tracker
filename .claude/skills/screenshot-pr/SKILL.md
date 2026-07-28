@@ -99,13 +99,16 @@ grep -rn "useParamState" frontend/src/ --include="*.tsx" --include="*.ts"
 
 ---
 
-## Step 4 — Ensure dev server is running
+## Step 4 — Ensure dev server is running with the right env
+
+A server started as a bare `npx vite` still answers `200`, so a status check alone is not enough. It skips the `env-cmd -f .env.localhost` wrapper, leaving `VITE_BASE_API_URL` unset, and every screenshot comes back with an empty page. Require both a healthy response *and* evidence the process was launched through the npm script:
 
 ```bash
 curl -s -o /dev/null -w "%{http_code}" http://localhost:3000
+pgrep -f "env-cmd -f .env.localhost" > /dev/null && echo "env ok" || echo "env missing"
 ```
 
-If not `200`, restart it. Use `npm run dev` as written; a bare `npx vite` skips `env-cmd -f .env.localhost` and leaves `VITE_BASE_API_URL` unset, which renders the shell but no data, producing empty screenshots.
+Restart unless the status is `200` **and** the env check printed `env ok`:
 
 ```bash
 lsof -ti :3000 | xargs kill -9 2>/dev/null; sleep 1
