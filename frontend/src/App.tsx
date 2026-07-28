@@ -20,7 +20,7 @@ import {
   Routes,
   useLocation,
 } from 'react-router'
-import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
+import ErrorBoundary from './ErrorBoundary'
 import { methodologyRouteConfigs } from './pages/Methodology/methodologyContent/methodologyRouteConfigs'
 import { policyRouteConfigs } from './pages/Policy/policyContent/policyRouteConfigs'
 import { wiheConfigs } from './pages/WhatIsHealthEquity/wiheComponents/WIHECardMenu'
@@ -128,11 +128,9 @@ export default function App() {
                   <Route
                     path={EXPLORE_DATA_PAGE_LINK}
                     element={
-                      <ErrorBoundaryDropParams
-                        fallback={<ExploreDataFallback />}
-                      >
+                      <ErrorBoundary fallback={<ExploreDataFallback />}>
                         <ExploreDataPage />
-                      </ErrorBoundaryDropParams>
+                      </ErrorBoundary>
                     }
                   />
                   <Route path={FULL_FAQS_LINK} element={<FaqsPage />} />
