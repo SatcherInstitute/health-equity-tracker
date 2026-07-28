@@ -20,6 +20,12 @@ npm run e2e statins.nightly.spec.ts
 npm run e2e hiv          # Matches any filename containing "hiv"
 ```
 
+**Always start servers through these npm scripts, never a bare `npx vite` or `vite preview`.** The scripts wrap Vite in `env-cmd -f .env.localhost`, which is where `VITE_BASE_API_URL` lives. Without it the app still builds and renders, but every data fetch 404s and cards come up empty, so the failure looks like a product bug rather than a missing env. If a scratch server on another port is needed, keep the wrapper:
+
+```bash
+npx env-cmd -f .env.localhost npx vite --port 3100
+```
+
 **Important: Package Dependency Workflow**
 
 Any time you modify `package.json` (add, remove, or update packages), you must run `npm install` afterward and **commit the resulting lock file changes**. The lock file must always be in sync with package.json, or CI's `npm ci` step will fail with "package-lock.json or npm-shrinkwrap.json are not in sync."
