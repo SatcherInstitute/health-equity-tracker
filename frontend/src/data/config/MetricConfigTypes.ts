@@ -104,6 +104,11 @@ export interface MetricConfig {
   rateComparisonMetricForAlls?: ComparisonMetricConfig
   timeSeriesCadence?: TimeSeriesCadenceType
 
+  // Boolean companion column marking rows where the source withheld this rate to
+  // protect privacy. A card must include it in its requested metricIds or
+  // removeUnrequestedColumns drops it before the data ever arrives.
+  suppressionFlagMetricId?: MetricId
+
   // This metric is one where the denominator only includes records where
   // demographics are known. For example, for "share of covid cases" in the US
   // for the "Asian" demographic, this metric would be equal to

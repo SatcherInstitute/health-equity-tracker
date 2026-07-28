@@ -237,6 +237,9 @@ function MapCardWithKey(props: MapCardProps) {
   const subPopulationId = metricConfig?.rateDenominatorMetric?.metricId
   if (subPopulationId) initialMetridIds.push(subPopulationId)
 
+  const suppressionFlagId = metricConfig.suppressionFlagMetricId
+  if (suppressionFlagId) initialMetridIds.push(suppressionFlagId)
+
   if (
     props.dataTypeConfig.dataTypeId === 'women_in_us_congress' &&
     !props.fips.isUsa()
@@ -369,11 +372,14 @@ function MapCardWithKey(props: MapCardProps) {
         // contains data rows current level (if viewing US, this data will be US level)
         const parentGeoQueryResponse = queryResponses[1]
         const acsPopulationQueryResponse = queryResponses[2]
+        // a legitimate rate of 0 is falsy, so these must test for absence
+        // explicitly or an all-zero map falls back to the parent geography
         const hasSelfButNotChildGeoData =
-          childGeoQueryResponse.data.filter((row) => row[metricConfig.metricId])
-            .length === 0 &&
+          childGeoQueryResponse.data.filter(
+            (row) => row[metricConfig.metricId] != null,
+          ).length === 0 &&
           parentGeoQueryResponse.data.filter(
-            (row) => row[metricConfig.metricId],
+            (row) => row[metricConfig.metricId] != null,
           ).length > 0
 
         const subtitle = generateMapCardSubtitle()
@@ -383,7 +389,7 @@ function MapCardWithKey(props: MapCardProps) {
 
         const allMissingDataIsSuppressed = allMissingValuesAreSuppressed(
           mapQueryResponse.data,
-          metricConfig.metricId,
+          metricConfig,
         )
 
         const isGeorgiaWithCountyData =
@@ -416,13 +422,10 @@ function MapCardWithKey(props: MapCardProps) {
         const demographicGroups: DemographicGroup[] =
           fieldValues.withData.sort.apply(fieldValues.withData, sortArgs)
 
-        let dataForActiveDemographicGroup = mapQueryResponse
-          .getValidRowsForField(metricConfig.metricId)
-          .filter(
-            (row: HetRow) => row[demographicType] === activeDemographicGroup,
-          )
-
-        let allDataForActiveDemographicGroup = mapQueryResponse.data.filter(
+        // Rows with no rate are kept: the map still needs to draw those geographies
+        // grey and tell the user on hover whether the value is suppressed or simply
+        // absent. Consumers that need a number filter it out themselves.
+        let dataForActiveDemographicGroup = mapQueryResponse.data.filter(
           (row: HetRow) => row[demographicType] === activeDemographicGroup,
         )
 
@@ -438,12 +441,6 @@ function MapCardWithKey(props: MapCardProps) {
                 ? ATLANTA_METRO_COUNTY_FIPS.includes(row.fips)
                 : true,
           )
-          allDataForActiveDemographicGroup =
-            allDataForActiveDemographicGroup.filter((row) =>
-              props.fips.code === '13'
-                ? ATLANTA_METRO_COUNTY_FIPS.includes(row.fips)
-                : true,
-            )
 
           dataForMultimaps = dataForMultimaps.filter((row) =>
             props.fips.code === '13'
@@ -504,6 +501,10 @@ function MapCardWithKey(props: MapCardProps) {
           )
         }
 
+        const ratedRows = dataForActiveDemographicGroup.filter(
+          (row: HetRow) => row[metricConfig.metricId] != null,
+        )
+
         const { highestValues, lowestValues } = getExtremeValues(
           dataForActiveDemographicGroup,
           metricConfig.metricId,
@@ -536,8 +537,10 @@ function MapCardWithKey(props: MapCardProps) {
           })
         }
 
+        // extremes mode deliberately narrows to the top and bottom geographies,
+        // so rows without a rate drop out of that view
         const displayData =
-          isExtremesMode && dataForActiveDemographicGroup.length > 1
+          isExtremesMode && ratedRows.length > 1
             ? highestValues.concat(lowestValues)
             : dataForActiveDemographicGroup
 
@@ -549,8 +552,7 @@ function MapCardWithKey(props: MapCardProps) {
 
         const mapConfig = props.dataTypeConfig.mapConfig
 
-        const hasMapData =
-          !!dataForActiveDemographicGroup?.length && !!metricConfig
+        const hasMapData = !!ratedRows.length && !!metricConfig
         overrideCardHasData?.(hasMapData)
 
         if (!hasMapData)
@@ -742,7 +744,6 @@ function MapCardWithKey(props: MapCardProps) {
                       isSummaryLegend={isSummaryLegend}
                       updateFipsCallback={props.updateFipsCallback}
                       colorScale={colorScale}
-                      allMissingDataIsSuppressed={allMissingDataIsSuppressed}
                     />
                   </div>
                 </div>
@@ -753,13 +754,12 @@ function MapCardWithKey(props: MapCardProps) {
                     dataTypeConfig={props.dataTypeConfig}
                     metricConfig={metricConfig}
                     legendTitle={metricConfig.shortLabel}
-                    data={allDataForActiveDemographicGroup}
+                    data={dataForActiveDemographicGroup}
                     description={'Legend for rate map'}
                     fipsTypeDisplayName={fipsTypeDisplayName}
                     mapConfig={mapConfig}
                     isSummaryLegend={isSummaryLegend}
                     isPhrmaAdherence={isPhrmaAdherence}
-                    allMissingDataIsSuppressed={allMissingDataIsSuppressed}
                     fips={props.fips}
                     isCompareMode={isCompareMode}
                   />

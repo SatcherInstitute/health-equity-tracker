@@ -7,6 +7,7 @@ const metric = {
   metricId: 'gun_violence_homicide_per_100k',
   shortLabel: 'per 100k',
   type: 'per100k',
+  suppressionFlagMetricId: 'gun_violence_homicide_per_100k_is_suppressed',
 } as MetricConfig
 
 const countColsMap = {
@@ -62,6 +63,46 @@ describe('createDataMap suppressed vs unavailable labels', () => {
     })
     expect(entry['# homicides']).toEqual(7)
     expect(entry['# people']).toEqual(55000)
+  })
+
+  it('ignores a suppression column the metric config never declared', () => {
+    const metricWithoutFlag = {
+      metricId: 'gun_violence_homicide_per_100k',
+      shortLabel: 'per 100k',
+      type: 'per100k',
+    } as MetricConfig
+    const entry = createDataMap(
+      [
+        {
+          fips: '01001',
+          gun_violence_homicide_per_100k: null,
+          gun_violence_homicide_per_100k_is_suppressed: true,
+          gun_homicides_estimated_total: null,
+          fatal_population: 55000,
+        },
+      ],
+      'homicides per 100k',
+      metricWithoutFlag,
+      'homicides',
+      'people',
+      { ...countColsMap },
+    ).get('01001') as Record<string, any>
+    expect(entry.isSuppressed).toBe(false)
+    expect(entry['# homicides']).toEqual(DATA_UNAVAILABLE)
+  })
+
+  it('carries the per-row suppression verdict for downstream consumers', () => {
+    const suppressed = build({
+      fips: '01001',
+      gun_violence_homicide_per_100k: null,
+      gun_violence_homicide_per_100k_is_suppressed: true,
+    })
+    const absent = build({
+      fips: '01003',
+      gun_violence_homicide_per_100k: null,
+    })
+    expect(suppressed.isSuppressed).toBe(true)
+    expect(absent.isSuppressed).toBe(false)
   })
 
   it('keeps a zero count rather than treating it as missing', () => {
