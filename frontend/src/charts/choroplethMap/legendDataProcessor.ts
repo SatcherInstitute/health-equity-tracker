@@ -129,7 +129,7 @@ export function processLegendData(
     regularItems.push({
       value: summaryValue,
       label: `${labelFormat(summaryValue)} (${fipsTypeDisplayName} overall)`,
-      color: mapConfig.mid,
+      color: colorScale(summaryValue),
     })
   }
 

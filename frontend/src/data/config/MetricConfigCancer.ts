@@ -19,6 +19,7 @@ export type CancerCategoryMetricId =
   | 'breast_pct_relative_inequity'
   | 'breast_pct_share'
   | 'breast_per_100k'
+  | 'breast_per_100k_is_suppressed'
   | 'breast_population_estimated_total'
   | 'breast_population_pct'
   | 'cervical_estimated_total'
@@ -32,18 +33,21 @@ export type CancerCategoryMetricId =
   | 'colorectal_pct_relative_inequity'
   | 'colorectal_pct_share'
   | 'colorectal_per_100k'
+  | 'colorectal_per_100k_is_suppressed'
   | 'colorectal_population_estimated_total'
   | 'colorectal_population_pct'
   | 'lung_estimated_total'
   | 'lung_pct_relative_inequity'
   | 'lung_pct_share'
   | 'lung_per_100k'
+  | 'lung_per_100k_is_suppressed'
   | 'lung_population_estimated_total'
   | 'lung_population_pct'
   | 'prostate_estimated_total'
   | 'prostate_pct_relative_inequity'
   | 'prostate_pct_share'
   | 'prostate_per_100k'
+  | 'prostate_per_100k_is_suppressed'
   | 'prostate_population_estimated_total'
   | 'prostate_population_pct'
 
@@ -105,6 +109,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         shortLabel: 'cases per 100k',
+        suppressionFlagMetricId: 'breast_per_100k_is_suppressed',
         timeSeriesCadence: 'yearly',
         trendsCardTitleName: 'Rates of breast cancer cases over time',
         type: 'per100k',
@@ -249,6 +254,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         shortLabel: 'cases per 100k',
+        suppressionFlagMetricId: 'colorectal_per_100k_is_suppressed',
         timeSeriesCadence: 'yearly',
         trendsCardTitleName: 'Rates of colorectal cancer cases over time',
         type: 'per100k',
@@ -309,6 +315,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         shortLabel: 'cases per 100k',
+        suppressionFlagMetricId: 'lung_per_100k_is_suppressed',
         timeSeriesCadence: 'yearly',
         trendsCardTitleName: 'Rates of lung cancer cases over time',
         type: 'per100k',
@@ -371,6 +378,7 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         shortLabel: 'cases per 100k',
+        suppressionFlagMetricId: 'prostate_per_100k_is_suppressed',
         timeSeriesCadence: 'yearly',
         trendsCardTitleName: 'Rates of prostate cancer cases over time',
         type: 'per100k',
