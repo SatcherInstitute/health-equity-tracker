@@ -309,7 +309,9 @@ git diff origin/main -- frontend/src/ | grep -E '^-.*"[A-Z][^"]{5,}"' | \
   done | sort -u
 ```
 
-**Start the dev server** (connects to the live dev GCP backend — no build step needed, data fetches work):
+**Start the dev server** (connects to the live dev GCP backend — no build step needed, data fetches work).
+
+Use `npm run dev` exactly as written; never substitute a bare `npx vite`, even for a scratch server on another port. The npm script wraps Vite in `env-cmd -f .env.localhost`, which supplies `VITE_BASE_API_URL`. Without it the app renders but every data fetch 404s, so specs fail with "element(s) not found" and the missing env looks like a product regression. A scratch server must keep the wrapper: `npx env-cmd -f .env.localhost npx vite --port 3100`.
 
 ```bash
 cd frontend

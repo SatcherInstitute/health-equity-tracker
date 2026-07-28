@@ -105,7 +105,7 @@ grep -rn "useParamState" frontend/src/ --include="*.tsx" --include="*.ts"
 curl -s -o /dev/null -w "%{http_code}" http://localhost:3000
 ```
 
-If not `200`:
+If not `200`, restart it. Use `npm run dev` as written; a bare `npx vite` skips `env-cmd -f .env.localhost` and leaves `VITE_BASE_API_URL` unset, which renders the shell but no data, producing empty screenshots.
 
 ```bash
 lsof -ti :3000 | xargs kill -9 2>/dev/null; sleep 1
