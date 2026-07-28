@@ -21,6 +21,7 @@ interface HetNoticeProps {
   className?: string
   kind?: HetNoticeKind
   variant?: 'filled' | 'outlined'
+  role?: 'note' | 'alert' | 'status'
 }
 
 export default function HetNotice(props: HetNoticeProps) {
@@ -31,7 +32,7 @@ export default function HetNotice(props: HetNoticeProps) {
       id={props.id}
       severity={severity}
       className={`mx-2 my-4 rounded lg:mx-5 lg:my-10 ${props.className ?? ''}`}
-      role='note'
+      role={props.role ?? 'note'}
       icon={props.icon ?? icon}
       variant={variant}
     >
