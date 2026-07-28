@@ -29,7 +29,6 @@ export default function HetBreadcrumbs(props: {
   // just drilled out of
   function keepCardInView() {
     scrollToHashTarget(props.scrollToHashId, { smooth: !prefersReducedMotion })
-    window.history.replaceState(undefined, '', `#${props.scrollToHashId}`)
   }
 
   return (

@@ -18,6 +18,18 @@ import {
 export const selectedFipsAtom = atom<Fips | null>(null)
 export const selectedDemographicTypeAtom = atom<DemographicType | null>(null)
 
+// The id of the section a hash-navigation scroll most recently targeted
+// (deep link, "on this page" menu, breadcrumb drill-out, table of contents).
+// Written exclusively by scrollToHashTarget (useScrollToHash.ts) via
+// getDefaultStore, since that function runs outside React and is the single
+// place every scroll-to-anchor path already converges on. Kept separate from
+// locationAtom because several call sites write partial location updates
+// (e.g. `setLocationAtom({ searchParams: next })`) that would otherwise drop
+// the hash from the atom's in-memory value until the next popstate.
+export const activeHashIdAtom = atom<string | null>(
+  window.location.hash.slice(1) || null,
+)
+
 /* CARD INSIGHT CACHE — keyed by scrollToHash + dataTypeId + fipsCode + demographicType (+ '-2' for compare card) */
 export const cardInsightsAtom = atom<Record<string, string>>({})
 

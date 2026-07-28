@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useAtomValue } from 'jotai'
 import HetReturnToTopFloating from '../../pages/Policy/policyComponents/HetReturnToTopFloating'
 import type { RouteConfig } from '../../pages/sharedTypes'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { scrollToHashTarget } from '../../utils/hooks/useScrollToHash'
+import { activeHashIdAtom } from '../../utils/sharedSettingsState'
 
 interface HetOnThisPageMenuProps {
   links?: RouteConfig[]
@@ -10,23 +11,14 @@ interface HetOnThisPageMenuProps {
 }
 
 export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
-  const [activeLink, setActiveLink] = useState<string | null>(null)
+  const activeLink = useAtomValue(activeHashIdAtom)
   const prefersReducedMotion = usePrefersReducedMotion()
 
   // TODO: Re-implement passive scroll-spy. activeLink currently only updates on explicit click;
   // the prior scroll-end event listener was removed as dead code, but the use case (highlight
   // current section during scroll) remains valid and should be restored via IntersectionObserver.
 
-  useEffect(() => {
-    const storedActiveLink = sessionStorage.getItem('activeLink')
-    if (storedActiveLink) {
-      setActiveLink(storedActiveLink)
-    }
-  }, [])
-
   const handleClick = (path: string) => {
-    setActiveLink(path)
-    sessionStorage.setItem('activeLink', path)
     scrollToHashTarget(path, { smooth: !prefersReducedMotion })
   }
 

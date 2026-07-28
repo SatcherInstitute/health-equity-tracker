@@ -1,4 +1,6 @@
+import { getDefaultStore } from 'jotai'
 import { useEffect } from 'react'
+import { activeHashIdAtom } from '../sharedSettingsState'
 import { usePrefersReducedMotion } from './usePrefersReducedMotion'
 
 // A card's position keeps moving after the first scroll: HetLazyLoader swaps
@@ -7,11 +9,15 @@ import { usePrefersReducedMotion } from './usePrefersReducedMotion'
 // a timer, and are not animated, so they read as the page settling rather than
 // as the page chasing the reader.
 
-const SETTLE_TIMEOUT_MS = 15_000
+const SETTLE_TIMEOUT_MS = 5_000
 // scrollend is not in Safari yet; without a fallback the target would never
 // become focusable and corrections would stay animated forever
 const ANIMATION_FALLBACK_MS = 1_000
 const POSITION_EPSILON_PX = 1
+// coalesces a burst of near-simultaneous layout shifts (several cards finishing
+// their queries within the same tick) into one correction, instead of
+// restarting the scroll animation once per card
+const CORRECTION_DEBOUNCE_MS = 120
 
 interface ScrollToHashOptions {
   smooth?: boolean
@@ -23,6 +29,18 @@ export function scrollToHashTarget(
 ): () => void {
   const target = document.getElementById(hashId)
   if (!target) return () => {}
+
+  // single point of truth for "what section is currently targeted" and for
+  // reflecting that in the URL — every scroll-to-anchor path in the app
+  // (deep links, on-this-page menus, breadcrumbs, table of contents) calls
+  // this function, so callers no longer need to do either themselves
+  const store = getDefaultStore()
+  if (store.get(activeHashIdAtom) !== hashId) {
+    store.set(activeHashIdAtom, hashId)
+  }
+  if (window.location.hash !== `#${hashId}`) {
+    window.history.replaceState(undefined, '', `#${hashId}`)
+  }
 
   let animating = options.smooth ?? true
   let stopped = false
@@ -46,13 +64,19 @@ export function scrollToHashTarget(
     })
   }
 
+  let correctionTimer = 0
   // only when the goal itself moves, never merely because we are partway to it,
-  // so an in-flight animation is not restarted on every observation
+  // so an in-flight animation is not restarted on every observation. Debounced
+  // so a burst of layout shifts from several cards loading together collapses
+  // into one correction rather than restarting the scroll once per card.
   const correctIfGoalMoved = () => {
-    const goal = measureGoal()
-    if (Math.abs(goal - lastGoal) < POSITION_EPSILON_PX) return
-    lastGoal = goal
-    scroll()
+    window.clearTimeout(correctionTimer)
+    correctionTimer = window.setTimeout(() => {
+      const goal = measureGoal()
+      if (Math.abs(goal - lastGoal) < POSITION_EPSILON_PX) return
+      lastGoal = goal
+      scroll()
+    }, CORRECTION_DEBOUNCE_MS)
   }
 
   const observer = new ResizeObserver(correctIfGoalMoved)
@@ -61,7 +85,6 @@ export function scrollToHashTarget(
   const styleObserver = new MutationObserver(correctIfGoalMoved)
   const settleTimer = window.setTimeout(() => stop(), SETTLE_TIMEOUT_MS)
   let animationTimer = 0
-  let observerTimerId = 0
 
   const endAnimation = () => {
     if (stopped || !animating) return
@@ -80,7 +103,7 @@ export function scrollToHashTarget(
     styleObserver.disconnect()
     window.clearTimeout(settleTimer)
     window.clearTimeout(animationTimer)
-    window.clearTimeout(observerTimerId)
+    window.clearTimeout(correctionTimer)
     window.removeEventListener('scrollend', endAnimation)
     window.removeEventListener('wheel', stop)
     window.removeEventListener('pointerdown', stop)
@@ -100,28 +123,22 @@ export function scrollToHashTarget(
     target.focus({ preventScroll: true })
   }
 
-  // body, html and #root are all pinned to the viewport height in this app, so
-  // they never report content growth. The wrappers between the target and the
-  // root are the elements that actually resize when a card above the target
-  // finishes loading, so the whole ancestor chain is observed.
-  // delay observer startup to give initial scroll time to complete, reducing
-  // layout instability during rapid page changes (e.g., testing interactions)
-  observerTimerId = window.setTimeout(() => {
-    if (!stopped) {
-      observer.observe(target)
-      for (
-        let ancestor = target.parentElement;
-        ancestor;
-        ancestor = ancestor.parentElement
-      ) {
-        observer.observe(ancestor)
-      }
-      styleObserver.observe(target, {
-        attributes: true,
-        attributeFilter: ['style', 'class'],
-      })
-    }
-  }, 100)
+  // body and html are pinned to the viewport height in this app and #root is
+  // pinned to body, so none of them ever report content growth. Only the
+  // wrappers between the target and #root resize when a card above the target
+  // finishes loading, so the walk up the tree stops there instead of at <html>.
+  observer.observe(target)
+  for (
+    let ancestor = target.parentElement;
+    ancestor && ancestor.id !== 'root';
+    ancestor = ancestor.parentElement
+  ) {
+    observer.observe(ancestor)
+  }
+  styleObserver.observe(target, {
+    attributes: true,
+    attributeFilter: ['style', 'class'],
+  })
 
   window.addEventListener('wheel', stop, { passive: true })
   window.addEventListener('pointerdown', stop)

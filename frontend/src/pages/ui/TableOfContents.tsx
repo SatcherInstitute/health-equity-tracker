@@ -22,8 +22,6 @@ export default function TableOfContents(props: TableOfContentsProps) {
   function handleStepClick(stepId: ScrollableHashId) {
     // same settling and focus behavior a deep link into this card would get
     scrollToHashTarget(stepId, { smooth: !prefersReducedMotion })
-    // manually set the browser url#hash for actual clicks
-    window.history.replaceState(undefined, '', `#${stepId}`)
     setRecentlyClicked(stepId)
   }
 

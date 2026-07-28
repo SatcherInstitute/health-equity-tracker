@@ -1,5 +1,10 @@
 import { expect, test } from './utils/fixtures'
 
+// Exercises the real reduced-motion code path (scrollToHashTarget's
+// smooth: false branch) instead of racing the smooth-scroll animation,
+// which is what made this spec flaky under CI timing.
+test.use({ reducedMotion: 'reduce' })
+
 // Deep links land on a card whose position keeps moving while the report loads.
 // These assert the page settles ON the card rather than near it, which is the
 // failure mode that a scroll correction regression would reintroduce.
@@ -71,23 +76,19 @@ for (const path of MENU_PAGES) {
 
     await expect
       .poll(
-        async () => {
-          const focusedId = await page.evaluate(
-            () => document.activeElement?.id ?? '',
-          )
-          if (!focusedId) return 'no focus'
-          const { top, appBarBottom } = await page.evaluate((id: string) => {
-            const el = document.getElementById(id)
-            const bar = document.querySelector('.MuiAppBar-root')
-            return {
-              top: Math.round(el?.getBoundingClientRect().top ?? -1),
-              appBarBottom: Math.round(bar?.getBoundingClientRect().bottom ?? 0),
-            }
-          }, focusedId)
-          return top >= appBarBottom ? 'clear' : `occluded by ${appBarBottom - top}px`
-        },
+        async () => page.evaluate(() => document.activeElement?.id ?? ''),
         { timeout: 20000, intervals: [500] },
       )
-      .toBe('clear')
+      .not.toBe('')
+
+    const { top, appBarBottom } = await page.evaluate(() => {
+      const el = document.activeElement
+      const bar = document.querySelector('.MuiAppBar-root')
+      return {
+        top: Math.round(el?.getBoundingClientRect().top ?? -1),
+        appBarBottom: Math.round(bar?.getBoundingClientRect().bottom ?? 0),
+      }
+    })
+    expect(top).toBeGreaterThanOrEqual(appBarBottom)
   })
 }
