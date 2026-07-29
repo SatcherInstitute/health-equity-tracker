@@ -243,9 +243,10 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           ? allDemographicGroups
           : allDemographicGroups.filter((group) => group !== 'Unknown race')
 
-        const demographicGroupsLabelled = isCawp
-          ? demographicGroups.map((race) => getWomenRaceLabel(race))
-          : demographicGroups
+        const demographicGroupsLabelled =
+          isCawp && props.demographicType === 'race_and_ethnicity'
+            ? demographicGroups.map((race) => getWomenRaceLabel(race))
+            : demographicGroups
 
         // we want to send Unknowns as Knowns for CAWP so we can plot as a line as well
         const [knownRatesData] = isCawp

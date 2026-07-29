@@ -74,7 +74,6 @@ export interface ChoroplethMapProps {
   isAtlantaMode?: boolean
   updateFipsCallback: (fips: Fips) => void
   colorScale: ColorScale | null
-  allMissingDataIsSuppressed?: boolean
 }
 
 export interface CreateColorScaleOptions {
@@ -121,8 +120,14 @@ export type InitializeSvgOptions = {
   isUnknownsMap?: boolean
 }
 
+// Every key other than these is a user-facing tooltip row keyed by its own label,
+// so anything internal must be listed here or it renders as a stray line.
+export const METRIC_DATA_INTERNAL_KEYS = ['value', 'isSuppressed'] as const
+
 export interface MetricData {
-  [key: string]: string | number | undefined
+  value?: number
+  isSuppressed?: boolean
+  [key: string]: string | number | boolean | undefined
 }
 
 export interface MapTooltipEntry {
@@ -165,7 +170,6 @@ export type RenderMapOptions = {
   signalListeners: any
   isMulti?: boolean
   isSummaryLegend?: boolean
-  allMissingDataIsSuppressed: boolean
   updateFipsCallback: (fips: Fips) => void
 }
 
@@ -201,6 +205,5 @@ export interface MouseEventHandlerOptions {
   isMultiMap: boolean
   isSummaryLegend: boolean
   isExtremesMode: boolean
-  allMissingDataIsSuppressed: boolean
   updateFipsCallback: (fips: Fips) => void
 }

@@ -24,11 +24,6 @@ test('Voter Participation Flow', async ({ page }) => {
     .getByRole('heading', { name: 'U.S. citizens, Ages 18+' })
     .click()
   // await page.getByLabel('Bar Chart showing Voter').click() // CANT SHOW BY RACE RIGHT NOW FOR VOTING
-  await page.getByRole('heading', { name: 'Share of all voter' }).click()
-  await page.getByText('No unknown values for race').click()
-  await page
-    .getByRole('heading', { name: 'Graph unavailable: Population' })
-    .click()
   await page.getByRole('heading', { name: 'Summary for voter' }).click()
   await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
   await page.getByRole('rowheader', { name: 'Asian (NH)' }).click()

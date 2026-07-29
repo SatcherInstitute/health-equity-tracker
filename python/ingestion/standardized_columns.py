@@ -131,6 +131,8 @@ VOTER_PARTICIPATION_PREFIX = "voter_participation"
 
 AHR_POPULATION_RAW = "ahr_population_estimated_total"
 AHR_POPULATION_PCT = "ahr_population_pct"
+AHR_18PLUS_POPULATION_RAW = "ahr_18plus_population_estimated_total"
+AHR_18PLUS_POPULATION_PCT = "ahr_18plus_population_pct"
 CHR_POPULATION_RAW = "chr_population_estimated_total"
 CHR_POPULATION_PCT = "chr_population_pct"
 

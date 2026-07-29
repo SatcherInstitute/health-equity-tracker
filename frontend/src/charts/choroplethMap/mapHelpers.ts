@@ -13,6 +13,7 @@ import {
   ATLANTA_METRO_COUNTY_FIPS,
   type CountColsMap,
   DATA_SUPPRESSED,
+  DATA_UNAVAILABLE,
   NO_DATA_MESSAGE,
 } from '../mapGlobals'
 import {
@@ -167,28 +168,38 @@ export const createDataMap = (
   denominatorPhrase: string,
   countColsMap: any,
 ): Map<string, MetricData> => {
+  // sources with no suppression semantics leave this undefined, so isSuppressed
+  // is false for every row and missing values read as plain absences
+  const suppressionFlag = metric.suppressionFlagMetricId
+
   return new Map(
-    dataWithHighestLowest.map((d) => [
-      d.fips,
-      {
-        [tooltipLabel]:
-          d[metric.metricId] != null
-            ? formatMetricValue(d[metric.metricId], metric)
-            : undefined,
-        value: d[metric.metricId],
-        ...(countColsMap?.numeratorConfig && {
-          [`# ${numeratorPhrase}`]:
-            d?.[countColsMap.numeratorConfig.metricId] ?? NO_DATA_MESSAGE,
-        }),
-        ...(countColsMap?.denominatorConfig && {
-          [`# ${denominatorPhrase}`]:
-            d[countColsMap.denominatorConfig.metricId],
-        }),
-        ...(d.highestGroup && { ['Highest rate group']: d.highestGroup }),
-        ...(d.lowestGroup && { ['Lowest rate group']: d.lowestGroup }),
-        ...(d.rating && { ['County SVI']: d.rating }),
-      },
-    ]),
+    dataWithHighestLowest.map((d) => {
+      const isSuppressed =
+        suppressionFlag != null && d?.[suppressionFlag] === true
+      return [
+        d.fips,
+        {
+          [tooltipLabel]:
+            d[metric.metricId] != null
+              ? formatMetricValue(d[metric.metricId], metric)
+              : undefined,
+          value: d[metric.metricId],
+          isSuppressed,
+          ...(countColsMap?.numeratorConfig && {
+            [`# ${numeratorPhrase}`]:
+              d?.[countColsMap.numeratorConfig.metricId] ??
+              (isSuppressed ? DATA_SUPPRESSED : DATA_UNAVAILABLE),
+          }),
+          ...(countColsMap?.denominatorConfig && {
+            [`# ${denominatorPhrase}`]:
+              d[countColsMap.denominatorConfig.metricId] ?? DATA_UNAVAILABLE,
+          }),
+          ...(d.highestGroup && { ['Highest rate group']: d.highestGroup }),
+          ...(d.lowestGroup && { ['Lowest rate group']: d.lowestGroup }),
+          ...(d.rating && { ['County SVI']: d.rating }),
+        },
+      ] as [string, MetricData]
+    }),
   )
 }
 
@@ -197,7 +208,7 @@ export const formatMetricValue = (
   metricConfig: MetricConfig,
   isLegendLabel?: boolean,
 ): string => {
-  if (value === undefined || value === null) return 'no data'
+  if (value === undefined || value === null) return NO_DATA_MESSAGE
 
   if (metricConfig.type === 'per100k') {
     const suffix = isLegendLabel ? '' : '  per 100k'

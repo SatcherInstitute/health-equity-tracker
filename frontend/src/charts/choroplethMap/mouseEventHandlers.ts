@@ -12,25 +12,24 @@ import {
   GEO_HOVERED_OPACITY,
   STROKE_WIDTH,
 } from './mapUtils'
-import type {
-  MapTooltipData,
-  MapTooltipEntry,
-  MouseEventHandlerOptions,
-  MouseEventType,
+import {
+  type MapTooltipData,
+  type MapTooltipEntry,
+  METRIC_DATA_INTERNAL_KEYS,
+  type MetricData,
+  type MouseEventHandlerOptions,
+  type MouseEventType,
 } from './types'
 
 function buildTooltipEntries(
-  data: Record<string, any> | undefined,
+  data: MetricData | undefined,
   geographyType: string,
   demographicType: DemographicType | undefined,
-  allMissingDataIsSuppressed: boolean,
 ): MapTooltipEntry[] {
   if (!data) return []
-  const missingDataValue = allMissingDataIsSuppressed
-    ? DATA_SUPPRESSED
-    : NO_DATA_MESSAGE
+  const missingDataValue = data.isSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE
   return Object.entries(data)
-    .filter(([key]) => key !== 'value')
+    .filter(([key]) => !METRIC_DATA_INTERNAL_KEYS.includes(key as any))
     .filter(([key]) => !(key === 'County SVI' && geographyType !== 'County'))
     .map(([key, rawValue]) => {
       if (key.startsWith('% unknown')) {
@@ -74,7 +73,6 @@ export const createMouseEventOptions = (
     isExtremesMode: options.isExtremesMode,
     updateFipsCallback: options.updateFipsCallback,
     demographicType,
-    allMissingDataIsSuppressed: options.allMissingDataIsSuppressed,
   }
 }
 
@@ -120,7 +118,6 @@ const handleMouseEvent = (
           data,
           props.geographyType,
           props.demographicType,
-          props.allMissingDataIsSuppressed,
         ),
       }
       props.showTooltip(tooltipData, event.clientX, event.clientY)
@@ -149,7 +146,6 @@ const handleMouseEvent = (
           data,
           props.geographyType,
           props.demographicType,
-          props.allMissingDataIsSuppressed,
         ),
       }
       props.showTooltip(tooltipData, touch.clientX, touch.clientY)

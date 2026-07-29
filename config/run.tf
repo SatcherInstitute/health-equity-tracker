@@ -97,11 +97,6 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
 # "frontend-service" by the manually-managed domain mapping (see the domain
 # mapping note below). Terraform resource label is server_service; the Cloud
 # Run name must stay "frontend-service" or the domain mapping breaks.
-moved {
-  from = google_cloud_run_service.frontend_service
-  to   = google_cloud_run_service.server_service
-}
-
 resource "google_cloud_run_service" "server_service" {
   name     = var.frontend_service_name
   location = var.compute_region

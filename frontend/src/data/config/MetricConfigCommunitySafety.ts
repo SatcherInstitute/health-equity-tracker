@@ -106,6 +106,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         shortLabel: 'homicides per 100k',
         trendsCardTitleName: 'Rates of gun homicides over time',
         type: 'per100k',
+        suppressionFlagMetricId: 'gun_violence_homicide_per_100k_is_suppressed',
         rateNumeratorMetric: {
           chartTitle: '',
           metricId: 'gun_violence_homicide_estimated_total',
@@ -165,6 +166,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         shortLabel: 'suicides per 100k',
         trendsCardTitleName: 'Rates of gun suicides over time',
         type: 'per100k',
+        suppressionFlagMetricId: 'gun_violence_suicide_per_100k_is_suppressed',
         rateNumeratorMetric: {
           chartTitle: '',
           metricId: 'gun_violence_suicide_estimated_total',

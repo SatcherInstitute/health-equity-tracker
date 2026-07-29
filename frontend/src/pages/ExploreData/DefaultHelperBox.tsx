@@ -17,7 +17,6 @@ export default function DefaultHelperBox() {
             className='m-0 text-center font-bold font-sans-title text-alt-green text-title leading-tight md:text-header md:leading-modal-heading'
           >
             Select a topic
-            <span className='hidden md:inline'> above</span>
           </h1>
           <p className='mt-1 mb-2 text-center text-text md:my-4'>
             <span className='md:hidden'>or explore these reports:</span>

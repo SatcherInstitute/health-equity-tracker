@@ -1,8 +1,8 @@
 import { geoPath, select } from 'd3'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
-import { colors } from '../../styles/tokens/colors'
+import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getCountyAddOn } from '../mapHelperFunctions'
-import { getFillColor } from './colorSchemes'
+import { getFillColor, getStrokeColor } from './colorSchemes'
 import {
   createDataMap,
   formatMetricValue,
@@ -107,6 +107,13 @@ export const renderMap = (options: RenderMapOptions) => {
     demographicType,
   )
 
+  // Extremes mode draws only the highest and lowest geographies; the rest are
+  // background context carrying no value. Announcing each one would make a
+  // screen reader user walk thousands of counties to reach the handful that
+  // hold the answer, so they leave the accessibility tree entirely.
+  const isExtremesContext = (d: any) =>
+    isExtremesMode && dataMap.get(d.id?.toString())?.value == null
+
   // Draw main map
   mapGroup
     .selectAll('path')
@@ -128,17 +135,30 @@ export const renderMap = (options: RenderMapOptions) => {
         isMultiMap: isMulti,
       }),
     )
-    .attr('stroke', isExtremesMode ? colors.altGray : colors.altWhite)
+    .attr('stroke', (d) =>
+      getStrokeColor({
+        d,
+        dataMap,
+        colorScale: colorScale as ColorScale,
+        isExtremesMode: isExtremesMode,
+        mapConfig: mapConfig,
+        isMultiMap: isMulti,
+      }),
+    )
     .attr('stroke-width', STROKE_WIDTH)
-    .attr('role', 'img')
+    .attr('aria-hidden', (d: any) => (isExtremesContext(d) ? 'true' : null))
+    .attr('role', (d: any) => (isExtremesContext(d) ? null : 'img'))
     .attr('tabindex', '-1')
     .attr('aria-label', (d: any) => {
+      if (isExtremesContext(d)) return null
       const id = d.id?.toString()
       const name = d.properties?.name ?? id ?? 'Unknown'
       const namePlace = geographyType ? `${name} ${geographyType}` : name
       const mapData = dataMap.get(id)
       if (!mapData || mapData.value == null) {
-        return `${namePlace}: no data available`
+        return `${namePlace}: ${
+          mapData?.isSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE
+        }`
       }
       const formattedValue = formatMetricValue(
         mapData.value as number,

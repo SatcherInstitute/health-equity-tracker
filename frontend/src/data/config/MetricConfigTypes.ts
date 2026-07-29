@@ -67,7 +67,8 @@ export type MetricId =
   | 'population'
   | 'svi'
   | 'ahr_population_estimated_total'
-  | 'ahr_population_18plus'
+  | 'ahr_18plus_population_estimated_total'
+  | 'ahr_18plus_population_pct'
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -102,6 +103,11 @@ export interface MetricConfig {
   rateDenominatorMetric?: MetricConfig
   rateComparisonMetricForAlls?: ComparisonMetricConfig
   timeSeriesCadence?: TimeSeriesCadenceType
+
+  // Boolean companion column marking rows where the source withheld this rate to
+  // protect privacy. A card must include it in its requested metricIds or
+  // removeUnrequestedColumns drops it before the data ever arrives.
+  suppressionFlagMetricId?: MetricId
 
   // This metric is one where the denominator only includes records where
   // demographics are known. For example, for "share of covid cases" in the US

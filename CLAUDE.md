@@ -68,6 +68,14 @@ See `README.md` for full fork setup steps including how to add your fork as a re
 
 **PR title convention:** Never put an issue number in the PR title (no `(#1234)` suffix). It is visually indistinguishable from a PR number at a glance. Use `Closes #NNNN` in the PR body instead.
 
+**Multi-line commit/PR/issue bodies:** don't embed a `$(cat <<'EOF' ... EOF)` heredoc directly in a shell command for these. A heredoc body with backtick-quoted inline code (e.g. `` `location.hash` ``) can fail with `bad substitution` or `unexpected EOF` even though the delimiter is quoted. Write the body to a file first, then reference it:
+
+```bash
+git commit -F /tmp/commit-msg.md
+gh pr create --body-file /tmp/pr-body.md
+gh issue create --body-file /tmp/issue-body.md
+```
+
 ## Work Tracking
 
 Ideas progress through GitHub tools in stages — don't skip them:

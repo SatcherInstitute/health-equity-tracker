@@ -9,6 +9,7 @@ import {
 import type {
   DataTypeConfig,
   DataTypeId,
+  MetricConfig,
   MetricId,
 } from '../config/MetricConfigTypes'
 import {
@@ -68,16 +69,18 @@ export function getExtremeValues(
   fieldName: MetricId,
   listSize: number,
 ) {
-  if (data.length === 0) return { lowestValues: [], highestValues: [] }
-
-  listSize = listSize > data.length ? data.length : listSize
-
   // cleanup and sort the data
   let sortedData = data
     .filter(
       (row: HetRow) => !Number.isNaN(row[fieldName]) && row[fieldName] != null,
     )
     .sort((rowA: HetRow, rowB: HetRow) => rowA[fieldName] - rowB[fieldName]) // ascending order
+
+  // callers may hand over rows that have no rate at all, so emptiness has to be
+  // checked after the filter rather than against the raw input
+  if (sortedData.length === 0) return { lowestValues: [], highestValues: [] }
+
+  listSize = listSize > sortedData.length ? sortedData.length : listSize
 
   const lowestValue = sortedData[0][fieldName]
   const valuesTiedAtLowest = sortedData.filter(
@@ -389,13 +392,21 @@ export function groupIsAll(group: DemographicGroup) {
   return group === ALL || group === ALL_W
 }
 
+// Whether every gap on a map is explained by suppression. Only for consumers that
+// must render a single verdict for the whole map, such as MissingDataAlert's
+// "due to small population sizes" copy. Anything drawn per geography should read
+// the row's own flag instead of collapsing the map to one answer.
 export function allMissingValuesAreSuppressed(
   data: MetricQueryResponse['data'],
-  metricId: MetricId,
+  metricConfig: MetricConfig,
 ) {
-  const rateIsSuppressedColumn = metricId + '_is_suppressed'
-  const rowsWithMissingRates = data.filter((row) => row[metricId] == null)
-  return rowsWithMissingRates.every(
-    (row) => row[rateIsSuppressedColumn] === true,
+  const suppressionFlag = metricConfig.suppressionFlagMetricId
+  if (!suppressionFlag) return false
+  const rowsWithMissingRates = data.filter(
+    (row) => row[metricConfig.metricId] == null,
   )
+  // an empty array would vacuously satisfy .every(), reporting suppression on a
+  // map that is missing nothing at all
+  if (rowsWithMissingRates.length === 0) return false
+  return rowsWithMissingRates.every((row) => row[suppressionFlag] === true)
 }

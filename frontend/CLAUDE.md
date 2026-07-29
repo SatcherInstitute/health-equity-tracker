@@ -20,6 +20,12 @@ npm run e2e statins.nightly.spec.ts
 npm run e2e hiv          # Matches any filename containing "hiv"
 ```
 
+**Always start servers through these npm scripts, never a bare `npx vite` or `vite preview`.** The scripts wrap Vite in `env-cmd -f .env.localhost`, which is where `VITE_BASE_API_URL` lives. Without it the app still builds and renders, but every data fetch 404s and cards come up empty, so the failure looks like a product bug rather than a missing env. If a scratch server on another port is needed, keep the wrapper:
+
+```bash
+npx env-cmd -f .env.localhost npx vite --port 3100
+```
+
 **Important: Package Dependency Workflow**
 
 Any time you modify `package.json` (add, remove, or update packages), you must run `npm install` afterward and **commit the resulting lock file changes**. The lock file must always be in sync with package.json, or CI's `npm ci` step will fail with "package-lock.json or npm-shrinkwrap.json are not in sync."
@@ -64,6 +70,14 @@ Each `VariableProvider` computes `usedAllsFallback` via `resolveDatasetId()` whe
 For intersectional topics (e.g. HIV prevalence for Black women), `MetricConfig.metrics.per100k.rateComparisonMetricForAlls` names a second metric from a reference dataset. `RateBarChartCard` and `RateTrendsChartCard` both detect this field, issue a second `MetricQuery` for the reference "All" population, and merge the result into the chart data so a comparison series renders alongside the intersectional group. The `shortLabel` on `rateComparisonMetricForAlls` is typed as `DemographicGroup` (via `ComparisonMetricConfig`) — add the label as a named constant in `Constants.ts` and include it in `INTERSECTIONAL_COMPARISON_LABELS` so `GROUP_COLOR_MAP` can key on it with the correct color.
 
 Global UI state is managed with Jotai atoms, URL-synced via `jotai-location` (`src/utils/sharedSettingsState.ts`).
+
+**Absence taxonomy for maps:** Three distinct reasons a geography's value can be absent, each requiring a different visual signal and label (see `src/charts/mapGlobals.ts`):
+
+- `DATA_SUPPRESSED` (grey fill, "Suppressed"): the source measured this rate and withheld it to protect privacy. Only provable from the rate's own `suppressionFlagMetricId` column and applies only to that metric and its numerator.
+- `NO_DATA_MESSAGE` (white fill, "No data"): the source publishes this field but measured no value for this geography.
+- `DATA_UNAVAILABLE` (unavailable in tooltips, "Unavailable"): the source does not publish this field at all. Denominators come from a separate source (ACS), so a topic's suppression rules can never apply to them.
+
+A `MetricConfig` must declare its `suppressionFlagMetricId` so the map can distinguish suppressed from missing. Cards must include that column in their requested `metricIds` or data preprocessing strips it.
 
 **Unified URL param system** — all params written through a single path:
 

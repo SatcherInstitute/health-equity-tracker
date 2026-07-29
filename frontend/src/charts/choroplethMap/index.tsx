@@ -42,7 +42,6 @@ const ChoroplethMap = ({
   isSummaryLegend,
   updateFipsCallback,
   colorScale,
-  allMissingDataIsSuppressed,
 }: ChoroplethMapProps) => {
   const isMobile = !useIsBreakpointAndUp('md')
   const [ref, width] = useResponsiveWidth()
@@ -184,7 +183,6 @@ const ChoroplethMap = ({
         isMulti,
         isSummaryLegend,
         updateFipsCallback,
-        allMissingDataIsSuppressed: allMissingDataIsSuppressed || false,
       })
 
       setRenderResult({

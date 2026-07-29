@@ -2,7 +2,7 @@ import type { Selection } from 'd3'
 import { scaleLinear } from 'd3'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { colors } from '../../styles/tokens/colors'
-import { PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
+import { NO_DATA_MESSAGE, PHRMA_ADHERENCE_BREAKPOINTS } from '../mapGlobals'
 import { formatMetricValue } from './mapHelpers'
 import type { ColorScale } from './types'
 
@@ -71,14 +71,16 @@ export function createUnknownLegend(
     .attr('y', 0)
     .attr('width', 20)
     .attr('height', legendHeight)
-    .style('fill', colors.altGray)
+    .style('fill', colors.altWhite)
+    .style('stroke', colors.altGray)
+    .style('stroke-width', 1)
 
   legendContainer
     .append('text')
     .attr('x', 50 + gradientLength + 50)
     .attr('y', 12)
     .style('font', '10px sans-serif')
-    .text('no data')
+    .text(NO_DATA_MESSAGE)
 
   const labelGroup = legendContainer
     .append('g')
@@ -117,6 +119,7 @@ export interface LegendItemData {
   color: string
   label: string
   value: any
+  borderColor?: string
 }
 
 /**
@@ -210,7 +213,9 @@ export function createQuantileLegend(
   colorScale: ColorScale & { quantiles(): number[] },
   labelFormat: (value: number) => string,
 ): LegendItemData[] {
-  const thresholds = colorScale.quantiles()
+  // Deduplicate: when many data points share the same value, quantile boundaries
+  // can repeat (e.g. [11, 11, 31, 31]), producing labels like "31 – 31".
+  const thresholds = [...new Set(colorScale.quantiles())]
 
   if (thresholds.length <= 1) {
     return []

@@ -14,7 +14,6 @@ export default function HetCardMenu(props: HetCardMenuProps) {
 
   return (
     <nav
-      role='menu'
       aria-label={props.ariaLabel}
       className={`ml-0 flex flex-col rounded-sm py-0 pl-0 tracking-normal shadow-raised-tighter ${props.className ?? ''} `}
     >
@@ -38,9 +37,9 @@ function HetDesktopMenuItem(props: HetDesktopMenuItemProps) {
   return (
     <>
       {props.routeConfig.isTopLevel && (
-        <li className='m-0 list-none p-0' aria-hidden>
+        <div className='m-0 p-0' aria-hidden>
           <HetDivider />
-        </li>
+        </div>
       )}
 
       <HetListItemButton

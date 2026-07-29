@@ -64,9 +64,7 @@ const ChronicDiseaseLink = () => {
             Behavioral Risk Factor Surveillance System (BRFSS)
           </a>{' '}
           , complemented by <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{' '}
-          <a href={urlMap.censusVoting}>U.S. Census</a> data. Given that BRFSS
-          is survey-based, data availability can sometimes be limited,
-          especially for smaller and marginalized racial and ethnic groups.
+          <a href={urlMap.censusVoting}>U.S. Census</a> data.
         </p>
 
         <NoteBrfss />

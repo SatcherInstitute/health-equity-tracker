@@ -24,7 +24,7 @@ export default function InsightReportButton(props: InsightReportButtonProps) {
     <Button
       onClick={handleClick}
       variant={props.variant ?? 'text'}
-      className={`font-roboto text-alt-black text-smallest normal-case ${props.variant === 'outlined' ? 'rounded-sm border-light-outline px-3.5 py-[8.5px] font-medium hover:border-border-color hover:bg-transparent' : 'font-normal'}`}
+      className={`font-roboto text-alt-dark text-smallest normal-case ${props.variant === 'outlined' ? 'rounded-sm border-light-outline px-3.5 py-[8.5px] font-medium hover:border-border-color hover:bg-transparent' : 'font-normal'}`}
       aria-label='open the AI report insight'
     >
       <AutoAwesome className='mr-2 text-base text-hex-share-icon-gray' />

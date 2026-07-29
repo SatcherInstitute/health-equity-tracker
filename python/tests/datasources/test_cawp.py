@@ -10,6 +10,7 @@ from datasources.cawp import (
     US_CONGRESS_HISTORICAL_URL,
     US_CONGRESS_CURRENT_URL,
     get_consecutive_time_periods,
+    get_data_recent_year,
     extract_term_years,
     get_us_congress_members_df,
     DISTRICT,
@@ -67,11 +68,13 @@ def test_extract_term_years():
     assert term_years_special_election == [2023, 2024]
 
 
-def test_get_consecutive_time_periods():
+@mock.patch("datasources.cawp.get_data_recent_year", return_value=2025)
+@mock.patch("datasources.cawp.get_state_leg_totals_df", return_value=pd.DataFrame())
+def test_get_consecutive_time_periods(_mock_stleg, _mock_recent_year):
     assert get_consecutive_time_periods(2020, 2022) == ["2020", "2021", "2022"]
     default_time_periods = get_consecutive_time_periods()
     assert default_time_periods[0] == "1915"
-    assert default_time_periods[-1] == "2025"  # TODO: make dynamic; see GitHub #2897
+    assert default_time_periods[-1] == "2025"
 
 
 def _load_test_legislators_json(url, *_args, **_kwargs):
@@ -90,7 +93,7 @@ def _load_test_legislators_json(url, *_args, **_kwargs):
     side_effect=_load_test_legislators_json,
 )
 def test_get_us_congress_members_df(mock_fetch):
-    df = get_us_congress_members_df()
+    df = get_us_congress_members_df(last_year=2025)
 
     assert DISTRICT in df.columns
 
@@ -188,6 +191,35 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
         )
 
 
+def _load_csv_strict_for_data_recent_year(*args, **kwargs):
+    """Strict CSV loader for test_get_data_recent_year: only accepts the numerator fixture."""
+    [_folder, filename] = args
+    usecols = kwargs.get("usecols", None)
+
+    if filename == "cawp-by_race_and_ethnicity_time_series.csv":
+        test_input_data_types = {
+            "id": str,
+            "year": str,
+            "first_name": str,
+            "middle_name": str,
+            "last_name": str,
+            "party": str,
+            "level": str,
+            "position": str,
+            "state": str,
+            "district": str,
+            "race_ethnicity": str,
+        }
+        return pd.read_csv(
+            os.path.join(TEST_DIR, f"test_input_{filename}"),
+            dtype=test_input_data_types,
+            index_col=False,
+            usecols=usecols,
+        )
+    else:
+        raise ValueError(f"Unexpected CSV filename in test_get_data_recent_year: {filename}")
+
+
 def _load_county_crosswalk():
     print("mocking load_county_crosswalk from mock_county_crosswalk.txt")
     df = pd.read_csv(
@@ -204,6 +236,21 @@ def _load_county_crosswalk():
     df.loc[territory_mask, "district_num"] = LEGISLATORS_ATLARGE_CODE
     df.loc[territory_mask, "GEOID_CD118_20"] = df.loc[territory_mask, "state_fips"] + LEGISLATORS_ATLARGE_CODE
     return df
+
+
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_strict_for_data_recent_year)
+def test_get_data_recent_year(_mock_load):
+    state_leg_df = pd.DataFrame(
+        {
+            "state_fips": ["02", "02", "60", "60"],
+            "time_period": ["2024", "2023", "2025", "2024"],
+            "total_state_leg_count": [60, 60, 39, 39],
+        }
+    )
+    result = get_data_recent_year(state_leg_df)
+    # Fixture max year: AK (02) = 2024, AS (60) = 2025. min(2024, 2025) = 2024.
+    # (Test numerator max is 2028, but current_year caps at today; min(today, 2024) = 2024 if today >= 2024.)
+    assert result == 2024
 
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
@@ -243,8 +290,9 @@ def testWriteToBq(
     assert mock_test_time_periods.call_count == 7
 
     # CAWP LINE ITEM CSV + 50 STATE LEG CSVS + 6 TERRITORY LEG CSVS +
+    # get_data_recent_year() numerator CSV (usecols=[YEAR]) +
     # COUNTY: CAWP LINE ITEM CSV in get_women_congress_by_county_df
-    assert mock_data_dir.call_count == 1 + len(FIPS_TO_STATE_TABLE_MAP) + len(TERRITORY_FIPS_LIST) + 1
+    assert mock_data_dir.call_count == 1 + len(FIPS_TO_STATE_TABLE_MAP) + len(TERRITORY_FIPS_LIST) + 1 + 1
 
     # CURRENT + HISTORICAL CONGRESS TOTALS (fetched once in write_to_bq, passed down)
     assert mock_json_from_web.call_count == 2
