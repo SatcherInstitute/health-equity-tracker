@@ -1,8 +1,8 @@
 import { expect, test } from './utils/fixtures'
 
-// Exercises the real reduced-motion code path (scrollToHashTarget's
-// smooth: false branch) instead of racing the smooth-scroll animation,
-// which is what made this spec flaky under CI timing.
+// Position assertions run under reduced motion so they land on a settled page
+// instead of racing the animation, which is what made this spec flaky under CI
+// timing. The smooth branch gets its own block at the bottom of the file.
 test.use({ reducedMotion: 'reduce' })
 
 // Deep links land on a card whose position keeps moving while the report loads.
@@ -92,3 +92,40 @@ for (const path of MENU_PAGES) {
     expect(top).toBeGreaterThanOrEqual(appBarBottom)
   })
 }
+
+// Everything above skips the animation, so none of it reaches the branch most
+// users actually get: the scrollend listener, its 1s Safari fallback, and the
+// focus that only fires once one of the two resolves. A regression there would
+// strand keyboard users at the top of the document with the viewport moved.
+test.describe('smooth scrolling', () => {
+  test.use({ reducedMotion: 'no-preference' })
+
+  test('deep link animates and still lands focus on the card', async ({
+    page,
+  }) => {
+    const hashId = 'rate-chart'
+    await page.goto(`${REPORT}#${hashId}`, { waitUntil: 'domcontentloaded' })
+    await page.waitForSelector(`#${hashId}`, { timeout: 30000 })
+
+    await expect
+      .poll(async () => (await probe(page, hashId))?.focusedId ?? '', {
+        timeout: 30000,
+        intervals: [500],
+      })
+      .toBe(hashId)
+
+    // the animation is still allowed to be mid-flight when focus lands, so this
+    // only asserts it ends up on the card, not the exact frame it got there
+    await expect
+      .poll(
+        async () => {
+          const g = await probe(page, hashId)
+          if (!g) return 'moving'
+          if (g.atMaxScroll) return 'settled'
+          return Math.abs(g.cardTop - g.headerBottom) <= 40 ? 'settled' : 'moving'
+        },
+        { timeout: 30000, intervals: [1000] },
+      )
+      .toBe('settled')
+  })
+})

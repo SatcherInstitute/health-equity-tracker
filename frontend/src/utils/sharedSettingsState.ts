@@ -1,4 +1,4 @@
-import { atom } from 'jotai'
+import { atom, getDefaultStore } from 'jotai'
 import { selectAtom } from 'jotai/utils'
 import { atomFamily } from 'jotai-family'
 import { atomWithLocation } from 'jotai-location'
@@ -20,15 +20,25 @@ export const selectedDemographicTypeAtom = atom<DemographicType | null>(null)
 
 // The id of the section a hash-navigation scroll most recently targeted
 // (deep link, "on this page" menu, breadcrumb drill-out, table of contents).
-// Written exclusively by scrollToHashTarget (useScrollToHash.ts) via
-// getDefaultStore, since that function runs outside React and is the single
-// place every scroll-to-anchor path already converges on. Kept separate from
-// locationAtom because several call sites write partial location updates
-// (e.g. `setLocationAtom({ searchParams: next })`) that would otherwise drop
-// the hash from the atom's in-memory value until the next popstate.
+// Written by scrollToHashTarget (useScrollToHash.ts) via getDefaultStore,
+// since that function runs outside React and is the single place every
+// scroll-to-anchor path already converges on. Kept separate from locationAtom
+// because several call sites write partial location updates (e.g.
+// `setLocationAtom({ searchParams: next })`) that would otherwise drop the
+// hash from the atom's in-memory value until the next popstate.
 export const activeHashIdAtom = atom<string | null>(
   window.location.hash.slice(1) || null,
 )
+
+// scrollToHashTarget writes the URL with history.replaceState, which does not
+// fire hashchange, so this listener never double-handles an app-initiated
+// scroll. It exists for the hash changes the app did not make: a manually
+// edited URL, back/forward across hash entries, and plain <a href="#..."> links.
+// Without it the atom silently falls out of sync with the URL and the "on this
+// page" menu keeps highlighting the previous section.
+window.addEventListener('hashchange', () => {
+  getDefaultStore().set(activeHashIdAtom, window.location.hash.slice(1) || null)
+})
 
 /* CARD INSIGHT CACHE — keyed by scrollToHash + dataTypeId + fipsCode + demographicType (+ '-2' for compare card) */
 export const cardInsightsAtom = atom<Record<string, string>>({})

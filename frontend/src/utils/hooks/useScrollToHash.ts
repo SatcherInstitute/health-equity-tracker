@@ -23,12 +23,24 @@ interface ScrollToHashOptions {
   smooth?: boolean
 }
 
+// Only one hash scroll may be settling at a time. The wheel/pointerdown/keydown
+// listeners below already cancel the previous scroll for anything the user
+// clicks or types, but two calls made back to back with no interaction between
+// them would otherwise both run until their own settle timeouts, and the
+// abandoned one still focuses its target after the newer one has landed.
+// Callers discard the returned stop(), so this has to be enforced here.
+let cancelActiveScroll: (() => void) | null = null
+
 export function scrollToHashTarget(
   hashId: string,
   options: ScrollToHashOptions = {},
 ): () => void {
   const target = document.getElementById(hashId)
+  // a link to a target that isn't in the DOM is a no-op, so an in-flight
+  // scroll toward a target that does exist should be left alone
   if (!target) return () => {}
+
+  cancelActiveScroll?.()
 
   // single point of truth for "what section is currently targeted" and for
   // reflecting that in the URL — every scroll-to-anchor path in the app
@@ -99,6 +111,7 @@ export function scrollToHashTarget(
   function stop() {
     if (stopped) return
     stopped = true
+    if (cancelActiveScroll === stop) cancelActiveScroll = null
     observer.disconnect()
     styleObserver.disconnect()
     window.clearTimeout(settleTimer)
@@ -143,6 +156,8 @@ export function scrollToHashTarget(
   window.addEventListener('wheel', stop, { passive: true })
   window.addEventListener('pointerdown', stop)
   window.addEventListener('keydown', stop)
+
+  cancelActiveScroll = stop
 
   return stop
 }
