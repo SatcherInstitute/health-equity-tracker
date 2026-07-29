@@ -34,9 +34,16 @@ export default function JumpToSelect(props: JumpToSelectProps) {
 
   return (
     <FormControl sx={{ m: 1, minWidth: props.minWidth ?? 110 }} size='small'>
-      <InputLabel id='jump-to-select-label'>{label}</InputLabel>
+      {/* MUI only shrinks a label into the outline notch when the field reads as
+          filled, which an always-empty value never does. displayEmpty opens the
+          notch and shrink keeps the label in it. */}
+      <InputLabel id='jump-to-select-label' shrink>
+        {label}
+      </InputLabel>
       <Select
         autoWidth
+        displayEmpty
+        renderValue={() => 'Choose'}
         labelId='jump-to-select-label'
         id='jump-to-select'
         // never holds a selection: picking an option is a navigation, not a
