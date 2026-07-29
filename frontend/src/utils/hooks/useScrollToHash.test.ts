@@ -1,25 +1,37 @@
 import { getDefaultStore } from 'jotai'
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { activeHashIdAtom } from '../sharedSettingsState'
 import { scrollToHashTarget } from './useScrollToHash'
 
 const observers: Array<{ disconnect: ReturnType<typeof vi.fn> }> = []
-
-class FakeResizeObserver {
-  observe = vi.fn()
-  unobserve = vi.fn()
-  disconnect = vi.fn()
-  constructor() {
-    observers.push(this)
-  }
-}
+let originalScrollIntoView: typeof Element.prototype.scrollIntoView
 
 beforeEach(() => {
   observers.length = 0
-  vi.stubGlobal('ResizeObserver', FakeResizeObserver)
+  vi.stubGlobal(
+    'ResizeObserver',
+    class FakeResizeObserver {
+      observe = vi.fn()
+      unobserve = vi.fn()
+      disconnect = vi.fn()
+      constructor() {
+        observers.push(this)
+      }
+    },
+  )
+  originalScrollIntoView = Element.prototype.scrollIntoView
   Element.prototype.scrollIntoView = vi.fn()
   document.body.innerHTML = '<div id="one"></div><div id="two"></div>'
   window.history.replaceState(undefined, '', '#')
+})
+
+afterEach(() => {
+  Element.prototype.scrollIntoView = originalScrollIntoView
+  // cSpell:ignore unstub
+  vi.unstubAllGlobals()
+  vi.clearAllTimers()
+  vi.clearAllMocks()
+  observers.length = 0
 })
 
 describe('scrollToHashTarget', () => {
