@@ -1,9 +1,10 @@
 import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Button from '@mui/material/Button'
-import { useLocation } from 'react-router'
 import { USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'
 import { useParamState } from '../../utils/hooks/useParamState'
+import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
+import { scrollToHashTarget } from '../../utils/hooks/useScrollToHash'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { ATLANTA_MODE_PARAM_KEY } from '../../utils/urlutils'
 
@@ -16,12 +17,19 @@ export default function HetBreadcrumbs(props: {
   subPopulationPhrase?: string
   isAtlantaMode?: boolean
 }) {
-  const location = useLocation()
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   const [, setIsAtlantaMode] = useParamState<boolean>(
     ATLANTA_MODE_PARAM_KEY,
     false,
   )
+
+  // changing the place reloads the card, which changes its height and would
+  // otherwise leave the reader looking at a different card than the one they
+  // just drilled out of
+  function keepCardInView() {
+    scrollToHashTarget(props.scrollToHashId, { smooth: !prefersReducedMotion })
+  }
 
   return (
     <div className='mx-3 my-1'>
@@ -36,7 +44,7 @@ export default function HetBreadcrumbs(props: {
           isClickable={!props.fips.isUsa()}
           onClick={() => {
             props.updateFipsCallback(new Fips(USA_FIPS))
-            location.hash = `#${props.scrollToHashId}`
+            keepCardInView()
           }}
         />
         {!props.fips.isUsa() && !props.isAtlantaMode && (
@@ -45,7 +53,7 @@ export default function HetBreadcrumbs(props: {
             isClickable={!props.fips.isStateOrTerritory()}
             onClick={() => {
               props.updateFipsCallback(props.fips.getParentFips())
-              location.hash = `#${props.scrollToHashId}`
+              keepCardInView()
             }}
           />
         )}

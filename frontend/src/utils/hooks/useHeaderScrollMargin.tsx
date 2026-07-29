@@ -47,12 +47,18 @@ export function useHeaderScrollMargin(
     return headerHeight
   }
 
+  // the top app bar is sticky at every breakpoint, even when the madlib
+  // header itself isn't, so mobile still needs to clear it
+  function measureAppBarHeight() {
+    return document.querySelector('.MuiAppBar-root')?.clientHeight ?? 0
+  }
+
   // track and return the adjusted height of the element
   const [headerScrollMargin, setHeaderScrollMargin] = useState(measureHeight())
 
   const isMd = useIsBreakpointAndUp('md')
   useEffect(() => {
-    setHeaderScrollMargin(isMd ? measureHeight() : 0)
+    setHeaderScrollMargin(isMd ? measureHeight() : measureAppBarHeight())
   }, [elemId, pageWidth, sticking, ...otherDependencies])
 
   return headerScrollMargin

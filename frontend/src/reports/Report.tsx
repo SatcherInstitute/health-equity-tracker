@@ -125,11 +125,6 @@ export function Report(props: ReportProps) {
     (resolvedConfig?.fullDisplayName as string) ?? 'Data'
   } by ${demographicTypeString} in ${props.fips.getFullDisplayName()}`
 
-  const offerJumpToAgeAdjustment = [
-    'covid_deaths',
-    'covid_hospitalizations',
-  ].includes(props.dropdownVarId)
-
   const rateMetricConfig =
     resolvedConfig && metricConfigFromDtConfig('rate', resolvedConfig)
   const shareMetricConfig =
@@ -154,7 +149,7 @@ export function Report(props: ReportProps) {
           <ReportTopbarMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
-            offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
+            reportStepHashIds={props.reportStepHashIds ?? []}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
             showInsightsButton={showInsightsButton}
@@ -191,8 +186,11 @@ export function Report(props: ReportProps) {
                 {/* RATE TRENDS LINE CHART CARD */}
                 {rateMetricConfig?.timeSeriesCadence && (
                   <div
-                    className='w-full scroll-m-0 md:scroll-mt-24'
+                    className='w-full'
                     id='rates-over-time'
+                    style={{
+                      scrollMarginTop: props.headerScrollMargin,
+                    }}
                   >
                     <RateTrendsChartCard
                       dataTypeConfig={resolvedConfig}
@@ -247,7 +245,10 @@ export function Report(props: ReportProps) {
                 {inequityOverTimeConfig?.timeSeriesCadence && (
                   <div
                     id='inequities-over-time'
-                    className='w-full scroll-m-0 md:scroll-mt-24'
+                    className='w-full'
+                    style={{
+                      scrollMarginTop: props.headerScrollMargin,
+                    }}
                   >
                     <HetLazyLoader offset={600} height={250} once>
                       <ShareTrendsChartCard
