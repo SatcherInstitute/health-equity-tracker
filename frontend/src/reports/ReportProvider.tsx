@@ -188,7 +188,8 @@ function ReportProvider(props: ReportProviderProps) {
             <div className='mb-5'>
               <h2
                 id='definitions-missing-data'
-                className='scroll-m-0 text-header first-of-type:mt-0 md:scroll-mt-24'
+                className='text-header first-of-type:mt-0'
+                style={{ scrollMarginTop: props.headerScrollMargin }}
               >
                 Definitions:
               </h2>

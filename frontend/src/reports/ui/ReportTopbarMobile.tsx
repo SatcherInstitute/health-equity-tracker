@@ -2,12 +2,13 @@ import InsightReportButton from '../../pages/ui/InsightReportButton'
 import JumpToSelect from '../../pages/ui/JumpToSelect'
 import SimpleSelect from '../../pages/ui/SimpleSelect'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 
 interface ReportTopbarMobileProps {
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
-  offerJumpToAgeAdjustment: boolean
+  reportStepHashIds: ScrollableHashId[]
   enabledDemographicOptionsMap: any
   disabledDemographicOptions?: string[][]
   showInsightsButton?: boolean
@@ -30,7 +31,7 @@ export default function ReportTopbarMobile(props: ReportTopbarMobileProps) {
           setSelected={props.setTrackerMode}
         />
         <JumpToSelect
-          offerJumpToAgeAdjustment={props.offerJumpToAgeAdjustment}
+          reportStepHashIds={props.reportStepHashIds}
           label={'Jump to'}
           minWidth={selectMinWidth}
         />

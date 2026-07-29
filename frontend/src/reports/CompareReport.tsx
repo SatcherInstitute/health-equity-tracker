@@ -172,11 +172,6 @@ export default function CompareReport(props: CompareReportProps) {
   browserTitle += ` by ${demo} in ${loc1}`
   if (loc1 !== loc2) browserTitle += ` and ${loc2}`
 
-  const offerJumpToAgeAdjustment = [
-    props.dropdownVarId1,
-    props.dropdownVarId2,
-  ].includes('covid')
-
   const showCorrelationCard =
     SHOW_CORRELATION_CARD && props.trackerMode === 'comparevars'
 
@@ -190,7 +185,7 @@ export default function CompareReport(props: CompareReportProps) {
           <ReportTopbarMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
-            offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
+            reportStepHashIds={props.reportStepHashIds ?? []}
             enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
           />

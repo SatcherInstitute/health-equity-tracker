@@ -167,6 +167,16 @@ svg [tabindex="-1"]:focus:not(:focus-visible) {
   outline: none;
 }
 
+/* scrollToHashTarget makes every hash destination programmatically focusable so
+   keyboard and screen reader users land on the card rather than staying at the
+   top of the document. These wrappers are not tab stops, so a ring painted for a
+   pointer-driven jump has no one to inform and just startles sighted users.
+   :focus-visible still matches when the jump came from the keyboard, which is
+   the only case where the ring carries information. */
+[id][tabindex="-1"]:focus:not(:focus-visible) {
+  outline: none;
+}
+
 
 /* STYLING OVERRIDES FOR D3 CHARTS */
 .yAxisGroup {
