@@ -46,6 +46,7 @@ export default function ContrastInsightSection({
 
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [unavailable, setUnavailable] = useState(false)
   const [serverCacheKey, setServerCacheKey] = useState<string | null>(null)
 
   const card1Key = `${hashId}-${dataTypeConfig1.dataTypeId}-${fips1.code}-${demographicType}`
@@ -82,6 +83,8 @@ export default function ContrastInsightSection({
       setServerCacheKey(result.cacheKey ?? null)
       if (result.rateLimited) {
         setError('Too many requests. Please wait a moment and try again.')
+      } else if (result.unavailable) {
+        setUnavailable(true)
       } else if (result.error) {
         setError('Unable to generate comparison insights. Please try again.')
       } else {
@@ -125,16 +128,25 @@ export default function ContrastInsightSection({
 
   useEffect(() => {
     setError(null)
+    setUnavailable(false)
   }, [contrastCacheKey])
 
   useEffect(() => {
-    if (!isOpen || contrastInsight || error || isGenerating || !bothDataLoaded)
+    if (
+      !isOpen ||
+      contrastInsight ||
+      error ||
+      unavailable ||
+      isGenerating ||
+      !bothDataLoaded
+    )
       return
     void handleGenerate()
   }, [
     isOpen,
     contrastInsight,
     error,
+    unavailable,
     isGenerating,
     bothDataLoaded,
     handleGenerate,
@@ -145,7 +157,9 @@ export default function ContrastInsightSection({
     articleRef.current?.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
   }, [isOpen])
 
-  if (!SHOW_INSIGHT_GENERATION || !isOpen) return null
+  // When generation is unavailable the section renders nothing at all, rather
+  // than an empty container or an error the reader can do nothing about.
+  if (!SHOW_INSIGHT_GENERATION || !isOpen || unavailable) return null
 
   return (
     <div
