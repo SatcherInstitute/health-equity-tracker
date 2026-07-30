@@ -47,21 +47,26 @@ func geminiModel() string {
 	return geminiModelDefault
 }
 
-// Health equity reporting necessarily describes race, incarceration, and disease
-// outcomes. Gemini's default thresholds filter that as harassment or hate speech,
-// so the categories that overlap our subject matter are relaxed to high-only.
+// Health equity reporting necessarily describes disease and incarceration
+// outcomes tied to demographic data, which can trip Gemini's default
+// thresholds for content unrelated to race or protected groups. Those two
+// categories are relaxed to high-only. HARASSMENT and HATE_SPEECH are left at
+// Gemini's own default (medium-and-above): an insight blocked as hateful or
+// stereotyped is never shown to a reader (a blocked generation renders no
+// insight section rather than an error), so a missed insight is always the
+// safer outcome than a permissive threshold on these two categories.
 func geminiSafetySettings() []map[string]string {
-	categories := []string{
-		"HARM_CATEGORY_HARASSMENT",
-		"HARM_CATEGORY_HATE_SPEECH",
-		"HARM_CATEGORY_SEXUALLY_EXPLICIT",
-		"HARM_CATEGORY_DANGEROUS_CONTENT",
+	thresholds := map[string]string{
+		"HARM_CATEGORY_HARASSMENT":        "BLOCK_MEDIUM_AND_ABOVE",
+		"HARM_CATEGORY_HATE_SPEECH":       "BLOCK_MEDIUM_AND_ABOVE",
+		"HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_ONLY_HIGH",
+		"HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_ONLY_HIGH",
 	}
-	settings := make([]map[string]string, 0, len(categories))
-	for _, c := range categories {
+	settings := make([]map[string]string, 0, len(thresholds))
+	for category, threshold := range thresholds {
 		settings = append(settings, map[string]string{
-			"category":  c,
-			"threshold": "BLOCK_ONLY_HIGH",
+			"category":  category,
+			"threshold": threshold,
 		})
 	}
 	return settings
