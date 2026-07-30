@@ -18,11 +18,11 @@ import (
 )
 
 const (
-	// Sized for the largest realistic single query today: a full county-level
-	// map crossed with every demographic group (e.g. all 254 Texas counties x 9
-	// race/ethnicity groups runs ~130-180KB). A follow-up that thins map and
-	// time-series prompts client-side will let this come back down.
-	insightPromptMaxBytes = 200 * 1024
+	// Client-side group-filtering and time-series thinning keep even the
+	// largest map or compare-mode prompt well under this; measured
+	// compare-mode contrast prompts (two data sections in one request) run
+	// ~11-17KB.
+	insightPromptMaxBytes = 30 * 1024
 	killSwitchObject      = "insights-generation-disabled"
 	killSwitchTTL         = 60 * time.Second
 	ledgerCASAttempts     = 5

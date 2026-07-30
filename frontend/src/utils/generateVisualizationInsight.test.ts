@@ -59,6 +59,74 @@ describe('formatDataRows', () => {
     )
   })
 
+  test('a multi-place map defaults to the active demographic group plus each place\'s "All" baseline', () => {
+    const rows: HetRow[] = [
+      { fips_name: 'Alabama', race_and_ethnicity: 'All', rate: 9 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'Black (NH)', rate: 12 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'White (NH)', rate: 6 },
+      { fips_name: 'Alaska', race_and_ethnicity: 'All', rate: 5 },
+      { fips_name: 'Alaska', race_and_ethnicity: 'Black (NH)', rate: 7 },
+      { fips_name: 'Alaska', race_and_ethnicity: 'White (NH)', rate: 4 },
+    ]
+    const result = formatDataRows(
+      rows,
+      'rate-map',
+      DEMO,
+      metricConfig,
+      undefined,
+      'Black (NH)',
+    )
+    expect(result).toEqual(
+      '- Alabama (All): 9 per 100k\n' +
+        '- Alabama (Black (NH)): 12 per 100k\n' +
+        '- Alaska (All): 5 per 100k\n' +
+        '- Alaska (Black (NH)): 7 per 100k',
+    )
+  })
+
+  test('an active group of "All" on a multi-place map sends every group', () => {
+    const rows: HetRow[] = [
+      { fips_name: 'Alabama', race_and_ethnicity: 'All', rate: 9 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'Black (NH)', rate: 12 },
+      { fips_name: 'Alaska', race_and_ethnicity: 'All', rate: 5 },
+    ]
+    const result = formatDataRows(
+      rows,
+      'rate-map',
+      DEMO,
+      metricConfig,
+      undefined,
+      'All',
+    )
+    expect(result.split('\n')).toHaveLength(3)
+  })
+
+  test('a single-place map falls back to every group in that place, ignoring the active group filter', () => {
+    const rows: HetRow[] = [
+      { fips_name: 'Gwinnett County', race_and_ethnicity: 'All', rate: 7.3 },
+      {
+        fips_name: 'Gwinnett County',
+        race_and_ethnicity: 'Black (NH)',
+        rate: 8.7,
+      },
+      {
+        fips_name: 'Gwinnett County',
+        race_and_ethnicity: 'White (NH)',
+        rate: 6.6,
+      },
+    ]
+    const result = formatDataRows(
+      rows,
+      'rate-map',
+      DEMO,
+      metricConfig,
+      undefined,
+      'Black (NH)',
+    )
+    expect(result.split('\n')).toHaveLength(3)
+    expect(result).toContain('- Gwinnett County (All): 7.3 per 100k')
+  })
+
   test('non-map charts label rows by demographic group alone', () => {
     const rows: HetRow[] = [
       { race_and_ethnicity: 'Black (NH)', rate: 9 },
@@ -92,6 +160,32 @@ describe('formatDataRows', () => {
     ]
     expect(formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)).toEqual(
       '- Black (NH) (2010): 5 per 100k\n- White (NH) (2010): 3 per 100k',
+    )
+  })
+
+  test('a short time series is sent in full, not just first/last', () => {
+    const rows: HetRow[] = Array.from({ length: 10 }, (_, i) => ({
+      race_and_ethnicity: 'Black (NH)',
+      time_period: `${2010 + i}`,
+      rate: i,
+    }))
+    const result = formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)
+    expect(result.split('\n')).toHaveLength(10)
+  })
+
+  test('a time series too large for the prompt budget is thinned but keeps the true first and last point', () => {
+    const rows: HetRow[] = Array.from({ length: 400 }, (_, i) => ({
+      race_and_ethnicity: 'Black (NH)',
+      time_period: `${1917 + i}`,
+      rate: i,
+    }))
+    const result = formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)
+    const lines = result.split('\n')
+    expect(lines.length).toBeLessThan(400)
+    expect(lines[0]).toEqual('- Black (NH) (1917): 0 per 100k')
+    expect(lines[lines.length - 1]).toEqual('- Black (NH) (2316): 399 per 100k')
+    expect(new TextEncoder().encode(result).length).toBeLessThanOrEqual(
+      12 * 1024,
     )
   })
 })
