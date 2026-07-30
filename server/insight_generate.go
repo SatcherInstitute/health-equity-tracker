@@ -195,7 +195,12 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 	finalPrompt := buildNegativeExamplesBlock(ctx, flaggedBucket, topic) + prompt
 
 	result, err := generateInsight(ctx, apiKey, insightSystemPrompt, finalPrompt)
-	recordTokenUsage(ctx, cacheBucket, result.promptTokens, result.outputTokens)
+	// Detached from the request context: a slow generation can leave ctx at or
+	// past its deadline, and ledger bookkeeping must not be starved by the same
+	// budget the generation call just used up.
+	usageCtx, usageCancel := context.WithTimeout(context.Background(), 10*time.Second)
+	recordTokenUsage(usageCtx, cacheBucket, result.promptTokens, result.outputTokens)
+	usageCancel()
 
 	switch {
 	case errors.Is(err, errInsightQuota):

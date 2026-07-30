@@ -179,7 +179,10 @@ func recordTokenUsage(ctx context.Context, bucket string, promptTokens, outputTo
 var (
 	killSwitchMu      sync.Mutex
 	killSwitchChecked time.Time
-	killSwitchOn      bool
+	// Fail closed: assume disabled until a check actually succeeds, so a
+	// persistent read error before the first successful check can't default to
+	// generation being allowed.
+	killSwitchOn = true
 )
 
 // generationDisabled reports the operator off switch, memoized so the common
@@ -245,9 +248,12 @@ func allowClient(ip string) bool {
 }
 
 func clientIP(r *http.Request) string {
+	// Cloud Run's load balancer appends the true client IP as the last hop;
+	// every earlier entry is client-supplied and trivially spoofed, so the
+	// rightmost entry is the only one safe to key a rate limiter on.
 	if fwd := r.Header.Get("X-Forwarded-For"); fwd != "" {
-		if i := strings.IndexByte(fwd, ','); i >= 0 {
-			return strings.TrimSpace(fwd[:i])
+		if i := strings.LastIndexByte(fwd, ','); i >= 0 {
+			return strings.TrimSpace(fwd[i+1:])
 		}
 		return strings.TrimSpace(fwd)
 	}

@@ -172,7 +172,9 @@ export function formatDataRows(
     activeDemographicGroup !== ALL &&
     distinctPlaces >= 2
       ? filteredRows.filter(
-          (row) => String(row[demographicType]) === activeDemographicGroup,
+          (row) =>
+            String(row[demographicType]) === activeDemographicGroup ||
+            String(row[demographicType]) === ALL,
         )
       : filteredRows
 

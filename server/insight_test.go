@@ -380,7 +380,7 @@ func TestClientIP(t *testing.T) {
 		remoteAddr string
 		want       string
 	}{
-		{"forwarded chain", "198.51.100.4, 10.0.0.1", "10.0.0.9:1234", "198.51.100.4"},
+		{"forwarded chain uses the trusted last hop, not the spoofable client-supplied first hop", "198.51.100.4, 10.0.0.1", "10.0.0.9:1234", "10.0.0.1"},
 		{"single forwarded", "198.51.100.5", "10.0.0.9:1234", "198.51.100.5"},
 		{"no forwarded header", "", "10.0.0.9:1234", "10.0.0.9"},
 		{"unparseable remote addr", "", "10.0.0.9", "10.0.0.9"},

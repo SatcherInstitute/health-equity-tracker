@@ -59,12 +59,14 @@ describe('formatDataRows', () => {
     )
   })
 
-  test('a multi-place map defaults to only the active demographic group', () => {
+  test('a multi-place map defaults to the active demographic group plus each place\'s "All" baseline', () => {
     const rows: HetRow[] = [
       { fips_name: 'Alabama', race_and_ethnicity: 'All', rate: 9 },
       { fips_name: 'Alabama', race_and_ethnicity: 'Black (NH)', rate: 12 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'White (NH)', rate: 6 },
       { fips_name: 'Alaska', race_and_ethnicity: 'All', rate: 5 },
       { fips_name: 'Alaska', race_and_ethnicity: 'Black (NH)', rate: 7 },
+      { fips_name: 'Alaska', race_and_ethnicity: 'White (NH)', rate: 4 },
     ]
     const result = formatDataRows(
       rows,
@@ -75,7 +77,10 @@ describe('formatDataRows', () => {
       'Black (NH)',
     )
     expect(result).toEqual(
-      '- Alabama (Black (NH)): 12 per 100k\n- Alaska (Black (NH)): 7 per 100k',
+      '- Alabama (All): 9 per 100k\n' +
+        '- Alabama (Black (NH)): 12 per 100k\n' +
+        '- Alaska (All): 5 per 100k\n' +
+        '- Alaska (Black (NH)): 7 per 100k',
     )
   })
 
