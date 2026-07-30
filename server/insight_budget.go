@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	insightPromptMaxBytes = 10 * 1024
+	insightPromptMaxBytes = 30 * 1024
 	killSwitchObject      = "insights-generation-disabled"
 	killSwitchTTL         = 60 * time.Second
 	ledgerCASAttempts     = 5

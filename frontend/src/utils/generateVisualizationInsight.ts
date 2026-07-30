@@ -28,10 +28,16 @@ const MAP_CHART_IDS: ScrollableHashId[] = [
   'unknown-demographic-map',
   'multimap-modal',
 ]
+
 const TIME_SERIES_CHART_IDS: ScrollableHashId[] = [
   'rates-over-time',
   'inequities-over-time',
 ]
+
+// Per-side data-section budget for time series. Compare mode sends two of
+// these in one prompt, so this is set well under half the server's prompt
+// cap (server/insight_budget.go) to leave room for scaffold text on both sides.
+const TIME_SERIES_TARGET_BYTES = 12 * 1024
 
 // Select the most relevant metric config for the given chart type
 export function getPrimaryMetricConfig(
@@ -56,6 +62,13 @@ export function formatDataRows(
   // groups, restrict the rows to those groups so the insight describes only
   // what is on screen. Empty/undefined means "all groups".
   selectedGroups?: DemographicGroup[],
+  // The demographic group currently highlighted on a map. When the map is
+  // showing multiple places (a real geographic comparison), default to only
+  // this group's rows across places, since that's what's on screen and it
+  // keeps the prompt small. When only one place is in view, there's no
+  // geographic comparison to make, so send every group for that one place
+  // instead (the ALL-groups-within-place fallback).
+  activeDemographicGroup?: DemographicGroup,
 ): string {
   const isMap = MAP_CHART_IDS.includes(hashId)
   const isTimeSeries = TIME_SERIES_CHART_IDS.includes(hashId)
@@ -65,35 +78,67 @@ export function formatDataRows(
       : null
 
   if (isTimeSeries) {
-    // Group by demographic subgroup, then show the first and most recent year per group
-    // so the model can describe the full trend arc (e.g. "fell from X in 2008 to Y in 2021")
+    // Group by demographic subgroup and sort each group's points chronologically.
     const byGroup: Record<string, HetRow[]> = {}
     for (const row of rows) {
       const group = String(row[demographicType] ?? 'Unknown')
       if (groupFilter && !groupFilter.has(group)) continue
+      if (row[metricConfig.metricId] == null) continue
       if (!byGroup[group]) byGroup[group] = []
       byGroup[group].push(row)
     }
-    return Object.entries(byGroup)
-      .flatMap(([group, groupRows]) => {
-        const sorted = [...groupRows]
-          .sort((a, b) =>
+    const sortedByGroup = Object.entries(byGroup).map(
+      ([group, groupRows]) =>
+        [
+          group,
+          [...groupRows].sort((a, b) =>
             String(a.time_period ?? '').localeCompare(
               String(b.time_period ?? ''),
             ),
-          )
-          .filter((row) => row[metricConfig.metricId] != null)
-        if (sorted.length === 0) return []
-        const points =
-          sorted.length === 1
-            ? [sorted[0]]
-            : [sorted[0], sorted[sorted.length - 1]]
-        return points.map(
-          (row) =>
-            `- ${group} (${row.time_period}): ${row[metricConfig.metricId]} ${metricConfig.shortLabel}`,
+          ),
+        ] as const,
+    )
+
+    const formatPoint = (group: string, row: HetRow) =>
+      `- ${group} (${row.time_period}): ${row[metricConfig.metricId]} ${metricConfig.shortLabel}`
+
+    // Every Nth point per group, by index so it works for both annual and
+    // monthly cadences, always keeping the group's true first and last point
+    // so the overall trend arc is never lost even when thinned.
+    const thinToStep = (sorted: HetRow[], step: number) => {
+      if (step <= 1 || sorted.length <= 2) return sorted
+      const thinned = sorted.filter((_, i) => i % step === 0)
+      if (thinned[thinned.length - 1] !== sorted[sorted.length - 1]) {
+        thinned.push(sorted[sorted.length - 1])
+      }
+      return thinned
+    }
+
+    const render = (step: number) =>
+      sortedByGroup
+        .flatMap(([group, sorted]) =>
+          thinToStep(sorted, step).map((row) => formatPoint(group, row)),
         )
-      })
-      .join('\n')
+        .join('\n')
+
+    // Send the full per-year (or per-month) series when it's small enough for
+    // the model to work with the whole trend, since that's a materially
+    // better answer than two endpoints. Only thin when the full series would
+    // blow past a reasonable prompt budget, stepping up until it fits.
+    const full = render(1)
+    if (new TextEncoder().encode(full).length <= TIME_SERIES_TARGET_BYTES) {
+      return full
+    }
+    let step = 2
+    let thinned = render(step)
+    while (
+      new TextEncoder().encode(thinned).length > TIME_SERIES_TARGET_BYTES &&
+      step < 100
+    ) {
+      step++
+      thinned = render(step)
+    }
+    return thinned
   }
 
   // For population-vs-distribution, include both the outcome share and
@@ -103,17 +148,35 @@ export function formatDataRows(
       ? metricConfig.populationComparisonMetric
       : null
 
-  return rows
-    .filter((row) => {
-      // Maps always have a place name; other charts key off the demographic group.
-      const hasLabel = isMap
-        ? row.fips_name != null
-        : row[demographicType] != null
-      if (!hasLabel || row[metricConfig.metricId] == null) return false
-      if (groupFilter && !groupFilter.has(String(row[demographicType])))
-        return false
-      return true
-    })
+  const filteredRows = rows.filter((row) => {
+    // Maps always have a place name; other charts key off the demographic group.
+    const hasLabel = isMap
+      ? row.fips_name != null
+      : row[demographicType] != null
+    if (!hasLabel || row[metricConfig.metricId] == null) return false
+    if (groupFilter && !groupFilter.has(String(row[demographicType])))
+      return false
+    return true
+  })
+
+  // A map showing 2+ places is a real geographic comparison, so default to
+  // the group on screen. A map showing fewer than 2 places (a single county
+  // or state, with no children to compare) has nothing geographic to gain
+  // from filtering, so fall back to every group within that one place.
+  const distinctPlaces = isMap
+    ? new Set(filteredRows.map((row) => row.fips_name)).size
+    : 0
+  const activeRows =
+    isMap &&
+    activeDemographicGroup &&
+    activeDemographicGroup !== ALL &&
+    distinctPlaces >= 2
+      ? filteredRows.filter(
+          (row) => String(row[demographicType]) === activeDemographicGroup,
+        )
+      : filteredRows
+
+  return activeRows
     .map((row) => {
       // On a map, label each row with BOTH its place and demographic group so
       // the model can read either a geographic gap (across places) or a
@@ -340,7 +403,8 @@ export interface InsightPeerConfig {
 // Optional context about which groups the user has focused the chart on.
 export interface InsightContext {
   // The demographic group currently highlighted on a map (e.g. the active
-  // choropleth group). Used only to steer the prompt, not to filter rows.
+  // choropleth group). Steers the prompt wording, and on a multi-place map
+  // also filters the data to that group (see formatDataRows).
   activeDemographicGroup?: DemographicGroup
   // The subset of groups the user has selected (e.g. via the trend legend).
   // Filters the rows the model sees so the insight matches what is on screen.
@@ -379,6 +443,7 @@ export function prepareInsightData(
   demographicType: DemographicType,
   queryResponses?: MetricQueryResponse[],
   selectedGroups?: DemographicGroup[],
+  activeDemographicGroup?: DemographicGroup,
 ): InsightData {
   let dataSection = ''
   if (queryResponses?.[0]) {
@@ -391,6 +456,7 @@ export function prepareInsightData(
         demographicType,
         metricConfig,
         selectedGroups,
+        activeDemographicGroup,
       )
     }
   }
@@ -420,6 +486,7 @@ export function getInsightDataStatus(
   // region-self query). Gates the peer fallback so a lone subgroup row — with no
   // overall rate — stays hidden rather than being ranked as the region's overall.
   regionHasAllRate = false,
+  activeDemographicGroup?: DemographicGroup,
 ): InsightDataStatus {
   const { entryCount } = prepareInsightData(
     hashId,
@@ -427,6 +494,7 @@ export function getInsightDataStatus(
     demographicType,
     queryResponses,
     selectedGroups,
+    activeDemographicGroup,
   )
   if (entryCount >= 2) return 'multi'
   if (MAP_CHART_IDS.includes(hashId) && regionHasAllRate) return 'single-region'
@@ -452,6 +520,7 @@ export async function generateCardInsight(
     demographicType,
     queryResponses,
     context?.selectedGroups,
+    context?.activeDemographicGroup,
   )
 
   // Single-region map: rank the region against its same-level peers instead of
