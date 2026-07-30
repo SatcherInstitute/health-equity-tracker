@@ -321,6 +321,7 @@ func insightOriginOnly(next http.Handler) http.Handler {
 func insightRateLimit(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !allowClient(clientIP(r)) {
+			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(http.StatusTooManyRequests)
 			writeJSON(w, map[string]string{"error": "Rate limit reached"})
 			return
