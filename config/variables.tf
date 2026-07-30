@@ -184,7 +184,7 @@ variable "flagged_insights_bucket" {
 variable "gemini_model" {
   description = "Gemini model used for AI insight generation"
   type        = string
-  default     = "gemini-2.5-flash-lite"
+  default     = "gemini-3.1-flash-lite"
 }
 
 variable "insight_max_generations_per_day" {

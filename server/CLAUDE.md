@@ -32,7 +32,7 @@ go test ./...
 | `FLAGGED_INSIGHTS_BUCKET` | No | - | GCS bucket for flagged insight records |
 | `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) |
 | `GEMINI_API_KEY` | No | - | Required for `/fetch-ai-insight`. Unset disables generation; cached insights still serve |
-| `GEMINI_MODEL` | No | `gemini-2.5-flash-lite` | Gemini model used for insight generation |
+| `GEMINI_MODEL` | No | `gemini-3.1-flash-lite` | Gemini model used for insight generation |
 | `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `400` | Daily generation ceiling, tracked in the usage ledger |
 | `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `8000` | Monthly generation ceiling, tracked in the usage ledger |
 | `INSIGHT_ALLOWED_ORIGINS` | No | prod, www, dev, `localhost:3000`, `*.netlify.app` | Comma-separated origins permitted to request generation |
