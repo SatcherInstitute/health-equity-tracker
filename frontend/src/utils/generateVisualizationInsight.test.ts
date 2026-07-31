@@ -59,6 +59,74 @@ describe('formatDataRows', () => {
     )
   })
 
+  test('a multi-place map defaults to the active demographic group plus each place\'s "All" baseline', () => {
+    const rows: HetRow[] = [
+      { fips_name: 'Alabama', race_and_ethnicity: 'All', rate: 9 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'Black (NH)', rate: 12 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'White (NH)', rate: 6 },
+      { fips_name: 'Alaska', race_and_ethnicity: 'All', rate: 5 },
+      { fips_name: 'Alaska', race_and_ethnicity: 'Black (NH)', rate: 7 },
+      { fips_name: 'Alaska', race_and_ethnicity: 'White (NH)', rate: 4 },
+    ]
+    const result = formatDataRows(
+      rows,
+      'rate-map',
+      DEMO,
+      metricConfig,
+      undefined,
+      'Black (NH)',
+    )
+    expect(result).toEqual(
+      '- Alabama (All): 9 per 100k\n' +
+        '- Alabama (Black (NH)): 12 per 100k\n' +
+        '- Alaska (All): 5 per 100k\n' +
+        '- Alaska (Black (NH)): 7 per 100k',
+    )
+  })
+
+  test('an active group of "All" on a multi-place map sends every group', () => {
+    const rows: HetRow[] = [
+      { fips_name: 'Alabama', race_and_ethnicity: 'All', rate: 9 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'Black (NH)', rate: 12 },
+      { fips_name: 'Alaska', race_and_ethnicity: 'All', rate: 5 },
+    ]
+    const result = formatDataRows(
+      rows,
+      'rate-map',
+      DEMO,
+      metricConfig,
+      undefined,
+      'All',
+    )
+    expect(result.split('\n')).toHaveLength(3)
+  })
+
+  test('a single-place map falls back to every group in that place, ignoring the active group filter', () => {
+    const rows: HetRow[] = [
+      { fips_name: 'Gwinnett County', race_and_ethnicity: 'All', rate: 7.3 },
+      {
+        fips_name: 'Gwinnett County',
+        race_and_ethnicity: 'Black (NH)',
+        rate: 8.7,
+      },
+      {
+        fips_name: 'Gwinnett County',
+        race_and_ethnicity: 'White (NH)',
+        rate: 6.6,
+      },
+    ]
+    const result = formatDataRows(
+      rows,
+      'rate-map',
+      DEMO,
+      metricConfig,
+      undefined,
+      'Black (NH)',
+    )
+    expect(result.split('\n')).toHaveLength(3)
+    expect(result).toContain('- Gwinnett County (All): 7.3 per 100k')
+  })
+
   test('non-map charts label rows by demographic group alone', () => {
     const rows: HetRow[] = [
       { race_and_ethnicity: 'Black (NH)', rate: 9 },
@@ -93,6 +161,96 @@ describe('formatDataRows', () => {
     expect(formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)).toEqual(
       '- Black (NH) (2010): 5 per 100k\n- White (NH) (2010): 3 per 100k',
     )
+  })
+
+  test('a short time series is sent in full, not just first/last', () => {
+    const rows: HetRow[] = Array.from({ length: 10 }, (_, i) => ({
+      race_and_ethnicity: 'Black (NH)',
+      time_period: `${2010 + i}`,
+      rate: i,
+    }))
+    const result = formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)
+    expect(result.split('\n')).toHaveLength(10)
+  })
+
+  test('a time series too large for the prompt budget keeps the recent tail plus the earliest point', () => {
+    const rows: HetRow[] = Array.from({ length: 1000 }, (_, i) => ({
+      race_and_ethnicity: 'Black (NH)',
+      time_period: `${1017 + i}`,
+      rate: i,
+    }))
+    const result = formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)
+    const lines = result.split('\n')
+    expect(lines.length).toBeLessThan(1000)
+    expect(lines[0]).toEqual('- Black (NH) (1017): 0 per 100k')
+    expect(lines[lines.length - 1]).toEqual('- Black (NH) (2016): 999 per 100k')
+    // Everything after the anchor is an unbroken run of the most recent years.
+    const tail = lines.slice(1)
+    const tailYears = tail.map((line) => Number(line.match(/\((\d+)\)/)?.[1]))
+    expect(tailYears).toEqual(
+      tailYears.map((_, i) => 2016 - (tail.length - 1) + i),
+    )
+    expect(new TextEncoder().encode(result).length).toBeLessThanOrEqual(
+      12 * 1024,
+    )
+  })
+
+  test('more groups than fit the budget yields whole lines only, never a truncated one', () => {
+    const rows: HetRow[] = Array.from({ length: 800 }, (_, i) => ({
+      race_and_ethnicity: `Group ${i}`,
+      time_period: '2020',
+      rate: i,
+    }))
+    const result = formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)
+    const lines = result.split('\n')
+    expect(lines.length).toBeLessThan(800)
+    for (const line of lines) {
+      expect(line).toMatch(/^- Group \d+ \(2020\): \d+ per 100k$/)
+    }
+    expect(new TextEncoder().encode(result).length).toBeLessThanOrEqual(
+      12 * 1024,
+    )
+  })
+
+  test('a multi-place map keeps the "All women" baseline for women-only topics', () => {
+    const rows: HetRow[] = [
+      { fips_name: 'Georgia', race_and_ethnicity: 'All women', rate: 5 },
+      { fips_name: 'Georgia', race_and_ethnicity: 'Black women', rate: 9 },
+      { fips_name: 'Georgia', race_and_ethnicity: 'White women', rate: 4 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'All women', rate: 6 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'Black women', rate: 11 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'White women', rate: 3 },
+    ]
+    const result = formatDataRows(
+      rows,
+      'rate-map',
+      DEMO,
+      metricConfig,
+      undefined,
+      'Black women',
+    )
+    expect(result.split('\n')).toHaveLength(4)
+    expect(result).toContain('- Georgia (All women): 5 per 100k')
+    expect(result).toContain('- Alabama (All women): 6 per 100k')
+    expect(result).not.toContain('White women')
+  })
+
+  test('an "All women" active group skips filtering, like "All" does', () => {
+    const rows: HetRow[] = [
+      { fips_name: 'Georgia', race_and_ethnicity: 'All women', rate: 5 },
+      { fips_name: 'Georgia', race_and_ethnicity: 'Black women', rate: 9 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'All women', rate: 6 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'Black women', rate: 11 },
+    ]
+    const result = formatDataRows(
+      rows,
+      'rate-map',
+      DEMO,
+      metricConfig,
+      undefined,
+      'All women',
+    )
+    expect(result.split('\n')).toHaveLength(4)
   })
 })
 

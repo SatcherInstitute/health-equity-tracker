@@ -67,8 +67,9 @@ function CardWrapper(props: {
   fips?: Fips
   dataTypeConfig?: DataTypeConfig
   demographicType?: DemographicType
-  // The demographic group currently highlighted on a map. Steers the insight
-  // prompt so it leads with that group's story.
+  // The demographic group currently highlighted on a map. On a multi-place
+  // map this both filters the insight data to that group and steers the
+  // prompt to lead with it; on a single-place map it's used for wording only.
   activeDemographicGroup?: DemographicGroup
   // The subset of groups the user has focused a trend chart on (via the legend).
   // Filters the insight data so it describes only the visible lines.
@@ -156,6 +157,7 @@ function CardWrapper(props: {
                 queryResponses,
                 insightProps.selectedGroups,
                 Boolean(regionRate),
+                insightProps.activeDemographicGroup,
               )
             : 'empty'
         const showInsight =

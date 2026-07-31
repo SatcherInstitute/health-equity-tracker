@@ -18,11 +18,11 @@ import (
 )
 
 const (
-	// Sized for the largest realistic single query today: a full county-level
-	// map crossed with every demographic group (e.g. all 254 Texas counties x 9
-	// race/ethnicity groups runs ~130-180KB). A follow-up that thins map and
-	// time-series prompts client-side will let this come back down.
-	insightPromptMaxBytes = 200 * 1024
+	// Client-side group-filtering and time-series thinning keep even the
+	// largest map or compare-mode prompt well under this; measured
+	// compare-mode contrast prompts (two data sections in one request) run
+	// ~11-17KB.
+	insightPromptMaxBytes = 30 * 1024
 	killSwitchObject      = "insights-generation-disabled"
 	killSwitchTTL         = 60 * time.Second
 	ledgerCASAttempts     = 5
@@ -252,9 +252,13 @@ func allowClient(ip string) bool {
 }
 
 func clientIP(r *http.Request) string {
-	// Cloud Run's load balancer appends the true client IP as the last hop;
-	// every earlier entry is client-supplied and trivially spoofed, so the
-	// rightmost entry is the only one safe to key a rate limiter on.
+	// This service is reached directly by Cloud Run via a domain mapping, with
+	// no external load balancer in front, so Google's frontend appends the true
+	// client IP as the final X-Forwarded-For entry. Every earlier entry is
+	// caller-supplied, so the rightmost is the only one safe to key a rate
+	// limiter on. If an external HTTPS load balancer is ever placed in front,
+	// it appends its own IP last and the trusted entry becomes the
+	// second-to-last; this must change with it.
 	if fwd := r.Header.Get("X-Forwarded-For"); fwd != "" {
 		if i := strings.LastIndexByte(fwd, ','); i >= 0 {
 			return strings.TrimSpace(fwd[i+1:])
