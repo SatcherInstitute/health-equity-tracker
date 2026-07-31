@@ -26,6 +26,7 @@ interface RateMapLegendProps {
   mapConfig: MapConfig
   isPhrmaAdherence: boolean
   isSummaryLegend?: boolean
+  isExtremesMode?: boolean
   fips: Fips
   isMulti?: boolean
   legendTitle: string
@@ -43,6 +44,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     fipsTypeDisplayName,
     isPhrmaAdherence,
     isSummaryLegend,
+    isExtremesMode,
     colorScale,
   } = props
 
@@ -67,6 +69,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     fipsTypeDisplayName,
     isPhrmaAdherence,
     isSummaryLegend,
+    isExtremesMode,
     colorScale,
   ])
 
