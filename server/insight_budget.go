@@ -252,16 +252,18 @@ func allowClient(ip string) bool {
 }
 
 func clientIP(r *http.Request) string {
-	// Cloud Run's load balancer appends its own IP as the rightmost entry.
-	// The second-to-last entry is the last hop before the load balancer,
-	// which is the first non-spoofable entry we can trust. If there is only
-	// one entry, use it (no load balancer appended yet, e.g. local dev).
+	// This service is reached directly by Cloud Run via a domain mapping, with
+	// no external load balancer in front, so Google's frontend appends the true
+	// client IP as the final X-Forwarded-For entry. Every earlier entry is
+	// caller-supplied, so the rightmost is the only one safe to key a rate
+	// limiter on. If an external HTTPS load balancer is ever placed in front,
+	// it appends its own IP last and the trusted entry becomes the
+	// second-to-last; this must change with it.
 	if fwd := r.Header.Get("X-Forwarded-For"); fwd != "" {
-		entries := strings.Split(fwd, ",")
-		if len(entries) > 1 {
-			return strings.TrimSpace(entries[len(entries)-2])
+		if i := strings.LastIndexByte(fwd, ','); i >= 0 {
+			return strings.TrimSpace(fwd[i+1:])
 		}
-		return strings.TrimSpace(entries[0])
+		return strings.TrimSpace(fwd)
 	}
 	host, _, err := net.SplitHostPort(r.RemoteAddr)
 	if err != nil {
