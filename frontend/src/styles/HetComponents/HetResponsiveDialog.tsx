@@ -53,7 +53,9 @@ export default function HetResponsiveDialog({
           paper: {
             style: {
               borderRadius: '16px 16px 0 0',
-              maxHeight: '90vh',
+              // dvh, not vh: in-app browser sheets (Slack, Claude iOS) report a vh
+              // larger than the visible area, which clips the header and its close button.
+              maxHeight: '90dvh',
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
@@ -81,8 +83,8 @@ export default function HetResponsiveDialog({
         paper: {
           style:
             dialogHeight === 'full'
-              ? { height: '95vh' }
-              : { maxHeight: '90vh' },
+              ? { height: '95dvh' }
+              : { maxHeight: '90dvh' },
         },
       }}
     >
