@@ -16,13 +16,7 @@ import { groupIsAll } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
 import { fetchAIInsight, type InsightResult } from './fetchAIInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
-import { REPORT_INSIGHT_PARAM_KEY } from './urlutils'
-
-// Bump when the prompt wording changes materially, so already-cached insights
-// (keyed by view, not by prompt text) are invalidated instead of served stale.
-// v2: parent/national reference rates → same-level peer ranking + no-preamble rule.
-// v3: fixed a lazy-fetch race that cached peer insights generated before peers loaded.
-export const INSIGHT_CACHE_VERSION = 'v3'
+import { buildInsightCacheKey } from './insightCacheKey'
 
 const MAP_CHART_IDS: ScrollableHashId[] = [
   'rate-map',
@@ -442,10 +436,10 @@ export interface InsightContext {
 
 // A stable suffix that changes when the user focuses the chart on a different
 // group (highlighted map group / selected trend-legend lines). Those are local
-// React state, not URL params, so without this the cache key would not change
-// and a re-focused chart would serve the stale insight from the prior focus.
-// Both the client-side insight cache and the server cache key derive from this
-// single source so they can never disagree about what "the same view" means.
+// React state, not URL params, so without this the client-side memo key would
+// not change and a re-focused chart would show the insight from the prior focus.
+// Only that in-session memo key needs this; the server key hashes the prompt,
+// which already reflects the focused rows.
 export function buildInsightFocusSuffix(context?: InsightContext): string {
   return [
     context?.activeDemographicGroup && context.activeDemographicGroup !== ALL
@@ -577,14 +571,11 @@ export async function generateCardInsight(
       Boolean(peerSummary),
     ) + outputRule
 
-  const params = new URLSearchParams(window.location.search)
-  params.delete(REPORT_INSIGHT_PARAM_KEY)
   const cardSuffix = isCompareCard ? '-2' : ''
-  // Focus (highlighted map group / selected trend lines) lives in React state,
-  // not the URL, so it must be folded into the key or the server returns the
-  // insight cached for the previous focus even though the prompt has changed.
-  const focusSuffix = buildInsightFocusSuffix(context)
-  const cacheKey = `${window.location.pathname}?${params.toString()}#${hashId}${cardSuffix}${focusSuffix ? `-${focusSuffix}` : ''}-${INSIGHT_CACHE_VERSION}`
+  // Focus (highlighted map group / selected trend lines) needs no suffix here:
+  // it changes which rows formatDataRows emits, so the prompt hash already
+  // separates one focus from another.
+  const cacheKey = buildInsightCacheKey(`#${hashId}${cardSuffix}`, prompt)
 
   const result = await fetchAIInsight(prompt, {
     cacheKey,
