@@ -138,20 +138,19 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   return (
     <div className='md:sticky' style={{ top: props.headerScrollMargin ?? 0 }}>
       <div
-        className={`flex flex-col gap-3 bg-alt-white p-4 text-left ${props.isFlat ? '' : 'rounded-sm shadow-raised md:m-card-gutter'}`}
+        className={`flex flex-col gap-3 bg-alt-white text-left ${props.isFlat ? '' : 'rounded-sm p-4 shadow-raised md:m-card-gutter'}`}
       >
-        {/* Header */}
+        {/* Header. isFlat means a parent dialog already supplies the frame and
+            its own close button, so rendering ours would stack two. */}
         <div className='flex items-center justify-between gap-2'>
-          <span className='flex items-center gap-2 font-semibold text-alt-dark'>
-            <AutoAwesome fontSize='small' className='text-alt-green' />
-            AI Report Summary
-          </span>
-          {/* Close button */}
-          <Tooltip title='Close' disableTouchListener>
-            <IconButton onClick={handleClose} aria-label='close report'>
-              <CloseIcon fontSize='small' />
-            </IconButton>
-          </Tooltip>
+          <span className='font-semibold text-alt-dark'>Report Insights</span>
+          {!props.isFlat && (
+            <Tooltip title='Close' disableTouchListener>
+              <IconButton onClick={handleClose} aria-label='close report'>
+                <CloseIcon fontSize='small' />
+              </IconButton>
+            </Tooltip>
+          )}
         </div>
 
         <Divider />
@@ -195,7 +194,9 @@ export default function InsightReportCard(props: InsightReportCardProps) {
                   key={key}
                   className={`flex flex-col gap-1 px-4 ${key === 'keyFindings' ? 'rounded-md bg-footer-color py-4 text-alt-black' : 'py-2'}`}
                 >
-                  <span className='flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide'>
+                  {/* All-caps text has no descenders, so its visual center sits
+                      above the line box center that flex aligns the icon to. */}
+                  <span className='flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide [&>svg]:-translate-y-0.5'>
                     {icon}
                     {label}
                   </span>
