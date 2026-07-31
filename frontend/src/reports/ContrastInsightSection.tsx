@@ -160,7 +160,7 @@ export default function ContrastInsightSection({
           <AutoAwesome sx={{ fontSize: 12 }} />
           {sectionLabel} comparison
         </p>
-        <Tooltip title='Close'>
+        <Tooltip title='Close' disableTouchListener>
           <IconButton
             size='small'
             onClick={handleClose}

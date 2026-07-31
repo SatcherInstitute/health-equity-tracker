@@ -136,18 +136,20 @@ export default function InsightReportCard(props: InsightReportCardProps) {
       <div
         className={`flex flex-col gap-3 bg-alt-white p-4 text-left ${props.isFlat ? '' : 'rounded-sm shadow-raised md:m-card-gutter'}`}
       >
-        {/* Header */}
+        {/* Header. isFlat means a parent dialog already supplies the frame and
+            its own close button, so rendering ours would stack two. */}
         <div className='flex items-center justify-between gap-2'>
           <span className='flex items-center gap-2 font-semibold text-alt-dark'>
             <AutoAwesome fontSize='small' className='text-alt-green' />
             AI Report Summary
           </span>
-          {/* Close button */}
-          <Tooltip title='Close' disableTouchListener>
-            <IconButton onClick={handleClose} aria-label='close report'>
-              <CloseIcon fontSize='small' />
-            </IconButton>
-          </Tooltip>
+          {!props.isFlat && (
+            <Tooltip title='Close' disableTouchListener>
+              <IconButton onClick={handleClose} aria-label='close report'>
+                <CloseIcon fontSize='small' />
+              </IconButton>
+            </Tooltip>
+          )}
         </div>
 
         <Divider />

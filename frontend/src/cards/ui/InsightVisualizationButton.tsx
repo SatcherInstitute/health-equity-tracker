@@ -27,11 +27,15 @@ export default function InsightVisualizationButton({
 
   if (!SHOW_INSIGHT_GENERATION) return null
 
+  // disableTouchListener: on touch devices a tap opens the tooltip and leaves it
+  // covering the insight text it sits above. The aria-label carries the same
+  // wording, so hover and screen reader users lose nothing.
   if (inCompareMode) {
     const isOpen = contrastInsightOpen[scrollToHash] ?? false
     return (
       <Tooltip
         title={isOpen ? 'Clear comparison insights' : 'Comparison insights'}
+        disableTouchListener
       >
         <IconButton
           className='hide-on-screenshot remove-height-on-screenshot'
@@ -55,7 +59,10 @@ export default function InsightVisualizationButton({
   const openKey = `${scrollToHash}${isCompareCard ? '-2' : ''}`
   const isOpen = cardInsightOpen[openKey] ?? false
   return (
-    <Tooltip title={isOpen ? 'Clear insight' : 'Generate AI insight'}>
+    <Tooltip
+      title={isOpen ? 'Clear insight' : 'Generate AI insight'}
+      disableTouchListener
+    >
       <IconButton
         className='hide-on-screenshot remove-height-on-screenshot'
         onClick={() =>
