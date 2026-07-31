@@ -1,6 +1,6 @@
 import { Button, CircularProgress } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useReducer } from 'react'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
@@ -25,6 +25,85 @@ import {
   cardInsightsAtom,
 } from '../../utils/sharedSettingsState'
 import FlagInsightButton from './FlagInsightButton'
+
+// One status at a time, so the render is a switch rather than a chain of
+// independent booleans that can contradict each other.
+type InsightStatus =
+  | 'idle'
+  | 'loadingPeers'
+  | 'peersErrored'
+  | 'peersInsufficient'
+  | 'generating'
+  | 'errored'
+  | 'unavailable'
+
+interface InsightState {
+  status: InsightStatus
+  // Peer ranking for single-region maps. Null until it resolves, and always null
+  // in the modes that never fetch one.
+  peerComparison: PeerComparison | null
+  error: string | null
+  // The exact server cache key used, captured so the flag button targets this insight.
+  serverCacheKey: string | null
+}
+
+type InsightAction =
+  | { type: 'reset' }
+  | { type: 'peersRequested' }
+  | { type: 'peersLoaded'; peerComparison: PeerComparison }
+  | { type: 'peersInsufficient' }
+  | { type: 'peersFailed' }
+  | { type: 'generationStarted' }
+  | { type: 'generationSucceeded'; serverCacheKey: string | null }
+  | { type: 'generationFailed'; serverCacheKey: string | null; error: string }
+  | { type: 'generationUnavailable'; serverCacheKey: string | null }
+
+const initialInsightState: InsightState = {
+  status: 'idle',
+  peerComparison: null,
+  error: null,
+  serverCacheKey: null,
+}
+
+function insightReducer(
+  state: InsightState,
+  action: InsightAction,
+): InsightState {
+  switch (action.type) {
+    case 'reset':
+      // Clears only the terminal states that would block generation for the new
+      // cache key. An in-flight fetch or an already-loaded peer ranking is left
+      // alone, since neither is invalidated by the key change.
+      return state.status === 'errored' || state.status === 'unavailable'
+        ? { ...state, status: 'idle', error: null }
+        : state
+    case 'peersRequested':
+      return { ...state, status: 'loadingPeers', peerComparison: null }
+    case 'peersLoaded':
+      return { ...state, status: 'idle', peerComparison: action.peerComparison }
+    case 'peersInsufficient':
+      return { ...state, status: 'peersInsufficient', peerComparison: null }
+    case 'peersFailed':
+      return { ...state, status: 'peersErrored', peerComparison: null }
+    case 'generationStarted':
+      return { ...state, status: 'generating', error: null }
+    case 'generationSucceeded':
+      return { ...state, status: 'idle', serverCacheKey: action.serverCacheKey }
+    case 'generationFailed':
+      return {
+        ...state,
+        status: 'errored',
+        error: action.error,
+        serverCacheKey: action.serverCacheKey,
+      }
+    case 'generationUnavailable':
+      return {
+        ...state,
+        status: 'unavailable',
+        serverCacheKey: action.serverCacheKey,
+      }
+  }
+}
 
 interface InsightVisualizationCardProps {
   scrollToHash: ScrollableHashId
@@ -60,11 +139,8 @@ export default function InsightVisualizationCard({
   const [cardInsights, setCardInsights] = useAtom(cardInsightsAtom)
   const openKey = `${scrollToHash}${isCompareCard ? '-2' : ''}`
   const isOpen = useAtomValue(cardInsightOpenAtom)[openKey] ?? false
-  const [isGenerating, setIsGenerating] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [unavailable, setUnavailable] = useState(false)
-  // The exact server cache key used, captured so the flag button targets this insight.
-  const [serverCacheKey, setServerCacheKey] = useState<string | null>(null)
+  const [state, dispatch] = useReducer(insightReducer, initialInsightState)
+  const { status, peerComparison, serverCacheKey } = state
 
   // Single-region maps rank the region against its same-level peers. The peer
   // file is fetched here, lazily, and only once the insight is actually opened —
@@ -75,50 +151,37 @@ export default function InsightVisualizationCard({
   // across query-array changes, so toggling the query on open left it stuck on
   // the stale empty result. Loading the peer query directly through the
   // DataManager (LRU-cached) gives an explicit, reliable loading→ready state.
-  const [peerResult, setPeerResult] = useState<
-    MetricQueryResponse | 'loading' | 'error' | null
-  >(null)
   const peerQueryKey = peerConfig?.peerQuery.getUniqueKey()
   useEffect(() => {
-    if (!(peerMode && isOpen && peerConfig)) return
+    if (!(peerMode && isOpen && peerConfig && regionRate)) return
     let cancelled = false
-    setPeerResult('loading')
+    dispatch({ type: 'peersRequested' })
     getDataManager()
       .loadMetrics(peerConfig.peerQuery)
-      .then((response) => {
-        if (!cancelled) setPeerResult(response)
+      .then((response: MetricQueryResponse) => {
+        if (cancelled) return
+        const comparison: PeerComparison = {
+          regionLabel: regionRate.label,
+          regionValue: regionRate.value,
+          peerNoun: peerConfig.peerNoun,
+          peerValues: peerConfig.getPeerValues([response]),
+          shortLabel: regionRate.shortLabel,
+        }
+        // Peers loaded, but too few report the measure to rank against honestly.
+        if (summarizePeerComparison(comparison) === null) {
+          dispatch({ type: 'peersInsufficient' })
+        } else {
+          dispatch({ type: 'peersLoaded', peerComparison: comparison })
+        }
       })
       .catch(() => {
-        if (!cancelled) setPeerResult('error')
+        if (!cancelled) dispatch({ type: 'peersFailed' })
       })
     return () => {
       cancelled = true
     }
     // peerConfig.peerQuery is a fresh object each render; peerQueryKey identifies it.
-    // biome-ignore lint/correctness/useExhaustiveDependencies: fetch is keyed by peerQueryKey
   }, [peerMode, isOpen, peerQueryKey])
-
-  const peersReady =
-    peerResult != null && peerResult !== 'loading' && peerResult !== 'error'
-  const peersErrored = peerMode && isOpen && peerResult === 'error'
-  // Covers both the initial null and the explicit 'loading' state so the spinner
-  // shows continuously until peers arrive (never an empty box).
-  const peersLoading = peerMode && isOpen && !peersReady && !peersErrored
-  const peerComparison: PeerComparison | undefined =
-    peerMode && peerConfig && regionRate && peersReady
-      ? {
-          regionLabel: regionRate.label,
-          regionValue: regionRate.value,
-          peerNoun: peerConfig.peerNoun,
-          peerValues: peerConfig.getPeerValues([peerResult]),
-          shortLabel: regionRate.shortLabel,
-        }
-      : undefined
-  // Peers loaded, but too few report the measure to rank against honestly.
-  const peerInsufficient =
-    peerMode &&
-    peersReady &&
-    (!peerComparison || summarizePeerComparison(peerComparison) === null)
 
   // A stable suffix so the insight regenerates when the user changes which
   // group(s) the chart is focused on (highlighted map group / selected trend
@@ -132,8 +195,7 @@ export default function InsightVisualizationCard({
   const insight = cardInsights[cacheKey]
 
   const handleGenerate = useCallback(async () => {
-    setIsGenerating(true)
-    setError(null)
+    dispatch({ type: 'generationStarted' })
     try {
       const result = await generateCardInsight(
         scrollToHash,
@@ -142,20 +204,45 @@ export default function InsightVisualizationCard({
         fips,
         queryResponses,
         isCompareCard,
-        { activeDemographicGroup, selectedGroups, peerComparison },
+        {
+          activeDemographicGroup,
+          selectedGroups,
+          peerComparison: peerComparison ?? undefined,
+        },
       )
-      setServerCacheKey(result.cacheKey ?? null)
+      const resultCacheKey = result.cacheKey ?? null
       if (result.rateLimited) {
-        setError('Too many requests. Please wait a moment and try again.')
+        dispatch({
+          type: 'generationFailed',
+          serverCacheKey: resultCacheKey,
+          error: 'Too many requests. Please wait a moment and try again.',
+        })
       } else if (result.unavailable) {
-        setUnavailable(true)
+        dispatch({
+          type: 'generationUnavailable',
+          serverCacheKey: resultCacheKey,
+        })
       } else if (result.error) {
-        setError('Unable to generate insight. Please try again.')
+        dispatch({
+          type: 'generationFailed',
+          serverCacheKey: resultCacheKey,
+          error: 'Unable to generate insight. Please try again.',
+        })
       } else {
         setCardInsights((prev) => ({ ...prev, [cacheKey]: result.content }))
+        dispatch({
+          type: 'generationSucceeded',
+          serverCacheKey: resultCacheKey,
+        })
       }
-    } finally {
-      setIsGenerating(false)
+    } catch {
+      // Without this the status would stay 'generating' forever and the card
+      // would spin with no way back.
+      dispatch({
+        type: 'generationFailed',
+        serverCacheKey: null,
+        error: 'Unable to generate insight. Please try again.',
+      })
     }
   }, [
     cacheKey,
@@ -182,88 +269,115 @@ export default function InsightVisualizationCard({
     })
   }
 
-  // Reset error and flag state when the cacheKey changes (user switched
-  // demographic, fips, etc.) — otherwise stale state from old params would
-  // block generation for the new ones.
+  // Reset error state when the cacheKey changes (user switched demographic,
+  // fips, etc.) — otherwise stale state from old params would block generation
+  // for the new ones.
   useEffect(() => {
-    setError(null)
-    setUnavailable(false)
+    dispatch({ type: 'reset' })
   }, [cacheKey])
 
-  // `error` is in the guard so a failed call doesn't get auto-retried on the
-  // next render — the user must click Try again. Clearing the insight (e.g. after
-  // flagging) re-fires this effect and regenerates. In peer mode we also wait for
-  // the peer fetch to resolve and skip generation when too few peers report.
+  // Only 'idle' generates: every other status is either already in flight or a
+  // terminal state the user must act on, so a failed call is never auto-retried.
+  // Clearing the insight (e.g. after flagging) re-fires this effect. In peer mode
+  // a null comparison means peers are still loading, failed, or too sparse to
+  // rank against, all of which must block generation.
   useEffect(() => {
-    if (!isOpen || insight || error || unavailable || isGenerating) return
-    if (peerMode && (!peersReady || peerInsufficient)) return
+    if (!isOpen || insight || status !== 'idle') return
+    if (peerMode && !peerComparison) return
     void handleGenerate()
   }, [
     isOpen,
     insight,
-    error,
-    unavailable,
-    isGenerating,
+    status,
     cacheKey,
     handleGenerate,
     peerMode,
-    peersReady,
-    peerInsufficient,
+    peerComparison,
   ])
+
+  const renderBody = () => {
+    switch (status) {
+      case 'loadingPeers':
+        return (
+          <div className='flex items-center gap-2 py-1'>
+            <CircularProgress size={14} className='shrink-0' />
+            <p className='m-0 text-alt-dark text-small'>
+              Gathering peer comparison data...
+            </p>
+          </div>
+        )
+      case 'generating':
+        return (
+          <div className='flex items-center gap-2 py-1'>
+            <CircularProgress size={14} className='shrink-0' />
+            <p className='m-0 text-alt-dark text-small'>
+              Analyzing health equity data with AI...
+            </p>
+          </div>
+        )
+      case 'peersErrored':
+        return (
+          <p className='m-0 text-red-orange text-small'>
+            Unable to load comparison data. Please try again later.
+          </p>
+        )
+      case 'peersInsufficient':
+        return (
+          <p className='m-0 text-alt-dark text-small'>
+            Not enough comparable places report this measure to generate an
+            insight.
+          </p>
+        )
+      case 'errored':
+        return (
+          <div className='flex flex-col gap-1'>
+            <p className='m-0 text-red-orange text-small'>{state.error}</p>
+            <Button size='small' onClick={handleGenerate}>
+              Try again
+            </Button>
+          </div>
+        )
+      // Also the resting state after a successful generation, where the text is
+      // read back out of the shared cache rather than held here.
+      case 'idle':
+        return insight ? (
+          <>
+            <p className='m-0 font-bold text-alt-dark leading-snug'>
+              {insight}
+            </p>
+            <p className='m-0 mt-2 text-alt-dark text-smallest'>
+              AI-generated. Verify with chart data.{' '}
+              <FlagInsightButton
+                cacheKey={serverCacheKey ?? undefined}
+                content={insight}
+                topic={dataTypeConfig.dataTypeId}
+                onFlagged={handleFlagged}
+              />
+            </p>
+          </>
+        ) : null
+      case 'unavailable':
+        return null
+      default: {
+        // Forces a compile error if a status is added without a case here.
+        const unhandled: never = status
+        return unhandled
+      }
+    }
+  }
 
   // When generation is unavailable the section renders nothing at all, rather
   // than an empty container or an error the reader can do nothing about.
-  if (!SHOW_INSIGHT_GENERATION || !isOpen || unavailable) return null
+  if (!SHOW_INSIGHT_GENERATION || !isOpen || status === 'unavailable') {
+    return null
+  }
 
   return (
     <div
       role='status'
       className='mb-3 animate-expand-down rounded-md bg-footer-color p-3'
     >
-      {peersLoading ? (
-        <div className='flex items-center gap-2 py-1'>
-          <CircularProgress size={14} className='shrink-0' />
-          <p className='m-0 text-alt-dark text-small'>
-            Gathering peer comparison data...
-          </p>
-        </div>
-      ) : isGenerating ? (
-        <div className='flex items-center gap-2 py-1'>
-          <CircularProgress size={14} className='shrink-0' />
-          <p className='m-0 text-alt-dark text-small'>
-            Analyzing health equity data with AI...
-          </p>
-        </div>
-      ) : peersErrored ? (
-        <p className='m-0 text-red-orange text-small'>
-          Unable to load comparison data. Please try again later.
-        </p>
-      ) : peerInsufficient ? (
-        <p className='m-0 text-alt-dark text-small'>
-          Not enough comparable places report this measure to generate an
-          insight.
-        </p>
-      ) : error ? (
-        <div className='flex flex-col gap-1'>
-          <p className='m-0 text-red-orange text-small'>{error}</p>
-          <Button size='small' onClick={handleGenerate}>
-            Try again
-          </Button>
-        </div>
-      ) : insight ? (
-        <>
-          <p className='m-0 font-bold text-alt-dark leading-snug'>{insight}</p>
-          <p className='m-0 mt-2 text-alt-dark text-smallest'>
-            AI-generated. Verify with chart data.{' '}
-            <FlagInsightButton
-              cacheKey={serverCacheKey ?? undefined}
-              content={insight}
-              topic={dataTypeConfig.dataTypeId}
-              onFlagged={handleFlagged}
-            />
-          </p>
-        </>
-      ) : null}
+      {renderBody()}
     </div>
   )
 }
