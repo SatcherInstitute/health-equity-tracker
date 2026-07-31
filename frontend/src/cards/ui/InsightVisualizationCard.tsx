@@ -15,7 +15,6 @@ import type {
 import {
   buildInsightFocusSuffix,
   generateCardInsight,
-  INSIGHT_CACHE_VERSION,
   summarizePeerComparison,
 } from '../../utils/generateVisualizationInsight'
 import { getDataManager } from '../../utils/globals'
@@ -194,13 +193,14 @@ export default function InsightVisualizationCard({
 
   // A stable suffix so the insight regenerates when the user changes which
   // group(s) the chart is focused on (highlighted map group / selected trend
-  // legend lines) — those change the data the model sees. Shared with the server
-  // cache key in generateCardInsight so both caches key on focus identically.
+  // legend lines) — those change the data the model sees. This in-session memo
+  // key is read before a prompt exists, so it describes the view rather than
+  // hashing the prompt the way the server key does.
   const focusSuffix = buildInsightFocusSuffix({
     activeDemographicGroup,
     selectedGroups,
   })
-  const cacheKey = `${scrollToHash}-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}${isCompareCard ? '-2' : ''}${focusSuffix ? `-${focusSuffix}` : ''}-${INSIGHT_CACHE_VERSION}`
+  const cacheKey = `${scrollToHash}-${dataTypeConfig.dataTypeId}-${fips.code}-${demographicType}${isCompareCard ? '-2' : ''}${focusSuffix ? `-${focusSuffix}` : ''}`
   const insight = cardInsights[cacheKey]
 
   const handleGenerate = useCallback(async () => {

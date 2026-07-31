@@ -11,7 +11,7 @@ import {
   getPrimaryMetricConfig,
 } from './generateVisualizationInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
-import { REPORT_INSIGHT_PARAM_KEY } from './urlutils'
+import { buildInsightCacheKey } from './insightCacheKey'
 
 function buildContrastPrompt(
   topic1: string,
@@ -97,9 +97,7 @@ export async function generateContrastInsight(
     data2,
   )
 
-  const params = new URLSearchParams(window.location.search)
-  params.delete(REPORT_INSIGHT_PARAM_KEY)
-  const cacheKey = `${window.location.pathname}?${params.toString()}#${hashId}-contrast`
+  const cacheKey = buildInsightCacheKey(`#${hashId}-contrast`, prompt)
 
   const result = await fetchAIInsight(prompt, {
     cacheKey,
