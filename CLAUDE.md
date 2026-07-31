@@ -18,7 +18,7 @@ A single combined Go server handles both the React frontend and all data APIs:
 ```plaintext
 frontend/  React app (TypeScript, Vite, MUI, Tailwind, D3, Jotai)
 server/    Combined Go server: serves the frontend and all data/AI/news APIs.
-           One ~15 MB binary (static files + GCS data + Anthropic + Webflow).
+           One ~15 MB binary (static files + GCS data + Gemini + Webflow).
 ```
 
 ### Backend Data Pipeline

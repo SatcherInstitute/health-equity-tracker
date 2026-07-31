@@ -62,6 +62,7 @@ export default function InsightVisualizationCard({
   const isOpen = useAtomValue(cardInsightOpenAtom)[openKey] ?? false
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [unavailable, setUnavailable] = useState(false)
   // The exact server cache key used, captured so the flag button targets this insight.
   const [serverCacheKey, setServerCacheKey] = useState<string | null>(null)
 
@@ -146,6 +147,8 @@ export default function InsightVisualizationCard({
       setServerCacheKey(result.cacheKey ?? null)
       if (result.rateLimited) {
         setError('Too many requests. Please wait a moment and try again.')
+      } else if (result.unavailable) {
+        setUnavailable(true)
       } else if (result.error) {
         setError('Unable to generate insight. Please try again.')
       } else {
@@ -184,6 +187,7 @@ export default function InsightVisualizationCard({
   // block generation for the new ones.
   useEffect(() => {
     setError(null)
+    setUnavailable(false)
   }, [cacheKey])
 
   // `error` is in the guard so a failed call doesn't get auto-retried on the
@@ -191,13 +195,14 @@ export default function InsightVisualizationCard({
   // flagging) re-fires this effect and regenerates. In peer mode we also wait for
   // the peer fetch to resolve and skip generation when too few peers report.
   useEffect(() => {
-    if (!isOpen || insight || error || isGenerating) return
+    if (!isOpen || insight || error || unavailable || isGenerating) return
     if (peerMode && (!peersReady || peerInsufficient)) return
     void handleGenerate()
   }, [
     isOpen,
     insight,
     error,
+    unavailable,
     isGenerating,
     cacheKey,
     handleGenerate,
@@ -206,7 +211,9 @@ export default function InsightVisualizationCard({
     peerInsufficient,
   ])
 
-  if (!SHOW_INSIGHT_GENERATION || !isOpen) return null
+  // When generation is unavailable the section renders nothing at all, rather
+  // than an empty container or an error the reader can do nothing about.
+  if (!SHOW_INSIGHT_GENERATION || !isOpen || unavailable) return null
 
   return (
     <div

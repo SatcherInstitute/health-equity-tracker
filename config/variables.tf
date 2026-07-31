@@ -181,6 +181,36 @@ variable "flagged_insights_bucket" {
   type        = string
 }
 
+variable "gemini_model" {
+  description = "Gemini model used for AI insight generation"
+  type        = string
+  default     = "gemini-3.1-flash-lite"
+}
+
+variable "insight_max_generations_per_day" {
+  description = "Maximum AI insight generations per UTC day, enforced by the usage ledger"
+  type        = number
+  default     = 400
+}
+
+variable "insight_max_generations_per_month" {
+  description = "Maximum AI insight generations per UTC month, enforced by the usage ledger"
+  type        = number
+  default     = 8000
+}
+
+variable "insight_allowed_origins" {
+  description = "Origins permitted to request AI insight generation. A \"https://*.\" prefix matches subdomains only."
+  type        = list(string)
+  default = [
+    "https://healthequitytracker.org",
+    "https://www.healthequitytracker.org",
+    "https://dev.healthequitytracker.org",
+    "http://localhost:3000",
+    "https://*.netlify.app",
+  ]
+}
+
 variable "pr_screenshots_bucket" {
   description = "Name of the GCS bucket for PR screenshot images (public read, team-write, 90-day TTL). Leave empty to skip creation."
   type        = string

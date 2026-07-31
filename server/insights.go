@@ -93,7 +93,7 @@ func cachedInsightContent(ctx context.Context, cacheBucket, key string) string {
 
 // fetchFlaggedExamples returns up to maxFlaggedExamples flagged insight records
 // that match the given topic. Used by both getFlaggedExamplesHandler and
-// the Anthropic negative-examples prompt builder.
+// the negative-examples prompt builder.
 func fetchFlaggedExamples(ctx context.Context, flaggedBucket, topic string) ([]map[string]any, error) {
 	blobs, err := listBlobsMeta(ctx, flaggedBucket)
 	if err != nil {
@@ -300,7 +300,7 @@ func flagInsightHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	// Clear the in-process Anthropic memory cache so the next call regenerates
+	// Clear the in-process memory cache so the next call regenerates
 	insightMemCache.Delete(sanitizeInsightKey(key))
 
 	w.WriteHeader(http.StatusNoContent)

@@ -128,11 +128,11 @@ resource "google_cloud_run_service" "server_service" {
           value = var.flagged_insights_bucket
         }
         env {
-          name = "ANTHROPIC_API_KEY"
+          name = "GEMINI_API_KEY"
           value_from {
             secret_key_ref {
               # Secret is created/rotated manually in Secret Manager (see secrets.tf).
-              name = "anthropic-api-key"
+              name = "gemini-api-key"
               key  = "latest"
             }
           }
@@ -150,6 +150,24 @@ resource "google_cloud_run_service" "server_service" {
         env {
           name  = "INSIGHT_NEGATIVE_EXAMPLES_ENABLED"
           value = "true"
+        }
+        env {
+          name  = "GEMINI_MODEL"
+          value = var.gemini_model
+        }
+        # Generation ceilings, tracked in a durable ledger in the insights cache
+        # bucket. The daily ceiling keeps one unusual day from consuming the month.
+        env {
+          name  = "INSIGHT_MAX_GENERATIONS_PER_DAY"
+          value = var.insight_max_generations_per_day
+        }
+        env {
+          name  = "INSIGHT_MAX_GENERATIONS_PER_MONTH"
+          value = var.insight_max_generations_per_month
+        }
+        env {
+          name  = "INSIGHT_ALLOWED_ORIGINS"
+          value = join(",", var.insight_allowed_origins)
         }
 
         resources {
