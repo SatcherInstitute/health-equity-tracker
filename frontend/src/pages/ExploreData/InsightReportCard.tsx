@@ -77,6 +77,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
 
   const [isGenerating, setIsGenerating] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [unavailable, setUnavailable] = useState(false)
   // The exact server cache key used, captured so the flag button targets this insight.
   const [serverCacheKey, setServerCacheKey] = useState<string | null>(null)
 
@@ -84,6 +85,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
     if (!dataTypeConfig || !fips || !demographicType) return
     setIsGenerating(true)
     setError(null)
+    setUnavailable(false)
     try {
       const result = await generateReportInsight(
         dataTypeConfig,
@@ -93,6 +95,8 @@ export default function InsightReportCard(props: InsightReportCardProps) {
       setServerCacheKey(result.cacheKey ?? null)
       if (result.rateLimited) {
         setError('Too many requests. Please wait a moment and try again.')
+      } else if (result.unavailable) {
+        setUnavailable(true)
       } else if (result.error || !result.sections) {
         setError('Unable to generate insight. Please try again.')
       } else {
@@ -169,6 +173,16 @@ export default function InsightReportCard(props: InsightReportCardProps) {
               Try again
             </Button>
           </div>
+        )}
+
+        {/* Generation is off or at its usage ceiling. This panel is opened
+            deliberately, so it says so plainly rather than rendering an empty
+            shell, but it is stated as a normal condition, not an error. */}
+        {unavailable && !isGenerating && (
+          <p className='m-0 py-4 text-center text-alt-dark text-small'>
+            Report summaries are not available right now. Every chart below
+            still shows the full data.
+          </p>
         )}
 
         {/* Sections, disclaimer — only when content is ready */}

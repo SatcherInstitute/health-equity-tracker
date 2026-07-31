@@ -5,6 +5,9 @@ export type InsightResult = {
   content: string
   rateLimited: boolean
   error?: boolean
+  // Generation is turned off or has hit its usage ceiling. Not an error: callers
+  // render no insight section rather than surfacing anything to the reader.
+  unavailable?: boolean
   // The exact server cache key the insight was stored under — needed to flag it.
   cacheKey?: string
 }
@@ -44,6 +47,9 @@ export async function fetchAIInsight(
     }
 
     const insight = await dataResponse.json()
+    if (insight.unavailable) {
+      return { content: '', rateLimited: false, unavailable: true }
+    }
     if (!insight.content) {
       throw new Error('No content returned from AI service')
     }

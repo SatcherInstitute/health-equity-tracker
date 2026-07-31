@@ -1,6 +1,6 @@
 /* [BEGIN] Secret Manager Setup */
 
-# Runtime secrets (AHR_API_KEY, ANTHROPIC_API_KEY, WEBFLOW_API_TOKEN) live entirely
+# Runtime secrets (AHR_API_KEY, GEMINI_API_KEY, WEBFLOW_API_TOKEN) live entirely
 # inside Google Cloud Secret Manager. The secret *values* are created and rotated
 # MANUALLY (out-of-band) in each target GCP project — they are intentionally NOT
 # managed by Terraform and NOT passed through GitHub Actions. This keeps the whole
@@ -23,7 +23,11 @@
 #
 # Secrets and their consumers:
 #   ahr-api-key        -> gcs_to_bq runner  (America's Health Rankings ingestion)
-#   anthropic-api-key  -> data-server-runner SA / Go server  (AI insight generation)
+#   gemini-api-key     -> data-server-runner SA / Go server  (AI insight generation)
 #   webflow-api-token  -> data-server-runner SA / Go server  (CMS blog read access)
+#
+# gemini-api-key is issued from a separate GCP project dedicated to the Generative
+# Language API, and is API-restricted to that one API. It is server-side only and is
+# never shipped to the browser.
 
 /* [END] Secret Manager Setup */

@@ -61,7 +61,7 @@ func main() {
 	r.With(adminOnly).Patch("/flagged-insights", updateFlaggedInsightHandler)
 
 	// AI insight generation (replaces frontend_server /fetch-ai-insight)
-	r.Post("/fetch-ai-insight", fetchAIInsightHandler)
+	r.With(insightOriginOnly, insightRateLimit).Post("/fetch-ai-insight", fetchAIInsightHandler)
 	r.Get("/rate-limit-status", rateLimitStatusHandler)
 
 	// News (replaces frontend_server /het-news)

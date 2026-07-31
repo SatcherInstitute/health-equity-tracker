@@ -17,6 +17,7 @@ export type ReportInsightSections = {
 type ReportInsightResult = {
   sections: ReportInsightSections | null
   rateLimited: boolean
+  unavailable?: boolean
   error?: string
   // The exact server cache key used — needed to flag this specific insight.
   cacheKey?: string
@@ -93,6 +94,10 @@ export async function generateReportInsight(
 
     if (result.rateLimited) {
       return { sections: null, rateLimited: true, cacheKey }
+    }
+
+    if (result.unavailable) {
+      return { sections: null, rateLimited: false, unavailable: true, cacheKey }
     }
 
     if (result.error) {
