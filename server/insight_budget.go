@@ -252,14 +252,16 @@ func allowClient(ip string) bool {
 }
 
 func clientIP(r *http.Request) string {
-	// Cloud Run's load balancer appends the true client IP as the last hop;
-	// every earlier entry is client-supplied and trivially spoofed, so the
-	// rightmost entry is the only one safe to key a rate limiter on.
+	// Cloud Run's load balancer appends its own IP as the rightmost entry.
+	// The second-to-last entry is the last hop before the load balancer,
+	// which is the first non-spoofable entry we can trust. If there is only
+	// one entry, use it (no load balancer appended yet, e.g. local dev).
 	if fwd := r.Header.Get("X-Forwarded-For"); fwd != "" {
-		if i := strings.LastIndexByte(fwd, ','); i >= 0 {
-			return strings.TrimSpace(fwd[i+1:])
+		entries := strings.Split(fwd, ",")
+		if len(entries) > 1 {
+			return strings.TrimSpace(entries[len(entries)-2])
 		}
-		return strings.TrimSpace(fwd)
+		return strings.TrimSpace(entries[0])
 	}
 	host, _, err := net.SplitHostPort(r.RemoteAddr)
 	if err != nil {
