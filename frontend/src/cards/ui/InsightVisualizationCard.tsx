@@ -72,11 +72,18 @@ function insightReducer(
   switch (action.type) {
     case 'reset':
       // Clears only the terminal states that would block generation for the new
-      // cache key. An in-flight fetch or an already-loaded peer ranking is left
-      // alone, since neither is invalidated by the key change.
-      return state.status === 'errored' || state.status === 'unavailable'
-        ? { ...state, status: 'idle', error: null }
-        : state
+      // cache key. Unconditionally clear the stale cache key and peer comparison
+      // so FlagInsightButton cannot submit data from the previous insight.
+      return {
+        ...state,
+        status:
+          state.status === 'errored' || state.status === 'unavailable'
+            ? 'idle'
+            : state.status,
+        error: null,
+        serverCacheKey: null,
+        peerComparison: null,
+      }
     case 'peersRequested':
       return { ...state, status: 'loadingPeers', peerComparison: null }
     case 'peersLoaded':
