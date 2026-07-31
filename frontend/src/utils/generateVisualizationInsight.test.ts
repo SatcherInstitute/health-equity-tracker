@@ -173,20 +173,84 @@ describe('formatDataRows', () => {
     expect(result.split('\n')).toHaveLength(10)
   })
 
-  test('a time series too large for the prompt budget is thinned but keeps the true first and last point', () => {
-    const rows: HetRow[] = Array.from({ length: 400 }, (_, i) => ({
+  test('a time series too large for the prompt budget keeps the recent tail plus the earliest point', () => {
+    const rows: HetRow[] = Array.from({ length: 1000 }, (_, i) => ({
       race_and_ethnicity: 'Black (NH)',
-      time_period: `${1917 + i}`,
+      time_period: `${1017 + i}`,
       rate: i,
     }))
     const result = formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)
     const lines = result.split('\n')
-    expect(lines.length).toBeLessThan(400)
-    expect(lines[0]).toEqual('- Black (NH) (1917): 0 per 100k')
-    expect(lines[lines.length - 1]).toEqual('- Black (NH) (2316): 399 per 100k')
+    expect(lines.length).toBeLessThan(1000)
+    expect(lines[0]).toEqual('- Black (NH) (1017): 0 per 100k')
+    expect(lines[lines.length - 1]).toEqual('- Black (NH) (2016): 999 per 100k')
+    // Everything after the anchor is an unbroken run of the most recent years.
+    const tail = lines.slice(1)
+    const tailYears = tail.map((line) => Number(line.match(/\((\d+)\)/)?.[1]))
+    expect(tailYears).toEqual(
+      tailYears.map((_, i) => 2016 - (tail.length - 1) + i),
+    )
     expect(new TextEncoder().encode(result).length).toBeLessThanOrEqual(
       12 * 1024,
     )
+  })
+
+  test('more groups than fit the budget yields whole lines only, never a truncated one', () => {
+    const rows: HetRow[] = Array.from({ length: 800 }, (_, i) => ({
+      race_and_ethnicity: `Group ${i}`,
+      time_period: '2020',
+      rate: i,
+    }))
+    const result = formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)
+    const lines = result.split('\n')
+    expect(lines.length).toBeLessThan(800)
+    for (const line of lines) {
+      expect(line).toMatch(/^- Group \d+ \(2020\): \d+ per 100k$/)
+    }
+    expect(new TextEncoder().encode(result).length).toBeLessThanOrEqual(
+      12 * 1024,
+    )
+  })
+
+  test('a multi-place map keeps the "All women" baseline for women-only topics', () => {
+    const rows: HetRow[] = [
+      { fips_name: 'Georgia', race_and_ethnicity: 'All women', rate: 5 },
+      { fips_name: 'Georgia', race_and_ethnicity: 'Black women', rate: 9 },
+      { fips_name: 'Georgia', race_and_ethnicity: 'White women', rate: 4 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'All women', rate: 6 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'Black women', rate: 11 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'White women', rate: 3 },
+    ]
+    const result = formatDataRows(
+      rows,
+      'rate-map',
+      DEMO,
+      metricConfig,
+      undefined,
+      'Black women',
+    )
+    expect(result.split('\n')).toHaveLength(4)
+    expect(result).toContain('- Georgia (All women): 5 per 100k')
+    expect(result).toContain('- Alabama (All women): 6 per 100k')
+    expect(result).not.toContain('White women')
+  })
+
+  test('an "All women" active group skips filtering, like "All" does', () => {
+    const rows: HetRow[] = [
+      { fips_name: 'Georgia', race_and_ethnicity: 'All women', rate: 5 },
+      { fips_name: 'Georgia', race_and_ethnicity: 'Black women', rate: 9 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'All women', rate: 6 },
+      { fips_name: 'Alabama', race_and_ethnicity: 'Black women', rate: 11 },
+    ]
+    const result = formatDataRows(
+      rows,
+      'rate-map',
+      DEMO,
+      metricConfig,
+      undefined,
+      'All women',
+    )
+    expect(result.split('\n')).toHaveLength(4)
   })
 })
 

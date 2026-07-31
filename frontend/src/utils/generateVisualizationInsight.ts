@@ -12,6 +12,7 @@ import type {
 } from '../data/query/MetricQuery'
 import { ALL, type DemographicGroup } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
+import { groupIsAll } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
 import { fetchAIInsight, type InsightResult } from './fetchAIInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
@@ -102,43 +103,65 @@ export function formatDataRows(
     const formatPoint = (group: string, row: HetRow) =>
       `- ${group} (${row.time_period}): ${row[metricConfig.metricId]} ${metricConfig.shortLabel}`
 
-    // Every Nth point per group, by index so it works for both annual and
-    // monthly cadences, always keeping the group's true first and last point
-    // so the overall trend arc is never lost even when thinned.
-    const thinToStep = (sorted: HetRow[], step: number) => {
-      if (step <= 1 || sorted.length <= 2) return sorted
-      const thinned = sorted.filter((_, i) => i % step === 0)
-      if (thinned[thinned.length - 1] !== sorted[sorted.length - 1]) {
-        thinned.push(sorted[sorted.length - 1])
-      }
-      return thinned
+    // Keep the group's earliest point as a historical anchor, then as much of
+    // the recent tail as the budget allows. Recent years describe where a
+    // disparity stands now, which is what an insight is about; the anchor is
+    // what makes "up or down since then" answerable at all.
+    const takeRecent = (sorted: HetRow[], recentCount: number) => {
+      if (sorted.length <= recentCount + 1) return sorted
+      return [sorted[0], ...sorted.slice(-recentCount)]
     }
 
-    const render = (step: number) =>
+    const encoder = new TextEncoder()
+    const byteLength = (text: string) => encoder.encode(text).length
+
+    const render = (recentCount: number) =>
       sortedByGroup
         .flatMap(([group, sorted]) =>
-          thinToStep(sorted, step).map((row) => formatPoint(group, row)),
+          takeRecent(sorted, recentCount).map((row) => formatPoint(group, row)),
         )
         .join('\n')
 
     // Send the full per-year (or per-month) series when it's small enough for
     // the model to work with the whole trend, since that's a materially
-    // better answer than two endpoints. Only thin when the full series would
-    // blow past a reasonable prompt budget, stepping up until it fits.
-    const full = render(1)
-    if (new TextEncoder().encode(full).length <= TIME_SERIES_TARGET_BYTES) {
-      return full
+    // better answer than a truncated one.
+    const longest = Math.max(
+      ...sortedByGroup.map(([, sorted]) => sorted.length),
+    )
+    const full = render(longest)
+    if (byteLength(full) <= TIME_SERIES_TARGET_BYTES) return full
+
+    // Largest recent window that still fits. Binary search rather than stepping
+    // down one point at a time, since a monthly series over decades can be
+    // hundreds of points per group.
+    let low = 1
+    let high = longest
+    let best = ''
+    while (low <= high) {
+      const mid = Math.floor((low + high) / 2)
+      const candidate = render(mid)
+      if (byteLength(candidate) <= TIME_SERIES_TARGET_BYTES) {
+        best = candidate
+        low = mid + 1
+      } else {
+        high = mid - 1
+      }
     }
-    let step = 2
-    let thinned = render(step)
-    while (
-      new TextEncoder().encode(thinned).length > TIME_SERIES_TARGET_BYTES &&
-      step < 100
-    ) {
-      step++
-      thinned = render(step)
+    if (best) return best
+
+    // Enough groups that even one recent point each overflows the budget. Keep
+    // whole lines from the start until the budget is spent, so the result is
+    // always a well-formed, in-budget list rather than a truncated final line.
+    const lines = render(1).split('\n')
+    const kept: string[] = []
+    let used = 0
+    for (const line of lines) {
+      const cost = byteLength(line) + (kept.length ? 1 : 0)
+      if (used + cost > TIME_SERIES_TARGET_BYTES) break
+      kept.push(line)
+      used += cost
     }
-    return thinned
+    return kept.join('\n')
   }
 
   // For population-vs-distribution, include both the outcome share and
@@ -169,12 +192,12 @@ export function formatDataRows(
   const activeRows =
     isMap &&
     activeDemographicGroup &&
-    activeDemographicGroup !== ALL &&
+    !groupIsAll(activeDemographicGroup) &&
     distinctPlaces >= 2
       ? filteredRows.filter(
           (row) =>
             String(row[demographicType]) === activeDemographicGroup ||
-            String(row[demographicType]) === ALL,
+            groupIsAll(String(row[demographicType])),
         )
       : filteredRows
 
