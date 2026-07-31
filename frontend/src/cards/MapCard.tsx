@@ -754,11 +754,12 @@ function MapCardWithKey(props: MapCardProps) {
                     dataTypeConfig={props.dataTypeConfig}
                     metricConfig={metricConfig}
                     legendTitle={metricConfig.shortLabel}
-                    data={dataForActiveDemographicGroup}
+                    data={displayData}
                     description={'Legend for rate map'}
                     fipsTypeDisplayName={fipsTypeDisplayName}
                     mapConfig={mapConfig}
                     isSummaryLegend={isSummaryLegend}
+                    isExtremesMode={isExtremesMode}
                     isPhrmaAdherence={isPhrmaAdherence}
                     fips={props.fips}
                     isCompareMode={isCompareMode}

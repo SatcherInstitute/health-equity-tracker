@@ -145,4 +145,17 @@ describe('processLegendData territory coverage', () => {
       }).specialItems,
     ).toEqual([])
   })
+
+  it('adds no absence swatch in extremes mode, where white means filtered out', () => {
+    expect(
+      processLegendData({
+        data: everyTerritory.slice(1),
+        metricConfig,
+        mapConfig,
+        colorScale,
+        fips: new Fips('00'),
+        isExtremesMode: true,
+      }).specialItems,
+    ).toEqual([])
+  })
 })

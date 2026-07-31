@@ -133,10 +133,21 @@ export function createLabelFormatter(metricConfig: MetricConfig) {
  * Creates legend items for datasets with 1-4 unique values
  */
 export function createLegendForSmallDataset(
-  uniqueValues: number[],
+  values: number[],
   colorScale: ColorScale,
   labelFormat: (value: number) => string,
 ): LegendItemData[] {
+  // Rates are labeled to two significant figures, so distinct values can share a
+  // label (119.6 and 123 both read "120") and produce a bucket like "120 – 120".
+  // Collapse them to the first value carrying each label.
+  const seenLabels = new Set<string>()
+  const uniqueValues = values.filter((value) => {
+    const label = labelFormat(value)
+    if (seenLabels.has(label)) return false
+    seenLabels.add(label)
+    return true
+  })
+
   if (uniqueValues.length === 1) {
     // Single value - just show that value
     return [

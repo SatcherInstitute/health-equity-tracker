@@ -23,6 +23,7 @@ export interface ProcessLegendDataParams {
   colorScale: ColorScale
   isPhrmaAdherence?: boolean
   isSummaryLegend?: boolean
+  isExtremesMode?: boolean
   fipsTypeDisplayName?: GeographicBreakdown
   fips?: Fips
 }
@@ -52,6 +53,7 @@ export function processLegendData(
     colorScale,
     isPhrmaAdherence,
     isSummaryLegend,
+    isExtremesMode,
     fipsTypeDisplayName,
     fips,
   } = params
@@ -75,7 +77,11 @@ export function processLegendData(
   // dataset carries a row for it, so a territory the source omits entirely
   // renders white while never appearing in `data`. Without this the map shows
   // a swatch the legend has no key for.
+  // Extremes mode is a filter, so every shape outside the selection is drawn
+  // white as background context. Absence swatches would relabel that white as
+  // missing data and describe geographies the map is deliberately not showing.
   const hasAbsentTerritory =
+    !isExtremesMode &&
     fips?.isUsa() === true &&
     Object.keys(TERRITORY_CODES).some(
       (code) => !data.some((row) => row.fips === code),
