@@ -28,7 +28,7 @@ import FlagInsightButton from './FlagInsightButton'
 
 // One status at a time, so the render is a switch rather than a chain of
 // independent booleans that can contradict each other.
-type InsightStatus =
+export type InsightStatus =
   | 'idle'
   | 'loadingPeers'
   | 'peersErrored'
@@ -37,7 +37,7 @@ type InsightStatus =
   | 'errored'
   | 'unavailable'
 
-interface InsightState {
+export interface InsightState {
   status: InsightStatus
   // Peer ranking for single-region maps. Null until it resolves, and always null
   // in the modes that never fetch one.
@@ -58,22 +58,25 @@ type InsightAction =
   | { type: 'generationFailed'; serverCacheKey: string | null; error: string }
   | { type: 'generationUnavailable'; serverCacheKey: string | null }
 
-const initialInsightState: InsightState = {
+export const initialInsightState: InsightState = {
   status: 'idle',
   peerComparison: null,
   error: null,
   serverCacheKey: null,
 }
 
-function insightReducer(
+export function insightReducer(
   state: InsightState,
   action: InsightAction,
 ): InsightState {
   switch (action.type) {
     case 'reset':
-      // Clears only the terminal states that would block generation for the new
-      // cache key. Unconditionally clear the stale cache key and peer comparison
-      // so FlagInsightButton cannot submit data from the previous insight.
+      // Clears the terminal states that would block generation for the new cache
+      // key, plus the cache key itself so FlagInsightButton cannot submit the
+      // previous insight's key. peerComparison is deliberately kept: it is scoped
+      // to the region, not the cache key, and the peer effect only refetches when
+      // peerQueryKey changes, so clearing it here would strand peer-mode cards
+      // with no way to reload.
       return {
         ...state,
         status:
@@ -82,7 +85,6 @@ function insightReducer(
             : state.status,
         error: null,
         serverCacheKey: null,
-        peerComparison: null,
       }
     case 'peersRequested':
       return { ...state, status: 'loadingPeers', peerComparison: null }
