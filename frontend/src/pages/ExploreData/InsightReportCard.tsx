@@ -134,14 +134,14 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   return (
     <div className='md:sticky' style={{ top: props.headerScrollMargin ?? 0 }}>
       <div
-        className={`flex flex-col gap-3 bg-alt-white p-4 text-left ${props.isFlat ? '' : 'rounded-sm shadow-raised md:m-card-gutter'}`}
+        className={`flex flex-col gap-3 bg-alt-white text-left ${props.isFlat ? '' : 'rounded-sm p-4 shadow-raised md:m-card-gutter'}`}
       >
         {/* Header. isFlat means a parent dialog already supplies the frame and
             its own close button, so rendering ours would stack two. */}
         <div className='flex items-center justify-between gap-2'>
           <span className='flex items-center gap-2 font-semibold text-alt-dark'>
             <AutoAwesome fontSize='small' className='text-alt-green' />
-            AI Report Summary
+            Report Insights
           </span>
           {!props.isFlat && (
             <Tooltip title='Close' disableTouchListener>
