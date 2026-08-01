@@ -1,18 +1,68 @@
-import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
+import type {
+  DataTypeConfig,
+  MetricConfig,
+} from '../data/config/MetricConfigTypes'
+import { exclude } from '../data/query/BreakdownFilter'
 import {
+  Breakdowns,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
 } from '../data/query/Breakdowns'
+import {
+  MetricQuery,
+  type MetricQueryResponse,
+} from '../data/query/MetricQuery'
+import {
+  ALL,
+  MULTI_OR_OTHER_STANDARD_NH,
+  NON_HISPANIC,
+  RACE,
+  UNKNOWN,
+  UNKNOWN_ETHNICITY,
+  UNKNOWN_RACE,
+  WHITE_NH,
+} from '../data/utils/Constants'
+import type { HetRow } from '../data/utils/DatasetTypes'
+import {
+  groupIsAll,
+  splitIntoKnownsAndUnknowns,
+} from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
 import { ERROR_GENERATING_INSIGHT, fetchAIInsight } from './fetchAIInsight'
+import {
+  formatPeerComparison,
+  getPeerValues,
+  getPrimaryMetricConfig,
+  getRegionAllRate,
+  summarizePeerComparison,
+} from './generateVisualizationInsight'
+import { getDataManager } from './globals'
 import { buildInsightCacheKey } from './insightCacheKey'
 
+// The four base sections are always present. The other two are only requested
+// when the report actually has the data behind them (a historical series, a
+// reported unknown share), so a topic with only a current-year snapshot renders
+// four sections rather than two empty ones.
 export type ReportInsightSections = {
   keyFindings: string
   locationComparison: string
   demographicInsights: string
+  changeOverTime?: string
+  dataCompleteness?: string
   whatThisMeans: string
 }
+
+const REQUIRED_SECTION_KEYS = [
+  'keyFindings',
+  'locationComparison',
+  'demographicInsights',
+  'whatThisMeans',
+] as const satisfies readonly (keyof ReportInsightSections)[]
+
+const OPTIONAL_SECTION_KEYS = [
+  'changeOverTime',
+  'dataCompleteness',
+] as const satisfies readonly (keyof ReportInsightSections)[]
 
 type ReportInsightResult = {
   sections: ReportInsightSections | null
@@ -23,28 +73,261 @@ type ReportInsightResult = {
   cacheKey?: string
 }
 
+// How many places to name at each end of the geographic spread. Enough to show
+// a pattern rather than a lone outlier, few enough that a state with hundreds of
+// counties still produces a bounded prompt.
+const SPREAD_SAMPLE_SIZE = 3
+
+// Rates for every demographic group in the selected place, overall row first so
+// the model has a baseline to measure each group against. Sorted rather than
+// left in row order so the same data always renders the same text, which the
+// prompt-hash cache key depends on.
+export function formatDemographicRates(
+  rows: HetRow[],
+  demographicType: DemographicType,
+  metricConfig: MetricConfig,
+): string {
+  return rows
+    .filter(
+      (row) =>
+        row[demographicType] != null &&
+        Number.isFinite(row[metricConfig.metricId]),
+    )
+    .map((row) => ({
+      group: String(row[demographicType]),
+      value: row[metricConfig.metricId] as number,
+    }))
+    .sort((a, b) => {
+      if (groupIsAll(a.group) !== groupIsAll(b.group))
+        return groupIsAll(a.group) ? -1 : 1
+      return b.value - a.value
+    })
+    .map(
+      ({ group, value }) => `- ${group}: ${value} ${metricConfig.shortLabel}`,
+    )
+    .join('\n')
+}
+
+// The spread of overall rates across the child places shown on the report's map,
+// reduced to both extremes plus a median. Sending every county would dominate
+// the prompt without telling the model more than its shape does.
+export function formatGeographicSpread(
+  rows: HetRow[],
+  metricConfig: MetricConfig,
+  placeNoun: string,
+): string {
+  const places = rows
+    .filter(
+      (row) =>
+        row.fips_name != null && Number.isFinite(row[metricConfig.metricId]),
+    )
+    .map((row) => ({
+      name: String(row.fips_name),
+      value: row[metricConfig.metricId] as number,
+    }))
+    .sort((a, b) => b.value - a.value)
+
+  // One place is not a geographic comparison, so say nothing rather than
+  // present a lone value as if it were a spread.
+  if (places.length < 2) return ''
+
+  const unit = metricConfig.shortLabel
+  const render = (place: { name: string; value: number }) =>
+    `${place.name} ${place.value}`
+
+  // Naming every place beats a top/bottom split that would repeat most of them.
+  if (places.length <= SPREAD_SAMPLE_SIZE * 2) {
+    return `- All ${places.length} ${placeNoun}: ${places.map(render).join(', ')} ${unit}`
+  }
+
+  const values = places.map((place) => place.value)
+  const mid = Math.floor(values.length / 2)
+  const median =
+    values.length % 2 === 0 ? (values[mid - 1] + values[mid]) / 2 : values[mid]
+
+  return [
+    `- Highest: ${places.slice(0, SPREAD_SAMPLE_SIZE).map(render).join(', ')} ${unit}`,
+    `- Lowest: ${places.slice(-SPREAD_SAMPLE_SIZE).reverse().map(render).join(', ')} ${unit}`,
+    `- Median across ${places.length} ${placeNoun}: ${Math.round(median * 10) / 10} ${unit}`,
+  ].join('\n')
+}
+
+// Each group's first and last reported rate, which is what the rates-over-time
+// chart is for. Endpoints rather than the full series: two points per group let
+// the model say both whether overall rates moved and whether the gap between
+// groups widened or narrowed, which is the same thing the inequities-over-time
+// chart plots, at a fraction of the prompt size.
+export function formatTemporalChange(
+  rows: HetRow[],
+  demographicType: DemographicType,
+  metricConfig: MetricConfig,
+): string {
+  const byGroup = new Map<string, HetRow[]>()
+  for (const row of rows) {
+    const group = row[demographicType]
+    if (group == null) continue
+    if (!Number.isFinite(row[metricConfig.metricId])) continue
+    if (row.time_period == null) continue
+    const existing = byGroup.get(String(group))
+    if (existing) existing.push(row)
+    else byGroup.set(String(group), [row])
+  }
+
+  const spans = [...byGroup.entries()]
+    .map(([group, groupRows]) => {
+      const sorted = [...groupRows].sort((a, b) =>
+        String(a.time_period).localeCompare(String(b.time_period)),
+      )
+      return {
+        group,
+        first: sorted[0],
+        last: sorted[sorted.length - 1],
+      }
+    })
+    // A single time point is a rate, not a change, so it belongs in the
+    // demographic section rather than being restated here as a trend.
+    .filter(({ first, last }) => first.time_period !== last.time_period)
+    .sort((a, b) => {
+      if (groupIsAll(a.group) !== groupIsAll(b.group))
+        return groupIsAll(a.group) ? -1 : 1
+      return (
+        (b.last[metricConfig.metricId] as number) -
+        (a.last[metricConfig.metricId] as number)
+      )
+    })
+
+  return spans
+    .map(
+      ({ group, first, last }) =>
+        `- ${group}: ${first[metricConfig.metricId]} in ${first.time_period}, ${last[metricConfig.metricId]} in ${last.time_period} ${metricConfig.shortLabel}`,
+    )
+    .join('\n')
+}
+
+// Each group's age-adjusted burden relative to the White (non-Hispanic) baseline.
+// Only meaningful for conditions that skew heavily by age: without adjustment, a
+// group with an older age profile looks worse on the raw rate for reasons that
+// are demographic rather than inequitable, so this is the section that keeps the
+// insight from over-reading the crude rates above.
+export function formatAgeAdjustedRatios(
+  rows: HetRow[],
+  demographicType: DemographicType,
+  metricConfig: MetricConfig,
+): string {
+  return rows
+    .filter(
+      (row) =>
+        row[demographicType] != null &&
+        Number.isFinite(row[metricConfig.metricId]),
+    )
+    .map((row) => ({
+      group: String(row[demographicType]),
+      value: row[metricConfig.metricId] as number,
+    }))
+    .sort((a, b) => b.value - a.value)
+    .map(({ group, value }) => `- ${group}: ${value}x the White (NH) rate`)
+    .join('\n')
+}
+
+// The share of cases whose demographic was never recorded, which the report's
+// unknowns map shows. A high unknown share is itself an equity finding: it means
+// the disparities in every other chart are measured on incomplete data, so the
+// model needs the number to say so rather than treat the rates as the whole
+// picture. When race and ethnicity are reported separately a place can have two
+// unknown rows, so all of them are named.
+export function formatUnknownShare(
+  rows: HetRow[],
+  demographicType: DemographicType,
+  metricConfig: MetricConfig,
+): string {
+  const [, unknowns] = splitIntoKnownsAndUnknowns(rows, demographicType)
+  return unknowns
+    .filter((row) => Number.isFinite(row[metricConfig.metricId]))
+    .map(
+      (row) =>
+        `- ${row[demographicType]}: ${row[metricConfig.metricId]}${metricConfig.shortLabel} of cases`,
+    )
+    .join('\n')
+}
+
 function buildReportInsightPrompt(
   topic: string,
   location: string,
   demographicLabel: string,
+  data: ReportDataSections,
 ): string {
+  const {
+    demographicSection,
+    geographicSection,
+    temporalSection,
+    ageAdjustedSection,
+    unknownSection,
+  } = data
+
+  const dataBlocks = [
+    demographicSection &&
+      `Current rates by ${demographicLabel} in ${location}:\n${demographicSection}`,
+    geographicSection && `Geographic spread:\n${geographicSection}`,
+    temporalSection &&
+      `Rates over time by ${demographicLabel} in ${location}, first and latest reported periods:\n${temporalSection}`,
+    ageAdjustedSection &&
+      `Age-adjusted burden relative to the White (NH) baseline in ${location}:\n${ageAdjustedSection}`,
+    unknownSection &&
+      `Cases missing ${demographicLabel} data in ${location}:\n${unknownSection}`,
+  ].filter(Boolean)
+
+  const dataBlock = dataBlocks.length ? `\n\n${dataBlocks.join('\n\n')}\n` : ''
+
+  // Every spec below has a no-data variant. Without it the model is told to lead
+  // with a number it was never given, which is exactly how a fabricated rate
+  // gets into a summary.
+  const keyFindingsSpec = demographicSection
+    ? '1 sentence (max 25 words): the single most striking disparity, leading with a specific number or rate from the data above.'
+    : '1 sentence (max 25 words): the most important equity question this report helps answer. Do not state any rate or number.'
+
+  const locationSpec = geographicSection
+    ? '1-2 sentences (max 35 words): what the geographic spread shows about where the burden is heaviest.'
+    : '1-2 sentences (max 35 words): what to look for when comparing places on this map. Do not state any rate or number.'
+
+  // Age adjustment is folded in here rather than given its own section: it is a
+  // correction to how the demographic gap should be read, not a separate finding.
+  const ageAdjustedClause = ageAdjustedSection
+    ? ' Then use the age-adjusted ratios to say whether the gap holds once differences in age between groups are accounted for.'
+    : ''
+
+  const demographicSpec = demographicSection
+    ? `1-2 sentences (max ${ageAdjustedSection ? 55 : 35} words): which group is most affected and how large the gap is compared to others, using the rates above.${ageAdjustedClause}`
+    : '1-2 sentences (max 35 words): what to look for when comparing groups. Do not state any rate or number.'
+
+  const optionalSpecs = [
+    temporalSection &&
+      `  "changeOverTime": "1-2 sentences (max 35 words): whether overall rates rose or fell between the first and latest periods, and whether the gap between groups widened or narrowed.",`,
+    unknownSection &&
+      `  "dataCompleteness": "1 sentence (max 30 words): what share of cases is missing ${demographicLabel} data, and that the rates above describe only the cases where it was recorded.",`,
+  ].filter(Boolean)
+
+  const optionalSpecBlock = optionalSpecs.length
+    ? `${optionalSpecs.join('\n')}\n`
+    : ''
+
   return `You are a public health analyst reviewing a report about "${topic}" in ${location}, broken down by ${demographicLabel}. Emphasize health equity aspects including demographic and geographic disparities, and ensure inclusive, person-first language. Remember these are extremely sensitive conditions that affect millions of real people.
 
 The page contains multiple charts: a rate map, rates over time, a rate bar chart, an unknowns map, inequities over time, and a population vs distribution chart.
-
-WRITING RULES — follow these strictly:
+${dataBlock}
+WRITING RULES, follow these strictly:
+- Use only numbers that appear in the data above. Never estimate, infer, round differently, or introduce a figure that is not shown. If a number is not in the data, describe the pattern in words instead.
+- Do not add causal explanations or place-specific facts that are not in the data.
 - Write at an 8th-grade reading level. Use short words and simple sentences.
 - Avoid jargon. If you must use a technical term, explain it immediately.
-- Each section: 1-2 sentences maximum, 35 words or fewer.
-- keyFindings: 1 sentence, 25 words or fewer. Lead with the single most striking disparity or equity gap.
+- Do not repeat the same number in more than one section.
 
-Respond ONLY with a valid JSON object — no markdown, no backticks, no explanation outside the JSON. Use this exact structure:
+Respond ONLY with a valid JSON object, no markdown, no backticks, no explanation outside the JSON. Include every key below and no others. Use this exact structure:
 
 {
-  "keyFindings": "1 sentence (max 25 words): the single most striking disparity, leading with a specific number or rate.",
-  "locationComparison": "1-2 sentences (max 35 words): which places have the biggest gaps and why that might be.",
-  "demographicInsights": "1-2 sentences (max 35 words): which group is most affected and how large the gap is compared to others.",
-  "whatThisMeans": "1-2 sentences (max 35 words): what this means for real people in these communities, in plain everyday language."
+  "keyFindings": "${keyFindingsSpec}",
+  "locationComparison": "${locationSpec}",
+  "demographicInsights": "${demographicSpec}",
+${optionalSpecBlock}  "whatThisMeans": "1-2 sentences (max 35 words): what this means for real people in these communities, in plain everyday language."
 }`
 }
 
@@ -53,21 +336,214 @@ function parseSections(raw: string): ReportInsightSections | null {
     const clean = raw.replace(/```json|```/g, '').trim()
     const parsed = JSON.parse(clean)
 
-    const required: (keyof ReportInsightSections)[] = [
-      'keyFindings',
-      'locationComparison',
-      'demographicInsights',
-      'whatThisMeans',
-    ]
-
-    for (const key of required) {
+    for (const key of REQUIRED_SECTION_KEYS) {
       if (typeof parsed[key] !== 'string') return null
     }
 
-    return parsed as ReportInsightSections
+    const sections = Object.fromEntries(
+      REQUIRED_SECTION_KEYS.map((key) => [key, parsed[key]]),
+    ) as ReportInsightSections
+
+    // Optional sections are dropped rather than rejected when the model omits
+    // one, so a single missing key never costs the user the whole summary.
+    for (const key of OPTIONAL_SECTION_KEYS) {
+      if (typeof parsed[key] === 'string' && parsed[key].trim())
+        sections[key] = parsed[key]
+    }
+
+    return sections
   } catch (error) {
     console.error('Failed to parse report insight JSON:', error)
     return null
+  }
+}
+
+type ReportDataSections = {
+  demographicSection: string
+  geographicSection: string
+  temporalSection: string
+  ageAdjustedSection: string
+  unknownSection: string
+}
+
+const EMPTY_SECTIONS: ReportDataSections = {
+  demographicSection: '',
+  geographicSection: '',
+  temporalSection: '',
+  ageAdjustedSection: '',
+  unknownSection: '',
+}
+
+// A county has no child places, so Breakdowns.forChildrenFips would return the
+// county itself. Rank it against its same-level peers instead, the same
+// apples-to-apples comparison the map card's single-region insight makes.
+function formatCountyPeerRanking(
+  placeResponse: MetricQueryResponse,
+  peerResponse: MetricQueryResponse,
+  metricConfig: MetricConfig,
+  demographicType: DemographicType,
+  fips: Fips,
+  parentFips: Fips,
+): string {
+  const regionRate = getRegionAllRate(
+    placeResponse,
+    metricConfig,
+    demographicType,
+    fips.getDisplayName(),
+  )
+  if (!regionRate) return ''
+
+  const summary = summarizePeerComparison({
+    regionLabel: regionRate.label,
+    regionValue: regionRate.value,
+    peerNoun: `${parentFips.getDisplayName()} ${parentFips.getPluralChildFipsTypeDisplayName()}`,
+    peerValues: getPeerValues(
+      peerResponse,
+      metricConfig,
+      demographicType,
+      fips.code,
+    ),
+    shortLabel: metricConfig.shortLabel,
+  })
+
+  return summary ? formatPeerComparison(summary) : ''
+}
+
+// The rates the report's own cards already display, re-read through DataManager
+// so the insight describes the same numbers the user sees. Every query here is
+// one a card on the page has already issued, so this is usually cache-only.
+async function loadReportData(
+  dataTypeConfig: DataTypeConfig,
+  demographicType: DemographicType,
+  fips: Fips,
+): Promise<ReportDataSections> {
+  const metricConfig = getPrimaryMetricConfig(
+    'rate-map',
+    dataTypeConfig.metrics,
+  )
+  if (!metricConfig) return EMPTY_SECTIONS
+
+  const breakdownFilter =
+    demographicType === RACE
+      ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
+      : exclude(UNKNOWN)
+
+  const query = (breakdowns: Breakdowns) =>
+    new MetricQuery(
+      [metricConfig.metricId],
+      breakdowns.addBreakdown(demographicType, breakdownFilter),
+      dataTypeConfig.dataTypeId,
+    )
+
+  // A county has no child places, so Breakdowns.forChildrenFips would return the
+  // county itself. Rank it against its same-level peers instead, the same
+  // apples-to-apples comparison the map card's single-region insight makes.
+  const isCounty = fips.isCounty()
+  const parentFips = fips.getParentFips()
+
+  // Mirrors UnknownsMapCard: the unknown share lives on its own metric, and its
+  // query must NOT exclude the unknown groups the way the rate queries do.
+  const unknownConfig =
+    dataTypeConfig.metrics?.pct_share_unknown ??
+    dataTypeConfig.metrics?.pct_share
+
+  // Age adjustment is published against a White (NH) baseline, so it is a race
+  // breakdown regardless of which demographic the report is set to.
+  const ageAdjustedConfig = dataTypeConfig.metrics?.age_adjusted_ratio
+
+  const [
+    placeResponse,
+    geoResponse,
+    temporalResponse,
+    ageAdjustedResponse,
+    unknownResponse,
+  ] = await Promise.all([
+    getDataManager().loadMetrics(query(Breakdowns.forFips(fips))),
+    getDataManager().loadMetrics(
+      query(Breakdowns.forChildrenFips(isCounty ? parentFips : fips)),
+    ),
+    getDataManager().loadMetrics(
+      new MetricQuery(
+        [metricConfig.metricId],
+        Breakdowns.forFips(fips).addBreakdown(demographicType, breakdownFilter),
+        dataTypeConfig.dataTypeId,
+        'historical',
+      ),
+    ),
+    ageAdjustedConfig
+      ? getDataManager().loadMetrics(
+          new MetricQuery(
+            [ageAdjustedConfig.metricId],
+            Breakdowns.forFips(fips).addBreakdown(
+              RACE,
+              exclude(ALL, NON_HISPANIC, WHITE_NH, MULTI_OR_OTHER_STANDARD_NH),
+            ),
+            dataTypeConfig.dataTypeId,
+          ),
+        )
+      : undefined,
+    unknownConfig
+      ? getDataManager().loadMetrics(
+          new MetricQuery(
+            [unknownConfig.metricId],
+            Breakdowns.forFips(fips).addBreakdown(demographicType),
+            dataTypeConfig.dataTypeId,
+          ),
+        )
+      : undefined,
+  ])
+
+  const demographicSection = formatDemographicRates(
+    placeResponse.getValidRowsForField(metricConfig.metricId),
+    demographicType,
+    metricConfig,
+  )
+
+  const temporalSection = formatTemporalChange(
+    temporalResponse.getValidRowsForField(metricConfig.metricId),
+    demographicType,
+    metricConfig,
+  )
+
+  const ageAdjustedSection =
+    ageAdjustedConfig && ageAdjustedResponse
+      ? formatAgeAdjustedRatios(
+          ageAdjustedResponse.getValidRowsForField(ageAdjustedConfig.metricId),
+          RACE,
+          ageAdjustedConfig,
+        )
+      : ''
+
+  const unknownSection =
+    unknownConfig && unknownResponse
+      ? formatUnknownShare(
+          unknownResponse.getValidRowsForField(unknownConfig.metricId),
+          demographicType,
+          unknownConfig,
+        )
+      : ''
+
+  return {
+    demographicSection,
+    geographicSection: isCounty
+      ? formatCountyPeerRanking(
+          placeResponse,
+          geoResponse,
+          metricConfig,
+          demographicType,
+          fips,
+          parentFips,
+        )
+      : formatGeographicSpread(
+          geoResponse
+            .getValidRowsForField(metricConfig.metricId)
+            .filter((row) => groupIsAll(String(row[demographicType]))),
+          metricConfig,
+          fips.getPluralChildFipsTypeDisplayName(),
+        ),
+    temporalSection,
+    ageAdjustedSection,
+    unknownSection,
   }
 }
 
@@ -79,10 +555,12 @@ export async function generateReportInsight(
   try {
     const topic = dataTypeConfig.fullDisplayName
     const location = fips.getSentenceDisplayName()
+    const data = await loadReportData(dataTypeConfig, demographicType, fips)
     const prompt = buildReportInsightPrompt(
       topic,
       location,
       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType],
+      data,
     )
     const cacheKey = buildInsightCacheKey('', prompt)
     const result = await fetchAIInsight(prompt, {
