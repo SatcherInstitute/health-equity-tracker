@@ -85,7 +85,7 @@ describe('formatGeographicSpread', () => {
     expect(formatGeographicSpread(rows, metricConfig, 'counties')).toBe(
       [
         '- Highest: A 10, B 9, C 8 per 100k',
-        '- Lowest: G 4, F 5, E 6 per 100k',
+        '- Lowest reported: G 4, F 5, E 6 per 100k',
         '- Median across 7 counties: 7 per 100k',
       ].join('\n'),
     )
@@ -120,6 +120,20 @@ describe('formatTemporalChange', () => {
 
     expect(formatTemporalChange(rows, DEMO, metricConfig)).toBe(
       '- All: 5 in 2020, 8 in 2022 per 100k',
+    )
+  })
+
+  // A monthly series like COVID-19 opens and closes at zero, so endpoints alone
+  // would describe a condition that never happened.
+  test('names the peak when it falls between the endpoints', () => {
+    const rows = [
+      point('All', '2020-01', 0),
+      point('All', '2020-12', 29),
+      point('All', '2024-05', 0),
+    ]
+
+    expect(formatTemporalChange(rows, DEMO, metricConfig)).toBe(
+      '- All: 0 in 2020-01, peaking at 29 in 2020-12, 0 in 2024-05 per 100k',
     )
   })
 
@@ -198,9 +212,11 @@ describe('formatAgeAdjustedRatios', () => {
 })
 
 describe('formatUnknownShare', () => {
+  // The real pct_share shortLabel already names the unit and the topic, so a
+  // stand-in like '%' would hide a duplicated-unit bug in the output.
   const shareConfig = {
     metricId: 'share_unknown',
-    shortLabel: '%',
+    shortLabel: '% of COVID-19 deaths',
   } as unknown as MetricConfig
 
   test('keeps only the unknown rows, so known groups are not double-counted', () => {
@@ -210,7 +226,7 @@ describe('formatUnknownShare', () => {
     ]
 
     expect(formatUnknownShare(rows, DEMO, shareConfig)).toBe(
-      '- Unknown: 14.2% of cases',
+      '- Unknown: 14.2% of COVID-19 deaths',
     )
   })
 
@@ -221,9 +237,10 @@ describe('formatUnknownShare', () => {
     ]
 
     expect(formatUnknownShare(rows, DEMO, shareConfig)).toBe(
-      ['- Unknown race: 9% of cases', '- Unknown ethnicity: 21% of cases'].join(
-        '\n',
-      ),
+      [
+        '- Unknown race: 9% of COVID-19 deaths',
+        '- Unknown ethnicity: 21% of COVID-19 deaths',
+      ].join('\n'),
     )
   })
 

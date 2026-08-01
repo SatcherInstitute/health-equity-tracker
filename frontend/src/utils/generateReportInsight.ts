@@ -147,16 +147,20 @@ export function formatGeographicSpread(
 
   return [
     `- Highest: ${places.slice(0, SPREAD_SAMPLE_SIZE).map(render).join(', ')} ${unit}`,
-    `- Lowest: ${places.slice(-SPREAD_SAMPLE_SIZE).reverse().map(render).join(', ')} ${unit}`,
+    `- Lowest reported: ${places.slice(-SPREAD_SAMPLE_SIZE).reverse().map(render).join(', ')} ${unit}`,
     `- Median across ${places.length} ${placeNoun}: ${Math.round(median * 10) / 10} ${unit}`,
   ].join('\n')
 }
 
-// Each group's first and last reported rate, which is what the rates-over-time
-// chart is for. Endpoints rather than the full series: two points per group let
-// the model say both whether overall rates moved and whether the gap between
-// groups widened or narrowed, which is the same thing the inequities-over-time
-// chart plots, at a fraction of the prompt size.
+// Each group's first, highest, and latest reported rate, which is what the
+// rates-over-time chart is for. Three points per group rather than the full
+// series let the model say both whether overall rates moved and whether the gap
+// between groups widened or narrowed, which is the same thing the
+// inequities-over-time chart plots, at a fraction of the prompt size.
+//
+// The peak is not decoration. On a monthly series like COVID-19 the first and
+// last months both sit at zero, so endpoints alone would describe a condition
+// that never happened.
 export function formatTemporalChange(
   rows: HetRow[],
   demographicType: DemographicType,
@@ -178,9 +182,16 @@ export function formatTemporalChange(
       const sorted = [...groupRows].sort((a, b) =>
         String(a.time_period).localeCompare(String(b.time_period)),
       )
+      const peak = sorted.reduce((highest, row) =>
+        (row[metricConfig.metricId] as number) >
+        (highest[metricConfig.metricId] as number)
+          ? row
+          : highest,
+      )
       return {
         group,
         first: sorted[0],
+        peak,
         last: sorted[sorted.length - 1],
       }
     })
@@ -197,10 +208,18 @@ export function formatTemporalChange(
     })
 
   return spans
-    .map(
-      ({ group, first, last }) =>
-        `- ${group}: ${first[metricConfig.metricId]} in ${first.time_period}, ${last[metricConfig.metricId]} in ${last.time_period} ${metricConfig.shortLabel}`,
-    )
+    .map(({ group, first, peak, last }) => {
+      const points = [
+        `${first[metricConfig.metricId]} in ${first.time_period}`,
+        // A peak at either endpoint is already named, so repeating it would
+        // just invite the model to treat one number as two findings.
+        peak.time_period !== first.time_period &&
+          peak.time_period !== last.time_period &&
+          `peaking at ${peak[metricConfig.metricId]} in ${peak.time_period}`,
+        `${last[metricConfig.metricId]} in ${last.time_period}`,
+      ].filter(Boolean)
+      return `- ${group}: ${points.join(', ')} ${metricConfig.shortLabel}`
+    })
     .join('\n')
 }
 
@@ -245,7 +264,9 @@ export function formatUnknownShare(
     .filter((row) => Number.isFinite(row[metricConfig.metricId]))
     .map(
       (row) =>
-        `- ${row[demographicType]}: ${row[metricConfig.metricId]}${metricConfig.shortLabel} of cases`,
+        // shortLabel already carries the unit and the topic, e.g.
+        // "% of COVID-19 deaths", so nothing is appended to it here.
+        `- ${row[demographicType]}: ${row[metricConfig.metricId]}${metricConfig.shortLabel}`,
     )
     .join('\n')
 }
@@ -269,7 +290,7 @@ function buildReportInsightPrompt(
       `Current rates by ${demographicLabel} in ${location}:\n${demographicSection}`,
     geographicSection && `Geographic spread:\n${geographicSection}`,
     temporalSection &&
-      `Rates over time by ${demographicLabel} in ${location}, first and latest reported periods:\n${temporalSection}`,
+      `Rates over time by ${demographicLabel} in ${location}, first, highest, and latest reported periods:\n${temporalSection}`,
     ageAdjustedSection &&
       `Age-adjusted burden relative to the White (NH) baseline in ${location}:\n${ageAdjustedSection}`,
     unknownSection &&
@@ -301,7 +322,7 @@ function buildReportInsightPrompt(
 
   const optionalSpecs = [
     temporalSection &&
-      `  "changeOverTime": "1-2 sentences (max 35 words): whether overall rates rose or fell between the first and latest periods, and whether the gap between groups widened or narrowed.",`,
+      `  "changeOverTime": "1-2 sentences (max 35 words): how rates moved across the reported periods, naming the highest point when one is given, and whether the gap between groups widened or narrowed.",`,
     unknownSection &&
       `  "dataCompleteness": "1 sentence (max 30 words): what share of cases is missing ${demographicLabel} data, and that the rates above describe only the cases where it was recorded.",`,
   ].filter(Boolean)
@@ -317,6 +338,7 @@ ${dataBlock}
 WRITING RULES, follow these strictly:
 - Use only numbers that appear in the data above. Never estimate, infer, round differently, or introduce a figure that is not shown. If a number is not in the data, describe the pattern in words instead.
 - Do not add causal explanations or place-specific facts that are not in the data.
+- A rate of 0 means the source reported no rate for that place or period. Never describe it as a place or time with no cases, no deaths, or no burden.
 - Write at an 8th-grade reading level. Use short words and simple sentences.
 - Avoid jargon. If you must use a technical term, explain it immediately.
 - Do not repeat the same number in more than one section.
