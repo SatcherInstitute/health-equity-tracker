@@ -71,6 +71,12 @@ type ReportInsightResult = {
 // counties still produces a bounded prompt.
 const SPREAD_SAMPLE_SIZE = 3
 
+// Word budgets for the two sections that absorb optional clauses. The base
+// covers the section's own finding; each clause folded in buys roughly one more
+// sentence, so a section never has to say more in the same breath.
+const SECTION_WORD_BUDGET = 35
+const CLAUSE_WORD_BUDGET = 20
+
 // Rates for every demographic group in the selected place, overall row first so
 // the model has a baseline to measure each group against. Sorted rather than
 // left in row order so the same data always renders the same text, which the
@@ -264,6 +270,14 @@ export function formatUnknownShare(
     .join('\n')
 }
 
+type ReportDataSections = {
+  demographicSection: string
+  geographicSection: string
+  temporalSection: string
+  ageAdjustedSection: string
+  unknownSection: string
+}
+
 function buildReportInsightPrompt(
   topic: string,
   location: string,
@@ -302,10 +316,17 @@ function buildReportInsightPrompt(
   // head; "twice as likely" lands immediately. Comparisons stay grounded because
   // the age-adjusted block already supplies ratios, so the model is describing a
   // figure it was given rather than deriving one.
+  // Inviting a comparison without supplying a ratio is how "ten times higher
+  // than average" gets computed from two rates and presented as a finding, so
+  // the headline may only cite a ratio when one was actually sent.
+  const ratioClause = ageAdjustedSection
+    ? ' You may cite one of the ratios shown above, but do not work out any other figure.'
+    : ' State no figure at all; make the comparison in words only.'
+
+  // Single quotes inside: this string is interpolated into the JSON skeleton
+  // below, so a double quote here would show the model a malformed template.
   const keyFindingsSpec = demographicSection
-    ? // Single quotes inside: this string is interpolated into the JSON skeleton
-      // below, so a double quote here would show the model a malformed template.
-      "1 sentence (max 25 words): the single most important takeaway, in plain words a reader who skipped every chart would understand. Name who carries the heaviest burden and how much heavier it is, expressed as a comparison in words such as 'nearly twice as likely'. Do not open with a rate per 100k, and use a figure only if it is a ratio shown above."
+    ? `1 sentence (max 25 words): the single most important takeaway, in plain words a reader who skipped every chart would understand. Name who carries the heaviest burden and how much heavier it is, expressed as a comparison in words such as 'nearly twice as likely'. Do not open with a rate per 100k.${ratioClause}`
     : '1 sentence (max 25 words): the most important equity question this report helps answer. Do not state any rate or number.'
 
   const locationSpec = geographicSection
@@ -324,7 +345,9 @@ function buildReportInsightPrompt(
     : ''
 
   const demographicWordBudget =
-    35 + (ageAdjustedSection ? 20 : 0) + (temporalSection ? 20 : 0)
+    SECTION_WORD_BUDGET +
+    (ageAdjustedSection ? CLAUSE_WORD_BUDGET : 0) +
+    (temporalSection ? CLAUSE_WORD_BUDGET : 0)
 
   const demographicSpec = demographicSection
     ? `2-3 sentences (max ${demographicWordBudget} words): which group is most affected and how large the gap is compared to others, using the rates above.${ageAdjustedClause}${temporalClause}`
@@ -337,18 +360,23 @@ function buildReportInsightPrompt(
     ? ` Then note in one sentence what share of cases is missing ${demographicLabel} data, and that the rates above describe only the cases where it was recorded.`
     : ''
 
-  const whatThisMeansSpec = `${unknownSection ? '2-3' : '1-2'} sentences (max ${unknownSection ? 60 : 35} words): what this means for real people in these communities, in plain everyday language.${completenessClause}`
+  const whatThisMeansWordBudget =
+    SECTION_WORD_BUDGET + (unknownSection ? CLAUSE_WORD_BUDGET : 0)
+
+  const whatThisMeansSpec = `${unknownSection ? '2-3' : '1-2'} sentences (max ${whatThisMeansWordBudget} words): what this means for real people in these communities, in plain everyday language.${completenessClause}`
 
   return `You are a public health analyst reviewing a report about "${topic}" in ${location}, broken down by ${demographicLabel}. Emphasize health equity aspects including demographic and geographic disparities, and ensure inclusive, person-first language. Remember these are extremely sensitive conditions that affect millions of real people.
 
 The page contains multiple charts: a rate map, rates over time, a rate bar chart, an unknowns map, inequities over time, and a population vs distribution chart.
 ${dataBlock}
 WRITING RULES, follow these strictly:
-- Use only numbers that appear in the data above. Never estimate, infer, round differently, or introduce a figure that is not shown. If a number is not in the data, describe the pattern in words instead.
+- Use only numbers that appear in the data above. Never estimate, infer, round differently, derive a new figure by combining two that are shown, or introduce a figure that is not shown. If a number is not in the data, describe the pattern in words instead.
 - Do not add causal explanations or place-specific facts that are not in the data.
 - A rate of 0 means the source reported no rate for that place or period. Never cite a 0 as a rate, and never describe it as a place or time with no cases, no deaths, or no burden.
 - Call a figure a peak, a high point, or a low point only where the data above labels it as one. A first or latest reported value is neither.
 - Write every demographic group name exactly as it appears in the data above. Never expand, abbreviate, or reword it; the names shown are the ones used throughout the rest of the report.
+- Never label a group vulnerable, at-risk, high-risk, underserved, or a minority. Those words describe people by a deficit rather than by what they face. Name the group and name the burden instead.
+- Use person-first wording: "people with diabetes", not "diabetics"; "people experiencing homelessness", not "the homeless".
 - Write at an 8th-grade reading level. Use short words and simple sentences.
 - Avoid jargon. If you must use a technical term, explain it immediately.
 - Do not repeat the same number in more than one section.
@@ -379,22 +407,6 @@ function parseSections(raw: string): ReportInsightSections | null {
     console.error('Failed to parse report insight JSON:', error)
     return null
   }
-}
-
-type ReportDataSections = {
-  demographicSection: string
-  geographicSection: string
-  temporalSection: string
-  ageAdjustedSection: string
-  unknownSection: string
-}
-
-const EMPTY_SECTIONS: ReportDataSections = {
-  demographicSection: '',
-  geographicSection: '',
-  temporalSection: '',
-  ageAdjustedSection: '',
-  unknownSection: '',
 }
 
 // A county has no child places, so Breakdowns.forChildrenFips would return the
@@ -444,7 +456,14 @@ async function loadReportData(
     'rate-map',
     dataTypeConfig.metrics,
   )
-  if (!metricConfig) return EMPTY_SECTIONS
+  if (!metricConfig)
+    return {
+      demographicSection: '',
+      geographicSection: '',
+      temporalSection: '',
+      ageAdjustedSection: '',
+      unknownSection: '',
+    }
 
   const breakdownFilter =
     demographicType === RACE
@@ -470,9 +489,14 @@ async function loadReportData(
     dataTypeConfig.metrics?.pct_share_unknown ??
     dataTypeConfig.metrics?.pct_share
 
-  // Age adjustment is published against a White (NH) baseline, so it is a race
-  // breakdown regardless of which demographic the report is set to.
-  const ageAdjustedConfig = dataTypeConfig.metrics?.age_adjusted_ratio
+  // Age adjustment is published only against a White (NH) baseline, so the
+  // ratios describe a race gap and nothing else. On a report broken down by age
+  // or sex they would qualify a gap the reader is not looking at, so they are
+  // left out entirely rather than sent alongside a mismatched breakdown.
+  const ageAdjustedConfig =
+    demographicType === RACE
+      ? dataTypeConfig.metrics?.age_adjusted_ratio
+      : undefined
 
   const [
     placeResponse,
@@ -509,6 +533,8 @@ async function loadReportData(
       ? getDataManager().loadMetrics(
           new MetricQuery(
             [unknownConfig.metricId],
+            // No exclude filter here, unlike the rate queries above: the unknown
+            // groups are the entire point of this one.
             Breakdowns.forFips(fips).addBreakdown(demographicType),
             dataTypeConfig.dataTypeId,
           ),
