@@ -39,29 +39,22 @@ import {
 import { getDataManager } from './globals'
 import { buildInsightCacheKey } from './insightCacheKey'
 
-// The four base sections are always present. The other two are only requested
-// when the report actually has the data behind them (a historical series, a
-// reported unknown share), so a topic with only a current-year snapshot renders
-// four sections rather than two empty ones.
+// The report-wide insight is a synthesis, not a walkthrough of the cards below
+// it. Trend and data-completeness findings fold into these four sections rather
+// than each getting a section of their own, which would turn the card into a
+// table of contents for the report.
 export type ReportInsightSections = {
   keyFindings: string
   locationComparison: string
   demographicInsights: string
-  changeOverTime?: string
-  dataCompleteness?: string
   whatThisMeans: string
 }
 
-const REQUIRED_SECTION_KEYS = [
+const SECTION_KEYS = [
   'keyFindings',
   'locationComparison',
   'demographicInsights',
   'whatThisMeans',
-] as const satisfies readonly (keyof ReportInsightSections)[]
-
-const OPTIONAL_SECTION_KEYS = [
-  'changeOverTime',
-  'dataCompleteness',
 ] as const satisfies readonly (keyof ReportInsightSections)[]
 
 type ReportInsightResult = {
@@ -302,34 +295,47 @@ function buildReportInsightPrompt(
   // Every spec below has a no-data variant. Without it the model is told to lead
   // with a number it was never given, which is exactly how a fabricated rate
   // gets into a summary.
+
+  // This is the one line a reader who skips the charts will actually read, so it
+  // has to be the most accessible thing on the page rather than a restatement of
+  // the rate map. A per-100k rate means little without the denominator in your
+  // head; "twice as likely" lands immediately. Comparisons stay grounded because
+  // the age-adjusted block already supplies ratios, so the model is describing a
+  // figure it was given rather than deriving one.
   const keyFindingsSpec = demographicSection
-    ? '1 sentence (max 25 words): the single most striking disparity, leading with a specific number or rate from the data above.'
+    ? '1 sentence (max 25 words): the single most important takeaway, in plain words a reader who skipped every chart would understand. Name who carries the heaviest burden and how much heavier it is, expressed as a comparison in words such as "nearly twice as likely". Do not open with a rate per 100k, and use a figure only if it is a ratio shown above.'
     : '1 sentence (max 25 words): the most important equity question this report helps answer. Do not state any rate or number.'
 
   const locationSpec = geographicSection
     ? '1-2 sentences (max 35 words): what the geographic spread shows about where the burden is heaviest.'
     : '1-2 sentences (max 35 words): what to look for when comparing places on this map. Do not state any rate or number.'
 
-  // Age adjustment is folded in here rather than given its own section: it is a
-  // correction to how the demographic gap should be read, not a separate finding.
+  // Age adjustment and the trend both fold in here rather than getting sections
+  // of their own: one corrects how the demographic gap should be read, the other
+  // says whether it is closing. Both are qualifiers on the gap, not new findings.
   const ageAdjustedClause = ageAdjustedSection
     ? ' Then use the age-adjusted ratios to say whether the gap holds once differences in age between groups are accounted for.'
     : ''
 
+  const temporalClause = temporalSection
+    ? ' Then say whether the gap between groups has widened or narrowed across the reported periods, naming the highest point if one is given.'
+    : ''
+
+  const demographicWordBudget =
+    35 + (ageAdjustedSection ? 20 : 0) + (temporalSection ? 20 : 0)
+
   const demographicSpec = demographicSection
-    ? `1-2 sentences (max ${ageAdjustedSection ? 55 : 35} words): which group is most affected and how large the gap is compared to others, using the rates above.${ageAdjustedClause}`
+    ? `2-3 sentences (max ${demographicWordBudget} words): which group is most affected and how large the gap is compared to others, using the rates above.${ageAdjustedClause}${temporalClause}`
     : '1-2 sentences (max 35 words): what to look for when comparing groups. Do not state any rate or number.'
 
-  const optionalSpecs = [
-    temporalSection &&
-      `  "changeOverTime": "1-2 sentences (max 35 words): how rates moved across the reported periods, naming the highest point when one is given, and whether the gap between groups widened or narrowed.",`,
-    unknownSection &&
-      `  "dataCompleteness": "1 sentence (max 30 words): what share of cases is missing ${demographicLabel} data, and that the rates above describe only the cases where it was recorded.",`,
-  ].filter(Boolean)
-
-  const optionalSpecBlock = optionalSpecs.length
-    ? `${optionalSpecs.join('\n')}\n`
+  // Missing demographic data is an equity finding, not a footnote: the groups
+  // absent from the record are usually the ones already least well served, so it
+  // belongs with what the report means rather than in a section of its own.
+  const completenessClause = unknownSection
+    ? ` Then note in one sentence what share of cases is missing ${demographicLabel} data, and that the rates above describe only the cases where it was recorded.`
     : ''
+
+  const whatThisMeansSpec = `${unknownSection ? '2-3' : '1-2'} sentences (max ${unknownSection ? 60 : 35} words): what this means for real people in these communities, in plain everyday language.${completenessClause}`
 
   return `You are a public health analyst reviewing a report about "${topic}" in ${location}, broken down by ${demographicLabel}. Emphasize health equity aspects including demographic and geographic disparities, and ensure inclusive, person-first language. Remember these are extremely sensitive conditions that affect millions of real people.
 
@@ -338,7 +344,9 @@ ${dataBlock}
 WRITING RULES, follow these strictly:
 - Use only numbers that appear in the data above. Never estimate, infer, round differently, or introduce a figure that is not shown. If a number is not in the data, describe the pattern in words instead.
 - Do not add causal explanations or place-specific facts that are not in the data.
-- A rate of 0 means the source reported no rate for that place or period. Never describe it as a place or time with no cases, no deaths, or no burden.
+- A rate of 0 means the source reported no rate for that place or period. Never cite a 0 as a rate, and never describe it as a place or time with no cases, no deaths, or no burden.
+- Call a figure a peak, a high point, or a low point only where the data above labels it as one. A first or latest reported value is neither.
+- Write every demographic group name exactly as it appears in the data above. Never expand, abbreviate, or reword it; the names shown are the ones used throughout the rest of the report.
 - Write at an 8th-grade reading level. Use short words and simple sentences.
 - Avoid jargon. If you must use a technical term, explain it immediately.
 - Do not repeat the same number in more than one section.
@@ -349,7 +357,7 @@ Respond ONLY with a valid JSON object, no markdown, no backticks, no explanation
   "keyFindings": "${keyFindingsSpec}",
   "locationComparison": "${locationSpec}",
   "demographicInsights": "${demographicSpec}",
-${optionalSpecBlock}  "whatThisMeans": "1-2 sentences (max 35 words): what this means for real people in these communities, in plain everyday language."
+  "whatThisMeans": "${whatThisMeansSpec}"
 }`
 }
 
@@ -358,22 +366,13 @@ function parseSections(raw: string): ReportInsightSections | null {
     const clean = raw.replace(/```json|```/g, '').trim()
     const parsed = JSON.parse(clean)
 
-    for (const key of REQUIRED_SECTION_KEYS) {
+    for (const key of SECTION_KEYS) {
       if (typeof parsed[key] !== 'string') return null
     }
 
-    const sections = Object.fromEntries(
-      REQUIRED_SECTION_KEYS.map((key) => [key, parsed[key]]),
+    return Object.fromEntries(
+      SECTION_KEYS.map((key) => [key, parsed[key]]),
     ) as ReportInsightSections
-
-    // Optional sections are dropped rather than rejected when the model omits
-    // one, so a single missing key never costs the user the whole summary.
-    for (const key of OPTIONAL_SECTION_KEYS) {
-      if (typeof parsed[key] === 'string' && parsed[key].trim())
-        sections[key] = parsed[key]
-    }
-
-    return sections
   } catch (error) {
     console.error('Failed to parse report insight JSON:', error)
     return null

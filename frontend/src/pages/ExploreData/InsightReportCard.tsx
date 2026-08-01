@@ -1,10 +1,8 @@
 import AutoAwesome from '@mui/icons-material/AutoAwesome'
 import CloseIcon from '@mui/icons-material/Close'
-import DataUsage from '@mui/icons-material/DataUsage'
 import Info from '@mui/icons-material/Info'
 import LocationOn from '@mui/icons-material/LocationOn'
 import People from '@mui/icons-material/People'
-import TrendingUp from '@mui/icons-material/TrendingUp'
 import {
   Button,
   CircularProgress,
@@ -57,16 +55,6 @@ const SECTIONS: SectionConfig[] = [
     key: 'demographicInsights',
     label: 'Demographic Insights',
     icon: <People fontSize='small' />,
-  },
-  {
-    key: 'changeOverTime',
-    label: 'Change Over Time',
-    icon: <TrendingUp fontSize='small' />,
-  },
-  {
-    key: 'dataCompleteness',
-    label: 'Data Completeness',
-    icon: <DataUsage fontSize='small' />,
   },
   {
     key: 'whatThisMeans',
@@ -137,16 +125,9 @@ export default function InsightReportCard(props: InsightReportCardProps) {
     void handleGenerate()
   }
 
-  // Change Over Time and Data Completeness are only requested when the report
-  // has the data behind them, so a topic without a historical series or a
-  // reported unknown share simply renders fewer sections.
-  const presentSections = sections
-    ? SECTIONS.filter(({ key }) => sections[key])
-    : []
-
-  const insightText = presentSections
-    .map(({ key }) => sections?.[key])
-    .join(' ')
+  const insightText = sections
+    ? SECTIONS.map(({ key }) => sections[key]).join(' ')
+    : ''
 
   const handleClose = () => {
     setIsOpen(false)
@@ -208,7 +189,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
         {sections && !isGenerating && (
           <>
             <div className='flex flex-col gap-5'>
-              {presentSections.map(({ key, label, icon }) => (
+              {SECTIONS.map(({ key, label, icon }) => (
                 <div
                   key={key}
                   className={`flex flex-col gap-1 px-4 ${key === 'keyFindings' ? 'rounded-md bg-footer-color py-4 text-alt-black' : 'py-2'}`}
