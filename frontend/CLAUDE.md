@@ -20,10 +20,13 @@ npm run e2e statins.nightly.spec.ts
 npm run e2e hiv          # Matches any filename containing "hiv"
 ```
 
-**Always start servers through these npm scripts, never a bare `npx vite` or `vite preview`.** The scripts wrap Vite in `env-cmd -f .env.localhost`, which is where `VITE_BASE_API_URL` lives. Without it the app still builds and renders, but every data fetch 404s and cards come up empty, so the failure looks like a product bug rather than a missing env. If a scratch server on another port is needed, keep the wrapper:
+**Always start servers through these npm scripts, never a bare `npx vite` or `vite preview`.** The scripts wrap Vite in `env-cmd -f .env.localhost`, which is where `VITE_BASE_API_URL` lives. Without it the app still builds and renders, but every data fetch 404s and cards come up empty, so the failure looks like a product bug rather than a missing env.
+
+**Always serve on port 3000.** Vite silently increments to the next free port when 3000 is taken, and other tooling hardcodes 3000: the Go server's insight origin allowlist only accepts `http://localhost:3000`, so an app served from 3009 gets a 403 on every `/fetch-ai-insight` call and the AI insight card renders an error. Never work around a server that landed elsewhere, and never spin up a scratch server on another port. Free 3000 and restart, or reuse what is already there:
 
 ```bash
-npx env-cmd -f .env.localhost npx vite --port 3100
+lsof -ti :3000            # what holds it, if anything
+kill $(lsof -ti :3000)    # free it, then npm run localhost
 ```
 
 **Important: Package Dependency Workflow**
