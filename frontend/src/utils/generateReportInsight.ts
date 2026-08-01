@@ -303,7 +303,9 @@ function buildReportInsightPrompt(
   // the age-adjusted block already supplies ratios, so the model is describing a
   // figure it was given rather than deriving one.
   const keyFindingsSpec = demographicSection
-    ? '1 sentence (max 25 words): the single most important takeaway, in plain words a reader who skipped every chart would understand. Name who carries the heaviest burden and how much heavier it is, expressed as a comparison in words such as "nearly twice as likely". Do not open with a rate per 100k, and use a figure only if it is a ratio shown above.'
+    ? // Single quotes inside: this string is interpolated into the JSON skeleton
+      // below, so a double quote here would show the model a malformed template.
+      "1 sentence (max 25 words): the single most important takeaway, in plain words a reader who skipped every chart would understand. Name who carries the heaviest burden and how much heavier it is, expressed as a comparison in words such as 'nearly twice as likely'. Do not open with a rate per 100k, and use a figure only if it is a ratio shown above."
     : '1 sentence (max 25 words): the most important equity question this report helps answer. Do not state any rate or number.'
 
   const locationSpec = geographicSection
