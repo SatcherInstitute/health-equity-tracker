@@ -15,6 +15,7 @@ import {
   prepareInsightData,
   summarizePeerComparison,
 } from './generateVisualizationInsight'
+import { byteLength, INSIGHT_DATA_BUDGETS } from './insightPromptBudget'
 
 const DEMO = 'race_and_ethnicity'
 
@@ -190,9 +191,7 @@ describe('formatDataRows', () => {
     expect(tailYears).toEqual(
       tailYears.map((_, i) => 2016 - (tail.length - 1) + i),
     )
-    expect(new TextEncoder().encode(result).length).toBeLessThanOrEqual(
-      12 * 1024,
-    )
+    expect(byteLength(result)).toBeLessThanOrEqual(INSIGHT_DATA_BUDGETS.card)
   })
 
   test('more groups than fit the budget yields whole lines only, never a truncated one', () => {
@@ -207,9 +206,7 @@ describe('formatDataRows', () => {
     for (const line of lines) {
       expect(line).toMatch(/^- Group \d+ \(2020\): \d+ per 100k$/)
     }
-    expect(new TextEncoder().encode(result).length).toBeLessThanOrEqual(
-      12 * 1024,
-    )
+    expect(byteLength(result)).toBeLessThanOrEqual(INSIGHT_DATA_BUDGETS.card)
   })
 
   test('a multi-place map keeps the "All women" baseline for women-only topics', () => {

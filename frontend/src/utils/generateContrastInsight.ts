@@ -12,8 +12,9 @@ import {
 } from './generateVisualizationInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
 import { buildInsightCacheKey } from './insightCacheKey'
+import { INSIGHT_DATA_BUDGETS } from './insightPromptBudget'
 
-function buildContrastPrompt(
+export function buildContrastPrompt(
   topic1: string,
   topic2: string,
   location1: string,
@@ -81,7 +82,16 @@ export async function generateContrastInsight(
     const metricConfig = getPrimaryMetricConfig(hashId, config.metrics)
     if (!metricConfig) return ''
     const rows = responses[0].getValidRowsForField(metricConfig.metricId)
-    return formatDataRows(rows, hashId, demographicType, metricConfig)
+    // Both sides land in one prompt, so each gets the tightest tier.
+    return formatDataRows(
+      rows,
+      hashId,
+      demographicType,
+      metricConfig,
+      undefined,
+      undefined,
+      INSIGHT_DATA_BUDGETS.contrast,
+    )
   }
 
   const data1 = buildDataSection(dataTypeConfig1, queryResponses1)

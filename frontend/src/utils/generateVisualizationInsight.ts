@@ -17,6 +17,11 @@ import type { Fips } from '../data/utils/Fips'
 import { fetchAIInsight, type InsightResult } from './fetchAIInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
 import { buildInsightCacheKey } from './insightCacheKey'
+import {
+  byteLength,
+  INSIGHT_DATA_BUDGETS,
+  trimLinesToBudget,
+} from './insightPromptBudget'
 
 const MAP_CHART_IDS: ScrollableHashId[] = [
   'rate-map',
@@ -28,11 +33,6 @@ const TIME_SERIES_CHART_IDS: ScrollableHashId[] = [
   'rates-over-time',
   'inequities-over-time',
 ]
-
-// Per-side data-section budget for time series. Compare mode sends two of
-// these in one prompt, so this is set well under half the server's prompt
-// cap (server/insight_budget.go) to leave room for scaffold text on both sides.
-const TIME_SERIES_TARGET_BYTES = 12 * 1024
 
 // Select the most relevant metric config for the given chart type
 export function getPrimaryMetricConfig(
@@ -64,6 +64,9 @@ export function formatDataRows(
   // geographic comparison to make, so send every group for that one place
   // instead (the ALL-groups-within-place fallback).
   activeDemographicGroup?: DemographicGroup,
+  // Bytes this data section may occupy. Defaults to the single-card tier; a
+  // prompt that carries more than one section passes a tighter budget.
+  budgetBytes: number = INSIGHT_DATA_BUDGETS.card,
 ): string {
   const isMap = MAP_CHART_IDS.includes(hashId)
   const isTimeSeries = TIME_SERIES_CHART_IDS.includes(hashId)
@@ -106,9 +109,6 @@ export function formatDataRows(
       return [sorted[0], ...sorted.slice(-recentCount)]
     }
 
-    const encoder = new TextEncoder()
-    const byteLength = (text: string) => encoder.encode(text).length
-
     const render = (recentCount: number) =>
       sortedByGroup
         .flatMap(([group, sorted]) =>
@@ -123,7 +123,7 @@ export function formatDataRows(
       ...sortedByGroup.map(([, sorted]) => sorted.length),
     )
     const full = render(longest)
-    if (byteLength(full) <= TIME_SERIES_TARGET_BYTES) return full
+    if (byteLength(full) <= budgetBytes) return full
 
     // Largest recent window that still fits. Binary search rather than stepping
     // down one point at a time, since a monthly series over decades can be
@@ -134,7 +134,7 @@ export function formatDataRows(
     while (low <= high) {
       const mid = Math.floor((low + high) / 2)
       const candidate = render(mid)
-      if (byteLength(candidate) <= TIME_SERIES_TARGET_BYTES) {
+      if (byteLength(candidate) <= budgetBytes) {
         best = candidate
         low = mid + 1
       } else {
@@ -143,19 +143,8 @@ export function formatDataRows(
     }
     if (best) return best
 
-    // Enough groups that even one recent point each overflows the budget. Keep
-    // whole lines from the start until the budget is spent, so the result is
-    // always a well-formed, in-budget list rather than a truncated final line.
-    const lines = render(1).split('\n')
-    const kept: string[] = []
-    let used = 0
-    for (const line of lines) {
-      const cost = byteLength(line) + (kept.length ? 1 : 0)
-      if (used + cost > TIME_SERIES_TARGET_BYTES) break
-      kept.push(line)
-      used += cost
-    }
-    return kept.join('\n')
+    // Enough groups that even one recent point each overflows the budget.
+    return trimLinesToBudget(render(1).split('\n'), budgetBytes)
   }
 
   // For population-vs-distribution, include both the outcome share and
@@ -195,22 +184,25 @@ export function formatDataRows(
         )
       : filteredRows
 
-  return activeRows
-    .map((row) => {
-      // On a map, label each row with BOTH its place and demographic group so
-      // the model can read either a geographic gap (across places) or a
-      // within-place gap (across groups, with "All" as the baseline). Other
-      // charts already vary only by demographic group, so the group alone suffices.
-      const label = isMap
-        ? `${row.fips_name} (${row[demographicType]})`
-        : `${row[demographicType]}`
-      const val = `${row[metricConfig.metricId]} ${metricConfig.shortLabel}`
-      if (popMetric && row[popMetric.metricId] != null) {
-        return `- ${label}: outcome share ${val}, population share ${row[popMetric.metricId]} ${popMetric.shortLabel}`
-      }
-      return `- ${label}: ${val}`
-    })
-    .join('\n')
+  const lines = activeRows.map((row) => {
+    // On a map, label each row with BOTH its place and demographic group so
+    // the model can read either a geographic gap (across places) or a
+    // within-place gap (across groups, with "All" as the baseline). Other
+    // charts already vary only by demographic group, so the group alone suffices.
+    const label = isMap
+      ? `${row.fips_name} (${row[demographicType]})`
+      : `${row[demographicType]}`
+    const val = `${row[metricConfig.metricId]} ${metricConfig.shortLabel}`
+    if (popMetric && row[popMetric.metricId] != null) {
+      return `- ${label}: outcome share ${val}, population share ${row[popMetric.metricId]} ${popMetric.shortLabel}`
+    }
+    return `- ${label}: ${val}`
+  })
+
+  // Group filtering bounds a map section in the common case, but a wide
+  // breakdown over hundreds of places can still outgrow the budget, and the
+  // data table has no geographic filter at all.
+  return trimLinesToBudget(lines, budgetBytes)
 }
 
 export function buildPrompt(

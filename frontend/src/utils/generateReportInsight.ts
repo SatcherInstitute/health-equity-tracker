@@ -38,6 +38,10 @@ import {
 } from './generateVisualizationInsight'
 import { getDataManager } from './globals'
 import { buildInsightCacheKey } from './insightCacheKey'
+import {
+  INSIGHT_DATA_BUDGETS,
+  trimSectionToBudget,
+} from './insightPromptBudget'
 
 // The report-wide insight is a synthesis, not a walkthrough of the cards below
 // it. Trend and data-completeness findings fold into these four sections rather
@@ -270,7 +274,7 @@ export function formatUnknownShare(
     .join('\n')
 }
 
-type ReportDataSections = {
+export type ReportDataSections = {
   demographicSection: string
   geographicSection: string
   temporalSection: string
@@ -278,19 +282,23 @@ type ReportDataSections = {
   unknownSection: string
 }
 
-function buildReportInsightPrompt(
+export function buildReportInsightPrompt(
   topic: string,
   location: string,
   demographicLabel: string,
   data: ReportDataSections,
 ): string {
-  const {
-    demographicSection,
-    geographicSection,
-    temporalSection,
-    ageAdjustedSection,
-    unknownSection,
-  } = data
+  // Five sections share one prompt, so each is capped individually. Each is
+  // already reduced to a summary upstream; this is the backstop for a place
+  // whose group or period count outruns that reduction.
+  const trim = (section: string) =>
+    trimSectionToBudget(section, INSIGHT_DATA_BUDGETS.report)
+
+  const demographicSection = trim(data.demographicSection)
+  const geographicSection = trim(data.geographicSection)
+  const temporalSection = trim(data.temporalSection)
+  const ageAdjustedSection = trim(data.ageAdjustedSection)
+  const unknownSection = trim(data.unknownSection)
 
   const dataBlocks = [
     demographicSection &&
