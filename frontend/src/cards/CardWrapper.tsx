@@ -155,9 +155,11 @@ function CardWrapper(props: {
                 insightProps.dataTypeConfig,
                 insightProps.demographicType,
                 queryResponses,
-                insightProps.selectedGroups,
-                Boolean(regionRate),
-                insightProps.activeDemographicGroup,
+                {
+                  selectedGroups: insightProps.selectedGroups,
+                  activeDemographicGroup: insightProps.activeDemographicGroup,
+                  regionHasAllRate: Boolean(regionRate),
+                },
               )
             : 'empty'
         const showInsight =

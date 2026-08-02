@@ -18,10 +18,10 @@ import (
 )
 
 const (
-	// Client-side group-filtering and time-series thinning keep even the
-	// largest map or compare-mode prompt well under this; measured
-	// compare-mode contrast prompts (two data sections in one request) run
-	// ~11-17KB.
+	// Clients trim every data section to a per-context budget before assembling
+	// a prompt (frontend/src/utils/insightPromptBudget.ts), sized so the worst
+	// case in each context lands under this. Raising a client budget without
+	// re-checking it against this value is what would push a prompt over.
 	insightPromptMaxBytes = 30 * 1024
 	killSwitchObject      = "insights-generation-disabled"
 	killSwitchTTL         = 60 * time.Second
