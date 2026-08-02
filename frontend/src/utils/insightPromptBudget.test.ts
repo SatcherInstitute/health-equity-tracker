@@ -114,9 +114,9 @@ describe('formatDataRows budget tiers', () => {
       'rates-over-time',
       DEMO,
       metricConfig,
-      undefined,
-      undefined,
-      INSIGHT_DATA_BUDGETS.contrast,
+      {
+        budgetBytes: INSIGHT_DATA_BUDGETS.contrast,
+      },
     )
     expect(byteLength(section)).toBeLessThanOrEqual(
       INSIGHT_DATA_BUDGETS.contrast,
@@ -126,15 +126,9 @@ describe('formatDataRows budget tiers', () => {
   test('the contrast tier is tighter than the single-card tier', () => {
     const rows = oversizedMapRows()
     const card = formatDataRows(rows, 'rate-map', DEMO, metricConfig)
-    const contrast = formatDataRows(
-      rows,
-      'rate-map',
-      DEMO,
-      metricConfig,
-      undefined,
-      undefined,
-      INSIGHT_DATA_BUDGETS.contrast,
-    )
+    const contrast = formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
+      budgetBytes: INSIGHT_DATA_BUDGETS.contrast,
+    })
     expect(byteLength(contrast)).toBeLessThan(byteLength(card))
   })
 })
@@ -161,15 +155,9 @@ describe('assembled prompts stay under the server ceiling', () => {
   test('compare-mode contrast prompt, both sides oversized', () => {
     const rows = oversizedMapRows()
     const side = () =>
-      formatDataRows(
-        rows,
-        'rate-map',
-        DEMO,
-        metricConfig,
-        undefined,
-        undefined,
-        INSIGHT_DATA_BUDGETS.contrast,
-      )
+      formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
+        budgetBytes: INSIGHT_DATA_BUDGETS.contrast,
+      })
     const prompt = buildContrastPrompt(
       'HIV diagnoses',
       'Diabetes',

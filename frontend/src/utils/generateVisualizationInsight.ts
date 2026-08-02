@@ -47,27 +47,39 @@ export function getPrimaryMetricConfig(
   return metrics.per100k ?? metrics.pct_rate ?? metrics.index ?? null
 }
 
-// Format HetRows as a text list to embed in the prompt
-export function formatDataRows(
-  rows: HetRow[],
-  hashId: ScrollableHashId,
-  demographicType: DemographicType,
-  metricConfig: MetricConfig,
+// Which rows a data section covers and how many bytes it may occupy. Grouped
+// into one object so a caller that needs only the budget isn't forced to pass
+// placeholders for the filters it doesn't use.
+export interface InsightDataOptions {
   // When the user has focused a chart (e.g. the trend legend) on a subset of
   // groups, restrict the rows to those groups so the insight describes only
   // what is on screen. Empty/undefined means "all groups".
-  selectedGroups?: DemographicGroup[],
+  selectedGroups?: DemographicGroup[]
   // The demographic group currently highlighted on a map. When the map is
   // showing multiple places (a real geographic comparison), default to only
   // this group's rows across places, since that's what's on screen and it
   // keeps the prompt small. When only one place is in view, there's no
   // geographic comparison to make, so send every group for that one place
   // instead (the ALL-groups-within-place fallback).
-  activeDemographicGroup?: DemographicGroup,
+  activeDemographicGroup?: DemographicGroup
   // Bytes this data section may occupy. Defaults to the single-card tier; a
   // prompt that carries more than one section passes a tighter budget.
-  budgetBytes: number = INSIGHT_DATA_BUDGETS.card,
+  budgetBytes?: number
+}
+
+// Format HetRows as a text list to embed in the prompt
+export function formatDataRows(
+  rows: HetRow[],
+  hashId: ScrollableHashId,
+  demographicType: DemographicType,
+  metricConfig: MetricConfig,
+  options: InsightDataOptions = {},
 ): string {
+  const {
+    selectedGroups,
+    activeDemographicGroup,
+    budgetBytes = INSIGHT_DATA_BUDGETS.card,
+  } = options
   const isMap = MAP_CHART_IDS.includes(hashId)
   const isTimeSeries = TIME_SERIES_CHART_IDS.includes(hashId)
   const groupFilter =
@@ -453,8 +465,7 @@ export function prepareInsightData(
   dataTypeConfig: DataTypeConfig,
   demographicType: DemographicType,
   queryResponses?: MetricQueryResponse[],
-  selectedGroups?: DemographicGroup[],
-  activeDemographicGroup?: DemographicGroup,
+  options: InsightDataOptions = {},
 ): InsightData {
   let dataSection = ''
   if (queryResponses?.[0]) {
@@ -466,8 +477,7 @@ export function prepareInsightData(
         hashId,
         demographicType,
         metricConfig,
-        selectedGroups,
-        activeDemographicGroup,
+        options,
       )
     }
   }
@@ -492,23 +502,24 @@ export function getInsightDataStatus(
   dataTypeConfig: DataTypeConfig,
   demographicType: DemographicType,
   queryResponses?: MetricQueryResponse[],
-  selectedGroups?: DemographicGroup[],
-  // Whether the selected region has its own overall "All" rate (from the
-  // region-self query). Gates the peer fallback so a lone subgroup row — with no
-  // overall rate — stays hidden rather than being ranked as the region's overall.
-  regionHasAllRate = false,
-  activeDemographicGroup?: DemographicGroup,
+  options: InsightDataOptions & {
+    // Whether the selected region has its own overall "All" rate (from the
+    // region-self query). Gates the peer fallback so a lone subgroup row, with
+    // no overall rate, stays hidden rather than being ranked as the region's
+    // overall.
+    regionHasAllRate?: boolean
+  } = {},
 ): InsightDataStatus {
   const { entryCount } = prepareInsightData(
     hashId,
     dataTypeConfig,
     demographicType,
     queryResponses,
-    selectedGroups,
-    activeDemographicGroup,
+    options,
   )
   if (entryCount >= 2) return 'multi'
-  if (MAP_CHART_IDS.includes(hashId) && regionHasAllRate) return 'single-region'
+  if (MAP_CHART_IDS.includes(hashId) && options.regionHasAllRate)
+    return 'single-region'
   return 'empty'
 }
 
@@ -530,8 +541,10 @@ export async function generateCardInsight(
     dataTypeConfig,
     demographicType,
     queryResponses,
-    context?.selectedGroups,
-    context?.activeDemographicGroup,
+    {
+      selectedGroups: context?.selectedGroups,
+      activeDemographicGroup: context?.activeDemographicGroup,
+    },
   )
 
   // Single-region map: rank the region against its same-level peers instead of

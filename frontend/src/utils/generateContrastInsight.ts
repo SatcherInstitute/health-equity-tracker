@@ -83,15 +83,9 @@ export async function generateContrastInsight(
     if (!metricConfig) return ''
     const rows = responses[0].getValidRowsForField(metricConfig.metricId)
     // Both sides land in one prompt, so each gets the tightest tier.
-    return formatDataRows(
-      rows,
-      hashId,
-      demographicType,
-      metricConfig,
-      undefined,
-      undefined,
-      INSIGHT_DATA_BUDGETS.contrast,
-    )
+    return formatDataRows(rows, hashId, demographicType, metricConfig, {
+      budgetBytes: INSIGHT_DATA_BUDGETS.contrast,
+    })
   }
 
   const data1 = buildDataSection(dataTypeConfig1, queryResponses1)
