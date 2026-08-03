@@ -30,6 +30,10 @@ const (
 	defaultMaxGenerationsPerDay   = 400
 	defaultMaxGenerationsPerMonth = 8000
 
+	// Warn at this share of a ceiling. Late enough not to cry wolf, early enough
+	// that a fifth of the period's budget is still available to act with.
+	defaultCeilingWarnPercent = 80
+
 	insightRatePerMinute = 5
 	insightRateBurst     = 10
 	maxTrackedClients    = 10000
@@ -137,29 +141,70 @@ func mutateLedger(ctx context.Context, bucket, path string, apply func(*usageLed
 	return false, errLedgerContention
 }
 
-func reserveOne(ctx context.Context, bucket, path string, limit int) (bool, error) {
-	return mutateLedger(ctx, bucket, path, func(l *usageLedger) bool {
+// ceilingWarnAt is the generation count at which a period's usage is considered
+// close enough to its ceiling to be worth an alert.
+//
+// A percent outside 1..100 lands the threshold at zero or past the ceiling, and
+// either one silently disables the alert rather than moving it, so an
+// out-of-range value falls back to the default instead of being honored.
+func ceilingWarnAt(limit int) int {
+	percent := envInt("INSIGHT_CEILING_WARN_PERCENT", defaultCeilingWarnPercent)
+	if percent < 1 || percent > 100 {
+		percent = defaultCeilingWarnPercent
+	}
+	return limit * percent / 100
+}
+
+// reserveOne reports the post-increment count alongside the verdict, which is
+// what lets the caller tell "45 of 400 used" from "at the cap" without a second
+// read of the ledger.
+func reserveOne(ctx context.Context, bucket, path string, limit int) (count int, ok bool, err error) {
+	ok, err = mutateLedger(ctx, bucket, path, func(l *usageLedger) bool {
 		if l.Generations >= limit {
+			count = l.Generations
 			return false
 		}
 		l.Generations++
+		count = l.Generations
 		return true
 	})
+	return count, ok, err
+}
+
+// usageSnapshot is what a reservation attempt observed, so the request log can
+// carry period usage without re-reading the ledger. A period the attempt never
+// reached stays zero, rather than reporting a limit against a count that was
+// never read.
+type usageSnapshot struct {
+	dayCount, dayLimit     int
+	monthCount, monthLimit int
 }
 
 // reserveGeneration claims one generation against both the daily and monthly
 // ceilings. It returns false when either is exhausted.
-func reserveGeneration(ctx context.Context, bucket string) (bool, error) {
+func reserveGeneration(ctx context.Context, bucket string) (bool, usageSnapshot, error) {
 	now := time.Now().UTC()
+	var snap usageSnapshot
 
-	ok, err := reserveOne(ctx, bucket, ledgerObject(now.Format("2006-01-02")), envInt("INSIGHT_MAX_GENERATIONS_PER_DAY", defaultMaxGenerationsPerDay))
+	snap.dayLimit = envInt("INSIGHT_MAX_GENERATIONS_PER_DAY", defaultMaxGenerationsPerDay)
+	dayCount, ok, err := reserveOne(ctx, bucket, ledgerObject(now.Format("2006-01-02")), snap.dayLimit)
+	snap.dayCount = dayCount
 	if err != nil || !ok {
-		return false, err
+		return false, snap, err
 	}
+	logCeilingApproach("daily", snap.dayCount, snap.dayLimit)
+
 	// A monthly rejection after the daily increment leaves the daily count one
 	// high for the rest of the day. That errs toward generating less, which is
 	// the safe direction to be wrong in.
-	return reserveOne(ctx, bucket, ledgerObject(now.Format("2006-01")), envInt("INSIGHT_MAX_GENERATIONS_PER_MONTH", defaultMaxGenerationsPerMonth))
+	snap.monthLimit = envInt("INSIGHT_MAX_GENERATIONS_PER_MONTH", defaultMaxGenerationsPerMonth)
+	monthCount, ok, err := reserveOne(ctx, bucket, ledgerObject(now.Format("2006-01")), snap.monthLimit)
+	snap.monthCount = monthCount
+	if err != nil || !ok {
+		return false, snap, err
+	}
+	logCeilingApproach("monthly", snap.monthCount, snap.monthLimit)
+	return true, snap, nil
 }
 
 // recordTokenUsage attributes token counts to both period ledgers. Best effort:
