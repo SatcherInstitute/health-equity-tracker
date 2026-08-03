@@ -10,6 +10,9 @@ import HetTerm from '../../styles/HetComponents/HetTerm'
 interface GeneralPopulationComparisonAlertProps {
   dataTypeConfig: DataTypeConfig
   populationConfig: MetricConfig
+  // Required rather than read off populationConfig, where it is optional. The
+  // sentence states this population as fact, so a default would be a claim.
+  generalPopulationLabel: string
   fips: Fips
 }
 
@@ -27,8 +30,7 @@ export default function GeneralPopulationComparisonAlert(
         {props.populationConfig.columnTitleHeader ??
           props.populationConfig.shortLabel}
       </HetTerm>{' '}
-      figures here represent{' '}
-      {props.populationConfig.generalPopulationLabel ?? 'everyone'} in{' '}
+      figures here represent {props.generalPopulationLabel} in{' '}
       {props.fips.getSentenceDisplayName()}, and are provided for context only.
       These are not the figures used to calculate{' '}
       {props.dataTypeConfig.fullDisplayNameInline ??

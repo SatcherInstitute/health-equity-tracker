@@ -271,6 +271,9 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
       county: {
         metrics: {
           per100k: {
+            // Spelled out in full: DeepPartial stops at optional properties, so
+            // a nested MetricConfig override is not partial the way the
+            // surrounding geoOverrides shape suggests.
             populationComparisonMetric: {
               chartTitle: '',
               metricId: 'chr_population_pct',
