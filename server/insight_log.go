@@ -104,8 +104,11 @@ func writeInsightLog(severity, message string, payload any) {
 
 func logInsightEvent(ev *insightEvent, start time.Time) {
 	ev.DurationMs = time.Since(start).Milliseconds()
-	if len(ev.Topic) > insightTopicMaxLen {
-		ev.Topic = ev.Topic[:insightTopicMaxLen]
+	// Truncated by rune, not by byte: a byte slice can cut a multi-byte rune in
+	// half, and json.Marshal then swaps the fragment for U+FFFD, so the logged
+	// topic would not match the one the client sent.
+	if runes := []rune(ev.Topic); len(runes) > insightTopicMaxLen {
+		ev.Topic = string(runes[:insightTopicMaxLen])
 	}
 	writeInsightLog(insightSeverity(ev.Outcome), "insight "+ev.Outcome, ev)
 }

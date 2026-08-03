@@ -107,6 +107,11 @@ call that then fails still spent one: a provider error or an empty response logs
 `error` or `unavailable` while having consumed ceiling budget. Counting only
 `generated` would undercount the ceilings by exactly the failure rate.
 
+`model` marks a request that reached the provider, not one that succeeded, so it is
+present on `provider_error` and `no_content` lines too. Group by it, but never use its
+presence as a stand-in for a successful generation: `outcome` and `reserved` are the
+fields that answer that.
+
 **These strings are an interface.** The queries below and the alert filter match on
 them literally, so renaming one silently returns fewer rows rather than failing.
 `TestInsightRequestLogRecordsEveryOutcome` pins every outcome and every reason above,

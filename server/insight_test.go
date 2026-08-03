@@ -12,6 +12,7 @@ import (
 	"sync"
 	"testing"
 	"time"
+	"unicode/utf8"
 
 	"google.golang.org/api/googleapi"
 )
@@ -1032,11 +1033,28 @@ func TestInsightRequestLogCarriesSpendInputsOnGeneration(t *testing.T) {
 }
 
 func TestInsightRequestLogTruncatesTopic(t *testing.T) {
-	env := newInsightTestEnv(t)
-	env.post(t, map[string]any{"prompt": "p", "cacheKey": "k", "topic": strings.Repeat("t", 500)})
+	tests := []struct {
+		name  string
+		topic string
+	}{
+		{"ascii", strings.Repeat("t", 500)},
+		// A byte-index truncation would land mid-rune here, and json.Marshal would
+		// swap the fragment for U+FFFD.
+		{"multi-byte", strings.Repeat("é", 500)},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			env := newInsightTestEnv(t)
+			env.post(t, map[string]any{"prompt": "p", "cacheKey": "k", "topic": tt.topic})
 
-	if got := len(env.lastRequestEvent(t).Insight.Topic); got != insightTopicMaxLen {
-		t.Errorf("logged topic length = %d, want %d", got, insightTopicMaxLen)
+			got := env.lastRequestEvent(t).Insight.Topic
+			if len([]rune(got)) != insightTopicMaxLen {
+				t.Errorf("logged topic = %d runes, want %d", len([]rune(got)), insightTopicMaxLen)
+			}
+			if !utf8.ValidString(got) || strings.ContainsRune(got, utf8.RuneError) {
+				t.Errorf("logged topic %q is not intact UTF-8", got)
+			}
+		})
 	}
 }
 
