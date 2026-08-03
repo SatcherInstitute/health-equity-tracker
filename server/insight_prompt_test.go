@@ -26,6 +26,22 @@ type fixtureView struct {
 	Rows         []insightRow         `json:"rows"`
 }
 
+type fixtureSection struct {
+	Rows                   []insightRow         `json:"rows"`
+	MetricConfig           *fixtureMetricConfig `json:"metricConfig"`
+	ShareConfig            *fixtureMetricConfig `json:"shareConfig"`
+	PopulationConfig       *fixtureMetricConfig `json:"populationConfig"`
+	GeneralPopulationLabel string               `json:"generalPopulationLabel"`
+}
+
+type fixtureSections struct {
+	Demographic fixtureSection `json:"demographic"`
+	Geographic  fixtureSection `json:"geographic"`
+	Temporal    fixtureSection `json:"temporal"`
+	AgeAdjusted fixtureSection `json:"ageAdjusted"`
+	Unknown     fixtureSection `json:"unknown"`
+}
+
 type promptFixture struct {
 	Kind            string `json:"kind"`
 	Why             string `json:"why"`
@@ -45,6 +61,10 @@ type promptFixture struct {
 	// contrast
 	ViewA *fixtureView `json:"viewA"`
 	ViewB *fixtureView `json:"viewB"`
+
+	// report
+	PlaceNoun string           `json:"placeNoun"`
+	Sections  *fixtureSections `json:"sections"`
 }
 
 func (f *promptFixture) metricConfig() *insightMetricConfig {
@@ -93,6 +113,30 @@ func renderFixture(t *testing.T, f *promptFixture) string {
 		return buildContrastPrompt(f.ViewA.Topic, f.ViewB.Topic, f.ViewA.Location, f.ViewB.Location,
 			demographic, section(f.ViewA), section(f.ViewB))
 
+	case "report":
+		s := f.Sections
+		metricFor := func(sec fixtureSection) *insightMetricConfig {
+			if sec.MetricConfig != nil {
+				return asInsightMetricConfig(sec.MetricConfig)
+			}
+			return f.metricConfig()
+		}
+		demoMetric := metricFor(s.Demographic)
+		demoShares := insightDataOptions{
+			ShareConfig:            asInsightMetricConfig(s.Demographic.ShareConfig),
+			PopulationConfig:       asInsightMetricConfig(s.Demographic.PopulationConfig),
+			GeneralPopulationLabel: s.Demographic.GeneralPopulationLabel,
+		}
+		shape := getTableColumnShape(s.Demographic.Rows, f.DemographicType, demoMetric, demoShares)
+		return buildReportInsightPrompt(f.Topic, f.Location, demographic, reportDataSections{
+			Demographic: formatDemographicRates(s.Demographic.Rows, f.DemographicType, demoMetric,
+				demoShares.ShareConfig, demoShares.PopulationConfig),
+			Geographic:  formatGeographicSpread(s.Geographic.Rows, metricFor(s.Geographic), f.PlaceNoun),
+			Temporal:    formatTemporalChange(s.Temporal.Rows, f.DemographicType, metricFor(s.Temporal)),
+			AgeAdjusted: formatAgeAdjustedRatios(s.AgeAdjusted.Rows, f.DemographicType, metricFor(s.AgeAdjusted)),
+			Unknown:     formatUnknownShare(s.Unknown.Rows, f.DemographicType, metricFor(s.Unknown)),
+		}, &shape)
+
 	default:
 		t.Fatalf("unhandled fixture kind %q", f.Kind)
 		return ""
@@ -119,12 +163,6 @@ func TestInsightPromptFixtures(t *testing.T) {
 			if err := json.Unmarshal(raw, &fixture); err != nil {
 				t.Fatal(err)
 			}
-			// The report templates land with the rest of #5045; until then this
-			// test covers the card and contrast families.
-			if fixture.Kind == "report" {
-				t.Skip("report templates not ported yet (#5045)")
-			}
-
 			wantPath := strings.TrimSuffix(input, ".json") + ".prompt.txt"
 			want, err := os.ReadFile(wantPath)
 			if err != nil {
