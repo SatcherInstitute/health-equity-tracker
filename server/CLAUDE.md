@@ -158,8 +158,11 @@ Two details that are easy to get wrong here:
   count is omitted from the JSON entirely, so under awk's default whitespace splitting
   the empty field would collapse and shift every column after it.
 
-The gap between the two counts is the provider failure rate, and it is ceiling budget
-spent on nothing. A widening gap is worth chasing on its own.
+The gap between the two counts is reservations that produced no insight, and it is
+ceiling budget spent on nothing. Group the gap by `reason` before reading anything into
+it: `provider_error`, `provider_quota`, and `no_content` are provider failures, while
+`unknown` is a bug in the handler and means an outcome went unset. A widening gap is
+worth chasing on its own.
 
 Cross-check against the ledger without reading GCS: the newest line's
 `dailyGenerations` and `monthlyGenerations` are the ledger's own counters at that
