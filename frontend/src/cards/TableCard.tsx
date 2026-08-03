@@ -214,10 +214,8 @@ export default function TableCard(props: TableCardProps) {
               generalPopulationConfig && (
                 <GeneralPopulationComparisonAlert
                   dataTypeConfig={props.dataTypeConfig}
-                  populationColumnTitle={
-                    generalPopulationConfig.columnTitleHeader ??
-                    generalPopulationConfig.shortLabel
-                  }
+                  populationConfig={generalPopulationConfig}
+                  fips={props.fips}
                 />
               )}
             {isIncarceration && (

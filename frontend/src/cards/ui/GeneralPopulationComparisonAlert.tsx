@@ -1,11 +1,16 @@
-import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
+import type {
+  DataTypeConfig,
+  MetricConfig,
+} from '../../data/config/MetricConfigTypes'
 import { formatSubPopString } from '../../data/config/MetricConfigUtils'
+import type { Fips } from '../../data/utils/Fips'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 
 interface GeneralPopulationComparisonAlertProps {
   dataTypeConfig: DataTypeConfig
-  populationColumnTitle: string
+  populationConfig: MetricConfig
+  fips: Fips
 }
 
 export default function GeneralPopulationComparisonAlert(
@@ -18,9 +23,17 @@ export default function GeneralPopulationComparisonAlert(
 
   return (
     <HetNotice kind='data-integrity'>
-      <HetTerm>{props.populationColumnTitle}</HetTerm> covers everyone here, not
-      just the {subPopulation || 'narrower group'} this rate measures. Use it
-      for rough context, not an exact comparison.
+      <HetTerm>
+        {props.populationConfig.columnTitleHeader ??
+          props.populationConfig.shortLabel}
+      </HetTerm>{' '}
+      figures here represent{' '}
+      {props.populationConfig.generalPopulationLabel ?? 'everyone'} in{' '}
+      {props.fips.getSentenceDisplayName()}, and are provided for context only.
+      These are not the figures used to calculate{' '}
+      {props.dataTypeConfig.fullDisplayNameInline ??
+        props.dataTypeConfig.fullDisplayName}{' '}
+      rates, which measure only {subPopulation || 'a narrower group'}.
     </HetNotice>
   )
 }

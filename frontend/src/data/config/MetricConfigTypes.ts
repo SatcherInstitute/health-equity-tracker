@@ -105,6 +105,10 @@ export interface MetricConfig {
   // deliberate, so the caveat cannot false-positive on the topics whose
   // population column already matches their denominator.
   isGeneralPopulationComparison?: boolean
+  // Who this population column actually counts, phrased to sit mid-sentence
+  // (e.g. 'all adults'). Set on the population metric of an
+  // isGeneralPopulationComparison rate so the caveat can name the mismatch.
+  generalPopulationLabel?: string
   rateNumeratorMetric?: MetricConfig
   rateDenominatorMetric?: MetricConfig
   rateComparisonMetricForAlls?: ComparisonMetricConfig
