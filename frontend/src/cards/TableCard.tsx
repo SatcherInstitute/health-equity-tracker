@@ -40,6 +40,7 @@ import CardWrapper from './CardWrapper'
 import ChartTitle, { getChartTitleId } from './ChartTitle'
 import AllsFallbackAlert from './ui/AllsFallbackAlert'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
+import GeneralPopulationComparisonAlert from './ui/GeneralPopulationComparisonAlert'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import MissingDataAlert from './ui/MissingDataAlert'
 
@@ -53,6 +54,26 @@ interface TableCardProps {
 }
 
 const HASH_ID: ScrollableHashId = 'data-table'
+
+// The general population column is context for the rate, not a finding on its
+// own, so it and its caveat are resolved together and withheld together.
+// Withheld when the rate is absent for the entire breakdown, since that would
+// leave a table of ACS shares under a topic with nothing to report. Withheld
+// again when the population metric carries no generalPopulationLabel, since the
+// caveat names the population outright and a guessed label would state
+// something false rather than merely read awkwardly.
+export function resolveGeneralPopulation(
+  rateConfig: MetricConfig | undefined,
+  isRateFieldMissing: boolean,
+): { config: MetricConfig; label: string } | undefined {
+  if (!rateConfig?.isGeneralPopulationComparison || isRateFieldMissing) {
+    return undefined
+  }
+  const config = rateConfig.populationComparisonMetric
+  const label = config?.generalPopulationLabel
+  if (!config || !label) return undefined
+  return { config, label }
+}
 
 export default function TableCard(props: TableCardProps) {
   const preloadHeight = useGuessPreloadHeight(
@@ -80,6 +101,10 @@ export default function TableCard(props: TableCardProps) {
   const metricIdToConfigMap = getMetricIdToConfigMap(initialMetricConfigs)
   const metricIds = Object.keys(metricIdToConfigMap) as MetricId[]
   const metricConfigs = Object.values(metricIdToConfigMap)
+
+  const generalPopulationMetricId = rateConfig?.isGeneralPopulationComparison
+    ? rateConfig.populationComparisonMetric?.metricId
+    : undefined
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.dataTypeConfig.dataTypeId,
@@ -155,6 +180,16 @@ export default function TableCard(props: TableCardProps) {
 
         const tableIsShown = !queryResponse.dataIsMissing() && data.length > 0
 
+        const generalPopulation = resolveGeneralPopulation(
+          rateConfig,
+          rateConfig ? queryResponse.isFieldMissing(rateConfig.metricId) : true,
+        )
+        const shownMetricConfigs = generalPopulation
+          ? metricConfigs
+          : metricConfigs.filter(
+              (config) => config.metricId !== generalPopulationMetricId,
+            )
+
         const showMissingDataAlert =
           queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
           data.length <= 0
@@ -179,7 +214,7 @@ export default function TableCard(props: TableCardProps) {
                 countColsMap={countColsMap}
                 data={data}
                 demographicType={props.demographicType}
-                metricConfigs={metricConfigs}
+                metricConfigs={shownMetricConfigs}
                 dataTypeId={props.dataTypeConfig.dataTypeId}
                 fips={props.fips}
                 dataTableTitle={
@@ -189,6 +224,14 @@ export default function TableCard(props: TableCardProps) {
               />
             )}
 
+            {tableIsShown && generalPopulation && (
+              <GeneralPopulationComparisonAlert
+                dataTypeConfig={props.dataTypeConfig}
+                populationConfig={generalPopulation.config}
+                generalPopulationLabel={generalPopulation.label}
+                fips={props.fips}
+              />
+            )}
             {isIncarceration && (
               <IncarceratedChildrenShortAlert
                 fips={props.fips}
