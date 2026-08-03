@@ -1,0 +1,135 @@
+{
+  "kind": "report",
+  "why": "A report-wide insight with all five data sections populated. This is the prompt that produces the one line a reader who skips the charts will actually read, so it carries the most output structure and the most ways to regress.",
+  "topic": "HIV diagnoses",
+  "location": "Georgia",
+  "demographicType": "race_and_ethnicity",
+  "placeNoun": "counties",
+  "metricConfig": {
+    "metricId": "hiv_diagnoses_per_100k",
+    "shortLabel": "cases per 100k"
+  },
+  "sections": {
+    "demographic": {
+      "rows": [
+        {
+          "race_and_ethnicity": "All",
+          "hiv_diagnoses_per_100k": 24.6
+        },
+        {
+          "race_and_ethnicity": "Black or African American (NH)",
+          "hiv_diagnoses_per_100k": 44.8
+        },
+        {
+          "race_and_ethnicity": "Hispanic or Latino",
+          "hiv_diagnoses_per_100k": 17.1
+        },
+        {
+          "race_and_ethnicity": "White (NH)",
+          "hiv_diagnoses_per_100k": 6.3
+        }
+      ]
+    },
+    "geographic": {
+      "rows": [
+        { "fips_name": "Fulton County", "hiv_diagnoses_per_100k": 41.2 },
+        { "fips_name": "DeKalb County", "hiv_diagnoses_per_100k": 37.5 },
+        { "fips_name": "Clayton County", "hiv_diagnoses_per_100k": 33.8 },
+        { "fips_name": "Chatham County", "hiv_diagnoses_per_100k": 22.8 },
+        { "fips_name": "Richmond County", "hiv_diagnoses_per_100k": 21.4 },
+        { "fips_name": "Muscogee County", "hiv_diagnoses_per_100k": 18.9 },
+        { "fips_name": "Bibb County", "hiv_diagnoses_per_100k": 16.2 },
+        { "fips_name": "Cobb County", "hiv_diagnoses_per_100k": 12.7 },
+        { "fips_name": "Bartow County", "hiv_diagnoses_per_100k": 12.4 },
+        { "fips_name": "Hall County", "hiv_diagnoses_per_100k": 9.8 },
+        { "fips_name": "Forsyth County", "hiv_diagnoses_per_100k": 4.1 },
+        { "fips_name": "Fannin County", "hiv_diagnoses_per_100k": 2.6 }
+      ]
+    },
+    "temporal": {
+      "rows": [
+        {
+          "time_period": "2018",
+          "race_and_ethnicity": "All",
+          "hiv_diagnoses_per_100k": 27.9
+        },
+        {
+          "time_period": "2020",
+          "race_and_ethnicity": "All",
+          "hiv_diagnoses_per_100k": 21.3
+        },
+        {
+          "time_period": "2022",
+          "race_and_ethnicity": "All",
+          "hiv_diagnoses_per_100k": 24.6
+        },
+        {
+          "time_period": "2018",
+          "race_and_ethnicity": "Black or African American (NH)",
+          "hiv_diagnoses_per_100k": 52.4
+        },
+        {
+          "time_period": "2020",
+          "race_and_ethnicity": "Black or African American (NH)",
+          "hiv_diagnoses_per_100k": 39.8
+        },
+        {
+          "time_period": "2022",
+          "race_and_ethnicity": "Black or African American (NH)",
+          "hiv_diagnoses_per_100k": 44.8
+        },
+        {
+          "time_period": "2018",
+          "race_and_ethnicity": "White (NH)",
+          "hiv_diagnoses_per_100k": 7.1
+        },
+        {
+          "time_period": "2020",
+          "race_and_ethnicity": "White (NH)",
+          "hiv_diagnoses_per_100k": 5.4
+        },
+        {
+          "time_period": "2022",
+          "race_and_ethnicity": "White (NH)",
+          "hiv_diagnoses_per_100k": 6.3
+        }
+      ]
+    },
+    "ageAdjusted": {
+      "metricConfig": {
+        "metricId": "hiv_deaths_ratio_age_adjusted",
+        "shortLabel": "x"
+      },
+      "rows": [
+        {
+          "race_and_ethnicity": "Black or African American (NH)",
+          "hiv_deaths_ratio_age_adjusted": 7.1
+        },
+        {
+          "race_and_ethnicity": "Hispanic or Latino",
+          "hiv_deaths_ratio_age_adjusted": 2.4
+        },
+        {
+          "race_and_ethnicity": "Asian (NH)",
+          "hiv_deaths_ratio_age_adjusted": 0.6
+        }
+      ]
+    },
+    "unknown": {
+      "metricConfig": {
+        "metricId": "hiv_diagnoses_pct_share",
+        "shortLabel": "% of cases"
+      },
+      "rows": [
+        {
+          "race_and_ethnicity": "Unknown race",
+          "hiv_diagnoses_pct_share": 8.3
+        },
+        {
+          "race_and_ethnicity": "Unknown ethnicity",
+          "hiv_diagnoses_pct_share": 4.9
+        }
+      ]
+    }
+  }
+}

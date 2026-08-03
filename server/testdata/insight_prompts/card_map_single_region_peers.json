@@ -1,0 +1,33 @@
+{
+  "kind": "card",
+  "why": "A county where every demographic subgroup is suppressed, leaving only an overall rate. There is no local disparity to describe, so the prompt must switch to ranking the county against its same-level peers. Guards the peer-comparison branch and the ordinal rank wording.",
+  "hashId": "rate-map",
+  "topic": "HIV diagnoses",
+  "location": "Bartow County, Georgia",
+  "demographicType": "race_and_ethnicity",
+  "metricConfig": {
+    "metricId": "hiv_diagnoses_per_100k",
+    "shortLabel": "cases per 100k"
+  },
+  "rows": [
+    {
+      "fips": "13015",
+      "fips_name": "Bartow County",
+      "race_and_ethnicity": "All",
+      "hiv_diagnoses_per_100k": 12.4
+    }
+  ],
+  "context": {
+    "peerComparison": {
+      "regionLabel": "Bartow County",
+      "regionValue": 12.4,
+      "peerNoun": "Georgia counties",
+      "shortLabel": "cases per 100k",
+      "peerValues": [
+        2.1, 3.4, 4.0, 5.2, 5.8, 6.1, 6.6, 7.0, 7.3, 7.9, 8.4, 8.8, 9.1, 9.5,
+        10.2, 10.8, 11.1, 11.6, 13.9, 14.2, 15.8, 17.3, 19.4, 22.0, 26.5, 31.2,
+        37.5, 44.1
+      ]
+    }
+  }
+}

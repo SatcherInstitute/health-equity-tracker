@@ -256,6 +256,34 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
           'Preventable hospitalizations per 100k adult Medicare enrollees',
         shortLabel: 'cases per 100k',
         type: 'per100k',
+        isGeneralPopulationComparison: true,
+        populationComparisonMetric: {
+          chartTitle: '',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
+          type: 'pct_share',
+          generalPopulationLabel: 'all adults',
+        },
+      },
+    },
+    geoOverrides: {
+      county: {
+        metrics: {
+          per100k: {
+            // Spelled out in full: DeepPartial stops at optional properties, so
+            // a nested MetricConfig override is not partial the way the
+            // surrounding geoOverrides shape suggests.
+            populationComparisonMetric: {
+              chartTitle: '',
+              metricId: 'chr_population_pct',
+              columnTitleHeader: populationPctTitle,
+              shortLabel: populationPctShortLabel,
+              type: 'pct_share',
+              generalPopulationLabel: 'everyone',
+            },
+          },
+        },
       },
     },
   },

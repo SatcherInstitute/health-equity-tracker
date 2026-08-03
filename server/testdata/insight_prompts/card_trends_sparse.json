@@ -1,0 +1,54 @@
+{
+  "kind": "card",
+  "why": "A time series with few reported periods and uneven coverage across groups, including a group that reports only one year. Guards the historical-anchor-plus-recent-tail selection in formatDataRows, which behaves differently when a series is shorter than the recent window.",
+  "hashId": "rates-over-time",
+  "topic": "HIV diagnoses",
+  "location": "Wyoming",
+  "demographicType": "race_and_ethnicity",
+  "metricConfig": {
+    "metricId": "hiv_diagnoses_per_100k",
+    "shortLabel": "cases per 100k"
+  },
+  "rows": [
+    {
+      "time_period": "2019",
+      "race_and_ethnicity": "All",
+      "hiv_diagnoses_per_100k": 3.1
+    },
+    {
+      "time_period": "2020",
+      "race_and_ethnicity": "All",
+      "hiv_diagnoses_per_100k": 2.8
+    },
+    {
+      "time_period": "2021",
+      "race_and_ethnicity": "All",
+      "hiv_diagnoses_per_100k": 3.6
+    },
+    {
+      "time_period": "2022",
+      "race_and_ethnicity": "All",
+      "hiv_diagnoses_per_100k": 4.0
+    },
+    {
+      "time_period": "2019",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "hiv_diagnoses_per_100k": 8.7
+    },
+    {
+      "time_period": "2022",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "hiv_diagnoses_per_100k": 14.2
+    },
+    {
+      "time_period": "2022",
+      "race_and_ethnicity": "White (NH)",
+      "hiv_diagnoses_per_100k": 2.2
+    },
+    {
+      "time_period": "2021",
+      "race_and_ethnicity": "Hispanic or Latino",
+      "hiv_diagnoses_per_100k": null
+    }
+  ]
+}

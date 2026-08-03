@@ -1,0 +1,54 @@
+{
+  "kind": "contrast",
+  "why": "Compare mode with the same topic in two places, which selects the compare-geo framing and the tighter per-view byte budget. Both views land in one prompt, so this is the case where a budget regression would silently truncate one side.",
+  "hashId": "rate-chart",
+  "demographicType": "race_and_ethnicity",
+  "viewA": {
+    "topic": "HIV diagnoses",
+    "location": "Georgia",
+    "metricConfig": {
+      "metricId": "hiv_diagnoses_per_100k",
+      "shortLabel": "cases per 100k"
+    },
+    "rows": [
+      {
+        "race_and_ethnicity": "All",
+        "hiv_diagnoses_per_100k": 24.6
+      },
+      {
+        "race_and_ethnicity": "Black or African American (NH)",
+        "hiv_diagnoses_per_100k": 44.8
+      },
+      {
+        "race_and_ethnicity": "White (NH)",
+        "hiv_diagnoses_per_100k": 6.3
+      },
+      {
+        "race_and_ethnicity": "Hispanic or Latino",
+        "hiv_diagnoses_per_100k": 17.1
+      }
+    ]
+  },
+  "viewB": {
+    "topic": "HIV diagnoses",
+    "location": "Vermont",
+    "metricConfig": {
+      "metricId": "hiv_diagnoses_per_100k",
+      "shortLabel": "cases per 100k"
+    },
+    "rows": [
+      {
+        "race_and_ethnicity": "All",
+        "hiv_diagnoses_per_100k": 2.9
+      },
+      {
+        "race_and_ethnicity": "Black or African American (NH)",
+        "hiv_diagnoses_per_100k": 11.4
+      },
+      {
+        "race_and_ethnicity": "White (NH)",
+        "hiv_diagnoses_per_100k": 2.4
+      }
+    ]
+  }
+}

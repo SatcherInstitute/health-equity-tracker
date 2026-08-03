@@ -1,0 +1,8 @@
+This is a choropleth map of HIV diagnoses in Bartow County, Georgia. Because only its overall rate is available locally, Bartow County, Georgia is ranked against its peer places at the same geographic level — which draw on the same data source and methodology, so the comparison is fair.
+
+Data:
+- Bartow County: 12.4 cases per 100k
+- Among 28 Georgia counties: above the typical
+- Peer median 9.9 cases per 100k; range 2.1–44.1 cases per 100k
+
+Write a single sentence at an 8th grade reading level that says where Bartow County, Georgia falls among its peers (for example, higher than most, near the middle, or among the lowest), using the specific numbers, and what that means for the people who live there. Focus on the "so what", not the chart mechanics. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.

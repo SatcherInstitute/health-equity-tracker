@@ -1,0 +1,11 @@
+This is a choropleth map showing HIV diagnoses in Georgia by race/ethnicity. Each data row is labeled with its place and race/ethnicity group; an "All" row gives the overall rate for that place. The map currently highlights the Black or African American (NH) group, so lead with that group and use the "All" baseline for comparison.
+
+Data:
+- Fulton County (All): 41.2 cases per 100k
+- Fulton County (Black or African American (NH)): 68.9 cases per 100k
+- DeKalb County (All): 37.5 cases per 100k
+- DeKalb County (Black or African American (NH)): 55.1 cases per 100k
+- Chatham County (All): 22.8 cases per 100k
+- Chatham County (Black or African American (NH)): 40.3 cases per 100k
+
+Write a single sentence at an 8th grade reading level that highlights the most important health equity disparity — either a geographic gap between places or a gap between race/ethnicity groups within a place — and captures why it matters for real people. Focus on the "so what", not the chart mechanics. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.

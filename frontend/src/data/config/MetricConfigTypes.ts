@@ -69,6 +69,7 @@ export type MetricId =
   | 'ahr_population_estimated_total'
   | 'ahr_18plus_population_estimated_total'
   | 'ahr_18plus_population_pct'
+  | 'chr_population_pct'
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -99,6 +100,15 @@ export interface MetricConfig {
   unknownsLabel?: string
   type: MetricType
   populationComparisonMetric?: MetricConfig
+  // Opt-in marker for a population column drawn from the general ACS population
+  // rather than the rate's own denominator. Set it only where that mismatch is
+  // deliberate, so the caveat cannot false-positive on the topics whose
+  // population column already matches their denominator.
+  isGeneralPopulationComparison?: boolean
+  // Who this population column actually counts, phrased to sit mid-sentence
+  // (e.g. 'all adults'). Set on the population metric of an
+  // isGeneralPopulationComparison rate so the caveat can name the mismatch.
+  generalPopulationLabel?: string
   rateNumeratorMetric?: MetricConfig
   rateDenominatorMetric?: MetricConfig
   rateComparisonMetricForAlls?: ComparisonMetricConfig

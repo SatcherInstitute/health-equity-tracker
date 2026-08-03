@@ -15,6 +15,7 @@ import {
   prepareInsightData,
   summarizePeerComparison,
 } from './generateVisualizationInsight'
+import { byteLength, INSIGHT_DATA_BUDGETS } from './insightPromptBudget'
 
 const DEMO = 'race_and_ethnicity'
 
@@ -68,14 +69,9 @@ describe('formatDataRows', () => {
       { fips_name: 'Alaska', race_and_ethnicity: 'Black (NH)', rate: 7 },
       { fips_name: 'Alaska', race_and_ethnicity: 'White (NH)', rate: 4 },
     ]
-    const result = formatDataRows(
-      rows,
-      'rate-map',
-      DEMO,
-      metricConfig,
-      undefined,
-      'Black (NH)',
-    )
+    const result = formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
+      activeDemographicGroup: 'Black (NH)',
+    })
     expect(result).toEqual(
       '- Alabama (All): 9 per 100k\n' +
         '- Alabama (Black (NH)): 12 per 100k\n' +
@@ -90,14 +86,9 @@ describe('formatDataRows', () => {
       { fips_name: 'Alabama', race_and_ethnicity: 'Black (NH)', rate: 12 },
       { fips_name: 'Alaska', race_and_ethnicity: 'All', rate: 5 },
     ]
-    const result = formatDataRows(
-      rows,
-      'rate-map',
-      DEMO,
-      metricConfig,
-      undefined,
-      'All',
-    )
+    const result = formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
+      activeDemographicGroup: 'All',
+    })
     expect(result.split('\n')).toHaveLength(3)
   })
 
@@ -115,14 +106,9 @@ describe('formatDataRows', () => {
         rate: 6.6,
       },
     ]
-    const result = formatDataRows(
-      rows,
-      'rate-map',
-      DEMO,
-      metricConfig,
-      undefined,
-      'Black (NH)',
-    )
+    const result = formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
+      activeDemographicGroup: 'Black (NH)',
+    })
     expect(result.split('\n')).toHaveLength(3)
     expect(result).toContain('- Gwinnett County (All): 7.3 per 100k')
   })
@@ -145,9 +131,9 @@ describe('formatDataRows', () => {
       { race_and_ethnicity: 'White (NH)', time_period: '2020', rate: 4 },
     ]
     expect(
-      formatDataRows(rows, 'rates-over-time', DEMO, metricConfig, [
-        'Black (NH)',
-      ]),
+      formatDataRows(rows, 'rates-over-time', DEMO, metricConfig, {
+        selectedGroups: ['Black (NH)'],
+      }),
     ).toEqual(
       '- Black (NH) (2010): 5 per 100k\n- Black (NH) (2020): 8 per 100k',
     )
@@ -190,9 +176,7 @@ describe('formatDataRows', () => {
     expect(tailYears).toEqual(
       tailYears.map((_, i) => 2016 - (tail.length - 1) + i),
     )
-    expect(new TextEncoder().encode(result).length).toBeLessThanOrEqual(
-      12 * 1024,
-    )
+    expect(byteLength(result)).toBeLessThanOrEqual(INSIGHT_DATA_BUDGETS.card)
   })
 
   test('more groups than fit the budget yields whole lines only, never a truncated one', () => {
@@ -207,9 +191,7 @@ describe('formatDataRows', () => {
     for (const line of lines) {
       expect(line).toMatch(/^- Group \d+ \(2020\): \d+ per 100k$/)
     }
-    expect(new TextEncoder().encode(result).length).toBeLessThanOrEqual(
-      12 * 1024,
-    )
+    expect(byteLength(result)).toBeLessThanOrEqual(INSIGHT_DATA_BUDGETS.card)
   })
 
   test('a multi-place map keeps the "All women" baseline for women-only topics', () => {
@@ -221,14 +203,9 @@ describe('formatDataRows', () => {
       { fips_name: 'Alabama', race_and_ethnicity: 'Black women', rate: 11 },
       { fips_name: 'Alabama', race_and_ethnicity: 'White women', rate: 3 },
     ]
-    const result = formatDataRows(
-      rows,
-      'rate-map',
-      DEMO,
-      metricConfig,
-      undefined,
-      'Black women',
-    )
+    const result = formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
+      activeDemographicGroup: 'Black women',
+    })
     expect(result.split('\n')).toHaveLength(4)
     expect(result).toContain('- Georgia (All women): 5 per 100k')
     expect(result).toContain('- Alabama (All women): 6 per 100k')
@@ -242,14 +219,9 @@ describe('formatDataRows', () => {
       { fips_name: 'Alabama', race_and_ethnicity: 'All women', rate: 6 },
       { fips_name: 'Alabama', race_and_ethnicity: 'Black women', rate: 11 },
     ]
-    const result = formatDataRows(
-      rows,
-      'rate-map',
-      DEMO,
-      metricConfig,
-      undefined,
-      'All women',
-    )
+    const result = formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
+      activeDemographicGroup: 'All women',
+    })
     expect(result.split('\n')).toHaveLength(4)
   })
 })
@@ -304,7 +276,7 @@ describe('prepareInsightData', () => {
       dataTypeConfig,
       DEMO,
       [response],
-      ['Black (NH)'],
+      { selectedGroups: ['Black (NH)'] },
     )
     // first + last year for the one selected group
     expect(result.entryCount).toBe(2)
@@ -329,14 +301,9 @@ describe('getInsightDataStatus', () => {
 
   test("'single-region' when a map has under two values but the region has an overall rate", () => {
     expect(
-      getInsightDataStatus(
-        'rate-map',
-        dataTypeConfig,
-        DEMO,
-        [oneRow],
-        undefined,
-        true,
-      ),
+      getInsightDataStatus('rate-map', dataTypeConfig, DEMO, [oneRow], {
+        regionHasAllRate: true,
+      }),
     ).toBe('single-region')
   })
 
@@ -344,28 +311,18 @@ describe('getInsightDataStatus', () => {
     // A lone subgroup row leaves no overall rate, so the region can't be ranked
     // as an overall value against its peers — it stays hidden.
     expect(
-      getInsightDataStatus(
-        'rate-map',
-        dataTypeConfig,
-        DEMO,
-        [oneRow],
-        undefined,
-        false,
-      ),
+      getInsightDataStatus('rate-map', dataTypeConfig, DEMO, [oneRow], {
+        regionHasAllRate: false,
+      }),
     ).toBe('empty')
   })
 
   test("a non-map chart is 'empty' even with an overall region rate", () => {
     // Peer ranking only makes sense for maps.
     expect(
-      getInsightDataStatus(
-        'data-table',
-        dataTypeConfig,
-        DEMO,
-        [oneRow],
-        undefined,
-        true,
-      ),
+      getInsightDataStatus('data-table', dataTypeConfig, DEMO, [oneRow], {
+        regionHasAllRate: true,
+      }),
     ).toBe('empty')
   })
 
@@ -373,14 +330,9 @@ describe('getInsightDataStatus', () => {
     // A state map whose county children have no data: entryCount 0, but the
     // state's own rate lets it rank against peer states.
     expect(
-      getInsightDataStatus(
-        'rate-map',
-        dataTypeConfig,
-        DEMO,
-        [empty],
-        undefined,
-        true,
-      ),
+      getInsightDataStatus('rate-map', dataTypeConfig, DEMO, [empty], {
+        regionHasAllRate: true,
+      }),
     ).toBe('single-region')
   })
 
