@@ -1087,3 +1087,31 @@ func TestCeilingApproachWarnsExactlyOncePerPeriod(t *testing.T) {
 		t.Errorf("message = %q, want it to name the daily period", warnings[0].Message)
 	}
 }
+
+// A misconfigured percent must not be honored. Zero, a negative, or anything
+// over 100 would put the threshold outside the range a count can reach, which
+// turns off the alert with no error and no log line, the exact failure the
+// alert exists to prevent.
+func TestCeilingWarnPercentIgnoresOutOfRangeValues(t *testing.T) {
+	for _, tc := range []struct {
+		percent string
+		want    int
+	}{
+		{"80", 320},
+		{"50", 200},
+		{"1", 4},
+		{"100", 400},
+		{"0", 320},
+		{"101", 320},
+		{"-1", 320},
+		{"abc", 320},
+		{"", 320},
+	} {
+		t.Run(tc.percent, func(t *testing.T) {
+			t.Setenv("INSIGHT_CEILING_WARN_PERCENT", tc.percent)
+			if got := ceilingWarnAt(400); got != tc.want {
+				t.Errorf("ceilingWarnAt(400) with percent %q = %d, want %d", tc.percent, got, tc.want)
+			}
+		})
+	}
+}

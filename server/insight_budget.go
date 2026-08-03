@@ -143,8 +143,16 @@ func mutateLedger(ctx context.Context, bucket, path string, apply func(*usageLed
 
 // ceilingWarnAt is the generation count at which a period's usage is considered
 // close enough to its ceiling to be worth an alert.
+//
+// A percent outside 1..100 lands the threshold at zero or past the ceiling, and
+// either one silently disables the alert rather than moving it, so an
+// out-of-range value falls back to the default instead of being honored.
 func ceilingWarnAt(limit int) int {
-	return limit * envInt("INSIGHT_CEILING_WARN_PERCENT", defaultCeilingWarnPercent) / 100
+	percent := envInt("INSIGHT_CEILING_WARN_PERCENT", defaultCeilingWarnPercent)
+	if percent < 1 || percent > 100 {
+		percent = defaultCeilingWarnPercent
+	}
+	return limit * percent / 100
 }
 
 // reserveOne reports the post-increment count alongside the verdict, which is

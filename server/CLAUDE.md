@@ -35,7 +35,7 @@ go test ./...
 | `GEMINI_MODEL` | No | `gemini-3.1-flash-lite` | Gemini model used for insight generation |
 | `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `400` | Daily generation ceiling, tracked in the usage ledger |
 | `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `8000` | Monthly generation ceiling, tracked in the usage ledger |
-| `INSIGHT_CEILING_WARN_PERCENT` | No | `80` | Share of a ceiling at which a `ceiling_approaching` warning is logged |
+| `INSIGHT_CEILING_WARN_PERCENT` | No | `80` | Share of a ceiling at which a `ceiling_approaching` warning is logged. Must be `1`-`100`; anything else falls back to the default |
 | `INSIGHT_ALLOWED_ORIGINS` | No | prod, www, dev, `localhost:3000`, `*.netlify.app` | Comma-separated origins permitted to request generation |
 | `WEBFLOW_API_TOKEN` | No | - | Required for `/het-news` |
 | `INSIGHT_NEGATIVE_EXAMPLES_ENABLED` | No | `false` | Feed prior flagged outputs back into prompts |
@@ -189,6 +189,12 @@ gcloud logging read \
 `INSIGHT_CEILING_WARN_PERCENT` of the ceiling. The ledger's compare-and-swap hands out
 each count exactly once, so it cannot double-fire across Cloud Run instances and cannot
 degrade into a line per request for the rest of the period.
+
+Because the signal is a single exact count, a percent outside `1`-`100` would put the
+threshold where no count can reach it and turn the alert off with no error, so an
+out-of-range value is ignored in favor of the default. The threshold is also not wired
+through Terraform on purpose: `terraform apply` rolls a new revision anyway, so an env
+var would not buy a deploy-free way to change it.
 
 A daily ceiling needs a real-time signal. The weekly `cronReviewFlaggedInsights.yml` is
 too coarse for it: a Tuesday overrun would not surface until the following Monday, long
