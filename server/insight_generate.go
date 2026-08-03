@@ -199,6 +199,7 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 	// Reserved before the call rather than after, so a crash mid-flight cannot
 	// leave a generation unaccounted for.
 	reserved, usage, err := reserveGeneration(ctx, cacheBucket)
+	ev.Reserved = reserved
 	ev.DailyGenerations, ev.DailyLimit = usage.dayCount, usage.dayLimit
 	ev.MonthlyGenerations, ev.MonthlyLimit = usage.monthCount, usage.monthLimit
 	if err != nil {

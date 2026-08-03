@@ -518,6 +518,15 @@ func (e *insightTestEnv) post(t *testing.T, body map[string]any) *httptest.Respo
 	return rr
 }
 
+// setKillSwitch forces the operator off switch without a network check, by
+// priming the same memo newInsightTestEnv primes.
+func setKillSwitch(t *testing.T, on bool) {
+	t.Helper()
+	killSwitchMu.Lock()
+	defer killSwitchMu.Unlock()
+	killSwitchChecked, killSwitchOn = time.Now(), on
+}
+
 func stubFlaggedRecord(t *testing.T, record map[string]any, err error) {
 	t.Helper()
 	orig := insightFlagRead
@@ -820,6 +829,10 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 		outcome  string
 		reason   string
 		severity string
+		// reserved is the ceiling accounting, which is deliberately not the same
+		// as "an insight was produced": the slot is claimed before the provider
+		// call, so a failed call still spends one.
+		reserved bool
 	}{
 		{
 			name:     "missing prompt",
@@ -839,6 +852,7 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 			name:     "generated",
 			outcome:  outcomeGenerated,
 			severity: "INFO",
+			reserved: true,
 		},
 		{
 			name: "memory cache hit",
@@ -903,6 +917,24 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 			severity: "WARNING",
 		},
 		{
+			name: "no ledger bucket",
+			setup: func(t *testing.T, _ *insightTestEnv) {
+				t.Setenv("INSIGHTS_CACHE_BUCKET", "")
+			},
+			outcome:  outcomeUnavailable,
+			reason:   reasonNoCacheBucket,
+			severity: "WARNING",
+		},
+		{
+			name: "kill switch on",
+			setup: func(t *testing.T, _ *insightTestEnv) {
+				setKillSwitch(t, true)
+			},
+			outcome:  outcomeUnavailable,
+			reason:   reasonGenerationOff,
+			severity: "WARNING",
+		},
+		{
 			name: "provider returned nothing",
 			setup: func(_ *testing.T, env *insightTestEnv) {
 				env.stubGeneration(func() (insightGeneration, error) {
@@ -912,6 +944,7 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 			outcome:  outcomeUnavailable,
 			reason:   reasonNoContent,
 			severity: "WARNING",
+			reserved: true,
 		},
 		{
 			name: "provider error",
@@ -923,6 +956,7 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 			outcome:  outcomeError,
 			reason:   reasonProviderError,
 			severity: "ERROR",
+			reserved: true,
 		},
 		{
 			name: "provider quota",
@@ -934,6 +968,7 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 			outcome:  outcomeError,
 			reason:   reasonProviderQuota,
 			severity: "ERROR",
+			reserved: true,
 		},
 	}
 
@@ -959,6 +994,9 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 			}
 			if got.Severity != tt.severity {
 				t.Errorf("severity = %q, want %q", got.Severity, tt.severity)
+			}
+			if got.Insight.Reserved != tt.reserved {
+				t.Errorf("reserved = %v, want %v", got.Insight.Reserved, tt.reserved)
 			}
 		})
 	}

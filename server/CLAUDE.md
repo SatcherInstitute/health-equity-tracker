@@ -77,7 +77,7 @@ object and hits are the hot path.
 
 ```json
 {"severity":"INFO","message":"insight generated","insight":{
-  "outcome":"generated","cacheKey":"a1b2c3","topic":"hiv",
+  "outcome":"generated","cacheKey":"a1b2c3","topic":"hiv","reserved":true,
   "model":"gemini-3.1-flash-lite","promptTokens":1840,"outputTokens":96,
   "dailyGenerations":42,"dailyLimit":400,
   "monthlyGenerations":903,"monthlyLimit":8000,"durationMs":812}}
@@ -100,9 +100,17 @@ object and hits are the hot path.
 `no_api_key`, `no_cache_bucket`, `ledger_error`, `no_content`, `provider_quota`,
 `provider_error`, `suppression_check`, `missing_prompt`, `prompt_too_large`.
 
+`reserved` is true when the request claimed a slot against the ceilings. **This is not
+the same as `outcome="generated"`**, and the difference is what makes the volume query
+below correct. `reserveGeneration` claims the slot *before* the provider call, so a
+call that then fails still spent one: a provider error or an empty response logs
+`error` or `unavailable` while having consumed ceiling budget. Counting only
+`generated` would undercount the ceilings by exactly the failure rate.
+
 **These strings are an interface.** The queries below and the alert filter match on
 them literally, so renaming one silently returns fewer rows rather than failing.
-`TestInsightRequestLogRecordsEveryOutcome` pins every one of them.
+`TestInsightRequestLogRecordsEveryOutcome` pins every outcome and every reason above,
+along with its severity and its `reserved` value.
 
 ### Queries
 
@@ -115,17 +123,31 @@ FILTER='resource.type="cloud_run_revision"
 resource.labels.service_name="frontend-service"'
 ```
 
-**Generation volume and tokens this month.** Generations are the reliable number:
-`reserveGeneration` claims a slot before the call and cannot lose one. Tokens are
-approximate, because `recordTokenUsage` is deliberately best-effort and swallows
-errors, so treat them as refining the per-generation average rather than as a total.
+**Generation volume and tokens this month.** Filter on `reserved`, not on
+`outcome="generated"`, so failed provider calls that still consumed ceiling budget are
+counted. Reservations are the reliable number: `reserveGeneration` claims a slot before
+the call and cannot lose one. Tokens are approximate, because `recordTokenUsage` is
+deliberately best-effort and swallows errors, so treat them as refining the
+per-generation average rather than as a total.
 
 ```bash
-gcloud logging read "$FILTER jsonPayload.insight.outcome=\"generated\"" \
+gcloud logging read "$FILTER jsonPayload.insight.reserved=true" \
   --project "$PROJECT" --freshness=30d \
-  --format='value(jsonPayload.insight.promptTokens,jsonPayload.insight.outputTokens)' \
-| awk '{n++; i+=$1; o+=$2} END {print n" generations, "i" input tokens, "o" output tokens"}'
+  --format='value(jsonPayload.insight.outcome,jsonPayload.insight.promptTokens,jsonPayload.insight.outputTokens)' \
+| awk -F'\t' '{n++; if ($1=="generated") s++; i+=$2; o+=$3}
+       END {print n" reservations ("s" produced an insight), "i" input tokens, "o" output tokens"}'
 ```
+
+`-F'\t'` is load-bearing: `value()` emits tab-separated fields, and a zero token count
+is omitted from the JSON entirely, so under awk's default whitespace splitting the
+empty field would collapse and shift every column after it.
+
+The gap between the two counts is the provider failure rate, and it is ceiling budget
+spent on nothing. A widening gap is worth chasing on its own.
+
+Cross-check against the ledger without reading GCS: the newest line's
+`dailyGenerations` and `monthlyGenerations` are the ledger's own counters at that
+moment, so they should track the reservation count above.
 
 Spend is $0 while the project is on the provider's free tier, so the tokens are read
 as quota headroom rather than dollars. They are recorded per line with the model that
@@ -176,12 +198,17 @@ jsonPayload.insight.outcome="ceiling_approaching"
 ```
 
 ```bash
-gcloud alpha monitoring channels list --project "$PROJECT"   # get the channel ID
-gcloud alpha monitoring policies create --project "$PROJECT" --policy-from-file=- <<'YAML'
+# Pick the channel to notify, then create the policy. The heredoc is unquoted so
+# CHANNEL and PROJECT expand; a quoted <<'YAML' would post the literal names and
+# the policy would be created with no working notification target.
+CHANNEL=$(gcloud alpha monitoring channels list --project "$PROJECT" \
+  --format='value(name)' --limit=1)
+
+gcloud alpha monitoring policies create --project "$PROJECT" --policy-from-file=- <<YAML
 displayName: Insight generation ceiling approaching
 combiner: OR
 conditions:
-  - displayName: 80% of an insight generation ceiling reached
+  - displayName: Insight generation ceiling warn threshold reached
     conditionMatchedLog:
       filter: >-
         resource.type="cloud_run_revision"
@@ -191,9 +218,14 @@ alertStrategy:
   notificationRateLimit:
     period: 3600s
 notificationChannels:
-  - projects/PROJECT/notificationChannels/CHANNEL_ID
+  - $CHANNEL
 YAML
 ```
+
+`gcloud alpha monitoring channels list` returns the full
+`projects/<project>/notificationChannels/<id>` resource name, which is the form the
+policy wants. Confirm it is the channel the team actually watches before creating the
+policy; `--limit=1` just takes the first one.
 
 Alerting on `ceiling_approaching` rather than on `ceiling_reached` is the point: by the
 time reservations are being refused, uncached views are already rendering no insight

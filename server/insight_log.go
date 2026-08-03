@@ -53,8 +53,14 @@ type insightEvent struct {
 	CacheKey string `json:"cacheKey,omitempty"`
 	Topic    string `json:"topic,omitempty"`
 
-	// Set only on the generated path. Tokens are what the provider's free tier
-	// meters, and are the input to a spend figure if this ever moves off it.
+	// Reserved marks a request that claimed a slot against the ceilings, which is
+	// not the same as one that produced an insight: reserveGeneration claims
+	// before the provider call, so a slot is spent even when the call then fails.
+	// Counting outcome="generated" alone would undercount the ceilings.
+	Reserved bool `json:"reserved,omitempty"`
+
+	// Set only once the provider was called. Tokens are what the provider's free
+	// tier meters, and are the input to a spend figure if this ever moves off it.
 	Model        string `json:"model,omitempty"`
 	PromptTokens int    `json:"promptTokens,omitempty"`
 	OutputTokens int    `json:"outputTokens,omitempty"`
