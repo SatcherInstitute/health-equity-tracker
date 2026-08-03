@@ -23,6 +23,12 @@ const (
 	// Not a request outcome: emitted on its own line when usage crosses the warn
 	// threshold, which is the signal the ceiling alert matches on.
 	outcomeCeilingApproaching = "ceiling_approaching"
+
+	// Stands in when the handler returned without classifying the request, which
+	// means a panic or a return path that was added without an outcome. Every
+	// query here is a ratio over outcomes, so an unlabeled line would silently
+	// leave one out rather than show up as a gap.
+	outcomeUnknown = "unknown"
 )
 
 // Reasons narrow an unavailable, rejected, or error outcome to the specific gate
@@ -59,8 +65,11 @@ type insightEvent struct {
 	// Counting outcome="generated" alone would undercount the ceilings.
 	Reserved bool `json:"reserved,omitempty"`
 
-	// Set only once the provider was called. Tokens are what the provider's free
-	// tier meters, and are the input to a spend figure if this ever moves off it.
+	// Set only once the provider was called, which is not the same as one that
+	// succeeded: all three ride on a failed call too, so presence marks an
+	// attempt and never a successful generation. Tokens are what the provider's
+	// free tier meters, and are the input to a spend figure if this ever moves
+	// off it.
 	Model        string `json:"model,omitempty"`
 	PromptTokens int    `json:"promptTokens,omitempty"`
 	OutputTokens int    `json:"outputTokens,omitempty"`
@@ -80,7 +89,7 @@ var insightLogOut io.Writer = os.Stdout
 
 func insightSeverity(outcome string) string {
 	switch outcome {
-	case outcomeError:
+	case outcomeError, outcomeUnknown:
 		return "ERROR"
 	case outcomeUnavailable:
 		return "WARNING"
@@ -104,6 +113,9 @@ func writeInsightLog(severity, message string, payload any) {
 
 func logInsightEvent(ev *insightEvent, start time.Time) {
 	ev.DurationMs = time.Since(start).Milliseconds()
+	if ev.Outcome == "" {
+		ev.Outcome = outcomeUnknown
+	}
 	// Truncated by rune, not by byte: a byte slice can cut a multi-byte rune in
 	// half, and json.Marshal then swaps the fragment for U+FFFD, so the logged
 	// topic would not match the one the client sent.

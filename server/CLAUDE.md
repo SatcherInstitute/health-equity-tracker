@@ -94,6 +94,7 @@ object and hits are the hot path.
 | `suppressed` | A reviewer suppressed this exact insight |
 | `rejected` | Malformed request (missing or oversize prompt) |
 | `error` | Provider or suppression-check failure |
+| `unknown` | The handler returned without classifying the request. Always a bug |
 | `ceiling_approaching` | Not a request. See the alert below |
 
 `reason` narrows the non-serving outcomes: `ceiling_reached`, `generation_disabled`,
@@ -166,6 +167,11 @@ moment, and now cover the same window as the query, so `monthlyGenerations` and 
 reservation count should agree. A persistent gap means log entries aged out of the
 default 30-day retention, which a 31-day month will always clip slightly, so trust the
 counter over the query when they disagree.
+
+One other source of drift, visible only near the monthly cap: `reserveGeneration`
+claims the daily slot before the monthly one, so a request the monthly ceiling refuses
+logs `reserved=false` after already consuming a daily slot. The daily counter can
+therefore sit slightly above what the reservation query returns.
 
 Spend is $0 while the project is on the provider's free tier, so the tokens are read
 as quota headroom rather than dollars. They are recorded per line with the model that

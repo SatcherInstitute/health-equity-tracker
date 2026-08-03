@@ -1088,6 +1088,32 @@ func TestCeilingApproachWarnsExactlyOncePerPeriod(t *testing.T) {
 	}
 }
 
+// Every query in the docs is a ratio over outcomes, so a line with no outcome
+// would drop out of both the numerator and the denominator instead of showing up
+// as a gap. An unclassified request is also a bug worth an ERROR.
+func TestInsightLogLabelsAnUnclassifiedRequest(t *testing.T) {
+	var buf bytes.Buffer
+	orig := insightLogOut
+	insightLogOut = &buf
+	t.Cleanup(func() { insightLogOut = orig })
+
+	logInsightEvent(&insightEvent{}, time.Now())
+
+	var got loggedInsight
+	if err := json.Unmarshal(buf.Bytes(), &got); err != nil {
+		t.Fatalf("unmarshal %q: %v", buf.String(), err)
+	}
+	if got.Insight.Outcome != outcomeUnknown {
+		t.Errorf("outcome = %q, want %q", got.Insight.Outcome, outcomeUnknown)
+	}
+	if got.Severity != "ERROR" {
+		t.Errorf("severity = %q, want ERROR", got.Severity)
+	}
+	if got.Message != "insight "+outcomeUnknown {
+		t.Errorf("message = %q, want it to name the unknown outcome", got.Message)
+	}
+}
+
 // A misconfigured percent must not be honored. Zero, a negative, or anything
 // over 100 would put the threshold outside the range a count can reach, which
 // turns off the alert with no error and no log line, the exact failure the
