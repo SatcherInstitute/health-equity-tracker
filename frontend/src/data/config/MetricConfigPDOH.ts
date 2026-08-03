@@ -3,7 +3,12 @@ import {
   defaultHigherIsWorseMapConfig,
   womenHigherIsBetterMapConfig,
 } from '../../charts/mapGlobals'
-import { populationPctShortLabel } from './MetricConfigConstants'
+import {
+  adultPopulationPctShortLabel,
+  adultPopulationPctTitle,
+  populationPctShortLabel,
+  populationPctTitle,
+} from './MetricConfigConstants'
 import type { DataTypeConfig } from './MetricConfigTypes'
 
 export const PDOH_CATEGORY_DROPDOWNIDS = [
@@ -74,6 +79,29 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
         shortLabel: '% voter participation',
         type: 'pct_rate',
         timeSeriesCadence: 'fourYearly',
+        isGeneralPopulationComparison: true,
+        populationComparisonMetric: {
+          chartTitle: '',
+          metricId: 'ahr_18plus_population_pct',
+          columnTitleHeader: adultPopulationPctTitle,
+          shortLabel: adultPopulationPctShortLabel,
+          type: 'pct_share',
+        },
+      },
+    },
+    geoOverrides: {
+      county: {
+        metrics: {
+          pct_rate: {
+            populationComparisonMetric: {
+              chartTitle: '',
+              metricId: 'chr_population_pct',
+              columnTitleHeader: populationPctTitle,
+              shortLabel: populationPctShortLabel,
+              type: 'pct_share',
+            },
+          },
+        },
       },
     },
   },

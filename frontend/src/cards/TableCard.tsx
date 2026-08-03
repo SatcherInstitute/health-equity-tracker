@@ -40,6 +40,7 @@ import CardWrapper from './CardWrapper'
 import ChartTitle, { getChartTitleId } from './ChartTitle'
 import AllsFallbackAlert from './ui/AllsFallbackAlert'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
+import GeneralPopulationComparisonAlert from './ui/GeneralPopulationComparisonAlert'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import MissingDataAlert from './ui/MissingDataAlert'
 
@@ -80,6 +81,10 @@ export default function TableCard(props: TableCardProps) {
   const metricIdToConfigMap = getMetricIdToConfigMap(initialMetricConfigs)
   const metricIds = Object.keys(metricIdToConfigMap) as MetricId[]
   const metricConfigs = Object.values(metricIdToConfigMap)
+
+  const generalPopulationConfig = rateConfig?.isGeneralPopulationComparison
+    ? rateConfig.populationComparisonMetric
+    : undefined
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.dataTypeConfig.dataTypeId,
@@ -155,6 +160,21 @@ export default function TableCard(props: TableCardProps) {
 
         const tableIsShown = !queryResponse.dataIsMissing() && data.length > 0
 
+        // The general population column is context for the rate, not a finding
+        // on its own. Where the rate has no data for this breakdown, showing it
+        // would leave a table of ACS shares under a topic that has nothing to
+        // report, plus a caveat about a comparison the reader can't make.
+        const showGeneralPopulation = Boolean(
+          generalPopulationConfig &&
+            rateConfig &&
+            !queryResponse.isFieldMissing(rateConfig.metricId),
+        )
+        const shownMetricConfigs = showGeneralPopulation
+          ? metricConfigs
+          : metricConfigs.filter(
+              (config) => config.metricId !== generalPopulationConfig?.metricId,
+            )
+
         const showMissingDataAlert =
           queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
           data.length <= 0
@@ -179,7 +199,7 @@ export default function TableCard(props: TableCardProps) {
                 countColsMap={countColsMap}
                 data={data}
                 demographicType={props.demographicType}
-                metricConfigs={metricConfigs}
+                metricConfigs={shownMetricConfigs}
                 dataTypeId={props.dataTypeConfig.dataTypeId}
                 fips={props.fips}
                 dataTableTitle={
@@ -189,6 +209,17 @@ export default function TableCard(props: TableCardProps) {
               />
             )}
 
+            {tableIsShown &&
+              showGeneralPopulation &&
+              generalPopulationConfig && (
+                <GeneralPopulationComparisonAlert
+                  dataTypeConfig={props.dataTypeConfig}
+                  populationColumnTitle={
+                    generalPopulationConfig.columnTitleHeader ??
+                    generalPopulationConfig.shortLabel
+                  }
+                />
+              )}
             {isIncarceration && (
               <IncarceratedChildrenShortAlert
                 fips={props.fips}

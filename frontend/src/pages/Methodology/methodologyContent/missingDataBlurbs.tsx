@@ -286,8 +286,11 @@ export function MissingAHRData() {
           for. Voter participation is measured among citizens ages 18+, and
           preventable hospitalizations among Medicare enrollees ages 18+.
           Because we cannot break those sub-populations down by race, ethnicity,
-          or sex, we show these two measures as rates only, and do not display
-          percent share or population comparison metrics for them.
+          or sex, we cannot compute a percent share for them. We do show the
+          general population share alongside the rate, so a reader can still see
+          the demographic makeup of the place, and we note directly on those
+          tables that the population column and the rate describe different
+          populations.
         </li>
         <li>
           <b>Age reports:</b> AHR reports its adult measures against three broad
