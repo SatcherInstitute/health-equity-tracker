@@ -7,32 +7,48 @@
   "demographicType": "race_and_ethnicity",
   "metricConfig": {
     "metricId": "cervical_cancer_per_100k",
-    "shortLabel": "cases per 100k"
+    "shortLabel": "cases per 100k",
+    "populationComparisonMetric": {
+      "metricId": "cervical_cancer_population_pct",
+      "shortLabel": "% of population"
+    }
   },
   "rows": [
     {
       "race_and_ethnicity": "All",
-      "cervical_cancer_per_100k": 6.8
+      "cervical_cancer_per_100k": 6.8,
+      "cervical_cancer_pct_share": 100,
+      "cervical_cancer_population_pct": 100
     },
     {
       "race_and_ethnicity": "White (NH)",
-      "cervical_cancer_per_100k": 6.5
+      "cervical_cancer_per_100k": 6.5,
+      "cervical_cancer_pct_share": 78,
+      "cervical_cancer_population_pct": 92
     },
     {
       "race_and_ethnicity": "Black or African American (NH)",
-      "cervical_cancer_per_100k": null
+      "cervical_cancer_per_100k": null,
+      "cervical_cancer_pct_share": null,
+      "cervical_cancer_population_pct": 4
     },
     {
       "race_and_ethnicity": "Asian (NH)",
-      "cervical_cancer_per_100k": null
+      "cervical_cancer_per_100k": null,
+      "cervical_cancer_pct_share": null,
+      "cervical_cancer_population_pct": 2
     },
     {
       "race_and_ethnicity": "American Indian and Alaska Native (NH)",
-      "cervical_cancer_per_100k": null
+      "cervical_cancer_per_100k": null,
+      "cervical_cancer_pct_share": null,
+      "cervical_cancer_population_pct": 1
     },
     {
       "race_and_ethnicity": "Hispanic or Latino",
-      "cervical_cancer_per_100k": null
+      "cervical_cancer_per_100k": null,
+      "cervical_cancer_pct_share": null,
+      "cervical_cancer_population_pct": 1
     }
   ]
 }
