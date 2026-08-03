@@ -24,6 +24,7 @@ var insightMemCache sync.Map
 var (
 	insightCacheRead  = cachedInsightContent
 	insightCacheWrite = uploadBlob
+	insightFlagRead   = flaggedRecord
 )
 
 type insightMemEntry struct {
@@ -95,17 +96,24 @@ func writeInsightUnavailable(w http.ResponseWriter) {
 }
 
 func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
+	start := time.Now()
+	var ev insightEvent
+	defer func() { logInsightEvent(&ev, start) }()
+
 	body := jsonBody(r)
 	prompt, _ := body["prompt"].(string)
 	clientKey, _ := body["cacheKey"].(string)
 	topic, _ := body["topic"].(string)
+	ev.Topic = topic
 
 	if prompt == "" {
+		ev.Outcome, ev.Reason = outcomeRejected, reasonMissingPrompt
 		w.Header().Set("Content-Type", "application/json")
 		http.Error(w, `{"error":"Missing prompt parameter"}`, http.StatusBadRequest)
 		return
 	}
 	if len(prompt) > insightPromptMaxBytes {
+		ev.Outcome, ev.Reason = outcomeRejected, reasonPromptTooLarge
 		w.Header().Set("Content-Type", "application/json")
 		http.Error(w, `{"error":"Prompt too large"}`, http.StatusRequestEntityTooLarge)
 		return
@@ -115,6 +123,7 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 	if cacheKey == "" {
 		cacheKey = sanitizeInsightKey(prompt)
 	}
+	ev.CacheKey = cacheKey
 
 	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
 	defer cancel()
@@ -125,14 +134,16 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 	// Suppression check runs first, because a suppressed insight must never be
 	// served even if it is still warm in the in-process cache.
 	if flaggedBucket != "" {
-		record, err := flaggedRecord(ctx, flaggedBucket, cacheKey)
+		record, err := insightFlagRead(ctx, flaggedBucket, cacheKey)
 		if err != nil {
+			ev.Outcome, ev.Reason = outcomeError, reasonSuppressionRead
 			log.Printf("[insight] suppression check error: %v", err)
 			http.Error(w, "Internal server error", http.StatusInternalServerError)
 			return
 		}
 		if record != nil {
 			if status, _ := record["status"].(string); suppressingStatuses[status] {
+				ev.Outcome = outcomeSuppressed
 				writeJSON(w, map[string]bool{"suppressed": true})
 				return
 			}
@@ -143,6 +154,7 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 	if v, ok := insightMemCache.Load(cacheKey); ok {
 		entry := v.(insightMemEntry)
 		if time.Since(entry.ts) < insightMemTTL {
+			ev.Outcome = outcomeMemoryHit
 			writeJSON(w, map[string]string{"content": entry.content})
 			return
 		}
@@ -154,6 +166,7 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 		content := insightCacheRead(ctx, cacheBucket, cacheKey)
 		if content != "" {
 			insightMemCache.Store(cacheKey, insightMemEntry{content: content, ts: time.Now()})
+			ev.Outcome = outcomeGCSHit
 			writeJSON(w, map[string]string{"content": content})
 			return
 		}
@@ -163,18 +176,21 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 	// No ledger bucket means no way to meter, and unmetered generation is not an
 	// acceptable fallback.
 	if cacheBucket == "" {
+		ev.Outcome, ev.Reason = outcomeUnavailable, reasonNoCacheBucket
 		log.Print("[insight] INSIGHTS_CACHE_BUCKET unset, generation disabled")
 		writeInsightUnavailable(w)
 		return
 	}
 
 	if generationDisabled(ctx, cacheBucket) {
+		ev.Outcome, ev.Reason = outcomeUnavailable, reasonGenerationOff
 		writeInsightUnavailable(w)
 		return
 	}
 
 	apiKey := os.Getenv("GEMINI_API_KEY")
 	if apiKey == "" {
+		ev.Outcome, ev.Reason = outcomeUnavailable, reasonNoAPIKey
 		log.Print("[insight] GEMINI_API_KEY unset, generation disabled")
 		writeInsightUnavailable(w)
 		return
@@ -182,13 +198,17 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Reserved before the call rather than after, so a crash mid-flight cannot
 	// leave a generation unaccounted for.
-	reserved, err := reserveGeneration(ctx, cacheBucket)
+	reserved, usage, err := reserveGeneration(ctx, cacheBucket)
+	ev.DailyGenerations, ev.DailyLimit = usage.dayCount, usage.dayLimit
+	ev.MonthlyGenerations, ev.MonthlyLimit = usage.monthCount, usage.monthLimit
 	if err != nil {
+		ev.Outcome, ev.Reason = outcomeUnavailable, reasonLedgerError
 		log.Printf("[insight] usage ledger error: %v", err)
 		writeInsightUnavailable(w)
 		return
 	}
 	if !reserved {
+		ev.Outcome, ev.Reason = outcomeUnavailable, reasonCeilingReached
 		log.Print("[insight] usage ceiling reached, serving cached insights only")
 		writeInsightUnavailable(w)
 		return
@@ -197,6 +217,8 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 	finalPrompt := buildNegativeExamplesBlock(ctx, flaggedBucket, topic) + prompt
 
 	result, err := generateInsight(ctx, apiKey, insightSystemPrompt, finalPrompt)
+	ev.Model = geminiModel()
+	ev.PromptTokens, ev.OutputTokens = result.promptTokens, result.outputTokens
 	// Detached from the request context: a slow generation can leave ctx at or
 	// past its deadline, and ledger bookkeeping must not be starved by the same
 	// budget the generation call just used up.
@@ -206,6 +228,7 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 
 	switch {
 	case errors.Is(err, errInsightQuota):
+		ev.Outcome, ev.Reason = outcomeError, reasonProviderQuota
 		log.Print("[insight] provider quota reached")
 		w.WriteHeader(http.StatusTooManyRequests)
 		writeJSON(w, map[string]string{"error": "Rate limit reached"})
@@ -213,14 +236,17 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 	case errors.Is(err, errInsightNoContent):
 		// Never cached: a blank insight persisted for the full TTL is worse than
 		// no insight, since nothing would retry it.
+		ev.Outcome, ev.Reason = outcomeUnavailable, reasonNoContent
 		writeInsightUnavailable(w)
 		return
 	case err != nil:
+		ev.Outcome, ev.Reason = outcomeError, reasonProviderError
 		log.Printf("[insight] generation error: %v", err)
 		http.Error(w, `{"error":"Failed to fetch AI insight"}`, http.StatusInternalServerError)
 		return
 	}
 
+	ev.Outcome = outcomeGenerated
 	insightMemCache.Store(cacheKey, insightMemEntry{content: result.text, ts: time.Now()})
 
 	// Persist to GCS in a background goroutine, best effort, never blocking the

@@ -35,6 +35,7 @@ go test ./...
 | `GEMINI_MODEL` | No | `gemini-3.1-flash-lite` | Gemini model used for insight generation |
 | `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `400` | Daily generation ceiling, tracked in the usage ledger |
 | `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `8000` | Monthly generation ceiling, tracked in the usage ledger |
+| `INSIGHT_CEILING_WARN_PERCENT` | No | `80` | Share of a ceiling at which a `ceiling_approaching` warning is logged |
 | `INSIGHT_ALLOWED_ORIGINS` | No | prod, www, dev, `localhost:3000`, `*.netlify.app` | Comma-separated origins permitted to request generation |
 | `WEBFLOW_API_TOKEN` | No | - | Required for `/het-news` |
 | `INSIGHT_NEGATIVE_EXAMPLES_ENABLED` | No | `false` | Feed prior flagged outputs back into prompts |
@@ -63,6 +64,140 @@ The server handles all traffic on a single port:
   - `index.html` — `no-store` (shell must always be fresh)
   - Everything else — `public, max-age=7200`
   - Unknown paths → `index.html` (SPA client-side routing fallback)
+
+## Insight request logs
+
+Every `/fetch-ai-insight` request emits exactly one JSON line to stdout, which Cloud
+Run ships to Cloud Logging as a structured payload under `jsonPayload.insight`. That
+line is the only reporting surface for this feature. **The usage ledger is not a
+reporting surface**: `reserveGeneration` writes it before the provider call so it can
+refuse a generation, and it stays write-only. Cache hits in particular must never be
+routed through it, since `mutateLedger` is a compare-and-swap against a single GCS
+object and hits are the hot path.
+
+```json
+{"severity":"INFO","message":"insight generated","insight":{
+  "outcome":"generated","cacheKey":"a1b2c3","topic":"hiv",
+  "model":"gemini-3.1-flash-lite","promptTokens":1840,"outputTokens":96,
+  "dailyGenerations":42,"dailyLimit":400,
+  "monthlyGenerations":903,"monthlyLimit":8000,"durationMs":812}}
+```
+
+`outcome` is one of:
+
+| Outcome | Meaning |
+|---|---|
+| `memory_hit` | Served from the in-process `sync.Map` |
+| `gcs_hit` | Served from the GCS persistent cache |
+| `generated` | Called the provider. Carries `model` and token counts |
+| `unavailable` | No insight shown. `reason` says which gate closed |
+| `suppressed` | A reviewer suppressed this exact insight |
+| `rejected` | Malformed request (missing or oversize prompt) |
+| `error` | Provider or suppression-check failure |
+| `ceiling_approaching` | Not a request. See the alert below |
+
+`reason` narrows the non-serving outcomes: `ceiling_reached`, `generation_disabled`,
+`no_api_key`, `no_cache_bucket`, `ledger_error`, `no_content`, `provider_quota`,
+`provider_error`, `suppression_check`, `missing_prompt`, `prompt_too_large`.
+
+**These strings are an interface.** The queries below and the alert filter match on
+them literally, so renaming one silently returns fewer rows rather than failing.
+`TestInsightRequestLogRecordsEveryOutcome` pins every one of them.
+
+### Queries
+
+The Cloud Run service is named `frontend-service`, not `het-server` (see the domain
+mapping note in `config/run.tf`). All three queries share this prefix:
+
+```bash
+PROJECT=$(gcloud projects list --filter='name~het-infra-prod' --format='value(projectId)')
+FILTER='resource.type="cloud_run_revision"
+resource.labels.service_name="frontend-service"'
+```
+
+**Generation volume and tokens this month.** Generations are the reliable number:
+`reserveGeneration` claims a slot before the call and cannot lose one. Tokens are
+approximate, because `recordTokenUsage` is deliberately best-effort and swallows
+errors, so treat them as refining the per-generation average rather than as a total.
+
+```bash
+gcloud logging read "$FILTER jsonPayload.insight.outcome=\"generated\"" \
+  --project "$PROJECT" --freshness=30d \
+  --format='value(jsonPayload.insight.promptTokens,jsonPayload.insight.outputTokens)' \
+| awk '{n++; i+=$1; o+=$2} END {print n" generations, "i" input tokens, "o" output tokens"}'
+```
+
+Spend is $0 while the project is on the provider's free tier, so the tokens are read
+as quota headroom rather than dollars. They are recorded per line with the model that
+produced them so that a move to a paid tier, or a `GEMINI_MODEL` change, needs no code
+change to price: group by `jsonPayload.insight.model` and apply that model's published
+input and output rates. Never apply a single blended rate, since input and output
+price differently and the model is configurable.
+
+**Cache hit rate.** This is the dominant factor in what the feature costs, and the
+reason steady-state cost approaches zero.
+
+```bash
+gcloud logging read \
+  "$FILTER jsonPayload.insight.outcome=(\"memory_hit\" OR \"gcs_hit\" OR \"generated\")" \
+  --project "$PROJECT" --freshness=7d \
+  --format='value(jsonPayload.insight.outcome)' | sort | uniq -c
+```
+
+Hit rate is `(memory_hit + gcs_hit) / (memory_hit + gcs_hit + generated)`. Those three
+outcomes are the whole denominator on purpose: `suppressed` and `rejected` requests
+never consulted the cache, so counting them would understate the rate.
+
+**Ceiling events.** Every request refused for hitting a cap, plus the threshold crossing:
+
+```bash
+gcloud logging read \
+  "$FILTER (jsonPayload.insight.reason=\"ceiling_reached\" OR jsonPayload.insight.outcome=\"ceiling_approaching\")" \
+  --project "$PROJECT" --freshness=30d --format='value(timestamp,jsonPayload.message)'
+```
+
+### Ceiling alert
+
+`ceiling_approaching` fires once per period, on the single request whose count lands on
+`INSIGHT_CEILING_WARN_PERCENT` of the ceiling. The ledger's compare-and-swap hands out
+each count exactly once, so it cannot double-fire across Cloud Run instances and cannot
+degrade into a line per request for the rest of the period.
+
+A daily ceiling needs a real-time signal. The weekly `cronReviewFlaggedInsights.yml` is
+too coarse for it: a Tuesday overrun would not surface until the following Monday, long
+after uncached views had stopped showing insights.
+
+Create the log-based alert once per project, against this filter:
+
+```plaintext
+resource.type="cloud_run_revision"
+resource.labels.service_name="frontend-service"
+jsonPayload.insight.outcome="ceiling_approaching"
+```
+
+```bash
+gcloud alpha monitoring channels list --project "$PROJECT"   # get the channel ID
+gcloud alpha monitoring policies create --project "$PROJECT" --policy-from-file=- <<'YAML'
+displayName: Insight generation ceiling approaching
+combiner: OR
+conditions:
+  - displayName: 80% of an insight generation ceiling reached
+    conditionMatchedLog:
+      filter: >-
+        resource.type="cloud_run_revision"
+        resource.labels.service_name="frontend-service"
+        jsonPayload.insight.outcome="ceiling_approaching"
+alertStrategy:
+  notificationRateLimit:
+    period: 3600s
+notificationChannels:
+  - projects/PROJECT/notificationChannels/CHANNEL_ID
+YAML
+```
+
+Alerting on `ceiling_approaching` rather than on `ceiling_reached` is the point: by the
+time reservations are being refused, uncached views are already rendering no insight
+section. Raising `INSIGHT_MAX_GENERATIONS_PER_DAY` is the immediate lever.
 
 ## Insight prompt fixtures
 
