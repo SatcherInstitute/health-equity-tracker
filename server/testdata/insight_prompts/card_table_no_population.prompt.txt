@@ -1,0 +1,10 @@
+This is a data table summarizing Statins adherence in Georgia by race/ethnicity. Each row gives one group and its rate and its share of the total.
+
+Data:
+- All: 82.4% adherent, 100% share of adherent pop.
+- Black or African American (NH): 74.1% adherent, 21.6% share of adherent pop.
+- Hispanic or Latino: 78.3% adherent, 4.2% share of adherent pop.
+- White (NH): 84.7% adherent, 70.8% share of adherent pop.
+- Asian (NH): 85.2% adherent, 2.9% share of adherent pop.
+
+Write a single sentence at an 8th grade reading level that describes the pattern across several groups rather than only the single biggest gap. Use the specific numbers shown, and focus on the "so what" for the community. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.

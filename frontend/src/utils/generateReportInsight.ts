@@ -30,11 +30,15 @@ import {
 import type { Fips } from '../data/utils/Fips'
 import { ERROR_GENERATING_INSIGHT, fetchAIInsight } from './fetchAIInsight'
 import {
+  formatMetricValue,
   formatPeerComparison,
   getPeerValues,
   getPrimaryMetricConfig,
   getRegionAllRate,
+  getTableColumnShape,
+  resolveTableShareMetrics,
   summarizePeerComparison,
+  type TableColumnShape,
 } from './generateVisualizationInsight'
 import { getDataManager } from './globals'
 import { buildInsightCacheKey } from './insightCacheKey'
@@ -89,6 +93,11 @@ export function formatDemographicRates(
   rows: HetRow[],
   demographicType: DemographicType,
   metricConfig: MetricConfig,
+  // The same two share columns the data table shows. A rate alone says a group
+  // is worse off; the shares say whether that group carries more of the burden
+  // than its presence in the place would account for.
+  shareConfig?: MetricConfig,
+  populationConfig?: MetricConfig,
 ): string {
   return rows
     .filter(
@@ -99,15 +108,22 @@ export function formatDemographicRates(
     .map((row) => ({
       group: String(row[demographicType]),
       value: row[metricConfig.metricId] as number,
+      row,
     }))
     .sort((a, b) => {
       if (groupIsAll(a.group) !== groupIsAll(b.group))
         return groupIsAll(a.group) ? -1 : 1
       return b.value - a.value
     })
-    .map(
-      ({ group, value }) => `- ${group}: ${value} ${metricConfig.shortLabel}`,
-    )
+    .map(({ group, value, row }) => {
+      const parts = [formatMetricValue(value, metricConfig)]
+      for (const config of [shareConfig, populationConfig]) {
+        if (config && row[config.metricId] != null) {
+          parts.push(formatMetricValue(row[config.metricId], config))
+        }
+      }
+      return `- ${group}: ${parts.join(', ')}`
+    })
     .join('\n')
 }
 
@@ -282,11 +298,22 @@ export type ReportDataSections = {
   unknownSection: string
 }
 
+const EMPTY_SECTIONS: ReportDataSections = {
+  demographicSection: '',
+  geographicSection: '',
+  temporalSection: '',
+  ageAdjustedSection: '',
+  unknownSection: '',
+}
+
 export function buildReportInsightPrompt(
   topic: string,
   location: string,
   demographicLabel: string,
   data: ReportDataSections,
+  // Which share columns the demographic rows carry, so the block header and the
+  // section spec describe the numbers actually sent and nothing more.
+  demographicShape?: TableColumnShape,
 ): string {
   // Five sections share one prompt, so each is capped individually. Each is
   // already reduced to a summary upstream; this is the backstop for a place
@@ -300,9 +327,17 @@ export function buildReportInsightPrompt(
   const ageAdjustedSection = trim(data.ageAdjustedSection)
   const unknownSection = trim(data.unknownSection)
 
+  const extraColumns = [
+    demographicShape?.hasCaseloadShare && 'its share of the total',
+    demographicShape?.hasPopulationShare && 'its share of the population',
+  ].filter((part): part is string => Boolean(part))
+
+  const demographicHeader = extraColumns.length
+    ? `Current rates by ${demographicLabel} in ${location}, each group followed by ${extraColumns.join(' and ')}`
+    : `Current rates by ${demographicLabel} in ${location}`
+
   const dataBlocks = [
-    demographicSection &&
-      `Current rates by ${demographicLabel} in ${location}:\n${demographicSection}`,
+    demographicSection && `${demographicHeader}:\n${demographicSection}`,
     geographicSection && `Geographic spread:\n${geographicSection}`,
     temporalSection &&
       `Rates over time by ${demographicLabel} in ${location}, first, highest, and latest reported periods:\n${temporalSection}`,
@@ -352,13 +387,30 @@ export function buildReportInsightPrompt(
     ? ' Then say whether the gap between groups has widened or narrowed across the reported periods, naming the highest point if one is given.'
     : ''
 
+  // A rate gap says a group is worse off. Set against the group's share of the
+  // population it says whether that group is carrying more of the burden than
+  // its presence in the place would account for, which is the finding a reader
+  // can act on. Only asked for when the shares were actually sent.
+  const populationShareClause = demographicShape?.hasPopulationShare
+    ? `${
+        demographicShape.hasCaseloadShare
+          ? " Then say whether that group's share of the total is larger or smaller than its share of the population, using the shares above."
+          : ' Then say how large or small a share of the population that group makes up, using the population shares above.'
+      }${
+        demographicShape.generalPopulationLabel
+          ? ` Those population shares count ${demographicShape.generalPopulationLabel}, a broader group than the rate itself measures, so call the comparison rough context rather than an exact figure.`
+          : ''
+      }`
+    : ''
+
   const demographicWordBudget =
     SECTION_WORD_BUDGET +
     (ageAdjustedSection ? CLAUSE_WORD_BUDGET : 0) +
-    (temporalSection ? CLAUSE_WORD_BUDGET : 0)
+    (temporalSection ? CLAUSE_WORD_BUDGET : 0) +
+    (demographicShape?.hasPopulationShare ? CLAUSE_WORD_BUDGET : 0)
 
   const demographicSpec = demographicSection
-    ? `2-3 sentences (max ${demographicWordBudget} words): which group is most affected and how large the gap is compared to others, using the rates above.${ageAdjustedClause}${temporalClause}`
+    ? `2-3 sentences (max ${demographicWordBudget} words): which group is most affected and how large the gap is compared to others, using the rates above.${populationShareClause}${ageAdjustedClause}${temporalClause}`
     : '1-2 sentences (max 35 words): what to look for when comparing groups. Do not state any rate or number.'
 
   // Missing demographic data is an equity finding, not a footnote: the groups
@@ -453,25 +505,22 @@ function formatCountyPeerRanking(
 }
 
 // The rates the report's own cards already display, re-read through DataManager
-// so the insight describes the same numbers the user sees. Every query here is
-// one a card on the page has already issued, so this is usually cache-only.
+// so the insight describes the same numbers the user sees. Every underlying
+// dataset here is one a card on the page has already loaded, so these resolve
+// against the dataset cache rather than the network.
 async function loadReportData(
   dataTypeConfig: DataTypeConfig,
   demographicType: DemographicType,
   fips: Fips,
-): Promise<ReportDataSections> {
+): Promise<ReportDataSections & { demographicShape?: TableColumnShape }> {
   const metricConfig = getPrimaryMetricConfig(
     'rate-map',
     dataTypeConfig.metrics,
   )
-  if (!metricConfig)
-    return {
-      demographicSection: '',
-      geographicSection: '',
-      temporalSection: '',
-      ageAdjustedSection: '',
-      unknownSection: '',
-    }
+  if (!metricConfig) return EMPTY_SECTIONS
+
+  const { shareConfig, populationConfig, generalPopulationLabel } =
+    resolveTableShareMetrics(dataTypeConfig)
 
   const breakdownFilter =
     demographicType === RACE
@@ -484,6 +533,15 @@ async function loadReportData(
       breakdowns.addBreakdown(demographicType, breakdownFilter),
       dataTypeConfig.dataTypeId,
     )
+
+  // The place query alone carries the share columns. The children query feeds
+  // the geographic spread, which reads one rate per place and would be paying
+  // for columns it never renders.
+  const placeMetricIds = [
+    metricConfig.metricId,
+    shareConfig?.metricId,
+    populationConfig?.metricId,
+  ].filter((id) => id != null)
 
   // A county has no child places, so Breakdowns.forChildrenFips would return the
   // county itself. Rank it against its same-level peers instead, the same
@@ -513,7 +571,13 @@ async function loadReportData(
     ageAdjustedResponse,
     unknownResponse,
   ] = await Promise.all([
-    getDataManager().loadMetrics(query(Breakdowns.forFips(fips))),
+    getDataManager().loadMetrics(
+      new MetricQuery(
+        placeMetricIds,
+        Breakdowns.forFips(fips).addBreakdown(demographicType, breakdownFilter),
+        dataTypeConfig.dataTypeId,
+      ),
+    ),
     getDataManager().loadMetrics(
       query(Breakdowns.forChildrenFips(isCounty ? parentFips : fips)),
     ),
@@ -550,10 +614,23 @@ async function loadReportData(
       : undefined,
   ])
 
+  const demographicRows = placeResponse.getValidRowsForField(
+    metricConfig.metricId,
+  )
+
   const demographicSection = formatDemographicRates(
-    placeResponse.getValidRowsForField(metricConfig.metricId),
+    demographicRows,
     demographicType,
     metricConfig,
+    shareConfig,
+    populationConfig,
+  )
+
+  const demographicShape = getTableColumnShape(
+    demographicRows,
+    demographicType,
+    metricConfig,
+    { shareConfig, populationConfig, generalPopulationLabel },
   )
 
   const temporalSection = formatTemporalChange(
@@ -582,6 +659,7 @@ async function loadReportData(
 
   return {
     demographicSection,
+    demographicShape,
     geographicSection: isCounty
       ? formatCountyPeerRanking(
           placeResponse,
@@ -618,6 +696,7 @@ export async function generateReportInsight(
       location,
       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType],
       data,
+      data.demographicShape,
     )
     const cacheKey = buildInsightCacheKey('', prompt)
     const result = await fetchAIInsight(prompt, {

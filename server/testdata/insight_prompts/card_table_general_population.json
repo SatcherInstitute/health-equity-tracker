@@ -1,0 +1,44 @@
+{
+  "kind": "card",
+  "why": "One of the two topics whose population column is the general population rather than the rate's own denominator (#5067). Preventable hospitalizations are measured among Medicare enrollees ages 18+, but no Medicare population is available broken down by race, so the table substitutes the adult population and labels the substitution. There is also no pct_share metric on this topic, so the caseload share column is genuinely absent. Both facts have to reach the prompt: the column list may name only the rate and the population share, and the caveat must say the population counts a broader group, or the model will present a rough comparison as an exact one.",
+  "hashId": "data-table",
+  "topic": "Preventable hospitalizations",
+  "location": "Alabama",
+  "demographicType": "race_and_ethnicity",
+  "metricConfig": {
+    "metricId": "preventable_hospitalizations_per_100k",
+    "shortLabel": "cases per 100k"
+  },
+  "populationConfig": {
+    "metricId": "ahr_18plus_population_pct",
+    "shortLabel": "% of adults"
+  },
+  "generalPopulationLabel": "all adults",
+  "rows": [
+    {
+      "race_and_ethnicity": "All",
+      "preventable_hospitalizations_per_100k": 4682,
+      "ahr_18plus_population_pct": 100
+    },
+    {
+      "race_and_ethnicity": "Black or African American (NH)",
+      "preventable_hospitalizations_per_100k": 6140,
+      "ahr_18plus_population_pct": 25.8
+    },
+    {
+      "race_and_ethnicity": "White (NH)",
+      "preventable_hospitalizations_per_100k": 4315,
+      "ahr_18plus_population_pct": 66.1
+    },
+    {
+      "race_and_ethnicity": "Hispanic or Latino",
+      "preventable_hospitalizations_per_100k": 3204,
+      "ahr_18plus_population_pct": 4.4
+    },
+    {
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "preventable_hospitalizations_per_100k": 5021,
+      "ahr_18plus_population_pct": 0.6
+    }
+  ]
+}

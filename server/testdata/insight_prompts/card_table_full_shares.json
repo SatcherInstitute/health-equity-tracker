@@ -1,0 +1,58 @@
+{
+  "kind": "card",
+  "why": "The data table in its ordinary shape: every group reports a rate, a share of the topic's caseload, and a share of the population. This is the case the #5066 template is written for, and the one that makes the card distinct from every other one on the page. It is the only place a reader can weigh who carries the burden against who is actually there, so the prompt must carry all three numbers per row and the instruction must ask for that comparison rather than for the single largest rate gap.",
+  "hashId": "data-table",
+  "topic": "HIV diagnoses",
+  "location": "Georgia",
+  "demographicType": "race_and_ethnicity",
+  "metricConfig": {
+    "metricId": "hiv_diagnoses_per_100k",
+    "shortLabel": "diagnoses per 100k"
+  },
+  "shareConfig": {
+    "metricId": "hiv_diagnoses_pct_share",
+    "shortLabel": "% of HIV diagnoses"
+  },
+  "populationConfig": {
+    "metricId": "hiv_population_pct",
+    "shortLabel": "% of population"
+  },
+  "rows": [
+    {
+      "race_and_ethnicity": "All",
+      "hiv_diagnoses_per_100k": 24.1,
+      "hiv_diagnoses_pct_share": 100,
+      "hiv_population_pct": 100
+    },
+    {
+      "race_and_ethnicity": "Black or African American (NH)",
+      "hiv_diagnoses_per_100k": 51.4,
+      "hiv_diagnoses_pct_share": 69.8,
+      "hiv_population_pct": 31.2
+    },
+    {
+      "race_and_ethnicity": "Hispanic or Latino",
+      "hiv_diagnoses_per_100k": 19.6,
+      "hiv_diagnoses_pct_share": 8.3,
+      "hiv_population_pct": 10.1
+    },
+    {
+      "race_and_ethnicity": "White (NH)",
+      "hiv_diagnoses_per_100k": 8.2,
+      "hiv_diagnoses_pct_share": 17.4,
+      "hiv_population_pct": 51.3
+    },
+    {
+      "race_and_ethnicity": "Asian (NH)",
+      "hiv_diagnoses_per_100k": 5.1,
+      "hiv_diagnoses_pct_share": 1.0,
+      "hiv_population_pct": 4.6
+    },
+    {
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "hiv_diagnoses_per_100k": 7.4,
+      "hiv_diagnoses_pct_share": 0.1,
+      "hiv_population_pct": 0.3
+    }
+  ]
+}

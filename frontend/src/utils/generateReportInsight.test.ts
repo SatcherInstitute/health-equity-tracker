@@ -1,6 +1,7 @@
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import {
+  buildReportInsightPrompt,
   formatAgeAdjustedRatios,
   formatDemographicRates,
   formatGeographicSpread,
@@ -54,6 +55,118 @@ describe('formatDemographicRates', () => {
     expect(
       formatDemographicRates([...rows].reverse(), DEMO, metricConfig),
     ).toBe(formatDemographicRates(rows, DEMO, metricConfig))
+  })
+
+  test('appends the share columns after the rate, dropping any a row lacks', () => {
+    const shareConfig = {
+      metricId: 'share_pct',
+      shortLabel: '% of cases',
+    } as unknown as MetricConfig
+    const populationConfig = {
+      metricId: 'pop_pct',
+      shortLabel: '% of population',
+    } as unknown as MetricConfig
+    const rows: HetRow[] = [
+      { race_and_ethnicity: 'All', rate: 6.5, share_pct: 100, pop_pct: 100 },
+      {
+        race_and_ethnicity: 'Black (NH)',
+        rate: 9.2,
+        share_pct: 69.8,
+        pop_pct: 31.2,
+      },
+      { race_and_ethnicity: 'White (NH)', rate: 4.1, pop_pct: 51.3 },
+    ]
+
+    expect(
+      formatDemographicRates(
+        rows,
+        DEMO,
+        metricConfig,
+        shareConfig,
+        populationConfig,
+      ),
+    ).toBe(
+      [
+        '- All: 6.5 per 100k, 100% of cases, 100% of population',
+        '- Black (NH): 9.2 per 100k, 69.8% of cases, 31.2% of population',
+        '- White (NH): 4.1 per 100k, 51.3% of population',
+      ].join('\n'),
+    )
+  })
+})
+
+describe('buildReportInsightPrompt population shares', () => {
+  const data = {
+    demographicSection:
+      '- All: 6.5 per 100k, 100% of cases, 100% of population',
+    geographicSection: '',
+    temporalSection: '',
+    ageAdjustedSection: '',
+    unknownSection: '',
+  }
+  const promptFor = (shape?: Parameters<typeof buildReportInsightPrompt>[4]) =>
+    buildReportInsightPrompt(
+      'HIV diagnoses',
+      'Georgia',
+      'race/ethnicity',
+      data,
+      shape,
+    )
+
+  test('names both share columns in the block header and asks for the comparison', () => {
+    const prompt = promptFor({
+      hasCaseloadShare: true,
+      hasPopulationShare: true,
+    })
+    expect(prompt).toContain(
+      'each group followed by its share of the total and its share of the population',
+    )
+    expect(prompt).toContain('share of the total is larger or smaller')
+  })
+
+  test('a topic with no caseload share is asked about population share alone', () => {
+    const prompt = promptFor({
+      hasCaseloadShare: false,
+      hasPopulationShare: true,
+    })
+    expect(prompt).toContain(
+      'each group followed by its share of the population',
+    )
+    expect(prompt).not.toContain('share of the total')
+    expect(prompt).toContain('how large or small a share of the population')
+  })
+
+  test('asks for nothing beyond the rates when no shares were sent', () => {
+    const prompt = promptFor({
+      hasCaseloadShare: false,
+      hasPopulationShare: false,
+    })
+    expect(prompt).toContain('Current rates by race/ethnicity in Georgia:')
+    expect(prompt).not.toContain('share of the population')
+  })
+
+  test('flags a population column that counts a broader group than the rate measures', () => {
+    const prompt = promptFor({
+      hasCaseloadShare: false,
+      hasPopulationShare: true,
+      generalPopulationLabel: 'all adults',
+    })
+    expect(prompt).toContain('population shares count all adults')
+    expect(prompt).toContain('rough context rather than an exact figure')
+  })
+
+  test('the population-share ask buys its own words rather than crowding the rate finding', () => {
+    const budgetOf = (prompt: string) =>
+      Number(
+        /max (\d+) words\): which group is most affected/.exec(prompt)?.[1],
+      )
+    expect(
+      budgetOf(promptFor({ hasCaseloadShare: true, hasPopulationShare: true })),
+    ).toBeGreaterThan(
+      budgetOf(
+        promptFor({ hasCaseloadShare: false, hasPopulationShare: false }),
+      ),
+    )
   })
 })
 
