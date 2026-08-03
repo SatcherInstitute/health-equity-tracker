@@ -1,0 +1,12 @@
+This is a line chart showing how HIV diagnoses rates have changed over time in Wyoming across race/ethnicity groups.
+
+Data:
+- All (2019): 3.1 cases per 100k
+- All (2020): 2.8 cases per 100k
+- All (2021): 3.6 cases per 100k
+- All (2022): 4 cases per 100k
+- American Indian and Alaska Native (NH) (2019): 8.7 cases per 100k
+- American Indian and Alaska Native (NH) (2022): 14.2 cases per 100k
+- White (NH) (2022): 2.2 cases per 100k
+
+Write a single sentence at an 8th grade reading level that names the specific years covered, describes whether the gap between groups is improving or worsening, and includes specific numbers — focus on what this trend means for real people. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.

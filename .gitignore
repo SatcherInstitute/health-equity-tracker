@@ -73,6 +73,7 @@ service_account*.json
 !python/ingestion/ahr_config/graphql_ahr_measure_ids.json
 !frontend/tokens/*.tokens.json
 !frontend/scripts/geo/geographies.json
+!server/testdata/insight_prompts/*.json
 
 # Generated design token files — edit tokens/*.tokens.json and run `npm run tokens`
 frontend/src/styles/tokens/

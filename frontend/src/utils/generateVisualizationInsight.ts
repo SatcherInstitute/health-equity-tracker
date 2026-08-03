@@ -261,6 +261,49 @@ export function buildPrompt(
   return `This is a ${hashId.replace(/-/g, ' ')} showing ${topic} in ${location} by ${demographicLabel}. The intended message is to highlight health equity disparities.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that captures the key inequity a viewer should walk away with — focus on the "so what", not the chart mechanics.`
 }
 
+// Keep the model from narrating the prompt (e.g. "Since only the overall rate
+// is available, here's a sentence...") — the card wants the bare insight.
+const CARD_OUTPUT_RULE =
+  ' Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.'
+
+// The exact text a card sends to the model. Separate from generateCardInsight so
+// the prompt can be rendered without a network call, which is what lets the
+// regression harness diff prompt changes and what the Go port must reproduce.
+export function buildCardInsightPrompt(
+  hashId: ScrollableHashId,
+  topic: string,
+  location: string,
+  demographicLabel: string,
+  dataSection: string,
+  context?: InsightContext,
+): string {
+  // Single-region map: rank the region against its same-level peers instead of
+  // describing an on-screen disparity. summarizePeerComparison returns null when
+  // too few peers report, in which case we fall through to the standard framing.
+  const peerSummary =
+    MAP_CHART_IDS.includes(hashId) && context?.peerComparison
+      ? summarizePeerComparison(context.peerComparison)
+      : null
+
+  // The peer summary already leads with the region's own rate, so it replaces
+  // the lone local row rather than appending to it.
+  const finalDataSection = peerSummary
+    ? formatPeerComparison(peerSummary)
+    : dataSection
+
+  return (
+    buildPrompt(
+      hashId,
+      topic,
+      location,
+      demographicLabel,
+      finalDataSection,
+      context?.activeDemographicGroup,
+      Boolean(peerSummary),
+    ) + CARD_OUTPUT_RULE
+  )
+}
+
 interface InsightData {
   dataSection: string
   // Number of comparison entries (groups or regions) the model would receive.
@@ -547,34 +590,14 @@ export async function generateCardInsight(
     },
   )
 
-  // Single-region map: rank the region against its same-level peers instead of
-  // describing an on-screen disparity. summarizePeerComparison returns null when
-  // too few peers report, in which case we fall through to the standard framing.
-  const peerSummary =
-    MAP_CHART_IDS.includes(hashId) && context?.peerComparison
-      ? summarizePeerComparison(context.peerComparison)
-      : null
-
-  // The peer summary already leads with the region's own rate, so it replaces
-  // the lone local row rather than appending to it.
-  const finalDataSection = peerSummary
-    ? formatPeerComparison(peerSummary)
-    : dataSection
-
-  // Keep the model from narrating the prompt (e.g. "Since only the overall rate
-  // is available, here's a sentence...") — the card wants the bare insight.
-  const outputRule =
-    ' Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.'
-  const prompt =
-    buildPrompt(
-      hashId,
-      topic,
-      location,
-      demographic,
-      finalDataSection,
-      context?.activeDemographicGroup,
-      Boolean(peerSummary),
-    ) + outputRule
+  const prompt = buildCardInsightPrompt(
+    hashId,
+    topic,
+    location,
+    demographic,
+    dataSection,
+    context,
+  )
 
   const cardSuffix = isCompareCard ? '-2' : ''
   // Focus (highlighted map group / selected trend lines) needs no suffix here:

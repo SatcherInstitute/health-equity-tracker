@@ -1,0 +1,38 @@
+{
+  "kind": "card",
+  "why": "A data table where most groups are suppressed and only two survive. The suppressed rows must be absent from the prompt entirely rather than appearing as zero or null, since a fabricated zero would read as 'no burden in this group' and invert the finding.",
+  "hashId": "data-table",
+  "topic": "Cervical cancer incidence",
+  "location": "Vermont",
+  "demographicType": "race_and_ethnicity",
+  "metricConfig": {
+    "metricId": "cervical_cancer_per_100k",
+    "shortLabel": "cases per 100k"
+  },
+  "rows": [
+    {
+      "race_and_ethnicity": "All",
+      "cervical_cancer_per_100k": 6.8
+    },
+    {
+      "race_and_ethnicity": "White (NH)",
+      "cervical_cancer_per_100k": 6.5
+    },
+    {
+      "race_and_ethnicity": "Black or African American (NH)",
+      "cervical_cancer_per_100k": null
+    },
+    {
+      "race_and_ethnicity": "Asian (NH)",
+      "cervical_cancer_per_100k": null
+    },
+    {
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "cervical_cancer_per_100k": null
+    },
+    {
+      "race_and_ethnicity": "Hispanic or Latino",
+      "cervical_cancer_per_100k": null
+    }
+  ]
+}
