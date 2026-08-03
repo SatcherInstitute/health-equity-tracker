@@ -1,0 +1,14 @@
+Two side-by-side charts show the same health metric — HIV diagnoses — across race/ethnicity groups, in two different places.
+
+View A (Georgia) data:
+- All: 24.6 cases per 100k
+- Black or African American (NH): 44.8 cases per 100k
+- White (NH): 6.3 cases per 100k
+- Hispanic or Latino: 17.1 cases per 100k
+
+View B (Vermont) data:
+- All: 2.9 cases per 100k
+- Black or African American (NH): 11.4 cases per 100k
+- White (NH): 2.4 cases per 100k
+
+Write one sentence at an 8th grade reading level that contrasts these two views. Focus on what comparing these two places reveals that either view alone does not — for example, whether disparities within one place exceed disparities between places, or whether the same patterns recur at different geographic scales. Be specific — name the places, groups, or numbers from the data above. Use only facts present in the data; do not introduce additional statistics, causal explanations, or place-specific facts that are not shown.

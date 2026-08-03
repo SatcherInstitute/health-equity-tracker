@@ -1,0 +1,71 @@
+{
+  "kind": "card",
+  "why": "The common case: a multi-place county map with a wide gap between racial groups and an actively highlighted group. Exercises place-and-group row labeling and the highlighted-group focus clause.",
+  "hashId": "rate-map",
+  "topic": "HIV diagnoses",
+  "location": "Georgia",
+  "demographicType": "race_and_ethnicity",
+  "metricConfig": {
+    "metricId": "hiv_diagnoses_per_100k",
+    "shortLabel": "cases per 100k"
+  },
+  "context": {
+    "activeDemographicGroup": "Black or African American (NH)"
+  },
+  "rows": [
+    {
+      "fips": "13121",
+      "fips_name": "Fulton County",
+      "race_and_ethnicity": "All",
+      "hiv_diagnoses_per_100k": 41.2
+    },
+    {
+      "fips": "13121",
+      "fips_name": "Fulton County",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "hiv_diagnoses_per_100k": 68.9
+    },
+    {
+      "fips": "13121",
+      "fips_name": "Fulton County",
+      "race_and_ethnicity": "White (NH)",
+      "hiv_diagnoses_per_100k": 9.4
+    },
+    {
+      "fips": "13089",
+      "fips_name": "DeKalb County",
+      "race_and_ethnicity": "All",
+      "hiv_diagnoses_per_100k": 37.5
+    },
+    {
+      "fips": "13089",
+      "fips_name": "DeKalb County",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "hiv_diagnoses_per_100k": 55.1
+    },
+    {
+      "fips": "13089",
+      "fips_name": "DeKalb County",
+      "race_and_ethnicity": "White (NH)",
+      "hiv_diagnoses_per_100k": 7.2
+    },
+    {
+      "fips": "13051",
+      "fips_name": "Chatham County",
+      "race_and_ethnicity": "All",
+      "hiv_diagnoses_per_100k": 22.8
+    },
+    {
+      "fips": "13051",
+      "fips_name": "Chatham County",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "hiv_diagnoses_per_100k": 40.3
+    },
+    {
+      "fips": "13051",
+      "fips_name": "Chatham County",
+      "race_and_ethnicity": "White (NH)",
+      "hiv_diagnoses_per_100k": 5.9
+    }
+  ]
+}

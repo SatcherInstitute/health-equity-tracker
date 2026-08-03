@@ -64,6 +64,44 @@ The server handles all traffic on a single port:
   - Everything else — `public, max-age=7200`
   - Unknown paths → `index.html` (SPA client-side routing fallback)
 
+## Insight prompt fixtures
+
+`testdata/insight_prompts/` pins the exact text sent to the model for a set of
+representative views. Each case is a `.json` input plus a committed
+`.prompt.txt` of the rendered prompt.
+
+Prompts are still assembled in the frontend, so the harness that renders them
+lives there too:
+
+```bash
+cd frontend
+npx vitest run src/utils/insightPromptFixtures.test.ts    # check
+UPDATE_INSIGHT_PROMPTS=1 npx vitest run src/utils/insightPromptFixtures.test.ts  # accept a change
+```
+
+It is deterministic and offline: no API key, no network, no clock. A template
+edit shows up as a diff in the `.prompt.txt` files, and **that diff is the thing
+to review.** Since #5029/#5053 the cache key is a hash of the rendered prompt and
+template text appears in every prompt, so the fixtures a change moves are a
+direct readout of how much of the cache it displaces.
+
+The fixtures deliberately contain no TypeScript-only types. When #5045 ports the
+templates to Go, the Go implementation renders these same inputs and must
+reproduce these same outputs, which is what makes the port checkable rather than
+trusted. Two things that will bite that port:
+
+- **Number formatting must match exactly.** JavaScript renders `4.0` as `4`, and
+  the committed prompts record that. Go's default float formatting has to be
+  made to agree.
+- **The reading-level instruction is spelled two ways.** Card and contrast
+  templates say "8th grade reading level"; the report template says
+  "8th-grade reading level". Both are load-bearing cached text, so normalizing
+  them would displace every cached insight for no user-visible gain.
+
+Reading level is asserted as *instruction presence*, not measured. The prompt is
+instructions, so its own reading level is meaningless; measuring the reading
+level of generated output belongs to the opt-in generate mode in #5064.
+
 ## Dockerfile
 
 Three-stage build (build context is the repo root, like all other services):
