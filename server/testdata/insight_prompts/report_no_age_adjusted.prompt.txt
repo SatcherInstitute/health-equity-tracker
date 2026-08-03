@@ -3,10 +3,10 @@ You are a public health analyst reviewing a report about "Preventable hospitaliz
 The page contains multiple charts: a rate map, rates over time, a rate bar chart, an unknowns map, inequities over time, and a population vs distribution chart.
 
 
-Current rates by race/ethnicity in Mississippi:
-- All: 4820 per 100k
-- Black or African American (NH): 6140 per 100k
-- White (NH): 3990 per 100k
+Current rates by race/ethnicity in Mississippi, each group followed by its share of the population:
+- All: 4820 per 100k, 100% of adults
+- Black or African American (NH): 6140 per 100k, 25.8% of adults
+- White (NH): 3990 per 100k, 66.1% of adults
 
 Geographic spread:
 - All 3 counties: Hinds County 5610, Harrison County 4770, DeSoto County 3840 per 100k
@@ -28,6 +28,6 @@ Respond ONLY with a valid JSON object, no markdown, no backticks, no explanation
 {
   "keyFindings": "1 sentence (max 25 words): the single most important takeaway, in plain words a reader who skipped every chart would understand. Name who carries the heaviest burden and how much heavier it is, expressed as a comparison in words such as 'nearly twice as likely'. Do not open with a rate per 100k. State no figure at all; make the comparison in words only.",
   "locationComparison": "1-2 sentences (max 35 words): what the geographic spread shows about where the burden is heaviest.",
-  "demographicInsights": "2-3 sentences (max 35 words): which group is most affected and how large the gap is compared to others, using the rates above.",
+  "demographicInsights": "2-3 sentences (max 55 words): which group is most affected and how large the gap is compared to others, using the rates above. Then say how large or small a share of the population that group makes up, using the population shares above. Those population shares count all adults, a broader group than the rate itself measures, so call the comparison rough context rather than an exact figure.",
   "whatThisMeans": "1-2 sentences (max 35 words): what this means for real people in these communities, in plain everyday language."
 }

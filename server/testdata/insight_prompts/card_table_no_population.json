@@ -1,0 +1,43 @@
+{
+  "kind": "card",
+  "why": "A data table with a caseload share but no population column, which is what the eight Medicare adherence topics and the five cancer screening topics render. Their share config resolves to pct_share_unknown, which carries no populationComparisonMetric, so the table shows no population column and neither may the prompt. This is the case that proves the template names its columns from the payload rather than from a fixed sentence: with no population share sent, the prompt must not ask who carries the burden against who lives there, because the model would have to invent the second half of that comparison.",
+  "hashId": "data-table",
+  "topic": "Statins adherence",
+  "location": "Georgia",
+  "demographicType": "race_and_ethnicity",
+  "metricConfig": {
+    "metricId": "statins_adherence_pct_rate",
+    "shortLabel": "% adherent"
+  },
+  "shareConfig": {
+    "metricId": "statins_beneficiaries_pct_share",
+    "shortLabel": "% share of adherent pop."
+  },
+  "rows": [
+    {
+      "race_and_ethnicity": "All",
+      "statins_adherence_pct_rate": 82.4,
+      "statins_beneficiaries_pct_share": 100
+    },
+    {
+      "race_and_ethnicity": "Black or African American (NH)",
+      "statins_adherence_pct_rate": 74.1,
+      "statins_beneficiaries_pct_share": 21.6
+    },
+    {
+      "race_and_ethnicity": "Hispanic or Latino",
+      "statins_adherence_pct_rate": 78.3,
+      "statins_beneficiaries_pct_share": 4.2
+    },
+    {
+      "race_and_ethnicity": "White (NH)",
+      "statins_adherence_pct_rate": 84.7,
+      "statins_beneficiaries_pct_share": 70.8
+    },
+    {
+      "race_and_ethnicity": "Asian (NH)",
+      "statins_adherence_pct_rate": 85.2,
+      "statins_beneficiaries_pct_share": 2.9
+    }
+  ]
+}

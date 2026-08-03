@@ -16,6 +16,7 @@ import {
 import {
   buildCardInsightPrompt,
   formatDataRows,
+  getTableColumnShape,
   type InsightContext,
 } from './generateVisualizationInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
@@ -30,7 +31,18 @@ interface FixtureMetricConfig {
   shortLabel: string
 }
 
-interface CardFixture {
+// The data table's two extra columns. Pinned per fixture rather than resolved
+// from a DataTypeConfig, for the same reason metricConfig is: a fixture stays
+// readable and stays valid when unrelated topic config changes.
+interface FixtureShareMetrics {
+  shareConfig?: FixtureMetricConfig
+  populationConfig?: FixtureMetricConfig
+  // Set when the population column counts a broader group than the rate's own
+  // denominator (the isGeneralPopulationComparison topics).
+  generalPopulationLabel?: string
+}
+
+interface CardFixture extends FixtureShareMetrics {
   kind: 'card'
   why: string
   hashId: ScrollableHashId
@@ -58,7 +70,7 @@ interface ContrastFixture {
   viewB: ContrastView
 }
 
-interface ReportSection {
+interface ReportSection extends FixtureShareMetrics {
   rows: HetRow[]
   metricConfig?: FixtureMetricConfig
 }
@@ -88,16 +100,26 @@ export type InsightPromptFixture = CardFixture | ContrastFixture | ReportFixture
 const asMetricConfig = (config: FixtureMetricConfig): MetricConfig =>
   config as unknown as MetricConfig
 
+const shareMetrics = (source: FixtureShareMetrics) => ({
+  shareConfig: source.shareConfig && asMetricConfig(source.shareConfig),
+  populationConfig:
+    source.populationConfig && asMetricConfig(source.populationConfig),
+  generalPopulationLabel: source.generalPopulationLabel,
+})
+
 function renderCard(fixture: CardFixture): string {
+  const options = {
+    selectedGroups: fixture.context?.selectedGroups,
+    activeDemographicGroup: fixture.context?.activeDemographicGroup,
+    ...shareMetrics(fixture),
+  }
+
   const dataSection = formatDataRows(
     fixture.rows,
     fixture.hashId,
     fixture.demographicType,
     asMetricConfig(fixture.metricConfig),
-    {
-      selectedGroups: fixture.context?.selectedGroups,
-      activeDemographicGroup: fixture.context?.activeDemographicGroup,
-    },
+    options,
   )
 
   return buildCardInsightPrompt(
@@ -107,6 +129,14 @@ function renderCard(fixture: CardFixture): string {
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[fixture.demographicType],
     dataSection,
     fixture.context,
+    fixture.hashId === 'data-table'
+      ? getTableColumnShape(
+          fixture.rows,
+          fixture.demographicType,
+          asMetricConfig(fixture.metricConfig),
+          options,
+        )
+      : undefined,
   )
 }
 
@@ -136,6 +166,8 @@ function renderReport(fixture: ReportFixture): string {
   const metricFor = (section: ReportSection) =>
     asMetricConfig(section.metricConfig ?? fixture.metricConfig)
 
+  const demographicShares = shareMetrics(sections.demographic)
+
   return buildReportInsightPrompt(
     fixture.topic,
     fixture.location,
@@ -145,6 +177,8 @@ function renderReport(fixture: ReportFixture): string {
         sections.demographic.rows,
         demographicType,
         metricFor(sections.demographic),
+        demographicShares.shareConfig,
+        demographicShares.populationConfig,
       ),
       geographicSection: formatGeographicSpread(
         sections.geographic.rows,
@@ -167,6 +201,12 @@ function renderReport(fixture: ReportFixture): string {
         metricFor(sections.unknown),
       ),
     },
+    getTableColumnShape(
+      sections.demographic.rows,
+      demographicType,
+      metricFor(sections.demographic),
+      demographicShares,
+    ),
   )
 }
 

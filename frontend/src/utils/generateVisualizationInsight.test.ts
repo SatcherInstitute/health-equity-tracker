@@ -12,7 +12,9 @@ import {
   getInsightDataStatus,
   getPeerValues,
   getRegionAllRate,
+  getTableColumnShape,
   prepareInsightData,
+  resolveTableShareMetrics,
   summarizePeerComparison,
 } from './generateVisualizationInsight'
 import { byteLength, INSIGHT_DATA_BUDGETS } from './insightPromptBudget'
@@ -223,6 +225,287 @@ describe('formatDataRows', () => {
       activeDemographicGroup: 'All women',
     })
     expect(result.split('\n')).toHaveLength(4)
+  })
+})
+
+describe('resolveTableShareMetrics', () => {
+  const rate = {
+    metricId: 'rate',
+    shortLabel: 'per 100k',
+    type: 'per100k',
+  } as unknown as MetricConfig
+
+  test('resolves both share columns off the pct_share config', () => {
+    const population = {
+      metricId: 'pop_pct',
+      shortLabel: '% of population',
+    } as unknown as MetricConfig
+    const share = {
+      metricId: 'share_pct',
+      shortLabel: '% of cases',
+      type: 'pct_share',
+      populationComparisonMetric: population,
+    } as unknown as MetricConfig
+    const config = {
+      metrics: { per100k: rate, pct_share: share },
+    } as unknown as DataTypeConfig
+
+    expect(resolveTableShareMetrics(config)).toEqual({
+      shareConfig: share,
+      populationConfig: population,
+      generalPopulationLabel: undefined,
+    })
+  })
+
+  test('picks up the pct_share_unknown column the adherence topics use in place of a true share', () => {
+    const unknownShare = {
+      metricId: 'unknown_pct',
+      shortLabel: '% unknown',
+      type: 'pct_share',
+    } as unknown as MetricConfig
+    const config = {
+      metrics: { pct_rate: rate, pct_share_unknown: unknownShare },
+    } as unknown as DataTypeConfig
+
+    expect(resolveTableShareMetrics(config).shareConfig).toBe(unknownShare)
+  })
+
+  test('falls back to the rate’s own population column, and names who it counts', () => {
+    const population = {
+      metricId: 'adults_pct',
+      shortLabel: '% of adults',
+      generalPopulationLabel: 'all adults',
+    } as unknown as MetricConfig
+    const config = {
+      metrics: {
+        per100k: {
+          ...rate,
+          isGeneralPopulationComparison: true,
+          populationComparisonMetric: population,
+        },
+      },
+    } as unknown as DataTypeConfig
+
+    expect(resolveTableShareMetrics(config)).toEqual({
+      shareConfig: undefined,
+      populationConfig: population,
+      generalPopulationLabel: 'all adults',
+    })
+  })
+
+  test('withholds the general-population caveat when the flag is not set', () => {
+    const population = {
+      metricId: 'pop_pct',
+      shortLabel: '% of population',
+      generalPopulationLabel: 'everyone',
+    } as unknown as MetricConfig
+    const config = {
+      metrics: {
+        per100k: { ...rate, populationComparisonMetric: population },
+      },
+    } as unknown as DataTypeConfig
+
+    expect(
+      resolveTableShareMetrics(config).generalPopulationLabel,
+    ).toBeUndefined()
+  })
+
+  test('reports no share columns for a topic that publishes neither', () => {
+    const config = {
+      metrics: { pct_rate: rate },
+    } as unknown as DataTypeConfig
+
+    expect(resolveTableShareMetrics(config)).toEqual({
+      shareConfig: undefined,
+      populationConfig: undefined,
+      generalPopulationLabel: undefined,
+    })
+  })
+})
+
+describe('data table share columns', () => {
+  const shareConfig = {
+    metricId: 'share_pct',
+    shortLabel: '% of cases',
+  } as unknown as MetricConfig
+  const populationConfig = {
+    metricId: 'pop_pct',
+    shortLabel: '% of population',
+  } as unknown as MetricConfig
+  const shareOptions = { shareConfig, populationConfig }
+
+  const rows: HetRow[] = [
+    { race_and_ethnicity: 'All', rate: 24.6, share_pct: 100, pop_pct: 100 },
+    {
+      race_and_ethnicity: 'Black (NH)',
+      rate: 44.8,
+      share_pct: 69.8,
+      pop_pct: 31.2,
+    },
+    {
+      race_and_ethnicity: 'White (NH)',
+      rate: 6.3,
+      share_pct: 17.4,
+      pop_pct: 51.3,
+    },
+  ]
+
+  test('each row carries the three columns the table shows, in table order', () => {
+    expect(
+      formatDataRows(rows, 'data-table', DEMO, metricConfig, shareOptions),
+    ).toEqual(
+      '- All: 24.6 per 100k, 100% of cases, 100% of population\n' +
+        '- Black (NH): 44.8 per 100k, 69.8% of cases, 31.2% of population\n' +
+        '- White (NH): 6.3 per 100k, 17.4% of cases, 51.3% of population',
+    )
+  })
+
+  test('a percent label attaches to its number; a unit label stands as its own word', () => {
+    const result = formatDataRows(
+      rows,
+      'data-table',
+      DEMO,
+      metricConfig,
+      shareOptions,
+    )
+    expect(result).not.toContain('100 %')
+    expect(result).toContain('24.6 per 100k')
+  })
+
+  test('a suppressed share is dropped from its row rather than sent as null', () => {
+    const suppressed: HetRow[] = [
+      { race_and_ethnicity: 'All', rate: 8.4, share_pct: 100, pop_pct: 100 },
+      { race_and_ethnicity: 'AIAN (NH)', rate: 9.1, pop_pct: 0.6 },
+    ]
+    expect(
+      formatDataRows(
+        suppressed,
+        'data-table',
+        DEMO,
+        metricConfig,
+        shareOptions,
+      ),
+    ).toEqual(
+      '- All: 8.4 per 100k, 100% of cases, 100% of population\n' +
+        '- AIAN (NH): 9.1 per 100k, 0.6% of population',
+    )
+  })
+
+  test('the shape reports only the columns the emitted rows actually carry', () => {
+    expect(getTableColumnShape(rows, DEMO, metricConfig, shareOptions)).toEqual(
+      {
+        hasCaseloadShare: true,
+        hasPopulationShare: true,
+        generalPopulationLabel: undefined,
+      },
+    )
+  })
+
+  test('a configured column whose values are all null is not announced', () => {
+    const noShares: HetRow[] = [
+      { race_and_ethnicity: 'All', rate: 8.4, share_pct: null, pop_pct: null },
+    ]
+    expect(
+      getTableColumnShape(noShares, DEMO, metricConfig, shareOptions),
+    ).toEqual({
+      hasCaseloadShare: false,
+      hasPopulationShare: false,
+      generalPopulationLabel: undefined,
+    })
+  })
+
+  test('a column present only on rows that get dropped is not announced', () => {
+    const suppressedOnly: HetRow[] = [
+      { race_and_ethnicity: 'All', rate: 8.4, pop_pct: 100 },
+      { race_and_ethnicity: 'AIAN (NH)', rate: null, share_pct: 3.2 },
+    ]
+    expect(
+      getTableColumnShape(suppressedOnly, DEMO, metricConfig, shareOptions),
+    ).toEqual({
+      hasCaseloadShare: false,
+      hasPopulationShare: true,
+      generalPopulationLabel: undefined,
+    })
+  })
+
+  test('the general-population caveat rides along only when population shares were sent', () => {
+    const options = {
+      populationConfig,
+      generalPopulationLabel: 'all adults',
+    }
+    expect(
+      getTableColumnShape(rows, DEMO, metricConfig, options)
+        .generalPopulationLabel,
+    ).toBe('all adults')
+
+    const noPopulation: HetRow[] = [{ race_and_ethnicity: 'All', rate: 8.4 }]
+    expect(
+      getTableColumnShape(noPopulation, DEMO, metricConfig, options)
+        .generalPopulationLabel,
+    ).toBeUndefined()
+  })
+})
+
+describe('buildPrompt data table framing', () => {
+  const args = [
+    'data-table',
+    'HIV diagnoses',
+    'Georgia',
+    'race/ethnicity',
+    '- All: 24.6 per 100k, 100% of cases, 100% of population',
+  ] as const
+
+  const promptFor = (shape?: Parameters<typeof buildPrompt>[7]) =>
+    buildPrompt(...args, undefined, false, shape)
+
+  test('names all three columns and anchors the task on population share', () => {
+    const prompt = promptFor({
+      hasCaseloadShare: true,
+      hasPopulationShare: true,
+    })
+    expect(prompt).toContain(
+      'its rate, its share of the total, and its share of the population',
+    )
+    expect(prompt).toContain('who actually lives in Georgia')
+    expect(prompt).toContain('whose share of HIV diagnoses is')
+  })
+
+  test('a topic with no caseload share compares its rate, never a share it lacks', () => {
+    const prompt = promptFor({
+      hasCaseloadShare: false,
+      hasPopulationShare: true,
+    })
+    expect(prompt).toContain('its rate and its share of the population')
+    expect(prompt).not.toContain('share of the total')
+    expect(prompt).toContain('whose rate is')
+  })
+
+  test('names no share column when the rows carry none', () => {
+    const prompt = promptFor({
+      hasCaseloadShare: false,
+      hasPopulationShare: false,
+    })
+    expect(prompt).toContain('one group and its rate.')
+    expect(prompt).not.toContain('share of the population')
+    expect(prompt).not.toContain('share of the total')
+  })
+
+  test('flags a population column that counts a broader group than the rate measures', () => {
+    const prompt = promptFor({
+      hasCaseloadShare: false,
+      hasPopulationShare: true,
+      generalPopulationLabel: 'all adults',
+    })
+    expect(prompt).toContain('population shares count all adults')
+    expect(prompt).toContain('rough context rather than an exact figure')
+  })
+
+  test('omits the caveat when the population column matches the rate’s denominator', () => {
+    const prompt = promptFor({
+      hasCaseloadShare: true,
+      hasPopulationShare: true,
+    })
+    expect(prompt).not.toContain('rough context')
   })
 })
 

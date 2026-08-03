@@ -2,6 +2,7 @@ import type {
   DataTypeConfig,
   MetricConfig,
 } from '../data/config/MetricConfigTypes'
+import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
@@ -47,6 +48,84 @@ export function getPrimaryMetricConfig(
   return metrics.per100k ?? metrics.pct_rate ?? metrics.index ?? null
 }
 
+// The share columns the data table renders alongside its rate. Resolved the same
+// way TableCard resolves them, since the insight describes the table the reader
+// is looking at rather than the topic config in the abstract. Notably that means
+// metricConfigFromDtConfig('share'), which also picks up the pct_share_unknown
+// column the Medicare adherence topics use in place of a true pct_share.
+export function resolveTableShareMetrics(dataTypeConfig: DataTypeConfig): {
+  shareConfig?: MetricConfig
+  populationConfig?: MetricConfig
+  generalPopulationLabel?: string
+} {
+  const rateConfig = metricConfigFromDtConfig('rate', dataTypeConfig)
+  const shareConfig = metricConfigFromDtConfig('share', dataTypeConfig)
+  const populationConfig =
+    shareConfig?.populationComparisonMetric ??
+    rateConfig?.populationComparisonMetric
+  return {
+    shareConfig,
+    populationConfig,
+    // Keyed off the flag, not off which config the population column came from,
+    // so the caveat can never fire on a topic whose population column already
+    // matches its rate's denominator.
+    generalPopulationLabel: rateConfig?.isGeneralPopulationComparison
+      ? populationConfig?.generalPopulationLabel
+      : undefined,
+  }
+}
+
+// A percent short label already leads with the sign ("% of population"), so it
+// attaches straight to the number; anything else is a unit that reads as its own
+// word ("6.8 cases per 100k"). Applied only where a share column sits beside a
+// rate, since a mixed row is where "100 % of population" reads as a typo.
+export function formatMetricValue(
+  value: unknown,
+  config: MetricConfig,
+): string {
+  return config.shortLabel.startsWith('%')
+    ? `${value}${config.shortLabel}`
+    : `${value} ${config.shortLabel}`
+}
+
+// Which of the data table's share columns the rendered rows actually carry.
+// Derived from the values rather than from the config, because a template that
+// names a column the payload lacks is exactly what invites the model to invent
+// the number.
+export interface TableColumnShape {
+  hasCaseloadShare: boolean
+  hasPopulationShare: boolean
+  // Set only when the population column counts a broader group than the rate's
+  // own denominator, so the prompt can say so instead of implying the two shares
+  // are measured on the same basis.
+  generalPopulationLabel?: string
+}
+
+export function getTableColumnShape(
+  rows: HetRow[],
+  demographicType: DemographicType,
+  metricConfig: MetricConfig,
+  options: InsightDataOptions = {},
+): TableColumnShape {
+  const { shareConfig, populationConfig, generalPopulationLabel } = options
+  // Same rows formatDataRows will emit, so a column present only on rows that
+  // get dropped is not announced.
+  const emitted = rows.filter(
+    (row) => row[demographicType] != null && row[metricConfig.metricId] != null,
+  )
+  const hasColumn = (config?: MetricConfig) =>
+    Boolean(config) &&
+    emitted.some((row) => row[(config as MetricConfig).metricId] != null)
+  const hasPopulationShare = hasColumn(populationConfig)
+  return {
+    hasCaseloadShare: hasColumn(shareConfig),
+    hasPopulationShare,
+    generalPopulationLabel: hasPopulationShare
+      ? generalPopulationLabel
+      : undefined,
+  }
+}
+
 // Which rows a data section covers and how many bytes it may occupy. Grouped
 // into one object so a caller that needs only the budget isn't forced to pass
 // placeholders for the filters it doesn't use.
@@ -65,6 +144,12 @@ export interface InsightDataOptions {
   // Bytes this data section may occupy. Defaults to the single-card tier; a
   // prompt that carries more than one section passes a tighter budget.
   budgetBytes?: number
+  // The data table's two share columns. Passed in rather than read off
+  // metricConfig because getPrimaryMetricConfig hands the table its rate config,
+  // which carries neither share. See resolveTableShareMetrics.
+  shareConfig?: MetricConfig
+  populationConfig?: MetricConfig
+  generalPopulationLabel?: string
 }
 
 // Format HetRows as a text list to embed in the prompt
@@ -79,6 +164,8 @@ export function formatDataRows(
     selectedGroups,
     activeDemographicGroup,
     budgetBytes = INSIGHT_DATA_BUDGETS.card,
+    shareConfig,
+    populationConfig,
   } = options
   const isMap = MAP_CHART_IDS.includes(hashId)
   const isTimeSeries = TIME_SERIES_CHART_IDS.includes(hashId)
@@ -161,10 +248,14 @@ export function formatDataRows(
 
   // For population-vs-distribution, include both the outcome share and
   // the population share side-by-side so the model can compute the disparity
+  const isTable = hashId === 'data-table'
   const popMetric =
     hashId === 'population-vs-distribution'
       ? metricConfig.populationComparisonMetric
-      : null
+      : isTable
+        ? populationConfig
+        : null
+  const shareMetric = isTable ? shareConfig : undefined
 
   const filteredRows = rows.filter((row) => {
     // Maps always have a place name; other charts key off the demographic group.
@@ -205,6 +296,20 @@ export function formatDataRows(
       ? `${row.fips_name} (${row[demographicType]})`
       : `${row[demographicType]}`
     const val = `${row[metricConfig.metricId]} ${metricConfig.shortLabel}`
+    if (isTable) {
+      // The table's own three columns, in the order the table shows them. Each
+      // is dropped for the rows the source suppressed, so a group can appear
+      // with a rate and no shares.
+      const parts = [
+        formatMetricValue(row[metricConfig.metricId], metricConfig),
+      ]
+      for (const config of [shareMetric, popMetric]) {
+        if (config && row[config.metricId] != null) {
+          parts.push(formatMetricValue(row[config.metricId], config))
+        }
+      }
+      return `- ${label}: ${parts.join(', ')}`
+    }
     if (popMetric && row[popMetric.metricId] != null) {
       return `- ${label}: outcome share ${val}, population share ${row[popMetric.metricId]} ${popMetric.shortLabel}`
     }
@@ -217,6 +322,12 @@ export function formatDataRows(
   return trimLinesToBudget(lines, budgetBytes)
 }
 
+function joinWithAnd(parts: string[]): string {
+  if (parts.length <= 1) return parts[0] ?? ''
+  if (parts.length === 2) return parts.join(' and ')
+  return `${parts.slice(0, -1).join(', ')}, and ${parts[parts.length - 1]}`
+}
+
 export function buildPrompt(
   hashId: ScrollableHashId,
   topic: string,
@@ -227,6 +338,9 @@ export function buildPrompt(
   // When true, dataSection ranks the region against its same-level peers, so
   // reframe from "describe the disparity" to "place this region among its peers".
   hasPeerComparison = false,
+  // Which share columns the data table's rows carry. Only the data-table branch
+  // reads it; every other chart sends one number per row.
+  tableShape?: TableColumnShape,
 ): string {
   const dataBlock = dataSection ? `\n\nData:\n${dataSection}` : ''
 
@@ -255,7 +369,34 @@ export function buildPrompt(
   }
 
   if (hashId === 'data-table') {
-    return `This is a data table summarizing ${topic} in ${location} by ${demographicLabel}, showing rates, population shares, and outcome shares for each group.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that goes beyond the single biggest disparity — consider the pattern across multiple groups, or compare how different groups' burdens relate to their population shares. Focus on the "so what" for the community.`
+    // The columns are named from what the rows actually carry, so the prompt can
+    // never describe a number it did not send.
+    const columns = joinWithAnd(
+      [
+        'its rate',
+        tableShape?.hasCaseloadShare && 'its share of the total',
+        tableShape?.hasPopulationShare && 'its share of the population',
+      ].filter((part): part is string => Boolean(part)),
+    )
+
+    // The population share is what makes this card different from every other
+    // one on the page: it is the only place a reader can weigh who carries the
+    // burden against who is actually there. Lean on it whenever it is present.
+    // Eight topics publish no caseload share at all, so the comparison there is
+    // the group's rate against its share of the population. Naming a share the
+    // rows do not carry is the defect this template was rewritten to close.
+    const burden = tableShape?.hasCaseloadShare
+      ? `whose share of ${topic} is`
+      : 'whose rate is'
+    const task = tableShape?.hasPopulationShare
+      ? `weighs who carries the burden against who actually lives in ${location}, naming a group ${burden} out of step with its share of the population`
+      : 'describes the pattern across several groups rather than only the single biggest gap'
+
+    const caveat = tableShape?.generalPopulationLabel
+      ? ` The population shares count ${tableShape.generalPopulationLabel}, a broader group than the rate itself measures, so treat that comparison as rough context rather than an exact figure.`
+      : ''
+
+    return `This is a data table summarizing ${topic} in ${location} by ${demographicLabel}. Each row gives one group and ${columns}.${caveat}${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that ${task}. Use the specific numbers shown, and focus on the "so what" for the community.`
   }
 
   return `This is a ${hashId.replace(/-/g, ' ')} showing ${topic} in ${location} by ${demographicLabel}. The intended message is to highlight health equity disparities.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that captures the key inequity a viewer should walk away with — focus on the "so what", not the chart mechanics.`
@@ -276,6 +417,7 @@ export function buildCardInsightPrompt(
   demographicLabel: string,
   dataSection: string,
   context?: InsightContext,
+  tableShape?: TableColumnShape,
 ): string {
   // Single-region map: rank the region against its same-level peers instead of
   // describing an on-screen disparity. summarizePeerComparison returns null when
@@ -300,6 +442,7 @@ export function buildCardInsightPrompt(
       finalDataSection,
       context?.activeDemographicGroup,
       Boolean(peerSummary),
+      tableShape,
     ) + CARD_OUTPUT_RULE
   )
 }
@@ -308,6 +451,8 @@ interface InsightData {
   dataSection: string
   // Number of comparison entries (groups or regions) the model would receive.
   entryCount: number
+  // Data-table only: which share columns the rendered rows carry.
+  tableShape?: TableColumnShape
 }
 
 // The selected region's own overall ("All") rate plus the overall rates of its
@@ -511,23 +656,39 @@ export function prepareInsightData(
   options: InsightDataOptions = {},
 ): InsightData {
   let dataSection = ''
+  let tableShape: TableColumnShape | undefined
   if (queryResponses?.[0]) {
     const metricConfig = getPrimaryMetricConfig(hashId, dataTypeConfig.metrics)
     if (metricConfig) {
       const rows = queryResponses[0].getValidRowsForField(metricConfig.metricId)
+      // The table's share columns are already in this response: TableCard
+      // requests them, and getMetricIdToConfigMap pulls in each config's
+      // populationComparisonMetric. Nothing extra is fetched here.
+      const rowOptions =
+        hashId === 'data-table'
+          ? { ...options, ...resolveTableShareMetrics(dataTypeConfig) }
+          : options
       dataSection = formatDataRows(
         rows,
         hashId,
         demographicType,
         metricConfig,
-        options,
+        rowOptions,
       )
+      if (hashId === 'data-table') {
+        tableShape = getTableColumnShape(
+          rows,
+          demographicType,
+          metricConfig,
+          rowOptions,
+        )
+      }
     }
   }
   const entryCount = dataSection
     ? dataSection.split('\n').filter(Boolean).length
     : 0
-  return { dataSection, entryCount }
+  return { dataSection, entryCount, tableShape }
 }
 
 // How much comparison an insight has to work with:
@@ -579,7 +740,7 @@ export async function generateCardInsight(
   const location = fips?.getSentenceDisplayName() ?? 'the United States'
   const demographic = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
 
-  const { dataSection } = prepareInsightData(
+  const { dataSection, tableShape } = prepareInsightData(
     hashId,
     dataTypeConfig,
     demographicType,
@@ -597,6 +758,7 @@ export async function generateCardInsight(
     demographic,
     dataSection,
     context,
+    tableShape,
   )
 
   const cardSuffix = isCompareCard ? '-2' : ''
