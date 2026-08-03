@@ -1,0 +1,40 @@
+{
+  "kind": "report",
+  "why": "A report with no age-adjusted ratios, which is the majority of topics. This is the highest-stakes no-data variant: with no ratio supplied, the prompt must forbid citing any figure in the headline. Without that clause the model is invited to derive 'seven times higher' from two raw rates and present it as a finding, which is exactly how a fabricated statistic reaches a reader.",
+  "topic": "Preventable hospitalizations",
+  "location": "Mississippi",
+  "demographicType": "race_and_ethnicity",
+  "placeNoun": "counties",
+  "metricConfig": {
+    "metricId": "preventable_hospitalizations_per_100k",
+    "shortLabel": "per 100k"
+  },
+  "sections": {
+    "demographic": {
+      "rows": [
+        {
+          "race_and_ethnicity": "All",
+          "preventable_hospitalizations_per_100k": 4820
+        },
+        {
+          "race_and_ethnicity": "Black or African American (NH)",
+          "preventable_hospitalizations_per_100k": 6140
+        },
+        {
+          "race_and_ethnicity": "White (NH)",
+          "preventable_hospitalizations_per_100k": 3990
+        }
+      ]
+    },
+    "geographic": {
+      "rows": [
+        { "fips_name": "Hinds County", "preventable_hospitalizations_per_100k": 5610 },
+        { "fips_name": "Harrison County", "preventable_hospitalizations_per_100k": 4770 },
+        { "fips_name": "DeSoto County", "preventable_hospitalizations_per_100k": 3840 }
+      ]
+    },
+    "temporal": { "rows": [] },
+    "ageAdjusted": { "rows": [] },
+    "unknown": { "rows": [] }
+  }
+}

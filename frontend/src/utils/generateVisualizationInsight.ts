@@ -17,6 +17,11 @@ import type { Fips } from '../data/utils/Fips'
 import { fetchAIInsight, type InsightResult } from './fetchAIInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
 import { buildInsightCacheKey } from './insightCacheKey'
+import {
+  byteLength,
+  INSIGHT_DATA_BUDGETS,
+  trimLinesToBudget,
+} from './insightPromptBudget'
 
 const MAP_CHART_IDS: ScrollableHashId[] = [
   'rate-map',
@@ -28,11 +33,6 @@ const TIME_SERIES_CHART_IDS: ScrollableHashId[] = [
   'rates-over-time',
   'inequities-over-time',
 ]
-
-// Per-side data-section budget for time series. Compare mode sends two of
-// these in one prompt, so this is set well under half the server's prompt
-// cap (server/insight_budget.go) to leave room for scaffold text on both sides.
-const TIME_SERIES_TARGET_BYTES = 12 * 1024
 
 // Select the most relevant metric config for the given chart type
 export function getPrimaryMetricConfig(
@@ -47,24 +47,39 @@ export function getPrimaryMetricConfig(
   return metrics.per100k ?? metrics.pct_rate ?? metrics.index ?? null
 }
 
-// Format HetRows as a text list to embed in the prompt
-export function formatDataRows(
-  rows: HetRow[],
-  hashId: ScrollableHashId,
-  demographicType: DemographicType,
-  metricConfig: MetricConfig,
+// Which rows a data section covers and how many bytes it may occupy. Grouped
+// into one object so a caller that needs only the budget isn't forced to pass
+// placeholders for the filters it doesn't use.
+export interface InsightDataOptions {
   // When the user has focused a chart (e.g. the trend legend) on a subset of
   // groups, restrict the rows to those groups so the insight describes only
   // what is on screen. Empty/undefined means "all groups".
-  selectedGroups?: DemographicGroup[],
+  selectedGroups?: DemographicGroup[]
   // The demographic group currently highlighted on a map. When the map is
   // showing multiple places (a real geographic comparison), default to only
   // this group's rows across places, since that's what's on screen and it
   // keeps the prompt small. When only one place is in view, there's no
   // geographic comparison to make, so send every group for that one place
   // instead (the ALL-groups-within-place fallback).
-  activeDemographicGroup?: DemographicGroup,
+  activeDemographicGroup?: DemographicGroup
+  // Bytes this data section may occupy. Defaults to the single-card tier; a
+  // prompt that carries more than one section passes a tighter budget.
+  budgetBytes?: number
+}
+
+// Format HetRows as a text list to embed in the prompt
+export function formatDataRows(
+  rows: HetRow[],
+  hashId: ScrollableHashId,
+  demographicType: DemographicType,
+  metricConfig: MetricConfig,
+  options: InsightDataOptions = {},
 ): string {
+  const {
+    selectedGroups,
+    activeDemographicGroup,
+    budgetBytes = INSIGHT_DATA_BUDGETS.card,
+  } = options
   const isMap = MAP_CHART_IDS.includes(hashId)
   const isTimeSeries = TIME_SERIES_CHART_IDS.includes(hashId)
   const groupFilter =
@@ -106,9 +121,6 @@ export function formatDataRows(
       return [sorted[0], ...sorted.slice(-recentCount)]
     }
 
-    const encoder = new TextEncoder()
-    const byteLength = (text: string) => encoder.encode(text).length
-
     const render = (recentCount: number) =>
       sortedByGroup
         .flatMap(([group, sorted]) =>
@@ -123,7 +135,7 @@ export function formatDataRows(
       ...sortedByGroup.map(([, sorted]) => sorted.length),
     )
     const full = render(longest)
-    if (byteLength(full) <= TIME_SERIES_TARGET_BYTES) return full
+    if (byteLength(full) <= budgetBytes) return full
 
     // Largest recent window that still fits. Binary search rather than stepping
     // down one point at a time, since a monthly series over decades can be
@@ -134,7 +146,7 @@ export function formatDataRows(
     while (low <= high) {
       const mid = Math.floor((low + high) / 2)
       const candidate = render(mid)
-      if (byteLength(candidate) <= TIME_SERIES_TARGET_BYTES) {
+      if (byteLength(candidate) <= budgetBytes) {
         best = candidate
         low = mid + 1
       } else {
@@ -143,19 +155,8 @@ export function formatDataRows(
     }
     if (best) return best
 
-    // Enough groups that even one recent point each overflows the budget. Keep
-    // whole lines from the start until the budget is spent, so the result is
-    // always a well-formed, in-budget list rather than a truncated final line.
-    const lines = render(1).split('\n')
-    const kept: string[] = []
-    let used = 0
-    for (const line of lines) {
-      const cost = byteLength(line) + (kept.length ? 1 : 0)
-      if (used + cost > TIME_SERIES_TARGET_BYTES) break
-      kept.push(line)
-      used += cost
-    }
-    return kept.join('\n')
+    // Enough groups that even one recent point each overflows the budget.
+    return trimLinesToBudget(render(1).split('\n'), budgetBytes)
   }
 
   // For population-vs-distribution, include both the outcome share and
@@ -195,22 +196,25 @@ export function formatDataRows(
         )
       : filteredRows
 
-  return activeRows
-    .map((row) => {
-      // On a map, label each row with BOTH its place and demographic group so
-      // the model can read either a geographic gap (across places) or a
-      // within-place gap (across groups, with "All" as the baseline). Other
-      // charts already vary only by demographic group, so the group alone suffices.
-      const label = isMap
-        ? `${row.fips_name} (${row[demographicType]})`
-        : `${row[demographicType]}`
-      const val = `${row[metricConfig.metricId]} ${metricConfig.shortLabel}`
-      if (popMetric && row[popMetric.metricId] != null) {
-        return `- ${label}: outcome share ${val}, population share ${row[popMetric.metricId]} ${popMetric.shortLabel}`
-      }
-      return `- ${label}: ${val}`
-    })
-    .join('\n')
+  const lines = activeRows.map((row) => {
+    // On a map, label each row with BOTH its place and demographic group so
+    // the model can read either a geographic gap (across places) or a
+    // within-place gap (across groups, with "All" as the baseline). Other
+    // charts already vary only by demographic group, so the group alone suffices.
+    const label = isMap
+      ? `${row.fips_name} (${row[demographicType]})`
+      : `${row[demographicType]}`
+    const val = `${row[metricConfig.metricId]} ${metricConfig.shortLabel}`
+    if (popMetric && row[popMetric.metricId] != null) {
+      return `- ${label}: outcome share ${val}, population share ${row[popMetric.metricId]} ${popMetric.shortLabel}`
+    }
+    return `- ${label}: ${val}`
+  })
+
+  // Group filtering bounds a map section in the common case, but a wide
+  // breakdown over hundreds of places can still outgrow the budget, and the
+  // data table has no geographic filter at all.
+  return trimLinesToBudget(lines, budgetBytes)
 }
 
 export function buildPrompt(
@@ -255,6 +259,49 @@ export function buildPrompt(
   }
 
   return `This is a ${hashId.replace(/-/g, ' ')} showing ${topic} in ${location} by ${demographicLabel}. The intended message is to highlight health equity disparities.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that captures the key inequity a viewer should walk away with — focus on the "so what", not the chart mechanics.`
+}
+
+// Keep the model from narrating the prompt (e.g. "Since only the overall rate
+// is available, here's a sentence...") — the card wants the bare insight.
+const CARD_OUTPUT_RULE =
+  ' Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.'
+
+// The exact text a card sends to the model. Separate from generateCardInsight so
+// the prompt can be rendered without a network call, which is what lets the
+// regression harness diff prompt changes and what the Go port must reproduce.
+export function buildCardInsightPrompt(
+  hashId: ScrollableHashId,
+  topic: string,
+  location: string,
+  demographicLabel: string,
+  dataSection: string,
+  context?: InsightContext,
+): string {
+  // Single-region map: rank the region against its same-level peers instead of
+  // describing an on-screen disparity. summarizePeerComparison returns null when
+  // too few peers report, in which case we fall through to the standard framing.
+  const peerSummary =
+    MAP_CHART_IDS.includes(hashId) && context?.peerComparison
+      ? summarizePeerComparison(context.peerComparison)
+      : null
+
+  // The peer summary already leads with the region's own rate, so it replaces
+  // the lone local row rather than appending to it.
+  const finalDataSection = peerSummary
+    ? formatPeerComparison(peerSummary)
+    : dataSection
+
+  return (
+    buildPrompt(
+      hashId,
+      topic,
+      location,
+      demographicLabel,
+      finalDataSection,
+      context?.activeDemographicGroup,
+      Boolean(peerSummary),
+    ) + CARD_OUTPUT_RULE
+  )
 }
 
 interface InsightData {
@@ -461,8 +508,7 @@ export function prepareInsightData(
   dataTypeConfig: DataTypeConfig,
   demographicType: DemographicType,
   queryResponses?: MetricQueryResponse[],
-  selectedGroups?: DemographicGroup[],
-  activeDemographicGroup?: DemographicGroup,
+  options: InsightDataOptions = {},
 ): InsightData {
   let dataSection = ''
   if (queryResponses?.[0]) {
@@ -474,8 +520,7 @@ export function prepareInsightData(
         hashId,
         demographicType,
         metricConfig,
-        selectedGroups,
-        activeDemographicGroup,
+        options,
       )
     }
   }
@@ -500,23 +545,24 @@ export function getInsightDataStatus(
   dataTypeConfig: DataTypeConfig,
   demographicType: DemographicType,
   queryResponses?: MetricQueryResponse[],
-  selectedGroups?: DemographicGroup[],
-  // Whether the selected region has its own overall "All" rate (from the
-  // region-self query). Gates the peer fallback so a lone subgroup row — with no
-  // overall rate — stays hidden rather than being ranked as the region's overall.
-  regionHasAllRate = false,
-  activeDemographicGroup?: DemographicGroup,
+  options: InsightDataOptions & {
+    // Whether the selected region has its own overall "All" rate (from the
+    // region-self query). Gates the peer fallback so a lone subgroup row, with
+    // no overall rate, stays hidden rather than being ranked as the region's
+    // overall.
+    regionHasAllRate?: boolean
+  } = {},
 ): InsightDataStatus {
   const { entryCount } = prepareInsightData(
     hashId,
     dataTypeConfig,
     demographicType,
     queryResponses,
-    selectedGroups,
-    activeDemographicGroup,
+    options,
   )
   if (entryCount >= 2) return 'multi'
-  if (MAP_CHART_IDS.includes(hashId) && regionHasAllRate) return 'single-region'
+  if (MAP_CHART_IDS.includes(hashId) && options.regionHasAllRate)
+    return 'single-region'
   return 'empty'
 }
 
@@ -538,38 +584,20 @@ export async function generateCardInsight(
     dataTypeConfig,
     demographicType,
     queryResponses,
-    context?.selectedGroups,
-    context?.activeDemographicGroup,
+    {
+      selectedGroups: context?.selectedGroups,
+      activeDemographicGroup: context?.activeDemographicGroup,
+    },
   )
 
-  // Single-region map: rank the region against its same-level peers instead of
-  // describing an on-screen disparity. summarizePeerComparison returns null when
-  // too few peers report, in which case we fall through to the standard framing.
-  const peerSummary =
-    MAP_CHART_IDS.includes(hashId) && context?.peerComparison
-      ? summarizePeerComparison(context.peerComparison)
-      : null
-
-  // The peer summary already leads with the region's own rate, so it replaces
-  // the lone local row rather than appending to it.
-  const finalDataSection = peerSummary
-    ? formatPeerComparison(peerSummary)
-    : dataSection
-
-  // Keep the model from narrating the prompt (e.g. "Since only the overall rate
-  // is available, here's a sentence...") — the card wants the bare insight.
-  const outputRule =
-    ' Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.'
-  const prompt =
-    buildPrompt(
-      hashId,
-      topic,
-      location,
-      demographic,
-      finalDataSection,
-      context?.activeDemographicGroup,
-      Boolean(peerSummary),
-    ) + outputRule
+  const prompt = buildCardInsightPrompt(
+    hashId,
+    topic,
+    location,
+    demographic,
+    dataSection,
+    context,
+  )
 
   const cardSuffix = isCompareCard ? '-2' : ''
   // Focus (highlighted map group / selected trend lines) needs no suffix here:
