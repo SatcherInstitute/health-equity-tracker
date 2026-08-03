@@ -136,23 +136,36 @@ deliberately best-effort and swallows errors, so treat them as refining the
 per-generation average rather than as a total.
 
 ```bash
-gcloud logging read "$FILTER jsonPayload.insight.reserved=true" \
-  --project "$PROJECT" --freshness=30d \
+# reserveGeneration keys the monthly ledger by UTC calendar month, so the window
+# has to be one too. A rolling --freshness=30d would straddle two of them and
+# could not be compared against the monthly counter or the monthly ceiling.
+MONTH_START=$(date -u +%Y-%m-01T00:00:00Z)
+
+gcloud logging read "$FILTER jsonPayload.insight.reserved=true timestamp>=\"$MONTH_START\"" \
+  --project "$PROJECT" \
   --format='value(jsonPayload.insight.outcome,jsonPayload.insight.promptTokens,jsonPayload.insight.outputTokens)' \
 | awk -F'\t' '{n++; if ($1=="generated") s++; i+=$2; o+=$3}
        END {print n" reservations ("s" produced an insight), "i" input tokens, "o" output tokens"}'
 ```
 
-`-F'\t'` is load-bearing: `value()` emits tab-separated fields, and a zero token count
-is omitted from the JSON entirely, so under awk's default whitespace splitting the
-empty field would collapse and shift every column after it.
+Two details that are easy to get wrong here:
+
+- `--freshness` is dropped on purpose, not forgotten. It applies only to filters with
+  no timestamp restriction, so leaving it alongside one is misleading rather than
+  additive.
+- `-F'\t'` is load-bearing: `value()` emits tab-separated fields, and a zero token
+  count is omitted from the JSON entirely, so under awk's default whitespace splitting
+  the empty field would collapse and shift every column after it.
 
 The gap between the two counts is the provider failure rate, and it is ceiling budget
 spent on nothing. A widening gap is worth chasing on its own.
 
 Cross-check against the ledger without reading GCS: the newest line's
 `dailyGenerations` and `monthlyGenerations` are the ledger's own counters at that
-moment, so they should track the reservation count above.
+moment, and now cover the same window as the query, so `monthlyGenerations` and the
+reservation count should agree. A persistent gap means log entries aged out of the
+default 30-day retention, which a 31-day month will always clip slightly, so trust the
+counter over the query when they disagree.
 
 Spend is $0 while the project is on the provider's free tier, so the tokens are read
 as quota headroom rather than dollars. They are recorded per line with the model that
