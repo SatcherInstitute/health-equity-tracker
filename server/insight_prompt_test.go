@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"math"
 	"os"
 	"path/filepath"
 	"strings"
@@ -14,23 +15,21 @@ import (
 // Accept a change only by regenerating the fixtures on the frontend side
 // (UPDATE_INSIGHT_PROMPTS=1) and reviewing the resulting diff.
 
-type fixtureMetricConfig struct {
-	MetricID   string `json:"metricId"`
-	ShortLabel string `json:"shortLabel"`
-}
-
+// Fixture metric configs decode straight into the production type: its JSON tags
+// already match the fixture field names, so a mirrored test struct would only be
+// one more place to forget to update.
 type fixtureView struct {
 	Topic        string               `json:"topic"`
 	Location     string               `json:"location"`
-	MetricConfig *fixtureMetricConfig `json:"metricConfig"`
+	MetricConfig *insightMetricConfig `json:"metricConfig"`
 	Rows         []insightRow         `json:"rows"`
 }
 
 type fixtureSection struct {
 	Rows                   []insightRow         `json:"rows"`
-	MetricConfig           *fixtureMetricConfig `json:"metricConfig"`
-	ShareConfig            *fixtureMetricConfig `json:"shareConfig"`
-	PopulationConfig       *fixtureMetricConfig `json:"populationConfig"`
+	MetricConfig           *insightMetricConfig `json:"metricConfig"`
+	ShareConfig            *insightMetricConfig `json:"shareConfig"`
+	PopulationConfig       *insightMetricConfig `json:"populationConfig"`
 	GeneralPopulationLabel string               `json:"generalPopulationLabel"`
 }
 
@@ -51,9 +50,9 @@ type promptFixture struct {
 	// card
 	Topic                  string               `json:"topic"`
 	Location               string               `json:"location"`
-	MetricConfig           *fixtureMetricConfig `json:"metricConfig"`
-	ShareConfig            *fixtureMetricConfig `json:"shareConfig"`
-	PopulationConfig       *fixtureMetricConfig `json:"populationConfig"`
+	MetricConfig           *insightMetricConfig `json:"metricConfig"`
+	ShareConfig            *insightMetricConfig `json:"shareConfig"`
+	PopulationConfig       *insightMetricConfig `json:"populationConfig"`
 	GeneralPopulationLabel string               `json:"generalPopulationLabel"`
 	Rows                   []insightRow         `json:"rows"`
 	Context                *insightContext      `json:"context"`
@@ -67,17 +66,6 @@ type promptFixture struct {
 	Sections  *fixtureSections `json:"sections"`
 }
 
-func (f *promptFixture) metricConfig() *insightMetricConfig {
-	return asInsightMetricConfig(f.MetricConfig)
-}
-
-func asInsightMetricConfig(c *fixtureMetricConfig) *insightMetricConfig {
-	if c == nil {
-		return nil
-	}
-	return &insightMetricConfig{MetricID: c.MetricID, ShortLabel: c.ShortLabel}
-}
-
 func renderFixture(t *testing.T, f *promptFixture) string {
 	t.Helper()
 	demographic, ok := demographicDisplayLower[f.DemographicType]
@@ -88,26 +76,26 @@ func renderFixture(t *testing.T, f *promptFixture) string {
 	switch f.Kind {
 	case "card":
 		opts := insightDataOptions{
-			ShareConfig:            asInsightMetricConfig(f.ShareConfig),
-			PopulationConfig:       asInsightMetricConfig(f.PopulationConfig),
+			ShareConfig:            f.ShareConfig,
+			PopulationConfig:       f.PopulationConfig,
 			GeneralPopulationLabel: f.GeneralPopulationLabel,
 		}
 		if f.Context != nil {
 			opts.SelectedGroups = f.Context.SelectedGroups
 			opts.ActiveDemographicGroup = f.Context.ActiveDemographicGroup
 		}
-		dataSection := formatDataRows(f.Rows, f.HashID, f.DemographicType, f.metricConfig(), opts)
+		dataSection := formatDataRows(f.Rows, f.HashID, f.DemographicType, f.MetricConfig, opts)
 
 		var shape *tableColumnShape
 		if f.HashID == "data-table" {
-			s := getTableColumnShape(f.Rows, f.DemographicType, f.metricConfig(), opts)
+			s := getTableColumnShape(f.Rows, f.DemographicType, f.MetricConfig, opts)
 			shape = &s
 		}
 		return buildCardInsightPrompt(f.HashID, f.Topic, f.Location, demographic, dataSection, f.Context, shape)
 
 	case "contrast":
 		section := func(v *fixtureView) string {
-			return formatDataRows(v.Rows, f.HashID, f.DemographicType, asInsightMetricConfig(v.MetricConfig),
+			return formatDataRows(v.Rows, f.HashID, f.DemographicType, v.MetricConfig,
 				insightDataOptions{BudgetBytes: insightBudgetContrast})
 		}
 		return buildContrastPrompt(f.ViewA.Topic, f.ViewB.Topic, f.ViewA.Location, f.ViewB.Location,
@@ -117,14 +105,14 @@ func renderFixture(t *testing.T, f *promptFixture) string {
 		s := f.Sections
 		metricFor := func(sec fixtureSection) *insightMetricConfig {
 			if sec.MetricConfig != nil {
-				return asInsightMetricConfig(sec.MetricConfig)
+				return sec.MetricConfig
 			}
-			return f.metricConfig()
+			return f.MetricConfig
 		}
 		demoMetric := metricFor(s.Demographic)
 		demoShares := insightDataOptions{
-			ShareConfig:            asInsightMetricConfig(s.Demographic.ShareConfig),
-			PopulationConfig:       asInsightMetricConfig(s.Demographic.PopulationConfig),
+			ShareConfig:            s.Demographic.ShareConfig,
+			PopulationConfig:       s.Demographic.PopulationConfig,
 			GeneralPopulationLabel: s.Demographic.GeneralPopulationLabel,
 		}
 		shape := getTableColumnShape(s.Demographic.Rows, f.DemographicType, demoMetric, demoShares)
@@ -175,5 +163,73 @@ func TestInsightPromptFixtures(t *testing.T) {
 					filepath.Base(wantPath), got, string(want))
 			}
 		})
+	}
+}
+
+// jsNumber and peerRankLabel carry sharp contracts that the fixtures only
+// exercise incidentally, so pin them directly. Expected jsNumber values are
+// String(n) output copied from a JS runtime, not derived from the Go code.
+func TestJSNumberMatchesJavaScript(t *testing.T) {
+	cases := []struct {
+		in   float64
+		want string
+	}{
+		{0, "0"},
+		{math.Copysign(0, -1), "0"},
+		{4, "4"},
+		{-4, "-4"},
+		{0.5, "0.5"},
+		{-0.5, "-0.5"},
+		{100, "100"},
+		{43.8, "43.8"},
+		// Written out rather than 0.1+0.2, which Go folds exactly at compile time.
+		{0.30000000000000004, "0.30000000000000004"},
+		// Exponential range. Unreachable for a rate or a share today, but a
+		// silent divergence here would displace cache entries rather than fail.
+		{1e-6, "0.000001"},
+		{1.5e-7, "1.5e-7"},
+		{-1.5e-7, "-1.5e-7"},
+		{5e-324, "5e-324"},
+		{1e21, "1e+21"},
+		{-1e21, "-1e+21"},
+		{1.2345e21, "1.2345e+21"},
+		{1e22, "1e+22"},
+		{math.NaN(), "NaN"},
+		{math.Inf(1), "Infinity"},
+		{math.Inf(-1), "-Infinity"},
+	}
+	for _, c := range cases {
+		if got := jsNumber(c.in); got != c.want {
+			t.Errorf("jsNumber(%v) = %q, want %q", c.in, got, c.want)
+		}
+	}
+}
+
+func TestPeerRankLabelBands(t *testing.T) {
+	// Each band's lower bound and the value just under it, as thousandths of the
+	// reporting count so the boundaries land exactly.
+	cases := []struct {
+		higherThan int
+		want       string
+	}{
+		{1000, "among the highest"},
+		{900, "among the highest"},
+		{899, "higher than most"},
+		{750, "higher than most"},
+		{749, "above the typical"},
+		{600, "above the typical"},
+		{599, "near the typical"},
+		{400, "near the typical"},
+		{399, "below the typical"},
+		{250, "below the typical"},
+		{249, "lower than most"},
+		{100, "lower than most"},
+		{99, "among the lowest"},
+		{0, "among the lowest"},
+	}
+	for _, c := range cases {
+		if got := peerRankLabel(c.higherThan, 1000); got != c.want {
+			t.Errorf("peerRankLabel(%d, 1000) = %q, want %q", c.higherThan, got, c.want)
+		}
 	}
 }

@@ -45,10 +45,14 @@ func groupIsAll(group string) bool {
 	return group == insightGroupAll || group == insightGroupAllWomen
 }
 
-// Only these two fields of a MetricConfig reach the prompt text.
+// Only these fields of a MetricConfig reach the prompt text.
 type insightMetricConfig struct {
 	MetricID   string `json:"metricId"`
 	ShortLabel string `json:"shortLabel"`
+	// The population-vs-distribution chart is the one card whose population
+	// share hangs off the rate config itself rather than being resolved as a
+	// separate table column, so it arrives nested here.
+	PopulationComparisonMetric *insightMetricConfig `json:"populationComparisonMetric,omitempty"`
 }
 
 type insightRow map[string]any
@@ -98,11 +102,25 @@ func jsNumber(f float64) string {
 	if math.IsInf(f, -1) {
 		return "-Infinity"
 	}
+	// JS prints negative zero as "0"; Go prints "-0".
+	if f == 0 {
+		return "0"
+	}
 	// JS switches to exponential notation outside this range. Rates and
 	// percentages never reach it, but diverging silently is worse than the
 	// branch costs.
-	if abs := math.Abs(f); f != 0 && (abs >= 1e21 || abs < 1e-6) {
-		return strconv.FormatFloat(f, 'g', -1, 64)
+	if abs := math.Abs(f); abs >= 1e21 || abs < 1e-6 {
+		// Both languages agree on the mantissa and the exponent sign, but Go pads
+		// the exponent to two digits (1.5e-07) where JS never does (1.5e-7).
+		s := strconv.FormatFloat(f, 'g', -1, 64)
+		if i := strings.IndexByte(s, 'e'); i >= 0 {
+			digits := strings.TrimLeft(s[i+2:], "0")
+			if digits == "" {
+				digits = "0"
+			}
+			return s[:i+2] + digits
+		}
+		return s
 	}
 	return strconv.FormatFloat(f, 'f', -1, 64)
 }
@@ -211,7 +229,10 @@ func formatDataRows(rows []insightRow, hashID, demographicType string, metricCon
 	// For population-vs-distribution, include both the outcome share and the
 	// population share side by side so the model can compute the disparity.
 	var popMetric *insightMetricConfig
-	if isTable {
+	switch {
+	case hashID == "population-vs-distribution":
+		popMetric = metricConfig.PopulationComparisonMetric
+	case isTable:
 		popMetric = opts.PopulationConfig
 	}
 	var shareMetric *insightMetricConfig
@@ -269,8 +290,6 @@ func formatDataRows(rows []insightRow, hashID, demographicType string, metricCon
 		} else {
 			label = jsString(row[demographicType])
 		}
-		val := jsString(row[metricConfig.MetricID]) + " " + metricConfig.ShortLabel
-
 		if isTable {
 			// The table's own three columns, in the order the table shows them.
 			// Each is dropped for the rows the source suppressed, so a group can
@@ -284,6 +303,7 @@ func formatDataRows(rows []insightRow, hashID, demographicType string, metricCon
 			lines = append(lines, fmt.Sprintf("- %s: %s", label, strings.Join(parts, ", ")))
 			continue
 		}
+		val := jsString(row[metricConfig.MetricID]) + " " + metricConfig.ShortLabel
 		if popMetric != nil && row[popMetric.MetricID] != nil {
 			lines = append(lines, fmt.Sprintf("- %s: outcome share %s, population share %s %s",
 				label, val, jsString(row[popMetric.MetricID]), popMetric.ShortLabel))
