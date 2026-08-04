@@ -62,6 +62,9 @@ func main() {
 
 	// AI insight generation (replaces frontend_server /fetch-ai-insight)
 	r.With(insightOriginOnly, insightRateLimit).Post("/fetch-ai-insight", fetchAIInsightHandler)
+	// Same flow, but the caller describes the view instead of sending prompt text,
+	// so the server owns both the prompt wording and the cache key it hashes to.
+	r.With(insightOriginOnly, insightRateLimit).Post("/insight", insightHandler)
 	r.Get("/rate-limit-status", rateLimitStatusHandler)
 
 	// News (replaces frontend_server /het-news)

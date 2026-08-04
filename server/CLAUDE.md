@@ -4,7 +4,8 @@ Combined Go HTTP server. A single binary and a single Docker image (~15 MB) serv
 
 - React static files with correct Cache-Control headers and SPA fallback
 - GCS dataset and metadata endpoints
-- AI insight generation (direct Gemini API call, no proxy hop) with usage budgets
+- AI insight generation (direct Gemini API call, no proxy hop) with usage budgets, from
+  either caller-supplied prompt text or a server-rendered view descriptor
 - Insight cache and flagging (direct GCS reads/writes — no inter-service HTTP)
 - Webflow news feed with TTL cache
 - Admin insight management (requires `Authorization: Bearer $ADMIN_TOKEN`)
@@ -55,6 +56,16 @@ The server handles all traffic on a single port:
   or an `insights-generation-disabled` object exists in that bucket, the endpoint returns
   `{"unavailable": true}` and the frontend renders no insight section. The route is additionally
   scoped to the origins in `INSIGHT_ALLOWED_ORIGINS` and rate limited per client.
+- **Insight descriptors** (`/insight`): the same flow, but the caller posts what the view is
+  showing (kind, hash ID, topic, location, metric configs, rendered rows, URL pathname and
+  params) instead of prompt text. The server renders the prompt from those templates and
+  derives the cache key from the rendered text, so wording and key derivation live in one
+  place: a template edit takes effect without a client deploy, and a client cannot mint a key
+  that disagrees with the prompt it is for. `{"preview": true}` stops after rendering and
+  returns `{"cacheKey","prompt"}` without consulting the cache, reserving a slot, or calling
+  the provider, which is how a client checks the server renders the text it expects. The
+  generating path returns `{"content","cacheKey"}`; the key rides along because flagging needs
+  it, and the prompt does not because it is up to 30 KB the client has no use for.
 - **Flagging** (`/flag-insight`): writes a flag record to GCS, deletes the cached insight, and
   clears the in-process `sync.Map` entry — all in the same process with no HTTP hops.
 - **News** (`/het-news`): fetches from the Webflow CDN API with a 5-minute TTL cache (tags
@@ -67,7 +78,7 @@ The server handles all traffic on a single port:
 
 ## Insight request logs
 
-Every `/fetch-ai-insight` request emits exactly one JSON line to stdout, which Cloud
+Every `/fetch-ai-insight` and `/insight` request emits exactly one JSON line to stdout, which Cloud
 Run ships to Cloud Logging as a structured payload under `jsonPayload.insight`. That
 line is the only reporting surface for this feature. **The usage ledger is not a
 reporting surface**: `reserveGeneration` writes it before the provider call so it can
@@ -92,14 +103,16 @@ object and hits are the hot path.
 | `generated` | Called the provider. Carries `model` and token counts |
 | `unavailable` | No insight shown. `reason` says which gate closed |
 | `suppressed` | A reviewer suppressed this exact insight |
-| `rejected` | Malformed request (missing or oversize prompt) |
+| `rejected` | Malformed request (missing, invalid, or oversize prompt or descriptor) |
+| `preview` | A descriptor rendered to a prompt and key with nothing generated. Consults no cache and reserves nothing, so it counts toward neither hit rate nor volume |
 | `error` | Provider or suppression-check failure |
 | `unknown` | The handler returned without classifying the request. Always a bug |
 | `ceiling_approaching` | Not a request. See the alert below |
 
 `reason` narrows the non-serving outcomes: `ceiling_reached`, `generation_disabled`,
 `no_api_key`, `no_cache_bucket`, `ledger_error`, `no_content`, `provider_quota`,
-`provider_error`, `suppression_check`, `missing_prompt`, `prompt_too_large`.
+`provider_error`, `suppression_check`, `missing_prompt`, `prompt_too_large`,
+`invalid_descriptor`.
 
 `reserved` is true when the request claimed a slot against the ceilings. **This is not
 the same as `outcome="generated"`**, and the difference is what makes the volume query
@@ -115,8 +128,9 @@ fields that answer that.
 
 **These strings are an interface.** The queries below and the alert filter match on
 them literally, so renaming one silently returns fewer rows rather than failing.
-`TestInsightRequestLogRecordsEveryOutcome` pins every outcome and every reason above,
-along with its severity and its `reserved` value.
+`TestInsightRequestLogRecordsEveryOutcome` pins the `/fetch-ai-insight` outcomes and
+reasons along with each one's severity and `reserved` value; `TestInsightHandlerLogOutcomes`
+pins the two the descriptor endpoint adds, `preview` and `invalid_descriptor`.
 
 ### Queries
 
@@ -264,20 +278,48 @@ Alerting on `ceiling_approaching` rather than on `ceiling_reached` is the point:
 time reservations are being refused, uncached views are already rendering no insight
 section. Raising `INSIGHT_MAX_GENERATIONS_PER_DAY` is the immediate lever.
 
+## Insight cache keys
+
+A key is the URL pathname, `?`, the query params, the view scope (`#<hashId>` for a
+card, `#<hashId>-2` for its compare twin, `#<hashId>-contrast`, empty for a report),
+`-`, and an FNV-1a-32 hash of the rendered prompt. The browser builds the same string
+today, and a divergence does not fail loudly: it silently misses every warm entry.
+Two details keep the two implementations in agreement.
+
+- **The hash runs over UTF-16 code units, not UTF-8 bytes**, because the browser
+  iterates `charCodeAt(i)`. The peer-median line carries a U+2013 en dash, so byte
+  iteration would diverge on every map card with a peer comparison. Go gets there via
+  `utf16.Encode([]rune(text))`. `TestFNV1a32MatchesBrowser` pins hashes taken from the
+  browser algorithm, including an en dash and an astral-plane surrogate pair.
+- **The params string is opaque text and must never be parsed and re-encoded.**
+  `URLSearchParams.toString()` preserves insertion order; Go's `url.Values.Encode()`
+  sorts. So `stripReportInsightParam` edits the string directly.
+
 ## Insight prompt fixtures
 
 `testdata/insight_prompts/` pins the exact text sent to the model for a set of
 representative views. Each case is a `.json` input plus a committed
 `.prompt.txt` of the rendered prompt.
 
-Prompts are still assembled in the frontend, so the harness that renders them
-lives there too:
+A `.json` input **is** an `insightDescriptor`, the same body `/insight` accepts, and
+the Go harness renders it through the same `renderInsightPrompt` the endpoint runs.
+So the committed set is a direct readout of which input shapes the endpoint is known
+to handle, and a new surface (multimap, say) is covered by adding a fixture rather
+than by asserting coverage in prose.
+
+Two harnesses render the same inputs and must produce the same bytes:
 
 ```bash
+cd server && go test -run TestInsightPromptFixtures ./...   # Go, the served path
+
 cd frontend
 npx vitest run src/utils/insightPromptFixtures.test.ts    # check
 UPDATE_INSIGHT_PROMPTS=1 npx vitest run src/utils/insightPromptFixtures.test.ts  # accept a change
 ```
+
+The TypeScript templates remain the source of truth until the frontend cuts over,
+so `UPDATE_INSIGHT_PROMPTS=1` regenerates the `.prompt.txt` files from them and the
+Go test then has to agree. Only the frontend harness writes.
 
 It is deterministic and offline: no API key, no network, no clock. A template
 edit shows up as a diff in the `.prompt.txt` files, and **that diff is the thing
@@ -285,14 +327,14 @@ to review.** Since #5029/#5053 the cache key is a hash of the rendered prompt an
 template text appears in every prompt, so the fixtures a change moves are a
 direct readout of how much of the cache it displaces.
 
-The fixtures deliberately contain no TypeScript-only types. When #5045 ports the
-templates to Go, the Go implementation renders these same inputs and must
-reproduce these same outputs, which is what makes the port checkable rather than
-trusted. Two things that will bite that port:
+The fixtures deliberately contain no TypeScript-only types, which is what let the
+Go port be checked rather than trusted. Two things the port had to get right, and
+that any template change still has to preserve:
 
-- **Number formatting must match exactly.** JavaScript renders `4.0` as `4`, and
-  the committed prompts record that. Go's default float formatting has to be
-  made to agree.
+- **Number formatting must match exactly.** JavaScript renders `4.0` as `4`,
+  `-0` as `0`, and exponents unpadded (`1.5e-7`, not `1.5e-07`); the committed
+  prompts record that, and `jsNumber` reproduces it. `TestJSNumberMatchesJavaScript`
+  pins the cases.
 - **The reading-level instruction is spelled two ways.** Card and contrast
   templates say "8th grade reading level"; the report template says
   "8th-grade reading level". Both are load-bearing cached text, so normalizing
