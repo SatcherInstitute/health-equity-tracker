@@ -11,22 +11,38 @@
   },
   "sections": {
     "demographic": {
+      "shareConfig": {
+        "metricId": "hiv_diagnoses_pct_share",
+        "shortLabel": "% of HIV diagnoses"
+      },
+      "populationConfig": {
+        "metricId": "hiv_population_pct",
+        "shortLabel": "% of population"
+      },
       "rows": [
         {
           "race_and_ethnicity": "All",
-          "hiv_diagnoses_per_100k": 24.6
+          "hiv_diagnoses_per_100k": 24.6,
+          "hiv_diagnoses_pct_share": 100,
+          "hiv_population_pct": 100
         },
         {
           "race_and_ethnicity": "Black or African American (NH)",
-          "hiv_diagnoses_per_100k": 44.8
+          "hiv_diagnoses_per_100k": 44.8,
+          "hiv_diagnoses_pct_share": 69.8,
+          "hiv_population_pct": 31.2
         },
         {
           "race_and_ethnicity": "Hispanic or Latino",
-          "hiv_diagnoses_per_100k": 17.1
+          "hiv_diagnoses_per_100k": 17.1,
+          "hiv_diagnoses_pct_share": 8.3,
+          "hiv_population_pct": 10.1
         },
         {
           "race_and_ethnicity": "White (NH)",
-          "hiv_diagnoses_per_100k": 6.3
+          "hiv_diagnoses_per_100k": 6.3,
+          "hiv_diagnoses_pct_share": 17.4,
+          "hiv_population_pct": 51.3
         }
       ]
     },

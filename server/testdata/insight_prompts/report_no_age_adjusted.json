@@ -11,18 +11,26 @@
   },
   "sections": {
     "demographic": {
+      "populationConfig": {
+        "metricId": "ahr_18plus_population_pct",
+        "shortLabel": "% of adults"
+      },
+      "generalPopulationLabel": "all adults",
       "rows": [
         {
           "race_and_ethnicity": "All",
-          "preventable_hospitalizations_per_100k": 4820
+          "preventable_hospitalizations_per_100k": 4820,
+          "ahr_18plus_population_pct": 100
         },
         {
           "race_and_ethnicity": "Black or African American (NH)",
-          "preventable_hospitalizations_per_100k": 6140
+          "preventable_hospitalizations_per_100k": 6140,
+          "ahr_18plus_population_pct": 25.8
         },
         {
           "race_and_ethnicity": "White (NH)",
-          "preventable_hospitalizations_per_100k": 3990
+          "preventable_hospitalizations_per_100k": 3990,
+          "ahr_18plus_population_pct": 66.1
         }
       ]
     },

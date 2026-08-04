@@ -1,7 +1,7 @@
-This is a data table summarizing Cervical cancer incidence in Vermont by race/ethnicity, showing rates, population shares, and outcome shares for each group.
+This is a data table summarizing Cervical cancer incidence in Vermont by race/ethnicity. Each row gives one group and its rate, its share of the total, and its share of the population.
 
 Data:
-- All: 6.8 cases per 100k
-- White (NH): 6.5 cases per 100k
+- All: 6.8 cases per 100k, 100% of cervical cancer cases, 100% of population
+- White (NH): 6.5 cases per 100k, 92.3% of cervical cancer cases, 89.1% of population
 
-Write a single sentence at an 8th grade reading level that goes beyond the single biggest disparity — consider the pattern across multiple groups, or compare how different groups' burdens relate to their population shares. Focus on the "so what" for the community. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.
+Write a single sentence at an 8th grade reading level that weighs who carries the burden against who actually lives in Vermont, naming a group whose share of Cervical cancer incidence is out of step with its share of the population. Use the specific numbers shown, and focus on the "so what" for the community. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.

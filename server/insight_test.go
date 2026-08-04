@@ -12,6 +12,7 @@ import (
 	"sync"
 	"testing"
 	"time"
+	"unicode/utf8"
 
 	"google.golang.org/api/googleapi"
 )
@@ -152,7 +153,7 @@ func TestReserveOneConcurrentIncrementsDoNotCollide(t *testing.T) {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()
-			ok, err := reserveOne(context.Background(), "b", "budget/day.json", 100)
+			_, ok, err := reserveOne(context.Background(), "b", "budget/day.json", 100)
 			if err != nil {
 				errs <- err
 			} else if !ok {
@@ -176,7 +177,7 @@ func TestMutateLedgerRetriesPreconditionFailure(t *testing.T) {
 	store.failWrites = 2
 	useFakeLedger(t, store)
 
-	ok, err := reserveOne(context.Background(), "b", "budget/day.json", 10)
+	_, ok, err := reserveOne(context.Background(), "b", "budget/day.json", 10)
 	if err != nil || !ok {
 		t.Fatalf("reserveOne = %v, %v; want true, nil", ok, err)
 	}
@@ -193,7 +194,7 @@ func TestMutateLedgerGivesUpAfterSustainedContention(t *testing.T) {
 	store.failWrites = ledgerCASAttempts
 	useFakeLedger(t, store)
 
-	ok, err := reserveOne(context.Background(), "b", "budget/day.json", 10)
+	_, ok, err := reserveOne(context.Background(), "b", "budget/day.json", 10)
 	if ok || !errors.Is(err, errLedgerContention) {
 		t.Fatalf("reserveOne = %v, %v; want false, errLedgerContention", ok, err)
 	}
@@ -204,20 +205,28 @@ func TestReserveOneStopsAtLimit(t *testing.T) {
 	useFakeLedger(t, store)
 
 	for i := range 3 {
-		ok, err := reserveOne(context.Background(), "b", "budget/day.json", 3)
+		count, ok, err := reserveOne(context.Background(), "b", "budget/day.json", 3)
 		if err != nil {
 			t.Fatalf("reservation %d: %v", i, err)
 		}
 		if !ok {
 			t.Fatalf("reservation %d declined below the limit", i)
 		}
+		if count != i+1 {
+			t.Errorf("reservation %d reported count %d, want %d", i, count, i+1)
+		}
 	}
-	ok, err := reserveOne(context.Background(), "b", "budget/day.json", 3)
+	count, ok, err := reserveOne(context.Background(), "b", "budget/day.json", 3)
 	if err != nil {
 		t.Fatalf("unexpected error at the limit: %v", err)
 	}
 	if ok {
 		t.Error("reservation granted at the limit")
+	}
+	// A declined reservation still reports where the period stands, which is what
+	// the request log records on the ceiling_reached path.
+	if count != 3 {
+		t.Errorf("declined reservation reported count %d, want 3", count)
 	}
 }
 
@@ -226,7 +235,7 @@ func TestReserveGenerationFailsClosedOnLoadError(t *testing.T) {
 	store.loadErr = errors.New("bucket unreachable")
 	useFakeLedger(t, store)
 
-	ok, err := reserveGeneration(context.Background(), "b")
+	ok, _, err := reserveGeneration(context.Background(), "b")
 	if ok {
 		t.Error("reservation granted while the ledger was unreadable")
 	}
@@ -428,6 +437,7 @@ type insightTestEnv struct {
 	cacheWrites   chan []byte
 	lastPersisted []byte
 	upstream      int
+	logs          *bytes.Buffer
 }
 
 // newInsightTestEnv isolates the handler from GCS and from the provider: the
@@ -442,8 +452,12 @@ func newInsightTestEnv(t *testing.T) *insightTestEnv {
 	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_DAY", "50")
 	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_MONTH", "50")
 
-	env := &insightTestEnv{store: newFakeLedgerStore(), cacheWrites: make(chan []byte, 4)}
+	env := &insightTestEnv{store: newFakeLedgerStore(), cacheWrites: make(chan []byte, 4), logs: &bytes.Buffer{}}
 	useFakeLedger(t, env.store)
+
+	origLogOut := insightLogOut
+	insightLogOut = env.logs
+	t.Cleanup(func() { insightLogOut = origLogOut })
 
 	origRead, origWrite, origGen := insightCacheRead, insightCacheWrite, generateInsight
 	killSwitchMu.Lock()
@@ -503,6 +517,61 @@ func (e *insightTestEnv) post(t *testing.T, body map[string]any) *httptest.Respo
 		}
 	}
 	return rr
+}
+
+// setKillSwitch forces the operator off switch without a network check, by
+// priming the same memo newInsightTestEnv primes.
+func setKillSwitch(t *testing.T, on bool) {
+	t.Helper()
+	killSwitchMu.Lock()
+	defer killSwitchMu.Unlock()
+	killSwitchChecked, killSwitchOn = time.Now(), on
+}
+
+func stubFlaggedRecord(t *testing.T, record map[string]any, err error) {
+	t.Helper()
+	orig := insightFlagRead
+	insightFlagRead = func(context.Context, string, string) (map[string]any, error) {
+		return record, err
+	}
+	t.Cleanup(func() { insightFlagRead = orig })
+}
+
+type loggedInsight struct {
+	Severity string       `json:"severity"`
+	Message  string       `json:"message"`
+	Insight  insightEvent `json:"insight"`
+}
+
+// events decodes every structured line emitted so far. Each must parse as a
+// standalone JSON object, since that is the only shape Cloud Logging promotes to
+// a queryable payload.
+func (e *insightTestEnv) events(t *testing.T) []loggedInsight {
+	t.Helper()
+	var out []loggedInsight
+	for _, line := range strings.Split(strings.TrimSpace(e.logs.String()), "\n") {
+		if line == "" {
+			continue
+		}
+		var rec loggedInsight
+		if err := json.Unmarshal([]byte(line), &rec); err != nil {
+			t.Fatalf("insight log line %q is not valid JSON: %v", line, err)
+		}
+		out = append(out, rec)
+	}
+	return out
+}
+
+// lastRequestEvent is the one line the most recent request emitted. It fails
+// when a request emitted anything other than exactly one, since "one line per
+// request" is what makes the ratios in the documented queries correct.
+func (e *insightTestEnv) lastRequestEvent(t *testing.T) loggedInsight {
+	t.Helper()
+	events := e.events(t)
+	if len(events) != 1 {
+		t.Fatalf("got %d insight log lines, want exactly 1: %s", len(events), e.logs.String())
+	}
+	return events[0]
 }
 
 func decodeBody(t *testing.T, rr *httptest.ResponseRecorder) map[string]any {
@@ -745,5 +814,330 @@ func TestInsightHandlerFallsBackToPromptAsCacheKey(t *testing.T) {
 	}
 	if env.upstream != 1 {
 		t.Errorf("upstream calls = %d, want 1", env.upstream)
+	}
+}
+
+// --- request logging ---
+
+// Every outcome a query might filter on is pinned here, because a renamed or
+// dropped outcome breaks the documented spend and hit-rate queries silently:
+// they would keep running and just return fewer rows.
+func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
+	tests := []struct {
+		name     string
+		setup    func(t *testing.T, env *insightTestEnv)
+		body     map[string]any
+		outcome  string
+		reason   string
+		severity string
+		// reserved is the ceiling accounting, which is deliberately not the same
+		// as "an insight was produced": the slot is claimed before the provider
+		// call, so a failed call still spends one.
+		reserved bool
+	}{
+		{
+			name:     "missing prompt",
+			body:     map[string]any{"cacheKey": "k"},
+			outcome:  outcomeRejected,
+			reason:   reasonMissingPrompt,
+			severity: "INFO",
+		},
+		{
+			name:     "oversize prompt",
+			body:     map[string]any{"prompt": strings.Repeat("x", insightPromptMaxBytes+1)},
+			outcome:  outcomeRejected,
+			reason:   reasonPromptTooLarge,
+			severity: "INFO",
+		},
+		{
+			name:     "generated",
+			outcome:  outcomeGenerated,
+			severity: "INFO",
+			reserved: true,
+		},
+		{
+			name: "memory cache hit",
+			setup: func(_ *testing.T, _ *insightTestEnv) {
+				insightMemCache.Store("k", insightMemEntry{content: "warm", ts: time.Now()})
+			},
+			outcome:  outcomeMemoryHit,
+			severity: "INFO",
+		},
+		{
+			name: "gcs cache hit",
+			setup: func(_ *testing.T, _ *insightTestEnv) {
+				insightCacheRead = func(context.Context, string, string) string { return "persisted" }
+			},
+			outcome:  outcomeGCSHit,
+			severity: "INFO",
+		},
+		{
+			name: "suppressed",
+			setup: func(t *testing.T, _ *insightTestEnv) {
+				t.Setenv("FLAGGED_INSIGHTS_BUCKET", "flagged")
+				stubFlaggedRecord(t, map[string]any{"status": "suppressed"}, nil)
+			},
+			outcome:  outcomeSuppressed,
+			severity: "INFO",
+		},
+		{
+			name: "suppression check failed",
+			setup: func(t *testing.T, _ *insightTestEnv) {
+				t.Setenv("FLAGGED_INSIGHTS_BUCKET", "flagged")
+				stubFlaggedRecord(t, nil, errors.New("bucket unreachable"))
+			},
+			outcome:  outcomeError,
+			reason:   reasonSuppressionRead,
+			severity: "ERROR",
+		},
+		{
+			name: "ceiling reached",
+			setup: func(t *testing.T, _ *insightTestEnv) {
+				t.Setenv("INSIGHT_MAX_GENERATIONS_PER_DAY", "0")
+			},
+			outcome:  outcomeUnavailable,
+			reason:   reasonCeilingReached,
+			severity: "WARNING",
+		},
+		{
+			name: "ledger unreadable",
+			setup: func(_ *testing.T, env *insightTestEnv) {
+				env.store.loadErr = errors.New("bucket unreachable")
+			},
+			outcome:  outcomeUnavailable,
+			reason:   reasonLedgerError,
+			severity: "WARNING",
+		},
+		{
+			name: "no api key",
+			setup: func(t *testing.T, _ *insightTestEnv) {
+				t.Setenv("GEMINI_API_KEY", "")
+			},
+			outcome:  outcomeUnavailable,
+			reason:   reasonNoAPIKey,
+			severity: "WARNING",
+		},
+		{
+			name: "no ledger bucket",
+			setup: func(t *testing.T, _ *insightTestEnv) {
+				t.Setenv("INSIGHTS_CACHE_BUCKET", "")
+			},
+			outcome:  outcomeUnavailable,
+			reason:   reasonNoCacheBucket,
+			severity: "WARNING",
+		},
+		{
+			name: "kill switch on",
+			setup: func(t *testing.T, _ *insightTestEnv) {
+				setKillSwitch(t, true)
+			},
+			outcome:  outcomeUnavailable,
+			reason:   reasonGenerationOff,
+			severity: "WARNING",
+		},
+		{
+			name: "provider returned nothing",
+			setup: func(_ *testing.T, env *insightTestEnv) {
+				env.stubGeneration(func() (insightGeneration, error) {
+					return insightGeneration{}, errInsightNoContent
+				})
+			},
+			outcome:  outcomeUnavailable,
+			reason:   reasonNoContent,
+			severity: "WARNING",
+			reserved: true,
+		},
+		{
+			name: "provider error",
+			setup: func(_ *testing.T, env *insightTestEnv) {
+				env.stubGeneration(func() (insightGeneration, error) {
+					return insightGeneration{}, errors.New("upstream exploded")
+				})
+			},
+			outcome:  outcomeError,
+			reason:   reasonProviderError,
+			severity: "ERROR",
+			reserved: true,
+		},
+		{
+			name: "provider quota",
+			setup: func(_ *testing.T, env *insightTestEnv) {
+				env.stubGeneration(func() (insightGeneration, error) {
+					return insightGeneration{}, errInsightQuota
+				})
+			},
+			outcome:  outcomeError,
+			reason:   reasonProviderQuota,
+			severity: "ERROR",
+			reserved: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			env := newInsightTestEnv(t)
+			if tt.setup != nil {
+				tt.setup(t, env)
+			}
+			body := tt.body
+			if body == nil {
+				body = map[string]any{"prompt": "p", "cacheKey": "k", "topic": "hiv"}
+			}
+
+			env.post(t, body)
+
+			got := env.lastRequestEvent(t)
+			if got.Insight.Outcome != tt.outcome {
+				t.Errorf("outcome = %q, want %q", got.Insight.Outcome, tt.outcome)
+			}
+			if got.Insight.Reason != tt.reason {
+				t.Errorf("reason = %q, want %q", got.Insight.Reason, tt.reason)
+			}
+			if got.Severity != tt.severity {
+				t.Errorf("severity = %q, want %q", got.Severity, tt.severity)
+			}
+			if got.Insight.Reserved != tt.reserved {
+				t.Errorf("reserved = %v, want %v", got.Insight.Reserved, tt.reserved)
+			}
+		})
+	}
+}
+
+func TestInsightRequestLogCarriesSpendInputsOnGeneration(t *testing.T) {
+	env := newInsightTestEnv(t)
+	t.Setenv("GEMINI_MODEL", "gemini-test-model")
+	env.stubGeneration(func() (insightGeneration, error) {
+		return insightGeneration{text: "generated", promptTokens: 1840, outputTokens: 96}, nil
+	})
+
+	env.post(t, map[string]any{"prompt": "p", "cacheKey": "k", "topic": "hiv"})
+
+	got := env.lastRequestEvent(t).Insight
+	if got.Model != "gemini-test-model" {
+		t.Errorf("model = %q, want the configured model", got.Model)
+	}
+	if got.PromptTokens != 1840 || got.OutputTokens != 96 {
+		t.Errorf("tokens = %d/%d, want 1840/96", got.PromptTokens, got.OutputTokens)
+	}
+	if got.Topic != "hiv" {
+		t.Errorf("topic = %q, want hiv", got.Topic)
+	}
+	// Period usage rides along so a line is self-contained: how close this
+	// generation left the ceiling needs no second query against the ledger.
+	if got.DailyGenerations != 1 || got.DailyLimit != 50 {
+		t.Errorf("daily usage = %d/%d, want 1/50", got.DailyGenerations, got.DailyLimit)
+	}
+	if got.MonthlyGenerations != 1 || got.MonthlyLimit != 50 {
+		t.Errorf("monthly usage = %d/%d, want 1/50", got.MonthlyGenerations, got.MonthlyLimit)
+	}
+}
+
+func TestInsightRequestLogTruncatesTopic(t *testing.T) {
+	tests := []struct {
+		name  string
+		topic string
+	}{
+		{"ascii", strings.Repeat("t", 500)},
+		// A byte-index truncation would land mid-rune here, and json.Marshal would
+		// swap the fragment for U+FFFD.
+		{"multi-byte", strings.Repeat("é", 500)},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			env := newInsightTestEnv(t)
+			env.post(t, map[string]any{"prompt": "p", "cacheKey": "k", "topic": tt.topic})
+
+			got := env.lastRequestEvent(t).Insight.Topic
+			if len([]rune(got)) != insightTopicMaxLen {
+				t.Errorf("logged topic = %d runes, want %d", len([]rune(got)), insightTopicMaxLen)
+			}
+			if !utf8.ValidString(got) || strings.ContainsRune(got, utf8.RuneError) {
+				t.Errorf("logged topic %q is not intact UTF-8", got)
+			}
+		})
+	}
+}
+
+// The threshold line is the only signal the ceiling alert matches on, so it must
+// fire once and only once per period. Firing on every request past the threshold
+// would bury it; firing on none would leave the alert permanently silent.
+func TestCeilingApproachWarnsExactlyOncePerPeriod(t *testing.T) {
+	env := newInsightTestEnv(t)
+	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_DAY", "10")
+	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_MONTH", "1000")
+	t.Setenv("INSIGHT_CEILING_WARN_PERCENT", "80")
+
+	for i := range 10 {
+		env.post(t, map[string]any{"prompt": "p", "cacheKey": fmt.Sprintf("k%d", i)})
+	}
+
+	var warnings []loggedInsight
+	for _, e := range env.events(t) {
+		if e.Insight.Outcome == outcomeCeilingApproaching {
+			warnings = append(warnings, e)
+		}
+	}
+	if len(warnings) != 1 {
+		t.Fatalf("got %d ceiling warnings across 10 generations of a 10 ceiling, want 1", len(warnings))
+	}
+	if warnings[0].Severity != "WARNING" {
+		t.Errorf("severity = %q, want WARNING", warnings[0].Severity)
+	}
+	if !strings.Contains(warnings[0].Message, "daily") {
+		t.Errorf("message = %q, want it to name the daily period", warnings[0].Message)
+	}
+}
+
+// Every query in the docs is a ratio over outcomes, so a line with no outcome
+// would drop out of both the numerator and the denominator instead of showing up
+// as a gap. An unclassified request is also a bug worth an ERROR.
+func TestInsightLogLabelsAnUnclassifiedRequest(t *testing.T) {
+	var buf bytes.Buffer
+	orig := insightLogOut
+	insightLogOut = &buf
+	t.Cleanup(func() { insightLogOut = orig })
+
+	logInsightEvent(&insightEvent{}, time.Now())
+
+	var got loggedInsight
+	if err := json.Unmarshal(buf.Bytes(), &got); err != nil {
+		t.Fatalf("unmarshal %q: %v", buf.String(), err)
+	}
+	if got.Insight.Outcome != outcomeUnknown {
+		t.Errorf("outcome = %q, want %q", got.Insight.Outcome, outcomeUnknown)
+	}
+	if got.Severity != "ERROR" {
+		t.Errorf("severity = %q, want ERROR", got.Severity)
+	}
+	if got.Message != "insight "+outcomeUnknown {
+		t.Errorf("message = %q, want it to name the unknown outcome", got.Message)
+	}
+}
+
+// A misconfigured percent must not be honored. Zero, a negative, or anything
+// over 100 would put the threshold outside the range a count can reach, which
+// turns off the alert with no error and no log line, the exact failure the
+// alert exists to prevent.
+func TestCeilingWarnPercentIgnoresOutOfRangeValues(t *testing.T) {
+	for _, tc := range []struct {
+		percent string
+		want    int
+	}{
+		{"80", 320},
+		{"50", 200},
+		{"1", 4},
+		{"100", 400},
+		{"0", 320},
+		{"101", 320},
+		{"-1", 320},
+		{"abc", 320},
+		{"", 320},
+	} {
+		t.Run(tc.percent, func(t *testing.T) {
+			t.Setenv("INSIGHT_CEILING_WARN_PERCENT", tc.percent)
+			if got := ceilingWarnAt(400); got != tc.want {
+				t.Errorf("ceilingWarnAt(400) with percent %q = %d, want %d", tc.percent, got, tc.want)
+			}
+		})
 	}
 }

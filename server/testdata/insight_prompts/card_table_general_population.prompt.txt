@@ -1,0 +1,10 @@
+This is a data table summarizing Preventable hospitalizations in Alabama by race/ethnicity. Each row gives one group and its rate and its share of the population. The population shares count all adults, a broader group than the rate itself measures, so treat that comparison as rough context rather than an exact figure.
+
+Data:
+- All: 4682 cases per 100k, 100% of adults
+- Black or African American (NH): 6140 cases per 100k, 25.8% of adults
+- White (NH): 4315 cases per 100k, 66.1% of adults
+- Hispanic or Latino: 3204 cases per 100k, 4.4% of adults
+- American Indian and Alaska Native (NH): 5021 cases per 100k, 0.6% of adults
+
+Write a single sentence at an 8th grade reading level that weighs who carries the burden against who actually lives in Alabama, naming a group whose rate is out of step with its share of the population. Use the specific numbers shown, and focus on the "so what" for the community. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.

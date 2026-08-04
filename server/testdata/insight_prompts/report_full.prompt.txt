@@ -3,11 +3,11 @@ You are a public health analyst reviewing a report about "HIV diagnoses" in Geor
 The page contains multiple charts: a rate map, rates over time, a rate bar chart, an unknowns map, inequities over time, and a population vs distribution chart.
 
 
-Current rates by race/ethnicity in Georgia:
-- All: 24.6 cases per 100k
-- Black or African American (NH): 44.8 cases per 100k
-- Hispanic or Latino: 17.1 cases per 100k
-- White (NH): 6.3 cases per 100k
+Current rates by race/ethnicity in Georgia, each group followed by its share of the total and its share of the population:
+- All: 24.6 cases per 100k, 100% of HIV diagnoses, 100% of population
+- Black or African American (NH): 44.8 cases per 100k, 69.8% of HIV diagnoses, 31.2% of population
+- Hispanic or Latino: 17.1 cases per 100k, 8.3% of HIV diagnoses, 10.1% of population
+- White (NH): 6.3 cases per 100k, 17.4% of HIV diagnoses, 51.3% of population
 
 Geographic spread:
 - Highest: Fulton County 41.2, DeKalb County 37.5, Clayton County 33.8 cases per 100k
@@ -45,6 +45,6 @@ Respond ONLY with a valid JSON object, no markdown, no backticks, no explanation
 {
   "keyFindings": "1 sentence (max 25 words): the single most important takeaway, in plain words a reader who skipped every chart would understand. Name who carries the heaviest burden and how much heavier it is, expressed as a comparison in words such as 'nearly twice as likely'. Do not open with a rate per 100k. You may cite one of the ratios shown above, but do not work out any other figure.",
   "locationComparison": "1-2 sentences (max 35 words): what the geographic spread shows about where the burden is heaviest.",
-  "demographicInsights": "2-3 sentences (max 75 words): which group is most affected and how large the gap is compared to others, using the rates above. Then use the age-adjusted ratios to say whether the gap holds once differences in age between groups are accounted for. Then say whether the gap between groups has widened or narrowed across the reported periods, naming the highest point if one is given.",
+  "demographicInsights": "2-3 sentences (max 95 words): which group is most affected and how large the gap is compared to others, using the rates above. Then say whether that group's share of the total is larger or smaller than its share of the population, using the shares above. Then use the age-adjusted ratios to say whether the gap holds once differences in age between groups are accounted for. Then say whether the gap between groups has widened or narrowed across the reported periods, naming the highest point if one is given.",
   "whatThisMeans": "2-3 sentences (max 55 words): what this means for real people in these communities, in plain everyday language. Then note in one sentence what share of cases is missing race/ethnicity data, and that the rates above describe only the cases where it was recorded."
 }

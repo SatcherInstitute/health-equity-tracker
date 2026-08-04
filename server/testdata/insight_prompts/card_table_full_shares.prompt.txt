@@ -1,0 +1,11 @@
+This is a data table summarizing HIV diagnoses in Georgia by race/ethnicity. Each row gives one group and its rate, its share of the total, and its share of the population.
+
+Data:
+- All: 24.1 diagnoses per 100k, 100% of HIV diagnoses, 100% of population
+- Black or African American (NH): 51.4 diagnoses per 100k, 69.8% of HIV diagnoses, 31.2% of population
+- Hispanic or Latino: 19.6 diagnoses per 100k, 8.3% of HIV diagnoses, 10.1% of population
+- White (NH): 8.2 diagnoses per 100k, 17.4% of HIV diagnoses, 51.3% of population
+- Asian (NH): 5.1 diagnoses per 100k, 1% of HIV diagnoses, 4.6% of population
+- American Indian and Alaska Native (NH): 7.4 diagnoses per 100k, 0.1% of HIV diagnoses, 0.3% of population
+
+Write a single sentence at an 8th grade reading level that weighs who carries the burden against who actually lives in Georgia, naming a group whose share of HIV diagnoses is out of step with its share of the population. Use the specific numbers shown, and focus on the "so what" for the community. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.
