@@ -29,6 +29,10 @@ import { INSIGHT_DATA_BUDGETS } from './insightPromptBudget'
 interface FixtureMetricConfig {
   metricId: string
   shortLabel: string
+  // Only the population-vs-distribution chart reads this: its population share
+  // hangs off the rate config itself rather than being resolved as a separate
+  // table column, so a fixture for that chart has to nest it here.
+  populationComparisonMetric?: FixtureMetricConfig
 }
 
 // The data table's two extra columns. Pinned per fixture rather than resolved

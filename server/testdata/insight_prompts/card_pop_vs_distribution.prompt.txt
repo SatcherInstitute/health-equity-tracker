@@ -1,0 +1,10 @@
+This is a population vs distribution showing COVID-19 deaths in Georgia by race/ethnicity. The intended message is to highlight health equity disparities.
+
+Data:
+- All: outcome share 100 % of COVID-19 deaths, population share 100 % of population
+- Black or African American (NH): outcome share 43.8 % of COVID-19 deaths, population share 31.2 % of population
+- White (NH): outcome share 44.1 % of COVID-19 deaths, population share 50.4 % of population
+- Hispanic or Latino: outcome share 7.9 % of COVID-19 deaths, population share 10.5 % of population
+- Asian (NH): outcome share 2.1 % of COVID-19 deaths, population share 4.6 % of population
+
+Write a single sentence at an 8th grade reading level that captures the key inequity a viewer should walk away with — focus on the "so what", not the chart mechanics. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.
