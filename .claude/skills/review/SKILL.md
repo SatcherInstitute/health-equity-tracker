@@ -19,7 +19,7 @@ Gather all of it in **one call**. These are independent, so splitting them acros
 ```bash
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
 git fetch origin main --quiet
-echo "=== pr ==="; gh pr view --json number,title,body,headRefName,baseRefName,files,commits
+echo "=== pr ==="; gh pr view <number> --json number,title,body,headRefName,baseRefName,files,commits
 echo "=== changed files ==="; git diff origin/main...HEAD --name-only
 echo "=== diff ==="; git diff origin/main...HEAD
 ```

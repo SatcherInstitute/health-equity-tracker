@@ -215,7 +215,7 @@ Then act:
   Reply and resolve in the same call. The mutation needs the **thread's** node ID (`PRRT_...`), not the comment's (`PRRC_...`); Step 3's first block already printed the mapping, so look it up there rather than re-querying:
   ```bash
   gh api repos/$REPO/pulls/<number>/comments/<comment_id>/replies \
-    -f body="Fixed — <one line>." >/dev/null
+    -f body="Fixed — <one line>." >/dev/null && \
   gh api graphql -f query='mutation { resolveReviewThread(input: {threadId: "<PRRT_id>"}) { thread { isResolved } } }'
   ```
   When several threads are addressed by the same commit, put every reply-and-resolve pair in one call.
