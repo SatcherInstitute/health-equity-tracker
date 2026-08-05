@@ -3,21 +3,15 @@ import type {
   MetricConfig,
 } from '../data/config/MetricConfigTypes'
 import { MetricQueryResponse } from '../data/query/MetricQuery'
-import type { HetRow } from '../data/utils/DatasetTypes'
 import {
   buildInsightFocusSuffix,
-  buildPrompt,
-  formatDataRows,
-  formatPeerComparison,
+  countInsightRows,
   getInsightDataStatus,
   getPeerValues,
   getRegionAllRate,
-  getTableColumnShape,
-  prepareInsightData,
   resolveTableShareMetrics,
   summarizePeerComparison,
 } from './generateVisualizationInsight'
-import { byteLength, INSIGHT_DATA_BUDGETS } from './insightPromptBudget'
 
 const DEMO = 'race_and_ethnicity'
 
@@ -29,204 +23,6 @@ const metricConfig = {
 const dataTypeConfig = {
   metrics: { per100k: metricConfig },
 } as unknown as DataTypeConfig
-
-describe('formatDataRows', () => {
-  test('map rows are labeled with both place and demographic group, keeping "All"', () => {
-    const rows: HetRow[] = [
-      { fips_name: 'Gwinnett County', race_and_ethnicity: 'All', rate: 7.3 },
-      {
-        fips_name: 'Gwinnett County',
-        race_and_ethnicity: 'Black (NH)',
-        rate: 8.7,
-      },
-      {
-        fips_name: 'Gwinnett County',
-        race_and_ethnicity: 'White (NH)',
-        rate: 6.6,
-      },
-    ]
-    expect(formatDataRows(rows, 'rate-map', DEMO, metricConfig)).toEqual(
-      '- Gwinnett County (All): 7.3 per 100k\n' +
-        '- Gwinnett County (Black (NH)): 8.7 per 100k\n' +
-        '- Gwinnett County (White (NH)): 6.6 per 100k',
-    )
-  })
-
-  test('multi-region map labels each place with its demographic group', () => {
-    const rows: HetRow[] = [
-      { fips_name: 'Alabama', race_and_ethnicity: 'All', rate: 9 },
-      { fips_name: 'Alaska', race_and_ethnicity: 'All', rate: 5 },
-    ]
-    expect(formatDataRows(rows, 'rate-map', DEMO, metricConfig)).toEqual(
-      '- Alabama (All): 9 per 100k\n- Alaska (All): 5 per 100k',
-    )
-  })
-
-  test('a multi-place map defaults to the active demographic group plus each place\'s "All" baseline', () => {
-    const rows: HetRow[] = [
-      { fips_name: 'Alabama', race_and_ethnicity: 'All', rate: 9 },
-      { fips_name: 'Alabama', race_and_ethnicity: 'Black (NH)', rate: 12 },
-      { fips_name: 'Alabama', race_and_ethnicity: 'White (NH)', rate: 6 },
-      { fips_name: 'Alaska', race_and_ethnicity: 'All', rate: 5 },
-      { fips_name: 'Alaska', race_and_ethnicity: 'Black (NH)', rate: 7 },
-      { fips_name: 'Alaska', race_and_ethnicity: 'White (NH)', rate: 4 },
-    ]
-    const result = formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
-      activeDemographicGroup: 'Black (NH)',
-    })
-    expect(result).toEqual(
-      '- Alabama (All): 9 per 100k\n' +
-        '- Alabama (Black (NH)): 12 per 100k\n' +
-        '- Alaska (All): 5 per 100k\n' +
-        '- Alaska (Black (NH)): 7 per 100k',
-    )
-  })
-
-  test('an active group of "All" on a multi-place map sends every group', () => {
-    const rows: HetRow[] = [
-      { fips_name: 'Alabama', race_and_ethnicity: 'All', rate: 9 },
-      { fips_name: 'Alabama', race_and_ethnicity: 'Black (NH)', rate: 12 },
-      { fips_name: 'Alaska', race_and_ethnicity: 'All', rate: 5 },
-    ]
-    const result = formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
-      activeDemographicGroup: 'All',
-    })
-    expect(result.split('\n')).toHaveLength(3)
-  })
-
-  test('a single-place map falls back to every group in that place, ignoring the active group filter', () => {
-    const rows: HetRow[] = [
-      { fips_name: 'Gwinnett County', race_and_ethnicity: 'All', rate: 7.3 },
-      {
-        fips_name: 'Gwinnett County',
-        race_and_ethnicity: 'Black (NH)',
-        rate: 8.7,
-      },
-      {
-        fips_name: 'Gwinnett County',
-        race_and_ethnicity: 'White (NH)',
-        rate: 6.6,
-      },
-    ]
-    const result = formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
-      activeDemographicGroup: 'Black (NH)',
-    })
-    expect(result.split('\n')).toHaveLength(3)
-    expect(result).toContain('- Gwinnett County (All): 7.3 per 100k')
-  })
-
-  test('non-map charts label rows by demographic group alone', () => {
-    const rows: HetRow[] = [
-      { race_and_ethnicity: 'Black (NH)', rate: 9 },
-      { race_and_ethnicity: 'White (NH)', rate: 13 },
-    ]
-    expect(formatDataRows(rows, 'data-table', DEMO, metricConfig)).toEqual(
-      '- Black (NH): 9 per 100k\n- White (NH): 13 per 100k',
-    )
-  })
-
-  test('time-series rows are filtered to the selected groups', () => {
-    const rows: HetRow[] = [
-      { race_and_ethnicity: 'Black (NH)', time_period: '2010', rate: 5 },
-      { race_and_ethnicity: 'Black (NH)', time_period: '2020', rate: 8 },
-      { race_and_ethnicity: 'White (NH)', time_period: '2010', rate: 3 },
-      { race_and_ethnicity: 'White (NH)', time_period: '2020', rate: 4 },
-    ]
-    expect(
-      formatDataRows(rows, 'rates-over-time', DEMO, metricConfig, {
-        selectedGroups: ['Black (NH)'],
-      }),
-    ).toEqual(
-      '- Black (NH) (2010): 5 per 100k\n- Black (NH) (2020): 8 per 100k',
-    )
-  })
-
-  test('time-series with no selection includes every group', () => {
-    const rows: HetRow[] = [
-      { race_and_ethnicity: 'Black (NH)', time_period: '2010', rate: 5 },
-      { race_and_ethnicity: 'White (NH)', time_period: '2010', rate: 3 },
-    ]
-    expect(formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)).toEqual(
-      '- Black (NH) (2010): 5 per 100k\n- White (NH) (2010): 3 per 100k',
-    )
-  })
-
-  test('a short time series is sent in full, not just first/last', () => {
-    const rows: HetRow[] = Array.from({ length: 10 }, (_, i) => ({
-      race_and_ethnicity: 'Black (NH)',
-      time_period: `${2010 + i}`,
-      rate: i,
-    }))
-    const result = formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)
-    expect(result.split('\n')).toHaveLength(10)
-  })
-
-  test('a time series too large for the prompt budget keeps the recent tail plus the earliest point', () => {
-    const rows: HetRow[] = Array.from({ length: 1000 }, (_, i) => ({
-      race_and_ethnicity: 'Black (NH)',
-      time_period: `${1017 + i}`,
-      rate: i,
-    }))
-    const result = formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)
-    const lines = result.split('\n')
-    expect(lines.length).toBeLessThan(1000)
-    expect(lines[0]).toEqual('- Black (NH) (1017): 0 per 100k')
-    expect(lines[lines.length - 1]).toEqual('- Black (NH) (2016): 999 per 100k')
-    // Everything after the anchor is an unbroken run of the most recent years.
-    const tail = lines.slice(1)
-    const tailYears = tail.map((line) => Number(line.match(/\((\d+)\)/)?.[1]))
-    expect(tailYears).toEqual(
-      tailYears.map((_, i) => 2016 - (tail.length - 1) + i),
-    )
-    expect(byteLength(result)).toBeLessThanOrEqual(INSIGHT_DATA_BUDGETS.card)
-  })
-
-  test('more groups than fit the budget yields whole lines only, never a truncated one', () => {
-    const rows: HetRow[] = Array.from({ length: 800 }, (_, i) => ({
-      race_and_ethnicity: `Group ${i}`,
-      time_period: '2020',
-      rate: i,
-    }))
-    const result = formatDataRows(rows, 'rates-over-time', DEMO, metricConfig)
-    const lines = result.split('\n')
-    expect(lines.length).toBeLessThan(800)
-    for (const line of lines) {
-      expect(line).toMatch(/^- Group \d+ \(2020\): \d+ per 100k$/)
-    }
-    expect(byteLength(result)).toBeLessThanOrEqual(INSIGHT_DATA_BUDGETS.card)
-  })
-
-  test('a multi-place map keeps the "All women" baseline for women-only topics', () => {
-    const rows: HetRow[] = [
-      { fips_name: 'Georgia', race_and_ethnicity: 'All women', rate: 5 },
-      { fips_name: 'Georgia', race_and_ethnicity: 'Black women', rate: 9 },
-      { fips_name: 'Georgia', race_and_ethnicity: 'White women', rate: 4 },
-      { fips_name: 'Alabama', race_and_ethnicity: 'All women', rate: 6 },
-      { fips_name: 'Alabama', race_and_ethnicity: 'Black women', rate: 11 },
-      { fips_name: 'Alabama', race_and_ethnicity: 'White women', rate: 3 },
-    ]
-    const result = formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
-      activeDemographicGroup: 'Black women',
-    })
-    expect(result.split('\n')).toHaveLength(4)
-    expect(result).toContain('- Georgia (All women): 5 per 100k')
-    expect(result).toContain('- Alabama (All women): 6 per 100k')
-    expect(result).not.toContain('White women')
-  })
-
-  test('an "All women" active group skips filtering, like "All" does', () => {
-    const rows: HetRow[] = [
-      { fips_name: 'Georgia', race_and_ethnicity: 'All women', rate: 5 },
-      { fips_name: 'Georgia', race_and_ethnicity: 'Black women', rate: 9 },
-      { fips_name: 'Alabama', race_and_ethnicity: 'All women', rate: 6 },
-      { fips_name: 'Alabama', race_and_ethnicity: 'Black women', rate: 11 },
-    ]
-    const result = formatDataRows(rows, 'rate-map', DEMO, metricConfig, {
-      activeDemographicGroup: 'All women',
-    })
-    expect(result.split('\n')).toHaveLength(4)
-  })
-})
 
 describe('resolveTableShareMetrics', () => {
   const rate = {
@@ -323,249 +119,103 @@ describe('resolveTableShareMetrics', () => {
   })
 })
 
-describe('data table share columns', () => {
-  const shareConfig = {
-    metricId: 'share_pct',
-    shortLabel: '% of cases',
-  } as unknown as MetricConfig
-  const populationConfig = {
-    metricId: 'pop_pct',
-    shortLabel: '% of population',
-  } as unknown as MetricConfig
-  const shareOptions = { shareConfig, populationConfig }
-
-  const rows: HetRow[] = [
-    { race_and_ethnicity: 'All', rate: 24.6, share_pct: 100, pop_pct: 100 },
-    {
-      race_and_ethnicity: 'Black (NH)',
-      rate: 44.8,
-      share_pct: 69.8,
-      pop_pct: 31.2,
-    },
-    {
-      race_and_ethnicity: 'White (NH)',
-      rate: 6.3,
-      share_pct: 17.4,
-      pop_pct: 51.3,
-    },
-  ]
-
-  test('each row carries the three columns the table shows, in table order', () => {
+describe('countInsightRows', () => {
+  test('a single-region map with only one labeled row yields one entry', () => {
     expect(
-      formatDataRows(rows, 'data-table', DEMO, metricConfig, shareOptions),
-    ).toEqual(
-      '- All: 24.6 per 100k, 100% of cases, 100% of population\n' +
-        '- Black (NH): 44.8 per 100k, 69.8% of cases, 31.2% of population\n' +
-        '- White (NH): 6.3 per 100k, 17.4% of cases, 51.3% of population',
-    )
-  })
-
-  test('a percent label attaches to its number; a unit label stands as its own word', () => {
-    const result = formatDataRows(
-      rows,
-      'data-table',
-      DEMO,
-      metricConfig,
-      shareOptions,
-    )
-    expect(result).not.toContain('100 %')
-    expect(result).toContain('24.6 per 100k')
-  })
-
-  test('a suppressed share is dropped from its row rather than sent as null', () => {
-    const suppressed: HetRow[] = [
-      { race_and_ethnicity: 'All', rate: 8.4, share_pct: 100, pop_pct: 100 },
-      { race_and_ethnicity: 'AIAN (NH)', rate: 9.1, pop_pct: 0.6 },
-    ]
-    expect(
-      formatDataRows(
-        suppressed,
-        'data-table',
+      countInsightRows(
+        [
+          {
+            fips_name: 'Bartow County',
+            race_and_ethnicity: 'White (NH)',
+            rate: 13,
+          },
+        ],
+        'rate-map',
         DEMO,
         metricConfig,
-        shareOptions,
       ),
-    ).toEqual(
-      '- All: 8.4 per 100k, 100% of cases, 100% of population\n' +
-        '- AIAN (NH): 9.1 per 100k, 0.6% of population',
-    )
-  })
-
-  test('the shape reports only the columns the emitted rows actually carry', () => {
-    expect(getTableColumnShape(rows, DEMO, metricConfig, shareOptions)).toEqual(
-      {
-        hasCaseloadShare: true,
-        hasPopulationShare: true,
-        generalPopulationLabel: undefined,
-      },
-    )
-  })
-
-  test('a configured column whose values are all null is not announced', () => {
-    const noShares: HetRow[] = [
-      { race_and_ethnicity: 'All', rate: 8.4, share_pct: null, pop_pct: null },
-    ]
-    expect(
-      getTableColumnShape(noShares, DEMO, metricConfig, shareOptions),
-    ).toEqual({
-      hasCaseloadShare: false,
-      hasPopulationShare: false,
-      generalPopulationLabel: undefined,
-    })
-  })
-
-  test('a column present only on rows that get dropped is not announced', () => {
-    const suppressedOnly: HetRow[] = [
-      { race_and_ethnicity: 'All', rate: 8.4, pop_pct: 100 },
-      { race_and_ethnicity: 'AIAN (NH)', rate: null, share_pct: 3.2 },
-    ]
-    expect(
-      getTableColumnShape(suppressedOnly, DEMO, metricConfig, shareOptions),
-    ).toEqual({
-      hasCaseloadShare: false,
-      hasPopulationShare: true,
-      generalPopulationLabel: undefined,
-    })
-  })
-
-  test('the general-population caveat rides along only when population shares were sent', () => {
-    const options = {
-      populationConfig,
-      generalPopulationLabel: 'all adults',
-    }
-    expect(
-      getTableColumnShape(rows, DEMO, metricConfig, options)
-        .generalPopulationLabel,
-    ).toBe('all adults')
-
-    const noPopulation: HetRow[] = [{ race_and_ethnicity: 'All', rate: 8.4 }]
-    expect(
-      getTableColumnShape(noPopulation, DEMO, metricConfig, options)
-        .generalPopulationLabel,
-    ).toBeUndefined()
-  })
-})
-
-describe('buildPrompt data table framing', () => {
-  const args = [
-    'data-table',
-    'HIV diagnoses',
-    'Georgia',
-    'race/ethnicity',
-    '- All: 24.6 per 100k, 100% of cases, 100% of population',
-  ] as const
-
-  const promptFor = (shape?: Parameters<typeof buildPrompt>[7]) =>
-    buildPrompt(...args, undefined, false, shape)
-
-  test('names all three columns and anchors the task on population share', () => {
-    const prompt = promptFor({
-      hasCaseloadShare: true,
-      hasPopulationShare: true,
-    })
-    expect(prompt).toContain(
-      'its rate, its share of the total, and its share of the population',
-    )
-    expect(prompt).toContain('who actually lives in Georgia')
-    expect(prompt).toContain('whose share of HIV diagnoses is')
-  })
-
-  test('a topic with no caseload share compares its rate, never a share it lacks', () => {
-    const prompt = promptFor({
-      hasCaseloadShare: false,
-      hasPopulationShare: true,
-    })
-    expect(prompt).toContain('its rate and its share of the population')
-    expect(prompt).not.toContain('share of the total')
-    expect(prompt).toContain('whose rate is')
-  })
-
-  test('names no share column when the rows carry none', () => {
-    const prompt = promptFor({
-      hasCaseloadShare: false,
-      hasPopulationShare: false,
-    })
-    expect(prompt).toContain('one group and its rate.')
-    expect(prompt).not.toContain('share of the population')
-    expect(prompt).not.toContain('share of the total')
-  })
-
-  test('flags a population column that counts a broader group than the rate measures', () => {
-    const prompt = promptFor({
-      hasCaseloadShare: false,
-      hasPopulationShare: true,
-      generalPopulationLabel: 'all adults',
-    })
-    expect(prompt).toContain('population shares count all adults')
-    expect(prompt).toContain('rough context rather than an exact figure')
-  })
-
-  test('omits the caveat when the population column matches the rate’s denominator', () => {
-    const prompt = promptFor({
-      hasCaseloadShare: true,
-      hasPopulationShare: true,
-    })
-    expect(prompt).not.toContain('rough context')
-  })
-})
-
-describe('prepareInsightData', () => {
-  test('a single-region map with only one labeled row yields one entry', () => {
-    const response = new MetricQueryResponse([
-      {
-        fips_name: 'Bartow County',
-        race_and_ethnicity: 'White (NH)',
-        rate: 13,
-      },
-    ])
-    const result = prepareInsightData('rate-map', dataTypeConfig, DEMO, [
-      response,
-    ])
-    expect(result.entryCount).toBe(1)
-    expect(result.dataSection).toEqual(
-      '- Bartow County (White (NH)): 13 per 100k',
-    )
+    ).toBe(1)
   })
 
   test('a single-region map with several groups yields one entry per group', () => {
-    const response = new MetricQueryResponse([
-      { fips_name: 'Gwinnett County', race_and_ethnicity: 'All', rate: 7.3 },
-      {
-        fips_name: 'Gwinnett County',
-        race_and_ethnicity: 'Black (NH)',
-        rate: 8.7,
-      },
-      {
-        fips_name: 'Gwinnett County',
-        race_and_ethnicity: 'White (NH)',
-        rate: 6.6,
-      },
-    ])
-    const result = prepareInsightData('rate-map', dataTypeConfig, DEMO, [
-      response,
-    ])
-    expect(result.entryCount).toBe(3)
+    expect(
+      countInsightRows(
+        [
+          {
+            fips_name: 'Gwinnett County',
+            race_and_ethnicity: 'All',
+            rate: 7.3,
+          },
+          {
+            fips_name: 'Gwinnett County',
+            race_and_ethnicity: 'Black (NH)',
+            rate: 8.7,
+          },
+          {
+            fips_name: 'Gwinnett County',
+            race_and_ethnicity: 'White (NH)',
+            rate: 6.6,
+          },
+        ],
+        'rate-map',
+        DEMO,
+        metricConfig,
+      ),
+    ).toBe(3)
   })
 
   test('time-series entry count respects the selected groups', () => {
-    const response = new MetricQueryResponse([
-      { race_and_ethnicity: 'Black (NH)', time_period: '2010', rate: 5 },
-      { race_and_ethnicity: 'Black (NH)', time_period: '2020', rate: 8 },
-      { race_and_ethnicity: 'White (NH)', time_period: '2010', rate: 3 },
-      { race_and_ethnicity: 'White (NH)', time_period: '2020', rate: 4 },
-    ])
-    const result = prepareInsightData(
-      'rates-over-time',
-      dataTypeConfig,
-      DEMO,
-      [response],
-      { selectedGroups: ['Black (NH)'] },
-    )
-    // first + last year for the one selected group
-    expect(result.entryCount).toBe(2)
+    expect(
+      countInsightRows(
+        [
+          { race_and_ethnicity: 'Black (NH)', time_period: '2010', rate: 5 },
+          { race_and_ethnicity: 'Black (NH)', time_period: '2020', rate: 8 },
+          { race_and_ethnicity: 'White (NH)', time_period: '2010', rate: 3 },
+          { race_and_ethnicity: 'White (NH)', time_period: '2020', rate: 4 },
+        ],
+        'rates-over-time',
+        DEMO,
+        metricConfig,
+        { selectedGroups: ['Black (NH)'] },
+      ),
+    ).toBe(2)
+  })
+
+  test('a multi-place map narrows to the highlighted group plus the overall row', () => {
+    expect(
+      countInsightRows(
+        [
+          { fips_name: 'Fulton County', race_and_ethnicity: 'All', rate: 5 },
+          {
+            fips_name: 'Fulton County',
+            race_and_ethnicity: 'Black (NH)',
+            rate: 9,
+          },
+          {
+            fips_name: 'Fulton County',
+            race_and_ethnicity: 'White (NH)',
+            rate: 4,
+          },
+          { fips_name: 'Cobb County', race_and_ethnicity: 'All', rate: 6 },
+          {
+            fips_name: 'Cobb County',
+            race_and_ethnicity: 'Black (NH)',
+            rate: 8,
+          },
+          {
+            fips_name: 'Cobb County',
+            race_and_ethnicity: 'White (NH)',
+            rate: 3,
+          },
+        ],
+        'rate-map',
+        DEMO,
+        metricConfig,
+        { activeDemographicGroup: 'Black (NH)' },
+      ),
+    ).toBe(4)
   })
 })
-
 describe('getInsightDataStatus', () => {
   const oneRow = new MetricQueryResponse([
     { fips_name: 'Bartow County', race_and_ethnicity: 'All', rate: 13 },
@@ -671,52 +321,6 @@ describe('summarizePeerComparison', () => {
   })
 })
 
-describe('formatPeerComparison', () => {
-  test('renders the region rate, its qualitative standing, and the peer spread', () => {
-    const text = formatPeerComparison({
-      regionLabel: 'Bartow County',
-      regionValue: 13,
-      peerNoun: 'Georgia counties',
-      reportingCount: 52,
-      higherThanCount: 41,
-      median: 8.1,
-      min: 2.3,
-      max: 21,
-      shortLabel: 'per 100k',
-    })
-    expect(text).toContain('- Bartow County: 13 per 100k')
-    // 41/52 = 0.788 -> "higher than most"; raw fraction must not appear
-    expect(text).toContain('Among 52 Georgia counties: higher than most')
-    expect(text).not.toContain('41 of')
-    expect(text).toContain('Peer median 8.1 per 100k; range 2.3–21 per 100k')
-  })
-
-  test('uses correct label at each tier boundary', () => {
-    const base = {
-      regionLabel: 'X',
-      regionValue: 10,
-      peerNoun: 'places',
-      median: 8,
-      min: 2,
-      max: 20,
-      shortLabel: 'per 100k',
-    }
-    const label = (higher: number, total: number) =>
-      formatPeerComparison({
-        ...base,
-        reportingCount: total,
-        higherThanCount: higher,
-      })
-    expect(label(9, 10)).toContain('among the highest') // 0.90 (>=0.9 boundary)
-    expect(label(3, 4)).toContain('higher than most') // 0.75 (>=0.75 boundary)
-    expect(label(6, 10)).toContain('above the typical') // 0.60 (>=0.6 boundary)
-    expect(label(2, 5)).toContain('near the typical') // 0.40 (>=0.4 boundary)
-    expect(label(1, 4)).toContain('below the typical') // 0.25 (>=0.25 boundary)
-    expect(label(1, 10)).toContain('lower than most') // 0.10 (>=0.1 boundary)
-    expect(label(0, 10)).toContain('among the lowest') // 0.00
-  })
-})
-
 describe('buildInsightFocusSuffix', () => {
   test('empty when no context is given', () => {
     expect(buildInsightFocusSuffix()).toBe('')
@@ -753,30 +357,6 @@ describe('buildInsightFocusSuffix', () => {
 
   test('empty selectedGroups array contributes nothing', () => {
     expect(buildInsightFocusSuffix({ selectedGroups: [] })).toBe('')
-  })
-})
-
-describe('buildPrompt peer framing', () => {
-  const args = [
-    'rate-map',
-    'Gun Deaths',
-    'Bartow County, Georgia',
-    'race and ethnicity',
-    '- Bartow County: 13 per 100k\n- Ranked against 52 Georgia counties...',
-  ] as const
-
-  test('uses same-level peer framing when a peer comparison is present', () => {
-    const prompt = buildPrompt(...args, undefined, true)
-    expect(prompt).toContain('ranked against its peer places')
-    expect(prompt).toContain('same data source and methodology')
-    // Must not imply a cross-level (state/national) comparison.
-    expect(prompt).not.toContain('national average')
-  })
-
-  test('falls back to the standard disparity framing without a peer comparison', () => {
-    const prompt = buildPrompt(...args, undefined, false)
-    expect(prompt).not.toContain('peer places')
-    expect(prompt).toContain('most important health equity disparity')
   })
 })
 

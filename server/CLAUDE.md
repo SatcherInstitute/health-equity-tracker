@@ -307,19 +307,15 @@ So the committed set is a direct readout of which input shapes the endpoint is k
 to handle, and a new surface (multimap, say) is covered by adding a fixture rather
 than by asserting coverage in prose.
 
-Two harnesses render the same inputs and must produce the same bytes:
-
 ```bash
-cd server && go test -run TestInsightPromptFixtures ./...   # Go, the served path
-
-cd frontend
-npx vitest run src/utils/insightPromptFixtures.test.ts    # check
-UPDATE_INSIGHT_PROMPTS=1 npx vitest run src/utils/insightPromptFixtures.test.ts  # accept a change
+cd server
+go test -run TestInsightPromptFixtures ./...            # check
+go test -run TestInsightPromptFixtures -update ./...    # accept a change
 ```
 
-The TypeScript templates remain the source of truth until the frontend cuts over,
-so `UPDATE_INSIGHT_PROMPTS=1` regenerates the `.prompt.txt` files from them and the
-Go test then has to agree. Only the frontend harness writes.
+These templates are the only ones that exist. The browser posts a descriptor and
+renders nothing itself, so a wording change ships with the server and needs no
+client deploy.
 
 It is deterministic and offline: no API key, no network, no clock. A template
 edit shows up as a diff in the `.prompt.txt` files, and **that diff is the thing
@@ -327,9 +323,9 @@ to review.** Since #5029/#5053 the cache key is a hash of the rendered prompt an
 template text appears in every prompt, so the fixtures a change moves are a
 direct readout of how much of the cache it displaces.
 
-The fixtures deliberately contain no TypeScript-only types, which is what let the
-Go port be checked rather than trusted. Two things the port had to get right, and
-that any template change still has to preserve:
+Every already-cached insight was keyed off text the browser rendered, so two
+JavaScript behaviors are frozen into these templates and any change still has to
+preserve them:
 
 - **Number formatting must match exactly.** JavaScript renders `4.0` as `4`,
   `-0` as `0`, and exponents unpadded (`1.5e-7`, not `1.5e-07`); the committed
