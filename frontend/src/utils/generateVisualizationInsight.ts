@@ -28,7 +28,7 @@ const MAP_CHART_IDS: ScrollableHashId[] = [
 const TIME_SERIES_CHART_IDS: ScrollableHashId[] = [
   'rates-over-time',
   'inequities-over-time',
-]
+] // Charts that display temporal trends
 
 // Select the most relevant metric config for the given chart type
 export function getPrimaryMetricConfig(

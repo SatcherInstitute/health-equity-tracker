@@ -8,6 +8,7 @@ import type {
 import type { ScrollableHashId } from './hooks/useStepObserver'
 
 const API_ENDPOINT = '/insight'
+// Sentinel error message for insight generation failures
 export const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 
 export type InsightResult = {
