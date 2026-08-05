@@ -136,9 +136,16 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   }
 
   return (
-    <div className='md:sticky' style={{ top: props.headerScrollMargin ?? 0 }}>
+    <div
+      className='md:sticky md:top-[var(--insight-top)] md:flex md:max-h-[calc(100dvh-var(--insight-top))] md:flex-col'
+      style={
+        {
+          '--insight-top': `${props.headerScrollMargin ?? 0}px`,
+        } as React.CSSProperties
+      }
+    >
       <div
-        className={`flex flex-col gap-3 bg-alt-white text-left ${props.isFlat ? '' : 'rounded-sm p-4 shadow-raised md:m-card-gutter'}`}
+        className={`flex min-h-0 flex-col gap-3 bg-alt-white text-left ${props.isFlat ? '' : 'rounded-sm p-4 shadow-raised md:m-card-gutter'}`}
       >
         {/* Header. isFlat means a parent dialog already supplies the frame and
             its own close button, so rendering ours would stack two. */}
@@ -188,7 +195,13 @@ export default function InsightReportCard(props: InsightReportCardProps) {
         {/* Sections, disclaimer — only when content is ready */}
         {sections && !isGenerating && (
           <>
-            <div className='flex flex-col gap-5'>
+            <div
+              className='flex min-h-0 flex-col gap-5 overflow-y-auto'
+              // biome-ignore lint/a11y/noNoninteractiveTabindex: a scroll region is unreachable by keyboard without a tab stop
+              tabIndex={0}
+              role='region'
+              aria-label='Report insights'
+            >
               {SECTIONS.map(({ key, label, icon }) => (
                 <div
                   key={key}
