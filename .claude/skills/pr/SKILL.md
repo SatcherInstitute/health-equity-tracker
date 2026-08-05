@@ -185,6 +185,8 @@ If the merge produces conflicts: stop, print the conflicting files, and ask the 
 
 ## Step 3 — Evaluate and address code review feedback
 
+**This step is never skipped, and never skipped because the PR looks small or the flagged code was written minutes ago.** Bot reviewers post asynchronously, so a PR that had no comments when the run started often has them by now. Step 6 will not let the body be written while a thread is still unresolved.
+
 Fetch all reviews and inline comments on the PR:
 
 One call, and fetch the thread IDs at the same time so resolving later needs no extra round trip:
@@ -420,6 +422,15 @@ Carry the final audited checklist into Step 6.
 ---
 
 ## Step 6 — Update the PR title and description
+
+**First, confirm no review thread is still open.** Reviews land asynchronously, so a bot may have posted since Step 3 ran:
+
+```bash
+gh api graphql -f query='{ repository(owner: "SatcherInstitute", name: "health-equity-tracker") { pullRequest(number: <number>) { reviewThreads(first: 50) { nodes { id isResolved comments(first: 1) { nodes { databaseId body } } } } } } }' \
+  --jq '[.data.repository.pullRequest.reviewThreads.nodes[] | select(.isResolved | not)] | length'
+```
+
+If this is anything but `0`, go back to Step 3 and work the open threads before writing the body. A declined finding still needs its reply posted; only a thread that was answered may stay open, and the reply must already be there.
 
 The commit list came from Step 1 and the diff from Step 4. You should need no new calls here; if a commit landed since Step 1, re-run just `git log origin/main..HEAD --oneline`.
 
