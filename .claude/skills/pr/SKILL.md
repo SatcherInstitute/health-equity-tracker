@@ -148,13 +148,21 @@ The preview URL is deterministic from the PR number — no need to fetch a comme
 https://deploy-preview-{number}--health-equity-tracker.netlify.app
 ```
 
-Identify the single most useful deep-link route that shows the core feature. Append URL params so the reviewer lands directly on the changed UI. Record the full URL for Step 6.
+Identify the single most useful deep-link route that shows the core feature. Append URL params so the reviewer lands directly on the changed UI — including any param that opens the specific card, panel, or modal the PR touches (`report-insight`, `topic-info`, `multiple-maps`, a `#card-id` hash), so the reviewer never has to click their way there.
 
 **Never guess route strings.** All app routes are defined as constants in `frontend/src/utils/internalRoutes.ts`. Look up the correct path there before constructing the URL:
 
 ```bash
 grep -n "PAGE_LINK\|_PATH\|_ROUTE" frontend/src/utils/internalRoutes.ts
 ```
+
+**Write the URL to a file immediately.** Holding it only in your head is how it goes missing from the final body — the Step 6 template gets filled in from scratch and the Preview line silently disappears:
+
+```bash
+echo "<full deep link>" > /tmp/pr-preview-url.txt
+```
+
+Step 6 reads this file rather than reconstructing the URL. If the file is missing when Step 6 runs, that is a bug in this run — go back and build it.
 
 ---
 
@@ -453,8 +461,39 @@ Use this template:
 **Preview line rules:**
 - *Frontend bucket only* — a backend-only PR has no UI to preview, so **omit the Preview line entirely** rather than linking a preview that shows nothing changed
 - Always the first line of the body so reviewers can click straight to the feature
-- The PR number is always known at this point — construct the URL as `https://deploy-preview-{number}--health-equity-tracker.netlify.app`; never omit it or use a placeholder
-- One deep link with the URL params needed to land directly on the changed UI (e.g. `?mls=1.hiv-3.06&mlp=disparity`)
+- Use the URL recorded in `/tmp/pr-preview-url.txt` by Step 2b. Do not retype it from memory
+- One deep link with the URL params needed to land directly on the changed UI, including whatever opens the specific card or panel (e.g. `?mls=1.hiv-3.06&mlp=disparity&report-insight=true`)
+
+**The preview link must be verified before the body is written.** A link that 404s, or that lands on the report without opening the thing the PR changed, is worse than no link — the reviewer clicks it, sees nothing different, and assumes the PR does nothing. HTTP status alone proves nothing here: this is an SPA, so every path returns 200, including misspelled ones. Load it and assert the changed UI is on screen.
+
+Wait for Netlify to publish the preview for the current head commit, then check it:
+
+```bash
+gh pr checks <number> --watch --interval 15 --fail-fast 2>&1 | grep -i netlify
+
+cat > /tmp/check-preview.mjs <<'EOF'
+import { chromium } from '@playwright/test'
+const [url, needle] = process.argv.slice(2)
+const browser = await chromium.launch()
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
+await page.goto(url, { waitUntil: 'domcontentloaded' })
+let ok = true
+try {
+  await page.getByText(needle, { exact: false }).first()
+    .waitFor({ state: 'visible', timeout: 45000 })
+} catch { ok = false }
+console.log({ url, needle, visible: ok })
+await page.screenshot({ path: '/tmp/preview-check.png' })
+await browser.close()
+process.exit(ok ? 0 : 1)
+EOF
+
+# Playwright resolves from frontend/node_modules, so run it from frontend/.
+# The needle is text that only appears when the changed UI is actually open.
+(cd frontend && node /tmp/check-preview.mjs "$(cat /tmp/pr-preview-url.txt)" "<distinctive on-screen text>")
+```
+
+Then look at `/tmp/preview-check.png` to confirm the reviewer lands where you intend. If the check fails, fix the params or route and re-verify — do not paste an unverified link and move on.
 
 **Summary rules:**
 - 3–5 bullets maximum; each one line
@@ -477,6 +516,14 @@ Write the body to `/tmp/pr-body.md`, appending any bot-generated blocks after th
 ```bash
 gh pr edit --title "<new title>" --body-file /tmp/pr-body.md
 ```
+
+Then read the body back off GitHub and confirm the Preview line actually survived. Checking the local file is not enough — verify what the PR now shows:
+
+```bash
+gh pr view <number> --json body -q .body | head -1
+```
+
+For a frontend-bucket PR this must be the `**Preview:**` line carrying the verified deep link. If it is anything else, the link was dropped while filling in the template: re-add it and re-apply before continuing. Do not report the PR as polished until this check passes.
 
 Print the updated PR URL when done.
 
