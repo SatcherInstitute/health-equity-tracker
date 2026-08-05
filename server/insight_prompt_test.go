@@ -10,8 +10,10 @@ import (
 	"testing"
 )
 
-// Regenerates the committed .prompt.txt files instead of comparing against them:
-// go test -run TestInsightPromptFixtures -update ./...
+// Regenerates the committed .prompt.txt files instead of comparing against them.
+// -update belongs to the test binary, not to go test, so it has to sit behind
+// -args or the package list stops being read as one:
+// go test -run TestInsightPromptFixtures ./... -args -update
 var updateInsightPrompts = flag.Bool("update", false, "rewrite the insight prompt fixtures")
 
 // The fixtures in testdata/insight_prompts pin the exact text sent to the model.

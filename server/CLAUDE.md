@@ -309,8 +309,8 @@ than by asserting coverage in prose.
 
 ```bash
 cd server
-go test -run TestInsightPromptFixtures ./...            # check
-go test -run TestInsightPromptFixtures -update ./...    # accept a change
+go test -run TestInsightPromptFixtures ./...                # check
+go test -run TestInsightPromptFixtures ./... -args -update  # accept a change
 ```
 
 These templates are the only ones that exist. The browser posts a descriptor and

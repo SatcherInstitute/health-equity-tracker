@@ -59,10 +59,17 @@ interface ShareColumns {
   generalPopulationLabel?: string
 }
 
-// Where the view lives. The server derives the cache key from these, so they
-// have to be the browser's own strings rather than anything reconstructed:
-// URLSearchParams preserves insertion order where Go's encoder sorts, and a
-// re-encoded params string would mint a different key for the same view.
+// Where the view lives. The server derives the cache key from these, so the
+// params have to reach it as opaque text: URLSearchParams preserves insertion
+// order where Go's url.Values encoder sorts, so a reparse on that side would
+// mint a different key for the same view. stripReportInsightParam
+// (server/insight_descriptor.go) splits on "&" and rejoins for exactly that
+// reason, never parsing.
+//
+// The toString() round-trip below is not that reparse, and it is deliberate.
+// buildInsightCacheKey did the same round-trip before this PR, so keeping it is
+// what holds the warm cache in place; sending window.location.search raw would
+// move the key of every URL whose escaping the round-trip normalizes.
 interface ViewLocation {
   urlPathname: string
   urlParams: string

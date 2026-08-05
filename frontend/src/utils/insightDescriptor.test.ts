@@ -103,6 +103,20 @@ describe('fetchInsight', () => {
     expect(body.urlParams).toBe('mls=1.hiv-3.00&mlp=disparity')
   })
 
+  // Pins the round-trip through URLSearchParams. buildInsightCacheKey did the
+  // same before this PR, so sending the raw search string would normalize
+  // escaping differently and move the key of every affected URL off its warm
+  // cache entry.
+  test('normalizes escaping the same way the old cache key did', async () => {
+    const fetchMock = respondWith({ content: 'text', cacheKey: 'k1' })
+    window.history.pushState({}, '', '/exploredata?mls=1.hiv-3.00&note=a%20b')
+
+    await fetchInsight(CARD)
+
+    const body = JSON.parse(fetchMock.mock.calls[0][1].body)
+    expect(body.urlParams).toBe('mls=1.hiv-3.00&note=a+b')
+  })
+
   // report-insight is sent un-stripped on purpose: the server strips it before
   // keying, and doing that in one place is what keeps the two from drifting.
   test('leaves report-insight in the params it sends', async () => {
