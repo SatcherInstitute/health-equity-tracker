@@ -14,22 +14,19 @@ The user may pass a PR number as an argument (e.g. `/review 4764`). If none is g
 
 ## Step 1: Identify PR and gather context
 
+Gather all of it in **one call**. These are independent, so splitting them across turns costs a full context re-read each:
+
 ```bash
-gh pr view --json number,title,body,headRefName,baseRefName,files,commits
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+git fetch origin main --quiet
+echo "=== pr ==="; gh pr view --json number,title,body,headRefName,baseRefName,files,commits
+echo "=== changed files ==="; git diff origin/main...HEAD --name-only
+echo "=== diff ==="; git diff origin/main...HEAD
 ```
 
 If no open PR is found: print an error and stop.
 
-Get the full diff and changed file list:
-
-```bash
-git fetch origin main --quiet
-git diff origin/main...HEAD
-git diff origin/main...HEAD --name-only
-```
-
-Read each changed file in full (not just the diff). The diff alone can be misleading without surrounding context.
+Then read each changed file in full, since the diff alone can be misleading without surrounding context. **Issue those `Read` calls together in a single message**, one per changed file, rather than reading and reacting to them one at a time. Reason over the whole set once it is all back.
 
 ---
 

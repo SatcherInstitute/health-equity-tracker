@@ -9,6 +9,24 @@ The [Health Equity Tracker](https://healthequitytracker.org/) aggregates demogra
 > **Service-specific guidance:** See each service's own `CLAUDE.md` for details.
 > `frontend/` · `server/` · `exporter/` · `python/`
 
+## Batch tool calls
+
+**Every tool call re-reads the entire conversation.** A lone `grep` returning 200 tokens
+costs a re-read of a context that is routinely over 100K. Independent calls issued
+separately are the single largest source of waste in this repo's sessions.
+
+- Put every independent call in **one message**. Investigating a bug? Issue the greps,
+  the file reads, and `git log` together, then reason over all the results at once.
+- Chain dependent shell steps with `&&` in a single `Bash` call rather than taking a
+  turn each.
+- A turn whose only content is one `git status`, `ls`, `cat`, or `grep` is a defect
+  unless its result determines what you do next.
+- Prefer one precise command over a sequence of exploratory ones: `grep -n 'a\|b\|c'`
+  over three greps; `git log --stat` over `log` then `show`.
+
+Speak up when a stretch of work is mechanical enough to run on a cheaper model, and say
+so plainly ("this part is mechanical, worth switching to Sonnet"). Do not switch silently.
+
 ## Architecture
 
 ### Serving Architecture

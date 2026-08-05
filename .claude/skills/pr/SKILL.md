@@ -32,28 +32,28 @@ gh pr checkout <number>
 
 If the working tree is dirty and the checkout fails, stop and ask the user to commit or stash first — do not discard changes.
 
-Then derive two variables used throughout the remaining steps:
+Then gather everything the rest of the skill needs. **This is one call, not six.** Each of these is independent, so splitting them across turns pays a full context re-read per line for a few hundred tokens of output:
 
 ```bash
-# Upstream repo (e.g. SatcherInstitute/health-equity-tracker)
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
-
-# Personal fork remote — the remote whose URL contains the current GitHub user's login
 GH_USER=$(gh api user -q .login)
 FORK_REMOTE=$(git remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
+git fetch origin main --quiet
+echo "REPO=$REPO FORK=$FORK_REMOTE"
+echo "=== changed files ==="; git diff origin/main --name-only
+echo "=== behind main? (lines with < are missing commits) ==="; git log --oneline --left-right origin/main...HEAD
+echo "=== commits on branch ==="; git log origin/main..HEAD --oneline
 ```
 
 If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fork remote with `git remote -v`, then continue using that name.
+
+That single block covers the fork remote, the file classification in Step 1b, the behind-main check in Step 2c, and the commit list Step 6 needs. Do not re-run any of them later; reuse this output.
 
 ---
 
 ## Step 1b — Classify the PR by changed files
 
-Not every step applies to every PR. The frontend steps (Biome/tsc, Netlify preview, Playwright) waste time on a backend PR, and the backend checks (pytest, `go test`) are pointless on a frontend PR. Classify the diff once, up front, and gate the later steps on the result:
-
-```bash
-git diff origin/main --name-only
-```
+Not every step applies to every PR. The frontend steps (Biome/tsc, Netlify preview, Playwright) waste time on a backend PR, and the backend checks (pytest, `go test`) are pointless on a frontend PR. Use the changed-file list already printed in Step 1; do not run `git diff --name-only` again.
 
 Bucket the changed paths:
 
@@ -160,10 +160,7 @@ grep -n "PAGE_LINK\|_PATH\|_ROUTE" frontend/src/utils/internalRoutes.ts
 
 ## Step 2c — Check if branch is behind main
 
-```bash
-git fetch origin main --quiet
-git log --oneline --left-right origin/main...HEAD
-```
+Read this off the Step 1 output; the fetch and the `left-right` log already ran there.
 
 Parse the output for lines starting with `<` (commits on `origin/main` not on this branch). If any exist, merge immediately without asking:
 
@@ -182,12 +179,18 @@ If the merge produces conflicts: stop, print the conflicting files, and ask the 
 
 Fetch all reviews and inline comments on the PR:
 
+One call, and fetch the thread IDs at the same time so resolving later needs no extra round trip:
+
 ```bash
+echo "=== reviews ==="
 gh api repos/$REPO/pulls/<number>/reviews \
   --jq '[.[] | {user: .user.login, state: .state, body: .body}]'
-
+echo "=== inline comments ==="
 gh api repos/$REPO/pulls/<number>/comments \
   --jq '[.[] | {user: .user.login, path: .path, line: .line, body: .body, id: .id}]'
+echo "=== thread ids (map databaseId -> PRRT_ id for resolving) ==="
+gh api graphql -f query='{ repository(owner: "SatcherInstitute", name: "health-equity-tracker") { pullRequest(number: <number>) { reviewThreads(first: 50) { nodes { id isResolved comments(first: 1) { nodes { databaseId } } } } } } }' \
+  --jq '.data.repository.pullRequest.reviewThreads.nodes[] | select(.isResolved | not) | {thread: .id, comment: .comments.nodes[0].databaseId}'
 ```
 
 For each review or inline comment, work through three questions before touching any code:
@@ -209,20 +212,13 @@ Then act:
   git commit -m "address review: <short description>"
   git push $FORK_REMOTE HEAD
   ```
-  Reply with one short sentence — what you did and why, nothing more:
+  Reply and resolve in the same call. The mutation needs the **thread's** node ID (`PRRT_...`), not the comment's (`PRRC_...`); Step 3's first block already printed the mapping, so look it up there rather than re-querying:
   ```bash
   gh api repos/$REPO/pulls/<number>/comments/<comment_id>/replies \
-    -f body="Fixed — <one line>."
-  ```
-  Then resolve the thread via GraphQL. The mutation requires the **thread's** node ID (`PRRT_...`), not the comment's node ID (`PRRC_...`). Fetch it first:
-  ```bash
-  gh api graphql -f query='{ repository(owner: "<owner>", name: "<repo>") { pullRequest(number: <number>) { reviewThreads(first: 20) { nodes { id isResolved comments(first: 1) { nodes { databaseId } } } } } } }' \
-    --jq '.data.repository.pullRequest.reviewThreads.nodes[] | select(.comments.nodes[0].databaseId == <comment_id>) | .id'
-  ```
-  Then resolve using the returned `PRRT_...` id:
-  ```bash
+    -f body="Fixed — <one line>." >/dev/null
   gh api graphql -f query='mutation { resolveReviewThread(input: {threadId: "<PRRT_id>"}) { thread { isResolved } } }'
   ```
+  When several threads are addressed by the same commit, put every reply-and-resolve pair in one call.
 - **Decline it**: reply with one sentence explaining why, then leave the thread open:
   ```bash
   gh api repos/$REPO/pulls/<number>/comments/<comment_id>/replies \
@@ -235,12 +231,11 @@ If there are no unresolved reviews or comments, note that and continue.
 
 ## Step 4 — Assess doc freshness
 
-Identify which docs cover the code this PR touches: the service-level `CLAUDE.md` nearest the changed files (`frontend/CLAUDE.md`, `server/CLAUDE.md`, `python/CLAUDE.md`, `exporter/CLAUDE.md`), plus the root `CLAUDE.md` and `README.md`. Read the relevant ones in full.
+Identify which docs cover the code this PR touches: the service-level `CLAUDE.md` nearest the changed files (`frontend/CLAUDE.md`, `server/CLAUDE.md`, `python/CLAUDE.md`, `exporter/CLAUDE.md`), plus the root `CLAUDE.md` and `README.md`. Read the relevant ones in full, issuing all the `Read` calls in a single message.
 
-Compare against the full PR diff:
+Compare against the full PR diff. The file list came from Step 1, so only the diff body is still needed:
 
 ```bash
-git diff origin/main --name-only
 git diff origin/main
 ```
 
@@ -404,8 +399,9 @@ rm frontend/playwright-tests/_pr_verify.spec.ts
 
 ### 5b — Gap check
 
+Reuse the diff already read in Step 4. Only fetch more if Step 4 was skipped:
+
 ```bash
-git diff origin/main --name-only
 git diff origin/main -- frontend/src/
 ```
 
@@ -417,10 +413,7 @@ Carry the final audited checklist into Step 6.
 
 ## Step 6 — Update the PR title and description
 
-```bash
-git log origin/main..HEAD --oneline
-git diff origin/main -- frontend/src/
-```
+The commit list came from Step 1 and the diff from Step 4. You should need no new calls here; if a commit landed since Step 1, re-run just `git log origin/main..HEAD --oneline`.
 
 Update the PR title (under 70 chars) and body. **Read the existing PR body first** (already fetched in Step 1). Use it as the starting point:
 
