@@ -29,12 +29,13 @@ import {
 } from './generateVisualizationInsight'
 import { getDataManager } from './globals'
 import {
-  ERROR_GENERATING_INSIGHT,
   fetchInsight,
   type InsightMetric,
   type ReportSectionDescriptor,
   toInsightMetric,
 } from './insightDescriptor'
+
+const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 
 // The report-wide insight is a synthesis, not a walkthrough of the cards below
 // it. Trend and data-completeness findings fold into these four sections rather
@@ -47,6 +48,10 @@ export type ReportInsightSections = {
   whatThisMeans: string
 }
 
+// Must match the JSON schema the report prompt asks the model to return, in
+// buildReportInsightPrompt (server/insight_prompt_report.go). A renamed section
+// there makes parseSections return null here and the card renders nothing, so
+// the fixture diff that a template edit produces is the cue to update this too.
 const SECTION_KEYS = [
   'keyFindings',
   'locationComparison',
@@ -63,7 +68,7 @@ type ReportInsightResult = {
   cacheKey?: string
 }
 
-function parseSections(raw: string): ReportInsightSections | null {
+export function parseSections(raw: string): ReportInsightSections | null {
   try {
     const clean = raw.replace(/```json|```/g, '').trim()
     const parsed = JSON.parse(clean)
@@ -250,8 +255,12 @@ async function loadReportData(
         generalPopulationLabel,
       },
       geographic: {
-        // The spread describes places, not groups, so only the overall row of
-        // each child place belongs in it.
+        // formatGeographicSpread (server/insight_prompt_report.go) reads one
+        // rate per place and does not filter by demographic group, so a
+        // subgroup row would enter the spread as if it were another place.
+        // Narrowing to the overall row happens here rather than there because
+        // the spread is the one section whose query is broken down by group for
+        // reasons that have nothing to do with what it renders.
         rows: isCounty
           ? []
           : geoResponse

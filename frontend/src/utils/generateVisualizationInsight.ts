@@ -28,7 +28,7 @@ const MAP_CHART_IDS: ScrollableHashId[] = [
 const TIME_SERIES_CHART_IDS: ScrollableHashId[] = [
   'rates-over-time',
   'inequities-over-time',
-] // Charts that display temporal trends
+]
 
 // Select the most relevant metric config for the given chart type
 export function getPrimaryMetricConfig(
@@ -246,10 +246,17 @@ export function buildInsightFocusSuffix(context?: InsightContext): string {
 }
 
 // How many comparison entries (groups, places, or time points) the server will
-// have to work with. Mirrors the row filtering in the server's formatDataRows so
-// the visibility gate and the generated text can never disagree about whether
-// there is anything to compare. Budget trimming is deliberately not mirrored:
-// the gate only asks whether there are at least two.
+// have to work with. The gate runs before any prompt exists, so it cannot ask
+// the server and has to keep its own copy of the row filtering in
+// formatDataRows (server/insight_prompt.go). Edit one and edit the other: a
+// divergence does not fail, it silently hides a card that would have generated
+// or shows one with nothing to compare.
+//
+// Two divergences are deliberate, both safe because the gate only asks whether
+// there are at least two entries. Budget trimming is not mirrored, so this can
+// exceed what the prompt ends up carrying. And the time-series branch counts
+// rows where formatTimeSeriesRows renders one line per point after trimming,
+// which likewise can only overcount.
 export function countInsightRows(
   rows: HetRow[],
   hashId: ScrollableHashId,
