@@ -469,7 +469,12 @@ Use this template:
 Wait for Netlify to publish the preview for the current head commit, then check it:
 
 ```bash
-gh pr checks <number> --watch --interval 15 --fail-fast 2>&1 | grep -i netlify
+# pipefail so a failing `gh pr checks` isn't masked by grep's exit status —
+# the Netlify line prints either way, including when the deploy failed.
+set -o pipefail
+gh pr checks <number> --watch --interval 15 --fail-fast 2>&1 | grep -i netlify || {
+  echo "Netlify preview did not publish cleanly — do not link it yet." >&2
+}
 
 cat > /tmp/check-preview.mjs <<'EOF'
 import { chromium } from '@playwright/test'
@@ -520,10 +525,15 @@ gh pr edit --title "<new title>" --body-file /tmp/pr-body.md
 Then read the body back off GitHub and confirm the Preview line actually survived. Checking the local file is not enough — verify what the PR now shows:
 
 ```bash
-gh pr view <number> --json body -q .body | head -1
+FIRST_LINE=$(gh pr view <number> --json body -q .body | head -1)
+PREVIEW_URL=$(cat /tmp/pr-preview-url.txt)
+case "$FIRST_LINE" in
+  '**Preview:**'*"$PREVIEW_URL"*) echo "OK: preview line intact" ;;
+  *) echo "FAIL: first line is not the verified Preview link: $FIRST_LINE" >&2 ;;
+esac
 ```
 
-For a frontend-bucket PR this must be the `**Preview:**` line carrying the verified deep link. If it is anything else, the link was dropped while filling in the template: re-add it and re-apply before continuing. Do not report the PR as polished until this check passes.
+For a frontend-bucket PR this must print `OK`. Eyeballing the line is not enough: it has to start with `**Preview:**` and contain the exact URL Step 2b verified, since a link that was retyped or rebuilt from memory is the failure mode this gate exists to catch. On `FAIL`, re-add the link from `/tmp/pr-preview-url.txt`, re-apply with `gh pr edit`, and re-run the check. Do not report the PR as polished until it passes.
 
 Print the updated PR URL when done.
 
