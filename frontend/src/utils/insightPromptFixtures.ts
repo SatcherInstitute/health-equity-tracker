@@ -16,8 +16,11 @@ import {
 import {
   buildCardInsightPrompt,
   formatDataRows,
+  formatPeerComparison,
   getTableColumnShape,
   type InsightContext,
+  type PeerComparison,
+  summarizePeerComparison,
 } from './generateVisualizationInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
 import { INSIGHT_DATA_BUDGETS } from './insightPromptBudget'
@@ -77,6 +80,11 @@ interface ContrastFixture {
 interface ReportSection extends FixtureShareMetrics {
   rows: HetRow[]
   metricConfig?: FixtureMetricConfig
+  // Only the geographic section reads this. A county has no child places to
+  // spread across, so a county report ranks the place against its sibling
+  // counties instead. The ranking inputs are pinned here rather than derived
+  // from a Fips, which would put a TypeScript-only type in a fixture.
+  peerComparison?: PeerComparison
 }
 
 interface ReportFixture {
@@ -165,6 +173,19 @@ function renderContrast(fixture: ContrastFixture): string {
   )
 }
 
+function reportGeographicSection(fixture: ReportFixture): string {
+  const section = fixture.sections.geographic
+  if (section.peerComparison) {
+    const summary = summarizePeerComparison(section.peerComparison)
+    return summary ? formatPeerComparison(summary) : ''
+  }
+  return formatGeographicSpread(
+    section.rows,
+    asMetricConfig(section.metricConfig ?? fixture.metricConfig),
+    fixture.placeNoun,
+  )
+}
+
 function renderReport(fixture: ReportFixture): string {
   const { sections, demographicType } = fixture
   const metricFor = (section: ReportSection) =>
@@ -184,11 +205,7 @@ function renderReport(fixture: ReportFixture): string {
         demographicShares.shareConfig,
         demographicShares.populationConfig,
       ),
-      geographicSection: formatGeographicSpread(
-        sections.geographic.rows,
-        metricFor(sections.geographic),
-        fixture.placeNoun,
-      ),
+      geographicSection: reportGeographicSection(fixture),
       temporalSection: formatTemporalChange(
         sections.temporal.rows,
         demographicType,

@@ -56,6 +56,12 @@ func writeJSON(w http.ResponseWriter, v any) {
 	json.NewEncoder(w).Encode(v)
 }
 
+func writeJSONStatus(w http.ResponseWriter, status int, v any) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
+	json.NewEncoder(w).Encode(v)
+}
+
 func flaggedRecord(ctx context.Context, flaggedBucket, key string) (map[string]any, error) {
 	data, err := downloadBlob(ctx, flaggedBucket, key+".json")
 	if err != nil {

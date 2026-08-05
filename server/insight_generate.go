@@ -123,6 +123,18 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 	if cacheKey == "" {
 		cacheKey = sanitizeInsightKey(prompt)
 	}
+
+	content, ok := resolveInsight(w, r, &ev, prompt, cacheKey, topic)
+	if !ok {
+		return
+	}
+	writeJSON(w, map[string]string{"content": content})
+}
+
+// The suppression, cache, ledger, and generation flow shared by every insight
+// endpoint. Returns false when it has already written the response, which is
+// every path that does not end in servable content.
+func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic string) (string, bool) {
 	ev.CacheKey = cacheKey
 
 	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
@@ -139,13 +151,13 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 			ev.Outcome, ev.Reason = outcomeError, reasonSuppressionRead
 			log.Printf("[insight] suppression check error: %v", err)
 			http.Error(w, "Internal server error", http.StatusInternalServerError)
-			return
+			return "", false
 		}
 		if record != nil {
 			if status, _ := record["status"].(string); suppressingStatuses[status] {
 				ev.Outcome = outcomeSuppressed
 				writeJSON(w, map[string]bool{"suppressed": true})
-				return
+				return "", false
 			}
 		}
 	}
@@ -155,8 +167,7 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 		entry := v.(insightMemEntry)
 		if time.Since(entry.ts) < insightMemTTL {
 			ev.Outcome = outcomeMemoryHit
-			writeJSON(w, map[string]string{"content": entry.content})
-			return
+			return entry.content, true
 		}
 		insightMemCache.Delete(cacheKey)
 	}
@@ -167,8 +178,7 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 		if content != "" {
 			insightMemCache.Store(cacheKey, insightMemEntry{content: content, ts: time.Now()})
 			ev.Outcome = outcomeGCSHit
-			writeJSON(w, map[string]string{"content": content})
-			return
+			return content, true
 		}
 	}
 
@@ -179,13 +189,13 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 		ev.Outcome, ev.Reason = outcomeUnavailable, reasonNoCacheBucket
 		log.Print("[insight] INSIGHTS_CACHE_BUCKET unset, generation disabled")
 		writeInsightUnavailable(w)
-		return
+		return "", false
 	}
 
 	if generationDisabled(ctx, cacheBucket) {
 		ev.Outcome, ev.Reason = outcomeUnavailable, reasonGenerationOff
 		writeInsightUnavailable(w)
-		return
+		return "", false
 	}
 
 	apiKey := os.Getenv("GEMINI_API_KEY")
@@ -193,7 +203,7 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 		ev.Outcome, ev.Reason = outcomeUnavailable, reasonNoAPIKey
 		log.Print("[insight] GEMINI_API_KEY unset, generation disabled")
 		writeInsightUnavailable(w)
-		return
+		return "", false
 	}
 
 	// Reserved before the call rather than after, so a crash mid-flight cannot
@@ -206,13 +216,13 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 		ev.Outcome, ev.Reason = outcomeUnavailable, reasonLedgerError
 		log.Printf("[insight] usage ledger error: %v", err)
 		writeInsightUnavailable(w)
-		return
+		return "", false
 	}
 	if !reserved {
 		ev.Outcome, ev.Reason = outcomeUnavailable, reasonCeilingReached
 		log.Print("[insight] usage ceiling reached, serving cached insights only")
 		writeInsightUnavailable(w)
-		return
+		return "", false
 	}
 
 	finalPrompt := buildNegativeExamplesBlock(ctx, flaggedBucket, topic) + prompt
@@ -233,18 +243,18 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 		log.Print("[insight] provider quota reached")
 		w.WriteHeader(http.StatusTooManyRequests)
 		writeJSON(w, map[string]string{"error": "Rate limit reached"})
-		return
+		return "", false
 	case errors.Is(err, errInsightNoContent):
 		// Never cached: a blank insight persisted for the full TTL is worse than
 		// no insight, since nothing would retry it.
 		ev.Outcome, ev.Reason = outcomeUnavailable, reasonNoContent
 		writeInsightUnavailable(w)
-		return
+		return "", false
 	case err != nil:
 		ev.Outcome, ev.Reason = outcomeError, reasonProviderError
 		log.Printf("[insight] generation error: %v", err)
 		http.Error(w, `{"error":"Failed to fetch AI insight"}`, http.StatusInternalServerError)
-		return
+		return "", false
 	}
 
 	ev.Outcome = outcomeGenerated
@@ -264,7 +274,7 @@ func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}()
 
-	writeJSON(w, map[string]string{"content": result.text})
+	return result.text, true
 }
 
 func rateLimitStatusHandler(w http.ResponseWriter, _ *http.Request) {

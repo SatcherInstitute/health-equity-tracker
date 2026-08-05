@@ -1,0 +1,99 @@
+{
+  "kind": "report",
+  "why": "A county report. A county has no child places to spread across, so its geographic section ranks the place against its sibling counties instead. This is the one report shape whose geographic section is not a spread, and the only committed case whose prompt carries the en dash in the peer range line.",
+  "topic": "HIV diagnoses",
+  "location": "Fulton County, Georgia",
+  "demographicType": "race_and_ethnicity",
+  "placeNoun": "counties",
+  "metricConfig": {
+    "metricId": "hiv_diagnoses_per_100k",
+    "shortLabel": "cases per 100k"
+  },
+  "sections": {
+    "demographic": {
+      "shareConfig": {
+        "metricId": "hiv_diagnoses_pct_share",
+        "shortLabel": "% of HIV diagnoses"
+      },
+      "populationConfig": {
+        "metricId": "hiv_population_pct",
+        "shortLabel": "% of population"
+      },
+      "rows": [
+        {
+          "race_and_ethnicity": "All",
+          "hiv_diagnoses_per_100k": 41.2,
+          "hiv_diagnoses_pct_share": 100,
+          "hiv_population_pct": 100
+        },
+        {
+          "race_and_ethnicity": "Black or African American (NH)",
+          "hiv_diagnoses_per_100k": 62.9,
+          "hiv_diagnoses_pct_share": 74.1,
+          "hiv_population_pct": 44.5
+        },
+        {
+          "race_and_ethnicity": "White (NH)",
+          "hiv_diagnoses_per_100k": 11.6,
+          "hiv_diagnoses_pct_share": 15.2,
+          "hiv_population_pct": 40.3
+        }
+      ]
+    },
+    "geographic": {
+      "rows": [],
+      "peerComparison": {
+        "regionLabel": "Fulton County",
+        "regionValue": 41.2,
+        "peerNoun": "Georgia counties",
+        "peerValues": [
+          37.5, 33.8, 22.8, 21.4, 18.9, 16.2, 12.7, 12.4, 9.8, 4.1, 2.6
+        ],
+        "shortLabel": "cases per 100k"
+      }
+    },
+    "temporal": {
+      "rows": [
+        {
+          "time_period": "2018",
+          "race_and_ethnicity": "All",
+          "hiv_diagnoses_per_100k": 46.3
+        },
+        {
+          "time_period": "2020",
+          "race_and_ethnicity": "All",
+          "hiv_diagnoses_per_100k": 38.1
+        },
+        {
+          "time_period": "2022",
+          "race_and_ethnicity": "All",
+          "hiv_diagnoses_per_100k": 41.2
+        }
+      ]
+    },
+    "ageAdjusted": {
+      "metricConfig": {
+        "metricId": "hiv_deaths_ratio_age_adjusted",
+        "shortLabel": "x"
+      },
+      "rows": [
+        {
+          "race_and_ethnicity": "Black or African American (NH)",
+          "hiv_deaths_ratio_age_adjusted": 5.4
+        }
+      ]
+    },
+    "unknown": {
+      "metricConfig": {
+        "metricId": "hiv_diagnoses_pct_share",
+        "shortLabel": "% of cases"
+      },
+      "rows": [
+        {
+          "race_and_ethnicity": "Unknown race",
+          "hiv_diagnoses_pct_share": 6.1
+        }
+      ]
+    }
+  }
+}

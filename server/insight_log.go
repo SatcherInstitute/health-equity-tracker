@@ -20,6 +20,11 @@ const (
 	outcomeRejected    = "rejected"
 	outcomeError       = "error"
 
+	// A descriptor rendered to a prompt and a key without generating anything.
+	// Consults no cache and reserves nothing, so it belongs in neither the hit
+	// rate nor the generation volume.
+	outcomePreview = "preview"
+
 	// Not a request outcome: emitted on its own line when usage crosses the warn
 	// threshold, which is the signal the ceiling alert matches on.
 	outcomeCeilingApproaching = "ceiling_approaching"
@@ -37,6 +42,7 @@ const (
 const (
 	reasonMissingPrompt   = "missing_prompt"
 	reasonPromptTooLarge  = "prompt_too_large"
+	reasonBadDescriptor   = "invalid_descriptor"
 	reasonNoCacheBucket   = "no_cache_bucket"
 	reasonGenerationOff   = "generation_disabled"
 	reasonNoAPIKey        = "no_api_key"

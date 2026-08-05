@@ -15,122 +15,10 @@ import (
 // Accept a change only by regenerating the fixtures on the frontend side
 // (UPDATE_INSIGHT_PROMPTS=1) and reviewing the resulting diff.
 
-// Fixture metric configs decode straight into the production type: its JSON tags
-// already match the fixture field names, so a mirrored test struct would only be
-// one more place to forget to update.
-type fixtureView struct {
-	Topic        string               `json:"topic"`
-	Location     string               `json:"location"`
-	MetricConfig *insightMetricConfig `json:"metricConfig"`
-	Rows         []insightRow         `json:"rows"`
-}
-
-type fixtureSection struct {
-	Rows                   []insightRow         `json:"rows"`
-	MetricConfig           *insightMetricConfig `json:"metricConfig"`
-	ShareConfig            *insightMetricConfig `json:"shareConfig"`
-	PopulationConfig       *insightMetricConfig `json:"populationConfig"`
-	GeneralPopulationLabel string               `json:"generalPopulationLabel"`
-}
-
-type fixtureSections struct {
-	Demographic fixtureSection `json:"demographic"`
-	Geographic  fixtureSection `json:"geographic"`
-	Temporal    fixtureSection `json:"temporal"`
-	AgeAdjusted fixtureSection `json:"ageAdjusted"`
-	Unknown     fixtureSection `json:"unknown"`
-}
-
-type promptFixture struct {
-	Kind            string `json:"kind"`
-	Why             string `json:"why"`
-	HashID          string `json:"hashId"`
-	DemographicType string `json:"demographicType"`
-
-	// card
-	Topic                  string               `json:"topic"`
-	Location               string               `json:"location"`
-	MetricConfig           *insightMetricConfig `json:"metricConfig"`
-	ShareConfig            *insightMetricConfig `json:"shareConfig"`
-	PopulationConfig       *insightMetricConfig `json:"populationConfig"`
-	GeneralPopulationLabel string               `json:"generalPopulationLabel"`
-	Rows                   []insightRow         `json:"rows"`
-	Context                *insightContext      `json:"context"`
-
-	// contrast
-	ViewA *fixtureView `json:"viewA"`
-	ViewB *fixtureView `json:"viewB"`
-
-	// report
-	PlaceNoun string           `json:"placeNoun"`
-	Sections  *fixtureSections `json:"sections"`
-}
-
-func renderFixture(t *testing.T, f *promptFixture) string {
-	t.Helper()
-	demographic, ok := demographicDisplayLower[f.DemographicType]
-	if !ok {
-		t.Fatalf("fixture uses demographic type %q with no display label", f.DemographicType)
-	}
-
-	switch f.Kind {
-	case "card":
-		opts := insightDataOptions{
-			ShareConfig:            f.ShareConfig,
-			PopulationConfig:       f.PopulationConfig,
-			GeneralPopulationLabel: f.GeneralPopulationLabel,
-		}
-		if f.Context != nil {
-			opts.SelectedGroups = f.Context.SelectedGroups
-			opts.ActiveDemographicGroup = f.Context.ActiveDemographicGroup
-		}
-		dataSection := formatDataRows(f.Rows, f.HashID, f.DemographicType, f.MetricConfig, opts)
-
-		var shape *tableColumnShape
-		if f.HashID == "data-table" {
-			s := getTableColumnShape(f.Rows, f.DemographicType, f.MetricConfig, opts)
-			shape = &s
-		}
-		return buildCardInsightPrompt(f.HashID, f.Topic, f.Location, demographic, dataSection, f.Context, shape)
-
-	case "contrast":
-		section := func(v *fixtureView) string {
-			return formatDataRows(v.Rows, f.HashID, f.DemographicType, v.MetricConfig,
-				insightDataOptions{BudgetBytes: insightBudgetContrast})
-		}
-		return buildContrastPrompt(f.ViewA.Topic, f.ViewB.Topic, f.ViewA.Location, f.ViewB.Location,
-			demographic, section(f.ViewA), section(f.ViewB))
-
-	case "report":
-		s := f.Sections
-		metricFor := func(sec fixtureSection) *insightMetricConfig {
-			if sec.MetricConfig != nil {
-				return sec.MetricConfig
-			}
-			return f.MetricConfig
-		}
-		demoMetric := metricFor(s.Demographic)
-		demoShares := insightDataOptions{
-			ShareConfig:            s.Demographic.ShareConfig,
-			PopulationConfig:       s.Demographic.PopulationConfig,
-			GeneralPopulationLabel: s.Demographic.GeneralPopulationLabel,
-		}
-		shape := getTableColumnShape(s.Demographic.Rows, f.DemographicType, demoMetric, demoShares)
-		return buildReportInsightPrompt(f.Topic, f.Location, demographic, reportDataSections{
-			Demographic: formatDemographicRates(s.Demographic.Rows, f.DemographicType, demoMetric,
-				demoShares.ShareConfig, demoShares.PopulationConfig),
-			Geographic:  formatGeographicSpread(s.Geographic.Rows, metricFor(s.Geographic), f.PlaceNoun),
-			Temporal:    formatTemporalChange(s.Temporal.Rows, f.DemographicType, metricFor(s.Temporal)),
-			AgeAdjusted: formatAgeAdjustedRatios(s.AgeAdjusted.Rows, f.DemographicType, metricFor(s.AgeAdjusted)),
-			Unknown:     formatUnknownShare(s.Unknown.Rows, f.DemographicType, metricFor(s.Unknown)),
-		}, &shape)
-
-	default:
-		t.Fatalf("unhandled fixture kind %q", f.Kind)
-		return ""
-	}
-}
-
+// A fixture is a descriptor, and the harness renders it through the same
+// renderInsightPrompt the endpoint runs. So these cases check the served path
+// rather than a test-only mirror of it, and the set of committed fixtures is a
+// direct readout of which input shapes the endpoint is known to handle.
 func TestInsightPromptFixtures(t *testing.T) {
 	inputs, err := filepath.Glob(filepath.Join("testdata", "insight_prompts", "*.json"))
 	if err != nil {
@@ -147,7 +35,7 @@ func TestInsightPromptFixtures(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			var fixture promptFixture
+			var fixture insightDescriptor
 			if err := json.Unmarshal(raw, &fixture); err != nil {
 				t.Fatal(err)
 			}
@@ -157,7 +45,10 @@ func TestInsightPromptFixtures(t *testing.T) {
 				t.Fatal(err)
 			}
 
-			got := renderFixture(t, &fixture)
+			got, err := renderInsightPrompt(&fixture)
+			if err != nil {
+				t.Fatalf("render: %v", err)
+			}
 			if got != string(want) {
 				t.Errorf("prompt does not match %s\n--- got ---\n%s\n--- want ---\n%s",
 					filepath.Base(wantPath), got, string(want))

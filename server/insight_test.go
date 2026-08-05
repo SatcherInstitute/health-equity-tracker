@@ -432,10 +432,17 @@ func TestInsightRateLimitMiddlewareReturns429(t *testing.T) {
 
 // --- handler behavior ---
 
+type persistedInsight struct {
+	path string
+	data []byte
+}
+
 type insightTestEnv struct {
-	store         *fakeLedgerStore
-	cacheWrites   chan []byte
-	lastPersisted []byte
+	store *fakeLedgerStore
+	// Carries the path alongside the payload, so a test can assert the insight
+	// landed under the key the handler returned.
+	cacheWrites   chan persistedInsight
+	lastPersisted persistedInsight
 	upstream      int
 	logs          *bytes.Buffer
 }
@@ -452,7 +459,7 @@ func newInsightTestEnv(t *testing.T) *insightTestEnv {
 	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_DAY", "50")
 	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_MONTH", "50")
 
-	env := &insightTestEnv{store: newFakeLedgerStore(), cacheWrites: make(chan []byte, 4), logs: &bytes.Buffer{}}
+	env := &insightTestEnv{store: newFakeLedgerStore(), cacheWrites: make(chan persistedInsight, 4), logs: &bytes.Buffer{}}
 	useFakeLedger(t, env.store)
 
 	origLogOut := insightLogOut
@@ -475,8 +482,8 @@ func newInsightTestEnv(t *testing.T) *insightTestEnv {
 
 	insightMemCache.Clear()
 	insightCacheRead = func(context.Context, string, string) string { return "" }
-	insightCacheWrite = func(_ context.Context, _, _ string, data []byte, _ string) error {
-		env.cacheWrites <- bytes.Clone(data)
+	insightCacheWrite = func(_ context.Context, _, path string, data []byte, _ string) error {
+		env.cacheWrites <- persistedInsight{path: path, data: bytes.Clone(data)}
 		return nil
 	}
 	env.stubGeneration(func() (insightGeneration, error) {
@@ -627,7 +634,7 @@ func TestInsightHandlerGeneratesPersistsAndMeters(t *testing.T) {
 	}
 
 	var payload map[string]any
-	if err := json.Unmarshal(env.lastPersisted, &payload); err != nil {
+	if err := json.Unmarshal(env.lastPersisted.data, &payload); err != nil {
 		t.Fatalf("persisted payload is not valid JSON: %v", err)
 	}
 	if payload["content"] != "generated" {
