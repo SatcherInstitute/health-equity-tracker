@@ -1,5 +1,5 @@
 import { getDefaultStore } from 'jotai'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
 import { activeHashIdAtom } from '../sharedSettingsState'
 import { useScrollToHash } from './useScrollToHash'
@@ -27,25 +27,20 @@ export function useStepObserver(
   const [recentlyClicked, setRecentlyClicked] =
     useState<ScrollableHashId | null>(null)
 
-  function handleInteraction() {
-    // any time the user interacts, cancel pending automated scrolling
+  const handleInteraction = useCallback(() => {
     setRecentlyClicked(null)
-  }
+  }, [])
 
   useEffect(() => {
-    // if user scrolls or clicks, go back to tracking scroll position in the table of contents
-    function watchScroll() {
-      window.addEventListener('wheel', handleInteraction)
-      window.addEventListener('pointerdown', handleInteraction)
-      window.addEventListener('keydown', handleInteraction)
-    }
-    watchScroll()
+    window.addEventListener('wheel', handleInteraction)
+    window.addEventListener('pointerdown', handleInteraction)
+    window.addEventListener('keydown', handleInteraction)
     return () => {
       window.removeEventListener('wheel', handleInteraction)
       window.removeEventListener('pointerdown', handleInteraction)
       window.removeEventListener('keydown', handleInteraction)
     }
-  })
+  }, [handleInteraction])
 
   useEffect(() => {
     const store = getDefaultStore()
@@ -98,15 +93,14 @@ export function useStepObserver(
 
   const hashLink = location?.hash
   const hashId = hashLink.substring(1) || ''
-  const isKnownStep =
-    Boolean(hashLink) && stepIds.includes(hashId as ScrollableHashId)
+  const isScrollableHashId = (id: string): id is ScrollableHashId =>
+    (stepIds as string[]).includes(id)
+  const isKnownStep = Boolean(hashLink) && isScrollableHashId(hashId)
 
   useEffect(() => {
-    // updates to the URL or available stepIds results in recalculated focus for the Table of Contents
-
-    if (isKnownStep) {
+    if (isKnownStep && isScrollableHashId(hashId)) {
       setActiveId(hashId)
-      setRecentlyClicked(hashId as ScrollableHashId)
+      setRecentlyClicked(hashId)
       getDefaultStore().set(activeHashIdAtom, hashId)
     }
   }, [location?.hash, stepIds])
