@@ -102,8 +102,8 @@ const CompareBubbleChart: React.FC<CompareBubbleChartProps> = (props) => {
       if (svgRef.current && !svgRef.current.contains(e.target as Node))
         hideTooltip()
     }
-    window.addEventListener('touchstart', hideOnOutsideTouch)
-    window.addEventListener('wheel', hideTooltip)
+    window.addEventListener('touchstart', hideOnOutsideTouch, { passive: true })
+    window.addEventListener('wheel', hideTooltip, { passive: true })
     window.addEventListener('scroll', hideTooltip, { passive: true })
     return () => {
       window.removeEventListener('touchstart', hideOnOutsideTouch)

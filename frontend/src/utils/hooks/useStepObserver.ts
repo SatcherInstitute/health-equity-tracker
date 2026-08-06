@@ -32,7 +32,7 @@ export function useStepObserver(
   }, [])
 
   useEffect(() => {
-    window.addEventListener('wheel', handleInteraction)
+    window.addEventListener('wheel', handleInteraction, { passive: true })
     window.addEventListener('pointerdown', handleInteraction)
     window.addEventListener('keydown', handleInteraction)
     return () => {
