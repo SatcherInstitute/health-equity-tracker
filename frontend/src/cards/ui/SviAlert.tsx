@@ -1,4 +1,4 @@
-import { HashLink } from 'react-router-hash-link'
+import { Link } from 'react-router'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type { Fips } from '../../data/utils/Fips'
 import HetNotice from '../../styles/HetComponents/HetNotice'
@@ -59,9 +59,9 @@ function SviAlert(props: SviAlertProps) {
         <>
           This county has a <HetTerm>social vulnerability index</HetTerm> of{' '}
           <strong>{props.svi}</strong>; which indicates a{' '}
-          <HashLink to={`${METRICS_LINK as string}#svi`} className={color}>
+          <Link to={`${METRICS_LINK as string}#svi`} className={color}>
             <span className='font-bold'>{rating} level of vulnerability.</span>
-          </HashLink>
+          </Link>
         </>
       ) : (
         <>

@@ -1,4 +1,4 @@
-import { HashLink } from 'react-router-hash-link'
+import { Link } from 'react-router'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { MEDICARE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPhrma'
@@ -317,13 +317,13 @@ export default function MedicareMedicationLink() {
               </li>
               <li>
                 <i>Unknown</i> we represent on our{' '}
-                <HashLink
+                <Link
                   to={
                     '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&demo=race_and_ethnicity#unknown-demographic-map'
                   }
                 >
                   Unknown Demographic Map
-                </HashLink>
+                </Link>
               </li>
             </ul>
 

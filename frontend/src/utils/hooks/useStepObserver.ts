@@ -1,5 +1,7 @@
+import { getDefaultStore } from 'jotai'
 import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router'
+import { activeHashIdAtom } from '../sharedSettingsState'
 import { useScrollToHash } from './useScrollToHash'
 
 export type ScrollableHashId =
@@ -18,7 +20,7 @@ export function useStepObserver(
   stepIds: ScrollableHashId[],
   isScrolledToTop: boolean,
 ) {
-  const location: any = useLocation()
+  const location = useLocation()
 
   const observer = useRef<IntersectionObserver | null>(null)
   const [activeId, setActiveId] = useState('')
@@ -26,9 +28,8 @@ export function useStepObserver(
     useState<ScrollableHashId | null>(null)
 
   function handleInteraction() {
-    // any time the user interacts, cancel pending automated scrolling and erase any incoming #hash from the URL
+    // any time the user interacts, cancel pending automated scrolling
     setRecentlyClicked(null)
-    location.hash = ''
   }
 
   useEffect(() => {
@@ -47,20 +48,35 @@ export function useStepObserver(
   })
 
   useEffect(() => {
+    const store = getDefaultStore()
+
     const handleObserver = (entries: any) => {
       entries.forEach((entry: any) => {
         // when page is scrolled to the top, don't track scroll position and remove any hash
         if (isScrolledToTop) {
           setActiveId('')
-          window.history.replaceState(
-            '',
-            document.title,
-            window.location.pathname + window.location.search,
-          )
+          if (window.location.hash) {
+            window.history.replaceState(
+              '',
+              document.title,
+              window.location.pathname + window.location.search,
+            )
+            store.set(activeHashIdAtom, null)
+          }
         } else if (entry?.isIntersecting) {
           // prefer a recently clicked id, otherwise set to the observed "in view" id
           const preferredId = recentlyClicked ?? entry.target.id
           setActiveId(preferredId)
+          // Passive scroll-spy: keep the URL hash in sync with the visible section
+          // so copying the URL after scrolling still deep-links to the right card.
+          // Only fires when the user is scrolling freely (not during a programmatic
+          // settle triggered by a click or deep link).
+          if (!recentlyClicked && preferredId) {
+            if (window.location.hash !== `#${preferredId}`) {
+              window.history.replaceState(undefined, '', `#${preferredId}`)
+            }
+            store.set(activeHashIdAtom, preferredId)
+          }
         }
       })
     }
@@ -82,14 +98,15 @@ export function useStepObserver(
 
   const hashLink = location?.hash
   const hashId = hashLink.substring(1) || ''
-  const isKnownStep = Boolean(hashLink) && stepIds.includes(hashId)
+  const isKnownStep =
+    Boolean(hashLink) && stepIds.includes(hashId as ScrollableHashId)
 
   useEffect(() => {
     // updates to the URL or available stepIds results in recalculated focus for the Table of Contents
 
     if (isKnownStep) {
       setActiveId(hashId)
-      setRecentlyClicked(hashId)
+      setRecentlyClicked(hashId as ScrollableHashId)
     }
   }, [location?.hash, stepIds])
 
