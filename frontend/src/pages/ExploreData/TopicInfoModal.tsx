@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai'
-import { HashLink } from 'react-router-hash-link'
+import { Link } from 'react-router'
 import HetResponsiveDialog from '../../styles/HetComponents/HetResponsiveDialog'
 import { useParamState } from '../../utils/hooks/useParamState'
 import {
@@ -35,8 +35,8 @@ export default function TopicInfoModal() {
       <DataTypeDefinitionsList />
       <p className='mt-4 border-t pt-4 text-smallest'>
         For specific calculations and more detailed information, visit our{' '}
-        <HashLink to={methodologyLink}>methodology</HashLink>, or view the{' '}
-        <HashLink to={DATA_CATALOG_PAGE_LINK}>source data</HashLink>.
+        <Link to={methodologyLink}>methodology</Link>, or view the{' '}
+        <Link to={DATA_CATALOG_PAGE_LINK}>source data</Link>.
       </p>
     </HetResponsiveDialog>
   )
