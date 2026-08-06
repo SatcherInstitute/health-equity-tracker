@@ -1,7 +1,8 @@
 import json
 import os
+import pandas as pd
 import pytest
-from datasources.graphql_ahr import GraphQlAHRData, ADULT_AGE_GROUPS_18PLUS
+from datasources.graphql_ahr import GraphQlAHRData, ADULT_AGE_GROUPS_18PLUS, parse_raw_data, AGE_GROUPS_TO_STANDARD
 from ingestion import standardized_columns as std_col
 from ingestion.constants import ALL_VALUE
 from ingestion.standardized_columns import STATE_FIPS_COL
@@ -176,3 +177,54 @@ def testAdultPopSharesByAgeSumTo100(_mock_fetch: mock.MagicMock, mock_add_df_to_
 
     all_row = df[df[std_col.AGE_COL] == ALL_VALUE]
     assert all_row[std_col.AHR_18PLUS_POPULATION_RAW].iloc[0] == adult_rows[std_col.AHR_POPULATION_RAW].sum()
+
+
+def _smm_row(measure: str, value: float):
+    return {
+        std_col.TIME_PERIOD_COL: "2021",
+        "measure": measure,
+        std_col.STATE_POSTAL_COL: "US",
+        "value": value,
+    }
+
+
+def test_smm_race_parse_and_per_10k_conversion():
+    """Severe maternal morbidity is reported per 10,000 deliveries; parse_raw_data
+    must multiply by 10 to reach per 100k, extract the race group from the measure
+    name, and map the bare 'Severe Maternal Morbidity' row to ALL."""
+    df = pd.DataFrame(
+        [
+            _smm_row("Severe Maternal Morbidity", 80.0),
+            _smm_row("Severe Maternal Morbidity - Black", 140.0),
+            _smm_row("Severe Maternal Morbidity - White", 70.0),
+            _smm_row("Severe Maternal Morbidity - Asian/Pacific Islander", 60.0),
+        ]
+    )
+    out = parse_raw_data(df, std_col.RACE_OR_HISPANIC_COL)
+
+    rate_col = "severe_maternal_morbidity_per_100k"
+    by_group = dict(zip(out[std_col.RACE_OR_HISPANIC_COL], out[rate_col]))
+    assert by_group[std_col.ALL_VALUE] == 800.0
+    assert by_group["Black"] == 1400.0
+    assert by_group["White"] == 700.0
+    assert by_group["Asian/Pacific Islander"] == 600.0
+
+
+def test_smm_age_buckets_standardize():
+    """The reproductive-age SMM buckets must survive name extraction and map to the
+    tracker's standard age labels."""
+    df = pd.DataFrame(
+        [
+            _smm_row("Severe Maternal Morbidity - Age Less Than 20 Years", 90.0),
+            _smm_row("Severe Maternal Morbidity - Ages 25-29", 75.0),
+            _smm_row("Severe Maternal Morbidity - Age 35+", 120.0),
+        ]
+    )
+    out = parse_raw_data(df, std_col.AGE_COL)
+    out[std_col.AGE_COL] = out[std_col.AGE_COL].replace(AGE_GROUPS_TO_STANDARD)
+
+    rate_col = "severe_maternal_morbidity_per_100k"
+    by_age = dict(zip(out[std_col.AGE_COL], out[rate_col]))
+    assert by_age["<20"] == 900.0
+    assert by_age["25-29"] == 750.0
+    assert by_age["35+"] == 1200.0

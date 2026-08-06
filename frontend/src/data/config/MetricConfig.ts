@@ -34,7 +34,10 @@ import {
   HIV_PREP_METRICS,
   HIV_STIGMA_METRICS,
 } from './MetricConfigHivCategory'
-import { MATERNAL_HEALTH_METRICS } from './MetricConfigMaternalHealth'
+import {
+  MATERNAL_MORTALITY_METRICS,
+  SEVERE_MATERNAL_MORBIDITY_METRICS,
+} from './MetricConfigMaternalHealth'
 import {
   INCARCERATION_METRICS,
   VOTER_PARTICIPATION_METRICS,
@@ -90,7 +93,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   medicare_cardiovascular: PHRMA_CARDIOVASCULAR_METRICS,
   medicare_hiv: PHRMA_HIV_METRICS,
   medicare_mental_health: PHRMA_MENTAL_HEALTH_METRICS,
-  maternal_mortality: MATERNAL_HEALTH_METRICS,
+  maternal_mortality: MATERNAL_MORTALITY_METRICS,
+  severe_maternal_morbidity: SEVERE_MATERNAL_MORBIDITY_METRICS,
   cancer_screening: PHRMA_BRFSS_CANCER_SCREENING_METRICS,
   cancer_incidence: CDC_CANCER_INCIDENCE_METRICS,
 }

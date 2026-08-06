@@ -31,6 +31,19 @@ AHR_MEASURES_TO_RATES_MAP_ALL_AGES = {
     "Suicide": "suicide_per_100k",
 }
 
+# Severe maternal morbidity (AHR measure 18022 and its race/age variants; source:
+# AHRQ HCUP State Inpatient Database via HRSA MCHB Federally Available Data).
+# AHR publishes this as a rate per 10,000 delivery hospitalizations. We present it
+# per 100,000 for consistency with the tracker's per_100k convention and the sibling
+# maternal_mortality metric — see PER_10K_TO_PER_100K_TOPICS for the x10 conversion.
+# Rate-only: SMM's true denominator is deliveries, which this pipeline does not have
+# by race, so it is deliberately kept out of the RATE_TO_RAW / RAW_TO_SHARE maps in
+# graphql_ahr.py. No _estimated_total or _pct_share is derived (a population-based
+# share would use ACS general population — wrong basis, and spans both sexes).
+AHR_MEASURES_TO_RATES_MAP_MATERNAL = {
+    "Severe Maternal Morbidity": "severe_maternal_morbidity_per_100k",
+}
+
 AHR_MEASURES_TO_RATES_MAP_CITIZENS_18PLUS = {
     "Voter Participation (Presidential)": "voter_participation_pct_rate",
 }
@@ -44,6 +57,7 @@ AHR_BASE_MEASURES_TO_RATES_MAP = {
     **AHR_MEASURES_TO_RATES_MAP_CITIZENS_18PLUS,
     **AHR_MEASURES_TO_RATES_MAP_MEDICARE_18PLUS,
     **AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
+    **AHR_MEASURES_TO_RATES_MAP_MATERNAL,
 }
 
 # AHR provides case per 100; HET needs per 100k
@@ -56,6 +70,11 @@ PCT_RATE_TO_PER_100K_TOPICS = [
     "Diabetes",
     "Frequent Mental Distress",
     "Non-medical Drug Use",
+]
+
+# AHR provides these per 10,000; HET needs per 100k (x10)
+PER_10K_TO_PER_100K_TOPICS = [
+    "Severe Maternal Morbidity",
 ]
 
 
