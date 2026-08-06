@@ -34,7 +34,7 @@ export function useStepObserver(
   useEffect(() => {
     // if user scrolls or clicks, go back to tracking scroll position in the table of contents
     function watchScroll() {
-      window.addEventListener('wheel', handleInteraction)
+      window.addEventListener('wheel', handleInteraction, { passive: true })
       window.addEventListener('pointerdown', handleInteraction)
       window.addEventListener('keydown', handleInteraction)
     }
