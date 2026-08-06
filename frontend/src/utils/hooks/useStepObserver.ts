@@ -107,6 +107,7 @@ export function useStepObserver(
     if (isKnownStep) {
       setActiveId(hashId)
       setRecentlyClicked(hashId as ScrollableHashId)
+      getDefaultStore().set(activeHashIdAtom, hashId)
     }
   }, [location?.hash, stepIds])
 
