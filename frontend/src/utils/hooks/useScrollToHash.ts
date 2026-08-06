@@ -70,9 +70,9 @@ export function scrollToHashTarget(
   let lastGoal = measureGoal()
 
   const scroll = () => {
-    window.scrollTo({
-      top: measureGoal(),
+    target.scrollIntoView({
       behavior: animating ? 'smooth' : 'instant',
+      block: 'start',
     })
   }
 

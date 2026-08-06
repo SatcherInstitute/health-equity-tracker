@@ -8,7 +8,6 @@ let originalScrollIntoView: typeof Element.prototype.scrollIntoView
 
 beforeEach(() => {
   observers.length = 0
-  vi.stubGlobal('scrollTo', vi.fn())
   vi.stubGlobal(
     'ResizeObserver',
     class FakeResizeObserver {
