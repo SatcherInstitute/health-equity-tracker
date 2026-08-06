@@ -8,9 +8,9 @@ import (
 	"time"
 )
 
-// Outcomes of a single /fetch-ai-insight request. Every request records exactly
-// one of these, so cache hit rate is a ratio over the three cache-relevant ones
-// and needs no separate counter.
+// Outcomes of a single /insight request. Every request records exactly one of
+// these, so cache hit rate is a ratio over the three cache-relevant ones and
+// needs no separate counter.
 const (
 	outcomeMemoryHit   = "memory_hit"
 	outcomeGCSHit      = "gcs_hit"
@@ -40,7 +40,6 @@ const (
 // that produced it, so "no insight was shown" can be told apart from "the cap was
 // reached" without reading the surrounding lines.
 const (
-	reasonMissingPrompt   = "missing_prompt"
 	reasonPromptTooLarge  = "prompt_too_large"
 	reasonBadDescriptor   = "invalid_descriptor"
 	reasonNoCacheBucket   = "no_cache_bucket"
