@@ -34,6 +34,10 @@
 		{
 			"measure": "Voter Participation (Presidential)",
 			"ids": ["17542"]
+		},
+		{
+			"measure": "Severe Maternal Morbidity",
+			"ids": ["18022"]
 		}
 	],
 	"age": [
@@ -102,6 +106,16 @@
 				"Ages 25-34": ["17546"],
 				"Ages 35-44": ["17547"],
 				"Ages 45-64": ["17548"]
+			}
+		},
+		{
+			"measure": "Severe Maternal Morbidity",
+			"demographics": {
+				"Age Less Than 20 Years": ["18030"],
+				"Ages 20-24": ["18031"],
+				"Ages 25-29": ["18032"],
+				"Ages 30-34": ["18033"],
+				"Age 35+": ["18034"]
 			}
 		}
 	],
@@ -205,6 +219,17 @@
 				"Black": ["17550"],
 				"Hispanic": ["17552"],
 				"White": ["17551"]
+			}
+		},
+		{
+			"measure": "Severe Maternal Morbidity",
+			"demographics": {
+				"American Indian/Alaska Native": ["18039"],
+				"Asian/Pacific Islander": ["18040"],
+				"Black": ["18041"],
+				"Hispanic": ["18042"],
+				"Other Race": ["18043"],
+				"White": ["18044"]
 			}
 		}
 	],

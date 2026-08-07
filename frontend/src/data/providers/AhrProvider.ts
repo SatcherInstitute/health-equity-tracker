@@ -40,6 +40,7 @@ export const AHR_CONDITIONS: DropdownVarId[] = [
   'excessive_drinking',
   'frequent_mental_distress',
   'preventable_hospitalizations',
+  'severe_maternal_morbidity',
   'substance',
   'suicide',
   'voter_participation',
@@ -81,6 +82,7 @@ export const AHR_METRICS: MetricId[] = [
   'non_medical_drug_use_per_100k',
   'non_medical_drug_use_estimated_total',
   'preventable_hospitalizations_per_100k',
+  'severe_maternal_morbidity_per_100k',
 ]
 
 export const AHR_VOTER_AGE_METRICS: MetricId[] = [
