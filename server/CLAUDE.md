@@ -4,8 +4,8 @@ Combined Go HTTP server. A single binary and a single Docker image (~15 MB) serv
 
 - React static files with correct Cache-Control headers and SPA fallback
 - GCS dataset and metadata endpoints
-- AI insight generation (direct Gemini API call, no proxy hop) with usage budgets, from
-  either caller-supplied prompt text or a server-rendered view descriptor
+- AI insight generation (direct Gemini API call, no proxy hop) with usage budgets,
+  driven by a server-rendered view descriptor
 - Insight cache and flagging (direct GCS reads/writes — no inter-service HTTP)
 - Webflow news feed with TTL cache
 - Admin insight management (requires `Authorization: Bearer $ADMIN_TOKEN`)
@@ -32,7 +32,7 @@ go test ./...
 | `INSIGHTS_CACHE_BUCKET` | No | - | GCS bucket for persisted AI insight cache |
 | `FLAGGED_INSIGHTS_BUCKET` | No | - | GCS bucket for flagged insight records |
 | `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) |
-| `GEMINI_API_KEY` | No | - | Required for `/fetch-ai-insight`. Unset disables generation; cached insights still serve |
+| `GEMINI_API_KEY` | No | - | Required for AI insight generation. Unset disables generation; cached insights still serve |
 | `GEMINI_MODEL` | No | `gemini-3.1-flash-lite` | Gemini model used for insight generation |
 | `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `400` | Daily generation ceiling, tracked in the usage ledger |
 | `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `8000` | Monthly generation ceiling, tracked in the usage ledger |
@@ -49,23 +49,22 @@ The server handles all traffic on a single port:
 
 - **Data requests** (`/dataset`, `/metadata`): served from GCS via a 150 MB byte-aware LRU
   cache with a 2-hour TTL. NDJSON files are converted to JSON arrays on the fly.
-- **AI insights** (`/fetch-ai-insight`): checks a `sync.Map` in-process cache, then the GCS
-  persistent cache, then calls the Gemini API directly and writes back to GCS. Generation is
-  metered before the call against daily and monthly ledgers under `budget/` in the insights cache
-  bucket, updated by compare-and-swap. When a ceiling is reached, the ledger cannot be written,
-  or an `insights-generation-disabled` object exists in that bucket, the endpoint returns
-  `{"unavailable": true}` and the frontend renders no insight section. The route is additionally
-  scoped to the origins in `INSIGHT_ALLOWED_ORIGINS` and rate limited per client.
-- **Insight descriptors** (`/insight`): the same flow, but the caller posts what the view is
-  showing (kind, hash ID, topic, location, metric configs, rendered rows, URL pathname and
-  params) instead of prompt text. The server renders the prompt from those templates and
-  derives the cache key from the rendered text, so wording and key derivation live in one
-  place: a template edit takes effect without a client deploy, and a client cannot mint a key
-  that disagrees with the prompt it is for. `{"preview": true}` stops after rendering and
-  returns `{"cacheKey","prompt"}` without consulting the cache, reserving a slot, or calling
-  the provider, which is how a client checks the server renders the text it expects. The
-  generating path returns `{"content","cacheKey"}`; the key rides along because flagging needs
-  it, and the prompt does not because it is up to 30 KB the client has no use for.
+- **AI insights** (`/insight`): the caller posts what the view is showing (kind, hash ID,
+  topic, location, metric configs, rendered rows, URL pathname and params). The server renders
+  the prompt from those templates, derives the cache key from the rendered text, then checks a
+  `sync.Map` in-process cache, then the GCS persistent cache, then calls the Gemini API
+  directly and writes back to GCS. Wording and key derivation live in one place: a template
+  edit takes effect without a client deploy, and a client cannot mint a key that disagrees with
+  the prompt it is for. Generation is metered before the call against daily and monthly ledgers
+  under `budget/` in the insights cache bucket, updated by compare-and-swap. When a ceiling is
+  reached, the ledger cannot be written, or an `insights-generation-disabled` object exists in
+  that bucket, the endpoint returns `{"unavailable": true}` and the frontend renders no insight
+  section. The route is scoped to the origins in `INSIGHT_ALLOWED_ORIGINS` and rate limited per
+  client. `{"preview": true}` stops after rendering and returns `{"cacheKey","prompt"}` without
+  consulting the cache, reserving a slot, or calling the provider, which is how a client checks
+  the server renders the text it expects. The generating path returns `{"content","cacheKey"}`;
+  the key rides along because flagging needs it, and the prompt does not because it is up to
+  30 KB the client has no use for.
 - **Flagging** (`/flag-insight`): writes a flag record to GCS, deletes the cached insight, and
   clears the in-process `sync.Map` entry — all in the same process with no HTTP hops.
 - **News** (`/het-news`): fetches from the Webflow CDN API with a 5-minute TTL cache (tags
@@ -78,8 +77,8 @@ The server handles all traffic on a single port:
 
 ## Insight request logs
 
-Every `/fetch-ai-insight` and `/insight` request emits exactly one JSON line to stdout, which Cloud
-Run ships to Cloud Logging as a structured payload under `jsonPayload.insight`. That
+Every `/insight` request emits exactly one JSON line to stdout, which Cloud Run ships to
+Cloud Logging as a structured payload under `jsonPayload.insight`. That
 line is the only reporting surface for this feature. **The usage ledger is not a
 reporting surface**: `reserveGeneration` writes it before the provider call so it can
 refuse a generation, and it stays write-only. Cache hits in particular must never be
@@ -111,8 +110,7 @@ object and hits are the hot path.
 
 `reason` narrows the non-serving outcomes: `ceiling_reached`, `generation_disabled`,
 `no_api_key`, `no_cache_bucket`, `ledger_error`, `no_content`, `provider_quota`,
-`provider_error`, `suppression_check`, `missing_prompt`, `prompt_too_large`,
-`invalid_descriptor`.
+`provider_error`, `suppression_check`, `prompt_too_large`, `invalid_descriptor`.
 
 `reserved` is true when the request claimed a slot against the ceilings. **This is not
 the same as `outcome="generated"`**, and the difference is what makes the volume query
@@ -128,9 +126,9 @@ fields that answer that.
 
 **These strings are an interface.** The queries below and the alert filter match on
 them literally, so renaming one silently returns fewer rows rather than failing.
-`TestInsightRequestLogRecordsEveryOutcome` pins the `/fetch-ai-insight` outcomes and
-reasons along with each one's severity and `reserved` value; `TestInsightHandlerLogOutcomes`
-pins the two the descriptor endpoint adds, `preview` and `invalid_descriptor`.
+`TestInsightRequestLogRecordsEveryOutcome` pins the `/insight` outcomes and reasons
+along with each one's severity and `reserved` value; `TestInsightHandlerLogOutcomes`
+pins `preview` and `invalid_descriptor`.
 
 ### Queries
 
@@ -307,19 +305,15 @@ So the committed set is a direct readout of which input shapes the endpoint is k
 to handle, and a new surface (multimap, say) is covered by adding a fixture rather
 than by asserting coverage in prose.
 
-Two harnesses render the same inputs and must produce the same bytes:
-
 ```bash
-cd server && go test -run TestInsightPromptFixtures ./...   # Go, the served path
-
-cd frontend
-npx vitest run src/utils/insightPromptFixtures.test.ts    # check
-UPDATE_INSIGHT_PROMPTS=1 npx vitest run src/utils/insightPromptFixtures.test.ts  # accept a change
+cd server
+go test -run TestInsightPromptFixtures ./...                # check
+go test -run TestInsightPromptFixtures ./... -args -update  # accept a change
 ```
 
-The TypeScript templates remain the source of truth until the frontend cuts over,
-so `UPDATE_INSIGHT_PROMPTS=1` regenerates the `.prompt.txt` files from them and the
-Go test then has to agree. Only the frontend harness writes.
+These templates are the only ones that exist. The browser posts a descriptor and
+renders nothing itself, so a wording change ships with the server and needs no
+client deploy.
 
 It is deterministic and offline: no API key, no network, no clock. A template
 edit shows up as a diff in the `.prompt.txt` files, and **that diff is the thing
@@ -327,9 +321,9 @@ to review.** Since #5029/#5053 the cache key is a hash of the rendered prompt an
 template text appears in every prompt, so the fixtures a change moves are a
 direct readout of how much of the cache it displaces.
 
-The fixtures deliberately contain no TypeScript-only types, which is what let the
-Go port be checked rather than trusted. Two things the port had to get right, and
-that any template change still has to preserve:
+Every already-cached insight was keyed off text the browser rendered, so two
+JavaScript behaviors are frozen into these templates and any change still has to
+preserve them:
 
 - **Number formatting must match exactly.** JavaScript renders `4.0` as `4`,
   `-0` as `0`, and exponents unpadded (`1.5e-7`, not `1.5e-07`); the committed

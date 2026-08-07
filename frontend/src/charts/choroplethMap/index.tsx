@@ -114,7 +114,7 @@ const ChoroplethMap = ({
       }
     }
     window.addEventListener('click', handleOutsideClick)
-    window.addEventListener('touchmove', hideTooltip)
+    window.addEventListener('touchmove', hideTooltip, { passive: true })
     return () => {
       window.removeEventListener('click', handleOutsideClick)
       window.removeEventListener('touchmove', hideTooltip)

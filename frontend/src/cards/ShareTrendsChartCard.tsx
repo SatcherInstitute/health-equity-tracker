@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { HashLink } from 'react-router-hash-link'
+import { Link } from 'react-router'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { TrendsChart } from '../charts/trendsChart/Index'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
@@ -285,9 +285,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 {props.dataTypeConfig.fullDisplayName} as experienced by
                 different demographic groups compared to their relative shares
                 of the total population. Read more about this calculation in our{' '}
-                <HashLink to={`${METHODOLOGY_PAGE_LINK}#metrics`}>
-                  methodology
-                </HashLink>
+                <Link to={`${METHODOLOGY_PAGE_LINK}#metrics`}>methodology</Link>
                 .
               </HetNotice>
             )}

@@ -148,13 +148,21 @@ The preview URL is deterministic from the PR number — no need to fetch a comme
 https://deploy-preview-{number}--health-equity-tracker.netlify.app
 ```
 
-Identify the single most useful deep-link route that shows the core feature. Append URL params so the reviewer lands directly on the changed UI. Record the full URL for Step 6.
+Identify the single most useful deep-link route that shows the core feature. Append URL params so the reviewer lands directly on the changed UI — including any param that opens the specific card, panel, or modal the PR touches (`report-insight`, `topic-info`, `multiple-maps`, a `#card-id` hash), so the reviewer never has to click their way there.
 
 **Never guess route strings.** All app routes are defined as constants in `frontend/src/utils/internalRoutes.ts`. Look up the correct path there before constructing the URL:
 
 ```bash
 grep -n "PAGE_LINK\|_PATH\|_ROUTE" frontend/src/utils/internalRoutes.ts
 ```
+
+**Write the URL to a file immediately.** Holding it only in your head is how it goes missing from the final body — the Step 6 template gets filled in from scratch and the Preview line silently disappears:
+
+```bash
+echo "<full deep link>" > /tmp/pr-preview-url.txt
+```
+
+Step 6 reads this file rather than reconstructing the URL. If the file is missing when Step 6 runs, that is a bug in this run — go back and build it.
 
 ---
 
@@ -176,6 +184,8 @@ If the merge produces conflicts: stop, print the conflicting files, and ask the 
 ---
 
 ## Step 3 — Evaluate and address code review feedback
+
+**This step is never skipped, and never skipped because the PR looks small or the flagged code was written minutes ago.** Bot reviewers post asynchronously, so a PR that had no comments when the run started often has them by now. Step 6 will not let the body be written while a thread is still unresolved.
 
 Fetch all reviews and inline comments on the PR:
 
@@ -413,6 +423,15 @@ Carry the final audited checklist into Step 6.
 
 ## Step 6 — Update the PR title and description
 
+**First, confirm no review thread is still open.** Reviews land asynchronously, so a bot may have posted since Step 3 ran:
+
+```bash
+gh api graphql -f query='{ repository(owner: "SatcherInstitute", name: "health-equity-tracker") { pullRequest(number: <number>) { reviewThreads(first: 50) { nodes { id isResolved comments(first: 1) { nodes { databaseId body } } } } } } }' \
+  --jq '[.data.repository.pullRequest.reviewThreads.nodes[] | select(.isResolved | not)] | length'
+```
+
+If this is anything but `0`, go back to Step 3 and work the open threads before writing the body. A declined finding still needs its reply posted; only a thread that was answered may stay open, and the reply must already be there.
+
 The commit list came from Step 1 and the diff from Step 4. You should need no new calls here; if a commit landed since Step 1, re-run just `git log origin/main..HEAD --oneline`.
 
 Update the PR title (under 70 chars) and body. **Read the existing PR body first** (already fetched in Step 1). Use it as the starting point:
@@ -453,8 +472,44 @@ Use this template:
 **Preview line rules:**
 - *Frontend bucket only* — a backend-only PR has no UI to preview, so **omit the Preview line entirely** rather than linking a preview that shows nothing changed
 - Always the first line of the body so reviewers can click straight to the feature
-- The PR number is always known at this point — construct the URL as `https://deploy-preview-{number}--health-equity-tracker.netlify.app`; never omit it or use a placeholder
-- One deep link with the URL params needed to land directly on the changed UI (e.g. `?mls=1.hiv-3.06&mlp=disparity`)
+- Use the URL recorded in `/tmp/pr-preview-url.txt` by Step 2b. Do not retype it from memory
+- One deep link with the URL params needed to land directly on the changed UI, including whatever opens the specific card or panel (e.g. `?mls=1.hiv-3.06&mlp=disparity&report-insight=true`)
+
+**The preview link must be verified before the body is written.** A link that 404s, or that lands on the report without opening the thing the PR changed, is worse than no link — the reviewer clicks it, sees nothing different, and assumes the PR does nothing. HTTP status alone proves nothing here: this is an SPA, so every path returns 200, including misspelled ones. Load it and assert the changed UI is on screen.
+
+Wait for Netlify to publish the preview for the current head commit, then check it:
+
+```bash
+# pipefail so a failing `gh pr checks` isn't masked by grep's exit status —
+# the Netlify line prints either way, including when the deploy failed.
+set -o pipefail
+gh pr checks <number> --watch --interval 15 --fail-fast 2>&1 | grep -i netlify || {
+  echo "Netlify preview did not publish cleanly — do not link it yet." >&2
+}
+
+cat > /tmp/check-preview.mjs <<'EOF'
+import { chromium } from '@playwright/test'
+const [url, needle] = process.argv.slice(2)
+const browser = await chromium.launch()
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
+await page.goto(url, { waitUntil: 'domcontentloaded' })
+let ok = true
+try {
+  await page.getByText(needle, { exact: false }).first()
+    .waitFor({ state: 'visible', timeout: 45000 })
+} catch { ok = false }
+console.log({ url, needle, visible: ok })
+await page.screenshot({ path: '/tmp/preview-check.png' })
+await browser.close()
+process.exit(ok ? 0 : 1)
+EOF
+
+# Playwright resolves from frontend/node_modules, so run it from frontend/.
+# The needle is text that only appears when the changed UI is actually open.
+(cd frontend && node /tmp/check-preview.mjs "$(cat /tmp/pr-preview-url.txt)" "<distinctive on-screen text>")
+```
+
+Then look at `/tmp/preview-check.png` to confirm the reviewer lands where you intend. If the check fails, fix the params or route and re-verify — do not paste an unverified link and move on.
 
 **Summary rules:**
 - 3–5 bullets maximum; each one line
@@ -477,6 +532,19 @@ Write the body to `/tmp/pr-body.md`, appending any bot-generated blocks after th
 ```bash
 gh pr edit --title "<new title>" --body-file /tmp/pr-body.md
 ```
+
+Then read the body back off GitHub and confirm the Preview line actually survived. Checking the local file is not enough — verify what the PR now shows:
+
+```bash
+FIRST_LINE=$(gh pr view <number> --json body -q .body | head -1)
+PREVIEW_URL=$(cat /tmp/pr-preview-url.txt)
+case "$FIRST_LINE" in
+  '**Preview:**'*"$PREVIEW_URL"*) echo "OK: preview line intact" ;;
+  *) echo "FAIL: first line is not the verified Preview link: $FIRST_LINE" >&2 ;;
+esac
+```
+
+For a frontend-bucket PR this must print `OK`. Eyeballing the line is not enough: it has to start with `**Preview:**` and contain the exact URL Step 2b verified, since a link that was retyped or rebuilt from memory is the failure mode this gate exists to catch. On `FAIL`, re-add the link from `/tmp/pr-preview-url.txt`, re-apply with `gh pr edit`, and re-run the check. Do not report the PR as polished until it passes.
 
 Print the updated PR URL when done.
 

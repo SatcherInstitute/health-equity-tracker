@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"math"
 	"os"
 	"path/filepath"
@@ -9,11 +10,16 @@ import (
 	"testing"
 )
 
-// The fixtures in testdata/insight_prompts are the contract between the
-// browser's prompt builders and this port: the same inputs must render the same
-// text, byte for byte, because the insight cache key is a hash of that text.
-// Accept a change only by regenerating the fixtures on the frontend side
-// (UPDATE_INSIGHT_PROMPTS=1) and reviewing the resulting diff.
+// Regenerates the committed .prompt.txt files instead of comparing against them.
+// -update belongs to the test binary, not to go test, so it has to sit behind
+// -args or the package list stops being read as one:
+// go test -run TestInsightPromptFixtures ./... -args -update
+var updateInsightPrompts = flag.Bool("update", false, "rewrite the insight prompt fixtures")
+
+// The fixtures in testdata/insight_prompts pin the exact text sent to the model.
+// The insight cache key is a hash of that text, so the diff a template edit
+// produces here is a direct readout of how much of the cache it displaces.
+// Accept a change only by rerunning with -update and reviewing that diff.
 
 // A fixture is a descriptor, and the harness renders it through the same
 // renderInsightPrompt the endpoint runs. So these cases check the served path
@@ -40,14 +46,21 @@ func TestInsightPromptFixtures(t *testing.T) {
 				t.Fatal(err)
 			}
 			wantPath := strings.TrimSuffix(input, ".json") + ".prompt.txt"
-			want, err := os.ReadFile(wantPath)
-			if err != nil {
-				t.Fatal(err)
-			}
 
 			got, err := renderInsightPrompt(&fixture)
 			if err != nil {
 				t.Fatalf("render: %v", err)
+			}
+			if *updateInsightPrompts {
+				if err := os.WriteFile(wantPath, []byte(got), 0o644); err != nil {
+					t.Fatal(err)
+				}
+				return
+			}
+
+			want, err := os.ReadFile(wantPath)
+			if err != nil {
+				t.Fatal(err)
 			}
 			if got != string(want) {
 				t.Errorf("prompt does not match %s\n--- got ---\n%s\n--- want ---\n%s",

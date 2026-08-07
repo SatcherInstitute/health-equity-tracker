@@ -1,5 +1,5 @@
 import { useAtomValue } from 'jotai'
-import { HashLink } from 'react-router-hash-link'
+import { Link } from 'react-router'
 import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
@@ -106,7 +106,7 @@ export function Sources(props: SourcesProps) {
       <p className='w-full'>
         <>{optionalDefinition}</>
         <>{showNhFootnote ? 'Note. (NH) indicates ‘Non-Hispanic’. ' : ''}</>
-        View <HashLink to={methodologyLink}>methodology</HashLink>.
+        View <Link to={methodologyLink}>methodology</Link>.
       </p>
 
       <div

@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"net/http"
 	"net/http/httptest"
+	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 	"testing"
@@ -324,7 +326,7 @@ func TestInsightOriginOnlyMiddleware(t *testing.T) {
 		{"", http.StatusForbidden},
 	} {
 		reached = false
-		req := httptest.NewRequest(http.MethodPost, "/fetch-ai-insight", nil)
+		req := httptest.NewRequest(http.MethodPost, "/insight", nil)
 		if tc.origin != "" {
 			req.Header.Set("Origin", tc.origin)
 		}
@@ -396,7 +398,7 @@ func TestClientIP(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			req := httptest.NewRequest(http.MethodPost, "/fetch-ai-insight", nil)
+			req := httptest.NewRequest(http.MethodPost, "/insight", nil)
 			req.RemoteAddr = tt.remoteAddr
 			if tt.forwarded != "" {
 				req.Header.Set("X-Forwarded-For", tt.forwarded)
@@ -419,7 +421,7 @@ func TestInsightRateLimitMiddlewareReturns429(t *testing.T) {
 
 	var last int
 	for range insightRateBurst + 1 {
-		req := httptest.NewRequest(http.MethodPost, "/fetch-ai-insight", nil)
+		req := httptest.NewRequest(http.MethodPost, "/insight", nil)
 		req.Header.Set("X-Forwarded-For", "203.0.113.10")
 		rr := httptest.NewRecorder()
 		handler.ServeHTTP(rr, req)
@@ -499,21 +501,17 @@ func (e *insightTestEnv) stubGeneration(fn func() (insightGeneration, error)) {
 	}
 }
 
-// post drives the handler and, when a generation succeeded, waits for the
-// background persist before returning. Without that wait the goroutine can
-// outlive the test and reach the real GCS client.
-func (e *insightTestEnv) post(t *testing.T, body map[string]any) *httptest.ResponseRecorder {
+// post drives insightHandler with a card descriptor (overrides merged in) and,
+// when a generation succeeded, waits for the background persist before returning.
+func (e *insightTestEnv) post(t *testing.T, overrides map[string]any) *httptest.ResponseRecorder {
 	t.Helper()
-	data, err := json.Marshal(body)
-	if err != nil {
-		t.Fatalf("marshal body: %v", err)
+	body := cardDescriptorBody(t)
+	for k, v := range overrides {
+		body[k] = v
 	}
-	req := httptest.NewRequest(http.MethodPost, "/fetch-ai-insight", bytes.NewReader(data))
-	req.Header.Set("Content-Type", "application/json")
-	rr := httptest.NewRecorder()
 
 	before := e.upstream
-	fetchAIInsightHandler(rr, req)
+	rr := postDescriptor(t, body)
 
 	generated := e.upstream > before && rr.Code == http.StatusOK && decodeBody(t, rr)["content"] != nil
 	if generated {
@@ -524,6 +522,27 @@ func (e *insightTestEnv) post(t *testing.T, body map[string]any) *httptest.Respo
 		}
 	}
 	return rr
+}
+
+// cardInsightKey derives the cache key the card fixture descriptor resolves to,
+// without calling the handler or writing any log lines.
+func cardInsightKey(t *testing.T) string {
+	t.Helper()
+	raw, err := os.ReadFile(filepath.Join("testdata", "insight_prompts", "card_map_strong_disparity.json"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	var desc insightDescriptor
+	if err := json.Unmarshal(raw, &desc); err != nil {
+		t.Fatal(err)
+	}
+	desc.URLPathname = "/exploredata"
+	desc.URLParams = "mls=1.hiv-3.00&demo=race_and_ethnicity"
+	prompt, err := renderInsightPrompt(&desc)
+	if err != nil {
+		t.Fatal(err)
+	}
+	return sanitizeInsightKey(desc.cacheKey(prompt))
 }
 
 // setKillSwitch forces the operator off switch without a network check, by
@@ -600,37 +619,19 @@ func assertUnavailable(t *testing.T, rr *httptest.ResponseRecorder) {
 	}
 }
 
-func TestInsightHandlerRejectsMissingPrompt(t *testing.T) {
-	env := newInsightTestEnv(t)
-	rr := env.post(t, map[string]any{"cacheKey": "k"})
-	if rr.Code != http.StatusBadRequest {
-		t.Errorf("status = %d, want 400", rr.Code)
-	}
-}
-
-func TestInsightHandlerRejectsOversizePrompt(t *testing.T) {
-	env := newInsightTestEnv(t)
-	rr := env.post(t, map[string]any{
-		"prompt":   strings.Repeat("x", insightPromptMaxBytes+1),
-		"cacheKey": "oversize",
-	})
-	if rr.Code != http.StatusRequestEntityTooLarge {
-		t.Errorf("status = %d, want 413", rr.Code)
-	}
-	if env.upstream != 0 {
-		t.Error("an oversize prompt reached the provider")
-	}
-}
-
 func TestInsightHandlerGeneratesPersistsAndMeters(t *testing.T) {
 	env := newInsightTestEnv(t)
 
-	rr := env.post(t, map[string]any{"prompt": "describe this chart", "cacheKey": "chart-1"})
+	rr := env.post(t, nil)
 	if rr.Code != http.StatusOK {
 		t.Fatalf("status = %d, want 200", rr.Code)
 	}
-	if got := decodeBody(t, rr)["content"]; got != "generated" {
-		t.Errorf("content = %v, want %q", got, "generated")
+	got := decodeBody(t, rr)
+	if got["content"] != "generated" {
+		t.Errorf("content = %v, want %q", got["content"], "generated")
+	}
+	if got["cacheKey"] == nil {
+		t.Error("response is missing cacheKey")
 	}
 
 	var payload map[string]any
@@ -652,9 +653,10 @@ func TestInsightHandlerGeneratesPersistsAndMeters(t *testing.T) {
 
 func TestInsightHandlerServesMemoryCacheWithoutGenerating(t *testing.T) {
 	env := newInsightTestEnv(t)
-	insightMemCache.Store("warm", insightMemEntry{content: "from memory", ts: time.Now()})
+	key := cardInsightKey(t)
+	insightMemCache.Store(key, insightMemEntry{content: "from memory", ts: time.Now()})
 
-	rr := env.post(t, map[string]any{"prompt": "anything", "cacheKey": "warm"})
+	rr := env.post(t, nil)
 	if got := decodeBody(t, rr)["content"]; got != "from memory" {
 		t.Errorf("content = %v, want the cached entry", got)
 	}
@@ -665,9 +667,10 @@ func TestInsightHandlerServesMemoryCacheWithoutGenerating(t *testing.T) {
 
 func TestInsightHandlerDiscardsExpiredMemoryEntry(t *testing.T) {
 	env := newInsightTestEnv(t)
-	insightMemCache.Store("cold", insightMemEntry{content: "stale", ts: time.Now().Add(-insightMemTTL - time.Hour)})
+	key := cardInsightKey(t)
+	insightMemCache.Store(key, insightMemEntry{content: "stale", ts: time.Now().Add(-insightMemTTL - time.Hour)})
 
-	rr := env.post(t, map[string]any{"prompt": "anything", "cacheKey": "cold"})
+	rr := env.post(t, nil)
 	if got := decodeBody(t, rr)["content"]; got != "generated" {
 		t.Errorf("content = %v, want a freshly generated insight", got)
 	}
@@ -678,16 +681,17 @@ func TestInsightHandlerDiscardsExpiredMemoryEntry(t *testing.T) {
 
 func TestInsightHandlerServesPersistentCacheWithoutGenerating(t *testing.T) {
 	env := newInsightTestEnv(t)
+	key := cardInsightKey(t)
 	insightCacheRead = func(context.Context, string, string) string { return "from gcs" }
 
-	rr := env.post(t, map[string]any{"prompt": "anything", "cacheKey": "persisted"})
+	rr := env.post(t, nil)
 	if got := decodeBody(t, rr)["content"]; got != "from gcs" {
 		t.Errorf("content = %v, want the persisted entry", got)
 	}
 	if env.upstream != 0 {
 		t.Error("a persisted entry still triggered generation")
 	}
-	if _, ok := insightMemCache.Load("persisted"); !ok {
+	if _, ok := insightMemCache.Load(key); !ok {
 		t.Error("the persisted entry was not promoted into the memory cache")
 	}
 }
@@ -696,7 +700,7 @@ func TestInsightHandlerUnavailableWithoutLedgerBucket(t *testing.T) {
 	env := newInsightTestEnv(t)
 	t.Setenv("INSIGHTS_CACHE_BUCKET", "")
 
-	assertUnavailable(t, env.post(t, map[string]any{"prompt": "p", "cacheKey": "k"}))
+	assertUnavailable(t, env.post(t, nil))
 	if env.upstream != 0 {
 		t.Error("generation ran with no bucket to meter it")
 	}
@@ -708,7 +712,7 @@ func TestInsightHandlerUnavailableWhenGenerationDisabled(t *testing.T) {
 	killSwitchOn = true
 	killSwitchMu.Unlock()
 
-	assertUnavailable(t, env.post(t, map[string]any{"prompt": "p", "cacheKey": "k"}))
+	assertUnavailable(t, env.post(t, nil))
 	if env.upstream != 0 {
 		t.Error("generation ran while the off switch was engaged")
 	}
@@ -718,7 +722,7 @@ func TestInsightHandlerUnavailableWithoutAPIKey(t *testing.T) {
 	env := newInsightTestEnv(t)
 	t.Setenv("GEMINI_API_KEY", "")
 
-	assertUnavailable(t, env.post(t, map[string]any{"prompt": "p", "cacheKey": "k"}))
+	assertUnavailable(t, env.post(t, nil))
 	if env.upstream != 0 {
 		t.Error("generation ran with no API key configured")
 	}
@@ -739,7 +743,7 @@ func TestInsightHandlerStopsAtCeilings(t *testing.T) {
 			t.Setenv("INSIGHT_MAX_GENERATIONS_PER_DAY", tt.day)
 			t.Setenv("INSIGHT_MAX_GENERATIONS_PER_MONTH", tt.month)
 
-			assertUnavailable(t, env.post(t, map[string]any{"prompt": "p", "cacheKey": "k"}))
+			assertUnavailable(t, env.post(t, nil))
 			if env.upstream != 0 {
 				t.Error("generation ran past the ceiling")
 			}
@@ -751,7 +755,7 @@ func TestInsightHandlerFailsClosedWhenLedgerUnreadable(t *testing.T) {
 	env := newInsightTestEnv(t)
 	env.store.loadErr = errors.New("bucket unreachable")
 
-	assertUnavailable(t, env.post(t, map[string]any{"prompt": "p", "cacheKey": "k"}))
+	assertUnavailable(t, env.post(t, nil))
 	if env.upstream != 0 {
 		t.Error("generation ran without a usable ledger")
 	}
@@ -762,12 +766,13 @@ func TestInsightHandlerMapsProviderQuotaTo429(t *testing.T) {
 	env.stubGeneration(func() (insightGeneration, error) {
 		return insightGeneration{promptTokens: 12}, errInsightQuota
 	})
+	key := cardInsightKey(t)
 
-	rr := env.post(t, map[string]any{"prompt": "p", "cacheKey": "quota"})
+	rr := env.post(t, nil)
 	if rr.Code != http.StatusTooManyRequests {
 		t.Errorf("status = %d, want 429", rr.Code)
 	}
-	if _, cached := insightMemCache.Load("quota"); cached {
+	if _, cached := insightMemCache.Load(key); cached {
 		t.Error("a quota failure was cached")
 	}
 }
@@ -777,10 +782,11 @@ func TestInsightHandlerNeverCachesAnEmptyResult(t *testing.T) {
 	env.stubGeneration(func() (insightGeneration, error) {
 		return insightGeneration{promptTokens: 12, outputTokens: 0}, errInsightNoContent
 	})
+	key := cardInsightKey(t)
 
-	assertUnavailable(t, env.post(t, map[string]any{"prompt": "p", "cacheKey": "blocked"}))
+	assertUnavailable(t, env.post(t, nil))
 
-	if _, cached := insightMemCache.Load("blocked"); cached {
+	if _, cached := insightMemCache.Load(key); cached {
 		t.Error("a blank insight was stored in the memory cache")
 	}
 	select {
@@ -801,26 +807,9 @@ func TestInsightHandlerReturns500OnProviderError(t *testing.T) {
 		return insightGeneration{}, errors.New("upstream exploded")
 	})
 
-	rr := env.post(t, map[string]any{"prompt": "p", "cacheKey": "boom"})
+	rr := env.post(t, nil)
 	if rr.Code != http.StatusInternalServerError {
 		t.Errorf("status = %d, want 500", rr.Code)
-	}
-}
-
-func TestInsightHandlerFallsBackToPromptAsCacheKey(t *testing.T) {
-	env := newInsightTestEnv(t)
-	var seen string
-	insightCacheRead = func(_ context.Context, _, key string) string {
-		seen = key
-		return ""
-	}
-
-	env.post(t, map[string]any{"prompt": "no key supplied"})
-	if seen != "no key supplied" {
-		t.Errorf("cache key = %q, want the prompt itself", seen)
-	}
-	if env.upstream != 1 {
-		t.Errorf("upstream calls = %d, want 1", env.upstream)
 	}
 }
 
@@ -833,7 +822,7 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 	tests := []struct {
 		name     string
 		setup    func(t *testing.T, env *insightTestEnv)
-		body     map[string]any
+		overrides map[string]any
 		outcome  string
 		reason   string
 		severity string
@@ -843,20 +832,6 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 		reserved bool
 	}{
 		{
-			name:     "missing prompt",
-			body:     map[string]any{"cacheKey": "k"},
-			outcome:  outcomeRejected,
-			reason:   reasonMissingPrompt,
-			severity: "INFO",
-		},
-		{
-			name:     "oversize prompt",
-			body:     map[string]any{"prompt": strings.Repeat("x", insightPromptMaxBytes+1)},
-			outcome:  outcomeRejected,
-			reason:   reasonPromptTooLarge,
-			severity: "INFO",
-		},
-		{
 			name:     "generated",
 			outcome:  outcomeGenerated,
 			severity: "INFO",
@@ -864,8 +839,8 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 		},
 		{
 			name: "memory cache hit",
-			setup: func(_ *testing.T, _ *insightTestEnv) {
-				insightMemCache.Store("k", insightMemEntry{content: "warm", ts: time.Now()})
+			setup: func(t *testing.T, _ *insightTestEnv) {
+				insightMemCache.Store(cardInsightKey(t), insightMemEntry{content: "warm", ts: time.Now()})
 			},
 			outcome:  outcomeMemoryHit,
 			severity: "INFO",
@@ -986,12 +961,8 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 			if tt.setup != nil {
 				tt.setup(t, env)
 			}
-			body := tt.body
-			if body == nil {
-				body = map[string]any{"prompt": "p", "cacheKey": "k", "topic": "hiv"}
-			}
 
-			env.post(t, body)
+			env.post(t, tt.overrides)
 
 			got := env.lastRequestEvent(t)
 			if got.Insight.Outcome != tt.outcome {
@@ -1017,7 +988,7 @@ func TestInsightRequestLogCarriesSpendInputsOnGeneration(t *testing.T) {
 		return insightGeneration{text: "generated", promptTokens: 1840, outputTokens: 96}, nil
 	})
 
-	env.post(t, map[string]any{"prompt": "p", "cacheKey": "k", "topic": "hiv"})
+	env.post(t, nil)
 
 	got := env.lastRequestEvent(t).Insight
 	if got.Model != "gemini-test-model" {
@@ -1026,8 +997,8 @@ func TestInsightRequestLogCarriesSpendInputsOnGeneration(t *testing.T) {
 	if got.PromptTokens != 1840 || got.OutputTokens != 96 {
 		t.Errorf("tokens = %d/%d, want 1840/96", got.PromptTokens, got.OutputTokens)
 	}
-	if got.Topic != "hiv" {
-		t.Errorf("topic = %q, want hiv", got.Topic)
+	if got.Topic != "HIV diagnoses" {
+		t.Errorf("topic = %q, want HIV diagnoses", got.Topic)
 	}
 	// Period usage rides along so a line is self-contained: how close this
 	// generation left the ceiling needs no second query against the ledger.
@@ -1052,7 +1023,7 @@ func TestInsightRequestLogTruncatesTopic(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			env := newInsightTestEnv(t)
-			env.post(t, map[string]any{"prompt": "p", "cacheKey": "k", "topic": tt.topic})
+			env.post(t, map[string]any{"topic": tt.topic})
 
 			got := env.lastRequestEvent(t).Insight.Topic
 			if len([]rune(got)) != insightTopicMaxLen {
@@ -1074,8 +1045,9 @@ func TestCeilingApproachWarnsExactlyOncePerPeriod(t *testing.T) {
 	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_MONTH", "1000")
 	t.Setenv("INSIGHT_CEILING_WARN_PERCENT", "80")
 
-	for i := range 10 {
-		env.post(t, map[string]any{"prompt": "p", "cacheKey": fmt.Sprintf("k%d", i)})
+	for range 10 {
+		insightMemCache.Clear() // each request must generate; same descriptor key would hit memcache
+		env.post(t, nil)
 	}
 
 	var warnings []loggedInsight

@@ -3,10 +3,7 @@ import type {
   MetricConfig,
 } from '../data/config/MetricConfigTypes'
 import { metricConfigFromDtConfig } from '../data/config/MetricConfigUtils'
-import {
-  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
-  type DemographicType,
-} from '../data/query/Breakdowns'
+import type { DemographicType } from '../data/query/Breakdowns'
 import type {
   MetricQuery,
   MetricQueryResponse,
@@ -15,14 +12,12 @@ import { ALL, type DemographicGroup } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import { groupIsAll } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
-import { fetchAIInsight, type InsightResult } from './fetchAIInsight'
 import type { ScrollableHashId } from './hooks/useStepObserver'
-import { buildInsightCacheKey } from './insightCacheKey'
 import {
-  byteLength,
-  INSIGHT_DATA_BUDGETS,
-  trimLinesToBudget,
-} from './insightPromptBudget'
+  fetchInsight,
+  type InsightResult,
+  toInsightMetric,
+} from './insightDescriptor'
 
 const MAP_CHART_IDS: ScrollableHashId[] = [
   'rate-map',
@@ -75,384 +70,19 @@ export function resolveTableShareMetrics(dataTypeConfig: DataTypeConfig): {
   }
 }
 
-// A percent short label already leads with the sign ("% of population"), so it
-// attaches straight to the number; anything else is a unit that reads as its own
-// word ("6.8 cases per 100k"). Applied only where a share column sits beside a
-// rate, since a mixed row is where "100 % of population" reads as a typo.
-export function formatMetricValue(
-  value: unknown,
-  config: MetricConfig,
-): string {
-  return config.shortLabel.startsWith('%')
-    ? `${value}${config.shortLabel}`
-    : `${value} ${config.shortLabel}`
-}
-
-// Which of the data table's share columns the rendered rows actually carry.
-// Derived from the values rather than from the config, because a template that
-// names a column the payload lacks is exactly what invites the model to invent
-// the number.
-export interface TableColumnShape {
-  hasCaseloadShare: boolean
-  hasPopulationShare: boolean
-  // Set only when the population column counts a broader group than the rate's
-  // own denominator, so the prompt can say so instead of implying the two shares
-  // are measured on the same basis.
-  generalPopulationLabel?: string
-}
-
-export function getTableColumnShape(
-  rows: HetRow[],
-  demographicType: DemographicType,
-  metricConfig: MetricConfig,
-  options: InsightDataOptions = {},
-): TableColumnShape {
-  const { shareConfig, populationConfig, generalPopulationLabel } = options
-  // Same rows formatDataRows will emit, so a column present only on rows that
-  // get dropped is not announced.
-  const emitted = rows.filter(
-    (row) => row[demographicType] != null && row[metricConfig.metricId] != null,
-  )
-  const hasColumn = (config?: MetricConfig) =>
-    Boolean(config) &&
-    emitted.some((row) => row[(config as MetricConfig).metricId] != null)
-  const hasPopulationShare = hasColumn(populationConfig)
-  return {
-    hasCaseloadShare: hasColumn(shareConfig),
-    hasPopulationShare,
-    generalPopulationLabel: hasPopulationShare
-      ? generalPopulationLabel
-      : undefined,
-  }
-}
-
-// Which rows a data section covers and how many bytes it may occupy. Grouped
-// into one object so a caller that needs only the budget isn't forced to pass
-// placeholders for the filters it doesn't use.
+// Which rows an insight covers. Grouped into one object so a caller that needs
+// only one filter isn't forced to pass placeholders for the rest.
 export interface InsightDataOptions {
   // When the user has focused a chart (e.g. the trend legend) on a subset of
   // groups, restrict the rows to those groups so the insight describes only
   // what is on screen. Empty/undefined means "all groups".
   selectedGroups?: DemographicGroup[]
   // The demographic group currently highlighted on a map. When the map is
-  // showing multiple places (a real geographic comparison), default to only
-  // this group's rows across places, since that's what's on screen and it
-  // keeps the prompt small. When only one place is in view, there's no
-  // geographic comparison to make, so send every group for that one place
-  // instead (the ALL-groups-within-place fallback).
+  // showing multiple places (a real geographic comparison), only this group's
+  // rows across places count, since that is what is on screen. When only one
+  // place is in view there is no geographic comparison to make, so every group
+  // for that one place counts instead.
   activeDemographicGroup?: DemographicGroup
-  // Bytes this data section may occupy. Defaults to the single-card tier; a
-  // prompt that carries more than one section passes a tighter budget.
-  budgetBytes?: number
-  // The data table's two share columns. Passed in rather than read off
-  // metricConfig because getPrimaryMetricConfig hands the table its rate config,
-  // which carries neither share. See resolveTableShareMetrics.
-  shareConfig?: MetricConfig
-  populationConfig?: MetricConfig
-  generalPopulationLabel?: string
-}
-
-// Format HetRows as a text list to embed in the prompt
-export function formatDataRows(
-  rows: HetRow[],
-  hashId: ScrollableHashId,
-  demographicType: DemographicType,
-  metricConfig: MetricConfig,
-  options: InsightDataOptions = {},
-): string {
-  const {
-    selectedGroups,
-    activeDemographicGroup,
-    budgetBytes = INSIGHT_DATA_BUDGETS.card,
-    shareConfig,
-    populationConfig,
-  } = options
-  const isMap = MAP_CHART_IDS.includes(hashId)
-  const isTimeSeries = TIME_SERIES_CHART_IDS.includes(hashId)
-  const groupFilter =
-    selectedGroups && selectedGroups.length > 0
-      ? new Set<string>(selectedGroups.map(String))
-      : null
-
-  if (isTimeSeries) {
-    // Group by demographic subgroup and sort each group's points chronologically.
-    const byGroup: Record<string, HetRow[]> = {}
-    for (const row of rows) {
-      const group = String(row[demographicType] ?? 'Unknown')
-      if (groupFilter && !groupFilter.has(group)) continue
-      if (row[metricConfig.metricId] == null) continue
-      if (!byGroup[group]) byGroup[group] = []
-      byGroup[group].push(row)
-    }
-    const sortedByGroup = Object.entries(byGroup).map(
-      ([group, groupRows]) =>
-        [
-          group,
-          [...groupRows].sort((a, b) =>
-            String(a.time_period ?? '').localeCompare(
-              String(b.time_period ?? ''),
-            ),
-          ),
-        ] as const,
-    )
-
-    const formatPoint = (group: string, row: HetRow) =>
-      `- ${group} (${row.time_period}): ${row[metricConfig.metricId]} ${metricConfig.shortLabel}`
-
-    // Keep the group's earliest point as a historical anchor, then as much of
-    // the recent tail as the budget allows. Recent years describe where a
-    // disparity stands now, which is what an insight is about; the anchor is
-    // what makes "up or down since then" answerable at all.
-    const takeRecent = (sorted: HetRow[], recentCount: number) => {
-      if (sorted.length <= recentCount + 1) return sorted
-      return [sorted[0], ...sorted.slice(-recentCount)]
-    }
-
-    const render = (recentCount: number) =>
-      sortedByGroup
-        .flatMap(([group, sorted]) =>
-          takeRecent(sorted, recentCount).map((row) => formatPoint(group, row)),
-        )
-        .join('\n')
-
-    // Send the full per-year (or per-month) series when it's small enough for
-    // the model to work with the whole trend, since that's a materially
-    // better answer than a truncated one.
-    const longest = Math.max(
-      ...sortedByGroup.map(([, sorted]) => sorted.length),
-    )
-    const full = render(longest)
-    if (byteLength(full) <= budgetBytes) return full
-
-    // Largest recent window that still fits. Binary search rather than stepping
-    // down one point at a time, since a monthly series over decades can be
-    // hundreds of points per group.
-    let low = 1
-    let high = longest
-    let best = ''
-    while (low <= high) {
-      const mid = Math.floor((low + high) / 2)
-      const candidate = render(mid)
-      if (byteLength(candidate) <= budgetBytes) {
-        best = candidate
-        low = mid + 1
-      } else {
-        high = mid - 1
-      }
-    }
-    if (best) return best
-
-    // Enough groups that even one recent point each overflows the budget.
-    return trimLinesToBudget(render(1).split('\n'), budgetBytes)
-  }
-
-  // For population-vs-distribution, include both the outcome share and
-  // the population share side-by-side so the model can compute the disparity
-  const isTable = hashId === 'data-table'
-  const popMetric =
-    hashId === 'population-vs-distribution'
-      ? metricConfig.populationComparisonMetric
-      : isTable
-        ? populationConfig
-        : null
-  const shareMetric = isTable ? shareConfig : undefined
-
-  const filteredRows = rows.filter((row) => {
-    // Maps always have a place name; other charts key off the demographic group.
-    const hasLabel = isMap
-      ? row.fips_name != null
-      : row[demographicType] != null
-    if (!hasLabel || row[metricConfig.metricId] == null) return false
-    if (groupFilter && !groupFilter.has(String(row[demographicType])))
-      return false
-    return true
-  })
-
-  // A map showing 2+ places is a real geographic comparison, so default to
-  // the group on screen. A map showing fewer than 2 places (a single county
-  // or state, with no children to compare) has nothing geographic to gain
-  // from filtering, so fall back to every group within that one place.
-  const distinctPlaces = isMap
-    ? new Set(filteredRows.map((row) => row.fips_name)).size
-    : 0
-  const activeRows =
-    isMap &&
-    activeDemographicGroup &&
-    !groupIsAll(activeDemographicGroup) &&
-    distinctPlaces >= 2
-      ? filteredRows.filter(
-          (row) =>
-            String(row[demographicType]) === activeDemographicGroup ||
-            groupIsAll(String(row[demographicType])),
-        )
-      : filteredRows
-
-  const lines = activeRows.map((row) => {
-    // On a map, label each row with BOTH its place and demographic group so
-    // the model can read either a geographic gap (across places) or a
-    // within-place gap (across groups, with "All" as the baseline). Other
-    // charts already vary only by demographic group, so the group alone suffices.
-    const label = isMap
-      ? `${row.fips_name} (${row[demographicType]})`
-      : `${row[demographicType]}`
-    const val = `${row[metricConfig.metricId]} ${metricConfig.shortLabel}`
-    if (isTable) {
-      // The table's own three columns, in the order the table shows them. Each
-      // is dropped for the rows the source suppressed, so a group can appear
-      // with a rate and no shares.
-      const parts = [
-        formatMetricValue(row[metricConfig.metricId], metricConfig),
-      ]
-      for (const config of [shareMetric, popMetric]) {
-        if (config && row[config.metricId] != null) {
-          parts.push(formatMetricValue(row[config.metricId], config))
-        }
-      }
-      return `- ${label}: ${parts.join(', ')}`
-    }
-    if (popMetric && row[popMetric.metricId] != null) {
-      return `- ${label}: outcome share ${val}, population share ${row[popMetric.metricId]} ${popMetric.shortLabel}`
-    }
-    return `- ${label}: ${val}`
-  })
-
-  // Group filtering bounds a map section in the common case, but a wide
-  // breakdown over hundreds of places can still outgrow the budget, and the
-  // data table has no geographic filter at all.
-  return trimLinesToBudget(lines, budgetBytes)
-}
-
-function joinWithAnd(parts: string[]): string {
-  if (parts.length <= 1) return parts[0] ?? ''
-  if (parts.length === 2) return parts.join(' and ')
-  return `${parts.slice(0, -1).join(', ')}, and ${parts[parts.length - 1]}`
-}
-
-export function buildPrompt(
-  hashId: ScrollableHashId,
-  topic: string,
-  location: string,
-  demographicLabel: string,
-  dataSection: string,
-  activeDemographicGroup?: DemographicGroup,
-  // When true, dataSection ranks the region against its same-level peers, so
-  // reframe from "describe the disparity" to "place this region among its peers".
-  hasPeerComparison = false,
-  // Which share columns the data table's rows carry. Only the data-table branch
-  // reads it; every other chart sends one number per row.
-  tableShape?: TableColumnShape,
-): string {
-  const dataBlock = dataSection ? `\n\nData:\n${dataSection}` : ''
-
-  if (MAP_CHART_IDS.includes(hashId) && hasPeerComparison) {
-    return `This is a choropleth map of ${topic} in ${location}. Because only its overall rate is available locally, ${location} is ranked against its peer places at the same geographic level — which draw on the same data source and methodology, so the comparison is fair.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that says where ${location} falls among its peers (for example, higher than most, near the middle, or among the lowest), using the specific numbers, and what that means for the people who live there. Focus on the "so what", not the chart mechanics.`
-  }
-
-  if (MAP_CHART_IDS.includes(hashId)) {
-    // Each data row is labeled `Place (Group)`, and an "All" row gives the
-    // overall rate for that place. A map can be multi-region (compare places)
-    // or single-region (compare groups within one place). Tell the model which
-    // group the user is currently highlighting so it can lead with that story.
-    const focus =
-      activeDemographicGroup && activeDemographicGroup !== ALL
-        ? ` The map currently highlights the ${activeDemographicGroup} group, so lead with that group and use the "All" baseline for comparison.`
-        : ''
-    return `This is a choropleth map showing ${topic} in ${location} by ${demographicLabel}. Each data row is labeled with its place and ${demographicLabel} group; an "All" row gives the overall rate for that place.${focus}${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that highlights the most important health equity disparity — either a geographic gap between places or a gap between ${demographicLabel} groups within a place — and captures why it matters for real people. Focus on the "so what", not the chart mechanics.`
-  }
-
-  if (hashId === 'rates-over-time') {
-    return `This is a line chart showing how ${topic} rates have changed over time in ${location} across ${demographicLabel} groups.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that names the specific years covered, describes whether the gap between groups is improving or worsening, and includes specific numbers — focus on what this trend means for real people.`
-  }
-
-  if (hashId === 'inequities-over-time') {
-    return `This is a chart showing how the relative inequity in ${topic} has changed over time in ${location} across ${demographicLabel} groups. Positive values mean a group bears a greater share of ${topic} than their share of the population; negative means less.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that names the specific years covered, states whether inequity is improving or worsening for the most affected group, and includes specific numbers — focus on what this trend means for real people.`
-  }
-
-  if (hashId === 'data-table') {
-    // The columns are named from what the rows actually carry, so the prompt can
-    // never describe a number it did not send.
-    const columns = joinWithAnd(
-      [
-        'its rate',
-        tableShape?.hasCaseloadShare && 'its share of the total',
-        tableShape?.hasPopulationShare && 'its share of the population',
-      ].filter((part): part is string => Boolean(part)),
-    )
-
-    // The population share is what makes this card different from every other
-    // one on the page: it is the only place a reader can weigh who carries the
-    // burden against who is actually there. Lean on it whenever it is present.
-    // Eight topics publish no caseload share at all, so the comparison there is
-    // the group's rate against its share of the population. Naming a share the
-    // rows do not carry is the defect this template was rewritten to close.
-    const burden = tableShape?.hasCaseloadShare
-      ? `whose share of ${topic} is`
-      : 'whose rate is'
-    const task = tableShape?.hasPopulationShare
-      ? `weighs who carries the burden against who actually lives in ${location}, naming a group ${burden} out of step with its share of the population`
-      : 'describes the pattern across several groups rather than only the single biggest gap'
-
-    const caveat = tableShape?.generalPopulationLabel
-      ? ` The population shares count ${tableShape.generalPopulationLabel}, a broader group than the rate itself measures, so treat that comparison as rough context rather than an exact figure.`
-      : ''
-
-    return `This is a data table summarizing ${topic} in ${location} by ${demographicLabel}. Each row gives one group and ${columns}.${caveat}${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that ${task}. Use the specific numbers shown, and focus on the "so what" for the community.`
-  }
-
-  return `This is a ${hashId.replace(/-/g, ' ')} showing ${topic} in ${location} by ${demographicLabel}. The intended message is to highlight health equity disparities.${dataBlock}\n\nWrite a single sentence at an 8th grade reading level that captures the key inequity a viewer should walk away with — focus on the "so what", not the chart mechanics.`
-}
-
-// Keep the model from narrating the prompt (e.g. "Since only the overall rate
-// is available, here's a sentence...") — the card wants the bare insight.
-const CARD_OUTPUT_RULE =
-  ' Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.'
-
-// The exact text a card sends to the model. Separate from generateCardInsight so
-// the prompt can be rendered without a network call, which is what lets the
-// regression harness diff prompt changes and what the Go port must reproduce.
-export function buildCardInsightPrompt(
-  hashId: ScrollableHashId,
-  topic: string,
-  location: string,
-  demographicLabel: string,
-  dataSection: string,
-  context?: InsightContext,
-  tableShape?: TableColumnShape,
-): string {
-  // Single-region map: rank the region against its same-level peers instead of
-  // describing an on-screen disparity. summarizePeerComparison returns null when
-  // too few peers report, in which case we fall through to the standard framing.
-  const peerSummary =
-    MAP_CHART_IDS.includes(hashId) && context?.peerComparison
-      ? summarizePeerComparison(context.peerComparison)
-      : null
-
-  // The peer summary already leads with the region's own rate, so it replaces
-  // the lone local row rather than appending to it.
-  const finalDataSection = peerSummary
-    ? formatPeerComparison(peerSummary)
-    : dataSection
-
-  return (
-    buildPrompt(
-      hashId,
-      topic,
-      location,
-      demographicLabel,
-      finalDataSection,
-      context?.activeDemographicGroup,
-      Boolean(peerSummary),
-      tableShape,
-    ) + CARD_OUTPUT_RULE
-  )
-}
-
-interface InsightData {
-  dataSection: string
-  // Number of comparison entries (groups or regions) the model would receive.
-  entryCount: number
-  // Data-table only: which share columns the rendered rows carry.
-  tableShape?: TableColumnShape
 }
 
 // The selected region's own overall ("All") rate plus the overall rates of its
@@ -511,36 +141,6 @@ export function summarizePeerComparison(
     max: Math.round(sorted[sorted.length - 1] * 10) / 10,
     shortLabel: peer.shortLabel,
   }
-}
-
-// Maps a rank ratio to a plain-English standing label so the model never sees
-// raw fractions like "higher than 23 of 28" and restates them verbatim.
-function peerRankLabel(
-  higherThanCount: number,
-  reportingCount: number,
-): string {
-  const ratio = higherThanCount / reportingCount
-  if (ratio >= 0.9) return 'among the highest'
-  if (ratio >= 0.75) return 'higher than most'
-  if (ratio >= 0.6) return 'above the typical'
-  if (ratio >= 0.4) return 'near the typical'
-  if (ratio >= 0.25) return 'below the typical'
-  if (ratio >= 0.1) return 'lower than most'
-  return 'among the lowest'
-}
-
-// Renders a peer rank summary as prompt bullet lines. Leads with the region's
-// own rate, then its qualitative standing and the peer distribution.
-export function formatPeerComparison(summary: PeerRankSummary): string {
-  const rankLabel = peerRankLabel(
-    summary.higherThanCount,
-    summary.reportingCount,
-  )
-  return [
-    `- ${summary.regionLabel}: ${summary.regionValue} ${summary.shortLabel}`,
-    `- Among ${summary.reportingCount} ${summary.peerNoun}: ${rankLabel}`,
-    `- Peer median ${summary.median} ${summary.shortLabel}; range ${summary.min}–${summary.max} ${summary.shortLabel}`,
-  ].join('\n')
 }
 
 // The selected region's own overall ("All") rate, labeled for display.
@@ -645,50 +245,84 @@ export function buildInsightFocusSuffix(context?: InsightContext): string {
     .join('|')
 }
 
-// Shapes the chart's query response into the exact text the model is given.
-// Kept separate from generation so the UI can gate on entryCount up front,
-// guaranteeing the visibility check and the generated text never disagree.
-export function prepareInsightData(
+// How many comparison entries (groups, places, or time points) the server will
+// have to work with. The gate runs before any prompt exists, so it cannot ask
+// the server and has to keep its own copy of the row filtering in
+// formatDataRows (server/insight_prompt.go). Edit one and edit the other: a
+// divergence does not fail, it silently hides a card that would have generated
+// or shows one with nothing to compare.
+//
+// Two divergences are deliberate, both safe because the gate only asks whether
+// there are at least two entries. Budget trimming is not mirrored, so this can
+// exceed what the prompt ends up carrying. And the time-series branch counts
+// rows where formatTimeSeriesRows renders one line per point after trimming,
+// which likewise can only overcount.
+export function countInsightRows(
+  rows: HetRow[],
+  hashId: ScrollableHashId,
+  demographicType: DemographicType,
+  metricConfig: MetricConfig,
+  options: InsightDataOptions = {},
+): number {
+  const { selectedGroups, activeDemographicGroup } = options
+  const groupFilter =
+    selectedGroups && selectedGroups.length > 0
+      ? new Set<string>(selectedGroups.map(String))
+      : null
+  const isMap = MAP_CHART_IDS.includes(hashId)
+
+  if (TIME_SERIES_CHART_IDS.includes(hashId)) {
+    return rows.filter(
+      (row) =>
+        row[metricConfig.metricId] != null &&
+        (!groupFilter ||
+          groupFilter.has(String(row[demographicType] ?? 'Unknown'))),
+    ).length
+  }
+
+  const filteredRows = rows.filter((row) => {
+    // Maps always have a place name; other charts key off the demographic group.
+    const hasLabel = isMap
+      ? row.fips_name != null
+      : row[demographicType] != null
+    if (!hasLabel || row[metricConfig.metricId] == null) return false
+    return !groupFilter || groupFilter.has(String(row[demographicType]))
+  })
+
+  const distinctPlaces = isMap
+    ? new Set(filteredRows.map((row) => row.fips_name)).size
+    : 0
+  if (
+    isMap &&
+    activeDemographicGroup &&
+    !groupIsAll(activeDemographicGroup) &&
+    distinctPlaces >= 2
+  ) {
+    return filteredRows.filter(
+      (row) =>
+        String(row[demographicType]) === activeDemographicGroup ||
+        groupIsAll(String(row[demographicType])),
+    ).length
+  }
+  return filteredRows.length
+}
+
+// The rows a chart's query response contributes to an insight, and the metric
+// they are read through. Both the gate and the descriptor start here, so the
+// two can never be built from different rows.
+function insightRows(
   hashId: ScrollableHashId,
   dataTypeConfig: DataTypeConfig,
-  demographicType: DemographicType,
   queryResponses?: MetricQueryResponse[],
-  options: InsightDataOptions = {},
-): InsightData {
-  let dataSection = ''
-  let tableShape: TableColumnShape | undefined
-  if (queryResponses?.[0]) {
-    const metricConfig = getPrimaryMetricConfig(hashId, dataTypeConfig.metrics)
-    if (metricConfig) {
-      const rows = queryResponses[0].getValidRowsForField(metricConfig.metricId)
-      // The table's share columns are already in this response: TableCard
-      // requests them, and getMetricIdToConfigMap pulls in each config's
-      // populationComparisonMetric. Nothing extra is fetched here.
-      const rowOptions =
-        hashId === 'data-table'
-          ? { ...options, ...resolveTableShareMetrics(dataTypeConfig) }
-          : options
-      dataSection = formatDataRows(
-        rows,
-        hashId,
-        demographicType,
-        metricConfig,
-        rowOptions,
-      )
-      if (hashId === 'data-table') {
-        tableShape = getTableColumnShape(
-          rows,
-          demographicType,
-          metricConfig,
-          rowOptions,
-        )
-      }
-    }
+): { metricConfig: MetricConfig; rows: HetRow[] } | null {
+  const metricConfig = getPrimaryMetricConfig(hashId, dataTypeConfig.metrics)
+  if (!metricConfig) return null
+  return {
+    metricConfig,
+    rows: queryResponses?.[0]
+      ? queryResponses[0].getValidRowsForField(metricConfig.metricId)
+      : [],
   }
-  const entryCount = dataSection
-    ? dataSection.split('\n').filter(Boolean).length
-    : 0
-  return { dataSection, entryCount, tableShape }
 }
 
 // How much comparison an insight has to work with:
@@ -714,19 +348,26 @@ export function getInsightDataStatus(
     regionHasAllRate?: boolean
   } = {},
 ): InsightDataStatus {
-  const { entryCount } = prepareInsightData(
-    hashId,
-    dataTypeConfig,
-    demographicType,
-    queryResponses,
-    options,
-  )
+  const resolved = insightRows(hashId, dataTypeConfig, queryResponses)
+  const entryCount = resolved
+    ? countInsightRows(
+        resolved.rows,
+        hashId,
+        demographicType,
+        resolved.metricConfig,
+        options,
+      )
+    : 0
   if (entryCount >= 2) return 'multi'
   if (MAP_CHART_IDS.includes(hashId) && options.regionHasAllRate)
     return 'single-region'
   return 'empty'
 }
 
+// Describes the card to the server, which renders the prompt, derives the cache
+// key, and generates. Focus (highlighted map group, selected trend lines) needs
+// no separate scope: it changes which rows the descriptor carries, so the prompt
+// hash already separates one focus from another.
 export async function generateCardInsight(
   hashId: ScrollableHashId,
   dataTypeConfig: DataTypeConfig,
@@ -736,40 +377,30 @@ export async function generateCardInsight(
   isCompareCard?: boolean,
   context?: InsightContext,
 ): Promise<InsightResult> {
-  const topic = dataTypeConfig.fullDisplayName
-  const location = fips?.getSentenceDisplayName() ?? 'the United States'
-  const demographic = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
+  const resolved = insightRows(hashId, dataTypeConfig, queryResponses)
+  if (!resolved) {
+    return { content: '', rateLimited: false, error: true }
+  }
+  // The table's share columns are already in this response: TableCard requests
+  // them, and getMetricIdToConfigMap pulls in each config's
+  // populationComparisonMetric. Nothing extra is fetched here.
+  const shareColumns =
+    hashId === 'data-table'
+      ? resolveTableShareMetrics(dataTypeConfig)
+      : undefined
 
-  const { dataSection, tableShape } = prepareInsightData(
+  return fetchInsight({
+    kind: 'card',
     hashId,
-    dataTypeConfig,
     demographicType,
-    queryResponses,
-    {
-      selectedGroups: context?.selectedGroups,
-      activeDemographicGroup: context?.activeDemographicGroup,
-    },
-  )
-
-  const prompt = buildCardInsightPrompt(
-    hashId,
-    topic,
-    location,
-    demographic,
-    dataSection,
+    topic: dataTypeConfig.fullDisplayName,
+    location: fips?.getSentenceDisplayName() ?? 'the United States',
+    metricConfig: toInsightMetric(resolved.metricConfig),
+    rows: resolved.rows,
     context,
-    tableShape,
-  )
-
-  const cardSuffix = isCompareCard ? '-2' : ''
-  // Focus (highlighted map group / selected trend lines) needs no suffix here:
-  // it changes which rows formatDataRows emits, so the prompt hash already
-  // separates one focus from another.
-  const cacheKey = buildInsightCacheKey(`#${hashId}${cardSuffix}`, prompt)
-
-  const result = await fetchAIInsight(prompt, {
-    cacheKey,
-    topic: dataTypeConfig.dataTypeId,
+    isCompareCard,
+    shareConfig: toInsightMetric(shareColumns?.shareConfig),
+    populationConfig: toInsightMetric(shareColumns?.populationConfig),
+    generalPopulationLabel: shareColumns?.generalPopulationLabel,
   })
-  return { ...result, cacheKey }
 }
