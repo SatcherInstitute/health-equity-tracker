@@ -72,6 +72,7 @@ export interface ChoroplethMapProps {
     subtitle?: string
   }
   isAtlantaMode?: boolean
+  onRenderedFipsIds?: (ids: Set<string>) => void
   updateFipsCallback: (fips: Fips) => void
   colorScale: ColorScale | null
 }

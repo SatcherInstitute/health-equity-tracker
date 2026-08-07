@@ -32,6 +32,7 @@ interface RateMapLegendProps {
   legendTitle: string
   isCompareMode?: boolean
   colorScale: ColorScale
+  renderedFipsIds?: Set<string>
 }
 
 export default function RateMapLegend(props: RateMapLegendProps) {
@@ -46,6 +47,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     isSummaryLegend,
     isExtremesMode,
     colorScale,
+    renderedFipsIds,
   } = props
 
   const [containerRef] = useResponsiveWidth()
@@ -71,6 +73,7 @@ export default function RateMapLegend(props: RateMapLegendProps) {
     isSummaryLegend,
     isExtremesMode,
     colorScale,
+    renderedFipsIds,
   ])
 
   return (

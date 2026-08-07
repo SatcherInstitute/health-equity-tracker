@@ -1,6 +1,6 @@
 import GridView from '@mui/icons-material/GridView'
 import { useAtomValue, useSetAtom } from 'jotai'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useLocation } from 'react-router'
 import { createColorScale } from '../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../charts/choroplethMap/index'
@@ -158,6 +158,9 @@ function MapCardWithKey(props: MapCardProps) {
     ATLANTA_MODE_PARAM_KEY,
     false,
   )
+  const [renderedFipsIds, setRenderedFipsIds] = useState<
+    Set<string> | undefined
+  >()
 
   const resolvedDataTypeConfig = useMemo(
     () =>
@@ -742,6 +745,7 @@ function MapCardWithKey(props: MapCardProps) {
                       isPhrmaAdherence={isPhrmaAdherence}
                       isAtlantaMode={isAtlantaMode}
                       isSummaryLegend={isSummaryLegend}
+                      onRenderedFipsIds={setRenderedFipsIds}
                       updateFipsCallback={props.updateFipsCallback}
                       colorScale={colorScale}
                     />
@@ -763,6 +767,7 @@ function MapCardWithKey(props: MapCardProps) {
                     isPhrmaAdherence={isPhrmaAdherence}
                     fips={props.fips}
                     isCompareMode={isCompareMode}
+                    renderedFipsIds={renderedFipsIds}
                   />
                 </div>
 

@@ -26,6 +26,7 @@ export interface ProcessLegendDataParams {
   isExtremesMode?: boolean
   fipsTypeDisplayName?: GeographicBreakdown
   fips?: Fips
+  renderedFipsIds?: Set<string>
 }
 
 export interface ProcessedLegendData {
@@ -56,6 +57,7 @@ export function processLegendData(
     isExtremesMode,
     fipsTypeDisplayName,
     fips,
+    renderedFipsIds,
   } = params
 
   const labelFormat = createLabelFormatter(metricConfig)
@@ -65,11 +67,16 @@ export function processLegendData(
   const nonZeroData = data.filter((row) => row[metricConfig.metricId] > 0)
   const missingData = data.filter((row) => row[metricConfig.metricId] == null)
 
+  // Orphan rows (FIPS with no matching topojson feature) must not produce absence swatches.
+  const drawnMissingData = renderedFipsIds
+    ? missingData.filter((row) => renderedFipsIds.has(row.fips))
+    : missingData
+
   const suppressionFlag = metricConfig.suppressionFlagMetricId
   const suppressedData = suppressionFlag
-    ? missingData.filter((row) => row[suppressionFlag] === true)
+    ? drawnMissingData.filter((row) => row[suppressionFlag] === true)
     : []
-  const unexplainedMissingData = missingData.filter(
+  const unexplainedMissingData = drawnMissingData.filter(
     (row) => !suppressedData.includes(row),
   )
 

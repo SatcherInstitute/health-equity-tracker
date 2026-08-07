@@ -114,15 +114,16 @@ export const renderMap = (options: RenderMapOptions) => {
   const isExtremesContext = (d: any) =>
     isExtremesMode && dataMap.get(d.id?.toString())?.value == null
 
+  const renderedFeatures = features.features.filter(
+    (f) => f.id && (!fips.isUsa() || !TERRITORY_CODES[f.id.toString()]),
+  )
+  const renderedFipsIds = new Set(renderedFeatures.map((f) => f.id!.toString()))
+
   // Draw main map
   mapGroup
     .selectAll('path')
     // skip territory shapes on national map
-    .data(
-      features.features.filter(
-        (f) => f.id && (!fips.isUsa() || !TERRITORY_CODES[f.id.toString()]),
-      ),
-    )
+    .data(renderedFeatures)
     .join('path')
     .attr('d', (d) => path(d) || '')
     .attr('fill', (d) =>
@@ -193,6 +194,7 @@ export const renderMap = (options: RenderMapOptions) => {
   return {
     dataMap,
     mapHeight,
+    renderedFipsIds,
   }
 }
 

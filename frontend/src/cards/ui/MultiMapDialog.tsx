@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { createColorScale } from '../../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../../charts/choroplethMap/index'
 import RateMapLegend from '../../charts/choroplethMap/RateMapLegend'
@@ -105,6 +105,10 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     },
   }
 
+  const [renderedFipsIds, setRenderedFipsIds] = useState<
+    Set<string> | undefined
+  >()
+
   const mapConfig = props.dataTypeConfig.mapConfig
 
   const colorScaleMultiMap = useMemo(() => {
@@ -198,6 +202,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         isExtremesMode={false}
                         isPhrmaAdherence={props.isPhrmaAdherence}
                         isAtlantaMode={props.isAtlantaMode}
+                        onRenderedFipsIds={setRenderedFipsIds}
                         updateFipsCallback={props.updateFipsCallback}
                       />
                     )}
@@ -223,6 +228,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             isPhrmaAdherence={props.isPhrmaAdherence}
             fips={props.fips}
             colorScale={colorScaleMultiMap}
+            renderedFipsIds={renderedFipsIds}
           />
         </div>
 

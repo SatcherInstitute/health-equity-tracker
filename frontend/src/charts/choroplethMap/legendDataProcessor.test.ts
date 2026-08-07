@@ -110,6 +110,59 @@ describe('processLegendData absence swatches', () => {
   })
 })
 
+describe('processLegendData renderedFipsIds filtering', () => {
+  it('suppresses No data swatch when the only null rows are orphan FIPS with no drawn shape', () => {
+    expect(
+      processLegendData({
+        data: [
+          { fips: '13001', gun_violence_homicide_per_100k: 5 },
+          { fips: '13002', gun_violence_homicide_per_100k: 12 },
+          { fips: '99999', gun_violence_homicide_per_100k: null },
+        ],
+        metricConfig,
+        mapConfig,
+        colorScale,
+        renderedFipsIds: new Set(['13001', '13002']),
+      }).specialItems.map((i) => i.label),
+    ).toEqual([])
+  })
+
+  it('shows No data swatch when a rendered feature has a missing value', () => {
+    expect(
+      processLegendData({
+        data: [
+          { fips: '13001', gun_violence_homicide_per_100k: 5 },
+          { fips: '13002', gun_violence_homicide_per_100k: null },
+          { fips: '99999', gun_violence_homicide_per_100k: null },
+        ],
+        metricConfig,
+        mapConfig,
+        colorScale,
+        renderedFipsIds: new Set(['13001', '13002']),
+      }).specialItems.map((i) => i.label),
+    ).toEqual([NO_DATA_MESSAGE])
+  })
+
+  it('suppresses Suppressed swatch when the only suppressed rows are orphan FIPS', () => {
+    expect(
+      processLegendData({
+        data: [
+          { fips: '13001', gun_violence_homicide_per_100k: 5 },
+          {
+            fips: '99999',
+            gun_violence_homicide_per_100k: null,
+            gun_violence_homicide_per_100k_is_suppressed: true,
+          },
+        ],
+        metricConfig,
+        mapConfig,
+        colorScale,
+        renderedFipsIds: new Set(['13001']),
+      }).specialItems.map((i) => i.label),
+    ).toEqual([])
+  })
+})
+
 describe('processLegendData territory coverage', () => {
   const everyTerritory = Object.keys(TERRITORY_CODES).map((fips) => ({
     fips,

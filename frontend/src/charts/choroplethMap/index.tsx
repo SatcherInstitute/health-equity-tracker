@@ -40,6 +40,7 @@ const ChoroplethMap = ({
   isPhrmaAdherence,
   isAtlantaMode,
   isSummaryLegend,
+  onRenderedFipsIds,
   updateFipsCallback,
   colorScale,
 }: ChoroplethMapProps) => {
@@ -185,6 +186,7 @@ const ChoroplethMap = ({
         updateFipsCallback,
       })
 
+      onRenderedFipsIds?.(result.renderedFipsIds)
       setRenderResult({
         dataMap: result.dataMap,
         mapHeight: result.mapHeight,
