@@ -22,12 +22,12 @@ func (d *insightDescriptor) topic() string {
 }
 
 // Serves an insight for a described view: the caller sends what it is showing,
-// and the server renders the prompt, derives the cache key from it, and runs the
-// same suppression, cache, and generation flow /fetch-ai-insight runs.
+// and the server renders the prompt, derives the cache key from it, and runs
+// the suppression, cache, and generation flow.
 //
-// Prompt wording and key derivation live in one place as a result. A template
-// edit no longer needs a client deploy to take effect, and a client can no
-// longer mint a key that disagrees with the prompt it is for.
+// Prompt wording and key derivation live in one place. A template edit takes
+// effect without a client deploy, and a client cannot mint a key that disagrees
+// with the prompt it is for.
 //
 // A `preview` request stops after rendering and returns the prompt and key
 // without generating. That is how a client checks that the server renders the

@@ -95,45 +95,9 @@ func writeInsightUnavailable(w http.ResponseWriter) {
 	writeJSON(w, map[string]bool{"unavailable": true})
 }
 
-func fetchAIInsightHandler(w http.ResponseWriter, r *http.Request) {
-	start := time.Now()
-	var ev insightEvent
-	defer func() { logInsightEvent(&ev, start) }()
-
-	body := jsonBody(r)
-	prompt, _ := body["prompt"].(string)
-	clientKey, _ := body["cacheKey"].(string)
-	topic, _ := body["topic"].(string)
-	ev.Topic = topic
-
-	if prompt == "" {
-		ev.Outcome, ev.Reason = outcomeRejected, reasonMissingPrompt
-		w.Header().Set("Content-Type", "application/json")
-		http.Error(w, `{"error":"Missing prompt parameter"}`, http.StatusBadRequest)
-		return
-	}
-	if len(prompt) > insightPromptMaxBytes {
-		ev.Outcome, ev.Reason = outcomeRejected, reasonPromptTooLarge
-		w.Header().Set("Content-Type", "application/json")
-		http.Error(w, `{"error":"Prompt too large"}`, http.StatusRequestEntityTooLarge)
-		return
-	}
-
-	cacheKey := sanitizeInsightKey(clientKey)
-	if cacheKey == "" {
-		cacheKey = sanitizeInsightKey(prompt)
-	}
-
-	content, ok := resolveInsight(w, r, &ev, prompt, cacheKey, topic)
-	if !ok {
-		return
-	}
-	writeJSON(w, map[string]string{"content": content})
-}
-
-// The suppression, cache, ledger, and generation flow shared by every insight
-// endpoint. Returns false when it has already written the response, which is
-// every path that does not end in servable content.
+// The suppression, cache, ledger, and generation flow. Returns false when it
+// has already written the response, which is every path that does not end in
+// servable content.
 func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic string) (string, bool) {
 	ev.CacheKey = cacheKey
 

@@ -60,10 +60,8 @@ func main() {
 	r.With(adminOnly).Get("/flagged-insights", listFlaggedInsightsHandler)
 	r.With(adminOnly).Patch("/flagged-insights", updateFlaggedInsightHandler)
 
-	// AI insight generation (replaces frontend_server /fetch-ai-insight)
-	r.With(insightOriginOnly, insightRateLimit).Post("/fetch-ai-insight", fetchAIInsightHandler)
-	// Same flow, but the caller describes the view instead of sending prompt text,
-	// so the server owns both the prompt wording and the cache key it hashes to.
+	// AI insight generation: the caller describes the view, the server renders
+	// the prompt and derives the cache key from it.
 	r.With(insightOriginOnly, insightRateLimit).Post("/insight", insightHandler)
 	r.Get("/rate-limit-status", rateLimitStatusHandler)
 
