@@ -124,6 +124,12 @@ export const AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Age', 'unavailable for Substance Misuse and Preventable Hospitalizations'],
 ]
 
+// Severe maternal morbidity is a female-only measure (delivery hospitalizations),
+// so AHR publishes no sex breakdown — race and age only.
+export const SEVERE_MATERNAL_MORBIDITY_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Sex', 'unavailable for Severe Maternal Morbidity'],
+]
+
 export const CHR_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Age', 'unavailable at the county level'],
   ['Sex', 'unavailable at the county level'],

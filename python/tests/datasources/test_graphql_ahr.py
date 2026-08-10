@@ -210,6 +210,44 @@ def test_smm_race_parse_and_per_10k_conversion():
     assert by_group["Asian/Pacific Islander"] == 600.0
 
 
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+@mock.patch("datasources.graphql_ahr.fetch_ahr_data_from_graphql")
+def test_smm_write_to_bq_race_state(mock_fetch: mock.MagicMock, _mock_add: mock.MagicMock):
+    """End-to-end write_to_bq for SMM: the per-100k column must appear in the
+    current race/state table with the x10 conversion applied. Uses a minimal
+    inline AHR-style response rather than the full golden fixture."""
+
+    def _resp(_demographic: str, _geo: str, _category: str):
+        def rows(name, al, ca):
+            return {
+                "data": [
+                    {"endDate": "2021-01-01T00:00:00.000Z", "state": "AL", "value": al, "measure": {"name": name}},
+                    {"endDate": "2021-01-01T00:00:00.000Z", "state": "CA", "value": ca, "measure": {"name": name}},
+                ]
+            }
+
+        return [
+            rows("Severe Maternal Morbidity", 90.0, 80.0),
+            rows("Severe Maternal Morbidity - Black", 140.0, 130.0),
+            rows("Severe Maternal Morbidity - White", 70.0, 65.0),
+        ]
+
+    mock_fetch.side_effect = _resp
+    datasource = GraphQlAHRData()
+    datasource.write_to_bq(
+        "dataset", "gcs_bucket", demographic="race_and_ethnicity", geographic="state", category="non-behavioral_health"
+    )
+
+    current_df, _, table_name = _mock_add.call_args_list[0][0]
+    assert table_name == "non-behavioral_health_race_and_ethnicity_state_current"
+
+    rate_col = "severe_maternal_morbidity_per_100k"
+    assert rate_col in current_df.columns
+    # every input value converted per-10k -> per-100k (x10): {90,80,140,130,70,65} -> x10
+    got = sorted(v for v in current_df[rate_col].dropna().tolist())
+    assert got == [650.0, 700.0, 800.0, 900.0, 1300.0, 1400.0]
+
+
 def test_smm_age_buckets_standardize():
     """The reproductive-age SMM buckets must survive name extraction and map to the
     tracker's standard age labels."""
