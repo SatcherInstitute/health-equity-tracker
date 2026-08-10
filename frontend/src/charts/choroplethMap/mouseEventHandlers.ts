@@ -113,7 +113,7 @@ const handleMouseEvent = (
         .attr(
           'stroke',
           isNoDataShape
-            ? colors.altDark
+            ? colors.altWhite
             : props.isExtremesMode
               ? colors.altBlack
               : GEO_HOVERED_BORDER_COLOR,
@@ -158,7 +158,7 @@ const handleMouseEvent = (
         .attr(
           'stroke',
           isNoDataOnTouch
-            ? colors.altDark
+            ? colors.altWhite
             : props.isExtremesMode
               ? colors.altBlack
               : GEO_HOVERED_BORDER_COLOR,
