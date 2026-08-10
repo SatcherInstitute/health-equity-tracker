@@ -22,6 +22,8 @@
 		"@leeoniya/ufuzzy": "^1.0.19",
 		"@mui/icons-material": "^9.2.0",
 		"@mui/material": "^9.0.0",
+		"@sentry/react": "^10.69.0",
+		"@sentry/vite-plugin": "^5.4.0",
 		"@tanstack/react-query": "^5.101.0",
 		"d3": "^7.9.0",
 		"dom-to-image-more": "^3.10.0",
@@ -107,7 +109,6 @@
 		"url": "npx playwright install chromium && npx playwright test --project=URL"
 	},
 	"packageManager": "npm@11.16.0",
-	"packageManager": "npm@11.16.0",
 	"engines": {
 		"node": ">=24.0.0",
 		"npm": ">=11.16.0"
@@ -123,5 +124,8 @@
 			"last 1 firefox version",
 			"last 1 safari version"
 		]
+	},
+	"allowScripts": {
+		"@sentry/cli@2.58.6": true
 	}
 }

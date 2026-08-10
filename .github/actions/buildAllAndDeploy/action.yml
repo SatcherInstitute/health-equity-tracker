@@ -17,6 +17,10 @@ inputs:
   tf-state-bucket:
     description: "Terraform state bucket"
     required: true
+  sentry-auth-token:
+    description: "Sentry auth token for source map upload during frontend build"
+    required: false
+    default: ""
 
 outputs:
   ingestion-url:
@@ -80,6 +84,7 @@ runs:
         dockerfile: "server/Dockerfile"
         image-path: "gcr.io/${{ inputs.project-id }}/server"
         deploy-context: ${{ inputs.environment }}
+        sentry-auth-token: ${{ inputs.sentry-auth-token }}
 
     # Terraform and deployment
     - name: Setup Terraform
