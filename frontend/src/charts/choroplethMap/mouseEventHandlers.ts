@@ -5,7 +5,7 @@ import {
 } from '../../data/query/Breakdowns'
 import { colors } from '../../styles/tokens/colors'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
-import { getFillColor } from './colorSchemes'
+import { getFillColor, getStrokeColor } from './colorSchemes'
 import {
   GEO_HOVERED_BORDER_COLOR,
   GEO_HOVERED_BORDER_WIDTH,
@@ -98,14 +98,33 @@ const handleMouseEvent = (
       event.preventDefault()
       if (!d || !props.dataMap) return
 
-      select(event.currentTarget)
+      const fillColorOnHover = getFillColor({
+        d,
+        dataMap: props.dataMap,
+        colorScale: props.colorScale,
+        isExtremesMode: props.isExtremesMode,
+        mapConfig: props.mapConfig,
+        isMultiMap: props.isMultiMap,
+      })
+      const isNoDataShape =
+        !props.isExtremesMode && fillColorOnHover === colors.altWhite
+
+      const hoveredEl = select(event.currentTarget)
         .attr(
           'stroke',
-          props.isExtremesMode ? colors.altBlack : GEO_HOVERED_BORDER_COLOR,
+          isNoDataShape
+            ? colors.altDark
+            : props.isExtremesMode
+              ? colors.altBlack
+              : GEO_HOVERED_BORDER_COLOR,
         )
         .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
-        .attr('opacity', GEO_HOVERED_OPACITY)
+        .attr('opacity', isNoDataShape ? 1 : GEO_HOVERED_OPACITY)
         .style('cursor', props.isSummaryLegend ? 'default' : 'pointer')
+
+      if (isNoDataShape) {
+        hoveredEl.attr('fill', colors.altGray)
+      }
 
       const name = d.properties?.name || String(d.id)
       const data = props.dataMap.get(d.id as string)
@@ -124,15 +143,32 @@ const handleMouseEvent = (
       break
     }
     case 'touchstart': {
-      event.preventDefault()
+      const fillColorOnTouch = getFillColor({
+        d,
+        dataMap: props.dataMap,
+        colorScale: props.colorScale,
+        isExtremesMode: props.isExtremesMode,
+        mapConfig: props.mapConfig,
+        isMultiMap: props.isMultiMap,
+      })
+      const isNoDataOnTouch =
+        !props.isExtremesMode && fillColorOnTouch === colors.altWhite
 
-      select(event.currentTarget)
+      const touchedEl = select(event.currentTarget)
         .attr(
           'stroke',
-          props.isExtremesMode ? colors.altBlack : GEO_HOVERED_BORDER_COLOR,
+          isNoDataOnTouch
+            ? colors.altDark
+            : props.isExtremesMode
+              ? colors.altBlack
+              : GEO_HOVERED_BORDER_COLOR,
         )
         .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
-        .attr('opacity', GEO_HOVERED_OPACITY)
+        .attr('opacity', isNoDataOnTouch ? 1 : GEO_HOVERED_OPACITY)
+
+      if (isNoDataOnTouch) {
+        touchedEl.attr('fill', colors.altGray)
+      }
 
       const touch = event.touches[0]
       const name = d.properties?.name || String(d.id)
@@ -153,7 +189,17 @@ const handleMouseEvent = (
     }
     case 'touchend': {
       select(event.currentTarget)
-        .attr('stroke', props.isExtremesMode ? colors.altGray : colors.altWhite)
+        .attr(
+          'stroke',
+          getStrokeColor({
+            d,
+            dataMap: props.dataMap,
+            colorScale: props.colorScale,
+            isExtremesMode: props.isExtremesMode,
+            mapConfig: props.mapConfig,
+            isMultiMap: props.isMultiMap,
+          }),
+        )
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
       break
@@ -171,7 +217,17 @@ const handleMouseEvent = (
             isMultiMap: props.isMultiMap,
           }),
         )
-        .attr('stroke', props.isExtremesMode ? colors.altGray : colors.altWhite)
+        .attr(
+          'stroke',
+          getStrokeColor({
+            d,
+            dataMap: props.dataMap,
+            colorScale: props.colorScale,
+            isExtremesMode: props.isExtremesMode,
+            mapConfig: props.mapConfig,
+            isMultiMap: props.isMultiMap,
+          }),
+        )
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
       props.hideTooltip()
