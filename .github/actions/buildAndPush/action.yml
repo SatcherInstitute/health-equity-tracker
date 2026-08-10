@@ -14,6 +14,10 @@ inputs:
   deploy-context:
     description: 'String value for deploy context. Should be "prod" or "dev". Only used for the frontend'
     required: false
+  sentry-auth-token:
+    description: "Sentry auth token for source map upload during frontend build"
+    required: false
+    default: ""
 
 outputs:
   image-digest:
@@ -27,7 +31,8 @@ runs:
       shell: bash
     - run: |
         docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} ${{ inputs.build-directory }} \
-        --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}"
+        --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
+        --build-arg="SENTRY_AUTH_TOKEN=${{ inputs.sentry-auth-token }}"
       shell: bash
     - run: docker push ${{ inputs.image-path }}
       shell: bash
