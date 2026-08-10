@@ -190,6 +190,17 @@ const handleMouseEvent = (
     case 'touchend': {
       select(event.currentTarget)
         .attr(
+          'fill',
+          getFillColor({
+            d,
+            dataMap: props.dataMap,
+            colorScale: props.colorScale,
+            isExtremesMode: props.isExtremesMode,
+            mapConfig: props.mapConfig,
+            isMultiMap: props.isMultiMap,
+          }),
+        )
+        .attr(
           'stroke',
           getStrokeColor({
             d,
