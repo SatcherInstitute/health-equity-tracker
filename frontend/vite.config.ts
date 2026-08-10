@@ -1,3 +1,4 @@
+import { sentryVitePlugin } from '@sentry/vite-plugin'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 import svgrPlugin from 'vite-plugin-svgr'
@@ -30,6 +31,18 @@ export default defineConfig(({ mode }) => {
         : [
             svgrPlugin(), // Keep only for non-preview environments
           ]),
+
+      // Upload source maps to Sentry when auth token is available (dev/prod builds)
+      ...(process.env.SENTRY_AUTH_TOKEN
+        ? [
+            sentryVitePlugin({
+              org: 'morehouse-school-of-medicine',
+              project: 'health-equity-tracker',
+              authToken: process.env.SENTRY_AUTH_TOKEN,
+              sourcemaps: { filesToDeleteAfterUpload: ['./build/**/*.map'] },
+            }),
+          ]
+        : []),
     ],
     test: {
       exclude: [...configDefaults.exclude, 'playwright-tests/*'],
