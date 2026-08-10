@@ -154,11 +154,15 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           createTerritoryFeature(d.fips),
         )(event, d)
       })
-      .on('touchstart', (event: any, d) => {
-        createEventHandler('touchstart', mouseEventOptions, (d) =>
-          createTerritoryFeature(d.fips),
-        )(event, d)
-      })
+      .on(
+        'touchstart',
+        (event: any, d) => {
+          createEventHandler('touchstart', mouseEventOptions, (d) =>
+            createTerritoryFeature(d.fips),
+          )(event, d)
+        },
+        { passive: true },
+      )
       .on('touchend', (event: any, d) => {
         createEventHandler('touchend', mouseEventOptions, (d) =>
           createTerritoryFeature(d.fips),

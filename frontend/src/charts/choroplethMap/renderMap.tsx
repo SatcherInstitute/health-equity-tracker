@@ -175,9 +175,13 @@ export const renderMap = (options: RenderMapOptions) => {
     .on('mouseout', (event: any, d) => {
       createEventHandler('mouseout', mouseEventOptions)(event, d)
     })
-    .on('touchstart', (event: any, d) => {
-      createEventHandler('touchstart', mouseEventOptions)(event, d)
-    })
+    .on(
+      'touchstart',
+      (event: any, d) => {
+        createEventHandler('touchstart', mouseEventOptions)(event, d)
+      },
+      { passive: true },
+    )
     .on('touchend', (event: any, d) => {
       createEventHandler('touchend', mouseEventOptions)(event, d)
     })
