@@ -77,7 +77,9 @@ export default function CardShareIconButtons(props: CardShareIconButtonsProps) {
           key={label}
           Icon={Icon}
           onClick={handleClose}
-          className='p-0'
+          className='py-0 pr-0'
+          iconClassName='h-12'
+          spanClassName='py-0 pr-4'
           iconProps={shareIconAttributes}
         >
           <a
