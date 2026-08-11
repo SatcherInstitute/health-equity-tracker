@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import HetHighlightSpan from './HetHighlightSpan'
 
 interface HetTermUnderlineProps {
   children?: string
@@ -11,30 +12,7 @@ export default function HetTermUnderline({
   className,
 }: HetTermUnderlineProps) {
   const spanRef = useRef<HTMLSpanElement>(null)
-  const [isVisible, setIsVisible] = useState(false)
   const [marginClass, setMarginClass] = useState('')
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (spanRef.current) {
-      observer.observe(spanRef.current)
-    }
-
-    return () => {
-      if (spanRef.current) {
-        observer.unobserve(spanRef.current)
-      }
-    }
-  }, [])
 
   useEffect(() => {
     const parentText = spanRef.current?.parentElement?.innerText
@@ -58,18 +36,11 @@ export default function HetTermUnderline({
   }, [children])
 
   return (
-    <span
+    <HetHighlightSpan
       ref={spanRef}
-      className={`font-semibold text-dark-green ${className ?? ''} ${marginClass}`}
-      style={{
-        animation: isVisible ? 'underlineSlideIn 1s ease-out forwards' : 'none',
-        backgroundImage: 'linear-gradient(#B8CCC6, rgba(220, 229, 226, 0.2))',
-        backgroundPosition: '1% 100%',
-        backgroundSize: '0% 8px',
-        backgroundRepeat: 'no-repeat',
-      }}
+      className={`${className ?? ''} ${marginClass}`}
     >
       {children}
-    </span>
+    </HetHighlightSpan>
   )
 }
