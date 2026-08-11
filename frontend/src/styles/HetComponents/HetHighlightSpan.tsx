@@ -1,24 +1,26 @@
-import { type Ref, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
+import { colors } from '../tokens/colors'
 
 interface HetHighlightSpanProps {
   children?: React.ReactNode
   className?: string
-  ref?: Ref<HTMLSpanElement>
 }
 
 // The animated green underline that draws itself once the phrase scrolls into
-// view. Callers own spacing and any surrounding text.
+// view. Callers own the spacing around it, so write the word space in the prose
+// (`text{' '}<HetHighlightSpan>…`) exactly as you would for any other inline tag.
 export default function HetHighlightSpan({
   children,
   className,
-  ref,
 }: HetHighlightSpanProps) {
-  const localRef = useRef<HTMLSpanElement>(null)
+  const spanRef = useRef<HTMLSpanElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   useEffect(() => {
-    const node = localRef.current
-    if (!node) return
+    const node = spanRef.current
+    if (!node || prefersReducedMotion) return
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -32,21 +34,20 @@ export default function HetHighlightSpan({
     observer.observe(node)
 
     return () => observer.disconnect()
-  }, [])
+  }, [prefersReducedMotion])
 
   return (
     <span
-      ref={(node) => {
-        localRef.current = node
-        if (typeof ref === 'function') ref(node)
-        else if (ref) ref.current = node
-      }}
+      ref={spanRef}
       className={`font-semibold text-dark-green ${className ?? ''}`}
       style={{
-        animation: isVisible ? 'underlineSlideIn 1s ease-out forwards' : 'none',
-        backgroundImage: 'linear-gradient(#B8CCC6, rgba(220, 229, 226, 0.2))',
+        animation:
+          isVisible && !prefersReducedMotion
+            ? 'underlineSlideIn 1s ease-out forwards'
+            : 'none',
+        backgroundImage: `linear-gradient(${colors.methodologyGreen}, ${colors.tinyTagGray})`,
         backgroundPosition: '1% 100%',
-        backgroundSize: '0% 8px',
+        backgroundSize: prefersReducedMotion ? '100% 8px' : '0% 8px',
         backgroundRepeat: 'no-repeat',
       }}
     >

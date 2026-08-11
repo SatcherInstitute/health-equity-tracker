@@ -1,5 +1,5 @@
+import HetHighlightSpan from './HetHighlightSpan'
 import HetTerm from './HetTerm'
-import HetTermUnderline from './HetTermUnderline'
 
 interface HetTermRaisedProps {
   className?: string
@@ -27,7 +27,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
       case 'start':
         return (
           <>
-            <HetTermUnderline tabIndex={0}>{emphasizedText}</HetTermUnderline>{' '}
+            <HetHighlightSpan>{emphasizedText}</HetHighlightSpan>{' '}
             {description.replace(emphasizedText, '').trim()}
           </>
         )
@@ -40,8 +40,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
             .trim()
           return (
             <>
-              {beforeText}{' '}
-              <HetTermUnderline tabIndex={0}>{emphasizedText}</HetTermUnderline>{' '}
+              {beforeText} <HetHighlightSpan>{emphasizedText}</HetHighlightSpan>{' '}
               {afterText}
             </>
           )
@@ -52,7 +51,7 @@ export const HetTermRaised: React.FC<HetTermRaisedProps> = ({
         return (
           <>
             {description.replace(emphasizedText, '').trim()}{' '}
-            <HetTermUnderline tabIndex={0}>{emphasizedText}</HetTermUnderline>
+            <HetHighlightSpan>{emphasizedText}</HetHighlightSpan>
           </>
         )
       default:
