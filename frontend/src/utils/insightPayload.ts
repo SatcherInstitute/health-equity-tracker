@@ -27,6 +27,7 @@ function toSection(value: unknown): InsightSection | null {
   const usable =
     typeof highlight === 'string' &&
     highlight.length > 0 &&
+    highlight.trim().length > 0 &&
     text.includes(highlight) &&
     highlight.trim() !== text.trim()
 
