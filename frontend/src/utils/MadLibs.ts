@@ -147,6 +147,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   incarceration: 'Incarceration',
   poverty: 'Poverty',
   maternal_mortality: 'Maternal Mortality',
+  severe_maternal_morbidity: 'Severe Maternal Morbidity',
   medicare_cardiovascular: 'Cardiovascular Conditions and Medication Adherence',
   medicare_hiv: 'HIV Conditions and Medication Adherence',
   medicare_mental_health: 'Mental Health Conditions and Medication Adherence',
