@@ -40,7 +40,7 @@ export default function HetHighlightSpan({
       className={`font-semibold text-dark-green ${className ?? ''}`}
       style={{
         animation: isVisible ? 'underlineSlideIn 1s ease-out forwards' : 'none',
-        backgroundImage: `linear-gradient(${colors.methodologyGreen}, rgba(220, 229, 226, 0.2))`,
+        backgroundImage: `linear-gradient(${colors.methodologyGreen}, ${colors.tinyTagGray})`,
         backgroundPosition: '1% 100%',
         backgroundSize: '0% 8px',
         backgroundRepeat: 'no-repeat',
