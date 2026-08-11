@@ -15,11 +15,13 @@ Recommend the single best issue to work on next, with a short ranked shortlist. 
 Issue all four commands in parallel (they are independent):
 
 **Project board — open items:**
+
 ```bash
 gh api graphql -f query='
 {
   organization(login: "SatcherInstitute") {
     projectV2(number: 5) {
+      id
       items(first: 100) {
         nodes {
           fieldValues(first: 10) {
@@ -32,6 +34,7 @@ gh api graphql -f query='
           }
           content {
             ... on Issue {
+              id
               number
               title
               state
@@ -54,13 +57,16 @@ gh api 'repos/SatcherInstitute/health-equity-tracker/milestones?state=open&per_p
 ```
 
 **Recently opened issues (last 60 days) — catches new issues not yet added to the board:**
+
 ```bash
-gh issue list --repo SatcherInstitute/health-equity-tracker --state open --limit 60 --sort created --order desc --json number,title,assignees,labels,milestone,url,createdAt
+SIXTY_DAYS_AGO=$(date -u -d '60 days ago' +%Y-%m-%d 2>/dev/null || date -u -v-60d +%Y-%m-%d)
+gh issue list --repo SatcherInstitute/health-equity-tracker --state open --search "created:>$SIXTY_DAYS_AGO" --limit 100 --sort created --order desc --json number,title,assignees,labels,milestone,url,createdAt
 ```
 
 **Issues assigned to bhammond — catches assigned work that may have fallen off the board:**
+
 ```bash
-gh issue list --repo SatcherInstitute/health-equity-tracker --state open --assignee bhammond --json number,title,assignees,labels,milestone,url,createdAt
+gh issue list --repo SatcherInstitute/health-equity-tracker --state open --assignee bhammond --limit 100 --json number,title,assignees,labels,milestone,url,createdAt
 ```
 
 Also read the memory index to surface any standing priorities:
@@ -151,8 +157,10 @@ If the top pick would close a milestone entirely (it is the last open issue), sa
 If any item in the top-5 is off-board, append a one-line note after the shortlist: "Note: #NNNN and #NNNN are not on the project board."
 
 If the user's current branch has an open PR, note it briefly and ask whether they want to finish that first.
+
 ```bash
-gh pr list --author bhammond --state open --json number,title,headRefName | head -5
+CURRENT_BRANCH=$(git branch --show-current)
+gh pr list --author bhammond --state open --head bhammond:$CURRENT_BRANCH --json number,title,headRefName
 ```
 
 Keep the whole response under 200 words.
