@@ -3,9 +3,9 @@ import Diversity3Rounded from '@mui/icons-material/Diversity3Rounded'
 import GavelRounded from '@mui/icons-material/GavelRounded'
 import PsychologyRounded from '@mui/icons-material/PsychologyRounded'
 import SchoolRounded from '@mui/icons-material/SchoolRounded'
+import HetHighlightSpan from '../../../styles/HetComponents/HetHighlightSpan'
 import { HetOverline } from '../../../styles/HetComponents/HetOverline'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
-import HetTermUnderline from '../../../styles/HetComponents/HetTermUnderline'
 import ResourceSection from '../policyComponents/ResourceSection'
 import {
   communityResources,
@@ -38,8 +38,8 @@ export default function CurrentEffortsTab() {
         </p>
         <article className='group fade-in-up-blur my-0 rounded-md border border-methodology-green border-solid bg-alt-white p-4 shadow-raised-tighter'>
           <p>
-            <HetTerm>Health inequities</HetTerm> <em>(noun)</em>:' '
-            <HetTermUnderline>Unfair and avoidable</HetTermUnderline>' '
+            <HetTerm>Health inequities</HetTerm> <em>(noun)</em>:{' '}
+            <HetHighlightSpan>Unfair and avoidable</HetHighlightSpan>{' '}
             differences in health status across various groups, influenced by
             social, economic, and environmental factors.
           </p>
