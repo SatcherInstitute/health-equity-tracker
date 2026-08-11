@@ -61,7 +61,7 @@ interface DataSourceMetadataMaternalHealthCategory
   readonly dataset_ids: DatasetIdMaternalHealthCategory[]
 }
 
-export const datasourceMetadataMaternalHealthCategory: DataSourceMetadataMaternalHealthCategory =
+export const datasourceMetadataMaternalMortality: DataSourceMetadataMaternalHealthCategory =
   {
     id: 'maternal_health',
     data_source_name: `Trends in State-Level Maternal Mortality by Racial and Ethnic Group in the United States`,

@@ -1,4 +1,5 @@
-import { datasourceMetadataMaternalHealthCategory } from '../../../data/config/DatasetMetadataMaternalHealthCategory'
+import { datasourceMetadataAhr } from '../../../data/config/DatasetMetadataAhr'
+import { datasourceMetadataMaternalMortality } from '../../../data/config/DatasetMetadataMaternalHealthCategory'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigMaternalHealth'
@@ -99,12 +100,14 @@ const MaternalHealthLink = () => {
 
         <p>
           Severe maternal morbidity is sourced from{' '}
-          <a href={urlMap.ahrGraphQl}>America’s Health Rankings</a>, which draws
-          on the AHRQ Healthcare Cost and Utilization Project State Inpatient
-          Databases via the HRSA Maternal and Child Health Bureau’s Federally
-          Available Data. America’s Health Rankings reports this measure per
-          10,000 delivery hospitalizations; we present it per 100,000 for
-          consistency with other tracker rates.
+          <a href={`${urlMap.ahr}/severe_maternal_morbidity`}>
+            America’s Health Rankings
+          </a>
+          , which draws on the AHRQ Healthcare Cost and Utilization Project
+          State Inpatient Databases via the HRSA Maternal and Child Health
+          Bureau’s Federally Available Data. America’s Health Rankings reports
+          this measure per 10,000 delivery hospitalizations; we present it per
+          100,000 for consistency with other tracker rates.
         </p>
 
         <section>
@@ -154,7 +157,10 @@ const MaternalHealthLink = () => {
         </h3>
         <HetTopicDemographics
           topicIds={[...MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS]}
-          datasourceMetadata={datasourceMetadataMaternalHealthCategory}
+          datasourceMetadata={{
+            ...datasourceMetadataMaternalMortality,
+            ...datasourceMetadataAhr,
+          }}
         />
 
         <h3

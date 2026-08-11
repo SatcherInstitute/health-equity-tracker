@@ -13,7 +13,7 @@ import {
   datasourceMetadataKffVaccinationState,
 } from './DatasetMetadataCovidCategory'
 import { datasourceMetadataHivCategory } from './DatasetMetadataHivCategory'
-import { datasourceMetadataMaternalHealthCategory } from './DatasetMetadataMaternalHealthCategory'
+import { datasourceMetadataMaternalMortality } from './DatasetMetadataMaternalHealthCategory'
 import { datasourceMetadataNciCancer } from './DatasetMetadataNciCancer'
 import { datasourceMetadataVera } from './DatasetMetadataVera'
 
@@ -50,7 +50,7 @@ export type DataSourceId =
 export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
   acs: datasourceMetadataAcs,
   cdc_wisqars: datasourceMetadataCommunitySafetyCategory,
-  maternal_health: datasourceMetadataMaternalHealthCategory,
+  maternal_health: datasourceMetadataMaternalMortality,
   cdc_restricted: datasourceMetadataCdcRestricted,
   cdc_atlas: datasourceMetadataHivCategory,
   cdc_vaccination_county: datasourceMetadataCdcVaccinationCounty,

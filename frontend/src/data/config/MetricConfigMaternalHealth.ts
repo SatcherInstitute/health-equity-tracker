@@ -85,10 +85,10 @@ export const SEVERE_MATERNAL_MORBIDITY_METRICS: DataTypeConfig[] = [
     fullDisplayNameInline: 'severe maternal morbidity',
     surveyCollectedData: true,
     definition: {
-      text: `Significant, life-threatening complications during delivery — the unexpected outcomes of labor and delivery that result in serious short- or long-term consequences to a woman's health. Identified from delivery hospitalization records using the CDC's set of indicators (e.g., eclampsia, hysterectomy, sepsis, acute renal failure). Often described as "near misses," these are the non-fatal counterpart to maternal mortality and are roughly 100 times more common. America's Health Rankings reports this measure per 10,000 delivery hospitalizations; it is shown here per 100,000 for consistency with other tracker rates.`,
+      text: `Significant, life-threatening complications during delivery — the unexpected outcomes of labor and delivery that result in serious short- or long-term consequences to women and birthing people's health. Identified from delivery hospitalization records using the CDC's set of indicators (e.g., eclampsia, hysterectomy, sepsis, acute renal failure). Often described as "near misses," these are the non-fatal counterpart to maternal mortality and are roughly 100 times more common.`,
       citations: [
         {
-          url: 'https://www.americashealthrankings.org/explore/measures/maternal_morbidity',
+          url: 'https://www.americashealthrankings.org/explore/measures/severe_maternal_morbidity',
           shortLabel: 'AHR',
           longerTitle: "America's Health Rankings",
         },
