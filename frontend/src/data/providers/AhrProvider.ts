@@ -40,6 +40,7 @@ export const AHR_CONDITIONS: DropdownVarId[] = [
   'excessive_drinking',
   'frequent_mental_distress',
   'preventable_hospitalizations',
+  'severe_maternal_morbidity',
   'substance',
   'suicide',
   'voter_participation',
@@ -81,6 +82,7 @@ export const AHR_METRICS: MetricId[] = [
   'non_medical_drug_use_per_100k',
   'non_medical_drug_use_estimated_total',
   'preventable_hospitalizations_per_100k',
+  'severe_maternal_morbidity_per_100k',
 ]
 
 export const AHR_VOTER_AGE_METRICS: MetricId[] = [
@@ -120,6 +122,12 @@ export const AHR_DATATYPES_WITH_MISSING_AGE_DEMO: DataTypeId[] = [
 
 export const AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Age', 'unavailable for Substance Misuse and Preventable Hospitalizations'],
+]
+
+// Severe maternal morbidity is a female-only measure (delivery hospitalizations),
+// so AHR publishes no sex breakdown — race and age only.
+export const SEVERE_MATERNAL_MORBIDITY_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Sex', 'unavailable for Severe Maternal Morbidity'],
 ]
 
 export const CHR_RESTRICTED_DEMOGRAPHIC_DETAILS = [

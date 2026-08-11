@@ -17,6 +17,7 @@ from ingestion.graphql_ahr_utils import (
     AHR_MEASURES_TO_RATES_MAP_18PLUS,
     AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
     PCT_RATE_TO_PER_100K_TOPICS,
+    PER_10K_TO_PER_100K_TOPICS,
 )  # type: ignore
 from ingestion.het_types import (
     DEMOGRAPHIC_TYPE,
@@ -47,6 +48,12 @@ AGE_GROUPS_TO_STANDARD = {
     "Ages 65-74": "65-74",
     "Ages 75-84": "75-84",
     "Age 85+": "85+",
+    # Severe maternal morbidity reproductive-age buckets (AHR measures 18030-18034)
+    "Age Less Than 20 Years": "<20",
+    "Ages 20-24": "20-24",
+    "Ages 25-29": "25-29",
+    "Ages 30-34": "30-34",
+    "Age 35+": "35+",
 }
 
 # AHR reports its 18+ measures against these three non-overlapping adult buckets.
@@ -346,6 +353,9 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
 
         if ahr_topic in PCT_RATE_TO_PER_100K_TOPICS:
             breakdown_df.loc[is_topic_present, AHR_VALUE] *= 1000
+
+        if ahr_topic in PER_10K_TO_PER_100K_TOPICS:
+            breakdown_df.loc[is_topic_present, AHR_VALUE] *= 10
 
     pivot_df = breakdown_df.pivot_table(
         index=[std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL, breakdown_col],

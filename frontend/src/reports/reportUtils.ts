@@ -7,6 +7,7 @@ import {
   AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS,
   CHR_DATATYPE_IDS,
   CHR_RESTRICTED_DEMOGRAPHIC_DETAILS,
+  SEVERE_MATERNAL_MORBIDITY_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/AhrProvider'
 import {
   CAWP_DATA_TYPES,
@@ -193,6 +194,14 @@ export function getAllDemographicOptions(
     enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
     disabledDemographicOptionsWithRepeats.push(
       ...MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS,
+    )
+  }
+
+  // SEVERE MATERNAL MORBIDITY (AHR — race and age only, no sex)
+  if (configsContainsMatchingId(configs, ['severe_maternal_morbidity'])) {
+    enabledDemographicOptionsMap = ONLY_RACE_AGE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...SEVERE_MATERNAL_MORBIDITY_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
 

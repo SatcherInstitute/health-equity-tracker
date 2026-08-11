@@ -1,16 +1,21 @@
-import { datasourceMetadataMaternalHealthCategory } from '../../../data/config/DatasetMetadataMaternalHealthCategory'
+import { datasourceMetadataAhr } from '../../../data/config/DatasetMetadataAhr'
+import { datasourceMetadataMaternalMortality } from '../../../data/config/DatasetMetadataMaternalHealthCategory'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigMaternalHealth'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
+import { urlMap } from '../../../utils/externalUrls'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { buildTopicsString } from './linkUtils'
 
-const maternalHealthDataSources = [dataSourceMetadataMap.maternal_health]
+const maternalHealthDataSources = [
+  dataSourceMetadataMap.maternal_health,
+  dataSourceMetadataMap.ahr,
+]
 
 export const maternalHealthTopicsString = buildTopicsString(
   MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS,
@@ -93,6 +98,57 @@ const MaternalHealthLink = () => {
           </div>
         </section>
 
+        <p>
+          Severe maternal morbidity is sourced from{' '}
+          <a href={`${urlMap.ahr}/severe_maternal_morbidity`}>
+            America’s Health Rankings
+          </a>
+          , which draws on the AHRQ Healthcare Cost and Utilization Project
+          State Inpatient Databases via the HRSA Maternal and Child Health
+          Bureau’s Federally Available Data. America’s Health Rankings reports
+          this measure per 10,000 delivery hospitalizations; we present it per
+          100,000 for consistency with other tracker rates.
+        </p>
+
+        <section>
+          <div className='py-5'>
+            <h3 className='font-normal text-text'>America’s Health Rankings</h3>
+            <h4 className='my-2'>Conditions</h4>
+            <ul className='list-inside list-disc pl-4'>
+              <li>
+                <HetTerm>Severe Maternal Morbidity</HetTerm>
+              </li>
+            </ul>
+
+            <h4 className='my-2'>Metrics</h4>
+            <ul className='list-inside list-disc pl-4'>
+              <li>
+                <HetTerm>Cases per 100k</HetTerm>: This figure measures a
+                particular group’s rate of significant, life-threatening
+                complications during delivery per every 100,000 delivery
+                hospitalizations.
+              </li>
+            </ul>
+          </div>
+
+          <div className='py-5'>
+            <h3 className='font-normal text-text'>Demographic Identifiers</h3>
+            <p>
+              <strong>Race/ethnicity:</strong> Available for American
+              Indian/Alaska Native, Asian/Pacific Islander (combined), Black,
+              Hispanic, White, and an aggregated other-race group.
+            </p>
+            <p>
+              <strong>Age:</strong> Available for maternal age groups (under 20,
+              20–24, 25–29, 30–34, and 35 and older).
+            </p>
+            <p>
+              <strong>Sex:</strong> Not applicable — this measure covers
+              delivery hospitalizations only.
+            </p>
+          </div>
+        </section>
+
         <h3
           className='mt-12 font-medium text-title'
           id='demographic-stratification'
@@ -101,7 +157,10 @@ const MaternalHealthLink = () => {
         </h3>
         <HetTopicDemographics
           topicIds={[...MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS]}
-          datasourceMetadata={datasourceMetadataMaternalHealthCategory}
+          datasourceMetadata={{
+            ...datasourceMetadataMaternalMortality,
+            ...datasourceMetadataAhr,
+          }}
         />
 
         <h3
