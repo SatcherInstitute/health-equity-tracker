@@ -31,10 +31,10 @@ export default function CurrentEffortsTab() {
         <p>
           This approach advocates for holistic solutions that address the root
           causes of gun violence, which are often found in the systemic
-          inequities plaguing these communities.The patterns observed in Atlanta
-          reflect a broader narrative of health inequity, where the determinants
-          of health unfairly disadvantage certain groups, leading to disparities
-          in violence exposure.
+          inequities plaguing these communities. The patterns observed in
+          Atlanta reflect a broader narrative of health inequity, where the
+          determinants of health unfairly disadvantage certain groups, leading
+          to disparities in violence exposure.
         </p>
         <article className='group fade-in-up-blur my-0 rounded-md border border-methodology-green border-solid bg-alt-white p-4 shadow-raised-tighter'>
           <p>
