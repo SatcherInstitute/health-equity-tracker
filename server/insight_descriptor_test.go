@@ -286,7 +286,10 @@ func TestInsightHandlerPreviewReturnsPromptAndKey(t *testing.T) {
 func TestInsightHandlerGeneratesAndPersistsUnderDerivedKey(t *testing.T) {
 	env := newInsightTestEnv(t)
 	env.stubGeneration(func() (insightGeneration, error) {
-		return insightGeneration{text: "Rates differ sharply by group.", promptTokens: 10, outputTokens: 5}, nil
+		return insightGeneration{
+			text:         "```json\n{\"insight\":{\"text\":\"Rates differ sharply by group.\",\"highlight\":\"differ sharply\"}}\n```",
+			promptTokens: 10, outputTokens: 5,
+		}, nil
 	})
 
 	rr := postDescriptor(t, cardDescriptorBody(t))
@@ -294,7 +297,8 @@ func TestInsightHandlerGeneratesAndPersistsUnderDerivedKey(t *testing.T) {
 		t.Fatalf("status = %d, want 200: %s", rr.Code, rr.Body.String())
 	}
 	got := decodeBody(t, rr)
-	if got["content"] != "Rates differ sharply by group." {
+	// Served normalized, not as the model wrote it: fences gone, envelope intact.
+	if got["content"] != `{"insight":{"text":"Rates differ sharply by group.","highlight":"differ sharply"}}` {
 		t.Errorf("content = %v", got["content"])
 	}
 	cacheKey, _ := got["cacheKey"].(string)

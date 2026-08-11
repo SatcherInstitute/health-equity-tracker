@@ -601,9 +601,18 @@ func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeD
 		strings.ReplaceAll(hashID, "-", " "), topic, location, demographicLabel, dataBlock)
 }
 
-// Keeps the model from narrating the prompt (e.g. "Since only the overall rate
-// is available, here's a sentence...") — the card wants the bare insight.
-const cardOutputRule = " Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available."
+// The client underlines this exact run of characters inside the sentence, so a
+// phrase the model paraphrased rather than quoted cannot be located and is
+// dropped. Asking for a verbatim copy is cheaper than repairing one after.
+const insightHighlightRule = `"highlight" is the one phrase in "text" a reader should notice first: the comparison or figure that carries the finding. Copy it character for character from "text", keep it to roughly 3 to 8 words, and never make it the whole sentence.`
+
+// The single-section envelope a card or contrast returns. Also keeps the model
+// from narrating the prompt (e.g. "Since only the overall rate is available,
+// here's a sentence...") — the card wants the bare insight.
+const singleInsightOutputRule = "\n\nRespond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:\n\n" +
+	"{\n  \"insight\": {\n    \"text\": \"the sentence\",\n    \"highlight\": \"the key phrase from that sentence\"\n  }\n}\n\n" +
+	insightHighlightRule +
+	" Inside \"text\", write only the sentence itself: no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available."
 
 // The exact text a card sends to the model.
 func buildCardInsightPrompt(hashID, topic, location, demographicLabel, dataSection string, context *insightContext, tableShape *tableColumnShape) string {
@@ -628,7 +637,7 @@ func buildCardInsightPrompt(hashID, topic, location, demographicLabel, dataSecti
 	}
 
 	return buildPrompt(hashID, topic, location, demographicLabel, finalDataSection,
-		activeGroup, peerSummary != nil, tableShape) + cardOutputRule
+		activeGroup, peerSummary != nil, tableShape) + singleInsightOutputRule
 }
 
 func buildContrastPrompt(topic1, topic2, location1, location2, demographic, data1, data2 string) string {
@@ -664,7 +673,7 @@ func buildContrastPrompt(topic1, topic2, location1, location2, demographic, data
 	}
 
 	return fmt.Sprintf("%s%s%s\n\nWrite one sentence at an 8th grade reading level that contrasts these two views. %s Be specific — name the places, groups, or numbers from the data above. Use only facts present in the data; do not introduce additional statistics, causal explanations, or place-specific facts that are not shown.",
-		setup, dataBlock1, dataBlock2, guidance)
+		setup, dataBlock1, dataBlock2, guidance) + singleInsightOutputRule
 }
 
 // The browser's DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE. Part of the prompt text,

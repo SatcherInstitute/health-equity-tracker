@@ -7,4 +7,15 @@ Data:
 - White (NH): 84.7% adherent, 70.8% share of adherent pop.
 - Asian (NH): 85.2% adherent, 2.9% share of adherent pop.
 
-Write a single sentence at an 8th grade reading level that describes the pattern across several groups rather than only the single biggest gap. Use the specific numbers shown, and focus on the "so what" for the community. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.
+Write a single sentence at an 8th grade reading level that describes the pattern across several groups rather than only the single biggest gap. Use the specific numbers shown, and focus on the "so what" for the community.
+
+Respond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:
+
+{
+  "insight": {
+    "text": "the sentence",
+    "highlight": "the key phrase from that sentence"
+  }
+}
+
+"highlight" is the one phrase in "text" a reader should notice first: the comparison or figure that carries the finding. Copy it character for character from "text", keep it to roughly 3 to 8 words, and never make it the whole sentence. Inside "text", write only the sentence itself: no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.

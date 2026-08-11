@@ -71,7 +71,7 @@ func insightHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	content, ok := resolveInsight(w, r, &ev, prompt, cacheKey, desc.topic())
+	content, ok := resolveInsight(w, r, &ev, prompt, cacheKey, desc.topic(), desc.Kind)
 	if !ok {
 		return
 	}

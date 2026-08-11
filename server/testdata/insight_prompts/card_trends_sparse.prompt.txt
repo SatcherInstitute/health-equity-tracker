@@ -9,4 +9,15 @@ Data:
 - American Indian and Alaska Native (NH) (2022): 14.2 cases per 100k
 - White (NH) (2022): 2.2 cases per 100k
 
-Write a single sentence at an 8th grade reading level that names the specific years covered, describes whether the gap between groups is improving or worsening, and includes specific numbers — focus on what this trend means for real people. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.
+Write a single sentence at an 8th grade reading level that names the specific years covered, describes whether the gap between groups is improving or worsening, and includes specific numbers — focus on what this trend means for real people.
+
+Respond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:
+
+{
+  "insight": {
+    "text": "the sentence",
+    "highlight": "the key phrase from that sentence"
+  }
+}
+
+"highlight" is the one phrase in "text" a reader should notice first: the comparison or figure that carries the finding. Copy it character for character from "text", keep it to roughly 3 to 8 words, and never make it the whole sentence. Inside "text", write only the sentence itself: no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.

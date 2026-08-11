@@ -12,3 +12,14 @@ View B (Vermont) data:
 - White (NH): 2.4 cases per 100k
 
 Write one sentence at an 8th grade reading level that contrasts these two views. Focus on what comparing these two places reveals that either view alone does not — for example, whether disparities within one place exceed disparities between places, or whether the same patterns recur at different geographic scales. Be specific — name the places, groups, or numbers from the data above. Use only facts present in the data; do not introduce additional statistics, causal explanations, or place-specific facts that are not shown.
+
+Respond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:
+
+{
+  "insight": {
+    "text": "the sentence",
+    "highlight": "the key phrase from that sentence"
+  }
+}
+
+"highlight" is the one phrase in "text" a reader should notice first: the comparison or figure that carries the finding. Copy it character for character from "text", keep it to roughly 3 to 8 words, and never make it the whole sentence. Inside "text", write only the sentence itself: no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.

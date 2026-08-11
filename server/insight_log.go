@@ -51,6 +51,10 @@ const (
 	reasonProviderError   = "provider_error"
 	reasonNoContent       = "no_content"
 	reasonSuppressionRead = "suppression_check"
+
+	// The provider answered, but not in the envelope shape. Only a report can
+	// land here: a card or contrast falls back to the bare sentence.
+	reasonMalformedResponse = "malformed_response"
 )
 
 const insightTopicMaxLen = 64

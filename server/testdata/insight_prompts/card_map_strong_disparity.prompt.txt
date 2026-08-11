@@ -8,4 +8,15 @@ Data:
 - Chatham County (All): 22.8 cases per 100k
 - Chatham County (Black or African American (NH)): 40.3 cases per 100k
 
-Write a single sentence at an 8th grade reading level that highlights the most important health equity disparity — either a geographic gap between places or a gap between race/ethnicity groups within a place — and captures why it matters for real people. Focus on the "so what", not the chart mechanics. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.
+Write a single sentence at an 8th grade reading level that highlights the most important health equity disparity — either a geographic gap between places or a gap between race/ethnicity groups within a place — and captures why it matters for real people. Focus on the "so what", not the chart mechanics.
+
+Respond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:
+
+{
+  "insight": {
+    "text": "the sentence",
+    "highlight": "the key phrase from that sentence"
+  }
+}
+
+"highlight" is the one phrase in "text" a reader should notice first: the comparison or figure that carries the finding. Copy it character for character from "text", keep it to roughly 3 to 8 words, and never make it the whole sentence. Inside "text", write only the sentence itself: no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.
