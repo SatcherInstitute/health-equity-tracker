@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { colors } from '../tokens/colors'
 
 interface HetHighlightSpanProps {
@@ -15,10 +16,11 @@ export default function HetHighlightSpan({
 }: HetHighlightSpanProps) {
   const spanRef = useRef<HTMLSpanElement>(null)
   const [isVisible, setIsVisible] = useState(false)
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   useEffect(() => {
     const node = spanRef.current
-    if (!node) return
+    if (!node || prefersReducedMotion) return
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -32,17 +34,20 @@ export default function HetHighlightSpan({
     observer.observe(node)
 
     return () => observer.disconnect()
-  }, [])
+  }, [prefersReducedMotion])
 
   return (
     <span
       ref={spanRef}
       className={`font-semibold text-dark-green ${className ?? ''}`}
       style={{
-        animation: isVisible ? 'underlineSlideIn 1s ease-out forwards' : 'none',
+        animation:
+          isVisible && !prefersReducedMotion
+            ? 'underlineSlideIn 1s ease-out forwards'
+            : 'none',
         backgroundImage: `linear-gradient(${colors.methodologyGreen}, ${colors.tinyTagGray})`,
         backgroundPosition: '1% 100%',
-        backgroundSize: '0% 8px',
+        backgroundSize: prefersReducedMotion ? '100% 8px' : '0% 8px',
         backgroundRepeat: 'no-repeat',
       }}
     >
