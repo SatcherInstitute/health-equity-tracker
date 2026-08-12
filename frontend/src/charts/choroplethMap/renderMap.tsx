@@ -145,10 +145,7 @@ export const renderMap = (options: RenderMapOptions) => {
         isMultiMap: isMulti,
       }),
     )
-    .attr('stroke-width', (d) => {
-      const entry = dataMap.get(d.id?.toString())
-      return entry?.isSuppressed ? 1.5 : STROKE_WIDTH
-    })
+    .attr('stroke-width', STROKE_WIDTH)
     .attr('aria-hidden', (d: any) => (isExtremesContext(d) ? 'true' : null))
     .attr('role', (d: any) => (isExtremesContext(d) ? null : 'img'))
     .attr('tabindex', '-1')
