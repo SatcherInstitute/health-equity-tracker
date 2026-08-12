@@ -119,11 +119,9 @@ export const renderMap = (options: RenderMapOptions) => {
   const filteredFeatures = features.features.filter(
     (f) => f.id && (!fips.isUsa() || !TERRITORY_CODES[f.id.toString()]),
   )
-  const sortedFeatures = filteredFeatures.sort((a, b) => {
-    const aIsSuppressed =
-      dataMap.get((a.id as string).toString())?.isSuppressed || false
-    const bIsSuppressed =
-      dataMap.get((b.id as string).toString())?.isSuppressed || false
+  const sortedFeatures = filteredFeatures.toSorted((a, b) => {
+    const aIsSuppressed = dataMap.get(String(a.id))?.isSuppressed || false
+    const bIsSuppressed = dataMap.get(String(b.id))?.isSuppressed || false
     // Non-suppressed first, suppressed last
     return aIsSuppressed === bIsSuppressed ? 0 : aIsSuppressed ? 1 : -1
   })
