@@ -338,12 +338,13 @@ func buildReportInsightPrompt(topic, location, demographicLabel string, data rep
 	// lead with a number it was never given, which is exactly how a fabricated
 	// rate gets into a summary.
 
-	// Inviting a comparison without supplying a ratio is how "ten times higher
-	// than average" gets computed from two rates and presented as a finding, so
-	// the headline may only cite a ratio when one was actually sent.
-	ratioClause := " State no figure at all; make the comparison in words only."
+	// A rounded multiple carries the finding in a way a rate never does, so the
+	// headline is allowed to divide two rates it was actually sent. Rounding is
+	// what makes that safe: "about 3 times higher" survives the arithmetic
+	// slipping, where "3.4 times higher" would present the slip as a finding.
+	ratioClause := " Express it as a rounded multiple of another rate shown above, such as 'about 3 times higher', never as a rate itself."
 	if ageAdjustedSection != "" {
-		ratioClause = " You may cite one of the ratios shown above, but do not work out any other figure."
+		ratioClause = " Prefer one of the ratios shown above; otherwise round a comparison between two rates shown, such as 'about 3 times higher'. Never state a rate itself."
 	}
 
 	// This is the one line a reader who skips the charts will actually read, so
@@ -359,7 +360,7 @@ func buildReportInsightPrompt(topic, location, demographicLabel string, data rep
 
 	locationSpec := "1-2 sentences (max 35 words): what to look for when comparing places on this map. Do not state any rate or number."
 	if geographicSection != "" {
-		locationSpec = "1-2 sentences (max 35 words): what the geographic spread shows about where the burden is heaviest."
+		locationSpec = "1-2 sentences (max 35 words): where the burden is heaviest, naming the place at the extreme and how far it sits from the rest."
 	}
 
 	// Age adjustment and the trend both fold in here rather than getting sections
@@ -423,11 +424,12 @@ func buildReportInsightPrompt(topic, location, demographicLabel string, data rep
 The page contains multiple charts: a rate map, rates over time, a rate bar chart, an unknowns map, inequities over time, and a population vs distribution chart.
 %s
 WRITING RULES, follow these strictly:
-- Use only numbers that appear in the data above. Never estimate, infer, round differently, derive a new figure by combining two that are shown, or introduce a figure that is not shown. If a number is not in the data, describe the pattern in words instead.
+%s
+- Every number must trace back to the data above. Rounding one for readability and comparing two that are both shown are both fine; inventing, estimating, or guessing at a figure that is not there is not. If a number is not in the data, describe the pattern in words instead.
 - Do not add causal explanations or place-specific facts that are not in the data.
 - A rate of 0 means the source reported no rate for that place or period. Never cite a 0 as a rate, and never describe it as a place or time with no cases, no deaths, or no burden.
 - Call a figure a peak, a high point, or a low point only where the data above labels it as one. A first or latest reported value is neither.
-- Write every demographic group name exactly as it appears in the data above. Never expand, abbreviate, or reword it; the names shown are the ones used throughout the rest of the report.
+- Refer to a group by the shortest everyday form of the name shown in the data. Never swap in a different group, and never name a group the data does not list.
 - Never label a group vulnerable, at-risk, high-risk, underserved, or a minority. Those words describe people by a deficit rather than by what they face. Name the group and name the burden instead.
 - Use person-first wording: "people with diabetes", not "diabetics"; "people experiencing homelessness", not "the homeless".
 - Write at an 8th-grade reading level. Use short words and simple sentences.
@@ -444,5 +446,5 @@ Respond ONLY with a valid JSON object, no markdown, no backticks, no explanation
 }
 
 Every section is an object carrying both keys. `+insightHighlightRule,
-		topic, location, demographicLabel, dataBlock, keyFindingsSpec, locationSpec, demographicSpec, whatThisMeansSpec)
+		topic, location, demographicLabel, dataBlock, plainLanguageRules, keyFindingsSpec, locationSpec, demographicSpec, whatThisMeansSpec)
 }

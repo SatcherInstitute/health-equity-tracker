@@ -9,7 +9,15 @@ Data:
 - American Indian and Alaska Native (NH) (2022): 14.2 cases per 100k
 - White (NH) (2022): 2.2 cases per 100k
 
-Write a single sentence at an 8th grade reading level that names the specific years covered, describes whether the gap between groups is improving or worsening, and includes specific numbers — focus on what this trend means for real people.
+Write a single sentence at an 8th grade reading level that says how long the pattern has held, and describes whether the gap between groups is improving or worsening when more than one group has data across those years and otherwise how the group that does has changed — focus on what this trend means for real people.
+
+WRITING RULES, follow these strictly:
+- Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.
+- Use at most two numbers, and prefer a comparison over a raw rate. Compare a group against the overall "All" rate whenever the data shows one; only if it does not, compare against the largest group shown. Compare a place against the typical place.
+- Write about the people in the data in the third person. Never "we", "us", "our communities", or "those in our communities". A reader may belong to any group on the page.
+- Name the extreme, not the spread. Say which group or place is highest or lowest, or that some have none at all. Never say values "vary widely".
+- Say how long a pattern has held in human terms, "for over a decade", rather than listing years.
+- Use the words people actually use: "Black" for "Black or African American (NH)", "people living with HIV" for "HIV prevalence", "heart attacks" for "acute myocardial infarction".
 
 Respond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:
 
