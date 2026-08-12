@@ -14,8 +14,10 @@ import { useAtom, useAtomValue } from 'jotai'
 import type React from 'react'
 import { useCallback, useEffect, useState } from 'react'
 import FlagInsightButton from '../../cards/ui/FlagInsightButton'
+import HetHighlightedText from '../../styles/HetComponents/HetHighlightedText'
 import {
   generateReportInsight,
+  type ReportInsightSectionKey,
   type ReportInsightSections,
 } from '../../utils/generateReportInsight'
 import { useParamState } from '../../utils/hooks/useParamState'
@@ -35,7 +37,7 @@ interface InsightReportCardProps {
 }
 
 type SectionConfig = {
-  key: keyof ReportInsightSections
+  key: ReportInsightSectionKey
   label: string
   icon: React.ReactNode
 }
@@ -126,7 +128,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
   }
 
   const insightText = sections
-    ? SECTIONS.map(({ key }) => sections[key]).join(' ')
+    ? SECTIONS.map(({ key }) => sections[key].text).join(' ')
     : ''
 
   const handleClose = () => {
@@ -216,7 +218,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
                   <p
                     className={`m-0 text-alt-dark leading-snug ${key === 'keyFindings' ? 'font-bold text-title' : 'text-text leading-relaxed'}`}
                   >
-                    {sections[key]}
+                    <HetHighlightedText section={sections[key]} />
                   </p>
                 </div>
               ))}

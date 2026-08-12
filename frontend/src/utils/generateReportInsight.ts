@@ -34,6 +34,7 @@ import {
   type ReportSectionDescriptor,
   toInsightMetric,
 } from './insightDescriptor'
+import { type InsightSection, parseInsightSections } from './insightPayload'
 
 const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 
@@ -41,12 +42,16 @@ const ERROR_GENERATING_INSIGHT = 'Error generating insight'
 // it. Trend and data-completeness findings fold into these four sections rather
 // than each getting a section of their own, which would turn the card into a
 // table of contents for the report.
-export type ReportInsightSections = {
-  keyFindings: string
-  locationComparison: string
-  demographicInsights: string
-  whatThisMeans: string
-}
+export type ReportInsightSectionKey =
+  | 'keyFindings'
+  | 'locationComparison'
+  | 'demographicInsights'
+  | 'whatThisMeans'
+
+export type ReportInsightSections = Record<
+  ReportInsightSectionKey,
+  InsightSection
+>
 
 // Must match the JSON schema the report prompt asks the model to return, in
 // buildReportInsightPrompt (server/insight_prompt_report.go). A renamed section
@@ -57,7 +62,7 @@ const SECTION_KEYS = [
   'locationComparison',
   'demographicInsights',
   'whatThisMeans',
-] as const satisfies readonly (keyof ReportInsightSections)[]
+] as const satisfies readonly ReportInsightSectionKey[]
 
 type ReportInsightResult = {
   sections: ReportInsightSections | null
@@ -69,21 +74,7 @@ type ReportInsightResult = {
 }
 
 export function parseSections(raw: string): ReportInsightSections | null {
-  try {
-    const clean = raw.replace(/```json|```/g, '').trim()
-    const parsed = JSON.parse(clean)
-
-    for (const key of SECTION_KEYS) {
-      if (typeof parsed[key] !== 'string') return null
-    }
-
-    return Object.fromEntries(
-      SECTION_KEYS.map((key) => [key, parsed[key]]),
-    ) as ReportInsightSections
-  } catch (error) {
-    console.error('Failed to parse report insight JSON:', error)
-    return null
-  }
+  return parseInsightSections(raw, SECTION_KEYS)
 }
 
 // A county has no child places, so Breakdowns.forChildrenFips would return the

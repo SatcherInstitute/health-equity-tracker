@@ -7,6 +7,7 @@ import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type { DemographicGroup } from '../../data/utils/Constants'
 import type { Fips } from '../../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../../featureFlags'
+import HetHighlightedText from '../../styles/HetComponents/HetHighlightedText'
 import type {
   InsightDataStatus,
   InsightPeerConfig,
@@ -19,6 +20,7 @@ import {
 } from '../../utils/generateVisualizationInsight'
 import { getDataManager } from '../../utils/globals'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import { parseSingleInsight } from '../../utils/insightPayload'
 import {
   cardInsightOpenAtom,
   cardInsightsAtom,
@@ -238,7 +240,10 @@ export default function InsightVisualizationCard({
           error: 'Unable to generate insight. Please try again.',
         })
       } else {
-        setCardInsights((prev) => ({ ...prev, [cacheKey]: result.content }))
+        setCardInsights((prev) => ({
+          ...prev,
+          [cacheKey]: parseSingleInsight(result.content),
+        }))
         dispatch({
           type: 'generationSucceeded',
           serverCacheKey: resultCacheKey,
@@ -352,13 +357,13 @@ export default function InsightVisualizationCard({
         return insight ? (
           <>
             <p className='m-0 font-bold text-alt-dark leading-snug'>
-              {insight}
+              <HetHighlightedText section={insight} />
             </p>
             <p className='m-0 mt-2 text-alt-dark text-smallest'>
               AI-generated. Verify with chart data.{' '}
               <FlagInsightButton
                 cacheKey={serverCacheKey ?? undefined}
-                content={insight}
+                content={insight.text}
                 topic={dataTypeConfig.dataTypeId}
                 onFlagged={handleFlagged}
               />
