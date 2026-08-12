@@ -108,6 +108,7 @@ from ingestion.cdc_wisqars_utils import (
     WISQARS_INTENT,
     WISQARS_DEATHS,
     WISQARS_CRUDE_RATE,
+    WISQARS_IS_SUPPRESSED,
     WISQARS_YEAR,
     WISQARS_STATE,
     WISQARS_AGE_GROUP,
@@ -121,7 +122,6 @@ from ingestion.cdc_wisqars_utils import (
 )
 from typing import List
 from ingestion.het_types import RATE_CALC_COLS_TYPE, WISQARS_VAR_TYPE, WISQARS_DEMO_TYPE, GEO_TYPE
-
 
 WISQARS_URL_MAP = {
     # pylint: disable-next=line-too-long
@@ -172,6 +172,7 @@ RAW_POPULATIONS_MAP = generate_cols_map(INJ_OUTCOMES, std_col.POPULATION_COL)
 PCT_SHARE_MAP = generate_cols_map(RAW_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
 PCT_SHARE_MAP[std_col.FATAL_POPULATION] = std_col.FATAL_POPULATION_PCT
 PCT_REL_INEQUITY_MAP = generate_cols_map(RAW_TOTALS_MAP.values(), std_col.PCT_REL_INEQUITY_SUFFIX)
+IS_SUPPRESSED_MAP = generate_cols_map(INJ_INTENTS, f"{std_col.PER_100K_SUFFIX}_{std_col.IS_SUPPRESSED_SUFFIX}")
 
 PIVOT_DEM_COLS = {
     std_col.AGE_COL: [WISQARS_YEAR, WISQARS_STATE, WISQARS_AGE_GROUP, WISQARS_POP],
@@ -186,8 +187,14 @@ TIME_MAP = {
         + list(PCT_SHARE_MAP.values())
         + list(RAW_TOTALS_MAP.values())
         + list(RAW_POPULATIONS_MAP.values())
+        + list(IS_SUPPRESSED_MAP.values())
     ),
-    HISTORICAL: (list(PER_100K_MAP.values()) + list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values())),
+    HISTORICAL: (
+        list(PER_100K_MAP.values())
+        + list(PCT_REL_INEQUITY_MAP.values())
+        + list(PCT_SHARE_MAP.values())
+        + list(IS_SUPPRESSED_MAP.values())
+    ),
 }
 
 COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
@@ -283,7 +290,7 @@ class CDCWisqarsData(DataSource):
         df = merge_state_ids(df)
 
         # Adds missing columns
-        combined_cols = list(PER_100K_MAP.values()) + list(RAW_TOTALS_MAP.values())
+        combined_cols = list(PER_100K_MAP.values()) + list(RAW_TOTALS_MAP.values()) + list(IS_SUPPRESSED_MAP.values())
         for col in combined_cols:
             if col not in df.columns:
                 df[col] = np.nan
@@ -319,15 +326,23 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     """
     output_df = pd.DataFrame(columns=[std_col.TIME_PERIOD_COL])
 
-    df_each_intent = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, demographic)
-    df_all_intent_combined = load_wisqars_as_df_from_data_dir(GUN_DEATHS_OVERALL, geo_level, demographic)
+    df_each_intent = load_wisqars_as_df_from_data_dir(
+        GUN_DEATHS_BY_INTENT, geo_level, demographic, detect_suppression=True
+    )
+    df_all_intent_combined = load_wisqars_as_df_from_data_dir(
+        GUN_DEATHS_OVERALL, geo_level, demographic, detect_suppression=True
+    )
     df_all_intent_combined[WISQARS_INTENT] = WISQARS_ALL_INTENTS
 
     df = pd.concat([df_each_intent, df_all_intent_combined], axis=0)
 
     if demographic == std_col.RACE_OR_HISPANIC_COL:
-        df_eth_each_intent = load_wisqars_as_df_from_data_dir(GUN_DEATHS_BY_INTENT, geo_level, "ethnicity")
-        df_eth_all_intent_combined = load_wisqars_as_df_from_data_dir(GUN_DEATHS_OVERALL, geo_level, "ethnicity")
+        df_eth_each_intent = load_wisqars_as_df_from_data_dir(
+            GUN_DEATHS_BY_INTENT, geo_level, "ethnicity", detect_suppression=True
+        )
+        df_eth_all_intent_combined = load_wisqars_as_df_from_data_dir(
+            GUN_DEATHS_OVERALL, geo_level, "ethnicity", detect_suppression=True
+        )
         df_eth_all_intent_combined[WISQARS_INTENT] = WISQARS_ALL_INTENTS
         df_eth = pd.concat([df_eth_each_intent, df_eth_all_intent_combined], axis=0)
         df_eth = df_eth[df_eth[WISQARS_ETH] != "Non-Hispanic"]
@@ -345,16 +360,16 @@ def process_wisqars_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE):
     pivot_df = df.pivot(
         index=PIVOT_DEM_COLS.get(demographic, []),
         columns=WISQARS_INTENT,
-        values=[WISQARS_DEATHS, WISQARS_CRUDE_RATE],
+        values=[WISQARS_DEATHS, WISQARS_CRUDE_RATE, WISQARS_IS_SUPPRESSED],
     )
 
+    VALUE_COL_SUFFIX_MAP = {
+        WISQARS_DEATHS: std_col.RAW_SUFFIX,
+        WISQARS_CRUDE_RATE: std_col.PER_100K_SUFFIX,
+        WISQARS_IS_SUPPRESSED: f"{std_col.PER_100K_SUFFIX}_{std_col.IS_SUPPRESSED_SUFFIX}",
+    }
     flat_columns = [
-        (
-            f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
-            if col[0] == WISQARS_DEATHS
-            else f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.PER_100K_SUFFIX}"
-        )
-        for col in pivot_df.columns
+        f"gun_violence_{col[1].lower().replace(' ', '_')}_{VALUE_COL_SUFFIX_MAP[col[0]]}" for col in pivot_df.columns
     ]
 
     pivot_df.columns = pd.Index(flat_columns)

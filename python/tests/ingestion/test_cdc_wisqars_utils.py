@@ -1,4 +1,16 @@
-from ingestion.cdc_wisqars_utils import clean_numeric, contains_unknown, convert_columns_to_numeric, generate_cols_map
+from unittest import mock
+
+from ingestion.cdc_wisqars_utils import (
+    clean_numeric,
+    contains_unknown,
+    convert_columns_to_numeric,
+    generate_cols_map,
+    condense_age_groups,
+    load_wisqars_as_df_from_data_dir,
+    WISQARS_IS_SUPPRESSED,
+)
+from ingestion import standardized_columns as std_col
+from ingestion.het_types import RATE_CALC_COLS_TYPE
 import pandas as pd
 from pandas.testing import assert_frame_equal
 
@@ -100,3 +112,108 @@ def test_generate_cols_map_bad_count_cols():
         "dog_estimated_total": "dog_per_100k",
         "bird": "bird_per_100k",
     }
+
+
+FAKE_STATE_ROWS = [
+    {"State": "California", "Year": "2020", "Deaths": "100", "Crude Rate": "2.5", "Population": "4000000"},
+    {"State": "Texas", "Year": "2020", "Deaths": "--", "Crude Rate": "--", "Population": "3000000"},
+]
+
+
+@mock.patch("ingestion.cdc_wisqars_utils.gcs_to_bq_util.load_csv_as_df_from_data_dir")
+def test_load_wisqars_as_df_from_data_dir_detect_suppression_true(mock_load_csv):
+    mock_load_csv.return_value = pd.DataFrame(FAKE_STATE_ROWS)
+
+    df = load_wisqars_as_df_from_data_dir("gun_violence_all_intents", "state", "sex", detect_suppression=True)
+
+    assert df[WISQARS_IS_SUPPRESSED].tolist() == [False, True]
+    # the suppressed row's raw values are coerced to NaN by convert_columns_to_numeric
+    assert df["Deaths"].isna().tolist() == [False, True]
+    assert df["Crude Rate"].isna().tolist() == [False, True]
+
+
+@mock.patch("ingestion.cdc_wisqars_utils.gcs_to_bq_util.load_csv_as_df_from_data_dir")
+def test_load_wisqars_as_df_from_data_dir_detect_suppression_false_by_default(mock_load_csv):
+    mock_load_csv.return_value = pd.DataFrame(FAKE_STATE_ROWS)
+
+    df = load_wisqars_as_df_from_data_dir("gun_violence_all_intents", "state", "sex")
+
+    assert WISQARS_IS_SUPPRESSED not in df.columns
+
+
+NUMERATOR_COL = "count_estimated_total"
+DENOMINATOR_COL = "population"
+RATE_COL = "count_per_100k"
+SUPPRESSED_COL = f"{RATE_COL}_{std_col.IS_SUPPRESSED_SUFFIX}"
+
+COL_DICTS: list[RATE_CALC_COLS_TYPE] = [
+    {"numerator_col": NUMERATOR_COL, "denominator_col": DENOMINATOR_COL, "rate_col": RATE_COL}
+]
+
+
+def test_condense_age_groups_marks_combined_bucket_suppressed_if_any_sub_bucket_suppressed():
+    df = pd.DataFrame(
+        [
+            {
+                std_col.TIME_PERIOD_COL: "2020",
+                std_col.STATE_NAME_COL: "California",
+                std_col.AGE_COL: "35-39",
+                NUMERATOR_COL: 10,
+                DENOMINATOR_COL: 1000,
+                RATE_COL: 1000.0,
+                SUPPRESSED_COL: False,
+            },
+            {
+                std_col.TIME_PERIOD_COL: "2020",
+                std_col.STATE_NAME_COL: "California",
+                std_col.AGE_COL: "40-44",
+                NUMERATOR_COL: 5,
+                DENOMINATOR_COL: 500,
+                RATE_COL: 1000.0,
+                SUPPRESSED_COL: True,
+            },
+        ]
+    )
+
+    condensed = condense_age_groups(df, COL_DICTS)
+    combined_row = condensed[condensed[std_col.AGE_COL] == "35-44"].iloc[0]
+
+    # a partial sum across a suppressed sub-bucket can't be trusted as a complete count/rate
+    assert combined_row[SUPPRESSED_COL] is True
+    assert pd.isna(combined_row[NUMERATOR_COL])
+    assert pd.isna(combined_row[RATE_COL])
+
+
+def test_condense_age_groups_combines_normally_when_no_sub_bucket_suppressed():
+    df = pd.DataFrame(
+        [
+            {
+                std_col.TIME_PERIOD_COL: "2020",
+                std_col.STATE_NAME_COL: "California",
+                std_col.AGE_COL: "35-39",
+                NUMERATOR_COL: 10,
+                DENOMINATOR_COL: 1000,
+                RATE_COL: 1000.0,
+                SUPPRESSED_COL: False,
+            },
+            {
+                std_col.TIME_PERIOD_COL: "2020",
+                std_col.STATE_NAME_COL: "California",
+                std_col.AGE_COL: "40-44",
+                NUMERATOR_COL: 5,
+                DENOMINATOR_COL: 500,
+                RATE_COL: 1000.0,
+                SUPPRESSED_COL: False,
+            },
+        ]
+    )
+
+    condensed = condense_age_groups(df, COL_DICTS)
+    combined_row = condensed[condensed[std_col.AGE_COL] == "35-44"].iloc[0]
+
+    # NaN here means "suppression doesn't apply" (a real rate was computed), per the tri-state
+    # convention: True = suppressed, False = known-missing-but-not-suppressed, NaN = real data.
+    assert pd.isna(combined_row[SUPPRESSED_COL])
+    assert combined_row[NUMERATOR_COL] == 15
+    assert combined_row[DENOMINATOR_COL] == 1500
+    assert combined_row[RATE_COL] == 1000.0

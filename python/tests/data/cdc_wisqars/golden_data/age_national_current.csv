@@ -1,10 +1,10 @@
-state_name,state_fips,age,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k,gun_deaths_per_100k,gun_violence_homicide_pct_share,gun_violence_suicide_pct_share,gun_deaths_pct_share,fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,gun_deaths_estimated_total,fatal_population
-United States,00,0-14,0.77,0.31,1.31,2.6,0.7,1.7,17.8,460.0,186.0,779.0,59498481.0
-United States,00,15-19,11.27,4.83,16.72,13.9,3.9,7.9,6.6,2487.0,1066.0,3691.0,22075480.0
-United States,00,20-24,12.94,10.12,23.91,15.7,8.1,11.2,6.5,2823.0,2208.0,5214.0,21811172.0
-United States,00,25-29,11.14,9.82,21.73,13.7,7.9,10.2,6.6,2452.0,2162.0,4784.0,22018360.0
-United States,00,30-34,10.87,8.84,20.49,14.3,7.6,10.3,7.0,2558.0,2080.0,4821.0,23524156.0
-United States,00,35-44,8.18,9.03,17.8,20.2,14.7,16.9,13.3,3629.0,4010.0,7900.0,44390693.0
-United States,00,45-64,3.52,9.97,13.87,16.2,30.1,24.4,24.6,2896.0,8208.0,11418.0,82348192.0
-United States,00,65+,1.05,12.45,13.71,3.5,27.0,17.4,17.7,622.0,7379.0,8121.0,59248361.0
-United States,00,All,5.35,8.15,13.95,100.0,100.0,100.0,100.0,17927.0,27300.0,46728.0,334914895.0
+state_name,state_fips,age,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k,gun_deaths_per_100k,gun_violence_homicide_pct_share,gun_violence_suicide_pct_share,gun_deaths_pct_share,fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,gun_deaths_estimated_total,fatal_population,gun_violence_homicide_per_100k_is_suppressed,gun_violence_suicide_per_100k_is_suppressed,gun_deaths_per_100k_is_suppressed
+United States,00,0-14,0.77,,1.31,,,,17.8,460.0,,779.0,59498481.0,,True,
+United States,00,15-19,11.27,4.83,16.72,,,,6.6,2487.0,1066.0,3691.0,22075480.0,False,False,False
+United States,00,20-24,12.94,10.12,23.91,,,,6.5,2823.0,2208.0,5214.0,21811172.0,False,False,False
+United States,00,25-29,11.14,9.82,21.73,,,,6.6,2452.0,2162.0,4784.0,22018360.0,False,False,False
+United States,00,30-34,10.87,8.84,20.49,,,,7.0,2558.0,2080.0,4821.0,23524156.0,False,False,False
+United States,00,35-44,8.18,9.03,17.8,,,,13.3,3629.0,4010.0,7900.0,44390693.0,,,
+United States,00,45-64,3.52,9.97,13.87,,,,24.6,2896.0,8208.0,11418.0,82348192.0,,,
+United States,00,65+,1.05,12.45,13.71,,,,17.7,622.0,7379.0,8121.0,59248361.0,,,
+United States,00,All,5.35,8.15,13.95,100.0,100.0,100.0,100.0,17927.0,27300.0,46728.0,334914895.0,False,False,False
