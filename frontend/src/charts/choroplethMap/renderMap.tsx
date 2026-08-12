@@ -115,14 +115,20 @@ export const renderMap = (options: RenderMapOptions) => {
     isExtremesMode && dataMap.get(d.id?.toString())?.value == null
 
   // Draw main map
+  // Render suppressed counties last so their dark strokes appear on top at shared edges
+  const filteredFeatures = features.features.filter(
+    (f) => f.id && (!fips.isUsa() || !TERRITORY_CODES[f.id.toString()]),
+  )
+  const sortedFeatures = filteredFeatures.toSorted((a, b) => {
+    const aIsSuppressed = dataMap.get(String(a.id))?.isSuppressed || false
+    const bIsSuppressed = dataMap.get(String(b.id))?.isSuppressed || false
+    // Non-suppressed first, suppressed last
+    return aIsSuppressed === bIsSuppressed ? 0 : aIsSuppressed ? 1 : -1
+  })
+
   mapGroup
     .selectAll('path')
-    // skip territory shapes on national map
-    .data(
-      features.features.filter(
-        (f) => f.id && (!fips.isUsa() || !TERRITORY_CODES[f.id.toString()]),
-      ),
-    )
+    .data(sortedFeatures)
     .join('path')
     .attr('d', (d) => path(d) || '')
     .attr('fill', (d) =>

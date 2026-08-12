@@ -231,11 +231,15 @@ export function getFillColor(options: GetFillColorOptions): string {
   return colors.altWhite
 }
 
-// A geography filled white would otherwise vanish against the card behind it,
-// since the usual stroke is white too. Outline exactly those shapes in grey.
+// Suppressed areas get a dark border to distinguish them in grayscale.
+// White (no data) gets a gray outline for visibility against the card background.
 // Derived from the fill rather than recomputed so the two cannot disagree.
 export function getStrokeColor(options: GetFillColorOptions): string {
+  const { d, dataMap } = options
+  const entry = dataMap.get(d.id as string)
+
   if (options.isExtremesMode) return colors.altGray
+  if (entry?.isSuppressed) return colors.altDark
   return getFillColor(options) === colors.altWhite
     ? colors.altGray
     : colors.altWhite

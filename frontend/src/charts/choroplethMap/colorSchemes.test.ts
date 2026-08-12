@@ -76,9 +76,9 @@ describe('getStrokeColor', () => {
     expect(at('04').stroke).toEqual(colors.altGray)
   })
 
-  it('leaves every non-white geography the usual white stroke', () => {
+  it('strokes suppressed data with dark border for grayscale distinction', () => {
     expect(at('01').stroke).toEqual(colors.altWhite)
-    expect(at('03').stroke).toEqual(colors.altWhite)
+    expect(at('03').stroke).toEqual(colors.altDark)
   })
 
   it('never leaves a fill and stroke both white', () => {
