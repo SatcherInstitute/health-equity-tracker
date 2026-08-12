@@ -239,7 +239,7 @@ export function getStrokeColor(options: GetFillColorOptions): string {
   const entry = dataMap.get(d.id as string)
 
   if (options.isExtremesMode) return colors.altGray
-  if (entry?.isSuppressed) return colors.altBlack
+  if (entry?.isSuppressed) return colors.altDark
   return getFillColor(options) === colors.altWhite
     ? colors.altGray
     : colors.altWhite

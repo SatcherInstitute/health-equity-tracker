@@ -78,7 +78,7 @@ describe('getStrokeColor', () => {
 
   it('strokes suppressed data with dark border for grayscale distinction', () => {
     expect(at('01').stroke).toEqual(colors.altWhite)
-    expect(at('03').stroke).toEqual(colors.altBlack)
+    expect(at('03').stroke).toEqual(colors.altDark)
   })
 
   it('never leaves a fill and stroke both white', () => {
