@@ -5,6 +5,7 @@ import {
   DEMOGRAPHIC_PARAM,
   MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
+  REPORT_INSIGHT_PARAM_KEY,
 } from '../../utils/urlutils'
 import MadLibAbstractSelector from './MadLibAbstractSelector'
 
@@ -29,6 +30,8 @@ export default function DemographicSelector({
       // clear them in the same write that changes the demographic type.
       params.delete(MAP1_GROUP_PARAM)
       params.delete(MAP2_GROUP_PARAM)
+      // Same for the report insight, which describes one demographic breakdown.
+      params.delete(REPORT_INSIGHT_PARAM_KEY)
       return { ...prev, searchParams: params }
     })
   }

@@ -26,7 +26,12 @@ import {
   type MadLibId,
   type PhraseSelections,
 } from '../../utils/MadLibs'
-import { locationAtom, urlParamAtom } from '../../utils/sharedSettingsState'
+import {
+  cardInsightOpenAtom,
+  contrastInsightOpenAtom,
+  locationAtom,
+  urlParamAtom,
+} from '../../utils/sharedSettingsState'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -36,6 +41,7 @@ import {
   MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
   parseMls,
+  REPORT_INSIGHT_PARAM_KEY,
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
 } from '../../utils/urlutils'
@@ -75,6 +81,28 @@ function ExploreDataPage() {
       : MADLIB_LIST[idx].defaultSelections
     return { ...MADLIB_LIST[idx], activeSelections: selections }
   }, [mlsParam, mlpParam])
+
+  // Every insight is keyed by topic, place, and demographic, so a report change
+  // misses the cache for all of them at once. Left open, each one would call the
+  // model again on arrival at a report the reader has not asked to explain yet.
+  const dt1Param = useAtomValue(urlParamAtom(DATA_TYPE_1_PARAM))
+  const dt2Param = useAtomValue(urlParamAtom(DATA_TYPE_2_PARAM))
+  const demoParam = useAtomValue(urlParamAtom(DEMOGRAPHIC_PARAM))
+  const setCardInsightOpen = useSetAtom(cardInsightOpenAtom)
+  const setContrastInsightOpen = useSetAtom(contrastInsightOpenAtom)
+
+  useEffect(() => {
+    setCardInsightOpen({})
+    setContrastInsightOpen({})
+  }, [
+    mlsParam,
+    mlpParam,
+    dt1Param,
+    dt2Param,
+    demoParam,
+    setCardInsightOpen,
+    setContrastInsightOpen,
+  ])
 
   const showStickyLifeline = LIFELINE_IDS.some(
     (id) =>
@@ -157,6 +185,11 @@ function ExploreDataPage() {
 
       next.set(MADLIB_SELECTIONS_PARAM, stringifyMls(ml.activeSelections))
       next.set(MADLIB_PHRASE_PARAM, ml.id)
+
+      // The report insight describes the report the reader left, and reopening
+      // it on the new one would generate a fresh report insight unasked. Deleted
+      // in this write rather than an effect so it costs no extra history entry.
+      next.delete(REPORT_INSIGHT_PARAM_KEY)
 
       if (ml.id === 'disparity') next.delete(MAP2_GROUP_PARAM)
 

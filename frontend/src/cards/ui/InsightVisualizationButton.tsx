@@ -30,6 +30,8 @@ export default function InsightVisualizationButton({
   // disableTouchListener: on touch devices a tap opens the tooltip and leaves it
   // covering the insight text it sits above. The aria-label carries the same
   // wording, so hover and screen reader users lose nothing.
+  // Opening replaces the open map rather than adding to it. Every open insight
+  // is a model call, so one at a time keeps a reader from accumulating them.
   if (inCompareMode) {
     const isOpen = contrastInsightOpen[scrollToHash] ?? false
     return (
@@ -40,10 +42,7 @@ export default function InsightVisualizationButton({
         <IconButton
           className='hide-on-screenshot remove-height-on-screenshot'
           onClick={() =>
-            setContrastInsightOpen((prev) => ({
-              ...prev,
-              [scrollToHash]: !isOpen,
-            }))
+            setContrastInsightOpen(isOpen ? {} : { [scrollToHash]: true })
           }
           aria-label={
             isOpen ? 'Clear comparison insights' : 'Comparison insights'
@@ -65,9 +64,7 @@ export default function InsightVisualizationButton({
     >
       <IconButton
         className='hide-on-screenshot remove-height-on-screenshot'
-        onClick={() =>
-          setCardInsightOpen((prev) => ({ ...prev, [openKey]: !isOpen }))
-        }
+        onClick={() => setCardInsightOpen(isOpen ? {} : { [openKey]: true })}
         aria-label={isOpen ? 'Clear insight' : 'Generate insight'}
         size='small'
       >
