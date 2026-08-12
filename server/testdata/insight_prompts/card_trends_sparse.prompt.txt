@@ -9,7 +9,7 @@ Data:
 - American Indian and Alaska Native (NH) (2022): 14.2 cases per 100k
 - White (NH) (2022): 2.2 cases per 100k
 
-Write a single sentence at an 8th grade reading level that names the specific years covered, describes whether the gap between groups is improving or worsening, and includes specific numbers — focus on what this trend means for real people.
+Write a single sentence at an 8th grade reading level that names the specific years covered, describes whether the gap between groups is improving or worsening when more than one group has data across those years and otherwise how the group that does has changed, and includes specific numbers — focus on what this trend means for real people.
 
 Respond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:
 

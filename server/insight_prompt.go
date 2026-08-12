@@ -554,7 +554,10 @@ func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeD
 	}
 
 	if hashID == "rates-over-time" {
-		return fmt.Sprintf("This is a line chart showing how %s rates have changed over time in %s across %s groups.%s\n\nWrite a single sentence at an 8th grade reading level that names the specific years covered, describes whether the gap between groups is improving or worsening, and includes specific numbers — focus on what this trend means for real people.",
+		// The gap clause is conditional because suppression is common here: a
+		// sparse topic can leave only one group with values across the years, and
+		// a gap trend asked for unconditionally is one the model has to invent.
+		return fmt.Sprintf("This is a line chart showing how %s rates have changed over time in %s across %s groups.%s\n\nWrite a single sentence at an 8th grade reading level that names the specific years covered, describes whether the gap between groups is improving or worsening when more than one group has data across those years and otherwise how the group that does has changed, and includes specific numbers — focus on what this trend means for real people.",
 			topic, location, demographicLabel, dataBlock)
 	}
 
