@@ -1,4 +1,10 @@
-from ingestion.cdc_wisqars_utils import clean_numeric, contains_unknown, convert_columns_to_numeric, generate_cols_map
+from ingestion.cdc_wisqars_utils import (
+    clean_numeric,
+    contains_unknown,
+    convert_columns_to_numeric,
+    generate_cols_map,
+    merge_wisqars_topic_df,
+)
 import pandas as pd
 from pandas.testing import assert_frame_equal
 
@@ -100,3 +106,36 @@ def test_generate_cols_map_bad_count_cols():
         "dog_estimated_total": "dog_per_100k",
         "bird": "bird_per_100k",
     }
+
+
+def test_merge_wisqars_topic_df_does_not_key_on_shared_value_col_names():
+    # Simulates the youth.py/black_men.py loop: `output_df` accumulates one topic's df per
+    # iteration. Both topics here produce an `is_suppressed` column (unprefixed, as the source
+    # loader emits it) with different True/False values per state - if `is_suppressed` were ever
+    # treated as an implicit join key, California's rows (True vs False) wouldn't match and the
+    # merge would corrupt/duplicate rows instead of joining cleanly on year/state.
+    output_df = pd.DataFrame(columns=["year", "state"])
+
+    topic_a_df = pd.DataFrame(
+        [
+            {"year": "2020", "state": "California", "topic_a_estimated_total": 10, "is_suppressed": True},
+            {"year": "2020", "state": "Texas", "topic_a_estimated_total": 20, "is_suppressed": False},
+        ]
+    )
+    output_df = merge_wisqars_topic_df(output_df, topic_a_df)
+
+    topic_b_df = pd.DataFrame(
+        [
+            {"year": "2020", "state": "California", "topic_b_estimated_total": 30, "is_suppressed": False},
+            {"year": "2020", "state": "Texas", "topic_b_estimated_total": 40, "is_suppressed": True},
+        ]
+    )
+    output_df = merge_wisqars_topic_df(output_df, topic_b_df)
+
+    # exactly one row per state, not a cross-product/NaN-riddled mismatch from a bad join key
+    assert len(output_df) == 2
+    assert set(output_df["state"]) == {"California", "Texas"}
+
+    ca_row = output_df[output_df["state"] == "California"].iloc[0]
+    assert ca_row["topic_a_estimated_total"] == 10
+    assert ca_row["topic_b_estimated_total"] == 30
