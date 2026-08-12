@@ -12,11 +12,16 @@ Geographic spread:
 - All 3 counties: Hinds County 5610, Harrison County 4770, DeSoto County 3840 per 100k
 
 WRITING RULES, follow these strictly:
-- Use only numbers that appear in the data above. Never estimate, infer, round differently, derive a new figure by combining two that are shown, or introduce a figure that is not shown. If a number is not in the data, describe the pattern in words instead.
+- Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.
+- Use at most two numbers, and prefer a comparison over a raw rate: against the overall rate, against the lowest group, or against the typical place.
+- Name the extreme, not the spread. Say which group or place is highest or lowest, or that some have none at all. Never say values "vary widely".
+- Say how long a pattern has held in human terms, "for over a decade", rather than listing years.
+- Use the words people actually use: "Black" for "Black or African American (NH)", "people living with HIV" for "HIV prevalence", "heart attacks" for "acute myocardial infarction".
+- Every number must trace back to the data above. Rounding one for readability and comparing two that are both shown are both fine; inventing, estimating, or guessing at a figure that is not there is not. If a number is not in the data, describe the pattern in words instead.
 - Do not add causal explanations or place-specific facts that are not in the data.
 - A rate of 0 means the source reported no rate for that place or period. Never cite a 0 as a rate, and never describe it as a place or time with no cases, no deaths, or no burden.
 - Call a figure a peak, a high point, or a low point only where the data above labels it as one. A first or latest reported value is neither.
-- Write every demographic group name exactly as it appears in the data above. Never expand, abbreviate, or reword it; the names shown are the ones used throughout the rest of the report.
+- Refer to a group by the shortest everyday form of the name shown in the data. Never swap in a different group, and never name a group the data does not list.
 - Never label a group vulnerable, at-risk, high-risk, underserved, or a minority. Those words describe people by a deficit rather than by what they face. Name the group and name the burden instead.
 - Use person-first wording: "people with diabetes", not "diabetics"; "people experiencing homelessness", not "the homeless".
 - Write at an 8th-grade reading level. Use short words and simple sentences.
@@ -26,8 +31,8 @@ WRITING RULES, follow these strictly:
 Respond ONLY with a valid JSON object, no markdown, no backticks, no explanation outside the JSON. Include every key below and no others. Use this exact structure:
 
 {
-  "keyFindings": { "text": "1 sentence (max 25 words): the single most important takeaway, in plain words a reader who skipped every chart would understand. Name who carries the heaviest burden and how much heavier it is, expressed as a comparison in words such as 'nearly twice as likely'. Do not open with a rate per 100k. State no figure at all; make the comparison in words only.", "highlight": "the key phrase from this section" },
-  "locationComparison": { "text": "1-2 sentences (max 35 words): what the geographic spread shows about where the burden is heaviest.", "highlight": "the key phrase from this section" },
+  "keyFindings": { "text": "1 sentence (max 25 words): the single most important takeaway, in plain words a reader who skipped every chart would understand. Name who carries the heaviest burden and how much heavier it is, expressed as a comparison in words such as 'nearly twice as likely'. Do not open with a rate per 100k. Express it as a rounded multiple of another rate shown above, such as 'about 3 times higher', never as a rate itself.", "highlight": "the key phrase from this section" },
+  "locationComparison": { "text": "1-2 sentences (max 35 words): where the burden is heaviest, naming the place at the extreme and how far it sits from the rest.", "highlight": "the key phrase from this section" },
   "demographicInsights": { "text": "2-3 sentences (max 55 words): which group is most affected and how large the gap is compared to others, using the rates above. Then say how large or small a share of the population that group makes up, using the population shares above. Those population shares count all adults, a broader group than the rate itself measures, so call the comparison rough context rather than an exact figure.", "highlight": "the key phrase from this section" },
   "whatThisMeans": { "text": "1-2 sentences (max 35 words): what this means for real people in these communities, in plain everyday language.", "highlight": "the key phrase from this section" }
 }

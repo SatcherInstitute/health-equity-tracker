@@ -5,7 +5,14 @@ Data:
 - Among 28 Georgia counties: above the typical
 - Peer median 9.9 cases per 100k; range 2.1–44.1 cases per 100k
 
-Write a single sentence at an 8th grade reading level that says where Bartow County, Georgia falls among its peers (for example, higher than most, near the middle, or among the lowest), using the specific numbers, and what that means for the people who live there. Focus on the "so what", not the chart mechanics.
+Write a single sentence at an 8th grade reading level that says where Bartow County, Georgia falls among its peers (for example, higher than most, near the middle, or among the lowest) and what that means for the people who live there. Focus on the "so what", not the chart mechanics.
+
+WRITING RULES, follow these strictly:
+- Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.
+- Use at most two numbers, and prefer a comparison over a raw rate: against the overall rate, against the lowest group, or against the typical place.
+- Name the extreme, not the spread. Say which group or place is highest or lowest, or that some have none at all. Never say values "vary widely".
+- Say how long a pattern has held in human terms, "for over a decade", rather than listing years.
+- Use the words people actually use: "Black" for "Black or African American (NH)", "people living with HIV" for "HIV prevalence", "heart attacks" for "acute myocardial infarction".
 
 Respond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:
 

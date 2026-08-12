@@ -342,6 +342,14 @@ These templates are the only ones that exist. The browser posts a descriptor and
 renders nothing itself, so a wording change ships with the server and needs no
 client deploy.
 
+`plainLanguageRules` in `insight_prompt.go` is the single copy of the writing rules
+that cards, contrasts, and the report all carry, so editing it moves every fixture at
+once. A per-template instruction must never contradict it: a card asking for "the
+specific numbers shown" outweighs the shared rule asking for a rounded comparison, and
+the output drifts back to restating the chart in words. The rules ask the model to
+reason from the exact figures and then round them for the reader, so an instruction
+that pins the output to the raw values defeats the whole block.
+
 It is deterministic and offline: no API key, no network, no clock. A template
 edit shows up as a diff in the `.prompt.txt` files, and **that diff is the thing
 to review.** Since #5029/#5053 the cache key is a hash of the rendered prompt and

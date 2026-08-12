@@ -537,7 +537,7 @@ func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeD
 	}
 
 	if mapChartIDs[hashID] && hasPeerComparison {
-		return fmt.Sprintf("This is a choropleth map of %s in %s. Because only its overall rate is available locally, %s is ranked against its peer places at the same geographic level — which draw on the same data source and methodology, so the comparison is fair.%s\n\nWrite a single sentence at an 8th grade reading level that says where %s falls among its peers (for example, higher than most, near the middle, or among the lowest), using the specific numbers, and what that means for the people who live there. Focus on the \"so what\", not the chart mechanics.",
+		return fmt.Sprintf("This is a choropleth map of %s in %s. Because only its overall rate is available locally, %s is ranked against its peer places at the same geographic level — which draw on the same data source and methodology, so the comparison is fair.%s\n\nWrite a single sentence at an 8th grade reading level that says where %s falls among its peers (for example, higher than most, near the middle, or among the lowest) and what that means for the people who live there. Focus on the \"so what\", not the chart mechanics.",
 			topic, location, location, dataBlock, location)
 	}
 
@@ -557,12 +557,12 @@ func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeD
 		// The gap clause is conditional because suppression is common here: a
 		// sparse topic can leave only one group with values across the years, and
 		// a gap trend asked for unconditionally is one the model has to invent.
-		return fmt.Sprintf("This is a line chart showing how %s rates have changed over time in %s across %s groups.%s\n\nWrite a single sentence at an 8th grade reading level that names the specific years covered, describes whether the gap between groups is improving or worsening when more than one group has data across those years and otherwise how the group that does has changed, and includes specific numbers — focus on what this trend means for real people.",
+		return fmt.Sprintf("This is a line chart showing how %s rates have changed over time in %s across %s groups.%s\n\nWrite a single sentence at an 8th grade reading level that says how long the pattern has held, and describes whether the gap between groups is improving or worsening when more than one group has data across those years and otherwise how the group that does has changed — focus on what this trend means for real people.",
 			topic, location, demographicLabel, dataBlock)
 	}
 
 	if hashID == "inequities-over-time" {
-		return fmt.Sprintf("This is a chart showing how the relative inequity in %s has changed over time in %s across %s groups. Positive values mean a group bears a greater share of %s than their share of the population; negative means less.%s\n\nWrite a single sentence at an 8th grade reading level that names the specific years covered, states whether inequity is improving or worsening for the most affected group, and includes specific numbers — focus on what this trend means for real people.",
+		return fmt.Sprintf("This is a chart showing how the relative inequity in %s has changed over time in %s across %s groups. Positive values mean a group bears a greater share of %s than their share of the population; negative means less.%s\n\nWrite a single sentence at an 8th grade reading level that says how long the pattern has held and states whether inequity is improving or worsening for the most affected group — focus on what this trend means for real people.",
 			topic, location, demographicLabel, topic, dataBlock)
 	}
 
@@ -596,7 +596,7 @@ func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeD
 			caveat = fmt.Sprintf(" The population shares count %s, a broader group than the rate itself measures, so treat that comparison as rough context rather than an exact figure.", tableShape.GeneralPopulationLabel)
 		}
 
-		return fmt.Sprintf("This is a data table summarizing %s in %s by %s. Each row gives one group and %s.%s%s\n\nWrite a single sentence at an 8th grade reading level that %s. Use the specific numbers shown, and focus on the \"so what\" for the community.",
+		return fmt.Sprintf("This is a data table summarizing %s in %s by %s. Each row gives one group and %s.%s%s\n\nWrite a single sentence at an 8th grade reading level that %s. Focus on the \"so what\" for the community.",
 			topic, location, demographicLabel, columns, caveat, dataBlock, task)
 	}
 
@@ -609,10 +609,22 @@ func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeD
 // dropped. Asking for a verbatim copy is cheaper than repairing one after.
 const insightHighlightRule = `"highlight" is the one phrase in "text" a reader should notice first: the comparison or figure that carries the finding. Copy it character for character from "text", keep it to roughly 3 to 8 words, and never make it the whole sentence.`
 
+// Shared by cards, contrasts, and the report. Each line answers a specific way
+// the output read like the chart restated rather than explained: decimals off
+// the axis, raw rates with no reference point, "varies widely" standing in for
+// the actual extreme, and the clinical column names interpolated from the
+// frontend metric configs.
+const plainLanguageRules = `- Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.
+- Use at most two numbers, and prefer a comparison over a raw rate: against the overall rate, against the lowest group, or against the typical place.
+- Name the extreme, not the spread. Say which group or place is highest or lowest, or that some have none at all. Never say values "vary widely".
+- Say how long a pattern has held in human terms, "for over a decade", rather than listing years.
+- Use the words people actually use: "Black" for "Black or African American (NH)", "people living with HIV" for "HIV prevalence", "heart attacks" for "acute myocardial infarction".`
+
 // The single-section envelope a card or contrast returns. Also keeps the model
 // from narrating the prompt (e.g. "Since only the overall rate is available,
 // here's a sentence...") — the card wants the bare insight.
-const singleInsightOutputRule = "\n\nRespond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:\n\n" +
+const singleInsightOutputRule = "\n\nWRITING RULES, follow these strictly:\n" + plainLanguageRules +
+	"\n\nRespond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:\n\n" +
 	"{\n  \"insight\": {\n    \"text\": \"the sentence\",\n    \"highlight\": \"the key phrase from that sentence\"\n  }\n}\n\n" +
 	insightHighlightRule +
 	" Inside \"text\", write only the sentence itself: no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available."
@@ -675,7 +687,7 @@ func buildContrastPrompt(topic1, topic2, location1, location2, demographic, data
 		dataBlock2 = fmt.Sprintf("\n\n%s data:\n%s", viewBLabel, data2)
 	}
 
-	return fmt.Sprintf("%s%s%s\n\nWrite one sentence at an 8th grade reading level that contrasts these two views. %s Be specific — name the places, groups, or numbers from the data above. Use only facts present in the data; do not introduce additional statistics, causal explanations, or place-specific facts that are not shown.",
+	return fmt.Sprintf("%s%s%s\n\nWrite one sentence at an 8th grade reading level that contrasts these two views. %s Name the places or groups involved. Use only facts present in the data; do not introduce additional statistics, causal explanations, or place-specific facts that are not shown.",
 		setup, dataBlock1, dataBlock2, guidance) + singleInsightOutputRule
 }
 
