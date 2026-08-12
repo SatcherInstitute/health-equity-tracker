@@ -11,7 +11,7 @@ Write a single sentence at an 8th grade reading level that weighs who carries th
 
 WRITING RULES, follow these strictly:
 - Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.
-- Use at most two numbers, and prefer a comparison over a raw rate. Compare a group against the overall "All" rate whenever the data shows one; only if it does not, compare against the reference group, which for race and ethnicity is White. Never compare against whichever group happens to make the multiple largest. Compare a place against the typical place.
+- Use at most two numbers, and prefer a comparison over a raw rate. Compare a group against the overall "All" rate whenever the data shows one; only if it does not, compare against the largest group shown. Compare a place against the typical place.
 - Write about the people in the data in the third person. Never "we", "us", "our communities", or "those in our communities". A reader may belong to any group on the page.
 - Name the extreme, not the spread. Say which group or place is highest or lowest, or that some have none at all. Never say values "vary widely".
 - Say how long a pattern has held in human terms, "for over a decade", rather than listing years.
