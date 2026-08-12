@@ -147,7 +147,7 @@ export const renderMap = (options: RenderMapOptions) => {
     )
     .attr('stroke-width', (d) => {
       const entry = dataMap.get(d.id?.toString())
-      return entry?.isSuppressed ? 2 : STROKE_WIDTH
+      return entry?.isSuppressed ? 1.5 : STROKE_WIDTH
     })
     .attr('aria-hidden', (d: any) => (isExtremesContext(d) ? 'true' : null))
     .attr('role', (d: any) => (isExtremesContext(d) ? null : 'img'))
