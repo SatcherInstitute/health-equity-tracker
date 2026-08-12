@@ -452,6 +452,11 @@ type insightTestEnv struct {
 // newInsightTestEnv isolates the handler from GCS and from the provider: the
 // ledger, the persistent cache, and the generation call are all substituted, and
 // the kill-switch memo is primed so it is never consulted over the network.
+// The default stub returns a bare sentence, which is the card fallback path:
+// normalization wraps it in the envelope every surface shares, so this rather
+// than the sentence is what a generating request serves and persists.
+const generatedInsightEnvelope = `{"insight":{"text":"generated"}}`
+
 func newInsightTestEnv(t *testing.T) *insightTestEnv {
 	t.Helper()
 	t.Setenv("INSIGHTS_CACHE_BUCKET", "test-cache")
@@ -627,8 +632,8 @@ func TestInsightHandlerGeneratesPersistsAndMeters(t *testing.T) {
 		t.Fatalf("status = %d, want 200", rr.Code)
 	}
 	got := decodeBody(t, rr)
-	if got["content"] != "generated" {
-		t.Errorf("content = %v, want %q", got["content"], "generated")
+	if got["content"] != generatedInsightEnvelope {
+		t.Errorf("content = %v, want %q", got["content"], generatedInsightEnvelope)
 	}
 	if got["cacheKey"] == nil {
 		t.Error("response is missing cacheKey")
@@ -638,7 +643,7 @@ func TestInsightHandlerGeneratesPersistsAndMeters(t *testing.T) {
 	if err := json.Unmarshal(env.lastPersisted.data, &payload); err != nil {
 		t.Fatalf("persisted payload is not valid JSON: %v", err)
 	}
-	if payload["content"] != "generated" {
+	if payload["content"] != generatedInsightEnvelope {
 		t.Errorf("persisted content = %v", payload["content"])
 	}
 	if _, ok := payload["timestamp"].(float64); !ok {
@@ -671,7 +676,7 @@ func TestInsightHandlerDiscardsExpiredMemoryEntry(t *testing.T) {
 	insightMemCache.Store(key, insightMemEntry{content: "stale", ts: time.Now().Add(-insightMemTTL - time.Hour)})
 
 	rr := env.post(t, nil)
-	if got := decodeBody(t, rr)["content"]; got != "generated" {
+	if got := decodeBody(t, rr)["content"]; got != generatedInsightEnvelope {
 		t.Errorf("content = %v, want a freshly generated insight", got)
 	}
 	if env.upstream != 1 {
@@ -820,12 +825,12 @@ func TestInsightHandlerReturns500OnProviderError(t *testing.T) {
 // they would keep running and just return fewer rows.
 func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 	tests := []struct {
-		name     string
-		setup    func(t *testing.T, env *insightTestEnv)
+		name      string
+		setup     func(t *testing.T, env *insightTestEnv)
 		overrides map[string]any
-		outcome  string
-		reason   string
-		severity string
+		outcome   string
+		reason    string
+		severity  string
 		// reserved is the ceiling accounting, which is deliberately not the same
 		// as "an insight was produced": the slot is claimed before the provider
 		// call, so a failed call still spends one.
@@ -952,6 +957,21 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 			reason:   reasonProviderQuota,
 			severity: "ERROR",
 			reserved: true,
+		},
+		{
+			// Only a report can close this gate: a card or contrast falls back to
+			// the bare sentence and loses nothing but the highlight.
+			name: "report response is not the envelope",
+			setup: func(_ *testing.T, env *insightTestEnv) {
+				env.stubGeneration(func() (insightGeneration, error) {
+					return insightGeneration{text: "a bare sentence"}, nil
+				})
+			},
+			overrides: readFixtureDescriptor(t, "report_full"),
+			outcome:   outcomeUnavailable,
+			reason:    reasonMalformedResponse,
+			severity:  "WARNING",
+			reserved:  true,
 		},
 	}
 

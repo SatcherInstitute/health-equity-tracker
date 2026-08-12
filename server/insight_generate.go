@@ -98,7 +98,11 @@ func writeInsightUnavailable(w http.ResponseWriter) {
 // The suppression, cache, ledger, and generation flow. Returns false when it
 // has already written the response, which is every path that does not end in
 // servable content.
-func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic string) (string, bool) {
+// Cached entries are returned as stored, not re-normalized. Everything written
+// since the envelope shipped is already in it, and the cache key is a hash of
+// the rendered prompt, so the prompt edit that introduced the envelope left no
+// older entry reachable.
+func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic, kind string) (string, bool) {
 	ev.CacheKey = cacheKey
 
 	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
@@ -221,13 +225,24 @@ func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, pr
 		return "", false
 	}
 
+	// Never cached, for the same reason an empty response is not: a report whose
+	// four sections could not be recovered is unusable, and persisting it would
+	// mean nothing ever retries.
+	content, err := normalizeInsightResponse(result.text, kind)
+	if err != nil {
+		ev.Outcome, ev.Reason = outcomeUnavailable, reasonMalformedResponse
+		log.Printf("[insight] %v", err)
+		writeInsightUnavailable(w)
+		return "", false
+	}
+
 	ev.Outcome = outcomeGenerated
-	insightMemCache.Store(cacheKey, insightMemEntry{content: result.text, ts: time.Now()})
+	insightMemCache.Store(cacheKey, insightMemEntry{content: content, ts: time.Now()})
 
 	// Persist to GCS in a background goroutine, best effort, never blocking the
 	// response.
 	payload, _ := json.Marshal(map[string]any{
-		"content":   result.text,
+		"content":   content,
 		"timestamp": time.Now().UnixMilli(),
 	})
 	go func() {
@@ -238,7 +253,7 @@ func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, pr
 		}
 	}()
 
-	return result.text, true
+	return content, true
 }
 
 func rateLimitStatusHandler(w http.ResponseWriter, _ *http.Request) {

@@ -437,9 +437,12 @@ WRITING RULES, follow these strictly:
 Respond ONLY with a valid JSON object, no markdown, no backticks, no explanation outside the JSON. Include every key below and no others. Use this exact structure:
 
 {
-  "keyFindings": "%s",
-  "locationComparison": "%s",
-  "demographicInsights": "%s",
-  "whatThisMeans": "%s"
-}`, topic, location, demographicLabel, dataBlock, keyFindingsSpec, locationSpec, demographicSpec, whatThisMeansSpec)
+  "keyFindings": { "text": "%s", "highlight": "the key phrase from this section" },
+  "locationComparison": { "text": "%s", "highlight": "the key phrase from this section" },
+  "demographicInsights": { "text": "%s", "highlight": "the key phrase from this section" },
+  "whatThisMeans": { "text": "%s", "highlight": "the key phrase from this section" }
+}
+
+Every section is an object carrying both keys. `+insightHighlightRule,
+		topic, location, demographicLabel, dataBlock, keyFindingsSpec, locationSpec, demographicSpec, whatThisMeansSpec)
 }

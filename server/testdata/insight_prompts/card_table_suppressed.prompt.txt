@@ -4,4 +4,15 @@ Data:
 - All: 6.8 cases per 100k, 100% of cervical cancer cases, 100% of population
 - White (NH): 6.5 cases per 100k, 92.3% of cervical cancer cases, 89.1% of population
 
-Write a single sentence at an 8th grade reading level that weighs who carries the burden against who actually lives in Vermont, naming a group whose share of Cervical cancer incidence is out of step with its share of the population. Use the specific numbers shown, and focus on the "so what" for the community. Respond with ONLY the single sentence itself — no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.
+Write a single sentence at an 8th grade reading level that weighs who carries the burden against who actually lives in Vermont, naming a group whose share of Cervical cancer incidence is out of step with its share of the population. Use the specific numbers shown, and focus on the "so what" for the community.
+
+Respond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:
+
+{
+  "insight": {
+    "text": "the sentence",
+    "highlight": "the key phrase from that sentence"
+  }
+}
+
+"highlight" is the one phrase in "text" a reader should notice first: the comparison or figure that carries the finding. Copy it character for character from "text", keep it to roughly 3 to 8 words, and never make it the whole sentence. Inside "text", write only the sentence itself: no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.

@@ -64,7 +64,8 @@ The server handles all traffic on a single port:
   consulting the cache, reserving a slot, or calling the provider, which is how a client checks
   the server renders the text it expects. The generating path returns `{"content","cacheKey"}`;
   the key rides along because flagging needs it, and the prompt does not because it is up to
-  30 KB the client has no use for.
+  30 KB the client has no use for. `content` is the JSON envelope described below, not a
+  bare sentence.
 - **Flagging** (`/flag-insight`): writes a flag record to GCS, deletes the cached insight, and
   clears the in-process `sync.Map` entry — all in the same process with no HTTP hops.
 - **News** (`/het-news`): fetches from the Webflow CDN API with a 5-minute TTL cache (tags
@@ -109,8 +110,9 @@ object and hits are the hot path.
 | `ceiling_approaching` | Not a request. See the alert below |
 
 `reason` narrows the non-serving outcomes: `ceiling_reached`, `generation_disabled`,
-`no_api_key`, `no_cache_bucket`, `ledger_error`, `no_content`, `provider_quota`,
-`provider_error`, `suppression_check`, `prompt_too_large`, `invalid_descriptor`.
+`no_api_key`, `no_cache_bucket`, `ledger_error`, `no_content`, `malformed_response`,
+`provider_quota`, `provider_error`, `suppression_check`, `prompt_too_large`,
+`invalid_descriptor`.
 
 `reserved` is true when the request claimed a slot against the ceilings. **This is not
 the same as `outcome="generated"`**, and the difference is what makes the volume query
@@ -275,6 +277,31 @@ policy; `--limit=1` just takes the first one.
 Alerting on `ceiling_approaching` rather than on `ceiling_reached` is the point: by the
 time reservations are being refused, uncached views are already rendering no insight
 section. Raising `INSIGHT_MAX_GENERATIONS_PER_DAY` is the immediate lever.
+
+## Insight response envelope
+
+Every surface returns the same shape: a JSON object of section key to
+`{text, highlight}`. A card or contrast carries one section under `insight`; a report
+carries `keyFindings`, `locationComparison`, `demographicInsights`, and `whatThisMeans`.
+`highlight` is the one phrase to draw the reader's eye, and the client underlines that
+exact run of characters inside `text`.
+
+`normalizeInsightResponse` in `insight_response.go` repairs whatever the model returned
+into that shape once, before the response is served or cached, so a shape the model only
+occasionally gets wrong cannot persist for the full TTL. It strips code fences, coerces a
+bare string section to `{text}`, and **drops a highlight that is not a verbatim substring
+of its own `text`**, is whitespace-only, or covers the whole sentence — a wrong underline
+is worse than none.
+
+Failure is asymmetric on purpose. A card or contrast always resolves: a response that fails to parse
+falls back to `{"insight":{"text":<raw>}}`, losing the highlight and nothing
+else. A report cannot, since there is no way to split one string into four sections, so
+it logs `unavailable` / `malformed_response` and **is not cached**, the same reasoning
+that keeps an empty response out of the cache.
+
+Cached entries are served as stored, never re-normalized. The cache key is a hash of the
+rendered prompt and the envelope shipped as a prompt edit, so no pre-envelope entry is
+reachable.
 
 ## Insight cache keys
 
