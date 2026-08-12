@@ -23,9 +23,9 @@ func TestNormalizeInsightResponse(t *testing.T) {
 		},
 		{
 			name: "fences are stripped before parsing",
-			raw:  "```json\n{\"insight\":{\"text\":\"A sentence.\",\"highlight\":\"A sentence\"}}\n```",
+			raw:  "```json\n{\"insight\":{\"text\":\"A sentence here.\",\"highlight\":\"sentence\"}}\n```",
 			kind: insightKindCard,
-			want: `{"insight":{"text":"A sentence.","highlight":"A sentence"}}`,
+			want: `{"insight":{"text":"A sentence here.","highlight":"sentence"}}`,
 		},
 		{
 			// Paraphrased rather than quoted, so the client could not locate it.
@@ -39,6 +39,13 @@ func TestNormalizeInsightResponse(t *testing.T) {
 			raw:  `{"insight":{"text":"Rates differ sharply by group.","highlight":"Rates differ sharply by group."}}`,
 			kind: insightKindCard,
 			want: `{"insight":{"text":"Rates differ sharply by group."}}`,
+		},
+		{
+			// Same effective length as the whole text once terminal punctuation is trimmed.
+			name: "highlight differing only by terminal punctuation is dropped",
+			raw:  `{"insight":{"text":"Rates differ sharply.","highlight":"Rates differ sharply"}}`,
+			kind: insightKindCard,
+			want: `{"insight":{"text":"Rates differ sharply."}}`,
 		},
 		{
 			name: "whitespace-only highlight is dropped",
@@ -67,9 +74,9 @@ func TestNormalizeInsightResponse(t *testing.T) {
 		},
 		{
 			name: "report keeps every section",
-			raw:  `{"keyFindings":{"text":"One.","highlight":"One"},"locationComparison":{"text":"Two."},"demographicInsights":{"text":"Three."},"whatThisMeans":{"text":"Four."}}`,
+			raw:  `{"keyFindings":{"text":"One crucial point.","highlight":"crucial"},"locationComparison":{"text":"Two."},"demographicInsights":{"text":"Three."},"whatThisMeans":{"text":"Four."}}`,
 			kind: insightKindReport,
-			want: `{"demographicInsights":{"text":"Three."},"keyFindings":{"text":"One.","highlight":"One"},"locationComparison":{"text":"Two."},"whatThisMeans":{"text":"Four."}}`,
+			want: `{"demographicInsights":{"text":"Three."},"keyFindings":{"text":"One crucial point.","highlight":"crucial"},"locationComparison":{"text":"Two."},"whatThisMeans":{"text":"Four."}}`,
 		},
 		{
 			name: "report of bare strings is coerced section by section",

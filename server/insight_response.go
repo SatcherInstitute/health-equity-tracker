@@ -40,13 +40,19 @@ func toInsightSection(value any) (insightSection, bool) {
 		return insightSection{Text: v}, true
 	case map[string]any:
 		text, ok := v["text"].(string)
-		if !ok {
+		if !ok || strings.TrimSpace(text) == "" {
 			return insightSection{}, false
 		}
 		highlight, _ := v["highlight"].(string)
-		usable := strings.TrimSpace(highlight) != "" &&
+		trimmedText := strings.TrimSpace(text)
+		trimmedHL := strings.TrimSpace(highlight)
+		// Reject a highlight that is not a substring, is whitespace-only, is the
+		// whole sentence, or differs from the whole sentence only by terminal
+		// punctuation (which would still underline nearly everything).
+		usable := trimmedHL != "" &&
 			strings.Contains(text, highlight) &&
-			strings.TrimSpace(highlight) != strings.TrimSpace(text)
+			trimmedHL != trimmedText &&
+			strings.TrimRight(trimmedHL, ".!?,;:—") != strings.TrimRight(trimmedText, ".!?,;:—")
 		if !usable {
 			return insightSection{Text: text}, true
 		}
