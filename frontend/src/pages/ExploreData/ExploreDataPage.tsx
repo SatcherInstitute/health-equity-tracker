@@ -92,8 +92,8 @@ function ExploreDataPage() {
   const setContrastInsightOpen = useSetAtom(contrastInsightOpenAtom)
 
   useEffect(() => {
-    setCardInsightOpen({})
-    setContrastInsightOpen({})
+    setCardInsightOpen((prev) => (Object.keys(prev).length ? {} : prev))
+    setContrastInsightOpen((prev) => (Object.keys(prev).length ? {} : prev))
   }, [
     mlsParam,
     mlpParam,

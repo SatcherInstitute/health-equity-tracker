@@ -30,8 +30,8 @@ export default function InsightVisualizationButton({
   // disableTouchListener: on touch devices a tap opens the tooltip and leaves it
   // covering the insight text it sits above. The aria-label carries the same
   // wording, so hover and screen reader users lose nothing.
-  // Opening replaces the open map rather than adding to it. Every open insight
-  // is a model call, so one at a time keeps a reader from accumulating them.
+  // Opening replaces the open insight rather than adding to it. Every open
+  // insight is a model call, so one at a time keeps a reader from stacking them.
   if (inCompareMode) {
     const isOpen = contrastInsightOpen[scrollToHash] ?? false
     return (
