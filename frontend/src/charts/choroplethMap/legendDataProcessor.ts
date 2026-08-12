@@ -153,6 +153,7 @@ export function processLegendData(
   if (suppressedData.length > 0) {
     specialItems.push({
       color: colors.altGray,
+      borderColor: colors.altBlack,
       label: DATA_SUPPRESSED,
       value: null,
     })
