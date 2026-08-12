@@ -8,8 +8,10 @@ import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
 import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
+import HetHighlightedText from '../styles/HetComponents/HetHighlightedText'
 import { generateContrastInsight } from '../utils/generateContrastInsight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { parseSingleInsight } from '../utils/insightPayload'
 import {
   cardQueryResponsesAtom,
   contrastInsightOpenAtom,
@@ -90,7 +92,7 @@ export default function ContrastInsightSection({
       } else {
         setContrastInsights((prev) => ({
           ...prev,
-          [contrastCacheKey]: result.content,
+          [contrastCacheKey]: parseSingleInsight(result.content),
         }))
       }
     } finally {
@@ -199,13 +201,13 @@ export default function ContrastInsightSection({
       ) : contrastInsight ? (
         <div className='rounded-md bg-footer-color p-3'>
           <p className='m-0 font-bold text-alt-dark leading-snug'>
-            {contrastInsight}
+            <HetHighlightedText section={contrastInsight} />
           </p>
           <p className='m-0 mt-2 text-alt-dark text-smallest'>
             AI-generated. Verify with chart data.{' '}
             <FlagInsightButton
               cacheKey={serverCacheKey ?? undefined}
-              content={contrastInsight}
+              content={contrastInsight.text}
               topic={dataTypeConfig1.dataTypeId}
               onFlagged={handleFlagged}
             />

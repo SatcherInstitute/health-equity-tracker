@@ -8,6 +8,7 @@ import type { DemographicType } from '../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../data/query/MetricQuery'
 import type { Fips } from '../data/utils/Fips'
 import type { ReportInsightSections } from './generateReportInsight'
+import type { InsightSection } from './insightPayload'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -41,7 +42,7 @@ window.addEventListener('hashchange', () => {
 })
 
 /* CARD INSIGHT CACHE — keyed by scrollToHash + dataTypeId + fipsCode + demographicType (+ '-2' for compare card) */
-export const cardInsightsAtom = atom<Record<string, string>>({})
+export const cardInsightsAtom = atom<Record<string, InsightSection>>({})
 
 /* CARD INSIGHT OPEN STATE — keyed by scrollToHash (+ '-2' for compare card) */
 export const cardInsightOpenAtom = atom<Record<string, boolean>>({})
@@ -50,7 +51,7 @@ export const cardInsightOpenAtom = atom<Record<string, boolean>>({})
 export const contrastInsightOpenAtom = atom<Record<string, boolean>>({})
 
 /* CONTRAST INSIGHT CACHE — keyed by scrollToHash + both dataTypeIds + both fipsCodes + demographicType */
-export const contrastInsightsAtom = atom<Record<string, string>>({})
+export const contrastInsightsAtom = atom<Record<string, InsightSection>>({})
 
 /* CARD QUERY RESPONSES — keyed same as cardInsightsAtom; published by CardWrapper for ContrastInsightSection to consume. */
 export const cardQueryResponsesAtom = atom<
