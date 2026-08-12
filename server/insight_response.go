@@ -37,6 +37,9 @@ func stripInsightFences(raw string) string {
 func toInsightSection(value any) (insightSection, bool) {
 	switch v := value.(type) {
 	case string:
+		if strings.TrimSpace(v) == "" {
+			return insightSection{}, false
+		}
 		return insightSection{Text: v}, true
 	case map[string]any:
 		text, ok := v["text"].(string)

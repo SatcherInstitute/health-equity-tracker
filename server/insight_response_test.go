@@ -107,6 +107,8 @@ func TestNormalizeInsightResponseRejectsIncompleteReport(t *testing.T) {
 		"bare sentence":                      "Rates differ sharply by group.",
 		"missing a key":                      `{"keyFindings":{"text":"One."},"locationComparison":{"text":"Two."},"demographicInsights":{"text":"Three."}}`,
 		"section is not an object or string": `{"keyFindings":42,"locationComparison":"Two.","demographicInsights":"Three.","whatThisMeans":"Four."}`,
+		"bare string section is blank":       `{"keyFindings":"  ","locationComparison":"Two.","demographicInsights":"Three.","whatThisMeans":"Four."}`,
+		"object section text is blank":       `{"keyFindings":{"text":""},"locationComparison":"Two.","demographicInsights":"Three.","whatThisMeans":"Four."}`,
 	}
 
 	for name, raw := range tests {
