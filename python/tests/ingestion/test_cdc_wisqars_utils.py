@@ -139,3 +139,55 @@ def test_merge_wisqars_topic_df_does_not_key_on_shared_value_col_names():
     ca_row = output_df[output_df["state"] == "California"].iloc[0]
     assert ca_row["topic_a_estimated_total"] == 10
     assert ca_row["topic_b_estimated_total"] == 30
+
+
+def test_merge_wisqars_topic_df_does_not_key_on_shared_prefixed_value_col_names():
+    # Same scenario as above, but for a prefixed value column (e.g. two topics that both happen to
+    # be named "shared_per_100k") rather than the unprefixed `is_suppressed` case - proves the
+    # suffix-matching rule in `_is_wisqars_value_col`, not just the exact-match `is_suppressed` case.
+    output_df = pd.DataFrame(columns=["year", "state"])
+
+    topic_a_df = pd.DataFrame(
+        [
+            {"year": "2020", "state": "California", "shared_per_100k": 1.5},
+            {"year": "2020", "state": "Texas", "shared_per_100k": 2.5},
+        ]
+    )
+    output_df = merge_wisqars_topic_df(output_df, topic_a_df)
+
+    topic_b_df = pd.DataFrame(
+        [
+            {"year": "2020", "state": "California", "shared_per_100k": 3.5},
+            {"year": "2020", "state": "Texas", "shared_per_100k": 4.5},
+        ]
+    )
+    output_df = merge_wisqars_topic_df(output_df, topic_b_df)
+
+    assert len(output_df) == 2
+    assert set(output_df["state"]) == {"California", "Texas"}
+
+
+def test_merge_wisqars_topic_df_does_not_key_on_shared_pct_share_col_names():
+    # `_pct_share`/`_pct_rate`/`_pct_relative_inequity` columns are typically computed after the
+    # per-topic merge (in generate_breakdown_df), not before it - but `_is_wisqars_value_col`
+    # excludes them too, so a topic that computes its share early is still safe to merge.
+    output_df = pd.DataFrame(columns=["year", "state"])
+
+    topic_a_df = pd.DataFrame(
+        [
+            {"year": "2020", "state": "California", "topic_a_estimated_total": 10, "shared_pct_share": 40.0},
+            {"year": "2020", "state": "Texas", "topic_a_estimated_total": 20, "shared_pct_share": 60.0},
+        ]
+    )
+    output_df = merge_wisqars_topic_df(output_df, topic_a_df)
+
+    topic_b_df = pd.DataFrame(
+        [
+            {"year": "2020", "state": "California", "topic_b_estimated_total": 30, "shared_pct_share": 55.0},
+            {"year": "2020", "state": "Texas", "topic_b_estimated_total": 40, "shared_pct_share": 45.0},
+        ]
+    )
+    output_df = merge_wisqars_topic_df(output_df, topic_b_df)
+
+    assert len(output_df) == 2
+    assert set(output_df["state"]) == {"California", "Texas"}

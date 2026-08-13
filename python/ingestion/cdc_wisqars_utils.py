@@ -273,9 +273,18 @@ def remove_metadata(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def _is_wisqars_value_col(col: str) -> bool:
-    """True for a per-topic measurement column (count, population, rate, suppression flag),
-    as opposed to a descriptor column (year, state, race, etc.)."""
-    value_suffixes = (f"_{std_col.RAW_SUFFIX}", f"_{std_col.POPULATION_COL}", f"_{std_col.PER_100K_SUFFIX}")
+    """True for a per-topic measurement column (count, population, rate, share, suppression flag),
+    as opposed to a descriptor column (year, state, race, etc.). Covers both the raw columns present
+    in per-topic dfs before aggregation and any derived share/rate columns a topic might compute
+    ahead of merging, so neither can become an accidental join key."""
+    value_suffixes = (
+        f"_{std_col.RAW_SUFFIX}",
+        f"_{std_col.POPULATION_COL}",
+        f"_{std_col.PER_100K_SUFFIX}",
+        f"_{std_col.PCT_RATE_SUFFIX}",
+        f"_{std_col.PCT_SHARE_SUFFIX}",
+        f"_{std_col.PCT_REL_INEQUITY_SUFFIX}",
+    )
     return (
         col.endswith(value_suffixes)
         or col == std_col.IS_SUPPRESSED_SUFFIX
