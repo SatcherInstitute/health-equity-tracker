@@ -13,6 +13,7 @@ const GUN_DEATHS_BLACK_MEN_METRIC_IDS: MetricId[] = [
   'gun_homicides_black_men_pct_relative_inequity',
   'gun_homicides_black_men_pct_share',
   'gun_homicides_black_men_per_100k',
+  'gun_homicides_black_men_per_100k_is_suppressed',
   'gun_homicides_black_men_population_estimated_total',
   'gun_homicides_black_men_population_pct',
 ]

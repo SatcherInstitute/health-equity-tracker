@@ -20,6 +20,7 @@ const GUN_DEATHS_CHILDREN_METRIC_IDS: MetricId[] = [
   'gun_deaths_youth_pct_relative_inequity',
   'gun_deaths_youth_pct_share',
   'gun_deaths_youth_per_100k',
+  'gun_deaths_youth_per_100k_is_suppressed',
   'gun_deaths_youth_population',
   'gun_deaths_youth_population_pct',
 ]
@@ -29,6 +30,7 @@ const GUN_DEATHS_YOUNG_ADULTS_METRIC_IDS: MetricId[] = [
   'gun_deaths_young_adults_pct_relative_inequity',
   'gun_deaths_young_adults_pct_share',
   'gun_deaths_young_adults_per_100k',
+  'gun_deaths_young_adults_per_100k_is_suppressed',
   'gun_deaths_young_adults_population',
   'gun_deaths_young_adults_population_pct',
 ]

@@ -27,12 +27,14 @@ export type CommunitySafetyDataTypeId =
 export type CommunitySafetyMetricId =
   | 'gun_deaths_youth_estimated_total'
   | 'gun_deaths_youth_per_100k'
+  | 'gun_deaths_youth_per_100k_is_suppressed'
   | 'gun_deaths_youth_pct_share'
   | 'gun_deaths_youth_pct_relative_inequity'
   | 'gun_deaths_youth_population'
   | 'gun_deaths_youth_population_pct'
   | 'gun_deaths_young_adults_estimated_total'
   | 'gun_deaths_young_adults_per_100k'
+  | 'gun_deaths_young_adults_per_100k_is_suppressed'
   | 'gun_deaths_young_adults_pct_share'
   | 'gun_deaths_young_adults_pct_relative_inequity'
   | 'gun_deaths_young_adults_population'
@@ -54,10 +56,12 @@ export type CommunitySafetyMetricId =
   | 'gun_homicides_black_men_pct_relative_inequity'
   | 'gun_homicides_black_men_pct_share'
   | 'gun_homicides_black_men_per_100k'
+  | 'gun_homicides_black_men_per_100k_is_suppressed'
   | 'gun_homicides_black_men_population_estimated_total'
   | 'gun_homicides_black_men_population_pct'
   | 'gun_deaths_estimated_total'
   | 'gun_deaths_per_100k'
+  | 'gun_deaths_per_100k_is_suppressed'
   | 'gun_deaths_pct_share'
   | 'gun_deaths_pct_relative_inequity'
 
@@ -208,6 +212,7 @@ export const GUN_DEATH_METRICS: DataTypeConfig[] = [
         shortLabel: 'deaths per 100k',
         trendsCardTitleName: 'Rates of gun deaths over time',
         type: 'per100k',
+        suppressionFlagMetricId: 'gun_deaths_per_100k_is_suppressed',
         rateNumeratorMetric: {
           chartTitle: '',
           metricId: 'gun_deaths_estimated_total',
@@ -291,6 +296,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         chartTitle: 'Rates of gun deaths among children',
         columnTitleHeader: 'Gun deaths among children per 100k people',
         metricId: 'gun_deaths_youth_per_100k',
+        suppressionFlagMetricId: 'gun_deaths_youth_per_100k_is_suppressed',
         shortLabel: 'deaths per 100k',
         trendsCardTitleName: 'Rates of gun deaths among children over time',
         type: 'per100k',
@@ -353,6 +359,8 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         chartTitle: 'Rates of gun deaths among young adults',
         columnTitleHeader: 'Gun deaths among young adults per 100k people',
         metricId: 'gun_deaths_young_adults_per_100k',
+        suppressionFlagMetricId:
+          'gun_deaths_young_adults_per_100k_is_suppressed',
         shortLabel: 'deaths per 100k',
         trendsCardTitleName: 'Rates of gun deaths among young adults over time',
         type: 'per100k',
@@ -419,6 +427,8 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
         trendsCardTitleName:
           'Rates of Black male gun homicide victims over time',
         type: 'per100k',
+        suppressionFlagMetricId:
+          'gun_homicides_black_men_per_100k_is_suppressed',
         rateComparisonMetricForAlls: {
           chartTitle: '',
           metricId: 'gun_violence_homicide_per_100k',
