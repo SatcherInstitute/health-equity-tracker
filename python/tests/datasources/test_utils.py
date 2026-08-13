@@ -3,6 +3,8 @@ import json
 
 import pandas as pd
 
+from ingestion import standardized_columns as std_col
+
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "utils")
@@ -90,4 +92,14 @@ def load_golden_df(golden_dir: str, table_name: str, dtype: dict | None = None) 
     merged_dtype = {"state_fips": str, "time_period": str}
     if dtype:
         merged_dtype.update(dtype)
-    return pd.read_csv(path, dtype=merged_dtype)
+    df = pd.read_csv(path, dtype=merged_dtype)
+
+    # `<rate_col>_is_suppressed` columns are tri-state (True / False / NaN) `object` dtype when
+    # computed live. A golden CSV slice with no NaN values reads back as pure `bool`, and an
+    # all-NaN slice reads back as `float64`; force either case back to `object` to match.
+    suppressed_cols = [col for col in df.columns if col.endswith(f"_{std_col.IS_SUPPRESSED_SUFFIX}")]
+    for col in suppressed_cols:
+        if df[col].dtype != object:
+            df[col] = df[col].astype(object)
+
+    return df

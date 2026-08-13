@@ -867,12 +867,22 @@ def generate_time_df_with_cols_and_types(
     # Remove duplicate columns in the DataFrame
     df = df.loc[:, ~df.columns.duplicated()]
 
-    # Remove duplicate columns in float_cols
-    float_cols = list(dict.fromkeys([col for col in numerical_cols_to_keep if col in df.columns]))
+    # `_is_suppressed` columns are tri-state booleans (True/False/NaN), not floats
+    numerical_cols_to_keep = list(dict.fromkeys([col for col in numerical_cols_to_keep if col in df.columns]))
+    bool_cols = [col for col in numerical_cols_to_keep if col.endswith(std_col.IS_SUPPRESSED_SUFFIX)]
+    float_cols = [col for col in numerical_cols_to_keep if col not in bool_cols]
 
     df[float_cols] = df[float_cols].astype(float)
+    if bool_cols:
+        # Tri-state (True/False/NaN) object columns, matching the cdc_miovd/nci_cancer convention.
+        # Upstream pivots/merges can backfill missing cells in object columns with `None` rather
+        # than `NaN`; normalize to `NaN` so both null-like values collapse to one representation.
+        df[bool_cols] = df[bool_cols].astype(object)
+        df[bool_cols] = df[bool_cols].where(df[bool_cols].notna(), np.nan)
 
-    column_types = {c: (BQ_FLOAT if c in float_cols else BQ_STRING) for c in df.columns}
+    column_types = {
+        c: (BQ_FLOAT if c in float_cols else BQ_BOOLEAN if c in bool_cols else BQ_STRING) for c in df.columns
+    }
 
     return df, column_types
 

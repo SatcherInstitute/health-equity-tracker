@@ -12,6 +12,7 @@ Features include:
 """
 
 from typing import List
+import numpy as np
 import pandas as pd
 from ingestion import standardized_columns as std_col, gcs_to_bq_util
 from ingestion.dataset_utils import generate_per_100k_col
@@ -38,6 +39,15 @@ WISQARS_POP = "Population"
 WISQARS_HOMICIDE = "Homicide"
 WISQARS_SUICIDE = "Suicide"
 WISQARS_ALL_INTENTS = "All Intents"
+
+# Working column added by `load_wisqars_as_df_from_data_dir` when `detect_suppression=True`.
+# Reuses the shared suffix constant directly (not a private literal) so it can't drift from the
+# `_is_suppressed` convention used everywhere else in HET.
+WISQARS_IS_SUPPRESSED = std_col.IS_SUPPRESSED_SUFFIX
+
+# WISQARS withholds unreliable/small counts (per its footer notation: <20 unweighted count,
+# <1,200 weighted count, or CV > 30%) and marks them with this sentinel in both Deaths and Crude Rate.
+WISQARS_SUPPRESSED_SENTINEL = "--"
 
 WISQARS_ALL: WISQARS_DEMO_TYPE = "all"
 
@@ -131,13 +141,20 @@ def generate_cols_map(prefixes: List[WISQARS_VAR_TYPE], suffix: str):
     }
 
 
+def _suppressed_col_for_rate(rate_col: str) -> str:
+    return f"{rate_col}_{std_col.IS_SUPPRESSED_SUFFIX}"
+
+
 def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) -> pd.DataFrame:
     """
     Combines source's numerous 5-year age groups into fewer, larger age group combo buckets
 
     Args:
         df: The data frame to operate on
-        col_dicts: List of column name mappings per topic (numerator, denominator, rate)
+        col_dicts: List of column name mappings per topic (numerator, denominator, rate).
+        If a `<rate_col>_is_suppressed` column exists for a topic, a combined bucket is marked
+        suppressed if any of its constituent source buckets was suppressed, since a partial sum
+        across a suppressed sub-bucket can't be presented as a trustworthy complete count.
         NOTE: this function doesn't handle pct_rate columns currently.
 
     Returns:
@@ -183,6 +200,26 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
 
         # some source buckets don't get combined, so only process combo ones
         if len(source_bucket) > 1:
+            group_keys = [std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL]
+
+            # a combined bucket is suppressed if any constituent source bucket was suppressed
+            suppressed_cols = [
+                _suppressed_col_for_rate(col_dict["rate_col"])
+                for col_dict in col_dicts
+                if _suppressed_col_for_rate(col_dict["rate_col"]) in het_bucket_df.columns
+            ]
+            suppressed_by_group = None
+            if suppressed_cols:
+                suppressed_by_group = (
+                    het_bucket_df[suppressed_cols]
+                    .astype("boolean")
+                    .fillna(False)
+                    .astype(bool)
+                    .join(het_bucket_df[group_keys])
+                    .groupby(group_keys)[suppressed_cols]
+                    .any()
+                    .reset_index()
+                )
 
             # create a list of all count cols
             numerator_cols = [col_dict["numerator_col"] for col_dict in col_dicts]
@@ -191,9 +228,9 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
 
             # aggregate by state and year, summing count cols and dropping source rate cols
             agg_map = {count_col: "sum" for count_col in count_cols}
-            het_bucket_df = (
-                het_bucket_df.groupby([std_col.TIME_PERIOD_COL, std_col.STATE_NAME_COL]).agg(agg_map).reset_index()
-            )
+            het_bucket_df = het_bucket_df.groupby(group_keys).agg(agg_map).reset_index()
+            if suppressed_by_group is not None:
+                het_bucket_df = het_bucket_df.merge(suppressed_by_group, on=group_keys)
 
             # recalculate each 100k rate with summed numerators/denominators
             for col_dict in col_dicts:
@@ -206,6 +243,19 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
                     decimal_places=2,
                 )
 
+                # a suppressed combined bucket can't trust its partial sum as a complete count/rate
+                suppressed_col = _suppressed_col_for_rate(str(rate_col))
+                if suppressed_col not in het_bucket_df.columns:
+                    continue
+
+                is_suppressed = het_bucket_df[suppressed_col]
+                het_bucket_df.loc[is_suppressed, [numerator_col, rate_col]] = np.nan
+
+                final_suppressed_col = pd.Series(np.nan, index=het_bucket_df.index, dtype=object)
+                final_suppressed_col[is_suppressed] = True
+                final_suppressed_col[~is_suppressed & het_bucket_df[rate_col].isna()] = False
+                het_bucket_df[suppressed_col] = final_suppressed_col
+
         het_bucket_df[std_col.AGE_COL] = het_bucket
         het_bucket_dfs.append(het_bucket_df)
 
@@ -216,7 +266,10 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
 
 
 def load_wisqars_as_df_from_data_dir(
-    variable_string: WISQARS_VAR_TYPE, geo_level: GEO_TYPE, demographic: WISQARS_DEMO_TYPE
+    variable_string: WISQARS_VAR_TYPE,
+    geo_level: GEO_TYPE,
+    demographic: WISQARS_DEMO_TYPE,
+    detect_suppression: bool = False,
 ) -> pd.DataFrame:
     """
     Loads wisqars data from data directory
@@ -225,6 +278,11 @@ def load_wisqars_as_df_from_data_dir(
         variable_string: The wisqars variable string
         geo_level: e.g. "state" or "national"
         demographic: e.g. "race_and_ethnicity" or "sex"
+        detect_suppression: if True, adds a tri-state `WISQARS_IS_SUPPRESSED` column flagging rows
+            where Crude Rate was withheld by the source (see `WISQARS_SUPPRESSED_SENTINEL`).
+            Opt-in: callers that merge results from multiple calls to this function on implicit
+            (unspecified) join keys would otherwise pick up an identically-named column as an
+            accidental merge key.
 
     Returns:
         The wisqars data frame
@@ -232,10 +290,11 @@ def load_wisqars_as_df_from_data_dir(
 
     csv_filename = f"{variable_string}-{geo_level}-{demographic}.csv"
 
+    # Note: no na_values here for the suppression sentinel ("--"). It's left as a real string so
+    # detect_suppression can see it below; convert_columns_to_numeric() coerces it to NaN afterward.
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         DATA_DIR,
         csv_filename,
-        na_values=["--", "**"],
         usecols=lambda x: x not in WISQARS_IGNORE_COLS,
         thousands=",",
         dtype={WISQARS_YEAR: str},
@@ -245,6 +304,14 @@ def load_wisqars_as_df_from_data_dir(
 
     if geo_level == NATIONAL_LEVEL:
         df.insert(1, WISQARS_STATE, US_NAME)
+
+    if detect_suppression:
+        # Tri-state per HET convention: True = suppressed, NaN = real data (suppression doesn't
+        # apply). A raw source row has no "known-missing-but-not-suppressed" state, so there's no
+        # False here - that would misread as a real, non-suppressed measurement downstream.
+        is_suppressed_mask = df[WISQARS_CRUDE_RATE].astype(str).str.strip() == WISQARS_SUPPRESSED_SENTINEL
+        df[WISQARS_IS_SUPPRESSED] = pd.Series(np.nan, index=df.index, dtype=object)
+        df.loc[is_suppressed_mask, WISQARS_IS_SUPPRESSED] = True
 
     columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE, WISQARS_POP]
     convert_columns_to_numeric(df, columns_to_convert)
