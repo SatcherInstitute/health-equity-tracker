@@ -12,6 +12,7 @@ from ingestion.cdc_wisqars_utils import (
     WISQARS_ALL,
     WISQARS_POP,
     WISQARS_AGE_GROUP,
+    WISQARS_IS_SUPPRESSED,
     condense_age_groups,
     load_wisqars_as_df_from_data_dir,
 )
@@ -73,13 +74,17 @@ PCT_REL_INEQUITY_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.
 PCT_SHARE_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
 PCT_SHARE_MAP[std_col.GUN_HOMICIDES_BM_POP_RAW] = std_col.GUN_HOMICIDES_BM_POP_PCT
 PER_100K_MAP = generate_cols_map([GUN_HOMICIDES_BM_PREFIX], std_col.PER_100K_SUFFIX)
+IS_SUPPRESSED_COL = f"{std_col.GUN_HOMICIDES_BM_PER_100K}_{std_col.IS_SUPPRESSED_SUFFIX}"
 
 TIME_MAP = {
     CURRENT: list(ESTIMATED_TOTALS_MAP.values())
     + list(PCT_SHARE_MAP.values())
     + list(PER_100K_MAP.values())
-    + [std_col.GUN_HOMICIDES_BM_POP_RAW],
-    HISTORICAL: list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values()) + list(PER_100K_MAP.values()),
+    + [std_col.GUN_HOMICIDES_BM_POP_RAW, IS_SUPPRESSED_COL],
+    HISTORICAL: list(PCT_REL_INEQUITY_MAP.values())
+    + list(PCT_SHARE_MAP.values())
+    + list(PER_100K_MAP.values())
+    + [IS_SUPPRESSED_COL],
 }
 
 
@@ -154,7 +159,7 @@ def process_wisqars_black_men_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_
     output_df = pd.DataFrame(columns=[WISQARS_YEAR, WISQARS_STATE, WISQARS_URBANICITY])
 
     for variable_string in [GUN_HOMICIDES_BM_PREFIX]:
-        df = load_wisqars_as_df_from_data_dir(variable_string, geo_level, demographic)
+        df = load_wisqars_as_df_from_data_dir(variable_string, geo_level, demographic, detect_suppression=True)
 
         if demographic == WISQARS_ALL:
             df.insert(2, WISQARS_URBANICITY, std_col.ALL_VALUE)
@@ -167,6 +172,7 @@ def process_wisqars_black_men_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_
                 WISQARS_DEATHS: std_col.GUN_HOMICIDES_BM_RAW,
                 WISQARS_POP: std_col.GUN_HOMICIDES_BM_POP_RAW,
                 WISQARS_CRUDE_RATE: std_col.GUN_HOMICIDES_BM_PER_100K,
+                WISQARS_IS_SUPPRESSED: IS_SUPPRESSED_COL,
             },
             inplace=True,
         )

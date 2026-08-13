@@ -19,10 +19,12 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
     print("\nLoading Test Source Data: ", directory, filename)
     use_cols = kwargs["usecols"]
 
+    # No na_values for the "--" suppression sentinel here, matching production:
+    # load_wisqars_as_df_from_data_dir() needs the literal string to detect suppression before
+    # convert_columns_to_numeric() coerces it to NaN.
     df = pd.read_csv(
         os.path.join(TEST_DIR, directory, filename),
         usecols=use_cols,
-        na_values=["--"],
         dtype={"Year": str, "Population": float},
         thousands=",",
     )
