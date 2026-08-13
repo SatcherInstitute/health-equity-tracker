@@ -33,4 +33,5 @@ tests/         Integration tests — many load real fixture CSVs from repo-root 
 |---|---|
 | DataSource base class | `datasources/data_source.py` |
 | BigQuery/GCS utilities | `ingestion/gcs_to_bq_util.py` |
+| Shared data transforms | `ingestion/dataset_utils.py` |
 | Shared type definitions | `ingestion/het_types.py` |
