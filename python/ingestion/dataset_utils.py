@@ -685,6 +685,7 @@ def combine_race_ethnicity(
     additional_group_cols: Union[List[str], None] = None,
     race_eth_output_col: str = std_col.RACE_CATEGORY_ID_COL,
     treat_zero_count_as_missing: bool = False,
+    is_suppressed_col: Union[str, None] = None,
 ):
     """Combines the `race` and `ethnicity` columns into a single `race_and_ethnicity` col.
 
@@ -700,6 +701,12 @@ def combine_race_ethnicity(
     - additional_group_cols (optional): List of additional columns to group by
     - race_eth_output_col (optional default='race_and_ethnicity'): str name of the added combination race and eth col
     - treat_zero_count_as_missing (optional default=False): if True, sum gets min_count=1 argument
+    - is_suppressed_col (optional): name of a tri-state (`True`/`NaN`) suppression flag column. When
+      present in `df`, a combined race/ethnicity group (e.g. the summed HISP or UNKNOWN row) is
+      flagged suppressed if any constituent row was suppressed; groups with no suppressed
+      constituent get `NaN`, not `False`, matching the raw per-row convention. Callers are
+      responsible for nulling any count columns that shouldn't be trusted for a suppressed group
+      (see `condense_age_groups` in `cdc_wisqars_utils.py` for the analogous pattern).
     """
 
     # Require std_col.RACE_COL and std_col.ETH_COL
@@ -757,11 +764,21 @@ def combine_race_ethnicity(
         for count_col in count_cols_to_sum
     }
 
+    has_suppression_col = is_suppressed_col is not None and is_suppressed_col in df.columns
+    if has_suppression_col:
+        agg_col_map[is_suppressed_col] = lambda x: x.astype("boolean").fillna(False).astype(bool).any()
+
     if not count_cols_to_sum:
         return df
 
     # if count cols were provided, we need the new HISP rows to sum the various Hispanic+Race groups
     df_aggregated = df.groupby(group_cols).agg(agg_col_map).reset_index()
+
+    if has_suppression_col:
+        is_suppressed = df_aggregated[is_suppressed_col].astype(bool)
+        final_suppressed_col = pd.Series(np.nan, index=df_aggregated.index, dtype=object)
+        final_suppressed_col[is_suppressed] = True
+        df_aggregated[is_suppressed_col] = final_suppressed_col
 
     return df_aggregated
 

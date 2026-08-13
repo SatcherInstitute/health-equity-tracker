@@ -25,6 +25,7 @@ Notes:
 Last Updated: 4/23
 """
 
+import numpy as np
 import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
@@ -34,6 +35,7 @@ from ingestion.cdc_wisqars_utils import (
     RACE_NAMES_MAPPING,
     load_wisqars_as_df_from_data_dir,
     WISQARS_ALL,
+    WISQARS_IS_SUPPRESSED,
 )
 from ingestion.constants import (
     CURRENT,
@@ -57,13 +59,18 @@ PCT_SHARE_MAP = generate_cols_map(ESTIMATED_TOTALS_MAP.values(), std_col.PCT_SHA
 PCT_SHARE_MAP[std_col.GUN_DEATHS_YOUNG_ADULTS_POPULATION] = std_col.GUN_DEATHS_YOUNG_ADULTS_POP_PCT
 PCT_SHARE_MAP[std_col.GUN_DEATHS_YOUTH_POPULATION] = std_col.GUN_DEATHS_YOUTH_POP_PCT
 PER_100K_MAP = generate_cols_map(CATEGORIES_LIST, std_col.PER_100K_SUFFIX)
+IS_SUPPRESSED_MAP = generate_cols_map(CATEGORIES_LIST, f"{std_col.PER_100K_SUFFIX}_{std_col.IS_SUPPRESSED_SUFFIX}")
 
 TIME_MAP = {
     CURRENT: list(ESTIMATED_TOTALS_MAP.values())
     + list(PCT_SHARE_MAP.values())
     + list(PER_100K_MAP.values())
+    + list(IS_SUPPRESSED_MAP.values())
     + [std_col.GUN_DEATHS_YOUNG_ADULTS_POPULATION, std_col.GUN_DEATHS_YOUTH_POPULATION],
-    HISTORICAL: list(PCT_REL_INEQUITY_MAP.values()) + list(PCT_SHARE_MAP.values()) + list(PER_100K_MAP.values()),
+    HISTORICAL: list(PCT_REL_INEQUITY_MAP.values())
+    + list(PCT_SHARE_MAP.values())
+    + list(PER_100K_MAP.values())
+    + list(IS_SUPPRESSED_MAP.values()),
 }
 
 
@@ -132,7 +139,7 @@ def process_wisqars_youth_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE
 
     for variable_string in [std_col.GUN_DEATHS_YOUNG_ADULTS_PREFIX, std_col.GUN_DEATHS_YOUTH_PREFIX]:
 
-        df = load_wisqars_as_df_from_data_dir(variable_string, geo_level, demographic)
+        df = load_wisqars_as_df_from_data_dir(variable_string, geo_level, demographic, detect_suppression=True)
 
         # Convert column names to lowercase
         df.columns = df.columns.str.lower()
@@ -148,6 +155,7 @@ def process_wisqars_youth_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE
                 ethnicity_value="Hispanic",
                 additional_group_cols=["year", "state"],
                 treat_zero_count_as_missing=True,
+                is_suppressed_col=WISQARS_IS_SUPPRESSED,
             )
 
             # Identify rows where 'race' is 'HISP' or 'UNKNOWN'
@@ -162,11 +170,19 @@ def process_wisqars_youth_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE
             # Update the original DataFrame with the results for the 'crude rate' column
             df.loc[subset_mask, "crude rate"] = temp_df["crude rate"]
 
+            # a combined HISP/UNKNOWN bucket whose constituents include a suppressed row can't
+            # trust its partial sum as a complete count/rate, mirroring condense_age_groups'
+            # treatment in cdc_wisqars_utils.py (numerator and rate are nulled, population isn't)
+            if WISQARS_IS_SUPPRESSED in df.columns:
+                is_suppressed = df[WISQARS_IS_SUPPRESSED].eq(True)
+                df.loc[is_suppressed, ["deaths", "crude rate"]] = np.nan
+
         df.rename(
             columns={
                 "deaths": f"{variable_string}_{std_col.RAW_SUFFIX}",
                 "population": f"{variable_string}_{std_col.POPULATION_COL}",
                 "crude rate": f"{variable_string}_{std_col.PER_100K_SUFFIX}",
+                WISQARS_IS_SUPPRESSED: IS_SUPPRESSED_MAP[variable_string],
             },
             inplace=True,
         )
