@@ -3,6 +3,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
     generate_cols_map,
+    merge_wisqars_topic_df,
     WISQARS_YEAR,
     WISQARS_URBANICITY,
     WISQARS_STATE,
@@ -170,6 +171,6 @@ def process_wisqars_black_men_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_
             inplace=True,
         )
 
-        output_df = output_df.merge(df, how="outer")
+        output_df = merge_wisqars_topic_df(output_df, df)
 
     return output_df
