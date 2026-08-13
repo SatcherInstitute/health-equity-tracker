@@ -54,10 +54,12 @@ export type CommunitySafetyMetricId =
   | 'gun_homicides_black_men_pct_relative_inequity'
   | 'gun_homicides_black_men_pct_share'
   | 'gun_homicides_black_men_per_100k'
+  | 'gun_homicides_black_men_per_100k_is_suppressed'
   | 'gun_homicides_black_men_population_estimated_total'
   | 'gun_homicides_black_men_population_pct'
   | 'gun_deaths_estimated_total'
   | 'gun_deaths_per_100k'
+  | 'gun_deaths_per_100k_is_suppressed'
   | 'gun_deaths_pct_share'
   | 'gun_deaths_pct_relative_inequity'
 
@@ -208,6 +210,7 @@ export const GUN_DEATH_METRICS: DataTypeConfig[] = [
         shortLabel: 'deaths per 100k',
         trendsCardTitleName: 'Rates of gun deaths over time',
         type: 'per100k',
+        suppressionFlagMetricId: 'gun_deaths_per_100k_is_suppressed',
         rateNumeratorMetric: {
           chartTitle: '',
           metricId: 'gun_deaths_estimated_total',
@@ -419,6 +422,8 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
         trendsCardTitleName:
           'Rates of Black male gun homicide victims over time',
         type: 'per100k',
+        suppressionFlagMetricId:
+          'gun_homicides_black_men_per_100k_is_suppressed',
         rateComparisonMetricForAlls: {
           chartTitle: '',
           metricId: 'gun_violence_homicide_per_100k',

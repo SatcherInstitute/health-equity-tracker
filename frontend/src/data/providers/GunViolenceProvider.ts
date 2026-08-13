@@ -36,6 +36,7 @@ const GUN_DEATHS_METRIC_IDS: MetricId[] = [
   'gun_deaths_pct_relative_inequity',
   'gun_deaths_pct_share',
   'gun_deaths_per_100k',
+  'gun_deaths_per_100k_is_suppressed',
 ]
 
 const POPULATION_METRIC_IDS: MetricId[] = [
