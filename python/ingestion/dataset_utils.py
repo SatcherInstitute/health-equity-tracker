@@ -765,7 +765,7 @@ def combine_race_ethnicity(
     }
 
     has_suppression_col = is_suppressed_col is not None and is_suppressed_col in df.columns
-    if has_suppression_col:
+    if is_suppressed_col is not None and has_suppression_col:
         agg_col_map[is_suppressed_col] = lambda x: x.astype("boolean").fillna(False).astype(bool).any()
 
     if not count_cols_to_sum:
@@ -774,7 +774,7 @@ def combine_race_ethnicity(
     # if count cols were provided, we need the new HISP rows to sum the various Hispanic+Race groups
     df_aggregated = df.groupby(group_cols).agg(agg_col_map).reset_index()
 
-    if has_suppression_col:
+    if is_suppressed_col is not None and has_suppression_col:
         is_suppressed = df_aggregated[is_suppressed_col].astype(bool)
         final_suppressed_col = pd.Series(np.nan, index=df_aggregated.index, dtype=object)
         final_suppressed_col[is_suppressed] = True
