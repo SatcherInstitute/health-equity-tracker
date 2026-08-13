@@ -1,10 +1,10 @@
 state_name,state_fips,race_and_ethnicity,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k,gun_deaths_per_100k,gun_violence_homicide_pct_share,gun_violence_suicide_pct_share,gun_deaths_pct_share,fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,gun_deaths_estimated_total,fatal_population,gun_violence_homicide_per_100k_is_suppressed,gun_violence_suicide_per_100k_is_suppressed,gun_deaths_per_100k_is_suppressed
-United States,00,Indigenous (NH),8.3,9.7,19.81,,,,0.7,202.0,236.0,482.0,2432721.0,False,False,False
-United States,00,Asian (NH),1.01,2.09,3.2,,,,6.2,208.0,433.0,661.0,20685425.0,False,False,False
-United States,00,Black or African American (NH),24.47,5.48,30.87,,,,12.6,10352.0,2317.0,13062.0,42313088.0,False,False,False
-United States,00,Hispanic or Latino,5.04,3.37,8.81,,,,19.5,3284.0,2198.0,5747.0,65219145.0,False,False,False
-United States,00,Two or more races (NH),2.96,3.48,6.86,,,,2.4,242.0,285.0,561.0,8182748.0,False,False,False
-United States,00,Native Hawaiian and Pacific Islander (NH),4.78,6.16,11.55,,,,0.2,31.0,40.0,75.0,649184.0,False,False,False
-United States,00,White (NH),1.83,11.11,13.31,,,,58.4,3575.0,21708.0,26019.0,195432584.0,False,False,False
-United States,00,Unknown race,0.0,0.0,0.0,0.2,0.3,0.3,,33.0,83.0,121.0,,False,False,False
-United States,00,All,5.35,8.15,13.95,100.0,100.0,100.0,100.0,17927.0,27300.0,46728.0,334914895.0,False,False,False
+United States,00,Indigenous (NH),8.3,9.7,19.81,,,,0.7,202.0,236.0,482.0,2432721.0,,,
+United States,00,Asian (NH),1.01,2.09,3.2,,,,6.2,208.0,433.0,661.0,20685425.0,,,
+United States,00,Black or African American (NH),24.47,5.48,30.87,,,,12.6,10352.0,2317.0,13062.0,42313088.0,,,
+United States,00,Hispanic or Latino,5.04,3.37,8.81,,,,19.5,3284.0,2198.0,5747.0,65219145.0,,,
+United States,00,Two or more races (NH),2.96,3.48,6.86,,,,2.4,242.0,285.0,561.0,8182748.0,,,
+United States,00,Native Hawaiian and Pacific Islander (NH),4.78,6.16,11.55,,,,0.2,31.0,40.0,75.0,649184.0,,,
+United States,00,White (NH),1.83,11.11,13.31,,,,58.4,3575.0,21708.0,26019.0,195432584.0,,,
+United States,00,Unknown race,0.0,0.0,0.0,0.2,0.3,0.3,,33.0,83.0,121.0,,,,
+United States,00,All,5.35,8.15,13.95,100.0,100.0,100.0,100.0,17927.0,27300.0,46728.0,334914895.0,,,

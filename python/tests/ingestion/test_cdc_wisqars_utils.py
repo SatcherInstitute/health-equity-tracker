@@ -127,7 +127,9 @@ def test_load_wisqars_as_df_from_data_dir_detect_suppression_true(mock_load_csv)
 
     df = load_wisqars_as_df_from_data_dir("gun_violence_all_intents", "state", "sex", detect_suppression=True)
 
-    assert df[WISQARS_IS_SUPPRESSED].tolist() == [False, True]
+    # tri-state: NaN (not True/False) means "real data, suppression doesn't apply"
+    assert pd.isna(df[WISQARS_IS_SUPPRESSED].iloc[0])
+    assert df[WISQARS_IS_SUPPRESSED].iloc[1] is True
     # the suppressed row's raw values are coerced to NaN by convert_columns_to_numeric
     assert df["Deaths"].isna().tolist() == [False, True]
     assert df["Crude Rate"].isna().tolist() == [False, True]

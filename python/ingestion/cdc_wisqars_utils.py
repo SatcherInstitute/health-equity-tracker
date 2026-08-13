@@ -41,8 +41,9 @@ WISQARS_SUICIDE = "Suicide"
 WISQARS_ALL_INTENTS = "All Intents"
 
 # Working column added by `load_wisqars_as_df_from_data_dir` when `detect_suppression=True`.
-# Not a source CSV column, so it's lowercase to distinguish it from the `WISQARS_*` header constants above.
-WISQARS_IS_SUPPRESSED = "is_suppressed"
+# Reuses the shared suffix constant directly (not a private literal) so it can't drift from the
+# `_is_suppressed` convention used everywhere else in HET.
+WISQARS_IS_SUPPRESSED = std_col.IS_SUPPRESSED_SUFFIX
 
 # WISQARS withholds unreliable/small counts (per its footer notation: <20 unweighted count,
 # <1,200 weighted count, or CV > 30%) and marks them with this sentinel in both Deaths and Crude Rate.
@@ -277,7 +278,7 @@ def load_wisqars_as_df_from_data_dir(
         variable_string: The wisqars variable string
         geo_level: e.g. "state" or "national"
         demographic: e.g. "race_and_ethnicity" or "sex"
-        detect_suppression: if True, adds a `WISQARS_IS_SUPPRESSED` bool column flagging rows
+        detect_suppression: if True, adds a tri-state `WISQARS_IS_SUPPRESSED` column flagging rows
             where Crude Rate was withheld by the source (see `WISQARS_SUPPRESSED_SENTINEL`).
             Opt-in: callers that merge results from multiple calls to this function on implicit
             (unspecified) join keys would otherwise pick up an identically-named column as an
@@ -305,7 +306,12 @@ def load_wisqars_as_df_from_data_dir(
         df.insert(1, WISQARS_STATE, US_NAME)
 
     if detect_suppression:
-        df[WISQARS_IS_SUPPRESSED] = df[WISQARS_CRUDE_RATE].astype(str).str.strip() == WISQARS_SUPPRESSED_SENTINEL
+        # Tri-state per HET convention: True = suppressed, NaN = real data (suppression doesn't
+        # apply). A raw source row has no "known-missing-but-not-suppressed" state, so there's no
+        # False here - that would misread as a real, non-suppressed measurement downstream.
+        is_suppressed_mask = df[WISQARS_CRUDE_RATE].astype(str).str.strip() == WISQARS_SUPPRESSED_SENTINEL
+        df[WISQARS_IS_SUPPRESSED] = pd.Series(np.nan, index=df.index, dtype=object)
+        df.loc[is_suppressed_mask, WISQARS_IS_SUPPRESSED] = True
 
     columns_to_convert = [WISQARS_DEATHS, WISQARS_CRUDE_RATE, WISQARS_POP]
     convert_columns_to_numeric(df, columns_to_convert)
