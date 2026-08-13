@@ -331,3 +331,36 @@ def remove_metadata(df: pd.DataFrame) -> pd.DataFrame:
         df = df.iloc[:metadata_start_index]
 
     return df
+
+
+def _is_wisqars_value_col(col: str) -> bool:
+    """True for a per-topic measurement column (count, population, rate, share, suppression flag),
+    as opposed to a descriptor column (year, state, race, etc.). Covers both the raw columns present
+    in per-topic dfs before aggregation and any derived share/rate columns a topic might compute
+    ahead of merging, so neither can become an accidental join key."""
+    value_suffixes = (
+        f"_{std_col.RAW_SUFFIX}",
+        f"_{std_col.POPULATION_COL}",
+        f"_{std_col.PER_100K_SUFFIX}",
+        f"_{std_col.PCT_RATE_SUFFIX}",
+        f"_{std_col.PCT_SHARE_SUFFIX}",
+        f"_{std_col.PCT_REL_INEQUITY_SUFFIX}",
+    )
+    return (
+        col.endswith(value_suffixes)
+        or col == std_col.IS_SUPPRESSED_SUFFIX
+        or col.endswith(f"_{std_col.IS_SUPPRESSED_SUFFIX}")
+    )
+
+
+def merge_wisqars_topic_df(output_df: pd.DataFrame, df: pd.DataFrame) -> pd.DataFrame:
+    """Outer-merges a per-topic WISQARS dataframe into the accumulating `output_df`.
+
+    Uses explicit join keys instead of pandas' default (every column common to both sides),
+    restricted to descriptor columns like year/state/race. Per-topic measurement columns (counts,
+    rates, `is_suppressed`) are excluded even when they happen to share a name across topics/loop
+    iterations, so a coincidental match (e.g. two topics both suppressed, or both not) can't
+    silently turn into an accidental join key and corrupt the merge.
+    """
+    join_keys = [col for col in output_df.columns if col in df.columns and not _is_wisqars_value_col(col)]
+    return output_df.merge(df, how="outer", on=join_keys)
