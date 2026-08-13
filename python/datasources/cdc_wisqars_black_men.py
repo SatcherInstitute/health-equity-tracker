@@ -90,9 +90,9 @@ TIME_MAP = {
 
 COL_DICTS: List[RATE_CALC_COLS_TYPE] = [
     {
-        "numerator_col": "gun_homicides_black_men_estimated_total",
-        "denominator_col": "gun_homicides_black_men_population_estimated_total",
-        "rate_col": "gun_homicides_black_men_per_100k",
+        "numerator_col": std_col.GUN_HOMICIDES_BM_RAW,
+        "denominator_col": std_col.GUN_HOMICIDES_BM_POP_RAW,
+        "rate_col": std_col.GUN_HOMICIDES_BM_PER_100K,
     }
 ]
 
