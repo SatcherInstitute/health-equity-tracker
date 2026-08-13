@@ -243,7 +243,7 @@ def condense_age_groups(df: pd.DataFrame, col_dicts: List[RATE_CALC_COLS_TYPE]) 
                 )
 
                 # a suppressed combined bucket can't trust its partial sum as a complete count/rate
-                suppressed_col = _suppressed_col_for_rate(rate_col)
+                suppressed_col = _suppressed_col_for_rate(str(rate_col))
                 if suppressed_col not in het_bucket_df.columns:
                     continue
 
