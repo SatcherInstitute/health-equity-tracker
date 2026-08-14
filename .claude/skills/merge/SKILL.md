@@ -103,10 +103,54 @@ Force-push is required after a squash merge because the fork's main still has th
 
 ---
 
-## Step 6 — Confirm
+## Step 6 — Update linked issues on the project board
+
+This repo's project board is `SatcherInstitute` org project number 5 (id `PVT_kwDOBCaVcM4BeXhW`), Status field id `PVTSSF_lADOBCaVcM4BeXhWzhYyS0g`, with options `Backlog` (`f75ad846`), `Up Next` (`d6a0bd53`), `In Progress` (`47fc9ee4`), `Done` (`98236657`).
+
+GitHub's native "Item closed" project automation already moves an issue to **Done** the moment it closes via a recognized keyword (`Closes #NNNN`, `Fixes #NNNN`, etc). That case needs no action here — just identify it:
+
+```bash
+gh pr view <number> --json body,closingIssuesReferences \
+  --jq '{body, autoClosing: [.closingIssuesReferences[].number]}'
+```
+
+For every other bare `#NNNN` reference in the PR body that is **not** in `autoClosing`, read the issue and use judgement against the merged diff:
+
+```bash
+gh issue view <n> --json number,title,body,state
+```
+
+- **Fully resolved but not tagged with a closing keyword** (the PR body mentions `#NNNN` in passing, but the diff clearly finishes what the issue describes): close it and move it to Done yourself.
+  ```bash
+  gh issue close <n> --comment "Resolved by #<pr_number>."
+  ITEM_ID=$(gh api graphql -f query='{ organization(login: "SatcherInstitute") { projectV2(number: 5) { items(first: 100) { nodes { id content { ... on Issue { number } } } } } } }' -q ".data.organization.projectV2.items.nodes[] | select(.content.number == <n>) | .id")
+  gh api graphql -f query="mutation { updateProjectV2ItemFieldValue(input: { projectId: \"PVT_kwDOBCaVcM4BeXhW\" itemId: \"$ITEM_ID\" fieldId: \"PVTSSF_lADOBCaVcM4BeXhWzhYyS0g\" value: { singleSelectOptionId: \"98236657\" } }) { projectV2Item { id } } }"
+  ```
+- **Not obviously resolved** (referenced in passing, partial progress, a "found while working on this" aside): leave it — it's a candidate for Step 7, not a silent Done move. Don't guess.
+
+Skip this step entirely if there are no issue references at all in the PR body.
+
+---
+
+## Step 7 — Confirm follow-up items with the user
+
+Scan the PR body/diff and anything surfaced in Step 6 for deferred work: language like "follow-up", "out of scope", "revisit later", "TODO", "deferred," or a new problem noticed but not fixed while building this PR.
+
+If candidates exist, ask the user with `AskUserQuestion` (multiSelect) before touching anything — this is a prioritization call, not a mechanical one:
+
+```bash
+gh issue edit <n> --add-assignee @me
+gh api graphql -f query="mutation { updateProjectV2ItemFieldValue(input: { projectId: \"PVT_kwDOBCaVcM4BeXhW\" itemId: \"$ITEM_ID\" fieldId: \"PVTSSF_lADOBCaVcM4BeXhWzhYyS0g\" value: { singleSelectOptionId: \"d6a0bd53\" } }) { projectV2Item { id } } }"
+```
+
+Only run the assign/move mutation for items the user actually selected. If nothing reads as an obvious follow-up, skip this step and say so briefly rather than forcing a suggestion.
+
+---
+
+## Step 8 — Confirm
 
 Print a summary:
-> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main."
+> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main. Board: <issues moved to Done, if any> <issues moved to Up Next, if any>."
 
 ---
 
@@ -115,3 +159,4 @@ Print a summary:
 - `--admin` bypasses all branch protection rules including required reviews. Use only when you have confirmed the PR is ready.
 - Never force-push to `origin/main` (SatcherInstitute). The merge goes through `gh pr merge`, not a direct push.
 - If the PR is on a non-main base branch: stop and warn the user.
+- Step 6 only needs to run once per merge — don't re-derive the project/field/option IDs, they're fixed for this repo (same ones `/tackle` uses).
