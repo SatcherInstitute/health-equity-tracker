@@ -44,7 +44,7 @@ class CDCHIVBlackWomenData(DataSource):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
 
-        alls_df = load_atlas_df_from_data_dir(geo_level, "black_women_all")
+        alls_df = load_atlas_df_from_data_dir(geo_level, "black_women_all", detect_suppression=True)
         df = self.generate_breakdown_df(demographic, geo_level, alls_df)
 
         for time_view in (CURRENT, HISTORICAL):
@@ -80,7 +80,7 @@ class CDCHIVBlackWomenData(DataSource):
             CDC_YEAR: std_col.TIME_PERIOD_COL,
         }
 
-        breakdown_group_df = load_atlas_df_from_data_dir(geo_level, breakdown)
+        breakdown_group_df = load_atlas_df_from_data_dir(geo_level, breakdown, detect_suppression=True)
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 

@@ -38,6 +38,7 @@ from ingestion.cdc_hiv_utils import (
     load_atlas_df_from_data_dir,
     get_bq_col_types,
     NA_VALUES,
+    IS_SUPPRESSED_MAP,
 )
 
 
@@ -69,7 +70,7 @@ class CDCHIVData(DataSource):
         if geo_level == COUNTY_LEVEL and demographic == std_col.BLACK_WOMEN:
             return
 
-        alls_df = load_atlas_df_from_data_dir(geo_level, "all")
+        alls_df = load_atlas_df_from_data_dir(geo_level, "all", detect_suppression=True)
         df = self.generate_breakdown_df(demographic, geo_level, alls_df)
 
         # MAKE TWO TABLES: ONE FOR TIME WITH MORE ROWS AND ONE FOR CURRENT WITH MORE COLS
@@ -113,7 +114,7 @@ class CDCHIVData(DataSource):
             CDC_YEAR: std_col.TIME_PERIOD_COL,
         }
 
-        breakdown_group_df = load_atlas_df_from_data_dir(geo_level, breakdown)
+        breakdown_group_df = load_atlas_df_from_data_dir(geo_level, breakdown, detect_suppression=True)
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
@@ -131,14 +132,20 @@ class CDCHIVData(DataSource):
         if breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
 
+        # `_is_suppressed` columns are tri-state `object` dtype elsewhere (True / NaN), so the
+        # fallback fill here uses the same dtype rather than the float64 `np.nan` broadcast used
+        # for the numeric value/rate columns.
         if std_col.HIV_DEATHS_PREFIX not in df.columns:
             df[[std_col.HIV_DEATHS_PREFIX, PER_100K_MAP[std_col.HIV_DEATHS_PREFIX]]] = np.nan
+            df[IS_SUPPRESSED_MAP[std_col.HIV_DEATHS_PREFIX]] = pd.Series(np.nan, index=df.index, dtype=object)
 
         if std_col.HIV_PREP_PREFIX not in df.columns:
             df[[std_col.HIV_PREP_PREFIX, std_col.HIV_PREP_COVERAGE]] = np.nan
+            df[IS_SUPPRESSED_MAP[std_col.HIV_PREP_PREFIX]] = pd.Series(np.nan, index=df.index, dtype=object)
 
         if std_col.HIV_STIGMA_INDEX not in df.columns:
-            df[[std_col.HIV_STIGMA_INDEX]] = np.nan
+            df[std_col.HIV_STIGMA_INDEX] = np.nan
+            df[IS_SUPPRESSED_MAP[std_col.HIV_STIGMA_INDEX]] = pd.Series(np.nan, index=df.index, dtype=object)
 
         df = generate_pct_share_col_without_unknowns(
             df,
