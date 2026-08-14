@@ -103,10 +103,12 @@ Backend PRs have no browser preview and no Playwright step, so `pytest` **is** t
 
 `black` and `pylint` are the static-check parallel to Biome/tsc; the pre-commit hook already ran them, but run them here too so a hook that was skipped or an unstaged file can't slip through.
 
+Run `black` through `pre-commit`, not a bare `black --check`. The repo pins `black==22.10.0` in `.pre-commit-config.yaml`, but a dev venv's `pip install black` has no such pin and silently drifts to whatever is latest — a newer local `black` then flags unrelated pre-existing code as needing reformat, producing false positives unrelated to this PR's diff. `pre-commit run` always uses the pinned version regardless of what's in the venv.
+
 ```bash
 # Return to repo root first — Step 2 (frontend) may have left us in frontend/
 cd "$(git rev-parse --show-toplevel)" && source .venv/bin/activate
-black --check python/ exporter/
+pre-commit run black --files $(git diff origin/main --name-only -- '*.py')
 pylint <changed-package>            # e.g. exporter or python/datasources
 ```
 
