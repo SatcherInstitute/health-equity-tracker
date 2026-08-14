@@ -17,6 +17,9 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
+const ACS_CONDITION_EARLIEST_YEAR = '2012'
+const ACS_CONDITION_CURRENT_YEAR = '2022'
+
 const sdohDataSources = [
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.ahr,
@@ -67,6 +70,49 @@ function SdohLink() {
           <a href={urlMap.censusVoting}>U.S. Census</a>.
         </p>
         <NoteBrfss />
+
+        <h3
+          className='mt-12 font-medium text-title'
+          id='sdoh-acs-data-sourcing'
+        >
+          Poverty and Uninsurance: American Community Survey
+        </h3>
+        <p>
+          Data on <HetTerm>poverty</HetTerm> and{' '}
+          <HetTerm>uninsured people</HetTerm> comes directly from the{' '}
+          <a href={urlMap.acs5}>
+            American Community Survey (ACS) 5-year estimates
+          </a>
+          , a continuous survey conducted by the U.S. Census Bureau. The ACS
+          collects information annually from approximately 3.5 million addresses
+          and publishes 5-year rolling estimates to provide reliable data at the
+          national, state, and county levels.
+        </p>
+        <p>
+          <strong>Poverty</strong> is measured using ACS table series B17001
+          (Poverty Status in the Past 12 Months by Sex by Age), which identifies
+          individuals whose household income fell below the federal poverty
+          threshold in the prior 12 months. Race-stratified counts are drawn
+          from race-specific variants of this table (e.g., B17001A for White
+          alone, B17001B for Black or African American alone).
+        </p>
+        <p>
+          <strong>Health insurance coverage</strong> is measured using ACS table
+          series C27001 (Health Insurance Coverage Status by Age), which
+          identifies individuals without any comprehensive health insurance
+          plan. The ACS definition excludes plans that cover only specific
+          conditions (e.g., cancer policies, long-term care) and does not count
+          dental, vision, life, or disability insurance as comprehensive
+          coverage. Race-stratified counts are drawn from race-specific table
+          variants (e.g., C27001A for White alone, C27001B for Black or African
+          American alone).
+        </p>
+        <p>
+          The tracker uses ACS 5-year estimates from{' '}
+          {ACS_CONDITION_EARLIEST_YEAR} through {ACS_CONDITION_CURRENT_YEAR},
+          covering national, state, and county geographies broken down by
+          race/ethnicity, age, and sex.
+        </p>
 
         <AhrMetrics category='social-determinants' />
 
