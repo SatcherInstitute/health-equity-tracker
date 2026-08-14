@@ -70,6 +70,7 @@ function SdohLink() {
           <a href={urlMap.censusVoting}>U.S. Census</a>.
         </p>
         <NoteBrfss />
+        <AhrMetrics category='social-determinants' />
 
         <h3
           className='mt-12 font-medium text-title'
@@ -113,8 +114,6 @@ function SdohLink() {
           covering national, state, and county geographies broken down by
           race/ethnicity, age, and sex.
         </p>
-
-        <AhrMetrics category='social-determinants' />
 
         <h3
           className='mt-12 font-medium text-title'
