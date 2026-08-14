@@ -1,10 +1,10 @@
-state_name,state_fips,race_and_ethnicity,race_category_id,hiv_stigma_index,hiv_deaths_per_100k,hiv_diagnoses_per_100k,hiv_prevalence_per_100k,hiv_care_linkage,hiv_prep_coverage,hiv_care_pct_share,hiv_deaths_pct_share,hiv_diagnoses_pct_share,hiv_prep_pct_share,hiv_prevalence_pct_share,hiv_prep_population_pct,hiv_population_pct,hiv_care_population_pct,hiv_care,hiv_deaths,hiv_diagnoses,hiv_prep,hiv_prevalence,hiv_population,hiv_care_population,hiv_prep_population
-United States,00,All,ALL,29.3,6.9,13.4,386.2,81.6,36.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,29753.0,19509.0,37660.0,437425.0,1088862.0,281953660.0,36470.0,1216210.0
-United States,00,Asian (NH),ASIAN_NH,34.6,0.6,4.5,98.3,88.1,,2.3,0.6,2.1,,1.6,,6.1,2.1,681.0,112.0,784.0,,17018.0,17314804.0,773.0,
-United States,00,Black or African American (NH),BLACK_NH,30.4,23.7,41.0,1229.7,78.3,,37.4,42.5,38.0,,39.4,,12.4,38.9,11117.0,8282.0,14318.0,,429395.0,34919806.0,14198.0,
-United States,00,Hispanic or Latino,HISP,29.7,6.8,23.8,538.2,85.0,,32.2,17.6,32.1,,25.0,,18.0,30.9,9576.0,3437.0,12071.0,,272417.0,50614339.0,11270.0,
-United States,00,Indigenous (NH),AIAN_NH,,4.0,10.6,154.8,77.9,,0.6,0.4,0.6,,0.3,,0.7,0.6,166.0,82.0,216.0,,3147.0,2033272.0,213.0,
-United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,1.7,14.9,175.3,73.5,,0.2,0.05,0.2,,0.1,,0.2,0.2,61.0,9.0,78.0,,918.0,523681.0,83.0,
-United States,00,Two or more races (NH),MULTI_NH,29.0,26.8,23.5,1142.4,81.9,,2.8,7.5,3.4,,5.7,,1.9,2.8,826.0,1454.0,1275.0,,61923.0,5420349.0,1009.0,
-United States,00,Unrepresented race (NH),OTHER_NONSTANDARD_NH,,,,,,,,,,,,,,,,,,,,,,
-United States,00,White (NH),WHITE_NH,27.7,3.6,5.2,177.3,82.1,,24.6,31.4,23.7,,27.9,,60.7,24.5,7326.0,6131.0,8918.0,,303416.0,171127409.0,8924.0,
+state_name,state_fips,race_and_ethnicity,race_category_id,hiv_stigma_index,hiv_deaths_per_100k,hiv_diagnoses_per_100k,hiv_prevalence_per_100k,hiv_care_linkage,hiv_prep_coverage,hiv_care_is_suppressed,hiv_deaths_is_suppressed,hiv_diagnoses_is_suppressed,hiv_prep_is_suppressed,hiv_prevalence_is_suppressed,hiv_stigma_index_is_suppressed,hiv_care_pct_share,hiv_deaths_pct_share,hiv_diagnoses_pct_share,hiv_prep_pct_share,hiv_prevalence_pct_share,hiv_care,hiv_deaths,hiv_diagnoses,hiv_prep,hiv_prevalence,hiv_population,hiv_care_population,hiv_prep_population,hiv_prep_population_pct,hiv_population_pct,hiv_care_population_pct
+United States,00,Indigenous (NH),AIAN_NH,,4.0,10.6,154.8,77.9,,,,,,,True,0.6,0.4,0.6,,0.3,166.0,82.0,216.0,,3147.0,2033272.0,213.0,,,0.7,0.6
+United States,00,Asian (NH),ASIAN_NH,34.6,0.6,4.5,98.3,88.1,,,,,,,,2.3,0.6,2.1,,1.6,681.0,112.0,784.0,,17018.0,17314804.0,773.0,,,6.1,2.1
+United States,00,Black or African American (NH),BLACK_NH,30.4,23.7,41.0,1229.7,78.3,,,,,,,,37.4,42.5,38.0,,39.4,11117.0,8282.0,14318.0,,429395.0,34919806.0,14198.0,,,12.4,38.9
+United States,00,Hispanic or Latino,HISP,29.7,6.8,23.8,538.2,85.0,,,,,,,,32.2,17.6,32.1,,25.0,9576.0,3437.0,12071.0,,272417.0,50614339.0,11270.0,,,18.0,30.9
+United States,00,Two or more races (NH),MULTI_NH,29.0,26.8,23.5,1142.4,81.9,,,,,,,,2.8,7.5,3.4,,5.7,826.0,1454.0,1275.0,,61923.0,5420349.0,1009.0,,,1.9,2.8
+United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,1.7,14.9,175.3,73.5,,,,,,,True,0.2,0.05,0.2,,0.1,61.0,9.0,78.0,,918.0,523681.0,83.0,,,0.2,0.2
+United States,00,Unrepresented race (NH),OTHER_NONSTANDARD_NH,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+United States,00,White (NH),WHITE_NH,27.7,3.6,5.2,177.3,82.1,,,,,,,,24.6,31.4,23.7,,27.9,7326.0,6131.0,8918.0,,303416.0,171127409.0,8924.0,,,60.7,24.5
+United States,00,All,ALL,29.3,6.9,13.4,386.2,81.6,36.0,,,,,,,100.0,100.0,100.0,100.0,100.0,29753.0,19509.0,37660.0,437425.0,1088862.0,281953660.0,36470.0,1216210.0,100.0,100.0,100.0

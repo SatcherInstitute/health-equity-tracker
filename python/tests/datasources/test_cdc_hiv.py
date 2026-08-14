@@ -26,10 +26,10 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
     usecols = kwargs["usecols"]
     df = pd.read_csv(
         os.path.join(TEST_DIR, directory, subdirectory, filename),
-        dtype=DTYPE,
-        na_values=NA_VALUES,
+        dtype=kwargs.get("dtype", DTYPE),
+        na_values=kwargs.get("na_values", NA_VALUES),
         usecols=usecols,
-        thousands=",",
+        thousands=kwargs.get("thousands", ","),
     )
     return df
 
