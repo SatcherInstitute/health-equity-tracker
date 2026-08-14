@@ -32,6 +32,12 @@ gh pr checkout <number>
 
 If the working tree is dirty and the checkout fails, stop and ask the user to commit or stash first — do not discard changes.
 
+**Ensure the person running this skill is assigned.** A PR opened ad hoc (not through this skill) often has no assignee. `@me` resolves to whoever is authenticated via `gh`, not a hardcoded name, so this stays correct if someone else runs the skill. Add one unconditionally — `--add-assignee` is a no-op if already set:
+
+```bash
+gh pr edit <number> --add-assignee @me
+```
+
 Then gather everything the rest of the skill needs. **This is one call, not six.** Each of these is independent, so splitting them across turns pays a full context re-read per line for a few hundred tokens of output:
 
 ```bash
