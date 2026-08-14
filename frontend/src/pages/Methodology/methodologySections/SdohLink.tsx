@@ -17,6 +17,10 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
+const ACS_CONDITION_EARLIEST_YEAR = '2012'
+const ACS_CONDITION_CURRENT_YEAR = '2022'
+const ACS_CONDITION_CURRENT_YEAR_RANGE_START = '2018'
+
 const sdohDataSources = [
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.ahr,
@@ -67,8 +71,63 @@ function SdohLink() {
           <a href={urlMap.censusVoting}>U.S. Census</a>.
         </p>
         <NoteBrfss />
-
         <AhrMetrics category='social-determinants' />
+
+        <h3
+          className='mt-12 font-medium text-title'
+          id='sdoh-acs-data-sourcing'
+        >
+          Poverty and Uninsurance: American Community Survey
+        </h3>
+        <p>
+          Data on <HetTerm>poverty</HetTerm> and{' '}
+          <HetTerm>uninsured people</HetTerm> comes directly from the{' '}
+          <a href={urlMap.acs5}>
+            American Community Survey (ACS) 5-year estimates
+          </a>
+          , a continuous survey conducted by the U.S. Census Bureau and
+          collected annually, then pooled into 5-year rolling estimates to
+          provide reliable data at the national, state, and county levels. For
+          example, the {ACS_CONDITION_CURRENT_YEAR} release covers data pooled
+          from {ACS_CONDITION_CURRENT_YEAR_RANGE_START}–
+          {ACS_CONDITION_CURRENT_YEAR}, not calendar year{' '}
+          {ACS_CONDITION_CURRENT_YEAR} alone.
+        </p>
+        <p>
+          <strong>Poverty</strong> is measured using ACS table series B17001
+          (Poverty Status in the Past 12 Months by Sex by Age), which identifies
+          individuals whose income in the past 12 months was below the federal
+          poverty level. Race-stratified counts are drawn from race-specific
+          variants of this table (e.g., B17001A for White alone, B17001B for
+          Black or African American alone).
+        </p>
+        <p>
+          <strong>Health insurance coverage</strong> is measured using ACS table
+          series B27001 (Health Insurance Coverage Status by Sex by Age) for the
+          overall, sex-, and age-stratified breakdowns, and C27001A–I (Health
+          Insurance Coverage Status by Age, by race) for race-stratified counts
+          (e.g., C27001A for White alone, C27001B for Black or African American
+          alone). Both series identify individuals without any comprehensive
+          health insurance plan. The ACS definition excludes plans that cover
+          only specific conditions (e.g., cancer policies, long-term care) and
+          does not count dental, vision, life, or disability insurance as
+          comprehensive coverage.
+        </p>
+        <p>
+          For each of these tables, rates are calculated using the table's own
+          population universe as the denominator, the sum of everyone with and
+          without the condition in that specific table, rather than the ACS's
+          general population totals. This is why the tracker exposes{' '}
+          <HetTerm>poverty_pop_estimated_total</HetTerm> and{' '}
+          <HetTerm>uninsured_pop_estimated_total</HetTerm> as separate
+          denominators from overall population figures.
+        </p>
+        <p>
+          The tracker uses ACS 5-year estimates from{' '}
+          {ACS_CONDITION_EARLIEST_YEAR} through {ACS_CONDITION_CURRENT_YEAR},
+          covering national, state, and county geographies broken down by
+          race/ethnicity, age, and sex.
+        </p>
 
         <h3
           className='mt-12 font-medium text-title'
