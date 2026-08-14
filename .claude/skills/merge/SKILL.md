@@ -147,10 +147,49 @@ Only run the assign/move mutation for items the user actually selected. If nothi
 
 ---
 
-## Step 8 — Confirm
+## Step 8 — Flag a likely DAG rerun for backend data changes
+
+Check which files the merged PR touched:
+
+```bash
+gh pr view <number> --json files --jq '.files[].path'
+```
+
+If any path is under `python/datasources/` or `python/ingestion/` **and** the change affects data output (not just a comment, type hint, or test-only change — read the diff if unsure), the merge likely needs a DAG rerun to actually refresh the deployed data, since merging alone only ships the code.
+
+Map the touched datasource to its workflow: look for a `.github/workflows/dag*.yml` whose name or `on.workflow_dispatch` job references the same data source (e.g. `age_adjust_cdc_hiv.py` → `dagCdcHiv.yml`).
+
+```bash
+gh workflow list --all | grep -i dag
+```
+
+Ask the user before triggering anything:
+> "This PR touched `<file>`, which looks like it changes data output. Want me to rerun `<dag>.yml` against infra-test?"
+
+If they decline or no backend-data files were touched, skip to Step 10.
+
+---
+
+## Step 9 — Wait for the auto-deploy before rerunning the DAG
+
+Merging to `main` automatically fires a `DEPLOY MAIN CODE TO INFRA-TEST GCP (DEV SITE)` workflow that redeploys the same `het-infra-test-05` project the DAG will hit. Running the DAG before that deploy finishes hits the pre-merge container and fails or silently uses stale code — indistinguishable from the fix not having worked. Confirm the deploy has completed before triggering the DAG:
+
+```bash
+gh run list --branch main --workflow "DEPLOY MAIN CODE TO INFRA-TEST GCP (DEV SITE)" --limit 1 --json status,conclusion,createdAt
+```
+
+If `status` is not `completed`, wait for it (poll, or use `gh run watch <id>`) rather than proceeding immediately. Once it's done, trigger the DAG:
+
+```bash
+gh workflow run <dag>.yml --ref infra-test
+```
+
+---
+
+## Step 10 — Confirm
 
 Print a summary:
-> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main. Board: <issues moved to Done, if any> <issues moved to Up Next, if any>."
+> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main. Board: <issues moved to Done, if any> <issues moved to Up Next, if any>. DAG: <triggered/skipped/declined>."
 
 ---
 
@@ -160,3 +199,4 @@ Print a summary:
 - Never force-push to `origin/main` (SatcherInstitute). The merge goes through `gh pr merge`, not a direct push.
 - If the PR is on a non-main base branch: stop and warn the user.
 - Step 6 only needs to run once per merge — don't re-derive the project/field/option IDs, they're fixed for this repo (same ones `/tackle` uses).
+- Step 8/9 only apply when the PR touches `python/datasources/` or `python/ingestion/` with real data-output impact — most PRs (frontend, docs, skills) skip straight to Step 10.
