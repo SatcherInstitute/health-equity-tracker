@@ -49,13 +49,19 @@ run_ingestion/  →  GCS bucket  →  run_gcs_to_bq/  →  BigQuery  →  export
 
 Each backend microservice is a Docker container triggered by Cloud Run. GitHub Actions workflows in `.github/workflows/dag*.yml` orchestrate the pipeline runs (one DAG per data source).
 
+**A `python/datasources/` or `python/ingestion/` change has no effect until its DAG runs.** Merging or deploying the code alone does not regenerate BigQuery/GCS data — the pipeline only reprocesses a source when its `dag*.yml` workflow is actually triggered. After any change that alters what a `DataSource.write_to_bq()` produces (new columns, new detection/suppression logic, changed transforms), rerun the matching DAG; otherwise dev/prod keep serving stale data even though the new code is live.
+
 **Testing backend changes:** Push your branch to the shared `infra-test` branch to trigger a GCP deployment:
 
 ```bash
 git push origin HEAD:infra-test -f
 ```
 
-Then run the relevant DAG workflow from GitHub Actions against the test project.
+This deploys the service code only — it does **not** run the pipeline. Then separately trigger the relevant DAG workflow against the test project:
+
+```bash
+gh workflow run dag<Source>.yml --ref infra-test
+```
 
 ## Git Workflow
 

@@ -27,6 +27,8 @@ tests/         Integration tests — many load real fixture CSVs from repo-root 
 2. Register in `python/datasources/data_sources.py`
 3. Add DAG workflow `.github/workflows/dag<Source>.yml`
 
+**Changing an existing data source's output?** Editing `write_to_bq()` or a shared `ingestion/` helper does not regenerate any data by itself — the matching `dag<Source>.yml` workflow must be run (`gh workflow run dag<Source>.yml --ref infra-test` for testing, or against `main` post-merge) before the change reaches BigQuery/GCS. See root `CLAUDE.md` → Backend Data Pipeline.
+
 ## Key files
 
 | Purpose | Path |
