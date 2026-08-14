@@ -50,7 +50,6 @@ PER_100K_MAP = {
     for prefix in HIV_METRICS.values()
     if prefix not in NON_PER_100K_LIST
 }
-IS_SUPPRESSED_MAP = {prefix: f"{prefix}_{std_col.IS_SUPPRESSED_SUFFIX}" for prefix in HIV_METRICS.values()}
 PCT_SHARE_MAP = {
     prefix: std_col.generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
     for prefix in HIV_METRICS.values()
@@ -93,6 +92,18 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
 }
 
 CARE_PREP_MAP = {std_col.HIV_CARE_PREFIX: std_col.HIV_CARE_LINKAGE, std_col.HIV_PREP_PREFIX: std_col.HIV_PREP_COVERAGE}
+# Keyed by the actual rate/percent metric id shown on the map (e.g. `hiv_deaths_per_100k`, not the
+# raw-count `hiv_deaths`), matching the `<rate_metric_id>_is_suppressed` convention every other
+# suppression-flagged topic uses (see GunViolenceProvider.ts, CdcCancerProvider.ts, etc.) so the
+# frontend's `suppressionFlagMetricId` can reference it directly.
+RATE_METRIC_ID_MAP = {
+    **PER_100K_MAP,
+    **CARE_PREP_MAP,
+    std_col.HIV_STIGMA_INDEX: std_col.HIV_STIGMA_INDEX,
+}
+IS_SUPPRESSED_MAP = {
+    prefix: f"{RATE_METRIC_ID_MAP[prefix]}_{std_col.IS_SUPPRESSED_SUFFIX}" for prefix in HIV_METRICS.values()
+}
 POP_MAP = {
     prefix: (
         std_col.HIV_CARE_POPULATION
