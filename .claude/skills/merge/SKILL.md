@@ -128,7 +128,14 @@ gh issue view <n> --json number,title,body,state
   ```
 - **Not obviously resolved** (referenced in passing, partial progress, a "found while working on this" aside): leave it — it's a candidate for Step 7, not a silent Done move. Don't guess.
 
-Skip this step entirely if there are no issue references at all in the PR body.
+**Also check for issues never mentioned in the body at all.** A PR body can be completely silent on the issue it was tackled from (no `Closes`, no bare `#NNNN` — this has happened: PR #5129 resolved #5127 without referencing it anywhere). Text-scanning the body alone misses this, so cross-check the board directly:
+
+```bash
+gh api graphql -f query='{ organization(login: "SatcherInstitute") { projectV2(number: 5) { items(first: 100) { nodes { id fieldValueByName(name: "Status") { ... on ProjectV2ItemFieldSingleSelectValue { name } } content { ... on Issue { number title state } } } } } } }' \
+  --jq '.data.organization.projectV2.items.nodes[] | select(.fieldValueByName.name == "In Progress") | .content'
+```
+
+For each "In Progress" issue, compare its title and scope against the merged PR's title and diff. A close title match or a diff that visibly implements the issue's stated scope is a candidate even with zero textual reference — use the same judgement as above (read the issue body, compare to the actual changed files) before closing it. Do not close on title similarity alone; confirm the diff actually does what the issue describes.
 
 ---
 
