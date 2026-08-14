@@ -10,7 +10,7 @@ from ingestion import gcs_to_bq_util
 from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
 from ingestion.dataset_utils import ratio_round_to_None
 
-from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, BQ_BOOLEAN
 
 REFERENCE_POPULATION = Race.ALL.value
 BASE_POPULATION = Race.WHITE_NH.value
@@ -83,6 +83,12 @@ class AgeAdjustCDCHiv(DataSource):
                 std_col.HIV_CARE_POPULATION: BQ_FLOAT,
                 std_col.HIV_PREP_POPULATION: BQ_FLOAT,
                 "hiv_deaths_ratio_age_adjusted": BQ_FLOAT,
+                "hiv_deaths_per_100k_is_suppressed": BQ_BOOLEAN,
+                "hiv_diagnoses_per_100k_is_suppressed": BQ_BOOLEAN,
+                "hiv_prevalence_per_100k_is_suppressed": BQ_BOOLEAN,
+                "hiv_care_linkage_is_suppressed": BQ_BOOLEAN,
+                "hiv_prep_coverage_is_suppressed": BQ_BOOLEAN,
+                "hiv_stigma_index_is_suppressed": BQ_BOOLEAN,
             }
 
             gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
