@@ -18,8 +18,8 @@ import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
 const ACS_CONDITION_EARLIEST_YEAR = '2012'
-const ACS_CONDITION_CURRENT_YEAR = '2022'
-const ACS_CONDITION_CURRENT_YEAR_RANGE_START = '2018'
+const ACS_CONDITION_CURRENT_YEAR = '2024'
+const ACS_CONDITION_CURRENT_YEAR_RANGE_START = '2020'
 
 const sdohDataSources = [
   dataSourceMetadataMap.acs,

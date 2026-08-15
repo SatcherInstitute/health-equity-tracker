@@ -47,7 +47,7 @@ logger = logging.getLogger(__name__)
 
 
 EARLIEST_ACS_CONDITION_YEAR = "2012"
-CURRENT_ACS_CONDITION_YEAR = "2022"
+CURRENT_ACS_CONDITION_YEAR = "2024"
 
 # available years with all topics working
 ACS_URLS_MAP = {
@@ -61,7 +61,9 @@ ACS_URLS_MAP = {
     "2019": "https://api.census.gov/data/2019/acs/acs5",
     "2020": "https://api.census.gov/data/2020/acs/acs5",
     "2021": "https://api.census.gov/data/2021/acs/acs5",
-    CURRENT_ACS_CONDITION_YEAR: "https://api.census.gov/data/2022/acs/acs5",
+    "2022": "https://api.census.gov/data/2022/acs/acs5",
+    "2023": "https://api.census.gov/data/2023/acs/acs5",
+    CURRENT_ACS_CONDITION_YEAR: "https://api.census.gov/data/2024/acs/acs5",
 }
 
 

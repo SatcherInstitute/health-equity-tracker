@@ -31,7 +31,9 @@ ACS_URLS_MAP = {
     "2019": "https://api.census.gov/data/2019/acs/acs5",
     "2020": "https://api.census.gov/data/2020/acs/acs5",
     "2021": "https://api.census.gov/data/2021/acs/acs5",
-    ACS_CURRENT_YEAR: "https://api.census.gov/data/2022/acs/acs5",
+    "2022": "https://api.census.gov/data/2022/acs/acs5",
+    "2023": "https://api.census.gov/data/2023/acs/acs5",
+    ACS_CURRENT_YEAR: "https://api.census.gov/data/2024/acs/acs5",
 }
 
 # For the 2022 ACS, the variable names in the metadata are title-cased, not all caps
