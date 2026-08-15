@@ -6,7 +6,7 @@ from typing import Literal, List, Union, Type, Optional, Tuple, Dict
 import os
 
 ACS_EARLIEST_YEAR = "2009"
-ACS_CURRENT_YEAR = "2024"
+ACS_CURRENT_YEAR = "2022"
 DECIA_CUTOFF_YEAR = "2016"
 
 
