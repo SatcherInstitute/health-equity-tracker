@@ -40,4 +40,6 @@ state_fips,state_name,population,population_pct,sex,time_period
 00,United States,163636438.0,50.8,Female,2016
 00,United States,160208857.0,50.8,Female,2013
 00,United States,162649954.0,50.8,Female,2015
-00,United States,154974545.0,50.7,Female,2009
+00,United States,154974545.0,50.7,Female,200900,United States,334369975.0,100.0,All,2023
+00,United States,165751966.0,49.6,Male,2023
+00,United States,168618009.0,50.4,Female,2023
