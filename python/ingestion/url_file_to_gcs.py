@@ -13,7 +13,7 @@ def local_file_path(filename):
     return f"/tmp/{filename}"
 
 
-def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
+def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename, check_json=None):
     """
     Attempts to download a file from a url and upload as a
     blob to the given GCS bucket.
@@ -24,24 +24,31 @@ def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
       gcs_bucket: Name of the GCS bucket to upload to (without gs://).
       dest_filename: What to name the downloaded file in GCS.
         Include the file extension.
+      check_json: Whether to validate that the downloaded content is valid JSON.
 
     Returns: A boolean indication of a file diff
     """
-    return download_first_url_to_gcs([url], gcs_bucket, dest_filename, url_params)
+    return download_first_url_to_gcs([url], gcs_bucket, dest_filename, url_params, check_json=check_json)
 
 
-def get_first_response(url_list, url_params):
+def get_first_response(url_list, url_params, check_json=False):
     for url in url_list:
         try:
             file_from_url = requests.get(url, params=url_params, timeout=120)
             file_from_url.raise_for_status()
+            if check_json:
+                try:
+                    file_from_url.json()
+                except Exception as err:
+                    logging.error("Failed to parse JSON response for url %s: %s", url, err)
+                    continue
             return file_from_url
         except requests.HTTPError as err:
             logging.error("HTTP error for url %s: %s", url, err)
     return None
 
 
-def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=None):
+def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=None, check_json=None):
     """
     Iterates over the list of potential URLs that may point to the data
     source until one of the URLs succeeds in downloading. If no URL succeeds,
@@ -53,12 +60,17 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=No
       dest_filename: What to name the downloaded file in GCS.
         Include the file extension.
       url_params: URL parameters to be passed to requests.get().
+      check_json: Whether to validate that the downloaded content is valid JSON.
+        Defaults to True if dest_filename ends with .json, otherwise False.
 
       Returns:
         files_are_diff: A boolean indication of a file diff
     """
     if url_params is None:
         url_params = {}
+
+    if check_json is None:
+        check_json = dest_filename.endswith(".json")
 
     # Establish connection to valid GCS bucket
     try:
@@ -69,7 +81,7 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=No
         return
 
     # Find a valid file in the URL list or exit
-    file_from_url = get_first_response(url_list, url_params)
+    file_from_url = get_first_response(url_list, url_params, check_json=check_json)
     if file_from_url is None:
         logging.error("No file could be found for intended destination: %s", dest_filename)
         return

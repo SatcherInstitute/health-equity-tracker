@@ -9,13 +9,17 @@ class MockResponse:
         self.content = content
 
     def __enter__(self):
-        pass
+        return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         pass
 
     def raise_for_status(self):
         pass
+
+    def json(self):
+        import json
+        return json.loads(self.content.decode("utf-8"))
 
 
 def write_to_file(file_to_write, contents):
@@ -81,3 +85,49 @@ class URLFileToGCSTest(unittest.TestCase):
             )
 
             self.assertTrue(result)
+
+    def testDownloadFirstUrlToGcs_JsonDestination_ValidJson(self):
+        valid_json = b'{"status": "ok", "count": 42}'
+        with patch("ingestion.url_file_to_gcs.storage.Client") as mock_storage_client, patch(
+            "requests.get"
+        ) as mock_requests_get:
+            initialize_mocks(mock_storage_client, mock_requests_get, valid_json, b"old data")
+
+            result = url_file_to_gcs.download_first_url_to_gcs(
+                ["https://testurl.com/data.json"], "test_bucket", "data.json"
+            )
+
+            self.assertTrue(result)
+
+    def testDownloadFirstUrlToGcs_JsonDestination_NonJsonHtmlError_Ignored(self):
+        html_error = b'<html><body>Missing Key Redirect</body></html>'
+        with patch("ingestion.url_file_to_gcs.storage.Client") as mock_storage_client, patch(
+            "requests.get"
+        ) as mock_requests_get:
+            initialize_mocks(mock_storage_client, mock_requests_get, html_error, b"old data")
+
+            result = url_file_to_gcs.download_first_url_to_gcs(
+                ["https://testurl.com/missing_key.html"], "test_bucket", "data.json"
+            )
+
+            self.assertIsNone(result)
+
+    def testDownloadFirstUrlToGcs_FallbackToValidSecondUrlWhenFirstIsInvalidJson(self):
+        html_error = MockResponse(b'<html>404 Not Found HTML</html>')
+        valid_json = MockResponse(b'{"key": "value"}')
+
+        with patch("ingestion.url_file_to_gcs.storage.Client") as mock_storage_client, patch(
+            "requests.get"
+        ) as mock_requests_get:
+            mock_requests_get.side_effect = [html_error, valid_json]
+            mock_storage_instance = mock_storage_client.return_value
+            mock_blob = Mock(**{"download_to_file.side_effect": lambda f: write_to_file(f, b"old")})
+            mock_storage_instance.get_bucket.return_value = Mock(**{"blob.return_value": mock_blob})
+
+            result = url_file_to_gcs.download_first_url_to_gcs(
+                ["https://badurl.com", "https://goodurl.com"], "test_bucket", "output.json"
+            )
+
+            self.assertTrue(result)
+            self.assertEqual(mock_requests_get.call_count, 2)
+            mock_blob.upload_from_filename.assert_called_once()
