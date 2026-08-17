@@ -32,6 +32,12 @@ gh pr checkout <number>
 
 If the working tree is dirty and the checkout fails, stop and ask the user to commit or stash first — do not discard changes.
 
+**Ensure the person running this skill is assigned.** A PR opened ad hoc (not through this skill) often has no assignee. `@me` resolves to whoever is authenticated via `gh`, not a hardcoded name, so this stays correct if someone else runs the skill. Add one unconditionally — `--add-assignee` is a no-op if already set:
+
+```bash
+gh pr edit <number> --add-assignee @me
+```
+
 Then gather everything the rest of the skill needs. **This is one call, not six.** Each of these is independent, so splitting them across turns pays a full context re-read per line for a few hundred tokens of output:
 
 ```bash
@@ -97,10 +103,12 @@ Backend PRs have no browser preview and no Playwright step, so `pytest` **is** t
 
 `black` and `pylint` are the static-check parallel to Biome/tsc; the pre-commit hook already ran them, but run them here too so a hook that was skipped or an unstaged file can't slip through.
 
+Run `black` through `pre-commit`, not a bare `black --check`. The repo pins `black==22.10.0` in `.pre-commit-config.yaml`, but a dev venv's `pip install black` has no such pin and silently drifts to whatever is latest — a newer local `black` then flags unrelated pre-existing code as needing reformat, producing false positives unrelated to this PR's diff. `pre-commit run` always uses the pinned version regardless of what's in the venv.
+
 ```bash
 # Return to repo root first — Step 2 (frontend) may have left us in frontend/
 cd "$(git rev-parse --show-toplevel)" && source .venv/bin/activate
-black --check python/ exporter/
+pre-commit run black --files $(git diff origin/main --name-only -- '*.py')
 pylint <changed-package>            # e.g. exporter or python/datasources
 ```
 
@@ -439,7 +447,12 @@ Update the PR title (under 70 chars) and body. **Read the existing PR body first
 - **Summary bullets:** Keep the existing bullets if they still accurately describe the diff. Only add, remove, or rewrite bullets when the diff has changed significantly since they were written. Do not replace a well-written human summary with a generic one.
 - **Test plan:** Use the audited checklist from Step 5 (checked state preserved). Do not regenerate from scratch.
 - **Impact:** Always aim to quantify what the PR improves — see Impact rules below.
-- **Issue links:** Preserve any existing issue-closing keywords (`Closes`, `Fixes`, `Resolves`, `Fix`, `Close`, `Resolve` — GitHub recognizes all of these) followed by `#NNNN`.
+- **Issue links:** Preserve any existing issue-closing keywords (`Closes`, `Fixes`, `Resolves`, `Fix`, `Close`, `Resolve` — GitHub recognizes all of these) followed by `#NNNN`. If none are present, check whether this PR should have one before writing the body — a PR opened from `/tackle` work or matching an open issue's title/scope has silently shipped without a `Closes #NNNN` before (PR #5129 resolved #5127 with zero reference to it anywhere in the body, so `/merge`'s board sync missed it until a human noticed):
+  ```bash
+  gh api graphql -f query='{ organization(login: "SatcherInstitute") { projectV2(number: 5) { items(first: 100) { nodes { fieldValueByName(name: "Status") { ... on ProjectV2ItemFieldSingleSelectValue { name } } content { ... on Issue { number title assignees(first: 5) { nodes { login } } } } } } } } }' \
+    --jq '.data.organization.projectV2.items.nodes[] | select(.fieldValueByName.name == "In Progress") | .content'
+  ```
+  If an "In Progress" issue's title/scope clearly matches this PR's diff (read the issue body, don't go on title alone), add `Closes #NNNN` to the body.
 - **Bot-generated blocks:** Preserve per the rule below.
 
 Keep the description **short and focused** — a few tight bullets, no padding.

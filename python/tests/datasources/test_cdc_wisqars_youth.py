@@ -18,11 +18,16 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
     directory, filename = args
     use_cols = kwargs["usecols"]
 
+    # No na_values for the "--" suppression sentinel here, matching production:
+    # load_wisqars_as_df_from_data_dir() needs the literal string to detect suppression before
+    # convert_columns_to_numeric() coerces it to NaN. Population dtype is likewise left unforced
+    # (matching production): pandas' C parser can't combine an explicit float dtype with the
+    # thousands="," separator when "--" sentinels are also present in the column, and youth's
+    # Population column (unlike black_men's) has real suppressed rows.
     df = pd.read_csv(
         os.path.join(TEST_DIR, directory, filename),
         usecols=use_cols,
-        na_values=["--"],
-        dtype={"Year": str, "Population": float},
+        dtype={"Year": str},
         thousands=",",
     )
 

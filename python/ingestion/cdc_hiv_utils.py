@@ -6,10 +6,11 @@ from ingestion.constants import (
     COUNTY_LEVEL,
     STATE_LEVEL,
     NATIONAL_LEVEL,
+    BQ_BOOLEAN,
 )
 from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
+import numpy as np
 import pandas as pd
-
 
 CDC_AGE = "Age Group"
 CDC_RACE = "Race/Ethnicity"
@@ -24,6 +25,11 @@ CDC_PER_100K = "Rate per 100000"
 DTYPE = {CDC_STATE_FIPS: str, CDC_YEAR: str}
 ATLAS_COLS = ["Indicator", "Transmission Category", "Rate LCI", "Rate UCI"]
 NA_VALUES = ["Data suppressed", "Data not available"]
+# The source distinguishes "Data suppressed" (privacy-withheld small counts) from
+# "Data not available" (genuinely uncollected/inapplicable). NA_VALUES above collapses both to
+# NaN for callers that don't care; detect_suppression in load_atlas_df_from_data_dir() checks for
+# this sentinel specifically, before it's coerced away, to flag only the former.
+HIV_SUPPRESSED_SENTINEL = "Data suppressed"
 CDC_ATLAS_COLS = [CDC_YEAR, CDC_STATE_NAME, CDC_STATE_FIPS]
 CDC_DEM_COLS = [CDC_AGE, CDC_RACE, CDC_SEX]
 
@@ -86,6 +92,18 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
 }
 
 CARE_PREP_MAP = {std_col.HIV_CARE_PREFIX: std_col.HIV_CARE_LINKAGE, std_col.HIV_PREP_PREFIX: std_col.HIV_PREP_COVERAGE}
+# Keyed by the actual rate/percent metric id shown on the map (e.g. `hiv_deaths_per_100k`, not the
+# raw-count `hiv_deaths`), matching the `<rate_metric_id>_is_suppressed` convention every other
+# suppression-flagged topic uses (see GunViolenceProvider.ts, CdcCancerProvider.ts, etc.) so the
+# frontend's `suppressionFlagMetricId` can reference it directly.
+RATE_METRIC_ID_MAP = {
+    **PER_100K_MAP,
+    **CARE_PREP_MAP,
+    std_col.HIV_STIGMA_INDEX: std_col.HIV_STIGMA_INDEX,
+}
+IS_SUPPRESSED_MAP = {
+    prefix: f"{RATE_METRIC_ID_MAP[prefix]}_{std_col.IS_SUPPRESSED_SUFFIX}" for prefix in HIV_METRICS.values()
+}
 POP_MAP = {
     prefix: (
         std_col.HIV_CARE_POPULATION
@@ -133,7 +151,7 @@ TOTAL_DEATHS = f"{std_col.HIV_DEATHS_PREFIX}_{std_col.RAW_SUFFIX}"
 BW_FLOAT_COLS_RENAME_MAP = {
     f"hiv_{metric}{suffix}": f"hiv_{metric}_black_women{suffix}"
     for metric in ["deaths", "diagnoses", "prevalence"]
-    for suffix in ["", "_pct_relative_inequity", "_pct_share", "_per_100k"]
+    for suffix in ["", "_pct_relative_inequity", "_pct_share", "_per_100k", "_per_100k_is_suppressed"]
 }
 BW_FLOAT_COLS_RENAME_MAP.update(
     {"population": "black_women_population_count", "hiv_population_pct": "black_women_population_pct"}
@@ -169,6 +187,12 @@ def get_bq_col_types(demo, geo, time_view):
         )
         types.update(
             {f"hiv_{metric}_black_women_per_100k": BQ_FLOAT for metric in ["deaths", "diagnoses", "prevalence"]}
+        )
+        types.update(
+            {
+                f"hiv_{metric}_black_women_per_100k_is_suppressed": BQ_BOOLEAN
+                for metric in ["deaths", "diagnoses", "prevalence"]
+            }
         )
         suffix = "_pct_relative_inequity" if time_view == HISTORICAL else ""
         types.update(
@@ -212,6 +236,7 @@ def get_bq_col_types(demo, geo, time_view):
             ]
         }
     )
+    types.update({v: BQ_BOOLEAN for v in IS_SUPPRESSED_MAP.values()})
     if time_view == CURRENT:
         types.update(
             {
@@ -238,15 +263,26 @@ def get_bq_col_types(demo, geo, time_view):
     return types
 
 
-def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
+def load_atlas_df_from_data_dir(geo_level: str, breakdown: str, detect_suppression: bool = False):
     """Load HIV data by breakdown and geo_level from AtlasPlus data files
 
     breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, or `black_women`
     geo_level: string equal to `county`, `national`, or `state`
+    detect_suppression: if True, adds a tri-state `<metric>_is_suppressed` column (see
+        IS_SUPPRESSED_MAP) per HIV_METRICS entry, flagging rows where the source withheld the
+        value with the `HIV_SUPPRESSED_SENTINEL` ("Data suppressed"), as distinct from
+        "Data not available" (genuinely uncollected). Opt-in for the same reason as WISQARS'
+        equivalent flag: a caller merging results from multiple calls to this function on implicit
+        (unspecified) join keys would otherwise pick up an identically-named column as an
+        accidental merge key.
     return: a data frame of time-based HIV data by breakdown and geo_level
     """
     output_df = pd.DataFrame(columns=CDC_ATLAS_COLS)
     hiv_directory = "cdc_hiv_black_women" if std_col.BLACK_WOMEN in breakdown else "cdc_hiv"
+    # Omitting na_values (rather than passing NA_VALUES) lets "Data suppressed" survive long
+    # enough for the mask below to see it; the explicit to_numeric coercion afterward turns both
+    # sentinels (and anything else non-numeric) into NaN, same end state as the na_values path.
+    read_na_values = None if detect_suppression else NA_VALUES
 
     for datatype in HIV_METRICS.values():
         atlas_cols_to_exclude = generate_atlas_cols_to_exclude(breakdown)
@@ -274,11 +310,26 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             hiv_directory,
             filename,
             subdirectory=datatype,
-            na_values=NA_VALUES,
+            na_values=read_na_values,
             usecols=lambda x: x not in atlas_cols_to_exclude,
             thousands=",",
             dtype=DTYPE,
         )
+
+        if detect_suppression:
+            rate_col = CDC_PCT_RATE if datatype in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX] else CDC_PER_100K
+            is_suppressed_mask = df[rate_col].astype(str).str.strip() == HIV_SUPPRESSED_SENTINEL
+            # Tri-state per HET convention: True = suppressed, NaN = real data (suppression
+            # doesn't apply). A raw source row has no "known-missing-but-not-suppressed" state, so
+            # there's no False here - that would misread as a real, non-suppressed measurement.
+            df[IS_SUPPRESSED_MAP[datatype]] = pd.Series(np.nan, index=df.index, dtype=object)
+            df.loc[is_suppressed_mask, IS_SUPPRESSED_MAP[datatype]] = True
+
+            for numeric_col in [CDC_CASES, CDC_PER_100K, CDC_PCT_RATE]:
+                if numeric_col in df.columns:
+                    df[numeric_col] = pd.to_numeric(
+                        df[numeric_col].astype(str).str.replace(",", "", regex=False), errors="coerce"
+                    )
 
         # Add national gender columns if applicable
         if (datatype in BASE_COLS_NO_PREP) and (breakdown == "all") and (geo_level == NATIONAL_LEVEL):
@@ -286,11 +337,16 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                 hiv_directory,
                 f"{datatype}-{geo_level}-gender.csv",
                 subdirectory=datatype,
-                na_values=NA_VALUES,
+                na_values=read_na_values,
                 usecols=lambda x: x not in atlas_cols_to_exclude,
                 thousands=",",
                 dtype=DTYPE,
             )
+
+            if detect_suppression:
+                gender_df[CDC_CASES] = pd.to_numeric(
+                    gender_df[CDC_CASES].astype(str).str.replace(",", "", regex=False), errors="coerce"
+                )
 
             gender_pivot = gender_df.pivot_table(
                 index=CDC_YEAR, columns=CDC_SEX, values=CDC_CASES, aggfunc="sum"
