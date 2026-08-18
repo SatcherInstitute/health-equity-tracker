@@ -30,14 +30,18 @@ def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
     return download_first_url_to_gcs([url], gcs_bucket, dest_filename, url_params)
 
 
-def get_first_response(url_list, url_params):
+def get_first_response(url_list, url_params, validate_json=False):
     for url in url_list:
         try:
             file_from_url = requests.get(url, params=url_params, timeout=120)
             file_from_url.raise_for_status()
+            if validate_json:
+                file_from_url.json()
             return file_from_url
         except requests.HTTPError as err:
             logging.error("HTTP error for url %s: %s", url, err)
+        except ValueError as err:
+            logging.error("Non-JSON response body from url %s: %s", url, err)
     return None
 
 
@@ -69,7 +73,8 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=No
         return
 
     # Find a valid file in the URL list or exit
-    file_from_url = get_first_response(url_list, url_params)
+    validate_json = dest_filename.endswith(".json")
+    file_from_url = get_first_response(url_list, url_params, validate_json=validate_json)
     if file_from_url is None:
         logging.error("No file could be found for intended destination: %s", dest_filename)
         return

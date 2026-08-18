@@ -5,8 +5,10 @@ from ingestion import url_file_to_gcs
 
 
 class MockResponse:
-    def __init__(self, content):
+    def __init__(self, content, json_data=None, raise_json=False):
         self.content = content
+        self._json_data = json_data
+        self._raise_json = raise_json
 
     def __enter__(self):
         pass
@@ -17,13 +19,20 @@ class MockResponse:
     def raise_for_status(self):
         pass
 
+    def json(self):
+        if self._raise_json:
+            raise ValueError("No JSON object could be decoded")
+        return self._json_data
+
 
 def write_to_file(file_to_write, contents):
     file_to_write.write(contents)
     file_to_write.close()
 
 
-def initialize_mocks(mock_storage_client, mock_requests_get, response_data, gcs_data, blob_download_side_effect=None):
+def initialize_mocks(
+    mock_storage_client, mock_requests_get, response_data, gcs_data, blob_download_side_effect=None, mock_response=None
+):
     if blob_download_side_effect is None:
 
         def blob_download_side_effect(test_old_file):
@@ -35,7 +44,7 @@ def initialize_mocks(mock_storage_client, mock_requests_get, response_data, gcs_
     bucket_attrs = {"blob.return_value": mock_blob}
     mock_bucket = Mock(**bucket_attrs)
     mock_storage_instance.get_bucket.return_value = mock_bucket
-    mock_requests_get.return_value = MockResponse(response_data)
+    mock_requests_get.return_value = mock_response if mock_response is not None else MockResponse(response_data)
 
 
 class URLFileToGCSTest(unittest.TestCase):
@@ -81,3 +90,65 @@ class URLFileToGCSTest(unittest.TestCase):
             )
 
             self.assertTrue(result)
+
+    def testDownloadFirstUrlToGcs_JsonFilenameValidJson(self):
+        """A .json dest_filename with a valid JSON response body succeeds."""
+        with patch("ingestion.url_file_to_gcs.storage.Client") as mock_storage_client, patch(
+            "requests.get"
+        ) as mock_requests_get:
+            initialize_mocks(
+                mock_storage_client,
+                mock_requests_get,
+                b'[["NAME","B01001_001E"],["Alabama","5024279"]]',
+                b"old data",
+                mock_response=MockResponse(
+                    b'[["NAME","B01001_001E"],["Alabama","5024279"]]',
+                    json_data=[["NAME", "B01001_001E"], ["Alabama", "5024279"]],
+                ),
+            )
+
+            result = url_file_to_gcs.download_first_url_to_gcs(
+                ["https://testurl.com"], "test_bucket", "test_destination.json"
+            )
+
+            self.assertTrue(result)
+
+    def testDownloadFirstUrlToGcs_JsonFilenameHtmlResponse(self):
+        """A .json dest_filename whose response body is HTML (e.g. Census key-wall) returns None."""
+        with patch("ingestion.url_file_to_gcs.storage.Client") as mock_storage_client, patch(
+            "requests.get"
+        ) as mock_requests_get:
+            initialize_mocks(
+                mock_storage_client,
+                mock_requests_get,
+                b"<html>missing key</html>",
+                b"old data",
+                mock_response=MockResponse(b"<html>missing key</html>", raise_json=True),
+            )
+
+            result = url_file_to_gcs.download_first_url_to_gcs(
+                ["https://testurl.com"], "test_bucket", "test_destination.json"
+            )
+
+            self.assertIsNone(result)
+
+    def testGetFirstResponse_JsonValidation_HtmlBody(self):
+        """get_first_response with validate_json=True returns None for HTML body."""
+        html_response = MockResponse(b"<html>error</html>", raise_json=True)
+        with patch("requests.get", return_value=html_response):
+            result = url_file_to_gcs.get_first_response(["https://testurl.com"], {}, validate_json=True)
+        self.assertIsNone(result)
+
+    def testGetFirstResponse_JsonValidation_ValidJson(self):
+        """get_first_response with validate_json=True returns response for valid JSON body."""
+        json_response = MockResponse(b'{"key": "value"}', json_data={"key": "value"})
+        with patch("requests.get", return_value=json_response):
+            result = url_file_to_gcs.get_first_response(["https://testurl.com"], {}, validate_json=True)
+        self.assertIsNotNone(result)
+
+    def testGetFirstResponse_NoJsonValidation_HtmlBody(self):
+        """get_first_response with validate_json=False (default) returns response even for HTML body."""
+        html_response = MockResponse(b"<html>error</html>", raise_json=True)
+        with patch("requests.get", return_value=html_response):
+            result = url_file_to_gcs.get_first_response(["https://testurl.com"], {})
+        self.assertIsNotNone(result)
