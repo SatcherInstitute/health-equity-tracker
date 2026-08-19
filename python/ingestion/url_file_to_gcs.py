@@ -13,7 +13,7 @@ def local_file_path(filename):
     return f"/tmp/{filename}"
 
 
-def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
+def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename, census_api_key=None):
     """
     Attempts to download a file from a url and upload as a
     blob to the given GCS bucket.
@@ -24,23 +24,31 @@ def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
       gcs_bucket: Name of the GCS bucket to upload to (without gs://).
       dest_filename: What to name the downloaded file in GCS.
         Include the file extension.
+      census_api_key: Optional Census API key for Census Bureau endpoints.
 
     Returns: A boolean indication of a file diff
     """
-    return download_first_url_to_gcs([url], gcs_bucket, dest_filename, url_params)
+    return download_first_url_to_gcs([url], gcs_bucket, dest_filename, url_params, census_api_key=census_api_key)
 
 
-def get_first_response(url_list, url_params, validate_json=False):
+def get_first_response(url_list, url_params, validate_json=False, census_api_key=None):
     """
     Fetch the first successfully-responding URL from url_list, with optional JSON validation.
 
     When validate_json=True, calls response.json() to verify the response body is valid JSON.
     If JSON parsing fails, logs the error and retries the next URL (same as HTTP errors).
+
+    For Census API URLs, automatically adds the api_key param if census_api_key is provided.
     Returns None if all URLs fail.
     """
     for url in url_list:
         try:
-            file_from_url = requests.get(url, params=url_params, timeout=120)
+            # Add Census API key if provided and URL is a Census endpoint
+            params = url_params.copy() if url_params else {}
+            if census_api_key and "census.gov" in url:
+                params["key"] = census_api_key
+
+            file_from_url = requests.get(url, params=params, timeout=120)
             file_from_url.raise_for_status()
             if validate_json:
                 file_from_url.json()
@@ -52,7 +60,7 @@ def get_first_response(url_list, url_params, validate_json=False):
     return None
 
 
-def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=None):
+def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=None, census_api_key=None):
     """
     Iterates over the list of potential URLs that may point to the data
     source until one of the URLs succeeds in downloading. If no URL succeeds,
@@ -62,12 +70,16 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=No
     valid JSON before caching. Non-JSON responses are treated as failures and
     trigger a retry to the next URL in url_list.
 
+    For Census API URLs, automatically adds the api_key param if census_api_key
+    is provided (e.g. for Census Bureau ACS data).
+
     Parameters:
       url_list: List of URLs where the file may be found.
       gcs_bucket: Name of the GCS bucket to upload to (without gs://).
       dest_filename: What to name the downloaded file in GCS.
         Include the file extension. .json extension triggers JSON validation.
       url_params: URL parameters to be passed to requests.get().
+      census_api_key: Optional Census API key for Census Bureau endpoints.
 
       Returns:
         files_are_diff: A boolean indication of a file diff
@@ -85,7 +97,7 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=No
 
     # Find a valid file in the URL list or exit (with JSON validation for .json files)
     validate_json = dest_filename.endswith(".json")
-    file_from_url = get_first_response(url_list, url_params, validate_json=validate_json)
+    file_from_url = get_first_response(url_list, url_params, validate_json=validate_json, census_api_key=census_api_key)
     if file_from_url is None:
         logging.error("No file could be found for intended destination: %s", dest_filename)
         return

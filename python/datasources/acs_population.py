@@ -1,3 +1,4 @@
+import os
 import pandas as pd  # type: ignore
 import ingestion.standardized_columns as std_col
 from ingestion.standardized_columns import Race
@@ -383,7 +384,10 @@ class ACSPopulationIngester:
             cols = list(group_vars.keys())
             url_params = get_census_params(cols, self.county_level)
             filename = self.get_filename(concept)
-            concept_file_diff = url_file_to_gcs.url_file_to_gcs(self.base_acs_url, url_params, gcs_bucket, filename)
+            census_api_key = os.getenv("CENSUS_API_KEY")
+            concept_file_diff = url_file_to_gcs.url_file_to_gcs(
+                self.base_acs_url, url_params, gcs_bucket, filename, census_api_key=census_api_key
+            )
             file_diff = file_diff or concept_file_diff
 
         return file_diff
