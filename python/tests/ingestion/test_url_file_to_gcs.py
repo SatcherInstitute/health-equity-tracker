@@ -34,12 +34,19 @@ def write_to_file(file_to_write, contents):
 
 
 def initialize_mocks(
-    mock_storage_client, mock_requests_get, response_data, gcs_data, blob_download_side_effect=None, mock_response=None
+    mock_storage_client,
+    mock_requests_get,
+    response_data=None,
+    gcs_data=None,
+    blob_download_side_effect=None,
+    mock_response=None,
 ):
-    if blob_download_side_effect is None:
+    if blob_download_side_effect is None and gcs_data is not None:
 
-        def blob_download_side_effect(test_old_file):
+        def default_blob_side_effect(test_old_file):
             write_to_file(test_old_file, gcs_data)
+
+        blob_download_side_effect = default_blob_side_effect
 
     mock_storage_instance = mock_storage_client.return_value
     blob_attrs = {"download_to_file.side_effect": blob_download_side_effect}
@@ -102,8 +109,8 @@ class URLFileToGCSTest(unittest.TestCase):
             initialize_mocks(
                 mock_storage_client,
                 mock_requests_get,
-                b'[["NAME","B01001_001E"],["Alabama","5024279"]]',
-                b"old data",
+                response_data=None,
+                gcs_data=b"old data",
                 mock_response=MockResponse(
                     b'[["NAME","B01001_001E"],["Alabama","5024279"]]',
                     json_data=[["NAME", "B01001_001E"], ["Alabama", "5024279"]],
@@ -124,8 +131,8 @@ class URLFileToGCSTest(unittest.TestCase):
             initialize_mocks(
                 mock_storage_client,
                 mock_requests_get,
-                b"<html>missing key</html>",
-                b"old data",
+                response_data=None,
+                gcs_data=b"old data",
                 mock_response=MockResponse(b"<html>missing key</html>", raise_json=True),
             )
 
