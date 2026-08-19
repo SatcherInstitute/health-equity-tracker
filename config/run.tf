@@ -17,6 +17,17 @@ resource "google_cloud_run_service" "ingestion_service" {
       containers {
         image = format("gcr.io/%s/%s@%s", var.project_id, var.ingestion_image_name, var.ingestion_image_digest)
 
+        env {
+          name = "CENSUS_API_KEY"
+          value_from {
+            secret_key_ref {
+              # Secret is created/rotated manually in Secret Manager (see secrets.tf).
+              name = "census-api-key"
+              key  = "latest"
+            }
+          }
+        }
+
         resources {
           limits = {
             memory = "4G"
