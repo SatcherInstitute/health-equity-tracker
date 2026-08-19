@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
@@ -323,6 +324,8 @@ class AcsCondition(DataSource):
         # writes the data to the GCS bucket and sees if file diff is changed
 
         file_diff = False
+        census_api_key = os.getenv("CENSUS_API_KEY")
+
         for measure, acs_item in acs_items.items():
             for prefix, race in acs_item.prefix_map.items():
                 for county_level in [True, False]:
@@ -333,6 +336,7 @@ class AcsCondition(DataSource):
                             params,
                             bucket,
                             self.get_filename_race(measure, race, county_level, year),
+                            census_api_key=census_api_key,
                         )
                         or file_diff
                     )
@@ -345,6 +349,7 @@ class AcsCondition(DataSource):
                         params,
                         bucket,
                         self.get_filename_sex(measure, county_level, year),
+                        census_api_key=census_api_key,
                     )
                     or file_diff
                 )
