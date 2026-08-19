@@ -30,14 +30,25 @@ def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename):
     return download_first_url_to_gcs([url], gcs_bucket, dest_filename, url_params)
 
 
-def get_first_response(url_list, url_params):
+def get_first_response(url_list, url_params, validate_json=False):
+    """
+    Fetch the first successfully-responding URL from url_list, with optional JSON validation.
+
+    When validate_json=True, calls response.json() to verify the response body is valid JSON.
+    If JSON parsing fails, logs the error and retries the next URL (same as HTTP errors).
+    Returns None if all URLs fail.
+    """
     for url in url_list:
         try:
             file_from_url = requests.get(url, params=url_params, timeout=120)
             file_from_url.raise_for_status()
+            if validate_json:
+                file_from_url.json()
             return file_from_url
         except requests.HTTPError as err:
             logging.error("HTTP error for url %s: %s", url, err)
+        except ValueError as err:
+            logging.error("Non-JSON response body from url %s: %s", url, err)
     return None
 
 
@@ -47,11 +58,15 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=No
     source until one of the URLs succeeds in downloading. If no URL succeeds,
     the method will return an error.
 
+    For .json dest_filename, automatically validates that the response body is
+    valid JSON before caching. Non-JSON responses are treated as failures and
+    trigger a retry to the next URL in url_list.
+
     Parameters:
       url_list: List of URLs where the file may be found.
       gcs_bucket: Name of the GCS bucket to upload to (without gs://).
       dest_filename: What to name the downloaded file in GCS.
-        Include the file extension.
+        Include the file extension. .json extension triggers JSON validation.
       url_params: URL parameters to be passed to requests.get().
 
       Returns:
@@ -68,8 +83,9 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename, url_params=No
         logging.error("GCS Bucket %s not found", gcs_bucket)
         return
 
-    # Find a valid file in the URL list or exit
-    file_from_url = get_first_response(url_list, url_params)
+    # Find a valid file in the URL list or exit (with JSON validation for .json files)
+    validate_json = dest_filename.endswith(".json")
+    file_from_url = get_first_response(url_list, url_params, validate_json=validate_json)
     if file_from_url is None:
         logging.error("No file could be found for intended destination: %s", dest_filename)
         return
