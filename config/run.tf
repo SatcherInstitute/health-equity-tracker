@@ -74,6 +74,16 @@ resource "google_cloud_run_service" "gcs_to_bq_service" {
             }
           }
         }
+        env {
+          name = "CENSUS_API_KEY"
+          value_from {
+            secret_key_ref {
+              # Secret is created/rotated manually in Secret Manager (see secrets.tf).
+              name = "census-api-key"
+              key  = "latest"
+            }
+          }
+        }
 
         resources {
           limits = {
