@@ -43,9 +43,9 @@ def get_first_response(url_list, url_params, validate_json=False, census_api_key
     """
     for url in url_list:
         try:
-            # Add Census API key if provided and URL is a Census endpoint
             params = url_params.copy() if url_params else {}
-            if census_api_key and "census.gov" in url:
+            # Census Bureau API requires an API key param for all requests
+            if census_api_key and "census.gov" in url.lower():
                 params["key"] = census_api_key
 
             file_from_url = requests.get(url, params=params, timeout=120)
