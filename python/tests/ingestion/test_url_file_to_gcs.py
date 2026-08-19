@@ -1,3 +1,4 @@
+import json
 import unittest
 from unittest.mock import Mock, patch
 import google.cloud.exceptions
@@ -22,7 +23,9 @@ class MockResponse:
     def json(self):
         if self._raise_json:
             raise ValueError("No JSON object could be decoded")
-        return self._json_data
+        if self._json_data is not None:
+            return self._json_data
+        return json.loads(self.content)
 
 
 def write_to_file(file_to_write, contents):
