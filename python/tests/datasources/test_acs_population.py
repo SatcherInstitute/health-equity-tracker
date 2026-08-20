@@ -206,7 +206,7 @@ def testWriteToBqCountyCallsAppend2022(mock_bq: mock.MagicMock, mock_cache: mock
     table_names_for_bq = [call[0][2] for call in mock_bq.call_args_list]
 
     assert table_names_for_bq == [
-        # 2022 should write to both SINGLE YEAR and TIME SERIES tables
+        # 2022 should write to both SINGLE YEAR and TIME SERIES tables (ACS_CURRENT_YEAR=2022)
         "race_county_current",
         "race_county_historical",
         "multi_sex_age_race_county_current",
@@ -233,7 +233,7 @@ def testWriteToBqRaceAppend2022(mock_bq: mock.MagicMock, mock_cache: mock.MagicM
     expected_single_year_df = pd.read_csv(GOLDEN_DATA_RACE, dtype=DTYPE)
     assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
 
-    # 2022 should only APPEND to an existing time_series table
+    # 2022 should also APPEND to an existing time_series table
     assert mock_bq.call_args_list[1][1]["overwrite"] is False
     time_series_append_df = mock_bq.call_args_list[1][0][0]
     expected_time_series_append_df = pd.read_csv(GOLDEN_DATA_RACE_TIME_SERIES_APPEND, dtype=DTYPE)

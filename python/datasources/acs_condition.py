@@ -48,9 +48,11 @@ logger = logging.getLogger(__name__)
 
 
 EARLIEST_ACS_CONDITION_YEAR = "2012"
-CURRENT_ACS_CONDITION_YEAR = "2022"
+CURRENT_ACS_CONDITION_YEAR = "2024"
 
 # available years with all topics working
+# NOTE: 2023/2024 URLs are live, but the precache DAG hasn't been run against them yet —
+# committed 2024-*.json test fixtures are still placeholder copies of 2022. See #5140.
 ACS_URLS_MAP = {
     EARLIEST_ACS_CONDITION_YEAR: "https://api.census.gov/data/2012/acs/acs5",
     "2013": "https://api.census.gov/data/2013/acs/acs5",
@@ -62,7 +64,9 @@ ACS_URLS_MAP = {
     "2019": "https://api.census.gov/data/2019/acs/acs5",
     "2020": "https://api.census.gov/data/2020/acs/acs5",
     "2021": "https://api.census.gov/data/2021/acs/acs5",
-    CURRENT_ACS_CONDITION_YEAR: "https://api.census.gov/data/2022/acs/acs5",
+    "2022": "https://api.census.gov/data/2022/acs/acs5",
+    "2023": "https://api.census.gov/data/2023/acs/acs5",
+    CURRENT_ACS_CONDITION_YEAR: "https://api.census.gov/data/2024/acs/acs5",
 }
 
 

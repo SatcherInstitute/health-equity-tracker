@@ -162,13 +162,17 @@ def testWriteToBqOverwriteEarliestYear(
 @mock.patch("ingestion.census.fetch_acs_metadata", return_value=get_acs_metadata_as_json(2022))
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_get_by_race_as_df)
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-def testWriteToBqAppend2022(
+def testWriteToBqAppend2024(
     mock_bq: mock.MagicMock,
     mock_acs: mock.MagicMock,
     mock_json: mock.MagicMock,
 ):
-    acsCondition2022 = AcsCondition()
-    acsCondition2022.write_to_bq("dataset", "gcs_bucket", year="2022")
+    # NOTE: this only verifies year="2024" produces the correct request filenames/BQ
+    # call shape. The 2024-*.json fixtures are placeholder copies of the 2022 fixtures
+    # (Census now requires an API key to fetch real data, see #5138) and assert nothing
+    # about actual 2024 values. Real fixtures tracked in #5140.
+    acsCondition2024 = AcsCondition()
+    acsCondition2024.write_to_bq("dataset", "gcs_bucket", year="2024")
 
     # Non-earliest year like this should APPEND its TIME_SERIES yearly data onto the existing BQ tables
     # This most current year should also generate a CURRENT table with an undefined overwrite arg
@@ -196,74 +200,74 @@ def testWriteToBqAppend2022(
     # One call per race per geo, and then one call for sex at each geo
     # and one for age at each geo
     assert mock_acs.call_count == ((8 * 3) + 3 + 3) * 2
-    assert mock_acs.call_args_list[0].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_AIAN.json"
-    assert mock_acs.call_args_list[1].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_ASIAN.json"
-    assert mock_acs.call_args_list[2].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_HISP.json"
-    assert mock_acs.call_args_list[3].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_BLACK.json"
-    assert mock_acs.call_args_list[4].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_NHPI.json"
-    assert mock_acs.call_args_list[5].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_WHITE.json"
-    assert mock_acs.call_args_list[6].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[7].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_MULTI.json"
+    assert mock_acs.call_args_list[0].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_AIAN.json"
+    assert mock_acs.call_args_list[1].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_ASIAN.json"
+    assert mock_acs.call_args_list[2].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_HISP.json"
+    assert mock_acs.call_args_list[3].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_BLACK.json"
+    assert mock_acs.call_args_list[4].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_NHPI.json"
+    assert mock_acs.call_args_list[5].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_WHITE.json"
+    assert mock_acs.call_args_list[6].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_OTHER_STANDARD.json"
+    assert mock_acs.call_args_list[7].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_MULTI.json"
 
-    assert mock_acs.call_args_list[8].args[1] == "2022-POVERTY_BY_RACE_STATE_AIAN.json"
-    assert mock_acs.call_args_list[9].args[1] == "2022-POVERTY_BY_RACE_STATE_ASIAN.json"
-    assert mock_acs.call_args_list[10].args[1] == "2022-POVERTY_BY_RACE_STATE_HISP.json"
-    assert mock_acs.call_args_list[11].args[1] == "2022-POVERTY_BY_RACE_STATE_BLACK.json"
-    assert mock_acs.call_args_list[12].args[1] == "2022-POVERTY_BY_RACE_STATE_NHPI.json"
-    assert mock_acs.call_args_list[13].args[1] == "2022-POVERTY_BY_RACE_STATE_WHITE.json"
-    assert mock_acs.call_args_list[14].args[1] == "2022-POVERTY_BY_RACE_STATE_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[15].args[1] == "2022-POVERTY_BY_RACE_STATE_MULTI.json"
+    assert mock_acs.call_args_list[8].args[1] == "2024-POVERTY_BY_RACE_STATE_AIAN.json"
+    assert mock_acs.call_args_list[9].args[1] == "2024-POVERTY_BY_RACE_STATE_ASIAN.json"
+    assert mock_acs.call_args_list[10].args[1] == "2024-POVERTY_BY_RACE_STATE_HISP.json"
+    assert mock_acs.call_args_list[11].args[1] == "2024-POVERTY_BY_RACE_STATE_BLACK.json"
+    assert mock_acs.call_args_list[12].args[1] == "2024-POVERTY_BY_RACE_STATE_NHPI.json"
+    assert mock_acs.call_args_list[13].args[1] == "2024-POVERTY_BY_RACE_STATE_WHITE.json"
+    assert mock_acs.call_args_list[14].args[1] == "2024-POVERTY_BY_RACE_STATE_OTHER_STANDARD.json"
+    assert mock_acs.call_args_list[15].args[1] == "2024-POVERTY_BY_RACE_STATE_MULTI.json"
 
-    assert mock_acs.call_args_list[16].args[1] == "2022-HEALTH_INSURANCE_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[17].args[1] == "2022-POVERTY_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[18].args[1] == "2022-HEALTH_INSURANCE_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[19].args[1] == "2022-POVERTY_BY_SEX_STATE.json"
+    assert mock_acs.call_args_list[16].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_STATE.json"
+    assert mock_acs.call_args_list[17].args[1] == "2024-POVERTY_BY_SEX_STATE.json"
+    assert mock_acs.call_args_list[18].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_STATE.json"
+    assert mock_acs.call_args_list[19].args[1] == "2024-POVERTY_BY_SEX_STATE.json"
 
-    assert mock_acs.call_args_list[20].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_AIAN.json"
-    assert mock_acs.call_args_list[21].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_ASIAN.json"
-    assert mock_acs.call_args_list[22].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_HISP.json"
-    assert mock_acs.call_args_list[23].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_BLACK.json"
-    assert mock_acs.call_args_list[24].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_NHPI.json"
-    assert mock_acs.call_args_list[25].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_WHITE.json"
-    assert mock_acs.call_args_list[26].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[27].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_STATE_MULTI.json"
+    assert mock_acs.call_args_list[20].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_AIAN.json"
+    assert mock_acs.call_args_list[21].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_ASIAN.json"
+    assert mock_acs.call_args_list[22].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_HISP.json"
+    assert mock_acs.call_args_list[23].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_BLACK.json"
+    assert mock_acs.call_args_list[24].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_NHPI.json"
+    assert mock_acs.call_args_list[25].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_WHITE.json"
+    assert mock_acs.call_args_list[26].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_OTHER_STANDARD.json"
+    assert mock_acs.call_args_list[27].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_MULTI.json"
 
-    assert mock_acs.call_args_list[28].args[1] == "2022-POVERTY_BY_RACE_STATE_AIAN.json"
-    assert mock_acs.call_args_list[29].args[1] == "2022-POVERTY_BY_RACE_STATE_ASIAN.json"
-    assert mock_acs.call_args_list[30].args[1] == "2022-POVERTY_BY_RACE_STATE_HISP.json"
-    assert mock_acs.call_args_list[31].args[1] == "2022-POVERTY_BY_RACE_STATE_BLACK.json"
-    assert mock_acs.call_args_list[32].args[1] == "2022-POVERTY_BY_RACE_STATE_NHPI.json"
-    assert mock_acs.call_args_list[33].args[1] == "2022-POVERTY_BY_RACE_STATE_WHITE.json"
-    assert mock_acs.call_args_list[34].args[1] == "2022-POVERTY_BY_RACE_STATE_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[35].args[1] == "2022-POVERTY_BY_RACE_STATE_MULTI.json"
+    assert mock_acs.call_args_list[28].args[1] == "2024-POVERTY_BY_RACE_STATE_AIAN.json"
+    assert mock_acs.call_args_list[29].args[1] == "2024-POVERTY_BY_RACE_STATE_ASIAN.json"
+    assert mock_acs.call_args_list[30].args[1] == "2024-POVERTY_BY_RACE_STATE_HISP.json"
+    assert mock_acs.call_args_list[31].args[1] == "2024-POVERTY_BY_RACE_STATE_BLACK.json"
+    assert mock_acs.call_args_list[32].args[1] == "2024-POVERTY_BY_RACE_STATE_NHPI.json"
+    assert mock_acs.call_args_list[33].args[1] == "2024-POVERTY_BY_RACE_STATE_WHITE.json"
+    assert mock_acs.call_args_list[34].args[1] == "2024-POVERTY_BY_RACE_STATE_OTHER_STANDARD.json"
+    assert mock_acs.call_args_list[35].args[1] == "2024-POVERTY_BY_RACE_STATE_MULTI.json"
 
-    assert mock_acs.call_args_list[36].args[1] == "2022-HEALTH_INSURANCE_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[37].args[1] == "2022-POVERTY_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[38].args[1] == "2022-HEALTH_INSURANCE_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[39].args[1] == "2022-POVERTY_BY_SEX_STATE.json"
+    assert mock_acs.call_args_list[36].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_STATE.json"
+    assert mock_acs.call_args_list[37].args[1] == "2024-POVERTY_BY_SEX_STATE.json"
+    assert mock_acs.call_args_list[38].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_STATE.json"
+    assert mock_acs.call_args_list[39].args[1] == "2024-POVERTY_BY_SEX_STATE.json"
 
-    assert mock_acs.call_args_list[40].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_COUNTY_AIAN.json"
-    assert mock_acs.call_args_list[41].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_COUNTY_ASIAN.json"
-    assert mock_acs.call_args_list[42].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_COUNTY_HISP.json"
-    assert mock_acs.call_args_list[43].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_COUNTY_BLACK.json"
-    assert mock_acs.call_args_list[44].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_COUNTY_NHPI.json"
-    assert mock_acs.call_args_list[45].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_COUNTY_WHITE.json"
-    assert mock_acs.call_args_list[46].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_COUNTY_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[47].args[1] == "2022-HEALTH_INSURANCE_BY_RACE_COUNTY_MULTI.json"
+    assert mock_acs.call_args_list[40].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_AIAN.json"
+    assert mock_acs.call_args_list[41].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_ASIAN.json"
+    assert mock_acs.call_args_list[42].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_HISP.json"
+    assert mock_acs.call_args_list[43].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_BLACK.json"
+    assert mock_acs.call_args_list[44].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_NHPI.json"
+    assert mock_acs.call_args_list[45].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_WHITE.json"
+    assert mock_acs.call_args_list[46].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_OTHER_STANDARD.json"
+    assert mock_acs.call_args_list[47].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_MULTI.json"
 
-    assert mock_acs.call_args_list[48].args[1] == "2022-POVERTY_BY_RACE_COUNTY_AIAN.json"
-    assert mock_acs.call_args_list[49].args[1] == "2022-POVERTY_BY_RACE_COUNTY_ASIAN.json"
-    assert mock_acs.call_args_list[50].args[1] == "2022-POVERTY_BY_RACE_COUNTY_HISP.json"
-    assert mock_acs.call_args_list[51].args[1] == "2022-POVERTY_BY_RACE_COUNTY_BLACK.json"
-    assert mock_acs.call_args_list[52].args[1] == "2022-POVERTY_BY_RACE_COUNTY_NHPI.json"
-    assert mock_acs.call_args_list[53].args[1] == "2022-POVERTY_BY_RACE_COUNTY_WHITE.json"
-    assert mock_acs.call_args_list[54].args[1] == "2022-POVERTY_BY_RACE_COUNTY_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[55].args[1] == "2022-POVERTY_BY_RACE_COUNTY_MULTI.json"
+    assert mock_acs.call_args_list[48].args[1] == "2024-POVERTY_BY_RACE_COUNTY_AIAN.json"
+    assert mock_acs.call_args_list[49].args[1] == "2024-POVERTY_BY_RACE_COUNTY_ASIAN.json"
+    assert mock_acs.call_args_list[50].args[1] == "2024-POVERTY_BY_RACE_COUNTY_HISP.json"
+    assert mock_acs.call_args_list[51].args[1] == "2024-POVERTY_BY_RACE_COUNTY_BLACK.json"
+    assert mock_acs.call_args_list[52].args[1] == "2024-POVERTY_BY_RACE_COUNTY_NHPI.json"
+    assert mock_acs.call_args_list[53].args[1] == "2024-POVERTY_BY_RACE_COUNTY_WHITE.json"
+    assert mock_acs.call_args_list[54].args[1] == "2024-POVERTY_BY_RACE_COUNTY_OTHER_STANDARD.json"
+    assert mock_acs.call_args_list[55].args[1] == "2024-POVERTY_BY_RACE_COUNTY_MULTI.json"
 
-    assert mock_acs.call_args_list[56].args[1] == "2022-HEALTH_INSURANCE_BY_SEX_COUNTY.json"
-    assert mock_acs.call_args_list[57].args[1] == "2022-POVERTY_BY_SEX_COUNTY.json"
-    assert mock_acs.call_args_list[58].args[1] == "2022-HEALTH_INSURANCE_BY_SEX_COUNTY.json"
-    assert mock_acs.call_args_list[59].args[1] == "2022-POVERTY_BY_SEX_COUNTY.json"
+    assert mock_acs.call_args_list[56].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_COUNTY.json"
+    assert mock_acs.call_args_list[57].args[1] == "2024-POVERTY_BY_SEX_COUNTY.json"
+    assert mock_acs.call_args_list[58].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_COUNTY.json"
+    assert mock_acs.call_args_list[59].args[1] == "2024-POVERTY_BY_SEX_COUNTY.json"
 
     # One call for each table write to BQ
     assert mock_bq.call_count == 18

@@ -117,3 +117,21 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
           year: "2022"
+
+      - name: Ingest ACS condition data 2023
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+        with:
+          service_url: ${{ env.INGESTION_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+          year: "2023"
+
+      - name: Ingest ACS condition data 2024
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+        with:
+          service_url: ${{ env.INGESTION_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+          year: "2024"
