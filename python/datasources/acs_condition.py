@@ -51,6 +51,8 @@ EARLIEST_ACS_CONDITION_YEAR = "2012"
 CURRENT_ACS_CONDITION_YEAR = "2024"
 
 # available years with all topics working
+# NOTE: 2023/2024 URLs are live, but the precache DAG hasn't been run against them yet —
+# committed 2024-*.json test fixtures are still placeholder copies of 2022. See #5140.
 ACS_URLS_MAP = {
     EARLIEST_ACS_CONDITION_YEAR: "https://api.census.gov/data/2012/acs/acs5",
     "2013": "https://api.census.gov/data/2013/acs/acs5",
