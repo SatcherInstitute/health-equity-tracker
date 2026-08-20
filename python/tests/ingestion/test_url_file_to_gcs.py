@@ -2,12 +2,14 @@ import json
 import unittest
 from unittest.mock import Mock, patch
 import google.cloud.exceptions
+import requests
 from ingestion import url_file_to_gcs
 
 
 class MockResponse:
-    def __init__(self, content, json_data=None, raise_json=False):
+    def __init__(self, content, json_data=None, raise_json=False, status_code=200):
         self.content = content
+        self.status_code = status_code
         self._json_data = json_data
         self._raise_json = raise_json
 
@@ -18,7 +20,8 @@ class MockResponse:
         pass
 
     def raise_for_status(self):
-        pass
+        if self.status_code >= 400:
+            raise requests.HTTPError(f"{self.status_code} Server Error", response=self)
 
     def json(self):
         if self._raise_json:
@@ -162,3 +165,23 @@ class URLFileToGCSTest(unittest.TestCase):
         with patch("requests.get", return_value=html_response):
             result = url_file_to_gcs.get_first_response(["https://testurl.com"], {})
         self.assertIsNotNone(result)
+
+    def testGetFirstResponse_HttpError_FallsBackToNextUrl(self):
+        """An HTTP error on the first URL retries the next URL in the list."""
+        error_response = MockResponse(b"Service Unavailable", status_code=503)
+        ok_response = MockResponse(b'{"key": "value"}', json_data={"key": "value"})
+        with patch("requests.get", side_effect=[error_response, ok_response]) as mock_requests_get:
+            result = url_file_to_gcs.get_first_response(["https://badurl.com", "https://goodurl.com"], {})
+        self.assertIs(result, ok_response)
+        self.assertEqual(mock_requests_get.call_count, 2)
+
+    def testGetFirstResponse_JsonValidation_FallsBackToNextUrl(self):
+        """With validate_json=True, a non-JSON body on the first URL retries the next URL."""
+        html_response = MockResponse(b"<html>missing key</html>", raise_json=True)
+        json_response = MockResponse(b'{"key": "value"}', json_data={"key": "value"})
+        with patch("requests.get", side_effect=[html_response, json_response]) as mock_requests_get:
+            result = url_file_to_gcs.get_first_response(
+                ["https://badurl.com", "https://goodurl.com"], {}, validate_json=True
+            )
+        self.assertIs(result, json_response)
+        self.assertEqual(mock_requests_get.call_count, 2)
