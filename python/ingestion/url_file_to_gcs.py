@@ -62,13 +62,16 @@ def get_first_response(
                 if validate_json:
                     file_from_url.json()
                 return file_from_url
+            except ValueError as err:
+                # requests.exceptions.JSONDecodeError subclasses both ValueError and
+                # RequestException, so this must be checked first: a malformed body won't
+                # be fixed by retrying the same URL.
+                logging.error("Non-JSON response body from url %s: %s", url, err)
+                break
             except requests.exceptions.RequestException as err:
                 logging.error("Request error for url %s (attempt %d/%d): %s", url, attempt + 1, max_retries, err)
                 if attempt < max_retries - 1:
                     time.sleep(initial_backoff * (2**attempt))
-            except ValueError as err:
-                logging.error("Non-JSON response body from url %s: %s", url, err)
-                break
     return None
 
 
