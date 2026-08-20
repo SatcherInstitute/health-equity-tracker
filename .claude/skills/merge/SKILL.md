@@ -39,6 +39,24 @@ Wait for confirmation before continuing.
 
 ---
 
+## Step 1b — Final review check for delayed comments
+
+Before merging, do one last check for new reviews or comments that may have arrived since /pr completed (CodeRabbit and other bots sometimes submit delayed reviews):
+
+```bash
+REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+echo "=== reviews ===" && \
+gh api repos/$REPO/pulls/<number>/reviews \
+  --jq '[.[] | {user: .user.login, state: .state, body: .body}]' && \
+echo "=== inline comments ===" && \
+gh api repos/$REPO/pulls/<number>/comments \
+  --jq '[.[] | {user: .user.login, path: .path, line: .line, body: .body}]'
+```
+
+If any new unresolved review threads or comments exist: stop and ask the user whether to address them before merging.
+
+---
+
 ## Step 2 — Force-merge the PR
 
 ```bash
