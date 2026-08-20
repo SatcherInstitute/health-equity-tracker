@@ -168,9 +168,10 @@ def testWriteToBqAppend2024(
     mock_json: mock.MagicMock,
 ):
     # NOTE: this only verifies year="2024" produces the correct request filenames/BQ
-    # call shape. The 2024-*.json fixtures are placeholder copies of the 2022 fixtures
-    # (Census now requires an API key to fetch real data, see #5138) and assert nothing
-    # about actual 2024 values. Real fixtures tracked in #5140.
+    # call shape; it does not assert on the actual 2024 values (that would require a
+    # dedicated golden-output test, out of scope here). The 2024-*.json fixtures
+    # themselves are real cached ACS responses as of #5140, not placeholder copies
+    # of 2022.
     acsCondition2024 = AcsCondition()
     acsCondition2024.write_to_bq("dataset", "gcs_bucket", year="2024")
 
