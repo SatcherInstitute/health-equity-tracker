@@ -3,6 +3,7 @@
 
 import logging
 import os
+import time
 from google.cloud import storage  # type: ignore
 import google.cloud.exceptions
 import requests
@@ -31,32 +32,43 @@ def url_file_to_gcs(url, url_params, gcs_bucket, dest_filename, census_api_key=N
     return download_first_url_to_gcs([url], gcs_bucket, dest_filename, url_params, census_api_key=census_api_key)
 
 
-def get_first_response(url_list, url_params, validate_json=False, census_api_key=None):
+def get_first_response(
+    url_list, url_params, validate_json=False, census_api_key=None, max_retries=3, initial_backoff=5
+):
     """
     Fetch the first successfully-responding URL from url_list, with optional JSON validation.
 
     When validate_json=True, calls response.json() to verify the response body is valid JSON.
-    If JSON parsing fails, logs the error and retries the next URL (same as HTTP errors).
+    If JSON parsing fails, logs the error and moves on to the next URL (retrying the same URL
+    won't fix a permanently malformed body).
+
+    Network-level failures (connection errors, timeouts, 5xx/4xx HTTP errors) are retried against
+    the same URL with exponential backoff before moving on to the next URL, since these are often
+    transient (e.g. the Census API dropping connections under request volume).
 
     For Census API URLs, automatically adds the api_key param if census_api_key is provided.
     Returns None if all URLs fail.
     """
     for url in url_list:
-        try:
-            params = url_params.copy() if url_params else {}
-            # Census Bureau API requires an API key param for all requests
-            if census_api_key and "census.gov" in url.lower():
-                params["key"] = census_api_key
+        params = url_params.copy() if url_params else {}
+        # Census Bureau API requires an API key param for all requests
+        if census_api_key and "census.gov" in url.lower():
+            params["key"] = census_api_key
 
-            file_from_url = requests.get(url, params=params, timeout=120)
-            file_from_url.raise_for_status()
-            if validate_json:
-                file_from_url.json()
-            return file_from_url
-        except requests.HTTPError as err:
-            logging.error("HTTP error for url %s: %s", url, err)
-        except ValueError as err:
-            logging.error("Non-JSON response body from url %s: %s", url, err)
+        for attempt in range(max_retries):
+            try:
+                file_from_url = requests.get(url, params=params, timeout=120)
+                file_from_url.raise_for_status()
+                if validate_json:
+                    file_from_url.json()
+                return file_from_url
+            except requests.exceptions.RequestException as err:
+                logging.error("Request error for url %s (attempt %d/%d): %s", url, attempt + 1, max_retries, err)
+                if attempt < max_retries - 1:
+                    time.sleep(initial_backoff * (2**attempt))
+            except ValueError as err:
+                logging.error("Non-JSON response body from url %s: %s", url, err)
+                break
     return None
 
 

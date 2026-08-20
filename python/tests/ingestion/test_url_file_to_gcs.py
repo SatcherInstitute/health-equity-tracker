@@ -2,6 +2,7 @@ import json
 import unittest
 from unittest.mock import Mock, patch
 import google.cloud.exceptions
+import requests
 from ingestion import url_file_to_gcs
 
 
@@ -162,3 +163,25 @@ class URLFileToGCSTest(unittest.TestCase):
         with patch("requests.get", return_value=html_response):
             result = url_file_to_gcs.get_first_response(["https://testurl.com"], {})
         self.assertIsNotNone(result)
+
+    def testGetFirstResponse_RetriesTransientConnectionError(self):
+        """A ConnectionError/ReadTimeout on the same URL is retried, not treated as permanent failure."""
+        good_response = MockResponse(b'{"key": "value"}', json_data={"key": "value"})
+        with patch(
+            "requests.get",
+            side_effect=[requests.exceptions.ConnectionError("Remote end closed connection"), good_response],
+        ) as mock_get, patch("time.sleep") as mock_sleep:
+            result = url_file_to_gcs.get_first_response(["https://testurl.com"], {}, validate_json=True)
+        self.assertIsNotNone(result)
+        self.assertEqual(mock_get.call_count, 2)
+        mock_sleep.assert_called_once()
+
+    def testGetFirstResponse_GivesUpAfterMaxRetries(self):
+        """Persistent connection errors on one URL exhaust retries and return None."""
+        with patch("requests.get", side_effect=requests.exceptions.ReadTimeout("Read timed out")) as mock_get, patch(
+            "time.sleep"
+        ) as mock_sleep:
+            result = url_file_to_gcs.get_first_response(["https://testurl.com"], {}, max_retries=3, initial_backoff=1)
+        self.assertIsNone(result)
+        self.assertEqual(mock_get.call_count, 3)
+        self.assertEqual(mock_sleep.call_count, 2)
