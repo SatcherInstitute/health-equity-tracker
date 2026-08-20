@@ -22,12 +22,20 @@
 #     --role="roles/secretmanager.secretAccessor" --project=$PROJECT_ID
 #
 # Secrets and their consumers:
-#   ahr-api-key        -> gcs_to_bq runner  (America's Health Rankings ingestion)
-#   gemini-api-key     -> data-server-runner SA / Go server  (AI insight generation)
-#   webflow-api-token  -> data-server-runner SA / Go server  (CMS blog read access)
+#   ahr-api-key           -> gcs_to_bq runner  (America's Health Rankings ingestion)
+#   census-api-key        -> gcs_to_bq runner  (US Census Bureau ACS API)
+#   gemini-api-key        -> data-server-runner SA / Go server  (AI insight generation)
+#   webflow-api-token     -> data-server-runner SA / Go server  (CMS blog read access)
+#   sentry-auth-token     -> auto-deployer SA (via GitHub Actions)  (frontend source map uploads)
 #
 # gemini-api-key is issued from a separate GCP project dedicated to the Generative
 # Language API, and is API-restricted to that one API. It is server-side only and is
 # never shipped to the browser.
+#
+# census-api-key is required for Census Bureau API requests (free registration).
+# It is passed to url_file_to_gcs.py via os.getenv("CENSUS_API_KEY") by the gcs_to_bq runner.
+#
+# sentry-auth-token is fetched by GitHub Actions workflows via the deployer service
+# account. See deployInfraTest.yml and testBackendChangesInfraTest.yml for usage.
 
 /* [END] Secret Manager Setup */

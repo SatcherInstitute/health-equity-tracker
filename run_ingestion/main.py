@@ -61,6 +61,11 @@ def ingest_data_to_gcs(event):
     workflow_id = attrs.pop("id")
     gcs_bucket = attrs.pop("gcs_bucket")
 
+    # Add Census API key from environment if available
+    census_api_key = os.getenv("CENSUS_API_KEY")
+    if census_api_key:
+        attrs["census_api_key"] = census_api_key
+
     logging.info("Data ingestion received message: %s", workflow_id)
 
     if workflow_id not in DATA_SOURCES_DICT.keys():
