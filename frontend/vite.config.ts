@@ -40,6 +40,14 @@ export default defineConfig(({ mode }) => {
               project: 'health-equity-tracker',
               authToken: process.env.SENTRY_AUTH_TOKEN,
               sourcemaps: { filesToDeleteAfterUpload: ['./build/**/*.map'] },
+              // Without this the plugin throws and fails the build. Source maps
+              // are a debugging aid and must never be able to block a deploy.
+              errorHandler: (err) => {
+                console.warn(
+                  '[sentry] source map upload failed, continuing build:',
+                  err,
+                )
+              },
             }),
           ]
         : []),
