@@ -71,7 +71,7 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
           gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
-  # Process 2022 separately (APPEND but also creates new tables)
+  # Process 2022 (APPEND operation)
   process-2022:
     needs: process-2018-2021
     runs-on: ubuntu-latest
@@ -86,9 +86,39 @@ jobs:
           service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
           gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
 
+  # Process 2023 (APPEND operation)
+  process-2023:
+    needs: process-2022
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write to BigQuery 2023
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+          year: "2023"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
+
+  # Process 2024 separately (APPEND but also creates new tables)
+  process-2024:
+    needs: process-2023
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process and write to BigQuery 2024
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runSourceToBqPipeline@main
+        with:
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          dataset_name: ${{ env.DATASET_NAME }}
+          source_gcs_bucket: ${{ env.GCS_LANDING_BUCKET }}
+          year: "2024"
+          service_url: ${{ env.GCS_TO_BQ_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
+
   # Export demographic data - separate explicit jobs running in parallel
   export-race:
-    needs: process-2022
+    needs: process-2024
     runs-on: ubuntu-latest
     steps:
       - name: Export data by race
@@ -101,7 +131,7 @@ jobs:
           should_export_as_alls: "true"
 
   export-age:
-    needs: process-2022
+    needs: process-2024
     runs-on: ubuntu-latest
     steps:
       - name: Export data by age
@@ -114,7 +144,7 @@ jobs:
           should_export_as_alls: "false"
 
   export-sex:
-    needs: process-2022
+    needs: process-2024
     runs-on: ubuntu-latest
     steps:
       - name: Export data by sex

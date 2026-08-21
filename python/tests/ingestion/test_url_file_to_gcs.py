@@ -167,13 +167,23 @@ class URLFileToGCSTest(unittest.TestCase):
         self.assertIsNotNone(result)
 
     def testGetFirstResponse_HttpError_FallsBackToNextUrl(self):
-        """An HTTP error on the first URL retries the next URL in the list."""
+        """HTTP errors that persist across all retries on the first URL fall back to the next URL.
+
+        get_first_response now retries a RequestException (including HTTPError) against the same
+        URL up to max_retries before moving on, so the first URL must exhaust its retries before
+        the second URL is tried.
+        """
         error_response = MockResponse(b"Service Unavailable", status_code=503)
         ok_response = MockResponse(b'{"key": "value"}', json_data={"key": "value"})
-        with patch("requests.get", side_effect=[error_response, ok_response]) as mock_requests_get:
-            result = url_file_to_gcs.get_first_response(["https://badurl.com", "https://goodurl.com"], {})
+        with patch(
+            "requests.get", side_effect=[error_response, error_response, error_response, ok_response]
+        ) as mock_requests_get, patch("time.sleep") as mock_sleep:
+            result = url_file_to_gcs.get_first_response(
+                ["https://badurl.com", "https://goodurl.com"], {}, max_retries=3
+            )
         self.assertIs(result, ok_response)
-        self.assertEqual(mock_requests_get.call_count, 2)
+        self.assertEqual(mock_requests_get.call_count, 4)
+        self.assertEqual(mock_sleep.call_count, 2)
 
     def testGetFirstResponse_JsonValidation_FallsBackToNextUrl(self):
         """With validate_json=True, a non-JSON body on the first URL retries the next URL."""
@@ -185,3 +195,37 @@ class URLFileToGCSTest(unittest.TestCase):
             )
         self.assertIs(result, json_response)
         self.assertEqual(mock_requests_get.call_count, 2)
+
+    def testGetFirstResponse_RetriesTransientConnectionError(self):
+        """A ConnectionError/ReadTimeout on the same URL is retried, not treated as permanent failure."""
+        good_response = MockResponse(b'{"key": "value"}', json_data={"key": "value"})
+        with patch(
+            "requests.get",
+            side_effect=[requests.exceptions.ConnectionError("Remote end closed connection"), good_response],
+        ) as mock_get, patch("time.sleep") as mock_sleep:
+            result = url_file_to_gcs.get_first_response(["https://testurl.com"], {}, validate_json=True)
+        self.assertIsNotNone(result)
+        self.assertEqual(mock_get.call_count, 2)
+        mock_sleep.assert_called_once()
+
+    def testGetFirstResponse_GivesUpAfterMaxRetries(self):
+        """Persistent connection errors on one URL exhaust retries and return None."""
+        with patch("requests.get", side_effect=requests.exceptions.ReadTimeout("Read timed out")) as mock_get, patch(
+            "time.sleep"
+        ) as mock_sleep:
+            result = url_file_to_gcs.get_first_response(["https://testurl.com"], {}, max_retries=3, initial_backoff=1)
+        self.assertIsNone(result)
+        self.assertEqual(mock_get.call_count, 3)
+        self.assertEqual(mock_sleep.call_count, 2)
+
+    def testGetFirstResponse_JsonDecodeErrorNotRetried(self):
+        """requests.exceptions.JSONDecodeError (a ValueError+RequestException subclass) moves on
+        without retrying, since it's not a transient network failure."""
+        response = Mock()
+        response.raise_for_status.return_value = None
+        response.json.side_effect = requests.exceptions.JSONDecodeError("Expecting value", "<html>", 0)
+        with patch("requests.get", return_value=response) as mock_get, patch("time.sleep") as mock_sleep:
+            result = url_file_to_gcs.get_first_response(["https://testurl.com"], {}, validate_json=True)
+        self.assertIsNone(result)
+        self.assertEqual(mock_get.call_count, 1)
+        mock_sleep.assert_not_called()
