@@ -22,6 +22,11 @@ GOLDEN_BASE_TABLE_STATE_SEX = os.path.join(TEST_DIR, "golden_data", "sex_state.c
 GOLDEN_BASE_TABLE_COUNTY_SEX = os.path.join(TEST_DIR, "golden_data", "sex_county.csv")
 GOLDEN_BASE_TABLE_COUNTY_RACE = os.path.join(TEST_DIR, "golden_data", "race_and_ethnicity_county.csv")
 
+GOLDEN_2024_TABLE_NATIONAL_SEX = os.path.join(TEST_DIR, "golden_data", "sex_national_2024.csv")
+GOLDEN_2024_TABLE_STATE_SEX = os.path.join(TEST_DIR, "golden_data", "sex_state_2024.csv")
+GOLDEN_2024_TABLE_COUNTY_SEX = os.path.join(TEST_DIR, "golden_data", "sex_county_2024.csv")
+GOLDEN_2024_TABLE_COUNTY_RACE = os.path.join(TEST_DIR, "golden_data", "race_and_ethnicity_county_2024.csv")
+
 
 # NOT USING SHARED POPULATION MOCKS BECAUSE THESE ARE THE CACHED ACS_CONDITION TABLES,
 # NOT THE NORMAL FETCHED ACS_POPULATION CALLS
@@ -34,6 +39,9 @@ def _get_by_race_as_df(*args):
 
 acsCondition = AcsCondition()
 acsCondition.year = "2022"
+
+acsCondition2024 = AcsCondition()
+acsCondition2024.year = "2024"
 
 
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_get_by_race_as_df)
@@ -299,3 +307,103 @@ def testWriteToBqAppend2024(
 
     assert mock_bq.call_args_list[16].args[2] == "sex_county_historical"
     assert mock_bq.call_args_list[17].args[2] == "sex_county_current"
+
+
+@mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_get_by_race_as_df)
+def testSexNationalBaseTable2024(mock_acs: mock.MagicMock):
+    df = acsCondition2024.get_raw_data(
+        "sex", "national", get_acs_metadata_as_json(2024), ACS_ITEMS_2022_AND_LATER, "some-bucket", "2024"
+    )
+    df = acsCondition2024.post_process(
+        df,
+        "sex",
+        "national",
+        ACS_ITEMS_2022_AND_LATER,
+        HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE,
+    )
+
+    expected_df = pd.read_csv(GOLDEN_2024_TABLE_NATIONAL_SEX, dtype={"state_fips": str})
+    cols = list(expected_df.columns)
+
+    assert mock_acs.call_count == 2
+
+    assert_frame_equal(
+        df.sort_values(cols).reset_index(drop=True),
+        expected_df.sort_values(cols).reset_index(drop=True),
+        check_like=True,
+    )
+
+
+@mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_get_by_race_as_df)
+def testSexStateBaseTable2024(mock_acs: mock.MagicMock):
+    df = acsCondition2024.get_raw_data(
+        "sex", "state", get_acs_metadata_as_json(2024), ACS_ITEMS_2022_AND_LATER, "some-bucket", "2024"
+    )
+    df = acsCondition2024.post_process(
+        df,
+        "sex",
+        "state",
+        ACS_ITEMS_2022_AND_LATER,
+        HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE,
+    )
+
+    expected_df = pd.read_csv(GOLDEN_2024_TABLE_STATE_SEX, dtype={"state_fips": str})
+    cols = list(expected_df.columns)
+
+    assert mock_acs.call_count == 2
+
+    assert_frame_equal(
+        df.sort_values(cols).reset_index(drop=True),
+        expected_df.sort_values(cols).reset_index(drop=True),
+        check_like=True,
+    )
+
+
+@mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_get_by_race_as_df)
+def testSexCountyBaseTable2024(mock_acs: mock.MagicMock):
+    df = acsCondition2024.get_raw_data(
+        "sex", "county", get_acs_metadata_as_json(2024), ACS_ITEMS_2022_AND_LATER, "some-bucket", "2024"
+    )
+    df = acsCondition2024.post_process(
+        df,
+        "sex",
+        "county",
+        ACS_ITEMS_2022_AND_LATER,
+        HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE,
+    )
+
+    expected_df = pd.read_csv(GOLDEN_2024_TABLE_COUNTY_SEX, dtype={"state_fips": str, "county_fips": str})
+    cols = list(expected_df.columns)
+
+    assert mock_acs.call_count == 2
+
+    assert_frame_equal(
+        df.sort_values(cols).reset_index(drop=True),
+        expected_df.sort_values(cols).reset_index(drop=True),
+        check_like=True,
+    )
+
+
+@mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_get_by_race_as_df)
+def testRaceCountyBaseTable2024(mock_acs: mock.MagicMock):
+    df = acsCondition2024.get_raw_data(
+        "race", "county", get_acs_metadata_as_json(2024), ACS_ITEMS_2022_AND_LATER, "some-bucket", "2024"
+    )
+    df = acsCondition2024.post_process(
+        df,
+        "race",
+        "county",
+        ACS_ITEMS_2022_AND_LATER,
+        HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE,
+    )
+
+    expected_df = pd.read_csv(GOLDEN_2024_TABLE_COUNTY_RACE, dtype={"state_fips": str, "county_fips": str})
+    cols = list(expected_df.columns)
+
+    assert mock_acs.call_count == 16
+
+    assert_frame_equal(
+        df.sort_values(cols).reset_index(drop=True),
+        expected_df.sort_values(cols).reset_index(drop=True),
+        check_like=True,
+    )
