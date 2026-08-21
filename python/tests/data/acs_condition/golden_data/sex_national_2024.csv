@@ -1,0 +1,4 @@
+state_fips,state_name,sex,uninsured_pct_rate,poverty_pct_rate,uninsured_pct_share,uninsured_population_pct,poverty_pct_share,poverty_population_pct,uninsured_pct_relative_inequity,poverty_pct_relative_inequity,uninsured_estimated_total,uninsured_pop_estimated_total,poverty_estimated_total,poverty_pop_estimated_total
+00,United States,Female,7.0,28.0,43.6,52.2,55.9,52.1,-16.5,7.3,290946.0,4281064.0,1179228.0,4239821.0
+00,United States,Male,10.0,24.0,56.4,47.8,44.1,47.9,18.0,-7.9,376996.0,3916429.0,929594.0,3900423.0
+00,United States,All,8.0,26.0,100.0,100.0,100.0,100.0,0.0,0.0,667942.0,8197493.0,2108822.0,8140244.0
