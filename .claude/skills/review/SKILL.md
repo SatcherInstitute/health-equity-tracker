@@ -1,7 +1,7 @@
 ---
 name: review
 model: opus
-description: Senior engineer review of the open PR (or a specified PR number) across four lenses - scientific accuracy, sensitive language, maintainability, and accessibility. Delivers findings inline in the conversation as plain readable prose. Silently writes a GitHub-formatted version to /tmp/het-review.md for optional posting via /review-post. Advances health equity by catching data errors, harmful language, and a11y failures before they reach users.
+description: Senior engineer review of the open PR (or a specified PR number) across four lenses - scientific accuracy, sensitive language, maintainability, and accessibility. Delivers findings inline in the conversation as plain readable prose. Silently writes a GitHub-formatted version to /tmp/het-review.md for optional manual posting. Advances health equity by catching data errors, harmful language, and a11y failures before they reach users.
 ---
 
 # /review
@@ -190,7 +190,7 @@ VERDICT: <request-changes|comment>
 *Review by Claude Code (/review skill).*
 ```
 
-Do NOT ask the user whether to post. Just mention at the end: "The GitHub-formatted version is at /tmp/het-review.md if you want to post it — run /review-post to do that."
+Do NOT ask the user whether to post. Just mention at the end: "The GitHub-formatted version is at /tmp/het-review.md if you want to post it."
 
 ---
 
