@@ -23,7 +23,7 @@
 #
 # Secrets and their consumers:
 #   ahr-api-key           -> gcs_to_bq runner  (America's Health Rankings ingestion)
-#   census-api-key        -> gcs_to_bq runner  (US Census Bureau ACS API)
+#   census-api-key        -> gcs_to_bq runner AND ingestion runner  (US Census Bureau ACS API)
 #   gemini-api-key        -> data-server-runner SA / Go server  (AI insight generation)
 #   webflow-api-token     -> data-server-runner SA / Go server  (CMS blog read access)
 #   sentry-auth-token     -> auto-deployer SA (via GitHub Actions)  (frontend source map uploads)
@@ -32,8 +32,11 @@
 # Language API, and is API-restricted to that one API. It is server-side only and is
 # never shipped to the browser.
 #
-# census-api-key is required for Census Bureau API requests (free registration).
-# It is passed to url_file_to_gcs.py via os.getenv("CENSUS_API_KEY") by the gcs_to_bq runner.
+# census-api-key is required for Census Bureau API requests (free registration). It is read
+# via os.getenv("CENSUS_API_KEY") by BOTH Cloud Run services, so BOTH runtime service
+# accounts need the accessor role in every project (see run.tf): the ingestion runner
+# (run_ingestion/main.py) and the gcs_to_bq runner (acs_population.py, acs_condition.py).
+# Granting only one of them lets terraform apply succeed in one project and fail in another.
 #
 # sentry-auth-token is fetched by GitHub Actions workflows via the deployer service
 # account. See deployInfraTest.yml and testBackendChangesInfraTest.yml for usage.
