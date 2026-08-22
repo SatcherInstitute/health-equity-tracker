@@ -33,9 +33,11 @@ tests/         Integration tests — many load real fixture CSVs from repo-root 
 
 When a new ACS vintage lands in BigQuery and is ready for use, follow these steps in order:
 
-1. **Update `ACS_CURRENT_YEAR`** in `python/ingestion/merge_utils.py` (line 9). This constant controls which year's population table is used as the denominator for every datasource that calls `_merge_pop()` (CAWP, AHR, etc.).
+1. **Update `ACS_CURRENT_YEAR`** in `python/ingestion/merge_utils.py` (line 9). This constant is the upper bound of ACS coverage for every datasource that calls `_merge_pop()` (CAWP, AHR, etc.): rows within `ACS_EARLIEST_YEAR`–`ACS_CURRENT_YEAR` merge against their own year, and rows after it are clamped down to `ACS_CURRENT_YEAR`. Both paths read the `_historical` population table, so bumping the constant is what lets a newer vintage be used at all.
 
-2. **Regenerate the committed population CSVs.** `merge_utils._merge_pop()` reads `python/ingestion/acs_population/*.csv` directly at runtime as static snapshots. Nothing regenerates them automatically. After the `dagAcsPopulation.yml` DAG run completes for the target project, re-run:
+2. **Refresh the ACS source cache, then rebuild the BigQuery tables.** Run `dagAcsPopulationPreCache.yml` first — `dagAcsPopulation.yml` reads pre-cached ACS responses out of the GCS landing bucket rather than fetching them, so on a vintage bump those cached files are stale by definition and skipping the pre-cache either fails the run or silently reprocesses the old vintage. Only once the pre-cache finishes, run `dagAcsPopulation.yml`. (The pre-cache repeats a Census API ingestion across every year, so expect it to be slow and watch for rate limiting.)
+
+3. **Regenerate the committed population CSVs.** `merge_utils._merge_pop()` reads `python/ingestion/acs_population/*.csv` directly at runtime as static snapshots. Nothing regenerates them automatically. After the `dagAcsPopulation.yml` run completes for the target project, re-run:
 
    ```bash
    source .venv/bin/activate
@@ -48,7 +50,7 @@ When a new ACS vintage lands in BigQuery and is ready for use, follow these step
 
    Commit the resulting CSV diff alongside the `ACS_CURRENT_YEAR` bump. Until this diff is committed, the new vintage year is not usable as a population denominator even if the BigQuery tables are current.
 
-3. **Re-run affected DAGs.** Datasources that merge population (e.g. AHR, CAWP) must be re-ingested after the CSV refresh so their BigQuery/GCS outputs reflect the updated denominators.
+4. **Re-run affected DAGs.** Datasources that merge population (e.g. AHR, CAWP) must be re-ingested after the CSV refresh so their BigQuery/GCS outputs reflect the updated denominators.
 
 ## Key files
 
