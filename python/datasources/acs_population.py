@@ -32,8 +32,16 @@ ACS_URLS_MAP = {
     "2019": "https://api.census.gov/data/2019/acs/acs5",
     "2020": "https://api.census.gov/data/2020/acs/acs5",
     "2021": "https://api.census.gov/data/2021/acs/acs5",
-    ACS_CURRENT_YEAR: "https://api.census.gov/data/2022/acs/acs5",
+    "2022": "https://api.census.gov/data/2022/acs/acs5",
+    "2023": "https://api.census.gov/data/2023/acs/acs5",
+    "2024": "https://api.census.gov/data/2024/acs/acs5",
 }
+# ACS_CURRENT_YEAR must resolve to an entry above — a dict key collision here (e.g. if
+# ACS_CURRENT_YEAR is bumped to "2023"/"2024" without checking) would silently point the
+# "current" write path at the wrong URL, since the string literal keys above always win.
+assert ACS_URLS_MAP.get(ACS_CURRENT_YEAR, "").endswith(
+    f"{ACS_CURRENT_YEAR}/acs/acs5"
+), f"ACS_CURRENT_YEAR={ACS_CURRENT_YEAR!r} has no matching entry in ACS_URLS_MAP"
 
 # For the 2022 ACS, the variable names in the metadata are title-cased, not all caps
 HISPANIC_BY_RACE_CONCEPT_CAPS = "HISPANIC OR LATINO ORIGIN BY RACE"

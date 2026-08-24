@@ -18,6 +18,9 @@ import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { buildTopicsString } from './linkUtils'
 
 const ACS_CONDITION_EARLIEST_YEAR = '2012'
+// Reflects the vintage actually served today, not merge_utils.ACS_CURRENT_YEAR.
+// Bump this only once dagAcsCondition.yml/dagAcsPopulation.yml have run successfully
+// against real 2024 data (blocked on Census requiring an API key — see #5138).
 const ACS_CONDITION_CURRENT_YEAR = '2022'
 const ACS_CONDITION_CURRENT_YEAR_RANGE_START = '2018'
 

@@ -4,7 +4,17 @@ name: DAG - ACS_CONDITION (PRE CACHE)
 
 on:
   workflow_dispatch:
+    inputs:
+      year:
+        description: "Single year to ingest (e.g. 2024). Leave blank to ingest all years 2012-2024."
+        required: false
+        type: string
   workflow_call:
+    inputs:
+      year:
+        description: "Single year to ingest (e.g. 2024). Leave blank to ingest all years 2012-2024."
+        required: false
+        type: string
 
 env:
   WORKFLOW_ID: "ACS_CONDITION"
@@ -20,6 +30,7 @@ jobs:
 
       # Ingest data to GCS (Cache ACS source into tmp JSON in buckets)
       - name: Ingest ACS condition data 2012
+        if: ${{ inputs.year == '' || inputs.year == '2012' }}
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
@@ -29,6 +40,7 @@ jobs:
           year: "2012"
 
       - name: Ingest ACS condition data 2013
+        if: ${{ inputs.year == '' || inputs.year == '2013' }}
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
@@ -38,6 +50,7 @@ jobs:
           year: "2013"
 
       - name: Ingest ACS condition data 2014
+        if: ${{ inputs.year == '' || inputs.year == '2014' }}
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
@@ -47,6 +60,7 @@ jobs:
           year: "2014"
 
       - name: Ingest ACS condition data 2015
+        if: ${{ inputs.year == '' || inputs.year == '2015' }}
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
@@ -56,6 +70,7 @@ jobs:
           year: "2015"
 
       - name: Ingest ACS condition data 2016
+        if: ${{ inputs.year == '' || inputs.year == '2016' }}
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
@@ -65,6 +80,7 @@ jobs:
           year: "2016"
 
       - name: Ingest ACS condition data 2017
+        if: ${{ inputs.year == '' || inputs.year == '2017' }}
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
@@ -74,6 +90,7 @@ jobs:
           year: "2017"
 
       - name: Ingest ACS condition data 2018
+        if: ${{ inputs.year == '' || inputs.year == '2018' }}
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
@@ -83,6 +100,7 @@ jobs:
           year: "2018"
 
       - name: Ingest ACS condition data 2019
+        if: ${{ inputs.year == '' || inputs.year == '2019' }}
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
@@ -92,6 +110,7 @@ jobs:
           year: "2019"
 
       - name: Ingest ACS condition data 2020
+        if: ${{ inputs.year == '' || inputs.year == '2020' }}
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
@@ -101,6 +120,7 @@ jobs:
           year: "2020"
 
       - name: Ingest ACS condition data 2021
+        if: ${{ inputs.year == '' || inputs.year == '2021' }}
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
@@ -110,6 +130,7 @@ jobs:
           year: "2021"
 
       - name: Ingest ACS condition data 2022
+        if: ${{ inputs.year == '' || inputs.year == '2022' }}
         uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
         with:
           service_url: ${{ env.INGESTION_SERVICE_URL }}
@@ -117,3 +138,23 @@ jobs:
           workflow_id: ${{ env.WORKFLOW_ID }}
           destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
           year: "2022"
+
+      - name: Ingest ACS condition data 2023
+        if: ${{ inputs.year == '' || inputs.year == '2023' }}
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+        with:
+          service_url: ${{ env.INGESTION_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+          year: "2023"
+
+      - name: Ingest ACS condition data 2024
+        if: ${{ inputs.year == '' || inputs.year == '2024' }}
+        uses: SatcherInstitute/health-equity-tracker/.github/actions/runCacheAcsInGcsPipeline@main
+        with:
+          service_url: ${{ env.INGESTION_SERVICE_URL }}
+          gcp_sa_key: ${{ secrets.DEPLOYER_SA_KEY }}
+          workflow_id: ${{ env.WORKFLOW_ID }}
+          destination_gcs_bucket: ${{ env.GCS_LANDING_BUCKET}}
+          year: "2024"
