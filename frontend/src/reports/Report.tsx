@@ -129,6 +129,11 @@ export function Report(props: ReportProps) {
     resolvedConfig && metricConfigFromDtConfig('rate', resolvedConfig)
   const shareMetricConfig =
     resolvedConfig && metricConfigFromDtConfig('share', resolvedConfig)
+  // The unknowns map renders from an unknown-share metric, falling back to the
+  // regular share metric — mirror UnknownsMapCard's own guard so the TOC step
+  // and the card stay in sync (rate-only topics have neither and show neither).
+  const unknownsMetricConfig =
+    resolvedConfig?.metrics?.pct_share_unknown ?? shareMetricConfig
   const inequityOverTimeConfig =
     resolvedConfig && metricConfigFromDtConfig('inequity', resolvedConfig)
 
@@ -218,15 +223,15 @@ export function Report(props: ReportProps) {
                 </div>
 
                 {/* UNKNOWNS MAP CARD */}
-                <div
-                  className='w-full'
-                  id='unknown-demographic-map'
-                  style={{
-                    scrollMarginTop: props.headerScrollMargin,
-                  }}
-                >
-                  <HetLazyLoader offset={800} height={250} once>
-                    {shareMetricConfig && (
+                {unknownsMetricConfig && (
+                  <div
+                    className='w-full'
+                    id='unknown-demographic-map'
+                    style={{
+                      scrollMarginTop: props.headerScrollMargin,
+                    }}
+                  >
+                    <HetLazyLoader offset={800} height={250} once>
                       <UnknownsMapCard
                         overrideAndWithOr={demographicType === RACE}
                         dataTypeConfig={resolvedConfig}
@@ -237,9 +242,9 @@ export function Report(props: ReportProps) {
                         demographicType={demographicType}
                         reportTitle={props.reportTitle}
                       />
-                    )}
-                  </HetLazyLoader>
-                </div>
+                    </HetLazyLoader>
+                  </div>
+                )}
 
                 {/* SHARE TRENDS LINE CHART CARD */}
                 {inequityOverTimeConfig?.timeSeriesCadence && (
@@ -262,24 +267,24 @@ export function Report(props: ReportProps) {
                 )}
 
                 {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
-                <div
-                  className='w-full'
-                  id='population-vs-distribution'
-                  style={{
-                    scrollMarginTop: props.headerScrollMargin,
-                  }}
-                >
-                  <HetLazyLoader offset={800} height={0} once>
-                    {shareMetricConfig && (
+                {shareMetricConfig && (
+                  <div
+                    className='w-full'
+                    id='population-vs-distribution'
+                    style={{
+                      scrollMarginTop: props.headerScrollMargin,
+                    }}
+                  >
+                    <HetLazyLoader offset={800} height={0} once>
                       <StackedSharesBarChartCard
                         dataTypeConfig={resolvedConfig}
                         demographicType={demographicType}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
                       />
-                    )}
-                  </HetLazyLoader>
-                </div>
+                    </HetLazyLoader>
+                  </div>
+                )}
 
                 {/* DATA TABLE CARD */}
                 <div
