@@ -34,8 +34,8 @@ go test ./...
 | `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) |
 | `GEMINI_API_KEY` | No | - | Required for AI insight generation. Unset disables generation; cached insights still serve |
 | `GEMINI_MODEL` | No | `gemini-3.1-flash-lite` | Gemini model used for insight generation |
-| `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `400` | Daily generation ceiling, tracked in the usage ledger |
-| `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `8000` | Monthly generation ceiling, tracked in the usage ledger |
+| `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `300` | Daily generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
+| `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `5000` | Monthly generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
 | `INSIGHT_CEILING_WARN_PERCENT` | No | `80` | Share of a ceiling at which a `ceiling_approaching` warning is logged. Must be `1`-`100`; anything else falls back to the default |
 | `INSIGHT_ALLOWED_ORIGINS` | No | prod, www, dev, `localhost:3000`, `*.netlify.app` | Comma-separated origins permitted to request generation |
 | `WEBFLOW_API_TOKEN` | No | - | Required for `/het-news` |
@@ -218,6 +218,74 @@ gcloud logging read \
   "$FILTER (jsonPayload.insight.reason=\"ceiling_reached\" OR jsonPayload.insight.outcome=\"ceiling_approaching\")" \
   --project "$PROJECT" --freshness=30d --format='value(timestamp,jsonPayload.message)'
 ```
+
+### Ceiling sizing
+
+The ceilings are a quota and abuse guard, not a cost control. Generation runs on the
+provider's free tier, so marginal spend is zero and there is no dollar figure to work
+back from. What constrains them is the provider's own quota and the share of traffic the
+cache does not absorb.
+
+**Provider quota.** Free-tier limits are granted per project per model, not per API key,
+and are readable from the Service Usage API rather than from the public docs, which no
+longer publish a table:
+
+```bash
+TOKEN=$(gcloud auth print-access-token)
+curl -s -H "Authorization: Bearer $TOKEN" \
+  "https://serviceusage.googleapis.com/v1beta1/projects/$GEN_LANG_PROJECT/services/generativelanguage.googleapis.com/consumerQuotaMetrics?pageSize=500" \
+| jq -r '(.metrics//[])[] | .displayName as $d | (.consumerQuotaLimits//[])[] | .unit as $u
+         | (.quotaBuckets//[])[] | select(.dimensions.model == "gemini-3.1-flash-lite")
+         | "\($d) | \($u) | \(.effectiveLimit)"'
+```
+
+For `gemini-3.1-flash-lite` on the free tier that returns 15 requests per minute, 500 per
+day, and 250,000 input tokens per minute. Re-read it after any `GEMINI_MODEL` change: the
+limits are per model and differ sharply between them, and a project that gains a billing
+account moves to paid-tier limits roughly two orders of magnitude higher, at which point
+these ceilings are sized against the wrong numbers.
+
+**Requests bind before tokens.** Measured prompts average about 3,200 input tokens and
+peak near 9,400. Even at the full 15 requests a minute, the worst case is roughly 141,000
+input tokens a minute against a 250,000 allowance, so the token limit is not reachable
+through this path. Size against request counts and treat tokens as headroom.
+
+**Traffic.** Thirty days of dev traffic recorded 481 memory hits, 391 GCS hits and 76
+generations: a 92% hit rate, against a busiest day of 59 generations. Generation volume
+tracks distinct views opened multiplied by data changed since they were last opened, not
+pageviews, so the hit rate is what keeps steady-state volume near zero and is the number
+to re-measure before revisiting any of this.
+
+**The numbers.** A daily ceiling of 300 sits 40% below the provider's 500 so that the
+limit reached first is this one. That ordering matters because a reservation is claimed
+before the provider call and is not released when the call fails: once the provider is
+the binding limit, its rejections consume ledger slots and return nothing, so the daily
+count stops resembling insights produced. At the measured 92% hit rate, 300 generations
+supports roughly 3,700 insight requests in a day, and covers the busiest observed dev day
+five times over.
+
+A monthly ceiling of 5,000 allows about sixteen days at the daily ceiling, or 161 a day
+sustained. The provider publishes no monthly quota, so this one exists only to keep a
+sustained anomaly from running for a full month unnoticed. The ratio between them is the
+part worth preserving: one unusual day spends 6% of the month, so a single spike cannot
+consume the period.
+
+**Two things these numbers do not cover.**
+
+A cold cache. Both figures assume a warm cache, and production's starts empty, so the
+early hit rate is far below 92% and the daily ceiling is reachable on launch day. The
+provider's 500 a day is a hard wall on how fast a cold cache can be filled, whatever this
+ceiling says.
+
+A burst. Neither ceiling constrains the per-minute axis, and the service has no
+service-wide per-minute guard, so the provider's 15 a minute can be reached while the day
+is barely spent. That gap is tracked separately in #5168.
+
+**Lead time on the warning.** At `INSIGHT_CEILING_WARN_PERCENT` of 80, the alert fires
+with 60 generations left. Against ordinary traffic that is hours of warning and behaves
+as intended. Against a burst it is about four minutes, but no threshold fixes that: at 15
+requests a minute even a 50% threshold buys ten. The percent is the right lever for drift
+and the wrong one for bursts, which is why 80 stays.
 
 ### Ceiling alert
 
