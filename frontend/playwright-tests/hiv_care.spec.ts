@@ -34,7 +34,7 @@ test('HIV Linkage To Care', async ({ page }) => {
     .locator('#rate-chart')
     .getByRole('heading', { name: 'People diagnosed with HIV,' })
     .click()
-  await page.getByText('age', { exact: true }).click()
+  await page.locator('#rate-chart').getByText('age', { exact: true }).click()
   await page
     .locator('#rate-chart')
     .getByRole('img', { name: 'Linkage to HIV care in the' })
