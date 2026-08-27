@@ -256,6 +256,13 @@ tracks distinct views opened multiplied by data changed since they were last ope
 pageviews, so the hit rate is what keeps steady-state volume near zero and is the number
 to re-measure before revisiting any of this.
 
+Read that 92% as an upper bound rather than a forecast. Dev traffic is mostly the team
+reopening a small set of views, which is the pattern that flatters a cache most. Real
+users spread across many more topic, geography and demographic combinations, so the
+production hit rate should be expected lower and the generations per pageview higher.
+Re-measure it from production logs once generation is enabled there, and treat the
+ceilings below as provisional until that number exists.
+
 **The numbers.** A daily ceiling of 300 sits 40% below the provider's 500 so that the
 limit reached first is this one. That ordering matters because a reservation is claimed
 before the provider call and is not released when the call fails: once the provider is
@@ -263,6 +270,12 @@ the binding limit, its rejections consume ledger slots and return nothing, so th
 count stops resembling insights produced. At the measured 92% hit rate, 300 generations
 supports roughly 3,700 insight requests in a day, and covers the busiest observed dev day
 five times over.
+
+Three hundred rather than any other value below 500 is a judgment, not a derivation. It
+leaves room for a second environment drawing on the same project's allowance, for retries,
+and for the unguarded per-minute axis described below. Raise it once production has its
+own Generative Language project and the per-minute guard has landed; until then the
+distance from the provider's limit is doing real work.
 
 A monthly ceiling of 5,000 allows about sixteen days at the daily ceiling, or 161 a day
 sustained. The provider publishes no monthly quota, so this one exists only to keep a

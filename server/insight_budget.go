@@ -28,13 +28,13 @@ const (
 	ledgerCASAttempts     = 5
 
 	// Sized against the provider's free-tier quota for the configured model,
-	// which is granted per project per model rather than per key: 15 requests a
-	// minute and 500 a day for gemini-3.1-flash-lite. The daily ceiling sits
-	// well under that 500 so the limit reached first is this one, whose failure
-	// path serves cached insights, rather than the provider's, whose rejections
-	// consume a reserved slot and return nothing. server/CLAUDE.md carries the
-	// derivation and the traffic it was measured against; read it before moving
-	// either number.
+	// which is granted per project per model rather than per key. Both ceilings
+	// sit under the provider's own daily allowance so the limit reached first is
+	// this one, whose failure path serves cached insights, rather than the
+	// provider's, whose rejections consume a reserved slot and return nothing.
+	// The figures deliberately live in one place: server/CLAUDE.md carries the
+	// current limits, the traffic they were measured against, and the query that
+	// re-reads them. Read it before moving either number.
 	defaultMaxGenerationsPerDay   = 300
 	defaultMaxGenerationsPerMonth = 5000
 
@@ -164,8 +164,8 @@ func ceilingWarnAt(limit int) int {
 }
 
 // reserveOne reports the post-increment count alongside the verdict, which is
-// what lets the caller tell "45 of 400 used" from "at the cap" without a second
-// read of the ledger.
+// what lets the caller say how much of the period's budget is spent rather than
+// only whether the reservation succeeded, without a second read of the ledger.
 func reserveOne(ctx context.Context, bucket, path string, limit int) (count int, ok bool, err error) {
 	ok, err = mutateLedger(ctx, bucket, path, func(l *usageLedger) bool {
 		if l.Generations >= limit {
