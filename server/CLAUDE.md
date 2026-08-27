@@ -90,8 +90,8 @@ object and hits are the hot path.
 {"severity":"INFO","message":"insight generated","insight":{
   "outcome":"generated","cacheKey":"a1b2c3","topic":"hiv","reserved":true,
   "model":"gemini-3.1-flash-lite","promptTokens":1840,"outputTokens":96,
-  "dailyGenerations":42,"dailyLimit":400,
-  "monthlyGenerations":903,"monthlyLimit":8000,"durationMs":812}}
+  "dailyGenerations":42,"dailyLimit":300,
+  "monthlyGenerations":903,"monthlyLimit":5000,"durationMs":812}}
 ```
 
 `outcome` is one of:
