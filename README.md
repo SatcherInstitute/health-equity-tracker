@@ -429,6 +429,10 @@ To run single test file follow this pattern (the `-s` flag enables `print()` sta
 pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.py -s
 ```
 
+#### Regenerating golden files
+
+Many datasource tests compare output against a committed "golden" file. When a change legitimately alters that output, regenerate rather than hand-edit: uncomment the `to_csv` line above the assertion, run the test, then re-comment it before committing. If the test has no such line, copy one from a neighboring test file (`test_cawp.py`, `test_chr.py`) and adjust the variables. A few goldens are `.json` and need `to_json(path, orient="records")` instead. Always review the resulting diff, since regeneration records whatever the code currently emits.
+
 ## HET Microservice Architecture
 
 ![HET Microservice Infrastructure Diagram](het_infrastructure.svg)
