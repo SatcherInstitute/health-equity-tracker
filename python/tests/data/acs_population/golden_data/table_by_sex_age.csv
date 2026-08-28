@@ -1,1561 +1,1561 @@
 state_fips,state_name,sex,age,population
-01,Alabama,All,0-9,591060
-01,Alabama,All,10-19,667547
-01,Alabama,All,20-29,669190
-01,Alabama,All,30-39,627855
-01,Alabama,All,40-49,616003
-01,Alabama,All,50-59,649740
-01,Alabama,All,60-69,621766
-01,Alabama,All,70-79,392892
-01,Alabama,All,80+,192039
-01,Alabama,All,All,5028092
-01,Alabama,Female,0-9,287848
-01,Alabama,Female,10-19,330045
-01,Alabama,Female,20-29,332618
-01,Alabama,Female,30-39,321813
-01,Alabama,Female,40-49,313300
-01,Alabama,Female,50-59,332587
-01,Alabama,Female,60-69,326650
-01,Alabama,Female,70-79,216157
-01,Alabama,Female,80+,121079
-01,Alabama,Female,All,2582097
-01,Alabama,Male,0-9,303212
-01,Alabama,Male,10-19,337502
-01,Alabama,Male,20-29,336572
-01,Alabama,Male,30-39,306042
-01,Alabama,Male,40-49,302703
-01,Alabama,Male,50-59,317153
-01,Alabama,Male,60-69,295116
-01,Alabama,Male,70-79,176735
-01,Alabama,Male,80+,70960
-01,Alabama,Male,All,2445995
-02,Alaska,All,0-9,101021
-02,Alaska,All,10-19,96682
-02,Alaska,All,20-29,108834
-02,Alaska,All,30-39,110529
-02,Alaska,All,40-49,88341
-02,Alaska,All,50-59,89719
-02,Alaska,All,60-69,84044
-02,Alaska,All,70-79,39766
-02,Alaska,All,80+,15885
-02,Alaska,All,All,734821
-02,Alaska,Female,0-9,48945
-02,Alaska,Female,10-19,46408
-02,Alaska,Female,20-29,47786
-02,Alaska,Female,30-39,52172
-02,Alaska,Female,40-49,41673
-02,Alaska,Female,50-59,42192
-02,Alaska,Female,60-69,39785
-02,Alaska,Female,70-79,20344
-02,Alaska,Female,80+,8867
-02,Alaska,Female,All,348172
-02,Alaska,Male,0-9,52076
-02,Alaska,Male,10-19,50274
-02,Alaska,Male,20-29,61048
-02,Alaska,Male,30-39,58357
-02,Alaska,Male,40-49,46668
-02,Alaska,Male,50-59,47527
-02,Alaska,Male,60-69,44259
-02,Alaska,Male,70-79,19422
-02,Alaska,Male,80+,7018
-02,Alaska,Male,All,386649
-04,Arizona,All,0-9,837050
-04,Arizona,All,10-19,954649
-04,Arizona,All,20-29,1002986
-04,Arizona,All,30-39,937684
-04,Arizona,All,40-49,859861
-04,Arizona,All,50-59,848059
-04,Arizona,All,60-69,831071
-04,Arizona,All,70-79,605361
-04,Arizona,All,80+,295561
-04,Arizona,All,All,7172282
-04,Arizona,Female,0-9,410189
-04,Arizona,Female,10-19,465441
-04,Arizona,Female,20-29,480881
-04,Arizona,Female,30-39,453101
-04,Arizona,Female,40-49,421849
-04,Arizona,Female,50-59,427026
-04,Arizona,Female,60-69,438457
-04,Arizona,Female,70-79,318848
-04,Arizona,Female,80+,167980
-04,Arizona,Female,All,3583772
-04,Arizona,Male,0-9,426861
-04,Arizona,Male,10-19,489208
-04,Arizona,Male,20-29,522105
-04,Arizona,Male,30-39,484583
-04,Arizona,Male,40-49,438012
-04,Arizona,Male,50-59,421033
-04,Arizona,Male,60-69,392614
-04,Arizona,Male,70-79,286513
-04,Arizona,Male,80+,127581
-04,Arizona,Male,All,3588510
-05,Arkansas,All,0-9,375137
-05,Arkansas,All,10-19,406467
-05,Arkansas,All,20-29,400796
-05,Arkansas,All,30-39,387024
-05,Arkansas,All,40-49,365471
-05,Arkansas,All,50-59,373812
-05,Arkansas,All,60-69,357925
-05,Arkansas,All,70-79,234334
-05,Arkansas,All,80+,117703
-05,Arkansas,All,All,3018669
-05,Arkansas,Female,0-9,182734
-05,Arkansas,Female,10-19,197665
-05,Arkansas,Female,20-29,196840
-05,Arkansas,Female,30-39,193674
-05,Arkansas,Female,40-49,181792
-05,Arkansas,Female,50-59,187310
-05,Arkansas,Female,60-69,187923
-05,Arkansas,Female,70-79,126611
-05,Arkansas,Female,80+,72498
-05,Arkansas,Female,All,1527047
-05,Arkansas,Male,0-9,192403
-05,Arkansas,Male,10-19,208802
-05,Arkansas,Male,20-29,203956
-05,Arkansas,Male,30-39,193350
-05,Arkansas,Male,40-49,183679
-05,Arkansas,Male,50-59,186502
-05,Arkansas,Male,60-69,170002
-05,Arkansas,Male,70-79,107723
-05,Arkansas,Male,80+,45205
-05,Arkansas,Male,All,1491622
-06,California,All,0-9,4626466
-06,California,All,10-19,5212166
-06,California,All,20-29,5598160
-06,California,All,30-39,5731477
-06,California,All,40-49,5067295
-06,California,All,50-59,4948799
-06,California,All,60-69,4219339
-06,California,All,70-79,2527755
-06,California,All,80+,1424647
-06,California,All,All,39356104
-06,California,Female,0-9,2257846
-06,California,Female,10-19,2542611
-06,California,Female,20-29,2708591
-06,California,Female,30-39,2767771
-06,California,Female,40-49,2496663
-06,California,Female,50-59,2463161
-06,California,Female,60-69,2172236
-06,California,Female,70-79,1376366
-06,California,Female,80+,861912
-06,California,Female,All,19647157
-06,California,Male,0-9,2368620
-06,California,Male,10-19,2669555
-06,California,Male,20-29,2889569
-06,California,Male,30-39,2963706
-06,California,Male,40-49,2570632
-06,California,Male,50-59,2485638
-06,California,Male,60-69,2047103
-06,California,Male,70-79,1151389
-06,California,Male,80+,562735
-06,California,Male,All,19708947
-08,Colorado,All,0-9,655967
-08,Colorado,All,10-19,741611
-08,Colorado,All,20-29,834246
-08,Colorado,All,30-39,880568
-08,Colorado,All,40-49,753455
-08,Colorado,All,50-59,703895
-08,Colorado,All,60-69,644770
-08,Colorado,All,70-79,374695
-08,Colorado,All,80+,181583
-08,Colorado,All,All,5770790
-08,Colorado,Female,0-9,321797
-08,Colorado,Female,10-19,357419
-08,Colorado,Female,20-29,396970
-08,Colorado,Female,30-39,419956
-08,Colorado,Female,40-49,361211
-08,Colorado,Female,50-59,348242
-08,Colorado,Female,60-69,330589
-08,Colorado,Female,70-79,198500
-08,Colorado,Female,80+,108518
-08,Colorado,Female,All,2843202
-08,Colorado,Male,0-9,334170
-08,Colorado,Male,10-19,384192
-08,Colorado,Male,20-29,437276
-08,Colorado,Male,30-39,460612
-08,Colorado,Male,40-49,392244
-08,Colorado,Male,50-59,355653
-08,Colorado,Male,60-69,314181
-08,Colorado,Male,70-79,176195
-08,Colorado,Male,80+,73065
-08,Colorado,Male,All,2927588
-09,Connecticut,All,0-9,379368
-09,Connecticut,All,10-19,469768
-09,Connecticut,All,20-29,464952
-09,Connecticut,All,30-39,453092
-09,Connecticut,All,40-49,440832
-09,Connecticut,All,50-59,518259
-09,Connecticut,All,60-69,456567
-09,Connecticut,All,70-79,269570
-09,Connecticut,All,80+,158909
-09,Connecticut,All,All,3611317
-09,Connecticut,Female,0-9,187324
-09,Connecticut,Female,10-19,229040
-09,Connecticut,Female,20-29,227602
-09,Connecticut,Female,30-39,227203
-09,Connecticut,Female,40-49,223880
-09,Connecticut,Female,50-59,266094
-09,Connecticut,Female,60-69,235588
-09,Connecticut,Female,70-79,146312
-09,Connecticut,Female,80+,99078
-09,Connecticut,Female,All,1842121
-09,Connecticut,Male,0-9,192044
-09,Connecticut,Male,10-19,240728
-09,Connecticut,Male,20-29,237350
-09,Connecticut,Male,30-39,225889
-09,Connecticut,Male,40-49,216952
-09,Connecticut,Male,50-59,252165
-09,Connecticut,Male,60-69,220979
-09,Connecticut,Male,70-79,123258
-09,Connecticut,Male,80+,59831
-09,Connecticut,Male,All,1769196
-10,Delaware,All,0-9,109968
-10,Delaware,All,10-19,123481
-10,Delaware,All,20-29,122674
-10,Delaware,All,30-39,124265
-10,Delaware,All,40-49,114864
-10,Delaware,All,50-59,131642
-10,Delaware,All,60-69,137636
-10,Delaware,All,70-79,87953
-10,Delaware,All,80+,41152
-10,Delaware,All,All,993635
-10,Delaware,Female,0-9,54250
-10,Delaware,Female,10-19,61080
-10,Delaware,Female,20-29,60574
-10,Delaware,Female,30-39,61260
-10,Delaware,Female,40-49,59908
-10,Delaware,Female,50-59,67386
-10,Delaware,Female,60-69,74732
-10,Delaware,Female,70-79,47432
-10,Delaware,Female,80+,24104
-10,Delaware,Female,All,510726
-10,Delaware,Male,0-9,55718
-10,Delaware,Male,10-19,62401
-10,Delaware,Male,20-29,62100
-10,Delaware,Male,30-39,63005
-10,Delaware,Male,40-49,54956
-10,Delaware,Male,50-59,64256
-10,Delaware,Male,60-69,62904
-10,Delaware,Male,70-79,40521
-10,Delaware,Male,80+,17048
-10,Delaware,Male,All,482909
-11,District of Columbia,All,0-9,76159
-11,District of Columbia,All,10-19,64579
-11,District of Columbia,All,20-29,120136
-11,District of Columbia,All,30-39,138750
-11,District of Columbia,All,40-49,84138
-11,District of Columbia,All,50-59,69364
-11,District of Columbia,All,60-69,60497
-11,District of Columbia,All,70-79,36807
-11,District of Columbia,All,80+,20157
-11,District of Columbia,All,All,670587
-11,District of Columbia,Female,0-9,38011
-11,District of Columbia,Female,10-19,32069
-11,District of Columbia,Female,20-29,65382
-11,District of Columbia,Female,30-39,71009
-11,District of Columbia,Female,40-49,41989
-11,District of Columbia,Female,50-59,33823
-11,District of Columbia,Female,60-69,32924
-11,District of Columbia,Female,70-79,21538
-11,District of Columbia,Female,80+,13045
-11,District of Columbia,Female,All,349790
-11,District of Columbia,Male,0-9,38148
-11,District of Columbia,Male,10-19,32510
-11,District of Columbia,Male,20-29,54754
-11,District of Columbia,Male,30-39,67741
-11,District of Columbia,Male,40-49,42149
-11,District of Columbia,Male,50-59,35541
-11,District of Columbia,Male,60-69,27573
-11,District of Columbia,Male,70-79,15269
-11,District of Columbia,Male,80+,7112
-11,District of Columbia,Male,All,320797
-12,Florida,All,0-9,2244141
-12,Florida,All,10-19,2507794
-12,Florida,All,20-29,2659873
-12,Florida,All,30-39,2749766
-12,Florida,All,40-49,2642290
-12,Florida,All,50-59,2868328
-12,Florida,All,60-69,2765674
-12,Florida,All,70-79,2050453
-12,Florida,All,80+,1146210
-12,Florida,All,All,21634529
-12,Florida,Female,0-9,1098377
-12,Florida,Female,10-19,1222233
-12,Florida,Female,20-29,1303469
-12,Florida,Female,30-39,1353126
-12,Florida,Female,40-49,1321664
-12,Florida,Female,50-59,1460476
-12,Florida,Female,60-69,1456629
-12,Florida,Female,70-79,1100323
-12,Florida,Female,80+,671446
-12,Florida,Female,All,10987743
-12,Florida,Male,0-9,1145764
-12,Florida,Male,10-19,1285561
-12,Florida,Male,20-29,1356404
-12,Florida,Male,30-39,1396640
-12,Florida,Male,40-49,1320626
-12,Florida,Male,50-59,1407852
-12,Florida,Male,60-69,1309045
-12,Florida,Male,70-79,950130
-12,Florida,Male,80+,474764
-12,Florida,Male,All,10646786
-13,Georgia,All,0-9,1315156
-13,Georgia,All,10-19,1505467
-13,Georgia,All,20-29,1485937
-13,Georgia,All,30-39,1450622
-13,Georgia,All,40-49,1402843
-13,Georgia,All,50-59,1390207
-13,Georgia,All,60-69,1158942
-13,Georgia,All,70-79,695109
-13,Georgia,All,80+,318042
-13,Georgia,All,All,10722325
-13,Georgia,Female,0-9,641914
-13,Georgia,Female,10-19,737757
-13,Georgia,Female,20-29,734271
-13,Georgia,Female,30-39,740349
-13,Georgia,Female,40-49,717549
-13,Georgia,Female,50-59,709624
-13,Georgia,Female,60-69,615483
-13,Georgia,Female,70-79,383633
-13,Georgia,Female,80+,197269
-13,Georgia,Female,All,5477849
-13,Georgia,Male,0-9,673242
-13,Georgia,Male,10-19,767710
-13,Georgia,Male,20-29,751666
-13,Georgia,Male,30-39,710273
-13,Georgia,Male,40-49,685294
-13,Georgia,Male,50-59,680583
-13,Georgia,Male,60-69,543459
-13,Georgia,Male,70-79,311476
-13,Georgia,Male,80+,120773
-13,Georgia,Male,All,5244476
-15,Hawaii,All,0-9,169535
-15,Hawaii,All,10-19,166647
-15,Hawaii,All,20-29,190382
-15,Hawaii,All,30-39,199984
-15,Hawaii,All,40-49,174785
-15,Hawaii,All,50-59,176129
-15,Hawaii,All,60-69,181225
-15,Hawaii,All,70-79,120194
-15,Hawaii,All,80+,71708
-15,Hawaii,All,All,1450589
-15,Hawaii,Female,0-9,81262
-15,Hawaii,Female,10-19,80643
-15,Hawaii,Female,20-29,86967
-15,Hawaii,Female,30-39,96775
-15,Hawaii,Female,40-49,85882
-15,Hawaii,Female,50-59,86881
-15,Hawaii,Female,60-69,93913
-15,Hawaii,Female,70-79,61937
-15,Hawaii,Female,80+,44269
-15,Hawaii,Female,All,718529
-15,Hawaii,Male,0-9,88273
-15,Hawaii,Male,10-19,86004
-15,Hawaii,Male,20-29,103415
-15,Hawaii,Male,30-39,103209
-15,Hawaii,Male,40-49,88903
-15,Hawaii,Male,50-59,89248
-15,Hawaii,Male,60-69,87312
-15,Hawaii,Male,70-79,58257
-15,Hawaii,Male,80+,27439
-15,Hawaii,Male,All,732060
-16,Idaho,All,0-9,237976
-16,Idaho,All,10-19,277984
-16,Idaho,All,20-29,246427
-16,Idaho,All,30-39,238884
-16,Idaho,All,40-49,224832
-16,Idaho,All,50-59,213297
-16,Idaho,All,60-69,214001
-16,Idaho,All,70-79,137827
-16,Idaho,All,80+,62881
-16,Idaho,All,All,1854109
-16,Idaho,Female,0-9,116212
-16,Idaho,Female,10-19,137542
-16,Idaho,Female,20-29,118382
-16,Idaho,Female,30-39,117342
-16,Idaho,Female,40-49,109424
-16,Idaho,Female,50-59,105643
-16,Idaho,Female,60-69,109034
-16,Idaho,Female,70-79,71074
-16,Idaho,Female,80+,35728
-16,Idaho,Female,All,920381
-16,Idaho,Male,0-9,121764
-16,Idaho,Male,10-19,140442
-16,Idaho,Male,20-29,128045
-16,Idaho,Male,30-39,121542
-16,Idaho,Male,40-49,115408
-16,Idaho,Male,50-59,107654
-16,Idaho,Male,60-69,104967
-16,Idaho,Male,70-79,66753
-16,Idaho,Male,80+,27153
-16,Idaho,Male,All,933728
-17,Illinois,All,0-9,1485516
-17,Illinois,All,10-19,1676093
-17,Illinois,All,20-29,1719036
-17,Illinois,All,30-39,1724368
-17,Illinois,All,40-49,1610047
-17,Illinois,All,50-59,1661016
-17,Illinois,All,60-69,1488832
-17,Illinois,All,70-79,895598
-17,Illinois,All,80+,497128
-17,Illinois,All,All,12757634
-17,Illinois,Female,0-9,727436
-17,Illinois,Female,10-19,816493
-17,Illinois,Female,20-29,845720
-17,Illinois,Female,30-39,851429
-17,Illinois,Female,40-49,797825
-17,Illinois,Female,50-59,832204
-17,Illinois,Female,60-69,771134
-17,Illinois,Female,70-79,489950
-17,Illinois,Female,80+,312424
-17,Illinois,Female,All,6444615
-17,Illinois,Male,0-9,758080
-17,Illinois,Male,10-19,859600
-17,Illinois,Male,20-29,873316
-17,Illinois,Male,30-39,872939
-17,Illinois,Male,40-49,812222
-17,Illinois,Male,50-59,828812
-17,Illinois,Male,60-69,717698
-17,Illinois,Male,70-79,405648
-17,Illinois,Male,80+,184704
-17,Illinois,Male,All,6313019
-18,Indiana,All,0-9,842340
-18,Indiana,All,10-19,931419
-18,Indiana,All,20-29,928309
-18,Indiana,All,30-39,869320
-18,Indiana,All,40-49,821312
-18,Indiana,All,50-59,861541
-18,Indiana,All,60-69,796046
-18,Indiana,All,70-79,481166
-18,Indiana,All,80+,252950
-18,Indiana,All,All,6784403
-18,Indiana,Female,0-9,410036
-18,Indiana,Female,10-19,453396
-18,Indiana,Female,20-29,454972
-18,Indiana,Female,30-39,429984
-18,Indiana,Female,40-49,408435
-18,Indiana,Female,50-59,429270
-18,Indiana,Female,60-69,410515
-18,Indiana,Female,70-79,262914
-18,Indiana,Female,80+,158083
-18,Indiana,Female,All,3417605
-18,Indiana,Male,0-9,432304
-18,Indiana,Male,10-19,478023
-18,Indiana,Male,20-29,473337
-18,Indiana,Male,30-39,439336
-18,Indiana,Male,40-49,412877
-18,Indiana,Male,50-59,432271
-18,Indiana,Male,60-69,385531
-18,Indiana,Male,70-79,218252
-18,Indiana,Male,80+,94867
-18,Indiana,Male,All,3366798
-19,Iowa,All,0-9,392464
-19,Iowa,All,10-19,433541
-19,Iowa,All,20-29,431457
-19,Iowa,All,30-39,403435
-19,Iowa,All,40-49,366770
-19,Iowa,All,50-59,389436
-19,Iowa,All,60-69,391848
-19,Iowa,All,70-79,236254
-19,Iowa,All,80+,143631
-19,Iowa,All,All,3188836
-19,Iowa,Female,0-9,190224
-19,Iowa,Female,10-19,212224
-19,Iowa,Female,20-29,208108
-19,Iowa,Female,30-39,196043
-19,Iowa,Female,40-49,178357
-19,Iowa,Female,50-59,193707
-19,Iowa,Female,60-69,196421
-19,Iowa,Female,70-79,126200
-19,Iowa,Female,80+,88997
-19,Iowa,Female,All,1590281
-19,Iowa,Male,0-9,202240
-19,Iowa,Male,10-19,221317
-19,Iowa,Male,20-29,223349
-19,Iowa,Male,30-39,207392
-19,Iowa,Male,40-49,188413
-19,Iowa,Male,50-59,195729
-19,Iowa,Male,60-69,195427
-19,Iowa,Male,70-79,110054
-19,Iowa,Male,80+,54634
-19,Iowa,Male,All,1598555
-20,Kansas,All,0-9,375941
-20,Kansas,All,10-19,414112
-20,Kansas,All,20-29,408738
-20,Kansas,All,30-39,383953
-20,Kansas,All,40-49,338409
-20,Kansas,All,50-59,349044
-20,Kansas,All,60-69,345415
-20,Kansas,All,70-79,201753
-20,Kansas,All,80+,118557
-20,Kansas,All,All,2935922
-20,Kansas,Female,0-9,182157
-20,Kansas,Female,10-19,201827
-20,Kansas,Female,20-29,193700
-20,Kansas,Female,30-39,186810
-20,Kansas,Female,40-49,165599
-20,Kansas,Female,50-59,173189
-20,Kansas,Female,60-69,175856
-20,Kansas,Female,70-79,108676
-20,Kansas,Female,80+,73160
-20,Kansas,Female,All,1460974
-20,Kansas,Male,0-9,193784
-20,Kansas,Male,10-19,212285
-20,Kansas,Male,20-29,215038
-20,Kansas,Male,30-39,197143
-20,Kansas,Male,40-49,172810
-20,Kansas,Male,50-59,175855
-20,Kansas,Male,60-69,169559
-20,Kansas,Male,70-79,93077
-20,Kansas,Male,80+,45397
-20,Kansas,Male,All,1474948
-21,Kentucky,All,0-9,544788
-21,Kentucky,All,10-19,585242
-21,Kentucky,All,20-29,604512
-21,Kentucky,All,30-39,569603
-21,Kentucky,All,40-49,556363
-21,Kentucky,All,50-59,586096
-21,Kentucky,All,60-69,556053
-21,Kentucky,All,70-79,337123
-21,Kentucky,All,80+,163155
-21,Kentucky,All,All,4502935
-21,Kentucky,Female,0-9,263238
-21,Kentucky,Female,10-19,286140
-21,Kentucky,Female,20-29,292347
-21,Kentucky,Female,30-39,282723
-21,Kentucky,Female,40-49,275621
-21,Kentucky,Female,50-59,294496
-21,Kentucky,Female,60-69,290034
-21,Kentucky,Female,70-79,182844
-21,Kentucky,Female,80+,101451
-21,Kentucky,Female,All,2268894
-21,Kentucky,Male,0-9,281550
-21,Kentucky,Male,10-19,299102
-21,Kentucky,Male,20-29,312165
-21,Kentucky,Male,30-39,286880
-21,Kentucky,Male,40-49,280742
-21,Kentucky,Male,50-59,291600
-21,Kentucky,Male,60-69,266019
-21,Kentucky,Male,70-79,154279
-21,Kentucky,Male,80+,61704
-21,Kentucky,Male,All,2234041
-22,Louisiana,All,0-9,584130
-22,Louisiana,All,10-19,621215
-22,Louisiana,All,20-29,628683
-22,Louisiana,All,30-39,639265
-22,Louisiana,All,40-49,548443
-22,Louisiana,All,50-59,574567
-22,Louisiana,All,60-69,553059
-22,Louisiana,All,70-79,331236
-22,Louisiana,All,80+,159948
-22,Louisiana,All,All,4640546
-22,Louisiana,Female,0-9,285404
-22,Louisiana,Female,10-19,303432
-22,Louisiana,Female,20-29,313139
-22,Louisiana,Female,30-39,322642
-22,Louisiana,Female,40-49,275978
-22,Louisiana,Female,50-59,293132
-22,Louisiana,Female,60-69,291190
-22,Louisiana,Female,70-79,181314
-22,Louisiana,Female,80+,98966
-22,Louisiana,Female,All,2365197
-22,Louisiana,Male,0-9,298726
-22,Louisiana,Male,10-19,317783
-22,Louisiana,Male,20-29,315544
-22,Louisiana,Male,30-39,316623
-22,Louisiana,Male,40-49,272465
-22,Louisiana,Male,50-59,281435
-22,Louisiana,Male,60-69,261869
-22,Louisiana,Male,70-79,149922
-22,Louisiana,Male,80+,60982
-22,Louisiana,Male,All,2275349
-23,Maine,All,0-9,132162
-23,Maine,All,10-19,151778
-23,Maine,All,20-29,157154
-23,Maine,All,30-39,168150
-23,Maine,All,40-49,159166
-23,Maine,All,50-59,196369
-23,Maine,All,60-69,206338
-23,Maine,All,70-79,128852
-23,Maine,All,80+,66980
-23,Maine,All,All,1366949
-23,Maine,Female,0-9,64592
-23,Maine,Female,10-19,73317
-23,Maine,Female,20-29,76895
-23,Maine,Female,30-39,83702
-23,Maine,Female,40-49,79824
-23,Maine,Female,50-59,100433
-23,Maine,Female,60-69,105030
-23,Maine,Female,70-79,68183
-23,Maine,Female,80+,40743
-23,Maine,Female,All,692719
-23,Maine,Male,0-9,67570
-23,Maine,Male,10-19,78461
-23,Maine,Male,20-29,80259
-23,Maine,Male,30-39,84448
-23,Maine,Male,40-49,79342
-23,Maine,Male,50-59,95936
-23,Maine,Male,60-69,101308
-23,Maine,Male,70-79,60669
-23,Maine,Male,80+,26237
-23,Maine,Male,All,674230
-24,Maryland,All,0-9,731603
-24,Maryland,All,10-19,788149
-24,Maryland,All,20-29,781847
-24,Maryland,All,30-39,849706
-24,Maryland,All,40-49,773691
-24,Maryland,All,50-59,842636
-24,Maryland,All,60-69,732761
-24,Maryland,All,70-79,431110
-24,Maryland,All,80+,230204
-24,Maryland,All,All,6161707
-24,Maryland,Female,0-9,358776
-24,Maryland,Female,10-19,385359
-24,Maryland,Female,20-29,387894
-24,Maryland,Female,30-39,428688
-24,Maryland,Female,40-49,394651
-24,Maryland,Female,50-59,434705
-24,Maryland,Female,60-69,385599
-24,Maryland,Female,70-79,240364
-24,Maryland,Female,80+,142775
-24,Maryland,Female,All,3158811
-24,Maryland,Male,0-9,372827
-24,Maryland,Male,10-19,402790
-24,Maryland,Male,20-29,393953
-24,Maryland,Male,30-39,421018
-24,Maryland,Male,40-49,379040
-24,Maryland,Male,50-59,407931
-24,Maryland,Male,60-69,347162
-24,Maryland,Male,70-79,190746
-24,Maryland,Male,80+,87429
-24,Maryland,Male,All,3002896
-25,Massachusetts,All,0-9,715790
-25,Massachusetts,All,10-19,860719
-25,Massachusetts,All,20-29,980465
-25,Massachusetts,All,30-39,950985
-25,Massachusetts,All,40-49,849745
-25,Massachusetts,All,50-59,965425
-25,Massachusetts,All,60-69,853596
-25,Massachusetts,All,70-79,515035
-25,Massachusetts,All,80+,292445
-25,Massachusetts,All,All,6984205
-25,Massachusetts,Female,0-9,349586
-25,Massachusetts,Female,10-19,422802
-25,Massachusetts,Female,20-29,486846
-25,Massachusetts,Female,30-39,474639
-25,Massachusetts,Female,40-49,429025
-25,Massachusetts,Female,50-59,489909
-25,Massachusetts,Female,60-69,444047
-25,Massachusetts,Female,70-79,283881
-25,Massachusetts,Female,80+,184131
-25,Massachusetts,Female,All,3564866
-25,Massachusetts,Male,0-9,366204
-25,Massachusetts,Male,10-19,437917
-25,Massachusetts,Male,20-29,493619
-25,Massachusetts,Male,30-39,476346
-25,Massachusetts,Male,40-49,420720
-25,Massachusetts,Male,50-59,475516
-25,Massachusetts,Male,60-69,409549
-25,Massachusetts,Male,70-79,231154
-25,Massachusetts,Male,80+,108314
-25,Massachusetts,Male,All,3419339
-26,Michigan,All,0-9,1138841
-26,Michigan,All,10-19,1283000
-26,Michigan,All,20-29,1369256
-26,Michigan,All,30-39,1248458
-26,Michigan,All,40-49,1184321
-26,Michigan,All,50-59,1341146
-26,Michigan,All,60-69,1303078
-26,Michigan,All,70-79,779949
-26,Michigan,All,80+,409872
-26,Michigan,All,All,10057921
-26,Michigan,Female,0-9,553860
-26,Michigan,Female,10-19,626404
-26,Michigan,Female,20-29,665475
-26,Michigan,Female,30-39,616700
-26,Michigan,Female,40-49,588834
-26,Michigan,Female,50-59,674370
-26,Michigan,Female,60-69,666277
-26,Michigan,Female,70-79,420566
-26,Michigan,Female,80+,251739
-26,Michigan,Female,All,5064225
-26,Michigan,Male,0-9,584981
-26,Michigan,Male,10-19,656596
-26,Michigan,Male,20-29,703781
-26,Michigan,Male,30-39,631758
-26,Michigan,Male,40-49,595487
-26,Michigan,Male,50-59,666776
-26,Michigan,Male,60-69,636801
-26,Michigan,Male,70-79,359383
-26,Michigan,Male,80+,158133
-26,Michigan,Male,All,4993696
-27,Minnesota,All,0-9,705541
-27,Minnesota,All,10-19,750004
-27,Minnesota,All,20-29,735214
-27,Minnesota,All,30-39,774237
-27,Minnesota,All,40-49,686171
-27,Minnesota,All,50-59,731307
-27,Minnesota,All,60-69,684077
-27,Minnesota,All,70-79,400022
-27,Minnesota,All,80+,228719
-27,Minnesota,All,All,5695292
-27,Minnesota,Female,0-9,343473
-27,Minnesota,Female,10-19,367250
-27,Minnesota,Female,20-29,359686
-27,Minnesota,Female,30-39,376719
-27,Minnesota,Female,40-49,333308
-27,Minnesota,Female,50-59,359732
-27,Minnesota,Female,60-69,346156
-27,Minnesota,Female,70-79,213113
-27,Minnesota,Female,80+,137891
-27,Minnesota,Female,All,2837328
-27,Minnesota,Male,0-9,362068
-27,Minnesota,Male,10-19,382754
-27,Minnesota,Male,20-29,375528
-27,Minnesota,Male,30-39,397518
-27,Minnesota,Male,40-49,352863
-27,Minnesota,Male,50-59,371575
-27,Minnesota,Male,60-69,337921
-27,Minnesota,Male,70-79,186909
-27,Minnesota,Male,80+,90828
-27,Minnesota,Male,All,2857964
-28,Mississippi,All,0-9,361306
-28,Mississippi,All,10-19,421101
-28,Mississippi,All,20-29,398548
-28,Mississippi,All,30-39,372902
-28,Mississippi,All,40-49,358030
-28,Mississippi,All,50-59,365099
-28,Mississippi,All,60-69,354786
-28,Mississippi,All,70-79,220336
-28,Mississippi,All,80+,106738
-28,Mississippi,All,All,2958846
-28,Mississippi,Female,0-9,178649
-28,Mississippi,Female,10-19,206022
-28,Mississippi,Female,20-29,197717
-28,Mississippi,Female,30-39,190781
-28,Mississippi,Female,40-49,183080
-28,Mississippi,Female,50-59,188070
-28,Mississippi,Female,60-69,187710
-28,Mississippi,Female,70-79,120360
-28,Mississippi,Female,80+,68469
-28,Mississippi,Female,All,1520858
-28,Mississippi,Male,0-9,182657
-28,Mississippi,Male,10-19,215079
-28,Mississippi,Male,20-29,200831
-28,Mississippi,Male,30-39,182121
-28,Mississippi,Male,40-49,174950
-28,Mississippi,Male,50-59,177029
-28,Mississippi,Male,60-69,167076
-28,Mississippi,Male,70-79,99976
-28,Mississippi,Male,80+,38269
-28,Mississippi,Male,All,1437988
-29,Missouri,All,0-9,735832
-29,Missouri,All,10-19,804352
-29,Missouri,All,20-29,822912
-29,Missouri,All,30-39,805323
-29,Missouri,All,40-49,726783
-29,Missouri,All,50-59,780599
-29,Missouri,All,60-69,760436
-29,Missouri,All,70-79,467238
-29,Missouri,All,80+,250947
-29,Missouri,All,All,6154422
-29,Missouri,Female,0-9,357061
-29,Missouri,Female,10-19,392656
-29,Missouri,Female,20-29,405176
-29,Missouri,Female,30-39,400200
-29,Missouri,Female,40-49,362747
-29,Missouri,Female,50-59,394087
-29,Missouri,Female,60-69,392425
-29,Missouri,Female,70-79,255878
-29,Missouri,Female,80+,154972
-29,Missouri,Female,All,3115202
-29,Missouri,Male,0-9,378771
-29,Missouri,Male,10-19,411696
-29,Missouri,Male,20-29,417736
-29,Missouri,Male,30-39,405123
-29,Missouri,Male,40-49,364036
-29,Missouri,Male,50-59,386512
-29,Missouri,Male,60-69,368011
-29,Missouri,Male,70-79,211360
-29,Missouri,Male,80+,95975
-29,Missouri,Male,All,3039220
-30,Montana,All,0-9,122293
-30,Montana,All,10-19,136974
-30,Montana,All,20-29,145044
-30,Montana,All,30-39,140078
-30,Montana,All,40-49,125949
-30,Montana,All,50-59,131227
-30,Montana,All,60-69,151085
-30,Montana,All,70-79,95621
-30,Montana,All,80+,43569
-30,Montana,All,All,1091840
-30,Montana,Female,0-9,59256
-30,Montana,Female,10-19,65948
-30,Montana,Female,20-29,69062
-30,Montana,Female,30-39,67772
-30,Montana,Female,40-49,61085
-30,Montana,Female,50-59,65435
-30,Montana,Female,60-69,76749
-30,Montana,Female,70-79,47737
-30,Montana,Female,80+,25080
-30,Montana,Female,All,538124
-30,Montana,Male,0-9,63037
-30,Montana,Male,10-19,71026
-30,Montana,Male,20-29,75982
-30,Montana,Male,30-39,72306
-30,Montana,Male,40-49,64864
-30,Montana,Male,50-59,65792
-30,Montana,Male,60-69,74336
-30,Montana,Male,70-79,47884
-30,Montana,Male,80+,18489
-30,Montana,Male,All,553716
-31,Nebraska,All,0-9,260324
-31,Nebraska,All,10-19,276784
-31,Nebraska,All,20-29,266427
-31,Nebraska,All,30-39,258810
-31,Nebraska,All,40-49,227852
-31,Nebraska,All,50-59,228141
-31,Nebraska,All,60-69,227660
-31,Nebraska,All,70-79,133641
-31,Nebraska,All,80+,79300
-31,Nebraska,All,All,1958939
-31,Nebraska,Female,0-9,127090
-31,Nebraska,Female,10-19,134166
-31,Nebraska,Female,20-29,129761
-31,Nebraska,Female,30-39,126443
-31,Nebraska,Female,40-49,109460
-31,Nebraska,Female,50-59,112494
-31,Nebraska,Female,60-69,115150
-31,Nebraska,Female,70-79,71159
-31,Nebraska,Female,80+,48646
-31,Nebraska,Female,All,974369
-31,Nebraska,Male,0-9,133234
-31,Nebraska,Male,10-19,142618
-31,Nebraska,Male,20-29,136666
-31,Nebraska,Male,30-39,132367
-31,Nebraska,Male,40-49,118392
-31,Nebraska,Male,50-59,115647
-31,Nebraska,Male,60-69,112510
-31,Nebraska,Male,70-79,62482
-31,Nebraska,Male,80+,30654
-31,Nebraska,Male,All,984570
-32,Nevada,All,0-9,366500
-32,Nevada,All,10-19,394032
-32,Nevada,All,20-29,411015
-32,Nevada,All,30-39,443480
-32,Nevada,All,40-49,402323
-32,Nevada,All,50-59,397277
-32,Nevada,All,60-69,355289
-32,Nevada,All,70-79,235977
-32,Nevada,All,80+,98924
-32,Nevada,All,All,3104817
-32,Nevada,Female,0-9,179281
-32,Nevada,Female,10-19,191582
-32,Nevada,Female,20-29,200239
-32,Nevada,Female,30-39,215080
-32,Nevada,Female,40-49,196707
-32,Nevada,Female,50-59,195557
-32,Nevada,Female,60-69,180048
-32,Nevada,Female,70-79,122736
-32,Nevada,Female,80+,55255
-32,Nevada,Female,All,1536485
-32,Nevada,Male,0-9,187219
-32,Nevada,Male,10-19,202450
-32,Nevada,Male,20-29,210776
-32,Nevada,Male,30-39,228400
-32,Nevada,Male,40-49,205616
-32,Nevada,Male,50-59,201720
-32,Nevada,Male,60-69,175241
-32,Nevada,Male,70-79,113241
-32,Nevada,Male,80+,43669
-32,Nevada,Male,All,1568332
-33,New Hampshire,All,0-9,131479
-33,New Hampshire,All,10-19,162096
-33,New Hampshire,All,20-29,174497
-33,New Hampshire,All,30-39,171144
-33,New Hampshire,All,40-49,164337
-33,New Hampshire,All,50-59,207906
-33,New Hampshire,All,60-69,193274
-33,New Hampshire,All,70-79,117059
-33,New Hampshire,All,80+,57818
-33,New Hampshire,All,All,1379610
-33,New Hampshire,Female,0-9,64121
-33,New Hampshire,Female,10-19,79153
-33,New Hampshire,Female,20-29,83857
-33,New Hampshire,Female,30-39,83351
-33,New Hampshire,Female,40-49,81088
-33,New Hampshire,Female,50-59,103773
-33,New Hampshire,Female,60-69,96706
-33,New Hampshire,Female,70-79,62598
-33,New Hampshire,Female,80+,35238
-33,New Hampshire,Female,All,689885
-33,New Hampshire,Male,0-9,67358
-33,New Hampshire,Male,10-19,82943
-33,New Hampshire,Male,20-29,90640
-33,New Hampshire,Male,30-39,87793
-33,New Hampshire,Male,40-49,83249
-33,New Hampshire,Male,50-59,104133
-33,New Hampshire,Male,60-69,96568
-33,New Hampshire,Male,70-79,54461
-33,New Hampshire,Male,80+,22580
-33,New Hampshire,Male,All,689725
-34,New Jersey,All,0-9,1071994
-34,New Jersey,All,10-19,1174268
-34,New Jersey,All,20-29,1160262
-34,New Jersey,All,30-39,1211893
-34,New Jersey,All,40-49,1190802
-34,New Jersey,All,50-59,1295107
-34,New Jersey,All,60-69,1103431
-34,New Jersey,All,70-79,661582
-34,New Jersey,All,80+,379724
-34,New Jersey,All,All,9249063
-34,New Jersey,Female,0-9,520156
-34,New Jersey,Female,10-19,575389
-34,New Jersey,Female,20-29,569245
-34,New Jersey,Female,30-39,597862
-34,New Jersey,Female,40-49,594546
-34,New Jersey,Female,50-59,655804
-34,New Jersey,Female,60-69,574660
-34,New Jersey,Female,70-79,365798
-34,New Jersey,Female,80+,239272
-34,New Jersey,Female,All,4692732
-34,New Jersey,Male,0-9,551838
-34,New Jersey,Male,10-19,598879
-34,New Jersey,Male,20-29,591017
-34,New Jersey,Male,30-39,614031
-34,New Jersey,Male,40-49,596256
-34,New Jersey,Male,50-59,639303
-34,New Jersey,Male,60-69,528771
-34,New Jersey,Male,70-79,295784
-34,New Jersey,Male,80+,140452
-34,New Jersey,Male,All,4556331
-35,New Mexico,All,0-9,245511
-35,New Mexico,All,10-19,287214
-35,New Mexico,All,20-29,286296
-35,New Mexico,All,30-39,275573
-35,New Mexico,All,40-49,245496
-35,New Mexico,All,50-59,250634
-35,New Mexico,All,60-69,266268
-35,New Mexico,All,70-79,169023
-35,New Mexico,All,80+,86448
-35,New Mexico,All,All,2112463
-35,New Mexico,Female,0-9,120029
-35,New Mexico,Female,10-19,139960
-35,New Mexico,Female,20-29,137892
-35,New Mexico,Female,30-39,133567
-35,New Mexico,Female,40-49,121559
-35,New Mexico,Female,50-59,127936
-35,New Mexico,Female,60-69,139920
-35,New Mexico,Female,70-79,87896
-35,New Mexico,Female,80+,50846
-35,New Mexico,Female,All,1059605
-35,New Mexico,Male,0-9,125482
-35,New Mexico,Male,10-19,147254
-35,New Mexico,Male,20-29,148404
-35,New Mexico,Male,30-39,142006
-35,New Mexico,Male,40-49,123937
-35,New Mexico,Male,50-59,122698
-35,New Mexico,Male,60-69,126348
-35,New Mexico,Male,70-79,81127
-35,New Mexico,Male,80+,35602
-35,New Mexico,Male,All,1052858
-36,New York,All,0-9,2226863
-36,New York,All,10-19,2428519
-36,New York,All,20-29,2752586
-36,New York,All,30-39,2755659
-36,New York,All,40-49,2440615
-36,New York,All,50-59,2681166
-36,New York,All,60-69,2382913
-36,New York,All,70-79,1470998
-36,New York,All,80+,855060
-36,New York,All,All,19994379
-36,New York,Female,0-9,1089133
-36,New York,Female,10-19,1186001
-36,New York,Female,20-29,1374935
-36,New York,Female,30-39,1371400
-36,New York,Female,40-49,1227703
-36,New York,Female,50-59,1363499
-36,New York,Female,60-69,1243369
-36,New York,Female,70-79,816226
-36,New York,Female,80+,540827
-36,New York,Female,All,10213093
-36,New York,Male,0-9,1137730
-36,New York,Male,10-19,1242518
-36,New York,Male,20-29,1377651
-36,New York,Male,30-39,1384259
-36,New York,Male,40-49,1212912
-36,New York,Male,50-59,1317667
-36,New York,Male,60-69,1139544
-36,New York,Male,70-79,654772
-36,New York,Male,80+,314233
-36,New York,Male,All,9781286
-37,North Carolina,All,0-9,1208319
-37,North Carolina,All,10-19,1375754
-37,North Carolina,All,20-29,1416595
-37,North Carolina,All,30-39,1354588
-37,North Carolina,All,40-49,1327998
-37,North Carolina,All,50-59,1369157
-37,North Carolina,All,60-69,1241696
-37,North Carolina,All,70-79,796957
-37,North Carolina,All,80+,379150
-37,North Carolina,All,All,10470214
-37,North Carolina,Female,0-9,591606
-37,North Carolina,Female,10-19,671732
-37,North Carolina,Female,20-29,692557
-37,North Carolina,Female,30-39,683919
-37,North Carolina,Female,40-49,673741
-37,North Carolina,Female,50-59,696432
-37,North Carolina,Female,60-69,656846
-37,North Carolina,Female,70-79,436167
-37,North Carolina,Female,80+,235844
-37,North Carolina,Female,All,5338844
-37,North Carolina,Male,0-9,616713
-37,North Carolina,Male,10-19,704022
-37,North Carolina,Male,20-29,724038
-37,North Carolina,Male,30-39,670669
-37,North Carolina,Male,40-49,654257
-37,North Carolina,Male,50-59,672725
-37,North Carolina,Male,60-69,584850
-37,North Carolina,Male,70-79,360790
-37,North Carolina,Male,80+,143306
-37,North Carolina,Male,All,5131370
-38,North Dakota,All,0-9,103358
-38,North Dakota,All,10-19,104054
-38,North Dakota,All,20-29,120021
-38,North Dakota,All,30-39,108904
-38,North Dakota,All,40-49,83712
-38,North Dakota,All,50-59,86928
-38,North Dakota,All,60-69,86967
-38,North Dakota,All,70-79,50116
-38,North Dakota,All,80+,32814
-38,North Dakota,All,All,776874
-38,North Dakota,Female,0-9,49889
-38,North Dakota,Female,10-19,49958
-38,North Dakota,Female,20-29,56524
-38,North Dakota,Female,30-39,50797
-38,North Dakota,Female,40-49,38909
-38,North Dakota,Female,50-59,42472
-38,North Dakota,Female,60-69,42517
-38,North Dakota,Female,70-79,26250
-38,North Dakota,Female,80+,20213
-38,North Dakota,Female,All,377529
-38,North Dakota,Male,0-9,53469
-38,North Dakota,Male,10-19,54096
-38,North Dakota,Male,20-29,63497
-38,North Dakota,Male,30-39,58107
-38,North Dakota,Male,40-49,44803
-38,North Dakota,Male,50-59,44456
-38,North Dakota,Male,60-69,44450
-38,North Dakota,Male,70-79,23866
-38,North Dakota,Male,80+,12601
-38,North Dakota,Male,All,399345
-39,Ohio,All,0-9,1379417
-39,Ohio,All,10-19,1529438
-39,Ohio,All,20-29,1546909
-39,Ohio,All,30-39,1495599
-39,Ohio,All,40-49,1411833
-39,Ohio,All,50-59,1545018
-39,Ohio,All,60-69,1481804
-39,Ohio,All,70-79,900030
-39,Ohio,All,80+,484635
-39,Ohio,All,All,11774683
-39,Ohio,Female,0-9,671692
-39,Ohio,Female,10-19,748247
-39,Ohio,Female,20-29,758471
-39,Ohio,Female,30-39,741920
-39,Ohio,Female,40-49,702875
-39,Ohio,Female,50-59,774806
-39,Ohio,Female,60-69,769296
-39,Ohio,Female,70-79,490924
-39,Ohio,Female,80+,301716
-39,Ohio,Female,All,5959947
-39,Ohio,Male,0-9,707725
-39,Ohio,Male,10-19,781191
-39,Ohio,Male,20-29,788438
-39,Ohio,Male,30-39,753679
-39,Ohio,Male,40-49,708958
-39,Ohio,Male,50-59,770212
-39,Ohio,Male,60-69,712508
-39,Ohio,Male,70-79,409106
-39,Ohio,Male,80+,182919
-39,Ohio,Male,All,5814736
-40,Oklahoma,All,0-9,510720
-40,Oklahoma,All,10-19,553521
-40,Oklahoma,All,20-29,554327
-40,Oklahoma,All,30-39,533953
-40,Oklahoma,All,40-49,472069
-40,Oklahoma,All,50-59,469600
-40,Oklahoma,All,60-69,447724
-40,Oklahoma,All,70-79,284622
-40,Oklahoma,All,80+,143961
-40,Oklahoma,All,All,3970497
-40,Oklahoma,Female,0-9,249856
-40,Oklahoma,Female,10-19,269250
-40,Oklahoma,Female,20-29,267620
-40,Oklahoma,Female,30-39,262299
-40,Oklahoma,Female,40-49,231614
-40,Oklahoma,Female,50-59,234962
-40,Oklahoma,Female,60-69,231188
-40,Oklahoma,Female,70-79,155116
-40,Oklahoma,Female,80+,88114
-40,Oklahoma,Female,All,1990019
-40,Oklahoma,Male,0-9,260864
-40,Oklahoma,Male,10-19,284271
-40,Oklahoma,Male,20-29,286707
-40,Oklahoma,Male,30-39,271654
-40,Oklahoma,Male,40-49,240455
-40,Oklahoma,Male,50-59,234638
-40,Oklahoma,Male,60-69,216536
-40,Oklahoma,Male,70-79,129506
-40,Oklahoma,Male,80+,55847
-40,Oklahoma,Male,All,1980478
-41,Oregon,All,0-9,451070
-41,Oregon,All,10-19,508250
-41,Oregon,All,20-29,561913
-41,Oregon,All,30-39,599991
-41,Oregon,All,40-49,546977
-41,Oregon,All,50-59,512144
-41,Oregon,All,60-69,535553
-41,Oregon,All,70-79,346518
-41,Oregon,All,80+,166958
-41,Oregon,All,All,4229374
-41,Oregon,Female,0-9,218695
-41,Oregon,Female,10-19,247601
-41,Oregon,Female,20-29,274464
-41,Oregon,Female,30-39,293450
-41,Oregon,Female,40-49,266897
-41,Oregon,Female,50-59,252875
-41,Oregon,Female,60-69,280349
-41,Oregon,Female,70-79,183882
-41,Oregon,Female,80+,97820
-41,Oregon,Female,All,2116033
-41,Oregon,Male,0-9,232375
-41,Oregon,Male,10-19,260649
-41,Oregon,Male,20-29,287449
-41,Oregon,Male,30-39,306541
-41,Oregon,Male,40-49,280080
-41,Oregon,Male,50-59,259269
-41,Oregon,Male,60-69,255204
-41,Oregon,Male,70-79,162636
-41,Oregon,Male,80+,69138
-41,Oregon,Male,All,2113341
-42,Pennsylvania,All,0-9,1414507
-42,Pennsylvania,All,10-19,1618552
-42,Pennsylvania,All,20-29,1664312
-42,Pennsylvania,All,30-39,1673037
-42,Pennsylvania,All,40-49,1527736
-42,Pennsylvania,All,50-59,1740453
-42,Pennsylvania,All,60-69,1701799
-42,Pennsylvania,All,70-79,1042930
-42,Pennsylvania,All,80+,605882
-42,Pennsylvania,All,All,12989208
-42,Pennsylvania,Female,0-9,691432
-42,Pennsylvania,Female,10-19,790196
-42,Pennsylvania,Female,20-29,815884
-42,Pennsylvania,Female,30-39,825023
-42,Pennsylvania,Female,40-49,756101
-42,Pennsylvania,Female,50-59,873218
-42,Pennsylvania,Female,60-69,877529
-42,Pennsylvania,Female,70-79,567482
-42,Pennsylvania,Female,80+,381577
-42,Pennsylvania,Female,All,6578442
-42,Pennsylvania,Male,0-9,723075
-42,Pennsylvania,Male,10-19,828356
-42,Pennsylvania,Male,20-29,848428
-42,Pennsylvania,Male,30-39,848014
-42,Pennsylvania,Male,40-49,771635
-42,Pennsylvania,Male,50-59,867235
-42,Pennsylvania,Male,60-69,824270
-42,Pennsylvania,Male,70-79,475448
-42,Pennsylvania,Male,80+,224305
-42,Pennsylvania,Male,All,6410766
-44,Rhode Island,All,0-9,110241
-44,Rhode Island,All,10-19,134426
-44,Rhode Island,All,20-29,153702
-44,Rhode Island,All,30-39,147093
-44,Rhode Island,All,40-49,126621
-44,Rhode Island,All,50-59,148336
-44,Rhode Island,All,60-69,141128
-44,Rhode Island,All,70-79,84902
-44,Rhode Island,All,80+,47801
-44,Rhode Island,All,All,1094250
-44,Rhode Island,Female,0-9,54344
-44,Rhode Island,Female,10-19,66057
-44,Rhode Island,Female,20-29,75425
-44,Rhode Island,Female,30-39,72340
-44,Rhode Island,Female,40-49,62843
-44,Rhode Island,Female,50-59,75137
-44,Rhode Island,Female,60-69,73676
-44,Rhode Island,Female,70-79,46375
-44,Rhode Island,Female,80+,30832
-44,Rhode Island,Female,All,557029
-44,Rhode Island,Male,0-9,55897
-44,Rhode Island,Male,10-19,68369
-44,Rhode Island,Male,20-29,78277
-44,Rhode Island,Male,30-39,74753
-44,Rhode Island,Male,40-49,63778
-44,Rhode Island,Male,50-59,73199
-44,Rhode Island,Male,60-69,67452
-44,Rhode Island,Male,70-79,38527
-44,Rhode Island,Male,80+,16969
-44,Rhode Island,Male,All,537221
-45,South Carolina,All,0-9,587537
-45,South Carolina,All,10-19,665055
-45,South Carolina,All,20-29,668852
-45,South Carolina,All,30-39,652529
-45,South Carolina,All,40-49,621087
-45,South Carolina,All,50-59,661438
-45,South Carolina,All,60-69,659021
-45,South Carolina,All,70-79,433222
-45,South Carolina,All,80+,194009
-45,South Carolina,All,All,5142750
-45,South Carolina,Female,0-9,288623
-45,South Carolina,Female,10-19,322694
-45,South Carolina,Female,20-29,329874
-45,South Carolina,Female,30-39,333745
-45,South Carolina,Female,40-49,314434
-45,South Carolina,Female,50-59,340524
-45,South Carolina,Female,60-69,351423
-45,South Carolina,Female,70-79,235212
-45,South Carolina,Female,80+,116202
-45,South Carolina,Female,All,2632731
-45,South Carolina,Male,0-9,298914
-45,South Carolina,Male,10-19,342361
-45,South Carolina,Male,20-29,338978
-45,South Carolina,Male,30-39,318784
-45,South Carolina,Male,40-49,306653
-45,South Carolina,Male,50-59,320914
-45,South Carolina,Male,60-69,307598
-45,South Carolina,Male,70-79,198010
-45,South Carolina,Male,80+,77807
-45,South Carolina,Male,All,2510019
-46,South Dakota,All,0-9,119122
-46,South Dakota,All,10-19,121809
-46,South Dakota,All,20-29,117036
-46,South Dakota,All,30-39,116196
-46,South Dakota,All,40-49,97795
-46,South Dakota,All,50-59,104265
-46,South Dakota,All,60-69,112141
-46,South Dakota,All,70-79,64699
-46,South Dakota,All,80+,37279
-46,South Dakota,All,All,890342
-46,South Dakota,Female,0-9,58526
-46,South Dakota,Female,10-19,58965
-46,South Dakota,Female,20-29,55733
-46,South Dakota,Female,30-39,54730
-46,South Dakota,Female,40-49,47744
-46,South Dakota,Female,50-59,51309
-46,South Dakota,Female,60-69,54706
-46,South Dakota,Female,70-79,33762
-46,South Dakota,Female,80+,23196
-46,South Dakota,Female,All,438671
-46,South Dakota,Male,0-9,60596
-46,South Dakota,Male,10-19,62844
-46,South Dakota,Male,20-29,61303
-46,South Dakota,Male,30-39,61466
-46,South Dakota,Male,40-49,50051
-46,South Dakota,Male,50-59,52956
-46,South Dakota,Male,60-69,57435
-46,South Dakota,Male,70-79,30937
-46,South Dakota,Male,80+,14083
-46,South Dakota,Male,All,451671
-47,Tennessee,All,0-9,817684
-47,Tennessee,All,10-19,886386
-47,Tennessee,All,20-29,944806
-47,Tennessee,All,30-39,909603
-47,Tennessee,All,40-49,860169
-47,Tennessee,All,50-59,902030
-47,Tennessee,All,60-69,831478
-47,Tennessee,All,70-79,524126
-47,Tennessee,All,80+,247490
-47,Tennessee,All,All,6923772
-47,Tennessee,Female,0-9,399555
-47,Tennessee,Female,10-19,432587
-47,Tennessee,Female,20-29,469750
-47,Tennessee,Female,30-39,457519
-47,Tennessee,Female,40-49,431101
-47,Tennessee,Female,50-59,459983
-47,Tennessee,Female,60-69,433635
-47,Tennessee,Female,70-79,285180
-47,Tennessee,Female,80+,153483
-47,Tennessee,Female,All,3522793
-47,Tennessee,Male,0-9,418129
-47,Tennessee,Male,10-19,453799
-47,Tennessee,Male,20-29,475056
-47,Tennessee,Male,30-39,452084
-47,Tennessee,Male,40-49,429068
-47,Tennessee,Male,50-59,442047
-47,Tennessee,Male,60-69,397843
-47,Tennessee,Male,70-79,238946
-47,Tennessee,Male,80+,94007
-47,Tennessee,Male,All,3400979
-48,Texas,All,0-9,3951159
-48,Texas,All,10-19,4302184
-48,Texas,All,20-29,4186118
-48,Texas,All,30-39,4186617
-48,Texas,All,40-49,3824893
-48,Texas,All,50-59,3442512
-48,Texas,All,60-69,2874003
-48,Texas,All,70-79,1661735
-48,Texas,All,80+,814121
-48,Texas,All,All,29243342
-48,Texas,Female,0-9,1931103
-48,Texas,Female,10-19,2101070
-48,Texas,Female,20-29,2038326
-48,Texas,Female,30-39,2059819
-48,Texas,Female,40-49,1884039
-48,Texas,Female,50-59,1719785
-48,Texas,Female,60-69,1483427
-48,Texas,Female,70-79,904042
-48,Texas,Female,80+,497093
-48,Texas,Female,All,14618704
-48,Texas,Male,0-9,2020056
-48,Texas,Male,10-19,2201114
-48,Texas,Male,20-29,2147792
-48,Texas,Male,30-39,2126798
-48,Texas,Male,40-49,1940854
-48,Texas,Male,50-59,1722727
-48,Texas,Male,60-69,1390576
-48,Texas,Male,70-79,757693
-48,Texas,Male,80+,317028
-48,Texas,Male,All,14624638
-49,Utah,All,0-9,501180
-49,Utah,All,10-19,541186
-49,Utah,All,20-29,532458
-49,Utah,All,30-39,462493
-49,Utah,All,40-49,405226
-49,Utah,All,50-59,314550
-49,Utah,All,60-69,280357
-49,Utah,All,70-79,165204
-49,Utah,All,80+,81155
-49,Utah,All,All,3283809
-49,Utah,Female,0-9,243318
-49,Utah,Female,10-19,264618
-49,Utah,Female,20-29,257830
-49,Utah,Female,30-39,224721
-49,Utah,Female,40-49,197207
-49,Utah,Female,50-59,155536
-49,Utah,Female,60-69,141443
-49,Utah,Female,70-79,87480
-49,Utah,Female,80+,46447
-49,Utah,Female,All,1618600
-49,Utah,Male,0-9,257862
-49,Utah,Male,10-19,276568
-49,Utah,Male,20-29,274628
-49,Utah,Male,30-39,237772
-49,Utah,Male,40-49,208019
-49,Utah,Male,50-59,159014
-49,Utah,Male,60-69,138914
-49,Utah,Male,70-79,77724
-49,Utah,Male,80+,34708
-49,Utah,Male,All,1665209
-50,Vermont,All,0-9,60286
-50,Vermont,All,10-19,77696
-50,Vermont,All,20-29,84981
-50,Vermont,All,30-39,77123
-50,Vermont,All,40-49,73843
-50,Vermont,All,50-59,88570
-50,Vermont,All,60-69,94856
-50,Vermont,All,70-79,57875
-50,Vermont,All,80+,28586
-50,Vermont,All,All,643816
-50,Vermont,Female,0-9,28780
-50,Vermont,Female,10-19,37596
-50,Vermont,Female,20-29,41372
-50,Vermont,Female,30-39,38504
-50,Vermont,Female,40-49,36902
-50,Vermont,Female,50-59,44165
-50,Vermont,Female,60-69,48985
-50,Vermont,Female,70-79,30115
-50,Vermont,Female,80+,17058
-50,Vermont,Female,All,323477
-50,Vermont,Male,0-9,31506
-50,Vermont,Male,10-19,40100
-50,Vermont,Male,20-29,43609
-50,Vermont,Male,30-39,38619
-50,Vermont,Male,40-49,36941
-50,Vermont,Male,50-59,44405
-50,Vermont,Male,60-69,45871
-50,Vermont,Male,70-79,27760
-50,Vermont,Male,80+,11528
-50,Vermont,Male,All,320339
-51,Virginia,All,0-9,1006113
-51,Virginia,All,10-19,1119237
-51,Virginia,All,20-29,1159916
-51,Virginia,All,30-39,1178722
-51,Virginia,All,40-49,1098415
-51,Virginia,All,50-59,1137643
-51,Virginia,All,60-69,997136
-51,Virginia,All,70-79,617232
-51,Virginia,All,80+,310097
-51,Virginia,All,All,8624511
-51,Virginia,Female,0-9,488381
-51,Virginia,Female,10-19,547346
-51,Virginia,Female,20-29,565753
-51,Virginia,Female,30-39,585635
-51,Virginia,Female,40-49,546926
-51,Virginia,Female,50-59,573585
-51,Virginia,Female,60-69,519477
-51,Virginia,Female,70-79,338300
-51,Virginia,Female,80+,190333
-51,Virginia,Female,All,4355736
-51,Virginia,Male,0-9,517732
-51,Virginia,Male,10-19,571891
-51,Virginia,Male,20-29,594163
-51,Virginia,Male,30-39,593087
-51,Virginia,Male,40-49,551489
-51,Virginia,Male,50-59,564058
-51,Virginia,Male,60-69,477659
-51,Virginia,Male,70-79,278932
-51,Virginia,Male,80+,119764
-51,Virginia,Male,All,4268775
-53,Washington,All,0-9,906054
-53,Washington,All,10-19,941540
-53,Washington,All,20-29,1064904
-53,Washington,All,30-39,1148357
-53,Washington,All,40-49,976537
-53,Washington,All,50-59,937928
-53,Washington,All,60-69,898576
-53,Washington,All,70-79,547055
-53,Washington,All,80+,267598
-53,Washington,All,All,7688549
-53,Washington,Female,0-9,439648
-53,Washington,Female,10-19,460714
-53,Washington,Female,20-29,507018
-53,Washington,Female,30-39,552466
-53,Washington,Female,40-49,475993
-53,Washington,Female,50-59,463055
-53,Washington,Female,60-69,459409
-53,Washington,Female,70-79,292434
-53,Washington,Female,80+,159894
-53,Washington,Female,All,3810631
-53,Washington,Male,0-9,466406
-53,Washington,Male,10-19,480826
-53,Washington,Male,20-29,557886
-53,Washington,Male,30-39,595891
-53,Washington,Male,40-49,500544
-53,Washington,Male,50-59,474873
-53,Washington,Male,60-69,439167
-53,Washington,Male,70-79,254621
-53,Washington,Male,80+,107704
-53,Washington,Male,All,3877918
-54,West Virginia,All,0-9,188943
-54,West Virginia,All,10-19,218804
-54,West Virginia,All,20-29,220728
-54,West Virginia,All,30-39,207879
-54,West Virginia,All,40-49,223092
-54,West Virginia,All,50-59,237106
-54,West Virginia,All,60-69,251285
-54,West Virginia,All,70-79,163980
-54,West Virginia,All,80+,81150
-54,West Virginia,All,All,1792967
-54,West Virginia,Female,0-9,92431
-54,West Virginia,Female,10-19,105391
-54,West Virginia,Female,20-29,105500
-54,West Virginia,Female,30-39,100598
-54,West Virginia,Female,40-49,110463
-54,West Virginia,Female,50-59,118113
-54,West Virginia,Female,60-69,128889
-54,West Virginia,Female,70-79,86768
-54,West Virginia,Female,80+,50042
-54,West Virginia,Female,All,898195
-54,West Virginia,Male,0-9,96512
-54,West Virginia,Male,10-19,113413
-54,West Virginia,Male,20-29,115228
-54,West Virginia,Male,30-39,107281
-54,West Virginia,Male,40-49,112629
-54,West Virginia,Male,50-59,118993
-54,West Virginia,Male,60-69,122396
-54,West Virginia,Male,70-79,77212
-54,West Virginia,Male,80+,31108
-54,West Virginia,Male,All,894772
-55,Wisconsin,All,0-9,667363
-55,Wisconsin,All,10-19,762645
-55,Wisconsin,All,20-29,774462
-55,Wisconsin,All,30-39,745409
-55,Wisconsin,All,40-49,690582
-55,Wisconsin,All,50-59,791881
-55,Wisconsin,All,60-69,756118
-55,Wisconsin,All,70-79,446795
-55,Wisconsin,All,80+,246873
-55,Wisconsin,All,All,5882128
-55,Wisconsin,Female,0-9,325677
-55,Wisconsin,Female,10-19,371135
-55,Wisconsin,Female,20-29,377430
-55,Wisconsin,Female,30-39,363293
-55,Wisconsin,Female,40-49,338237
-55,Wisconsin,Female,50-59,392571
-55,Wisconsin,Female,60-69,380344
-55,Wisconsin,Female,70-79,233634
-55,Wisconsin,Female,80+,151045
-55,Wisconsin,Female,All,2933366
-55,Wisconsin,Male,0-9,341686
-55,Wisconsin,Male,10-19,391510
-55,Wisconsin,Male,20-29,397032
-55,Wisconsin,Male,30-39,382116
-55,Wisconsin,Male,40-49,352345
-55,Wisconsin,Male,50-59,399310
-55,Wisconsin,Male,60-69,375774
-55,Wisconsin,Male,70-79,213161
-55,Wisconsin,Male,80+,95828
-55,Wisconsin,Male,All,2948762
-56,Wyoming,All,0-9,69778
-56,Wyoming,All,10-19,77958
-56,Wyoming,All,20-29,74499
-56,Wyoming,All,30-39,77825
-56,Wyoming,All,40-49,68551
-56,Wyoming,All,50-59,69278
-56,Wyoming,All,60-69,75194
-56,Wyoming,All,70-79,44545
-56,Wyoming,All,80+,20301
-56,Wyoming,All,All,577929
-56,Wyoming,Female,0-9,33587
-56,Wyoming,Female,10-19,37867
-56,Wyoming,Female,20-29,35354
-56,Wyoming,Female,30-39,37465
-56,Wyoming,Female,40-49,32796
-56,Wyoming,Female,50-59,33659
-56,Wyoming,Female,60-69,37503
-56,Wyoming,Female,70-79,22219
-56,Wyoming,Female,80+,11644
-56,Wyoming,Female,All,282094
-56,Wyoming,Male,0-9,36191
-56,Wyoming,Male,10-19,40091
-56,Wyoming,Male,20-29,39145
-56,Wyoming,Male,30-39,40360
-56,Wyoming,Male,40-49,35755
-56,Wyoming,Male,50-59,35619
-56,Wyoming,Male,60-69,37691
-56,Wyoming,Male,70-79,22326
-56,Wyoming,Male,80+,8657
-56,Wyoming,Male,All,295835
-72,Puerto Rico,All,0-9,264105
-72,Puerto Rico,All,10-19,386511
-72,Puerto Rico,All,20-29,443711
-72,Puerto Rico,All,30-39,385061
-72,Puerto Rico,All,40-49,413076
-72,Puerto Rico,All,50-59,435411
-72,Puerto Rico,All,60-69,419251
-72,Puerto Rico,All,70-79,329213
-72,Puerto Rico,All,80+,196043
-72,Puerto Rico,All,All,3272382
-72,Puerto Rico,Female,0-9,128866
-72,Puerto Rico,Female,10-19,189611
-72,Puerto Rico,Female,20-29,219898
-72,Puerto Rico,Female,30-39,200187
-72,Puerto Rico,Female,40-49,217671
-72,Puerto Rico,Female,50-59,233698
-72,Puerto Rico,Female,60-69,227103
-72,Puerto Rico,Female,70-79,186975
-72,Puerto Rico,Female,80+,116705
-72,Puerto Rico,Female,All,1720714
-72,Puerto Rico,Male,0-9,135239
-72,Puerto Rico,Male,10-19,196900
-72,Puerto Rico,Male,20-29,223813
-72,Puerto Rico,Male,30-39,184874
-72,Puerto Rico,Male,40-49,195405
-72,Puerto Rico,Male,50-59,201713
-72,Puerto Rico,Male,60-69,192148
-72,Puerto Rico,Male,70-79,142238
-72,Puerto Rico,Male,80+,79338
-72,Puerto Rico,Male,All,1551668
+01,Alabama,All,0-9,599963
+01,Alabama,All,10-19,676138
+01,Alabama,All,20-29,659278
+01,Alabama,All,30-39,648434
+01,Alabama,All,40-49,618389
+01,Alabama,All,50-59,640154
+01,Alabama,All,60-69,641478
+01,Alabama,All,70-79,409473
+01,Alabama,All,80+,193461
+01,Alabama,All,All,5086768
+01,Alabama,Female,0-9,292379
+01,Alabama,Female,10-19,334134
+01,Alabama,Female,20-29,329069
+01,Alabama,Female,30-39,333630
+01,Alabama,Female,40-49,317136
+01,Alabama,Female,50-59,327064
+01,Alabama,Female,60-69,338973
+01,Alabama,Female,70-79,225591
+01,Alabama,Female,80+,118860
+01,Alabama,Female,All,2616836
+01,Alabama,Male,0-9,307584
+01,Alabama,Male,10-19,342004
+01,Alabama,Male,20-29,330209
+01,Alabama,Male,30-39,314804
+01,Alabama,Male,40-49,301253
+01,Alabama,Male,50-59,313090
+01,Alabama,Male,60-69,302505
+01,Alabama,Male,70-79,183882
+01,Alabama,Male,80+,74601
+01,Alabama,Male,All,2469932
+02,Alaska,All,0-9,96955
+02,Alaska,All,10-19,97692
+02,Alaska,All,20-29,105485
+02,Alaska,All,30-39,114529
+02,Alaska,All,40-49,89958
+02,Alaska,All,50-59,83070
+02,Alaska,All,60-69,85765
+02,Alaska,All,70-79,46099
+02,Alaska,All,80+,16153
+02,Alaska,All,All,735706
+02,Alaska,Female,0-9,47154
+02,Alaska,Female,10-19,46635
+02,Alaska,Female,20-29,46354
+02,Alaska,Female,30-39,53987
+02,Alaska,Female,40-49,42727
+02,Alaska,Female,50-59,39363
+02,Alaska,Female,60-69,41294
+02,Alaska,Female,70-79,23172
+02,Alaska,Female,80+,8640
+02,Alaska,Female,All,349326
+02,Alaska,Male,0-9,49801
+02,Alaska,Male,10-19,51057
+02,Alaska,Male,20-29,59131
+02,Alaska,Male,30-39,60542
+02,Alaska,Male,40-49,47231
+02,Alaska,Male,50-59,43707
+02,Alaska,Male,60-69,44471
+02,Alaska,Male,70-79,22927
+02,Alaska,Male,80+,7513
+02,Alaska,Male,All,386380
+04,Arizona,All,0-9,833597
+04,Arizona,All,10-19,957633
+04,Arizona,All,20-29,1007601
+04,Arizona,All,30-39,984707
+04,Arizona,All,40-49,883232
+04,Arizona,All,50-59,858822
+04,Arizona,All,60-69,878910
+04,Arizona,All,70-79,658139
+04,Arizona,All,80+,316197
+04,Arizona,All,All,7378838
+04,Arizona,Female,0-9,406337
+04,Arizona,Female,10-19,469107
+04,Arizona,Female,20-29,485771
+04,Arizona,Female,30-39,476990
+04,Arizona,Female,40-49,436181
+04,Arizona,Female,50-59,433838
+04,Arizona,Female,60-69,461401
+04,Arizona,Female,70-79,347634
+04,Arizona,Female,80+,178106
+04,Arizona,Female,All,3695365
+04,Arizona,Male,0-9,427260
+04,Arizona,Male,10-19,488526
+04,Arizona,Male,20-29,521830
+04,Arizona,Male,30-39,507717
+04,Arizona,Male,40-49,447051
+04,Arizona,Male,50-59,424984
+04,Arizona,Male,60-69,417509
+04,Arizona,Male,70-79,310505
+04,Arizona,Male,80+,138091
+04,Arizona,Male,All,3683473
+05,Arkansas,All,0-9,376366
+05,Arkansas,All,10-19,410338
+05,Arkansas,All,20-29,398068
+05,Arkansas,All,30-39,394819
+05,Arkansas,All,40-49,372611
+05,Arkansas,All,50-59,366254
+05,Arkansas,All,60-69,367790
+05,Arkansas,All,70-79,244638
+05,Arkansas,All,80+,118507
+05,Arkansas,All,All,3049391
+05,Arkansas,Female,0-9,183700
+05,Arkansas,Female,10-19,199146
+05,Arkansas,Female,20-29,195874
+05,Arkansas,Female,30-39,198420
+05,Arkansas,Female,40-49,186655
+05,Arkansas,Female,50-59,184220
+05,Arkansas,Female,60-69,192295
+05,Arkansas,Female,70-79,132701
+05,Arkansas,Female,80+,71316
+05,Arkansas,Female,All,1544327
+05,Arkansas,Male,0-9,192666
+05,Arkansas,Male,10-19,211192
+05,Arkansas,Male,20-29,202194
+05,Arkansas,Male,30-39,196399
+05,Arkansas,Male,40-49,185956
+05,Arkansas,Male,50-59,182034
+05,Arkansas,Male,60-69,175495
+05,Arkansas,Male,70-79,111937
+05,Arkansas,Male,80+,47191
+05,Arkansas,Male,All,1505064
+06,California,All,0-9,4493959
+06,California,All,10-19,5172488
+06,California,All,20-29,5342469
+06,California,All,30-39,5811550
+06,California,All,40-49,5091702
+06,California,All,50-59,4885517
+06,California,All,60-69,4334278
+06,California,All,70-79,2706043
+06,California,All,80+,1449371
+06,California,All,All,39287377
+06,California,Female,0-9,2194041
+06,California,Female,10-19,2523813
+06,California,Female,20-29,2607293
+06,California,Female,30-39,2822932
+06,California,Female,40-49,2515891
+06,California,Female,50-59,2441030
+06,California,Female,60-69,2230591
+06,California,Female,70-79,1464872
+06,California,Female,80+,863563
+06,California,Female,All,19664026
+06,California,Male,0-9,2299918
+06,California,Male,10-19,2648675
+06,California,Male,20-29,2735176
+06,California,Male,30-39,2988618
+06,California,Male,40-49,2575811
+06,California,Male,50-59,2444487
+06,California,Male,60-69,2103687
+06,California,Male,70-79,1241171
+06,California,Male,80+,585808
+06,California,Male,All,19623351
+08,Colorado,All,0-9,641755
+08,Colorado,All,10-19,741301
+08,Colorado,All,20-29,830584
+08,Colorado,All,30-39,918055
+08,Colorado,All,40-49,772575
+08,Colorado,All,50-59,692383
+08,Colorado,All,60-69,663880
+08,Colorado,All,70-79,413093
+08,Colorado,All,80+,188563
+08,Colorado,All,All,5862189
+08,Colorado,Female,0-9,314566
+08,Colorado,Female,10-19,358235
+08,Colorado,Female,20-29,397819
+08,Colorado,Female,30-39,438465
+08,Colorado,Female,40-49,372259
+08,Colorado,Female,50-59,341752
+08,Colorado,Female,60-69,341456
+08,Colorado,Female,70-79,217582
+08,Colorado,Female,80+,110655
+08,Colorado,Female,All,2892789
+08,Colorado,Male,0-9,327189
+08,Colorado,Male,10-19,383066
+08,Colorado,Male,20-29,432765
+08,Colorado,Male,30-39,479590
+08,Colorado,Male,40-49,400316
+08,Colorado,Male,50-59,350631
+08,Colorado,Male,60-69,322424
+08,Colorado,Male,70-79,195511
+08,Colorado,Male,80+,77908
+08,Colorado,Male,All,2969400
+09,Connecticut,All,0-9,376855
+09,Connecticut,All,10-19,454682
+09,Connecticut,All,20-29,462684
+09,Connecticut,All,30-39,464465
+09,Connecticut,All,40-49,441000
+09,Connecticut,All,50-59,496031
+09,Connecticut,All,60-69,472483
+09,Connecticut,All,70-79,290836
+09,Connecticut,All,80+,165472
+09,Connecticut,All,All,3624508
+09,Connecticut,Female,0-9,184957
+09,Connecticut,Female,10-19,222423
+09,Connecticut,Female,20-29,225914
+09,Connecticut,Female,30-39,231819
+09,Connecticut,Female,40-49,223596
+09,Connecticut,Female,50-59,254485
+09,Connecticut,Female,60-69,244496
+09,Connecticut,Female,70-79,157580
+09,Connecticut,Female,80+,100969
+09,Connecticut,Female,All,1846239
+09,Connecticut,Male,0-9,191898
+09,Connecticut,Male,10-19,232259
+09,Connecticut,Male,20-29,236770
+09,Connecticut,Male,30-39,232646
+09,Connecticut,Male,40-49,217404
+09,Connecticut,Male,50-59,241546
+09,Connecticut,Male,60-69,227987
+09,Connecticut,Male,70-79,133256
+09,Connecticut,Male,80+,64503
+09,Connecticut,Male,All,1778269
+10,Delaware,All,0-9,112606
+10,Delaware,All,10-19,125825
+10,Delaware,All,20-29,120997
+10,Delaware,All,30-39,130021
+10,Delaware,All,40-49,117223
+10,Delaware,All,50-59,128332
+10,Delaware,All,60-69,147189
+10,Delaware,All,70-79,94661
+10,Delaware,All,80+,44337
+10,Delaware,All,All,1021191
+10,Delaware,Female,0-9,55465
+10,Delaware,Female,10-19,62285
+10,Delaware,Female,20-29,60207
+10,Delaware,Female,30-39,64925
+10,Delaware,Female,40-49,61248
+10,Delaware,Female,50-59,66241
+10,Delaware,Female,60-69,79989
+10,Delaware,Female,70-79,50500
+10,Delaware,Female,80+,25679
+10,Delaware,Female,All,526539
+10,Delaware,Male,0-9,57141
+10,Delaware,Male,10-19,63540
+10,Delaware,Male,20-29,60790
+10,Delaware,Male,30-39,65096
+10,Delaware,Male,40-49,55975
+10,Delaware,Male,50-59,62091
+10,Delaware,Male,60-69,67200
+10,Delaware,Male,70-79,44161
+10,Delaware,Male,80+,18658
+10,Delaware,Male,All,494652
+11,District of Columbia,All,0-9,77236
+11,District of Columbia,All,10-19,69439
+11,District of Columbia,All,20-29,118731
+11,District of Columbia,All,30-39,139658
+11,District of Columbia,All,40-49,88760
+11,District of Columbia,All,50-59,67765
+11,District of Columbia,All,60-69,60043
+11,District of Columbia,All,70-79,39653
+11,District of Columbia,All,80+,20009
+11,District of Columbia,All,All,681294
+11,District of Columbia,Female,0-9,39222
+11,District of Columbia,Female,10-19,34374
+11,District of Columbia,Female,20-29,65662
+11,District of Columbia,Female,30-39,71925
+11,District of Columbia,Female,40-49,44793
+11,District of Columbia,Female,50-59,33446
+11,District of Columbia,Female,60-69,32243
+11,District of Columbia,Female,70-79,23330
+11,District of Columbia,Female,80+,12477
+11,District of Columbia,Female,All,357472
+11,District of Columbia,Male,0-9,38014
+11,District of Columbia,Male,10-19,35065
+11,District of Columbia,Male,20-29,53069
+11,District of Columbia,Male,30-39,67733
+11,District of Columbia,Male,40-49,43967
+11,District of Columbia,Male,50-59,34319
+11,District of Columbia,Male,60-69,27800
+11,District of Columbia,Male,70-79,16323
+11,District of Columbia,Male,80+,7532
+11,District of Columbia,Male,All,323822
+12,Florida,All,0-9,2310994
+12,Florida,All,10-19,2578036
+12,Florida,All,20-29,2660245
+12,Florida,All,30-39,2907893
+12,Florida,All,40-49,2746777
+12,Florida,All,50-59,2898282
+12,Florida,All,60-69,2932101
+12,Florida,All,70-79,2195548
+12,Florida,All,80+,1186201
+12,Florida,All,All,22416077
+12,Florida,Female,0-9,1130966
+12,Florida,Female,10-19,1257033
+12,Florida,Female,20-29,1311460
+12,Florida,Female,30-39,1441694
+12,Florida,Female,40-49,1375652
+12,Florida,Female,50-59,1478882
+12,Florida,Female,60-69,1541472
+12,Florida,Female,70-79,1178655
+12,Florida,Female,80+,684183
+12,Florida,Female,All,11399997
+12,Florida,Male,0-9,1180028
+12,Florida,Male,10-19,1321003
+12,Florida,Male,20-29,1348785
+12,Florida,Male,30-39,1466199
+12,Florida,Male,40-49,1371125
+12,Florida,Male,50-59,1419400
+12,Florida,Male,60-69,1390629
+12,Florida,Male,70-79,1016893
+12,Florida,Male,80+,502018
+12,Florida,Male,All,11016080
+13,Georgia,All,0-9,1324712
+13,Georgia,All,10-19,1519887
+13,Georgia,All,20-29,1476615
+13,Georgia,All,30-39,1506347
+13,Georgia,All,40-49,1419370
+13,Georgia,All,50-59,1395346
+13,Georgia,All,60-69,1212845
+13,Georgia,All,70-79,751298
+13,Georgia,All,80+,333987
+13,Georgia,All,All,10940407
+13,Georgia,Female,0-9,647939
+13,Georgia,Female,10-19,742202
+13,Georgia,Female,20-29,735070
+13,Georgia,Female,30-39,771012
+13,Georgia,Female,40-49,732184
+13,Georgia,Female,50-59,716722
+13,Georgia,Female,60-69,638538
+13,Georgia,Female,70-79,416186
+13,Georgia,Female,80+,204130
+13,Georgia,Female,All,5603983
+13,Georgia,Male,0-9,676773
+13,Georgia,Male,10-19,777685
+13,Georgia,Male,20-29,741545
+13,Georgia,Male,30-39,735335
+13,Georgia,Male,40-49,687186
+13,Georgia,Male,50-59,678624
+13,Georgia,Male,60-69,574307
+13,Georgia,Male,70-79,335112
+13,Georgia,Male,80+,129857
+13,Georgia,Male,All,5336424
+15,Hawaii,All,0-9,162879
+15,Hawaii,All,10-19,165082
+15,Hawaii,All,20-29,179717
+15,Hawaii,All,30-39,197427
+15,Hawaii,All,40-49,178321
+15,Hawaii,All,50-59,173897
+15,Hawaii,All,60-69,181175
+15,Hawaii,All,70-79,132995
+15,Hawaii,All,80+,73742
+15,Hawaii,All,All,1445235
+15,Hawaii,Female,0-9,78702
+15,Hawaii,Female,10-19,79664
+15,Hawaii,Female,20-29,82932
+15,Hawaii,Female,30-39,95782
+15,Hawaii,Female,40-49,89059
+15,Hawaii,Female,50-59,86719
+15,Hawaii,Female,60-69,93251
+15,Hawaii,Female,70-79,68284
+15,Hawaii,Female,80+,44843
+15,Hawaii,Female,All,719236
+15,Hawaii,Male,0-9,84177
+15,Hawaii,Male,10-19,85418
+15,Hawaii,Male,20-29,96785
+15,Hawaii,Male,30-39,101645
+15,Hawaii,Male,40-49,89262
+15,Hawaii,Male,50-59,87178
+15,Hawaii,Male,60-69,87924
+15,Hawaii,Male,70-79,64711
+15,Hawaii,Male,80+,28899
+15,Hawaii,Male,All,725999
+16,Idaho,All,0-9,241002
+16,Idaho,All,10-19,286632
+16,Idaho,All,20-29,252801
+16,Idaho,All,30-39,254342
+16,Idaho,All,40-49,237155
+16,Idaho,All,50-59,215659
+16,Idaho,All,60-69,225673
+16,Idaho,All,70-79,152171
+16,Idaho,All,80+,68827
+16,Idaho,All,All,1934262
+16,Idaho,Female,0-9,116800
+16,Idaho,Female,10-19,143628
+16,Idaho,Female,20-29,120902
+16,Idaho,Female,30-39,125148
+16,Idaho,Female,40-49,115989
+16,Idaho,Female,50-59,107484
+16,Idaho,Female,60-69,115058
+16,Idaho,Female,70-79,78045
+16,Idaho,Female,80+,38046
+16,Idaho,Female,All,961100
+16,Idaho,Male,0-9,124202
+16,Idaho,Male,10-19,143004
+16,Idaho,Male,20-29,131899
+16,Idaho,Male,30-39,129194
+16,Idaho,Male,40-49,121166
+16,Idaho,Male,50-59,108175
+16,Idaho,Male,60-69,110615
+16,Idaho,Male,70-79,74126
+16,Idaho,Male,80+,30781
+16,Idaho,Male,All,973162
+17,Illinois,All,0-9,1455858
+17,Illinois,All,10-19,1646352
+17,Illinois,All,20-29,1676795
+17,Illinois,All,30-39,1735119
+17,Illinois,All,40-49,1604245
+17,Illinois,All,50-59,1606323
+17,Illinois,All,60-69,1520658
+17,Illinois,All,70-79,944431
+17,Illinois,All,80+,505017
+17,Illinois,All,All,12694798
+17,Illinois,Female,0-9,711785
+17,Illinois,Female,10-19,804003
+17,Illinois,Female,20-29,829528
+17,Illinois,Female,30-39,862457
+17,Illinois,Female,40-49,796593
+17,Illinois,Female,50-59,804013
+17,Illinois,Female,60-69,790102
+17,Illinois,Female,70-79,514157
+17,Illinois,Female,80+,309680
+17,Illinois,Female,All,6422318
+17,Illinois,Male,0-9,744073
+17,Illinois,Male,10-19,842349
+17,Illinois,Male,20-29,847267
+17,Illinois,Male,30-39,872662
+17,Illinois,Male,40-49,807652
+17,Illinois,Male,50-59,802310
+17,Illinois,Male,60-69,730556
+17,Illinois,Male,70-79,430274
+17,Illinois,Male,80+,195337
+17,Illinois,Male,All,6272480
+18,Indiana,All,0-9,848172
+18,Indiana,All,10-19,935358
+18,Indiana,All,20-29,919800
+18,Indiana,All,30-39,893365
+18,Indiana,All,40-49,830816
+18,Indiana,All,50-59,837595
+18,Indiana,All,60-69,818611
+18,Indiana,All,70-79,512789
+18,Indiana,All,80+,254567
+18,Indiana,All,All,6851073
+18,Indiana,Female,0-9,412704
+18,Indiana,Female,10-19,455458
+18,Indiana,Female,20-29,450923
+18,Indiana,Female,30-39,445119
+18,Indiana,Female,40-49,412527
+18,Indiana,Female,50-59,419646
+18,Indiana,Female,60-69,422517
+18,Indiana,Female,70-79,277946
+18,Indiana,Female,80+,155967
+18,Indiana,Female,All,3452807
+18,Indiana,Male,0-9,435468
+18,Indiana,Male,10-19,479900
+18,Indiana,Male,20-29,468877
+18,Indiana,Male,30-39,448246
+18,Indiana,Male,40-49,418289
+18,Indiana,Male,50-59,417949
+18,Indiana,Male,60-69,396094
+18,Indiana,Male,70-79,234843
+18,Indiana,Male,80+,98600
+18,Indiana,Male,All,3398266
+19,Iowa,All,0-9,390657
+19,Iowa,All,10-19,438339
+19,Iowa,All,20-29,427113
+19,Iowa,All,30-39,404890
+19,Iowa,All,40-49,379946
+19,Iowa,All,50-59,374045
+19,Iowa,All,60-69,398959
+19,Iowa,All,70-79,253370
+19,Iowa,All,80+,143188
+19,Iowa,All,All,3210507
+19,Iowa,Female,0-9,188913
+19,Iowa,Female,10-19,213537
+19,Iowa,Female,20-29,207046
+19,Iowa,Female,30-39,199431
+19,Iowa,Female,40-49,183508
+19,Iowa,Female,50-59,185637
+19,Iowa,Female,60-69,201207
+19,Iowa,Female,70-79,133716
+19,Iowa,Female,80+,87246
+19,Iowa,Female,All,1600241
+19,Iowa,Male,0-9,201744
+19,Iowa,Male,10-19,224802
+19,Iowa,Male,20-29,220067
+19,Iowa,Male,30-39,205459
+19,Iowa,Male,40-49,196438
+19,Iowa,Male,50-59,188408
+19,Iowa,Male,60-69,197752
+19,Iowa,Male,70-79,119654
+19,Iowa,Male,80+,55942
+19,Iowa,Male,All,1610266
+20,Kansas,All,0-9,368545
+20,Kansas,All,10-19,416657
+20,Kansas,All,20-29,405397
+20,Kansas,All,30-39,386461
+20,Kansas,All,40-49,347307
+20,Kansas,All,50-59,335748
+20,Kansas,All,60-69,350733
+20,Kansas,All,70-79,219238
+20,Kansas,All,80+,117111
+20,Kansas,All,All,2947197
+20,Kansas,Female,0-9,179128
+20,Kansas,Female,10-19,202677
+20,Kansas,Female,20-29,192990
+20,Kansas,Female,30-39,189917
+20,Kansas,Female,40-49,169652
+20,Kansas,Female,50-59,166807
+20,Kansas,Female,60-69,178608
+20,Kansas,Female,70-79,117164
+20,Kansas,Female,80+,71708
+20,Kansas,Female,All,1468651
+20,Kansas,Male,0-9,189417
+20,Kansas,Male,10-19,213980
+20,Kansas,Male,20-29,212407
+20,Kansas,Male,30-39,196544
+20,Kansas,Male,40-49,177655
+20,Kansas,Male,50-59,168941
+20,Kansas,Male,60-69,172125
+20,Kansas,Male,70-79,102074
+20,Kansas,Male,80+,45403
+20,Kansas,Male,All,1478546
+21,Kentucky,All,0-9,549649
+21,Kentucky,All,10-19,588274
+21,Kentucky,All,20-29,592940
+21,Kentucky,All,30-39,588924
+21,Kentucky,All,40-49,555801
+21,Kentucky,All,50-59,574715
+21,Kentucky,All,60-69,563673
+21,Kentucky,All,70-79,357294
+21,Kentucky,All,80+,163554
+21,Kentucky,All,All,4534824
+21,Kentucky,Female,0-9,266591
+21,Kentucky,Female,10-19,288065
+21,Kentucky,Female,20-29,287548
+21,Kentucky,Female,30-39,291965
+21,Kentucky,Female,40-49,277910
+21,Kentucky,Female,50-59,288940
+21,Kentucky,Female,60-69,295081
+21,Kentucky,Female,70-79,191906
+21,Kentucky,Female,80+,100049
+21,Kentucky,Female,All,2288055
+21,Kentucky,Male,0-9,283058
+21,Kentucky,Male,10-19,300209
+21,Kentucky,Male,20-29,305392
+21,Kentucky,Male,30-39,296959
+21,Kentucky,Male,40-49,277891
+21,Kentucky,Male,50-59,285775
+21,Kentucky,Male,60-69,268592
+21,Kentucky,Male,70-79,165388
+21,Kentucky,Male,80+,63505
+21,Kentucky,Male,All,2246769
+22,Louisiana,All,0-9,580392
+22,Louisiana,All,10-19,617868
+22,Louisiana,All,20-29,601374
+22,Louisiana,All,30-39,630942
+22,Louisiana,All,40-49,562121
+22,Louisiana,All,50-59,548608
+22,Louisiana,All,60-69,557226
+22,Louisiana,All,70-79,352507
+22,Louisiana,All,80+,160923
+22,Louisiana,All,All,4611961
+22,Louisiana,Female,0-9,283373
+22,Louisiana,Female,10-19,301645
+22,Louisiana,Female,20-29,300603
+22,Louisiana,Female,30-39,321521
+22,Louisiana,Female,40-49,283761
+22,Louisiana,Female,50-59,280036
+22,Louisiana,Female,60-69,294640
+22,Louisiana,Female,70-79,191774
+22,Louisiana,Female,80+,98035
+22,Louisiana,Female,All,2355388
+22,Louisiana,Male,0-9,297019
+22,Louisiana,Male,10-19,316223
+22,Louisiana,Male,20-29,300771
+22,Louisiana,Male,30-39,309421
+22,Louisiana,Male,40-49,278360
+22,Louisiana,Male,50-59,268572
+22,Louisiana,Male,60-69,262586
+22,Louisiana,Male,70-79,160733
+22,Louisiana,Male,80+,62888
+22,Louisiana,Male,All,2256573
+23,Maine,All,0-9,132362
+23,Maine,All,10-19,151933
+23,Maine,All,20-29,156902
+23,Maine,All,30-39,173085
+23,Maine,All,40-49,162960
+23,Maine,All,50-59,188949
+23,Maine,All,60-69,212581
+23,Maine,All,70-79,141424
+23,Maine,All,80+,67621
+23,Maine,All,All,1387817
+23,Maine,Female,0-9,64886
+23,Maine,Female,10-19,72694
+23,Maine,Female,20-29,77099
+23,Maine,Female,30-39,86434
+23,Maine,Female,40-49,82362
+23,Maine,Female,50-59,96734
+23,Maine,Female,60-69,108942
+23,Maine,Female,70-79,74970
+23,Maine,Female,80+,39813
+23,Maine,Female,All,703934
+23,Maine,Male,0-9,67476
+23,Maine,Male,10-19,79239
+23,Maine,Male,20-29,79803
+23,Maine,Male,30-39,86651
+23,Maine,Male,40-49,80598
+23,Maine,Male,50-59,92215
+23,Maine,Male,60-69,103639
+23,Maine,Male,70-79,66454
+23,Maine,Male,80+,27808
+23,Maine,Male,All,683883
+24,Maryland,All,0-9,736121
+24,Maryland,All,10-19,795641
+24,Maryland,All,20-29,761740
+24,Maryland,All,30-39,861841
+24,Maryland,All,40-49,786302
+24,Maryland,All,50-59,818009
+24,Maryland,All,60-69,751283
+24,Maryland,All,70-79,459872
+24,Maryland,All,80+,235202
+24,Maryland,All,All,6206011
+24,Maryland,Female,0-9,360594
+24,Maryland,Female,10-19,388968
+24,Maryland,Female,20-29,379942
+24,Maryland,Female,30-39,436974
+24,Maryland,Female,40-49,401286
+24,Maryland,Female,50-59,422749
+24,Maryland,Female,60-69,397203
+24,Maryland,Female,70-79,253925
+24,Maryland,Female,80+,144494
+24,Maryland,Female,All,3186135
+24,Maryland,Male,0-9,375527
+24,Maryland,Male,10-19,406673
+24,Maryland,Male,20-29,381798
+24,Maryland,Male,30-39,424867
+24,Maryland,Male,40-49,385016
+24,Maryland,Male,50-59,395260
+24,Maryland,Male,60-69,354080
+24,Maryland,Male,70-79,205947
+24,Maryland,Male,80+,90708
+24,Maryland,Male,All,3019876
+25,Massachusetts,All,0-9,715221
+25,Massachusetts,All,10-19,858236
+25,Massachusetts,All,20-29,972359
+25,Massachusetts,All,30-39,977872
+25,Massachusetts,All,40-49,852956
+25,Massachusetts,All,50-59,932823
+25,Massachusetts,All,60-69,884997
+25,Massachusetts,All,70-79,553828
+25,Massachusetts,All,80+,295764
+25,Massachusetts,All,All,7044056
+25,Massachusetts,Female,0-9,347546
+25,Massachusetts,Female,10-19,424582
+25,Massachusetts,Female,20-29,487449
+25,Massachusetts,Female,30-39,489974
+25,Massachusetts,Female,40-49,430601
+25,Massachusetts,Female,50-59,476433
+25,Massachusetts,Female,60-69,458607
+25,Massachusetts,Female,70-79,303297
+25,Massachusetts,Female,80+,183236
+25,Massachusetts,Female,All,3601725
+25,Massachusetts,Male,0-9,367675
+25,Massachusetts,Male,10-19,433654
+25,Massachusetts,Male,20-29,484910
+25,Massachusetts,Male,30-39,487898
+25,Massachusetts,Male,40-49,422355
+25,Massachusetts,Male,50-59,456390
+25,Massachusetts,Male,60-69,426390
+25,Massachusetts,Male,70-79,250531
+25,Massachusetts,Male,80+,112528
+25,Massachusetts,Male,All,3442331
+26,Michigan,All,0-9,1126301
+26,Michigan,All,10-19,1274865
+26,Michigan,All,20-29,1324410
+26,Michigan,All,30-39,1289960
+26,Michigan,All,40-49,1182368
+26,Michigan,All,50-59,1296948
+26,Michigan,All,60-69,1330257
+26,Michigan,All,70-79,834962
+26,Michigan,All,80+,417690
+26,Michigan,All,All,10077761
+26,Michigan,Female,0-9,548991
+26,Michigan,Female,10-19,622329
+26,Michigan,Female,20-29,647369
+26,Michigan,Female,30-39,641315
+26,Michigan,Female,40-49,589154
+26,Michigan,Female,50-59,654074
+26,Michigan,Female,60-69,682017
+26,Michigan,Female,70-79,445902
+26,Michigan,Female,80+,252891
+26,Michigan,Female,All,5084042
+26,Michigan,Male,0-9,577310
+26,Michigan,Male,10-19,652536
+26,Michigan,Male,20-29,677041
+26,Michigan,Male,30-39,648645
+26,Michigan,Male,40-49,593214
+26,Michigan,Male,50-59,642874
+26,Michigan,Male,60-69,648240
+26,Michigan,Male,70-79,389060
+26,Michigan,Male,80+,164799
+26,Michigan,Male,All,4993719
+27,Minnesota,All,0-9,696577
+27,Minnesota,All,10-19,761553
+27,Minnesota,All,20-29,722987
+27,Minnesota,All,30-39,781552
+27,Minnesota,All,40-49,704409
+27,Minnesota,All,50-59,695939
+27,Minnesota,All,60-69,708502
+27,Minnesota,All,70-79,434464
+27,Minnesota,All,80+,233462
+27,Minnesota,All,All,5739445
+27,Minnesota,Female,0-9,339351
+27,Minnesota,Female,10-19,373540
+27,Minnesota,Female,20-29,355864
+27,Minnesota,Female,30-39,382001
+27,Minnesota,Female,40-49,343508
+27,Minnesota,Female,50-59,343697
+27,Minnesota,Female,60-69,358745
+27,Minnesota,Female,70-79,228598
+27,Minnesota,Female,80+,138754
+27,Minnesota,Female,All,2864058
+27,Minnesota,Male,0-9,357226
+27,Minnesota,Male,10-19,388013
+27,Minnesota,Male,20-29,367123
+27,Minnesota,Male,30-39,399551
+27,Minnesota,Male,40-49,360901
+27,Minnesota,Male,50-59,352242
+27,Minnesota,Male,60-69,349757
+27,Minnesota,Male,70-79,205866
+27,Minnesota,Male,80+,94708
+27,Minnesota,Male,All,2875387
+28,Mississippi,All,0-9,356242
+28,Mississippi,All,10-19,418014
+28,Mississippi,All,20-29,383263
+28,Mississippi,All,30-39,369497
+28,Mississippi,All,40-49,361939
+28,Mississippi,All,50-59,355988
+28,Mississippi,All,60-69,362079
+28,Mississippi,All,70-79,231815
+28,Mississippi,All,80+,107942
+28,Mississippi,All,All,2946779
+28,Mississippi,Female,0-9,175478
+28,Mississippi,Female,10-19,203173
+28,Mississippi,Female,20-29,191323
+28,Mississippi,Female,30-39,189997
+28,Mississippi,Female,40-49,187299
+28,Mississippi,Female,50-59,184559
+28,Mississippi,Female,60-69,191998
+28,Mississippi,Female,70-79,126018
+28,Mississippi,Female,80+,67672
+28,Mississippi,Female,All,1517517
+28,Mississippi,Male,0-9,180764
+28,Mississippi,Male,10-19,214841
+28,Mississippi,Male,20-29,191940
+28,Mississippi,Male,30-39,179500
+28,Mississippi,Male,40-49,174640
+28,Mississippi,Male,50-59,171429
+28,Mississippi,Male,60-69,170081
+28,Mississippi,Male,70-79,105797
+28,Mississippi,Male,80+,40270
+28,Mississippi,Male,All,1429262
+29,Missouri,All,0-9,736366
+29,Missouri,All,10-19,806835
+29,Missouri,All,20-29,806641
+29,Missouri,All,30-39,821810
+29,Missouri,All,40-49,738665
+29,Missouri,All,50-59,755063
+29,Missouri,All,60-69,778410
+29,Missouri,All,70-79,494443
+29,Missouri,All,80+,253581
+29,Missouri,All,All,6191814
+29,Missouri,Female,0-9,359208
+29,Missouri,Female,10-19,393108
+29,Missouri,Female,20-29,398374
+29,Missouri,Female,30-39,411131
+29,Missouri,Female,40-49,370126
+29,Missouri,Female,50-59,382057
+29,Missouri,Female,60-69,402616
+29,Missouri,Female,70-79,267906
+29,Missouri,Female,80+,154844
+29,Missouri,Female,All,3139370
+29,Missouri,Male,0-9,377158
+29,Missouri,Male,10-19,413727
+29,Missouri,Male,20-29,408267
+29,Missouri,Male,30-39,410679
+29,Missouri,Male,40-49,368539
+29,Missouri,Male,50-59,373006
+29,Missouri,Male,60-69,375794
+29,Missouri,Male,70-79,226537
+29,Missouri,Male,80+,98737
+29,Missouri,Male,All,3052444
+30,Montana,All,0-9,122874
+30,Montana,All,10-19,138743
+30,Montana,All,20-29,144788
+30,Montana,All,30-39,145595
+30,Montana,All,40-49,133408
+30,Montana,All,50-59,128004
+30,Montana,All,60-69,153724
+30,Montana,All,70-79,103946
+30,Montana,All,80+,45793
+30,Montana,All,All,1116875
+30,Montana,Female,0-9,60092
+30,Montana,Female,10-19,66396
+30,Montana,Female,20-29,69089
+30,Montana,Female,30-39,70577
+30,Montana,Female,40-49,65137
+30,Montana,Female,50-59,63472
+30,Montana,Female,60-69,78553
+30,Montana,Female,70-79,52026
+30,Montana,Female,80+,25617
+30,Montana,Female,All,550959
+30,Montana,Male,0-9,62782
+30,Montana,Male,10-19,72347
+30,Montana,Male,20-29,75699
+30,Montana,Male,30-39,75018
+30,Montana,Male,40-49,68271
+30,Montana,Male,50-59,64532
+30,Montana,Male,60-69,75171
+30,Montana,Male,70-79,51920
+30,Montana,Male,80+,20176
+30,Montana,Male,All,565916
+31,Nebraska,All,0-9,258492
+31,Nebraska,All,10-19,280632
+31,Nebraska,All,20-29,267113
+31,Nebraska,All,30-39,257260
+31,Nebraska,All,40-49,238777
+31,Nebraska,All,50-59,221215
+31,Nebraska,All,60-69,232305
+31,Nebraska,All,70-79,145750
+31,Nebraska,All,80+,77163
+31,Nebraska,All,All,1978707
+31,Nebraska,Female,0-9,126584
+31,Nebraska,Female,10-19,135037
+31,Nebraska,Female,20-29,130692
+31,Nebraska,Female,30-39,125289
+31,Nebraska,Female,40-49,116691
+31,Nebraska,Female,50-59,108955
+31,Nebraska,Female,60-69,117244
+31,Nebraska,Female,70-79,77881
+31,Nebraska,Female,80+,45978
+31,Nebraska,Female,All,984351
+31,Nebraska,Male,0-9,131908
+31,Nebraska,Male,10-19,145595
+31,Nebraska,Male,20-29,136421
+31,Nebraska,Male,30-39,131971
+31,Nebraska,Male,40-49,122086
+31,Nebraska,Male,50-59,112260
+31,Nebraska,Male,60-69,115061
+31,Nebraska,Male,70-79,67869
+31,Nebraska,Male,80+,31185
+31,Nebraska,Male,All,994356
+32,Nevada,All,0-9,363059
+32,Nevada,All,10-19,398570
+32,Nevada,All,20-29,406188
+32,Nevada,All,30-39,463339
+32,Nevada,All,40-49,412670
+32,Nevada,All,50-59,402325
+32,Nevada,All,60-69,374814
+32,Nevada,All,70-79,255902
+32,Nevada,All,80+,107745
+32,Nevada,All,All,3184612
+32,Nevada,Female,0-9,178184
+32,Nevada,Female,10-19,192850
+32,Nevada,Female,20-29,198479
+32,Nevada,Female,30-39,226214
+32,Nevada,Female,40-49,202648
+32,Nevada,Female,50-59,198219
+32,Nevada,Female,60-69,190728
+32,Nevada,Female,70-79,133169
+32,Nevada,Female,80+,59704
+32,Nevada,Female,All,1580195
+32,Nevada,Male,0-9,184875
+32,Nevada,Male,10-19,205720
+32,Nevada,Male,20-29,207709
+32,Nevada,Male,30-39,237125
+32,Nevada,Male,40-49,210022
+32,Nevada,Male,50-59,204106
+32,Nevada,Male,60-69,184086
+32,Nevada,Male,70-79,122733
+32,Nevada,Male,80+,48041
+32,Nevada,Male,All,1604417
+33,New Hampshire,All,0-9,130141
+33,New Hampshire,All,10-19,161320
+33,New Hampshire,All,20-29,169301
+33,New Hampshire,All,30-39,179860
+33,New Hampshire,All,40-49,163634
+33,New Hampshire,All,50-59,197798
+33,New Hampshire,All,60-69,206270
+33,New Hampshire,All,70-79,126922
+33,New Hampshire,All,80+,59622
+33,New Hampshire,All,All,1394868
+33,New Hampshire,Female,0-9,63230
+33,New Hampshire,Female,10-19,79787
+33,New Hampshire,Female,20-29,81330
+33,New Hampshire,Female,30-39,87556
+33,New Hampshire,Female,40-49,80911
+33,New Hampshire,Female,50-59,98367
+33,New Hampshire,Female,60-69,104682
+33,New Hampshire,Female,70-79,66838
+33,New Hampshire,Female,80+,35670
+33,New Hampshire,Female,All,698371
+33,New Hampshire,Male,0-9,66911
+33,New Hampshire,Male,10-19,81533
+33,New Hampshire,Male,20-29,87971
+33,New Hampshire,Male,30-39,92304
+33,New Hampshire,Male,40-49,82723
+33,New Hampshire,Male,50-59,99431
+33,New Hampshire,Male,60-69,101588
+33,New Hampshire,Male,70-79,60084
+33,New Hampshire,Male,80+,23952
+33,New Hampshire,Male,All,696497
+34,New Jersey,All,0-9,1080057
+34,New Jersey,All,10-19,1179626
+34,New Jersey,All,20-29,1145119
+34,New Jersey,All,30-39,1253220
+34,New Jersey,All,40-49,1192706
+34,New Jersey,All,50-59,1265373
+34,New Jersey,All,60-69,1143232
+34,New Jersey,All,70-79,703766
+34,New Jersey,All,80+,380710
+34,New Jersey,All,All,9343809
+34,New Jersey,Female,0-9,525357
+34,New Jersey,Female,10-19,576179
+34,New Jersey,Female,20-29,566266
+34,New Jersey,Female,30-39,621302
+34,New Jersey,Female,40-49,597354
+34,New Jersey,Female,50-59,641636
+34,New Jersey,Female,60-69,597549
+34,New Jersey,Female,70-79,385530
+34,New Jersey,Female,80+,234243
+34,New Jersey,Female,All,4745416
+34,New Jersey,Male,0-9,554700
+34,New Jersey,Male,10-19,603447
+34,New Jersey,Male,20-29,578853
+34,New Jersey,Male,30-39,631918
+34,New Jersey,Male,40-49,595352
+34,New Jersey,Male,50-59,623737
+34,New Jersey,Male,60-69,545683
+34,New Jersey,Male,70-79,318236
+34,New Jersey,Male,80+,146467
+34,New Jersey,Male,All,4598393
+35,New Mexico,All,0-9,233618
+35,New Mexico,All,10-19,283734
+35,New Mexico,All,20-29,278712
+35,New Mexico,All,30-39,279718
+35,New Mexico,All,40-49,251689
+35,New Mexico,All,50-59,243040
+35,New Mexico,All,60-69,271513
+35,New Mexico,All,70-79,187616
+35,New Mexico,All,80+,90606
+35,New Mexico,All,All,2120246
+35,New Mexico,Female,0-9,113436
+35,New Mexico,Female,10-19,139676
+35,New Mexico,Female,20-29,134344
+35,New Mexico,Female,30-39,136479
+35,New Mexico,Female,40-49,125033
+35,New Mexico,Female,50-59,124839
+35,New Mexico,Female,60-69,142013
+35,New Mexico,Female,70-79,98516
+35,New Mexico,Female,80+,52275
+35,New Mexico,Female,All,1066611
+35,New Mexico,Male,0-9,120182
+35,New Mexico,Male,10-19,144058
+35,New Mexico,Male,20-29,144368
+35,New Mexico,Male,30-39,143239
+35,New Mexico,Male,40-49,126656
+35,New Mexico,Male,50-59,118201
+35,New Mexico,Male,60-69,129500
+35,New Mexico,Male,70-79,89100
+35,New Mexico,Male,80+,38331
+35,New Mexico,Male,All,1053635
+36,New York,All,0-9,2178586
+36,New York,All,10-19,2397873
+36,New York,All,20-29,2639766
+36,New York,All,30-39,2762713
+36,New York,All,40-49,2413167
+36,New York,All,50-59,2584605
+36,New York,All,60-69,2449138
+36,New York,All,70-79,1562662
+36,New York,All,80+,863856
+36,New York,All,All,19852366
+36,New York,Female,0-9,1067144
+36,New York,Female,10-19,1172059
+36,New York,Female,20-29,1328733
+36,New York,Female,30-39,1379369
+36,New York,Female,40-49,1218603
+36,New York,Female,50-59,1323630
+36,New York,Female,60-69,1269361
+36,New York,Female,70-79,862204
+36,New York,Female,80+,536049
+36,New York,Female,All,10157152
+36,New York,Male,0-9,1111442
+36,New York,Male,10-19,1225814
+36,New York,Male,20-29,1311033
+36,New York,Male,30-39,1383344
+36,New York,Male,40-49,1194564
+36,New York,Male,50-59,1260975
+36,New York,Male,60-69,1179777
+36,New York,Male,70-79,700458
+36,New York,Male,80+,327807
+36,New York,Male,All,9695214
+37,North Carolina,All,0-9,1241391
+37,North Carolina,All,10-19,1390764
+37,North Carolina,All,20-29,1424693
+37,North Carolina,All,30-39,1424182
+37,North Carolina,All,40-49,1338458
+37,North Carolina,All,50-59,1373776
+37,North Carolina,All,60-69,1293650
+37,North Carolina,All,70-79,852198
+37,North Carolina,All,80+,391292
+37,North Carolina,All,All,10730404
+37,North Carolina,Female,0-9,607021
+37,North Carolina,Female,10-19,681513
+37,North Carolina,Female,20-29,700081
+37,North Carolina,Female,30-39,721768
+37,North Carolina,Female,40-49,684366
+37,North Carolina,Female,50-59,702373
+37,North Carolina,Female,60-69,683703
+37,North Carolina,Female,70-79,464961
+37,North Carolina,Female,80+,239582
+37,North Carolina,Female,All,5485368
+37,North Carolina,Male,0-9,634370
+37,North Carolina,Male,10-19,709251
+37,North Carolina,Male,20-29,724612
+37,North Carolina,Male,30-39,702414
+37,North Carolina,Male,40-49,654092
+37,North Carolina,Male,50-59,671403
+37,North Carolina,Male,60-69,609947
+37,North Carolina,Male,70-79,387237
+37,North Carolina,Male,80+,151710
+37,North Carolina,Male,All,5245036
+38,North Dakota,All,0-9,101677
+38,North Dakota,All,10-19,107639
+38,North Dakota,All,20-29,117629
+38,North Dakota,All,30-39,110352
+38,North Dakota,All,40-49,88124
+38,North Dakota,All,50-59,81680
+38,North Dakota,All,60-69,89822
+38,North Dakota,All,70-79,55309
+38,North Dakota,All,80+,32609
+38,North Dakota,All,All,784841
+38,North Dakota,Female,0-9,48882
+38,North Dakota,Female,10-19,53225
+38,North Dakota,Female,20-29,54984
+38,North Dakota,Female,30-39,52238
+38,North Dakota,Female,40-49,40876
+38,North Dakota,Female,50-59,39933
+38,North Dakota,Female,60-69,44143
+38,North Dakota,Female,70-79,28537
+38,North Dakota,Female,80+,19901
+38,North Dakota,Female,All,382719
+38,North Dakota,Male,0-9,52795
+38,North Dakota,Male,10-19,54414
+38,North Dakota,Male,20-29,62645
+38,North Dakota,Male,30-39,58114
+38,North Dakota,Male,40-49,47248
+38,North Dakota,Male,50-59,41747
+38,North Dakota,Male,60-69,45679
+38,North Dakota,Male,70-79,26772
+38,North Dakota,Male,80+,12708
+38,North Dakota,Male,All,402122
+39,Ohio,All,0-9,1387530
+39,Ohio,All,10-19,1513467
+39,Ohio,All,20-29,1512929
+39,Ohio,All,30-39,1541413
+39,Ohio,All,40-49,1410890
+39,Ohio,All,50-59,1489202
+39,Ohio,All,60-69,1512119
+39,Ohio,All,70-79,952748
+39,Ohio,All,80+,489995
+39,Ohio,All,All,11810293
+39,Ohio,Female,0-9,676433
+39,Ohio,Female,10-19,740364
+39,Ohio,Female,20-29,744562
+39,Ohio,Female,30-39,766456
+39,Ohio,Female,40-49,707613
+39,Ohio,Female,50-59,746785
+39,Ohio,Female,60-69,786830
+39,Ohio,Female,70-79,516178
+39,Ohio,Female,80+,300445
+39,Ohio,Female,All,5985666
+39,Ohio,Male,0-9,711097
+39,Ohio,Male,10-19,773103
+39,Ohio,Male,20-29,768367
+39,Ohio,Male,30-39,774957
+39,Ohio,Male,40-49,703277
+39,Ohio,Male,50-59,742417
+39,Ohio,Male,60-69,725289
+39,Ohio,Male,70-79,436570
+39,Ohio,Male,80+,189550
+39,Ohio,Male,All,5824627
+40,Oklahoma,All,0-9,513832
+40,Oklahoma,All,10-19,564290
+40,Oklahoma,All,20-29,549931
+40,Oklahoma,All,30-39,546809
+40,Oklahoma,All,40-49,489022
+40,Oklahoma,All,50-59,458756
+40,Oklahoma,All,60-69,462200
+40,Oklahoma,All,70-79,299691
+40,Oklahoma,All,80+,144103
+40,Oklahoma,All,All,4028634
+40,Oklahoma,Female,0-9,252496
+40,Oklahoma,Female,10-19,273188
+40,Oklahoma,Female,20-29,266140
+40,Oklahoma,Female,30-39,270576
+40,Oklahoma,Female,40-49,242620
+40,Oklahoma,Female,50-59,230264
+40,Oklahoma,Female,60-69,237896
+40,Oklahoma,Female,70-79,163202
+40,Oklahoma,Female,80+,86780
+40,Oklahoma,Female,All,2023162
+40,Oklahoma,Male,0-9,261336
+40,Oklahoma,Male,10-19,291102
+40,Oklahoma,Male,20-29,283791
+40,Oklahoma,Male,30-39,276233
+40,Oklahoma,Male,40-49,246402
+40,Oklahoma,Male,50-59,228492
+40,Oklahoma,Male,60-69,224304
+40,Oklahoma,Male,70-79,136489
+40,Oklahoma,Male,80+,57323
+40,Oklahoma,Male,All,2005472
+41,Oregon,All,0-9,438298
+41,Oregon,All,10-19,510284
+41,Oregon,All,20-29,545114
+41,Oregon,All,30-39,611143
+41,Oregon,All,40-49,560367
+41,Oregon,All,50-59,508399
+41,Oregon,All,60-69,528637
+41,Oregon,All,70-79,378091
+41,Oregon,All,80+,173960
+41,Oregon,All,All,4254293
+41,Oregon,Female,0-9,212308
+41,Oregon,Female,10-19,249096
+41,Oregon,Female,20-29,267472
+41,Oregon,Female,30-39,298855
+41,Oregon,Female,40-49,276508
+41,Oregon,Female,50-59,251578
+41,Oregon,Female,60-69,276952
+41,Oregon,Female,70-79,199979
+41,Oregon,Female,80+,100346
+41,Oregon,Female,All,2133094
+41,Oregon,Male,0-9,225990
+41,Oregon,Male,10-19,261188
+41,Oregon,Male,20-29,277642
+41,Oregon,Male,30-39,312288
+41,Oregon,Male,40-49,283859
+41,Oregon,Male,50-59,256821
+41,Oregon,Male,60-69,251685
+41,Oregon,Male,70-79,178112
+41,Oregon,Male,80+,73614
+41,Oregon,Male,All,2121199
+42,Pennsylvania,All,0-9,1404419
+42,Pennsylvania,All,10-19,1620888
+42,Pennsylvania,All,20-29,1616009
+42,Pennsylvania,All,30-39,1712413
+42,Pennsylvania,All,40-49,1538514
+42,Pennsylvania,All,50-59,1677234
+42,Pennsylvania,All,60-69,1728687
+42,Pennsylvania,All,70-79,1114988
+42,Pennsylvania,All,80+,605487
+42,Pennsylvania,All,All,13018639
+42,Pennsylvania,Female,0-9,685149
+42,Pennsylvania,Female,10-19,794464
+42,Pennsylvania,Female,20-29,796115
+42,Pennsylvania,Female,30-39,851352
+42,Pennsylvania,Female,40-49,761294
+42,Pennsylvania,Female,50-59,844178
+42,Pennsylvania,Female,60-69,890283
+42,Pennsylvania,Female,70-79,602310
+42,Pennsylvania,Female,80+,374994
+42,Pennsylvania,Female,All,6600139
+42,Pennsylvania,Male,0-9,719270
+42,Pennsylvania,Male,10-19,826424
+42,Pennsylvania,Male,20-29,819894
+42,Pennsylvania,Male,30-39,861061
+42,Pennsylvania,Male,40-49,777220
+42,Pennsylvania,Male,50-59,833056
+42,Pennsylvania,Male,60-69,838404
+42,Pennsylvania,Male,70-79,512678
+42,Pennsylvania,Male,80+,230493
+42,Pennsylvania,Male,All,6418500
+44,Rhode Island,All,0-9,110016
+44,Rhode Island,All,10-19,132437
+44,Rhode Island,All,20-29,148902
+44,Rhode Island,All,30-39,151463
+44,Rhode Island,All,40-49,129946
+44,Rhode Island,All,50-59,143846
+44,Rhode Island,All,60-69,146594
+44,Rhode Island,All,70-79,90626
+44,Rhode Island,All,80+,47971
+44,Rhode Island,All,All,1101801
+44,Rhode Island,Female,0-9,54679
+44,Rhode Island,Female,10-19,64141
+44,Rhode Island,Female,20-29,73880
+44,Rhode Island,Female,30-39,74075
+44,Rhode Island,Female,40-49,65177
+44,Rhode Island,Female,50-59,72944
+44,Rhode Island,Female,60-69,77630
+44,Rhode Island,Female,70-79,48398
+44,Rhode Island,Female,80+,30240
+44,Rhode Island,Female,All,561164
+44,Rhode Island,Male,0-9,55337
+44,Rhode Island,Male,10-19,68296
+44,Rhode Island,Male,20-29,75022
+44,Rhode Island,Male,30-39,77388
+44,Rhode Island,Male,40-49,64769
+44,Rhode Island,Male,50-59,70902
+44,Rhode Island,Male,60-69,68964
+44,Rhode Island,Male,70-79,42228
+44,Rhode Island,Male,80+,17731
+44,Rhode Island,Male,All,540637
+45,South Carolina,All,0-9,601445
+45,South Carolina,All,10-19,679425
+45,South Carolina,All,20-29,667904
+45,South Carolina,All,30-39,683295
+45,South Carolina,All,40-49,638214
+45,South Carolina,All,50-59,660439
+45,South Carolina,All,60-69,692806
+45,South Carolina,All,70-79,469088
+45,South Carolina,All,80+,203609
+45,South Carolina,All,All,5296225
+45,South Carolina,Female,0-9,295581
+45,South Carolina,Female,10-19,330809
+45,South Carolina,Female,20-29,329654
+45,South Carolina,Female,30-39,349601
+45,South Carolina,Female,40-49,326965
+45,South Carolina,Female,50-59,341648
+45,South Carolina,Female,60-69,369787
+45,South Carolina,Female,70-79,254167
+45,South Carolina,Female,80+,120288
+45,South Carolina,Female,All,2718500
+45,South Carolina,Male,0-9,305864
+45,South Carolina,Male,10-19,348616
+45,South Carolina,Male,20-29,338250
+45,South Carolina,Male,30-39,333694
+45,South Carolina,Male,40-49,311249
+45,South Carolina,Male,50-59,318791
+45,South Carolina,Male,60-69,323019
+45,South Carolina,Male,70-79,214921
+45,South Carolina,Male,80+,83321
+45,South Carolina,Male,All,2577725
+46,South Dakota,All,0-9,118499
+46,South Dakota,All,10-19,125788
+46,South Dakota,All,20-29,116012
+46,South Dakota,All,30-39,117785
+46,South Dakota,All,40-49,102990
+46,South Dakota,All,50-59,101550
+46,South Dakota,All,60-69,116402
+46,South Dakota,All,70-79,71456
+46,South Dakota,All,80+,36946
+46,South Dakota,All,All,907428
+46,South Dakota,Female,0-9,58549
+46,South Dakota,Female,10-19,60578
+46,South Dakota,Female,20-29,54982
+46,South Dakota,Female,30-39,56060
+46,South Dakota,Female,40-49,49589
+46,South Dakota,Female,50-59,50415
+46,South Dakota,Female,60-69,57537
+46,South Dakota,Female,70-79,36282
+46,South Dakota,Female,80+,22743
+46,South Dakota,Female,All,446735
+46,South Dakota,Male,0-9,59950
+46,South Dakota,Male,10-19,65210
+46,South Dakota,Male,20-29,61030
+46,South Dakota,Male,30-39,61725
+46,South Dakota,Male,40-49,53401
+46,South Dakota,Male,50-59,51135
+46,South Dakota,Male,60-69,58865
+46,South Dakota,Male,70-79,35174
+46,South Dakota,Male,80+,14203
+46,South Dakota,Male,All,460693
+47,Tennessee,All,0-9,838766
+47,Tennessee,All,10-19,899116
+47,Tennessee,All,20-29,942401
+47,Tennessee,All,30-39,953880
+47,Tennessee,All,40-49,869789
+47,Tennessee,All,50-59,900093
+47,Tennessee,All,60-69,855875
+47,Tennessee,All,70-79,555059
+47,Tennessee,All,80+,251404
+47,Tennessee,All,All,7066383
+47,Tennessee,Female,0-9,409094
+47,Tennessee,Female,10-19,438343
+47,Tennessee,Female,20-29,469675
+47,Tennessee,Female,30-39,481900
+47,Tennessee,Female,40-49,439201
+47,Tennessee,Female,50-59,457670
+47,Tennessee,Female,60-69,449525
+47,Tennessee,Female,70-79,300348
+47,Tennessee,Female,80+,152893
+47,Tennessee,Female,All,3598649
+47,Tennessee,Male,0-9,429672
+47,Tennessee,Male,10-19,460773
+47,Tennessee,Male,20-29,472726
+47,Tennessee,Male,30-39,471980
+47,Tennessee,Male,40-49,430588
+47,Tennessee,Male,50-59,442423
+47,Tennessee,Male,60-69,406350
+47,Tennessee,Male,70-79,254711
+47,Tennessee,Male,80+,98511
+47,Tennessee,Male,All,3467734
+48,Texas,All,0-9,4019626
+48,Texas,All,10-19,4366755
+48,Texas,All,20-29,4231886
+48,Texas,All,30-39,4375603
+48,Texas,All,40-49,3979167
+48,Texas,All,50-59,3509348
+48,Texas,All,60-69,3032352
+48,Texas,All,70-79,1823181
+48,Texas,All,80+,850506
+48,Texas,All,All,30188424
+48,Texas,Female,0-9,1964516
+48,Texas,Female,10-19,2132191
+48,Texas,Female,20-29,2071834
+48,Texas,Female,30-39,2156912
+48,Texas,Female,40-49,1971257
+48,Texas,Female,50-59,1758302
+48,Texas,Female,60-69,1567534
+48,Texas,Female,70-79,989119
+48,Texas,Female,80+,510802
+48,Texas,Female,All,15122467
+48,Texas,Male,0-9,2055110
+48,Texas,Male,10-19,2234564
+48,Texas,Male,20-29,2160052
+48,Texas,Male,30-39,2218691
+48,Texas,Male,40-49,2007910
+48,Texas,Male,50-59,1751046
+48,Texas,Male,60-69,1464818
+48,Texas,Male,70-79,834062
+48,Texas,Male,80+,339704
+48,Texas,Male,All,15065957
+49,Utah,All,0-9,496493
+49,Utah,All,10-19,553649
+49,Utah,All,20-29,548781
+49,Utah,All,30-39,476900
+49,Utah,All,40-49,432007
+49,Utah,All,50-59,327481
+49,Utah,All,60-69,292159
+49,Utah,All,70-79,180689
+49,Utah,All,80+,84172
+49,Utah,All,All,3392331
+49,Utah,Female,0-9,242568
+49,Utah,Female,10-19,269172
+49,Utah,Female,20-29,266658
+49,Utah,Female,30-39,233028
+49,Utah,Female,40-49,210866
+49,Utah,Female,50-59,161708
+49,Utah,Female,60-69,148205
+49,Utah,Female,70-79,94270
+49,Utah,Female,80+,47374
+49,Utah,Female,All,1673849
+49,Utah,Male,0-9,253925
+49,Utah,Male,10-19,284477
+49,Utah,Male,20-29,282123
+49,Utah,Male,30-39,243872
+49,Utah,Male,40-49,221141
+49,Utah,Male,50-59,165773
+49,Utah,Male,60-69,143954
+49,Utah,Male,70-79,86419
+49,Utah,Male,80+,36798
+49,Utah,Male,All,1718482
+50,Vermont,All,0-9,58752
+50,Vermont,All,10-19,78336
+50,Vermont,All,20-29,81144
+50,Vermont,All,30-39,80477
+50,Vermont,All,40-49,74785
+50,Vermont,All,50-59,84231
+50,Vermont,All,60-69,96318
+50,Vermont,All,70-79,62817
+50,Vermont,All,80+,30246
+50,Vermont,All,All,647106
+50,Vermont,Female,0-9,27857
+50,Vermont,Female,10-19,39004
+50,Vermont,Female,20-29,39605
+50,Vermont,Female,30-39,40478
+50,Vermont,Female,40-49,37028
+50,Vermont,Female,50-59,41956
+50,Vermont,Female,60-69,49900
+50,Vermont,Female,70-79,32510
+50,Vermont,Female,80+,17613
+50,Vermont,Female,All,325951
+50,Vermont,Male,0-9,30895
+50,Vermont,Male,10-19,39332
+50,Vermont,Male,20-29,41539
+50,Vermont,Male,30-39,39999
+50,Vermont,Male,40-49,37757
+50,Vermont,Male,50-59,42275
+50,Vermont,Male,60-69,46418
+50,Vermont,Male,70-79,30307
+50,Vermont,Male,80+,12633
+50,Vermont,Male,All,321155
+51,Virginia,All,0-9,1008366
+51,Virginia,All,10-19,1120959
+51,Virginia,All,20-29,1142742
+51,Virginia,All,30-39,1200427
+51,Virginia,All,40-49,1111670
+51,Virginia,All,50-59,1114172
+51,Virginia,All,60-69,1028459
+51,Virginia,All,70-79,661666
+51,Virginia,All,80+,316709
+51,Virginia,All,All,8705170
+51,Virginia,Female,0-9,491075
+51,Virginia,Female,10-19,546502
+51,Virginia,Female,20-29,559653
+51,Virginia,Female,30-39,598335
+51,Virginia,Female,40-49,558142
+51,Virginia,Female,50-59,564129
+51,Virginia,Female,60-69,534714
+51,Virginia,Female,70-79,361237
+51,Virginia,Female,80+,190648
+51,Virginia,Female,All,4404435
+51,Virginia,Male,0-9,517291
+51,Virginia,Male,10-19,574457
+51,Virginia,Male,20-29,583089
+51,Virginia,Male,30-39,602092
+51,Virginia,Male,40-49,553528
+51,Virginia,Male,50-59,550043
+51,Virginia,Male,60-69,493745
+51,Virginia,Male,70-79,300429
+51,Virginia,Male,80+,126061
+51,Virginia,Male,All,4300735
+53,Washington,All,0-9,901151
+53,Washington,All,10-19,948538
+53,Washington,All,20-29,1049349
+53,Washington,All,30-39,1202449
+53,Washington,All,40-49,1004961
+53,Washington,All,50-59,923470
+53,Washington,All,60-69,917987
+53,Washington,All,70-79,590079
+53,Washington,All,80+,278132
+53,Washington,All,All,7816116
+53,Washington,Female,0-9,438720
+53,Washington,Female,10-19,463057
+53,Washington,Female,20-29,502558
+53,Washington,Female,30-39,581570
+53,Washington,Female,40-49,490374
+53,Washington,Female,50-59,455698
+53,Washington,Female,60-69,471970
+53,Washington,Female,70-79,313206
+53,Washington,Female,80+,163489
+53,Washington,Female,All,3880642
+53,Washington,Male,0-9,462431
+53,Washington,Male,10-19,485481
+53,Washington,Male,20-29,546791
+53,Washington,Male,30-39,620879
+53,Washington,Male,40-49,514587
+53,Washington,Male,50-59,467772
+53,Washington,Male,60-69,446017
+53,Washington,Male,70-79,276873
+53,Washington,Male,80+,114643
+53,Washington,Male,All,3935474
+54,West Virginia,All,0-9,183286
+54,West Virginia,All,10-19,217346
+54,West Virginia,All,20-29,216397
+54,West Virginia,All,30-39,210443
+54,West Virginia,All,40-49,219006
+54,West Virginia,All,50-59,232010
+54,West Virginia,All,60-69,245720
+54,West Virginia,All,70-79,173361
+54,West Virginia,All,80+,80804
+54,West Virginia,All,All,1778373
+54,West Virginia,Female,0-9,88972
+54,West Virginia,Female,10-19,105326
+54,West Virginia,Female,20-29,103187
+54,West Virginia,Female,30-39,102352
+54,West Virginia,Female,40-49,108854
+54,West Virginia,Female,50-59,115136
+54,West Virginia,Female,60-69,126380
+54,West Virginia,Female,70-79,91244
+54,West Virginia,Female,80+,48633
+54,West Virginia,Female,All,890084
+54,West Virginia,Male,0-9,94314
+54,West Virginia,Male,10-19,112020
+54,West Virginia,Male,20-29,113210
+54,West Virginia,Male,30-39,108091
+54,West Virginia,Male,40-49,110152
+54,West Virginia,Male,50-59,116874
+54,West Virginia,Male,60-69,119340
+54,West Virginia,Male,70-79,82117
+54,West Virginia,Male,80+,32171
+54,West Virginia,Male,All,888289
+55,Wisconsin,All,0-9,662714
+55,Wisconsin,All,10-19,758187
+55,Wisconsin,All,20-29,765482
+55,Wisconsin,All,30-39,754056
+55,Wisconsin,All,40-49,702705
+55,Wisconsin,All,50-59,757629
+55,Wisconsin,All,60-69,780615
+55,Wisconsin,All,70-79,485814
+55,Wisconsin,All,80+,247670
+55,Wisconsin,All,All,5914872
+55,Wisconsin,Female,0-9,322602
+55,Wisconsin,Female,10-19,369165
+55,Wisconsin,Female,20-29,374837
+55,Wisconsin,Female,30-39,369322
+55,Wisconsin,Female,40-49,345649
+55,Wisconsin,Female,50-59,376032
+55,Wisconsin,Female,60-69,395260
+55,Wisconsin,Female,70-79,251367
+55,Wisconsin,Female,80+,148256
+55,Wisconsin,Female,All,2952490
+55,Wisconsin,Male,0-9,340112
+55,Wisconsin,Male,10-19,389022
+55,Wisconsin,Male,20-29,390645
+55,Wisconsin,Male,30-39,384734
+55,Wisconsin,Male,40-49,357056
+55,Wisconsin,Male,50-59,381597
+55,Wisconsin,Male,60-69,385355
+55,Wisconsin,Male,70-79,234447
+55,Wisconsin,Male,80+,99414
+55,Wisconsin,Male,All,2962382
+56,Wyoming,All,0-9,67496
+56,Wyoming,All,10-19,79193
+56,Wyoming,All,20-29,72288
+56,Wyoming,All,30-39,79082
+56,Wyoming,All,40-49,70504
+56,Wyoming,All,50-59,67080
+56,Wyoming,All,60-69,75979
+56,Wyoming,All,70-79,48834
+56,Wyoming,All,80+,21941
+56,Wyoming,All,All,582397
+56,Wyoming,Female,0-9,32797
+56,Wyoming,Female,10-19,38520
+56,Wyoming,Female,20-29,33973
+56,Wyoming,Female,30-39,37963
+56,Wyoming,Female,40-49,33958
+56,Wyoming,Female,50-59,32992
+56,Wyoming,Female,60-69,37957
+56,Wyoming,Female,70-79,24363
+56,Wyoming,Female,80+,12313
+56,Wyoming,Female,All,284836
+56,Wyoming,Male,0-9,34699
+56,Wyoming,Male,10-19,40673
+56,Wyoming,Male,20-29,38315
+56,Wyoming,Male,30-39,41119
+56,Wyoming,Male,40-49,36546
+56,Wyoming,Male,50-59,34088
+56,Wyoming,Male,60-69,38022
+56,Wyoming,Male,70-79,24471
+56,Wyoming,Male,80+,9628
+56,Wyoming,Male,All,297561
+72,Puerto Rico,All,0-9,236042
+72,Puerto Rico,All,10-19,364228
+72,Puerto Rico,All,20-29,433955
+72,Puerto Rico,All,30-39,390789
+72,Puerto Rico,All,40-49,403754
+72,Puerto Rico,All,50-59,423240
+72,Puerto Rico,All,60-69,424995
+72,Puerto Rico,All,70-79,346407
+72,Puerto Rico,All,80+,210899
+72,Puerto Rico,All,All,3234309
+72,Puerto Rico,Female,0-9,114234
+72,Puerto Rico,Female,10-19,180306
+72,Puerto Rico,Female,20-29,214589
+72,Puerto Rico,Female,30-39,201804
+72,Puerto Rico,Female,40-49,213700
+72,Puerto Rico,Female,50-59,227707
+72,Puerto Rico,Female,60-69,230041
+72,Puerto Rico,Female,70-79,197134
+72,Puerto Rico,Female,80+,125525
+72,Puerto Rico,Female,All,1705040
+72,Puerto Rico,Male,0-9,121808
+72,Puerto Rico,Male,10-19,183922
+72,Puerto Rico,Male,20-29,219366
+72,Puerto Rico,Male,30-39,188985
+72,Puerto Rico,Male,40-49,190054
+72,Puerto Rico,Male,50-59,195533
+72,Puerto Rico,Male,60-69,194954
+72,Puerto Rico,Male,70-79,149273
+72,Puerto Rico,Male,80+,85374
+72,Puerto Rico,Male,All,1529269
