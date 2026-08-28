@@ -167,9 +167,9 @@ _expected_time_series_merged_with_pop_numbers = [
     ["2021", "78", "WHITE_NH", 11036, 12.7, "something_else_entirely"],
     ["2021", "78", "BLACK_NH", 55936, 64.2, "something_else_entirely"],
     # Years AFTER ACS range should merge against the most recent ACS year
-    ["9999", "01", "BLACK_NH", 1318388, 26.2, "something_cool"],
-    ["9999", "01", "WHITE_NH", 3247262, 64.6, "something_else_cool"],
-    ["9999", "02", "BLACK_NH", 22400, 3.0, "something_cooler"],
+    ["9999", "01", "BLACK_NH", 1302911, 25.6, "something_cool"],
+    ["9999", "01", "WHITE_NH", 3224860, 63.4, "something_else_cool"],
+    ["9999", "02", "BLACK_NH", 21172, 2.9, "something_cooler"],
     ["9999", "78", "WHITE_NH", 11036, 12.7, "something_else_entirely"],
     ["9999", "78", "BLACK_NH", 55936, 64.2, "something_else_entirely"],
 ]
@@ -214,7 +214,7 @@ _expected_county_time_series_merged_with_pop_numbers = [
     # Territories / Years 2016-current should merge against 2020 Decennial (decia_2020)
     ["2021", "78", "78030", "ALL", 42261, 100.0, "something_else_entirely"],
     # Years AFTER ACS range should merge against the most recent ACS year
-    ["9999", "01", "01001", "ALL", 58761, 100.0, "something_cool"],
+    ["9999", "01", "01001", "ALL", 59947, 100.0, "something_cool"],
     ["9999", "78", "78030", "ALL", 42261, 100.0, "something_else_entirely"],
 ]
 

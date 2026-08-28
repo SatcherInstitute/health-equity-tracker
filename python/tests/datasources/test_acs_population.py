@@ -17,6 +17,12 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "acs_population")
 GOLDEN_DIR = os.path.join(THIS_DIR, os.pardir, "data", "acs_population", "golden_data")
 MOCK_CACHE_DIR = os.path.join(THIS_DIR, os.pardir, "data", "acs_population", "mock_cache")
 
+# The mock_cache fixtures are real Census responses captured at the 2022 vintage. Tests below
+# pin ACS_CURRENT_YEAR to that year so they keep exercising the current-year branch (which
+# writes both _current and _historical) rather than silently degrading to historical-only
+# coverage every time the production vintage is bumped.
+FIXTURE_ACS_YEAR = "2022"
+
 # single year golden data
 GOLDEN_DATA_AGE_NATIONAL_2009 = os.path.join(GOLDEN_DIR, "age_national.csv")
 GOLDEN_DATA_RACE = os.path.join(GOLDEN_DIR, "table_by_race_state.csv")
@@ -170,6 +176,7 @@ def testOverWriteToBqStateNationalCalls2009(
     assert_frame_equal(df_age_national_2009_overwrite, expected_df_age_national_2009_overwrite, check_like=True)
 
 
+@mock.patch("datasources.acs_population.ACS_CURRENT_YEAR", FIXTURE_ACS_YEAR)
 @mock.patch("ingestion.census.fetch_acs_metadata", return_value=get_acs_metadata_as_json(2022))
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_load_values_as_df)
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
@@ -206,7 +213,7 @@ def testWriteToBqCountyCallsAppend2022(mock_bq: mock.MagicMock, mock_cache: mock
     table_names_for_bq = [call[0][2] for call in mock_bq.call_args_list]
 
     assert table_names_for_bq == [
-        # 2022 should write to both SINGLE YEAR and TIME SERIES tables (ACS_CURRENT_YEAR=2022)
+        # the current year should write to both SINGLE YEAR and TIME SERIES tables
         "race_county_current",
         "race_county_historical",
         "multi_sex_age_race_county_current",
@@ -220,6 +227,7 @@ def testWriteToBqCountyCallsAppend2022(mock_bq: mock.MagicMock, mock_cache: mock
     ]
 
 
+@mock.patch("datasources.acs_population.ACS_CURRENT_YEAR", FIXTURE_ACS_YEAR)
 @mock.patch("ingestion.census.fetch_acs_metadata", return_value=get_acs_metadata_as_json(2022))
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_load_values_as_df)
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
@@ -258,6 +266,7 @@ def testWriteToBqSexAgeRaceOverwrite2009(
     assert_frame_equal(time_series_overwrite_df, expected_time_series_overwrite_df, check_like=True)
 
 
+@mock.patch("datasources.acs_population.ACS_CURRENT_YEAR", FIXTURE_ACS_YEAR)
 @mock.patch("ingestion.census.fetch_acs_metadata", return_value=get_acs_metadata_as_json(2022))
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_load_values_as_df)
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
@@ -280,6 +289,7 @@ def testWriteToBqSexAgeAppend2022(mock_bq: mock.MagicMock, mock_cache: mock.Magi
     assert_frame_equal(time_series_append_df, expected_time_series_append_df, check_like=True)
 
 
+@mock.patch("datasources.acs_population.ACS_CURRENT_YEAR", FIXTURE_ACS_YEAR)
 @mock.patch("ingestion.census.fetch_acs_metadata", return_value=get_acs_metadata_as_json(2022))
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_load_values_as_df)
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
@@ -302,6 +312,7 @@ def testWriteToBqSex2022(mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mo
     assert_frame_equal(time_series_append_df, expected_time_series_append_df, check_like=True)
 
 
+@mock.patch("datasources.acs_population.ACS_CURRENT_YEAR", FIXTURE_ACS_YEAR)
 @mock.patch("ingestion.census.fetch_acs_metadata", return_value=get_acs_metadata_as_json(2022))
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_load_values_as_df)
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
@@ -323,6 +334,7 @@ def testWriteToBqRaceNational2022(mock_bq: mock.MagicMock, mock_cache: mock.Magi
     assert_frame_equal(time_series_append_df, expected_time_series_append_df, check_like=True)
 
 
+@mock.patch("datasources.acs_population.ACS_CURRENT_YEAR", FIXTURE_ACS_YEAR)
 @mock.patch("ingestion.census.fetch_acs_metadata", return_value=get_acs_metadata_as_json(2022))
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_load_values_as_df)
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
@@ -345,6 +357,7 @@ def testWriteToBqSexNational2022(mock_bq: mock.MagicMock, mock_cache: mock.Magic
 
 
 # # Do one County level test to make sure our logic there is correct
+@mock.patch("datasources.acs_population.ACS_CURRENT_YEAR", FIXTURE_ACS_YEAR)
 @mock.patch("ingestion.census.fetch_acs_metadata", return_value=get_acs_metadata_as_json(2022))
 @mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_load_values_as_df)
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
