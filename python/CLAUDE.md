@@ -31,7 +31,7 @@ tests/         Integration tests — many load real fixture CSVs from repo-root 
 
 ## Regenerating golden test data
 
-Most datasource tests compare `write_to_bq()` output against a committed golden file under `python/tests/data/<source>/golden_data/`. When a change legitimately alters that output, regenerate the golden rather than hand-editing it: temporarily uncomment (or add) a write line directly above the assertion, run that test, then re-comment it before committing. Several tests already keep the line in place, commented out:
+When a change legitimately alters `write_to_bq()` output, regenerate the golden instead of hand-editing it. Uncomment the write line above the assertion, run the test, re-comment before committing:
 
 ```python
 # python/tests/datasources/test_cawp.py
@@ -39,9 +39,11 @@ Most datasource tests compare `write_to_bq()` output against a committed golden 
 assert_frame_equal(df_state_historical, load_golden_df(GOLDEN_DIR, table_name, FIPS_TIME_DTYPE), check_like=True)
 ```
 
-Match the golden's existing format. Most are `.csv` via `to_csv(..., index=False)`, but some are `.json` written with `to_json(..., orient="records")` (e.g. `cdc_restricted`, and `bjs_incarceration`, whose expectations are named `bjs_test_output_*.json` alongside its inputs rather than living in a `golden_data/` directory). Writing one format into the other corrupts the file silently, since the read side only fails much later.
+If a test has no such line, copy one from a neighboring test file (`test_cawp.py`, `test_chr.py`, `test_age_adjustment_cdc_hiv.py`) and adjust the frame and path variables.
 
-Always review the regenerated diff. This records whatever the code currently emits, so a bug regenerates just as cleanly as a fix. Confirm the row count and column set changed only in the ways the PR intends.
+Match the golden's existing format: most are `.csv`, but `cdc_restricted` and `bjs_incarceration` are `.json` and need `to_json(path, orient="records")`. Writing the wrong format corrupts the file silently.
+
+Review the diff. Regeneration records whatever the code emits, so a bug regenerates as cleanly as a fix.
 
 ## Bumping the ACS vintage year
 
