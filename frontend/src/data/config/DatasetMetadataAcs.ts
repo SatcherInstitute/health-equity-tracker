@@ -47,226 +47,226 @@ export type DatasetIdAcs =
 export const DatasetMetadataMapAcs: Record<DatasetIdAcs, DatasetMetadata> = {
   'acs_population-race_county_current': {
     name: 'Population by race/ethnicity and county',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
   'acs_population-race_state_current': {
     name: 'Population by race/ethnicity and state',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
   'acs_population-race_national_current': {
     name: 'Population by race/ethnicity nationally',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
   'acs_population-age_county_current': {
     name: 'Population by age and county',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
   'acs_population-age_state_current': {
     name: 'Population by age and state',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
   'acs_population-age_national_current': {
     name: 'Population by age nationally',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
   'acs_population-sex_county_current': {
     name: 'Population by sex and county',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
   'acs_population-sex_state_current': {
     name: 'Population by sex and state',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
   'acs_population-sex_national_current': {
     name: 'Population by sex nationally',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
   'acs_population-race_county_historical': {
     name: 'Annual population by race/ethnicity and county',
-    original_data_sourced: '2009-2022',
+    original_data_sourced: '2009-2024',
     source_id: 'acs',
   },
   'acs_population-race_state_historical': {
     name: 'Annual population by race/ethnicity and state',
-    original_data_sourced: '2009-2022',
+    original_data_sourced: '2009-2024',
     source_id: 'acs',
   },
   'acs_population-race_national_historical': {
     name: 'Annual population by race/ethnicity nationally',
-    original_data_sourced: '2009-2022',
+    original_data_sourced: '2009-2024',
     source_id: 'acs',
   },
   'acs_population-age_county_historical': {
     name: 'Annual population by age and county',
-    original_data_sourced: '2009-2022',
+    original_data_sourced: '2009-2024',
     source_id: 'acs',
   },
   'acs_population-age_state_historical': {
     name: 'Annual population by age and state',
-    original_data_sourced: '2009-2022',
+    original_data_sourced: '2009-2024',
     source_id: 'acs',
   },
   'acs_population-age_national_historical': {
     name: 'Annual population by age nationally',
-    original_data_sourced: '2009-2022',
+    original_data_sourced: '2009-2024',
     source_id: 'acs',
   },
   'acs_population-sex_county_historical': {
     name: 'Annual population by sex and county',
-    original_data_sourced: '2009-2022',
+    original_data_sourced: '2009-2024',
     source_id: 'acs',
   },
   'acs_population-sex_state_historical': {
     name: 'Annual population by sex and state',
-    original_data_sourced: '2009-2022',
+    original_data_sourced: '2009-2024',
     source_id: 'acs',
   },
   'acs_population-sex_national_historical': {
     name: 'Annual population by sex nationally',
-    original_data_sourced: '2009-2022',
+    original_data_sourced: '2009-2024',
     source_id: 'acs',
   },
   'acs_condition-age_county_historical': {
     name: 'Health insurance and poverty, yearly, by age and county',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-age_state_historical': {
     name: 'Health insurance and poverty, yearly, by age and state',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-age_national_historical': {
     name: 'Health insurance and poverty, yearly, by age at the national level',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-sex_county_historical': {
     name: 'Health insurance and poverty, yearly, by sex and county',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-sex_state_historical': {
     name: 'Health insurance and poverty, yearly, by sex and state',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-sex_national_historical': {
     name: 'Health insurance and poverty, yearly, by sex at the national level',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-race_and_ethnicity_county_historical': {
     name: 'Health insurance and poverty, yearly, by race and county',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-race_and_ethnicity_state_historical': {
     name: 'Health insurance and poverty, yearly, by race and state',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-race_and_ethnicity_national_historical': {
     name: 'Health insurance and poverty, yearly, by race at the national level',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-age_county_current': {
     name: 'Health insurance and poverty, yearly, by age and county',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-age_state_current': {
     name: 'Health insurance and poverty, yearly, by age and state',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-age_national_current': {
     name: 'Health insurance and poverty, yearly, by age at the national level',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-sex_county_current': {
     name: 'Health insurance and poverty, yearly, by sex and county',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-sex_state_current': {
     name: 'Health insurance and poverty, yearly, by sex and state',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-sex_national_current': {
     name: 'Health insurance and poverty, yearly, by sex at the national level',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-race_and_ethnicity_county_current': {
     name: 'Health insurance and poverty, yearly, by race and county',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-race_and_ethnicity_state_current': {
     name: 'Health insurance and poverty, yearly, by race and state',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-race_and_ethnicity_national_current': {
     name: 'Health insurance and poverty, yearly, by race at the national level',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_county_historical': {
     name: 'Health insurance and poverty, yearly, by county',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_county_current': {
     name: 'Health insurance and poverty, yearly, by county',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_state_historical': {
     name: 'Health insurance and poverty, yearly, by state',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_state_current': {
     name: 'Health insurance and poverty, yearly, by state',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_national_historical': {
     name: 'Health insurance and poverty, yearly, at the national level',
-    original_data_sourced: '2012-2022',
+    original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_national_current': {
     name: 'Health insurance and poverty, yearly, at the national level',
-    original_data_sourced: '2022',
+    original_data_sourced: '2024',
     source_id: 'acs',
   },
 }
