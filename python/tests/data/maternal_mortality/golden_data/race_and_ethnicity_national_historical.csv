@@ -1,10 +1,10 @@
 time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_mortality_pct_relative_inequity
 1999,00,United States,Indigenous (NH),19.0,180.0
 1999,00,United States,All,13.0,0.0
-1999,00,United States,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0,-41.4
-1999,00,United States,Black or African American (NH),31.0,206.7
-1999,00,United States,Hispanic or Latino,10.0,124.7
-1999,00,United States,White (NH),9.0,-74.8
+1999,00,United States,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0,-43.3
+1999,00,United States,Black or African American (NH),31.0,211.9
+1999,00,United States,Hispanic or Latino,10.0,116.9
+1999,00,United States,White (NH),9.0,-74.1
 2000,00,United States,Indigenous (NH),14.0,
 2000,00,United States,All,12.0,
 2000,00,United States,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0,
@@ -121,7 +121,7 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2018,00,United States,White (NH),29.0,
 2019,00,United States,Indigenous (NH),69.0,280.0
 2019,00,United States,All,32.0,0.0
-2019,00,United States,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,-20.7
-2019,00,United States,Black or African American (NH),68.0,170.8
-2019,00,United States,Hispanic or Latino,21.0,134.5
-2019,00,United States,White (NH),28.0,-73.9
+2019,00,United States,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,-23.3
+2019,00,United States,Black or African American (NH),68.0,175.4
+2019,00,United States,Hispanic or Latino,21.0,126.4
+2019,00,United States,White (NH),28.0,-73.2

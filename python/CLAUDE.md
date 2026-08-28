@@ -50,7 +50,17 @@ When a new ACS vintage lands in BigQuery and is ready for use, follow these step
 
    Commit the resulting CSV diff alongside the `ACS_CURRENT_YEAR` bump. Until this diff is committed, the new vintage year is not usable as a population denominator even if the BigQuery tables are current.
 
-4. **Re-run affected DAGs.** Datasources that merge population (e.g. AHR, CAWP) must be re-ingested after the CSV refresh so their BigQuery/GCS outputs reflect the updated denominators.
+   Two gotchas. The script defaults to the **dev** project, so refreshing without `--project <prod-project-id> --prod` silently snapshots dev's tables — and if dev's `dagAcsPopulation.yml` has not itself been re-run since the `ACS_CURRENT_YEAR` bump, the resulting CSVs still hold the old vintage while appearing to have been refreshed. Also, BigQuery row order is nondeterministic, so a refresh produces a huge order-only diff on tables whose values did not change; compare sorted content before assuming a file is genuinely different.
+
+4. **Regenerate the golden test data.** A vintage bump changes every merged population denominator at once, so dozens of golden CSV/JSON expectations legitimately fail. Rather than hand-editing them, run the suite with `REGEN_GOLDEN=1` and let `python/tests/datasources/conftest.py` overwrite each mismatching golden with what the code actually produced:
+
+   ```bash
+   REGEN_GOLDEN=1 pytest python/tests/
+   ```
+
+   Only goldens that actually fail are rewritten; passing ones are left byte-for-byte alone, since `to_csv` does not round-trip the originals and reformatting a green golden can break it. **Always review the resulting diff** — the mechanism records whatever the code emits, including a bug. Confirm row counts are unchanged and that only population-derived columns (`population`, `population_pct`, `*_pct_share`, `*_pct_relative_inequity`, rates) moved. A few expectations are inline Python literals rather than files (e.g. `python/tests/ingestion/test_merge_utils.py`) and still need hand-editing.
+
+5. **Re-run affected DAGs.** Datasources that merge population (e.g. AHR, CAWP) must be re-ingested after the CSV refresh so their BigQuery/GCS outputs reflect the updated denominators. Note this requires a **release** first for prod: the containers read the committed CSVs at runtime, so a prod DAG rerun before the CSV diff ships still uses the old snapshots.
 
 ## Key files
 
