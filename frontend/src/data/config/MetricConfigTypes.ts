@@ -145,6 +145,8 @@ interface InfoWithCitations {
   citations?: Citation[]
 }
 
+// Only used to build the override types below, so `null` is permitted at every
+// depth: deepMerge reads it as "delete this key", not as a value to assign.
 export type DeepPartial<T> = {
   [K in keyof T]?:
     | (T[K] extends Array<any>
