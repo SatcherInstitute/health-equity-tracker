@@ -192,14 +192,19 @@ async function loadReportData(
     getDataManager().loadMetrics(
       query(Breakdowns.forChildrenFips(isCounty ? parentFips : fips)),
     ),
-    getDataManager().loadMetrics(
-      new MetricQuery(
-        [metricConfig.metricId],
-        Breakdowns.forFips(fips).addBreakdown(demographicType, breakdownFilter),
-        dataTypeConfig.dataTypeId,
-        'historical',
-      ),
-    ),
+    metricConfig.timeSeriesCadence
+      ? getDataManager().loadMetrics(
+          new MetricQuery(
+            [metricConfig.metricId],
+            Breakdowns.forFips(fips).addBreakdown(
+              demographicType,
+              breakdownFilter,
+            ),
+            dataTypeConfig.dataTypeId,
+            'historical',
+          ),
+        )
+      : undefined,
     ageAdjustedConfig
       ? getDataManager().loadMetrics(
           new MetricQuery(
@@ -260,7 +265,8 @@ async function loadReportData(
         peerComparison,
       },
       temporal: {
-        rows: temporalResponse.getValidRowsForField(metricConfig.metricId),
+        rows:
+          temporalResponse?.getValidRowsForField(metricConfig.metricId) ?? [],
       },
       ageAdjusted:
         ageAdjustedConfig && ageAdjustedResponse

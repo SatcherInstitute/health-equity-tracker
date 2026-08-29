@@ -146,4 +146,46 @@ describe('applyGeoOverrides', () => {
       'Share Chart Title (default)',
     )
   })
+
+  test('null override deletes the key rather than assigning null', () => {
+    const config = {
+      metrics: {
+        per100k: {
+          metricId: 'test_per_100k',
+          type: 'per100k',
+          timeSeriesCadence: 'yearly',
+        },
+        pct_share: { metricId: 'test_pct_share', type: 'pct_share' },
+      },
+      geoOverrides: {
+        county: {
+          metrics: {
+            pct_share: null,
+            per100k: { timeSeriesCadence: null },
+          },
+        },
+      },
+    } as any as DataTypeConfig
+
+    const result = applyGeoOverrides(config, 'county')
+    expect('pct_share' in result.metrics).toBe(false)
+    expect('timeSeriesCadence' in (result.metrics.per100k as object)).toBe(
+      false,
+    )
+    expect(result.metrics.per100k?.metricId).toBe('test_per_100k')
+    expect(config.metrics.pct_share).toBeDefined()
+  })
+
+  test('null override deletes a top-level field', () => {
+    const config = {
+      dataTypeShortLabel: 'Short Label (default)',
+      fullDisplayName: 'Display Name (default)',
+      metrics: {},
+      geoOverrides: { county: { dataTypeShortLabel: null } },
+    } as any as DataTypeConfig
+
+    const result = applyGeoOverrides(config, 'county')
+    expect('dataTypeShortLabel' in result).toBe(false)
+    expect(result.fullDisplayName).toBe('Display Name (default)')
+  })
 })
