@@ -59,7 +59,7 @@ const NCI_COUNTY_METRIC_OVERRIDES = {
   pct_relative_inequity: null,
   pct_share: null,
   per100k: { timeSeriesCadence: null },
-} as const
+}
 
 export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
   {
