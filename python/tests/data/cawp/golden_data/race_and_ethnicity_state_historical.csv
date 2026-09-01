@@ -110,16 +110,16 @@ state_fips,time_period,state_name,state_postal,race_and_ethnicity,pct_share_of_u
 60,2022,American Samoa,AS,Unknown race,0.0,2.6,,
 60,2022,American Samoa,AS,White,0.0,0.0,-100.0,-100.0
 02,2023,Alaska,AK,"Native American, Alaska Native, & Native Hawaiian",33.3,1.7,,
-02,2023,Alaska,AK,"American Indian, Alaska Native, Asian & Pacific Islander",,,124.2,-55.2
+02,2023,Alaska,AK,"American Indian, Alaska Native, Asian & Pacific Islander",,,129.4,-54.1
 02,2023,Alaska,AK,All,66.7,33.3,0.0,0.0
 02,2023,Alaska,AK,Asian American & Pacific Islander,0.0,1.7,,
-02,2023,Alaska,AK,Black or African American,0.0,3.3,-100.0,212.5
-02,2023,Alaska,AK,Hispanic or Latino,0.0,1.7,-100.0,-33.3
+02,2023,Alaska,AK,Black or African American,0.0,3.3,-100.0,222.6
+02,2023,Alaska,AK,Hispanic or Latino,0.0,1.7,-100.0,-29.6
 02,2023,Alaska,AK,Middle Eastern & North African,0.0,0.0,,
 02,2023,Alaska,AK,Two or more races,0.0,0.0,-100.0,-100.0
 02,2023,Alaska,AK,Unrepresented race,0.0,0.0,-100.0,-100.0
 02,2023,Alaska,AK,Unknown race,0.0,0.0,,
-02,2023,Alaska,AK,White,33.3,25.0,-18.4,22.3
+02,2023,Alaska,AK,White,33.3,25.0,-17.6,23.6
 60,2023,American Samoa,AS,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
 60,2023,American Samoa,AS,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,0.0
 60,2023,American Samoa,AS,All,100.0,0.0,0.0,0.0
@@ -132,16 +132,16 @@ state_fips,time_period,state_name,state_postal,race_and_ethnicity,pct_share_of_u
 60,2023,American Samoa,AS,Unknown race,0.0,0.0,,
 60,2023,American Samoa,AS,White,0.0,0.0,-100.0,0.0
 02,2024,Alaska,AK,"Native American, Alaska Native, & Native Hawaiian",33.3,1.7,,
-02,2024,Alaska,AK,"American Indian, Alaska Native, Asian & Pacific Islander",,,124.2,-55.2
+02,2024,Alaska,AK,"American Indian, Alaska Native, Asian & Pacific Islander",,,132.6,-53.5
 02,2024,Alaska,AK,All,66.7,33.3,0.0,0.0
 02,2024,Alaska,AK,Asian American & Pacific Islander,0.0,1.7,,
-02,2024,Alaska,AK,Black or African American,0.0,3.3,-100.0,212.5
-02,2024,Alaska,AK,Hispanic or Latino,0.0,1.7,-100.0,-33.3
+02,2024,Alaska,AK,Black or African American,0.0,3.3,-100.0,233.3
+02,2024,Alaska,AK,Hispanic or Latino,0.0,1.7,-100.0,-31.5
 02,2024,Alaska,AK,Middle Eastern & North African,0.0,0.0,,
 02,2024,Alaska,AK,Two or more races,0.0,0.0,-100.0,-100.0
 02,2024,Alaska,AK,Unrepresented race,0.0,0.0,-100.0,-100.0
 02,2024,Alaska,AK,Unknown race,0.0,0.0,,
-02,2024,Alaska,AK,White,33.3,25.0,-18.4,22.3
+02,2024,Alaska,AK,White,33.3,25.0,-16.1,25.8
 60,2024,American Samoa,AS,"Native American, Alaska Native, & Native Hawaiian",0.0,0.0,,
 60,2024,American Samoa,AS,"American Indian, Alaska Native, Asian & Pacific Islander",,,5.8,0.0
 60,2024,American Samoa,AS,All,100.0,0.0,0.0,0.0

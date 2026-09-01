@@ -208,7 +208,7 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01003,2023,Alabama,AL,Baldwin County,Two or more races,0.0,-100.0
 01003,2023,Alabama,AL,Baldwin County,Unrepresented race,0.0,-100.0
 01003,2023,Alabama,AL,Baldwin County,Unknown race,0.0,
-01003,2023,Alabama,AL,Baldwin County,White,33.3,19.0
+01003,2023,Alabama,AL,Baldwin County,White,33.3,20.8
 01053,2023,Alabama,AL,Escambia County,"Native American, Alaska Native, & Native Hawaiian",0.0,
 01053,2023,Alabama,AL,Escambia County,All,33.3,0.0
 01053,2023,Alabama,AL,Escambia County,Asian American & Pacific Islander,0.0,
@@ -218,7 +218,7 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01053,2023,Alabama,AL,Escambia County,Two or more races,0.0,-100.0
 01053,2023,Alabama,AL,Escambia County,Unrepresented race,0.0,-100.0
 01053,2023,Alabama,AL,Escambia County,Unknown race,0.0,
-01053,2023,Alabama,AL,Escambia County,White,33.3,61.6
+01053,2023,Alabama,AL,Escambia County,White,33.3,63.9
 01097,2023,Alabama,AL,Mobile County,"Native American, Alaska Native, & Native Hawaiian",0.0,
 01097,2023,Alabama,AL,Mobile County,All,25.0,0.0
 01097,2023,Alabama,AL,Mobile County,Asian American & Pacific Islander,0.0,
@@ -228,7 +228,7 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01097,2023,Alabama,AL,Mobile County,Two or more races,0.0,-100.0
 01097,2023,Alabama,AL,Mobile County,Unrepresented race,0.0,-100.0
 01097,2023,Alabama,AL,Mobile County,Unknown race,0.0,
-01097,2023,Alabama,AL,Mobile County,White,25.0,76.4
+01097,2023,Alabama,AL,Mobile County,White,25.0,78.3
 60010,2023,American Samoa,AS,Eastern District,"Native American, Alaska Native, & Native Hawaiian",0.0,
 60010,2023,American Samoa,AS,Eastern District,All,100.0,0.0
 60010,2023,American Samoa,AS,Eastern District,Asian American & Pacific Islander,100.0,
@@ -248,7 +248,7 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01003,2024,Alabama,AL,Baldwin County,Two or more races,0.0,-100.0
 01003,2024,Alabama,AL,Baldwin County,Unrepresented race,0.0,-100.0
 01003,2024,Alabama,AL,Baldwin County,Unknown race,0.0,
-01003,2024,Alabama,AL,Baldwin County,White,33.3,19.0
+01003,2024,Alabama,AL,Baldwin County,White,33.3,22.2
 01053,2024,Alabama,AL,Escambia County,"Native American, Alaska Native, & Native Hawaiian",0.0,
 01053,2024,Alabama,AL,Escambia County,All,33.3,0.0
 01053,2024,Alabama,AL,Escambia County,Asian American & Pacific Islander,0.0,
@@ -258,7 +258,7 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01053,2024,Alabama,AL,Escambia County,Two or more races,0.0,-100.0
 01053,2024,Alabama,AL,Escambia County,Unrepresented race,0.0,-100.0
 01053,2024,Alabama,AL,Escambia County,Unknown race,0.0,
-01053,2024,Alabama,AL,Escambia County,White,33.3,61.6
+01053,2024,Alabama,AL,Escambia County,White,33.3,65.3
 01097,2024,Alabama,AL,Mobile County,"Native American, Alaska Native, & Native Hawaiian",0.0,
 01097,2024,Alabama,AL,Mobile County,All,25.0,0.0
 01097,2024,Alabama,AL,Mobile County,Asian American & Pacific Islander,0.0,
@@ -268,7 +268,7 @@ county_fips,time_period,state_name,state_postal,county_name,race_and_ethnicity,p
 01097,2024,Alabama,AL,Mobile County,Two or more races,0.0,-100.0
 01097,2024,Alabama,AL,Mobile County,Unrepresented race,0.0,-100.0
 01097,2024,Alabama,AL,Mobile County,Unknown race,0.0,
-01097,2024,Alabama,AL,Mobile County,White,25.0,76.4
+01097,2024,Alabama,AL,Mobile County,White,25.0,79.9
 60010,2024,American Samoa,AS,Eastern District,"Native American, Alaska Native, & Native Hawaiian",0.0,
 60010,2024,American Samoa,AS,Eastern District,All,100.0,0.0
 60010,2024,American Samoa,AS,Eastern District,Asian American & Pacific Islander,100.0,

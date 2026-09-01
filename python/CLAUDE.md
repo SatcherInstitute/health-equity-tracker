@@ -29,6 +29,22 @@ tests/         Integration tests — many load real fixture CSVs from repo-root 
 
 **Changing an existing data source's output?** Editing `write_to_bq()` or a shared `ingestion/` helper does not regenerate any data by itself — the matching `dag<Source>.yml` workflow must be run (`gh workflow run dag<Source>.yml --ref infra-test` for testing, or against `main` post-merge) before the change reaches BigQuery/GCS. See root `CLAUDE.md` → Backend Data Pipeline.
 
+## Regenerating golden test data
+
+When a change legitimately alters `write_to_bq()` output, regenerate the golden instead of hand-editing it. Uncomment the write line above the assertion, run the test, re-comment before committing:
+
+```python
+# python/tests/datasources/test_cawp.py
+# df_state_historical.to_csv(os.path.join(GOLDEN_DIR, table_name + ".csv"), index=False)
+assert_frame_equal(df_state_historical, load_golden_df(GOLDEN_DIR, table_name, FIPS_TIME_DTYPE), check_like=True)
+```
+
+If a test has no such line, copy one from a neighboring test file (`test_cawp.py`, `test_chr.py`, `test_age_adjustment_cdc_hiv.py`) and adjust the frame and path variables.
+
+Match the golden's existing format: most are `.csv`, but `cdc_restricted` and `bjs_incarceration` are `.json` and need `to_json(path, orient="records")`. Writing the wrong format corrupts the file silently.
+
+Review the diff. Regeneration records whatever the code emits, so a bug regenerates as cleanly as a fix.
+
 ## Bumping the ACS vintage year
 
 When a new ACS vintage lands in BigQuery and is ready for use, follow these steps in order:
@@ -50,7 +66,13 @@ When a new ACS vintage lands in BigQuery and is ready for use, follow these step
 
    Commit the resulting CSV diff alongside the `ACS_CURRENT_YEAR` bump. Until this diff is committed, the new vintage year is not usable as a population denominator even if the BigQuery tables are current.
 
-4. **Re-run affected DAGs.** Datasources that merge population (e.g. AHR, CAWP) must be re-ingested after the CSV refresh so their BigQuery/GCS outputs reflect the updated denominators.
+   Two gotchas. The script defaults to the **dev** project, so refreshing without `--project <prod-project-id> --prod` silently snapshots dev's tables — and if dev's `dagAcsPopulation.yml` has not itself been re-run since the `ACS_CURRENT_YEAR` bump, the resulting CSVs still hold the old vintage while appearing to have been refreshed. Also, BigQuery row order is nondeterministic, so a refresh produces a huge order-only diff on tables whose values did not change; compare sorted content before assuming a file is genuinely different.
+
+4. **Regenerate the golden test data.** A vintage bump changes every merged population denominator at once, so dozens of golden expectations under `python/tests/data/` fail together. Regenerate them using the pattern in **Regenerating golden test data** above, then hand-edit the few expectations that are inline Python literals rather than files (e.g. `python/tests/ingestion/test_merge_utils.py`).
+
+   Review the resulting diff rather than trusting it — regeneration records whatever the code emits, including a bug. Confirm row counts are unchanged and that only population-derived columns (`population`, `population_pct`, `*_pct_share`, `*_pct_relative_inequity`, rates) moved. Anything else means the refresh broke a join instead of just shifting a denominator.
+
+5. **Re-run affected DAGs.** Datasources that merge population (e.g. AHR, CAWP) must be re-ingested after the CSV refresh so their BigQuery/GCS outputs reflect the updated denominators. Note this requires a **release** first for prod: the containers read the committed CSVs at runtime, so a prod DAG rerun before the CSV diff ships still uses the old snapshots.
 
 ## Key files
 

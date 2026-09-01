@@ -9,7 +9,7 @@ export function getTotalACSPopulationPhrase(populationData: HetRow[]): string {
     rawPop != null && !isNaN(rawPop)
       ? rawPop.toLocaleString()
       : DATA_UNAVAILABLE
-  return `Total population: ${popAllCount} (from ACS 2022)`
+  return `Total population: ${popAllCount} (from ACS)`
 }
 
 export function getSubPopulationPhrase(

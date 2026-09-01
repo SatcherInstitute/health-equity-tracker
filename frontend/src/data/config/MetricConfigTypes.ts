@@ -145,12 +145,16 @@ interface InfoWithCitations {
   citations?: Citation[]
 }
 
+// Only used to build the override types below, so `null` is permitted at every
+// depth: deepMerge reads it as "delete this key", not as a value to assign.
 export type DeepPartial<T> = {
-  [K in keyof T]?: T[K] extends Array<any>
-    ? T[K]
-    : T[K] extends object
-      ? DeepPartial<T[K]>
-      : T[K]
+  [K in keyof T]?:
+    | (T[K] extends Array<any>
+        ? T[K]
+        : T[K] extends object
+          ? DeepPartial<T[K]>
+          : T[K])
+    | null
 }
 
 export interface DataTypeConfig {
@@ -180,7 +184,8 @@ export interface DataTypeConfig {
   otherSubPopulationLabel?: string
   // Optional: override specific, deeply nested fields
   // Used for topics with different sources per geographic breakdown
-  // Note: `undefined` override values won't work, but `null` will work and will override default values
+  // Note: `undefined` override values are ignored; use `null` to delete a field
+  // the base config declares but this geography's source does not provide.
   geoOverrides?: Partial<Record<GeographicBreakdown, DataTypeConfigOverride>>
 }
 
@@ -191,7 +196,7 @@ export type DataTypeConfigOverride = Omit<
   'metrics' | 'geoOverrides'
 > & {
   metrics?: {
-    [K in keyof DataTypeConfig['metrics']]?: MetricConfigOverride
+    [K in keyof DataTypeConfig['metrics']]?: MetricConfigOverride | null
   }
 }
 

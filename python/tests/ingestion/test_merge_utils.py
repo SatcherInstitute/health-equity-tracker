@@ -76,9 +76,9 @@ _data_without_pop_numbers = [
 
 _expected_merged_with_pop_numbers = [
     ["state_fips", "race_category_id", "population", "population_pct", "other_col"],
-    ["01", "BLACK_NH", 1318388, 26.2, "something_cool"],
-    ["01", "WHITE_NH", 3247262, 64.6, "something_else_cool"],
-    ["02", "BLACK_NH", 22400, 3.0, "something_cooler"],
+    ["01", "BLACK_NH", 1302911, 25.6, "something_cool"],
+    ["01", "WHITE_NH", 3224860, 63.4, "something_else_cool"],
+    ["02", "BLACK_NH", 21172, 2.9, "something_cooler"],
     ["78", "WHITE_NH", 11036, 12.7, "something_else_entirely"],
     ["78", "BLACK_NH", 55936, 64.2, "something_else_entirely"],
 ]
@@ -100,9 +100,9 @@ _expected_merged_with_pop_numbers_county = [
         "population_pct",
         "other_col",
     ],
-    ["01", "01001", "BLACK_NH", 11496, 19.6, "something_cool"],
-    ["01", "01003", "WHITE_NH", 192161, 82.3, "something_else_cool"],
-    ["01", "01005", "BLACK_NH", 11662, 46.9, "something_cooler"],
+    ["01", "01001", "BLACK_NH", 12244, 20.4, "something_cool"],
+    ["01", "01003", "WHITE_NH", 199426, 80.7, "something_else_cool"],
+    ["01", "01005", "BLACK_NH", 11417, 46.3, "something_cooler"],
     ["78", "78010", "BLACK_NH", 24995, 61.0, "something_territory"],
 ]
 _data_time_series_without_pop_numbers = [
@@ -167,9 +167,9 @@ _expected_time_series_merged_with_pop_numbers = [
     ["2021", "78", "WHITE_NH", 11036, 12.7, "something_else_entirely"],
     ["2021", "78", "BLACK_NH", 55936, 64.2, "something_else_entirely"],
     # Years AFTER ACS range should merge against the most recent ACS year
-    ["9999", "01", "BLACK_NH", 1318388, 26.2, "something_cool"],
-    ["9999", "01", "WHITE_NH", 3247262, 64.6, "something_else_cool"],
-    ["9999", "02", "BLACK_NH", 22400, 3.0, "something_cooler"],
+    ["9999", "01", "BLACK_NH", 1302911, 25.6, "something_cool"],
+    ["9999", "01", "WHITE_NH", 3224860, 63.4, "something_else_cool"],
+    ["9999", "02", "BLACK_NH", 21172, 2.9, "something_cooler"],
     ["9999", "78", "WHITE_NH", 11036, 12.7, "something_else_entirely"],
     ["9999", "78", "BLACK_NH", 55936, 64.2, "something_else_entirely"],
 ]
@@ -214,7 +214,7 @@ _expected_county_time_series_merged_with_pop_numbers = [
     # Territories / Years 2016-current should merge against 2020 Decennial (decia_2020)
     ["2021", "78", "78030", "ALL", 42261, 100.0, "something_else_entirely"],
     # Years AFTER ACS range should merge against the most recent ACS year
-    ["9999", "01", "01001", "ALL", 58761, 100.0, "something_cool"],
+    ["9999", "01", "01001", "ALL", 59947, 100.0, "something_cool"],
     ["9999", "78", "78030", "ALL", 42261, 100.0, "something_else_entirely"],
 ]
 
@@ -236,9 +236,9 @@ _expected_merge_with_pop_numbers_multiple_rows = [
         "cases_population",
         "deaths_population",
     ],
-    ["01", "BLACK_NH", 10, 1, 1318388, 1318388],
-    ["01", "WHITE_NH", 100, np.nan, 3247262, 3247262],
-    ["02", "BLACK_NH", 20, np.nan, 22400, 22400],
+    ["01", "BLACK_NH", 10, 1, 1302911, 1302911],
+    ["01", "WHITE_NH", 100, np.nan, 3224860, 3224860],
+    ["02", "BLACK_NH", 20, np.nan, 21172, 21172],
     ["78", "WHITE_NH", 10, 2, 11036, 11036],
     ["78", "BLACK_NH", 5, 0, 55936, 55936],
 ]
@@ -417,7 +417,7 @@ def test_state_sex_merge_intersectional_pop():
         "sex": ["Male", "Female", "All", "Male", "Female", "All"],
         "state_fips": ["01", "01", "01", "02", "02", "02"],
         "state_name": ["Alabama", "Alabama", "Alabama", "Alaska", "Alaska", "Alaska"],
-        "18plus_population": [1878392.0, 2039058.0, 3917450.0, 294462.0, 261021.0, 555483.0],
+        "18plus_population": [1892453.0, 2063590.0, 3956043.0, 295296.0, 263231.0, 558527.0],
     }
     df = pd.DataFrame(fake_state_by_sex_data_with_only_rates)
     (df, intersectional_pop_col) = merge_utils.merge_intersectional_pop(df, "state", "sex", age_specific_group="18+")

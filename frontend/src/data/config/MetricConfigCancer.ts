@@ -51,6 +51,16 @@ export type CancerCategoryMetricId =
   | 'prostate_population_estimated_total'
   | 'prostate_population_pct'
 
+// County cancer comes from NCI State Cancer Profiles, which publishes a single
+// point-in-time age-adjusted rate and count: no share columns, no time series.
+// Deleting these at county removes the trends, unknowns, and share cards rather
+// than leaving them to request datasets that cannot exist and render empty.
+const NCI_COUNTY_METRIC_OVERRIDES = {
+  pct_relative_inequity: null,
+  pct_share: null,
+  per100k: { timeSeriesCadence: null },
+}
+
 export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'cancer',
@@ -116,6 +126,9 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
       },
     },
     otherSubPopulationLabel: 'Female population',
+    geoOverrides: {
+      county: { metrics: NCI_COUNTY_METRIC_OVERRIDES },
+    },
   },
   {
     categoryId: 'cancer',
@@ -188,10 +201,10 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
           text: 'The number of new cases of cervical cancer diagnosed among female patients within a specific time period. County-level figures are from NCI State Cancer Profiles and reflect age-adjusted rates to allow fairer comparisons across counties and demographic groups.',
         },
         metrics: {
+          ...NCI_COUNTY_METRIC_OVERRIDES,
           per100k: {
+            ...NCI_COUNTY_METRIC_OVERRIDES.per100k,
             chartTitle: 'Age-adjusted cervical cancer rates',
-            trendsCardTitleName:
-              'Age-adjusted rates of cervical cancer for female population over time',
             columnTitleHeader: 'Cervical cancer cases per 100k (age-adjusted)',
           },
         },
@@ -260,6 +273,9 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         type: 'per100k',
       },
     },
+    geoOverrides: {
+      county: { metrics: NCI_COUNTY_METRIC_OVERRIDES },
+    },
   },
   {
     categoryId: 'cancer',
@@ -320,6 +336,9 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
         trendsCardTitleName: 'Rates of lung cancer cases over time',
         type: 'per100k',
       },
+    },
+    geoOverrides: {
+      county: { metrics: NCI_COUNTY_METRIC_OVERRIDES },
     },
   },
   {
@@ -385,5 +404,8 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
       },
     },
     otherSubPopulationLabel: 'Male population',
+    geoOverrides: {
+      county: { metrics: NCI_COUNTY_METRIC_OVERRIDES },
+    },
   },
 ]
