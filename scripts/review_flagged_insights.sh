@@ -25,8 +25,6 @@
 #   ./review_flagged_insights.sh                  # list all flag records grouped by status
 #   ./review_flagged_insights.sh --review         # interactively triage each unhandled report
 #   ./review_flagged_insights.sh --ci             # exit non-zero if any unhandled reports exist
-#   ./review_flagged_insights.sh --flush-cache    # delete ALL dev/infra-test cached insights
-#   ./review_flagged_insights.sh --flush-cache-prod  # delete ALL production cached insights
 #
 # Optional: -p PROJECT_ID  -b FLAGGED_BUCKET  -c CACHE_BUCKET  -h
 
@@ -36,21 +34,14 @@ DEFAULT_PROJECT_ID="het-infra-test-05"
 DEFAULT_FLAGGED_BUCKET="het-flagged-insights"
 DEFAULT_CACHE_BUCKET="het-insights-cache"
 
-# Prod targets are deliberately not hardcoded: this repo is public and prod identifiers
-# are held in GitHub secrets. Supply them via these env vars or explicit -p/-c.
-PROD_PROJECT_ID="${PROD_PROJECT_ID:-}"
-PROD_CACHE_BUCKET="${PROD_CACHE_BUCKET:-}"
-
 PROJECT_ID="$DEFAULT_PROJECT_ID"
 FLAGGED_BUCKET="$DEFAULT_FLAGGED_BUCKET"
 CACHE_BUCKET="$DEFAULT_CACHE_BUCKET"
-PROJECT_ID_EXPLICIT=0
-CACHE_BUCKET_EXPLICIT=0
-MODE="list" # list | review | ci | flush-cache | flush-cache-prod
+MODE="list" # list | review | ci
 
 show_help() {
     cat <<EOF
-Usage: $0 [--review | --ci | --flush-cache | --flush-cache-prod] [-p PROJECT_ID] [-b FLAGGED_BUCKET] [-c CACHE_BUCKET]
+Usage: $0 [--review | --ci] [-p PROJECT_ID] [-b FLAGGED_BUCKET] [-c CACHE_BUCKET]
 
 Review AI-insight flag records in the flagged-insights GCS bucket.
 
@@ -60,25 +51,12 @@ Modes:
                  delete (false alarm), skip, or quit.
   --ci           Non-interactive check used by CI. Prints any unhandled reports and
                  exits 1 if there are any, else exits 0.
-  --flush-cache      Delete ALL cached insights from the dev/infra-test cache
-                     bucket so they regenerate fresh on next request. Requires
-                     typed confirmation. Use when a prompt change makes old cached
-                     insights stale.
-  --flush-cache-prod Delete ALL cached insights from the production cache bucket.
-                     Requires a stricter typed confirmation. Insights regenerate
-                     on next visitor request. Reads its target from the
-                     PROD_PROJECT_ID and PROD_CACHE_BUCKET env vars unless -p/-c
-                     are given.
 
 Options:
   -p PROJECT_ID      GCP project (default: $DEFAULT_PROJECT_ID)
   -b FLAGGED_BUCKET  Flagged-insights bucket (default: $DEFAULT_FLAGGED_BUCKET)
   -c CACHE_BUCKET    Insights-cache bucket (default: $DEFAULT_CACHE_BUCKET)
   -h, --help         Show this help and exit
-
-Environment:
-  PROD_PROJECT_ID    Production GCP project, required by --flush-cache-prod.
-  PROD_CACHE_BUCKET  Production insights-cache bucket, required by --flush-cache-prod.
 EOF
     exit "${1:-0}"
 }
@@ -99,91 +77,13 @@ while [[ $# -gt 0 ]]; do
         --list) MODE="list"; shift ;;
         --review) MODE="review"; shift ;;
         --ci) MODE="ci"; shift ;;
-        --flush-cache) MODE="flush-cache"; shift ;;
-        --flush-cache-prod) MODE="flush-cache-prod"; shift ;;
-        -p) require_value "$1" "$#"; PROJECT_ID="$2"; PROJECT_ID_EXPLICIT=1; shift 2 ;;
+        -p) require_value "$1" "$#"; PROJECT_ID="$2"; shift 2 ;;
         -b) require_value "$1" "$#"; FLAGGED_BUCKET="$2"; shift 2 ;;
-        -c) require_value "$1" "$#"; CACHE_BUCKET="$2"; CACHE_BUCKET_EXPLICIT=1; shift 2 ;;
+        -c) require_value "$1" "$#"; CACHE_BUCKET="$2"; shift 2 ;;
         -h|--help) show_help 0 ;;
         *) echo "Unknown argument: $1" >&2; show_help 1 ;;
     esac
 done
-
-# Prod flush targets the env-var project/bucket unless the caller named one explicitly.
-if [[ "$MODE" == "flush-cache-prod" ]]; then
-    if [[ "$PROJECT_ID_EXPLICIT" -eq 0 ]]; then
-        PROJECT_ID="$PROD_PROJECT_ID"
-    fi
-    if [[ "$CACHE_BUCKET_EXPLICIT" -eq 0 ]]; then
-        CACHE_BUCKET="$PROD_CACHE_BUCKET"
-    fi
-    if [[ -z "$PROJECT_ID" || -z "$CACHE_BUCKET" ]]; then
-        echo "Error: --flush-cache-prod has no target." >&2
-        echo "Set PROD_PROJECT_ID and PROD_CACHE_BUCKET in your environment, or pass -p and -c." >&2
-        exit 2
-    fi
-fi
-
-# Runs before the flag-bucket fetch, so it needs only gcloud.
-# $1 = environment label shown in the banner, $2 = exact phrase the operator must type.
-do_flush_cache() {
-    local env_label="$1" confirm_phrase="$2" count answer
-
-    if ! command -v gcloud >/dev/null 2>&1; then
-        echo "Error: 'gcloud' is required but not installed." >&2
-        exit 2
-    fi
-
-    # Count objects first so the confirmation prompt can show the scope.
-    echo "Counting cached insights in gs://$CACHE_BUCKET/insights/ ..." >&2
-    count=$(gcloud storage ls "gs://$CACHE_BUCKET/insights/**" \
-        --project "$PROJECT_ID" 2>/dev/null | wc -l | tr -d ' ') || count=0
-
-    echo
-    if [[ "$env_label" == "production" ]]; then
-        echo "  !! PRODUCTION FLUSH — this affects the live public site. !!"
-        echo
-    fi
-    echo "  WARNING: This will permanently delete ALL cached AI insights ($env_label)."
-    echo
-    echo "  Project: $PROJECT_ID"
-    echo "  Bucket : gs://$CACHE_BUCKET"
-    echo "  Objects: $count file(s) under insights/"
-    echo
-    echo "  Every insight will be regenerated from scratch the next time a"
-    echo "  visitor opens a sparkle card. This cannot be undone."
-    echo
-    echo "  To confirm, type exactly:  $confirm_phrase"
-    echo
-    read -r -p "  Confirmation: " answer </dev/tty
-    if [[ "$answer" != "$confirm_phrase" ]]; then
-        echo
-        echo "Aborted — confirmation did not match. Nothing was deleted."
-        exit 1
-    fi
-
-    echo
-    echo "Flushing gs://$CACHE_BUCKET/insights/ ..."
-    if gcloud storage rm "gs://$CACHE_BUCKET/insights/**" \
-            --project "$PROJECT_ID"; then
-        echo
-        echo "Done. All cached insights deleted ($env_label)."
-    else
-        echo
-        echo "Error: flush failed (partial deletion may have occurred). Check GCP console." >&2
-        exit 2
-    fi
-}
-
-if [[ "$MODE" == "flush-cache" ]]; then
-    do_flush_cache "dev/infra-test" "flush all insights"
-    exit 0
-fi
-
-if [[ "$MODE" == "flush-cache-prod" ]]; then
-    do_flush_cache "production" "flush prod insights"
-    exit 0
-fi
 
 # --- Preconditions ---
 for cmd in gcloud jq; do
