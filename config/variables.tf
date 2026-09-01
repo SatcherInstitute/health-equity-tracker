@@ -196,7 +196,7 @@ variable "insight_max_generations_per_day" {
 variable "insight_max_generations_per_month" {
   description = "Maximum AI insight generations per UTC month, enforced by the usage ledger"
   type        = number
-  default     = 5000
+  default     = 6000
 }
 
 variable "insight_allowed_origins" {

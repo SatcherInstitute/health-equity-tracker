@@ -35,7 +35,7 @@ go test ./...
 | `GEMINI_API_KEY` | No | - | Required for AI insight generation. Unset disables generation; cached insights still serve |
 | `GEMINI_MODEL` | No | `gemini-3.1-flash-lite` | Gemini model used for insight generation |
 | `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `300` | Daily generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
-| `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `5000` | Monthly generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
+| `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `6000` | Monthly generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
 | `INSIGHT_CEILING_WARN_PERCENT` | No | `80` | Share of a ceiling at which a `ceiling_approaching` warning is logged. Must be `1`-`100`; anything else falls back to the default |
 | `INSIGHT_ALLOWED_ORIGINS` | No | prod, www, dev, `localhost:3000`, `*.netlify.app` | Comma-separated origins permitted to request generation |
 | `WEBFLOW_API_TOKEN` | No | - | Required for `/het-news` |
@@ -91,7 +91,7 @@ object and hits are the hot path.
   "outcome":"generated","cacheKey":"a1b2c3","topic":"hiv","reserved":true,
   "model":"gemini-3.1-flash-lite","promptTokens":1840,"outputTokens":96,
   "dailyGenerations":42,"dailyLimit":300,
-  "monthlyGenerations":903,"monthlyLimit":5000,"durationMs":812}}
+  "monthlyGenerations":903,"monthlyLimit":6000,"durationMs":812}}
 ```
 
 `outcome` is one of:
@@ -277,11 +277,15 @@ and for the unguarded per-minute axis described below. Raise it once production 
 own Generative Language project and the per-minute guard has landed; until then the
 distance from the provider's limit is doing real work.
 
-A monthly ceiling of 5,000 allows about sixteen days at the daily ceiling, or 161 a day
-sustained. The provider publishes no monthly quota, so this one exists only to keep a
-sustained anomaly from running for a full month unnoticed. The ratio between them is the
-part worth preserving: one unusual day spends 6% of the month, so a single spike cannot
-consume the period.
+A monthly ceiling of 6,000 allows twenty days at the daily ceiling, or 194 a day
+sustained, preserving the ratio the previous pair of numbers held. Nothing measured here
+speaks to the monthly figure: the provider publishes no monthly quota, and spend is zero,
+so the only thing it guards is a sustained pattern that stays under the daily ceiling for
+a whole month. The `ceiling_approaching` alert is what surfaces that; blocking on it adds
+nothing the alert did not already say, and the block is the more expensive of the two,
+because exhausting a month goes dark for weeks where exhausting a day goes dark until
+midnight UTC. Keep it loose enough that the daily ceiling is the one that binds, and
+treat the alert as the real signal.
 
 **Two things these numbers do not cover.**
 

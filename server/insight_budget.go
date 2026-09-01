@@ -36,7 +36,7 @@ const (
 	// current limits, the traffic they were measured against, and the query that
 	// re-reads them. Read it before moving either number.
 	defaultMaxGenerationsPerDay   = 300
-	defaultMaxGenerationsPerMonth = 5000
+	defaultMaxGenerationsPerMonth = 6000
 
 	// Warn at this share of a ceiling. Late enough not to cry wolf, early enough
 	// that a fifth of the period's budget is still available to act with.
