@@ -307,18 +307,34 @@ reachable.
 
 A key is the URL pathname, `?`, the query params, the view scope (`#<hashId>` for a
 card, `#<hashId>-2` for its compare twin, `#<hashId>-contrast`, empty for a report),
-`-`, and an FNV-1a-32 hash of the rendered prompt. The browser builds the same string
-today, and a divergence does not fail loudly: it silently misses every warm entry.
-Two details keep the two implementations in agreement.
+`-`, and an FNV-1a-32 hash of the rendered prompt. The server is the only place that
+builds it. The browser posts a descriptor and gets the key back on the response, where
+it is used solely for flagging; `buildInsightCacheKey` once mirrored this logic
+client-side and no longer exists.
 
-- **The hash runs over UTF-16 code units, not UTF-8 bytes**, because the browser
-  iterates `charCodeAt(i)`. The peer-median line carries a U+2013 en dash, so byte
-  iteration would diverge on every map card with a peer comparison. Go gets there via
-  `utf16.Encode([]rune(text))`. `TestFNV1a32MatchesBrowser` pins hashes taken from the
-  browser algorithm, including an en dash and an astral-plane surrogate pair.
+Two details are still load-bearing, but for the cache rather than for client parity.
+Every already-cached insight was keyed with them, so changing either silently displaces
+the whole cache instead of failing.
+
+- **The hash runs over UTF-16 code units, not UTF-8 bytes**, inherited from the
+  browser's `charCodeAt(i)` iteration. The peer-median line carries a U+2013 en dash,
+  so byte iteration would change the key for every map card with a peer comparison. Go
+  gets there via `utf16.Encode([]rune(text))`. `TestFNV1a32MatchesBrowser` pins the
+  hashes, including an en dash and an astral-plane surrogate pair.
 - **The params string is opaque text and must never be parsed and re-encoded.**
   `URLSearchParams.toString()` preserves insertion order; Go's `url.Values.Encode()`
   sorts. So `stripReportInsightParam` edits the string directly.
+
+**Invalidation is automatic, which is why there is no flush tool.** The rendered prompt
+carries both the template wording and the data rows, so a template edit or a data
+refresh mints new keys on its own: the orphaned entries become unreachable and the
+bucket's 210-day TTL sweeps them. A single bad insight is handled by flagging and
+suppression, which deletes that one key directly.
+
+The gap to watch is a change that alters output *without* altering rendered prompt text,
+such as a `GEMINI_MODEL` swap or new `normalizeInsightResponse` rules, since cached
+entries are served as stored and never re-normalized. Bundle a prompt edit with such a
+change to force new keys, the way the response-envelope change did.
 
 ## Insight prompt fixtures
 
