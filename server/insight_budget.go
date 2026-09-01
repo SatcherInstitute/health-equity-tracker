@@ -32,10 +32,15 @@ const (
 	// sit under the provider's own daily allowance so the limit reached first is
 	// this one, whose failure path serves cached insights, rather than the
 	// provider's, whose rejections consume a reserved slot and return nothing.
-	// The figures deliberately live in one place: server/CLAUDE.md carries the
+	//
+	// The daily figure is halved against that allowance on purpose. The ledger
+	// below keys days in UTC while the provider resets at midnight Pacific, so
+	// one provider day spans two ledger days and can draw two full allowances.
+	// Until the ledger is keyed to the provider's calendar (#5203), the ceiling
+	// has to hold with that doubling applied. server/CLAUDE.md carries the
 	// current limits, the traffic they were measured against, and the query that
 	// re-reads them. Read it before moving either number.
-	defaultMaxGenerationsPerDay   = 300
+	defaultMaxGenerationsPerDay   = 240
 	defaultMaxGenerationsPerMonth = 6000
 
 	// Warn at this share of a ceiling. Late enough not to cry wolf, early enough

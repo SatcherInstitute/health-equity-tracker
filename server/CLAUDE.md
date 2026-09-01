@@ -34,7 +34,7 @@ go test ./...
 | `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) |
 | `GEMINI_API_KEY` | No | - | Required for AI insight generation. Unset disables generation; cached insights still serve |
 | `GEMINI_MODEL` | No | `gemini-3.1-flash-lite` | Gemini model used for insight generation |
-| `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `300` | Daily generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
+| `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `240` | Daily generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
 | `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `6000` | Monthly generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
 | `INSIGHT_CEILING_WARN_PERCENT` | No | `80` | Share of a ceiling at which a `ceiling_approaching` warning is logged. Must be `1`-`100`; anything else falls back to the default |
 | `INSIGHT_ALLOWED_ORIGINS` | No | prod, www, dev, `localhost:3000`, `*.netlify.app` | Comma-separated origins permitted to request generation |
@@ -90,7 +90,7 @@ object and hits are the hot path.
 {"severity":"INFO","message":"insight generated","insight":{
   "outcome":"generated","cacheKey":"a1b2c3","topic":"hiv","reserved":true,
   "model":"gemini-3.1-flash-lite","promptTokens":1840,"outputTokens":96,
-  "dailyGenerations":42,"dailyLimit":300,
+  "dailyGenerations":42,"dailyLimit":240,
   "monthlyGenerations":903,"monthlyLimit":6000,"durationMs":812}}
 ```
 
@@ -231,6 +231,12 @@ and are readable from the Service Usage API rather than from the public docs, wh
 longer publish a table:
 
 ```bash
+# Quota is granted per project, so this must be the project that issues
+# gemini-api-key, not a HET service project. List the candidates with
+# `gcloud projects list --filter='projectId~^gen-lang-client'` and confirm which
+# one the secret's key belongs to before trusting the numbers.
+GEN_LANG_PROJECT=<project that issues gemini-api-key>
+
 TOKEN=$(gcloud auth print-access-token)
 curl -s -H "Authorization: Bearer $TOKEN" \
   "https://serviceusage.googleapis.com/v1beta1/projects/$GEN_LANG_PROJECT/services/generativelanguage.googleapis.com/consumerQuotaMetrics?pageSize=500" \
@@ -263,29 +269,36 @@ production hit rate should be expected lower and the generations per pageview hi
 Re-measure it from production logs once generation is enabled there, and treat the
 ceilings below as provisional until that number exists.
 
-**The numbers.** A daily ceiling of 300 sits 40% below the provider's 500 so that the
-limit reached first is this one. That ordering matters because a reservation is claimed
-before the provider call and is not released when the call fails: once the provider is
-the binding limit, its rejections consume ledger slots and return nothing, so the daily
-count stops resembling insights produced. At the measured 92% hit rate, 300 generations
-supports roughly 3,700 insight requests in a day, and covers the busiest observed dev day
-five times over.
+**The numbers.** A daily ceiling of 240 is set by the mismatch between our ledger's day
+and the provider's. `reserveGeneration` keys the daily ledger by UTC calendar day, but
+the provider's requests-per-day quota resets at midnight Pacific. A UTC day therefore
+runs 17:00 PT to 17:00 PT, and a single provider day straddles two of our ledger days,
+each carrying a full fresh allowance. At a ceiling of 300 that exposes up to 600 requests
+inside one provider day against a limit of 500. At 240 the worst case is 480, under the
+limit no matter when traffic lands.
 
-Three hundred rather than any other value below 500 is a judgment, not a derivation. It
-leaves room for a second environment drawing on the same project's allowance, for retries,
-and for the unguarded per-minute axis described below. Raise it once production has its
-own Generative Language project and the per-minute guard has landed; until then the
-distance from the provider's limit is doing real work.
+That ordering is the whole point. A reservation is claimed before the provider call and
+is not released when the call fails, so once the provider is the limit reached first, its
+rejections consume ledger slots and return nothing and the daily count stops resembling
+insights produced. Keeping our ceiling strictly below the provider's, on the provider's
+own calendar, is what keeps exhaustion a graceful cached-only path.
 
-A monthly ceiling of 6,000 allows twenty days at the daily ceiling, or 194 a day
-sustained, preserving the ratio the previous pair of numbers held. Nothing measured here
-speaks to the monthly figure: the provider publishes no monthly quota, and spend is zero,
-so the only thing it guards is a sustained pattern that stays under the daily ceiling for
-a whole month. The `ceiling_approaching` alert is what surfaces that; blocking on it adds
-nothing the alert did not already say, and the block is the more expensive of the two,
-because exhausting a month goes dark for weeks where exhausting a day goes dark until
-midnight UTC. Keep it loose enough that the daily ceiling is the one that binds, and
-treat the alert as the real signal.
+The cost is real: 240 is a fifth less capacity than the boundary problem would otherwise
+require, spent on a worst case that needs a full budget burned on both sides of 17:00 PT.
+Keying the daily ledger to Pacific days would remove the doubling and let the ceiling go
+back to 300 or higher; that is tracked in #5203. At the measured 92% hit rate, 240
+generations supports roughly 3,000 insight requests in a day, and covers the busiest
+observed dev day four times over.
+
+A monthly ceiling of 6,000 leaves the daily ceiling as the one that binds: twenty-five
+days at the daily cap, or 194 a day sustained. Nothing measured here speaks to the
+monthly figure, because the provider publishes no monthly quota and spend is zero, so the
+only thing it guards is a sustained pattern that stays under the daily ceiling for a whole
+month. The `ceiling_approaching` alert is what surfaces that; blocking on it adds nothing
+the alert did not already say, and the block is the more expensive of the two, because
+exhausting a month goes dark for weeks where exhausting a day goes dark until the next
+UTC midnight. Keep it loose enough that the daily ceiling binds, and treat the alert as
+the real signal.
 
 **Two things these numbers do not cover.**
 
@@ -298,11 +311,11 @@ A burst. Neither ceiling constrains the per-minute axis, and the service has no
 service-wide per-minute guard, so the provider's 15 a minute can be reached while the day
 is barely spent. That gap is tracked separately in #5168.
 
-**Lead time on the warning.** At `INSIGHT_CEILING_WARN_PERCENT` of 80, the alert fires
-with 60 generations left. Against ordinary traffic that is hours of warning and behaves
-as intended. Against a burst it is about four minutes, but no threshold fixes that: at 15
-requests a minute even a 50% threshold buys ten. The percent is the right lever for drift
-and the wrong one for bursts, which is why 80 stays.
+**Lead time on the warning.** At `INSIGHT_CEILING_WARN_PERCENT` of 80, the daily alert
+fires with 48 generations left. Against ordinary traffic that is hours of warning and
+behaves as intended. Against a burst it is roughly three minutes, but no threshold fixes
+that: at 15 requests a minute even a 50% threshold buys eight. The percent is the right
+lever for drift and the wrong one for bursts, which is why 80 stays.
 
 ### Ceiling alert
 
