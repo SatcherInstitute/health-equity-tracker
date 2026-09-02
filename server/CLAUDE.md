@@ -34,8 +34,8 @@ go test ./...
 | `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) |
 | `GEMINI_API_KEY` | No | - | Required for AI insight generation. Unset disables generation; cached insights still serve |
 | `GEMINI_MODEL` | No | `gemini-3.1-flash-lite` | Gemini model used for insight generation |
-| `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `400` | Daily generation ceiling, tracked in the usage ledger |
-| `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `8000` | Monthly generation ceiling, tracked in the usage ledger |
+| `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `240` | Daily generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
+| `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `6000` | Monthly generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
 | `INSIGHT_CEILING_WARN_PERCENT` | No | `80` | Share of a ceiling at which a `ceiling_approaching` warning is logged. Must be `1`-`100`; anything else falls back to the default |
 | `INSIGHT_ALLOWED_ORIGINS` | No | prod, www, dev, `localhost:3000`, `*.netlify.app` | Comma-separated origins permitted to request generation |
 | `WEBFLOW_API_TOKEN` | No | - | Required for `/het-news` |
@@ -90,8 +90,8 @@ object and hits are the hot path.
 {"severity":"INFO","message":"insight generated","insight":{
   "outcome":"generated","cacheKey":"a1b2c3","topic":"hiv","reserved":true,
   "model":"gemini-3.1-flash-lite","promptTokens":1840,"outputTokens":96,
-  "dailyGenerations":42,"dailyLimit":400,
-  "monthlyGenerations":903,"monthlyLimit":8000,"durationMs":812}}
+  "dailyGenerations":42,"dailyLimit":240,
+  "monthlyGenerations":903,"monthlyLimit":6000,"durationMs":812}}
 ```
 
 `outcome` is one of:
@@ -218,6 +218,104 @@ gcloud logging read \
   "$FILTER (jsonPayload.insight.reason=\"ceiling_reached\" OR jsonPayload.insight.outcome=\"ceiling_approaching\")" \
   --project "$PROJECT" --freshness=30d --format='value(timestamp,jsonPayload.message)'
 ```
+
+### Ceiling sizing
+
+The ceilings are a quota and abuse guard, not a cost control. Generation runs on the
+provider's free tier, so marginal spend is zero and there is no dollar figure to work
+back from. What constrains them is the provider's own quota and the share of traffic the
+cache does not absorb.
+
+**Provider quota.** Free-tier limits are granted per project per model, not per API key,
+and are readable from the Service Usage API rather than from the public docs, which no
+longer publish a table:
+
+```bash
+# Quota is granted per project, so this must be the project that issues
+# gemini-api-key, not a HET service project. List the candidates with
+# `gcloud projects list --filter='projectId~^gen-lang-client'` and confirm which
+# one the secret's key belongs to before trusting the numbers.
+GEN_LANG_PROJECT=<project that issues gemini-api-key>
+
+TOKEN=$(gcloud auth print-access-token)
+curl -s -H "Authorization: Bearer $TOKEN" \
+  "https://serviceusage.googleapis.com/v1beta1/projects/$GEN_LANG_PROJECT/services/generativelanguage.googleapis.com/consumerQuotaMetrics?pageSize=500" \
+| jq -r '(.metrics//[])[] | .displayName as $d | (.consumerQuotaLimits//[])[] | .unit as $u
+         | (.quotaBuckets//[])[] | select(.dimensions.model == "gemini-3.1-flash-lite")
+         | "\($d) | \($u) | \(.effectiveLimit)"'
+```
+
+For `gemini-3.1-flash-lite` on the free tier that returns 15 requests per minute, 500 per
+day, and 250,000 input tokens per minute. Re-read it after any `GEMINI_MODEL` change: the
+limits are per model and differ sharply between them, and a project that gains a billing
+account moves to paid-tier limits roughly two orders of magnitude higher, at which point
+these ceilings are sized against the wrong numbers.
+
+**Requests bind before tokens.** Measured prompts average about 3,200 input tokens and
+peak near 9,400. Even at the full 15 requests a minute, the worst case is roughly 141,000
+input tokens a minute against a 250,000 allowance, so the token limit is not reachable
+through this path. Size against request counts and treat tokens as headroom.
+
+**Traffic.** Thirty days of dev traffic recorded 481 memory hits, 391 GCS hits and 76
+generations: a 92% hit rate, against a busiest day of 59 generations. Generation volume
+tracks distinct views opened multiplied by data changed since they were last opened, not
+pageviews, so the hit rate is what keeps steady-state volume near zero and is the number
+to re-measure before revisiting any of this.
+
+Read that 92% as an upper bound rather than a forecast. Dev traffic is mostly the team
+reopening a small set of views, which is the pattern that flatters a cache most. Real
+users spread across many more topic, geography and demographic combinations, so the
+production hit rate should be expected lower and the generations per pageview higher.
+Re-measure it from production logs once generation is enabled there, and treat the
+ceilings below as provisional until that number exists.
+
+**The numbers.** A daily ceiling of 240 is set by the mismatch between our ledger's day
+and the provider's. `reserveGeneration` keys the daily ledger by UTC calendar day, but
+the provider's requests-per-day quota resets at midnight Pacific. A UTC day therefore
+runs 17:00 PT to 17:00 PT, and a single provider day straddles two of our ledger days,
+each carrying a full fresh allowance. At a ceiling of 300 that exposes up to 600 requests
+inside one provider day against a limit of 500. At 240 the worst case is 480, under the
+limit no matter when traffic lands.
+
+That ordering is the whole point. A reservation is claimed before the provider call and
+is not released when the call fails, so once the provider is the limit reached first, its
+rejections consume ledger slots and return nothing and the daily count stops resembling
+insights produced. Keeping our ceiling strictly below the provider's, on the provider's
+own calendar, is what keeps exhaustion a graceful cached-only path.
+
+The cost is real: 240 is a fifth less capacity than the boundary problem would otherwise
+require, spent on a worst case that needs a full budget burned on both sides of 17:00 PT.
+Keying the daily ledger to Pacific days would remove the doubling and let the ceiling go
+back to 300 or higher; that is tracked in #5203. At the measured 92% hit rate, 240
+generations supports roughly 3,000 insight requests in a day, and covers the busiest
+observed dev day four times over.
+
+A monthly ceiling of 6,000 leaves the daily ceiling as the one that binds: twenty-five
+days at the daily cap, or 194 a day sustained. Nothing measured here speaks to the
+monthly figure, because the provider publishes no monthly quota and spend is zero, so the
+only thing it guards is a sustained pattern that stays under the daily ceiling for a whole
+month. The `ceiling_approaching` alert is what surfaces that; blocking on it adds nothing
+the alert did not already say, and the block is the more expensive of the two, because
+exhausting a month goes dark for weeks where exhausting a day goes dark until the next
+UTC midnight. Keep it loose enough that the daily ceiling binds, and treat the alert as
+the real signal.
+
+**Two things these numbers do not cover.**
+
+A cold cache. Both figures assume a warm cache, and production's starts empty, so the
+early hit rate is far below 92% and the daily ceiling is reachable on launch day. The
+provider's 500 a day is a hard wall on how fast a cold cache can be filled, whatever this
+ceiling says.
+
+A burst. Neither ceiling constrains the per-minute axis, and the service has no
+service-wide per-minute guard, so the provider's 15 a minute can be reached while the day
+is barely spent. That gap is tracked separately in #5168.
+
+**Lead time on the warning.** At `INSIGHT_CEILING_WARN_PERCENT` of 80, the daily alert
+fires with 48 generations left. Against ordinary traffic that is hours of warning and
+behaves as intended. Against a burst it is roughly three minutes, but no threshold fixes
+that: at 15 requests a minute even a 50% threshold buys eight. The percent is the right
+lever for drift and the wrong one for bursts, which is why 80 stays.
 
 ### Ceiling alert
 
