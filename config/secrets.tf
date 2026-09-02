@@ -32,6 +32,11 @@
 # Language API, and is API-restricted to that one API. It is server-side only and is
 # never shipped to the browser.
 #
+# Test and prod are issued from DIFFERENT Generative Language projects on purpose.
+# Free-tier quota is granted per project per model, so a shared project would let
+# internal testing spend the public site's daily allowance. Keep them separate when
+# rotating either key.
+#
 # census-api-key is required for Census Bureau API requests (free registration). It is read
 # via os.getenv("CENSUS_API_KEY") by BOTH Cloud Run services, so BOTH runtime service
 # accounts need the accessor role in every project (see run.tf): the ingestion runner
