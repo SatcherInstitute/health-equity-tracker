@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"log"
 	"net"
 	"net/http"
 	"os"
@@ -11,6 +12,10 @@ import (
 	"strings"
 	"sync"
 	"time"
+	// The runtime image is gcr.io/distroless/static-debian12, which carries no
+	// zoneinfo, so LoadLocation below would fail on the deployed binary without
+	// this. It embeds the IANA database at a cost of roughly 450 KB.
+	_ "time/tzdata"
 
 	"cloud.google.com/go/storage"
 	"golang.org/x/time/rate"
@@ -33,14 +38,12 @@ const (
 	// this one, whose failure path serves cached insights, rather than the
 	// provider's, whose rejections consume a reserved slot and return nothing.
 	//
-	// The daily figure is halved against that allowance on purpose. The ledger
-	// below keys days in UTC while the provider resets at midnight Pacific, so
-	// one provider day spans two ledger days and can draw two full allowances.
-	// Until the ledger is keyed to the provider's calendar (#5203), the ceiling
-	// has to hold with that doubling applied. server/CLAUDE.md carries the
-	// current limits, the traffic they were measured against, and the query that
-	// re-reads them. Read it before moving either number.
-	defaultMaxGenerationsPerDay   = 240
+	// Both periods are keyed on the provider's own quota calendar, so a ledger
+	// day sits inside exactly one provider day and the ceiling is what reaches
+	// the provider. server/CLAUDE.md carries the current limits, the traffic
+	// they were measured against, and the query that re-reads them. Read it
+	// before moving either number.
+	defaultMaxGenerationsPerDay   = 300
 	defaultMaxGenerationsPerMonth = 6000
 
 	// Warn at this share of a ceiling. Late enough not to cry wolf, early enough
@@ -71,6 +74,33 @@ func envInt(name string, fallback int) int {
 }
 
 func ledgerObject(period string) string { return "budget/" + period + ".json" }
+
+// providerQuotaLocation is the calendar the provider resets its request quotas
+// on. Both ledger periods are keyed in it rather than in UTC, so that a period
+// this service meters sits inside exactly one provider quota day. Keying in UTC
+// put a provider day across two ledger days, each with a full allowance, which
+// let twice the daily ceiling reach the provider inside one of its days.
+//
+// Falling back to UTC keeps the ceilings working if the zone is somehow
+// unavailable; it reintroduces the straddle, so it is logged rather than
+// passed over. With tzdata embedded above this should not be reachable.
+var providerQuotaLocation = func() *time.Location {
+	loc, err := time.LoadLocation("America/Los_Angeles")
+	if err != nil {
+		log.Printf("[insight] provider quota zone unavailable, keying ledger in UTC: %v", err)
+		return time.UTC
+	}
+	return loc
+}()
+
+// ledgerPeriods returns the daily and monthly ledger keys for an instant. Both
+// callers go through it so the two periods cannot drift onto different
+// calendars, and so the mapping is testable against a fixed instant rather than
+// only against whatever the wall clock happens to read.
+func ledgerPeriods(t time.Time) (day, month string) {
+	t = t.In(providerQuotaLocation)
+	return t.Format("2006-01-02"), t.Format("2006-01")
+}
 
 func isPreconditionFailed(err error) bool {
 	var gerr *googleapi.Error
@@ -196,11 +226,11 @@ type usageSnapshot struct {
 // reserveGeneration claims one generation against both the daily and monthly
 // ceilings. It returns false when either is exhausted.
 func reserveGeneration(ctx context.Context, bucket string) (bool, usageSnapshot, error) {
-	now := time.Now().UTC()
+	day, month := ledgerPeriods(time.Now())
 	var snap usageSnapshot
 
 	snap.dayLimit = envInt("INSIGHT_MAX_GENERATIONS_PER_DAY", defaultMaxGenerationsPerDay)
-	dayCount, ok, err := reserveOne(ctx, bucket, ledgerObject(now.Format("2006-01-02")), snap.dayLimit)
+	dayCount, ok, err := reserveOne(ctx, bucket, ledgerObject(day), snap.dayLimit)
 	snap.dayCount = dayCount
 	if err != nil || !ok {
 		return false, snap, err
@@ -211,7 +241,7 @@ func reserveGeneration(ctx context.Context, bucket string) (bool, usageSnapshot,
 	// high for the rest of the day. That errs toward generating less, which is
 	// the safe direction to be wrong in.
 	snap.monthLimit = envInt("INSIGHT_MAX_GENERATIONS_PER_MONTH", defaultMaxGenerationsPerMonth)
-	monthCount, ok, err := reserveOne(ctx, bucket, ledgerObject(now.Format("2006-01")), snap.monthLimit)
+	monthCount, ok, err := reserveOne(ctx, bucket, ledgerObject(month), snap.monthLimit)
 	snap.monthCount = monthCount
 	if err != nil || !ok {
 		return false, snap, err
@@ -227,13 +257,13 @@ func recordTokenUsage(ctx context.Context, bucket string, promptTokens, outputTo
 	if promptTokens == 0 && outputTokens == 0 {
 		return
 	}
-	now := time.Now().UTC()
+	day, month := ledgerPeriods(time.Now())
 	add := func(l *usageLedger) bool {
 		l.PromptTokens += promptTokens
 		l.OutputTokens += outputTokens
 		return true
 	}
-	for _, period := range []string{now.Format("2006-01-02"), now.Format("2006-01")} {
+	for _, period := range []string{day, month} {
 		mutateLedger(ctx, bucket, ledgerObject(period), add)
 	}
 }

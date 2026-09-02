@@ -250,10 +250,10 @@ func TestRecordTokenUsageAttributesBothPeriods(t *testing.T) {
 	store := newFakeLedgerStore()
 	useFakeLedger(t, store)
 
-	now := time.Now().UTC()
+	day, month := ledgerPeriods(time.Now())
 	recordTokenUsage(context.Background(), "b", 300, 80)
 
-	for _, period := range []string{now.Format("2006-01-02"), now.Format("2006-01")} {
+	for _, period := range []string{day, month} {
 		led := store.ledger(t, ledgerObject(period))
 		if led.PromptTokens != 300 || led.OutputTokens != 80 {
 			t.Errorf("%s tokens = %d/%d, want 300/80", period, led.PromptTokens, led.OutputTokens)
@@ -650,7 +650,7 @@ func TestInsightHandlerGeneratesPersistsAndMeters(t *testing.T) {
 		t.Errorf("persisted payload has no usable timestamp: %v", payload["timestamp"])
 	}
 
-	led := env.store.ledger(t, ledgerObject(time.Now().UTC().Format("2006-01-02")))
+	led := env.store.ledger(t, ledgerObject(dailyLedgerPeriod()))
 	if led.Generations != 1 || led.PromptTokens != 10 || led.OutputTokens != 5 {
 		t.Errorf("daily ledger = %+v, want 1 generation and 10/5 tokens", led)
 	}
@@ -800,7 +800,7 @@ func TestInsightHandlerNeverCachesAnEmptyResult(t *testing.T) {
 	case <-time.After(100 * time.Millisecond):
 	}
 	// The call still cost tokens, so it must still be accounted for.
-	led := env.store.ledger(t, ledgerObject(time.Now().UTC().Format("2006-01-02")))
+	led := env.store.ledger(t, ledgerObject(dailyLedgerPeriod()))
 	if led.Generations != 1 || led.PromptTokens != 12 {
 		t.Errorf("daily ledger = %+v, want the failed call metered", led)
 	}
@@ -1136,6 +1136,71 @@ func TestCeilingWarnPercentIgnoresOutOfRangeValues(t *testing.T) {
 			t.Setenv("INSIGHT_CEILING_WARN_PERCENT", tc.percent)
 			if got := ceilingWarnAt(400); got != tc.want {
 				t.Errorf("ceilingWarnAt(400) with percent %q = %d, want %d", tc.percent, got, tc.want)
+			}
+		})
+	}
+}
+
+// dailyLedgerPeriod is the daily key production would write right now.
+func dailyLedgerPeriod() string {
+	day, _ := ledgerPeriods(time.Now())
+	return day
+}
+
+// TestLedgerPeriodsUseProviderQuotaCalendar pins the fix for #5203. The provider
+// resets request quotas at midnight Pacific, so keying ledger periods in UTC
+// opened a new daily ledger while the provider was still inside one quota day,
+// letting two full allowances reach it. Each case is an instant whose UTC date
+// and provider date disagree, run through the same helper production uses.
+func TestLedgerPeriodsUseProviderQuotaCalendar(t *testing.T) {
+	if providerQuotaLocation == time.UTC {
+		t.Fatal("provider quota zone fell back to UTC: embedded tzdata is missing, " +
+			"so the deployed binary would straddle the provider's quota day")
+	}
+
+	cases := []struct {
+		name               string
+		instant            time.Time
+		wantUTCDay         string
+		wantDay, wantMonth string
+	}{
+		{
+			// Daylight time, UTC-7.
+			name:       "day rolls over in UTC while the provider is still in the prior day",
+			instant:    time.Date(2026, 9, 2, 2, 30, 0, 0, time.UTC),
+			wantUTCDay: "2026-09-02",
+			wantDay:    "2026-09-01",
+			wantMonth:  "2026-09",
+		},
+		{
+			// Standard time, UTC-8. A fixed -7 offset would place this on
+			// 2026-01-01 and pass for the wrong reason.
+			name:       "offset follows standard time, not a fixed summer offset",
+			instant:    time.Date(2026, 1, 1, 7, 30, 0, 0, time.UTC),
+			wantUTCDay: "2026-01-01",
+			wantDay:    "2025-12-31",
+			wantMonth:  "2025-12",
+		},
+		{
+			name:       "month follows the day across a month boundary",
+			instant:    time.Date(2026, 10, 1, 2, 30, 0, 0, time.UTC),
+			wantUTCDay: "2026-10-01",
+			wantDay:    "2026-09-30",
+			wantMonth:  "2026-09",
+		},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			if got := tc.instant.Format("2006-01-02"); got != tc.wantUTCDay {
+				t.Fatalf("case does not straddle a boundary: UTC day = %q, want %q", got, tc.wantUTCDay)
+			}
+			day, month := ledgerPeriods(tc.instant)
+			if day != tc.wantDay {
+				t.Errorf("day = %q, want %q", day, tc.wantDay)
+			}
+			if month != tc.wantMonth {
+				t.Errorf("month = %q, want %q", month, tc.wantMonth)
 			}
 		})
 	}
