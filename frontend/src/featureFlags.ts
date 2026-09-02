@@ -1,9 +1,17 @@
-export const FEATURE_FLAG_KEYS = [
-  'VITE_SHOW_INSIGHT_GENERATION',
-  'VITE_SHOW_CORRELATION_CARD',
-] as const
+// The one place a feature flag is declared. Vite string-replaces
+// `import.meta.env.VITE_*` at build time and cannot resolve a computed key, so
+// each env value has to be read through a literal member access; the key list
+// and the key type are both derived from this object rather than repeated.
+const ENV_FLAG_VALUES = {
+  VITE_SHOW_INSIGHT_GENERATION: import.meta.env.VITE_SHOW_INSIGHT_GENERATION,
+  VITE_SHOW_CORRELATION_CARD: import.meta.env.VITE_SHOW_CORRELATION_CARD,
+} as const
 
-export type FeatureFlagKey = (typeof FEATURE_FLAG_KEYS)[number]
+export type FeatureFlagKey = keyof typeof ENV_FLAG_VALUES
+
+export const FEATURE_FLAG_KEYS = Object.keys(
+  ENV_FLAG_VALUES,
+) as FeatureFlagKey[]
 
 export type FeatureFlagSource = 'env' | 'param'
 
@@ -20,18 +28,6 @@ const OVERRIDE_STORAGE_KEY = 'featureFlagOverrides'
 // One rule for both env values and URL params: present, non-empty, and not '0'.
 function parseFlagValue(raw: string | undefined): boolean {
   return raw !== undefined && raw !== '' && raw !== '0'
-}
-
-// Vite string-replaces `import.meta.env.VITE_*` at build time and cannot resolve
-// a computed key, so every flag has to be spelled out here rather than looked up
-// from FEATURE_FLAG_KEYS.
-const ENV_FLAG_VALUES: Record<FeatureFlagKey, boolean> = {
-  VITE_SHOW_INSIGHT_GENERATION: parseFlagValue(
-    import.meta.env.VITE_SHOW_INSIGHT_GENERATION,
-  ),
-  VITE_SHOW_CORRELATION_CARD: parseFlagValue(
-    import.meta.env.VITE_SHOW_CORRELATION_CARD,
-  ),
 }
 
 // sessionStorage throws outright when cookies are fully blocked. This module is
@@ -94,7 +90,7 @@ export function armFeatureFlagOverridesFromUrl(): FeatureFlagOverrides {
 const FLAG_OVERRIDES = armFeatureFlagOverridesFromUrl()
 
 function isFlagOn(key: FeatureFlagKey): boolean {
-  return FLAG_OVERRIDES[key] ?? ENV_FLAG_VALUES[key]
+  return FLAG_OVERRIDES[key] ?? parseFlagValue(ENV_FLAG_VALUES[key])
 }
 
 export function describeFeatureFlags(): FeatureFlagState[] {

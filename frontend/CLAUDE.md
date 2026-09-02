@@ -195,9 +195,9 @@ To serve local data files instead of a real API during development, set `VITE_BA
 
 ## Feature Flags
 
-`src/featureFlags.ts` owns every feature flag. `FEATURE_FLAG_KEYS` is the registry; adding a flag means adding its key there, adding a line to `ENV_FLAG_VALUES`, and exporting a resolved boolean.
+`src/featureFlags.ts` owns every feature flag. `ENV_FLAG_VALUES` is the single declaration point: add one line there and export a resolved boolean. `FeatureFlagKey` and `FEATURE_FLAG_KEYS` are both derived from that object, so a flag is never named in two lists.
 
-**`VITE_` vars are string-replaced into the bundle at build time**, so a deployed environment cannot flip one at runtime, and Vite cannot resolve a computed key. That is why `ENV_FLAG_VALUES` spells out `import.meta.env.VITE_*` literally instead of looping over the registry.
+**`VITE_` vars are string-replaced into the bundle at build time**, so a deployed environment cannot flip one at runtime, and Vite cannot resolve a computed key. That is why each env value is read through a literal `import.meta.env.VITE_*` member access rather than a lookup. The surrounding object literal survives the build intact (`{VITE_SHOW_INSIGHT_GENERATION:void 0, …}`), which is what lets `Object.keys` derive the registry.
 
 Every flag also takes a **URL param of exactly the same name**, which overrides the env value for that browser tab only:
 
