@@ -193,6 +193,8 @@ No secrets are stored in `.env` files — all are checked into git. Environments
 
 To serve local data files instead of a real API during development, set `VITE_BASE_API_URL` to empty and drop `.json` files into `frontend/public/tmp/`. Or use `VITE_FORCE_STATIC=file1.json,file2.json` to override specific files while keeping the rest live.
 
+**`VITE_` vars are string-replaced into the bundle at build time**, so a deployed environment cannot flip one at runtime. To preview a feature on an environment that ships with it off, `src/featureFlags.ts` supports a per-tab override: visiting any page with `?preview-insights=1` latches AI insights on in `sessionStorage` for that tab only, and `HetInsightPreviewBadge` renders a dismissible strip in the app bar so the state is never invisible. The param is **stripped from the URL** once read, because `setMadLibWithParam` rebuilds the query from a fixed allowlist on every mode change — left in place it would vanish on the first mode switch while the feature stayed on, so the URL would stop describing the state. `sessionStorage` is the single source of truth instead, which also means a link a reviewer copies or screenshots does not arm preview for anyone else. Reuse this shape for any future soft launch rather than adding a second mechanism.
+
 ## Key File Locations
 
 | Purpose | Path |
