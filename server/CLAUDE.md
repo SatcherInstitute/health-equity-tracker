@@ -300,14 +300,19 @@ has its own Generative Language project (#5201) and the per-minute guard has lan
 measured 92% hit rate, 300 generations supports roughly 3,700 insight requests in a day,
 and covers the busiest observed dev day five times over.
 
-A monthly ceiling of 6,000 leaves the daily ceiling as the one that binds: twenty days at
-the daily cap, or 194 a day sustained. Nothing measured here speaks to the monthly figure,
-because the provider publishes no monthly quota and spend is zero, so the only thing it
-guards is a sustained pattern that stays under the daily ceiling for a whole month. The
-`ceiling_approaching` alert is what surfaces that; blocking on it adds nothing the alert
-did not already say, and the block is the more expensive of the two, because exhausting a
-month goes dark for weeks where exhausting a day goes dark at the next quota reset. Keep
-it loose enough that the daily ceiling binds, and treat the alert as the real signal.
+A monthly ceiling of 6,000 is the backstop behind the daily one, and the two cross at an
+average of 194 a day. Below that the daily ceiling is what any single day meets; above it
+the monthly binds first, after twenty full-cap days, and the rest of the month serves
+cached insights only. That crossover is the number to watch, not the ceiling itself.
+
+Nothing measured here speaks to the monthly figure, because the provider publishes no
+monthly quota and spend is zero, so the only thing it guards is a sustained pattern that
+stays under the daily ceiling for a whole month. The `ceiling_approaching` alert is what
+surfaces that; blocking on it adds nothing the alert did not already say, and the block is
+the more expensive of the two, because exhausting a month goes dark for weeks where
+exhausting a day goes dark at the next quota reset. If production ever settles above 194 a
+day, raise the monthly rather than let it become the routine limit — it is meant to catch
+an anomaly, not to meter normal traffic.
 
 **Two things these numbers do not cover.**
 
