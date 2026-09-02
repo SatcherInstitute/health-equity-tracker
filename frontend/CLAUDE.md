@@ -193,7 +193,24 @@ No secrets are stored in `.env` files — all are checked into git. Environments
 
 To serve local data files instead of a real API during development, set `VITE_BASE_API_URL` to empty and drop `.json` files into `frontend/public/tmp/`. Or use `VITE_FORCE_STATIC=file1.json,file2.json` to override specific files while keeping the rest live.
 
-**`VITE_` vars are string-replaced into the bundle at build time**, so a deployed environment cannot flip one at runtime. To preview a feature on an environment that ships with it off, `src/featureFlags.ts` supports a per-tab override: visiting any page with `?preview-insights=1` latches AI insights on in `sessionStorage` for that tab only, and `HetInsightPreviewBadge` renders a dismissible strip in the app bar so the state is never invisible. The param is **stripped from the URL** once read, because `setMadLibWithParam` rebuilds the query from a fixed allowlist on every mode change — left in place it would vanish on the first mode switch while the feature stayed on, so the URL would stop describing the state. `sessionStorage` is the single source of truth instead, which also means a link a reviewer copies or screenshots does not arm preview for anyone else. Reuse this shape for any future soft launch rather than adding a second mechanism.
+## Feature Flags
+
+`src/featureFlags.ts` owns every feature flag. `FEATURE_FLAG_KEYS` is the registry; adding a flag means adding its key there, adding a line to `ENV_FLAG_VALUES`, and exporting a resolved boolean.
+
+**`VITE_` vars are string-replaced into the bundle at build time**, so a deployed environment cannot flip one at runtime, and Vite cannot resolve a computed key. That is why `ENV_FLAG_VALUES` spells out `import.meta.env.VITE_*` literally instead of looping over the registry.
+
+Every flag also takes a **URL param of exactly the same name**, which overrides the env value for that browser tab only:
+
+```
+?VITE_SHOW_INSIGHT_GENERATION=1   # on, even on an environment that ships it off
+?VITE_SHOW_CORRELATION_CARD=0     # off, even on dev where the env turns it on
+```
+
+One rule covers env values and params alike: present, non-empty, and not `0` means on. Overriding to `0` is how you see the prod experience on dev.
+
+Flag params are **stripped from the URL** once read, because `setMadLibWithParam` rebuilds the query from a fixed allowlist on every mode change. Left in place they would vanish on the first mode switch while the flag stayed on, so the URL would stop describing the state. `sessionStorage` is the single source of truth instead, which also means a link someone copies or screenshots does not arm a flag for anyone else.
+
+`HetFeatureFlagIndicator` renders a 🧪 in both the desktop and mobile toolbars whenever **any** flag is on, from either source, so a flagged environment is never silently flagged. Clicking it prints a table of every flag with its state and whether it came from `env` or `param`.
 
 ## Key File Locations
 

@@ -1,12 +1,10 @@
 import { AppBar } from '@mui/material'
 import HetDesktopToolbar from './HetDesktopToolbar'
-import HetInsightPreviewBadge from './HetInsightPreviewBadge'
 import HetMobileToolbar from './HetMobileToolbar'
 
 export default function HetAppBar() {
   return (
     <AppBar position='static' elevation={0} className='sticky top-0 z-top'>
-      <HetInsightPreviewBadge />
       <div className='md:hidden'>
         <HetMobileToolbar />
       </div>

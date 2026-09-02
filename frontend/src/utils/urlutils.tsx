@@ -8,9 +8,6 @@ import type { PhraseSelections } from './MadLibs'
 
 // LLM INSIGHTS FEATURE
 export const REPORT_INSIGHT_PARAM_KEY = 'report-insight'
-// Arms AI insights for one tab on an environment that ships with them off.
-// Latched into sessionStorage and stripped from the URL by featureFlags.ts.
-export const INSIGHT_PREVIEW_PARAM_KEY = 'preview-insights'
 
 // OG PARAMS
 const STICKY_VERSION_PARAM = 'sv'

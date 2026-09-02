@@ -20,6 +20,7 @@ import { NAVIGATION_STRUCTURE } from '../../pages/navigationData'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { isExternalLink } from '../../utils/urlutils'
 import HetCTASmall from './HetCTASmall'
+import HetFeatureFlagIndicator from './HetFeatureFlagIndicator'
 import HetNavLink from './HetNavLink'
 
 export default function HetMobileToolbar() {
@@ -121,6 +122,7 @@ export default function HetMobileToolbar() {
       >
         <MenuIcon className='text-alt-white' />
       </IconButton>
+      <HetFeatureFlagIndicator />
       <Drawer
         variant='temporary'
         anchor='left'
