@@ -195,7 +195,9 @@ To serve local data files instead of a real API during development, set `VITE_BA
 
 ## Feature Flags
 
-`src/featureFlags.ts` owns every feature flag. `ENV_FLAG_VALUES` is the single declaration point: add one line there and export a resolved boolean. `FeatureFlagKey` and `FEATURE_FLAG_KEYS` are both derived from that object, so a flag is never named in two lists.
+`src/featureFlags.ts` owns every feature flag. `ENV_FLAG_VALUES` is the single declaration point: **adding a flag is one line there and nothing else.** `FeatureFlagKey`, `FEATURE_FLAG_KEYS`, and the resolved `FLAGS` map are all derived from it.
+
+Call sites read `FLAGS.VITE_SHOW_INSIGHT_GENERATION`, keyed by the env var name on purpose, so the identical string appears in the `.env` file, the URL param, and the code. It is verbose, which is appropriate: a flag reference should look temporary at the point of use.
 
 **`VITE_` vars are string-replaced into the bundle at build time**, so a deployed environment cannot flip one at runtime, and Vite cannot resolve a computed key. That is why each env value is read through a literal `import.meta.env.VITE_*` member access rather than a lookup. The surrounding object literal survives the build intact (`{VITE_SHOW_INSIGHT_GENERATION:void 0, …}`), which is what lets `Object.keys` derive the registry.
 

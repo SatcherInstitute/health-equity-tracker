@@ -89,14 +89,19 @@ export function armFeatureFlagOverridesFromUrl(): FeatureFlagOverrides {
 
 const FLAG_OVERRIDES = armFeatureFlagOverridesFromUrl()
 
-function isFlagOn(key: FeatureFlagKey): boolean {
-  return FLAG_OVERRIDES[key] ?? parseFlagValue(ENV_FLAG_VALUES[key])
-}
+// Keyed by the env var name so the identical string reads across the .env file,
+// the URL param, and the call site.
+export const FLAGS = Object.fromEntries(
+  FEATURE_FLAG_KEYS.map((key) => [
+    key,
+    FLAG_OVERRIDES[key] ?? parseFlagValue(ENV_FLAG_VALUES[key]),
+  ]),
+) as Record<FeatureFlagKey, boolean>
 
 export function describeFeatureFlags(): FeatureFlagState[] {
   return FEATURE_FLAG_KEYS.map((key) => ({
     key,
-    on: isFlagOn(key),
+    on: FLAGS[key],
     source: FLAG_OVERRIDES[key] === undefined ? 'env' : 'param',
   }))
 }
@@ -115,8 +120,4 @@ export function logFeatureFlags() {
   )
 }
 
-export const ANY_FEATURE_FLAG_ON = FEATURE_FLAG_KEYS.some(isFlagOn)
-
-export const SHOW_INSIGHT_GENERATION = isFlagOn('VITE_SHOW_INSIGHT_GENERATION')
-
-export const SHOW_CORRELATION_CARD = isFlagOn('VITE_SHOW_CORRELATION_CARD')
+export const ANY_FEATURE_FLAG_ON = Object.values(FLAGS).some(Boolean)
