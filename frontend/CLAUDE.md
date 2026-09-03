@@ -195,24 +195,22 @@ To serve local data files instead of a real API during development, set `VITE_BA
 
 ## Feature Flags
 
-`src/featureFlags.ts` owns every feature flag. `ENV_FLAG_VALUES` is the single declaration point: **adding a flag is one line there and nothing else.** `FeatureFlagKey`, `FEATURE_FLAG_KEYS`, and the resolved `FLAGS` map are all derived from it.
-
-Call sites read `FLAGS.VITE_SHOW_INSIGHT_GENERATION`, keyed by the env var name on purpose, so the identical string appears in the `.env` file, the URL param, and the code. It is verbose, which is appropriate: a flag reference should look temporary at the point of use.
-
-**`VITE_` vars are string-replaced into the bundle at build time**, so a deployed environment cannot flip one at runtime, and Vite cannot resolve a computed key. That is why each env value is read through a literal `import.meta.env.VITE_*` member access rather than a lookup. The surrounding object literal survives the build intact (`{VITE_SHOW_INSIGHT_GENERATION:void 0, …}`), which is what lets `Object.keys` derive the registry.
-
-Every flag also takes a **URL param of exactly the same name**, which overrides the env value for that browser tab only:
+**Any `VITE_SHOW_*` var is a feature flag, and nothing else is.** The prefix is the whole convention — there is no registry, and a flag needs no declaration in `src/featureFlags.ts` or anywhere else. Adding one means adding the `.env` line, or just passing the param:
 
 ```
-?VITE_SHOW_INSIGHT_GENERATION=1   # on, even on an environment that ships it off
-?VITE_SHOW_CORRELATION_CARD=0     # off, even on dev where the env turns it on
+VITE_SHOW_MY_FEATURE=1            # in .env.localhost / .env.dev / .env.deploy_preview
+?VITE_SHOW_MY_FEATURE=1           # or as a URL param, on any environment
 ```
 
-One rule covers env values and params alike: present, non-empty, and not `0` means on. Overriding to `0` is how you see the prod experience on dev.
+Read it with `flag('VITE_SHOW_MY_FEATURE')`. The identical string appears in the `.env` file, the URL param, and the call site. It is verbose, which is appropriate: a flag reference should look temporary at the point of use. The tradeoff of having no registry is no typo safety — a misspelled key reads `false` forever rather than failing to compile.
+
+One rule covers env values and params alike: present, non-empty, and not `0` means on. A param **overrides** the env for that browser tab only, so `?VITE_SHOW_INSIGHT_GENERATION=0` is how you see the prod experience on dev.
+
+Vite emits `import.meta.env` as a whole object literal, so the computed lookup `ENV[key]` resolves fine at runtime. What does *not* work is enumeration: a var not set in that environment's `.env` is absent from the object entirely, so `describeFeatureFlags()` can only name the env flags that are **on**. Overrides supply the rest, including any forced off.
 
 Flag params are **stripped from the URL** once read, because `setMadLibWithParam` rebuilds the query from a fixed allowlist on every mode change. Left in place they would vanish on the first mode switch while the flag stayed on, so the URL would stop describing the state. `sessionStorage` is the single source of truth instead, which also means a link someone copies or screenshots does not arm a flag for anyone else.
 
-`HetFeatureFlagIndicator` renders a 🧪 in both the desktop and mobile toolbars whenever **any** flag is on, from either source, so a flagged environment is never silently flagged. Clicking it prints a table of every flag with its state and whether it came from `env` or `param`.
+`HetFeatureFlagIndicator` renders a 🧑🏽‍🔬 in both the desktop and mobile toolbars whenever **any** flag is on, from either source, so a flagged environment is never silently flagged. Clicking it prints a table of every flag with its state and whether it came from `env` or `param`.
 
 ## Key File Locations
 

@@ -9,7 +9,7 @@ import { Breakdowns, type DemographicType } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { AIAN_API, NON_HISPANIC, UNKNOWN_RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
-import { FLAGS } from '../featureFlags'
+import { flag } from '../featureFlags'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CardWrapper from './CardWrapper'
@@ -72,7 +72,7 @@ export default function CompareBubbleChartCard(
 
   let chartTitle = `Correlation between rates of ${props.rateConfig1?.chartTitle} and ${props.rateConfig2?.chartTitle} in ${props.fips1.getSentenceDisplayName()}`
 
-  if (FLAGS.VITE_SHOW_CORRELATION_CARD)
+  if (flag('VITE_SHOW_CORRELATION_CARD'))
     chartTitle = 'PREVIEW MODE: ' + chartTitle
 
   return (

@@ -21,7 +21,7 @@ import {
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
-import { FLAGS } from '../featureFlags'
+import { flag } from '../featureFlags'
 import ReportSidebarDesktop from '../pages/ui/ReportSidebarDesktop'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import { useParamState } from '../utils/hooks/useParamState'
@@ -173,7 +173,7 @@ export default function CompareReport(props: CompareReportProps) {
   if (loc1 !== loc2) browserTitle += ` and ${loc2}`
 
   const showCorrelationCard =
-    FLAGS.VITE_SHOW_CORRELATION_CARD && props.trackerMode === 'comparevars'
+    flag('VITE_SHOW_CORRELATION_CARD') && props.trackerMode === 'comparevars'
 
   return (
     <CompareModeProvider>

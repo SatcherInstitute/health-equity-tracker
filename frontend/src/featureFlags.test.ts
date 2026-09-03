@@ -44,6 +44,15 @@ describe('armFeatureFlagOverridesFromUrl', () => {
     })
   })
 
+  // The point of the prefix rule: a flag needs no declaration anywhere. This key
+  // exists in no .env file and in no code, and still arms.
+  test('arms a flag that is declared nowhere', () => {
+    visit('/exploredata?VITE_SHOW_NOT_A_REAL_FLAG=1')
+    expect(armFeatureFlagOverridesFromUrl()).toEqual({
+      VITE_SHOW_NOT_A_REAL_FLAG: true,
+    })
+  })
+
   test('arms several flags at once', () => {
     visit(
       '/exploredata?VITE_SHOW_INSIGHT_GENERATION=1&VITE_SHOW_CORRELATION_CARD=1',

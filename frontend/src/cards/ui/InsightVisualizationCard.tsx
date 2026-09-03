@@ -6,7 +6,7 @@ import type { DemographicType } from '../../data/query/Breakdowns'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type { DemographicGroup } from '../../data/utils/Constants'
 import type { Fips } from '../../data/utils/Fips'
-import { FLAGS } from '../../featureFlags'
+import { flag } from '../../featureFlags'
 import HetHighlightedText from '../../styles/HetComponents/HetHighlightedText'
 import type {
   InsightDataStatus,
@@ -383,7 +383,7 @@ export default function InsightVisualizationCard({
   // When generation is unavailable the section renders nothing at all, rather
   // than an empty container or an error the reader can do nothing about.
   if (
-    !FLAGS.VITE_SHOW_INSIGHT_GENERATION ||
+    !flag('VITE_SHOW_INSIGHT_GENERATION') ||
     !isOpen ||
     status === 'unavailable'
   ) {

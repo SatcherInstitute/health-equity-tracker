@@ -2,7 +2,7 @@ import AutoAwesome from '@mui/icons-material/AutoAwesome'
 import DeleteForever from '@mui/icons-material/DeleteForever'
 import { IconButton, Tooltip } from '@mui/material'
 import { useAtom } from 'jotai'
-import { FLAGS } from '../../featureFlags'
+import { flag } from '../../featureFlags'
 import { useCompareMode } from '../../reports/CompareModeContext'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import {
@@ -25,7 +25,7 @@ export default function InsightVisualizationButton({
     contrastInsightOpenAtom,
   )
 
-  if (!FLAGS.VITE_SHOW_INSIGHT_GENERATION) return null
+  if (!flag('VITE_SHOW_INSIGHT_GENERATION')) return null
 
   // disableTouchListener: on touch devices a tap opens the tooltip and leaves it
   // covering the insight text it sits above. The aria-label carries the same

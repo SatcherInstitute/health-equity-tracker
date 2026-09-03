@@ -21,7 +21,7 @@ import {
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
-import { FLAGS } from '../featureFlags'
+import { flag } from '../featureFlags'
 import InsightReportCard from '../pages/ExploreData/InsightReportCard'
 import InsightReportModal from '../pages/ExploreData/InsightReportModal'
 import ReportSidebarDesktop from '../pages/ui/ReportSidebarDesktop'
@@ -73,7 +73,7 @@ export function Report(props: ReportProps) {
 
   const [insightIsOpen] = useParamState(REPORT_INSIGHT_PARAM_KEY)
   const insightMode = Boolean(
-    FLAGS.VITE_SHOW_INSIGHT_GENERATION && insightIsOpen,
+    flag('VITE_SHOW_INSIGHT_GENERATION') && insightIsOpen,
   )
 
   const dataTypeConfig = useAtomValue(selectedDataTypeConfig1Atom)
@@ -141,7 +141,7 @@ export function Report(props: ReportProps) {
 
   const showInsightsButton =
     resolvedConfig &&
-    FLAGS.VITE_SHOW_INSIGHT_GENERATION &&
+    flag('VITE_SHOW_INSIGHT_GENERATION') &&
     props.trackerMode === 'disparity'
 
   return (
