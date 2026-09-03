@@ -210,7 +210,7 @@ Vite emits `import.meta.env` as a whole object literal, so the computed lookup `
 
 Flag params are **stripped from the URL** once read, because `setMadLibWithParam` rebuilds the query from a fixed allowlist on every mode change. Left in place they would vanish on the first mode switch while the flag stayed on, so the URL would stop describing the state. `sessionStorage` is the single source of truth instead, which also means a link someone copies or screenshots does not arm a flag for anyone else.
 
-`HetFeatureFlagIndicator` renders a 🧑🏽‍🔬 in both the desktop and mobile toolbars whenever **any** flag is on, from either source, so a flagged environment is never silently flagged. Clicking it prints a table of every flag with its state and whether it came from `env` or `param`.
+`HetFeatureFlagIndicator` renders a 🧑🏽‍🔬 in both the desktop and mobile toolbars whenever **any** flag is on, from either source, so a flagged environment is never silently flagged. Hovering names every armed flag and its source, so finding out what is on does not require opening devtools; clicking prints a table of every flag, including any forced off.
 
 ## Key File Locations
 

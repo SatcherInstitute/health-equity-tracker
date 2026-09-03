@@ -28,6 +28,13 @@ test('a URL param arms an undeclared flag and shows the indicator', async ({
   await expect(page).toHaveURL(/mls=1\.hiv-3\.00/)
   await expect(page).not.toHaveURL(/VITE_SHOW_NOT_A_REAL_FLAG/)
 
+  // The tooltip names the flags outright, so a reviewer does not have to open
+  // devtools to find out what is armed.
+  await expect(indicator).toHaveAttribute(
+    'title',
+    /VITE_SHOW_NOT_A_REAL_FLAG \(param\)/,
+  )
+
   const tablePayload = page.waitForEvent('console', (msg) => msg.type() === 'table')
   await indicator.click()
   const handle = (await tablePayload).args()[0]
