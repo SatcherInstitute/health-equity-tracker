@@ -685,6 +685,7 @@
 		"unsentenced",
 		"unpadded",
 		"unstripped",
+		"unstub",
 		"untyped",
 		"urbanicity",
 		"URBANICITY",

@@ -63,7 +63,7 @@ describe('armFeatureFlagOverridesFromUrl', () => {
     })
   })
 
-  test('ignores a VITE_ param that is not a registered flag', () => {
+  test('ignores a VITE_ param without the SHOW_ prefix', () => {
     visit('/exploredata?VITE_BASE_API_URL=http://evil.test')
     expect(armFeatureFlagOverridesFromUrl()).toEqual({})
     // Untouched: with no flag param present the URL is never rewritten at all.
@@ -103,5 +103,72 @@ describe('armFeatureFlagOverridesFromUrl', () => {
     sessionStorage.clear()
     visit('/exploredata')
     expect(armFeatureFlagOverridesFromUrl()).toEqual({})
+  })
+})
+
+// The overrides latch at module load, so each case needs its own module instance
+// with the URL already in place — the same sequence the real app goes through.
+async function loadFlagsAt(url: string) {
+  visit(url)
+  vi.resetModules()
+  return import('./featureFlags')
+}
+
+describe('describeFeatureFlags', () => {
+  beforeEach(() => {
+    sessionStorage.clear()
+    visit('/exploredata')
+  })
+
+  afterEach(() => {
+    vi.unstubAllEnvs()
+  })
+
+  test('attributes an env-set flag to env', async () => {
+    vi.stubEnv('VITE_SHOW_FROM_ENV', '1')
+    const { describeFeatureFlags } = await loadFlagsAt('/exploredata')
+    expect(describeFeatureFlags()).toContainEqual({
+      key: 'VITE_SHOW_FROM_ENV',
+      on: true,
+      source: 'env',
+    })
+  })
+
+  test('a param beats the env and is attributed to param', async () => {
+    vi.stubEnv('VITE_SHOW_BEATEN', '1')
+    const { describeFeatureFlags } = await loadFlagsAt(
+      '/exploredata?VITE_SHOW_BEATEN=0',
+    )
+    expect(describeFeatureFlags()).toContainEqual({
+      key: 'VITE_SHOW_BEATEN',
+      on: false,
+      source: 'param',
+    })
+  })
+
+  // An unset var is absent from import.meta.env entirely, so enumeration alone
+  // can never name a flag that is off. Overrides are the only way one appears.
+  test('lists a flag that exists only as a forced-off override', async () => {
+    const { describeFeatureFlags } = await loadFlagsAt(
+      '/exploredata?VITE_SHOW_ONLY_OFF=0',
+    )
+    expect(describeFeatureFlags()).toContainEqual({
+      key: 'VITE_SHOW_ONLY_OFF',
+      on: false,
+      source: 'param',
+    })
+  })
+
+  test('sorts by key and excludes non-flag env vars', async () => {
+    vi.stubEnv('VITE_SHOW_ZEBRA', '1')
+    vi.stubEnv('VITE_SHOW_APPLE', '1')
+    vi.stubEnv('VITE_BASE_API_URL', 'http://example.test')
+    const { describeFeatureFlags } = await loadFlagsAt('/exploredata')
+
+    const keys = describeFeatureFlags().map(({ key }) => key)
+    expect(keys).toContain('VITE_SHOW_APPLE')
+    expect(keys).toContain('VITE_SHOW_ZEBRA')
+    expect(keys).not.toContain('VITE_BASE_API_URL')
+    expect(keys).toEqual([...keys].sort())
   })
 })

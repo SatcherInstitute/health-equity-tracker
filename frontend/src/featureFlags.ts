@@ -119,4 +119,8 @@ export function logFeatureFlags() {
   )
 }
 
+// Evaluated once, at import. Both inputs are themselves fixed by then: the env is
+// baked in at build time and the overrides were armed from the URL at module load.
+// Nothing can arm a flag later in the session, so there is no reactive source for
+// this to miss — but a future flag armed at runtime would not light the indicator.
 export const ANY_FEATURE_FLAG_ON = describeFeatureFlags().some(({ on }) => on)
