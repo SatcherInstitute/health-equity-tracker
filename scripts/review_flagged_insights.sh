@@ -317,7 +317,7 @@ if [[ "$MODE" == "sync-cache" ]]; then
     SRC_KEYS=()
     while IFS= read -r line; do
         # gcloud storage ls outputs full gs:// URLs; strip prefix and .json suffix to get the key.
-        key="${line#gs://$CACHE_BUCKET/insights/}"
+        key="${line#gs://"$CACHE_BUCKET"/insights/}"
         key="${key%.json}"
         [[ -n "$key" ]] && SRC_KEYS+=("$key")
     done < <(gcloud storage ls "gs://$CACHE_BUCKET/insights/" --project "$PROJECT_ID" 2>/dev/null || true)
