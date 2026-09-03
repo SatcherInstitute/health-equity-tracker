@@ -193,6 +193,25 @@ No secrets are stored in `.env` files — all are checked into git. Environments
 
 To serve local data files instead of a real API during development, set `VITE_BASE_API_URL` to empty and drop `.json` files into `frontend/public/tmp/`. Or use `VITE_FORCE_STATIC=file1.json,file2.json` to override specific files while keeping the rest live.
 
+## Feature Flags
+
+**Any `VITE_SHOW_*` var is a feature flag, and nothing else is.** The prefix is the whole convention — there is no registry, and a flag needs no declaration in `src/featureFlags.ts` or anywhere else. Adding one means adding the `.env` line, or just passing the param:
+
+```
+VITE_SHOW_MY_FEATURE=1            # in .env.localhost / .env.dev / .env.deploy_preview
+?VITE_SHOW_MY_FEATURE=1           # or as a URL param, on any environment
+```
+
+Read it with `flag('VITE_SHOW_MY_FEATURE')`. The identical string appears in the `.env` file, the URL param, and the call site. It is verbose, which is appropriate: a flag reference should look temporary at the point of use. The tradeoff of having no registry is no typo safety — a misspelled key reads `false` forever rather than failing to compile.
+
+One rule covers env values and params alike: present, non-empty, and not `0` means on. A param **overrides** the env for that browser tab only, so `?VITE_SHOW_INSIGHT_GENERATION=0` is how you see the prod experience on dev.
+
+Vite emits `import.meta.env` as a whole object literal, so the computed lookup `ENV[key]` resolves fine at runtime. What does *not* work is enumeration: a var not set in that environment's `.env` is absent from the object entirely, so `describeFeatureFlags()` can only name the env flags that are **on**. Overrides supply the rest, including any forced off.
+
+Flag params are **stripped from the URL** once read, because `setMadLibWithParam` rebuilds the query from a fixed allowlist on every mode change. Left in place they would vanish on the first mode switch while the flag stayed on, so the URL would stop describing the state. `sessionStorage` is the single source of truth instead, which also means a link someone copies or screenshots does not arm a flag for anyone else.
+
+`HetFeatureFlagIndicator` renders a 🧑🏽‍🔬 in both the desktop and mobile toolbars whenever **any** flag is on, from either source, so a flagged environment is never silently flagged. Hovering, tapping, or clicking it opens an MUI tooltip naming every armed flag and its source, and the same interaction logs a table of every flag, including any forced off, so the tooltip reports the console table as already written rather than asking for a second interaction. The tooltip is controlled rather than left to MUI's own listeners, since a touch device never fires hover; a `ClickAwayListener` dismisses it on touch, and `describeChild` keeps the tooltip from taking over the button's accessible name while open.
+
 ## Key File Locations
 
 | Purpose | Path |
@@ -204,6 +223,7 @@ To serve local data files instead of a real API during development, set `VITE_BA
 | Provider registration | `src/data/loading/VariableProviderMap.ts` |
 | Data catalog page | `src/pages/DataCatalog/DataCatalogPage.tsx` |
 | URL parameter constants | `src/utils/urlutils.tsx` |
+| Feature flag resolution | `src/featureFlags.ts` |
 | Shared Jotai state | `src/utils/sharedSettingsState.ts` |
 | MUI theme | `src/styles/theme/muiTheme.tsx` |
 | Design token sources | `tokens/*.tokens.json` |

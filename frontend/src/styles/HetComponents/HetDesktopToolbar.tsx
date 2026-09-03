@@ -5,6 +5,7 @@ import { NAVIGATION_STRUCTURE } from '../../pages/navigationData'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import { isExternalLink } from '../../utils/urlutils'
 import HetCTASmall from './HetCTASmall'
+import HetFeatureFlagIndicator from './HetFeatureFlagIndicator'
 import HetLaunchLink from './HetLaunchLink'
 import HetNavButton from './HetNavButton'
 import HetNavLink from './HetNavLink'
@@ -113,19 +114,22 @@ export default function HetDesktopToolbar() {
         </HetNavLink>
       </nav>
 
-      <nav
-        aria-label='page navigation'
-        className='flex flex-wrap justify-evenly'
-      >
-        {renderNavItems(NAVIGATION_STRUCTURE)}
-        <HetCTASmall
-          id='navigationCTA'
-          href={EXPLORE_DATA_PAGE_LINK}
-          className='ml-4'
+      <div className='flex items-center'>
+        <nav
+          aria-label='page navigation'
+          className='flex flex-wrap justify-evenly'
         >
-          Explore the data
-        </HetCTASmall>
-      </nav>
+          {renderNavItems(NAVIGATION_STRUCTURE)}
+          <HetCTASmall
+            id='navigationCTA'
+            href={EXPLORE_DATA_PAGE_LINK}
+            className='ml-4'
+          >
+            Explore the data
+          </HetCTASmall>
+        </nav>
+        <HetFeatureFlagIndicator />
+      </div>
     </Toolbar>
   )
 }

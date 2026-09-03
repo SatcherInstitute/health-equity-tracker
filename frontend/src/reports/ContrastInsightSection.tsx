@@ -7,7 +7,7 @@ import FlagInsightButton from '../cards/ui/FlagInsightButton'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
-import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
+import { flag } from '../featureFlags'
 import HetHighlightedText from '../styles/HetComponents/HetHighlightedText'
 import { generateContrastInsight } from '../utils/generateContrastInsight'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -161,7 +161,8 @@ export default function ContrastInsightSection({
 
   // When generation is unavailable the section renders nothing at all, rather
   // than an empty container or an error the reader can do nothing about.
-  if (!SHOW_INSIGHT_GENERATION || !isOpen || unavailable) return null
+  if (!flag('VITE_SHOW_INSIGHT_GENERATION') || !isOpen || unavailable)
+    return null
 
   return (
     <div
