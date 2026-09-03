@@ -188,13 +188,13 @@ variable "gemini_model" {
 }
 
 variable "insight_max_generations_per_day" {
-  description = "Maximum AI insight generations per UTC day, enforced by the usage ledger"
+  description = "Maximum AI insight generations per provider quota day (America/Los_Angeles), enforced by the usage ledger"
   type        = number
-  default     = 240
+  default     = 300
 }
 
 variable "insight_max_generations_per_month" {
-  description = "Maximum AI insight generations per UTC month, enforced by the usage ledger"
+  description = "Maximum AI insight generations per provider quota month (America/Los_Angeles), enforced by the usage ledger"
   type        = number
   default     = 6000
 }
