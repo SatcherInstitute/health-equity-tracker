@@ -30,9 +30,9 @@ test('a URL param arms an undeclared flag and shows the indicator', async ({
 
   // The tooltip names the flags outright, so a reviewer does not have to open
   // devtools to find out what is armed.
-  await expect(indicator).toHaveAttribute(
-    'title',
-    /VITE_SHOW_NOT_A_REAL_FLAG \(param\)/,
+  await indicator.hover()
+  await expect(page.getByRole('tooltip')).toContainText(
+    'VITE_SHOW_NOT_A_REAL_FLAG (param)',
   )
 
   const tablePayload = page.waitForEvent('console', (msg) => msg.type() === 'table')
@@ -40,6 +40,21 @@ test('a URL param arms an undeclared flag and shows the indicator', async ({
   const handle = (await tablePayload).args()[0]
   expect(await handle.jsonValue()).toMatchObject({
     VITE_SHOW_NOT_A_REAL_FLAG: { on: true, source: 'param' },
+  })
+})
+
+// The whole reason this is an MUI tooltip rather than a title attribute: a touch
+// device never fires hover, so the flag list had no way to surface on mobile.
+test.describe('on a touch device', () => {
+  test.use({ hasTouch: true })
+
+  test('tapping the indicator opens the flag list', async ({ page }) => {
+    await page.goto('/exploredata?mls=1.hiv-3.00&VITE_SHOW_NOT_A_REAL_FLAG=1')
+
+    await page.getByRole('button', { name: /active feature flags/ }).tap()
+    await expect(page.getByRole('tooltip')).toContainText(
+      'VITE_SHOW_NOT_A_REAL_FLAG (param)',
+    )
   })
 })
 
