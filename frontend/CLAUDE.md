@@ -206,6 +206,20 @@ Read it with `flag('VITE_SHOW_MY_FEATURE')`. The identical string appears in the
 
 One rule covers env values and params alike: present, non-empty, and not `0` means on. A param **overrides** the env for that browser tab only, so `?VITE_SHOW_INSIGHT_GENERATION=0` is how you see the prod experience on dev.
 
+### Prod is param-only, always
+
+**A feature is launched by deleting its flag gate from the code, never by turning the flag on in `.env.prod`.** The flag exists to let a feature ship dark and be previewed; once it is meant for everyone, the `flag()` call and the `.env` lines come out and the feature is simply the product. A flag left in place on prod is not a launch, it is an unreviewed conditional serving the public.
+
+Three things enforce that, in order of how early they catch you:
+
+- `.env.prod` carries a header comment saying not to, so the rule is visible at the point of temptation.
+- A unit test in `src/featureFlags.test.ts` reads the committed `.env.prod` and fails if any `VITE_SHOW_*` line appears in it.
+- `featureFlags.ts` ignores the env side outright when `VITE_DEPLOY_CONTEXT` is `prod`. This is the backstop that the test cannot be: it also covers a flag set in Netlify's own environment, where nothing is committed to review.
+
+The user-visible reason is the indicator. Any flag on, from any source, renders the 🧑🏽‍🔬 in the toolbar — correct for a preview tab, and completely wrong on the public site for every visitor.
+
+URL params are unaffected on prod. `?VITE_SHOW_MY_FEATURE=1` still arms the flag for that one browser tab against real prod data, which is the supported way to demo or verify an unlaunched feature in production.
+
 Vite emits `import.meta.env` as a whole object literal, so the computed lookup `ENV[key]` resolves fine at runtime. What does *not* work is enumeration: a var not set in that environment's `.env` is absent from the object entirely, so `describeFeatureFlags()` can only name the env flags that are **on**. Overrides supply the rest, including any forced off.
 
 Flag params are **stripped from the URL** once read, because `setMadLibWithParam` rebuilds the query from a fixed allowlist on every mode change. Left in place they would vanish on the first mode switch while the flag stayed on, so the URL would stop describing the state. `sessionStorage` is the single source of truth instead, which also means a link someone copies or screenshots does not arm a flag for anyone else.
