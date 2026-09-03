@@ -20,6 +20,14 @@ const OVERRIDE_STORAGE_KEY = 'featureFlagOverrides'
 // resolves fine. An unset var is simply absent, which reads as off.
 const ENV = import.meta.env as unknown as Record<string, string | undefined>
 
+// Launching a feature means deleting its flag gate, never switching the flag on
+// for everyone, so an env-set flag on prod is always a mistake — and a loud one,
+// since it would show the 🧑🏽‍🔬 indicator to every public visitor. Prod therefore
+// ignores the env side outright, which also covers a flag set in Netlify's own
+// environment rather than in a committed .env file. Params still work, so a
+// single tab can still preview an unlaunched feature against real prod data.
+const ENV_FLAGS_IGNORED = ENV.VITE_DEPLOY_CONTEXT === 'prod'
+
 // One rule for both env values and URL params: present, non-empty, and not '0'.
 function parseFlagValue(raw: string | undefined): boolean {
   return raw !== undefined && raw !== '' && raw !== '0'
@@ -87,7 +95,7 @@ const FLAG_OVERRIDES = armFeatureFlagOverridesFromUrl()
 // Keyed by the env var name so the identical string reads across the .env file,
 // the URL param, and the call site.
 export function flag(key: FeatureFlagKey): boolean {
-  return FLAG_OVERRIDES[key] ?? parseFlagValue(ENV[key])
+  return FLAG_OVERRIDES[key] ?? (!ENV_FLAGS_IGNORED && parseFlagValue(ENV[key]))
 }
 
 // An unset var is absent from import.meta.env, so the env side can only name the

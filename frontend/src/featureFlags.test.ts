@@ -1,3 +1,6 @@
+import { readFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { armFeatureFlagOverridesFromUrl } from './featureFlags'
 
 function visit(url: string) {
@@ -159,6 +162,28 @@ describe('describeFeatureFlags', () => {
     })
   })
 
+  test('a prod env flag reads off, and a param still turns it on', async () => {
+    vi.stubEnv('VITE_DEPLOY_CONTEXT', 'prod')
+    vi.stubEnv('VITE_SHOW_LEAKED_TO_PROD', '1')
+
+    const onProd = await loadFlagsAt('/exploredata')
+    expect(onProd.flag('VITE_SHOW_LEAKED_TO_PROD')).toBe(false)
+    expect(onProd.ANY_FEATURE_FLAG_ON).toBe(false)
+
+    sessionStorage.clear()
+    const withParam = await loadFlagsAt(
+      '/exploredata?VITE_SHOW_LEAKED_TO_PROD=1',
+    )
+    expect(withParam.flag('VITE_SHOW_LEAKED_TO_PROD')).toBe(true)
+  })
+
+  test('the same env flag reads on outside prod', async () => {
+    vi.stubEnv('VITE_DEPLOY_CONTEXT', 'dev')
+    vi.stubEnv('VITE_SHOW_LEAKED_TO_PROD', '1')
+    const { flag } = await loadFlagsAt('/exploredata')
+    expect(flag('VITE_SHOW_LEAKED_TO_PROD')).toBe(true)
+  })
+
   test('sorts by key and excludes non-flag env vars', async () => {
     vi.stubEnv('VITE_SHOW_ZEBRA', '1')
     vi.stubEnv('VITE_SHOW_APPLE', '1')
@@ -171,4 +196,24 @@ describe('describeFeatureFlags', () => {
     expect(keys).not.toContain('VITE_BASE_API_URL')
     expect(keys).toEqual([...keys].sort())
   })
+})
+
+// Prod ignores env flags at runtime, so a line here is inert rather than harmful.
+// It is still wrong, and the reason it is wrong does not show up in review: whoever
+// adds it is reaching for the wrong tool, because launching a feature means
+// deleting its flag gate, not switching the flag on for everyone. Failing here
+// says that at the moment the line is written.
+test('no feature flag is declared in .env.prod', () => {
+  // Resolved from this module rather than the cwd, and via node:path rather than
+  // the URL constructor, which jsdom overrides to resolve against the page origin.
+  const envProd = readFileSync(
+    join(dirname(fileURLToPath(import.meta.url)), '..', '.env.prod'),
+    'utf8',
+  )
+
+  const declared = envProd
+    .split('\n')
+    .filter((line) => /^\s*(export\s+)?VITE_SHOW_/.test(line))
+
+  expect(declared).toEqual([])
 })
