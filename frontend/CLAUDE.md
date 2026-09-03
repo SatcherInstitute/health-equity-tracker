@@ -223,6 +223,7 @@ Flag params are **stripped from the URL** once read, because `setMadLibWithParam
 | Provider registration | `src/data/loading/VariableProviderMap.ts` |
 | Data catalog page | `src/pages/DataCatalog/DataCatalogPage.tsx` |
 | URL parameter constants | `src/utils/urlutils.tsx` |
+| Feature flag resolution | `src/featureFlags.ts` |
 | Shared Jotai state | `src/utils/sharedSettingsState.ts` |
 | MUI theme | `src/styles/theme/muiTheme.tsx` |
 | Design token sources | `tokens/*.tokens.json` |
