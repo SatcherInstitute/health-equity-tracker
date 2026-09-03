@@ -29,18 +29,26 @@ test('a URL param arms an undeclared flag and shows the indicator', async ({
   await expect(page).not.toHaveURL(/VITE_SHOW_NOT_A_REAL_FLAG/)
 
   // The tooltip names the flags outright, so a reviewer does not have to open
-  // devtools to find out what is armed.
+  // devtools to find out what is armed. Opening also logs, so the tooltip can
+  // report the console table as already written rather than asking for a second
+  // interaction — which means the listener has to be armed before the hover.
+  const tablePayload = page.waitForEvent(
+    'console',
+    (msg) => msg.type() === 'table',
+  )
   await indicator.hover()
   await expect(page.getByRole('tooltip')).toContainText(
     'VITE_SHOW_NOT_A_REAL_FLAG (param)',
   )
-
-  const tablePayload = page.waitForEvent('console', (msg) => msg.type() === 'table')
-  await indicator.click()
   const handle = (await tablePayload).args()[0]
   expect(await handle.jsonValue()).toMatchObject({
     VITE_SHOW_NOT_A_REAL_FLAG: { on: true, source: 'param' },
   })
+
+  // Moving off dismisses it; a tooltip that outlives the pointer would sit on top
+  // of the report.
+  await page.getByRole('heading', { level: 1 }).first().hover()
+  await expect(page.getByRole('tooltip')).toHaveCount(0)
 })
 
 // The whole reason this is an MUI tooltip rather than a title attribute: a touch
@@ -48,13 +56,20 @@ test('a URL param arms an undeclared flag and shows the indicator', async ({
 test.describe('on a touch device', () => {
   test.use({ hasTouch: true })
 
-  test('tapping the indicator opens the flag list', async ({ page }) => {
+  test('tapping opens the flag list, and tapping away dismisses it', async ({
+    page,
+  }) => {
     await page.goto('/exploredata?mls=1.hiv-3.00&VITE_SHOW_NOT_A_REAL_FLAG=1')
 
     await page.getByRole('button', { name: /active feature flags/ }).tap()
     await expect(page.getByRole('tooltip')).toContainText(
       'VITE_SHOW_NOT_A_REAL_FLAG (param)',
     )
+
+    // Nothing about a touch device ever fires mouseleave, so without a click-away
+    // the tooltip would stay pinned over the report for the rest of the session.
+    await page.getByRole('heading', { level: 1 }).first().tap()
+    await expect(page.getByRole('tooltip')).toHaveCount(0)
   })
 })
 
