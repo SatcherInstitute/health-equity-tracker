@@ -31,7 +31,7 @@ const (
 	killSwitchObject        = "insights-generation-disabled"
 	servingKillSwitchObject = "insights-serving-disabled"
 	killSwitchTTL           = 60 * time.Second
-	ledgerCASAttempts     = 5
+	ledgerCASAttempts       = 5
 
 	// Sized against the provider's free-tier quota for the configured model,
 	// which is granted per project per model rather than per key. Both ceilings

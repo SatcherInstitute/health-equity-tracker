@@ -91,9 +91,9 @@ Options:
   -p PROJECT_ID        Source/current GCP project (default: $DEFAULT_PROJECT_ID)
   -b FLAGGED_BUCKET    Source flagged-insights bucket (default: $DEFAULT_FLAGGED_BUCKET)
   -c CACHE_BUCKET      Source insights-cache bucket (default: $DEFAULT_CACHE_BUCKET)
-  -dp DEST_PROJECT_ID  Destination GCP project for --sync-cache (default: $DEFAULT_DEST_PROJECT_ID)
-  -db DEST_FLAGGED     Destination flagged-insights bucket (default: $DEFAULT_DEST_FLAGGED_BUCKET)
-  -dc DEST_CACHE       Destination insights-cache bucket (default: $DEFAULT_DEST_CACHE_BUCKET)
+  --dest-project DEST_PROJECT_ID  Destination GCP project for --sync-cache (default: $DEFAULT_DEST_PROJECT_ID)
+  --dest-flagged DEST_FLAGGED     Destination flagged-insights bucket (default: $DEFAULT_DEST_FLAGGED_BUCKET)
+  --dest-cache DEST_CACHE         Destination insights-cache bucket (default: $DEFAULT_DEST_CACHE_BUCKET)
   --execute            With --sync-cache: actually copy (default is dry-run)
   -h, --help           Show this help and exit
 
@@ -139,9 +139,9 @@ while [[ $# -gt 0 ]]; do
         -p) require_value "$1" "$#"; PROJECT_ID="$2"; shift 2 ;;
         -b) require_value "$1" "$#"; FLAGGED_BUCKET="$2"; shift 2 ;;
         -c) require_value "$1" "$#"; CACHE_BUCKET="$2"; shift 2 ;;
-        -dp) require_value "$1" "$#"; DEST_PROJECT_ID="$2"; shift 2 ;;
-        -db) require_value "$1" "$#"; DEST_FLAGGED_BUCKET="$2"; shift 2 ;;
-        -dc) require_value "$1" "$#"; DEST_CACHE_BUCKET="$2"; shift 2 ;;
+        --dest-project) require_value "$1" "$#"; DEST_PROJECT_ID="$2"; shift 2 ;;
+        --dest-flagged) require_value "$1" "$#"; DEST_FLAGGED_BUCKET="$2"; shift 2 ;;
+        --dest-cache) require_value "$1" "$#"; DEST_CACHE_BUCKET="$2"; shift 2 ;;
         -h|--help) show_help 0 ;;
         *) echo "Unknown argument: $1" >&2; show_help 1 ;;
     esac
@@ -254,16 +254,24 @@ if [[ "$MODE" == "sync-cache" ]]; then
     # The model is not part of the cache key, so copying while the two differ
     # would import one model's output under a key the other considers current.
     echo "Checking GEMINI_MODEL across environments..."
-    src_model=$(gcloud run services describe "$CLOUD_RUN_SERVICE" \
-        --project "$PROJECT_ID" --region "$CLOUD_RUN_REGION" --format=json 2>/dev/null \
+    src_svc_json=$(gcloud run services describe "$CLOUD_RUN_SERVICE" \
+        --project "$PROJECT_ID" --region "$CLOUD_RUN_REGION" --format=json) || {
+        echo "Error: could not describe Cloud Run service in $PROJECT_ID." >&2
+        exit 2
+    }
+    dest_svc_json=$(gcloud run services describe "$CLOUD_RUN_SERVICE" \
+        --project "$DEST_PROJECT_ID" --region "$CLOUD_RUN_REGION" --format=json) || {
+        echo "Error: could not describe Cloud Run service in $DEST_PROJECT_ID." >&2
+        exit 2
+    }
+    src_model=$(printf '%s' "$src_svc_json" \
         | jq -r '(.spec.template.spec.containers[0].env // [])[] | select(.name == "GEMINI_MODEL") | .value' \
         | head -1)
-    dest_model=$(gcloud run services describe "$CLOUD_RUN_SERVICE" \
-        --project "$DEST_PROJECT_ID" --region "$CLOUD_RUN_REGION" --format=json 2>/dev/null \
+    dest_model=$(printf '%s' "$dest_svc_json" \
         | jq -r '(.spec.template.spec.containers[0].env // [])[] | select(.name == "GEMINI_MODEL") | .value' \
         | head -1)
 
-    # Default if unset in Cloud Run (matches server default)
+    # Default if unset in Cloud Run (matches server default in insight_budget.go)
     src_model="${src_model:-gemini-3.1-flash-lite}"
     dest_model="${dest_model:-gemini-3.1-flash-lite}"
 
@@ -312,7 +320,7 @@ if [[ "$MODE" == "sync-cache" ]]; then
     echo "  Denylist: ${#DENYLIST[@]} flagged key(s) across both environments."
     echo
 
-    # List source insights/ objects.
+    # List source and destination insights/ objects upfront to avoid O(N) per-key GCS calls.
     echo "Listing source insights in gs://$CACHE_BUCKET/insights/ ..."
     SRC_KEYS=()
     while IFS= read -r line; do
@@ -321,8 +329,16 @@ if [[ "$MODE" == "sync-cache" ]]; then
         key="${key%.json}"
         [[ -n "$key" ]] && SRC_KEYS+=("$key")
     done < <(gcloud storage ls "gs://$CACHE_BUCKET/insights/" --project "$PROJECT_ID" 2>/dev/null || true)
-
     echo "  Source objects: ${#SRC_KEYS[@]}"
+
+    echo "Listing destination insights in gs://$DEST_CACHE_BUCKET/insights/ ..."
+    declare -A DEST_KEYS
+    while IFS= read -r line; do
+        key="${line#gs://"$DEST_CACHE_BUCKET"/insights/}"
+        key="${key%.json}"
+        [[ -n "$key" ]] && DEST_KEYS["$key"]=1
+    done < <(gcloud storage ls "gs://$DEST_CACHE_BUCKET/insights/" --project "$DEST_PROJECT_ID" 2>/dev/null || true)
+    echo "  Destination objects: ${#DEST_KEYS[@]}"
     echo
 
     copied=0
@@ -339,8 +355,8 @@ if [[ "$MODE" == "sync-cache" ]]; then
             continue
         fi
 
-        # Skip if already present in dest (idempotent re-runs).
-        if gcloud storage ls "$dest_obj" --project "$DEST_PROJECT_ID" >/dev/null 2>&1; then
+        # Skip if already present in dest (idempotent re-runs); uses the upfront list.
+        if [[ -n "${DEST_KEYS[$key]+x}" ]]; then
             skipped_exists=$(( skipped_exists + 1 ))
             continue
         fi
@@ -348,6 +364,7 @@ if [[ "$MODE" == "sync-cache" ]]; then
         if [[ "$DRY_RUN" == "true" ]]; then
             would_copy=$(( would_copy + 1 ))
         else
+            # Billing to source (dev) project; the developer running this has credentials there.
             if gcloud storage cp "$src_obj" "$dest_obj" --project "$PROJECT_ID" >/dev/null 2>&1; then
                 copied=$(( copied + 1 ))
             else
