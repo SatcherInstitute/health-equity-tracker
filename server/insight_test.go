@@ -479,11 +479,19 @@ func newInsightTestEnv(t *testing.T) *insightTestEnv {
 	killSwitchChecked, killSwitchOn = time.Now(), false
 	killSwitchMu.Unlock()
 
+	servingKillSwitchMu.Lock()
+	origServingChecked, origServingOn := servingKillSwitchChecked, servingKillSwitchOn
+	servingKillSwitchChecked, servingKillSwitchOn = time.Now(), false
+	servingKillSwitchMu.Unlock()
+
 	t.Cleanup(func() {
 		insightCacheRead, insightCacheWrite, generateInsight = origRead, origWrite, origGen
 		killSwitchMu.Lock()
 		killSwitchChecked, killSwitchOn = origChecked, origOn
 		killSwitchMu.Unlock()
+		servingKillSwitchMu.Lock()
+		servingKillSwitchChecked, servingKillSwitchOn = origServingChecked, origServingOn
+		servingKillSwitchMu.Unlock()
 		insightMemCache.Clear()
 	})
 
@@ -550,13 +558,21 @@ func cardInsightKey(t *testing.T) string {
 	return sanitizeInsightKey(desc.cacheKey(prompt))
 }
 
-// setKillSwitch forces the operator off switch without a network check, by
+// setKillSwitch forces the generation off switch without a network check, by
 // priming the same memo newInsightTestEnv primes.
 func setKillSwitch(t *testing.T, on bool) {
 	t.Helper()
 	killSwitchMu.Lock()
 	defer killSwitchMu.Unlock()
 	killSwitchChecked, killSwitchOn = time.Now(), on
+}
+
+// setServingKillSwitch forces the serving off switch without a network check.
+func setServingKillSwitch(t *testing.T, on bool) {
+	t.Helper()
+	servingKillSwitchMu.Lock()
+	defer servingKillSwitchMu.Unlock()
+	servingKillSwitchChecked, servingKillSwitchOn = time.Now(), on
 }
 
 func stubFlaggedRecord(t *testing.T, record map[string]any, err error) {
@@ -920,6 +936,15 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 			},
 			outcome:  outcomeUnavailable,
 			reason:   reasonGenerationOff,
+			severity: "WARNING",
+		},
+		{
+			name: "serving kill switch on",
+			setup: func(t *testing.T, _ *insightTestEnv) {
+				setServingKillSwitch(t, true)
+			},
+			outcome:  outcomeUnavailable,
+			reason:   reasonServingOff,
 			severity: "WARNING",
 		},
 		{

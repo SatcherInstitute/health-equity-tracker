@@ -28,8 +28,9 @@ const (
 	// case in each context lands under this. Raising a client budget without
 	// re-checking it against this value is what would push a prompt over.
 	insightPromptMaxBytes = 30 * 1024
-	killSwitchObject      = "insights-generation-disabled"
-	killSwitchTTL         = 60 * time.Second
+	killSwitchObject        = "insights-generation-disabled"
+	servingKillSwitchObject = "insights-serving-disabled"
+	killSwitchTTL           = 60 * time.Second
 	ledgerCASAttempts     = 5
 
 	// Sized against the provider's free-tier quota for the configured model,
@@ -296,6 +297,36 @@ func generationDisabled(ctx context.Context, bucket string) bool {
 	killSwitchOn = err == nil
 	killSwitchChecked = time.Now()
 	return killSwitchOn
+}
+
+var (
+	servingKillSwitchMu      sync.Mutex
+	servingKillSwitchChecked time.Time
+	// Fail open: a transient read error must not black out a working feature.
+	// Contrast with generationDisabled, which fails closed because unmetered
+	// generation is the worse outcome there.
+	servingKillSwitchOn = false
+)
+
+// servingDisabled reports the serving kill switch, memoized so the common
+// path costs at most one object check per minute per instance.
+func servingDisabled(ctx context.Context, bucket string) bool {
+	servingKillSwitchMu.Lock()
+	defer servingKillSwitchMu.Unlock()
+
+	if !servingKillSwitchChecked.IsZero() && time.Since(servingKillSwitchChecked) < killSwitchTTL {
+		return servingKillSwitchOn
+	}
+
+	_, err := getGCSClient().Bucket(bucket).Object(servingKillSwitchObject).Attrs(ctx)
+	if err != nil && !errors.Is(err, storage.ErrObjectNotExist) {
+		// Fail open: keep the previous verdict (false by default) so a transient
+		// GCS error does not hide a working feature.
+		return servingKillSwitchOn
+	}
+	servingKillSwitchOn = err == nil
+	servingKillSwitchChecked = time.Now()
+	return servingKillSwitchOn
 }
 
 type clientLimiter struct {
