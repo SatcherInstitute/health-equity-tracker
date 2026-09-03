@@ -52,7 +52,7 @@ import {
   getExtremeValues,
 } from '../data/utils/datasetutils'
 import { Fips } from '../data/utils/Fips'
-import { SHOW_INSIGHT_GENERATION } from '../featureFlags'
+import { flag } from '../featureFlags'
 import HetDivider from '../styles/HetComponents/HetDivider'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 import HetNotice from '../styles/HetComponents/HetNotice'
@@ -280,7 +280,7 @@ function MapCardWithKey(props: MapCardProps) {
   // has no same-level peers).
   const parentFips = props.fips.getParentFips()
   const insightPeerConfig: InsightPeerConfig | undefined =
-    SHOW_INSIGHT_GENERATION && !props.fips.isUsa()
+    flag('VITE_SHOW_INSIGHT_GENERATION') && !props.fips.isUsa()
       ? {
           peerQuery: metricQuery(
             initialMetridIds,
