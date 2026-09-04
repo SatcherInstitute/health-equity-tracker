@@ -368,8 +368,9 @@ export default function InsightVisualizationCard({
                 href={AI_INSIGHTS_LINK}
                 className='text-alt-dark hover:text-alt-black'
               >
-                AI-generated. Verify with chart data.
+                AI-generated.
               </a>{' '}
+              Verify with chart data.{' '}
               <FlagInsightButton
                 cacheKey={serverCacheKey ?? undefined}
                 content={insight.text}
