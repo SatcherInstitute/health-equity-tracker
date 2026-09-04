@@ -17,13 +17,13 @@ export default function MethodologyPage() {
       <title>Methodology - Health Equity Tracker</title>
 
       <section
-        className='flex w-full max-w-screen justify-center text-left'
+        className='flex w-full max-w-full justify-center text-left'
         aria-labelledby='page-heading'
         id='main-content'
       >
         <div className='flex max-w-lgplus grow flex-col smplus:m-5 smplus:flex-row'>
           {/* MAIN METHODOLOGY PAGES MENU */}
-          <div className='w-fit min-w-fit max-w-screen'>
+          <div className='w-fit min-w-fit'>
             <MethodologyCardMenu />
             <MethodologyCardMenuMobile />
           </div>
