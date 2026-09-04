@@ -21,6 +21,7 @@ import {
 import { getDataManager } from '../../utils/globals'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { parseSingleInsight } from '../../utils/insightPayload'
+import { AI_INSIGHTS_LINK } from '../../utils/internalRoutes'
 import {
   cardInsightOpenAtom,
   cardInsightsAtom,
@@ -364,6 +365,13 @@ export default function InsightVisualizationCard({
             </p>
             <p className='m-0 mt-2 text-alt-dark text-smallest'>
               AI-generated. Verify with chart data.{' '}
+              <a
+                href={AI_INSIGHTS_LINK}
+                className='text-alt-dark underline hover:text-alt-black'
+              >
+                About these insights
+              </a>
+              {' · '}
               <FlagInsightButton
                 cacheKey={serverCacheKey ?? undefined}
                 content={insight.text}

@@ -21,6 +21,7 @@ import {
   type ReportInsightSections,
 } from '../../utils/generateReportInsight'
 import { useParamState } from '../../utils/hooks/useParamState'
+import { AI_INSIGHTS_LINK } from '../../utils/internalRoutes'
 import type { MadLibId } from '../../utils/MadLibs'
 import {
   reportInsightsAtom,
@@ -228,6 +229,13 @@ export default function InsightReportCard(props: InsightReportCardProps) {
 
             <p className='m-0 text-alt-dark text-smallest'>
               AI-generated. Verify with chart data.{' '}
+              <a
+                href={AI_INSIGHTS_LINK}
+                className='text-alt-dark underline hover:text-alt-black'
+              >
+                About these insights
+              </a>
+              {' · '}
               <FlagInsightButton
                 cacheKey={serverCacheKey ?? undefined}
                 content={insightText}

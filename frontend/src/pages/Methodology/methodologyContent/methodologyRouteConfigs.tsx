@@ -1,6 +1,7 @@
 import { lazy } from 'react'
 import {
   AGE_ADJUSTMENT_LINK,
+  AI_INSIGHTS_LINK,
   BEHAVIORAL_HEALTH_LINK,
   CANCER_LINK,
   CHRONIC_DISEASE_LINK,
@@ -73,6 +74,9 @@ const CommunitySafetyLink = lazy(
 )
 const MaternalHealthLink = lazy(
   () => import('../methodologySections/MaternalHealthLink'),
+)
+const AiInsightsLink = lazy(
+  () => import('../methodologySections/AiInsightsLink'),
 )
 
 export const methodologyRouteConfigs: RouteConfig[] = [
@@ -403,6 +407,22 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     path: DATA_METHOD_DEFINITIONS_LINK,
     component: <DataMethodDefinitionsLink />,
     subLinks: [],
+    visible: true,
+  },
+  {
+    isTopLevel: true,
+    label: 'AI-Generated Insights',
+    path: AI_INSIGHTS_LINK,
+    component: <AiInsightsLink />,
+    subLinks: [
+      {
+        label: 'What the model receives',
+        path: 'ai-insights-what-model-receives',
+      },
+      { label: 'Limitations', path: 'ai-insights-limitations' },
+      { label: 'Data flow', path: 'ai-insights-data-flow' },
+      { label: 'Reporting bad output', path: 'ai-insights-flagging' },
+    ],
     visible: true,
   },
   {
