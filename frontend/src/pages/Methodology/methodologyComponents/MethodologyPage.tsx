@@ -31,7 +31,7 @@ export default function MethodologyPage() {
           {/* CONTENT */}
           <div className='xs:block flex grow smplus:flex-col'>
             {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
-            <div className='px-8 md:hidden'>
+            <div className='px-8 lg:hidden'>
               {methodologyRouteConfigs.map((routeConfig) => {
                 const match = useMatch({
                   path: routeConfig.path,
@@ -69,7 +69,7 @@ export default function MethodologyPage() {
           </div>
 
           {/* ON THIS PAGE SUB-MENU - DESKTOP */}
-          <div className='hidden min-w-fit md:block'>
+          <div className='hidden lg:block'>
             {methodologyRouteConfigs.map((routeConfig) => {
               const match = useMatch({
                 path: routeConfig.path,
@@ -81,7 +81,7 @@ export default function MethodologyPage() {
               return (
                 hasMatchedSublinks && (
                   <div
-                    className='sticky top-24 z-almost-top hidden h-min w-48 min-w-40 max-w-menu flex-col smplus:flex'
+                    className='sticky top-24 z-almost-top hidden h-min w-48 min-w-40 max-w-menu flex-col lg:flex'
                     key={routeConfig.path}
                   >
                     <p className='my-0 text-left font-roboto font-semibold text-alt-black text-smallest uppercase'>
@@ -90,7 +90,7 @@ export default function MethodologyPage() {
 
                     <HetOnThisPageMenu
                       links={routeConfig.subLinks}
-                      className='sticky top-24 right-0 z-almost-top h-min'
+                      className=''
                     />
                   </div>
                 )
