@@ -309,20 +309,32 @@ var (
 )
 
 // servingDisabled reports the serving kill switch, memoized so the common
-// path costs at most one object check per minute per instance.
+// path costs at most one object check per minute per instance. The Attrs call
+// is made outside the lock to avoid blocking concurrent requests on slow GCS reads.
 func servingDisabled(ctx context.Context, bucket string) bool {
 	servingKillSwitchMu.Lock()
-	defer servingKillSwitchMu.Unlock()
+	if !servingKillSwitchChecked.IsZero() && time.Since(servingKillSwitchChecked) < killSwitchTTL {
+		defer servingKillSwitchMu.Unlock()
+		return servingKillSwitchOn
+	}
+	servingKillSwitchMu.Unlock()
 
+	// Call Attrs outside the lock to avoid blocking concurrent requests.
+	_, err := getGCSClient().Bucket(bucket).Object(servingKillSwitchObject).Attrs(ctx)
+
+	servingKillSwitchMu.Lock()
+	defer servingKillSwitchMu.Unlock()
+	// Re-check TTL after the call in case another goroutine refreshed while we waited.
 	if !servingKillSwitchChecked.IsZero() && time.Since(servingKillSwitchChecked) < killSwitchTTL {
 		return servingKillSwitchOn
 	}
 
-	_, err := getGCSClient().Bucket(bucket).Object(servingKillSwitchObject).Attrs(ctx)
 	if err != nil && !errors.Is(err, storage.ErrObjectNotExist) {
-		// Fail open: keep the previous verdict (false by default) so a transient
-		// GCS error does not hide a working feature.
-		return servingKillSwitchOn
+		// Fail open: on error, treat switch as off (serving enabled). Refresh the TTL
+		// so the next request won't immediately retry a failing operation.
+		servingKillSwitchOn = false
+		servingKillSwitchChecked = time.Now()
+		return false
 	}
 	servingKillSwitchOn = err == nil
 	servingKillSwitchChecked = time.Now()

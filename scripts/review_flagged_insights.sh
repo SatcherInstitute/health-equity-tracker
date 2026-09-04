@@ -158,8 +158,18 @@ done
 # --- Kill switch helpers ---
 
 switch_exists() {
-    local bucket="$1" obj="$2" project="$3"
-    gcloud storage ls "gs://$bucket/$obj" --project "$project" >/dev/null 2>&1
+    local bucket="$1" obj="$2" project="$3" err
+    if gcloud storage ls "gs://$bucket/$obj" --project "$project" >/dev/null 2>&1; then
+        return 0
+    fi
+    # Command failed. Check if it's "not found" (OK) or a real error (fail).
+    err=$(gcloud storage ls "gs://$bucket/$obj" --project "$project" 2>&1) || true
+    if [[ "$err" == *"404"* ]] || [[ "$err" == *"not found"* ]] || [[ "$err" == *"does not exist"* ]]; then
+        return 1
+    fi
+    # Real error (auth, network, etc.) — fail the script.
+    echo "Error checking gs://$bucket/$obj: $err" >&2
+    exit 2
 }
 
 set_switch() {
@@ -328,7 +338,10 @@ if [[ "$MODE" == "sync-cache" ]]; then
         key="${line#gs://"$CACHE_BUCKET"/insights/}"
         key="${key%.json}"
         [[ -n "$key" ]] && SRC_KEYS+=("$key")
-    done < <(gcloud storage ls "gs://$CACHE_BUCKET/insights/" --project "$PROJECT_ID" 2>/dev/null || true)
+    done < <(gcloud storage ls "gs://$CACHE_BUCKET/insights/" --project "$PROJECT_ID") || {
+        echo "Error: could not list source insights in gs://$CACHE_BUCKET/insights/" >&2
+        exit 2
+    }
     echo "  Source objects: ${#SRC_KEYS[@]}"
 
     echo "Listing destination insights in gs://$DEST_CACHE_BUCKET/insights/ ..."
@@ -337,7 +350,10 @@ if [[ "$MODE" == "sync-cache" ]]; then
         key="${line#gs://"$DEST_CACHE_BUCKET"/insights/}"
         key="${key%.json}"
         [[ -n "$key" ]] && DEST_KEYS["$key"]=1
-    done < <(gcloud storage ls "gs://$DEST_CACHE_BUCKET/insights/" --project "$DEST_PROJECT_ID" 2>/dev/null || true)
+    done < <(gcloud storage ls "gs://$DEST_CACHE_BUCKET/insights/" --project "$DEST_PROJECT_ID") || {
+        echo "Error: could not list dest insights in gs://$DEST_CACHE_BUCKET/insights/" >&2
+        exit 2
+    }
     echo "  Destination objects: ${#DEST_KEYS[@]}"
     echo
 
@@ -365,10 +381,12 @@ if [[ "$MODE" == "sync-cache" ]]; then
             would_copy=$(( would_copy + 1 ))
         else
             # Billing to source (dev) project; the developer running this has credentials there.
-            if gcloud storage cp "$src_obj" "$dest_obj" --project "$PROJECT_ID" >/dev/null 2>&1; then
+            # --if-generation-match=0 prevents overwriting an existing dest object (concurrent safety).
+            if gcloud storage cp "$src_obj" "$dest_obj" --if-generation-match=0 --project "$PROJECT_ID" >/dev/null 2>&1; then
                 copied=$(( copied + 1 ))
             else
-                echo "  Warning: failed to copy $src_obj" >&2
+                echo "Error: failed to copy $src_obj to $dest_obj" >&2
+                exit 2
             fi
         fi
     done
