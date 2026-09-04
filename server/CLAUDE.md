@@ -56,10 +56,19 @@ The server handles all traffic on a single port:
   directly and writes back to GCS. Wording and key derivation live in one place: a template
   edit takes effect without a client deploy, and a client cannot mint a key that disagrees with
   the prompt it is for. Generation is metered before the call against daily and monthly ledgers
-  under `budget/` in the insights cache bucket, updated by compare-and-swap. When a ceiling is
-  reached, the ledger cannot be written, or an `insights-generation-disabled` object exists in
-  that bucket, the endpoint returns `{"unavailable": true}` and the frontend renders no insight
-  section. The route is scoped to the origins in `INSIGHT_ALLOWED_ORIGINS` and rate limited per
+  under `budget/` in the insights cache bucket, updated by compare-and-swap. Two runtime kill
+  switches live in the same bucket as GCS objects; their existence, not their content, is what
+  the server reads, memoized for up to 60 seconds per instance:
+
+  | Object | Checked | Effect | Failure mode |
+  |---|---|---|---|
+  | `insights-generation-disabled` | after cache lookups | Stops new generation; cached insights keep serving | Fails **closed** — a read error keeps generation off |
+  | `insights-serving-disabled` | before suppression and both caches | Stops all serving (cached and fresh) | Fails **open** — a read error does not hide a working feature |
+
+  Use `scripts/review_flagged_insights.sh --disable-serving` for a content emergency,
+  `--disable-generation` for quota pressure. Both switches are exercised by `--switch-status`.
+  When a ceiling is reached, the ledger cannot be written, or either kill switch is set,
+  the endpoint returns `{"unavailable": true}` and the frontend renders no insight section. The route is scoped to the origins in `INSIGHT_ALLOWED_ORIGINS` and rate limited per
   client. `{"preview": true}` stops after rendering and returns `{"cacheKey","prompt"}` without
   consulting the cache, reserving a slot, or calling the provider, which is how a client checks
   the server renders the text it expects. The generating path returns `{"content","cacheKey"}`;
@@ -109,10 +118,10 @@ object and hits are the hot path.
 | `unknown` | The handler returned without classifying the request. Always a bug |
 | `ceiling_approaching` | Not a request. See the alert below |
 
-`reason` narrows the non-serving outcomes: `ceiling_reached`, `generation_disabled`,
-`no_api_key`, `no_cache_bucket`, `ledger_error`, `no_content`, `malformed_response`,
-`provider_quota`, `provider_error`, `suppression_check`, `prompt_too_large`,
-`invalid_descriptor`.
+`reason` narrows the non-serving outcomes: `serving_disabled`, `ceiling_reached`,
+`generation_disabled`, `no_api_key`, `no_cache_bucket`, `ledger_error`, `no_content`,
+`malformed_response`, `provider_quota`, `provider_error`, `suppression_check`,
+`prompt_too_large`, `invalid_descriptor`.
 
 `reserved` is true when the request claimed a slot against the ceilings. **This is not
 the same as `outcome="generated"`**, and the difference is what makes the volume query

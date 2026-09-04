@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Review AI-insight flag records held in the flagged-insights GCS bucket.
+# Also manages the generation and serving kill switches, and seeds the
+# production insight cache from dev.
 #
 # A flag record is a JSON object ({key}.json) written when a site visitor reports an
 # insight. Its `status` drives behavior on the live site and in the generation prompt.
@@ -25,6 +27,13 @@
 #   ./review_flagged_insights.sh                  # list all flag records grouped by status
 #   ./review_flagged_insights.sh --review         # interactively triage each unhandled report
 #   ./review_flagged_insights.sh --ci             # exit non-zero if any unhandled reports exist
+#   ./review_flagged_insights.sh --switch-status  # report generation and serving switch state
+#   ./review_flagged_insights.sh --disable-serving   # set insights-serving-disabled (emergency stop)
+#   ./review_flagged_insights.sh --enable-serving    # clear insights-serving-disabled
+#   ./review_flagged_insights.sh --disable-generation # set insights-generation-disabled
+#   ./review_flagged_insights.sh --enable-generation  # clear insights-generation-disabled
+#   ./review_flagged_insights.sh --sync-cache         # dry-run: show what would be copied dev->prod
+#   ./review_flagged_insights.sh --sync-cache --execute  # actually copy dev insights cache to prod
 #
 # Optional: -p PROJECT_ID  -b FLAGGED_BUCKET  -c CACHE_BUCKET  -h
 
@@ -34,29 +43,72 @@ DEFAULT_PROJECT_ID="het-infra-test-05"
 DEFAULT_FLAGGED_BUCKET="het-flagged-insights"
 DEFAULT_CACHE_BUCKET="het-insights-cache"
 
+DEFAULT_DEST_PROJECT_ID="het-infra-prod-f6"
+DEFAULT_DEST_FLAGGED_BUCKET="het-prod-flagged-insights"
+DEFAULT_DEST_CACHE_BUCKET="het-prod-insights-cache"
+
+CLOUD_RUN_REGION="us-central1"
+CLOUD_RUN_SERVICE="frontend-service"
+
 PROJECT_ID="$DEFAULT_PROJECT_ID"
 FLAGGED_BUCKET="$DEFAULT_FLAGGED_BUCKET"
 CACHE_BUCKET="$DEFAULT_CACHE_BUCKET"
-MODE="list" # list | review | ci
+
+DEST_PROJECT_ID="$DEFAULT_DEST_PROJECT_ID"
+DEST_FLAGGED_BUCKET="$DEFAULT_DEST_FLAGGED_BUCKET"
+DEST_CACHE_BUCKET="$DEFAULT_DEST_CACHE_BUCKET"
+
+MODE="list" # list | review | ci | switch-status | disable-serving | enable-serving | disable-generation | enable-generation | sync-cache
+DRY_RUN=true
+
+GENERATION_SWITCH="insights-generation-disabled"
+SERVING_SWITCH="insights-serving-disabled"
 
 show_help() {
     cat <<EOF
-Usage: $0 [--review | --ci] [-p PROJECT_ID] [-b FLAGGED_BUCKET] [-c CACHE_BUCKET]
+Usage: $0 [MODE] [OPTIONS]
 
-Review AI-insight flag records in the flagged-insights GCS bucket.
+Review AI-insight flag records, manage kill switches, and seed the prod cache.
 
 Modes:
-  (default)      List every flag record grouped by status.
-  --review       Interactively triage each unhandled ("flagged") report: suppress,
-                 delete (false alarm), skip, or quit.
-  --ci           Non-interactive check used by CI. Prints any unhandled reports and
-                 exits 1 if there are any, else exits 0.
+  (default)           List every flag record grouped by status.
+  --review            Interactively triage each unhandled ("flagged") report: suppress,
+                      delete (false alarm), skip, or quit.
+  --ci                Non-interactive check used by CI. Prints any unhandled reports and
+                      exits 1 if there are any, else exits 0.
+  --switch-status     Report the current state of both kill switches (generation and serving).
+  --disable-serving   Set insights-serving-disabled: stops all insights from being served,
+                      including cached ones. Use in a content emergency.
+  --enable-serving    Clear insights-serving-disabled: resume serving insights.
+  --disable-generation Set insights-generation-disabled: stops new generation; cached
+                      insights keep serving.
+  --enable-generation Clear insights-generation-disabled: resume generation.
+  --sync-cache        Copy insights/ from dev cache to prod, excluding flagged keys from
+                      both environments. Dry-run by default; add --execute to actually copy.
+                      Verifies GEMINI_MODEL matches across environments before copying.
 
 Options:
-  -p PROJECT_ID      GCP project (default: $DEFAULT_PROJECT_ID)
-  -b FLAGGED_BUCKET  Flagged-insights bucket (default: $DEFAULT_FLAGGED_BUCKET)
-  -c CACHE_BUCKET    Insights-cache bucket (default: $DEFAULT_CACHE_BUCKET)
-  -h, --help         Show this help and exit
+  -p PROJECT_ID        Source/current GCP project (default: $DEFAULT_PROJECT_ID)
+  -b FLAGGED_BUCKET    Source flagged-insights bucket (default: $DEFAULT_FLAGGED_BUCKET)
+  -c CACHE_BUCKET      Source insights-cache bucket (default: $DEFAULT_CACHE_BUCKET)
+  --dest-project DEST_PROJECT_ID  Destination GCP project for --sync-cache (default: $DEFAULT_DEST_PROJECT_ID)
+  --dest-flagged DEST_FLAGGED     Destination flagged-insights bucket (default: $DEFAULT_DEST_FLAGGED_BUCKET)
+  --dest-cache DEST_CACHE         Destination insights-cache bucket (default: $DEFAULT_DEST_CACHE_BUCKET)
+  --execute            With --sync-cache: actually copy (default is dry-run)
+  -h, --help           Show this help and exit
+
+Kill switch notes:
+  Both switches live in the cache bucket as GCS objects. Their existence, not their
+  content, is what the server reads.
+
+  insights-generation-disabled  - stops new generation; cached insights keep serving.
+                                   Server fails closed on a read error.
+  insights-serving-disabled      - stops all serving (cached and fresh). Use for a
+                                   content emergency. Server fails open on a read error,
+                                   so a transient GCS outage cannot black out the feature.
+
+  --switch-status and the disable/enable modes use the source -p/-c flags.
+  To manage prod switches: $0 --switch-status -p $DEFAULT_DEST_PROJECT_ID -c $DEFAULT_DEST_CACHE_BUCKET
 EOF
     exit "${1:-0}"
 }
@@ -77,9 +129,19 @@ while [[ $# -gt 0 ]]; do
         --list) MODE="list"; shift ;;
         --review) MODE="review"; shift ;;
         --ci) MODE="ci"; shift ;;
+        --switch-status) MODE="switch-status"; shift ;;
+        --disable-serving) MODE="disable-serving"; shift ;;
+        --enable-serving) MODE="enable-serving"; shift ;;
+        --disable-generation) MODE="disable-generation"; shift ;;
+        --enable-generation) MODE="enable-generation"; shift ;;
+        --sync-cache) MODE="sync-cache"; shift ;;
+        --execute) DRY_RUN=false; shift ;;
         -p) require_value "$1" "$#"; PROJECT_ID="$2"; shift 2 ;;
         -b) require_value "$1" "$#"; FLAGGED_BUCKET="$2"; shift 2 ;;
         -c) require_value "$1" "$#"; CACHE_BUCKET="$2"; shift 2 ;;
+        --dest-project) require_value "$1" "$#"; DEST_PROJECT_ID="$2"; shift 2 ;;
+        --dest-flagged) require_value "$1" "$#"; DEST_FLAGGED_BUCKET="$2"; shift 2 ;;
+        --dest-cache) require_value "$1" "$#"; DEST_CACHE_BUCKET="$2"; shift 2 ;;
         -h|--help) show_help 0 ;;
         *) echo "Unknown argument: $1" >&2; show_help 1 ;;
     esac
@@ -92,6 +154,258 @@ for cmd in gcloud jq; do
         exit 2
     fi
 done
+
+# --- Kill switch helpers ---
+
+switch_exists() {
+    local bucket="$1" obj="$2" project="$3" err
+    if gcloud storage ls "gs://$bucket/$obj" --project "$project" >/dev/null 2>&1; then
+        return 0
+    fi
+    # Command failed. Check if it's "not found" (OK) or a real error (fail).
+    err=$(gcloud storage ls "gs://$bucket/$obj" --project "$project" 2>&1) || true
+    if [[ "$err" == *"404"* ]] || [[ "$err" == *"not found"* ]] || [[ "$err" == *"does not exist"* ]]; then
+        return 1
+    fi
+    # Real error (auth, network, etc.) — fail the script.
+    echo "Error checking gs://$bucket/$obj: $err" >&2
+    exit 2
+}
+
+set_switch() {
+    local bucket="$1" obj="$2" project="$3" label="$4"
+    local tmp
+    tmp=$(mktemp)
+    echo '{}' > "$tmp"
+    if gcloud storage cp "$tmp" "gs://$bucket/$obj" --project "$project" >/dev/null 2>&1; then
+        echo "$label: ON (disabled)"
+    else
+        echo "Error: could not set $obj in gs://$bucket" >&2
+        rm -f "$tmp"
+        exit 2
+    fi
+    rm -f "$tmp"
+}
+
+clear_switch() {
+    local bucket="$1" obj="$2" project="$3" label="$4"
+    if switch_exists "$bucket" "$obj" "$project"; then
+        if gcloud storage rm "gs://$bucket/$obj" --project "$project" >/dev/null 2>&1; then
+            echo "$label: OFF (enabled)"
+        else
+            echo "Error: could not clear $obj in gs://$bucket" >&2
+            exit 2
+        fi
+    else
+        echo "$label: already OFF (was not set)"
+    fi
+}
+
+report_switch() {
+    local bucket="$1" obj="$2" project="$3" label="$4"
+    if switch_exists "$bucket" "$obj" "$project"; then
+        echo "$label: ON (disabled)"
+    else
+        echo "$label: OFF (enabled)"
+    fi
+}
+
+# --- Mode: switch-status ---
+if [[ "$MODE" == "switch-status" ]]; then
+    echo "Kill switch state in gs://$CACHE_BUCKET (project: $PROJECT_ID):"
+    report_switch "$CACHE_BUCKET" "$GENERATION_SWITCH" "$PROJECT_ID" "  Generation ($GENERATION_SWITCH)"
+    report_switch "$CACHE_BUCKET" "$SERVING_SWITCH"    "$PROJECT_ID" "  Serving    ($SERVING_SWITCH)"
+    exit 0
+fi
+
+# --- Mode: disable-serving ---
+if [[ "$MODE" == "disable-serving" ]]; then
+    echo "Setting serving kill switch in gs://$CACHE_BUCKET (project: $PROJECT_ID)..."
+    set_switch "$CACHE_BUCKET" "$SERVING_SWITCH" "$PROJECT_ID" "  Serving ($SERVING_SWITCH)"
+    echo "Insights will stop being served (cached and fresh) within ~60 seconds."
+    echo "To restore: $0 --enable-serving -p $PROJECT_ID -c $CACHE_BUCKET"
+    exit 0
+fi
+
+# --- Mode: enable-serving ---
+if [[ "$MODE" == "enable-serving" ]]; then
+    echo "Clearing serving kill switch in gs://$CACHE_BUCKET (project: $PROJECT_ID)..."
+    clear_switch "$CACHE_BUCKET" "$SERVING_SWITCH" "$PROJECT_ID" "  Serving ($SERVING_SWITCH)"
+    echo "Insights will resume serving within ~60 seconds."
+    exit 0
+fi
+
+# --- Mode: disable-generation ---
+if [[ "$MODE" == "disable-generation" ]]; then
+    echo "Setting generation kill switch in gs://$CACHE_BUCKET (project: $PROJECT_ID)..."
+    set_switch "$CACHE_BUCKET" "$GENERATION_SWITCH" "$PROJECT_ID" "  Generation ($GENERATION_SWITCH)"
+    echo "New generation will stop; cached insights keep serving."
+    echo "To restore: $0 --enable-generation -p $PROJECT_ID -c $CACHE_BUCKET"
+    exit 0
+fi
+
+# --- Mode: enable-generation ---
+if [[ "$MODE" == "enable-generation" ]]; then
+    echo "Clearing generation kill switch in gs://$CACHE_BUCKET (project: $PROJECT_ID)..."
+    clear_switch "$CACHE_BUCKET" "$GENERATION_SWITCH" "$PROJECT_ID" "  Generation ($GENERATION_SWITCH)"
+    echo "Insight generation will resume within ~60 seconds."
+    exit 0
+fi
+
+# --- Mode: sync-cache ---
+if [[ "$MODE" == "sync-cache" ]]; then
+    echo "=== Insight cache sync: gs://$CACHE_BUCKET -> gs://$DEST_CACHE_BUCKET ==="
+    if [[ "$DRY_RUN" == "true" ]]; then
+        echo "(dry-run — add --execute to actually copy)"
+    fi
+    echo
+
+    # Verify GEMINI_MODEL matches across environments before copying.
+    # The model is not part of the cache key, so copying while the two differ
+    # would import one model's output under a key the other considers current.
+    echo "Checking GEMINI_MODEL across environments..."
+    src_svc_json=$(gcloud run services describe "$CLOUD_RUN_SERVICE" \
+        --project "$PROJECT_ID" --region "$CLOUD_RUN_REGION" --format=json) || {
+        echo "Error: could not describe Cloud Run service in $PROJECT_ID." >&2
+        exit 2
+    }
+    dest_svc_json=$(gcloud run services describe "$CLOUD_RUN_SERVICE" \
+        --project "$DEST_PROJECT_ID" --region "$CLOUD_RUN_REGION" --format=json) || {
+        echo "Error: could not describe Cloud Run service in $DEST_PROJECT_ID." >&2
+        exit 2
+    }
+    src_model=$(printf '%s' "$src_svc_json" \
+        | jq -r '(.spec.template.spec.containers[0].env // [])[] | select(.name == "GEMINI_MODEL") | .value' \
+        | head -1)
+    dest_model=$(printf '%s' "$dest_svc_json" \
+        | jq -r '(.spec.template.spec.containers[0].env // [])[] | select(.name == "GEMINI_MODEL") | .value' \
+        | head -1)
+
+    # Default if unset in Cloud Run (matches server default in insight_budget.go)
+    src_model="${src_model:-gemini-3.1-flash-lite}"
+    dest_model="${dest_model:-gemini-3.1-flash-lite}"
+
+    echo "  Source model ($PROJECT_ID): $src_model"
+    echo "  Dest model ($DEST_PROJECT_ID): $dest_model"
+    if [[ "$src_model" != "$dest_model" ]]; then
+        echo
+        echo "Error: GEMINI_MODEL mismatch. Copying while the models differ would import" >&2
+        echo "one model's output under a key the other considers current. Resolve the" >&2
+        echo "mismatch before seeding the cache." >&2
+        exit 2
+    fi
+    echo "  Models match. Proceeding."
+    echo
+
+    # Build denylist from both flagged buckets. A key present in either environment's
+    # flagged bucket is excluded regardless of status — a suppression is a deletion on
+    # the live site, and restoring it would undo content moderation.
+    # Fail the run if either bucket cannot be read, rather than proceed with a partial denylist.
+    echo "Reading flagged-insights denylist from both environments..."
+    WORKDIR_SYNC=$(mktemp -d)
+    trap 'rm -rf "$WORKDIR_SYNC"' EXIT
+
+    SRC_FLAGS_DIR="$WORKDIR_SYNC/src_flags"
+    DEST_FLAGS_DIR="$WORKDIR_SYNC/dest_flags"
+    mkdir -p "$SRC_FLAGS_DIR" "$DEST_FLAGS_DIR"
+
+    if ! gcloud storage rsync --recursive "gs://$FLAGGED_BUCKET" "$SRC_FLAGS_DIR" \
+            --project "$PROJECT_ID" >/dev/null 2>&1; then
+        echo "Error: could not read source flagged bucket gs://$FLAGGED_BUCKET." >&2
+        echo "Cannot proceed without a complete denylist." >&2
+        exit 2
+    fi
+    if ! gcloud storage rsync --recursive "gs://$DEST_FLAGGED_BUCKET" "$DEST_FLAGS_DIR" \
+            --project "$DEST_PROJECT_ID" >/dev/null 2>&1; then
+        echo "Error: could not read dest flagged bucket gs://$DEST_FLAGGED_BUCKET." >&2
+        echo "Cannot proceed without a complete denylist." >&2
+        exit 2
+    fi
+
+    declare -A DENYLIST
+    while IFS= read -r -d '' f; do
+        key=$(jq -r '.key // ""' "$f")
+        [[ -n "$key" ]] && DENYLIST["$key"]=1
+    done < <(find "$SRC_FLAGS_DIR" "$DEST_FLAGS_DIR" -type f -name '*.json' -print0 2>/dev/null)
+    echo "  Denylist: ${#DENYLIST[@]} flagged key(s) across both environments."
+    echo
+
+    # List source and destination insights/ objects upfront to avoid O(N) per-key GCS calls.
+    echo "Listing source insights in gs://$CACHE_BUCKET/insights/ ..."
+    SRC_KEYS=()
+    while IFS= read -r line; do
+        # gcloud storage ls outputs full gs:// URLs; strip prefix and .json suffix to get the key.
+        key="${line#gs://"$CACHE_BUCKET"/insights/}"
+        key="${key%.json}"
+        [[ -n "$key" ]] && SRC_KEYS+=("$key")
+    done < <(gcloud storage ls "gs://$CACHE_BUCKET/insights/" --project "$PROJECT_ID") || {
+        echo "Error: could not list source insights in gs://$CACHE_BUCKET/insights/" >&2
+        exit 2
+    }
+    echo "  Source objects: ${#SRC_KEYS[@]}"
+
+    echo "Listing destination insights in gs://$DEST_CACHE_BUCKET/insights/ ..."
+    declare -A DEST_KEYS
+    while IFS= read -r line; do
+        key="${line#gs://"$DEST_CACHE_BUCKET"/insights/}"
+        key="${key%.json}"
+        [[ -n "$key" ]] && DEST_KEYS["$key"]=1
+    done < <(gcloud storage ls "gs://$DEST_CACHE_BUCKET/insights/" --project "$DEST_PROJECT_ID") || {
+        echo "Error: could not list dest insights in gs://$DEST_CACHE_BUCKET/insights/" >&2
+        exit 2
+    }
+    echo "  Destination objects: ${#DEST_KEYS[@]}"
+    echo
+
+    copied=0
+    skipped_denylist=0
+    skipped_exists=0
+    would_copy=0
+
+    for key in "${SRC_KEYS[@]}"; do
+        src_obj="gs://$CACHE_BUCKET/insights/${key}.json"
+        dest_obj="gs://$DEST_CACHE_BUCKET/insights/${key}.json"
+
+        if [[ -n "${DENYLIST[$key]+x}" ]]; then
+            skipped_denylist=$(( skipped_denylist + 1 ))
+            continue
+        fi
+
+        # Skip if already present in dest (idempotent re-runs); uses the upfront list.
+        if [[ -n "${DEST_KEYS[$key]+x}" ]]; then
+            skipped_exists=$(( skipped_exists + 1 ))
+            continue
+        fi
+
+        if [[ "$DRY_RUN" == "true" ]]; then
+            would_copy=$(( would_copy + 1 ))
+        else
+            # Billing to source (dev) project; the developer running this has credentials there.
+            # --if-generation-match=0 prevents overwriting an existing dest object (concurrent safety).
+            if gcloud storage cp "$src_obj" "$dest_obj" --if-generation-match=0 --project "$PROJECT_ID" >/dev/null 2>&1; then
+                copied=$(( copied + 1 ))
+            else
+                echo "Error: failed to copy $src_obj to $dest_obj" >&2
+                exit 2
+            fi
+        fi
+    done
+
+    echo "=== Summary ==="
+    echo "  Source objects total:       ${#SRC_KEYS[@]}"
+    echo "  Skipped (denylist):         $skipped_denylist"
+    echo "  Skipped (already in dest):  $skipped_exists"
+    if [[ "$DRY_RUN" == "true" ]]; then
+        echo "  Would copy (dry-run):       $would_copy"
+        echo
+        echo "Re-run with --execute to perform the copy."
+    else
+        echo "  Copied:                     $copied"
+    fi
+    exit 0
+fi
+
+# --- WORKDIR setup (modes: list, review, ci) ---
 
 WORKDIR="$(mktemp -d)"
 trap 'rm -rf "$WORKDIR"' EXIT

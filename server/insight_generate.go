@@ -111,6 +111,15 @@ func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, pr
 	flaggedBucket := os.Getenv("FLAGGED_INSIGHTS_BUCKET")
 	cacheBucket := os.Getenv("INSIGHTS_CACHE_BUCKET")
 
+	// Serving kill switch: check before suppression and both cache lookups so
+	// neither a suppressed insight nor a cached one is served in an emergency.
+	// Fails open: a transient GCS error must not hide a working feature.
+	if cacheBucket != "" && servingDisabled(ctx, cacheBucket) {
+		ev.Outcome, ev.Reason = outcomeUnavailable, reasonServingOff
+		writeInsightUnavailable(w)
+		return "", false
+	}
+
 	// Suppression check runs first, because a suppressed insight must never be
 	// served even if it is still warm in the in-process cache.
 	if flaggedBucket != "" {

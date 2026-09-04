@@ -28,9 +28,10 @@ const (
 	// case in each context lands under this. Raising a client budget without
 	// re-checking it against this value is what would push a prompt over.
 	insightPromptMaxBytes = 30 * 1024
-	killSwitchObject      = "insights-generation-disabled"
-	killSwitchTTL         = 60 * time.Second
-	ledgerCASAttempts     = 5
+	killSwitchObject        = "insights-generation-disabled"
+	servingKillSwitchObject = "insights-serving-disabled"
+	killSwitchTTL           = 60 * time.Second
+	ledgerCASAttempts       = 5
 
 	// Sized against the provider's free-tier quota for the configured model,
 	// which is granted per project per model rather than per key. Both ceilings
@@ -296,6 +297,48 @@ func generationDisabled(ctx context.Context, bucket string) bool {
 	killSwitchOn = err == nil
 	killSwitchChecked = time.Now()
 	return killSwitchOn
+}
+
+var (
+	servingKillSwitchMu      sync.Mutex
+	servingKillSwitchChecked time.Time
+	// Fail open: a transient read error must not black out a working feature.
+	// Contrast with generationDisabled, which fails closed because unmetered
+	// generation is the worse outcome there.
+	servingKillSwitchOn = false
+)
+
+// servingDisabled reports the serving kill switch, memoized so the common
+// path costs at most one object check per minute per instance. The Attrs call
+// is made outside the lock to avoid blocking concurrent requests on slow GCS reads.
+func servingDisabled(ctx context.Context, bucket string) bool {
+	servingKillSwitchMu.Lock()
+	if !servingKillSwitchChecked.IsZero() && time.Since(servingKillSwitchChecked) < killSwitchTTL {
+		defer servingKillSwitchMu.Unlock()
+		return servingKillSwitchOn
+	}
+	servingKillSwitchMu.Unlock()
+
+	// Call Attrs outside the lock to avoid blocking concurrent requests.
+	_, err := getGCSClient().Bucket(bucket).Object(servingKillSwitchObject).Attrs(ctx)
+
+	servingKillSwitchMu.Lock()
+	defer servingKillSwitchMu.Unlock()
+	// Re-check TTL after the call in case another goroutine refreshed while we waited.
+	if !servingKillSwitchChecked.IsZero() && time.Since(servingKillSwitchChecked) < killSwitchTTL {
+		return servingKillSwitchOn
+	}
+
+	if err != nil && !errors.Is(err, storage.ErrObjectNotExist) {
+		// Fail open: on error, treat switch as off (serving enabled). Refresh the TTL
+		// so the next request won't immediately retry a failing operation.
+		servingKillSwitchOn = false
+		servingKillSwitchChecked = time.Now()
+		return false
+	}
+	servingKillSwitchOn = err == nil
+	servingKillSwitchChecked = time.Now()
+	return servingKillSwitchOn
 }
 
 type clientLimiter struct {

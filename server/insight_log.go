@@ -43,6 +43,7 @@ const (
 	reasonPromptTooLarge  = "prompt_too_large"
 	reasonBadDescriptor   = "invalid_descriptor"
 	reasonNoCacheBucket   = "no_cache_bucket"
+	reasonServingOff      = "serving_disabled"
 	reasonGenerationOff   = "generation_disabled"
 	reasonNoAPIKey        = "no_api_key"
 	reasonLedgerError     = "ledger_error"
