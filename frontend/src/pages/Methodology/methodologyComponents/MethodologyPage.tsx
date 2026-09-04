@@ -21,7 +21,7 @@ export default function MethodologyPage() {
         aria-labelledby='page-heading'
         id='main-content'
       >
-        <div className='flex max-w-lgplus grow flex-col smplus:m-5 smplus:flex-row'>
+        <div className='flex min-w-0 max-w-lgplus grow flex-col smplus:m-5 smplus:flex-row'>
           {/* MAIN METHODOLOGY PAGES MENU */}
           <div className='w-fit min-w-fit'>
             <MethodologyCardMenu />
