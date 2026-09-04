@@ -57,6 +57,7 @@ test('contrast insight — compare mode renders text and highlight', async ({
 
   const text = await contrastCard.locator('[data-testid="insight-text"]').textContent()
   expect(text?.trim().length).toBeGreaterThan(0)
+  await expect(contrastCard).toContainText('AI-generated. Verify with chart data.')
   await expect(
     contrastCard.locator('[data-testid="insight-highlight"]'),
   ).toBeVisible()
@@ -78,14 +79,20 @@ test('report insight — all four sections render non-empty text', async ({
   const reportRegion = page.getByRole('region', { name: 'Report insights' })
   await expect(reportRegion).toBeVisible()
 
-  // Each section label renders as an uppercase span inside the region.
+  // Each section label renders as an uppercase span inside the region with
+  // non-empty text content below it.
   for (const label of [
     'Key Findings',
     'Location Comparison',
     'Demographic Insights',
     'What This Means',
   ]) {
-    await expect(reportRegion.getByText(label, { exact: false })).toBeVisible()
+    const sectionLabel = reportRegion.getByText(label, { exact: false })
+    await expect(sectionLabel).toBeVisible()
+    // Assert this section has rendered text content (not just a label).
+    const sectionContent = sectionLabel.locator('..').locator('p')
+    const contentText = await sectionContent.textContent()
+    expect(contentText?.trim().length).toBeGreaterThan(0)
   }
 
   // The report disclosure line must appear.
