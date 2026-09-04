@@ -22,7 +22,7 @@ test('card insight renders text, disclosure, and highlight', async ({
   const rateMap = page.locator('#rate-map')
   await rateMap.scrollIntoViewIfNeeded()
 
-  await page.getByLabel('Generate insight').first().click()
+  await rateMap.getByLabel('Generate insight').click()
 
   // The status div is the insight container. Its absence is the silent failure
   // this test exists to catch, so there is no isVisible guard here.
@@ -30,14 +30,14 @@ test('card insight renders text, disclosure, and highlight', async ({
   await expect(insightCard).toBeVisible({ timeout: 30_000 })
 
   // Text must be non-empty — a silently empty section is the failure mode.
-  const text = await insightCard.locator('p.font-bold').textContent()
+  const text = await insightCard.locator('[data-testid="insight-text"]').textContent()
   expect(text?.trim().length).toBeGreaterThan(0)
 
   // Disclosure line must appear exactly as written in the component.
   await expect(insightCard).toContainText('AI-generated. Verify with chart data.')
 
-  // The highlighted phrase renders as a green span inside the bold text.
+  // The highlighted phrase renders as a span inside the bold text.
   await expect(
-    insightCard.locator('span.font-semibold.text-dark-green'),
+    insightCard.locator('[data-testid="insight-highlight"]'),
   ).toBeVisible()
 })

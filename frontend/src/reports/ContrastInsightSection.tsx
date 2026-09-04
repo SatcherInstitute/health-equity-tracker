@@ -201,7 +201,10 @@ export default function ContrastInsightSection({
         </div>
       ) : contrastInsight ? (
         <div className='rounded-md bg-footer-color p-3'>
-          <p className='m-0 font-bold text-alt-dark leading-snug'>
+          <p
+            data-testid='insight-text'
+            className='m-0 font-bold text-alt-dark leading-snug'
+          >
             <HetHighlightedText section={contrastInsight} />
           </p>
           <p className='m-0 mt-2 text-alt-dark text-smallest'>

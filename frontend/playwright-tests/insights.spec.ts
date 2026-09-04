@@ -12,7 +12,7 @@ const DISPARITY_URL =
   '/exploredata?mls=1.incarceration-3.00&group1=All&mlp=disparity&dt1=prison&VITE_SHOW_INSIGHT_GENERATION=1'
 
 const COMPARE_URL =
-  '/exploredata?mls=1.incarceration-3.poverty-5.00&mlp=comparevars&dt1=prison&VITE_SHOW_INSIGHT_GENERATION=1'
+  '/exploredata?mls=1.incarceration-3.poverty-5.00&group1=All&mlp=comparevars&dt1=prison&VITE_SHOW_INSIGHT_GENERATION=1'
 
 const REPORT_URL =
   '/exploredata?mls=1.incarceration-3.00&group1=All&mlp=disparity&dt1=prison&report-insight=true&VITE_SHOW_INSIGHT_GENERATION=1'
@@ -26,15 +26,15 @@ test('card insight — text, disclosure, and highlight on incarceration report',
 
   const rateMap = page.locator('#rate-map')
   await rateMap.scrollIntoViewIfNeeded()
-  await page.getByLabel('Generate insight').first().click()
+  await rateMap.getByLabel('Generate insight').click()
 
   const card = page.locator('div[role="status"]').first()
   await expect(card).toBeVisible({ timeout: 30_000 })
 
-  const text = await card.locator('p.font-bold').textContent()
+  const text = await card.locator('[data-testid="insight-text"]').textContent()
   expect(text?.trim().length).toBeGreaterThan(0)
   await expect(card).toContainText('AI-generated. Verify with chart data.')
-  await expect(card.locator('span.font-semibold.text-dark-green')).toBeVisible()
+  await expect(card.locator('[data-testid="insight-highlight"]')).toBeVisible()
 })
 
 // --- Contrast insight ---
@@ -55,10 +55,10 @@ test('contrast insight — compare mode renders text and highlight', async ({
     .first()
   await expect(contrastCard).toBeVisible({ timeout: 30_000 })
 
-  const text = await contrastCard.locator('p.font-bold').textContent()
+  const text = await contrastCard.locator('[data-testid="insight-text"]').textContent()
   expect(text?.trim().length).toBeGreaterThan(0)
   await expect(
-    contrastCard.locator('span.font-semibold.text-dark-green'),
+    contrastCard.locator('[data-testid="insight-highlight"]'),
   ).toBeVisible()
 })
 
@@ -108,7 +108,7 @@ test('flag control — popover opens, reason enables submit, popover closes on s
 
   const rateMap = page.locator('#rate-map')
   await rateMap.scrollIntoViewIfNeeded()
-  await page.getByLabel('Generate insight').first().click()
+  await rateMap.getByLabel('Generate insight').click()
 
   const card = page.locator('div[role="status"]').first()
   await expect(card).toBeVisible({ timeout: 30_000 })
