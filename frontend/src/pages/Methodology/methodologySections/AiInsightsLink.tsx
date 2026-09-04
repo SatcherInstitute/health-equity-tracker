@@ -15,8 +15,8 @@ export default function AiInsightsLink() {
         <h3 id='ai-insights-what-model-receives'>What the model receives</h3>
         <p>
           When you request an insight, the rendered contents of the chart or
-          table you are viewing — the topic, geography, demographic breakdown,
-          and data rows — are sent to the model. The model has no access to
+          table you are viewing (the topic, geography, demographic breakdown,
+          and data rows) are sent to the model. The model has no access to
           anything else on the site and is not searching the web.
         </p>
 
@@ -35,7 +35,7 @@ export default function AiInsightsLink() {
           Chart contents are sent to Google's Gemini API to generate insights.
           The request originates from our server, not your browser, so the
           provider sees our server's address rather than yours. Only public
-          aggregate data that the site already publishes is included — no
+          aggregate data that the site already publishes is included; no
           personally identifiable information is sent.
         </p>
         <p>
