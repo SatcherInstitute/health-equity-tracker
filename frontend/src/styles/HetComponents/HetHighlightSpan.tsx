@@ -39,6 +39,7 @@ export default function HetHighlightSpan({
   return (
     <span
       ref={spanRef}
+      data-testid='insight-highlight'
       className={`font-semibold text-dark-green ${className ?? ''}`}
       style={{
         animation:

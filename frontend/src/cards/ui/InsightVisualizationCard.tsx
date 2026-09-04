@@ -356,7 +356,10 @@ export default function InsightVisualizationCard({
       case 'idle':
         return insight ? (
           <>
-            <p className='m-0 font-bold text-alt-dark leading-snug'>
+            <p
+              data-testid='insight-text'
+              className='m-0 font-bold text-alt-dark leading-snug'
+            >
               <HetHighlightedText section={insight} />
             </p>
             <p className='m-0 mt-2 text-alt-dark text-smallest'>
