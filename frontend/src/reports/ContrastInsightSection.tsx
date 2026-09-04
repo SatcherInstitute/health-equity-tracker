@@ -209,14 +209,12 @@ export default function ContrastInsightSection({
             <HetHighlightedText section={contrastInsight} />
           </p>
           <p className='m-0 mt-2 text-alt-dark text-smallest'>
-            AI-generated. Verify with chart data.{' '}
             <a
               href={AI_INSIGHTS_LINK}
-              className='text-alt-dark underline hover:text-alt-black'
+              className='text-alt-dark hover:text-alt-black'
             >
-              About these insights
-            </a>
-            {' · '}
+              AI-generated. Verify with chart data.
+            </a>{' '}
             <FlagInsightButton
               cacheKey={serverCacheKey ?? undefined}
               content={contrastInsight.text}
