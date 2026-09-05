@@ -67,7 +67,7 @@ export default function FlagInsightButton(props: FlagInsightButtonProps) {
         type='button'
         onClick={(e) => setAnchorEl(e.currentTarget)}
         disabled={!props.cacheKey}
-        className='cursor-pointer border-0 bg-transparent p-0 text-alt-dark text-smallest underline hover:text-alt-black disabled:opacity-50'
+        className='cursor-pointer border-0 bg-transparent p-0 text-alt-dark text-smallest hover:text-alt-black disabled:opacity-50'
       >
         Report harmful or inaccurate content
       </button>
