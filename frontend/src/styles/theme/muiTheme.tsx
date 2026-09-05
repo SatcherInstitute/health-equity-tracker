@@ -178,8 +178,7 @@ const muiTheme = extendTheme({
     MuiStepConnector: {
       styleOverrides: {
         vertical: {
-          paddingBlock: '0',
-          margin: '0 auto',
+          marginLeft: '12px',
         },
         line: {
           variants: [

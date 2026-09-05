@@ -59,6 +59,7 @@ export const RACES_AND_ETHNICITIES_LINK =
   DATA_METHOD_DEFINITIONS_LINK + '/races-and-ethnicities'
 export const RECOMMENDED_CITATION_LINK =
   METHODOLOGY_PAGE_LINK + '/recommended-citation'
+export const AI_INSIGHTS_LINK = METHODOLOGY_PAGE_LINK + '/ai-insights'
 
 // TRACKER SETTINGS
 export const AGE_ADJUST_HIV_DEATHS_US_SETTING =
