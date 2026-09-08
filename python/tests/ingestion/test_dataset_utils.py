@@ -923,7 +923,48 @@ def test_preserve_most_recent_year_rows_per_topic_newest_year_alls_only():
 
     topic_prefixes = ["avoided_care"]
     test_df = preserve_most_recent_year_rows_per_topic(test_df, topic_prefixes)
-    pd.testing.assert_frame_equal(test_df, expected_df)
+    pd.testing.assert_frame_equal(test_df, expected_df, check_like=True)
+
+
+def test_preserve_most_recent_year_rows_per_topic_all_null_primary_col():
+    # All rows have null for the primary metric col → non_null is empty → falls back to max year.
+    test_data = {
+        "race_and_ethnicity": ["All", "Black", "White"],
+        "time_period": ["2021", "2022", "2023"],
+        "avoided_care_pct_rate": [None, None, None],
+    }
+    expected_data = {
+        "race_and_ethnicity": ["White"],
+        "avoided_care_pct_rate": [None],
+    }
+
+    test_df = pd.DataFrame(test_data)
+    expected_df = pd.DataFrame(expected_data)
+
+    topic_prefixes = ["avoided_care"]
+    test_df = preserve_most_recent_year_rows_per_topic(test_df, topic_prefixes)
+    pd.testing.assert_frame_equal(test_df, expected_df, check_like=True)
+
+
+def test_preserve_most_recent_year_rows_per_topic_every_year_alls_only():
+    # Every year in the table is All-group-only (alls-only breakdown like totals tables).
+    # Step-back loop finds nothing → falls back to newest_year.
+    test_data = {
+        "race_and_ethnicity": ["All", "All", "All"],
+        "time_period": ["2021", "2022", "2023"],
+        "avoided_care_pct_rate": [12.0, 13.0, 14.0],
+    }
+    expected_data = {
+        "race_and_ethnicity": ["All"],
+        "avoided_care_pct_rate": [14.0],
+    }
+
+    test_df = pd.DataFrame(test_data)
+    expected_df = pd.DataFrame(expected_data)
+
+    topic_prefixes = ["avoided_care"]
+    test_df = preserve_most_recent_year_rows_per_topic(test_df, topic_prefixes)
+    pd.testing.assert_frame_equal(test_df, expected_df, check_like=True)
 
 
 # GET TIME VIEW TESTS
