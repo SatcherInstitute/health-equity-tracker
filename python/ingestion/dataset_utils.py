@@ -562,6 +562,45 @@ def zero_out_pct_rel_inequity(
     return df
 
 
+def _most_recent_complete_year(df: pd.DataFrame, primary_col: str, base_cols: List[str]) -> str:
+    """Returns the most recent time_period with meaningful demographic group coverage.
+
+    If the newest year's non-null rows are ALL-group-only (i.e., specific demographic
+    groups like race/age/sex have no data), steps back to the most recent year where
+    at least one non-All group has non-null data. Falls back to the newest year when
+    no older year has non-All data (e.g., alls-only breakdown tables).
+    """
+    non_null = df[df[primary_col].notnull()]
+    if non_null.empty:
+        return df[std_col.TIME_PERIOD_COL].max()
+
+    year_counts = non_null.groupby(std_col.TIME_PERIOD_COL).size()
+    newest_year = year_counts.index.max()
+
+    # Demographic-like columns are those whose values can equal "All"
+    # (excludes geo columns like state_fips, county_name, etc.)
+    demo_cols = [col for col in base_cols if (df[col] == ALL_VALUE).any()]
+    if not demo_cols:
+        return newest_year
+
+    def _has_non_all_data(subset: pd.DataFrame) -> bool:
+        return any((subset[col] != ALL_VALUE).any() for col in demo_cols)
+
+    newest_non_null = non_null[non_null[std_col.TIME_PERIOD_COL] == newest_year]
+    if _has_non_all_data(newest_non_null):
+        return newest_year
+
+    # Newest year is All-only; step back to most recent year with non-All group data
+    for year in sorted(year_counts.index, reverse=True):
+        if year == newest_year:
+            continue
+        year_non_null = non_null[non_null[std_col.TIME_PERIOD_COL] == year]
+        if _has_non_all_data(year_non_null):
+            return year
+
+    return newest_year
+
+
 def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame, topic_prefixes: List[str]) -> pd.DataFrame:
     """Takes a dataframe with a 'time_period' col of string dates like 'YYYY' or 'YYYY-MM',
     and returns a new dataframe that contains only rows with the most recent 'time_period'
@@ -591,7 +630,7 @@ def preserve_most_recent_year_rows_per_topic(df: pd.DataFrame, topic_prefixes: L
     # handle topic prefixes that are shared between cols like topic_pct_share and topic_per_100k
     for topic_prefix in topic_prefixes:
         topic_primary_col = get_topic_primary_col(topic_prefix, df)
-        most_recent_time_period = df[df[topic_primary_col].notnull()][std_col.TIME_PERIOD_COL].max()
+        most_recent_time_period = _most_recent_complete_year(df, topic_primary_col, base_cols)
         col_list = list(df.columns[df.columns.str.startswith(topic_prefix)])
 
         # build the mapping of string year to list of topics where that year is the most recent

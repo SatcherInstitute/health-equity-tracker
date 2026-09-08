@@ -879,6 +879,10 @@ def test_county_race_generate_pct_share_col_of_summed_alls():
 
 
 def test_preserve_most_recent_year_rows_per_topic_normal_case():
+    # No "All" group present → step-back logic does not fire; each topic uses its newest year.
+    # topic1: newest non-null year = 2023 (Black+White) → uses 2023
+    # topic2: newest non-null year = 2023 (Black only, White is null) → uses 2023
+    # topic3: newest non-null year = 2023 (both) → uses 2023
     test_data = {
         "race_and_ethnicity": ["Black", "Black", "Black", "White", "White", "White"],
         "time_period": ["2021", "2022", "2023", "2021", "2022", "2023"],
@@ -897,6 +901,27 @@ def test_preserve_most_recent_year_rows_per_topic_normal_case():
     expected_df = pd.DataFrame(expected_data)
 
     topic_prefixes = ["topic1", "topic2", "topic3"]
+    test_df = preserve_most_recent_year_rows_per_topic(test_df, topic_prefixes)
+    pd.testing.assert_frame_equal(test_df, expected_df, check_like=True)
+
+
+def test_preserve_most_recent_year_rows_per_topic_newest_year_alls_only():
+    # Mirrors the care-avoidance case: newest year (2023) only has "All" data;
+    # race groups have data through 2022. Expects 2022 rows for the race groups.
+    test_data = {
+        "race_and_ethnicity": ["All", "All", "All", "Black", "Black", "Black", "White", "White", "White"],
+        "time_period": ["2021", "2022", "2023", "2021", "2022", "2023", "2021", "2022", "2023"],
+        "avoided_care_pct_rate": [12.0, 13.0, 14.0, 18.0, 19.0, None, 10.0, 11.0, None],
+    }
+    expected_data = {
+        "race_and_ethnicity": ["All", "Black", "White"],
+        "avoided_care_pct_rate": [13.0, 19.0, 11.0],
+    }
+
+    test_df = pd.DataFrame(test_data)
+    expected_df = pd.DataFrame(expected_data)
+
+    topic_prefixes = ["avoided_care"]
     test_df = preserve_most_recent_year_rows_per_topic(test_df, topic_prefixes)
     pd.testing.assert_frame_equal(test_df, expected_df)
 
