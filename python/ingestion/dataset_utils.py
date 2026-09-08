@@ -584,7 +584,7 @@ def _most_recent_complete_year(df: pd.DataFrame, primary_col: str, base_cols: Li
         return newest_year
 
     def _has_non_all_data(subset: pd.DataFrame) -> bool:
-        return any((subset[col] != ALL_VALUE).any() for col in demo_cols)
+        return any((subset[col].notna() & subset[col].ne(ALL_VALUE)).any() for col in demo_cols)
 
     newest_non_null = non_null[non_null[std_col.TIME_PERIOD_COL] == newest_year]
     if _has_non_all_data(newest_non_null):
