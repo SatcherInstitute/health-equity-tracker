@@ -1,0 +1,34 @@
+{
+  "kind": "contrast",
+  "why": "Compare-geo (same topic, different places) with a specific group selected. The active group from urlParams restricts the guidance to that group's geographic comparison.",
+  "hashId": "rate-map",
+  "demographicType": "race_and_ethnicity",
+  "urlPathname": "/exploredata",
+  "urlParams": "mls=1.hiv-3.00-5.13&mlp=comparegeos&group1=Black.NH&group2=Black.NH",
+  "viewA": {
+    "topic": "HIV diagnoses",
+    "location": "Georgia",
+    "metricConfig": {
+      "metricId": "hiv_diagnoses_per_100k",
+      "shortLabel": "cases per 100k"
+    },
+    "rows": [
+      { "fips_name": "Fulton County", "race_and_ethnicity": "All", "hiv_diagnoses_per_100k": 31.2 },
+      { "fips_name": "Fulton County", "race_and_ethnicity": "Black or African American (NH)", "hiv_diagnoses_per_100k": 58.4 },
+      { "fips_name": "DeKalb County", "race_and_ethnicity": "All", "hiv_diagnoses_per_100k": 22.7 },
+      { "fips_name": "DeKalb County", "race_and_ethnicity": "Black or African American (NH)", "hiv_diagnoses_per_100k": 41.3 }
+    ]
+  },
+  "viewB": {
+    "topic": "HIV diagnoses",
+    "location": "Vermont",
+    "metricConfig": {
+      "metricId": "hiv_diagnoses_per_100k",
+      "shortLabel": "cases per 100k"
+    },
+    "rows": [
+      { "fips_name": "Chittenden County", "race_and_ethnicity": "All", "hiv_diagnoses_per_100k": 4.1 },
+      { "fips_name": "Chittenden County", "race_and_ethnicity": "Black or African American (NH)", "hiv_diagnoses_per_100k": 11.9 }
+    ]
+  }
+}

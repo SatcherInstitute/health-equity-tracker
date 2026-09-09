@@ -1,0 +1,36 @@
+{
+  "kind": "contrast",
+  "why": "Compare-vars (same place, different topics) with a specific group selected. The active group is read from the urlParams field and injected into the prompt as a focus instruction.",
+  "hashId": "rate-map",
+  "demographicType": "race_and_ethnicity",
+  "urlPathname": "/exploredata",
+  "urlParams": "mls=1.avoided_care-3.severe_maternal_morbidity-5.00&mlp=comparevars&group1=Black.NH&group2=Black.NH",
+  "viewA": {
+    "topic": "Care avoidance due to cost",
+    "location": "the United States",
+    "metricConfig": {
+      "metricId": "avoided_care_pct_rate",
+      "shortLabel": "% of adults"
+    },
+    "rows": [
+      { "fips_name": "Alabama", "race_and_ethnicity": "All", "avoided_care_pct_rate": 14.2 },
+      { "fips_name": "Alabama", "race_and_ethnicity": "Black or African American (NH)", "avoided_care_pct_rate": 18.1 },
+      { "fips_name": "Georgia", "race_and_ethnicity": "All", "avoided_care_pct_rate": 13.8 },
+      { "fips_name": "Georgia", "race_and_ethnicity": "Black or African American (NH)", "avoided_care_pct_rate": 19.4 }
+    ]
+  },
+  "viewB": {
+    "topic": "Severe maternal morbidity",
+    "location": "the United States",
+    "metricConfig": {
+      "metricId": "severe_maternal_morbidity_per_100k",
+      "shortLabel": "cases per 100k deliveries"
+    },
+    "rows": [
+      { "fips_name": "Alabama", "race_and_ethnicity": "All", "severe_maternal_morbidity_per_100k": 122 },
+      { "fips_name": "Alabama", "race_and_ethnicity": "Black or African American (NH)", "severe_maternal_morbidity_per_100k": 198 },
+      { "fips_name": "Georgia", "race_and_ethnicity": "All", "severe_maternal_morbidity_per_100k": 118 },
+      { "fips_name": "Georgia", "race_and_ethnicity": "Black or African American (NH)", "severe_maternal_morbidity_per_100k": 211 }
+    ]
+  }
+}

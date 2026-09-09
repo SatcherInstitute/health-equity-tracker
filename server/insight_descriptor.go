@@ -171,12 +171,21 @@ func renderInsightPrompt(d *insightDescriptor) (string, error) {
 		return buildCardInsightPrompt(d.HashID, d.Topic, d.Location, demographic, dataSection, d.Context, shape), nil
 
 	case insightKindContrast:
+		// Derive the highlighted group from URL params so the prompt can focus on
+		// what the user is actually looking at. group1 drives compare-vars (same
+		// place, different topics); if both groups are set and differ, we leave the
+		// focus empty and let the model decide.
+		group1, group2 := parseGroupParams(d.URLParams)
+		activeGroup := group1
+		if group2 != "" && group2 != group1 {
+			activeGroup = ""
+		}
 		section := func(v *insightView) string {
 			return formatDataRows(v.Rows, d.HashID, d.DemographicType, v.MetricConfig,
 				insightDataOptions{BudgetBytes: insightBudgetContrast})
 		}
-		return buildContrastPrompt(d.ViewA.Topic, d.ViewB.Topic, d.ViewA.Location, d.ViewB.Location,
-			demographic, section(d.ViewA), section(d.ViewB)), nil
+		return buildContrastPrompt(d.HashID, d.ViewA.Topic, d.ViewB.Topic, d.ViewA.Location, d.ViewB.Location,
+			demographic, section(d.ViewA), section(d.ViewB), activeGroup), nil
 
 	case insightKindReport:
 		s := d.Sections

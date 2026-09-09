@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math"
+	"net/url"
 	"sort"
 	"strconv"
 	"strings"
@@ -543,14 +544,20 @@ func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeD
 
 	if mapChartIDs[hashID] {
 		// Each data row is labeled `Place (Group)`, and an "All" row gives the
-		// overall rate for that place. Tell the model which group the user is
-		// currently highlighting so it can lead with that story.
+		// overall rate for that place. Maps are a geographic visualization, so the
+		// insight focuses on place-level disparity. When the user has highlighted a
+		// specific group, that group's geographic pattern is the lens.
 		focus := ""
-		if activeDemographicGroup != "" && activeDemographicGroup != insightGroupAll {
-			focus = fmt.Sprintf(" The map currently highlights the %s group, so lead with that group and use the \"All\" baseline for comparison.", activeDemographicGroup)
+		if activeDemographicGroup != "" && !groupIsAll(activeDemographicGroup) {
+			focus = fmt.Sprintf(" The map currently highlights the %s group — use that group's rates to describe the geographic pattern, with \"All\" as the baseline.", activeDemographicGroup)
 		}
-		return fmt.Sprintf("This is a choropleth map showing %s in %s by %s. Each data row is labeled with its place and %s group; an \"All\" row gives the overall rate for that place.%s%s\n\nWrite a single sentence at an 8th grade reading level that highlights the most important health equity disparity — either a geographic gap between places or a gap between %s groups within a place — and captures why it matters for real people. Focus on the \"so what\", not the chart mechanics.",
-			topic, location, demographicLabel, demographicLabel, focus, dataBlock, demographicLabel)
+		return fmt.Sprintf("This is a choropleth map showing %s in %s by %s. Each data row is labeled with its place and %s group; an \"All\" row gives the overall rate for that place.%s%s\n\nWrite a single sentence at an 8th grade reading level that captures the geographic disparity — which places have the highest and lowest rates — and what that concentration means for the people who live there. Focus on the \"so what\", not the chart mechanics.",
+			topic, location, demographicLabel, demographicLabel, focus, dataBlock)
+	}
+
+	if hashID == "rate-chart" {
+		return fmt.Sprintf("This is a bar chart showing %s rates in %s by %s group.%s\n\nWrite a single sentence at an 8th grade reading level that names which group faces the highest rate, how much higher it is compared to others, and what that demographic disparity means for real people. Focus on the \"so what\", not the chart mechanics.",
+			topic, location, demographicLabel, dataBlock)
 	}
 
 	if hashID == "rates-over-time" {
@@ -656,7 +663,51 @@ func buildCardInsightPrompt(hashID, topic, location, demographicLabel, dataSecti
 		activeGroup, peerSummary != nil, tableShape) + singleInsightOutputRule
 }
 
-func buildContrastPrompt(topic1, topic2, location1, location2, demographic, data1, data2 string) string {
+// decodeGroupParam reverses the browser's getGroupParamFromDemographicGroup
+// encoding so the server can read the selected demographic group from URL params
+// without a frontend change. URLSearchParams.toString() percent-encodes the
+// tilde character (~) as %7E, so url.QueryUnescape must be applied first to
+// restore it before the four custom substitutions run. Race-code shorthand
+// (e.g. "Black (NH)") is left as-is because the model's plain-language rules
+// already map it to the correct data-row label.
+func decodeGroupParam(param string) string {
+	if param == "" {
+		return ""
+	}
+	unescaped, err := url.QueryUnescape(param)
+	if err != nil {
+		unescaped = param
+	}
+	return strings.NewReplacer(
+		".NH", " (NH)",
+		"_", " ",
+		"~", "/",
+		"PLUS", "+",
+	).Replace(unescaped)
+}
+
+// parseGroupParams returns the decoded group1 and group2 values from a
+// URLSearchParams string (e.g. "group1=Black.NH&group2=Black.NH").
+func parseGroupParams(urlParams string) (group1, group2 string) {
+	for _, pair := range strings.Split(urlParams, "&") {
+		k, v, ok := strings.Cut(pair, "=")
+		if !ok {
+			continue
+		}
+		switch k {
+		case "group1":
+			group1 = decodeGroupParam(v)
+		case "group2":
+			group2 = decodeGroupParam(v)
+		}
+	}
+	return
+}
+
+func buildContrastPrompt(hashID, topic1, topic2, location1, location2, demographic, data1, data2, activeDemographicGroup string) string {
+	isMap := mapChartIDs[hashID]
+	hasActiveGroup := activeDemographicGroup != "" && !groupIsAll(activeDemographicGroup)
+
 	var setup, viewALabel, viewBLabel, guidance string
 
 	switch {
@@ -665,14 +716,36 @@ func buildContrastPrompt(topic1, topic2, location1, location2, demographic, data
 		setup = fmt.Sprintf("Two side-by-side charts show the same health metric — %s — across %s groups, in two different places.", topic1, demographic)
 		viewALabel = fmt.Sprintf("View A (%s)", location1)
 		viewBLabel = fmt.Sprintf("View B (%s)", location2)
-		guidance = "Focus on what comparing these two places reveals that either view alone does not — for example, whether disparities within one place exceed disparities between places, or whether the same patterns recur at different geographic scales."
+		if isMap {
+			guidance = "These are maps. Focus on the geographic patterns within each place — which areas have the highest rates — and whether the same geographic concentrations appear in both places."
+			if hasActiveGroup {
+				guidance += fmt.Sprintf(" Both maps are currently highlighting the %s group. Use that group's data as the geographic lens.", activeDemographicGroup)
+			}
+		} else {
+			guidance = "Focus on what comparing these two places reveals that either view alone does not — for example, whether disparities within one place exceed disparities between places, or whether the same patterns recur at different geographic scales."
+			if hasActiveGroup {
+				guidance += fmt.Sprintf(" Both charts are currently highlighting the %s group. Center the sentence on how %s fares in each place.", activeDemographicGroup, activeDemographicGroup)
+			}
+		}
 	case location1 == location2:
 		// compare-vars: same place, different topics
 		setup = fmt.Sprintf("Two side-by-side charts show %s, one for %s and one for %s, across %s groups.", location1, topic1, topic2, demographic)
 		viewALabel = fmt.Sprintf("View A (%s)", topic1)
 		viewBLabel = fmt.Sprintf("View B (%s)", topic2)
-		guidance = "Focus on whether the same groups bear the heaviest burden across both topics, or where the patterns diverge — and what that suggests about the underlying drivers of inequity."
+		if isMap {
+			guidance = "These are maps. Focus on the geographic pattern for each condition — which places carry the highest rates — and whether the same places face a heavy burden for both topics."
+			if hasActiveGroup {
+				guidance += fmt.Sprintf(" Both maps are currently highlighting the %s group. Use that group's geographic rates as the primary lens for the comparison.", activeDemographicGroup)
+			}
+		} else {
+			guidance = "Focus on whether the same groups bear the heaviest burden across both topics, or where the patterns diverge — and what that suggests about the underlying drivers of inequity."
+			if hasActiveGroup {
+				guidance += fmt.Sprintf(" Both charts are currently highlighting the %s group. The sentence must center on %s's burden across both metrics. Only name a different group if it shows a striking divergence that is directly visible in the data.", activeDemographicGroup, activeDemographicGroup)
+			}
+		}
 	default:
+		// Different topics AND different places. The browser does not emit this
+		// combination today, so isMap and hasActiveGroup guidance are not needed.
 		setup = fmt.Sprintf("Two side-by-side charts compare %s in %s with %s in %s, across %s groups.", topic1, location1, topic2, location2, demographic)
 		viewALabel = fmt.Sprintf("View A (%s in %s)", topic1, location1)
 		viewBLabel = fmt.Sprintf("View B (%s in %s)", topic2, location2)

@@ -1,14 +1,18 @@
-This is a choropleth map showing HIV diagnoses in Georgia by race/ethnicity. Each data row is labeled with its place and race/ethnicity group; an "All" row gives the overall rate for that place. The map currently highlights the Black or African American (NH) group — use that group's rates to describe the geographic pattern, with "All" as the baseline.
+Two side-by-side charts show the United States, one for Care avoidance due to cost and one for Severe maternal morbidity, across race/ethnicity groups.
 
-Data:
-- Fulton County (All): 41.2 cases per 100k
-- Fulton County (Black or African American (NH)): 68.9 cases per 100k
-- DeKalb County (All): 37.5 cases per 100k
-- DeKalb County (Black or African American (NH)): 55.1 cases per 100k
-- Chatham County (All): 22.8 cases per 100k
-- Chatham County (Black or African American (NH)): 40.3 cases per 100k
+View A (Care avoidance due to cost) data:
+- Alabama (All): 14.2 % of adults
+- Alabama (Black or African American (NH)): 18.1 % of adults
+- Georgia (All): 13.8 % of adults
+- Georgia (Black or African American (NH)): 19.4 % of adults
 
-Write a single sentence at an 8th grade reading level that captures the geographic disparity — which places have the highest and lowest rates — and what that concentration means for the people who live there. Focus on the "so what", not the chart mechanics.
+View B (Severe maternal morbidity) data:
+- Alabama (All): 122 cases per 100k deliveries
+- Alabama (Black or African American (NH)): 198 cases per 100k deliveries
+- Georgia (All): 118 cases per 100k deliveries
+- Georgia (Black or African American (NH)): 211 cases per 100k deliveries
+
+Write one sentence at an 8th grade reading level that contrasts these two views. These are maps. Focus on the geographic pattern for each condition — which places carry the highest rates — and whether the same places face a heavy burden for both topics. Both maps are currently highlighting the Black (NH) group. Use that group's geographic rates as the primary lens for the comparison. Name the places or groups involved. Use only facts present in the data; do not introduce additional statistics, causal explanations, or place-specific facts that are not shown.
 
 WRITING RULES, follow these strictly:
 - Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.
