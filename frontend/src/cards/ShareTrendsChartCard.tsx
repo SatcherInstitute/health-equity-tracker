@@ -28,8 +28,10 @@ import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import HetNotice from '../styles/HetComponents/HetNotice'
+import { useGroupsParam } from '../utils/hooks/useGroupsParam'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { METHODOLOGY_PAGE_LINK } from '../utils/internalRoutes'
+import { SHARE_GROUPS_1_PARAM, SHARE_GROUPS_2_PARAM } from '../utils/urlutils'
 import CardWrapper from './CardWrapper'
 import ChartTitle, { getChartTitleId } from './ChartTitle'
 import AltTableView from './ui/AltTableView'
@@ -53,10 +55,12 @@ interface ShareTrendsChartCardProps {
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
-  // Manages which group filters user has applied
-  const [selectedTableGroups, setSelectedTableGroups] = useState<
-    DemographicGroup[]
-  >([])
+  // See the matching comment in RateTrendsChartCard — URL-backed so a shared
+  // link reproduces the filter, order preserved so the min/max preset detection
+  // in FilterLegend.tsx keeps working.
+  const [selectedTableGroups, setSelectedTableGroups] = useGroupsParam(
+    props.isCompareCard ? SHARE_GROUPS_2_PARAM : SHARE_GROUPS_1_PARAM,
+  )
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false)
   const [unknownsExpanded, setUnknownsExpanded] = useState(false)

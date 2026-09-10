@@ -40,18 +40,23 @@ const (
 // that produced it, so "no insight was shown" can be told apart from "the cap was
 // reached" without reading the surrounding lines.
 const (
-	reasonPromptTooLarge  = "prompt_too_large"
-	reasonBadDescriptor   = "invalid_descriptor"
-	reasonNoCacheBucket   = "no_cache_bucket"
-	reasonServingOff      = "serving_disabled"
-	reasonGenerationOff   = "generation_disabled"
-	reasonNoAPIKey        = "no_api_key"
-	reasonLedgerError     = "ledger_error"
-	reasonCeilingReached  = "ceiling_reached"
-	reasonProviderQuota   = "provider_quota"
-	reasonProviderError   = "provider_error"
-	reasonNoContent       = "no_content"
-	reasonSuppressionRead = "suppression_check"
+	reasonPromptTooLarge = "prompt_too_large"
+	reasonBadDescriptor  = "invalid_descriptor"
+	reasonNoCacheBucket  = "no_cache_bucket"
+	reasonServingOff     = "serving_disabled"
+	reasonGenerationOff  = "generation_disabled"
+	reasonNoAPIKey       = "no_api_key"
+	reasonLedgerError    = "ledger_error"
+	reasonCeilingReached = "ceiling_reached"
+
+	// Shed by the per-minute guard rather than by a spent daily or monthly
+	// budget. Kept distinct because the two call for opposite responses: a burst
+	// passes on its own, an exhausted day does not.
+	reasonRateCeilingReached = "rate_ceiling_reached"
+	reasonProviderQuota      = "provider_quota"
+	reasonProviderError      = "provider_error"
+	reasonNoContent          = "no_content"
+	reasonSuppressionRead    = "suppression_check"
 
 	// The provider answered, but not in the envelope shape. Only a report can
 	// land here: a card or contrast falls back to the bare sentence.
@@ -88,6 +93,11 @@ type insightEvent struct {
 	DailyLimit         int `json:"dailyLimit,omitempty"`
 	MonthlyGenerations int `json:"monthlyGenerations,omitempty"`
 	MonthlyLimit       int `json:"monthlyLimit,omitempty"`
+
+	// The per-minute window at the moment of the reservation. A burst is only
+	// visible here: the daily counters barely move while it is happening.
+	MinuteGenerations int `json:"minuteGenerations,omitempty"`
+	MinuteLimit       int `json:"minuteLimit,omitempty"`
 
 	DurationMs int64 `json:"durationMs"`
 }

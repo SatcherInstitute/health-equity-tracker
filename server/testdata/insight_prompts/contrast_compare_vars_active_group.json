@@ -1,10 +1,13 @@
 {
   "kind": "contrast",
-  "why": "Compare-vars (same place, different topics) with a specific group selected. The active group is read from the urlParams field and injected into the prompt as a focus instruction.",
+  "why": "Compare-vars (same place, different topics) with a specific group selected. The browser sends the highlighted group on context so the prompt can focus on it.",
   "hashId": "rate-map",
   "demographicType": "race_and_ethnicity",
   "urlPathname": "/exploredata",
   "urlParams": "mls=1.avoided_care-3.severe_maternal_morbidity-5.00&mlp=comparevars&group1=Black.NH&group2=Black.NH",
+  "context": {
+    "activeDemographicGroup": "Black or African American (NH)"
+  },
   "viewA": {
     "topic": "Care avoidance due to cost",
     "location": "the United States",

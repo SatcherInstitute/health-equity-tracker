@@ -193,6 +193,12 @@ variable "insight_max_generations_per_day" {
   default     = 300
 }
 
+variable "insight_max_generations_per_minute" {
+  description = "Maximum AI insight generations per minute service-wide, enforced by a window in the daily usage ledger. Sits under the provider's free-tier per-minute limit so ours is the limit reached first"
+  type        = number
+  default     = 10
+}
+
 variable "insight_max_generations_per_month" {
   description = "Maximum AI insight generations per provider quota month (America/Los_Angeles), enforced by the usage ledger"
   type        = number

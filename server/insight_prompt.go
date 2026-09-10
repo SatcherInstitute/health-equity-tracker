@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"math"
-	"net/url"
 	"sort"
 	"strconv"
 	"strings"
@@ -661,47 +660,6 @@ func buildCardInsightPrompt(hashID, topic, location, demographicLabel, dataSecti
 
 	return buildPrompt(hashID, topic, location, demographicLabel, finalDataSection,
 		activeGroup, peerSummary != nil, tableShape) + singleInsightOutputRule
-}
-
-// decodeGroupParam reverses the browser's getGroupParamFromDemographicGroup
-// encoding so the server can read the selected demographic group from URL params
-// without a frontend change. URLSearchParams.toString() percent-encodes the
-// tilde character (~) as %7E, so url.QueryUnescape must be applied first to
-// restore it before the four custom substitutions run. Race-code shorthand
-// (e.g. "Black (NH)") is left as-is because the model's plain-language rules
-// already map it to the correct data-row label.
-func decodeGroupParam(param string) string {
-	if param == "" {
-		return ""
-	}
-	unescaped, err := url.QueryUnescape(param)
-	if err != nil {
-		unescaped = param
-	}
-	return strings.NewReplacer(
-		".NH", " (NH)",
-		"_", " ",
-		"~", "/",
-		"PLUS", "+",
-	).Replace(unescaped)
-}
-
-// parseGroupParams returns the decoded group1 and group2 values from a
-// URLSearchParams string (e.g. "group1=Black.NH&group2=Black.NH").
-func parseGroupParams(urlParams string) (group1, group2 string) {
-	for _, pair := range strings.Split(urlParams, "&") {
-		k, v, ok := strings.Cut(pair, "=")
-		if !ok {
-			continue
-		}
-		switch k {
-		case "group1":
-			group1 = decodeGroupParam(v)
-		case "group2":
-			group2 = decodeGroupParam(v)
-		}
-	}
-	return
 }
 
 func buildContrastPrompt(hashID, topic1, topic2, location1, location2, demographic, data1, data2, activeDemographicGroup string) string {

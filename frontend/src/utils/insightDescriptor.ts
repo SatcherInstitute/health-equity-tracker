@@ -111,6 +111,9 @@ interface ContrastDescriptor {
   demographicType: DemographicType
   viewA: ContrastView
   viewB: ContrastView
+  // The highlighted demographic group across both sides. Sent explicitly so the
+  // server never has to decode the browser's short-code URL encoding on its own.
+  context?: InsightContext
 }
 
 export interface ReportSectionDescriptor extends ShareColumns {
