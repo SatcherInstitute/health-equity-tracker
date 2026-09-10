@@ -154,7 +154,9 @@ NITS: pure style/formatting issues that could be enforced by tooling. Collect th
 
 ### Conversation output (primary — what the user reads)
 
-Lead with a one-sentence verdict:
+Open with one sentence describing what the PR does — plainest possible language, no jargon. Example: "This PR bumps vitest to 5.0 to fix a peer dep conflict from the Dependabot bump."
+
+Then a one-sentence verdict:
 - Blocking issues found: say what they are and why upfront
 - No blockers: say so clearly
 

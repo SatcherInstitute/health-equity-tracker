@@ -490,6 +490,8 @@ Use this template:
 ```markdown
 **Preview:** [<short label>](<netlify-url>/<route>?<params>)
 
+<one sentence — the plainest possible description of what this PR does and why. No jargon, no hedging. A reviewer should understand the change without reading the diff.>
+
 ## Summary
 
 - <bullet — what changed and why, one line each>

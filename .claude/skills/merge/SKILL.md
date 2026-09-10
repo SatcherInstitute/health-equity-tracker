@@ -32,10 +32,7 @@ FORK_REMOTE=$(git remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | aw
 
 If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fork remote with `git remote -v`.
 
-Print the PR title and number, then ask the user to confirm before merging:
-> "About to force-merge PR #<number>: '<title>'. Confirm? (yes/no)"
-
-Wait for confirmation before continuing.
+When the user explicitly passed a PR number with the `/merge` command, proceed without asking for confirmation. Only ask if the PR number was auto-detected from the current branch (i.e. no argument was given).
 
 ---
 
