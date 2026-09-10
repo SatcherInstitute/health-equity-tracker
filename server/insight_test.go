@@ -250,7 +250,7 @@ func TestRecordTokenUsageAttributesBothPeriods(t *testing.T) {
 	store := newFakeLedgerStore()
 	useFakeLedger(t, store)
 
-	day, month := ledgerPeriods(time.Now())
+	day, month, _ := ledgerPeriods(nowFunc())
 	recordTokenUsage(context.Background(), "b", 300, 80)
 
 	for _, period := range []string{day, month} {
@@ -344,9 +344,7 @@ func TestInsightOriginOnlyMiddleware(t *testing.T) {
 // --- per-client rate limiting ---
 
 func TestAllowClientDropsBurst(t *testing.T) {
-	limiterMu.Lock()
-	limiters = map[string]*clientLimiter{}
-	limiterMu.Unlock()
+	generationLimiters.reset()
 
 	for i := range insightRateBurst {
 		if !allowClient("203.0.113.7") {
@@ -363,23 +361,20 @@ func TestAllowClientDropsBurst(t *testing.T) {
 }
 
 func TestAllowClientSweepsStaleEntries(t *testing.T) {
-	limiterMu.Lock()
-	limiters = map[string]*clientLimiter{}
+	generationLimiters.reset()
+	generationLimiters.mu.Lock()
 	stale := time.Now().Add(-2 * clientLimiterTTL)
 	for i := range maxTrackedClients + 1 {
-		limiters[fmt.Sprintf("10.0.0.%d", i)] = &clientLimiter{
-			limiter:  newClientRateLimiter(),
+		generationLimiters.clients[fmt.Sprintf("10.0.0.%d", i)] = &clientLimiter{
+			limiter:  generationLimiters.newLimiter(),
 			lastSeen: stale,
 		}
 	}
-	limiterMu.Unlock()
+	generationLimiters.mu.Unlock()
 
 	allowClient("203.0.113.9")
 
-	limiterMu.Lock()
-	size := len(limiters)
-	limiterMu.Unlock()
-	if size > maxTrackedClients {
+	if size := generationLimiters.size(); size > maxTrackedClients {
 		t.Errorf("tracked clients = %d, want the table swept below %d", size, maxTrackedClients)
 	}
 }
@@ -411,9 +406,7 @@ func TestClientIP(t *testing.T) {
 }
 
 func TestInsightRateLimitMiddlewareReturns429(t *testing.T) {
-	limiterMu.Lock()
-	limiters = map[string]*clientLimiter{}
-	limiterMu.Unlock()
+	generationLimiters.reset()
 
 	handler := insightRateLimit(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
 		w.WriteHeader(http.StatusOK)
@@ -981,7 +974,11 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 			outcome:  outcomeError,
 			reason:   reasonProviderQuota,
 			severity: "ERROR",
-			reserved: true,
+			// The slot is claimed before the call and given back on this path
+			// alone, since a provider rate-limit rejection certainly produced
+			// nothing. The log follows the ledger so the reservation query and
+			// the ledger's own counters still agree.
+			reserved: false,
 		},
 		{
 			// Only a report can close this gate: a card or contrast falls back to
@@ -1168,7 +1165,7 @@ func TestCeilingWarnPercentIgnoresOutOfRangeValues(t *testing.T) {
 
 // dailyLedgerPeriod is the daily key production would write right now.
 func dailyLedgerPeriod() string {
-	day, _ := ledgerPeriods(time.Now())
+	day, _, _ := ledgerPeriods(nowFunc())
 	return day
 }
 
@@ -1220,7 +1217,7 @@ func TestLedgerPeriodsUseProviderQuotaCalendar(t *testing.T) {
 			if got := tc.instant.Format("2006-01-02"); got != tc.wantUTCDay {
 				t.Fatalf("case does not straddle a boundary: UTC day = %q, want %q", got, tc.wantUTCDay)
 			}
-			day, month := ledgerPeriods(tc.instant)
+			day, month, _ := ledgerPeriods(tc.instant)
 			if day != tc.wantDay {
 				t.Errorf("day = %q, want %q", day, tc.wantDay)
 			}
@@ -1228,5 +1225,225 @@ func TestLedgerPeriodsUseProviderQuotaCalendar(t *testing.T) {
 				t.Errorf("month = %q, want %q", month, tc.wantMonth)
 			}
 		})
+	}
+}
+
+// --- per-minute guard and reservation release (#5168) ---
+
+// freezeClock pins the ledger's view of time. Ledger keys are derived from the
+// wall clock, so any test asserting a per-minute count would otherwise fail
+// whenever it happened to straddle a minute boundary.
+func freezeClock(t *testing.T) {
+	t.Helper()
+	orig := nowFunc
+	at := time.Now()
+	nowFunc = func() time.Time { return at }
+	t.Cleanup(func() { nowFunc = orig })
+}
+
+// The per-minute guard is what stands between a launch burst and the provider's
+// 15-a-minute free-tier limit. It lives in the daily ledger object rather than a
+// per-process limiter because Cloud Run runs this service up to 50 instances, so
+// a per-instance share of 15 rounds to less than one request.
+func TestReserveGenerationShedsBurstBeforeSpendingTheDay(t *testing.T) {
+	freezeClock(t)
+	store := newFakeLedgerStore()
+	useFakeLedger(t, store)
+	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_MINUTE", "3")
+	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_DAY", "100")
+	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_MONTH", "1000")
+
+	for i := range 3 {
+		ok, snap, err := reserveGeneration(context.Background(), "b")
+		if err != nil || !ok {
+			t.Fatalf("reservation %d: ok=%v err=%v", i+1, ok, err)
+		}
+		if snap.minuteCount != i+1 {
+			t.Errorf("minuteCount = %d, want %d", snap.minuteCount, i+1)
+		}
+	}
+
+	ok, snap, err := reserveGeneration(context.Background(), "b")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if ok {
+		t.Fatal("reservation past the per-minute allowance was permitted")
+	}
+	if snap.refusedBy != "minute" {
+		t.Errorf("refusedBy = %q, want %q", snap.refusedBy, "minute")
+	}
+	// The point of shedding here: the day is barely touched, so the burst costs
+	// nothing but the requests it refused.
+	if snap.dayCount != 3 {
+		t.Errorf("dayCount = %d, want 3 — a shed burst must not spend the day", snap.dayCount)
+	}
+	day, _, _ := ledgerPeriods(nowFunc())
+	if led := store.ledger(t, ledgerObject(day)); led.Generations != 3 {
+		t.Errorf("ledger generations = %d, want 3", led.Generations)
+	}
+}
+
+// A refusal must leave nothing behind, or a burst would still drain the day one
+// rejected request at a time.
+func TestReserveGenerationRefusalDoesNotWriteTheLedger(t *testing.T) {
+	freezeClock(t)
+	store := newFakeLedgerStore()
+	useFakeLedger(t, store)
+	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_MINUTE", "1")
+
+	if ok, _, err := reserveGeneration(context.Background(), "b"); err != nil || !ok {
+		t.Fatalf("first reservation: ok=%v err=%v", ok, err)
+	}
+	day, _, _ := ledgerPeriods(nowFunc())
+	before := store.ledger(t, ledgerObject(day))
+
+	if ok, _, _ := reserveGeneration(context.Background(), "b"); ok {
+		t.Fatal("reservation past the allowance was permitted")
+	}
+	after := store.ledger(t, ledgerObject(day))
+	if after.Generations != before.Generations || after.MinuteCount != before.MinuteCount {
+		t.Errorf("refusal changed the ledger: before=%+v after=%+v", before, after)
+	}
+}
+
+// The window is keyed by the minute it counts, so a new minute starts over
+// without anything having to sweep it.
+func TestReserveDayAndMinuteRollsTheWindow(t *testing.T) {
+	store := newFakeLedgerStore()
+	useFakeLedger(t, store)
+
+	path := ledgerObject("2026-09-09")
+	for i := range 2 {
+		_, count, refused, err := reserveDayAndMinute(context.Background(), "b", path, "2026-09-09T14:03", 100, 2)
+		if err != nil || refused != "" {
+			t.Fatalf("reservation %d: refused=%q err=%v", i+1, refused, err)
+		}
+		if count != i+1 {
+			t.Errorf("minuteCount = %d, want %d", count, i+1)
+		}
+	}
+	if _, _, refused, _ := reserveDayAndMinute(context.Background(), "b", path, "2026-09-09T14:03", 100, 2); refused != "minute" {
+		t.Fatalf("refusedBy = %q, want minute", refused)
+	}
+
+	// Same day, next minute: the window resets while the daily count carries on.
+	dayCount, minuteCount, refused, err := reserveDayAndMinute(context.Background(), "b", path, "2026-09-09T14:04", 100, 2)
+	if err != nil || refused != "" {
+		t.Fatalf("after the window rolled: refused=%q err=%v", refused, err)
+	}
+	if minuteCount != 1 {
+		t.Errorf("minuteCount after roll = %d, want 1", minuteCount)
+	}
+	if dayCount != 3 {
+		t.Errorf("dayCount = %d, want 3 — the daily count must survive the roll", dayCount)
+	}
+}
+
+// A provider rate-limit rejection is the one failure that certainly produced
+// nothing, so its slot goes back rather than being spent on the discovery.
+func TestReleaseGenerationReturnsTheSlot(t *testing.T) {
+	freezeClock(t)
+	store := newFakeLedgerStore()
+	useFakeLedger(t, store)
+
+	ok, snap, err := reserveGeneration(context.Background(), "b")
+	if err != nil || !ok {
+		t.Fatalf("reservation: ok=%v err=%v", ok, err)
+	}
+	releaseGeneration(context.Background(), "b", snap)
+
+	day := store.ledger(t, ledgerObject(snap.day))
+	if day.Generations != 0 || day.MinuteCount != 0 {
+		t.Errorf("daily ledger after release = %+v, want both counts back to 0", day)
+	}
+	if month := store.ledger(t, ledgerObject(snap.month)); month.Generations != 0 {
+		t.Errorf("monthly generations after release = %d, want 0", month.Generations)
+	}
+}
+
+// A generation can outlast the minute it started in. Crediting the window that
+// happens to be current would hand a slot back to a window that never spent one.
+func TestReleaseGenerationSkipsARolledWindow(t *testing.T) {
+	freezeClock(t)
+	store := newFakeLedgerStore()
+	useFakeLedger(t, store)
+
+	ok, snap, err := reserveGeneration(context.Background(), "b")
+	if err != nil || !ok {
+		t.Fatalf("reservation: ok=%v err=%v", ok, err)
+	}
+	snap.minute = "2026-01-01T00:00" // as if the window had rolled during the call
+	releaseGeneration(context.Background(), "b", snap)
+
+	day := store.ledger(t, ledgerObject(snap.day))
+	if day.Generations != 0 {
+		t.Errorf("daily generations = %d, want 0 — the daily slot is always returned", day.Generations)
+	}
+	if day.MinuteCount != 1 {
+		t.Errorf("minuteCount = %d, want 1 — a rolled window must not be credited", day.MinuteCount)
+	}
+}
+
+// A spent month must not keep charging the day. The daily and per-minute claims
+// land before the monthly counter is consulted, so without compensation every
+// refused request after the month is exhausted would add another to both,
+// inflating the daily count and filling the minute window with generations that
+// never happened.
+func TestMonthlyRefusalGivesBackTheDayAndMinute(t *testing.T) {
+	freezeClock(t)
+	store := newFakeLedgerStore()
+	useFakeLedger(t, store)
+	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_MINUTE", "100")
+	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_DAY", "100")
+	t.Setenv("INSIGHT_MAX_GENERATIONS_PER_MONTH", "1")
+
+	if ok, _, err := reserveGeneration(context.Background(), "b"); err != nil || !ok {
+		t.Fatalf("first reservation: ok=%v err=%v", ok, err)
+	}
+
+	// Every one of these is refused by the month.
+	for i := range 5 {
+		ok, snap, err := reserveGeneration(context.Background(), "b")
+		if err != nil {
+			t.Fatalf("refusal %d: unexpected error %v", i+1, err)
+		}
+		if ok {
+			t.Fatalf("refusal %d was permitted past the monthly ceiling", i+1)
+		}
+		if snap.refusedBy != "month" {
+			t.Errorf("refusedBy = %q, want month", snap.refusedBy)
+		}
+	}
+
+	day, _, _ := ledgerPeriods(nowFunc())
+	led := store.ledger(t, ledgerObject(day))
+	if led.Generations != 1 {
+		t.Errorf("daily generations = %d, want 1 — refused requests must not accumulate", led.Generations)
+	}
+	if led.MinuteCount != 1 {
+		t.Errorf("minuteCount = %d, want 1 — a spent month must not fill the minute window", led.MinuteCount)
+	}
+}
+
+// The whole point of releasing is that the log and the ledger agree. A release
+// that failed and was reported as succeeding would break exactly that.
+func TestReleaseGenerationReportsFailure(t *testing.T) {
+	freezeClock(t)
+	store := newFakeLedgerStore()
+	useFakeLedger(t, store)
+
+	ok, snap, err := reserveGeneration(context.Background(), "b")
+	if err != nil || !ok {
+		t.Fatalf("reservation: ok=%v err=%v", ok, err)
+	}
+
+	// Outlast every compare-and-swap retry so the release cannot land.
+	store.mu.Lock()
+	store.failWrites = 100
+	store.mu.Unlock()
+
+	if err := releaseGeneration(context.Background(), "b", snap); err == nil {
+		t.Error("release reported success while every write was failing")
 	}
 }

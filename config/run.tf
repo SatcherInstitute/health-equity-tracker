@@ -187,6 +187,10 @@ resource "google_cloud_run_service" "server_service" {
           value = var.insight_max_generations_per_month
         }
         env {
+          name  = "INSIGHT_MAX_GENERATIONS_PER_MINUTE"
+          value = var.insight_max_generations_per_minute
+        }
+        env {
           name  = "INSIGHT_ALLOWED_ORIGINS"
           value = join(",", var.insight_allowed_origins)
         }

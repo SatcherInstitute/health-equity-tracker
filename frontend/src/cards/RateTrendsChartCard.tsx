@@ -28,7 +28,9 @@ import type { HetRow } from '../data/utils/DatasetTypes'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
+import { useGroupsParam } from '../utils/hooks/useGroupsParam'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { RATE_GROUPS_1_PARAM, RATE_GROUPS_2_PARAM } from '../utils/urlutils'
 import CardWrapper from './CardWrapper'
 import ChartTitle, { getChartTitleId } from './ChartTitle'
 import UnknownPctRateGradient from './UnknownPctRateGradient'
@@ -54,10 +56,14 @@ interface RateTrendsChartCardProps {
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
-  // Manages which group filters user has applied
-  const [selectedTableGroups, setSelectedTableGroups] = useState<
-    DemographicGroup[]
-  >([])
+  // URL-backed so a shared link reproduces the filter. Empty means "show every
+  // group", matching the normalization in charts/trendsChart/Index.tsx. Order is
+  // preserved on purpose — FilterLegend.tsx detects the min/max preset with an
+  // order-sensitive JSON.stringify against getMinMaxGroups(data), so sorting
+  // here would silently break the "highest / lowest averages" pill.
+  const [selectedTableGroups, setSelectedTableGroups] = useGroupsParam(
+    props.isCompareCard ? RATE_GROUPS_2_PARAM : RATE_GROUPS_1_PARAM,
+  )
 
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false)
   const [unknownsExpanded, setUnknownsExpanded] = useState(false)

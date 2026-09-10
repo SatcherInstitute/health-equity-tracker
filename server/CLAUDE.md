@@ -35,6 +35,7 @@ go test ./...
 | `GEMINI_API_KEY` | No | - | Required for AI insight generation. Unset disables generation; cached insights still serve |
 | `GEMINI_MODEL` | No | `gemini-3.1-flash-lite` | Gemini model used for insight generation |
 | `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `300` | Daily generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
+| `INSIGHT_MAX_GENERATIONS_PER_MINUTE` | No | `10` | Service-wide generations per minute, enforced by a window in the daily ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
 | `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `6000` | Monthly generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
 | `INSIGHT_CEILING_WARN_PERCENT` | No | `80` | Share of a ceiling at which a `ceiling_approaching` warning is logged. Must be `1`-`100`; anything else falls back to the default |
 | `INSIGHT_ALLOWED_ORIGINS` | No | prod, www, dev, `localhost:3000`, `*.netlify.app` | Comma-separated origins permitted to request generation |
@@ -99,7 +100,7 @@ object and hits are the hot path.
 {"severity":"INFO","message":"insight generated","insight":{
   "outcome":"generated","cacheKey":"a1b2c3","topic":"hiv","reserved":true,
   "model":"gemini-3.1-flash-lite","promptTokens":1840,"outputTokens":96,
-  "dailyGenerations":42,"dailyLimit":300,
+  "dailyGenerations":42,"dailyLimit":300,"minuteGenerations":3,"minuteLimit":10,
   "monthlyGenerations":903,"monthlyLimit":6000,"durationMs":812}}
 ```
 
@@ -330,15 +331,87 @@ early hit rate is far below 92% and the daily ceiling is reachable on launch day
 provider's 500 a day is a hard wall on how fast a cold cache can be filled, whatever this
 ceiling says.
 
-A burst. Neither ceiling constrains the per-minute axis, and the service has no
-service-wide per-minute guard, so the provider's 15 a minute can be reached while the day
-is barely spent. That gap is tracked separately in #5168.
+A cold start on more than one instance. The per-minute window is shared, but the
+in-memory per-client limiters are not, so the first requests after a scale-up are guarded
+by the ledger alone.
 
 **Lead time on the warning.** At `INSIGHT_CEILING_WARN_PERCENT` of 80, the daily alert
 fires with 60 generations left. Against ordinary traffic that is hours of warning and
 behaves as intended. Against a burst it is about four minutes, but no threshold fixes
 that: at 15 requests a minute even a 50% threshold buys ten. The percent is the right
 lever for drift and the wrong one for bursts, which is why 80 stays.
+
+### The per-minute guard
+
+The free tier's binding constraint is requests per minute, and it is reached long before
+either the daily or the monthly ceiling: at 15 a minute the day's 300 is gone in twenty
+minutes. `INSIGHT_MAX_GENERATIONS_PER_MINUTE` sits under the provider's limit so the one
+reached first is ours, whose failure path serves cached insights, rather than the
+provider's, whose rejections cost a call and return nothing.
+
+It cannot be a per-process limiter. Cloud Run runs this service up to 50 instances
+(`config/run.tf`), so a per-instance share of 15 a minute rounds to less than one request,
+and any per-instance number drifts with autoscaling rather than holding. The window is
+therefore shared state, carried as `minute` and `minuteCount` on the **daily** ledger
+object that every reservation already writes under compare-and-swap. That buys a
+service-wide guard for no extra round trip and no per-minute objects to sweep — a separate
+object per minute would be 1,440 a day.
+
+`reserveDayAndMinute` checks the window before the daily ceiling, so a shed burst is
+reported as `reason="rate_ceiling_reached"` rather than `ceiling_reached`. The two call for
+opposite responses: a burst clears on its own, an exhausted day does not. Neither refusal
+writes the ledger, so a burst cannot drain the day one rejected request at a time.
+
+Two edges worth knowing. The window resets when the daily object rolls at the quota-day
+boundary, so the minute spanning that boundary can allow up to twice the limit; the
+headroom under the provider's 15 absorbs it. And a ledger written before this field
+existed arrives with an empty `minute`, which reads as a window that has not started yet.
+
+**Releasing a slot.** Reservation stays before the provider call so a crash cannot lose a
+slot, and two paths give one back.
+
+A provider rate-limit rejection is the one failure that certainly produced nothing, so
+`releaseGeneration` returns all three claims. The request log follows the ledger there:
+`reserved` is `false` on that line only when the release actually landed, because a line
+claiming otherwise while the ledger still held the reservation would create exactly the
+disagreement releasing exists to prevent. That is why the release reports its error rather
+than only logging it.
+
+A monthly refusal arrives after the daily and per-minute claims are already written, so
+`releaseDayAndMinute` returns those two. Without it they would not stay one high: once the
+month is spent, every refused request after it adds another, inflating the daily count and
+filling the minute window with generations that never happened.
+
+Both credit the window the slot was taken from rather than whichever is current, because a
+generation can outlast the minute it started in.
+
+### Guarding the write endpoints
+
+`/insight` is not the only route that can cost a generation. `/flag-insight` writes a flag
+record and then deletes the cached insight, so the bad one stops being served. That
+eviction is correct for its purpose, but it means each call turns a cache hit into a
+future generation against the daily ceiling.
+
+Both routes therefore carry `insightOriginOnly`, and flagging carries its own tighter
+allowance (`flagRatePerMinute`) rather than a share of generation's. Legitimate flagging is
+a rare deliberate act; generation's 5 a minute is far more headroom than the behavior
+needs.
+
+`/flagged-examples` is `adminOnly`. It returns flagged insight text along with the reasons
+they were flagged, and it has no caller outside this server — `buildNegativeExamplesBlock`
+reaches `fetchFlaggedExamples` directly rather than over HTTP.
+
+`newRouter` exists so this wiring is testable. Which middleware a route carries is the
+difference between an endpoint being protected and only looking protected, and testing the
+middleware in isolation cannot tell them apart. `TestInsightWriteRoutesAreGuarded` drives
+the real router.
+
+The remaining exposure is bounded rather than closed. The origin header is not a security
+control against a deliberate script, and the per-client limiters are per process, so the
+service-wide flag allowance scales with the instance count. What bounds the cost is the
+shared ledger: however fast entries are evicted, regeneration cannot exceed the per-minute
+guard or the daily ceiling. Whether flagging should evict at all from an untrusted caller
+is a product question, recorded in #5168.
 
 ### Ceiling alert
 

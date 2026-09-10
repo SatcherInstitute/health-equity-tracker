@@ -10,7 +10,7 @@ View B (Vermont) data:
 - Chittenden County (All): 4.1 cases per 100k
 - Chittenden County (Black or African American (NH)): 11.9 cases per 100k
 
-Write one sentence at an 8th grade reading level that contrasts these two views. These are maps. Focus on the geographic patterns within each place — which areas have the highest rates — and whether the same geographic concentrations appear in both places. Both maps are currently highlighting the Black (NH) group. Use that group's data as the geographic lens. Name the places or groups involved. Use only facts present in the data; do not introduce additional statistics, causal explanations, or place-specific facts that are not shown.
+Write one sentence at an 8th grade reading level that contrasts these two views. These are maps. Focus on the geographic patterns within each place — which areas have the highest rates — and whether the same geographic concentrations appear in both places. Both maps are currently highlighting the Black or African American (NH) group. Use that group's data as the geographic lens. Name the places or groups involved. Use only facts present in the data; do not introduce additional statistics, causal explanations, or place-specific facts that are not shown.
 
 WRITING RULES, follow these strictly:
 - Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.

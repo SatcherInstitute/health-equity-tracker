@@ -240,7 +240,7 @@ func TestSanitizeInsightKey(t *testing.T) {
 		expect string
 	}{
 		{"hello world", "hello world"},
-		{"café", "caf_"},  // non-ASCII replaced with _
+		{"café", "caf_"}, // non-ASCII replaced with _
 		{strings.Repeat("a", 600), strings.Repeat("a", 500)},
 		{"", ""},
 	}
@@ -330,5 +330,122 @@ func TestStaticHandlerSPAFallback(t *testing.T) {
 	}
 	if cc := rr.Header().Get("Cache-Control"); !strings.Contains(cc, "no-store") {
 		t.Errorf("SPA fallback Cache-Control should be no-store, got: %s", cc)
+	}
+}
+
+// --- endpoint guards as wired (#5168) ---
+
+// These assert the middleware a route actually carries, not that the middleware
+// works in isolation. Flagging is a write that also deletes: it evicts the
+// cached insight, and every eviction is a future generation against the daily
+// ceiling, so an unguarded route is a way to spend the day's budget for free.
+func TestInsightWriteRoutesAreGuarded(t *testing.T) {
+	t.Setenv("ADMIN_TOKEN", "secret")
+	r := newRouter(t.TempDir())
+
+	body := `{"cacheKey":"abc","reason":"inaccurate"}`
+
+	tests := []struct {
+		name    string
+		method  string
+		path    string
+		origin  string
+		auth    string
+		notWant int
+		desc    string
+	}{
+		{
+			name:    "flag-insight refuses a request with no Origin",
+			method:  http.MethodPost,
+			path:    "/flag-insight",
+			notWant: http.StatusBadRequest,
+			desc:    "reaching body validation means the origin gate did not run",
+		},
+		{
+			name:    "flag-insight refuses a foreign Origin",
+			method:  http.MethodPost,
+			path:    "/flag-insight",
+			origin:  "https://evil.example.com",
+			notWant: http.StatusBadRequest,
+			desc:    "a foreign origin must not reach the handler",
+		},
+		{
+			name:    "flagged-examples refuses an unauthenticated caller",
+			method:  http.MethodGet,
+			path:    "/flagged-examples",
+			notWant: http.StatusOK,
+			desc:    "it returns flagged insight text and the reasons they were flagged",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			generationLimiters.reset()
+			flagLimiters.reset()
+
+			req := httptest.NewRequest(tt.method, tt.path, strings.NewReader(body))
+			req.Header.Set("Content-Type", "application/json")
+			if tt.origin != "" {
+				req.Header.Set("Origin", tt.origin)
+			}
+			if tt.auth != "" {
+				req.Header.Set("Authorization", tt.auth)
+			}
+			rr := httptest.NewRecorder()
+			r.ServeHTTP(rr, req)
+
+			if rr.Code == tt.notWant {
+				t.Errorf("status = %d, which it must not be: %s", rr.Code, tt.desc)
+			}
+			if rr.Code != http.StatusForbidden && rr.Code != http.StatusUnauthorized {
+				t.Errorf("status = %d, want 401 or 403", rr.Code)
+			}
+		})
+	}
+}
+
+// An allowed origin has to still get through, or the gate would be protecting
+// the endpoint from its only legitimate caller.
+func TestFlagInsightAcceptsAnAllowedOrigin(t *testing.T) {
+	r := newRouter(t.TempDir())
+	generationLimiters.reset()
+	flagLimiters.reset()
+
+	req := httptest.NewRequest(http.MethodPost, "/flag-insight", strings.NewReader(`{"bad":"body"}`))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Origin", "https://healthequitytracker.org")
+	rr := httptest.NewRecorder()
+	r.ServeHTTP(rr, req)
+
+	// 400 is the handler rejecting the body, which means the request cleared
+	// both the origin gate and the rate limiter.
+	if rr.Code != http.StatusBadRequest {
+		t.Errorf("status = %d, want 400 from the handler's own validation", rr.Code)
+	}
+}
+
+// Flagging gets a tighter allowance than generation because the behavior needs
+// far less, and because each flag evicts a cache entry.
+func TestFlagRateLimitIsTighterThanGeneration(t *testing.T) {
+	if flagRatePerMinute >= insightRatePerMinute || flagRateBurst >= insightRateBurst {
+		t.Fatalf("flag allowance (%d/min burst %d) is not tighter than generation's (%d/min burst %d)",
+			flagRatePerMinute, flagRateBurst, insightRatePerMinute, insightRateBurst)
+	}
+
+	r := newRouter(t.TempDir())
+	flagLimiters.reset()
+
+	var last int
+	for range flagRateBurst + 1 {
+		req := httptest.NewRequest(http.MethodPost, "/flag-insight", strings.NewReader(`{"bad":"body"}`))
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Origin", "https://healthequitytracker.org")
+		req.Header.Set("X-Forwarded-For", "203.0.113.44")
+		rr := httptest.NewRecorder()
+		r.ServeHTTP(rr, req)
+		last = rr.Code
+	}
+	if last != http.StatusTooManyRequests {
+		t.Errorf("status past the flag burst allowance = %d, want 429", last)
 	}
 }

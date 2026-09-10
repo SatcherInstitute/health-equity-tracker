@@ -23,16 +23,11 @@ func adminOnly(next http.Handler) http.Handler {
 	})
 }
 
-func main() {
-	if err := initGCSClient(); err != nil {
-		log.Fatalf("failed to initialize GCS client: %v", err)
-	}
-
-	staticDir := os.Getenv("STATIC_DIR")
-	if staticDir == "" {
-		staticDir = "/static"
-	}
-
+// newRouter wires every route and the middleware guarding it. Split out of main
+// so the wiring itself is testable: which middleware a route carries is the
+// difference between an endpoint being protected and only looking protected,
+// and that is not visible from testing the middleware in isolation.
+func newRouter(staticDir string) *chi.Mux {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
@@ -53,8 +48,16 @@ func main() {
 	// Insight cache and flagging (replaces data_server insight routes)
 	r.Get("/insight-cache", getInsightCacheHandler)
 	r.With(adminOnly).Post("/insight-cache", putInsightCacheHandler)
-	r.Post("/flag-insight", flagInsightHandler)
-	r.Get("/flagged-examples", getFlaggedExamplesHandler)
+	// Flagging carries the same origin gate as generation, on its own tighter
+	// rate limit. It is a write that also deletes: the handler evicts the cached
+	// insight so a bad one stops being served, and every eviction is a future
+	// generation against the daily ceiling.
+	r.With(insightOriginOnly, flagRateLimit).Post("/flag-insight", flagInsightHandler)
+
+	// Admin-only: this returns flagged insight text and the reasons they were
+	// flagged, and has no caller outside the server. The negative-examples block
+	// reaches fetchFlaggedExamples directly rather than over HTTP.
+	r.With(adminOnly).Get("/flagged-examples", getFlaggedExamplesHandler)
 
 	// Admin routes — require Authorization header
 	r.With(adminOnly).Get("/flagged-insights", listFlaggedInsightsHandler)
@@ -70,6 +73,21 @@ func main() {
 
 	// Static file serving with SPA fallback (replaces frontend_server static + catch-all)
 	r.Handle("/*", staticHandler(staticDir))
+
+	return r
+}
+
+func main() {
+	if err := initGCSClient(); err != nil {
+		log.Fatalf("failed to initialize GCS client: %v", err)
+	}
+
+	staticDir := os.Getenv("STATIC_DIR")
+	if staticDir == "" {
+		staticDir = "/static"
+	}
+
+	r := newRouter(staticDir)
 
 	port := os.Getenv("PORT")
 	if port == "" {

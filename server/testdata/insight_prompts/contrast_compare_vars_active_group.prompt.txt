@@ -12,7 +12,7 @@ View B (Severe maternal morbidity) data:
 - Georgia (All): 118 cases per 100k deliveries
 - Georgia (Black or African American (NH)): 211 cases per 100k deliveries
 
-Write one sentence at an 8th grade reading level that contrasts these two views. These are maps. Focus on the geographic pattern for each condition — which places carry the highest rates — and whether the same places face a heavy burden for both topics. Both maps are currently highlighting the Black (NH) group. Use that group's geographic rates as the primary lens for the comparison. Name the places or groups involved. Use only facts present in the data; do not introduce additional statistics, causal explanations, or place-specific facts that are not shown.
+Write one sentence at an 8th grade reading level that contrasts these two views. These are maps. Focus on the geographic pattern for each condition — which places carry the highest rates — and whether the same places face a heavy burden for both topics. Both maps are currently highlighting the Black or African American (NH) group. Use that group's geographic rates as the primary lens for the comparison. Name the places or groups involved. Use only facts present in the data; do not introduce additional statistics, causal explanations, or place-specific facts that are not shown.
 
 WRITING RULES, follow these strictly:
 - Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.

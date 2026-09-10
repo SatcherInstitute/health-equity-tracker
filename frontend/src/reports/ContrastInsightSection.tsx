@@ -2,10 +2,11 @@ import AutoAwesome from '@mui/icons-material/AutoAwesome'
 import DeleteForever from '@mui/icons-material/DeleteForever'
 import { Button, CircularProgress, IconButton, Tooltip } from '@mui/material'
 import { useAtom, useAtomValue } from 'jotai'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import FlagInsightButton from '../cards/ui/FlagInsightButton'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
+import { ALL } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import { flag } from '../featureFlags'
 import HetHighlightedText from '../styles/HetComponents/HetHighlightedText'
@@ -19,7 +20,13 @@ import {
   cardQueryResponsesAtom,
   contrastInsightOpenAtom,
   contrastInsightsAtom,
+  urlParamAtom,
 } from '../utils/sharedSettingsState'
+import {
+  getDemographicGroupFromGroupParam,
+  MAP1_GROUP_PARAM,
+  MAP2_GROUP_PARAM,
+} from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
 
 interface ContrastInsightSectionProps {
@@ -60,7 +67,37 @@ export default function ContrastInsightSection({
   const queryResponses2 = cardQueryResponses[card2Key]
   const bothDataLoaded = Boolean(queryResponses1 && queryResponses2)
 
-  const contrastCacheKey = `${hashId}-${dataTypeConfig1.dataTypeId}-${fips1.code}-${dataTypeConfig2.dataTypeId}-${fips2.code}-${demographicType}`
+  // The highlighted group on each side of the compare. When both sides
+  // highlight the same non-All group we send it as the contrast's active group;
+  // when they differ we send nothing and let the model reason across both.
+  const group1Param = useAtomValue(urlParamAtom(MAP1_GROUP_PARAM))
+  const group2Param = useAtomValue(urlParamAtom(MAP2_GROUP_PARAM))
+  const group1 = group1Param
+    ? getDemographicGroupFromGroupParam(group1Param)
+    : undefined
+  const group2 = group2Param
+    ? getDemographicGroupFromGroupParam(group2Param)
+    : undefined
+  const highlightedGroup =
+    group1 && group1 === group2 && group1 !== ALL ? group1 : undefined
+
+  // The decoder passes an unrecognized code straight through, so the param
+  // alone cannot vouch for the value that ends up in the prompt. The loaded
+  // rows are the allowlist: a group the response never returned is dropped.
+  const activeDemographicGroup = useMemo(() => {
+    if (!highlightedGroup) return undefined
+    const appearsInData = [
+      ...(queryResponses1 ?? []),
+      ...(queryResponses2 ?? []),
+    ].some((response) =>
+      response
+        .getValidRowsForField(demographicType)
+        .some((row) => row[demographicType] === highlightedGroup),
+    )
+    return appearsInData ? highlightedGroup : undefined
+  }, [highlightedGroup, queryResponses1, queryResponses2, demographicType])
+
+  const contrastCacheKey = `${hashId}-${dataTypeConfig1.dataTypeId}-${fips1.code}-${dataTypeConfig2.dataTypeId}-${fips2.code}-${demographicType}-${activeDemographicGroup ?? ''}`
   const contrastInsight = contrastInsights[contrastCacheKey]
 
   const stepInfo = reportProviderSteps[hashId]
@@ -84,6 +121,7 @@ export default function ContrastInsightSection({
         demographicType,
         queryResponses1,
         queryResponses2,
+        activeDemographicGroup,
       )
       setServerCacheKey(result.cacheKey ?? null)
       if (result.rateLimited) {
@@ -102,6 +140,7 @@ export default function ContrastInsightSection({
       setIsGenerating(false)
     }
   }, [
+    activeDemographicGroup,
     contrastCacheKey,
     dataTypeConfig1,
     dataTypeConfig2,
@@ -228,6 +267,7 @@ export default function ContrastInsightSection({
                         demographicType,
                         queryResponses1,
                         queryResponses2,
+                        activeDemographicGroup,
                       )
                   : undefined
               }

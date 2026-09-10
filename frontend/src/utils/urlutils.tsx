@@ -24,6 +24,25 @@ export const DATA_TYPE_2_PARAM = 'dt2'
 export const MAP1_GROUP_PARAM = 'group1'
 export const MAP2_GROUP_PARAM = 'group2'
 
+// Trend cards let the user narrow the legend to a subset of groups. The two
+// card types keep independent params because their available group sets
+// genuinely differ: share trends excludes ALL, rate trends excludes AIAN_API
+// and drops "Unknown race", and topics differ in demographic shape (CAWP women,
+// NH races, entirely different age buckets). Compare columns are split for the
+// same reason — compare-vars can put a CAWP topic beside a standard one, and a
+// shared param would carry groups the other card cannot render.
+export const RATE_GROUPS_1_PARAM = 'rateGroups1'
+export const RATE_GROUPS_2_PARAM = 'rateGroups2'
+export const SHARE_GROUPS_1_PARAM = 'shareGroups1'
+export const SHARE_GROUPS_2_PARAM = 'shareGroups2'
+
+// Separator for multi-group params. `,` becomes `%2C` through URLSearchParams,
+// `-` collides with age buckets like `18-44`, `~` becomes `%7E`, and `.`/`_`
+// are already consumed by getGroupParamFromDemographicGroup. `*` stays literal.
+// Assumes no demographic label contains a literal `*`; one would split into two
+// bogus groups on decode.
+const GROUP_LIST_SEPARATOR = '*'
+
 // 'true' or 'false' will override the cookie to show or hide the onboarding flow
 export const SHOW_ONBOARDING_PARAM = 'onboard'
 
@@ -136,6 +155,32 @@ export function getGroupParamFromDemographicGroup(
     .replaceAll(' ', '_')
     .replaceAll('/', '~')
     .replaceAll('+', 'PLUS')
+}
+
+// Encode a list of selected groups for a URL param. Order is preserved
+// deliberately: FilterLegend.tsx compares the current selection against
+// getMinMaxGroups(data) with an order-sensitive JSON.stringify, so a sort
+// here would silently break the "highest / lowest averages" preset.
+export function getGroupsParamFromDemographicGroups(
+  groups: DemographicGroup[],
+): string {
+  return groups
+    .map(getGroupParamFromDemographicGroup)
+    .join(GROUP_LIST_SEPARATOR)
+}
+
+// Decode a URL param produced by getGroupsParamFromDemographicGroups. An
+// empty or missing param means "no filter" — the trend chart's normalization
+// at charts/trendsChart/Index.tsx already treats [] as "show every group",
+// so no sentinel is needed for the default state.
+export function getDemographicGroupsFromGroupsParam(
+  groupsParam: string,
+): DemographicGroup[] {
+  if (!groupsParam) return []
+  return groupsParam
+    .split(GROUP_LIST_SEPARATOR)
+    .filter(Boolean)
+    .map(getDemographicGroupFromGroupParam)
 }
 
 /* for extracting selected group long name from URL safe param value */
