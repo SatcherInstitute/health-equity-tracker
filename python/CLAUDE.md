@@ -45,6 +45,20 @@ Match the golden's existing format: most are `.csv`, but `cdc_restricted` and `b
 
 Review the diff. Regeneration records whatever the code emits, so a bug regenerates as cleanly as a fix.
 
+## ACS population naming conventions
+
+BigQuery tables in the `acs_population` dataset follow `{demo}_{geo}_{vintage}`:
+
+| Part | Values |
+|---|---|
+| `demo` | `race`, `age`, `sex`, `multi_sex_age_race`, `multi_sex_age` |
+| `geo` | `state`, `county`, `national` |
+| `vintage` | `current` (single-year snapshot), `historical` (all years stacked) |
+
+Examples: `race_state_current`, `multi_sex_age_race_county_historical`
+
+Cross-stratified tables (`multi_*`) stay in BigQuery only -- they are not exported to GCS. Single-stratified tables are exported as `{dataset_name}-{table_id}.json`. The old `by_{demo}_{geo}` naming (e.g. `by_race_state`) is retired; those BQ tables and GCS files have been deleted.
+
 ## Bumping the ACS vintage year
 
 When a new ACS vintage lands in BigQuery and is ready for use, follow these steps in order:
