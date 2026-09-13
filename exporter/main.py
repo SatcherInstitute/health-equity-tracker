@@ -44,12 +44,7 @@ def export_dataset_tables():
     dataset = bq_client.get_dataset(dataset_id)
     tables = list(bq_client.list_tables(dataset))
 
-    # process intersectional tables only once in their own DAG step
-    if demographic == "multi":
-        tables = [table for table in tables if has_multi_demographics(table.table_id)]
-
-    # process only the single demographic tables (if present in payload)
-    elif demographic is not None:
+    if demographic is not None:
         tables = [
             table for table in tables if (not has_multi_demographics(table.table_id) and demographic in table.table_id)
         ]
