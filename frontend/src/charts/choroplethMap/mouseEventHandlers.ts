@@ -138,6 +138,7 @@ const handleMouseEvent = (
           props.geographyType,
           props.demographicType,
         ),
+        miniMapFeature: d.geometry?.type !== 'Point' ? d : undefined,
       }
       props.showTooltip(tooltipData, event.clientX, event.clientY)
       break
@@ -183,6 +184,7 @@ const handleMouseEvent = (
           props.geographyType,
           props.demographicType,
         ),
+        miniMapFeature: d.geometry?.type !== 'Point' ? d : undefined,
       }
       props.showTooltip(tooltipData, touch.clientX, touch.clientY)
       break

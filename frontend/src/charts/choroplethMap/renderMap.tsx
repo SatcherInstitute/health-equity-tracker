@@ -11,7 +11,7 @@ import {
   getTooltipLabel,
 } from './mapHelpers'
 import { TERRITORIES } from './mapTerritoryHelpers'
-import { STROKE_WIDTH } from './mapUtils'
+import { HIT_AREA_RADIUS, SMALL_STATE_FIPS, STROKE_WIDTH } from './mapUtils'
 import {
   createEventHandler,
   createMouseEventOptions,
@@ -199,6 +199,56 @@ export const renderMap = (options: RenderMapOptions) => {
         signalListeners.click(event, d)
       }
     })
+
+  // Transparent hit-area overlays for states that are too small to reliably
+  // click or tap at national scale. The circles expand the pointer target
+  // without changing the visible map; they sit on top of the paths in DOM
+  // order so they intercept events first.
+  if (fips.isUsa()) {
+    const smallFeatures = filteredFeatures.filter((f) =>
+      SMALL_STATE_FIPS.has(String(f.id ?? '')),
+    )
+    mapGroup
+      .selectAll<SVGCircleElement, any>('.hit-area')
+      .data(smallFeatures)
+      .join('circle')
+      .attr('class', 'hit-area')
+      .attr('cx', (d) => {
+        const [x] = path.centroid(d)
+        return Number.isNaN(x) ? -999 : x
+      })
+      .attr('cy', (d) => {
+        const [, y] = path.centroid(d)
+        return Number.isNaN(y) ? -999 : y
+      })
+      .attr('r', HIT_AREA_RADIUS)
+      .attr('fill', 'transparent')
+      .attr('stroke', 'none')
+      .style('cursor', 'pointer')
+      .on('mouseover', (event, d) =>
+        createEventHandler('mouseover', mouseEventOptions)(event, d),
+      )
+      .on('mouseout', (event, d) =>
+        createEventHandler('mouseout', mouseEventOptions)(event, d),
+      )
+      .on(
+        'touchstart',
+        (event, d) =>
+          createEventHandler('touchstart', mouseEventOptions)(event, d),
+        { passive: true },
+      )
+      .on('touchend', (event, d) =>
+        createEventHandler('touchend', mouseEventOptions)(event, d),
+      )
+      .on('pointerup', (event, d) => {
+        if (
+          event.pointerType === 'mouse' &&
+          typeof signalListeners.click === 'function'
+        ) {
+          signalListeners.click(event, d)
+        }
+      })
+  }
 
   return {
     dataMap,

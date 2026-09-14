@@ -141,6 +141,7 @@ export interface MapTooltipData {
   featureId: string
   isSummaryLegend: boolean
   entries: MapTooltipEntry[]
+  miniMapFeature?: Feature<Geometry, GeoJsonProperties>
 }
 
 export type RenderMapOptions = {
