@@ -8,7 +8,7 @@ export const STROKE_WIDTH = 0.5
 
 // Thick transparent stroke on coastline-only ghost paths extends the pointer
 // hit area into adjacent water without overlapping shared inland borders.
-export const GHOST_STROKE_WIDTH = 8
+export const GHOST_STROKE_WIDTH = 20
 
 // AK and HI render as geographic insets; their land pixels are tiny and
 // water fills the inset area. A transparent bounding-box rect makes the

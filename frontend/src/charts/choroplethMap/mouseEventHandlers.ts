@@ -148,6 +148,7 @@ const handleMouseEvent = (
           props.demographicType,
         ),
         miniMapFeature: d.geometry?.type !== 'Point' ? d : undefined,
+        miniMapFillColor: fillColorOnHover,
       }
       props.showTooltip(tooltipData, event.clientX, event.clientY)
       break
@@ -196,6 +197,7 @@ const handleMouseEvent = (
           props.demographicType,
         ),
         miniMapFeature: d.geometry?.type !== 'Point' ? d : undefined,
+        miniMapFillColor: fillColorOnTouch,
       }
       props.showTooltip(tooltipData, touch.clientX, touch.clientY)
       break

@@ -142,6 +142,7 @@ export interface MapTooltipData {
   isSummaryLegend: boolean
   entries: MapTooltipEntry[]
   miniMapFeature?: Feature<Geometry, GeoJsonProperties>
+  miniMapFillColor?: string
 }
 
 export type RenderMapOptions = {

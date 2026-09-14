@@ -14,8 +14,10 @@ const MINI_SIZE = 72
 
 function MiniStateMap({
   feature,
+  fillColor,
 }: {
   feature: Feature<Geometry, GeoJsonProperties>
+  fillColor?: string
 }) {
   const inner = MINI_SIZE - 8
   const proj = geoMercator().fitSize([inner, inner], feature)
@@ -31,7 +33,7 @@ function MiniStateMap({
       <path
         d={d}
         transform='translate(4, 4)'
-        fill={colors.altGreen}
+        fill={fillColor ?? colors.altGreen}
         stroke={colors.altBlack}
         strokeWidth={0.5}
       />
@@ -65,7 +67,12 @@ export function MapTooltipContent({
           Explore →
         </button>
       )}
-      {showMiniMap && <MiniStateMap feature={data.miniMapFeature!} />}
+      {showMiniMap && (
+        <MiniStateMap
+          feature={data.miniMapFeature!}
+          fillColor={data.miniMapFillColor}
+        />
+      )}
       {data.entries.length > 0 && <hr className='my-2 border-alt-gray' />}
       <div className='mt-1'>
         {data.entries.map((entry, i) => (
