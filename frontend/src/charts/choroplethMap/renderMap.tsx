@@ -11,7 +11,7 @@ import {
   getTooltipLabel,
 } from './mapHelpers'
 import { TERRITORIES } from './mapTerritoryHelpers'
-import { HIT_AREA_RADIUS, SMALL_STATE_FIPS, STROKE_WIDTH } from './mapUtils'
+import { INSET_STATE_FIPS, STROKE_WIDTH } from './mapUtils'
 import {
   createEventHandler,
   createMouseEventOptions,
@@ -200,54 +200,50 @@ export const renderMap = (options: RenderMapOptions) => {
       }
     })
 
-  // Transparent hit-area overlays for states that are too small to reliably
-  // click or tap at national scale. The circles expand the pointer target
-  // without changing the visible map; they sit on top of the paths in DOM
-  // order so they intercept events first.
+  // Transparent bounding-box rects for AK and HI so territorial waters and
+  // inter-island gaps are clickable, not just the tiny land pixels.
   if (fips.isUsa()) {
-    const smallFeatures = filteredFeatures.filter((f) =>
-      SMALL_STATE_FIPS.has(String(f.id ?? '')),
+    const insetFeatures = filteredFeatures.filter((f) =>
+      INSET_STATE_FIPS.has(String(f.id ?? '')),
     )
-    mapGroup
-      .selectAll<SVGCircleElement, any>('.hit-area')
-      .data(smallFeatures)
-      .join('circle')
-      .attr('class', 'hit-area')
-      .attr('cx', (d) => {
-        const [x] = path.centroid(d)
-        return Number.isNaN(x) ? -999 : x
-      })
-      .attr('cy', (d) => {
-        const [, y] = path.centroid(d)
-        return Number.isNaN(y) ? -999 : y
-      })
-      .attr('r', HIT_AREA_RADIUS)
-      .attr('fill', 'transparent')
-      .attr('stroke', 'none')
-      .style('cursor', 'pointer')
-      .on('mouseover', (event, d) =>
-        createEventHandler('mouseover', mouseEventOptions)(event, d),
-      )
-      .on('mouseout', (event, d) =>
-        createEventHandler('mouseout', mouseEventOptions)(event, d),
-      )
-      .on(
-        'touchstart',
-        (event, d) =>
-          createEventHandler('touchstart', mouseEventOptions)(event, d),
-        { passive: true },
-      )
-      .on('touchend', (event, d) =>
-        createEventHandler('touchend', mouseEventOptions)(event, d),
-      )
-      .on('pointerup', (event, d) => {
-        if (
-          event.pointerType === 'mouse' &&
-          typeof signalListeners.click === 'function'
-        ) {
-          signalListeners.click(event, d)
-        }
-      })
+    for (const feature of insetFeatures) {
+      const [[x0, y0], [x1, y1]] = path.bounds(feature)
+      if (Number.isNaN(x0)) continue
+      mapGroup
+        .append('rect')
+        .datum(feature)
+        .attr('data-fips', String(feature.id ?? ''))
+        .attr('x', x0)
+        .attr('y', y0)
+        .attr('width', x1 - x0)
+        .attr('height', y1 - y0)
+        .attr('fill', 'transparent')
+        .attr('stroke', 'none')
+        .style('cursor', 'pointer')
+        .on('mouseover', (event, d) =>
+          createEventHandler('mouseover', mouseEventOptions)(event, d),
+        )
+        .on('mouseout', (event, d) =>
+          createEventHandler('mouseout', mouseEventOptions)(event, d),
+        )
+        .on(
+          'touchstart',
+          (event, d) =>
+            createEventHandler('touchstart', mouseEventOptions)(event, d),
+          { passive: true },
+        )
+        .on('touchend', (event, d) =>
+          createEventHandler('touchend', mouseEventOptions)(event, d),
+        )
+        .on('pointerup', (event, d) => {
+          if (
+            event.pointerType === 'mouse' &&
+            typeof signalListeners.click === 'function'
+          ) {
+            signalListeners.click(event, d)
+          }
+        })
+    }
   }
 
   return {
