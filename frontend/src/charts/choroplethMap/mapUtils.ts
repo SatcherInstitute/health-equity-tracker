@@ -6,18 +6,9 @@ export const GEO_HOVERED_BORDER_COLOR = colors.altWhite
 export const GEO_HOVERED_BORDER_WIDTH = 2
 export const STROKE_WIDTH = 0.5
 
-// Small states where the tooltip shows a geographic mini-map for identification.
-// CT, DE, DC, HI, NH, NJ, RI, VT
-export const SMALL_STATE_FIPS = new Set([
-  '09',
-  '10',
-  '11',
-  '15',
-  '33',
-  '34',
-  '44',
-  '50',
-])
+// Thick transparent stroke on coastline-only ghost paths extends the pointer
+// hit area into adjacent water without overlapping shared inland borders.
+export const GHOST_STROKE_WIDTH = 8
 
 // AK and HI render as geographic insets; their land pixels are tiny and
 // water fills the inset area. A transparent bounding-box rect makes the

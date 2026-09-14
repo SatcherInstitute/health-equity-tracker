@@ -11,7 +11,7 @@ import {
   getTooltipLabel,
 } from './mapHelpers'
 import { TERRITORIES } from './mapTerritoryHelpers'
-import { INSET_STATE_FIPS, STROKE_WIDTH } from './mapUtils'
+import { GHOST_STROKE_WIDTH, INSET_STATE_FIPS, STROKE_WIDTH } from './mapUtils'
 import {
   createEventHandler,
   createMouseEventOptions,
@@ -26,6 +26,75 @@ const MARGIN = { top: 0, right: 0, bottom: 0, left: 0 }
 // Extra downward nudge of the map group on mobile; must also be subtracted
 // from the projection fit height or the bottom of the map clips off the SVG
 const MOBILE_TOP_OFFSET = 10
+
+// Pre-compute which arc indices appear in exactly one geometry (coastlines).
+// Shared arcs (borders between two geographies) appear twice and are excluded
+// so ghost strokes never bleed across state/county lines.
+// cSpell:ignore topoObj topoKey
+function buildCoastalArcSet(topoObj: any): Set<number> {
+  const count = new Map<number, number>()
+  for (const geom of topoObj.geometries ?? []) {
+    if (!geom.arcs) continue
+    const rings: number[][] =
+      geom.type === 'MultiPolygon' ? geom.arcs.flat(1) : geom.arcs
+    for (const ring of rings) {
+      for (const rawIdx of ring) {
+        const canon = rawIdx < 0 ? ~rawIdx : rawIdx
+        count.set(canon, (count.get(canon) ?? 0) + 1)
+      }
+    }
+  }
+  const coastal = new Set<number>()
+  for (const [idx, c] of count) {
+    if (c === 1) coastal.add(idx)
+  }
+  return coastal
+}
+
+// Build an SVG path string from only the coastal arcs of one topology geometry.
+// Arcs are delta-decoded to lat/lng via the topology transform, then projected.
+function buildCoastalPathD(
+  topology: any,
+  geom: any,
+  coastalArcs: Set<number>,
+  pathGen: ReturnType<typeof geoPath>,
+): string {
+  const { scale = [1, 1], translate = [0, 0] } = topology.transform ?? {}
+  const rings: number[][] =
+    geom.type === 'MultiPolygon' ? geom.arcs.flat(1) : (geom.arcs ?? [])
+
+  let d = ''
+  for (const ring of rings) {
+    for (const rawIdx of ring) {
+      const canon = rawIdx < 0 ? ~rawIdx : rawIdx
+      if (!coastalArcs.has(canon)) continue
+
+      // Delta-decode quantized arc → lat/lng coordinates
+      let x = 0
+      let y = 0
+      const coords: [number, number][] = topology.arcs[canon].map(
+        ([dx, dy]: [number, number]) => {
+          x += dx
+          y += dy
+          return [x * scale[0] + translate[0], y * scale[1] + translate[1]] as [
+            number,
+            number,
+          ]
+        },
+      )
+      if (rawIdx < 0) coords.reverse()
+      if (coords.length < 2) continue
+
+      const segment = pathGen({
+        type: 'Feature',
+        geometry: { type: 'LineString', coordinates: coords },
+        properties: null,
+      })
+      if (segment) d += segment
+    }
+  }
+  return d
+}
 
 export const renderMap = (options: RenderMapOptions) => {
   const {
@@ -48,6 +117,7 @@ export const renderMap = (options: RenderMapOptions) => {
     mapConfig,
     isExtremesMode,
     colorScale,
+    topology,
   } = options
 
   select(svgRef.current).selectAll('*').remove()
@@ -147,10 +217,13 @@ export const renderMap = (options: RenderMapOptions) => {
     return `${namePlace}: ${label}`
   }
 
+  // Visible paths carry choropleth colors and accessible labels.
+  // class="visible-path" lets coastline ghost paths target them via getVisualTarget.
   mapGroup
-    .selectAll('path')
+    .selectAll('path.visible-path')
     .data(sortedFeatures)
     .join('path')
+    .attr('class', 'visible-path')
     .attr('d', (d) => path(d) || '')
     .attr('data-fips', (d: any) => String(d.id ?? ''))
     .attr('fill', (d) =>
@@ -203,6 +276,79 @@ export const renderMap = (options: RenderMapOptions) => {
       }
     })
 
+  // Coastline ghost paths — transparent thick stroke on non-shared arc edges
+  // only (coastlines, not inland borders). Extends the pointer hit area into
+  // coastal water without overlapping adjacent geographies' hit areas.
+  // getVisualTarget redirects visual effects to the underlying visible-path.
+  if (topology && sortedFeatures.length > 1) {
+    const topoKey = showCounties ? 'counties' : 'states'
+    const topoObj = topology.objects?.[topoKey]
+
+    if (topoObj?.geometries?.length > 1) {
+      const coastalArcs = buildCoastalArcSet(topoObj)
+
+      // Build a fast lookup from id -> topology geometry for path construction
+      const geomById = new Map<string, any>()
+      for (const geom of topoObj.geometries) {
+        geomById.set(String(geom.id ?? ''), geom)
+      }
+
+      const coastMouseEventOptions = createMouseEventOptions(
+        {
+          ...options,
+          getVisualTarget: (_event: any, d: any) =>
+            svgRef.current?.querySelector(
+              `path.visible-path[data-fips="${String(d.id ?? '')}"]`,
+            ) ?? null,
+        },
+        dataMap,
+        geographyType,
+        demographicType,
+      )
+
+      mapGroup
+        .selectAll('path.coast-ghost')
+        .data(sortedFeatures)
+        .join('path')
+        .attr('class', 'coast-ghost')
+        .attr('data-fips', (d: any) => String(d.id ?? ''))
+        .attr('d', (d: any) => {
+          const geom = geomById.get(String(d.id ?? ''))
+          if (!geom) return ''
+          return buildCoastalPathD(topology, geom, coastalArcs, path)
+        })
+        .attr('fill', 'none')
+        .attr('stroke', 'transparent')
+        .attr('stroke-width', GHOST_STROKE_WIDTH)
+        .attr('pointer-events', 'stroke')
+        .attr('aria-hidden', 'true')
+        .on('mouseover', (event: any, d) => {
+          createEventHandler('mouseover', coastMouseEventOptions)(event, d)
+        })
+        .on('mouseout', (event: any, d) => {
+          createEventHandler('mouseout', coastMouseEventOptions)(event, d)
+        })
+        .on(
+          'touchstart',
+          (event: any, d) => {
+            createEventHandler('touchstart', coastMouseEventOptions)(event, d)
+          },
+          { passive: true },
+        )
+        .on('touchend', (event: any, d) => {
+          createEventHandler('touchend', coastMouseEventOptions)(event, d)
+        })
+        .on('pointerup', (event: any, d) => {
+          if (
+            event.pointerType === 'mouse' &&
+            typeof signalListeners.click === 'function'
+          ) {
+            signalListeners.click(event, d)
+          }
+        })
+    }
+  }
+
   // AK and HI render as geographic insets; their land pixels are tiny and
   // water fills the inset area. A transparent bounding-box rect makes the
   // entire inset (water + land) clickable and hoverable.
@@ -211,14 +357,12 @@ export const renderMap = (options: RenderMapOptions) => {
       INSET_STATE_FIPS.has(String(f.id ?? '')),
     )
 
-    // getVisualTarget redirects all visual effects (fill, stroke, opacity) to
-    // the underlying map path so the transparent rect stays invisible.
     const rectMouseEventOptions = createMouseEventOptions(
       {
         ...options,
         getVisualTarget: (_event: any, d: any) =>
           svgRef.current?.querySelector(
-            `path[data-fips="${String(d.id ?? '')}"]`,
+            `path.visible-path[data-fips="${String(d.id ?? '')}"]`,
           ) ?? null,
       },
       dataMap,

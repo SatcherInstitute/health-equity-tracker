@@ -154,6 +154,7 @@ export type RenderMapOptions = {
     features: FeatureCollection<Geometry, GeoJsonProperties>
     projection: GeoProjection
   }
+  topology?: Record<string, any>
   height: number
   hideLegend?: boolean
   isUnknownsMap?: boolean

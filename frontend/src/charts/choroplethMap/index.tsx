@@ -171,6 +171,7 @@ const ChoroplethMap = ({
       const result = renderMap({
         svgRef,
         geoData: { features, projection },
+        topology: geoData,
         dataWithHighestLowest,
         metricConfig,
         width,
