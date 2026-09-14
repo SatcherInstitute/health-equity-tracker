@@ -1,15 +1,8 @@
 import { geoAzimuthalEqualArea, geoBounds, geoMercator, geoPath } from 'd3'
 import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
-import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'
 import { colors } from '../../styles/tokens/colors'
-import { INSET_STATE_FIPS } from './mapUtils'
 import type { MapTooltipData } from './types'
-
-const MINI_MAP_FIPS = new Set([
-  ...INSET_STATE_FIPS,
-  ...Object.keys(TERRITORY_CODES),
-])
 
 interface MapTooltipContentProps {
   data: MapTooltipData
@@ -90,8 +83,7 @@ export function MapTooltipContent({
   onExplore,
   isTouch = false,
 }: MapTooltipContentProps) {
-  const showMiniMap =
-    !isTouch && data.miniMapFeature != null && MINI_MAP_FIPS.has(data.featureId)
+  const showMiniMap = !isTouch && data.miniMapFeature != null
 
   return (
     <>

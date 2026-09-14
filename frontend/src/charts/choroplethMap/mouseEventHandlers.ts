@@ -9,6 +9,7 @@ import { getFillColor, getStrokeColor } from './colorSchemes'
 import {
   GEO_HOVERED_BORDER_COLOR,
   GEO_HOVERED_BORDER_WIDTH,
+  GEO_HOVERED_FILTER,
   GEO_HOVERED_OPACITY,
   STROKE_WIDTH,
 } from './mapUtils'
@@ -125,6 +126,7 @@ const handleMouseEvent = (
         )
         .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
         .attr('opacity', isNoDataShape ? 1 : GEO_HOVERED_OPACITY)
+        .attr('filter', isNoDataShape ? null : GEO_HOVERED_FILTER)
       // Cursor on the actual event target (always the interactive element).
       select(event.currentTarget).style(
         'cursor',
@@ -178,6 +180,7 @@ const handleMouseEvent = (
         )
         .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
         .attr('opacity', isNoDataOnTouch ? 1 : GEO_HOVERED_OPACITY)
+        .attr('filter', isNoDataOnTouch ? null : GEO_HOVERED_FILTER)
 
       if (isNoDataOnTouch) {
         touchedEl.attr('fill', colors.altGray)
@@ -230,6 +233,7 @@ const handleMouseEvent = (
         )
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
+        .attr('filter', null)
       break
     }
     case 'mouseout': {
@@ -260,6 +264,7 @@ const handleMouseEvent = (
         )
         .attr('stroke-width', STROKE_WIDTH)
         .attr('opacity', 1)
+        .attr('filter', null)
       props.hideTooltip()
       break
     }
