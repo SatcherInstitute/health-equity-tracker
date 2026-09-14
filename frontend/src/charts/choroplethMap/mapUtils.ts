@@ -6,7 +6,7 @@ export const GEO_HOVERED_BORDER_COLOR = colors.altWhite
 export const GEO_HOVERED_BORDER_WIDTH = 2
 export const STROKE_WIDTH = 0.5
 
-// States whose national-map shape is too small to click/tap reliably or identify at a glance.
+// Small states where the tooltip shows a geographic mini-map for identification.
 // CT, DE, DC, HI, NH, NJ, RI, VT
 export const SMALL_STATE_FIPS = new Set([
   '09',
@@ -19,5 +19,6 @@ export const SMALL_STATE_FIPS = new Set([
   '50',
 ])
 
-// Minimum pointer/touch target radius for small-state hit-area overlays
-export const HIT_AREA_RADIUS = 20
+// AK and HI render as geographic insets but their land pixels are tiny.
+// A transparent bounding-box rect over each inset makes water + land clickable.
+export const INSET_STATE_FIPS = new Set(['02', '15'])
