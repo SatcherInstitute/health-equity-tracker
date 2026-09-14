@@ -1,4 +1,4 @@
-import { geoAzimuthalEqualArea, geoBounds, geoMercator, geoPath } from 'd3'
+import { geoBounds, geoConicEqualArea, geoMercator, geoPath } from 'd3'
 import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { Fips } from '../../data/utils/Fips'
 import { colors } from '../../styles/tokens/colors'
@@ -17,33 +17,37 @@ const MINI_PAD = 8
 function MiniStateMap({
   feature,
   fillColor,
+  featureId,
 }: {
   feature: Feature<Geometry, GeoJsonProperties>
   fillColor?: string
+  featureId: string
 }) {
   const [[x0, y0], [x1, y1]] = geoBounds(feature)
   const lonSpan = Math.max(x1 - x0, 0.01)
-  const isAntimeridian = lonSpan > 180
 
   // Mercator vertical scale shrinks toward the poles; correct for center latitude.
   const centerLat = (y0 + y1) / 2
   const latScale = Math.cos((centerLat * Math.PI) / 180)
   const latSpan = Math.max((y1 - y0) / latScale, 0.01)
 
-  // Antimeridian-crossing features (e.g. Alaska) get a square azimuthal projection
-  // centered on the feature centroid — Mercator produces NaN scale for 340°+ spans.
   let svgW: number
   let svgH: number
   let proj:
     | ReturnType<typeof geoMercator>
-    | ReturnType<typeof geoAzimuthalEqualArea>
-  if (isAntimeridian) {
+    | ReturnType<typeof geoConicEqualArea>
+
+  if (featureId === '02') {
+    // Alaska crosses the antimeridian. geoMercator produces NaN; azimuthal
+    // equal-area with rotate([180,0]) produces an empty bounding box.
+    // Use the same conic equal-area sub-projection that geoAlbersUsa uses
+    // internally for Alaska — it handles the antimeridian crossing correctly.
     svgW = MINI_MAX_W
     svgH = MINI_MAX_H
-    // Rotate 180° so the antimeridian becomes the prime meridian — both halves
-    // of the feature cluster near 0° in the rotated space, and fitSize works.
-    proj = geoAzimuthalEqualArea()
-      .rotate([180, 0])
+    proj = geoConicEqualArea()
+      .rotate([154, 0])
+      .center([-2, 58.5])
+      .parallels([55, 65])
       .fitSize([svgW - MINI_PAD, svgH - MINI_PAD], feature)
   } else {
     const geoRatio = lonSpan / latSpan
@@ -59,6 +63,7 @@ function MiniStateMap({
 
   const pathGen = geoPath(proj)
   const d = pathGen(feature) ?? ''
+  if (!d) return null
 
   return (
     <svg
@@ -108,6 +113,7 @@ export function MapTooltipContent({
         <MiniStateMap
           feature={data.miniMapFeature!}
           fillColor={data.miniMapFillColor}
+          featureId={data.featureId}
         />
       )}
       {data.entries.length > 0 && <hr className='my-2 border-alt-gray' />}
