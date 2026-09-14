@@ -73,6 +73,7 @@ export const createMouseEventOptions = (
     isExtremesMode: options.isExtremesMode,
     updateFipsCallback: options.updateFipsCallback,
     demographicType,
+    getVisualTarget: options.getVisualTarget,
   }
 }
 
@@ -109,7 +110,11 @@ const handleMouseEvent = (
       const isNoDataShape =
         !props.isExtremesMode && fillColorOnHover === colors.altWhite
 
-      const hoveredEl = select(event.currentTarget)
+      // Visual effects go on the rendered path; when a ghost layer handles the
+      // event, getVisualTarget returns the sibling visible path instead.
+      const visualTarget =
+        props.getVisualTarget?.(event, d) ?? event.currentTarget
+      const hoveredEl = select(visualTarget)
         .attr(
           'stroke',
           isNoDataShape
@@ -120,7 +125,11 @@ const handleMouseEvent = (
         )
         .attr('stroke-width', GEO_HOVERED_BORDER_WIDTH)
         .attr('opacity', isNoDataShape ? 1 : GEO_HOVERED_OPACITY)
-        .style('cursor', props.isSummaryLegend ? 'default' : 'pointer')
+      // Cursor on the actual event target (always the interactive element).
+      select(event.currentTarget).style(
+        'cursor',
+        props.isSummaryLegend ? 'default' : 'pointer',
+      )
 
       if (isNoDataShape) {
         hoveredEl.attr('fill', colors.altGray)
@@ -155,7 +164,9 @@ const handleMouseEvent = (
       const isNoDataOnTouch =
         !props.isExtremesMode && fillColorOnTouch === colors.altWhite
 
-      const touchedEl = select(event.currentTarget)
+      const touchVisualTarget =
+        props.getVisualTarget?.(event, d) ?? event.currentTarget
+      const touchedEl = select(touchVisualTarget)
         .attr(
           'stroke',
           isNoDataOnTouch
@@ -190,7 +201,9 @@ const handleMouseEvent = (
       break
     }
     case 'touchend': {
-      select(event.currentTarget)
+      const touchEndTarget =
+        props.getVisualTarget?.(event, d) ?? event.currentTarget
+      select(touchEndTarget)
         .attr(
           'fill',
           getFillColor({
@@ -218,7 +231,9 @@ const handleMouseEvent = (
       break
     }
     case 'mouseout': {
-      select(event.currentTarget)
+      const mouseOutTarget =
+        props.getVisualTarget?.(event, d) ?? event.currentTarget
+      select(mouseOutTarget)
         .attr(
           'fill',
           getFillColor({

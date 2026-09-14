@@ -1,9 +1,10 @@
 import { expect, test } from './utils/fixtures'
 
-// Verify that the transparent bounding-box rects over AK and HI insets are
-// clickable — water + inter-island gaps count as hit area, not just land pixels.
+// Verify that transparent bounding-box rects extend the pointer hit area into
+// coastal water so clicking water near AK/HI still navigates to the correct
+// state report.
 
-test('Clicking Hawaii inset navigates to Hawaii state report', async ({
+test('Clicking Hawaii inset rect navigates to Hawaii state report', async ({
   page,
 }) => {
   await page.goto(
@@ -19,7 +20,7 @@ test('Clicking Hawaii inset navigates to Hawaii state report', async ({
   await expect(page).toHaveURL(/mls=1\.hiv-3\.15/)
 })
 
-test('Clicking Alaska inset navigates to Alaska state report', async ({
+test('Clicking Alaska inset rect navigates to Alaska state report', async ({
   page,
 }) => {
   await page.goto(

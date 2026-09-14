@@ -207,4 +207,8 @@ export interface MouseEventHandlerOptions {
   isSummaryLegend: boolean
   isExtremesMode: boolean
   updateFipsCallback: (fips: Fips) => void
+  // When ghost paths handle events on behalf of visible paths, this resolver
+  // returns the visible path element so visual effects apply there, not on the
+  // transparent ghost.
+  getVisualTarget?: (event: any, d: any) => Element | null
 }

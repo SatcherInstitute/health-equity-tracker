@@ -126,11 +126,33 @@ export const renderMap = (options: RenderMapOptions) => {
     return aIsSuppressed === bIsSuppressed ? 0 : aIsSuppressed ? 1 : -1
   })
 
+  const ariaLabel = (d: any) => {
+    if (isExtremesContext(d)) return null
+    const id = d.id?.toString()
+    const name = d.properties?.name ?? id ?? 'Unknown'
+    const namePlace = geographyType ? `${name} ${geographyType}` : name
+    const mapData = dataMap.get(id)
+    if (!mapData || mapData.value == null) {
+      return `${namePlace}: ${
+        mapData?.isSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE
+      }`
+    }
+    const formattedValue = formatMetricValue(
+      mapData.value as number,
+      metricConfig,
+    )
+    const label = tooltipLabel
+      ? `${tooltipLabel} ${formattedValue}`
+      : formattedValue
+    return `${namePlace}: ${label}`
+  }
+
   mapGroup
     .selectAll('path')
     .data(sortedFeatures)
     .join('path')
     .attr('d', (d) => path(d) || '')
+    .attr('data-fips', (d: any) => String(d.id ?? ''))
     .attr('fill', (d) =>
       getFillColor({
         d,
@@ -155,26 +177,7 @@ export const renderMap = (options: RenderMapOptions) => {
     .attr('aria-hidden', (d: any) => (isExtremesContext(d) ? 'true' : null))
     .attr('role', (d: any) => (isExtremesContext(d) ? null : 'img'))
     .attr('tabindex', '-1')
-    .attr('aria-label', (d: any) => {
-      if (isExtremesContext(d)) return null
-      const id = d.id?.toString()
-      const name = d.properties?.name ?? id ?? 'Unknown'
-      const namePlace = geographyType ? `${name} ${geographyType}` : name
-      const mapData = dataMap.get(id)
-      if (!mapData || mapData.value == null) {
-        return `${namePlace}: ${
-          mapData?.isSuppressed ? DATA_SUPPRESSED : NO_DATA_MESSAGE
-        }`
-      }
-      const formattedValue = formatMetricValue(
-        mapData.value as number,
-        metricConfig,
-      )
-      const label = tooltipLabel
-        ? `${tooltipLabel} ${formattedValue}`
-        : formattedValue
-      return `${namePlace}: ${label}`
-    })
+    .attr('aria-label', ariaLabel)
     .on('mouseover', (event: any, d) => {
       createEventHandler('mouseover', mouseEventOptions)(event, d)
     })
@@ -200,50 +203,77 @@ export const renderMap = (options: RenderMapOptions) => {
       }
     })
 
-  // Transparent bounding-box rects for AK and HI so territorial waters and
-  // inter-island gaps are clickable, not just the tiny land pixels.
+  // AK and HI render as geographic insets; their land pixels are tiny and
+  // water fills the inset area. A transparent bounding-box rect makes the
+  // entire inset (water + land) clickable and hoverable.
   if (fips.isUsa()) {
     const insetFeatures = filteredFeatures.filter((f) =>
       INSET_STATE_FIPS.has(String(f.id ?? '')),
     )
-    for (const feature of insetFeatures) {
-      const [[x0, y0], [x1, y1]] = path.bounds(feature)
-      if (Number.isNaN(x0)) continue
-      mapGroup
-        .append('rect')
-        .datum(feature)
-        .attr('data-fips', String(feature.id ?? ''))
-        .attr('x', x0)
-        .attr('y', y0)
-        .attr('width', x1 - x0)
-        .attr('height', y1 - y0)
-        .attr('fill', 'transparent')
-        .attr('stroke', 'none')
-        .style('cursor', 'pointer')
-        .on('mouseover', (event, d) =>
-          createEventHandler('mouseover', mouseEventOptions)(event, d),
-        )
-        .on('mouseout', (event, d) =>
-          createEventHandler('mouseout', mouseEventOptions)(event, d),
-        )
-        .on(
-          'touchstart',
-          (event, d) =>
-            createEventHandler('touchstart', mouseEventOptions)(event, d),
-          { passive: true },
-        )
-        .on('touchend', (event, d) =>
-          createEventHandler('touchend', mouseEventOptions)(event, d),
-        )
-        .on('pointerup', (event, d) => {
-          if (
-            event.pointerType === 'mouse' &&
-            typeof signalListeners.click === 'function'
-          ) {
-            signalListeners.click(event, d)
-          }
-        })
-    }
+
+    // getVisualTarget redirects all visual effects (fill, stroke, opacity) to
+    // the underlying map path so the transparent rect stays invisible.
+    const rectMouseEventOptions = createMouseEventOptions(
+      {
+        ...options,
+        getVisualTarget: (_event: any, d: any) =>
+          svgRef.current?.querySelector(
+            `path[data-fips="${String(d.id ?? '')}"]`,
+          ) ?? null,
+      },
+      dataMap,
+      geographyType,
+      demographicType,
+    )
+
+    mapGroup
+      .selectAll('rect.inset-hit-rect')
+      .data(insetFeatures)
+      .join('rect')
+      .attr('class', 'inset-hit-rect')
+      .attr('data-fips', (d: any) => String(d.id ?? ''))
+      .attr('role', 'img')
+      .attr('tabindex', '-1')
+      .attr('aria-label', ariaLabel)
+      .each(function (d) {
+        const bounds = path.bounds(d)
+        const x = bounds[0][0]
+        const y = bounds[0][1]
+        const w = bounds[1][0] - bounds[0][0]
+        const h = bounds[1][1] - bounds[0][1]
+        select(this)
+          .attr('x', x)
+          .attr('y', y)
+          .attr('width', w)
+          .attr('height', h)
+      })
+      .attr('fill', 'transparent')
+      .attr('stroke', 'none')
+      .attr('pointer-events', 'all')
+      .on('mouseover', (event: any, d) => {
+        createEventHandler('mouseover', rectMouseEventOptions)(event, d)
+      })
+      .on('mouseout', (event: any, d) => {
+        createEventHandler('mouseout', rectMouseEventOptions)(event, d)
+      })
+      .on(
+        'touchstart',
+        (event: any, d) => {
+          createEventHandler('touchstart', rectMouseEventOptions)(event, d)
+        },
+        { passive: true },
+      )
+      .on('touchend', (event: any, d) => {
+        createEventHandler('touchend', rectMouseEventOptions)(event, d)
+      })
+      .on('pointerup', (event: any, d) => {
+        if (
+          event.pointerType === 'mouse' &&
+          typeof signalListeners.click === 'function'
+        ) {
+          signalListeners.click(event, d)
+        }
+      })
   }
 
   return {

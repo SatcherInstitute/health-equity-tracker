@@ -19,6 +19,7 @@ export const SMALL_STATE_FIPS = new Set([
   '50',
 ])
 
-// AK and HI render as geographic insets but their land pixels are tiny.
-// A transparent bounding-box rect over each inset makes water + land clickable.
+// AK and HI render as geographic insets; their land pixels are tiny and
+// water fills the inset area. A transparent bounding-box rect makes the
+// entire inset (water + land) clickable and hoverable.
 export const INSET_STATE_FIPS = new Set(['02', '15'])
