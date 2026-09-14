@@ -2,7 +2,6 @@ import { geoMercator, geoPath } from 'd3'
 import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { Fips } from '../../data/utils/Fips'
 import { colors } from '../../styles/tokens/colors'
-import { SMALL_STATE_FIPS } from './mapUtils'
 import type { MapTooltipData } from './types'
 
 interface MapTooltipContentProps {
@@ -45,10 +44,7 @@ export function MapTooltipContent({
   onExplore,
   isTouch = false,
 }: MapTooltipContentProps) {
-  const showMiniMap =
-    !isTouch &&
-    data.miniMapFeature != null &&
-    SMALL_STATE_FIPS.has(data.featureId)
+  const showMiniMap = !isTouch && data.miniMapFeature != null
 
   return (
     <>

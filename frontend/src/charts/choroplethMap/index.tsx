@@ -15,6 +15,7 @@ import { MapTooltipContent } from './MapTooltipContent'
 import {
   createFeatures,
   createProjection,
+  extractTerritoryPolygonFeatures,
   processPhrmaData,
 } from './mapHelpers'
 import { renderMap } from './renderMap'
@@ -63,6 +64,14 @@ const ChoroplethMap = ({
     dataMap: Map<string, any>
     mapHeight: number
   } | null>(null)
+
+  const territoryPolygonFeatures = useMemo(
+    () =>
+      fips.isUsa() && geoData
+        ? extractTerritoryPolygonFeatures(geoData)
+        : new Map(),
+    [fips, geoData],
+  )
 
   const isCawp = CAWP_METRICS.includes(metricConfig.metricId)
   const isPhrma = PHRMA_METRICS.includes(metricConfig.metricId)
@@ -256,6 +265,7 @@ const ChoroplethMap = ({
           isPhrmaAdherence={isPhrmaAdherence}
           isSummaryLegend={isSummaryLegend}
           updateFipsCallback={updateFipsCallback}
+          territoryPolygonFeatures={territoryPolygonFeatures}
         />
       )}
 
