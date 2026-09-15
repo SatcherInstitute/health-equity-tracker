@@ -714,7 +714,6 @@ function MapCardWithKey(props: MapCardProps) {
 
                 <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
                   <div
-                    id={props.isCompareCard ? 'rate-map-2' : 'rate-map'}
                     className='w-full'
                     style={{ minHeight: preloadHeight * 0.3 }}
                   >
