@@ -1,4 +1,9 @@
 import { geoPath, select } from 'd3'
+import type {
+  GeometryCollection,
+  GeometryObject,
+  Topology,
+} from 'topojson-specification'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import { DATA_SUPPRESSED, NO_DATA_MESSAGE } from '../mapGlobals'
 import { getCountyAddOn } from '../mapHelperFunctions'
@@ -31,12 +36,15 @@ const MOBILE_TOP_OFFSET = 10
 // Shared arcs (borders between two geographies) appear twice and are excluded
 // so ghost strokes never bleed across state/county lines.
 // cSpell:ignore topoObj topoKey
-function buildCoastalArcSet(topoObj: any): Set<number> {
+function buildCoastalArcSet(topoObj: GeometryCollection): Set<number> {
   const count = new Map<number, number>()
-  for (const geom of topoObj.geometries ?? []) {
-    if (!geom.arcs) continue
+  for (const geom of topoObj.geometries) {
+    const arcs = (geom as { arcs?: number[][] | number[][][] }).arcs
+    if (!arcs) continue
     const rings: number[][] =
-      geom.type === 'MultiPolygon' ? geom.arcs.flat(1) : geom.arcs
+      geom.type === 'MultiPolygon'
+        ? (arcs as number[][][]).flat(1)
+        : (arcs as number[][])
     for (const ring of rings) {
       for (const rawIdx of ring) {
         const canon = rawIdx < 0 ? ~rawIdx : rawIdx
@@ -54,14 +62,16 @@ function buildCoastalArcSet(topoObj: any): Set<number> {
 // Build an SVG path string from only the coastal arcs of one topology geometry.
 // Arcs are delta-decoded to lat/lng via the topology transform, then projected.
 function buildCoastalPathD(
-  topology: any,
-  geom: any,
+  topology: Topology,
+  geom: GeometryObject,
   coastalArcs: Set<number>,
   pathGen: ReturnType<typeof geoPath>,
 ): string {
   const { scale = [1, 1], translate = [0, 0] } = topology.transform ?? {}
   const rings: number[][] =
-    geom.type === 'MultiPolygon' ? geom.arcs.flat(1) : (geom.arcs ?? [])
+    geom.type === 'MultiPolygon'
+      ? (geom as { arcs: number[][][] }).arcs.flat(1)
+      : ((geom as { arcs?: number[][] }).arcs ?? [])
 
   let d = ''
   for (const ring of rings) {
@@ -73,9 +83,9 @@ function buildCoastalPathD(
       let x = 0
       let y = 0
       const coords: [number, number][] = topology.arcs[canon].map(
-        ([dx, dy]: [number, number]) => {
-          x += dx
-          y += dy
+        (point: number[]) => {
+          x += point[0]
+          y += point[1]
           return [x * scale[0] + translate[0], y * scale[1] + translate[1]] as [
             number,
             number,
@@ -282,13 +292,15 @@ export const renderMap = (options: RenderMapOptions) => {
   // getVisualTarget redirects visual effects to the underlying visible-path.
   if (topology && sortedFeatures.length > 1) {
     const topoKey = showCounties ? 'counties' : 'states'
-    const topoObj = topology.objects?.[topoKey]
+    const topoObj = topology.objects?.[topoKey] as
+      | GeometryCollection
+      | undefined
 
-    if (topoObj?.geometries?.length > 1) {
+    if (topoObj && topoObj.geometries.length > 1) {
       const coastalArcs = buildCoastalArcSet(topoObj)
 
       // Build a fast lookup from id -> topology geometry for path construction
-      const geomById = new Map<string, any>()
+      const geomById = new Map<string, GeometryObject>()
       for (const geom of topoObj.geometries) {
         geomById.set(String(geom.id ?? ''), geom)
       }

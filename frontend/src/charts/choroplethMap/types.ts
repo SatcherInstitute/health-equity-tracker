@@ -11,6 +11,7 @@ import type {
   Geometry,
 } from 'geojson'
 import type { RefObject } from 'react'
+import type { Topology } from 'topojson-specification'
 
 import type {
   MapConfig,
@@ -155,7 +156,7 @@ export type RenderMapOptions = {
     features: FeatureCollection<Geometry, GeoJsonProperties>
     projection: GeoProjection
   }
-  topology?: Record<string, any>
+  topology?: Topology
   height: number
   hideLegend?: boolean
   isUnknownsMap?: boolean

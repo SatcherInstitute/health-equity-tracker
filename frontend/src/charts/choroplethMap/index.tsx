@@ -1,5 +1,6 @@
 import { select } from 'd3'
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import type { Topology } from 'topojson-specification'
 import { CAWP_METRICS } from '../../data/providers/CawpProvider'
 import { PHRMA_METRICS } from '../../data/providers/PhrmaProvider'
 import { DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE } from '../../data/query/Breakdowns'
@@ -171,7 +172,7 @@ const ChoroplethMap = ({
       const result = renderMap({
         svgRef,
         geoData: { features, projection },
-        topology: geoData,
+        topology: geoData as Topology | undefined,
         dataWithHighestLowest,
         metricConfig,
         width,

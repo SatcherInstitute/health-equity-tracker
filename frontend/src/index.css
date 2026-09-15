@@ -176,6 +176,23 @@ svg [tabindex="-1"]:focus:not(:focus-visible) {
   outline: none;
 }
 
+/* Brief ring on hash navigation: visible for 700ms then fades, so sighted users
+   know which card they landed on without a persistent focus box. */
+@keyframes card-scroll-in {
+  from { box-shadow: 0 0 0 2px #0b5240; }
+  to   { box-shadow: none; }
+}
+
+[id][tabindex="-1"]:target {
+  animation: card-scroll-in 700ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [id][tabindex="-1"]:target {
+    animation: none;
+  }
+}
+
 
 /* STYLING OVERRIDES FOR D3 CHARTS */
 .yAxisGroup {
