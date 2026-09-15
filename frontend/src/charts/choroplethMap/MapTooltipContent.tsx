@@ -14,6 +14,10 @@ const MINI_MAX_W = 180
 const MINI_MAX_H = 100
 const MINI_PAD = 8
 
+// Only show mini-maps for the island territories — they appear as tiny dots on
+// the national map and the mini-map is the only way to see their actual shape.
+const TERRITORY_MINI_MAP_FIPS = new Set(['60', '66', '69', '72', '78'])
+
 function MiniStateMap({
   feature,
   fillColor,
@@ -89,7 +93,10 @@ export function MapTooltipContent({
   onExplore,
   isTouch = false,
 }: MapTooltipContentProps) {
-  const showMiniMap = !isTouch && data.miniMapFeature != null
+  const showMiniMap =
+    !isTouch &&
+    data.miniMapFeature != null &&
+    TERRITORY_MINI_MAP_FIPS.has(data.featureId)
 
   return (
     <>
