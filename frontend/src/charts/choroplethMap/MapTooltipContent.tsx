@@ -76,8 +76,9 @@ function MiniStateMap({
         d={d}
         transform={`translate(${MINI_PAD / 2}, ${MINI_PAD / 2})`}
         fill={fillColor ?? colors.altGreen}
-        stroke={colors.altBlack}
-        strokeWidth={0.5}
+        stroke={colors.altWhite}
+        strokeWidth={2}
+        filter='drop-shadow(0 0 2px rgba(0,0,0,0.25))'
       />
     </svg>
   )
