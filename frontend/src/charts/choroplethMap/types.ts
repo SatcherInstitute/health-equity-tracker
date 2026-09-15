@@ -11,6 +11,7 @@ import type {
   Geometry,
 } from 'geojson'
 import type { RefObject } from 'react'
+import type { Topology } from 'topojson-specification'
 
 import type {
   MapConfig,
@@ -141,6 +142,8 @@ export interface MapTooltipData {
   featureId: string
   isSummaryLegend: boolean
   entries: MapTooltipEntry[]
+  miniMapFeature?: Feature<Geometry, GeoJsonProperties>
+  miniMapFillColor?: string
 }
 
 export type RenderMapOptions = {
@@ -153,6 +156,7 @@ export type RenderMapOptions = {
     features: FeatureCollection<Geometry, GeoJsonProperties>
     projection: GeoProjection
   }
+  topology?: Topology
   height: number
   hideLegend?: boolean
   isUnknownsMap?: boolean
@@ -206,4 +210,8 @@ export interface MouseEventHandlerOptions {
   isSummaryLegend: boolean
   isExtremesMode: boolean
   updateFipsCallback: (fips: Fips) => void
+  // When ghost paths handle events on behalf of visible paths, this resolver
+  // returns the visible path element so visual effects apply there, not on the
+  // transparent ghost.
+  getVisualTarget?: (event: any, d: any) => Element | null
 }

@@ -1,5 +1,10 @@
 import { format, type GeoProjection, geoAlbers, geoAlbersUsa } from 'd3'
-import type { FeatureCollection } from 'geojson'
+import type {
+  Feature,
+  FeatureCollection,
+  GeoJsonProperties,
+  Geometry,
+} from 'geojson'
 import { feature, merge } from 'topojson-client'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { isPctType } from '../../data/config/MetricConfigUtils'
@@ -8,6 +13,7 @@ import {
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
 import type { DemographicType } from '../../data/query/Breakdowns'
+import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'
 import {
   ATLANTA_METRO_COUNTY_FIPS,
@@ -78,6 +84,26 @@ export const createFeatures = async (
       String(f.id)?.startsWith(parentFips),
     ),
   }
+}
+
+// Extracts actual polygon features for US territories from the states topology.
+// On national maps, territories are filtered out of the main choropleth and
+// rendered as circles, but their polygon geometry is still in the topology.
+// Used to show a geographic mini-map in the territory hover tooltip.
+export const extractTerritoryPolygonFeatures = (
+  topology: Record<string, any>,
+): Map<string, Feature<Geometry, GeoJsonProperties>> => {
+  if (!topology?.objects?.states) return new Map()
+  const all = feature(
+    topology as any,
+    topology.objects.states,
+  ) as unknown as FeatureCollection
+  const map = new Map<string, Feature<Geometry, GeoJsonProperties>>()
+  for (const f of all.features) {
+    const id = String(f.id ?? '')
+    if (TERRITORY_CODES[id]) map.set(id, f)
+  }
+  return map
 }
 
 export const createProjection = (

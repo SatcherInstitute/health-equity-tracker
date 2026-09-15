@@ -167,14 +167,30 @@ svg [tabindex="-1"]:focus:not(:focus-visible) {
   outline: none;
 }
 
-/* scrollToHashTarget makes every hash destination programmatically focusable so
-   keyboard and screen reader users land on the card rather than staying at the
-   top of the document. These wrappers are not tab stops, so a ring painted for a
-   pointer-driven jump has no one to inform and just startles sighted users.
-   :focus-visible still matches when the jump came from the keyboard, which is
-   the only case where the ring carries information. */
-[id][tabindex="-1"]:focus:not(:focus-visible) {
+/* Hash-scroll targets have tabindex="-1": focusable only by code, never by Tab.
+   No visual ring is needed — screen readers receive the focus for navigation
+   regardless of outline visibility. Chrome shows :focus-visible on page load
+   (before any pointer event), so :not(:focus-visible) fails there; suppress
+   unconditionally since keyboard users can never Tab to these elements anyway. */
+[id][tabindex="-1"]:focus {
   outline: none;
+}
+
+/* Brief ring on hash navigation: visible for 700ms then fades, so sighted users
+   know which card they landed on without a persistent focus box. */
+@keyframes card-scroll-in {
+  from { box-shadow: 0 0 0 2px #0b5240; }
+  to   { box-shadow: none; }
+}
+
+[id][tabindex="-1"]:target {
+  animation: card-scroll-in 700ms ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [id][tabindex="-1"]:target {
+    animation: none;
+  }
 }
 
 
