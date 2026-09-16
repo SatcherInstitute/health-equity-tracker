@@ -1,7 +1,9 @@
 import { geoBounds, geoConicEqualArea, geoMercator, geoPath } from 'd3'
 import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
+import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'
 import { colors } from '../../styles/tokens/colors'
+import { GEO_HOVERED_BORDER_WIDTH, GEO_HOVERED_FILTER } from './mapUtils'
 import type { MapTooltipData } from './types'
 
 interface MapTooltipContentProps {
@@ -14,9 +16,9 @@ const MINI_MAX_W = 180
 const MINI_MAX_H = 100
 const MINI_PAD = 8
 
-// Only show mini-maps for the island territories — they appear as tiny dots on
-// the national map and the mini-map is the only way to see their actual shape.
-const TERRITORY_MINI_MAP_FIPS = new Set(['60', '66', '69', '72', '78'])
+// Show mini-maps for geographies too small to read on the national map.
+// TERRITORY_CODES already covers DC + all island territories.
+const SMALL_GEO_MINI_MAP_FIPS = new Set(Object.keys(TERRITORY_CODES))
 
 function MiniStateMap({
   feature,
@@ -81,8 +83,8 @@ function MiniStateMap({
         transform={`translate(${MINI_PAD / 2}, ${MINI_PAD / 2})`}
         fill={fillColor ?? colors.altGreen}
         stroke={colors.altWhite}
-        strokeWidth={2}
-        filter='drop-shadow(0 0 2px rgba(0,0,0,0.25))'
+        strokeWidth={GEO_HOVERED_BORDER_WIDTH}
+        filter={GEO_HOVERED_FILTER}
       />
     </svg>
   )
@@ -94,9 +96,7 @@ export function MapTooltipContent({
   isTouch = false,
 }: MapTooltipContentProps) {
   const showMiniMap =
-    !isTouch &&
-    data.miniMapFeature != null &&
-    TERRITORY_MINI_MAP_FIPS.has(data.featureId)
+    data.miniMapFeature != null && SMALL_GEO_MINI_MAP_FIPS.has(data.featureId)
 
   return (
     <>
