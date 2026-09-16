@@ -1,0 +1,275 @@
+{
+  "$comment": "The fixed set of views the insight quality pass reviews. Keep the ids stable so a future pass compares against the same views. Chosen to cover the ways generation fails (data shape), not the topic catalogue. See README.md.",
+  "views": [
+    {
+      "id": "O1",
+      "category": "ordinary",
+      "surface": "card",
+      "hashId": "rate-chart",
+      "url": "/exploredata?mls=1.incarceration-3.06&mlp=disparity&dt1=prison",
+      "why": "Common topic, state level, race breakdown, full set of groups. The baseline case.",
+      "coldRead": false
+    },
+    {
+      "id": "O2",
+      "category": "ordinary",
+      "surface": "card",
+      "hashId": "rate-map",
+      "url": "/exploredata?mls=1.hiv-3.13&mlp=disparity&dt1=hiv_diagnoses",
+      "why": "Strong, clear disparity across many counties (matches the card_map_strong_disparity prompt fixture).",
+      "coldRead": true
+    },
+    {
+      "id": "O3",
+      "category": "ordinary",
+      "surface": "card",
+      "hashId": "population-vs-distribution",
+      "url": "/exploredata?mls=1.covid-3.13&mlp=disparity&dt1=covid_deaths",
+      "why": "Share-vs-population chart; the model must compare shares, not rates (matches the card_pop_vs_distribution fixture).",
+      "coldRead": false
+    },
+    {
+      "id": "O4",
+      "category": "ordinary",
+      "surface": "card",
+      "hashId": "rates-over-time",
+      "url": "/exploredata?mls=1.diabetes-3.48&mlp=disparity",
+      "why": "Multi-year series with every group present; checks trend language without gaps.",
+      "coldRead": true
+    },
+    {
+      "id": "O5",
+      "category": "ordinary",
+      "surface": "card",
+      "hashId": "data-table",
+      "url": "/exploredata?mls=1.hiv-3.13&mlp=disparity&dt1=hiv_diagnoses",
+      "why": "Table with rate, share and population columns all present (matches the card_table_full_shares fixture).",
+      "coldRead": false
+    },
+
+    {
+      "id": "S1",
+      "category": "sparse",
+      "surface": "card",
+      "hashId": "rates-over-time",
+      "url": "/exploredata?mls=1.hiv-3.56&mlp=disparity&dt1=hiv_diagnoses",
+      "why": "Small state, most groups missing across years; the model is most tempted to pad or infer a trend (matches the card_trends_sparse fixture).",
+      "coldRead": true
+    },
+    {
+      "id": "S2",
+      "category": "sparse",
+      "surface": "card",
+      "hashId": "rate-chart",
+      "url": "/exploredata?mls=1.maternal_mortality-3.50&mlp=disparity",
+      "why": "Maternal mortality in a small state: one or two groups at most. Checks the model does not invent a comparison.",
+      "coldRead": false
+    },
+    {
+      "id": "S3",
+      "category": "sparse",
+      "surface": "card",
+      "hashId": "data-table",
+      "url": "/exploredata?mls=1.women_in_gov-3.56&mlp=disparity&dt1=women_in_us_congress",
+      "why": "A single congressional seat: counts of one or zero. A rate of 0 must be cited as a rate, never as nobody.",
+      "coldRead": false
+    },
+    {
+      "id": "S4",
+      "category": "sparse",
+      "surface": "card",
+      "hashId": "rate-chart",
+      "url": "/exploredata?mls=1.voter_participation-3.02&mlp=disparity",
+      "why": "AHR small-state race groups are largely withheld; few bars, general-population comparison column.",
+      "coldRead": false
+    },
+    {
+      "id": "S5",
+      "category": "sparse",
+      "surface": "card",
+      "hashId": "rate-chart",
+      "url": "/exploredata?mls=1.gun_violence_youth-3.38&mlp=disparity&dt1=gun_deaths_youth",
+      "why": "Youth gun deaths in a low-population state: tiny counts, most groups suppressed to a handful of bars.",
+      "coldRead": false
+    },
+
+    {
+      "id": "P1",
+      "category": "suppressed",
+      "surface": "card",
+      "hashId": "data-table",
+      "url": "/exploredata?mls=1.cancer_incidence-3.50&mlp=disparity&dt1=cervical_cancer_incidence",
+      "why": "NCI suppresses small counts; the table shows explicit suppressed rows (matches the card_table_suppressed fixture). The insight must never describe or infer a withheld value.",
+      "coldRead": false
+    },
+    {
+      "id": "P2",
+      "category": "suppressed",
+      "surface": "card",
+      "hashId": "rate-map",
+      "url": "/exploredata?mls=1.cancer_incidence-3.28&mlp=disparity&dt1=breast_cancer_incidence",
+      "why": "County map with many grey suppressed counties. Suppressed must not read as zero, low, or missing.",
+      "coldRead": true
+    },
+    {
+      "id": "P3",
+      "category": "suppressed",
+      "surface": "card",
+      "hashId": "rate-map",
+      "url": "/exploredata?mls=1.hiv-3.01&mlp=disparity&dt1=hiv_diagnoses",
+      "why": "CDC HIV suppresses rural counties. Checks the geographic sentence names only counties with a reported value.",
+      "coldRead": false
+    },
+    {
+      "id": "P4",
+      "category": "suppressed",
+      "surface": "card",
+      "hashId": "rate-chart",
+      "url": "/exploredata?mls=1.gun_violence-3.50&mlp=disparity&dt1=gun_violence_homicide",
+      "why": "WISQARS suppresses groups under 10 deaths. Bars absent because suppressed, not because the rate is low.",
+      "coldRead": true
+    },
+    {
+      "id": "P5",
+      "category": "suppressed",
+      "surface": "card",
+      "hashId": "rates-over-time",
+      "url": "/exploredata?mls=1.hiv-3.46&mlp=disparity&dt1=hiv_deaths",
+      "why": "Time series with suppressed years inside a group's line; a gap must not be read as a drop to zero or as a trend.",
+      "coldRead": false
+    },
+
+    {
+      "id": "C1",
+      "category": "county",
+      "surface": "card",
+      "hashId": "rate-map",
+      "url": "/exploredata?mls=1.hiv-3.13015&mlp=disparity&dt1=hiv_diagnoses",
+      "why": "Single-region county map: only the overall rate is local, so the insight ranks the county against peer counties (matches the card_map_single_region_peers fixture). The sentence must stay ordinal and never quote a peer's rate.",
+      "coldRead": true
+    },
+    {
+      "id": "C2",
+      "category": "county",
+      "surface": "card",
+      "hashId": "rate-chart",
+      "url": "/exploredata?mls=1.diabetes-3.13121&mlp=disparity",
+      "why": "County data from CHR while state data comes from AHR: the population column is all ages here, adults at state level. Checks the comparison base is described correctly.",
+      "coldRead": true
+    },
+    {
+      "id": "C3",
+      "category": "county",
+      "surface": "card",
+      "hashId": "data-table",
+      "url": "/exploredata?mls=1.preventable_hospitalizations-3.01073&mlp=disparity",
+      "why": "No pct_share for this topic, so the table compares against the general population (matches the card_table_general_population fixture, at county level). The insight must not present the general population as the rate's own denominator.",
+      "coldRead": false
+    },
+    {
+      "id": "C4",
+      "category": "county",
+      "surface": "card",
+      "hashId": "rate-map",
+      "url": "/exploredata?mls=1.incarceration-3.48201&mlp=disparity&dt1=jail",
+      "why": "Vera county jail data, single-region peer ranking in a large urban county.",
+      "coldRead": false
+    },
+    {
+      "id": "C5",
+      "category": "county",
+      "surface": "card",
+      "hashId": "data-table",
+      "url": "/exploredata?mls=1.medicare_cardiovascular-3.06037&mlp=disparity&dt1=statins_adherence",
+      "why": "Medicare topic with no population column at all (matches the card_table_no_population fixture). Nothing to compare shares against; the model must not manufacture one.",
+      "coldRead": false
+    },
+
+    {
+      "id": "X1",
+      "category": "compare",
+      "surface": "contrast",
+      "hashId": "rate-map",
+      "url": "/exploredata?mls=1.hiv-3.00-5.13&mlp=comparegeos&dt1=hiv_diagnoses&group1=Black.NH&group2=Black.NH",
+      "why": "comparegeos with the same group highlighted on both maps: the sentence must center on that group across both places (matches the contrast_compare_geos_active_group fixture).",
+      "coldRead": true
+    },
+    {
+      "id": "X2",
+      "category": "compare",
+      "surface": "contrast",
+      "hashId": "rate-chart",
+      "url": "/exploredata?mls=1.hiv-3.13-5.12&mlp=comparegeos&dt1=hiv_diagnoses",
+      "why": "comparegeos, two states, no highlighted group (matches the contrast_compare_geos fixture).",
+      "coldRead": false
+    },
+    {
+      "id": "X3",
+      "category": "compare",
+      "surface": "contrast",
+      "hashId": "rate-map",
+      "url": "/exploredata?mls=1.avoided_care-3.severe_maternal_morbidity-5.00&mlp=comparevars&group1=Black.NH&group2=Black.NH",
+      "why": "comparevars across two unrelated measures with a highlighted group: the easiest place to slip in a causal link the data does not support (matches the contrast_compare_vars_active_group fixture).",
+      "coldRead": false
+    },
+    {
+      "id": "X4",
+      "category": "compare",
+      "surface": "contrast",
+      "hashId": "rate-chart",
+      "url": "/exploredata?mls=1.incarceration-3.poverty-5.00&mlp=comparevars&dt1=prison",
+      "why": "comparevars, incarceration against poverty nationally; the same view the nightly e2e spec covers, so presence is already asserted and this pass judges only quality.",
+      "coldRead": true
+    },
+    {
+      "id": "X5",
+      "category": "compare",
+      "surface": "contrast",
+      "hashId": "rates-over-time",
+      "url": "/exploredata?mls=1.diabetes-3.13-5.13121&mlp=comparegeos",
+      "why": "comparegeos of a state against one of its own counties over time; two sources (AHR vs CHR) with different year coverage.",
+      "coldRead": false
+    },
+
+    {
+      "id": "R1",
+      "category": "report",
+      "surface": "report",
+      "url": "/exploredata?mls=1.hiv-3.13&mlp=disparity&dt1=hiv_diagnoses&report-insight=true",
+      "why": "Full report with every section populated, including age-adjusted ratios (matches the report_full fixture). Four sections, no fallback to partial output.",
+      "coldRead": true
+    },
+    {
+      "id": "R2",
+      "category": "report",
+      "surface": "report",
+      "url": "/exploredata?mls=1.hiv-3.13121&mlp=disparity&dt1=hiv_diagnoses&report-insight=true",
+      "why": "County report: the geographic section ranks the county against sibling counties rather than child places (matches the report_county_peers fixture).",
+      "coldRead": false
+    },
+    {
+      "id": "R3",
+      "category": "report",
+      "surface": "report",
+      "url": "/exploredata?mls=1.preventable_hospitalizations-3.28&mlp=disparity&report-insight=true",
+      "why": "Report with no age-adjusted section and a general-population comparison (matches the report_no_age_adjusted fixture).",
+      "coldRead": false
+    },
+    {
+      "id": "R4",
+      "category": "report",
+      "surface": "report",
+      "url": "/exploredata?mls=1.covid-3.00&mlp=disparity&dt1=covid_deaths&report-insight=true",
+      "why": "Large unknown-demographic share: the What This Means section must say what share of cases is missing race data and that rates describe only recorded cases.",
+      "coldRead": false
+    },
+    {
+      "id": "R5",
+      "category": "report",
+      "surface": "report",
+      "url": "/exploredata?mls=1.gun_violence-3.00&mlp=disparity&dt1=gun_violence_suicide&demo=age&report-insight=true",
+      "why": "Suicide by age nationally: the most sensitive topic in the set. Person-first language and no causal claims are the whole test.",
+      "coldRead": false
+    }
+  ]
+}
