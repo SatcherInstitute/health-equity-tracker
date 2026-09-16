@@ -14,7 +14,11 @@ import type {
   MultiPolygon,
   Polygon,
 } from 'geojson'
-import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
+import {
+  ALASKA_FIPS,
+  NORTHERN_MARIANA_ISLANDS_FIPS,
+  TERRITORY_CODES,
+} from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'
 import { colors } from '../../styles/tokens/colors'
 import type { MapTooltipData } from './types'
@@ -59,7 +63,7 @@ function clusterAroundLargest(
   polys.sort((a, b) => geoArea(b) - geoArea(a))
 
   let kept: typeof polys
-  if (featureId === '69') {
+  if (featureId === NORTHERN_MARIANA_ISLANDS_FIPS) {
     kept = polys.slice(0, 3)
   } else {
     const anchorCentroid = geoCentroid(polys[0])
@@ -88,7 +92,7 @@ function MiniStateMap({
   featureId: string
 }) {
   // Alaska: fixed conic projection that handles antimeridian crossing.
-  if (featureId === '02') {
+  if (featureId === ALASKA_FIPS) {
     const proj = geoConicEqualArea()
       .rotate([154, 0])
       .center([-2, 58.5])
