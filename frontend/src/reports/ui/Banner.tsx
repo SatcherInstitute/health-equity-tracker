@@ -64,7 +64,7 @@ const Banner: React.FC = () => {
           </p>
           <a
             href={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            className='mx-2 inline-flex items-center gap-1 font-bold font-sans-title text-alt-green text-text no-underline'
+            className='mx-2 inline-flex items-center gap-0.5 whitespace-nowrap font-bold font-sans-title text-alt-green text-text no-underline'
           >
             About Data Limitations
             <ArrowForward fontSize='inherit' />
