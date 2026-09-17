@@ -1,4 +1,5 @@
 import { select } from 'd3'
+import type { Feature, GeoJsonProperties, Geometry } from 'geojson'
 import { useEffect } from 'react'
 import type {
   MapConfig,
@@ -49,6 +50,7 @@ interface TerritoryCirclesProps {
   isPhrmaAdherence: boolean
   isSummaryLegend?: boolean
   updateFipsCallback: (fips: Fips) => void
+  territoryPolygonFeatures?: Map<string, Feature<Geometry, GeoJsonProperties>>
 }
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
   useEffect(() => {
@@ -56,6 +58,12 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     if (!props.svgRef.current || !props.fips.isUsa()) return
 
     const mouseEventOptions = createMouseEventOptions(props)
+
+    // Use actual polygon geometry when available so the tooltip mini-map shows
+    // the territory's geographic outline instead of suppressing it.
+    const getTerritoryFeature = (d: any) =>
+      props.territoryPolygonFeatures?.get(d.fips) ??
+      createTerritoryFeature(d.fips)
 
     const territoryRadius = props.isMobile
       ? TERRITORIES_CONFIG.radiusMobile
@@ -145,27 +153,35 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
         return `${name} territory: ${formattedValue}`
       })
       .on('mouseover', (event: any, d) => {
-        createEventHandler('mouseover', mouseEventOptions, (d) =>
-          createTerritoryFeature(d.fips),
+        createEventHandler(
+          'mouseover',
+          mouseEventOptions,
+          getTerritoryFeature,
         )(event, d)
       })
       .on('mouseout', (event: any, d) => {
-        createEventHandler('mouseout', mouseEventOptions, (d) =>
-          createTerritoryFeature(d.fips),
+        createEventHandler(
+          'mouseout',
+          mouseEventOptions,
+          getTerritoryFeature,
         )(event, d)
       })
       .on(
         'touchstart',
         (event: any, d) => {
-          createEventHandler('touchstart', mouseEventOptions, (d) =>
-            createTerritoryFeature(d.fips),
+          createEventHandler(
+            'touchstart',
+            mouseEventOptions,
+            getTerritoryFeature,
           )(event, d)
         },
         { passive: true },
       )
       .on('touchend', (event: any, d) => {
-        createEventHandler('touchend', mouseEventOptions, (d) =>
-          createTerritoryFeature(d.fips),
+        createEventHandler(
+          'touchend',
+          mouseEventOptions,
+          getTerritoryFeature,
         )(event, d)
       })
       .on('pointerup', (event: any, d) => {
@@ -173,8 +189,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           event.pointerType === 'mouse' &&
           typeof props.signalListeners.click === 'function'
         ) {
-          const territoryFeature = createTerritoryFeature(d.fips)
-          props.signalListeners.click(event, territoryFeature)
+          props.signalListeners.click(event, getTerritoryFeature(d))
         }
       })
 
@@ -206,6 +221,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     props.signalListeners,
     props.isMobile,
     props.isMulti,
+    props.territoryPolygonFeatures,
   ])
 
   // Return null since we're rendering directly with D3
