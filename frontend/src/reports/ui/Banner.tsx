@@ -5,6 +5,9 @@ import type React from 'react'
 import { useEffect, useState } from 'react'
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 
+const LIMITATIONS_HREF = `${METHODOLOGY_PAGE_LINK}/limitations#missing-data`
+const LIMITATIONS_LINK_TEXT = 'About Data Limitations'
+
 const Banner: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false)
 
@@ -45,11 +48,8 @@ const Banner: React.FC = () => {
             Major gaps in the data:
           </span>{' '}
           Structural racism causes health inequities in the U.S.{' '}
-          <a
-            href={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            className='text-alt-green underline'
-          >
-            About Data Limitations
+          <a href={LIMITATIONS_HREF} className='text-alt-green underline'>
+            {LIMITATIONS_LINK_TEXT}
           </a>
         </p>
 
@@ -63,10 +63,10 @@ const Banner: React.FC = () => {
             gaps to improve U.S. health policies.
           </p>
           <a
-            href={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            className='mx-2 inline-flex items-center gap-0.5 whitespace-nowrap font-bold font-sans-title text-alt-green text-text no-underline'
+            href={LIMITATIONS_HREF}
+            className='mx-2 inline-flex items-center gap-0.5 whitespace-nowrap font-bold font-sans-title text-alt-green text-text underline'
           >
-            About Data Limitations
+            {LIMITATIONS_LINK_TEXT}
             <ArrowForward fontSize='inherit' />
           </a>
         </div>
