@@ -2,13 +2,10 @@ import Close from '@mui/icons-material/Close'
 import { IconButton } from '@mui/material'
 import type React from 'react'
 import { useEffect, useState } from 'react'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 
 const Banner: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const isMd = useIsBreakpointAndUp('md')
 
   useEffect(() => {
     const currentPath = window.location.pathname
@@ -41,33 +38,27 @@ const Banner: React.FC = () => {
       aria-labelledby='banner-heading'
     >
       <div className='flex justify-between'>
-        <div className='m-0 px-2 lg:flex lg:flex-row lg:items-center lg:justify-start'>
-          <p
-            className='my-0 p-0 text-left text-small lg:mr-8'
-            id='banner-heading'
+        <p className='m-0 px-2 text-left text-small' id='banner-heading'>
+          <span className='font-bold font-sans-title text-small lg:text-text'>
+            Major gaps in the data:
+          </span>{' '}
+          <span className='md:hidden'>
+            Structural racism causes health inequities in the U.S.{' '}
+          </span>
+          <span className='hidden md:inline'>
+            Structural racism causes health inequities. We&apos;re closing these
+            gaps to improve U.S. health policies.{' '}
+          </span>
+          <a
+            href={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
+            className='text-alt-black'
           >
-            <span className='m-0 p-0 font-bold font-sans-title text-small lg:text-text'>
-              Major gaps in the data:
-            </span>{' '}
-            <span className='md:hidden'>
-              Structural racism causes health inequities in the U.S.
-            </span>
+            <span className='md:hidden'>About data limitations</span>
             <span className='hidden md:inline'>
-              Structural racism causes health inequities. We’re closing these
-              gaps to improve U.S. health policies.
+              Learn more about the data limitations
             </span>
-          </p>
-          <HetTextArrowLink
-            link={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            linkText={
-              isMd
-                ? 'Learn more about the data limitations'
-                : 'About data limitations'
-            }
-            containerClassName='block md:mx-2 md:my-0 mx-0 my-0'
-            linkClassName='text-alt-black'
-          />
-        </div>
+          </a>
+        </p>
         <IconButton
           onClick={handleClose}
           className='banner-close-button self-start p-2.5 md:self-center'
