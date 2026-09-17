@@ -10,7 +10,7 @@
 //   npm run insight-pass                       # full set against production
 //   npm run insight-pass -- --only O2 --only R1
 //   npm run insight-pass -- --cold-read        # the 10-view non-author subset
-//   npm run insight-pass -- --tally results/<run>/worksheet.md
+//   npm run insight-pass -- --tally scripts/insight-quality-pass/results/<run>/worksheet.md
 //
 // Every opened insight that is not already cached spends one generation
 // against the daily ceiling, so views are paced under the per-client limit.
@@ -87,6 +87,10 @@ const VERDICTS = ['PASS', 'BLOCK', 'NONBLOCK', 'NO_INSIGHT', 'SKIP'] as const
 type Verdict = (typeof VERDICTS)[number] | 'PENDING'
 
 const DISCLOSURE = /AI-generated\. Click to report/
+// What the report panel shows in place of its sections when it cannot
+// generate: the ceiling or kill-switch notice, or the retryable error.
+const REPORT_NOTICE =
+  /Report summaries are not available|Unable to generate insight/
 const PROMPT_TIMEOUT_MS = 20_000
 
 const USAGE = `Harvest generated insights for the launch quality pass (see README.md).
@@ -95,7 +99,7 @@ const USAGE = `Harvest generated insights for the launch quality pass (see READM
   npm run insight-pass -- --only O2 --only R1   # specific views
   npm run insight-pass -- --category suppressed # one category
   npm run insight-pass -- --cold-read           # the 10-view non-author subset
-  npm run insight-pass -- --tally results/<run>/worksheet.md
+  npm run insight-pass -- --tally scripts/insight-quality-pass/results/<run>/worksheet.md
 
 Options:
   --base-url <url>     Site to harvest from (default https://healthequitytracker.org)
@@ -276,9 +280,16 @@ async function harvestView(
     case 'contrast': {
       const card = page.locator(`#${view.hashId}`)
       await card.scrollIntoViewIfNeeded()
-      const button = card.getByLabel('Comparison insights').first()
-      if (await button.count()) await button.click()
-      else await page.getByLabel('Comparison insights').first().click()
+      // The row's own button, auto-waited; the page-level fallback covers a
+      // layout where the button sits outside the card element.
+      try {
+        await card
+          .getByLabel('Comparison insights')
+          .first()
+          .click({ timeout: 10_000 })
+      } catch {
+        await page.getByLabel('Comparison insights').first().click()
+      }
       container = page
         .locator('[role="status"][aria-label*="comparison insight"]')
         .first()
@@ -294,22 +305,20 @@ async function harvestView(
       break
     }
     case 'report': {
-      await page
-        .getByText('Reviewing all charts with AI...')
-        .waitFor({ state: 'hidden', timeout: INSIGHT_TIMEOUT_MS })
+      // The panel generates on mount, so on domcontentloaded the loader may
+      // not exist yet and "hidden" would be satisfied by its absence. Wait for
+      // a terminal state instead: the sections, or the notice shown in their
+      // place.
       const region = page.getByRole('region', { name: 'Report insights' })
+      const notice = page.getByText(REPORT_NOTICE).first()
+      await region.or(notice).first().waitFor({ timeout: INSIGHT_TIMEOUT_MS })
       if ((await region.count()) === 0) {
-        const notice =
-          (await page
-            .getByText(
-              /Report summaries are not available|Unable to generate insight/,
-            )
-            .first()
-            .textContent()
-            .catch(() => null)) ?? 'report panel rendered no sections'
+        const shown =
+          (await notice.textContent().catch(() => null)) ??
+          'report panel rendered no sections'
         return {
           outcome: 'no-insight',
-          detail: notice.trim(),
+          detail: shown.trim(),
           screenshotPath: await screenshot(
             page.locator('#rate-map'),
             view,
@@ -343,6 +352,17 @@ async function harvestView(
 
   const promptPath = await capturePrompt(page, container, view, outputDir)
   const screenshotPath = await screenshot(shot, view, outputDir)
+  // Without the prompt there are no rows to check B1 and B4 against, so the
+  // view is not reviewable. Keep what was captured, but record it as a
+  // failure so the worksheet leaves it PENDING and the tally refuses a GO.
+  if (!promptPath) {
+    return {
+      outcome: 'error',
+      detail: 'prompt capture failed; re-harvest this view with --only',
+      sections,
+      screenshotPath,
+    }
+  }
   return { outcome: 'insight', sections, promptPath, screenshotPath }
 }
 
@@ -460,17 +480,21 @@ function renderWorksheet(results: HarvestedView[], baseUrl: string): string {
       `Screenshot: ${r.screenshotPath ?? 'none'} · Prompt: ${r.promptPath ?? 'none'}`,
     )
     out.push('')
-    if (r.outcome === 'insight') {
+    if (r.outcome === 'no-insight') {
+      out.push(`> _No insight rendered: ${r.detail ?? 'no detail'}_`)
+    } else {
+      if (r.outcome === 'error') {
+        out.push(
+          `> _Harvest error (${r.detail ?? 'no detail'}). Not reviewable as captured; re-harvest before judging._`,
+        )
+        out.push('>')
+      }
       for (const s of r.sections) {
         const prefix = r.sections.length > 1 ? `**${s.label}.** ` : ''
         out.push(`> ${prefix}${markHighlight(s.text, s.highlight)}`)
         if (r.sections.length > 1) out.push('>')
       }
       if (r.sections.length > 1) out.pop()
-    } else {
-      out.push(
-        `> _No insight rendered (${r.outcome}): ${r.detail ?? 'no detail'}_`,
-      )
     }
     out.push('')
     out.push('Blocking:')
@@ -479,7 +503,11 @@ function renderWorksheet(results: HarvestedView[], baseUrl: string): string {
     out.push('Non-blocking:')
     for (const [code, label] of NON_BLOCKING) out.push(`- [ ] ${code} ${label}`)
     out.push('')
-    out.push(`Verdict: ${r.outcome === 'insight' ? 'PENDING' : 'NO_INSIGHT'}`)
+    // A technical failure stays PENDING: only a page that genuinely rendered
+    // no insight is a NO_INSIGHT, and an error must never read as reviewed.
+    out.push(
+      `Verdict: ${r.outcome === 'no-insight' ? 'NO_INSIGHT' : 'PENDING'}`,
+    )
     out.push('Notes:')
     out.push('')
   }
@@ -541,9 +569,12 @@ interface TalliedView {
 
 // Reads a filled worksheet (or cold read) back and prints the numbers the
 // decision rests on. Exit 1 on any blocking failure so it can gate a script.
-function tally(path: string): number {
+function tally(requested: string): number {
+  // npm runs from frontend/, and the default results live beside this script,
+  // so a path given relative to either is accepted.
+  const path = existsSync(requested) ? requested : join(here, requested)
   if (!existsSync(path)) {
-    console.error(`No such file: ${path}`)
+    console.error(`No such file: ${requested}`)
     return 2
   }
   const lines = readFileSync(path, 'utf8').split('\n')
@@ -587,7 +618,12 @@ function tally(path: string): number {
     console.info(
       `Cold read: ${views.length} insight(s). Told the reader something new: ${yes}. Did not: ${no}. Unanswered: ${pending}.`,
     )
-    if (pending) console.info('Unanswered items are not counted either way.')
+    if (pending) {
+      console.info(
+        'INCOMPLETE: unanswered items are not counted either way. The cold read is done when every item has an answer.',
+      )
+      return 1
+    }
     return 0
   }
 

@@ -38,7 +38,9 @@ category together produces a percentage that hides the only failures that actual
 `SKIP`. Any ticked B code makes the verdict `BLOCK` regardless of what is written. A view
 that rendered no insight is a `NO_INSIGHT`, which is a finding in its own right (a silent
 empty section is the expected shape of several different failures) but not a quality
-failure. Record passes as deliberately as failures: a pass rate with no denominator is not
+failure. A harvest error (the page could not be opened, or the prompt could not be captured)
+is not a `NO_INSIGHT`: it stays `PENDING` until the view is re-harvested, because without the
+prompt rows there is nothing to check B1 and B4 against. Record passes as deliberately as failures: a pass rate with no denominator is not
 a baseline.
 
 **Decision rule.** `GO` when every view carries a verdict and no view is `BLOCK`. `NO-GO`
@@ -84,7 +86,7 @@ npm run insight-pass -- --category suppressed   # one category
 npm run insight-pass -- --base-url https://dev.healthequitytracker.org   # dry run on dev
 ```
 
-Output lands in `results/<date>-<host>/`:
+Output lands in `scripts/insight-quality-pass/results/<date>-<host>/` (paths below are relative to that directory):
 
 | File | What |
 |---|---|
@@ -108,7 +110,7 @@ For each view in the worksheet:
 Then run the tally:
 
 ```bash
-npm run insight-pass -- --tally results/<run>/worksheet.md
+npm run insight-pass -- --tally scripts/insight-quality-pass/results/<run>/worksheet.md
 ```
 
 It prints the counts by verdict, by code and by category, and the decision. It exits
@@ -138,11 +140,12 @@ This harvests the ten `coldRead` views and writes `cold-read.md`: each sentence 
 chart and one question, "does this tell you something the chart did not already tell you?"
 Hand the file and the `screenshots/` folder to one person who did not write the prompts.
 No rubric, no prompt file: the point is a reader who has not been told what to look for.
-About an hour of their time. `--tally` on the returned file counts the answers.
+About an hour of their time. `--tally` on the returned file counts the answers and exits
+non-zero while any item is unanswered.
 
 ## Recording the result
 
-The pass is done when `results/<run>/` is committed with:
+The pass is done when `scripts/insight-quality-pass/results/<run>/` is committed with:
 
 - a `worksheet.md` in which every view has a verdict and the `Decision` block is filled in
 - a `cold-read.md` with the non-author's answers
