@@ -51,7 +51,7 @@ const Banner: React.FC = () => {
           </span>
           <a
             href={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            className='text-alt-black'
+            className='text-alt-black underline'
           >
             <span className='md:hidden'>About data limitations</span>
             <span className='hidden md:inline'>
