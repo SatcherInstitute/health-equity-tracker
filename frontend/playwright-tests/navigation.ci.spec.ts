@@ -29,12 +29,12 @@ test('Clicking a state on national map loads state report; back button returns t
     { waitUntil: 'domcontentloaded' },
   )
 
-  // click state of Mass. (using specific path index is brittle but necessary for SVG maps without clear roles)
+  // click state of Mass. (FIPS 25) — force through ghost path overlay
   // Ensure the map is actually visible first
   const rateMap = page.locator('#rate-map')
   await expect(rateMap).toBeVisible()
 
-  await page.locator('path:nth-child(46)').click()
+  await page.locator('path.coast-ghost[data-fips="25"]').click()
 
   // Confirm correct madlib setting includes FIPS for state of Mass.
   await expect(page).toHaveURL(/.*mls=1.hiv-3.25/)
@@ -333,10 +333,10 @@ test('demo param survives geo change via map click', async ({ page }) => {
   )
   await expect(page).toHaveURL(/demo=age/)
 
-  // Wait for map then click Massachusetts (path:nth-child(46), FIPS 25)
+  // Wait for map then click Massachusetts (FIPS 25) — force through ghost path overlay
   const rateMap = page.locator('#rate-map')
   await expect(rateMap).toBeVisible()
-  await page.locator('path:nth-child(46)').click()
+  await page.locator('path.coast-ghost[data-fips="25"]').click()
   await expect(page).toHaveURL(/mls=1.hiv-3.25/)
 
   // demo=age must survive the geo change — regression: new system was wiping it
