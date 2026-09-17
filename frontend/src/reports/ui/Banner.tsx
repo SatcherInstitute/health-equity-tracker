@@ -2,6 +2,7 @@ import Close from '@mui/icons-material/Close'
 import { IconButton } from '@mui/material'
 import type React from 'react'
 import { useEffect, useState } from 'react'
+import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 
 const Banner: React.FC = () => {
@@ -34,34 +35,44 @@ const Banner: React.FC = () => {
 
   return (
     <section
-      className='bg-infobar-color px-4 py-1 text-center md:px-4 md:py-2'
-      aria-labelledby='banner-heading'
+      className='bg-infobar-color px-4 py-2 text-center lg:py-3'
+      aria-label='Major gaps in the data'
     >
-      <div className='flex justify-between'>
-        <p className='m-0 px-2 text-left text-small' id='banner-heading'>
-          <span className='font-bold font-sans-title text-small lg:text-text'>
+      <div className='flex items-center justify-between'>
+        {/* Mobile / tablet: single inline paragraph */}
+        <p className='m-0 px-2 text-left text-small lg:hidden'>
+          <span className='font-bold font-sans-title text-small'>
             Major gaps in the data:
           </span>{' '}
-          <span className='md:hidden'>
-            Structural racism causes health inequities in the U.S.{' '}
-          </span>
-          <span className='hidden md:inline'>
-            Structural racism causes health inequities. We&apos;re closing these
-            gaps to improve U.S. health policies.{' '}
-          </span>
+          Structural racism causes health inequities in the U.S.{' '}
           <a
             href={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
             className='text-alt-black underline'
           >
-            <span className='md:hidden'>About data limitations</span>
-            <span className='hidden md:inline'>
-              Learn more about the data limitations
-            </span>
+            About data limitations
           </a>
         </p>
+
+        {/* Desktop: text + HetTextArrowLink on its own line */}
+        <div className='hidden items-center justify-start px-2 lg:flex lg:flex-row'>
+          <p className='my-0 p-0 text-left text-small lg:mr-8'>
+            <span className='font-bold font-sans-title lg:text-text'>
+              Major gaps in the data:
+            </span>{' '}
+            Structural racism causes health inequities. We&apos;re closing these
+            gaps to improve U.S. health policies.
+          </p>
+          <HetTextArrowLink
+            link={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
+            linkText='Learn more about the data limitations'
+            containerClassName='mx-2 my-0'
+            linkClassName='text-alt-black'
+          />
+        </div>
+
         <IconButton
           onClick={handleClose}
-          className='banner-close-button self-start p-2.5 md:self-center'
+          className='banner-close-button self-center p-2.5'
           aria-label='Close banner'
           sx={{ borderRadius: 1 }}
         >
