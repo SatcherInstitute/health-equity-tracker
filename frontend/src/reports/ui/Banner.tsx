@@ -47,7 +47,7 @@ const Banner: React.FC = () => {
           Structural racism causes health inequities in the U.S.{' '}
           <a
             href={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            className='text-alt-black underline'
+            className='text-alt-green underline'
           >
             About data limitations
           </a>
