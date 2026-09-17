@@ -40,7 +40,7 @@ const Banner: React.FC = () => {
     >
       <div className='flex items-center justify-between'>
         {/* Mobile / tablet: single inline paragraph */}
-        <p className='m-0 px-2 text-left text-small lg:hidden'>
+        <p className='m-0 px-2 text-left text-small md:hidden'>
           <span className='font-bold font-sans-title text-small'>
             Major gaps in the data:
           </span>{' '}
@@ -54,7 +54,7 @@ const Banner: React.FC = () => {
         </p>
 
         {/* Desktop: text + HetTextArrowLink on its own line */}
-        <div className='hidden items-center justify-start px-2 lg:flex lg:flex-row'>
+        <div className='hidden items-center justify-start px-2 md:flex md:flex-row'>
           <p className='my-0 p-0 text-left text-small lg:mr-8'>
             <span className='font-bold font-sans-title lg:text-text'>
               Major gaps in the data:
