@@ -37,7 +37,7 @@ const Banner: React.FC = () => {
 
   return (
     <section
-      className='bg-infobar-color px-4 py-1 text-center md:p-4'
+      className='bg-infobar-color px-4 py-1 text-center md:px-4 md:py-2'
       aria-labelledby='banner-heading'
     >
       <div className='flex justify-between'>
@@ -70,7 +70,7 @@ const Banner: React.FC = () => {
         </div>
         <IconButton
           onClick={handleClose}
-          className='banner-close-button mb-auto p-2.5 md:my-auto'
+          className='banner-close-button self-start p-2.5 md:self-center'
           aria-label='Close banner'
           sx={{ borderRadius: 1 }}
         >
