@@ -1,5 +1,6 @@
 import { select } from 'd3'
 import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import type { Topology } from 'topojson-specification'
 import { CAWP_METRICS } from '../../data/providers/CawpProvider'
 import { PHRMA_METRICS } from '../../data/providers/PhrmaProvider'
 import { DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE } from '../../data/query/Breakdowns'
@@ -15,6 +16,7 @@ import { MapTooltipContent } from './MapTooltipContent'
 import {
   createFeatures,
   createProjection,
+  extractTerritoryPolygonFeatures,
   processPhrmaData,
 } from './mapHelpers'
 import { renderMap } from './renderMap'
@@ -63,6 +65,14 @@ const ChoroplethMap = ({
     dataMap: Map<string, any>
     mapHeight: number
   } | null>(null)
+
+  const territoryPolygonFeatures = useMemo(
+    () =>
+      fips.isUsa() && geoData
+        ? extractTerritoryPolygonFeatures(geoData)
+        : new Map(),
+    [fips, geoData],
+  )
 
   const isCawp = CAWP_METRICS.includes(metricConfig.metricId)
   const isPhrma = PHRMA_METRICS.includes(metricConfig.metricId)
@@ -162,6 +172,7 @@ const ChoroplethMap = ({
       const result = renderMap({
         svgRef,
         geoData: { features, projection },
+        topology: geoData as Topology | undefined,
         dataWithHighestLowest,
         metricConfig,
         width,
@@ -256,6 +267,7 @@ const ChoroplethMap = ({
           isPhrmaAdherence={isPhrmaAdherence}
           isSummaryLegend={isSummaryLegend}
           updateFipsCallback={updateFipsCallback}
+          territoryPolygonFeatures={territoryPolygonFeatures}
         />
       )}
 
