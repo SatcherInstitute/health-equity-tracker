@@ -91,6 +91,11 @@ function MiniStateMap({
   fillColor?: string
   featureId: string
 }) {
+  const fill = fillColor ?? colors.altGreen
+  // Mirror the territory circle convention: no-data (white) shapes get an
+  // altGray border so they're legible on the white tooltip background;
+  // colored shapes get an altWhite border for a clean edge.
+  const stroke = fill === colors.altWhite ? colors.altGray : colors.altWhite
   // Alaska: fixed conic projection that handles antimeridian crossing.
   if (featureId === ALASKA_FIPS) {
     const proj = geoConicEqualArea()
@@ -110,8 +115,8 @@ function MiniStateMap({
         <path
           d={d}
           transform={`translate(${MINI_PAD / 2},${MINI_PAD / 2})`}
-          fill={fillColor ?? colors.altGreen}
-          stroke={colors.altDark}
+          fill={fill}
+          stroke={stroke}
           strokeWidth={1}
         />
       </svg>
