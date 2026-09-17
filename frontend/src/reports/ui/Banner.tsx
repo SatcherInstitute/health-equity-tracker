@@ -2,7 +2,6 @@ import Close from '@mui/icons-material/Close'
 import { IconButton } from '@mui/material'
 import type React from 'react'
 import { useEffect, useState } from 'react'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 
 const Banner: React.FC = () => {
@@ -62,12 +61,12 @@ const Banner: React.FC = () => {
             Structural racism causes health inequities. We&apos;re closing these
             gaps to improve U.S. health policies.
           </p>
-          <HetTextArrowLink
-            link={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            linkText='About Data Limitations'
-            containerClassName='mx-2 my-0'
-            linkClassName='text-alt-black'
-          />
+          <a
+            href={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
+            className='mx-2 font-bold font-sans-title text-alt-green no-underline'
+          >
+            About Data Limitations →
+          </a>
         </div>
 
         <IconButton
