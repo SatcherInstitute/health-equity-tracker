@@ -35,7 +35,9 @@ Splitting the rubric this way is what makes a solo pass meaningful. Counting eve
 category together produces a percentage that hides the only failures that actually matter.
 
 **Verdicts.** Every view gets exactly one: `PASS`, `BLOCK`, `NONBLOCK`, `NO_INSIGHT`, or
-`SKIP`. Any ticked B code makes the verdict `BLOCK` regardless of what is written. A view
+`SKIP`. The checkboxes decide it: any ticked B code is a `BLOCK` regardless of what is
+written, any ticked N code a `NONBLOCK`, and the `OK` box on its own a `PASS`. The `Verdict`
+line only needs editing to `SKIP` a view. A view
 that rendered no insight is a `NO_INSIGHT`, which is a finding in its own right (a silent
 empty section is the expected shape of several different failures) but not a quality
 failure. A harvest error (the page could not be opened, or the prompt could not be captured)
@@ -104,8 +106,8 @@ For each view in the worksheet:
 
 1. Open the screenshot, or the live URL for anything the screenshot does not settle.
 2. Open the prompt file and find the data rows. That is everything the model knew.
-3. Read the sentence against the rows. Tick every code that applies.
-4. Set the verdict and add a note when a code is ticked, saying what was wrong.
+3. Read the sentence against the rows. Tick every code that applies, or tick `OK` if none does.
+4. Add a note when a code is ticked, saying what was wrong.
 
 Then run the tally:
 

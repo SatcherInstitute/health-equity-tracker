@@ -84,6 +84,11 @@ const NON_BLOCKING = [
 ] as const
 
 const VERDICTS = ['PASS', 'BLOCK', 'NONBLOCK', 'NO_INSIGHT', 'SKIP'] as const
+
+// The reviewer's explicit "nothing applies". Without it a pass looks identical
+// to a view nobody has read yet.
+const OK_CODE = 'OK'
+const OK_LABEL = 'No issues: none of the codes above applies'
 type Verdict = (typeof VERDICTS)[number] | 'PENDING'
 
 const DISCLOSURE = /AI-generated\. Click to report/
@@ -460,7 +465,7 @@ function renderWorksheet(results: HarvestedView[], baseUrl: string): string {
   )
   out.push('')
   out.push(
-    `Verdicts: ${VERDICTS.join(' | ')}. Any ticked B code makes the verdict BLOCK. Run \`npm run insight-pass -- --tally <this file>\` when done.`,
+    `Tick OK when nothing applies; the tally reads that as PASS. Any ticked B code makes the verdict BLOCK, any ticked N code NONBLOCK, so the Verdict line only needs editing to SKIP a view. Verdicts: ${VERDICTS.join(' | ')}. Run \`npm run insight-pass -- --tally <this file>\` when done.`,
   )
   out.push('')
   out.push('## Decision')
@@ -502,6 +507,9 @@ function renderWorksheet(results: HarvestedView[], baseUrl: string): string {
     out.push('')
     out.push('Non-blocking:')
     for (const [code, label] of NON_BLOCKING) out.push(`- [ ] ${code} ${label}`)
+    out.push('')
+    out.push('Or:')
+    out.push(`- [ ] ${OK_CODE} ${OK_LABEL}`)
     out.push('')
     // A technical failure stays PENDING: only a page that genuinely rendered
     // no insight is a NO_INSIGHT, and an error must never read as reviewed.
@@ -595,7 +603,7 @@ function tally(requested: string): number {
       continue
     }
     if (!current) continue
-    const box = /^- \[([xX])\] ([BN]\d)\b/.exec(line)
+    const box = /^- \[([xX])\] (OK|[BN]\d)\b/.exec(line)
     if (box) current.ticked.push(box[2])
     const verdict = /^Verdict:\s*(\w+)/.exec(line)
     if (verdict) current.explicit = normalizeVerdict(verdict[1])
@@ -627,10 +635,15 @@ function tally(requested: string): number {
     return 0
   }
 
+  // Ticked codes outrank the Verdict line: a B code is a BLOCK whatever was
+  // written, an N code a NONBLOCK, and OK on its own a PASS. The line itself
+  // only decides when nothing is ticked (SKIP, or a hand-written verdict).
   for (const v of views) {
-    if (v.ticked.some((c) => c.startsWith('B'))) v.effective = 'BLOCK'
-    else if (v.explicit !== 'PENDING') v.effective = v.explicit
-    else if (v.ticked.length) v.effective = 'NONBLOCK'
+    const codes = v.ticked.filter((c) => c !== OK_CODE)
+    if (codes.some((c) => c.startsWith('B'))) v.effective = 'BLOCK'
+    else if (codes.length) v.effective = 'NONBLOCK'
+    else if (v.ticked.includes(OK_CODE)) v.effective = 'PASS'
+    else v.effective = v.explicit
   }
 
   const byVerdict = countBy(views, (v) => v.effective)
