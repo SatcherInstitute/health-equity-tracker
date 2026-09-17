@@ -112,7 +112,7 @@ function MiniStateMap({
           transform={`translate(${MINI_PAD / 2},${MINI_PAD / 2})`}
           fill={fillColor ?? colors.altGreen}
           stroke={colors.altDark}
-          strokeWidth={0.5}
+          strokeWidth={1}
         />
       </svg>
     )
