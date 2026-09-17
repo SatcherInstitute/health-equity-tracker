@@ -41,7 +41,7 @@ const Banner: React.FC = () => {
       aria-labelledby='banner-heading'
     >
       <div className='flex justify-between'>
-        <div className='m-0 flex flex-wrap items-center justify-start px-2 md:items-center lg:flex-row lg:justify-start'>
+        <div className='m-0 px-2 lg:flex lg:flex-row lg:items-center lg:justify-start'>
           <p
             className='my-0 p-0 text-left text-small lg:mr-8'
             id='banner-heading'
