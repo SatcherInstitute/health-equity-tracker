@@ -1,3 +1,4 @@
+import ArrowForward from '@mui/icons-material/ArrowForward'
 import Close from '@mui/icons-material/Close'
 import { IconButton } from '@mui/material'
 import type React from 'react'
@@ -51,12 +52,13 @@ const Banner: React.FC = () => {
           </span>
           <a
             href={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            className='text-alt-black'
+            className='inline-flex items-center gap-1 font-bold font-sans-title text-alt-green no-underline'
           >
             <span className='md:hidden'>About data limitations</span>
             <span className='hidden md:inline'>
               Learn more about the data limitations
             </span>
+            <ArrowForward className='text-text' />
           </a>
         </p>
         <IconButton
