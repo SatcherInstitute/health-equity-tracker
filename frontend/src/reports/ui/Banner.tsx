@@ -1,3 +1,4 @@
+import ArrowForward from '@mui/icons-material/ArrowForward'
 import Close from '@mui/icons-material/Close'
 import { IconButton } from '@mui/material'
 import type React from 'react'
@@ -63,9 +64,10 @@ const Banner: React.FC = () => {
           </p>
           <a
             href={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            className='mx-2 font-bold font-sans-title text-alt-green no-underline'
+            className='mx-2 inline-flex items-center gap-1 font-bold font-sans-title text-alt-green text-text no-underline'
           >
-            About Data Limitations →
+            About Data Limitations
+            <ArrowForward fontSize='inherit' />
           </a>
         </div>
 
