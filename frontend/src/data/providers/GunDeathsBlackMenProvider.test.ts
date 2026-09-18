@@ -7,6 +7,7 @@ import {
 } from '../../utils/globals'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import {
   Breakdowns,
   type DemographicType,
@@ -15,7 +16,6 @@ import {
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
-import GunDeathsBlackMenProvider from './GunDeathsBlackMenProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   gunViolenceDatasetId: DatasetId,
@@ -28,7 +28,9 @@ async function ensureCorrectDatasetsDownloaded(
   // If these aren't sent as args, default to []
   metricIds = metricIds || []
 
-  const gunDeathsBlackMenProvider = new GunDeathsBlackMenProvider()
+  const gunDeathsBlackMenProvider = new VariableProviderMap().getProviderById(
+    'gun_violence_black_men_provider',
+  )
   const specificDatasetId = appendFipsIfNeeded(
     gunViolenceDatasetId,
     baseBreakdown,

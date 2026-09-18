@@ -3,9 +3,12 @@ import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { TrendsChart } from '../charts/trendsChart/Index'
 import type { AxisConfig } from '../charts/trendsChart/types'
 import { generateSubtitle } from '../charts/utils'
+import { HIV_METRICS } from '../data/config/MetricConfigHivCategory'
+import {
+  CAWP_METRICS,
+  getWomenRaceLabel,
+} from '../data/config/MetricConfigPDOH'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import { CAWP_METRICS, getWomenRaceLabel } from '../data/providers/CawpProvider'
-import { HIV_METRICS } from '../data/providers/HivProvider'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,

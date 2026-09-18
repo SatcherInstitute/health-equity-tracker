@@ -8,7 +8,18 @@ import {
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigConstants'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, DataTypeId } from './MetricConfigTypes'
+
+export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
+  'gun_violence_homicide',
+  'gun_violence_suicide',
+  'gun_deaths',
+]
+
+export const GUN_VIOLENCE_YOUTH_DATATYPES: DataTypeId[] = [
+  'gun_deaths_youth',
+  'gun_deaths_young_adults',
+]
 
 export const COMMUNITY_SAFETY_DROPDOWNIDS = [
   'gun_deaths',

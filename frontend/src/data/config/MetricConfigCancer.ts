@@ -3,7 +3,18 @@ import {
   menHigherIsWorseMapConfig,
   womenHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, DataTypeId } from './MetricConfigTypes'
+
+export const CDC_CANCER_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
+  'breast_cancer_incidence',
+  'cervical_cancer_incidence',
+  'prostate_cancer_incidence',
+]
+
+export const CDC_CANCER_ALL_SEXES_DATATYPES: DataTypeId[] = [
+  'colorectal_cancer_incidence',
+  'lung_cancer_incidence',
+]
 
 export const CDC_CANCER_CATEGORY_DROPDOWNIDS = ['cancer_incidence'] as const
 

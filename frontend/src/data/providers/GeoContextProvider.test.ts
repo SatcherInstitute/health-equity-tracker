@@ -6,11 +6,11 @@ import {
 } from '../../utils/globals'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { MetricId } from '../config/MetricConfigTypes'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import { Breakdowns } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
-import GeoContextProvider from './GeoContextProvider'
 
 /* Given the geocontext id */
 async function ensureCorrectDatasetsDownloaded(
@@ -20,7 +20,9 @@ async function ensureCorrectDatasetsDownloaded(
   expectedDatasetIds: DatasetId[],
 ) {
   const breakdown = Breakdowns.forFips(fips)
-  const provider = new GeoContextProvider()
+  const provider = new VariableProviderMap().getProviderById(
+    'geo_context_provider',
+  )
 
   const specificId = appendFipsIfNeeded(expectedGeoContextId, breakdown)
 

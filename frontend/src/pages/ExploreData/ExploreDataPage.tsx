@@ -7,8 +7,8 @@ import {
   isDropdownVarId,
 } from '../../data/config/DropDownIds'
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
+import { INCARCERATION_IDS } from '../../data/config/MetricConfigPDOH'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
-import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
 import { getGeographiesDatasetId } from '../../data/utils/datasetutils'
 import { Fips } from '../../data/utils/Fips'
 import ReportProvider from '../../reports/ReportProvider'

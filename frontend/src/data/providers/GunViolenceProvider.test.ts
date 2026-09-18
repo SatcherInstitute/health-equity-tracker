@@ -7,6 +7,7 @@ import {
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import {
   Breakdowns,
   type DemographicType,
@@ -16,7 +17,6 @@ import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { AGE, RACE, SEX } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
-import GunViolenceProvider from './GunViolenceProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   gunViolenceDatasetId: DatasetId,
@@ -31,7 +31,9 @@ async function ensureCorrectDatasetsDownloaded(
   // If these aren't sent as args, default to []
   metricIds = metricIds || []
 
-  const gunViolenceProvider = new GunViolenceProvider()
+  const gunViolenceProvider = new VariableProviderMap().getProviderById(
+    'gun_violence_provider',
+  )
   const specificDatasetId = appendFipsIfNeeded(
     gunViolenceDatasetId,
     baseBreakdown,
