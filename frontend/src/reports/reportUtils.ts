@@ -1,50 +1,94 @@
+import {
+  AHR_DATATYPES_WITH_MISSING_AGE_DEMO,
+  CHR_DATATYPE_IDS,
+} from '../data/config/MetricConfigBehavioralHealth'
+import {
+  CDC_CANCER_ALL_SEXES_DATATYPES,
+  CDC_CANCER_SEX_SPECIFIC_DATATYPES,
+} from '../data/config/MetricConfigCancer'
+import { GUN_VIOLENCE_YOUTH_DATATYPES } from '../data/config/MetricConfigCommunitySafety'
+import { BLACK_WOMEN_DATATYPES } from '../data/config/MetricConfigHivCategory'
+import { CAWP_DATA_TYPES } from '../data/config/MetricConfigPDOH'
+import { PHRMA_DATATYPES } from '../data/config/MetricConfigPhrma'
+import {
+  PHRMA_BRFSS_ALL_SEXES_DATATYPES,
+  PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES,
+} from '../data/config/MetricConfigPhrmaBrfss'
 import type {
   DataTypeConfig,
   DataTypeId,
 } from '../data/config/MetricConfigTypes'
-import {
-  AHR_DATATYPES_WITH_MISSING_AGE_DEMO,
-  AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS,
-  CHR_DATATYPE_IDS,
-  CHR_RESTRICTED_DEMOGRAPHIC_DETAILS,
-  SEVERE_MATERNAL_MORBIDITY_RESTRICTED_DEMOGRAPHIC_DETAILS,
-} from '../data/providers/AhrProvider'
-import {
-  CAWP_DATA_TYPES,
-  CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS,
-} from '../data/providers/CawpProvider'
-import {
-  CDC_CANCER_ALL_SEXES_DATATYPES,
-  CDC_CANCER_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS,
-  CDC_CANCER_SEX_SPECIFIC_DATATYPES,
-} from '../data/providers/CdcCancerProvider'
-import {
-  BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
-  BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS_URBANICITY,
-} from '../data/providers/GunDeathsBlackMenProvider'
-import {
-  GUN_VIOLENCE_YOUTH_DATATYPES,
-  GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS,
-} from '../data/providers/GunViolenceYouthProvider'
-import {
-  BLACK_WOMEN_DATATYPES,
-  BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS,
-} from '../data/providers/HivBlackWomenProvider'
-import { MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/MaternalMortalityProvider'
-import {
-  PHRMA_BRFSS_ALL_SEXES_DATATYPES,
-  PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_DETAILS,
-  PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS,
-  PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES,
-} from '../data/providers/PhrmaBrfssProvider'
-import {
-  PHRMA_DATATYPES,
-  PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS,
-} from '../data/providers/PhrmaProvider'
-import { COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/VaccineProvider'
 import type { DemographicType } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
+
+const AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Age', 'unavailable for Substance Misuse and Preventable Hospitalizations'],
+]
+const SEVERE_MATERNAL_MORBIDITY_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Sex', 'unavailable for Severe Maternal Morbidity'],
+]
+const CHR_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Age', 'unavailable at the county level'],
+  ['Sex', 'unavailable at the county level'],
+]
+const MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Age', 'unavailable for Maternal Mortality'],
+  ['Sex', 'unavailable for Maternal Mortality'],
+]
+const BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Race/Ethnicity', 'unavailable for intersectional Black men topics'],
+  ['Sex', 'unavailable for intersectional Black men topics'],
+]
+const BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS_URBANICITY = [
+  ['City Size', 'unavailable for when comparing these topics'],
+]
+const GUN_VIOLENCE_YOUTH_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Age', 'unavailable for Gun Deaths (Youth)'],
+  ['Sex', 'unavailable for Gun Deaths (Youth)'],
+]
+const BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Race/Ethnicity', 'unavailable for intersectional Black women topics'],
+  ['Sex', 'unavailable for intersectional Black women topics'],
+]
+const CDC_CANCER_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS = [
+  [
+    'Sex',
+    "only available when comparing cancer incidence topics that aren't sex-specific",
+  ],
+]
+const PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Low Income Subsidy', 'only available when comparing two Medicare topics'],
+  ['Eligibility', 'only available when comparing two Medicare topics'],
+]
+const PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Income', 'only available when comparing two cancer screening topics'],
+  [
+    'Insurance Status',
+    'only available when comparing two cancer screening topics',
+  ],
+  ['Education', 'only available when comparing two cancer screening topics'],
+]
+const PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS = [
+  ...PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_DETAILS,
+  [
+    'Sex',
+    "only available when comparing cancer screening topics that aren't sex-specific",
+  ],
+]
+const COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  [
+    'Age',
+    'demographics for COVID vaccination unavailable at state and county levels',
+  ],
+  [
+    'Sex',
+    'demographics for COVID vaccination unavailable at state and county levels',
+  ],
+]
+const CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Age', 'unavailable for Women in elective office topics'],
+  ['Sex', 'unavailable for Women in elective office topics'],
+]
 
 const DEMOGRAPHIC_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   'Race/Ethnicity': 'race_and_ethnicity',
@@ -365,10 +409,3 @@ export function getAllDemographicOptions(
     disabledDemographicOptions,
   }
 }
-
-export const CARDS_THAT_SHOULD_FALLBACK_TO_ALLS: ScrollableHashId[] = [
-  'rate-map',
-  'rates-over-time',
-  'rate-chart',
-  'data-table',
-]

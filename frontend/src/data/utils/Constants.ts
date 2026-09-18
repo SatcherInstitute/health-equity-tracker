@@ -349,3 +349,6 @@ export type DemographicGroup =
 
 export const TIME_PERIOD = 'time_period'
 export const TIME_PERIOD_LABEL = 'Time period'
+
+export const SVI = 'svi'
+export const POPULATION = 'population'

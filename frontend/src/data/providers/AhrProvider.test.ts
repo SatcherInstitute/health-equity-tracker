@@ -11,12 +11,12 @@ import {
   type DatasetIdWithStateFIPSCode,
   DatasetMetadataMap,
 } from '../config/DatasetMetadata'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { AGE, RACE, SEX } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
-import AhrProvider from './AhrProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   ahrDatasetId: DatasetId,
@@ -25,7 +25,7 @@ async function ensureCorrectDatasetsDownloaded(
   cardId?: ScrollableHashId,
   isFallback?: boolean,
 ) {
-  const ahrProvider = new AhrProvider()
+  const ahrProvider = new VariableProviderMap().getProviderById('ahr_provider')
   const specificId = isFallback
     ? ahrDatasetId
     : appendFipsIfNeeded(ahrDatasetId, baseBreakdown)

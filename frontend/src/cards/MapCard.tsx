@@ -14,16 +14,15 @@ import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DatasetId } from '../data/config/DatasetMetadata'
 import { dataSourceMetadataMap } from '../data/config/MetadataMap'
-import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
-import { applyGeoOverrides } from '../data/config/MetricConfigUtils'
-import { CAWP_METRICS } from '../data/providers/CawpProvider'
-import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import {
+  CAWP_METRICS,
   COMBINED_INCARCERATION_STATES_LIST,
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
-} from '../data/providers/IncarcerationProvider'
-import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
+} from '../data/config/MetricConfigPDOH'
+import { PHRMA_METRICS } from '../data/config/MetricConfigPhrma'
+import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import { applyGeoOverrides } from '../data/config/MetricConfigUtils'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
@@ -41,7 +40,9 @@ import {
   ALL,
   type DemographicGroup,
   NON_HISPANIC,
+  POPULATION,
   RACE,
+  SVI,
   UNKNOWN,
   UNKNOWN_ETHNICITY,
   UNKNOWN_RACE,

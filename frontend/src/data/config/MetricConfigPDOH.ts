@@ -3,13 +3,85 @@ import {
   defaultHigherIsWorseMapConfig,
   womenHigherIsBetterMapConfig,
 } from '../../charts/mapGlobals'
+import type { RaceAndEthnicityGroup } from '../utils/Constants'
+import {
+  AIAN_API_W,
+  AIANNH_W,
+  HISP_W,
+  HISPANIC,
+  MULTI,
+  MULTI_W,
+  OTHER_STANDARD,
+  OTHER_W,
+  UNKNOWN_RACE,
+  UNKNOWN_W,
+  UNREPRESENTED,
+} from '../utils/Constants'
 import {
   adultPopulationPctShortLabel,
   adultPopulationPctTitle,
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigConstants'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, DataTypeId, MetricId } from './MetricConfigTypes'
+
+// CAWP
+export const CAWP_METRICS: MetricId[] = [
+  'cawp_population_pct',
+  'congressional_districts',
+  'pct_share_of_state_leg',
+  'pct_share_of_women_state_leg',
+  'women_state_leg_pct_relative_inequity',
+  'pct_share_of_us_congress',
+  'pct_share_of_women_us_congress',
+  'women_us_congress_pct_relative_inequity',
+  'women_this_race_us_congress_count',
+  'total_us_congress_count',
+  'women_this_race_state_leg_count',
+  'total_state_leg_count',
+]
+
+export const CAWP_DATA_TYPES: DataTypeId[] = [
+  'women_in_state_legislature',
+  'women_in_us_congress',
+]
+
+export function getWomenRaceLabel(
+  raceLabel: RaceAndEthnicityGroup,
+): RaceAndEthnicityGroup {
+  switch (raceLabel) {
+    case 'American Indian, Alaska Native, Asian & Pacific Islander':
+      return AIAN_API_W
+    case 'Native American, Alaska Native, & Native Hawaiian':
+      return AIANNH_W
+    case MULTI:
+      return MULTI_W
+    case OTHER_STANDARD:
+      return OTHER_W
+    case UNREPRESENTED:
+      return OTHER_W
+    case UNKNOWN_RACE:
+      return UNKNOWN_W
+    case HISPANIC:
+      return HISP_W
+  }
+  return `${raceLabel} women`
+}
+
+// Incarceration
+export const INCARCERATION_IDS: DataTypeId[] = ['prison', 'jail']
+
+export const COMBINED_INCARCERATION_STATES_LIST = [
+  'Alaska',
+  'Connecticut',
+  'Delaware',
+  'Hawaii',
+  'Rhode Island',
+  'Vermont',
+]
+
+export const COMBINED_QUALIFIER = '(combined prison and jail)'
+export const PRIVATE_JAILS_QUALIFIER = '(private jail system only)'
 
 export const PDOH_CATEGORY_DROPDOWNIDS = [
   'incarceration',

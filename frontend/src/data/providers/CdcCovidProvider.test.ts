@@ -5,12 +5,12 @@ import {
   resetCacheDebug,
 } from '../../utils/globals'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
 import { AGE, RACE, SEX } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
-import CdcCovidProvider from './CdcCovidProvider'
 import { CHATAM, NC, USA, VI } from './TestUtils'
 
 async function ensureCorrectDatasetsDownloaded(
@@ -18,7 +18,9 @@ async function ensureCorrectDatasetsDownloaded(
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
 ) {
-  const cdcCovidProvider = new CdcCovidProvider()
+  const cdcCovidProvider = new VariableProviderMap().getProviderById(
+    'cdc_covid_provider',
+  )
   const specificId = appendFipsIfNeeded(cdcDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificId, [])
 

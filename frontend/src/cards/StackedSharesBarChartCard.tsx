@@ -1,9 +1,9 @@
 import { StackedBarChart } from '../charts/stackedSharesBarChart/Index'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
+import { ALL_AHR_METRICS } from '../data/config/MetricConfigBehavioralHealth'
+import { CAWP_METRICS } from '../data/config/MetricConfigPDOH'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import { getMetricIdToConfigMap } from '../data/config/MetricConfigUtils'
-import { ALL_AHR_METRICS } from '../data/providers/AhrProvider'
-import { CAWP_METRICS } from '../data/providers/CawpProvider'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,

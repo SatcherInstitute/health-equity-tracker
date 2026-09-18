@@ -2,6 +2,11 @@ import type { CountColsMap } from '../charts/mapGlobals'
 import { TableChart } from '../charts/TableChart'
 import { generateSubtitle } from '../charts/utils'
 import { COVID_DISEASE_METRICS } from '../data/config/MetricConfigCovidCategory'
+import {
+  DATATYPES_NEEDING_13PLUS,
+  GENDER_METRICS,
+} from '../data/config/MetricConfigHivCategory'
+import { INCARCERATION_IDS } from '../data/config/MetricConfigPDOH'
 import type {
   DataTypeConfig,
   MetricConfig,
@@ -11,11 +16,6 @@ import {
   getMetricIdToConfigMap,
   metricConfigFromDtConfig,
 } from '../data/config/MetricConfigUtils'
-import {
-  DATATYPES_NEEDING_13PLUS,
-  GENDER_METRICS,
-} from '../data/providers/HivProvider'
-import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,

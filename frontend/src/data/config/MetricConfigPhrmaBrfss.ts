@@ -1,5 +1,16 @@
 import { medicareAdherenceHigherIsBetterMapConfig } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, DataTypeId } from './MetricConfigTypes'
+
+export const PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
+  'breast_cancer_screening',
+  'cervical_cancer_screening',
+  'prostate_cancer_screening',
+]
+
+export const PHRMA_BRFSS_ALL_SEXES_DATATYPES: DataTypeId[] = [
+  'colorectal_cancer_screening',
+  'lung_cancer_screening',
+]
 
 export const CANCER_SCREENING_CATEGORY_DROPDOWNIDS = [
   'cancer_screening',

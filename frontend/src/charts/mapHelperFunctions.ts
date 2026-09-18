@@ -1,5 +1,5 @@
+import { getWomenRaceLabel } from '../data/config/MetricConfigPDOH'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
-import { getWomenRaceLabel } from '../data/providers/CawpProvider'
 import type { DemographicType } from '../data/query/Breakdowns'
 import {
   AGE,

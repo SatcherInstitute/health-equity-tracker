@@ -6,6 +6,7 @@ import {
 } from '../../utils/globals'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { DataTypeId } from '../config/MetricConfigTypes'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import {
   Breakdowns,
   type DemographicType,
@@ -15,7 +16,6 @@ import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { AGE, RACE, SEX } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
-import HivProvider from './HivProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   hivDatasetId: DatasetId,
@@ -24,7 +24,7 @@ async function ensureCorrectDatasetsDownloaded(
   dataTypeId: DataTypeId,
   timeView: TimeView,
 ) {
-  const hivProvider = new HivProvider()
+  const hivProvider = new VariableProviderMap().getProviderById('hiv_provider')
   const specificId = appendFipsIfNeeded(hivDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificId, [])
 
