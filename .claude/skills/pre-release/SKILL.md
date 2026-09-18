@@ -122,21 +122,14 @@ git diff "$LAST_TAG"..HEAD -- 'server/' 'exporter/' | grep -E '^\+(.*json:",|.*C
 
 Look for renamed JSON fields, removed columns, or changed BigQuery table/dataset IDs that could break the frontend if the data and frontend code ship out of order.
 
-### 3g — Build action and CI workflow changes
-
-The prod release workflow (`AUTO-DEPLOY TO PROD ON HET RELEASE`) always runs `buildAllAndDeploy@main` — it does NOT pin to the release tag. This means any change to `.github/actions/buildAllAndDeploy` is live on merge and will affect the very next prod release, even if no app code changed.
+### 3g — CI workflow changes
 
 ```bash
-# Check for changes to the shared build action (HIGH RISK — affects prod on next release)
-git diff "$LAST_TAG"..HEAD --name-only | grep -E '^\.github/actions/'
-git diff "$LAST_TAG"..HEAD -- '.github/actions/' | head -60
-
-# Check for changes to deploy/release/e2e workflows
-git diff "$LAST_TAG"..HEAD --name-only | grep -E '^\.github/workflows/' | grep -v '/dag'
-git diff "$LAST_TAG"..HEAD -- '.github/workflows/' | grep -v '/dag' | head -40
+git diff "$LAST_TAG"..HEAD --name-only | grep -E '^\.github/(workflows|actions)/' | grep -v '/dag'
+git diff "$LAST_TAG"..HEAD -- '.github/workflows/' '.github/actions/' | grep -v '/dag' | head -60
 ```
 
-Flag any `buildAllAndDeploy` changes as `[BUILD-ACTION]` with a note that they are already live and will affect this release's deploy. Flag other workflow changes as `[CI]`.
+Flag changes to release, deploy, or e2e workflows. Note: `buildAllAndDeploy` runs at `@main` so any change to it is already live — this is rarely a concern since a broken action would have already failed the dev deploy.
 
 ---
 
@@ -164,8 +157,7 @@ RISK FLAGS  [if none, say "None found"]
   [DEPS] Dependency changes: <summary or "none">
   [PIPELINE] DAGs to rerun post-deploy: <list or "none">
   [CONTRACT] Potential API/data contract breaks: <summary or "none">
-  [BUILD-ACTION] buildAllAndDeploy changes (live now, affects this release's deploy): <summary or "none">
-  [CI] Other workflow changes: <summary or "none">
+  [CI] Workflow/action changes: <summary or "none">
 
 RECOMMENDATION
   <one sentence: safe to release / release with caution / hold — and why>
