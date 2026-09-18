@@ -40,7 +40,7 @@ Separate unreleased commits into:
 
 1. **App/user-facing** — changed files under the deploy paths above (these ship at release time)
 2. **Pipeline/data** — subset of the above touching `python/datasources/`, `python/ingestion/`, `run_ingestion/`, `run_gcs_to_bq/`
-3. **Live on merge already** — changed files entirely outside the deploy paths (`.claude/`, `CLAUDE.md`, `.github/workflows/`, root docs, etc.); omit from the release changelog
+3. **Live on merge already** — changed files entirely outside the deploy paths (`.claude/`, `CLAUDE.md`, `.github/workflows/`, `.github/actions/`, root docs, etc.); omit from the release changelog. **Exception: `.github/actions/buildAllAndDeploy` changes are live on merge AND affect every future prod release** (the prod deploy workflow pins it at `@main`, not at the release tag — flag these separately in Step 3g)
 
 To categorize each commit, check its diff paths:
 
@@ -122,14 +122,21 @@ git diff "$LAST_TAG"..HEAD -- 'server/' 'exporter/' | grep -E '^\+(.*json:",|.*C
 
 Look for renamed JSON fields, removed columns, or changed BigQuery table/dataset IDs that could break the frontend if the data and frontend code ship out of order.
 
-### 3g — CI workflow changes
+### 3g — Build action and CI workflow changes
+
+The prod release workflow (`AUTO-DEPLOY TO PROD ON HET RELEASE`) always runs `buildAllAndDeploy@main` — it does NOT pin to the release tag. This means any change to `.github/actions/buildAllAndDeploy` is live on merge and will affect the very next prod release, even if no app code changed.
 
 ```bash
-git diff "$LAST_TAG"..HEAD --name-only | grep -E '^\.github/workflows/' | grep -v '^dag'
-git diff "$LAST_TAG"..HEAD -- '.github/workflows/' | grep -v '^dag' | head -60
+# Check for changes to the shared build action (HIGH RISK — affects prod on next release)
+git diff "$LAST_TAG"..HEAD --name-only | grep -E '^\.github/actions/'
+git diff "$LAST_TAG"..HEAD -- '.github/actions/' | head -60
+
+# Check for changes to deploy/release/e2e workflows
+git diff "$LAST_TAG"..HEAD --name-only | grep -E '^\.github/workflows/' | grep -v '/dag'
+git diff "$LAST_TAG"..HEAD -- '.github/workflows/' | grep -v '/dag' | head -40
 ```
 
-Flag any changes to release, deploy, or e2e workflows — these could affect the release process itself.
+Flag any `buildAllAndDeploy` changes as `[BUILD-ACTION]` with a note that they are already live and will affect this release's deploy. Flag other workflow changes as `[CI]`.
 
 ---
 
@@ -157,7 +164,8 @@ RISK FLAGS  [if none, say "None found"]
   [DEPS] Dependency changes: <summary or "none">
   [PIPELINE] DAGs to rerun post-deploy: <list or "none">
   [CONTRACT] Potential API/data contract breaks: <summary or "none">
-  [CI] Workflow changes: <summary or "none">
+  [BUILD-ACTION] buildAllAndDeploy changes (live now, affects this release's deploy): <summary or "none">
+  [CI] Other workflow changes: <summary or "none">
 
 RECOMMENDATION
   <one sentence: safe to release / release with caution / hold — and why>
