@@ -26,14 +26,37 @@ Store `$LAST_TAG` for all subsequent steps.
 
 ## Step 2 — Categorize commits
 
-Separate the unreleased commits into:
+The authoritative deploy path list comes from `deployInfraTest.yml`'s `paths:` filter:
 
-1. **User-facing** — `feat`, `fix` commits touching `frontend/`, `server/`, `python/`, `exporter/`
-2. **Pipeline/data** — any commit touching `python/datasources/`, `python/ingestion/`, `run_ingestion/`, `run_gcs_to_bq/`, or `dag*.yml` workflows
-3. **Infra/config** — commits touching `terraform/`, `*.yml` workflows (non-dag), `Dockerfile*`, `server/`, `.env*`, `variables.tf`, `cloud_run_config*`
-4. **Live on merge, no release needed** — commits only touching `.claude/`, `CLAUDE.md`, or `.github/workflows/` (these take effect on merge, not at release time; do not list them as user-facing changes)
+```
+config/  data/  server/  server_smoke_tests/
+exporter/  python/  requirements/
+run_gcs_to_bq/  run_ingestion/  frontend/
+```
 
-Print a grouped summary. Be explicit that tooling-only commits do not affect the deployed application.
+A commit is **deployed** (reaches prod via release) only if any of its changed files fall under those paths. Everything else is already live on merge.
+
+Separate unreleased commits into:
+
+1. **App/user-facing** — changed files under the deploy paths above (these ship at release time)
+2. **Pipeline/data** — subset of the above touching `python/datasources/`, `python/ingestion/`, `run_ingestion/`, `run_gcs_to_bq/`
+3. **Live on merge already** — changed files entirely outside the deploy paths (`.claude/`, `CLAUDE.md`, `.github/workflows/`, root docs, etc.); omit from the release changelog
+
+To categorize each commit, check its diff paths:
+
+```bash
+git log "$LAST_TAG"..HEAD --oneline | while read sha rest; do
+  paths=$(git diff-tree --no-commit-id -r --name-only "$sha")
+  deployed=$(echo "$paths" | grep -E '^(config|data|server|server_smoke_tests|exporter|python|requirements|run_gcs_to_bq|run_ingestion|frontend)/')
+  if [ -z "$deployed" ]; then
+    echo "LIVE-ON-MERGE $sha $rest"
+  else
+    echo "DEPLOYED      $sha $rest"
+  fi
+done
+```
+
+Print a grouped summary. Be explicit that live-on-merge commits are already in effect and do not appear in a GitHub release's user-facing changelog.
 
 ---
 
