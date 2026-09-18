@@ -31,7 +31,7 @@ Separate the unreleased commits into:
 1. **User-facing** — `feat`, `fix` commits touching `frontend/`, `server/`, `python/`, `exporter/`
 2. **Pipeline/data** — any commit touching `python/datasources/`, `python/ingestion/`, `run_ingestion/`, `run_gcs_to_bq/`, or `dag*.yml` workflows
 3. **Infra/config** — commits touching `terraform/`, `*.yml` workflows (non-dag), `Dockerfile*`, `server/`, `.env*`, `variables.tf`, `cloud_run_config*`
-4. **Tooling only** — commits only touching `.claude/`, `CLAUDE.md`, or similar non-deployed paths (these do NOT ship to users)
+4. **Live on merge, no release needed** — commits only touching `.claude/`, `CLAUDE.md`, or `.github/workflows/` (these take effect on merge, not at release time; do not list them as user-facing changes)
 
 Print a grouped summary. Be explicit that tooling-only commits do not affect the deployed application.
 
