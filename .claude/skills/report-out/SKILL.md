@@ -55,7 +55,7 @@ Skim subject lines and first 200 chars of each thread. Flag any that represent:
 Use `mcp__google_drive__list_recent_files` or search for documents modified in the period. Flag slide decks, reports, proposals, or methodology docs.
 
 ### Slack — het-core team channel
-Use `mcp__plugin_slack_slack__slack_read_channel` with `channel_id: "C02A2RWN53L"` (het-core). Read enough messages to cover the reporting period — paginate with `cursor` if needed. Convert `DATE_START` and `DATE_END` to Unix timestamps for the `oldest`/`latest` params.
+Use `mcp__plugin_slack_slack__slack_read_channel` with the het-core channel ID (stored in memory as [[reference-slack-het-core]]). Read enough messages to cover the reporting period — paginate with `cursor` if needed. Convert `DATE_START` and `DATE_END` to Unix timestamps for the `oldest`/`latest` params.
 
 Skim for:
 - Grant or funding discussions (new opportunities, submissions, decisions)
