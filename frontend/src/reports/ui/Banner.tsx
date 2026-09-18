@@ -64,7 +64,7 @@ const Banner: React.FC = () => {
           </p>
           <a
             href={LIMITATIONS_HREF}
-            className='mx-2 inline-flex items-center gap-0.5 whitespace-nowrap font-bold font-sans-title text-alt-green text-text underline'
+            className='mx-2 inline-flex items-center gap-0.5 whitespace-nowrap font-bold font-sans-title text-alt-green text-text no-underline'
           >
             {LIMITATIONS_LINK_TEXT}
             <ArrowForward fontSize='inherit' />
