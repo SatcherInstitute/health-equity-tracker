@@ -54,6 +54,20 @@ Skim subject lines and first 200 chars of each thread. Flag any that represent:
 ### Google Drive — documents
 Use `mcp__google_drive__list_recent_files` or search for documents modified in the period. Flag slide decks, reports, proposals, or methodology docs.
 
+### Slack — het-core team channel
+Use `mcp__plugin_slack_slack__slack_read_channel` with the het-core channel ID (stored in memory as [[reference-slack-het-core]]). Read enough messages to cover the reporting period — paginate with `cursor` if needed. Convert `DATE_START` and `DATE_END` to Unix timestamps for the `oldest`/`latest` params; pass `inclusive: true` and discard any messages whose timestamp is >= `DATE_END`.
+
+For each top-level message that looks substantively relevant, call `mcp__plugin_slack_slack__slack_read_thread` with that message's `message_ts` to capture threaded replies — key strategic discussions often live in threads, not the top-level history.
+
+Skim for:
+- Grant or funding discussions (new opportunities, submissions, decisions)
+- Partnership or stakeholder conversations
+- Demos, events, or conference mentions
+- Significant team decisions or pivots not visible in GitHub
+- Anything the user flagged as notable that didn't land in PRs or email
+
+Skip: routine standup check-ins, reactions-only threads, and banter with no project substance. The goal is surfacing strategic context the GitHub/email data would miss.
+
 ---
 
 ## Step 3 — Cluster and triage the PRs
