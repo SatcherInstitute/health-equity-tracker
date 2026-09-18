@@ -364,5 +364,3 @@ export function getAllDemographicOptions(
     disabledDemographicOptions,
   }
 }
-
-export { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../data/query/MetricQuery'

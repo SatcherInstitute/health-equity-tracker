@@ -157,4 +157,36 @@ describe('IncarcerationProvider', () => {
       ['acs_population-sex_national_current'],
     )
   })
+
+  test('alls fallback strips unrequested columns', async () => {
+    // insurance_status has no BJS national dataset, triggering the alls fallback path.
+    // Regression: UniversalProvider must call removeUnrequestedColumns on this path.
+    const allsId: DatasetId = 'bjs_incarceration_data-alls_national_current'
+    dataFetcher.setFakeDatasetLoaded(allsId, [
+      {
+        state_fips: '00',
+        state_name: 'United States',
+        insurance_status: 'All',
+        prison_per_100k: 200,
+        jail_per_100k: 99,
+      },
+    ])
+
+    const provider = new IncarcerationProvider()
+    const breakdowns = Breakdowns.forFips(new Fips('00'))
+    const response = await provider.getData(
+      new MetricQuery(
+        ['prison_per_100k'],
+        breakdowns.addBreakdown('insurance_status'),
+        'prison',
+        'current',
+        'rate-chart',
+      ),
+    )
+
+    expect(response.data).toHaveLength(1)
+    expect(response.data[0]).toHaveProperty('prison_per_100k')
+    expect(response.data[0]).not.toHaveProperty('jail_per_100k')
+    expect(response.usedAllsFallback).toBe(true)
+  })
 })

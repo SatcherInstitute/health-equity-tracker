@@ -90,6 +90,9 @@ export function getDataFetcher(): DataFetcher {
   return globals.dataFetcher!
 }
 
+// Providers should use getDataManagerRef() from data/loading/dataManagerRef.ts, not
+// this function, to avoid recreating the UniversalProvider → globals → DataManager →
+// VariableProviderMap → providers cycle.
 export function getDataManager(): DataManager {
   assertInitialized()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
