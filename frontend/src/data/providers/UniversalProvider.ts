@@ -3,9 +3,14 @@ import type {
   DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
 import type { MetricId } from '../config/MetricConfigTypes'
+import { getDataManagerRef } from '../loading/dataManagerRef'
 import type { ProviderId } from '../loading/VariableProviderMap'
 import type { Breakdowns } from '../query/Breakdowns'
-import type { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import {
+  type MetricQuery,
+  MetricQueryResponse,
+  resolveDatasetId,
+} from '../query/MetricQuery'
 import type { HetRow } from '../utils/DatasetTypes'
 import type { StateFipsCode } from '../utils/FipsData'
 import VariableProvider from './VariableProvider'
@@ -73,15 +78,6 @@ class UniversalProvider extends VariableProvider {
     const { datasetName, tablePrefix = '' } =
       this.config.getDatasetDetails(metricQuery)
 
-    // Lazy imports break two circular chains:
-    // 1. UniversalProvider → MetricQuery → reportUtils → providers → UniversalProvider
-    // 2. globals → DataManager → VariableProviderMap → providers → UniversalProvider
-    const [{ resolveDatasetId, MetricQueryResponse }, { getDataManager }] =
-      await Promise.all([
-        import('../query/MetricQuery'),
-        import('../../utils/globals'),
-      ])
-
     const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
       datasetName,
       tablePrefix,
@@ -95,7 +91,7 @@ class UniversalProvider extends VariableProvider {
       (!isFallbackId && !this.config.skipFipsAppend)
         ? appendFipsIfNeeded(datasetId, breakdowns)
         : datasetId
-    const dataset = await getDataManager().loadDataset(specificDatasetId)
+    const dataset = await getDataManagerRef().loadDataset(specificDatasetId)
     let df: HetRow[] = dataset.rows as HetRow[]
 
     const consumedDatasetIds = this.config.getConsumedDatasetIds(

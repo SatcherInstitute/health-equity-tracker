@@ -44,7 +44,6 @@ import {
 import { COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/VaccineProvider'
 import type { DemographicType } from '../data/query/Breakdowns'
 import type { Fips } from '../data/utils/Fips'
-import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 const DEMOGRAPHIC_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   'Race/Ethnicity': 'race_and_ethnicity',
@@ -366,9 +365,4 @@ export function getAllDemographicOptions(
   }
 }
 
-export const CARDS_THAT_SHOULD_FALLBACK_TO_ALLS: ScrollableHashId[] = [
-  'rate-map',
-  'rates-over-time',
-  'rate-chart',
-  'data-table',
-]
+export { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../data/query/MetricQuery'
