@@ -1,12 +1,7 @@
-import { getDataManager } from '../../utils/globals'
 import type { MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
-import VariableProvider from './VariableProvider'
+import type { ProviderId } from '../loading/VariableProviderMap'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 const GUN_DEATHS_BLACK_MEN_METRIC_IDS: MetricId[] = [
   'gun_homicides_black_men_estimated_total',
@@ -28,59 +23,25 @@ export const BLACK_MEN_RESTRICTED_DEMOGRAPHIC_DETAILS_URBANICITY = [
   ['City Size', 'unavailable for when comparing these topics'],
 ]
 
-class GunViolenceBlackMenProvider extends VariableProvider {
+const GUN_DEATHS_BLACK_MEN_CONFIG: DataSourceConfig = {
+  getDatasetDetails: () => ({
+    datasetName: 'cdc_wisqars_black_men_data',
+    tablePrefix: 'black_men_by_',
+  }),
+  getConsumedDatasetIds: (mainId) => [mainId],
+  allowsBreakdowns: (breakdowns) =>
+    ['state', 'national'].includes(breakdowns.geography) &&
+    breakdowns.hasExactlyOneDemographic(),
+}
+
+const PROVIDER_ID: ProviderId = 'gun_violence_black_men_provider'
+
+class GunViolenceBlackMenProvider extends UniversalProvider {
   constructor() {
-    super('gun_violence_black_men_provider', GUN_DEATHS_BLACK_MEN_METRIC_IDS)
-  }
-
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    try {
-      const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
-        'cdc_wisqars_black_men_data',
-        'black_men_by_',
-        metricQuery,
-      )
-
-      if (!datasetId) {
-        return new MetricQueryResponse([], [])
-      }
-
-      const gunViolenceBlackMenData =
-        await getDataManager().loadDataset(datasetId)
-      let df = gunViolenceBlackMenData.rows
-
-      df = this.filterByGeo(df, breakdowns)
-      df = this.renameGeoColumns(df, breakdowns)
-      if (isFallbackId) {
-        df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-      } else {
-        df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      }
-      df = this.removeUnrequestedColumns(df, metricQuery)
-
-      const consumedDatasetIds = [datasetId]
-      return new MetricQueryResponse(
-        df,
-        consumedDatasetIds,
-        undefined,
-        !!isFallbackId,
-      )
-    } catch (error) {
-      console.error('Error fetching gun homicides of Black men data:', error)
-      throw error
-    }
-  }
-
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
-      breakdowns.hasExactlyOneDemographic()
-
-    return (
-      (breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
-      validDemographicBreakdownRequest
+    super(
+      PROVIDER_ID,
+      GUN_DEATHS_BLACK_MEN_METRIC_IDS,
+      GUN_DEATHS_BLACK_MEN_CONFIG,
     )
   }
 }

@@ -1,12 +1,6 @@
-import { getDataManager } from '../../utils/globals'
+import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-
-import type { Breakdowns } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
+import type { ProviderId } from '../loading/VariableProviderMap'
 import {
   AIAN_API_W,
   AIANNH_W,
@@ -21,8 +15,9 @@ import {
   UNKNOWN_W,
   UNREPRESENTED,
 } from '../utils/Constants'
-import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
-import VariableProvider from './VariableProvider'
+import { addAcsIdToConsumed } from '../utils/datasetutils'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 const CAWP_CONGRESS_COUNTS: MetricId[] = [
   'women_this_race_us_congress_count',
@@ -30,7 +25,7 @@ const CAWP_CONGRESS_COUNTS: MetricId[] = [
 ]
 
 const CAWP_CONGRESS_METRICS: MetricId[] = [
-  'cawp_population_pct', // needed for pct_share disparity comparison at county level
+  'cawp_population_pct',
   'congressional_districts',
   'pct_share_of_us_congress',
   'pct_share_of_women_us_congress',
@@ -89,33 +84,11 @@ export const CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Sex', reason],
 ]
 
-class CawpProvider extends VariableProvider {
-  constructor() {
-    super('cawp_provider', CAWP_METRICS)
-  }
-
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    const timeView = metricQuery.timeView
-    const { datasetId, isFallbackId, breakdowns } = resolveDatasetId(
-      'cawp_data',
-      '',
-      metricQuery,
-    )
-    if (!datasetId) {
-      return new MetricQueryResponse([], [])
-    }
-    const specificDatasetId = isFallbackId
-      ? datasetId
-      : appendFipsIfNeeded(datasetId, breakdowns)
-    const cawp = await getDataManager().loadDataset(specificDatasetId)
-    let df = cawp.rows
-
-    df = this.filterByGeo(df, breakdowns)
-    df = this.renameGeoColumns(df, breakdowns)
-
-    const consumedDatasetIds = [datasetId]
+const CAWP_CONFIG: DataSourceConfig = {
+  getDatasetDetails: () => ({ datasetName: 'cawp_data' }),
+  getConsumedDatasetIds: (mainId, metricQuery, breakdowns) => {
+    const consumedDatasetIds: DatasetId[] = [mainId]
+    const { timeView } = metricQuery
 
     // no population numbers used for rates, only comparison pop. and pct_rel_inequity
     if (
@@ -125,55 +98,45 @@ class CawpProvider extends VariableProvider {
       ) ||
       metricQuery.metricIds.includes('women_state_leg_pct_relative_inequity')
     ) {
-      if (metricQuery.breakdowns.filterFips?.isIslandArea()) {
-        // all CAWP island areas use DECIA_2020
+      if (breakdowns.filterFips?.isIslandArea()) {
         consumedDatasetIds.push(
           'decia_2020_territory_population-race_and_ethnicity_state_current',
         )
-
-        // CAWP time-series also use DECIA_2010
         if (timeView === 'historical') {
           consumedDatasetIds.push(
             'decia_2010_territory_population-race_and_ethnicity_state_current',
           )
         }
       } else {
-        // Non-Island Areas use ACS
         addAcsIdToConsumed(metricQuery, consumedDatasetIds)
       }
     }
+
     if (metricQuery.metricIds.includes('pct_share_of_us_congress')) {
       consumedDatasetIds.push('the_unitedstates_project')
     }
-    if (isFallbackId) {
-      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-    } else {
-      df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    }
-    df = this.removeUnrequestedColumns(df, metricQuery)
-    return new MetricQueryResponse(
-      df,
-      consumedDatasetIds,
-      undefined,
-      !!isFallbackId,
-    )
-  }
 
-  allowsBreakdowns(breakdowns: Breakdowns, metricIds?: MetricId[]): boolean {
-    // non-race demographics resolve to the alls fallback datasets
-    const validDemographicBreakdownRequest =
-      breakdowns.hasExactlyOneDemographic()
+    return consumedDatasetIds
+  },
+  allowsBreakdowns: (breakdowns, metricIds) => {
     const isValidCountyRequest =
       breakdowns.geography === 'county' &&
       (!metricIds ||
         metricIds.every((id) => CAWP_CONGRESS_METRICS.includes(id)))
-
     return (
       (isValidCountyRequest ||
         breakdowns.geography === 'state' ||
         breakdowns.geography === 'national') &&
-      validDemographicBreakdownRequest
+      breakdowns.hasExactlyOneDemographic()
     )
+  },
+}
+
+const PROVIDER_ID: ProviderId = 'cawp_provider'
+
+class CawpProvider extends UniversalProvider {
+  constructor() {
+    super(PROVIDER_ID, CAWP_METRICS, CAWP_CONFIG)
   }
 }
 

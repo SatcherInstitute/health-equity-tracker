@@ -1,28 +1,85 @@
-import { getDataManager } from '../../utils/globals'
 import {
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
   AGE_ADJUST_COVID_HOSP_US_SETTING,
 } from '../../utils/internalRoutes'
+import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId } from '../config/MetricConfigTypes'
-import type { Breakdowns } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
+import type { ProviderId } from '../loading/VariableProviderMap'
 import { dropRecentPartialMonth } from '../utils/DatasetTimeUtils'
-import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
-import VariableProvider from './VariableProvider'
+import type { HetRow } from '../utils/DatasetTypes'
+import { addAcsIdToConsumed } from '../utils/datasetutils'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 export const dataTypeLinkMap: Partial<Record<DataTypeId, string>> = {
   covid_deaths: AGE_ADJUST_COVID_DEATHS_US_SETTING,
   covid_hospitalizations: AGE_ADJUST_COVID_HOSP_US_SETTING,
 }
-class CdcCovidProvider extends VariableProvider {
+
+const CDC_COVID_CONFIG: DataSourceConfig = {
+  getDatasetDetails: () => ({ datasetName: 'cdc_restricted_data' }),
+  getConsumedDatasetIds: (mainId, metricQuery, breakdowns) => {
+    const consumedDatasetIds: DatasetId[] = [mainId]
+    const isIslandArea = breakdowns.filterFips?.isIslandArea()
+
+    // TODO: this should be a reusable function that can work for all Providers
+    if (isIslandArea) {
+      if (breakdowns.hasOnlyRace()) {
+        if (breakdowns.geography === 'state') {
+          consumedDatasetIds.push(
+            'decia_2020_territory_population-race_and_ethnicity_state_current',
+          )
+        }
+        if (breakdowns.geography === 'county') {
+          consumedDatasetIds.push(
+            'decia_2020_territory_population-race_and_ethnicity_county_current',
+          )
+        }
+      }
+      if (breakdowns.hasOnlySex()) {
+        if (breakdowns.geography === 'state') {
+          consumedDatasetIds.push(
+            'decia_2020_territory_population-sex_state_current',
+          )
+        }
+        if (breakdowns.geography === 'county') {
+          consumedDatasetIds.push(
+            'decia_2020_territory_population-sex_county_current',
+          )
+        }
+      }
+      if (breakdowns.hasOnlyAge()) {
+        if (breakdowns.geography === 'state') {
+          consumedDatasetIds.push(
+            'decia_2020_territory_population-age_state_current',
+          )
+        }
+        if (breakdowns.geography === 'county') {
+          consumedDatasetIds.push(
+            'decia_2020_territory_population-age_county_current',
+          )
+        }
+      }
+    } else {
+      addAcsIdToConsumed(metricQuery, consumedDatasetIds)
+    }
+
+    return consumedDatasetIds
+  },
+  allowsBreakdowns: (breakdowns) => breakdowns.hasExactlyOneDemographic(),
+  transformRows: (rows, metricQuery) =>
+    metricQuery.timeView === 'historical'
+      ? dropRecentPartialMonth(rows)
+      : (rows as HetRow[]),
+}
+
+const PROVIDER_ID: ProviderId = 'cdc_covid_provider'
+
+class CdcCovidProvider extends UniversalProvider {
   constructor() {
     super(
-      'cdc_covid_provider',
+      PROVIDER_ID,
       [
         'covid_cases',
         'covid_deaths',
@@ -44,105 +101,9 @@ class CdcCovidProvider extends VariableProvider {
         'covid_deaths_pct_relative_inequity',
         'covid_hosp_pct_relative_inequity',
       ], // TODO: remove unused items here; migrate to a COVID_METRICS or similar like other providers
+      CDC_COVID_CONFIG,
     )
-  }
-
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
-      'cdc_restricted_data',
-      '',
-      metricQuery,
-    )
-    const { timeView } = metricQuery
-
-    if (!datasetId) {
-      return new MetricQueryResponse([], [])
-    }
-
-    const specificDatasetId = isFallbackId
-      ? datasetId
-      : appendFipsIfNeeded(datasetId, breakdowns)
-    const covidDataset = await getDataManager().loadDataset(specificDatasetId)
-    const consumedDatasetIds = [datasetId]
-    let df = covidDataset.rows
-
-    df = this.filterByGeo(df, breakdowns)
-
-    if (df.length === 0) {
-      return new MetricQueryResponse([], consumedDatasetIds)
-    }
-    df = this.renameGeoColumns(df, breakdowns)
-
-    if (timeView === 'historical') {
-      df = dropRecentPartialMonth(df)
-    }
-
-    /* We use DECIA_2020 populations OR ACS on the backend; add the correct id so footer is correct */
-    const isIslandArea = breakdowns.filterFips?.isIslandArea()
-
-    // TODO: this should be a reusable function that can work for all Providers
-    if (isIslandArea) {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'state') {
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-race_and_ethnicity_state_current',
-          )
-        }
-        if (breakdowns.geography === 'county') {
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-race_and_ethnicity_county_current',
-          )
-        }
-      }
-
-      if (breakdowns.hasOnlySex()) {
-        if (breakdowns.geography === 'state') {
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-sex_state_current',
-          )
-        }
-        if (breakdowns.geography === 'county') {
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-sex_county_current',
-          )
-        }
-      }
-
-      if (breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === 'state') {
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-age_state_current',
-          )
-        }
-        if (breakdowns.geography === 'county') {
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-age_county_current',
-          )
-        }
-      }
-    } else {
-      addAcsIdToConsumed(metricQuery, consumedDatasetIds)
-    }
-
-    if (isFallbackId) {
-      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-    } else {
-      df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    }
-    df = this.removeUnrequestedColumns(df, metricQuery)
-
-    return new MetricQueryResponse(
-      df,
-      consumedDatasetIds,
-      undefined,
-      !!isFallbackId,
-    )
-  }
-
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return breakdowns.hasExactlyOneDemographic()
   }
 }
+
 export default CdcCovidProvider

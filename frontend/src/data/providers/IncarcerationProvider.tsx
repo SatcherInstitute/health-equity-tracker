@@ -1,14 +1,9 @@
-import { getDataManager } from '../../utils/globals'
+import type { DatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
-
-import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
-import VariableProvider from './VariableProvider'
+import type { ProviderId } from '../loading/VariableProviderMap'
+import { addAcsIdToConsumed } from '../utils/datasetutils'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 // states with combined prison and jail systems
 export const COMBINED_INCARCERATION_STATES_LIST = [
@@ -47,38 +42,15 @@ const INCARCERATION_METRIC_IDS: MetricId[] = [
   'incarceration_population_estimated_total',
 ]
 
-class IncarcerationProvider extends VariableProvider {
-  constructor() {
-    super('incarceration_provider', INCARCERATION_METRIC_IDS)
-  }
-
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    const bq_dataset =
-      metricQuery.breakdowns.geography === 'county'
+const INCARCERATION_CONFIG: DataSourceConfig = {
+  getDatasetDetails: ({ breakdowns }) => ({
+    datasetName:
+      breakdowns.geography === 'county'
         ? 'vera_incarceration_county'
-        : 'bjs_incarceration_data'
-
-    const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
-      bq_dataset,
-      '',
-      metricQuery,
-    )
-
-    if (!datasetId) {
-      return new MetricQueryResponse([], [])
-    }
-    const specificDatasetId = isFallbackId
-      ? datasetId
-      : appendFipsIfNeeded(datasetId, breakdowns)
-    const dataSource = await getDataManager().loadDataset(specificDatasetId)
-    let df = dataSource.rows
-
-    df = this.filterByGeo(df, breakdowns)
-    df = this.renameGeoColumns(df, breakdowns)
-
-    const consumedDatasetIds = [datasetId]
+        : 'bjs_incarceration_data',
+  }),
+  getConsumedDatasetIds: (mainId, metricQuery, breakdowns) => {
+    const consumedDatasetIds: DatasetId[] = [mainId]
 
     // everything uses ACS except county-level reports and territory-reports
     if (
@@ -108,30 +80,18 @@ class IncarcerationProvider extends VariableProvider {
       }
     }
 
-    if (isFallbackId) {
-      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-    } else {
-      df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      df = this.removeUnrequestedColumns(df, metricQuery)
-    }
-    return new MetricQueryResponse(
-      df,
-      consumedDatasetIds,
-      undefined,
-      !!isFallbackId,
-    )
-  }
+    return consumedDatasetIds
+  },
+  allowsBreakdowns: (breakdowns) =>
+    ['national', 'state', 'county'].includes(breakdowns.geography) &&
+    breakdowns.hasExactlyOneDemographic(),
+}
 
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
-      breakdowns.hasExactlyOneDemographic()
+const PROVIDER_ID: ProviderId = 'incarceration_provider'
 
-    return (
-      (breakdowns.geography === 'national' ||
-        breakdowns.geography === 'state' ||
-        breakdowns.geography === 'county') &&
-      validDemographicBreakdownRequest
-    )
+class IncarcerationProvider extends UniversalProvider {
+  constructor() {
+    super(PROVIDER_ID, INCARCERATION_METRIC_IDS, INCARCERATION_CONFIG)
   }
 }
 

@@ -1,11 +1,7 @@
 import type { MetricId } from '../config/MetricConfigTypes'
 import type { ProviderId } from '../loading/VariableProviderMap'
 import type { Breakdowns } from '../query/Breakdowns'
-import {
-  createMissingDataResponse,
-  type MetricQuery,
-  type MetricQueryResponse,
-} from '../query/MetricQuery'
+import type { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { TIME_PERIOD } from '../utils/Constants'
 import type { HetRow } from '../utils/DatasetTypes'
@@ -21,6 +17,8 @@ abstract class VariableProvider {
 
   async getData(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
     if (!this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.metricIds)) {
+      // Lazy import breaks circular chain: VariableProvider → MetricQuery → reportUtils → providers → VariableProvider
+      const { createMissingDataResponse } = await import('../query/MetricQuery')
       return createMissingDataResponse(
         'Breakdowns not supported for provider ' +
           this.providerId +

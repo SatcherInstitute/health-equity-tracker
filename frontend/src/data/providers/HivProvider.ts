@@ -1,13 +1,7 @@
-import { getDataManager } from '../../utils/globals'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
-import VariableProvider from './VariableProvider'
+import type { ProviderId } from '../loading/VariableProviderMap'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 export const DATATYPES_NEEDING_13PLUS: DataTypeId[] = [
   'hiv_care',
@@ -84,67 +78,28 @@ export const HIV_METRICS: MetricId[] = [
   ...PREVALENCE_METRICS,
   ...GENDER_METRICS,
   ...STIGMA_METRICS,
-  // population shares and counts of 13+
   'hiv_population_pct',
   'hiv_population',
 ]
 
-class HivProvider extends VariableProvider {
-  constructor() {
-    super('hiv_provider', HIV_METRICS)
-  }
-
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
-      'cdc_hiv_data',
-      '',
-      metricQuery,
-    )
-
-    if (!datasetId) {
-      return new MetricQueryResponse([], [])
-    }
-    const consumedDatasetIds = [datasetId]
-    const specificDatasetId = isFallbackId
-      ? datasetId
-      : appendFipsIfNeeded(datasetId, breakdowns)
-    const hiv = await getDataManager().loadDataset(specificDatasetId)
-    let df = hiv.rows
-    df = this.filterByGeo(df, breakdowns)
-    df = this.renameGeoColumns(df, breakdowns)
-
-    if (isFallbackId) {
-      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-    } else {
-      df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    }
-    df = this.removeUnrequestedColumns(df, metricQuery)
-    return new MetricQueryResponse(
-      df,
-      consumedDatasetIds,
-      undefined,
-      !!isFallbackId,
-    )
-  }
-
-  allowsBreakdowns(breakdowns: Breakdowns, metricIds: MetricId[]): boolean {
-    const validDemographicBreakdownRequest =
-      breakdowns.hasExactlyOneDemographic()
-
-    const hasNoCountyData = metricIds.some((metricId) =>
-      DEATHS_METRICS.includes(metricId),
-    )
-
+const HIV_CONFIG: DataSourceConfig = {
+  getDatasetDetails: () => ({ datasetName: 'cdc_hiv_data' }),
+  getConsumedDatasetIds: (mainId) => [mainId],
+  allowsBreakdowns: (breakdowns, metricIds = []) => {
+    const hasNoCountyData = metricIds.some((id) => DEATHS_METRICS.includes(id))
     return hasNoCountyData
-      ? (breakdowns.geography === 'state' ||
-          breakdowns.geography === 'national') &&
-          validDemographicBreakdownRequest
-      : (breakdowns.geography === 'county' ||
-          breakdowns.geography === 'state' ||
-          breakdowns.geography === 'national') &&
-          validDemographicBreakdownRequest
+      ? ['state', 'national'].includes(breakdowns.geography) &&
+          breakdowns.hasExactlyOneDemographic()
+      : ['county', 'state', 'national'].includes(breakdowns.geography) &&
+          breakdowns.hasExactlyOneDemographic()
+  },
+}
+
+const PROVIDER_ID: ProviderId = 'hiv_provider'
+
+class HivProvider extends UniversalProvider {
+  constructor() {
+    super(PROVIDER_ID, HIV_METRICS, HIV_CONFIG)
   }
 }
 

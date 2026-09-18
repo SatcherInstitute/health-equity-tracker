@@ -1,12 +1,7 @@
-import { getDataManager } from '../../utils/globals'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
-import VariableProvider from './VariableProvider'
+import type { ProviderId } from '../loading/VariableProviderMap'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 export const CDC_CANCER_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
   'breast_cancer_incidence',
@@ -64,64 +59,25 @@ export const CDC_CANCER_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS = [
   ],
 ]
 
-class CdcCancerProvider extends VariableProvider {
+// NCI county data is a single file (not split by state), so we skip the FIPS append
+// that would otherwise try to load a state-partitioned file that does not exist.
+const CDC_CANCER_CONFIG: DataSourceConfig = {
+  getDatasetDetails: ({ breakdowns }) => ({
+    datasetName:
+      breakdowns.geography === 'county' ? 'nci_cancer' : 'cdc_wonder_data',
+  }),
+  getConsumedDatasetIds: (mainId) => [mainId],
+  allowsBreakdowns: (breakdowns) =>
+    ['county', 'state', 'national'].includes(breakdowns.geography) &&
+    breakdowns.hasExactlyOneDemographic(),
+  skipFipsAppend: true,
+}
+
+const PROVIDER_ID: ProviderId = 'cdc_cancer_provider'
+
+class CdcCancerProvider extends UniversalProvider {
   constructor() {
-    super('cdc_cancer_provider', CDC_CANCER_METRICS)
-  }
-
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    try {
-      const bq_dataset =
-        metricQuery.breakdowns.geography === 'county'
-          ? 'nci_cancer'
-          : 'cdc_wonder_data'
-
-      const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
-        bq_dataset,
-        '',
-        metricQuery,
-      )
-      if (!datasetId) {
-        return new MetricQueryResponse([], [])
-      }
-
-      const cancerData = await getDataManager().loadDataset(datasetId)
-      let df = cancerData.rows
-
-      df = this.filterByGeo(df, breakdowns)
-      df = this.renameGeoColumns(df, breakdowns)
-      if (isFallbackId) {
-        df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-      } else {
-        df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      }
-      df = this.removeUnrequestedColumns(df, metricQuery)
-
-      const consumedDatasetIds = [datasetId]
-      return new MetricQueryResponse(
-        df,
-        consumedDatasetIds,
-        undefined,
-        !!isFallbackId,
-      )
-    } catch (error) {
-      console.error('Error fetching cancer data:', error)
-      throw error
-    }
-  }
-
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
-      breakdowns.hasExactlyOneDemographic()
-
-    return (
-      (breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national' ||
-        breakdowns.geography === 'county') &&
-      validDemographicBreakdownRequest
-    )
+    super(PROVIDER_ID, CDC_CANCER_METRICS, CDC_CANCER_CONFIG)
   }
 }
 

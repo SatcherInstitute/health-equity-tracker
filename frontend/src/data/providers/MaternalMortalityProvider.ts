@@ -1,12 +1,7 @@
-import { getDataManager } from '../../utils/globals'
 import type { MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
-import VariableProvider from './VariableProvider'
+import type { ProviderId } from '../loading/VariableProviderMap'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 const MATERNAL_MORTALITY_METRIC_IDS: MetricId[] = [
   'maternal_mortality_per_100k',
@@ -21,64 +16,19 @@ export const MATERNAL_MORTALITY_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Sex', 'unavailable for Maternal Mortality'],
 ]
 
-class MaternalMortalityProvider extends VariableProvider {
+const MATERNAL_MORTALITY_CONFIG: DataSourceConfig = {
+  getDatasetDetails: () => ({ datasetName: 'maternal_mortality_data' }),
+  getConsumedDatasetIds: (mainId) => [mainId],
+  allowsBreakdowns: (breakdowns) =>
+    ['state', 'national'].includes(breakdowns.geography) &&
+    breakdowns.hasExactlyOneDemographic(),
+}
+
+const PROVIDER_ID: ProviderId = 'maternal_mortality_provider'
+
+class MaternalMortalityProvider extends UniversalProvider {
   constructor() {
-    super('maternal_mortality_provider', MATERNAL_MORTALITY_METRIC_IDS)
-  }
-
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    try {
-      const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
-        'maternal_mortality_data',
-        '',
-        metricQuery,
-      )
-
-      if (!datasetId) {
-        return new MetricQueryResponse([], [])
-      }
-
-      const maternalMortalityDataset =
-        await getDataManager().loadDataset(datasetId)
-      const consumedDatasetIds = [datasetId]
-      let df = maternalMortalityDataset.rows
-      df = this.filterByGeo(df, breakdowns)
-
-      if (df.length === 0) {
-        return new MetricQueryResponse([], consumedDatasetIds)
-      }
-      df = this.renameGeoColumns(df, breakdowns)
-
-      if (isFallbackId) {
-        df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-      } else {
-        df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      }
-      df = this.removeUnrequestedColumns(df, metricQuery)
-
-      return new MetricQueryResponse(
-        df,
-        consumedDatasetIds,
-        undefined,
-        !!isFallbackId,
-      )
-    } catch (error) {
-      console.error('Error fetching maternal mortality data:', error)
-      throw error
-    }
-  }
-
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
-      breakdowns.hasExactlyOneDemographic()
-
-    return (
-      (breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
-      validDemographicBreakdownRequest
-    )
+    super(PROVIDER_ID, MATERNAL_MORTALITY_METRIC_IDS, MATERNAL_MORTALITY_CONFIG)
   }
 }
 

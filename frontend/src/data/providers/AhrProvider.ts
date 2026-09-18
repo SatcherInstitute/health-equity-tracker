@@ -1,16 +1,10 @@
-import { getDataManager } from '../../utils/globals'
 import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
-import type { DropdownVarId } from '../config/DropDownIds'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../config/MetricConfigBehavioralHealth'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
-import VariableProvider from './VariableProvider'
+import type { ProviderId } from '../loading/VariableProviderMap'
+import type { MetricQuery } from '../query/MetricQuery'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 const CHR_DATATYPE_IDS_ONLY_ALLS: DataTypeId[] = [
   'diabetes',
@@ -29,7 +23,7 @@ export const CHR_DATATYPE_IDS: DataTypeId[] = [
   ...CHR_DATATYPE_IDS_BY_RACE,
 ]
 
-export const AHR_CONDITIONS: DropdownVarId[] = [
+export const AHR_CONDITIONS = [
   'asthma',
   'avoided_care',
   'cardiovascular_diseases',
@@ -135,75 +129,6 @@ export const CHR_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Sex', 'unavailable at the county level'],
 ]
 
-class AhrProvider extends VariableProvider {
-  constructor() {
-    super('ahr_provider', [
-      'ahr_population_pct',
-      ...AHR_METRICS,
-      ...AHR_VOTER_AGE_METRICS,
-      ...AHR_DECADE_PLUS_5_AGE_METRICS,
-      ...CHR_METRICS,
-    ])
-  }
-
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    const { isChr, categoryPrefix } = getDatasetDetails(metricQuery)
-    const { datasetId, isFallbackId, breakdowns } = resolveDatasetId(
-      isChr ? 'chr_data' : 'graphql_ahr_data',
-      isChr ? '' : categoryPrefix,
-      metricQuery,
-    )
-
-    if (!datasetId) {
-      return new MetricQueryResponse([], [])
-    }
-    const specificDatasetId = isFallbackId
-      ? datasetId
-      : appendFipsIfNeeded(datasetId, breakdowns)
-    const ahr = await getDataManager().loadDataset(specificDatasetId)
-    let df = ahr.rows
-
-    const consumedDatasetIds = [datasetId]
-
-    df = this.filterByGeo(df, breakdowns)
-    df = this.renameGeoColumns(df, breakdowns)
-
-    if (isFallbackId) {
-      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-    } else {
-      df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    }
-    df = this.removeUnrequestedColumns(df, metricQuery)
-
-    return new MetricQueryResponse(
-      df,
-      consumedDatasetIds,
-      undefined,
-      !!isFallbackId,
-    )
-  }
-
-  allowsBreakdowns(breakdowns: Breakdowns, metricIds?: MetricId[]): boolean {
-    const isValidCountyRequest =
-      breakdowns.geography === 'county' &&
-      metricIds?.some((metricId) => CHR_METRICS.includes(metricId))
-
-    const validDemographicBreakdownRequest =
-      breakdowns.hasExactlyOneDemographic()
-
-    return (
-      (isValidCountyRequest ||
-        breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
-      validDemographicBreakdownRequest
-    )
-  }
-}
-
-export default AhrProvider
-
 function getDatasetDetails(metricQuery: MetricQuery) {
   const { dataTypeId, breakdowns } = metricQuery
   if (
@@ -213,16 +138,56 @@ function getDatasetDetails(metricQuery: MetricQuery) {
   )
     return { isChr: true, categoryPrefix: '' }
 
-  const currentDropdown: DropdownVarId | undefined =
+  const currentDropdown =
     dataTypeId && getParentDropdownFromDataTypeId(dataTypeId)
-
   const isBehavioralHealth =
     currentDropdown &&
     BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.includes(currentDropdown as any)
-
   const categoryPrefix = isBehavioralHealth
     ? 'behavioral_health_'
     : 'non-behavioral_health_'
 
   return { isChr: false, categoryPrefix }
 }
+
+const AHR_CONFIG: DataSourceConfig = {
+  getDatasetDetails: (metricQuery) => {
+    const { isChr, categoryPrefix } = getDatasetDetails(metricQuery)
+    return {
+      datasetName: isChr ? 'chr_data' : 'graphql_ahr_data',
+      tablePrefix: isChr ? '' : categoryPrefix,
+    }
+  },
+  getConsumedDatasetIds: (mainId) => [mainId],
+  allowsBreakdowns: (breakdowns, metricIds) => {
+    const isValidCountyRequest =
+      breakdowns.geography === 'county' &&
+      metricIds?.some((id) => CHR_METRICS.includes(id))
+    return (
+      (isValidCountyRequest ||
+        breakdowns.geography === 'state' ||
+        breakdowns.geography === 'national') &&
+      breakdowns.hasExactlyOneDemographic()
+    )
+  },
+}
+
+const PROVIDER_ID: ProviderId = 'ahr_provider'
+
+class AhrProvider extends UniversalProvider {
+  constructor() {
+    super(
+      PROVIDER_ID,
+      [
+        'ahr_population_pct',
+        ...AHR_METRICS,
+        ...AHR_VOTER_AGE_METRICS,
+        ...AHR_DECADE_PLUS_5_AGE_METRICS,
+        ...CHR_METRICS,
+      ],
+      AHR_CONFIG,
+    )
+  }
+}
+
+export default AhrProvider

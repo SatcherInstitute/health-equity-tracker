@@ -1,13 +1,8 @@
-import { getDataManager } from '../../utils/globals'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
-import VariableProvider from './VariableProvider'
+import type { ProviderId } from '../loading/VariableProviderMap'
+import type { HetRow } from '../utils/DatasetTypes'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
   'gun_violence_homicide',
@@ -52,96 +47,55 @@ const GUN_VIOLENCE_METRIC_IDS: MetricId[] = [
   'gun_violence_legal_intervention_estimated_total',
 ]
 
-class GunViolenceProvider extends VariableProvider {
-  constructor() {
-    super('gun_violence_provider', GUN_VIOLENCE_METRIC_IDS)
-  }
+function isChrRequest(metricQuery: {
+  dataTypeId?: DataTypeId
+  breakdowns: { geography: string }
+}) {
+  return (
+    metricQuery.dataTypeId === 'gun_deaths' &&
+    metricQuery.breakdowns.geography === 'county'
+  )
+}
 
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    try {
-      const { breakdowns } = metricQuery
+const GUN_VIOLENCE_CONFIG: DataSourceConfig = {
+  getDatasetDetails: (metricQuery) => {
+    const isMiovd =
+      (metricQuery.dataTypeId === 'gun_violence_homicide' ||
+        metricQuery.dataTypeId === 'gun_violence_suicide') &&
+      metricQuery.breakdowns.geography === 'county'
 
-      const isChr =
-        metricQuery.dataTypeId === 'gun_deaths' &&
-        breakdowns.geography === 'county'
+    const datasetName = isMiovd
+      ? 'cdc_miovd_data'
+      : isChrRequest(metricQuery)
+        ? 'chr_data'
+        : 'cdc_wisqars_data'
 
-      const isMiovd =
-        (metricQuery.dataTypeId === 'gun_violence_homicide' ||
-          metricQuery.dataTypeId === 'gun_violence_suicide') &&
-        breakdowns.geography === 'county'
-
-      let datasetName: string
-      if (isMiovd) {
-        datasetName = 'cdc_miovd_data'
-      } else if (isChr) {
-        datasetName = 'chr_data'
-      } else {
-        datasetName = 'cdc_wisqars_data'
-      }
-
-      const { datasetId, isFallbackId } = resolveDatasetId(
-        datasetName,
-        '',
-        metricQuery,
-      )
-
-      if (!datasetId) {
-        return new MetricQueryResponse([], [])
-      }
-
-      const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
-
-      const gunViolenceData =
-        await getDataManager().loadDataset(specificDatasetId)
-      let df = gunViolenceData.rows
-
-      df = this.filterByGeo(df, breakdowns)
-      df = this.renameGeoColumns(df, breakdowns)
-      if (isChr) {
-        df = df.map(
-          ({
-            chr_population_pct,
-            chr_population_estimated_total,
-            ...rest
-          }) => ({
-            ...rest,
-            fatal_population_pct: chr_population_pct,
-            fatal_population: chr_population_estimated_total,
-          }),
-        )
-      }
-      if (isFallbackId) {
-        df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-      } else {
-        df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      }
-      df = this.removeUnrequestedColumns(df, metricQuery)
-
-      const consumedDatasetIds = [datasetId]
-      return new MetricQueryResponse(
-        df,
-        consumedDatasetIds,
-        undefined,
-        !!isFallbackId,
-      )
-    } catch (error) {
-      console.error('Error fetching gun deaths data:', error)
-      throw error
-    }
-  }
-
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
-      breakdowns.hasExactlyOneDemographic()
-
-    return (
-      (breakdowns.geography === 'county' ||
-        breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
-      validDemographicBreakdownRequest
+    return { datasetName }
+  },
+  getConsumedDatasetIds: (mainId) => [mainId],
+  allowsBreakdowns: (breakdowns) =>
+    ['county', 'state', 'national'].includes(breakdowns.geography) &&
+    breakdowns.hasExactlyOneDemographic(),
+  // County alls datasets are still split by state FIPS, so always append even on fallback.
+  alwaysFipsAppend: true,
+  // CHR county data uses different population column names than other sources.
+  transformRows: (rows, metricQuery) => {
+    if (!isChrRequest(metricQuery)) return rows as HetRow[]
+    return rows.map(
+      ({ chr_population_pct, chr_population_estimated_total, ...rest }) => ({
+        ...rest,
+        fatal_population_pct: chr_population_pct,
+        fatal_population: chr_population_estimated_total,
+      }),
     )
+  },
+}
+
+const PROVIDER_ID: ProviderId = 'gun_violence_provider'
+
+class GunViolenceProvider extends UniversalProvider {
+  constructor() {
+    super(PROVIDER_ID, GUN_VIOLENCE_METRIC_IDS, GUN_VIOLENCE_CONFIG)
   }
 }
 

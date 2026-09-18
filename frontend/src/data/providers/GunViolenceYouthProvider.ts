@@ -1,12 +1,7 @@
-import { getDataManager } from '../../utils/globals'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
-import VariableProvider from './VariableProvider'
+import type { ProviderId } from '../loading/VariableProviderMap'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 // TODO: ideally we should fix on the backend to clarify: `youth` is the parent category, that combines both `children` (ages 0-17) and `young_adults` (ages 18-25)
 
@@ -45,59 +40,22 @@ const GUN_VIOLENCE_YOUTH_METRICS = [
   ...GUN_DEATHS_YOUNG_ADULTS_METRIC_IDS,
 ]
 
-class GunViolenceYouthProvider extends VariableProvider {
+const GUN_VIOLENCE_YOUTH_CONFIG: DataSourceConfig = {
+  getDatasetDetails: () => ({
+    datasetName: 'cdc_wisqars_youth_data',
+    tablePrefix: 'youth_by_',
+  }),
+  getConsumedDatasetIds: (mainId) => [mainId],
+  allowsBreakdowns: (breakdowns) =>
+    ['state', 'national'].includes(breakdowns.geography) &&
+    breakdowns.hasExactlyOneDemographic(),
+}
+
+const PROVIDER_ID: ProviderId = 'gun_violence_youth_provider'
+
+class GunViolenceYouthProvider extends UniversalProvider {
   constructor() {
-    super('gun_violence_youth_provider', GUN_VIOLENCE_YOUTH_METRICS)
-  }
-
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    try {
-      const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
-        'cdc_wisqars_youth_data',
-        'youth_by_',
-        metricQuery,
-      )
-
-      if (!datasetId) {
-        return new MetricQueryResponse([], [])
-      }
-
-      const gunViolenceYouthData = await getDataManager().loadDataset(datasetId)
-      let df = gunViolenceYouthData.rows
-
-      df = this.filterByGeo(df, breakdowns)
-      df = this.renameGeoColumns(df, breakdowns)
-      if (isFallbackId) {
-        df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-      } else {
-        df = this.applyDemographicBreakdownFilters(df, breakdowns)
-      }
-      df = this.removeUnrequestedColumns(df, metricQuery)
-
-      const consumedDatasetIds = [datasetId]
-      return new MetricQueryResponse(
-        df,
-        consumedDatasetIds,
-        undefined,
-        !!isFallbackId,
-      )
-    } catch (error) {
-      console.error('Error fetching gun deaths of youth data:', error)
-      throw error
-    }
-  }
-
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
-      breakdowns.hasExactlyOneDemographic()
-
-    return (
-      (breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
-      validDemographicBreakdownRequest
-    )
+    super(PROVIDER_ID, GUN_VIOLENCE_YOUTH_METRICS, GUN_VIOLENCE_YOUTH_CONFIG)
   }
 }
 

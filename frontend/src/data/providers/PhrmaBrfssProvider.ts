@@ -1,13 +1,7 @@
-import { getDataManager } from '../../utils/globals'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
-import type { Breakdowns } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
-import { appendFipsIfNeeded } from '../utils/datasetutils'
-import VariableProvider from './VariableProvider'
+import type { ProviderId } from '../loading/VariableProviderMap'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 export const PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
   'breast_cancer_screening',
@@ -70,59 +64,19 @@ export const PHRMA_BRFSS_RESTRICTED_DEMOGRAPHIC_WITH_SEX_DETAILS = [
   ],
 ]
 
-class PhrmaBrfssProvider extends VariableProvider {
+const PHRMA_BRFSS_CONFIG: DataSourceConfig = {
+  getDatasetDetails: () => ({ datasetName: 'phrma_brfss_data' }),
+  getConsumedDatasetIds: (mainId) => [mainId],
+  allowsBreakdowns: (breakdowns) =>
+    ['state', 'national'].includes(breakdowns.geography) &&
+    breakdowns.hasExactlyOneDemographic(),
+}
+
+const PROVIDER_ID: ProviderId = 'phrma_brfss_provider'
+
+class PhrmaBrfssProvider extends UniversalProvider {
   constructor() {
-    super('phrma_brfss_provider', PHRMA_BRFSS_METRICS)
-  }
-
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    const { breakdowns, datasetId, isFallbackId } = resolveDatasetId(
-      'phrma_brfss_data',
-      '',
-      metricQuery,
-    )
-
-    if (!datasetId) {
-      return new MetricQueryResponse([], [])
-    }
-
-    const specificDatasetId = isFallbackId
-      ? datasetId
-      : appendFipsIfNeeded(datasetId, breakdowns)
-
-    const phrma = await getDataManager().loadDataset(specificDatasetId)
-    let df = phrma.rows
-
-    df = this.filterByGeo(df, breakdowns)
-    df = this.renameGeoColumns(df, breakdowns)
-
-    if (isFallbackId) {
-      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-    } else {
-      df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    }
-    df = this.removeUnrequestedColumns(df, metricQuery)
-
-    const consumedDatasetIds = [datasetId]
-    return new MetricQueryResponse(
-      df,
-      consumedDatasetIds,
-      undefined,
-      !!isFallbackId,
-    )
-  }
-
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
-      breakdowns.hasExactlyOneDemographic()
-
-    return (
-      (breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
-      validDemographicBreakdownRequest
-    )
+    super(PROVIDER_ID, PHRMA_BRFSS_METRICS, PHRMA_BRFSS_CONFIG)
   }
 }
 

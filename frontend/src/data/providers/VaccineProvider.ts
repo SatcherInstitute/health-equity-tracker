@@ -1,12 +1,9 @@
-import { getDataManager } from '../../utils/globals'
-import type { Breakdowns, GeographicBreakdown } from '../query/Breakdowns'
-import {
-  type MetricQuery,
-  MetricQueryResponse,
-  resolveDatasetId,
-} from '../query/MetricQuery'
-import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
-import VariableProvider from './VariableProvider'
+import type { DatasetId } from '../config/DatasetMetadata'
+import type { ProviderId } from '../loading/VariableProviderMap'
+import type { GeographicBreakdown } from '../query/Breakdowns'
+import { addAcsIdToConsumed } from '../utils/datasetutils'
+import type { DataSourceConfig } from './UniversalProvider'
+import UniversalProvider from './UniversalProvider'
 
 const reason =
   'demographics for COVID vaccination unavailable at state and county levels'
@@ -23,79 +20,46 @@ const datasetNameMappings: Record<GeographicBreakdown, string> = {
   county: 'cdc_vaccination_county',
 }
 
-class VaccineProvider extends VariableProvider {
-  constructor() {
-    super('vaccine_provider', [
-      'acs_vaccinated_pop_pct',
-      'vaccinated_pct_share',
-      'vaccinated_pct_rate',
-      'vaccinated_pop_pct',
-      'vaccinated_estimated_total',
-    ])
-  }
-
-  async getDataInternal(
-    metricQuery: MetricQuery,
-  ): Promise<MetricQueryResponse> {
-    const bqDatasetName = datasetNameMappings[metricQuery.breakdowns.geography]
-
-    const { datasetId, isFallbackId, breakdowns } = resolveDatasetId(
-      bqDatasetName,
-      '',
-      metricQuery,
-    )
-
-    if (!datasetId) {
-      return new MetricQueryResponse([], [])
-    }
-
-    const specificDatasetId = isFallbackId
-      ? datasetId
-      : appendFipsIfNeeded(datasetId, breakdowns)
-    const vaxData = await getDataManager().loadDataset(specificDatasetId)
-    let df = vaxData.rows
-
-    df = this.filterByGeo(df, breakdowns)
-    df = this.renameGeoColumns(df, breakdowns)
-
-    const consumedDatasetIds = [datasetId]
-
+const VACCINE_CONFIG: DataSourceConfig = {
+  getDatasetDetails: ({ breakdowns }) => ({
+    datasetName: datasetNameMappings[breakdowns.geography],
+  }),
+  getConsumedDatasetIds: (mainId, metricQuery, breakdowns) => {
+    const consumedDatasetIds: DatasetId[] = [mainId]
     addAcsIdToConsumed(metricQuery, consumedDatasetIds)
 
     if (breakdowns.geography === 'state') {
-      if (breakdowns.filterFips === undefined) {
-        consumedDatasetIds.push(
-          'decia_2020_territory_population-race_and_ethnicity_state_current',
-        )
-      }
-      if (breakdowns.filterFips?.isIslandArea()) {
+      if (
+        breakdowns.filterFips === undefined ||
+        breakdowns.filterFips?.isIslandArea()
+      ) {
         consumedDatasetIds.push(
           'decia_2020_territory_population-race_and_ethnicity_state_current',
         )
       }
     }
 
-    if (isFallbackId) {
-      df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
-    } else {
-      df = this.applyDemographicBreakdownFilters(df, breakdowns)
-    }
-    df = this.removeUnrequestedColumns(df, metricQuery)
-    return new MetricQueryResponse(
-      df,
-      consumedDatasetIds,
-      undefined,
-      !!isFallbackId,
-    )
-  }
+    return consumedDatasetIds
+  },
+  allowsBreakdowns: (breakdowns) =>
+    ['national', 'state', 'county'].includes(breakdowns.geography) &&
+    breakdowns.hasExactlyOneDemographic(),
+}
 
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
-      breakdowns.hasExactlyOneDemographic()
+const PROVIDER_ID: ProviderId = 'vaccine_provider'
 
-    return (
-      ['national', 'state', 'county'].includes(breakdowns.geography) &&
-      validDemographicBreakdownRequest
+class VaccineProvider extends UniversalProvider {
+  constructor() {
+    super(
+      PROVIDER_ID,
+      [
+        'acs_vaccinated_pop_pct',
+        'vaccinated_pct_share',
+        'vaccinated_pct_rate',
+        'vaccinated_pop_pct',
+        'vaccinated_estimated_total',
+      ],
+      VACCINE_CONFIG,
     )
   }
 }
