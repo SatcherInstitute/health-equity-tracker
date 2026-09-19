@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 
 const LIMITATIONS_HREF = `${METHODOLOGY_PAGE_LINK}/limitations#missing-data`
-const LIMITATIONS_LINK_TEXT = 'About Data Limitations'
+const LIMITATIONS_LINK_TEXT = 'About data limitations'
 
 const Banner: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false)
