@@ -2,7 +2,7 @@ import type {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
-import type { MetricId } from '../config/MetricConfigTypes'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { getDataManagerRef } from '../loading/dataManagerRef'
 import type { ProviderId } from '../loading/VariableProviderMap'
 import type { Breakdowns } from '../query/Breakdowns'
@@ -25,7 +25,7 @@ export interface DataSourceConfig {
     metricQuery: MetricQuery,
     breakdowns: Breakdowns,
   ) => Array<DatasetId | DatasetIdWithStateFIPSCode>
-  allowsBreakdowns: (breakdowns: Breakdowns, metricIds?: MetricId[]) => boolean
+  allowsBreakdowns: (breakdowns: Breakdowns, dataTypeId?: DataTypeId) => boolean
   // Applied after renameGeoColumns, before the demographic cast/filter step.
   // Use for column remapping (GunViolence CHR) or time-based row filtering (CdcCovid).
   transformRows?: (
@@ -66,8 +66,8 @@ class UniversalProvider extends VariableProvider {
     this.config = config
   }
 
-  allowsBreakdowns(breakdowns: Breakdowns, metricIds?: MetricId[]): boolean {
-    return this.config.allowsBreakdowns(breakdowns, metricIds)
+  allowsBreakdowns(breakdowns: Breakdowns, dataTypeId?: DataTypeId): boolean {
+    return this.config.allowsBreakdowns(breakdowns, dataTypeId)
   }
 
   async getDataInternal(

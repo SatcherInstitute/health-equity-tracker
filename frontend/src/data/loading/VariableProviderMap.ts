@@ -70,16 +70,6 @@ const ACS_CONDITION_CONFIG: DataSourceConfig = {
 
 // ── AHR / CHR ─────────────────────────────────────────────────────────────────
 
-const CHR_METRICS: MetricId[] = [
-  'suicide_per_100k',
-  'voter_participation_pct_rate',
-  'diabetes_per_100k',
-  'excessive_drinking_pct_rate',
-  'frequent_mental_distress_per_100k',
-  'preventable_hospitalizations_per_100k',
-  'chr_population_pct',
-]
-
 function getAhrDatasetDetails(metricQuery: MetricQuery) {
   const { dataTypeId, breakdowns } = metricQuery
   if (
@@ -110,10 +100,11 @@ const AHR_CONFIG: DataSourceConfig = {
     }
   },
   getConsumedDatasetIds: (mainId) => [mainId],
-  allowsBreakdowns: (breakdowns, metricIds) => {
+  allowsBreakdowns: (breakdowns, dataTypeId) => {
     const isValidCountyRequest =
       breakdowns.geography === 'county' &&
-      metricIds?.some((id) => CHR_METRICS.includes(id))
+      !!dataTypeId &&
+      CHR_DATATYPE_IDS.includes(dataTypeId)
     return (
       (isValidCountyRequest ||
         breakdowns.geography === 'state' ||
@@ -124,16 +115,6 @@ const AHR_CONFIG: DataSourceConfig = {
 }
 
 // ── CAWP ─────────────────────────────────────────────────────────────────────
-
-const CAWP_CONGRESS_METRICS: MetricId[] = [
-  'cawp_population_pct',
-  'congressional_districts',
-  'pct_share_of_us_congress',
-  'pct_share_of_women_us_congress',
-  'women_us_congress_pct_relative_inequity',
-  'women_this_race_us_congress_count',
-  'total_us_congress_count',
-]
 
 const CAWP_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'cawp_data' }),
@@ -165,11 +146,9 @@ const CAWP_CONFIG: DataSourceConfig = {
     }
     return consumedDatasetIds
   },
-  allowsBreakdowns: (breakdowns, metricIds) => {
+  allowsBreakdowns: (breakdowns, dataTypeId) => {
     const isValidCountyRequest =
-      breakdowns.geography === 'county' &&
-      (!metricIds ||
-        metricIds.every((id) => CAWP_CONGRESS_METRICS.includes(id)))
+      breakdowns.geography === 'county' && dataTypeId === 'women_in_us_congress'
     return (
       (isValidCountyRequest ||
         breakdowns.geography === 'state' ||
@@ -462,22 +441,11 @@ const HIV_BLACK_WOMEN_CONFIG: DataSourceConfig = {
 
 // ── HIV ───────────────────────────────────────────────────────────────────────
 
-const HIV_DEATHS_METRICS: MetricId[] = [
-  'hiv_deaths_pct_relative_inequity',
-  'hiv_deaths_pct_share',
-  'hiv_deaths_per_100k',
-  'hiv_deaths_per_100k_is_suppressed',
-  'hiv_deaths_ratio_age_adjusted',
-  'hiv_deaths',
-]
-
 const HIV_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'cdc_hiv_data' }),
   getConsumedDatasetIds: (mainId) => [mainId],
-  allowsBreakdowns: (breakdowns, metricIds = []) => {
-    const hasNoCountyData = metricIds.some((id) =>
-      HIV_DEATHS_METRICS.includes(id),
-    )
+  allowsBreakdowns: (breakdowns, dataTypeId) => {
+    const hasNoCountyData = dataTypeId === 'hiv_deaths'
     return hasNoCountyData
       ? ['state', 'national'].includes(breakdowns.geography) &&
           breakdowns.hasExactlyOneDemographic()
@@ -665,7 +633,7 @@ export default class VariableProviderMap {
           ...AHR_METRICS,
           ...AHR_VOTER_AGE_METRICS,
           ...AHR_DECADE_PLUS_5_AGE_METRICS,
-          ...CHR_METRICS,
+          'chr_population_pct',
         ],
         AHR_CONFIG,
       ),
