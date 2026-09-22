@@ -454,7 +454,12 @@ async function capturePrompt(
     const path = join(outputDir, 'prompts', `${view.id}.txt`)
     writeFileSync(path, `${prompt}\n`)
     return relative(outputDir, path)
-  } catch {
+  } catch (error) {
+    // Say why on stderr. A dialog that changed shape would otherwise show as
+    // thirty PENDING rows with no hint that one selector is to blame.
+    const reason =
+      error instanceof Error ? error.message.split('\n')[0] : String(error)
+    console.error(`[${view.id}] prompt capture failed: ${reason}`)
     return null
   } finally {
     await page.keyboard.press('Escape').catch(() => {})
