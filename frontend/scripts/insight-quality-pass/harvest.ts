@@ -92,10 +92,14 @@ const OK_LABEL = 'No issues: none of the codes above applies'
 type Verdict = (typeof VERDICTS)[number] | 'PENDING'
 
 const DISCLOSURE = /AI-generated\. Click to report/
-// What the report panel shows in place of its sections when it cannot
-// generate: the ceiling or kill-switch notice, or the retryable error.
-const REPORT_NOTICE =
-  /Report summaries are not available|Unable to generate insight/
+// The report shows one notice when generation is off or at its ceiling and
+// another when a request failed. Only the first is a genuine absence; the
+// second means the view has not been judged and must be re-harvested.
+const REPORT_UNAVAILABLE = /Report summaries are not available/
+const REPORT_FAILED = /Unable to generate insight|Too many requests/
+// The one notice a card section shows in place of a sentence when the product
+// has decided, rather than failed, not to generate one.
+const SECTION_UNAVAILABLE = /Not enough comparable places/
 const PROMPT_TIMEOUT_MS = 20_000
 
 const USAGE = `Harvest generated insights for the launch quality pass (see README.md).
@@ -271,11 +275,10 @@ async function harvestView(
       await card.scrollIntoViewIfNeeded()
       await card.getByLabel('Generate insight').click()
       container = card.locator('div[role="status"]').first()
-      const outcome = await awaitInsight(container)
-      if (outcome)
+      const waited = await awaitInsight(container)
+      if (waited.outcome !== 'insight')
         return {
-          outcome: 'no-insight',
-          detail: outcome,
+          ...waited,
           screenshotPath: await screenshot(card, view, outputDir),
         }
       sections = [await readSection(container, 'insight')]
@@ -298,11 +301,10 @@ async function harvestView(
       container = page
         .locator('[role="status"][aria-label*="comparison insight"]')
         .first()
-      const outcome = await awaitInsight(container)
-      if (outcome)
+      const waited = await awaitInsight(container)
+      if (waited.outcome !== 'insight')
         return {
-          outcome: 'no-insight',
-          detail: outcome,
+          ...waited,
           screenshotPath: await screenshot(card, view, outputDir),
         }
       sections = [await readSection(container, 'insight')]
@@ -315,15 +317,19 @@ async function harvestView(
       // a terminal state instead: the sections, or the notice shown in their
       // place.
       const region = page.getByRole('region', { name: 'Report insights' })
-      const notice = page.getByText(REPORT_NOTICE).first()
+      const notice = page
+        .getByText(REPORT_UNAVAILABLE)
+        .or(page.getByText(REPORT_FAILED))
+        .first()
       await region.or(notice).first().waitFor({ timeout: INSIGHT_TIMEOUT_MS })
       if ((await region.count()) === 0) {
-        const shown =
+        const shown = (
           (await notice.textContent().catch(() => null)) ??
           'report panel rendered no sections'
+        ).trim()
         return {
-          outcome: 'no-insight',
-          detail: shown.trim(),
+          outcome: REPORT_UNAVAILABLE.test(shown) ? 'no-insight' : 'error',
+          detail: shown,
           screenshotPath: await screenshot(
             page.locator('#rate-map'),
             view,
@@ -371,19 +377,39 @@ async function harvestView(
   return { outcome: 'insight', sections, promptPath, screenshotPath }
 }
 
-// Resolves to null once an insight sentence is visible, or to the text the
-// container showed instead. Absence is a finding, not an exception: an empty
-// section is the expected shape of several different failures.
-async function awaitInsight(container: Locator): Promise<string | null> {
+type Waited =
+  | { outcome: 'insight' }
+  | { outcome: 'no-insight' | 'error'; detail: string }
+
+// Waits for an insight sentence and, when none arrives, says which kind of
+// absence this is. The card and contrast sections render nothing at all when
+// generation is off or at its ceiling, and the card says so when it has too
+// few peers to compare: both are genuine no-insight shapes that can be judged
+// as such. A section still loading, empty, or showing a failure notice is a
+// harvest failure: the view has not been judged, and the worksheet must leave
+// it PENDING rather than let a timeout read as a reviewed absence.
+async function awaitInsight(container: Locator): Promise<Waited> {
   try {
     await container
       .locator('[data-testid="insight-text"]')
       .first()
       .waitFor({ timeout: INSIGHT_TIMEOUT_MS })
-    return null
+    return { outcome: 'insight' }
   } catch {
-    const shown = (await container.textContent().catch(() => null))?.trim()
-    return shown || 'no insight section rendered'
+    if ((await container.count().catch(() => 0)) === 0)
+      return {
+        outcome: 'no-insight',
+        detail: 'insight section not rendered (generation unavailable)',
+      }
+    const shown =
+      (await container.textContent().catch(() => null))?.trim() ||
+      'empty insight section'
+    if (SECTION_UNAVAILABLE.test(shown))
+      return { outcome: 'no-insight', detail: shown }
+    return {
+      outcome: 'error',
+      detail: `no insight after ${INSIGHT_TIMEOUT_MS} ms; section showed: ${shown}`,
+    }
   }
 }
 
@@ -548,6 +574,12 @@ function renderColdRead(results: HarvestedView[], baseUrl: string): string {
         out.push(
           `> ${r.sections.length > 1 ? `**${s.label}.** ` : ''}${s.text}`,
         )
+    } else if (r.outcome === 'error') {
+      // Nothing to read, so nothing to answer: a harvest failure must not be
+      // mistaken for a view that genuinely showed no insight.
+      out.push(
+        `> _Harvest error (${r.detail ?? 'no detail'}). Leave unanswered; re-harvest this view with \`--only ${r.id}\` first._`,
+      )
     } else {
       out.push('> _No insight rendered for this view._')
     }

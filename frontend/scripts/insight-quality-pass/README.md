@@ -38,11 +38,13 @@ category together produces a percentage that hides the only failures that actual
 `SKIP`. The checkboxes decide it: any ticked B code is a `BLOCK` regardless of what is
 written, any ticked N code a `NONBLOCK`, and the `OK` box on its own a `PASS`. The `Verdict`
 line only needs editing to `SKIP` a view. A view
-that rendered no insight is a `NO_INSIGHT`, which is a finding in its own right (a silent
-empty section is the expected shape of several different failures) but not a quality
-failure. A harvest error (the page could not be opened, or the prompt could not be captured)
-is not a `NO_INSIGHT`: it stays `PENDING` until the view is re-harvested, because without the
-prompt rows there is nothing to check B1 and B4 against. Record passes as deliberately as failures: a pass rate with no denominator is not
+where the product declined to generate (the section never appeared, the card said it had too
+few peers to compare, or the report said summaries are not available) is a `NO_INSIGHT`,
+which is a finding in its own right but not a quality failure. A harvest error (the page
+could not be opened, the prompt could not be captured, or the section was still loading or
+showed a failure notice when the wait ran out) is not a `NO_INSIGHT`: it stays `PENDING`
+until the view is re-harvested, because nothing was judged and without the prompt rows
+there is nothing to check B1 and B4 against. Record passes as deliberately as failures: a pass rate with no denominator is not
 a baseline.
 
 **Decision rule.** `GO` when every view carries a verdict and no view is `BLOCK`. `NO-GO`
