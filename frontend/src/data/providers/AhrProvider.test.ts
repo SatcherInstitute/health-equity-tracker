@@ -26,9 +26,7 @@ async function ensureCorrectDatasetsDownloaded(
   isFallback?: boolean,
 ) {
   const ahrProvider = new VariableProviderMap().getProviderById('ahr_provider')
-  const specificId = isFallback
-    ? ahrDatasetId
-    : appendFipsIfNeeded(ahrDatasetId, baseBreakdown)
+  const specificId = appendFipsIfNeeded(ahrDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificId, [])
 
   // Evaluate the response with requesting "All" field

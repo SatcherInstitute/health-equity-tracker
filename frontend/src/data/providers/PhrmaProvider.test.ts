@@ -82,4 +82,31 @@ describe('PhrmaProvider', () => {
       AGE,
     )
   })
+
+  test('County alls fallback loads state-split file', async () => {
+    const phrmaProvider = new VariableProviderMap().getProviderById(
+      'phrma_provider',
+    )
+    // 'income' has no phrma county dataset, so resolveDatasetId falls back to alls_county
+    const allsCountyBaseId: DatasetId = 'phrma_data-alls_county_current'
+    const countyBreakdown = Breakdowns.forFips(new Fips('02999'))
+    const allsCountyStateSplitId = appendFipsIfNeeded(
+      allsCountyBaseId,
+      countyBreakdown,
+    )
+    dataFetcher.setFakeDatasetLoaded(allsCountyStateSplitId, [])
+
+    await phrmaProvider.getData(
+      new MetricQuery(
+        [],
+        countyBreakdown.addBreakdown('income'),
+        undefined,
+        'current',
+        'rate-chart',
+      ),
+    )
+
+    expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
+    expect(allsCountyStateSplitId).toContain('-02')
+  })
 })

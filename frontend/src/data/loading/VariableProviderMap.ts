@@ -376,7 +376,6 @@ const GUN_VIOLENCE_CONFIG: DataSourceConfig = {
   allowsBreakdowns: (breakdowns) =>
     ['county', 'state', 'national'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),
-  alwaysFipsAppend: true,
   transformRows: (rows, metricQuery) => {
     if (!isChrGunRequest(metricQuery)) return rows as HetRow[]
     return rows.map(

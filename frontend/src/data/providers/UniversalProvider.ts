@@ -34,8 +34,6 @@ export interface DataSourceConfig {
   ) => HetRow[]
   // Set true when county data is not split by state FIPS (e.g. NCI cancer).
   skipFipsAppend?: boolean
-  // Set true when county fallback (alls) data IS still split by state FIPS (e.g. gun violence).
-  alwaysFipsAppend?: boolean
 }
 
 // Inlined here to avoid a circular dependency: datasetutils imports from AhrProvider
@@ -86,11 +84,9 @@ class UniversalProvider extends VariableProvider {
 
     if (!datasetId) return new MetricQueryResponse([], [])
 
-    const specificDatasetId =
-      this.config.alwaysFipsAppend ||
-      (!isFallbackId && !this.config.skipFipsAppend)
-        ? appendFipsIfNeeded(datasetId, breakdowns)
-        : datasetId
+    const specificDatasetId = this.config.skipFipsAppend
+      ? datasetId
+      : appendFipsIfNeeded(datasetId, breakdowns)
     const dataset = await getDataManagerRef().loadDataset(specificDatasetId)
     let df: HetRow[] = dataset.rows as HetRow[]
 
