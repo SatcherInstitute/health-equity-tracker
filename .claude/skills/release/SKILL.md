@@ -146,7 +146,9 @@ Fetch the commits between `DIFF_BASE` and HEAD:
 git log "$DIFF_BASE"..HEAD --oneline --no-merges
 ```
 
-Group them by prefix (`feat`, `fix`, `chore`, `docs`, `refactor`, etc.) and print a short summary:
+**Exclude tooling-only commits** — commits whose only changed paths are `.claude/`, `CLAUDE.md`, or similar non-deployed paths do not ship to users and should not appear in the user-facing summary. List them separately as "Tooling (not deployed)" if present.
+
+Group the remaining commits by prefix (`feat`, `fix`, `chore`, `docs`, `refactor`, etc.) and print a short summary:
 
 ```
 Ready to publish $NEW_TAG  (previous tag: $PREV_TAG, changelog from: $DIFF_BASE)

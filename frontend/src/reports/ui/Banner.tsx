@@ -1,14 +1,15 @@
+import ArrowForward from '@mui/icons-material/ArrowForward'
 import Close from '@mui/icons-material/Close'
 import { IconButton } from '@mui/material'
 import type React from 'react'
 import { useEffect, useState } from 'react'
-import HetTextArrowLink from '../../styles/HetComponents/HetTextArrowLink'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+
+const LIMITATIONS_HREF = `${METHODOLOGY_PAGE_LINK}/limitations#missing-data`
+const LIMITATIONS_LINK_TEXT = 'About data limitations'
 
 const Banner: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false)
-  const isMd = useIsBreakpointAndUp('md')
 
   useEffect(() => {
     const currentPath = window.location.pathname
@@ -37,40 +38,42 @@ const Banner: React.FC = () => {
 
   return (
     <section
-      className='bg-infobar-color px-4 py-1 text-center md:p-4'
-      aria-labelledby='banner-heading'
+      className='bg-infobar-color px-4 py-2 text-center lg:py-3'
+      aria-label='Major gaps in the data'
     >
-      <div className='flex justify-between'>
-        <div className='m-0 flex flex-wrap items-center justify-start px-2 md:items-center lg:flex-row lg:justify-start'>
-          <p
-            className='my-0 p-0 text-left text-small lg:mr-8'
-            id='banner-heading'
-          >
-            <span className='m-0 p-0 font-bold font-sans-title text-small lg:text-text'>
+      <div className='flex items-center justify-between'>
+        {/* Mobile / tablet: single inline paragraph */}
+        <p className='m-0 px-2 text-left text-small md:hidden'>
+          <span className='font-bold font-sans-title text-small'>
+            Major gaps in the data:
+          </span>{' '}
+          Structural racism causes health inequities in the U.S.{' '}
+          <a href={LIMITATIONS_HREF} className='text-alt-green underline'>
+            {LIMITATIONS_LINK_TEXT}
+          </a>
+        </p>
+
+        {/* Desktop: text + HetTextArrowLink on its own line */}
+        <div className='hidden items-center justify-start px-2 md:flex md:flex-row'>
+          <p className='my-0 p-0 text-left text-small lg:mr-8'>
+            <span className='font-bold font-sans-title lg:text-text'>
               Major gaps in the data:
             </span>{' '}
-            <span className='md:hidden'>
-              Structural racism causes health inequities in the U.S.
-            </span>
-            <span className='hidden md:inline'>
-              Structural racism causes health inequities. We’re closing these
-              gaps to improve U.S. health policies.
-            </span>
+            Structural racism causes health inequities. We&apos;re closing these
+            gaps to improve U.S. health policies.
           </p>
-          <HetTextArrowLink
-            link={`${METHODOLOGY_PAGE_LINK}/limitations#missing-data`}
-            linkText={
-              isMd
-                ? 'Learn more about the data limitations'
-                : 'About data limitations'
-            }
-            containerClassName='block md:mx-2 md:my-0 mx-0 my-0'
-            linkClassName='text-alt-black'
-          />
+          <a
+            href={LIMITATIONS_HREF}
+            className='mx-2 inline-flex items-center gap-0.5 whitespace-nowrap font-bold font-sans-title text-alt-green text-text no-underline'
+          >
+            {LIMITATIONS_LINK_TEXT}
+            <ArrowForward fontSize='inherit' />
+          </a>
         </div>
+
         <IconButton
           onClick={handleClose}
-          className='banner-close-button mb-auto p-2.5 md:my-auto'
+          className='banner-close-button self-center p-2.5'
           aria-label='Close banner'
           sx={{ borderRadius: 1 }}
         >
