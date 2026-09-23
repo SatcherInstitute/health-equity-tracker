@@ -123,6 +123,9 @@ class CHRData(DataSource):
                 std_col.POPULATION_COL: std_col.FATAL_POPULATION,
             }
         )
+        # Preserve CHR column names for AhrProvider compatibility
+        df[std_col.CHR_POPULATION_PCT] = df[std_col.FATAL_POPULATION_PCT]
+        df[std_col.CHR_POPULATION_RAW] = df[std_col.FATAL_POPULATION]
         std_col.swap_race_id_col_for_names_col(df)
 
         for timeview in [CURRENT, HISTORICAL]:
@@ -224,8 +227,16 @@ def get_float_cols() -> Dict[str, List[str]]:
     Returns:
         dict: A dictionary that maps the time period string to a list of needed numerical column names.
     """
-    current_float_cols = [std_col.FATAL_POPULATION, std_col.FATAL_POPULATION_PCT]
-    historical_float_cols = []
+    current_float_cols = [
+        std_col.FATAL_POPULATION,
+        std_col.FATAL_POPULATION_PCT,
+        std_col.CHR_POPULATION_RAW,
+        std_col.CHR_POPULATION_PCT,
+    ]
+    historical_float_cols = [
+        std_col.CHR_POPULATION_RAW,
+        std_col.CHR_POPULATION_PCT,
+    ]
 
     # Get all unique topic prefixes across all years
     all_topic_prefixes = get_all_topic_prefixes()
