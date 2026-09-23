@@ -15,6 +15,20 @@ import type { HetRow } from '../utils/DatasetTypes'
 import type { StateFipsCode } from '../utils/FipsData'
 import VariableProvider from './VariableProvider'
 
+// Describes which DECIA territory population dataset(s) UniversalProvider should
+// append to consumedDatasetIds when the query targets an island area (or all states).
+// Keeps island-area dataset handling out of individual DataSourceConfig callbacks.
+export interface IslandAreaPopulation {
+  // Demographic dimension of the DECIA dataset; 'by_query' mirrors the active breakdown.
+  demographic: 'race_and_ethnicity' | 'sex' | 'age' | 'by_query'
+  // DECIA dataset geography; 'by_query' mirrors the request geography.
+  geography: 'state' | 'county' | 'by_query'
+  // Also add DECIA when filterFips is undefined (all-states national state-level view).
+  includeAllStatesView?: boolean
+  // Also push the 2010 DECIA dataset for historical time views.
+  includeHistorical?: boolean
+}
+
 export interface DataSourceConfig {
   getDatasetDetails: (metricQuery: MetricQuery) => {
     datasetName: string
@@ -34,6 +48,11 @@ export interface DataSourceConfig {
   ) => HetRow[]
   // Set true when county data is not split by state FIPS (e.g. NCI cancer).
   skipFipsAppend?: boolean
+  // When set, UniversalProvider automatically appends the correct DECIA territory
+  // population dataset(s) to consumedDatasetIds for island-area (and optionally
+  // all-states) queries. Configs only need to guard addAcsIdToConsumed with
+  // !isIslandArea; they no longer hardcode DECIA dataset ID strings.
+  islandAreaPopulation?: IslandAreaPopulation
 }
 
 // Inlined here to avoid a circular dependency: datasetutils imports from AhrProvider
@@ -70,6 +89,43 @@ class UniversalProvider extends VariableProvider {
     return this.config.allowsBreakdowns(breakdowns, dataTypeId)
   }
 
+  private islandAreaConsumedIds(
+    breakdowns: Breakdowns,
+    metricQuery: MetricQuery,
+  ): DatasetId[] {
+    const cfg = this.config.islandAreaPopulation
+    if (!cfg) return []
+
+    const isIsland = breakdowns.filterFips?.isIslandArea() ?? false
+    const isAllStates = !breakdowns.filterFips
+    if (!isIsland && !(cfg.includeAllStatesView && isAllStates)) return []
+
+    const geo =
+      cfg.geography === 'by_query' ? breakdowns.geography : cfg.geography
+    if (geo === 'national') return []
+    if (cfg.geography !== 'by_query' && breakdowns.geography !== geo) return []
+
+    let demo: string
+    if (cfg.demographic === 'by_query') {
+      if (breakdowns.hasOnlyRace()) demo = 'race_and_ethnicity'
+      else if (breakdowns.hasOnlySex()) demo = 'sex'
+      else if (breakdowns.hasOnlyAge()) demo = 'age'
+      else return []
+    } else {
+      demo = cfg.demographic
+    }
+
+    const datasets: DatasetId[] = [
+      `decia_2020_territory_population-${demo}_${geo}_current` as DatasetId,
+    ]
+    if (cfg.includeHistorical && metricQuery.timeView === 'historical') {
+      datasets.push(
+        `decia_2010_territory_population-${demo}_${geo}_current` as DatasetId,
+      )
+    }
+    return datasets
+  }
+
   async getDataInternal(
     metricQuery: MetricQuery,
   ): Promise<MetricQueryResponse> {
@@ -90,11 +146,10 @@ class UniversalProvider extends VariableProvider {
     const dataset = await getDataManagerRef().loadDataset(specificDatasetId)
     let df: HetRow[] = dataset.rows as HetRow[]
 
-    const consumedDatasetIds = this.config.getConsumedDatasetIds(
-      datasetId,
-      metricQuery,
-      breakdowns,
-    )
+    const consumedDatasetIds = [
+      ...this.config.getConsumedDatasetIds(datasetId, metricQuery, breakdowns),
+      ...this.islandAreaConsumedIds(breakdowns, metricQuery),
+    ]
 
     df = this.filterByGeo(df, breakdowns)
 

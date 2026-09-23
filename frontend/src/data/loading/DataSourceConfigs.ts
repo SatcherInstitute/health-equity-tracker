@@ -108,26 +108,17 @@ export const CAWP_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'cawp_data' }),
   getConsumedDatasetIds: (mainId, metricQuery, breakdowns) => {
     const consumedDatasetIds: DatasetId[] = [mainId]
-    const { timeView } = metricQuery
     if (
-      metricQuery.metricIds.includes('cawp_population_pct') ||
-      metricQuery.metricIds.includes(
-        'women_us_congress_pct_relative_inequity',
-      ) ||
-      metricQuery.metricIds.includes('women_state_leg_pct_relative_inequity')
+      (metricQuery.metricIds.includes('cawp_population_pct') ||
+        metricQuery.metricIds.includes(
+          'women_us_congress_pct_relative_inequity',
+        ) ||
+        metricQuery.metricIds.includes(
+          'women_state_leg_pct_relative_inequity',
+        )) &&
+      !breakdowns.filterFips?.isIslandArea()
     ) {
-      if (breakdowns.filterFips?.isIslandArea()) {
-        consumedDatasetIds.push(
-          'decia_2020_territory_population-race_and_ethnicity_state_current',
-        )
-        if (timeView === 'historical') {
-          consumedDatasetIds.push(
-            'decia_2010_territory_population-race_and_ethnicity_state_current',
-          )
-        }
-      } else {
-        addAcsIdToConsumed(metricQuery, consumedDatasetIds)
-      }
+      addAcsIdToConsumed(metricQuery, consumedDatasetIds)
     }
     if (metricQuery.metricIds.includes('pct_share_of_us_congress')) {
       consumedDatasetIds.push('the_unitedstates_project')
@@ -143,6 +134,11 @@ export const CAWP_CONFIG: DataSourceConfig = {
         breakdowns.geography === 'national') &&
       breakdowns.hasExactlyOneDemographic()
     )
+  },
+  islandAreaPopulation: {
+    demographic: 'race_and_ethnicity',
+    geography: 'state',
+    includeHistorical: true,
   },
 }
 
@@ -226,39 +222,7 @@ export const CDC_COVID_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'cdc_restricted_data' }),
   getConsumedDatasetIds: (mainId, metricQuery, breakdowns) => {
     const consumedDatasetIds: DatasetId[] = [mainId]
-    const isIslandArea = breakdowns.filterFips?.isIslandArea()
-    if (isIslandArea) {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'state')
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-race_and_ethnicity_state_current',
-          )
-        if (breakdowns.geography === 'county')
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-race_and_ethnicity_county_current',
-          )
-      }
-      if (breakdowns.hasOnlySex()) {
-        if (breakdowns.geography === 'state')
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-sex_state_current',
-          )
-        if (breakdowns.geography === 'county')
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-sex_county_current',
-          )
-      }
-      if (breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === 'state')
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-age_state_current',
-          )
-        if (breakdowns.geography === 'county')
-          consumedDatasetIds.push(
-            'decia_2020_territory_population-age_county_current',
-          )
-      }
-    } else {
+    if (!breakdowns.filterFips?.isIslandArea()) {
       addAcsIdToConsumed(metricQuery, consumedDatasetIds)
     }
     return consumedDatasetIds
@@ -268,6 +232,7 @@ export const CDC_COVID_CONFIG: DataSourceConfig = {
     metricQuery.timeView === 'historical'
       ? dropRecentPartialMonth(rows)
       : (rows as HetRow[]),
+  islandAreaPopulation: { demographic: 'by_query', geography: 'by_query' },
 }
 
 // ── Geo Context ───────────────────────────────────────────────────────────────
@@ -499,26 +464,17 @@ export const INCARCERATION_CONFIG: DataSourceConfig = {
     ) {
       addAcsIdToConsumed(metricQuery, consumedDatasetIds)
     }
-    if (breakdowns.geography === 'state' && !breakdowns.filterFips) {
-      consumedDatasetIds.push(
-        'decia_2020_territory_population-sex_state_current',
-      )
-    }
-    if (breakdowns.filterFips?.isIslandArea()) {
-      consumedDatasetIds.push(
-        'decia_2020_territory_population-sex_state_current',
-      )
-      if (metricQuery.timeView === 'historical') {
-        consumedDatasetIds.push(
-          'decia_2010_territory_population-sex_state_current',
-        )
-      }
-    }
     return consumedDatasetIds
   },
   allowsBreakdowns: (breakdowns) =>
     ['national', 'state', 'county'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),
+  islandAreaPopulation: {
+    demographic: 'sex',
+    geography: 'state',
+    includeAllStatesView: true,
+    includeHistorical: true,
+  },
 }
 
 // ── Maternal Mortality ────────────────────────────────────────────────────────
@@ -616,22 +572,17 @@ export const VACCINE_CONFIG: DataSourceConfig = {
   getDatasetDetails: ({ breakdowns }) => ({
     datasetName: vaccineDatasetNameMappings[breakdowns.geography],
   }),
-  getConsumedDatasetIds: (mainId, metricQuery, breakdowns) => {
+  getConsumedDatasetIds: (mainId, metricQuery) => {
     const consumedDatasetIds: DatasetId[] = [mainId]
     addAcsIdToConsumed(metricQuery, consumedDatasetIds)
-    if (breakdowns.geography === 'state') {
-      if (
-        breakdowns.filterFips === undefined ||
-        breakdowns.filterFips?.isIslandArea()
-      ) {
-        consumedDatasetIds.push(
-          'decia_2020_territory_population-race_and_ethnicity_state_current',
-        )
-      }
-    }
     return consumedDatasetIds
   },
   allowsBreakdowns: (breakdowns) =>
     ['national', 'state', 'county'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),
+  islandAreaPopulation: {
+    demographic: 'race_and_ethnicity',
+    geography: 'state',
+    includeAllStatesView: true,
+  },
 }
