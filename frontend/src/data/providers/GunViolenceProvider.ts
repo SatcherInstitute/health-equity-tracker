@@ -99,19 +99,6 @@ class GunViolenceProvider extends VariableProvider {
 
       df = this.filterByGeo(df, breakdowns)
       df = this.renameGeoColumns(df, breakdowns)
-      if (isChr) {
-        df = df.map(
-          ({
-            chr_population_pct,
-            chr_population_estimated_total,
-            ...rest
-          }) => ({
-            ...rest,
-            fatal_population_pct: chr_population_pct,
-            fatal_population: chr_population_estimated_total,
-          }),
-        )
-      }
       if (isFallbackId) {
         df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
       } else {

@@ -10,7 +10,6 @@ import {
   MetricQueryResponse,
   resolveDatasetId,
 } from '../query/MetricQuery'
-import { dropRecentPartialMonth } from '../utils/DatasetTimeUtils'
 import { addAcsIdToConsumed, appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
@@ -55,8 +54,6 @@ class CdcCovidProvider extends VariableProvider {
       '',
       metricQuery,
     )
-    const { timeView } = metricQuery
-
     if (!datasetId) {
       return new MetricQueryResponse([], [])
     }
@@ -74,10 +71,6 @@ class CdcCovidProvider extends VariableProvider {
       return new MetricQueryResponse([], consumedDatasetIds)
     }
     df = this.renameGeoColumns(df, breakdowns)
-
-    if (timeView === 'historical') {
-      df = dropRecentPartialMonth(df)
-    }
 
     /* We use DECIA_2020 populations OR ACS on the backend; add the correct id so footer is correct */
     const isIslandArea = breakdowns.filterFips?.isIslandArea()
