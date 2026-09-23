@@ -17,7 +17,6 @@ import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { DataSourceConfig } from '../providers/UniversalProvider'
 import type { GeographicBreakdown } from '../query/Breakdowns'
 import type { MetricQuery } from '../query/MetricQuery'
-import { dropRecentPartialMonth } from '../utils/DatasetTimeUtils'
 import type { HetRow } from '../utils/DatasetTypes'
 import { addAcsIdToConsumed } from '../utils/datasetutils'
 
@@ -228,10 +227,7 @@ export const CDC_COVID_CONFIG: DataSourceConfig = {
     return consumedDatasetIds
   },
   allowsBreakdowns: (breakdowns) => breakdowns.hasExactlyOneDemographic(),
-  transformRows: (rows, metricQuery) =>
-    metricQuery.timeView === 'historical'
-      ? dropRecentPartialMonth(rows)
-      : (rows as HetRow[]),
+  transformRows: (rows) => rows as HetRow[],
   islandAreaPopulation: { demographic: 'by_query', geography: 'by_query' },
 }
 
