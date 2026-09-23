@@ -234,6 +234,8 @@ def get_float_cols() -> Dict[str, List[str]]:
         std_col.CHR_POPULATION_PCT,
     ]
     historical_float_cols = [
+        std_col.FATAL_POPULATION,
+        std_col.FATAL_POPULATION_PCT,
         std_col.CHR_POPULATION_RAW,
         std_col.CHR_POPULATION_PCT,
     ]
