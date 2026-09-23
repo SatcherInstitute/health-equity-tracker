@@ -136,6 +136,8 @@ class CHRData(DataSource):
             df_for_bq, float_cols = convert_some_pct_rate_to_100k(df, float_cols)
 
             topic_prefixes = get_all_topic_prefixes()
+            topic_prefixes.append("fatal")  # preserves fatal_population and fatal_population_pct
+            topic_prefixes.append("chr_population")  # preserves chr_population_pct and chr_population_estimated_total
 
             df_for_bq, col_types = dataset_utils.get_timeview_df_and_cols(df_for_bq, timeview, topic_prefixes)
 
