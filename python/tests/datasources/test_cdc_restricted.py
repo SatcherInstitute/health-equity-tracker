@@ -74,6 +74,7 @@ def testGenerateBreakdownSexStateTimeSeries():
 
     sortby_cols = list(df.columns)
 
+    # df.to_json(GOLDEN_DATA_BY_SEX_STATE_HISTORICAL, orient="records")
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
@@ -100,6 +101,7 @@ def testGenerateBreakdownSexCountyTimeSeries():
 
     sortby_cols = list(df.columns)
 
+    # df.to_json(GOLDEN_DATA_BY_SEX_COUNTY_HISTORICAL, orient="records")
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
@@ -125,6 +127,7 @@ def testGenerateBreakdownSexNationalTimeSeries():
 
     sortby_cols = list(df.columns)
 
+    # df.to_json(GOLDEN_DATA_BY_SEX_NATIONAL_HISTORICAL, orient="records")
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
