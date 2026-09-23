@@ -292,20 +292,3 @@ export function getElectionYearData(data: HetRow[]): HetRow[] {
   data = data.filter((row: HetRow) => row[TIME_PERIOD] % 4 === 0)
   return data
 }
-
-export function dropRecentPartialMonth(rows: readonly HetRow[]): HetRow[] {
-  const partialMonth = getMostRecentMonth(rows)
-  return rows.filter((row) => row.time_period !== partialMonth)
-}
-
-function getMostRecentMonth(rows: readonly HetRow[]): string {
-  if (rows.length === 0) return ''
-  const maxTimestamp = rows.reduce((max, row) => {
-    const t = new Date(`${row.time_period}-01`).getTime()
-    return t > max ? t : max
-  }, Number.NEGATIVE_INFINITY)
-  const maxDate = new Date(maxTimestamp)
-  const year = maxDate.getUTCFullYear()
-  const month = String(maxDate.getUTCMonth() + 1).padStart(2, '0')
-  return `${year}-${month}`
-}

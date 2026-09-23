@@ -123,7 +123,7 @@ class CHRData(DataSource):
                 std_col.POPULATION_COL: std_col.FATAL_POPULATION,
             }
         )
-        # Preserve CHR column names for AhrProvider compatibility
+        # TODO(#5266): remove once AhrProvider migrates to fatal_population_*
         df[std_col.CHR_POPULATION_PCT] = df[std_col.FATAL_POPULATION_PCT]
         df[std_col.CHR_POPULATION_RAW] = df[std_col.FATAL_POPULATION]
         std_col.swap_race_id_col_for_names_col(df)
