@@ -605,3 +605,17 @@ docker run -p 8080:8080 \
   -e WEBFLOW_API_TOKEN=... \
   het-server
 ```
+
+## Insight quality pass
+
+Flagging and the request logs are reactive: they describe an insight after a visitor has
+read it. The proactive check is the quality pass in `frontend/scripts/insight-quality-pass/`
+(`npm run insight-pass` from `frontend/`). It harvests a fixed 30-view set against
+production, records each sentence next to the prompt the server rendered for it, and
+produces a worksheet whose rubric splits blocking failures (a factual error, stigmatizing
+language, an unsupported causal claim, a revealed suppressed value: any one blocks launch)
+from non-blocking ones (empty, above reading level, awkward: rate recorded, not gated).
+`--tally` turns a filled worksheet into the go/no-go. The README there states the bar and
+the process; `results/` holds each committed pass. Run it after any template change in
+`insight_prompt*.go`, since a wording change displaces every cached insight it reaches and
+the new output has not been judged.
