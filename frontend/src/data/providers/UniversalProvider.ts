@@ -126,7 +126,9 @@ class UniversalProvider extends VariableProvider {
     const specificDatasetId = this.config.skipFipsAppend
       ? datasetId
       : appendFipsIfNeeded(datasetId, breakdowns)
-    const dataset = await getDataManagerRef().loadDataset(specificDatasetId)
+    const dataset = await getDataManagerRef(this.providerId).loadDataset(
+      specificDatasetId,
+    )
     let df: HetRow[] = dataset.rows as HetRow[]
 
     const consumedDatasetIds = [

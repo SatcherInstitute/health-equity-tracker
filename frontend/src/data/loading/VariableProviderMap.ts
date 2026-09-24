@@ -147,6 +147,11 @@ export default class VariableProviderMap {
     const metricsToProviderIds: Partial<Record<MetricId, ProviderId>> = {}
     this.providers.forEach((provider) => {
       provider.providesMetrics.forEach((varId) => {
+        if (import.meta.env.DEV && metricsToProviderIds[varId]) {
+          throw new Error(
+            `Duplicate MetricId "${varId}" claimed by "${metricsToProviderIds[varId]}" and "${provider.providerId}"`,
+          )
+        }
         metricsToProviderIds[varId] = provider.providerId
       })
     })

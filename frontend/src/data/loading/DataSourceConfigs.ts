@@ -1,5 +1,6 @@
 import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
 import type { DatasetId } from '../config/DatasetMetadata'
+import type { DropdownVarId } from '../config/DropDownIds'
 import {
   BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS,
   CHR_DATATYPE_IDS,
@@ -35,7 +36,9 @@ function getAhrDatasetDetails(metricQuery: MetricQuery) {
     dataTypeId && getParentDropdownFromDataTypeId(dataTypeId)
   const isBehavioralHealth =
     currentDropdown &&
-    BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.includes(currentDropdown as any)
+    (
+      BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS as readonly DropdownVarId[]
+    ).includes(currentDropdown)
   return {
     isChr: false,
     categoryPrefix: isBehavioralHealth
