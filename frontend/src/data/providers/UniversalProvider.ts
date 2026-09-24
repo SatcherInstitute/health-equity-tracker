@@ -12,7 +12,7 @@ import {
   resolveDatasetId,
 } from '../query/MetricQuery'
 import type { HetRow } from '../utils/DatasetTypes'
-import type { StateFipsCode } from '../utils/FipsData'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 // Describes which DECIA territory population dataset(s) UniversalProvider should
@@ -53,24 +53,6 @@ export interface DataSourceConfig {
   // all-states) queries. Configs only need to guard addAcsIdToConsumed with
   // !isIslandArea; they no longer hardcode DECIA dataset ID strings.
   islandAreaPopulation?: IslandAreaPopulation
-}
-
-// Inlined here to avoid a circular dependency: datasetutils imports from AhrProvider
-// and HivProvider, which both import UniversalProvider.
-function appendFipsIfNeeded(
-  baseId: DatasetId,
-  breakdowns: Breakdowns,
-): DatasetId | DatasetIdWithStateFIPSCode {
-  if (breakdowns.geography !== 'county') return baseId
-  const isCountyQueryFromStateLevelMap =
-    breakdowns.geography === 'county' &&
-    breakdowns.filterFips?.isStateOrTerritory()
-  const fipsToAppend: StateFipsCode | undefined = isCountyQueryFromStateLevelMap
-    ? breakdowns.filterFips?.code
-    : breakdowns?.filterFips?.getParentFips()?.code
-  return fipsToAppend
-    ? (`${baseId}-${fipsToAppend}` as DatasetIdWithStateFIPSCode)
-    : baseId
 }
 
 class UniversalProvider extends VariableProvider {

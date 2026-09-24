@@ -227,7 +227,6 @@ export const CDC_COVID_CONFIG: DataSourceConfig = {
     return consumedDatasetIds
   },
   allowsBreakdowns: (breakdowns) => breakdowns.hasExactlyOneDemographic(),
-  transformRows: (rows) => rows as HetRow[],
   islandAreaPopulation: { demographic: 'by_query', geography: 'by_query' },
 }
 
@@ -245,6 +244,9 @@ const decia2020DatasetMap: Partial<Record<GeographicBreakdown, DatasetId>> = {
   national: 'acs_population-sex_national_current',
 }
 
+// GEO_CONTEXT_CONFIG intentionally does not use islandAreaPopulation: it needs
+// per-metric dataset selection (population vs SVI) and national-level handling
+// that the shared helper doesn't cover.
 export const GEO_CONTEXT_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'geo_context' }),
   getConsumedDatasetIds: (mainId, metricQuery, breakdowns) => {

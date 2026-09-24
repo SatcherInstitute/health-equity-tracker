@@ -25,7 +25,7 @@ import {
 } from './MetricConfigConstants'
 import type { DataTypeConfig, DataTypeId, MetricId } from './MetricConfigTypes'
 
-// CAWP
+// CAWP (Center for American Women and Politics) — political determinants of health
 export const CAWP_METRICS: MetricId[] = [
   'cawp_population_pct',
   'congressional_districts',
