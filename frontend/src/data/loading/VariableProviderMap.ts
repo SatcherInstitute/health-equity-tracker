@@ -1,38 +1,46 @@
+import { AHR_PROVIDER_METRICS } from '../config/MetricConfigBehavioralHealth'
+import { CDC_CANCER_METRICS } from '../config/MetricConfigCancer'
+import {
+  GUN_DEATHS_BLACK_MEN_METRIC_IDS,
+  GUN_VIOLENCE_METRIC_IDS,
+  GUN_VIOLENCE_YOUTH_METRIC_IDS,
+} from '../config/MetricConfigCommunitySafety'
+import {
+  CDC_COVID_METRICS,
+  VACCINE_METRICS,
+} from '../config/MetricConfigCovidCategory'
+import {
+  BLACK_WOMEN_METRICS,
+  HIV_METRICS,
+} from '../config/MetricConfigHivCategory'
+import { MATERNAL_MORTALITY_METRIC_IDS } from '../config/MetricConfigMaternalHealth'
+import {
+  CAWP_METRICS,
+  INCARCERATION_METRIC_IDS,
+} from '../config/MetricConfigPDOH'
+import { PHRMA_METRICS } from '../config/MetricConfigPhrma'
+import { PHRMA_BRFSS_METRICS } from '../config/MetricConfigPhrmaBrfss'
+import { ACS_CONDITION_METRICS } from '../config/MetricConfigSDOH'
 import type { MetricId } from '../config/MetricConfigTypes'
 import UniversalProvider from '../providers/UniversalProvider'
 import type VariableProvider from '../providers/VariableProvider'
 import {
   ACS_CONDITION_CONFIG,
-  ACS_CONDITION_METRICS,
   AHR_CONFIG,
-  AHR_PROVIDER_METRICS,
-  BLACK_WOMEN_METRICS,
   CAWP_CONFIG,
-  CAWP_METRICS,
   CDC_CANCER_CONFIG,
-  CDC_CANCER_METRICS,
   CDC_COVID_CONFIG,
-  CDC_COVID_METRICS,
   GEO_CONTEXT_CONFIG,
   GUN_DEATHS_BLACK_MEN_CONFIG,
-  GUN_DEATHS_BLACK_MEN_METRIC_IDS,
   GUN_VIOLENCE_CONFIG,
-  GUN_VIOLENCE_METRIC_IDS,
   GUN_VIOLENCE_YOUTH_CONFIG,
-  GUN_VIOLENCE_YOUTH_METRIC_IDS,
   HIV_BLACK_WOMEN_CONFIG,
   HIV_CONFIG,
-  HIV_METRICS,
   INCARCERATION_CONFIG,
-  INCARCERATION_METRIC_IDS,
   MATERNAL_MORTALITY_CONFIG,
-  MATERNAL_MORTALITY_METRIC_IDS,
   PHRMA_BRFSS_CONFIG,
-  PHRMA_BRFSS_METRICS,
   PHRMA_CONFIG,
-  PHRMA_METRICS,
   VACCINE_CONFIG,
-  VACCINE_METRICS,
 } from './DataSourceConfigs'
 
 export type ProviderId =

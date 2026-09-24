@@ -453,3 +453,17 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
     },
   },
 ]
+
+export const INCARCERATION_METRIC_IDS: MetricId[] = [
+  'jail_pct_share',
+  'jail_estimated_total',
+  'jail_per_100k',
+  'jail_pct_relative_inequity',
+  'prison_pct_share',
+  'prison_estimated_total',
+  'prison_per_100k',
+  'prison_pct_relative_inequity',
+  'confined_children_estimated_total',
+  'incarceration_population_pct',
+  'incarceration_population_estimated_total',
+]

@@ -1,5 +1,5 @@
 import { womenHigherIsWorseMapConfig } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, MetricId } from './MetricConfigTypes'
 
 export const MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS = [
   'maternal_mortality',
@@ -112,4 +112,12 @@ export const SEVERE_MATERNAL_MORBIDITY_METRICS: DataTypeConfig[] = [
       },
     },
   },
+]
+
+export const MATERNAL_MORTALITY_METRIC_IDS: MetricId[] = [
+  'maternal_mortality_per_100k',
+  'maternal_mortality_pct_share',
+  'maternal_mortality_population_pct',
+  'maternal_deaths_estimated_total',
+  'live_births_estimated_total',
 ]
