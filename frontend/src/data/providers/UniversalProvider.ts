@@ -34,7 +34,8 @@ export interface DataSourceConfig {
     datasetName: string
     tablePrefix?: string
   }
-  getConsumedDatasetIds: (
+  // Defaults to [mainDatasetId] when omitted.
+  getConsumedDatasetIds?: (
     mainDatasetId: DatasetId,
     metricQuery: MetricQuery,
     breakdowns: Breakdowns,
@@ -129,7 +130,9 @@ class UniversalProvider extends VariableProvider {
     let df: HetRow[] = dataset.rows as HetRow[]
 
     const consumedDatasetIds = [
-      ...this.config.getConsumedDatasetIds(datasetId, metricQuery, breakdowns),
+      ...(this.config.getConsumedDatasetIds
+        ? this.config.getConsumedDatasetIds(datasetId, metricQuery, breakdowns)
+        : [datasetId]),
       ...this.islandAreaConsumedIds(breakdowns, metricQuery),
     ]
 

@@ -39,7 +39,7 @@ export const ACS_CONDITION_METRICS: MetricId[] = [
 
 export const ACS_CONDITION_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'acs_condition' }),
-  getConsumedDatasetIds: (mainId) => [mainId],
+
   allowsBreakdowns: (breakdowns) =>
     ['county', 'state', 'national'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),
@@ -84,7 +84,7 @@ export const AHR_CONFIG: DataSourceConfig = {
       tablePrefix: isChr ? '' : categoryPrefix,
     }
   },
-  getConsumedDatasetIds: (mainId) => [mainId],
+
   allowsBreakdowns: (breakdowns, dataTypeId) => {
     const isValidCountyRequest =
       breakdowns.geography === 'county' &&
@@ -186,7 +186,7 @@ export const CDC_CANCER_CONFIG: DataSourceConfig = {
     datasetName:
       breakdowns.geography === 'county' ? 'nci_cancer' : 'cdc_wonder_data',
   }),
-  getConsumedDatasetIds: (mainId) => [mainId],
+
   allowsBreakdowns: (breakdowns) =>
     ['county', 'state', 'national'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),
@@ -324,7 +324,7 @@ export const GUN_VIOLENCE_CONFIG: DataSourceConfig = {
         : 'cdc_wisqars_data'
     return { datasetName }
   },
-  getConsumedDatasetIds: (mainId) => [mainId],
+
   allowsBreakdowns: (breakdowns) =>
     ['county', 'state', 'national'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),
@@ -370,7 +370,7 @@ export const GUN_VIOLENCE_YOUTH_CONFIG: DataSourceConfig = {
     datasetName: 'cdc_wisqars_youth_data',
     tablePrefix: 'youth_by_',
   }),
-  getConsumedDatasetIds: (mainId) => [mainId],
+
   allowsBreakdowns: (breakdowns) =>
     ['state', 'national'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),
@@ -393,7 +393,7 @@ export const GUN_DEATHS_BLACK_MEN_CONFIG: DataSourceConfig = {
     datasetName: 'cdc_wisqars_black_men_data',
     tablePrefix: 'black_men_by_',
   }),
-  getConsumedDatasetIds: (mainId) => [mainId],
+
   allowsBreakdowns: (breakdowns) =>
     ['state', 'national'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),
@@ -408,7 +408,7 @@ export const HIV_BLACK_WOMEN_CONFIG: DataSourceConfig = {
     datasetName: 'cdc_hiv_data',
     tablePrefix: 'black_women_by_',
   }),
-  getConsumedDatasetIds: (mainId) => [mainId],
+
   allowsBreakdowns: (breakdowns) =>
     ['state', 'national'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),
@@ -420,7 +420,7 @@ export { HIV_METRICS }
 
 export const HIV_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'cdc_hiv_data' }),
-  getConsumedDatasetIds: (mainId) => [mainId],
+
   allowsBreakdowns: (breakdowns, dataTypeId) => {
     const hasNoCountyData = dataTypeId === 'hiv_deaths'
     return hasNoCountyData
@@ -487,7 +487,7 @@ export const MATERNAL_MORTALITY_METRIC_IDS: MetricId[] = [
 
 export const MATERNAL_MORTALITY_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'maternal_mortality_data' }),
-  getConsumedDatasetIds: (mainId) => [mainId],
+
   allowsBreakdowns: (breakdowns) =>
     ['state', 'national'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),
@@ -530,7 +530,7 @@ export const PHRMA_BRFSS_METRICS: MetricId[] = [
 
 export const PHRMA_BRFSS_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'phrma_brfss_data' }),
-  getConsumedDatasetIds: (mainId) => [mainId],
+
   allowsBreakdowns: (breakdowns) =>
     ['state', 'national'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),
@@ -542,7 +542,7 @@ export { PHRMA_METRICS }
 
 export const PHRMA_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'phrma_data' }),
-  getConsumedDatasetIds: (mainId) => [mainId],
+
   allowsBreakdowns: (breakdowns) =>
     ['county', 'state', 'national'].includes(breakdowns.geography) &&
     breakdowns.hasExactlyOneDemographic(),

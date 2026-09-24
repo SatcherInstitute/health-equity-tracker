@@ -37,12 +37,10 @@ import {
 
 export type ProviderId =
   | 'acs_condition_provider'
-  | 'acs_pop_provider'
   | 'ahr_provider'
   | 'cawp_provider'
   | 'cdc_cancer_provider'
   | 'cdc_covid_provider'
-  | 'covid_provider'
   | 'geo_context_provider'
   | 'gun_violence_provider'
   | 'gun_violence_youth_provider'
