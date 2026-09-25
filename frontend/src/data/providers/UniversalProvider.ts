@@ -1,9 +1,9 @@
-import {
-  type DatasetId,
-  type DatasetIdWithStateFIPSCode,
-  isValidDatasetId,
-} from '../config/DatasetMetadata'
+import { type DatasetId, isValidDatasetId } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type {
+  DataSourceConfig,
+  IslandAreaPopulation,
+} from '../loading/DataSourceConfigs'
 import { getDataManagerRef } from '../loading/dataManagerRef'
 import type { ProviderId } from '../loading/VariableProviderMap'
 import type { Breakdowns } from '../query/Breakdowns'
@@ -16,46 +16,7 @@ import type { HetRow } from '../utils/DatasetTypes'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
-// Describes which DECIA territory population dataset(s) UniversalProvider should
-// append to consumedDatasetIds when the query targets an island area (or all states).
-// Keeps island-area dataset handling out of individual DataSourceConfig callbacks.
-export interface IslandAreaPopulation {
-  // Demographic dimension of the DECIA dataset; 'by_query' mirrors the active breakdown.
-  demographic: 'race_and_ethnicity' | 'sex' | 'age' | 'by_query'
-  // DECIA dataset geography; 'by_query' mirrors the request geography.
-  geography: 'state' | 'county' | 'by_query'
-  // Also add DECIA when filterFips is undefined (all-states national state-level view).
-  includeAllStatesView?: boolean
-  // Also push the 2010 DECIA dataset for historical time views.
-  includeHistorical?: boolean
-}
-
-export interface DataSourceConfig {
-  getDatasetDetails: (metricQuery: MetricQuery) => {
-    datasetName: string
-    tablePrefix?: string
-  }
-  // Defaults to [mainDatasetId] when omitted.
-  getConsumedDatasetIds?: (
-    mainDatasetId: DatasetId,
-    metricQuery: MetricQuery,
-    breakdowns: Breakdowns,
-  ) => Array<DatasetId | DatasetIdWithStateFIPSCode>
-  allowsBreakdowns: (breakdowns: Breakdowns, dataTypeId?: DataTypeId) => boolean
-  // Applied after renameGeoColumns, before the demographic cast/filter step.
-  // Use for column remapping (GunViolence CHR) or time-based row filtering (CdcCovid).
-  transformRows?: (
-    rows: readonly HetRow[],
-    metricQuery: MetricQuery,
-  ) => HetRow[]
-  // Set true when county data is not split by state FIPS (e.g. NCI cancer).
-  skipFipsAppend?: boolean
-  // When set, UniversalProvider automatically appends the correct DECIA territory
-  // population dataset(s) to consumedDatasetIds for island-area (and optionally
-  // all-states) queries. Configs only need to guard addAcsIdToConsumed with
-  // !isIslandArea; they no longer hardcode DECIA dataset ID strings.
-  islandAreaPopulation?: IslandAreaPopulation
-}
+export type { DataSourceConfig, IslandAreaPopulation }
 
 class UniversalProvider extends VariableProvider {
   private readonly config: DataSourceConfig

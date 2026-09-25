@@ -1,8 +1,7 @@
 import type DataManager from './DataManager'
 
-// Holds the DataManager singleton without importing DataManager itself at
-// runtime, so providers can call getDataManager() without creating a cycle:
-// providers → UniversalProvider → globals → DataManager → VariableProviderMap → providers
+// Lazy singleton wrapper for DataManager. Providers import from here instead
+// of from globals.ts to keep the module graph acyclic.
 let ref: DataManager | undefined
 
 export function setDataManagerRef(dm: DataManager): void {

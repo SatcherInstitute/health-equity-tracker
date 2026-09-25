@@ -1,16 +1,59 @@
 import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
-import type { DatasetId } from '../config/DatasetMetadata'
+import type {
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
+} from '../config/DatasetMetadata'
 import type { DropdownVarId } from '../config/DropDownIds'
 import {
   BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS,
   CHR_DATATYPE_IDS,
 } from '../config/MetricConfigBehavioralHealth'
 import type { DataTypeId } from '../config/MetricConfigTypes'
-import type { DataSourceConfig } from '../providers/UniversalProvider'
 import type { Breakdowns, GeographicBreakdown } from '../query/Breakdowns'
 import type { MetricQuery } from '../query/MetricQuery'
 import type { HetRow } from '../utils/DatasetTypes'
 import { addAcsIdToConsumed } from '../utils/datasetutils'
+
+// Describes which DECIA territory population dataset(s) UniversalProvider should
+// append to consumedDatasetIds when the query targets an island area (or all states).
+// Keeps island-area dataset handling out of individual DataSourceConfig callbacks.
+export interface IslandAreaPopulation {
+  // Demographic dimension of the DECIA dataset; 'by_query' mirrors the active breakdown.
+  demographic: 'race_and_ethnicity' | 'sex' | 'age' | 'by_query'
+  // DECIA dataset geography; 'by_query' mirrors the request geography.
+  geography: 'state' | 'county' | 'by_query'
+  // Also add DECIA when filterFips is undefined (all-states national state-level view).
+  includeAllStatesView?: boolean
+  // Also push the 2010 DECIA dataset for historical time views.
+  includeHistorical?: boolean
+}
+
+export interface DataSourceConfig {
+  getDatasetDetails: (metricQuery: MetricQuery) => {
+    datasetName: string
+    tablePrefix?: string
+  }
+  // Defaults to [mainDatasetId] when omitted.
+  getConsumedDatasetIds?: (
+    mainDatasetId: DatasetId,
+    metricQuery: MetricQuery,
+    breakdowns: Breakdowns,
+  ) => Array<DatasetId | DatasetIdWithStateFIPSCode>
+  allowsBreakdowns: (breakdowns: Breakdowns, dataTypeId?: DataTypeId) => boolean
+  // Applied after renameGeoColumns, before the demographic cast/filter step.
+  // Use for column remapping (GunViolence CHR) or time-based row filtering (CdcCovid).
+  transformRows?: (
+    rows: readonly HetRow[],
+    metricQuery: MetricQuery,
+  ) => HetRow[]
+  // Set true when county data is not split by state FIPS (e.g. NCI cancer).
+  skipFipsAppend?: boolean
+  // When set, UniversalProvider automatically appends the correct DECIA territory
+  // population dataset(s) to consumedDatasetIds for island-area (and optionally
+  // all-states) queries. Configs only need to guard addAcsIdToConsumed with
+  // !isIslandArea; they no longer hardcode DECIA dataset ID strings.
+  islandAreaPopulation?: IslandAreaPopulation
+}
 
 // Shorthand for the most common allowsBreakdowns pattern: a fixed geo allowlist
 // plus exactly one demographic. Configs with conditional logic (AHR, CAWP, HIV)
@@ -25,6 +68,8 @@ function oneOfGeoWithSingleDemo(
 
 // Declarative dataset routing: geo keys override the default; a nested
 // Record<DataTypeId, string> value overrides further by data type.
+// Configs that need a tablePrefix cannot use resolveDataset — use a custom
+// getDatasetDetails function instead (see AHR_CONFIG for an example).
 interface DatasetRoute {
   default: string
   county?: string | Partial<Record<DataTypeId, string>>
@@ -39,7 +84,7 @@ function resolveDataset(
 ): DataSourceConfig['getDatasetDetails'] {
   return ({ breakdowns, dataTypeId }) => {
     const geoEntry = route[breakdowns.geography as keyof DatasetRoute]
-    if (geoEntry === undefined || geoEntry === route.default) {
+    if (geoEntry === undefined) {
       return { datasetName: route.default }
     }
     if (typeof geoEntry === 'string') {
@@ -59,14 +104,24 @@ export const ACS_CONDITION_CONFIG: DataSourceConfig = {
 
 // ── AHR / CHR ─────────────────────────────────────────────────────────────────
 
-function getAhrDatasetDetails(metricQuery: MetricQuery) {
-  const { dataTypeId, breakdowns } = metricQuery
-  if (
-    dataTypeId &&
+function isChrCountyRequest(
+  dataTypeId: DataTypeId | undefined,
+  geography: string,
+): boolean {
+  return (
+    !!dataTypeId &&
     CHR_DATATYPE_IDS.includes(dataTypeId) &&
-    breakdowns.geography === 'county'
+    geography === 'county'
   )
-    return { isChr: true, categoryPrefix: '' }
+}
+
+function getAhrDatasetDetails(metricQuery: MetricQuery): {
+  datasetName: string
+  tablePrefix: string
+} {
+  const { dataTypeId, breakdowns } = metricQuery
+  if (isChrCountyRequest(dataTypeId, breakdowns.geography))
+    return { datasetName: 'chr_data', tablePrefix: '' }
   const currentDropdown =
     dataTypeId && getParentDropdownFromDataTypeId(dataTypeId)
   const isBehavioralHealth =
@@ -75,34 +130,21 @@ function getAhrDatasetDetails(metricQuery: MetricQuery) {
       BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS as readonly DropdownVarId[]
     ).includes(currentDropdown)
   return {
-    isChr: false,
-    categoryPrefix: isBehavioralHealth
+    datasetName: 'graphql_ahr_data',
+    tablePrefix: isBehavioralHealth
       ? 'behavioral_health_'
       : 'non-behavioral_health_',
   }
 }
 
 export const AHR_CONFIG: DataSourceConfig = {
-  getDatasetDetails: (metricQuery) => {
-    const { isChr, categoryPrefix } = getAhrDatasetDetails(metricQuery)
-    return {
-      datasetName: isChr ? 'chr_data' : 'graphql_ahr_data',
-      tablePrefix: isChr ? '' : categoryPrefix,
-    }
-  },
+  getDatasetDetails: getAhrDatasetDetails,
 
-  allowsBreakdowns: (breakdowns, dataTypeId) => {
-    const isValidCountyRequest =
-      breakdowns.geography === 'county' &&
-      !!dataTypeId &&
-      CHR_DATATYPE_IDS.includes(dataTypeId)
-    return (
-      (isValidCountyRequest ||
-        breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
-      breakdowns.hasExactlyOneDemographic()
-    )
-  },
+  allowsBreakdowns: (breakdowns, dataTypeId) =>
+    (isChrCountyRequest(dataTypeId, breakdowns.geography) ||
+      breakdowns.geography === 'state' ||
+      breakdowns.geography === 'national') &&
+    breakdowns.hasExactlyOneDemographic(),
 }
 
 // ── CAWP ─────────────────────────────────────────────────────────────────────
@@ -210,6 +252,7 @@ export const GEO_CONTEXT_CONFIG: DataSourceConfig = {
 
 // ── Gun Violence ──────────────────────────────────────────────────────────────
 
+// Must stay in sync with the gun_deaths county entry in GUN_VIOLENCE_CONFIG.getDatasetDetails.
 function isChrGunRequest(metricQuery: {
   dataTypeId?: DataTypeId
   breakdowns: { geography: string }
@@ -304,7 +347,7 @@ export const INCARCERATION_CONFIG: DataSourceConfig = {
     }
     return consumedDatasetIds
   },
-  allowsBreakdowns: oneOfGeoWithSingleDemo(['national', 'state', 'county']),
+  allowsBreakdowns: oneOfGeoWithSingleDemo(['county', 'state', 'national']),
   islandAreaPopulation: {
     demographic: 'sex',
     geography: 'state',

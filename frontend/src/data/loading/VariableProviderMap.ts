@@ -22,9 +22,9 @@ import { PHRMA_METRICS } from '../config/MetricConfigPhrma'
 import { PHRMA_BRFSS_METRICS } from '../config/MetricConfigPhrmaBrfss'
 import { ACS_CONDITION_METRICS } from '../config/MetricConfigSDOH'
 import type { MetricId } from '../config/MetricConfigTypes'
-import type { DataSourceConfig } from '../providers/UniversalProvider'
 import UniversalProvider from '../providers/UniversalProvider'
 import type VariableProvider from '../providers/VariableProvider'
+import type { DataSourceConfig } from './DataSourceConfigs'
 import {
   ACS_CONDITION_CONFIG,
   AHR_CONFIG,
@@ -44,31 +44,8 @@ import {
   VACCINE_CONFIG,
 } from './DataSourceConfigs'
 
-const PROVIDER_KEYS = [
-  'acs_condition_provider',
-  'ahr_provider',
-  'cawp_provider',
-  'cdc_cancer_provider',
-  'cdc_covid_provider',
-  'geo_context_provider',
-  'gun_violence_provider',
-  'gun_violence_youth_provider',
-  'gun_violence_black_men_provider',
-  'hiv_black_women_provider',
-  'hiv_provider',
-  'incarceration_provider',
-  'maternal_mortality_provider',
-  'phrma_provider',
-  'phrma_brfss_provider',
-  'vaccine_provider',
-] as const
-
-export type ProviderId = (typeof PROVIDER_KEYS)[number]
-
-type ProviderEntry = [ProviderId, MetricId[], DataSourceConfig]
-
 // Add new health topics here and in their MetricConfig file — no subclass needed.
-const PROVIDER_REGISTRATIONS: ProviderEntry[] = [
+const PROVIDER_REGISTRATIONS = [
   ['acs_condition_provider', ACS_CONDITION_METRICS, ACS_CONDITION_CONFIG],
   ['ahr_provider', AHR_PROVIDER_METRICS, AHR_CONFIG],
   ['cawp_provider', CAWP_METRICS, CAWP_CONFIG],
@@ -97,7 +74,11 @@ const PROVIDER_REGISTRATIONS: ProviderEntry[] = [
   ['phrma_provider', PHRMA_METRICS, PHRMA_CONFIG],
   ['phrma_brfss_provider', PHRMA_BRFSS_METRICS, PHRMA_BRFSS_CONFIG],
   ['vaccine_provider', VACCINE_METRICS, VACCINE_CONFIG],
-]
+] as const satisfies ReadonlyArray<
+  readonly [string, readonly MetricId[], DataSourceConfig]
+>
+
+export type ProviderId = (typeof PROVIDER_REGISTRATIONS)[number][0]
 
 export default class VariableProviderMap {
   private readonly providers: VariableProvider[]
@@ -106,7 +87,8 @@ export default class VariableProviderMap {
 
   constructor() {
     this.providers = PROVIDER_REGISTRATIONS.map(
-      ([id, metrics, config]) => new UniversalProvider(id, metrics, config),
+      ([id, metrics, config]) =>
+        new UniversalProvider(id, metrics as MetricId[], config),
     )
     this.providersById = this.getProvidersById()
     this.metricsToProviderIds = this.getMetricsToProviderIdsMap()
