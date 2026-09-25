@@ -1,6 +1,7 @@
-import type {
-  DatasetId,
-  DatasetIdWithStateFIPSCode,
+import {
+  type DatasetId,
+  type DatasetIdWithStateFIPSCode,
+  isValidDatasetId,
 } from '../config/DatasetMetadata'
 import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import { getDataManagerRef } from '../loading/dataManagerRef'
@@ -98,13 +99,20 @@ class UniversalProvider extends VariableProvider {
       demo = cfg.demographic
     }
 
-    const datasets: DatasetId[] = [
-      `decia_2020_territory_population-${demo}_${geo}_current` as DatasetId,
-    ]
+    const datasets: DatasetId[] = []
+    const id2020 = `decia_2020_territory_population-${demo}_${geo}_current`
+    if (isValidDatasetId(id2020)) {
+      datasets.push(id2020)
+    } else {
+      console.warn(`UniversalProvider: invalid DECIA dataset ID: ${id2020}`)
+    }
     if (cfg.includeHistorical && metricQuery.timeView === 'historical') {
-      datasets.push(
-        `decia_2010_territory_population-${demo}_${geo}_current` as DatasetId,
-      )
+      const id2010 = `decia_2010_territory_population-${demo}_${geo}_current`
+      if (isValidDatasetId(id2010)) {
+        datasets.push(id2010)
+      } else {
+        console.warn(`UniversalProvider: invalid DECIA dataset ID: ${id2010}`)
+      }
     }
     return datasets
   }

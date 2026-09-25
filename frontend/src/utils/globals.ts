@@ -1,6 +1,9 @@
 import { ApiDataFetcher, type DataFetcher } from '../data/loading/DataFetcher'
 import DataManager from '../data/loading/DataManager'
-import { setDataManagerRef } from '../data/loading/dataManagerRef'
+import {
+  getDataManagerRef,
+  setDataManagerRef,
+} from '../data/loading/dataManagerRef'
 import FakeDataFetcher from '../testing/FakeDataFetcher'
 import { createEnvironment, type Environment } from './Environment'
 import Logger from './Logger'
@@ -10,7 +13,6 @@ interface Globals {
   environment: Environment
   logger: Logger
   dataFetcher: DataFetcher
-  dataManager: DataManager
 }
 
 // TODO: consider using interfaces for the various globals so they can have
@@ -29,9 +31,7 @@ export function resetCacheDebug() {
       'resetCacheDebug must only be called from the test environment',
     )
   }
-  const dm = new DataManager()
-  globals.dataManager = dm
-  setDataManagerRef(dm)
+  setDataManagerRef(new DataManager())
 }
 
 function initGlobals(
@@ -48,7 +48,6 @@ function initGlobals(
   globals.environment = environment
   globals.logger = logger
   globals.dataFetcher = dataFetcher
-  globals.dataManager = dataManager
   setDataManagerRef(dataManager)
   globals.initialized = true
   logger.debugLog(
@@ -90,13 +89,11 @@ export function getDataFetcher(): DataFetcher {
   return globals.dataFetcher!
 }
 
-// Providers should use getDataManagerRef() from data/loading/dataManagerRef.ts, not
-// this function, to avoid recreating the UniversalProvider → globals → DataManager →
-// VariableProviderMap → providers cycle.
+// Providers must use getDataManagerRef() instead to avoid the cycle:
+// UniversalProvider → globals → DataManager → VariableProviderMap → providers
 export function getDataManager(): DataManager {
   assertInitialized()
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return globals.dataManager!
+  return getDataManagerRef()
 }
 
 export function getEnvironment(): Environment {

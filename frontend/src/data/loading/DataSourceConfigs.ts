@@ -7,19 +7,27 @@ import {
 } from '../config/MetricConfigBehavioralHealth'
 import type { DataTypeId } from '../config/MetricConfigTypes'
 import type { DataSourceConfig } from '../providers/UniversalProvider'
-import type { GeographicBreakdown } from '../query/Breakdowns'
+import type { Breakdowns, GeographicBreakdown } from '../query/Breakdowns'
 import type { MetricQuery } from '../query/MetricQuery'
 import type { HetRow } from '../utils/DatasetTypes'
 import { addAcsIdToConsumed } from '../utils/datasetutils'
+
+// Shorthand for the most common allowsBreakdowns pattern: a fixed geo allowlist
+// plus exactly one demographic. Configs with conditional logic (AHR, CAWP, HIV)
+// use a custom function instead.
+function oneOfGeoWithSingleDemo(
+  geographies: GeographicBreakdown[],
+): DataSourceConfig['allowsBreakdowns'] {
+  return (breakdowns: Breakdowns) =>
+    geographies.includes(breakdowns.geography) &&
+    breakdowns.hasExactlyOneDemographic()
+}
 
 // ── ACS Condition ────────────────────────────────────────────────────────────
 
 export const ACS_CONDITION_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'acs_condition' }),
-
-  allowsBreakdowns: (breakdowns) =>
-    ['county', 'state', 'national'].includes(breakdowns.geography) &&
-    breakdowns.hasExactlyOneDemographic(),
+  allowsBreakdowns: oneOfGeoWithSingleDemo(['county', 'state', 'national']),
 }
 
 // ── AHR / CHR ─────────────────────────────────────────────────────────────────
@@ -117,10 +125,7 @@ export const CDC_CANCER_CONFIG: DataSourceConfig = {
     datasetName:
       breakdowns.geography === 'county' ? 'nci_cancer' : 'cdc_wonder_data',
   }),
-
-  allowsBreakdowns: (breakdowns) =>
-    ['county', 'state', 'national'].includes(breakdowns.geography) &&
-    breakdowns.hasExactlyOneDemographic(),
+  allowsBreakdowns: oneOfGeoWithSingleDemo(['county', 'state', 'national']),
   skipFipsAppend: true,
 }
 
@@ -150,6 +155,7 @@ const acsDatasetMap: Partial<Record<GeographicBreakdown, DatasetId>> = {
 const decia2020DatasetMap: Partial<Record<GeographicBreakdown, DatasetId>> = {
   county: 'decia_2020_territory_population-sex_county_current',
   state: 'decia_2020_territory_population-sex_state_current',
+  // DECIA has no national dataset; fall back to ACS national for national-scope queries.
   national: 'acs_population-sex_national_current',
 }
 
@@ -200,10 +206,7 @@ export const GUN_VIOLENCE_CONFIG: DataSourceConfig = {
         : 'cdc_wisqars_data'
     return { datasetName }
   },
-
-  allowsBreakdowns: (breakdowns) =>
-    ['county', 'state', 'national'].includes(breakdowns.geography) &&
-    breakdowns.hasExactlyOneDemographic(),
+  allowsBreakdowns: oneOfGeoWithSingleDemo(['county', 'state', 'national']),
   transformRows: (rows, metricQuery) => {
     if (!isChrGunRequest(metricQuery)) return rows as HetRow[]
     return rows.map(
@@ -223,10 +226,7 @@ export const GUN_VIOLENCE_YOUTH_CONFIG: DataSourceConfig = {
     datasetName: 'cdc_wisqars_youth_data',
     tablePrefix: 'youth_by_',
   }),
-
-  allowsBreakdowns: (breakdowns) =>
-    ['state', 'national'].includes(breakdowns.geography) &&
-    breakdowns.hasExactlyOneDemographic(),
+  allowsBreakdowns: oneOfGeoWithSingleDemo(['state', 'national']),
 }
 
 // ── Gun Deaths Black Men ──────────────────────────────────────────────────────
@@ -236,10 +236,7 @@ export const GUN_DEATHS_BLACK_MEN_CONFIG: DataSourceConfig = {
     datasetName: 'cdc_wisqars_black_men_data',
     tablePrefix: 'black_men_by_',
   }),
-
-  allowsBreakdowns: (breakdowns) =>
-    ['state', 'national'].includes(breakdowns.geography) &&
-    breakdowns.hasExactlyOneDemographic(),
+  allowsBreakdowns: oneOfGeoWithSingleDemo(['state', 'national']),
 }
 
 // ── HIV Black Women ───────────────────────────────────────────────────────────
@@ -249,10 +246,7 @@ export const HIV_BLACK_WOMEN_CONFIG: DataSourceConfig = {
     datasetName: 'cdc_hiv_data',
     tablePrefix: 'black_women_by_',
   }),
-
-  allowsBreakdowns: (breakdowns) =>
-    ['state', 'national'].includes(breakdowns.geography) &&
-    breakdowns.hasExactlyOneDemographic(),
+  allowsBreakdowns: oneOfGeoWithSingleDemo(['state', 'national']),
 }
 
 // ── HIV ───────────────────────────────────────────────────────────────────────
@@ -289,9 +283,7 @@ export const INCARCERATION_CONFIG: DataSourceConfig = {
     }
     return consumedDatasetIds
   },
-  allowsBreakdowns: (breakdowns) =>
-    ['national', 'state', 'county'].includes(breakdowns.geography) &&
-    breakdowns.hasExactlyOneDemographic(),
+  allowsBreakdowns: oneOfGeoWithSingleDemo(['national', 'state', 'county']),
   islandAreaPopulation: {
     demographic: 'sex',
     geography: 'state',
@@ -304,30 +296,21 @@ export const INCARCERATION_CONFIG: DataSourceConfig = {
 
 export const MATERNAL_MORTALITY_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'maternal_mortality_data' }),
-
-  allowsBreakdowns: (breakdowns) =>
-    ['state', 'national'].includes(breakdowns.geography) &&
-    breakdowns.hasExactlyOneDemographic(),
+  allowsBreakdowns: oneOfGeoWithSingleDemo(['state', 'national']),
 }
 
 // ── Phrma BRFSS ───────────────────────────────────────────────────────────────
 
 export const PHRMA_BRFSS_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'phrma_brfss_data' }),
-
-  allowsBreakdowns: (breakdowns) =>
-    ['state', 'national'].includes(breakdowns.geography) &&
-    breakdowns.hasExactlyOneDemographic(),
+  allowsBreakdowns: oneOfGeoWithSingleDemo(['state', 'national']),
 }
 
 // ── Phrma ─────────────────────────────────────────────────────────────────────
 
 export const PHRMA_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({ datasetName: 'phrma_data' }),
-
-  allowsBreakdowns: (breakdowns) =>
-    ['county', 'state', 'national'].includes(breakdowns.geography) &&
-    breakdowns.hasExactlyOneDemographic(),
+  allowsBreakdowns: oneOfGeoWithSingleDemo(['county', 'state', 'national']),
 }
 
 // ── Vaccine ───────────────────────────────────────────────────────────────────
