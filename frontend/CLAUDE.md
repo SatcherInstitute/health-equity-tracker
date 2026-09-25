@@ -119,7 +119,7 @@ A `MetricConfig` must declare its `suppressionFlagMetricId` so the map can disti
 1. Create `src/data/config/MetricConfig<Topic>.ts` — define `MetricId`s, `DataTypeId`s, and chart configs
 2. Register the new `DropdownVarId` in `src/data/config/DropDownIds.ts`
 3. Create `src/data/config/DatasetMetadata<Topic>.ts` — list dataset IDs consumed
-4. Register provider in `src/data/loading/VariableProviderMap.ts`: add a `DataSourceConfig` object with `getDatasetDetails`, `getConsumedDatasetIds`, `allowsBreakdowns`, and optional `transformRows` function, then add the mapping from `ProviderId` → `UniversalProvider` instance
+4. Register provider in `src/data/loading/VariableProviderMap.ts`: add a `DataSourceConfig` object with `getDatasetDetails`, `getConsumedDatasetIds`, `allowsBreakdowns`, and optional `transformRows` function, then add the mapping from `ProviderId` → `UniversalProvider` instance. When `getDatasetDetails` routes to different dataset names based on geography or data type, use `resolveDataset()` from `DataSourceConfigs.ts` — declare the default dataset name first, then override by geo key or nested `DataTypeId` map.
 
 ## Design System / Token Pipeline
 
