@@ -23,6 +23,33 @@ function oneOfGeoWithSingleDemo(
     breakdowns.hasExactlyOneDemographic()
 }
 
+// Declarative dataset routing: geo keys override the default; a nested
+// Record<DataTypeId, string> value overrides further by data type.
+interface DatasetRoute {
+  default: string
+  county?: string | Partial<Record<DataTypeId, string>>
+  state?: string | Partial<Record<DataTypeId, string>>
+  national?: string | Partial<Record<DataTypeId, string>>
+  territory?: string | Partial<Record<DataTypeId, string>>
+  'state/territory'?: string | Partial<Record<DataTypeId, string>>
+}
+
+function resolveDataset(
+  route: DatasetRoute,
+): DataSourceConfig['getDatasetDetails'] {
+  return ({ breakdowns, dataTypeId }) => {
+    const geoEntry = route[breakdowns.geography as keyof DatasetRoute]
+    if (geoEntry === undefined || geoEntry === route.default) {
+      return { datasetName: route.default }
+    }
+    if (typeof geoEntry === 'string') {
+      return { datasetName: geoEntry }
+    }
+    const datasetName = (dataTypeId && geoEntry[dataTypeId]) || route.default
+    return { datasetName }
+  }
+}
+
 // ── ACS Condition ────────────────────────────────────────────────────────────
 
 export const ACS_CONDITION_CONFIG: DataSourceConfig = {
@@ -121,9 +148,9 @@ export const CAWP_CONFIG: DataSourceConfig = {
 // ── CDC Cancer ────────────────────────────────────────────────────────────────
 
 export const CDC_CANCER_CONFIG: DataSourceConfig = {
-  getDatasetDetails: ({ breakdowns }) => ({
-    datasetName:
-      breakdowns.geography === 'county' ? 'nci_cancer' : 'cdc_wonder_data',
+  getDatasetDetails: resolveDataset({
+    default: 'cdc_wonder_data',
+    county: 'nci_cancer',
   }),
   allowsBreakdowns: oneOfGeoWithSingleDemo(['county', 'state', 'national']),
   skipFipsAppend: true,
@@ -194,18 +221,14 @@ function isChrGunRequest(metricQuery: {
 }
 
 export const GUN_VIOLENCE_CONFIG: DataSourceConfig = {
-  getDatasetDetails: (metricQuery) => {
-    const isMiovd =
-      (metricQuery.dataTypeId === 'gun_violence_homicide' ||
-        metricQuery.dataTypeId === 'gun_violence_suicide') &&
-      metricQuery.breakdowns.geography === 'county'
-    const datasetName = isMiovd
-      ? 'cdc_miovd_data'
-      : isChrGunRequest(metricQuery)
-        ? 'chr_data'
-        : 'cdc_wisqars_data'
-    return { datasetName }
-  },
+  getDatasetDetails: resolveDataset({
+    default: 'cdc_wisqars_data',
+    county: {
+      gun_violence_homicide: 'cdc_miovd_data',
+      gun_violence_suicide: 'cdc_miovd_data',
+      gun_deaths: 'chr_data',
+    },
+  }),
   allowsBreakdowns: oneOfGeoWithSingleDemo(['county', 'state', 'national']),
   transformRows: (rows, metricQuery) => {
     if (!isChrGunRequest(metricQuery)) return rows as HetRow[]
@@ -267,11 +290,9 @@ export const HIV_CONFIG: DataSourceConfig = {
 // ── Incarceration ─────────────────────────────────────────────────────────────
 
 export const INCARCERATION_CONFIG: DataSourceConfig = {
-  getDatasetDetails: ({ breakdowns }) => ({
-    datasetName:
-      breakdowns.geography === 'county'
-        ? 'vera_incarceration_county'
-        : 'bjs_incarceration_data',
+  getDatasetDetails: resolveDataset({
+    default: 'bjs_incarceration_data',
+    county: 'vera_incarceration_county',
   }),
   getConsumedDatasetIds: (mainId, metricQuery, breakdowns) => {
     const consumedDatasetIds: DatasetId[] = [mainId]
@@ -315,17 +336,11 @@ export const PHRMA_CONFIG: DataSourceConfig = {
 
 // ── Vaccine ───────────────────────────────────────────────────────────────────
 
-const vaccineDatasetNameMappings: Record<GeographicBreakdown, string> = {
-  national: 'cdc_vaccination_national',
-  state: 'kff_vaccination',
-  territory: 'kff_vaccination',
-  'state/territory': 'kff_vaccination',
-  county: 'cdc_vaccination_county',
-}
-
 export const VACCINE_CONFIG: DataSourceConfig = {
-  getDatasetDetails: ({ breakdowns }) => ({
-    datasetName: vaccineDatasetNameMappings[breakdowns.geography],
+  getDatasetDetails: resolveDataset({
+    default: 'kff_vaccination',
+    national: 'cdc_vaccination_national',
+    county: 'cdc_vaccination_county',
   }),
   getConsumedDatasetIds: (mainId, metricQuery) => {
     const consumedDatasetIds: DatasetId[] = [mainId]
