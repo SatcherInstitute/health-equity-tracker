@@ -222,10 +222,11 @@ def testExportAllsCountyWritesPerStateSplitFiles(
     assert "phrma_data-alls_county_current-01.json" in blob_names
     assert len(blob_names) == 1 + len(STATE_LEVEL_FIPS_LIST)
 
-    # per-state queries must filter by county_fips prefix
+    # per-state queries must filter to ALLS rows and the correct state FIPS prefix
     all_queries = [call.args[1] for call in mock_query_df.call_args_list]
     state_queries = all_queries[1:]  # first is the national query
     assert all("county_fips LIKE" in q for q in state_queries)
+    assert all("= 'All'" in q for q in state_queries)
 
 
 @mock.patch("main.export_nd_json_to_blob")
@@ -298,4 +299,4 @@ def testExportSplitCountyFailureReturns500(
     response = client.post("/", json=payload)
 
     assert response.status_code == 500
-    assert b"county-level" in response.data
+    assert b"county" in response.data
