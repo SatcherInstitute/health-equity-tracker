@@ -113,23 +113,33 @@ def export_split_county_tables(bq_client: bigquery.Client, table: bigquery.Table
         logging.error(message)
         return (message, 500)
 
-    for fips in STATE_LEVEL_FIPS_LIST:
-        state_file_name = f"{table.dataset_id}-{table.table_id}-{fips}.json"
-        # Backticks required so hyphens in the project id / table id don't break the query.
-        query = f"""
+    # Backticks required so hyphens in the project id / table id don't break the query.
+    return _write_county_splits(
+        bq_client,
+        bucket,
+        table.dataset_id,
+        table.table_id,
+        lambda fips: f"""
             SELECT *
             FROM `{table_name}`
             WHERE county_fips LIKE '{fips}___'
-            """
+            """,
+    )
 
+
+def _write_county_splits(bq_client, bucket, dataset_id, table_id, build_query, post_process_df=None):
+    """Write per-state JSON files by filtering to each state's county_fips prefix."""
+    for fips in STATE_LEVEL_FIPS_LIST:
+        state_file_name = f"{dataset_id}-{table_id}-{fips}.json"
         try:
             blob = prepare_blob(bucket, state_file_name)
-            state_df = get_query_results_as_df(bq_client, query)
+            state_df = get_query_results_as_df(bq_client, build_query(fips))
+            if post_process_df is not None:
+                post_process_df(state_df)
             nd_json = state_df.to_json(orient="records", lines=True)
             export_nd_json_to_blob(blob, nd_json)
-
         except Exception as err:
-            message = f"Error splitting county-level table {table_name} into {state_file_name}:\n {err}"
+            message = f"Error splitting county {table_id} into {state_file_name}:\n {err}"
             logging.error(message)
             return (message, 500)
 
@@ -157,13 +167,12 @@ def has_multi_demographics(table_id: str):
 
 
 def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket: str, demographic: str):
-    """Export json file with just the ALLS rows from the given table, frontend can use as a fallback in compare mode"""
+    """Export json file with just the ALLS rows from the given table, frontend can use as a fallback in compare mode.
+    For county-level tables, also writes per-state-split files (e.g. phrma_data-alls_county_current-06.json)
+    so the frontend can request the state-specific file instead of loading all counties nationally."""
     table_name = get_table_name(table)
-    demo_cols = []
     demo_to_replace = demographic if demographic != "black_women" else "age"
-    demo_col = demographic
-    if demographic == "black_women":
-        demo_col = "age"
+    demo_col = "age" if demographic == "black_women" else demographic
     if demographic == "race":
         demo_col = "race_and_ethnicity"
 
@@ -196,6 +205,26 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
         message = f"Error extracting the ALLS rows from table {table_name} into {alls_file_name}:\n {err}"
         logging.error(message)
         return (message, 500)
+
+    # County alls tables must also be split by state so the frontend can
+    # request phrma_data-alls_county_current-XX rather than loading the full
+    # national file when falling back to alls at county level.
+    if "county" in alls_table_id:
+        error = _write_county_splits(
+            bq_client,
+            bucket,
+            table.dataset_id,
+            alls_table_id,
+            lambda fips: f"""
+                SELECT *
+                FROM `{table_name}`
+                WHERE {demo_col} = 'All'
+                AND county_fips LIKE '{fips}___'
+            """,
+            post_process_df=lambda df: df.drop(columns=demo_cols, inplace=True),
+        )
+        if error is not None:
+            return error
 
 
 def get_table_name(table):
