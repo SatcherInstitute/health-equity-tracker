@@ -3,7 +3,18 @@ import {
   menHigherIsWorseMapConfig,
   womenHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, DataTypeId, MetricId } from './MetricConfigTypes'
+
+export const CDC_CANCER_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
+  'breast_cancer_incidence',
+  'cervical_cancer_incidence',
+  'prostate_cancer_incidence',
+]
+
+export const CDC_CANCER_ALL_SEXES_DATATYPES: DataTypeId[] = [
+  'colorectal_cancer_incidence',
+  'lung_cancer_incidence',
+]
 
 export const CDC_CANCER_CATEGORY_DROPDOWNIDS = ['cancer_incidence'] as const
 
@@ -408,4 +419,42 @@ export const CDC_CANCER_INCIDENCE_METRICS: DataTypeConfig[] = [
       county: { metrics: NCI_COUNTY_METRIC_OVERRIDES },
     },
   },
+]
+
+export const CDC_CANCER_METRICS: MetricId[] = [
+  'breast_per_100k',
+  'breast_per_100k_is_suppressed',
+  'breast_estimated_total',
+  'breast_population_pct',
+  'breast_population_estimated_total',
+  'breast_pct_share',
+  'breast_pct_relative_inequity',
+  'cervical_per_100k',
+  'cervical_per_100k_is_suppressed',
+  'cervical_estimated_total',
+  'cervical_population_pct',
+  'cervical_population_estimated_total',
+  'cervical_pct_share',
+  'cervical_pct_relative_inequity',
+  'prostate_per_100k',
+  'prostate_per_100k_is_suppressed',
+  'prostate_estimated_total',
+  'prostate_population_pct',
+  'prostate_population_estimated_total',
+  'prostate_pct_share',
+  'prostate_pct_relative_inequity',
+  'colorectal_per_100k',
+  'colorectal_per_100k_is_suppressed',
+  'colorectal_estimated_total',
+  'colorectal_population_pct',
+  'colorectal_population_estimated_total',
+  'colorectal_pct_share',
+  'colorectal_pct_relative_inequity',
+  'lung_per_100k',
+  'lung_per_100k_is_suppressed',
+  'lung_estimated_total',
+  'lung_population_pct',
+  'lung_population_estimated_total',
+  'lung_pct_share',
+  'lung_pct_relative_inequity',
 ]

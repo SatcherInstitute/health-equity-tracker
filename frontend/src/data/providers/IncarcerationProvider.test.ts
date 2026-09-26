@@ -7,6 +7,7 @@ import {
 } from '../../utils/globals'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { DataTypeId } from '../config/MetricConfigTypes'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import {
   Breakdowns,
   type DemographicType,
@@ -16,7 +17,6 @@ import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { AGE, RACE, SEX } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
-import IncarcerationProvider from './IncarcerationProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   IncarcerationDatasetId: DatasetId,
@@ -29,7 +29,9 @@ async function ensureCorrectDatasetsDownloaded(
   // if these aren't sent as args, default to []
   acsDatasetIds = acsDatasetIds || []
 
-  const incarcerationProvider = new IncarcerationProvider()
+  const incarcerationProvider = new VariableProviderMap().getProviderById(
+    'incarceration_provider',
+  )
 
   const specificId = appendFipsIfNeeded(IncarcerationDatasetId, baseBreakdown)
 
@@ -156,5 +158,39 @@ describe('IncarcerationProvider', () => {
       'jail',
       ['acs_population-sex_national_current'],
     )
+  })
+
+  test('alls fallback strips unrequested columns', async () => {
+    // insurance_status has no BJS national dataset, triggering the alls fallback path.
+    // Regression: UniversalProvider must call removeUnrequestedColumns on this path.
+    const allsId: DatasetId = 'bjs_incarceration_data-alls_national_current'
+    dataFetcher.setFakeDatasetLoaded(allsId, [
+      {
+        state_fips: '00',
+        state_name: 'United States',
+        insurance_status: 'All',
+        prison_per_100k: 200,
+        jail_per_100k: 99,
+      },
+    ])
+
+    const provider = new VariableProviderMap().getProviderById(
+      'incarceration_provider',
+    )
+    const breakdowns = Breakdowns.forFips(new Fips('00'))
+    const response = await provider.getData(
+      new MetricQuery(
+        ['prison_per_100k'],
+        breakdowns.addBreakdown('insurance_status'),
+        'prison',
+        'current',
+        'rate-chart',
+      ),
+    )
+
+    expect(response.data).toHaveLength(1)
+    expect(response.data[0]).toHaveProperty('prison_per_100k')
+    expect(response.data[0]).not.toHaveProperty('jail_per_100k')
+    expect(response.usedAllsFallback).toBe(true)
   })
 })

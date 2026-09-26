@@ -6,11 +6,11 @@ import {
 } from '../../utils/globals'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { MetricId } from '../config/MetricConfigTypes'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
-import PhrmaBrfssProvider from './PhrmaBrfssProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   PhrmaDatasetId: DatasetId,
@@ -23,7 +23,9 @@ async function ensureCorrectDatasetsDownloaded(
   metricIds = metricIds || []
   acsDatasetIds = acsDatasetIds || []
 
-  const phrmaBrfssProvider = new PhrmaBrfssProvider()
+  const phrmaBrfssProvider = new VariableProviderMap().getProviderById(
+    'phrma_brfss_provider',
+  )
   const specificDatasetId = appendFipsIfNeeded(PhrmaDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
 

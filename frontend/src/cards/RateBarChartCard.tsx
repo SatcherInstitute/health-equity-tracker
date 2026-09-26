@@ -1,14 +1,14 @@
 import { RateBarChart } from '../charts/rateBarChart/Index'
 import { addComparisonAllsRowToIntersectionalData } from '../charts/sharedBarChartPieces/helpers'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
-import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
-import { isPctType } from '../data/config/MetricConfigUtils'
-import { GUN_VIOLENCE_DATATYPES } from '../data/providers/GunViolenceProvider'
+import { GUN_VIOLENCE_DATATYPES } from '../data/config/MetricConfigCommunitySafety'
 import {
   DATATYPES_NEEDING_13PLUS,
   GENDER_METRICS,
-} from '../data/providers/HivProvider'
-import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
+} from '../data/config/MetricConfigHivCategory'
+import { INCARCERATION_IDS } from '../data/config/MetricConfigPDOH'
+import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import { isPctType } from '../data/config/MetricConfigUtils'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,

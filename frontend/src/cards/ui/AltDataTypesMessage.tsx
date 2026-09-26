@@ -1,6 +1,17 @@
-import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
-import { dataTypeLinkMap } from '../../data/providers/CdcCovidProvider'
-import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+} from '../../data/config/MetricConfigTypes'
+import {
+  AGE_ADJUST_COVID_DEATHS_US_SETTING,
+  AGE_ADJUST_COVID_HOSP_US_SETTING,
+  EXPLORE_DATA_PAGE_LINK,
+} from '../../utils/internalRoutes'
+
+const dataTypeLinkMap: Partial<Record<DataTypeId, string>> = {
+  covid_deaths: AGE_ADJUST_COVID_DEATHS_US_SETTING,
+  covid_hospitalizations: AGE_ADJUST_COVID_HOSP_US_SETTING,
+}
 
 interface AltDataTypesMessageProps {
   ageAdjustedDataTypes: DataTypeConfig[]

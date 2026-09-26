@@ -6,12 +6,12 @@ import type {
   Geometry,
 } from 'geojson'
 import { feature, merge } from 'topojson-client'
-import type { MetricConfig } from '../../data/config/MetricConfigTypes'
-import { isPctType } from '../../data/config/MetricConfigUtils'
 import {
   CAWP_METRICS,
   getWomenRaceLabel,
-} from '../../data/providers/CawpProvider'
+} from '../../data/config/MetricConfigPDOH'
+import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import { isPctType } from '../../data/config/MetricConfigUtils'
 import type { DemographicType } from '../../data/query/Breakdowns'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
 import { Fips } from '../../data/utils/Fips'

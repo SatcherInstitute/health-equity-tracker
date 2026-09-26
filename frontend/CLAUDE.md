@@ -119,8 +119,7 @@ A `MetricConfig` must declare its `suppressionFlagMetricId` so the map can disti
 1. Create `src/data/config/MetricConfig<Topic>.ts` — define `MetricId`s, `DataTypeId`s, and chart configs
 2. Register the new `DropdownVarId` in `src/data/config/DropDownIds.ts`
 3. Create `src/data/config/DatasetMetadata<Topic>.ts` — list dataset IDs consumed
-4. Create `src/data/providers/<Topic>Provider.ts` — extends `VariableProvider`, maps metrics to dataset files
-5. Register provider in `src/data/loading/VariableProviderMap.ts`
+4. Register provider in `src/data/loading/VariableProviderMap.ts`: add a `DataSourceConfig` object with `getDatasetDetails`, `getConsumedDatasetIds`, `allowsBreakdowns`, and optional `transformRows` function, then add the mapping from `ProviderId` → `UniversalProvider` instance. When `getDatasetDetails` routes to different dataset names based on geography or data type, use `resolveDataset()` from `DataSourceConfigs.ts` — declare the default dataset name first, then override by geo key or nested `DataTypeId` map.
 
 ## Design System / Token Pipeline
 
@@ -233,8 +232,8 @@ Flag params are **stripped from the URL** once read, because `setMadLibWithParam
 | Topic metric definitions | `src/data/config/MetricConfig*.ts` |
 | All topic dropdown IDs | `src/data/config/DropDownIds.ts` |
 | Topic category map & type | `src/data/config/CategoryTypes.ts` |
-| Data provider per topic | `src/data/providers/*Provider.ts` |
-| Provider registration | `src/data/loading/VariableProviderMap.ts` |
+| Data provider configuration | `src/data/loading/VariableProviderMap.ts` (all topics use `UniversalProvider`) |
+| Core provider classes | `src/data/providers/UniversalProvider.ts`, `src/data/providers/VariableProvider.ts` |
 | Data catalog page | `src/pages/DataCatalog/DataCatalogPage.tsx` |
 | URL parameter constants | `src/utils/urlutils.tsx` |
 | Feature flag resolution | `src/featureFlags.ts` |
