@@ -434,7 +434,4 @@ export const SUICIDE_METRICS: DataTypeConfig[] = [
   },
 ]
 
-export const AHR_PROVIDER_METRICS: MetricId[] = [
-  ...ALL_AHR_METRICS,
-  'fatal_population_pct',
-]
+export const AHR_PROVIDER_METRICS: MetricId[] = [...ALL_AHR_METRICS]
