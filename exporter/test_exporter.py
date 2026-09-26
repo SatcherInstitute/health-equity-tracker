@@ -201,6 +201,36 @@ def testExportSplitCountyTables(
 @mock.patch("main.export_nd_json_to_blob")
 @mock.patch("main.prepare_blob")
 @mock.patch("main.prepare_bucket")
+@mock.patch(
+    "main.get_query_results_as_df",
+    side_effect=lambda *_: pd.DataFrame({"sex": ["All"], "county_fips": ["01001"], "value": [1]}),
+)
+def testExportAllsCountyWritesPerStateSplitFiles(
+    mock_query_df: mock.MagicMock,
+    mock_prepare_bucket: mock.MagicMock,
+    mock_prepare_blob: mock.MagicMock,
+    mock_export: mock.MagicMock,
+):
+    # County alls tables must be split by state so the frontend can request
+    # phrma_data-alls_county_current-XX rather than the full national file.
+    table = bigquery.Table("my-project.phrma_data.sex_county_current")
+    export_alls(mock.Mock(), table, "my-bucket", "sex")
+
+    blob_names = [call.args[1] for call in mock_prepare_blob.call_args_list]
+    # national alls file + one per state/territory
+    assert "phrma_data-alls_county_current.json" in blob_names
+    assert "phrma_data-alls_county_current-01.json" in blob_names
+    assert len(blob_names) == 1 + len(STATE_LEVEL_FIPS_LIST)
+
+    # per-state queries must filter by county_fips prefix
+    all_queries = [call.args[1] for call in mock_query_df.call_args_list]
+    state_queries = all_queries[1:]  # first is the national query
+    assert all("county_fips LIKE" in q for q in state_queries)
+
+
+@mock.patch("main.export_nd_json_to_blob")
+@mock.patch("main.prepare_blob")
+@mock.patch("main.prepare_bucket")
 @mock.patch("main.get_query_results_as_df", return_value=pd.DataFrame({"sex": ["All"], "value": [1]}))
 def testExportAllsBacktickQuotesHyphenatedTable(
     mock_query_df: mock.MagicMock,

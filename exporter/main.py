@@ -157,13 +157,12 @@ def has_multi_demographics(table_id: str):
 
 
 def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket: str, demographic: str):
-    """Export json file with just the ALLS rows from the given table, frontend can use as a fallback in compare mode"""
+    """Export json file with just the ALLS rows from the given table, frontend can use as a fallback in compare mode.
+    For county-level tables, also writes per-state-split files (e.g. phrma_data-alls_county_current-06.json)
+    so the frontend can request the state-specific file instead of loading all counties nationally."""
     table_name = get_table_name(table)
-    demo_cols = []
     demo_to_replace = demographic if demographic != "black_women" else "age"
-    demo_col = demographic
-    if demographic == "black_women":
-        demo_col = "age"
+    demo_col = "age" if demographic == "black_women" else demographic
     if demographic == "race":
         demo_col = "race_and_ethnicity"
 
@@ -196,6 +195,29 @@ def export_alls(bq_client: bigquery.Client, table: bigquery.Table, export_bucket
         message = f"Error extracting the ALLS rows from table {table_name} into {alls_file_name}:\n {err}"
         logging.error(message)
         return (message, 500)
+
+    # County alls tables must also be split by state so the frontend can
+    # request phrma_data-alls_county_current-XX rather than loading the full
+    # national file when falling back to alls at county level.
+    if "county" in alls_table_id:
+        for fips in STATE_LEVEL_FIPS_LIST:
+            state_file_name = f"{table.dataset_id}-{alls_table_id}-{fips}.json"
+            state_query = f"""
+                SELECT *
+                FROM `{table_name}`
+                WHERE {demo_col} = 'All'
+                AND county_fips LIKE '{fips}___'
+            """
+            try:
+                state_blob = prepare_blob(bucket, state_file_name)
+                state_df = get_query_results_as_df(bq_client, state_query)
+                state_df.drop(columns=demo_cols, inplace=True)
+                nd_json = state_df.to_json(orient="records", lines=True)
+                export_nd_json_to_blob(state_blob, nd_json)
+            except Exception as err:
+                message = f"Error splitting county ALLS table {table_name} into {state_file_name}:\n {err}"
+                logging.error(message)
+                return (message, 500)
 
 
 def get_table_name(table):
