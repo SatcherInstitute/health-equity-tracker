@@ -123,9 +123,6 @@ class CHRData(DataSource):
                 std_col.POPULATION_COL: std_col.FATAL_POPULATION,
             }
         )
-        # TODO(#5266): remove once AhrProvider migrates to fatal_population_*
-        df[std_col.CHR_POPULATION_PCT] = df[std_col.FATAL_POPULATION_PCT]
-        df[std_col.CHR_POPULATION_RAW] = df[std_col.FATAL_POPULATION]
         std_col.swap_race_id_col_for_names_col(df)
 
         for timeview in [CURRENT, HISTORICAL]:
@@ -137,7 +134,6 @@ class CHRData(DataSource):
 
             topic_prefixes = get_all_topic_prefixes()
             topic_prefixes.append("fatal")  # preserves fatal_population and fatal_population_pct
-            topic_prefixes.append("chr_population")  # preserves chr_population_pct and chr_population_estimated_total
 
             df_for_bq, col_types = dataset_utils.get_timeview_df_and_cols(df_for_bq, timeview, topic_prefixes)
 
@@ -232,8 +228,6 @@ def get_float_cols() -> Dict[str, List[str]]:
     current_float_cols = [
         std_col.FATAL_POPULATION,
         std_col.FATAL_POPULATION_PCT,
-        std_col.CHR_POPULATION_RAW,
-        std_col.CHR_POPULATION_PCT,
     ]
     historical_float_cols: List[str] = []
 
