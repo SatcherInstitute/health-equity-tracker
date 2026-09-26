@@ -276,7 +276,7 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
             // surrounding geoOverrides shape suggests.
             populationComparisonMetric: {
               chartTitle: '',
-              metricId: 'chr_population_pct',
+              metricId: 'fatal_population_pct',
               columnTitleHeader: populationPctTitle,
               shortLabel: populationPctShortLabel,
               type: 'pct_share',

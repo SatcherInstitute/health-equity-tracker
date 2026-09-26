@@ -168,7 +168,7 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
           pct_rate: {
             populationComparisonMetric: {
               chartTitle: '',
-              metricId: 'chr_population_pct',
+              metricId: 'fatal_population_pct',
               columnTitleHeader: populationPctTitle,
               shortLabel: populationPctShortLabel,
               type: 'pct_share',
