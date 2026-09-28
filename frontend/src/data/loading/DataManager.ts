@@ -191,48 +191,22 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
   protected async loadResourceInternal(
     query: MetricQuery,
   ): Promise<MetricQueryResponse> {
-    const providers = this.providerMap.getUniqueProviders(query.metricIds)
+    const provider = this.providerMap.getProvider(query)
 
     // Yield thread so the UI can respond. This prevents long calculations
     // from causing UI elements to look laggy.
     await new Promise((resolve) => {
       setTimeout(resolve, 0)
     })
-    // TODO: potentially improve caching by caching the individual results
-    // before joining so those can be reused, or caching the results under
-    // all of the variables provided under different keys. For example, if
-    // you request covid cases we could also cache it under covid deaths
-    // since they're provided together. Also, it would be nice to cache ACS
-    // when it's used from within another provider.
-    const promises: Array<Promise<MetricQueryResponse>> = providers.map(
-      async (provider) => await provider.getData(query),
-    )
 
-    const queryResponses: MetricQueryResponse[] = await Promise.all(promises)
+    const queryResponse = await provider.getData(query)
+    if (queryResponse.dataIsMissing()) return queryResponse
 
-    const potentialErrorResponse = queryResponses.find((metricQueryResponse) =>
-      metricQueryResponse.dataIsMissing(),
-    )
-    if (potentialErrorResponse !== undefined) {
-      return potentialErrorResponse
-    }
-
-    const consumedDatasetIds = queryResponses.flatMap(
-      (r) => r.consumedDatasetIds,
-    )
-    const uniqueConsumedDatasetIds = Array.from(new Set(consumedDatasetIds))
-    // Each MetricQuery always resolves to a single provider — multi-provider
-    // queries were removed when population data was baked into topic tables.
-    if (queryResponses.length !== 1) {
-      throw new Error(
-        `Expected exactly 1 provider response, got ${queryResponses.length}`,
-      )
-    }
     const resp = new MetricQueryResponse(
-      queryResponses[0].data,
-      uniqueConsumedDatasetIds,
+      queryResponse.data,
+      Array.from(new Set(queryResponse.consumedDatasetIds)),
       undefined,
-      queryResponses[0].usedAllsFallback,
+      queryResponse.usedAllsFallback,
     )
 
     new DatasetOrganizer(resp.data, query.breakdowns).organize()
