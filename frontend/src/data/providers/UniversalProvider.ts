@@ -1,5 +1,5 @@
 import { type DatasetId, isValidDatasetId } from '../config/DatasetMetadata'
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { DataTypeId } from '../config/MetricConfigTypes'
 import type {
   DataSourceConfig,
   IslandAreaPopulation,
@@ -21,12 +21,8 @@ export type { DataSourceConfig, IslandAreaPopulation }
 class UniversalProvider extends VariableProvider {
   private readonly config: DataSourceConfig
 
-  constructor(
-    providerId: ProviderId,
-    metrics: MetricId[],
-    config: DataSourceConfig,
-  ) {
-    super(providerId, metrics)
+  constructor(providerId: ProviderId, config: DataSourceConfig) {
+    super(providerId)
     this.config = config
   }
 
@@ -118,10 +114,6 @@ class UniversalProvider extends VariableProvider {
       )
 
     df = this.renameGeoColumns(df, breakdowns)
-
-    if (this.config.transformRows) {
-      df = this.config.transformRows(df, metricQuery)
-    }
 
     if (isFallbackId) {
       df = this.castAllsAsRequestedDemographicBreakdown(df, breakdowns)
