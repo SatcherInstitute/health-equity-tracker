@@ -71,26 +71,6 @@ export const BLACK_WOMEN_DATATYPES: DataTypeId[] = [
   'hiv_prevalence_black_women',
 ]
 
-export const BLACK_WOMEN_METRICS: MetricId[] = [
-  'hiv_deaths_black_women',
-  'hiv_deaths_black_women_pct_relative_inequity',
-  'hiv_deaths_black_women_pct_share',
-  'hiv_deaths_black_women_per_100k',
-  'hiv_deaths_black_women_per_100k_is_suppressed',
-  'hiv_diagnoses_black_women',
-  'hiv_diagnoses_black_women_pct_relative_inequity',
-  'hiv_diagnoses_black_women_pct_share',
-  'hiv_diagnoses_black_women_per_100k',
-  'hiv_diagnoses_black_women_per_100k_is_suppressed',
-  'hiv_prevalence_black_women',
-  'hiv_prevalence_black_women_pct_relative_inequity',
-  'hiv_prevalence_black_women_pct_share',
-  'hiv_prevalence_black_women_per_100k',
-  'hiv_prevalence_black_women_per_100k_is_suppressed',
-  'black_women_population_count',
-  'black_women_population_pct',
-]
-
 export const HIV_CATEGORY_DROPDOWNIDS = [
   'hiv',
   'hiv_black_women',

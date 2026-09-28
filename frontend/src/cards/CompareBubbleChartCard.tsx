@@ -44,7 +44,7 @@ export default function CompareBubbleChartCard(
   const queryX = new MetricQuery(
     xIdsToFetch,
     breakdowns,
-    /* dataTypeId */ undefined,
+    /* dataTypeId */ props.dataTypeConfig1.dataTypeId,
     /* timeView */ 'current',
   )
 

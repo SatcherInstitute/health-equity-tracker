@@ -21,7 +21,11 @@ import {
   PRIVATE_JAILS_QUALIFIER,
 } from '../data/config/MetricConfigPDOH'
 import { PHRMA_METRICS } from '../data/config/MetricConfigPhrma'
-import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
+import type {
+  DataTypeConfig,
+  MetricConfig,
+  MetricId,
+} from '../data/config/MetricConfigTypes'
 import { applyGeoOverrides } from '../data/config/MetricConfigUtils'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
@@ -168,10 +172,28 @@ function MapCardWithKey(props: MapCardProps) {
     [props.dataTypeConfig, props.fips.code],
   )
 
+  // The map renders children, but the second query and the population phrase
+  // describe this place itself. A topic whose geoOverrides swap the population
+  // columns by geography (county gun deaths reads CHR, state reads WISQARS)
+  // would otherwise ask the state row for the county's column names.
+  const selfResolvedDataTypeConfig = useMemo(
+    () =>
+      applyGeoOverrides(
+        props.dataTypeConfig,
+        props.fips.getGeographicBreakdown(),
+      ),
+    [props.dataTypeConfig, props.fips.code],
+  )
+
   const metricConfig =
     resolvedDataTypeConfig.metrics?.per100k ??
     resolvedDataTypeConfig.metrics?.pct_rate ??
     resolvedDataTypeConfig.metrics?.index
+
+  const selfMetricConfig =
+    selfResolvedDataTypeConfig.metrics?.per100k ??
+    selfResolvedDataTypeConfig.metrics?.pct_rate ??
+    selfResolvedDataTypeConfig.metrics?.index
 
   const isMobile = !useIsBreakpointAndUp('sm')
   const isMd = useIsBreakpointAndUp('md')
@@ -232,28 +254,37 @@ function MapCardWithKey(props: MapCardProps) {
     denominatorConfig: metricConfig?.rateDenominatorMetric,
   }
 
-  const initialMetridIds = [metricConfig.metricId]
+  const selfCountColsMap: CountColsMap = {
+    numeratorConfig: selfMetricConfig?.rateNumeratorMetric,
+    denominatorConfig: selfMetricConfig?.rateDenominatorMetric,
+  }
 
-  const subPopulationId = metricConfig?.rateDenominatorMetric?.metricId
-  if (subPopulationId) initialMetridIds.push(subPopulationId)
-
-  const suppressionFlagId = metricConfig.suppressionFlagMetricId
-  if (suppressionFlagId) initialMetridIds.push(suppressionFlagId)
-
-  if (
-    props.dataTypeConfig.dataTypeId === 'women_in_us_congress' &&
-    !props.fips.isUsa()
-  ) {
-    initialMetridIds.push('congressional_districts')
+  const buildMetricIds = (config: MetricConfig): MetricId[] => {
+    const ids: MetricId[] = [config.metricId]
+    const subPopulationId = config.rateDenominatorMetric?.metricId
+    if (subPopulationId) ids.push(subPopulationId)
+    const suppressionFlagId = config.suppressionFlagMetricId
+    if (suppressionFlagId) ids.push(suppressionFlagId)
+    if (
+      props.dataTypeConfig.dataTypeId === 'women_in_us_congress' &&
+      !props.fips.isUsa()
+    ) {
+      ids.push('congressional_districts')
+    }
+    return ids
   }
 
   const queries = [
     metricQuery(
-      initialMetridIds,
+      buildMetricIds(metricConfig),
       Breakdowns.forChildrenFips(props.fips),
       countColsMap,
     ),
-    metricQuery(initialMetridIds, Breakdowns.forFips(props.fips)),
+    metricQuery(
+      buildMetricIds(selfMetricConfig ?? metricConfig),
+      Breakdowns.forFips(props.fips),
+      selfCountColsMap,
+    ),
   ]
 
   // Population count
@@ -281,8 +312,10 @@ function MapCardWithKey(props: MapCardProps) {
   const parentFips = props.fips.getParentFips()
   const insightPeerConfig: InsightPeerConfig | undefined = !props.fips.isUsa()
     ? {
+        // Peers sit at this region's own level, so they read its columns, not
+        // the child geography's.
         peerQuery: metricQuery(
-          initialMetridIds,
+          buildMetricIds(selfMetricConfig ?? metricConfig),
           Breakdowns.forChildrenFips(parentFips),
         ),
         peerNoun: props.fips.isCounty()
@@ -469,12 +502,7 @@ function MapCardWithKey(props: MapCardProps) {
           isAtlantaMode ? atlantaData : parentGeoQueryResponse.data,
           subPopSourceLabel,
           demographicType,
-          hasSelfButNotChildGeoData
-            ? applyGeoOverrides(
-                props.dataTypeConfig,
-                props.fips.getGeographicBreakdown(),
-              )
-            : resolvedDataTypeConfig,
+          selfResolvedDataTypeConfig,
         )
 
         const dataForSvi: HetRow[] =
