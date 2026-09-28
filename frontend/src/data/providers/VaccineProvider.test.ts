@@ -5,13 +5,13 @@ import {
   resetCacheDebug,
 } from '../../utils/globals'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
 import { AGE, RACE, SEX } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
 import { NC, USA } from './TestUtils'
-import VaccineProvider from './VaccineProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   vaccinationDatasetId: DatasetId,
@@ -19,7 +19,9 @@ async function ensureCorrectDatasetsDownloaded(
   demographicType: DemographicType,
   isFallback?: boolean,
 ) {
-  const vaccineProvider = new VaccineProvider()
+  const vaccineProvider = new VariableProviderMap().getProviderById(
+    'vaccine_provider',
+  )
   const specificDatasetId = isFallback
     ? vaccinationDatasetId
     : appendFipsIfNeeded(vaccinationDatasetId, baseBreakdown)

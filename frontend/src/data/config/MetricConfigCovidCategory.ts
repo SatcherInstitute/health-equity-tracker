@@ -6,7 +6,7 @@ import {
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigConstants'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, MetricId } from './MetricConfigTypes'
 
 export const COVID_CATEGORY_DROPDOWNIDS = [
   'covid_vaccinations',
@@ -274,4 +274,34 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
       },
     },
   },
+]
+
+export const CDC_COVID_METRICS: MetricId[] = [
+  'covid_cases',
+  'covid_deaths',
+  'covid_hosp',
+  'covid_cases_share',
+  'covid_deaths_share',
+  'covid_hosp_share',
+  'covid_cases_share_of_known',
+  'covid_deaths_share_of_known',
+  'covid_hosp_share_of_known',
+  'covid_deaths_per_100k',
+  'covid_cases_per_100k',
+  'covid_hosp_per_100k',
+  'death_ratio_age_adjusted',
+  'hosp_ratio_age_adjusted',
+  'cases_ratio_age_adjusted',
+  'covid_population_pct',
+  'covid_cases_pct_relative_inequity',
+  'covid_deaths_pct_relative_inequity',
+  'covid_hosp_pct_relative_inequity',
+]
+
+export const VACCINE_METRICS: MetricId[] = [
+  'acs_vaccinated_pop_pct',
+  'vaccinated_pct_share',
+  'vaccinated_pct_rate',
+  'vaccinated_pop_pct',
+  'vaccinated_estimated_total',
 ]

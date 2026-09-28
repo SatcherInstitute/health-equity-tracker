@@ -5,8 +5,8 @@ import {
   type DatasetIdWithStateFIPSCode,
   DatasetMetadataMap,
 } from '../../data/config/DatasetMetadata'
+import { PHRMA_DATATYPES } from '../../data/config/MetricConfigPhrma'
 import type { DataTypeConfig } from '../../data/config/MetricConfigTypes'
-import { PHRMA_DATATYPES } from '../../data/providers/PhrmaProvider'
 import type { MetricQueryResponse } from '../../data/query/MetricQuery'
 import type { MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'

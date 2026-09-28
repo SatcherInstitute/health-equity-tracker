@@ -3,14 +3,14 @@ import { createColorScale } from '../../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../../charts/choroplethMap/index'
 import RateMapLegend from '../../charts/choroplethMap/RateMapLegend'
 import type { CountColsMap } from '../../charts/mapGlobals'
+import {
+  CAWP_METRICS,
+  getWomenRaceLabel,
+} from '../../data/config/MetricConfigPDOH'
 import type {
   DataTypeConfig,
   MetricConfig,
 } from '../../data/config/MetricConfigTypes'
-import {
-  CAWP_METRICS,
-  getWomenRaceLabel,
-} from '../../data/providers/CawpProvider'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,

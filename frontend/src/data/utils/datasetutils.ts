@@ -6,20 +6,20 @@ import {
   GEOGRAPHIES_COUNTIES_DATASET_ID,
   GEOGRAPHIES_STATES_DATASET_ID,
 } from '../config/MetadataMap'
-import type {
-  DataTypeConfig,
-  DataTypeId,
-  MetricConfig,
-  MetricId,
-} from '../config/MetricConfigTypes'
 import {
   AHR_API_NH_METRICS,
   AHR_DECADE_PLUS_5_AGE_METRICS,
   AHR_METRICS,
   AHR_VOTER_AGE_METRICS,
   ALL_AHR_METRICS,
-} from '../providers/AhrProvider'
-import { DATATYPES_NEEDING_13PLUS } from '../providers/HivProvider'
+} from '../config/MetricConfigBehavioralHealth'
+import { DATATYPES_NEEDING_13PLUS } from '../config/MetricConfigHivCategory'
+import type {
+  DataTypeConfig,
+  DataTypeId,
+  MetricConfig,
+  MetricId,
+} from '../config/MetricConfigTypes'
 import type { Breakdowns, DemographicType } from '../query/Breakdowns'
 import {
   type MetricQuery,

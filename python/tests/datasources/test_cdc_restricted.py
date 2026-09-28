@@ -57,6 +57,41 @@ def get_cdc_restricted_by_sex_county_as_df():
     )
 
 
+def testGenerateBreakdownDropsPartialMonth():
+    cdc_restricted = CDCRestrictedData()
+
+    sex_vals = ["All", "Male", "Female", "Unknown"]
+    months = ["2020-01", "2021-01", "2022-01"]
+    rows = []
+    for month in months:
+        for sex in sex_vals:
+            rows.append(
+                {
+                    "state_postal": "CA",
+                    "time_period": month,
+                    "sex": sex,
+                    "cases": 10,
+                    "hosp_y": 1,
+                    "hosp_n": 5,
+                    "hosp_unknown": 0,
+                    "death_y": 0,
+                    "death_n": 5,
+                    "death_unknown": 0,
+                }
+            )
+    three_months = pd.DataFrame(rows)
+
+    df = cdc_restricted.generate_breakdown(three_months, "sex", "state", True)
+
+    assert "2022-01" not in df["time_period"].values, "Most recent (partial) month should be dropped"
+    assert "2020-01" in df["time_period"].values, "Earlier months should be preserved"
+    assert "2021-01" in df["time_period"].values, "Earlier months should be preserved"
+
+    # Cumulative (non-time-series) does not have a time_period column — no drop applied
+    df_cumulative = cdc_restricted.generate_breakdown(three_months, "sex", "state", False)
+    assert "time_period" not in df_cumulative.columns, "Cumulative output should not have time_period column"
+
+
 def testGenerateBreakdownSexStateTimeSeries():
     cdc_restricted = CDCRestrictedData()
 
@@ -74,6 +109,7 @@ def testGenerateBreakdownSexStateTimeSeries():
 
     sortby_cols = list(df.columns)
 
+    # df.to_json(GOLDEN_DATA_BY_SEX_STATE_HISTORICAL, orient="records")
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
@@ -100,6 +136,7 @@ def testGenerateBreakdownSexCountyTimeSeries():
 
     sortby_cols = list(df.columns)
 
+    # df.to_json(GOLDEN_DATA_BY_SEX_COUNTY_HISTORICAL, orient="records")
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
@@ -125,6 +162,7 @@ def testGenerateBreakdownSexNationalTimeSeries():
 
     sortby_cols = list(df.columns)
 
+    # df.to_json(GOLDEN_DATA_BY_SEX_NATIONAL_HISTORICAL, orient="records")
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),

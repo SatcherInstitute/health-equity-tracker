@@ -8,7 +8,7 @@ import {
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigConstants'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, MetricId } from './MetricConfigTypes'
 
 export const SDOH_CATEGORY_DROPDOWNIDS = [
   'avoided_care',
@@ -287,4 +287,19 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
       },
     },
   },
+]
+
+export const ACS_CONDITION_METRICS: MetricId[] = [
+  'uninsured_population_pct',
+  'uninsured_pct_rate',
+  'uninsured_pct_share',
+  'uninsured_pct_relative_inequity',
+  'poverty_population_pct',
+  'poverty_pct_rate',
+  'poverty_pct_share',
+  'poverty_pct_relative_inequity',
+  'uninsured_estimated_total',
+  'uninsured_pop_estimated_total',
+  'poverty_estimated_total',
+  'poverty_pop_estimated_total',
 ]

@@ -11,6 +11,8 @@ import {
   type DatasetIdWithStateFIPSCode,
   DatasetMetadataMap,
 } from '../config/DatasetMetadata'
+import { getWomenRaceLabel } from '../config/MetricConfigPDOH'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import { Breakdowns, type DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import {
@@ -22,7 +24,6 @@ import {
 } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
-import CawpProvider, { getWomenRaceLabel } from './CawpProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   cawpDatasetId: DatasetId,
@@ -31,7 +32,9 @@ async function ensureCorrectDatasetsDownloaded(
   cardId?: ScrollableHashId,
   isFallback?: boolean,
 ) {
-  const cawpProvider = new CawpProvider()
+  const cawpProvider = new VariableProviderMap().getProviderById(
+    'cawp_provider',
+  )
   const specificId = isFallback
     ? cawpDatasetId
     : appendFipsIfNeeded(cawpDatasetId, baseBreakdown)
@@ -109,7 +112,9 @@ describe('CAWP Unit Tests', () => {
   })
 
   test('congressional_districts flows through to query response when requested', async () => {
-    const cawpProvider = new CawpProvider()
+    const cawpProvider = new VariableProviderMap().getProviderById(
+      'cawp_provider',
+    )
     const breakdowns = Breakdowns.forChildrenFips(new Fips('06')).addBreakdown(
       RACE,
     )

@@ -6,6 +6,7 @@ import {
 } from '../../utils/globals'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import type { DataTypeId } from '../config/MetricConfigTypes'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import {
   Breakdowns,
   type DemographicType,
@@ -15,7 +16,6 @@ import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { RACE, SEX } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
-import CdcCancerProvider from './CdcCancerProvider'
 
 async function ensureCorrectDatasetsDownloaded(
   cancerDatasetId: DatasetId,
@@ -24,7 +24,9 @@ async function ensureCorrectDatasetsDownloaded(
   dataTypeId: DataTypeId,
   timeView: TimeView,
 ) {
-  const cdcCancerProvider = new CdcCancerProvider()
+  const cdcCancerProvider = new VariableProviderMap().getProviderById(
+    'cdc_cancer_provider',
+  )
   const specificId = appendFipsIfNeeded(cancerDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificId, [])
 

@@ -1,8 +1,8 @@
 import type { DropdownVarId } from '../data/config/DropDownIds'
+import { AHR_CONDITIONS } from '../data/config/MetricConfigBehavioralHealth'
 import { COMMUNITY_SAFETY_DROPDOWNIDS } from '../data/config/MetricConfigCommunitySafety'
+import { PHRMA_CONDITIONS } from '../data/config/MetricConfigPhrma'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
-import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
-import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
 import type { Fips } from '../data/utils/Fips'
 import {
   MissingAHRData,

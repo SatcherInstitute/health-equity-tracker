@@ -5,7 +5,91 @@ import {
 } from '../../charts/mapGlobals'
 import { ALL_BLACK_WOMEN_13PLUS_LABEL } from '../../data/utils/Constants'
 import { populationPctShortLabel } from './MetricConfigConstants'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, DataTypeId, MetricId } from './MetricConfigTypes'
+
+export const DATATYPES_NEEDING_13PLUS: DataTypeId[] = [
+  'hiv_care',
+  'hiv_deaths',
+  'hiv_diagnoses',
+  'hiv_prevalence',
+]
+
+export const GENDER_METRICS: MetricId[] = [
+  'hiv_care_total_additional_gender',
+  'hiv_care_total_trans_men',
+  'hiv_care_total_trans_women',
+  'hiv_deaths_total_additional_gender',
+  'hiv_deaths_total_trans_men',
+  'hiv_deaths_total_trans_women',
+  'hiv_diagnoses_total_additional_gender',
+  'hiv_diagnoses_total_trans_men',
+  'hiv_diagnoses_total_trans_women',
+  'hiv_prevalence_total_additional_gender',
+  'hiv_prevalence_total_trans_men',
+  'hiv_prevalence_total_trans_women',
+]
+
+export const HIV_METRICS: MetricId[] = [
+  'hiv_care_linkage',
+  'hiv_care_pct_relative_inequity',
+  'hiv_care_pct_share',
+  'hiv_care_population_pct',
+  'hiv_care_population',
+  'hiv_care',
+  'hiv_deaths_pct_relative_inequity',
+  'hiv_deaths_pct_share',
+  'hiv_deaths_per_100k',
+  'hiv_deaths_per_100k_is_suppressed',
+  'hiv_deaths_ratio_age_adjusted',
+  'hiv_deaths',
+  'hiv_diagnoses_pct_relative_inequity',
+  'hiv_diagnoses_pct_share',
+  'hiv_diagnoses_per_100k',
+  'hiv_diagnoses_per_100k_is_suppressed',
+  'hiv_diagnoses',
+  'hiv_prep_coverage',
+  'hiv_prep_pct_relative_inequity',
+  'hiv_prep_pct_share',
+  'hiv_prep_population_pct',
+  'hiv_prep_population',
+  'hiv_prep',
+  'hiv_prevalence_pct_relative_inequity',
+  'hiv_prevalence_pct_share',
+  'hiv_prevalence_per_100k',
+  'hiv_prevalence_per_100k_is_suppressed',
+  'hiv_prevalence',
+  ...GENDER_METRICS,
+  'hiv_stigma_index',
+  'hiv_stigma_pct_share',
+  'hiv_population_pct',
+  'hiv_population',
+]
+
+export const BLACK_WOMEN_DATATYPES: DataTypeId[] = [
+  'hiv_deaths_black_women',
+  'hiv_diagnoses_black_women',
+  'hiv_prevalence_black_women',
+]
+
+export const BLACK_WOMEN_METRICS: MetricId[] = [
+  'hiv_deaths_black_women',
+  'hiv_deaths_black_women_pct_relative_inequity',
+  'hiv_deaths_black_women_pct_share',
+  'hiv_deaths_black_women_per_100k',
+  'hiv_deaths_black_women_per_100k_is_suppressed',
+  'hiv_diagnoses_black_women',
+  'hiv_diagnoses_black_women_pct_relative_inequity',
+  'hiv_diagnoses_black_women_pct_share',
+  'hiv_diagnoses_black_women_per_100k',
+  'hiv_diagnoses_black_women_per_100k_is_suppressed',
+  'hiv_prevalence_black_women',
+  'hiv_prevalence_black_women_pct_relative_inequity',
+  'hiv_prevalence_black_women_pct_share',
+  'hiv_prevalence_black_women_per_100k',
+  'hiv_prevalence_black_women_per_100k_is_suppressed',
+  'black_women_population_count',
+  'black_women_population_pct',
+]
 
 export const HIV_CATEGORY_DROPDOWNIDS = [
   'hiv',

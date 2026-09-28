@@ -5,6 +5,7 @@ import {
   resetCacheDebug,
 } from '../../utils/globals'
 import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
+import VariableProviderMap from '../loading/VariableProviderMap'
 import {
   Breakdowns,
   type DemographicType,
@@ -14,7 +15,6 @@ import { MetricQuery } from '../query/MetricQuery'
 import { AGE, RACE, SEX } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { Fips } from '../utils/Fips'
-import AcsConditionProvider from './AcsConditionProvider'
 import { CHATAM, NC, USA } from './TestUtils'
 
 async function ensureCorrectDatasetsDownloaded(
@@ -23,7 +23,9 @@ async function ensureCorrectDatasetsDownloaded(
   demographicType: DemographicType,
   timeView: TimeView,
 ) {
-  const acsProvider = new AcsConditionProvider()
+  const acsProvider = new VariableProviderMap().getProviderById(
+    'acs_condition_provider',
+  )
   const specificId = appendFipsIfNeeded(acsDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificId, [])
 

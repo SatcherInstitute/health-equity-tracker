@@ -1,4 +1,4 @@
-import type { MetricId } from '../config/MetricConfigTypes'
+import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
 import type { ProviderId } from '../loading/VariableProviderMap'
 import type { Breakdowns } from '../query/Breakdowns'
 import {
@@ -20,7 +20,9 @@ abstract class VariableProvider {
   }
 
   async getData(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
-    if (!this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.metricIds)) {
+    if (
+      !this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.dataTypeId)
+    ) {
       return createMissingDataResponse(
         'Breakdowns not supported for provider ' +
           this.providerId +
@@ -111,7 +113,7 @@ abstract class VariableProvider {
 
   abstract allowsBreakdowns(
     breakdowns: Breakdowns,
-    metricIds?: MetricId[],
+    dataTypeId?: DataTypeId,
   ): boolean
 }
 

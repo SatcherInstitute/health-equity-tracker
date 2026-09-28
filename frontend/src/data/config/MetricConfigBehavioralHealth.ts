@@ -5,7 +5,97 @@ import {
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigConstants'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, DataTypeId, MetricId } from './MetricConfigTypes'
+
+export const CHR_DATATYPE_IDS: DataTypeId[] = [
+  'diabetes',
+  'excessive_drinking',
+  'frequent_mental_distress',
+  'voter_participation',
+  'preventable_hospitalizations',
+  'suicide',
+]
+
+export const AHR_DATATYPES_WITH_MISSING_AGE_DEMO: DataTypeId[] = [
+  'non_medical_drug_use',
+  'preventable_hospitalizations',
+]
+
+export const AHR_CONDITIONS = [
+  'asthma',
+  'avoided_care',
+  'cardiovascular_diseases',
+  'chronic_kidney_disease',
+  'copd',
+  'depression',
+  'diabetes',
+  'excessive_drinking',
+  'frequent_mental_distress',
+  'preventable_hospitalizations',
+  'severe_maternal_morbidity',
+  'substance',
+  'suicide',
+  'voter_participation',
+]
+
+export const AHR_METRICS: MetricId[] = [
+  'ahr_population_pct',
+  'ahr_population_estimated_total',
+  'ahr_18plus_population_estimated_total',
+  'ahr_18plus_population_pct',
+  'asthma_pct_share',
+  'asthma_per_100k',
+  'asthma_estimated_total',
+  'avoided_care_pct_share',
+  'avoided_care_pct_rate',
+  'avoided_care_estimated_total',
+  'cardiovascular_diseases_pct_share',
+  'cardiovascular_diseases_per_100k',
+  'cardiovascular_diseases_estimated_total',
+  'chronic_kidney_disease_pct_share',
+  'chronic_kidney_disease_per_100k',
+  'chronic_kidney_disease_estimated_total',
+  'copd_pct_share',
+  'copd_per_100k',
+  'copd_estimated_total',
+  'depression_pct_share',
+  'depression_per_100k',
+  'depression_estimated_total',
+  'diabetes_pct_share',
+  'diabetes_per_100k',
+  'diabetes_estimated_total',
+  'excessive_drinking_pct_share',
+  'excessive_drinking_pct_rate',
+  'excessive_drinking_estimated_total',
+  'frequent_mental_distress_pct_share',
+  'frequent_mental_distress_per_100k',
+  'frequent_mental_distress_estimated_total',
+  'non_medical_drug_use_pct_share',
+  'non_medical_drug_use_per_100k',
+  'non_medical_drug_use_estimated_total',
+  'preventable_hospitalizations_per_100k',
+  'severe_maternal_morbidity_per_100k',
+]
+
+export const AHR_VOTER_AGE_METRICS: MetricId[] = [
+  'voter_participation_pct_rate',
+]
+
+export const AHR_DECADE_PLUS_5_AGE_METRICS: MetricId[] = [
+  'suicide_pct_share',
+  'suicide_per_100k',
+  'suicide_estimated_total',
+]
+
+export const AHR_API_NH_METRICS: MetricId[] = [
+  'preventable_hospitalizations_per_100k',
+]
+
+export const ALL_AHR_METRICS: MetricId[] = [
+  ...AHR_VOTER_AGE_METRICS,
+  ...AHR_DECADE_PLUS_5_AGE_METRICS,
+  ...AHR_METRICS,
+]
 
 export const BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS = [
   'depression',
@@ -342,4 +432,9 @@ export const SUICIDE_METRICS: DataTypeConfig[] = [
       },
     },
   },
+]
+
+export const AHR_PROVIDER_METRICS: MetricId[] = [
+  ...ALL_AHR_METRICS,
+  'chr_population_pct',
 ]

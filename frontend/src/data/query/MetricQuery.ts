@@ -1,4 +1,3 @@
-import { CARDS_THAT_SHOULD_FALLBACK_TO_ALLS } from '../../reports/reportUtils'
 import type { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
 import {
@@ -254,3 +253,10 @@ export function resolveDatasetId(
   )
   return { breakdowns }
 }
+
+export const CARDS_THAT_SHOULD_FALLBACK_TO_ALLS: ScrollableHashId[] = [
+  'rate-map',
+  'rates-over-time',
+  'rate-chart',
+  'data-table',
+]

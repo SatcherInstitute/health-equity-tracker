@@ -8,7 +8,18 @@ import {
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigConstants'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, DataTypeId, MetricId } from './MetricConfigTypes'
+
+export const GUN_VIOLENCE_DATATYPES: DataTypeId[] = [
+  'gun_violence_homicide',
+  'gun_violence_suicide',
+  'gun_deaths',
+]
+
+export const GUN_VIOLENCE_YOUTH_DATATYPES: DataTypeId[] = [
+  'gun_deaths_youth',
+  'gun_deaths_young_adults',
+]
 
 export const COMMUNITY_SAFETY_DROPDOWNIDS = [
   'gun_deaths',
@@ -451,4 +462,70 @@ export const GUN_DEATHS_BLACK_MEN_METRICS: DataTypeConfig[] = [
     },
     otherSubPopulationLabel: 'Black (NH) Men',
   },
+]
+
+const GUN_HOMICIDE_METRIC_IDS: MetricId[] = [
+  'gun_violence_homicide_estimated_total',
+  'gun_violence_homicide_pct_relative_inequity',
+  'gun_violence_homicide_pct_share',
+  'gun_violence_homicide_per_100k',
+  'gun_violence_homicide_per_100k_is_suppressed',
+]
+const GUN_SUICIDE_METRIC_IDS: MetricId[] = [
+  'gun_violence_suicide_estimated_total',
+  'gun_violence_suicide_pct_relative_inequity',
+  'gun_violence_suicide_pct_share',
+  'gun_violence_suicide_per_100k',
+  'gun_violence_suicide_per_100k_is_suppressed',
+]
+const GUN_DEATHS_METRIC_IDS: MetricId[] = [
+  'gun_deaths_estimated_total',
+  'gun_deaths_pct_relative_inequity',
+  'gun_deaths_pct_share',
+  'gun_deaths_per_100k',
+  'gun_deaths_per_100k_is_suppressed',
+]
+const POPULATION_METRIC_IDS: MetricId[] = [
+  'fatal_population_pct',
+  'fatal_population',
+]
+export const GUN_VIOLENCE_METRIC_IDS: MetricId[] = [
+  ...GUN_HOMICIDE_METRIC_IDS,
+  ...GUN_SUICIDE_METRIC_IDS,
+  ...GUN_DEATHS_METRIC_IDS,
+  ...POPULATION_METRIC_IDS,
+  'gun_violence_legal_intervention_estimated_total',
+]
+
+const GUN_DEATHS_YOUTH_METRIC_IDS: MetricId[] = [
+  'gun_deaths_youth_estimated_total',
+  'gun_deaths_youth_pct_relative_inequity',
+  'gun_deaths_youth_pct_share',
+  'gun_deaths_youth_per_100k',
+  'gun_deaths_youth_per_100k_is_suppressed',
+  'gun_deaths_youth_population',
+  'gun_deaths_youth_population_pct',
+]
+const GUN_DEATHS_YOUNG_ADULTS_METRIC_IDS: MetricId[] = [
+  'gun_deaths_young_adults_estimated_total',
+  'gun_deaths_young_adults_pct_relative_inequity',
+  'gun_deaths_young_adults_pct_share',
+  'gun_deaths_young_adults_per_100k',
+  'gun_deaths_young_adults_per_100k_is_suppressed',
+  'gun_deaths_young_adults_population',
+  'gun_deaths_young_adults_population_pct',
+]
+export const GUN_VIOLENCE_YOUTH_METRIC_IDS: MetricId[] = [
+  ...GUN_DEATHS_YOUTH_METRIC_IDS,
+  ...GUN_DEATHS_YOUNG_ADULTS_METRIC_IDS,
+]
+
+export const GUN_DEATHS_BLACK_MEN_METRIC_IDS: MetricId[] = [
+  'gun_homicides_black_men_estimated_total',
+  'gun_homicides_black_men_pct_relative_inequity',
+  'gun_homicides_black_men_pct_share',
+  'gun_homicides_black_men_per_100k',
+  'gun_homicides_black_men_per_100k_is_suppressed',
+  'gun_homicides_black_men_population_estimated_total',
+  'gun_homicides_black_men_population_pct',
 ]

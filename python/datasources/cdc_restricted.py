@@ -239,6 +239,10 @@ class CDCRestrictedData(DataSource):
         df = df[all_columns]
         self.clean_frame_column_names(df)
 
+        if time_series and std_col.TIME_PERIOD_COL in df.columns:
+            most_recent = df[std_col.TIME_PERIOD_COL].max()
+            df = df[df[std_col.TIME_PERIOD_COL] != most_recent]
+
         sortby_cols = [fips, demo_col]
         df = df.sort_values(by=sortby_cols).reset_index(drop=True)
 

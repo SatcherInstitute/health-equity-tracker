@@ -1,5 +1,16 @@
 import { medicareAdherenceHigherIsBetterMapConfig } from '../../charts/mapGlobals'
-import type { DataTypeConfig } from './MetricConfigTypes'
+import type { DataTypeConfig, DataTypeId, MetricId } from './MetricConfigTypes'
+
+export const PHRMA_BRFSS_SEX_SPECIFIC_DATATYPES: DataTypeId[] = [
+  'breast_cancer_screening',
+  'cervical_cancer_screening',
+  'prostate_cancer_screening',
+]
+
+export const PHRMA_BRFSS_ALL_SEXES_DATATYPES: DataTypeId[] = [
+  'colorectal_cancer_screening',
+  'lung_cancer_screening',
+]
 
 export const CANCER_SCREENING_CATEGORY_DROPDOWNIDS = [
   'cancer_screening',
@@ -438,4 +449,37 @@ export const PHRMA_BRFSS_CANCER_SCREENING_METRICS: DataTypeConfig[] = [
       },
     },
   },
+]
+
+export const PHRMA_BRFSS_METRICS: MetricId[] = [
+  'breast_screened_estimated_total',
+  'breast_screening_eligible_estimated_total',
+  'breast_screened_pct_rate',
+  'breast_screened_pct_share',
+  'breast_screening_eligible_population_pct',
+  'breast_screened_ratio_age_adjusted',
+  'cervical_screened_estimated_total',
+  'cervical_screening_eligible_estimated_total',
+  'cervical_screened_pct_rate',
+  'cervical_screened_pct_share',
+  'cervical_screening_eligible_population_pct',
+  'cervical_screened_ratio_age_adjusted',
+  'colorectal_screened_estimated_total',
+  'colorectal_screening_eligible_estimated_total',
+  'colorectal_screened_pct_rate',
+  'colorectal_screened_pct_share',
+  'colorectal_screening_eligible_population_pct',
+  'colorectal_screened_ratio_age_adjusted',
+  'lung_screened_estimated_total',
+  'lung_screening_eligible_estimated_total',
+  'lung_screened_pct_rate',
+  'lung_screened_pct_share',
+  'lung_screening_eligible_population_pct',
+  'lung_screened_ratio_age_adjusted',
+  'prostate_screened_estimated_total',
+  'prostate_screening_eligible_estimated_total',
+  'prostate_screened_pct_rate',
+  'prostate_screened_pct_share',
+  'prostate_screening_eligible_population_pct',
+  'prostate_screened_ratio_age_adjusted',
 ]
