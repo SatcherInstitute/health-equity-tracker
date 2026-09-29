@@ -125,11 +125,12 @@ const MaternalHealthLink = () => {
                   CDC WONDER Natality (expanded) database
                 </a>
                 , grouped by the mother’s state of residence, single race, and
-                Hispanic origin. Births to Hispanic mothers of any race are
-                counted as Hispanic or Latino. Births to non-Hispanic mothers
-                are assigned to their race group, and births with unknown race
-                or Hispanic origin are excluded. Cells that CDC WONDER
-                suppresses for confidentiality are not included.
+                Hispanic origin. Births to Hispanic mothers of any race,
+                including those whose race is unknown, are counted as Hispanic
+                or Latino. Births to non-Hispanic mothers are assigned to their
+                race group. Births to non-Hispanic mothers with unknown race,
+                and births with unknown Hispanic origin, are excluded. Cells
+                that CDC WONDER suppresses for confidentiality are not included.
               </li>
               <li>
                 <strong>Estimated maternal deaths:</strong> For each state and
@@ -139,10 +140,12 @@ const MaternalHealthLink = () => {
                 modeled rate, not observed death counts.
               </li>
               <li>
-                <strong>State totals for all groups:</strong> For 2019, each
-                state’s all-groups rate is recalculated by adding the estimated
-                deaths and live births across the race/ethnicity groups that
-                have a matching denominator. The study combines Asian, Native
+                <strong>State totals for all groups:</strong> The study does not
+                publish an all-groups rate for individual states. For 2019 only,
+                we calculate one by adding the estimated deaths and live births
+                across the race/ethnicity groups that have a matching
+                denominator, so state trend charts do not include an all-groups
+                line for earlier years. The study combines Asian, Native
                 Hawaiian, and Pacific Islander mothers into one group, while CDC
                 WONDER reports them separately, so this group does not currently
                 have a state-level denominator and is not included in these
