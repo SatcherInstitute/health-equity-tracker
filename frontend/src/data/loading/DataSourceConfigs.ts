@@ -11,7 +11,6 @@ import {
 import type { DataTypeId } from '../config/MetricConfigTypes'
 import type { Breakdowns, GeographicBreakdown } from '../query/Breakdowns'
 import type { MetricQuery } from '../query/MetricQuery'
-import type { HetRow } from '../utils/DatasetTypes'
 import { addAcsIdToConsumed } from '../utils/datasetutils'
 
 // Describes which DECIA territory population dataset(s) UniversalProvider should
@@ -40,14 +39,6 @@ export interface DataSourceConfig {
     breakdowns: Breakdowns,
   ) => Array<DatasetId | DatasetIdWithStateFIPSCode>
   allowsBreakdowns: (breakdowns: Breakdowns, dataTypeId?: DataTypeId) => boolean
-  // Applied after renameGeoColumns, before the demographic cast/filter step.
-  // Use for column remapping (GunViolence CHR) or time-based row filtering (CdcCovid).
-  transformRows?: (
-    rows: readonly HetRow[],
-    metricQuery: MetricQuery,
-  ) => HetRow[]
-  // Set true when county data is not split by state FIPS (e.g. NCI cancer).
-  skipFipsAppend?: boolean
   // When set, UniversalProvider automatically appends the correct DECIA territory
   // population dataset(s) to consumedDatasetIds for island-area (and optionally
   // all-states) queries. Configs only need to guard addAcsIdToConsumed with
@@ -195,7 +186,6 @@ export const CDC_CANCER_CONFIG: DataSourceConfig = {
     county: 'nci_cancer',
   }),
   allowsBreakdowns: oneOfGeoWithSingleDemo(['county', 'state', 'national']),
-  skipFipsAppend: true,
 }
 
 // ── CDC Covid ────────────────────────────────────────────────────────────────
@@ -252,17 +242,6 @@ export const GEO_CONTEXT_CONFIG: DataSourceConfig = {
 
 // ── Gun Violence ──────────────────────────────────────────────────────────────
 
-// Must stay in sync with the gun_deaths county entry in GUN_VIOLENCE_CONFIG.getDatasetDetails.
-function isChrGunRequest(metricQuery: {
-  dataTypeId?: DataTypeId
-  breakdowns: { geography: string }
-}) {
-  return (
-    metricQuery.dataTypeId === 'gun_deaths' &&
-    metricQuery.breakdowns.geography === 'county'
-  )
-}
-
 export const GUN_VIOLENCE_CONFIG: DataSourceConfig = {
   getDatasetDetails: resolveDataset({
     default: 'cdc_wisqars_data',
@@ -273,16 +252,6 @@ export const GUN_VIOLENCE_CONFIG: DataSourceConfig = {
     },
   }),
   allowsBreakdowns: oneOfGeoWithSingleDemo(['county', 'state', 'national']),
-  transformRows: (rows, metricQuery) => {
-    if (!isChrGunRequest(metricQuery)) return rows as HetRow[]
-    return rows.map(
-      ({ chr_population_pct, chr_population_estimated_total, ...rest }) => ({
-        ...rest,
-        fatal_population_pct: chr_population_pct,
-        fatal_population: chr_population_estimated_total,
-      }),
-    )
-  },
 }
 
 // ── Gun Violence Youth ────────────────────────────────────────────────────────

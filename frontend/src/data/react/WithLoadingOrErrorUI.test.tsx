@@ -62,6 +62,7 @@ describe('WithLoadingOrErrorUI', () => {
     const query = new MetricQuery(
       'copd_per_100k',
       Breakdowns.byState().andRace(excludeAll()),
+      'copd',
     )
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0)
@@ -113,6 +114,7 @@ describe('WithLoadingOrErrorUI', () => {
     const query = new MetricQuery(
       'depression_per_100k',
       Breakdowns.national().andRace(),
+      'depression',
     )
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0)
@@ -124,7 +126,7 @@ describe('WithLoadingOrErrorUI', () => {
         [],
       )
       dataFetcher.setFakeDatasetLoaded(
-        'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_current',
+        'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current',
         [],
       )
     })
@@ -139,6 +141,7 @@ describe('WithLoadingOrErrorUI', () => {
     const query = new MetricQuery(
       'depression_per_100k',
       Breakdowns.byCounty().andAge(),
+      'depression',
     )
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0)
@@ -157,11 +160,12 @@ describe('WithLoadingOrErrorUI', () => {
     expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0)
   })
 
-  test("WithMetrics: Dataset doesn't exist", async () => {
+  test('WithMetrics: Unknown data type has no provider', async () => {
     const query = new MetricQuery(
-      //@ts-expect-error - metric ID should be invalid for this test
-      'fake_metric_doesnt_exist',
+      'population',
       Breakdowns.national(),
+      //@ts-expect-error - data type ID should be invalid for this test
+      'fake_data_type_doesnt_exist',
     )
 
     expect(dataFetcher.getNumGetMetadataCalls()).toBe(0)

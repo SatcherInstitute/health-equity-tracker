@@ -41,14 +41,15 @@ export class MetricQuery {
     this.scrollToHashId = scrollToHashId
   }
 
+  // dataTypeId selects both the provider and the dataset within it, so two
+  // queries differing only by topic are different resources.
   getUniqueKey(): string {
-    return (
-      this.metricIds.join(',') +
-      ':____:' +
-      this.breakdowns.getUniqueKey() +
-      ':____:' +
-      this.timeView
-    )
+    return [
+      this.metricIds.join(','),
+      this.breakdowns.getUniqueKey(),
+      this.timeView,
+      this.dataTypeId ?? '',
+    ].join(':____:')
   }
 }
 

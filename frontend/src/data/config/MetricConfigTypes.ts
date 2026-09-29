@@ -70,6 +70,7 @@ export type MetricId =
   | 'ahr_18plus_population_estimated_total'
   | 'ahr_18plus_population_pct'
   | 'chr_population_pct'
+  | 'chr_population_estimated_total'
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.

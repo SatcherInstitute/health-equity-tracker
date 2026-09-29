@@ -1,4 +1,4 @@
-import type { DataTypeId, MetricId } from '../config/MetricConfigTypes'
+import type { DataTypeId } from '../config/MetricConfigTypes'
 import type { ProviderId } from '../loading/VariableProviderMap'
 import type { Breakdowns } from '../query/Breakdowns'
 import {
@@ -12,11 +12,9 @@ import type { HetRow } from '../utils/DatasetTypes'
 
 abstract class VariableProvider {
   readonly providerId: ProviderId
-  readonly providesMetrics: MetricId[]
 
-  constructor(providerId: ProviderId, providesMetrics: MetricId[]) {
+  constructor(providerId: ProviderId) {
     this.providerId = providerId
-    this.providesMetrics = providesMetrics
   }
 
   async getData(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
@@ -31,7 +29,6 @@ abstract class VariableProvider {
       )
     }
 
-    // TODO: check that the metrics are all provided by this provider once we don't have providers relying on other providers
     const resp = await this.getDataInternal(metricQuery)
     new DatasetOrganizer(resp.data, metricQuery.breakdowns).organize()
     return resp

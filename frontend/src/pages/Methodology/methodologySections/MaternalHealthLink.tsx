@@ -96,6 +96,68 @@ const MaternalHealthLink = () => {
               categories that align with those we retrieve from the Census data.
             </p>
           </div>
+
+          <div className='py-5'>
+            <h3
+              className='font-normal text-text'
+              id='maternal-mortality-denominators'
+            >
+              Live Birth Denominators and Estimated Counts
+            </h3>
+            <p>
+              Maternal mortality rates are modeled estimates published by the
+              study authors, expressed per 100,000 live births. The study does
+              not publish the underlying counts at every level, so the tracker
+              pairs its rates with live birth denominators as follows.
+            </p>
+            <ul className='list-inside list-disc pl-4'>
+              <li>
+                <strong>National:</strong> Counts of maternal deaths and live
+                births for 1999 and 2019 are taken directly from the table
+                published with the study. These counts are used to calculate
+                each group’s share of total maternal deaths.
+              </li>
+              <li>
+                <strong>State:</strong> The study does not publish state-level
+                counts. For the most recent year (2019), we use live birth
+                counts from the{' '}
+                <a href={urlMap.cdcWonderNatality}>
+                  CDC WONDER Natality (expanded) database
+                </a>
+                , grouped by the mother’s state of residence, single race, and
+                Hispanic origin. Births to Hispanic mothers of any race,
+                including those whose race is unknown, are counted as Hispanic
+                or Latino. Births to non-Hispanic mothers are assigned to their
+                race group. Births to non-Hispanic mothers with unknown race,
+                and births with unknown Hispanic origin, are excluded. Cells
+                that CDC WONDER suppresses for confidentiality are not included.
+              </li>
+              <li>
+                <strong>Estimated maternal deaths:</strong> For each state and
+                race/ethnicity group, we estimate the number of maternal deaths
+                by multiplying the study’s rate by that group’s 2019 live births
+                and dividing by 100,000. These are estimates derived from a
+                modeled rate, not observed death counts.
+              </li>
+              <li>
+                <strong>State totals for all groups:</strong> The study does not
+                publish an all-groups rate for individual states. For 2019 only,
+                we calculate one by adding the estimated deaths and live births
+                across the race/ethnicity groups that have a matching
+                denominator, so state trend charts do not include an all-groups
+                line for earlier years. The study combines Asian, Native
+                Hawaiian, and Pacific Islander mothers into one group, while CDC
+                WONDER reports them separately, so this group does not currently
+                have a state-level denominator and is not included in these
+                totals.
+              </li>
+            </ul>
+            <p>
+              <strong>Population percent</strong> reflects each group’s share of
+              the total population from the American Community Survey, not its
+              share of live births.
+            </p>
+          </div>
         </section>
 
         <p>
