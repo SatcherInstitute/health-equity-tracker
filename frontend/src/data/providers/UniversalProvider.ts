@@ -88,9 +88,7 @@ class UniversalProvider extends VariableProvider {
 
     if (!datasetId) return new MetricQueryResponse([], [])
 
-    const specificDatasetId = this.config.skipFipsAppend
-      ? datasetId
-      : appendFipsIfNeeded(datasetId, breakdowns)
+    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const dataset = await getDataManagerRef(this.providerId).loadDataset(
       specificDatasetId,
     )
