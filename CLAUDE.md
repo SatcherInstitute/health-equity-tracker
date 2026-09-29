@@ -133,7 +133,7 @@ Both frontend and backend changes are required.
 1. Create `MetricConfig<Topic>.ts` — define `MetricId`s, `DataTypeId`s, and chart configs
 2. Register the new `DropdownVarId` in `DropDownIds.ts`
 3. Create `DatasetMetadata<Topic>.ts` — list dataset IDs consumed
-4. Register the provider in `VariableProviderMap.ts`: add a `DataSourceConfig` to `DataSourceConfigs.ts` (with `getDatasetDetails`, `allowsBreakdowns`, and optionally `getConsumedDatasetIds`/`transformRows`/`islandAreaPopulation`), import its metric-ID and config symbols into `VariableProviderMap.ts`, then add one entry to `PROVIDER_REGISTRATIONS`. No subclass needed.
+4. Register the provider in `VariableProviderMap.ts`: add a `DataSourceConfig` to `DataSourceConfigs.ts` (with `getDatasetDetails`, `allowsBreakdowns`, and optionally `getConsumedDatasetIds`/`transformRows`/`islandAreaPopulation`), import its `DataTypeId` and config symbols into `VariableProviderMap.ts`, then add one entry to `PROVIDER_REGISTRATIONS`. No subclass needed.
 
 **Backend:**
 
