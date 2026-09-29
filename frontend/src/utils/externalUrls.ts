@@ -10,6 +10,7 @@ export const urlMap: Record<string, string> = {
     'https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf',
   cdcTrans: 'https://www.cdc.gov/hivnexus/hcp/index.html',
   cdcWonder: 'https://wonder.cdc.gov/mcd.html',
+  cdcWonderNatality: 'https://wonder.cdc.gov/natality-expanded-current.html',
   censusRaceEthnicity:
     'https://www.census.gov/programs-surveys/decennial-census/decade/2020/planning-management/release/faqs-race-ethnicity.html',
   censusVoting: 'https://www.census.gov/topics/public-sector/voting.html',

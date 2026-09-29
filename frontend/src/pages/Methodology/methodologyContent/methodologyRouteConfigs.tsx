@@ -201,6 +201,10 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     component: <MaternalHealthLink />,
     subLinks: [
       { label: 'Data Sourcing', path: 'maternal-health-data-sourcing' },
+      {
+        label: 'Live Birth Denominators',
+        path: 'maternal-mortality-denominators',
+      },
       { label: 'Demographics', path: 'demographic-stratification' },
       { label: 'Data Sources', path: 'maternal-health-data-sources' },
       { label: 'Key Terms', path: 'maternal-health-key-terms' },
