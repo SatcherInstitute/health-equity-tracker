@@ -48,6 +48,34 @@ test('Cervical Cancer: state-level uses standard labels', async ({ page }) => {
   })
 })
 
+// A county request that forgets the state FIPS suffix still succeeds — it just
+// downloads the full national file (3.4 MB vs 83 KB), so only a request
+// assertion catches the regression.
+test('Cervical Cancer: county-level requests the state-split NCI file', async ({
+  page,
+}) => {
+  const countyRequests: string[] = []
+  page.on('request', (req) => {
+    const url = decodeURIComponent(req.url())
+    if (url.includes('nci_cancer')) countyRequests.push(url)
+  })
+
+  const firstRequest = page.waitForRequest(
+    (req) => decodeURIComponent(req.url()).includes('nci_cancer'),
+    { timeout: 60000 },
+  )
+  await page.goto(
+    '/exploredata?mls=1.cancer_incidence-3.06037&dt1=cervical_cancer_incidence&demo=race_and_ethnicity&group1=All',
+    { waitUntil: 'domcontentloaded' },
+  )
+  await firstRequest
+
+  expect(countyRequests.length).toBeGreaterThan(0)
+  for (const url of countyRequests) {
+    expect(url).toMatch(/nci_cancer-\w+_county_current-06\.json/)
+  }
+})
+
 test('Cervical Cancer: county-level uses age-adjusted label overrides', async ({
   page,
 }) => {

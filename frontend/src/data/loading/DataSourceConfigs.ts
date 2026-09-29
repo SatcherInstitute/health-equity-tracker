@@ -39,8 +39,6 @@ export interface DataSourceConfig {
     breakdowns: Breakdowns,
   ) => Array<DatasetId | DatasetIdWithStateFIPSCode>
   allowsBreakdowns: (breakdowns: Breakdowns, dataTypeId?: DataTypeId) => boolean
-  // Set true when county data is not split by state FIPS (e.g. NCI cancer).
-  skipFipsAppend?: boolean
   // When set, UniversalProvider automatically appends the correct DECIA territory
   // population dataset(s) to consumedDatasetIds for island-area (and optionally
   // all-states) queries. Configs only need to guard addAcsIdToConsumed with
@@ -188,7 +186,6 @@ export const CDC_CANCER_CONFIG: DataSourceConfig = {
     county: 'nci_cancer',
   }),
   allowsBreakdowns: oneOfGeoWithSingleDemo(['county', 'state', 'national']),
-  skipFipsAppend: true,
 }
 
 // ── CDC Covid ────────────────────────────────────────────────────────────────
