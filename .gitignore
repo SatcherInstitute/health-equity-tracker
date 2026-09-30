@@ -44,6 +44,8 @@ airflow-logs/
 /frontend/test-results/
 /frontend/coverage/
 /frontend/stats.html
+/frontend/public/tmp/
+test-results/
 
 # Archives
 *.zip
@@ -67,16 +69,11 @@ frontend/scripts/_*.ts
 application_default_credentials.json
 service_account*.json
 
-# JSON Files (with exceptions)
-*.json
-!frontend/cspell.config.json
-!python/ingestion/ahr_config/graphql_ahr_measure_ids.json
-!frontend/tokens/*.tokens.json
-!frontend/scripts/geo/geographies.json
-!scripts/readme_recipes/recipes.json
-!server/testdata/insight_prompts/
-!server/testdata/insight_prompts/*.json
-!server/testdata/insight_prompts/*.prompt.txt
+# Generated or local-only JSON that should not be tracked
+data/cawp/*.json
+.claude/settings.json
+/package-lock.json
+frontend/playwright/
 
 # Generated design token files — edit tokens/*.tokens.json and run `npm run tokens`
 frontend/src/styles/tokens/
