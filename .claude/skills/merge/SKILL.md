@@ -184,6 +184,7 @@ source ~/.zshenv && python3 scripts/readme_recipes/sync_recipes.py check
 - **Exit 0:** recipes are current. Say nothing more.
 - **Exit 1 (drift):** only code tabs or line highlights changed, which is mechanical. Run `python3 scripts/readme_recipes/sync_recipes.py push` and report which recipes moved.
 - **Exit 2 (anchor error):** a symbol or file the recipes point at was renamed or removed. Do not push. Tell the user which anchor broke and offer a follow-up PR that updates `scripts/readme_recipes/recipes.json`.
+- **Exit 3 (API error or no key):** the check did not complete. Do not push; report the error and move on.
 
 Then scan the recipe **prose** against the merged diff, which the script never touches. Map changed paths to recipes:
 

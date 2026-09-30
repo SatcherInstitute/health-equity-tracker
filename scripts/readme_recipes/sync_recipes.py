@@ -9,7 +9,8 @@ titles and prose are never touched here; edit those in the ReadMe editor.
     python3 scripts/readme_recipes/sync_recipes.py push    # PATCH drifted recipes
 
 Needs README_API_KEY in the environment. Exit code 2 means an anchor no longer
-resolves, so recipes.json needs updating to match the code.
+resolves, so recipes.json needs updating to match the code. Exit code 3 means
+the ReadMe API call failed or no key was set, so the check is incomplete.
 """
 
 import json
@@ -22,6 +23,8 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SPEC_PATH = Path(__file__).with_name("recipes.json")
 API = "https://api.readme.com/v2/branches/1.0/recipes/"
+REQUEST_TIMEOUT_SECONDS = 30
+EXIT_API_ERROR = 3
 
 
 class AnchorError(Exception):
@@ -131,10 +134,16 @@ def build_tab(tab):
     return f"/* {tab['path']} */\n" + "\n".join(lines) + "\n"
 
 
+def fail_api(method, slug, reason):
+    print(f"ReadMe API {method} {slug} failed: {reason}", file=sys.stderr)
+    sys.exit(EXIT_API_ERROR)
+
+
 def api_request(slug, method, body=None):
     key = os.environ.get("README_API_KEY")
     if not key:
-        sys.exit("README_API_KEY is not set")
+        print("README_API_KEY is not set", file=sys.stderr)
+        sys.exit(EXIT_API_ERROR)
     request = urllib.request.Request(
         API + slug,
         method=method,
@@ -146,10 +155,12 @@ def api_request(slug, method, body=None):
         },
     )
     try:
-        with urllib.request.urlopen(request) as response:
+        with urllib.request.urlopen(request, timeout=REQUEST_TIMEOUT_SECONDS) as response:
             return json.load(response)["data"]
     except urllib.error.HTTPError as error:
-        sys.exit(f"ReadMe API {method} {slug} failed: HTTP {error.code}")
+        fail_api(method, slug, f"HTTP {error.code}")
+    except (TimeoutError, urllib.error.URLError) as error:
+        fail_api(method, slug, str(error))
 
 
 def refresh(recipe, live):
