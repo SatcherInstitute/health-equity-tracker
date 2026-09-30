@@ -1,0 +1,538 @@
+{
+  "recipes": [
+    {
+      "slug": "setting-up-a-new-data-provider",
+      "tabs": [
+        {
+          "name": "DataSourceConfigs",
+          "path": "frontend/src/data/loading/DataSourceConfigs.ts",
+          "excerpt": [
+            {
+              "from": "export const GUN_VIOLENCE_CONFIG",
+              "block": true
+            },
+            {
+              "literal": ""
+            },
+            {
+              "literal": "// ..."
+            },
+            {
+              "literal": ""
+            },
+            {
+              "from": "export interface DataSourceConfig",
+              "block": true
+            }
+          ]
+        },
+        {
+          "name": "VariableProviderMap",
+          "path": "frontend/src/data/loading/VariableProviderMap.ts",
+          "excerpt": [
+            {
+              "literal": "// inside PROVIDER_REGISTRATIONS"
+            },
+            {
+              "from": "'gun_violence_provider',",
+              "start_offset": -1,
+              "to": "GUN_VIOLENCE_CONFIG,",
+              "end_offset": 1
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "highlights": [
+            {
+              "tab": "DataSourceConfigs",
+              "anchors": [
+                {
+                  "from": "export const GUN_VIOLENCE_CONFIG",
+                  "block": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "DataSourceConfigs",
+              "anchors": [
+                {
+                  "from": "getDatasetDetails: resolveDataset",
+                  "block": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "DataSourceConfigs",
+              "anchors": [
+                "allowsBreakdowns: oneOfGeoWithSingleDemo"
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "DataSourceConfigs",
+              "anchors": [
+                {
+                  "from": "getConsumedDatasetIds?",
+                  "to": ") => Array<"
+                },
+                "islandAreaPopulation?:"
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "VariableProviderMap",
+              "anchors": [
+                {
+                  "from": "'gun_violence_provider'",
+                  "to": "GUN_VIOLENCE_CONFIG,"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": []
+        }
+      ]
+    },
+    {
+      "slug": "creating-test-cases-for-the-new-data-provider",
+      "tabs": [
+        {
+          "name": "GunViolenceProvider.test",
+          "path": "frontend/src/data/providers/GunViolenceProvider.test.ts"
+        }
+      ],
+      "steps": [
+        {
+          "highlights": [
+            {
+              "tab": "GunViolenceProvider.test",
+              "anchors": [
+                {
+                  "line": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "GunViolenceProvider.test",
+              "anchors": [
+                {
+                  "from": "const gunViolenceProvider = new VariableProviderMap()",
+                  "block": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "GunViolenceProvider.test",
+              "anchors": [
+                "autoInitGlobals()",
+                "const dataFetcher = getDataFetcher()",
+                {
+                  "from": "beforeEach(() =>",
+                  "block": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "GunViolenceProvider.test",
+              "anchors": [
+                {
+                  "from": "dataFetcher.setFakeDatasetLoaded(",
+                  "to": "new MetricQueryResponse",
+                  "end_offset": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "GunViolenceProvider.test",
+              "anchors": [
+                {
+                  "all": "  test('"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": []
+        }
+      ]
+    },
+    {
+      "slug": "setting-up-the-metric-configuration",
+      "tabs": [
+        {
+          "name": "MetricConfigCommunitySafety",
+          "path": "frontend/src/data/config/MetricConfigCommunitySafety.ts"
+        },
+        {
+          "name": "MetricConfig",
+          "path": "frontend/src/data/config/MetricConfig.ts"
+        },
+        {
+          "name": "mapGlobals",
+          "path": "frontend/src/charts/mapGlobals.ts"
+        },
+        {
+          "name": "age_national_current",
+          "keep": true
+        }
+      ],
+      "steps": [
+        {
+          "highlights": [
+            {
+              "tab": "MetricConfig",
+              "anchors": [
+                {
+                  "import_of": "./MetricConfigCommunitySafety"
+                },
+                "gun_violence: GUN_VIOLENCE_METRICS"
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": []
+        },
+        {
+          "highlights": [
+            {
+              "tab": "MetricConfigCommunitySafety",
+              "anchors": [
+                {
+                  "from": "export const GUN_VIOLENCE_DATATYPES",
+                  "block": true
+                },
+                {
+                  "from": "export type CommunitySafetyDataTypeId",
+                  "count": 6
+                },
+                {
+                  "from": "export type CommunitySafetyMetricId",
+                  "count": 6
+                },
+                "dataTypeId: 'gun_violence_homicide'",
+                "metricId: 'gun_violence_homicide_pct_relative_inequity'"
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "MetricConfigCommunitySafety",
+              "anchors": [
+                {
+                  "from": "dataTableTitle: 'Summary of gun homicides'",
+                  "until_dedent": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "MetricConfigCommunitySafety",
+              "anchors": [
+                {
+                  "all": "timeSeriesCadence",
+                  "within": {
+                    "from": "dataTableTitle: 'Summary of gun homicides'",
+                    "until_dedent": true
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "MetricConfigCommunitySafety",
+              "anchors": [
+                "mapConfig: defaultHigherIsWorseMapConfig"
+              ]
+            },
+            {
+              "tab": "mapGlobals",
+              "anchors": [
+                {
+                  "from": "export const defaultHigherIsWorseMapConfig",
+                  "block": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "MetricConfig",
+              "anchors": [
+                "gun_violence: GUN_VIOLENCE_METRICS"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "updating-metadata-configuration-for-new-dataset-integration",
+      "tabs": [
+        {
+          "name": "MetadataMap",
+          "path": "frontend/src/data/config/MetadataMap.ts"
+        },
+        {
+          "name": "DatasetMetadataCommunitySafetyCategory",
+          "path": "frontend/src/data/config/DatasetMetadataCommunitySafetyCategory.ts"
+        },
+        {
+          "name": "DatasetMetadata",
+          "path": "frontend/src/data/config/DatasetMetadata.ts"
+        }
+      ],
+      "steps": [
+        {
+          "highlights": [
+            {
+              "tab": "MetadataMap",
+              "anchors": [
+                "export type DataSourceId",
+                "| 'cdc_wisqars'"
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "MetadataMap",
+              "anchors": [
+                "import { datasourceMetadataCommunitySafetyCategory }",
+                "cdc_wisqars: datasourceMetadataCommunitySafetyCategory"
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "DatasetMetadataCommunitySafetyCategory",
+              "anchors": [
+                {
+                  "from": "export type DatasetIdCommunitySafetyCategory",
+                  "until_blank": true
+                },
+                "export const DatasetMetadataMapCommunitySafetyCategory",
+                {
+                  "from": "export const datasourceMetadataCommunitySafetyCategory",
+                  "to_eof": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "DatasetMetadata",
+              "anchors": [
+                "DatasetIdCommunitySafetyCategory,",
+                "DatasetMetadataMapCommunitySafetyCategory,",
+                "| DatasetIdCommunitySafetyCategory",
+                "...DatasetMetadataMapCommunitySafetyCategory"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "updating-the-madlibs-configuration-for-new-dataset-integration",
+      "tabs": [
+        {
+          "name": "MadLibs",
+          "path": "frontend/src/utils/MadLibs.ts"
+        }
+      ],
+      "steps": [
+        {
+          "highlights": [
+            {
+              "tab": "MadLibs",
+              "anchors": [
+                {
+                  "from": "gun_deaths: 'Gun Deaths'",
+                  "count": 4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "MadLibs",
+              "anchors": [
+                "export const SELECTED_DROPDOWN_OVERRIDES",
+                "gun_violence: 'Gun'"
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "MadLibs",
+              "anchors": [
+                "const CATEGORIES_LIST"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "merging-behind-a-feature-flag",
+      "tabs": [
+        {
+          "name": "featureFlags",
+          "path": "frontend/src/featureFlags.ts"
+        },
+        {
+          "name": ".env.dev",
+          "path": "frontend/.env.dev",
+          "excerpt": [
+            {
+              "from": "# Feature flags",
+              "count": 2
+            }
+          ]
+        },
+        {
+          "name": ".env.prod",
+          "path": "frontend/.env.prod",
+          "excerpt": [
+            {
+              "from": "# NEVER add a VITE_SHOW_",
+              "to": "VITE_DEPLOY_CONTEXT=prod"
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "highlights": [
+            {
+              "tab": "featureFlags",
+              "anchors": [
+                "const FLAG_PREFIX",
+                "export type FeatureFlagKey",
+                {
+                  "from": "export function flag(",
+                  "block": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": ".env.dev",
+              "anchors": [
+                "VITE_SHOW_CORRELATION_CARD"
+              ]
+            },
+            {
+              "tab": "featureFlags",
+              "anchors": [
+                "const ENV_FLAGS_IGNORED",
+                {
+                  "from": "function parseFlagValue",
+                  "block": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "featureFlags",
+              "anchors": [
+                {
+                  "from": "export function armFeatureFlagOverridesFromUrl",
+                  "block": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": "featureFlags",
+              "anchors": [
+                {
+                  "from": "export function describeFeatureFlags",
+                  "block": true
+                },
+                "export const ANY_FEATURE_FLAG_ON"
+              ]
+            }
+          ]
+        },
+        {
+          "highlights": [
+            {
+              "tab": ".env.prod",
+              "anchors": [
+                {
+                  "from": "# NEVER add a VITE_SHOW_",
+                  "to": "# param instead"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

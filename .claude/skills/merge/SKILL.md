@@ -171,6 +171,12 @@ Only run the assign/move mutation for items the user actually selected. If nothi
 
 ---
 
+## Step 7b — Refresh the ReadMe contributor recipes
+
+If the merged PR touched `frontend/src/` or `frontend/.env*`, invoke the `update-recipes` skill with the PR number (`/update-recipes <number>`). It syncs code tabs and highlights via `scripts/readme_recipes/sync_recipes.py`, flags prose drift, and skips itself when `README_API_KEY` is unset. Local main is already at the merge commit (Step 4), so it reads the merged code. Otherwise skip this step.
+
+---
+
 ## Step 8 — Flag a likely DAG rerun for backend data changes
 
 Check which files the merged PR touched:
@@ -213,7 +219,7 @@ gh workflow run <dag>.yml --ref infra-test
 ## Step 10 — Confirm
 
 Print a summary:
-> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main. Board: <issues moved to Done, if any> <issues moved to Up Next, if any>. DAG: <triggered/skipped/declined>."
+> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main. Board: <issues moved to Done, if any> <issues moved to Up Next, if any>. Recipes: <current/pushed/skipped>. DAG: <triggered/skipped/declined>."
 
 ---
 
