@@ -22,7 +22,17 @@ git show --name-only --format= HEAD                      # without
 
 Skip the skill with a one-line note unless a path starts with `frontend/src/` or `frontend/.env`. Also skip with a note if `README_API_KEY` is unset after `source ~/.zshenv` (never print it).
 
-Local main must be at the merge commit so the script reads the merged code. `/merge` guarantees this in its Step 4; standalone, run `git fetch origin main && git status -sb` and stop if main is behind.
+Local main must be at the merge commit so the script reads the merged code. `/merge` guarantees this in its Step 4; standalone, verify all three conditions and stop if any fails, since a wrong-branch or dirty checkout would publish recipes from unmerged code:
+
+```bash
+git fetch origin main
+BRANCH=$(git rev-parse --abbrev-ref HEAD)                # must equal "main"
+STATUS=$(git status --porcelain)                         # must be empty
+LOCAL_SHA=$(git rev-parse HEAD)
+MERGE_SHA=$(gh pr view <number> --json mergeCommit --jq '.mergeCommit.oid')
+[ "$BRANCH" = "main" ] && [ -z "$STATUS" ] && [ "$LOCAL_SHA" = "$MERGE_SHA" ] \
+  || { echo "Refusing to sync: not on clean main at merge commit ($BRANCH, dirty=$([ -n "$STATUS" ] && echo yes || echo no), local=$LOCAL_SHA vs merge=$MERGE_SHA)"; exit 1; }
+```
 
 ---
 
