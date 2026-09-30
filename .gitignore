@@ -70,7 +70,8 @@ application_default_credentials.json
 service_account*.json
 
 # Generated or local-only JSON that should not be tracked
-data/cawp/*.json
+data/cawp/legislators-*.json
+data/cawp/.refresh_cache.json
 .claude/settings.json
 /package-lock.json
 frontend/playwright/
