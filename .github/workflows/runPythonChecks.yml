@@ -11,6 +11,7 @@ on:
       - 'exporter/**'
       - 'run_**/**'
       - 'shared_requirements/**'
+      - 'scripts/**'
 
 jobs:
   validate_and_test:
@@ -30,6 +31,7 @@ jobs:
             run_gcs_to_bq
             shared_requirements
             requirements
+            scripts
             .github
 
       - name: Set up Go
