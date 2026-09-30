@@ -26,6 +26,6 @@ jobs:
         with:
           go-version-file: server/go.mod
 
-      - name: Run Go tests (server)
+      - name: Build and test (server)
         working-directory: server
-        run: go test ./...
+        run: go build ./... && go test ./...
