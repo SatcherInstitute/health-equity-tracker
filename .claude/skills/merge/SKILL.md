@@ -171,6 +171,35 @@ Only run the assign/move mutation for items the user actually selected. If nothi
 
 ---
 
+## Step 7b — Refresh the ReadMe contributor recipes
+
+The recipes on healthequitytracker.readme.io quote real source files and go stale silently. Skip this step unless the merged PR touched `frontend/src/` or `frontend/.env*` (`gh pr view <number> --json files --jq '.files[].path'`), and skip it with a one-line note if `README_API_KEY` is unset (it lives in `~/.zshenv`; never print it).
+
+Local main is already at the merge commit (Step 4), so the script reads the merged code:
+
+```bash
+source ~/.zshenv && python3 scripts/readme_recipes/sync_recipes.py check
+```
+
+- **Exit 0:** recipes are current. Say nothing more.
+- **Exit 1 (drift):** only code tabs or line highlights changed, which is mechanical. Run `python3 scripts/readme_recipes/sync_recipes.py push` and report which recipes moved.
+- **Exit 2 (anchor error):** a symbol or file the recipes point at was renamed or removed. Do not push. Tell the user which anchor broke and offer a follow-up PR that updates `scripts/readme_recipes/recipes.json`.
+
+Then scan the recipe **prose** against the merged diff, which the script never touches. Map changed paths to recipes:
+
+| Changed path | Recipe slug |
+|---|---|
+| `data/loading/DataSourceConfigs.ts`, `data/loading/VariableProviderMap.ts` | `setting-up-a-new-data-provider` |
+| `data/providers/*.test.ts` | `creating-test-cases-for-the-new-data-provider` |
+| `data/config/MetricConfig*.ts`, `charts/mapGlobals.ts` | `setting-up-the-metric-configuration` |
+| `data/config/DatasetMetadata*.ts`, `data/config/MetadataMap.ts` | `updating-metadata-configuration-for-new-dataset-integration` |
+| `utils/MadLibs.ts` | `updating-the-madlibs-configuration-for-new-dataset-integration` |
+| `featureFlags.ts`, `.env.*` | `merging-behind-a-feature-flag` |
+
+For each mapped recipe, fetch it (`GET https://api.readme.com/v2/branches/1.0/recipes/<slug>` with `Authorization: Bearer $README_API_KEY` and a `User-Agent` header, since the default Python one gets a 403) and check whether any step title or body names a file, symbol, path or behavior the PR removed or changed. If so, show the user the proposed wording and ask before PATCHing. The whole `content` object must be sent back, so change only the step `title`/`body` fields you mean to.
+
+---
+
 ## Step 8 — Flag a likely DAG rerun for backend data changes
 
 Check which files the merged PR touched:
@@ -213,7 +242,7 @@ gh workflow run <dag>.yml --ref infra-test
 ## Step 10 — Confirm
 
 Print a summary:
-> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main. Board: <issues moved to Done, if any> <issues moved to Up Next, if any>. DAG: <triggered/skipped/declined>."
+> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main. Board: <issues moved to Done, if any> <issues moved to Up Next, if any>. Recipes: <current/pushed/skipped>. DAG: <triggered/skipped/declined>."
 
 ---
 
