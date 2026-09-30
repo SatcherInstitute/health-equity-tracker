@@ -5,6 +5,8 @@ import pytest
 
 SCRIPT = Path(__file__).resolve().parents[3] / "scripts" / "readme_recipes" / "sync_recipes.py"
 spec = importlib.util.spec_from_file_location("sync_recipes", SCRIPT)
+assert spec is not None, f"Failed to load spec from {SCRIPT}"
+assert spec.loader is not None, f"Spec has no loader: {SCRIPT}"
 sync = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(sync)
 
