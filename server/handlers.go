@@ -90,6 +90,8 @@ func ndjsonToArray(data []byte) []byte {
 	return buf.Bytes()
 }
 
+// corsMiddleware allows any origin because the dataset routes are public; /insight
+// and /flag-insight restrict origins separately via insightOriginOnly.
 func corsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Access-Control-Allow-Origin", "*")
