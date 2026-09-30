@@ -8,7 +8,7 @@ Run from repo root when CAWP data needs updating:
 
 Options:
     --force           Bypass the 30-day freshness cache and re-download everything
-    --section NAME    Only run one section: state_leg | congress_json | crosswalk
+    --section NAME    Only run one section: state_leg | crosswalk
 
 Cache: each section records its last-run timestamp in .refresh_cache.json.
 By default the script skips any section that ran successfully within the last 30 days.
@@ -16,8 +16,6 @@ Individual failed states are retried on the next run even within the cache windo
 
 What this updates:
   - data/cawp/cawp_state_leg_{fips}.csv  50 state + 6 territory leg denominator tables
-  - data/cawp/legislators-historical.json  US Congress historical (unitedstates.io)
-  - data/cawp/legislators-current.json     US Congress current (unitedstates.io)
   - data/cawp/tab20_cd11820_county20_natl.txt  118th Congress county crosswalk (Census)
 
 What this does NOT update automatically:
@@ -48,8 +46,6 @@ CACHE_TTL_DAYS = 30
 CRAWL_DELAY_SECONDS = 2  # polite delay between CAWP page requests
 
 # --- URLs ---
-CONGRESS_HISTORICAL_URL = "https://unitedstates.github.io/congress-legislators/legislators-historical.json"
-CONGRESS_CURRENT_URL = "https://unitedstates.github.io/congress-legislators/legislators-current.json"
 CROSSWALK_URL = "https://www2.census.gov/geo/docs/maps-data/data/rel2020/cd-sld/tab20_cd11820_county20_natl.txt"
 CAWP_STATE_INFO_URL = "https://cawp.rutgers.edu/facts/state-state-information/{slug}"
 
@@ -175,32 +171,6 @@ def fetch_if_changed(url: str, dest: Path, cache: dict, cache_key: str) -> bool:
     }
     save_cache(cache)
     return True
-
-
-# ---------------------------------------------------------------------------
-# Section: Congress JSON
-# ---------------------------------------------------------------------------
-
-
-def refresh_congress_json(cache: dict, force: bool):
-    print("\n--- US Congress JSON (unitedstates.io) ---")
-    sources = [
-        ("legislators-historical.json", CONGRESS_HISTORICAL_URL),
-        ("legislators-current.json", CONGRESS_CURRENT_URL),
-    ]
-    for name, url in sources:
-        key = f"congress_json_{name}"
-        if not force and is_fresh(cache, key):
-            last = cache[key]["last_run"][:10]
-            print(f"  {name}: fresh (last run {last}), skipping")
-            continue
-        dest = DATA_DIR / name
-        print(f"  Downloading {name}...", end=" ", flush=True)
-        updated = fetch_if_changed(url, dest, cache, key)
-        if updated:
-            count = len(json.loads(dest.read_text()))
-            print(f"{count} records saved.")
-        mark_done(cache, key)
 
 
 # ---------------------------------------------------------------------------
@@ -331,7 +301,7 @@ def refresh_state_leg_tables(cache: dict, force: bool):
 def main():
     parser = argparse.ArgumentParser(description="Refresh CAWP source data files")
     parser.add_argument("--force", action="store_true", help="Ignore cache and re-download everything")
-    parser.add_argument("--section", choices=["state_leg", "congress_json", "crosswalk"], help="Run only one section")
+    parser.add_argument("--section", choices=["state_leg", "crosswalk"], help="Run only one section")
     args = parser.parse_args()
 
     print(f"CAWP data refresh  |  cache TTL: {CACHE_TTL_DAYS} days  |  force: {args.force}")
@@ -340,8 +310,6 @@ def main():
     cache = load_cache()
 
     run_all = args.section is None
-    if run_all or args.section == "congress_json":
-        refresh_congress_json(cache, args.force)
     if run_all or args.section == "crosswalk":
         refresh_crosswalk(cache, args.force)
     if run_all or args.section == "state_leg":
