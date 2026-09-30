@@ -1,0 +1,33 @@
+name: Go Server CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'server/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'server/**'
+
+jobs:
+  go_test:
+    name: Go Server Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: |
+            server
+
+      - name: Set up Go
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: server/go.mod
+
+      - name: Build and test (server)
+        working-directory: server
+        run: go build ./... && go test ./...
