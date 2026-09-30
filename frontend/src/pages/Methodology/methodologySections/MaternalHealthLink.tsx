@@ -146,10 +146,11 @@ const MaternalHealthLink = () => {
                 across the race/ethnicity groups that have a matching
                 denominator, so state trend charts do not include an all-groups
                 line for earlier years. The study combines Asian, Native
-                Hawaiian, and Pacific Islander mothers into one group, while CDC
-                WONDER reports them separately, so this group does not currently
-                have a state-level denominator and is not included in these
-                totals.
+                Hawaiian, and Pacific Islander mothers into one group, so we add
+                CDC WONDER’s separate Asian and Native Hawaiian or Other Pacific
+                Islander births together to match it. Births to mothers of more
+                than one race are not included, because the study does not
+                publish a rate for that group.
               </li>
             </ul>
             <p>
