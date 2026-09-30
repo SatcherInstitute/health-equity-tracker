@@ -1,4 +1,4 @@
-name: Go CI
+name: Go Server CI
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   go_test:
-    name: Go Build & Test
+    name: Go Server Build & Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
