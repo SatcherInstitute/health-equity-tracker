@@ -5,12 +5,13 @@ rebuilds each recipe's code tabs from the real source files and recomputes each
 step's highlighted lines from the anchor text declared in recipes.json. Step
 titles and prose are never touched here; edit those in the ReadMe editor.
 
-    python3 scripts/readme_recipes/sync_recipes.py check   # exit 1 on drift
-    python3 scripts/readme_recipes/sync_recipes.py push    # PATCH drifted recipes
+    python3 scripts/readme_recipes/sync_recipes.py check [slug]  # exit 1 on drift
+    python3 scripts/readme_recipes/sync_recipes.py push [slug]   # PATCH drifted recipes
 
-Needs README_API_KEY in the environment. Exit code 2 means an anchor no longer
-resolves, so recipes.json needs updating to match the code. Exit code 3 means
-the ReadMe API call failed or no key was set, so the check is incomplete.
+The optional slug limits the run to one recipe. Needs README_API_KEY in the
+environment. Exit codes: 0 current, 1 drift, 2 an anchor no longer resolves or a
+live recipe has an unexpected shape (recipes.json needs updating), 3 the ReadMe
+API call failed or no key was set (check incomplete), 4 bad command line.
 """
 
 import json
@@ -25,6 +26,7 @@ SPEC_PATH = Path(__file__).with_name("recipes.json")
 API = "https://api.readme.com/v2/branches/1.0/recipes/"
 REQUEST_TIMEOUT_SECONDS = 30
 EXIT_API_ERROR = 3
+EXIT_USAGE = 4
 
 
 class AnchorError(Exception):
@@ -212,7 +214,8 @@ def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else "check"
     only = sys.argv[2] if len(sys.argv) > 2 else None
     if mode not in ("check", "push"):
-        sys.exit(__doc__)
+        print(__doc__, file=sys.stderr)
+        sys.exit(EXIT_USAGE)
     spec = json.loads(SPEC_PATH.read_text(encoding="utf-8"))
     drifted = failed = False
     for recipe in spec["recipes"]:
@@ -224,6 +227,10 @@ def main():
         except AnchorError as error:
             failed = True
             print(f"ERROR {recipe['slug']}: {error}")
+            continue
+        except (KeyError, TypeError) as error:
+            failed = True
+            print(f"ERROR {recipe['slug']}: unexpected recipe shape ({error!r})")
             continue
         if not notes:
             print(f"ok      {recipe['slug']}")
