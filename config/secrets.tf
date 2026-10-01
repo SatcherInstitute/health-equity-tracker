@@ -20,6 +20,19 @@
 # IAM bindings (who may read each secret) are managed below by Terraform.
 # The import blocks below handle the first-apply migration automatically (TF 1.9+).
 #
+# The deploy service account (auto-deployer@$PROJECT_ID) must hold
+# roles/secretmanager.admin before the first apply that touches these bindings,
+# or `terraform apply` fails with 403 secretmanager.secrets.* PERMISSION_DENIED.
+# This is a one-time out-of-band bootstrap per project (like creating the secret
+# containers above): the SA that RUNS Terraform cannot grant itself the permission
+# it needs to run Terraform. Grant once:
+#
+#   gcloud projects add-iam-policy-binding $PROJECT_ID \
+#     --member="serviceAccount:auto-deployer@$PROJECT_ID.iam.gserviceaccount.com" \
+#     --role="roles/secretmanager.admin"
+#
+# (prod lacked this grant and failed the ReleaseV4.048 deploy; test already had it.)
+#
 # Secrets and their consumers:
 #   ahr-api-key           -> gcs_to_bq runner  (America's Health Rankings ingestion)
 #   census-api-key        -> gcs_to_bq runner AND ingestion runner  (US Census Bureau ACS API)
@@ -66,29 +79,18 @@ import {
   id = "projects/${var.project_id}/secrets/webflow-api-token roles/secretmanager.secretAccessor"
 }
 
-# Data sources reference the existing secret containers (values stay manual, never in TF state).
-data "google_secret_manager_secret" "ahr_api_key" {
-  secret_id = "ahr-api-key"
-}
-
-data "google_secret_manager_secret" "census_api_key" {
-  secret_id = "census-api-key"
-}
-
-data "google_secret_manager_secret" "gemini_api_key" {
-  secret_id = "gemini-api-key"
-}
-
-data "google_secret_manager_secret" "webflow_api_token" {
-  secret_id = "webflow-api-token"
-}
-
 # IAM bindings — _iam_binding is authoritative: it guarantees exactly these members
 # have the accessor role and actively corrects out-of-band additions on the next apply.
 # This is intentional: catching silent drift is the whole point of this migration.
+#
+# secret_id is the bare literal (provider resolves it against the provider project).
+# We intentionally do NOT use a data "google_secret_manager_secret" lookup: that read
+# requires secretmanager.secrets.get at plan time, which failed the prod deploy of
+# ReleaseV4.048 when the prod auto-deployer SA lacked it. Managing only the IAM policy
+# (getIamPolicy/setIamPolicy) keeps the required permission surface minimal.
 
 resource "google_secret_manager_secret_iam_binding" "ahr_api_key_accessor" {
-  secret_id = data.google_secret_manager_secret.ahr_api_key.secret_id
+  secret_id = "ahr-api-key"
   role      = "roles/secretmanager.secretAccessor"
   members = [
     "serviceAccount:${google_service_account.gcs_to_bq_runner_identity.email}",
@@ -96,7 +98,7 @@ resource "google_secret_manager_secret_iam_binding" "ahr_api_key_accessor" {
 }
 
 resource "google_secret_manager_secret_iam_binding" "census_api_key_accessor" {
-  secret_id = data.google_secret_manager_secret.census_api_key.secret_id
+  secret_id = "census-api-key"
   role      = "roles/secretmanager.secretAccessor"
   members = [
     "serviceAccount:${google_service_account.gcs_to_bq_runner_identity.email}",
@@ -105,7 +107,7 @@ resource "google_secret_manager_secret_iam_binding" "census_api_key_accessor" {
 }
 
 resource "google_secret_manager_secret_iam_binding" "gemini_api_key_accessor" {
-  secret_id = data.google_secret_manager_secret.gemini_api_key.secret_id
+  secret_id = "gemini-api-key"
   role      = "roles/secretmanager.secretAccessor"
   members = [
     "serviceAccount:${google_service_account.data_server_runner_identity.email}",
@@ -113,7 +115,7 @@ resource "google_secret_manager_secret_iam_binding" "gemini_api_key_accessor" {
 }
 
 resource "google_secret_manager_secret_iam_binding" "webflow_api_token_accessor" {
-  secret_id = data.google_secret_manager_secret.webflow_api_token.secret_id
+  secret_id = "webflow-api-token"
   role      = "roles/secretmanager.secretAccessor"
   members = [
     "serviceAccount:${google_service_account.data_server_runner_identity.email}",
