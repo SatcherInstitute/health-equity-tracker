@@ -1,4 +1,4 @@
-name: Backend CI
+name: Python CI
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [main]
     paths:
-      - 'server/**'
       - 'python/**'
       - 'exporter/**'
       - 'run_**/**'
@@ -14,8 +13,8 @@ on:
       - 'scripts/**'
 
 jobs:
-  validate_and_test:
-    name: Validate & Test
+  python_test:
+    name: Python Lint & Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,7 +25,6 @@ jobs:
           sparse-checkout: |
             python
             data
-            server
             exporter
             run_ingestion
             run_gcs_to_bq
@@ -34,15 +32,6 @@ jobs:
             requirements
             scripts
             .github
-
-      - name: Set up Go
-        uses: actions/setup-go@v7
-        with:
-          go-version-file: server/go.mod
-
-      - name: Run Go tests (server)
-        working-directory: server
-        run: go test ./...
 
       - name: Setup Python
         uses: actions/setup-python@v6

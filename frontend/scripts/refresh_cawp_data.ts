@@ -11,7 +11,7 @@
  *
  * Options:
  *   --force           Bypass the 30-day freshness cache and re-download everything
- *   --section NAME    Only run one section: numerator | state_leg | congress_json | crosswalk
+ *   --section NAME    Only run one section: numerator | state_leg | crosswalk
  *
  * Cache: each section records its last-run timestamp in data/cawp/.refresh_cache.json.
  * By default the script skips any section that ran successfully within the last 30 days.
@@ -19,8 +19,6 @@
  * What this updates:
  *   data/cawp/cawp-by_race_and_ethnicity_time_series.csv  numerator: women by race/ethnicity
  *   data/cawp/cawp_state_leg_{fips}.csv  50 state legislature denominator tables
- *   data/cawp/legislators-historical.json  US Congress historical (unitedstates.io)
- *   data/cawp/legislators-current.json     US Congress current (unitedstates.io)
  *   data/cawp/tab20_cd11820_county20_natl.txt  118th Congress county crosswalk (Census)
  *
  * The numerator download requires only a name and email (no account, no payment). It opens
@@ -50,11 +48,6 @@ const CRAWL_DELAY_MS = 2000
 // The retry loop handles transient 502s from the CAWP Drupal batch processor.
 const EXPORT_TIMEOUT_MS = 90 * 60 * 1000
 
-
-const CONGRESS_HISTORICAL_URL =
-  'https://unitedstates.github.io/congress-legislators/legislators-historical.json'
-const CONGRESS_CURRENT_URL =
-  'https://unitedstates.github.io/congress-legislators/legislators-current.json'
 const CROSSWALK_URL =
   'https://www2.census.gov/geo/docs/maps-data/data/rel2020/cd-sld/tab20_cd11820_county20_natl.txt'
 const CAWP_STATE_INFO_BASE =
@@ -199,35 +192,6 @@ async function fetchIfChanged(
   return true
 }
 
-// --- Section: Congress JSON ---
-async function refreshCongressJson(
-  cache: Cache,
-  force: boolean,
-): Promise<void> {
-  console.log('\n--- US Congress JSON (unitedstates.io) ---')
-  const sources = [
-    { name: 'legislators-historical.json', url: CONGRESS_HISTORICAL_URL },
-    { name: 'legislators-current.json', url: CONGRESS_CURRENT_URL },
-  ]
-
-  for (const { name, url } of sources) {
-    const key = `congress_json_${name}`
-    if (!force && isFresh(cache, key)) {
-      const last = (cache[key].lastRun ?? cache[key].last_run ?? '').slice(0, 10)
-      console.log(`  ${name}: fresh (last run ${last}), skipping`)
-      continue
-    }
-    const dest = join(DATA_DIR, name)
-    process.stdout.write(`  Downloading ${name}... `)
-    const updated = await fetchIfChanged(url, dest, cache, key)
-    if (updated) {
-      const count = (JSON.parse(readFileSync(dest, 'utf8')) as unknown[]).length
-      console.log(`${count} records saved.`)
-    }
-    markDone(cache, key)
-  }
-}
-
 // --- Section: County crosswalk ---
 async function refreshCrosswalk(cache: Cache, force: boolean): Promise<void> {
   console.log('\n--- Census county-to-congressional-district crosswalk ---')
@@ -336,7 +300,11 @@ async function refreshStateLegTables(
 
   if (statesToScrape.length === 0) {
     const lastDates = Object.keys(FIPS_TO_STATE_SLUG)
-      .map((f) => (cache[`state_leg_${f}`]?.lastRun ?? cache[`state_leg_${f}`]?.last_run)?.slice(0, 10))
+      .map((f) =>
+        (
+          cache[`state_leg_${f}`]?.lastRun ?? cache[`state_leg_${f}`]?.last_run
+        )?.slice(0, 10),
+      )
       .filter((d): d is string => Boolean(d))
       .sort()
     const oldest = lastDates[0] ?? 'unknown'
@@ -427,14 +395,23 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
 
   // Helper: (re)apply filters and run Search. Called before each download attempt.
   const applyFiltersAndSearch = async (): Promise<void> => {
-    await page.goto(CAWP_NUMERATOR_URL, { waitUntil: 'domcontentloaded', timeout: 30000 })
+    await page.goto(CAWP_NUMERATOR_URL, {
+      waitUntil: 'domcontentloaded',
+      timeout: 30000,
+    })
     await page.waitForTimeout(2000)
 
     // Re-apply Show All Years (modal submission resets it).
-    await page.getByLabel(/show all years/i).first().click()
+    await page
+      .getByLabel(/show all years/i)
+      .first()
+      .click()
     await page.waitForTimeout(500)
 
-    await page.getByRole('button', { name: /^search$/i }).first().click()
+    await page
+      .getByRole('button', { name: /^search$/i })
+      .first()
+      .click()
     await page.waitForLoadState('domcontentloaded')
     await page.waitForTimeout(3000)
     const resultCount = await page
@@ -450,7 +427,9 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     let saved = false
     let got502 = false
 
-    const onDownload = async (dl: import('@playwright/test').Download): Promise<void> => {
+    const onDownload = async (
+      dl: import('@playwright/test').Download,
+    ): Promise<void> => {
       console.log('  Auto-download event fired — saving...')
       await dl.saveAs(dest)
       saved = true
@@ -501,27 +480,47 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
   const MAX_ATTEMPTS = 3
   try {
     // Fill the modal once.
-    await page.goto(CAWP_NUMERATOR_URL, { waitUntil: 'domcontentloaded', timeout: 30000 })
+    await page.goto(CAWP_NUMERATOR_URL, {
+      waitUntil: 'domcontentloaded',
+      timeout: 30000,
+    })
     await page.waitForTimeout(2000)
     console.log('  Opening download modal...')
-    await page.getByRole('button', { name: /download data/i }).first().click()
-    await page.waitForTimeout(1500)
-    await page.locator('input[name*="first"], input[placeholder*="First"]').first().fill('HET')
     await page
-      .locator('input[type="email"], input[name*="email"], input[placeholder*="mail"]')
+      .getByRole('button', { name: /download data/i })
+      .first()
+      .click()
+    await page.waitForTimeout(1500)
+    await page
+      .locator('input[name*="first"], input[placeholder*="First"]')
+      .first()
+      .fill('HET')
+    await page
+      .locator(
+        'input[type="email"], input[name*="email"], input[placeholder*="mail"]',
+      )
       .first()
       .fill('data@healthequitytracker.org')
     console.log('  Submitting modal...')
-    await page.getByRole('button', { name: /download data/i }).last().click()
+    await page
+      .getByRole('button', { name: /download data/i })
+      .last()
+      .click()
     await page.waitForTimeout(2000)
 
     let downloaded = false
     for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-      if (attempt > 1) console.log(`  Retry attempt ${attempt}/${MAX_ATTEMPTS}...`)
+      if (attempt > 1)
+        console.log(`  Retry attempt ${attempt}/${MAX_ATTEMPTS}...`)
       await applyFiltersAndSearch()
-      console.log(`  Starting CSV export (attempt ${attempt}/${MAX_ATTEMPTS})...`)
+      console.log(
+        `  Starting CSV export (attempt ${attempt}/${MAX_ATTEMPTS})...`,
+      )
       const result = await attemptDownload()
-      if (result === 'success') { downloaded = true; break }
+      if (result === 'success') {
+        downloaded = true
+        break
+      }
       console.log(`  Attempt ${attempt} ${result}.`)
     }
 
@@ -533,7 +532,9 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     }
 
     markDone(cache, key)
-    const rows = readFileSync(dest, 'utf8').split('\n').filter((l) => l.trim()).length
+    const rows = readFileSync(dest, 'utf8')
+      .split('\n')
+      .filter((l) => l.trim()).length
     console.log(`  Saved ${rows} rows to ${CAWP_NUMERATOR_FILE}`)
   } catch (e) {
     throw new Error(`Numerator download failed: ${e}`)
@@ -557,7 +558,6 @@ const force = values.force ?? false
 const section = values.section as
   | 'numerator'
   | 'state_leg'
-  | 'congress_json'
   | 'crosswalk'
   | undefined
 
@@ -571,8 +571,6 @@ const cache = loadCache()
 
 const runAll = section == null
 if (runAll || section === 'numerator') await refreshNumerator(cache, force)
-if (runAll || section === 'congress_json')
-  await refreshCongressJson(cache, force)
 if (runAll || section === 'crosswalk') await refreshCrosswalk(cache, force)
 if (runAll || section === 'state_leg') await refreshStateLegTables(cache, force)
 
