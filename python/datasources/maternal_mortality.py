@@ -36,9 +36,10 @@ CDC_BIRTHS = "Births"
 
 CDC_NATALITY_RACE_NAMES_TO_HET_RACE_CODES = {
     "American Indian or Alaska Native": std_col.Race.AIAN_NH.value,
-    "Asian": std_col.Race.ASIAN_NH.value,
+    # The IHME rates combine Asian and NHPI mothers, so their births sum into API_NH to match
+    "Asian": std_col.Race.API_NH.value,
     "Black or African American": std_col.Race.BLACK_NH.value,
-    "Native Hawaiian or Other Pacific": std_col.Race.NHPI_NH.value,
+    "Native Hawaiian or Other Pacific Islander": std_col.Race.API_NH.value,
     "White": std_col.Race.WHITE_NH.value,
     "More than one race": std_col.Race.MULTI_NH.value,
 }
