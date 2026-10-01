@@ -90,6 +90,8 @@ runs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
       with:
+        # >=1.9 required: secrets.tf uses var interpolation in import block ids
+        terraform_version: "1.9.4"
         terraform_wrapper: false
 
     - name: Save GCP Credentials for Terraform
