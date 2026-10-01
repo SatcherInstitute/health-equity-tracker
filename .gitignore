@@ -45,7 +45,7 @@ airflow-logs/
 /frontend/coverage/
 /frontend/stats.html
 /frontend/public/tmp/
-test-results/
+/test-results/
 
 # Archives
 *.zip
