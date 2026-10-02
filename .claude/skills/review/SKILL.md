@@ -37,7 +37,7 @@ Determine which of these categories best describes the PR (may be multiple):
 - Backend data pipeline: changes in `python/datasources/`, `python/ingestion/`, `data/`
 - Frontend UI: changes in `frontend/src/`
 - Infrastructure / DAG: changes in `.github/workflows/dag*.yml`, `run_ingestion/`, `run_gcs_to_bq/`
-- Docs / config: changes only in `*.md`, `CLAUDE.md`, config files
+- Docs / config: changes only in `*.md`, `AGENTS.md`, config files
 
 Lens weights:
 

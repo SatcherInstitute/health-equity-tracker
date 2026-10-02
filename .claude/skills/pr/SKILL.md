@@ -1,7 +1,7 @@
 ---
 name: pr
 model: haiku
-description: Polish an open PR for review. Classify the diff by bucket (frontend / python / go) and run only the relevant checks — Biome+tsc+Playwright for frontend, black+pylint+pytest for python, build+test for go. Address open review comments, update CLAUDE.md docs if stale, rewrite the PR title and description, then watch CI until all checks pass (diagnosing and reporting any failures). Use when the user wants to close out a PR, verify it's ready for review, or run /pr.
+description: Polish an open PR for review. Classify the diff by bucket (frontend / python / go) and run only the relevant checks — Biome+tsc+Playwright for frontend, black+pylint+pytest for python, build+test for go. Address open review comments, update AGENTS.md docs if stale, rewrite the PR title and description, then watch CI until all checks pass (diagnosing and reporting any failures). Use when the user wants to close out a PR, verify it's ready for review, or run /pr.
 ---
 
 # /pr
@@ -275,7 +275,7 @@ If there are no unresolved reviews or comments, note that and continue.
 
 ## Step 4 — Assess doc freshness
 
-Identify which docs cover the code this PR touches: the service-level `CLAUDE.md` nearest the changed files (`frontend/CLAUDE.md`, `server/CLAUDE.md`, `python/CLAUDE.md`, `exporter/CLAUDE.md`), plus the root `CLAUDE.md` and `README.md`. Read the relevant ones in full, issuing all the `Read` calls in a single message.
+Identify which docs cover the code this PR touches: the service-level `AGENTS.md` nearest the changed files (`frontend/AGENTS.md`, `server/AGENTS.md`, `python/AGENTS.md`, `exporter/AGENTS.md`), plus the root `AGENTS.md` and `README.md`. Read the relevant ones in full, issuing all the `Read` calls in a single message.
 
 Compare against the full PR diff. The file list came from Step 1, so only the diff body is still needed:
 
@@ -293,8 +293,8 @@ Only write durable invariants, never ephemeral task details, and no commentary a
 If updates are needed: edit the relevant docs, then commit:
 
 ```bash
-git add frontend/CLAUDE.md CLAUDE.md README.md   # only files actually changed
-git commit -m "docs: update CLAUDE.md to reflect <what changed>"
+git add frontend/AGENTS.md AGENTS.md README.md   # only files actually changed
+git commit -m "docs: update AGENTS.md to reflect <what changed>"
 git push $FORK_REMOTE HEAD
 ```
 
