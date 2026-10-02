@@ -41,7 +41,7 @@ const (
 	//
 	// Both periods are keyed on the provider's own quota calendar, so a ledger
 	// day sits inside exactly one provider day and the ceiling is what reaches
-	// the provider. server/CLAUDE.md carries the current limits, the traffic
+	// the provider. server/AGENTS.md carries the current limits, the traffic
 	// they were measured against, and the query that re-reads them. Read it
 	// before moving either number.
 	defaultMaxGenerationsPerDay   = 300
