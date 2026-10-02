@@ -8,6 +8,12 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 [![Check Outgoing Links](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronUrlChecker.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronUrlChecker.yml)
 [![Review Flagged AI Insights](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronReviewFlaggedInsights.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/cronReviewFlaggedInsights.yml)
 
+## AI Coding Agents
+
+Repo guidance for AI coding agents lives in `AGENTS.md` (root plus one per service directory: `frontend/`, `server/`, `python/`, `exporter/`). This is the cross-agent standard read by Cursor, Codex, and others.
+
+> **Claude Code users:** `AGENTS.md` support requires Claude Code **≥ 2.1.277**. Older versions only read `CLAUDE.md`, which no longer exists here, so they will load no project guidance. Run `claude update` (or `npm i -g @anthropic-ai/claude-code@latest`) and confirm with `claude --version`.
+
 ## Frontend Quick-Start
 
 ### Setting Up Your Git and GitHub
