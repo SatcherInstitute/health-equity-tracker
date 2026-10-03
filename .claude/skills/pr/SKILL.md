@@ -20,7 +20,34 @@ Pass the PR number through when one was given (`gh pr view <number> ...`); omit 
 gh pr view <number> --json number,title,body,headRefName,baseRefName
 ```
 
-If no open PR is found: print an error and stop.
+**If no open PR is found, create one — do not stop.** The user ran `/pr` to get a review-ready PR; when the branch has commits but no PR yet, opening it is the first thing this skill should do, not an error.
+
+- **A PR number was passed but doesn't resolve** (closed, wrong repo, typo): that's a real error — print it and stop.
+- **No number was given and the current branch has no PR:** create one, then continue the skill against it.
+
+First confirm the branch actually has commits to open a PR with, isn't `main`, and isn't in detached state:
+
+```bash
+BRANCH=$(git branch --show-current)
+[ -z "$BRANCH" ] && { echo "Detached HEAD — check out a feature branch first." >&2; exit 1; }
+[ "$BRANCH" = "main" ] && { echo "On main — check out a feature branch first." >&2; exit 1; }
+git fetch origin main --quiet
+git log origin/main..HEAD --oneline   # empty = nothing to PR; stop and tell the user
+```
+
+If there are commits, push the branch to the fork and open a draft-quality PR. Title and body are first-pass only — Step 6 rewrites them properly once the diff is classified and verified. Derive the fork remote the same way Step 1's context block does (`git remote -v | grep <your-login>/`). Never push to `origin`.
+
+```bash
+GH_USER=$(gh api user -q .login)
+FORK_REMOTE=$(git remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
+[ -z "$FORK_REMOTE" ] && { echo "No fork remote found. Run \`git remote -v\` and add your fork as a remote." >&2; exit 1; }
+git push -u "$FORK_REMOTE" HEAD
+gh pr create --base main --head "${GH_USER}:${BRANCH}" \
+  --title "$(git log origin/main..HEAD --format=%s | tail -1)" \
+  --body "Draft — populated by /pr." --assignee @me
+```
+
+Use the single commit subject as a placeholder title (Step 6 replaces it). Capture the new PR number from the `gh pr create` URL and use it for every remaining step. Skip the `gh pr checkout` below — you are already on the branch.
 
 **Before doing anything else, output one sentence describing what this PR does** — the plainest possible language, no jargon. Read the title and body to derive it. Example: "This PR adds the (NH) footnote to maternal mortality cards by setting contains_nh on the race dataset entries." Say it as your first line of output so the user immediately knows you're working on the right thing.
 
