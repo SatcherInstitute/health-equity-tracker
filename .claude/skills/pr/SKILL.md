@@ -25,11 +25,13 @@ gh pr view <number> --json number,title,body,headRefName,baseRefName
 - **A PR number was passed but doesn't resolve** (closed, wrong repo, typo): that's a real error — print it and stop.
 - **No number was given and the current branch has no PR:** create one, then continue the skill against it.
 
-First confirm the branch actually has commits to open a PR with, and isn't `main`:
+First confirm the branch actually has commits to open a PR with, isn't `main`, and isn't in detached state:
 
 ```bash
 BRANCH=$(git branch --show-current)
+[ -z "$BRANCH" ] && { echo "Detached HEAD — check out a feature branch first." >&2; exit 1; }
 [ "$BRANCH" = "main" ] && { echo "On main — check out a feature branch first." >&2; exit 1; }
+git fetch origin main --quiet
 git log origin/main..HEAD --oneline   # empty = nothing to PR; stop and tell the user
 ```
 
