@@ -38,6 +38,7 @@ If there are commits, push the branch to the fork and open a draft-quality PR. T
 ```bash
 GH_USER=$(gh api user -q .login)
 FORK_REMOTE=$(git remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
+[ -z "$FORK_REMOTE" ] && { echo "No fork remote found. Run \`git remote -v\` and add your fork as a remote." >&2; exit 1; }
 git push -u "$FORK_REMOTE" HEAD
 gh pr create --base main --head "${GH_USER}:${BRANCH}" \
   --title "$(git log origin/main..HEAD --format=%s | tail -1)" \
