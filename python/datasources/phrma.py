@@ -75,7 +75,7 @@ class PhrmaData(DataSource):
         # POP COMPARE FOR 100K
         float_cols = [
             f"{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}",
-            f"{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}",
+            std_col.MEDICARE_POPULATION,
         ]
 
         # PCT_RATE CONDITIONS
@@ -182,7 +182,7 @@ class PhrmaData(DataSource):
                 df, count_to_share_map, cast(PHRMA_BREAKDOWN_TYPE, demo_col), all_val
             )
 
-        rename_col_map = {MEDICARE_POP_COUNT: f"{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}"}
+        rename_col_map = {MEDICARE_POP_COUNT: std_col.MEDICARE_POPULATION}
         for condition in PHRMA_PCT_CONDITIONS:
             rename_col_map[f"{condition}_{COUNT_YES}"] = f"{condition}_{ADHERENCE}_{std_col.RAW_SUFFIX}"
             rename_col_map[f"{condition}_{COUNT_TOTAL}"] = f"{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}"
