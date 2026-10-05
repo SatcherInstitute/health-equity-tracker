@@ -60,7 +60,7 @@ export default function HetTable({
     <TableContainer
       component={Paper}
       id={id}
-      className={`w-full ${stickyHeader ? 'flex max-h-150 caption-top self-center overflow-auto' : ''} ${className ?? ''}`}
+      className={`w-full overflow-x-auto ${stickyHeader ? 'max-h-150 overflow-auto' : ''} ${className ?? ''}`}
     >
       <Table stickyHeader={stickyHeader} size={size}>
         {caption && <caption className='font-medium'>{caption}</caption>}
