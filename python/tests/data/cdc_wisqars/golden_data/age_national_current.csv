@@ -1,4 +1,4 @@
-state_name,state_fips,age,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k,gun_deaths_per_100k,gun_violence_homicide_pct_share,gun_violence_suicide_pct_share,gun_deaths_pct_share,fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,gun_deaths_estimated_total,fatal_population,gun_violence_homicide_per_100k_is_suppressed,gun_violence_suicide_per_100k_is_suppressed,gun_deaths_per_100k_is_suppressed
+state_name,state_fips,age,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k,gun_deaths_per_100k,gun_violence_homicide_pct_share,gun_violence_suicide_pct_share,gun_deaths_pct_share,fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,gun_deaths_estimated_total,fatal_population_estimated_total,gun_violence_homicide_per_100k_is_suppressed,gun_violence_suicide_per_100k_is_suppressed,gun_deaths_per_100k_is_suppressed
 United States,00,0-14,0.77,,1.31,,,,17.8,460.0,,779.0,59498481.0,,True,
 United States,00,15-19,11.27,4.83,16.72,,,,6.6,2487.0,1066.0,3691.0,22075480.0,,,
 United States,00,20-24,12.94,10.12,23.91,,,,6.5,2823.0,2208.0,5214.0,21811172.0,,,

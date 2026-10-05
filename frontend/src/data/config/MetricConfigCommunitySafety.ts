@@ -41,14 +41,14 @@ export type CommunitySafetyMetricId =
   | 'gun_deaths_youth_per_100k_is_suppressed'
   | 'gun_deaths_youth_pct_share'
   | 'gun_deaths_youth_pct_relative_inequity'
-  | 'gun_deaths_youth_population'
+  | 'gun_deaths_youth_population_estimated_total'
   | 'gun_deaths_youth_population_pct'
   | 'gun_deaths_young_adults_estimated_total'
   | 'gun_deaths_young_adults_per_100k'
   | 'gun_deaths_young_adults_per_100k_is_suppressed'
   | 'gun_deaths_young_adults_pct_share'
   | 'gun_deaths_young_adults_pct_relative_inequity'
-  | 'gun_deaths_young_adults_population'
+  | 'gun_deaths_young_adults_population_estimated_total'
   | 'gun_deaths_young_adults_population_pct'
   | 'gun_violence_homicide_estimated_total'
   | 'gun_violence_homicide_per_100k'
@@ -61,7 +61,7 @@ export type CommunitySafetyMetricId =
   | 'gun_violence_suicide_per_100k_is_suppressed'
   | 'gun_violence_suicide_pct_relative_inequity'
   | 'gun_violence_suicide_pct_share'
-  | 'fatal_population'
+  | 'fatal_population_estimated_total'
   | 'fatal_population_pct'
   | 'gun_homicides_black_men_estimated_total'
   | 'gun_homicides_black_men_pct_relative_inequity'
@@ -130,7 +130,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           chartTitle: '',
-          metricId: 'fatal_population',
+          metricId: 'fatal_population_estimated_total',
           shortLabel: 'Total Population',
           type: 'count',
         },
@@ -190,7 +190,7 @@ export const GUN_VIOLENCE_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           chartTitle: '',
-          metricId: 'fatal_population',
+          metricId: 'fatal_population_estimated_total',
           shortLabel: 'Total Population',
           type: 'count',
         },
@@ -232,7 +232,7 @@ export const GUN_DEATH_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           chartTitle: '',
-          metricId: 'fatal_population',
+          metricId: 'fatal_population_estimated_total',
           shortLabel: 'Total Population',
           type: 'count',
         },
@@ -346,7 +346,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           chartTitle: '',
-          metricId: 'gun_deaths_youth_population',
+          metricId: 'gun_deaths_youth_population_estimated_total',
           shortLabel: 'Total Population',
           type: 'count',
         },
@@ -410,7 +410,7 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           chartTitle: '',
-          metricId: 'gun_deaths_young_adults_population',
+          metricId: 'gun_deaths_young_adults_population_estimated_total',
           shortLabel: 'Total Population',
           type: 'count',
         },

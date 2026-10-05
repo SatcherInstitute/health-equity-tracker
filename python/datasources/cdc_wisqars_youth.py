@@ -180,7 +180,7 @@ def process_wisqars_youth_df(demographic: WISQARS_DEMO_TYPE, geo_level: GEO_TYPE
         df.rename(
             columns={
                 "deaths": f"{variable_string}_{std_col.RAW_SUFFIX}",
-                "population": f"{variable_string}_{std_col.POPULATION_COL}",
+                "population": f"{variable_string}_{std_col.RAW_POP_SUFFIX}",
                 "crude rate": f"{variable_string}_{std_col.PER_100K_SUFFIX}",
                 WISQARS_IS_SUPPRESSED: IS_SUPPRESSED_MAP[variable_string],
             },

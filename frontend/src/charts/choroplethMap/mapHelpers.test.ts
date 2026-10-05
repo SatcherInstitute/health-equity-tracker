@@ -12,7 +12,7 @@ const metric = {
 
 const countColsMap = {
   numeratorConfig: { metricId: 'gun_homicides_estimated_total' },
-  denominatorConfig: { metricId: 'fatal_population' },
+  denominatorConfig: { metricId: 'fatal_population_estimated_total' },
 }
 
 const build = (row: Record<string, any>) =>
@@ -27,7 +27,7 @@ describe('createDataMap suppressed vs unavailable labels', () => {
       gun_violence_homicide_per_100k: null,
       gun_violence_homicide_per_100k_is_suppressed: true,
       gun_homicides_estimated_total: null,
-      fatal_population: 55000,
+      fatal_population_estimated_total: 55000,
     })
     expect(entry['# homicides']).toEqual(DATA_SUPPRESSED)
   })
@@ -38,7 +38,7 @@ describe('createDataMap suppressed vs unavailable labels', () => {
       gun_violence_homicide_per_100k: null,
       gun_violence_homicide_per_100k_is_suppressed: false,
       gun_homicides_estimated_total: null,
-      fatal_population: 55000,
+      fatal_population_estimated_total: 55000,
     })
     expect(entry['# homicides']).toEqual(DATA_UNAVAILABLE)
   })
@@ -49,7 +49,7 @@ describe('createDataMap suppressed vs unavailable labels', () => {
       gun_violence_homicide_per_100k: null,
       gun_violence_homicide_per_100k_is_suppressed: true,
       gun_homicides_estimated_total: null,
-      fatal_population: null,
+      fatal_population_estimated_total: null,
     })
     expect(entry['# people']).toEqual(DATA_UNAVAILABLE)
   })
@@ -59,7 +59,7 @@ describe('createDataMap suppressed vs unavailable labels', () => {
       fips: '01001',
       gun_violence_homicide_per_100k: 12.3,
       gun_homicides_estimated_total: 7,
-      fatal_population: 55000,
+      fatal_population_estimated_total: 55000,
     })
     expect(entry['# homicides']).toEqual(7)
     expect(entry['# people']).toEqual(55000)
@@ -78,7 +78,7 @@ describe('createDataMap suppressed vs unavailable labels', () => {
           gun_violence_homicide_per_100k: null,
           gun_violence_homicide_per_100k_is_suppressed: true,
           gun_homicides_estimated_total: null,
-          fatal_population: 55000,
+          fatal_population_estimated_total: 55000,
         },
       ],
       'homicides per 100k',
@@ -110,7 +110,7 @@ describe('createDataMap suppressed vs unavailable labels', () => {
       fips: '01001',
       gun_violence_homicide_per_100k: 0,
       gun_homicides_estimated_total: 0,
-      fatal_population: 0,
+      fatal_population_estimated_total: 0,
     })
     expect(entry['# homicides']).toEqual(0)
     expect(entry['# people']).toEqual(0)
