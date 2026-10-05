@@ -84,7 +84,6 @@ SUFFIXES_CURRENT_TIME_VIEWS = [
     POP_PCT_SUFFIX,
     SHARE_OF_KNOWN_SUFFIX,
     RATIO_AGE_ADJUSTED_SUFFIX,
-    POPULATION_COL,  # TODO: ideally we should refactor so all population count cols end with estimate_total
 ]
 
 SUFFIXES_HISTORICAL_TIME_VIEWS = [
@@ -187,19 +186,19 @@ PRISON_PCT_INEQUITY = "prison_pct_relative_inequity"
 BLACK_WOMEN = "black_women"
 HIV_BW_POPULATION_PCT = "black_women_population_pct"
 
-HIV_POPULATION = "hiv_population"
+HIV_POPULATION = "hiv_population_estimated_total"
 HIV_POPULATION_PCT = "hiv_population_pct"
 
 
 HIV_CARE_LINKAGE = "hiv_care_linkage"
-HIV_CARE_POPULATION = "hiv_care_population"
+HIV_CARE_POPULATION = "hiv_care_population_estimated_total"
 HIV_CARE_POPULATION_PCT = "hiv_care_population_pct"
 HIV_CARE_PREFIX = "hiv_care"
 HIV_DEATHS_PREFIX = "hiv_deaths"
 HIV_DIAGNOSES_PREFIX = "hiv_diagnoses"
 HIV_PREP_COVERAGE = "hiv_prep_coverage"
 # population of individuals with PrEP indicators
-HIV_PREP_POPULATION = "hiv_prep_population"
+HIV_PREP_POPULATION = "hiv_prep_population_estimated_total"
 HIV_PREP_POPULATION_PCT = "hiv_prep_population_pct"
 HIV_PREP_PREFIX = "hiv_prep"
 HIV_PREVALENCE_PREFIX = "hiv_prevalence"
@@ -212,6 +211,7 @@ HIV_DEATH_RATIO_AGE_ADJUSTED = "hiv_deaths_ratio_age_adjusted"
 
 # PHRMA
 MEDICARE_PREFIX = "medicare"
+MEDICARE_POPULATION = "medicare_population_estimated_total"
 
 # 100k
 AMI_PREFIX = "medicare_ami"
@@ -229,7 +229,7 @@ RASA_PREFIX = "ras_antagonists"
 STATINS_PREFIX = "statins"
 
 # Gun violence
-FATAL_POPULATION = "fatal_population"
+FATAL_POPULATION = "fatal_population_estimated_total"
 FATAL_POPULATION_PCT = "fatal_population_pct"
 FATAL_PREFIX: WISQARS_VAR_TYPE = "fatal"
 
@@ -244,10 +244,10 @@ GUN_VIOLENCE_SUICIDE_PER_100K = "gun_violence_suicide_per_100k"
 
 # YOUNG ADULTS AND YOUTH
 GUN_DEATHS_YOUNG_ADULTS_POP_PCT = "gun_deaths_young_adults_population_pct"
-GUN_DEATHS_YOUNG_ADULTS_POPULATION = "gun_deaths_young_adults_population"
+GUN_DEATHS_YOUNG_ADULTS_POPULATION = "gun_deaths_young_adults_population_estimated_total"
 GUN_DEATHS_YOUNG_ADULTS_PREFIX: WISQARS_VAR_TYPE = "gun_deaths_young_adults"
 GUN_DEATHS_YOUTH_POP_PCT = "gun_deaths_youth_population_pct"
-GUN_DEATHS_YOUTH_POPULATION = "gun_deaths_youth_population"
+GUN_DEATHS_YOUTH_POPULATION = "gun_deaths_youth_population_estimated_total"
 GUN_DEATHS_YOUTH_PREFIX: WISQARS_VAR_TYPE = "gun_deaths_youth"
 
 # BLACK MEN - HOMICIDES AND LAW ENFORCEMENT DEATHS
