@@ -1,4 +1,4 @@
-state_name,state_fips,sex,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k,gun_deaths_per_100k,gun_violence_homicide_pct_share,gun_violence_suicide_pct_share,gun_deaths_pct_share,fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,gun_deaths_estimated_total,fatal_population,gun_violence_homicide_per_100k_is_suppressed,gun_violence_suicide_per_100k_is_suppressed,gun_deaths_per_100k_is_suppressed
+state_name,state_fips,sex,gun_violence_homicide_per_100k,gun_violence_suicide_per_100k,gun_deaths_per_100k,gun_violence_homicide_pct_share,gun_violence_suicide_pct_share,gun_deaths_pct_share,fatal_population_pct,gun_violence_homicide_estimated_total,gun_violence_suicide_estimated_total,gun_deaths_estimated_total,fatal_population_estimated_total,gun_violence_homicide_per_100k_is_suppressed,gun_violence_suicide_per_100k_is_suppressed,gun_deaths_per_100k_is_suppressed
 Alabama,01,Female,3.77,4.15,8.18,15.6,17.6,16.6,51.5,99.0,109.0,215.0,2629215.0,,,
 Alabama,01,Male,21.54,20.53,43.44,84.4,82.4,83.4,48.5,534.0,509.0,1077.0,2479253.0,,,
 Alaska,02,Female,3.74,4.31,8.62,27.7,12.5,17.0,47.5,13.0,15.0,30.0,348061.0,,,
