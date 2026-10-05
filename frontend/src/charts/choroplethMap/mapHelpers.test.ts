@@ -110,7 +110,7 @@ describe('createDataMap suppressed vs unavailable labels', () => {
       fips: '01001',
       gun_violence_homicide_per_100k: 0,
       gun_homicides_estimated_total: 0,
-      fatal_population: 0,
+      fatal_population_estimated_total: 0,
     })
     expect(entry['# homicides']).toEqual(0)
     expect(entry['# people']).toEqual(0)
