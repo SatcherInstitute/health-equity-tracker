@@ -34,7 +34,7 @@ export default function ReportSidebarDesktop(props: ReportSidebarDesktopProps) {
 
   return (
     <>
-      <div className='sticky' style={{ top: tocOffset }}>
+      <div className='sticky w-full' style={{ top: tocOffset }}>
         {props.showInsightsButton && (
           <SidebarCard>
             <InsightReportButton />
