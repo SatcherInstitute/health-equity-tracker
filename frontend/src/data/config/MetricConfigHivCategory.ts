@@ -34,7 +34,7 @@ export const HIV_METRICS: MetricId[] = [
   'hiv_care_pct_relative_inequity',
   'hiv_care_pct_share',
   'hiv_care_population_pct',
-  'hiv_care_population',
+  'hiv_care_population_estimated_total',
   'hiv_care',
   'hiv_deaths_pct_relative_inequity',
   'hiv_deaths_pct_share',
@@ -51,7 +51,7 @@ export const HIV_METRICS: MetricId[] = [
   'hiv_prep_pct_relative_inequity',
   'hiv_prep_pct_share',
   'hiv_prep_population_pct',
-  'hiv_prep_population',
+  'hiv_prep_population_estimated_total',
   'hiv_prep',
   'hiv_prevalence_pct_relative_inequity',
   'hiv_prevalence_pct_share',
@@ -62,7 +62,7 @@ export const HIV_METRICS: MetricId[] = [
   'hiv_stigma_index',
   'hiv_stigma_pct_share',
   'hiv_population_pct',
-  'hiv_population',
+  'hiv_population_estimated_total',
 ]
 
 export const BLACK_WOMEN_DATATYPES: DataTypeId[] = [
@@ -94,7 +94,7 @@ export type HivCategoryMetricId =
   | 'hiv_care_pct_relative_inequity'
   | 'hiv_care_pct_share'
   | 'hiv_care_population_pct'
-  | 'hiv_care_population'
+  | 'hiv_care_population_estimated_total'
   | 'hiv_care'
   | 'hiv_deaths_black_women_pct_relative_inequity'
   | 'hiv_deaths_black_women_pct_share'
@@ -118,12 +118,12 @@ export type HivCategoryMetricId =
   | 'hiv_diagnoses_per_100k_is_suppressed'
   | 'hiv_diagnoses'
   | 'hiv_population_pct'
-  | 'hiv_population'
+  | 'hiv_population_estimated_total'
   | 'hiv_prep_coverage'
   | 'hiv_prep_pct_relative_inequity'
   | 'hiv_prep_pct_share'
   | 'hiv_prep_population_pct'
-  | 'hiv_prep_population'
+  | 'hiv_prep_population_estimated_total'
   | 'hiv_prep'
   | 'hiv_prevalence_black_women_pct_relative_inequity'
   | 'hiv_prevalence_black_women_pct_share'
@@ -202,7 +202,7 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'hiv_care_population',
+          metricId: 'hiv_care_population_estimated_total',
           shortLabel: 'Total HIV diagnoses',
           chartTitle: '',
           type: 'count',
@@ -267,7 +267,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'hiv_population',
+          metricId: 'hiv_population_estimated_total',
           shortLabel: 'Total population',
           chartTitle: '',
           type: 'count',
@@ -330,7 +330,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'hiv_population',
+          metricId: 'hiv_population_estimated_total',
           shortLabel: 'Total population',
           chartTitle: '',
           type: 'count',
@@ -393,7 +393,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'hiv_population',
+          metricId: 'hiv_population_estimated_total',
           shortLabel: 'Total population',
           chartTitle: '',
           type: 'count',
@@ -739,7 +739,7 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'hiv_prep_population',
+          metricId: 'hiv_prep_population_estimated_total',
           shortLabel: 'PrEP-eligible population',
           chartTitle: '',
           type: 'count',

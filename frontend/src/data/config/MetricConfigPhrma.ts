@@ -66,7 +66,7 @@ export const PHRMA_METRICS: MetricId[] = [
   'medicare_schizophrenia_pct_share',
   'medicare_schizophrenia_per_100k',
   'medicare_population_pct_share',
-  'medicare_population',
+  'medicare_population_estimated_total',
   'ras_antagonists_adherence_estimated_total',
   'ras_antagonists_adherence_pct_rate',
   'ras_antagonists_adherence_pct_share',
@@ -139,7 +139,7 @@ export type PhrmaMetricId =
   | 'medicare_schizophrenia_pct_share'
   | 'medicare_schizophrenia_per_100k'
   | 'medicare_population_pct_share'
-  | 'medicare_population'
+  | 'medicare_population_estimated_total'
   | 'ras_antagonists_adherence_estimated_total'
   | 'ras_antagonists_adherence_pct_rate'
   | 'ras_antagonists_adherence_pct_share'
@@ -573,7 +573,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'medicare_population',
+          metricId: 'medicare_population_estimated_total',
           shortLabel: 'beneficiaries',
           chartTitle: '',
           type: 'count',
@@ -698,7 +698,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'medicare_population',
+          metricId: 'medicare_population_estimated_total',
           shortLabel: 'beneficiaries',
           chartTitle: '',
           type: 'count',
@@ -801,7 +801,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'medicare_population',
+          metricId: 'medicare_population_estimated_total',
           shortLabel: 'beneficiaries',
           chartTitle: '',
           type: 'count',
