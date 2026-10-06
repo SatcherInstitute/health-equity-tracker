@@ -88,21 +88,21 @@ describe('test getSubPopulationPhrase()', () => {
 
   const countyPhrmaData: HetRow[] = [
     {
-      medicare_population: null,
+      medicare_population_estimated_total: null,
       some_metric_: 50.0,
       sex: 'All',
       fips: '99999',
       fips_name: 'Some County',
     },
     {
-      medicare_population: null,
+      medicare_population_estimated_total: null,
       some_metric_: 50.0,
       sex: 'Male',
       fips: '99999',
       fips_name: 'Some County',
     },
     {
-      medicare_population: null,
+      medicare_population_estimated_total: null,
       some_metric_: 50.0,
       sex: 'Female',
       fips: '99999',

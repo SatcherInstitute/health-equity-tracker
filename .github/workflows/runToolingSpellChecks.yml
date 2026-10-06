@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 1
 
       - name: Run CSpell
-        uses: streetsidesoftware/cspell-action@v8
+        uses: streetsidesoftware/cspell-action@v9
         with:
           config: 'cspell.config.json'
           # Only file types that can contain user- or contributor-facing prose.
