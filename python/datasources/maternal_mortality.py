@@ -298,7 +298,12 @@ def merge_state_counts(df: pd.DataFrame) -> pd.DataFrame:
     df = generate_estimated_total_col(df, std_col.LIVE_BIRTHS_RAW, {std_col.MM_PER_100K: std_col.MATERNAL_DEATHS_RAW})
 
     # only calc ALL rates for current year (for now)
-    current_alls_df = df[df[std_col.TIME_PERIOD_COL] == JAMA_CURRENT_YEAR]
+    current_alls_df = df[df[std_col.TIME_PERIOD_COL] == JAMA_CURRENT_YEAR].copy()
+
+    # sum unrounded per-group death estimates; summing the rounded ones skews small states' ALL rates
+    current_alls_df[std_col.MATERNAL_DEATHS_RAW] = (
+        current_alls_df[std_col.MM_PER_100K] / 100_000 * current_alls_df[std_col.LIVE_BIRTHS_RAW]
+    )
     current_alls_df = current_alls_df[
         [
             std_col.TIME_PERIOD_COL,
@@ -321,6 +326,7 @@ def merge_state_counts(df: pd.DataFrame) -> pd.DataFrame:
     current_alls_df = generate_per_100k_col(
         current_alls_df, std_col.MATERNAL_DEATHS_RAW, std_col.LIVE_BIRTHS_RAW, std_col.MM_PER_100K
     )
+    current_alls_df[std_col.MATERNAL_DEATHS_RAW] = current_alls_df[std_col.MATERNAL_DEATHS_RAW].round()
 
     # Append the current_alls_df to the df as new rows; fill in missing values with None
     df = pd.concat([df, current_alls_df], ignore_index=True)
