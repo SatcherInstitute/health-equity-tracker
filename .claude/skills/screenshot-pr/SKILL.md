@@ -30,7 +30,7 @@ git -C /path/to/repo status --porcelain
 If any tracked files are modified (lines starting with ` M` or `M `):
 
 ```bash
-git -C /path/to/repo add frontend/src frontend/CLAUDE.md .claude/skills
+git -C /path/to/repo add frontend/src frontend/AGENTS.md .claude/skills
 git -C /path/to/repo commit -m "$(cat <<'COMMITMSG'
 <short description of changes being screenshotted>
 

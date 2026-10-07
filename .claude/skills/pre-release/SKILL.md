@@ -40,7 +40,7 @@ Separate unreleased commits into:
 
 1. **App/user-facing** — changed files under the deploy paths above (these ship at release time)
 2. **Pipeline/data** — subset of the above touching `python/datasources/`, `python/ingestion/`, `run_ingestion/`, `run_gcs_to_bq/`
-3. **Live on merge already** — changed files entirely outside the deploy paths (`.claude/`, `CLAUDE.md`, `.github/workflows/`, `.github/actions/`, root docs, etc.); omit from the release changelog. **Exception: `.github/actions/buildAllAndDeploy` changes are live on merge AND affect every future prod release** (the prod deploy workflow pins it at `@main`, not at the release tag — flag these separately in Step 3g)
+3. **Live on merge already** — changed files entirely outside the deploy paths (`.claude/`, `AGENTS.md`, `.github/workflows/`, `.github/actions/`, root docs, etc.); omit from the release changelog. **Exception: `.github/actions/buildAllAndDeploy` changes are live on merge AND affect every future prod release** (the prod deploy workflow pins it at `@main`, not at the release tag — flag these separately in Step 3g)
 
 To categorize each commit, check its diff paths:
 
@@ -169,7 +169,7 @@ If any `[ENV]`, `[INFRA]`, or `[CONTRACT]` flags are non-empty, the recommendati
 
 ## Notes
 
-- Tooling-only commits (`.claude/`, `CLAUDE.md`) do not affect the deployed application. Never list them as user-facing changes.
+- Tooling-only commits (`.claude/`, `AGENTS.md`) do not affect the deployed application. Never list them as user-facing changes.
 - The release workflow applies Terraform to prod as part of the deploy — new secrets must exist in prod Secret Manager before the deploy begins, or it will fail.
 - Pipeline code changes only take effect when the matching DAG workflow is re-triggered. Flag every changed datasource.
 - Prod Cloud Run config is the source of truth for live env vars, not `variables.tf`.

@@ -105,7 +105,7 @@ Specifically check whether this issue is a promised follow-up from a prior PR �
 **Sibling code patterns:** if the issue is "add X to topic A" and topic A has siblings that already do X (e.g. suppression detection landed on WISQARS/cancer before HIV), read those sibling files in full before writing anything. The right shape is almost always copy-and-adapt from the most recent sibling implementation, not invent-from-scratch — recent siblings encode lessons (like the WISQARS implicit-merge-key issue) that older ones don't.
 
 **Situational flags — mention inline if applicable, don't stop for them:**
-- If the issue touches a skill file or `CLAUDE.md`: that work must ship as its own PR, on a branch cut from clean main, separate from any other change.
+- If the issue touches a skill file or `AGENTS.md`: that work must ship as its own PR, on a branch cut from clean main, separate from any other change.
 - If the issue mentions data being "stale" or "old": multi-year public health data lag is normal, not a defect — confirm against the source's actual release cadence before treating it as a bug.
 - If the issue is security-adjacent: this repo is public; frame the work and any issue/PR text as neutral hardening, not a vulnerability disclosure.
 - If the issue mentions "prod": merging to `main` deploys to dev only; prod requires an explicit release cut (`/release`). Don't imply a merge here ships to production.

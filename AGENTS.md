@@ -1,12 +1,12 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI coding agents (Claude Code, Cursor, Codex, etc.) when working with code in this repository.
 
 ## Project Overview
 
 The [Health Equity Tracker](https://healthequitytracker.org/) aggregates demographic health data by race, ethnicity, sex, and socioeconomic status across the US. It consists of a React frontend, a combined Go server that serves the app and its data APIs, and a GCP-hosted data pipeline.
 
-> **Service-specific guidance:** See each service's own `CLAUDE.md` for details.
+> **Service-specific guidance:** See each service's own `AGENTS.md` for details.
 > `frontend/` · `server/` · `exporter/` · `python/`
 
 ## Batch tool calls
@@ -112,7 +112,7 @@ Promote a discussion to issue(s) only once the solution is refined; create a mil
 
 ## Commands
 
-Frontend commands run from `frontend/` — see `frontend/CLAUDE.md`.
+Frontend commands run from `frontend/` — see `frontend/AGENTS.md`.
 
 Python tests run from the repo root with the venv activated:
 
@@ -128,7 +128,7 @@ pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.
 
 Both frontend and backend changes are required.
 
-**Frontend** (see `frontend/CLAUDE.md` for file locations):
+**Frontend** (see `frontend/AGENTS.md` for file locations):
 
 1. Create `MetricConfig<Topic>.ts` — define `MetricId`s, `DataTypeId`s, and chart configs
 2. Register the new `DropdownVarId` in `DropDownIds.ts`
@@ -160,4 +160,4 @@ All of the following run automatically on `git commit`:
 | Python BQ/GCS utilities | `python/ingestion/gcs_to_bq_util.py` |
 | Python type definitions | `python/ingestion/het_types.py` |
 | GCP pipeline DAG workflows | `.github/workflows/dag*.yml` |
-| Frontend key files | See `frontend/CLAUDE.md` |
+| Frontend key files | See `frontend/AGENTS.md` |
