@@ -31,12 +31,16 @@ Confirm the PR base is `main`. If the PR is already merged or closed, print an e
 git push origin HEAD:infra-test -f
 ```
 
-This triggers the `testBackendChangesInfraTest.yml` workflow. Immediately capture the run ID:
+This triggers the `testBackendChangesInfraTest.yml` workflow. Capture the run ID by matching the pushed commit's SHA, so a leftover run from a prior push is never picked up by mistake:
 
 ```bash
-sleep 10
-RUN_ID=$(gh run list --repo $REPO --workflow=testBackendChangesInfraTest.yml --limit 1 \
-  --json databaseId --jq '.[0].databaseId')
+HEAD_SHA=$(git rev-parse HEAD)
+for i in $(seq 1 12); do
+  RUN_ID=$(gh run list --repo $REPO --workflow=testBackendChangesInfraTest.yml --limit 10 \
+    --json databaseId,headSha --jq ".[] | select(.headSha==\"$HEAD_SHA\") | .databaseId" | head -1)
+  [ -n "$RUN_ID" ] && break
+  sleep 5
+done
 echo "Infra-test deploy run: https://github.com/$REPO/actions/runs/$RUN_ID"
 ```
 
@@ -98,12 +102,15 @@ grep -l "WORKFLOW_ID" .github/workflows/dag*.yml | xargs grep -l "<datasource_id
 
 For each associated DAG workflow, trigger it targeting the infra-test environment and wait for completion before starting the next one.
 
-**Trigger:**
+**Trigger** (capture the prior run ID first so you can tell when the new one appears, rather than blindly grabbing the latest):
 ```bash
+PREV_ID=$(gh run list --repo $REPO --workflow=<workflow-file> --limit 1 --json databaseId --jq '.[0].databaseId')
 gh workflow run <workflow-file> --repo $REPO
-sleep 15
-DAG_RUN_ID=$(gh run list --repo $REPO --workflow=<workflow-file> --limit 1 \
-  --json databaseId --jq '.[0].databaseId')
+for i in $(seq 1 12); do
+  DAG_RUN_ID=$(gh run list --repo $REPO --workflow=<workflow-file> --limit 1 --json databaseId --jq '.[0].databaseId')
+  [ -n "$DAG_RUN_ID" ] && [ "$DAG_RUN_ID" != "$PREV_ID" ] && break
+  sleep 5
+done
 echo "DAG run: https://github.com/$REPO/actions/runs/$DAG_RUN_ID"
 ```
 
