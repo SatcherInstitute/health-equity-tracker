@@ -1,5 +1,6 @@
 ---
 name: release
+model: sonnet
 description: Cut a new production release — pre-flight checks, auto-increment tag, publish GitHub release, monitor prod deploy, verify prod loads, targeted Playwright smoke tests, then trigger nightly E2E. Use when the user wants to ship a release or run /release.
 ---
 

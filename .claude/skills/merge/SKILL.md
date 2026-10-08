@@ -1,5 +1,6 @@
 ---
 name: merge
+model: sonnet
 description: Force-merge an open PR to main (bypassing review requirements), delete the local branch, pull the updated main, and push it to the personal fork remote. Use when the user wants to close out a PR without waiting for review, or run /merge.
 ---
 
@@ -208,7 +209,7 @@ Merging to `main` automatically fires a `DEPLOY MAIN CODE TO INFRA-TEST GCP (DEV
 gh run list --branch main --workflow "DEPLOY MAIN CODE TO INFRA-TEST GCP (DEV SITE)" --limit 1 --json status,conclusion,createdAt
 ```
 
-If `status` is not `completed`, wait for it (poll, or use `gh run watch <id>`) rather than proceeding immediately. Once it's done, trigger the DAG:
+If `status` is not `completed`, wait for it with `gh run watch <id>` launched via the Bash tool's `run_in_background` (the harness notifies on completion — don't sleep-poll) rather than proceeding immediately. Once it's done, trigger the DAG:
 
 ```bash
 gh workflow run <dag>.yml --ref infra-test

@@ -92,10 +92,13 @@ SIXTY_DAYS_AGO=$(date -u -v-60d +%Y-%m-%d 2>/dev/null || date -u -d '60 days ago
 gh issue list --repo SatcherInstitute/health-equity-tracker --state open --search "created:>$SIXTY_DAYS_AGO" --limit 100 --json number,title,assignees,labels,milestone,url,createdAt
 ```
 
-**Issues assigned to bhammond — catches assigned work that may have fallen off the board:**
+**Issues assigned to the current user — catches assigned work that may have fallen off the board:**
+
+Capture the runner's login first so scoring and discard logic below can compare against it (never hardcode a username — this skill is run by multiple contributors):
 
 ```bash
-gh issue list --repo SatcherInstitute/health-equity-tracker --state open --assignee bhammond --limit 100 --json number,title,assignees,labels,milestone,url,createdAt
+GH_USER=$(gh api user -q .login)
+gh issue list --repo SatcherInstitute/health-equity-tracker --state open --assignee @me --limit 100 --json number,title,assignees,labels,milestone,url,createdAt
 ```
 
 Also read the memory index to surface any standing priorities:
@@ -136,7 +139,7 @@ Score each open item from 0–100 using these weighted signals. Higher = better 
 | Board status: **Up Next** | +25 |
 | Board status: **Backlog** | +5 |
 | Board status: **Off Board** or **No Milestone** (not on project board) | +2 |
-| Assigned to `bhammond` (or unassigned — available to pick up) | +15 (assigned) / +5 (unassigned) |
+| Assigned to the current user `$GH_USER` (or unassigned — available to pick up) | +15 (assigned) / +5 (unassigned) |
 | Assigned to someone else | -30 (skip unless no other options) |
 | Milestone with **1 open issue** remaining (this could close it) | +30 |
 | Milestone with **2–3 open issues** remaining | +15 |
@@ -160,7 +163,7 @@ For each open milestone compute: `open_issues / (open_issues + closed_issues)`. 
 
 Sort scored items descending. Identify the top recommendation and a shortlist of up to 4 runners-up.
 
-Discard items assigned to someone other than `bhammond` unless they are the only In Progress item or there is genuinely nothing better — note this in the output.
+Discard items assigned to someone other than the current user (`$GH_USER`) unless they are the only In Progress item or there is genuinely nothing better — note this in the output.
 
 ---
 
@@ -189,7 +192,7 @@ If the user's current branch has an open PR, note it briefly and ask whether the
 
 ```bash
 CURRENT_BRANCH=$(git branch --show-current)
-gh pr list --author bhammond --state open --head bhammond:$CURRENT_BRANCH --json number,title,headRefName
+gh pr list --author @me --state open --head "${GH_USER}:$CURRENT_BRANCH" --json number,title,headRefName
 ```
 
 Keep the whole response under 200 words.
