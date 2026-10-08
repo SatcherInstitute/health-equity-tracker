@@ -1,5 +1,6 @@
 ---
 name: screenshot-pr
+model: sonnet
 description: Take responsive screenshots of the current branch's frontend work and embed them into the open PR's Screenshots section. Use when the user wants to capture UI screenshots for a pull request, add screenshots to a PR, or run /screenshot-pr.
 ---
 

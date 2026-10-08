@@ -1,5 +1,6 @@
 ---
 name: infra-test
+model: haiku
 description: Force-push the current branch to infra-test to trigger a GCP deploy, wait for it to complete, then run each associated DAG pipeline one at a time and wait for each to finish. On full success, updates the PR description with a checklist confirming real GCP infra-test results. Use when the user wants to verify backend changes on the test environment before merging, or run /infra-test.
 ---
 
@@ -30,12 +31,16 @@ Confirm the PR base is `main`. If the PR is already merged or closed, print an e
 git push origin HEAD:infra-test -f
 ```
 
-This triggers the `testBackendChangesInfraTest.yml` workflow. Immediately capture the run ID:
+This triggers the `testBackendChangesInfraTest.yml` workflow. Capture the run ID by matching the pushed commit's SHA, so a leftover run from a prior push is never picked up by mistake:
 
 ```bash
-sleep 10
-RUN_ID=$(gh run list --repo $REPO --workflow=testBackendChangesInfraTest.yml --limit 1 \
-  --json databaseId --jq '.[0].databaseId')
+HEAD_SHA=$(git rev-parse HEAD)
+for i in $(seq 1 12); do
+  RUN_ID=$(gh run list --repo $REPO --workflow=testBackendChangesInfraTest.yml --limit 10 \
+    --json databaseId,headSha --jq ".[] | select(.headSha==\"$HEAD_SHA\") | .databaseId" | head -1)
+  [ -n "$RUN_ID" ] && break
+  sleep 5
+done
 echo "Infra-test deploy run: https://github.com/$REPO/actions/runs/$RUN_ID"
 ```
 
@@ -43,28 +48,17 @@ echo "Infra-test deploy run: https://github.com/$REPO/actions/runs/$RUN_ID"
 
 ## Step 3 — Wait for the deploy to complete
 
-Poll every 60 seconds. The deploy typically takes 15-25 minutes:
+The deploy typically takes 15-25 minutes. Use `gh run watch` launched with the Bash tool's `run_in_background` — the harness notifies you when it finishes, so there's no manual poll loop and no sleep:
 
 ```bash
-while true; do
-  STATUS=$(gh run view $RUN_ID --repo $REPO --json status,conclusion \
-    --jq '{status: .status, conclusion: .conclusion}')
-  echo "[$(date +%H:%M)] Deploy status: $STATUS"
-  DONE=$(echo $STATUS | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['status'] == 'completed')")
-  if [ "$DONE" = "True" ]; then break; fi
-  sleep 60
-done
-
-CONCLUSION=$(gh run view $RUN_ID --repo $REPO --json conclusion --jq '.conclusion')
-if [ "$CONCLUSION" != "success" ]; then
-  echo "Deploy failed (conclusion: $CONCLUSION). Stopping."
-  echo "Logs: https://github.com/$REPO/actions/runs/$RUN_ID"
-  exit 1
-fi
-echo "Deploy succeeded."
+gh run watch "$RUN_ID" --repo "$REPO" --exit-status
 ```
 
-If the deploy fails: print the logs URL and stop. Do not run DAG pipelines against a failed deploy.
+`--exit-status` returns nonzero if the run concluded in failure. On nonzero, print the logs URL and stop — do not run DAG pipelines against a failed deploy:
+
+```bash
+echo "Logs: https://github.com/$REPO/actions/runs/$RUN_ID"
+```
 
 ---
 
@@ -108,29 +102,23 @@ grep -l "WORKFLOW_ID" .github/workflows/dag*.yml | xargs grep -l "<datasource_id
 
 For each associated DAG workflow, trigger it targeting the infra-test environment and wait for completion before starting the next one.
 
-**Trigger:**
+**Trigger** (capture the prior run ID first so you can tell when the new one appears, rather than blindly grabbing the latest):
 ```bash
+PREV_ID=$(gh run list --repo $REPO --workflow=<workflow-file> --limit 1 --json databaseId --jq '.[0].databaseId')
 gh workflow run <workflow-file> --repo $REPO
-sleep 15
-DAG_RUN_ID=$(gh run list --repo $REPO --workflow=<workflow-file> --limit 1 \
-  --json databaseId --jq '.[0].databaseId')
+for i in $(seq 1 12); do
+  DAG_RUN_ID=$(gh run list --repo $REPO --workflow=<workflow-file> --limit 1 --json databaseId --jq '.[0].databaseId')
+  [ -n "$DAG_RUN_ID" ] && [ "$DAG_RUN_ID" != "$PREV_ID" ] && break
+  sleep 5
+done
 echo "DAG run: https://github.com/$REPO/actions/runs/$DAG_RUN_ID"
 ```
 
-**Wait (poll every 60 seconds):**
+**Wait** with `gh run watch` launched via the Bash tool's `run_in_background` (no manual poll loop):
 ```bash
-while true; do
-  STATUS=$(gh run view $DAG_RUN_ID --repo $REPO --json status,conclusion \
-    --jq '{status: .status, conclusion: .conclusion}')
-  echo "[$(date +%H:%M)] $WORKFLOW_NAME status: $STATUS"
-  DONE=$(echo $STATUS | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['status'] == 'completed')")
-  if [ "$DONE" = "True" ]; then break; fi
-  sleep 60
-done
-
-CONCLUSION=$(gh run view $DAG_RUN_ID --repo $REPO --json conclusion --jq '.conclusion')
-echo "$WORKFLOW_NAME: $CONCLUSION"
+gh run watch "$DAG_RUN_ID" --repo "$REPO" --exit-status; echo "$WORKFLOW_NAME exit=$?"
 ```
+`--exit-status` is nonzero on failure.
 
 If a DAG fails: print the logs URL, mark it failed in your results list, and continue with the remaining DAGs. Report all results at the end before updating the PR.
 

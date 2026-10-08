@@ -1,5 +1,6 @@
 ---
 name: merge
+model: sonnet
 description: Force-merge an open PR to main (bypassing review requirements), delete the local branch, pull the updated main, and push it to the personal fork remote. Use when the user wants to close out a PR without waiting for review, or run /merge.
 ---
 
@@ -205,10 +206,12 @@ If they decline or no backend-data files were touched, skip to Step 10.
 Merging to `main` automatically fires a `DEPLOY MAIN CODE TO INFRA-TEST GCP (DEV SITE)` workflow that redeploys the same `het-infra-test-05` project the DAG will hit. Running the DAG before that deploy finishes hits the pre-merge container and fails or silently uses stale code — indistinguishable from the fix not having worked. Confirm the deploy has completed before triggering the DAG:
 
 ```bash
-gh run list --branch main --workflow "DEPLOY MAIN CODE TO INFRA-TEST GCP (DEV SITE)" --limit 1 --json status,conclusion,createdAt
+DEPLOY=$(gh run list --branch main --workflow "DEPLOY MAIN CODE TO INFRA-TEST GCP (DEV SITE)" --limit 1 --json databaseId,status,conclusion,createdAt)
+DEPLOY_RUN_ID=$(echo "$DEPLOY" | jq -r '.[0].databaseId')
+echo "$DEPLOY"
 ```
 
-If `status` is not `completed`, wait for it (poll, or use `gh run watch <id>`) rather than proceeding immediately. Once it's done, trigger the DAG:
+If `status` is not `completed`, wait for it with `gh run watch "$DEPLOY_RUN_ID"` launched via the Bash tool's `run_in_background` (the harness notifies on completion — don't sleep-poll) rather than proceeding immediately. Once it's done, trigger the DAG:
 
 ```bash
 gh workflow run <dag>.yml --ref infra-test
