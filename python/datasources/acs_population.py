@@ -534,11 +534,15 @@ class ACSPopulationIngester:
 
         frames[f"sex_{self.get_geo_name()}"] = self.get_by_sex(frames[self.get_table_name_by_sex_age_race()])
 
-        # Generate national level datasets based on state datasets
+        # Generate national level datasets based on state datasets.
+        # Each pair is (table name root, breakdown category); the race table is
+        # named race_and_ethnicity but still grouped using the "race" breakdown.
         if not self.county_level:
-            for demo in ["age", "race", "sex"]:
-                state_table_name = f"{demo}_state"
-                frames[f"{demo}_national"] = generate_national_dataset_with_all_states(frames[state_table_name], demo)
+            for table_root, breakdown in [("age", "age"), ("race_and_ethnicity", "race"), ("sex", "sex")]:
+                state_table_name = f"{table_root}_state"
+                frames[f"{table_root}_national"] = generate_national_dataset_with_all_states(
+                    frames[state_table_name], breakdown
+                )
 
         return frames
 
@@ -555,7 +559,7 @@ class ACSPopulationIngester:
         return std_col.COUNTY_NAME_COL if self.county_level else std_col.STATE_NAME_COL
 
     def get_table_name_by_race(self):
-        return "race" + self.get_table_geo_suffix()
+        return "race_and_ethnicity" + self.get_table_geo_suffix()
 
     def get_table_name_by_sex_age_race(self):
         return "multi_sex_age_race" + self.get_table_geo_suffix()

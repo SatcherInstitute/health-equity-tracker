@@ -84,7 +84,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('37')),
       RACE,
       'jail',
-      ['acs_population-race_state_current'],
+      ['acs_population-race_and_ethnicity_state_current'],
     )
   })
 
@@ -94,7 +94,7 @@ describe('IncarcerationProvider', () => {
       Breakdowns.forFips(new Fips('00')),
       RACE,
       'jail',
-      ['acs_population-race_national_current'],
+      ['acs_population-race_and_ethnicity_national_current'],
     )
   })
 
