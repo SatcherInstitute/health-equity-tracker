@@ -242,7 +242,7 @@ def _merge_pop(df, demo, geo_level, on_time_period: Optional[bool] = None):
     if demo not in on_col_map:
         raise ValueError(f"{demo} not a demographic option, must be one of: {list(on_col_map.keys())}")
 
-    acs_demo = "race" if demo == std_col.RACE_OR_HISPANIC_COL else demo
+    acs_demo = "race_and_ethnicity" if demo in (std_col.RACE_OR_HISPANIC_COL, std_col.RACE_COL) else demo
 
     pop_table_name = f"{acs_demo}_{geo_level}"
 
