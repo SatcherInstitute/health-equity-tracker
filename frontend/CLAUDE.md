@@ -116,7 +116,7 @@ A `MetricConfig` must declare its `suppressionFlagMetricId` so the map can disti
 
 ## Adding a New Frontend Feature (health topic)
 
-1. Create `src/data/config/MetricConfig<Topic>.ts` — define `MetricId`s, `DataTypeId`s, and chart configs
+1. Create `src/data/config/MetricConfig<Topic>.ts` — define `MetricId`s, `DataTypeId`s, and chart configs. If the topic hides specific demographic groups from the data table (e.g. non-standard race combinations, age buckets the source doesn't report), declare them via `excludedDemographicGroups` on each `DataTypeConfig` — a flat `DemographicGroup[]` applies to all geographies; a `{ county, national, state }` map applies different lists per geography. The universal Unknown/All/Not-Hispanic exclusions and the shared AHR age-bucket rule are applied centrally and do not need to be repeated here.
 2. Register the new `DropdownVarId` in `src/data/config/DropDownIds.ts`
 3. Create `src/data/config/DatasetMetadata<Topic>.ts` — list dataset IDs consumed
 4. Add a `DataSourceConfig` object in `src/data/loading/DataSourceConfigs.ts` with `getDatasetDetails`, `allowsBreakdowns`, and optionally `getConsumedDatasetIds`. When `getDatasetDetails` routes to different dataset names based on geography or data type, use `resolveDataset()` — declare the default dataset name first, then override by geo key or nested `DataTypeId` map.
