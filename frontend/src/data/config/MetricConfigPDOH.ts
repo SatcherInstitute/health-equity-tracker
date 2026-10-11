@@ -5,14 +5,23 @@ import {
 } from '../../charts/mapGlobals'
 import type { RaceAndEthnicityGroup } from '../utils/Constants'
 import {
+  AGE,
+  AGE_BUCKETS,
   AIAN_API_W,
   AIANNH_W,
+  API_NH,
+  ASIAN_NH,
+  BJS_JAIL_AGE_BUCKETS,
+  BJS_NATIONAL_AGE_BUCKETS,
   HISP_W,
   HISPANIC,
   MULTI,
   MULTI_W,
+  NHPI_NH,
+  NON_STANDARD_AND_MULTI,
   OTHER_STANDARD,
   OTHER_W,
+  RACE,
   UNKNOWN_RACE,
   UNKNOWN_W,
   UNREPRESENTED,
@@ -313,10 +322,32 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
   },
 ]
 
+// County reports a narrower race set than state/national (Asian and NHPI split
+// out rather than the combined API group). Prison age breaks down nationally
+// only; state has no age breakdown so every bucket is dropped.
+const INCARCERATION_RACE_EXCLUSIONS = {
+  county: [...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH],
+  national: [...NON_STANDARD_AND_MULTI, API_NH],
+  state: [...NON_STANDARD_AND_MULTI, API_NH],
+}
+const PRISON_NATIONAL_EXCLUDED_AGES = AGE_BUCKETS.filter(
+  (bucket) => !BJS_NATIONAL_AGE_BUCKETS.includes(bucket as any),
+)
+const JAIL_EXCLUDED_AGES = AGE_BUCKETS.filter(
+  (bucket) => !BJS_JAIL_AGE_BUCKETS.includes(bucket as any),
+)
+
 export const INCARCERATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'prison',
+    excludedDemographicGroups: {
+      [RACE]: INCARCERATION_RACE_EXCLUSIONS,
+      [AGE]: {
+        national: PRISON_NATIONAL_EXCLUDED_AGES,
+        state: [...AGE_BUCKETS],
+      },
+    },
     mapConfig: defaultHigherIsWorseMapConfig,
     description: {
       text: 'Incarceration has a negative impact on health. People who are incarcerated are more likely to experience chronic diseases, mental illness, and substance use disorders. They are also less likely to have access to quality healthcare. Studying incarceration in regard to health equity can help us to understand how to improve the health of people who are incarcerated and to prevent people from being incarcerated in the first place.',
@@ -386,6 +417,10 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'jail',
+    excludedDemographicGroups: {
+      [RACE]: INCARCERATION_RACE_EXCLUSIONS,
+      [AGE]: JAIL_EXCLUDED_AGES,
+    },
     mapConfig: defaultHigherIsWorseMapConfig,
     description: {
       text: 'Incarceration has a negative impact on health. People who are incarcerated are more likely to experience chronic diseases, mental illness, and substance use disorders. They are also less likely to have access to quality healthcare. Studying incarceration in regard to health equity can help us to understand how to improve the health of people who are incarcerated and to prevent people from being incarcerated in the first place.',

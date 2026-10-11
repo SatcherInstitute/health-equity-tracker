@@ -1,6 +1,6 @@
 import type { ColorScheme } from '../../charts/choroplethMap/types'
 import type { CategoryTypeId } from '../../utils/MadLibs'
-import type { GeographicBreakdown } from '../query/Breakdowns'
+import type { DemographicType, GeographicBreakdown } from '../query/Breakdowns'
 import type { DemographicGroup } from '../utils/Constants'
 import type { DropdownVarId } from './DropDownIds'
 import type {
@@ -183,6 +183,7 @@ export interface DataTypeConfig {
   categoryId: CategoryTypeId
   ageSubPopulationLabel?: string
   otherSubPopulationLabel?: string
+  excludedDemographicGroups?: ExcludedDemographicGroupsConfig
   // Optional: override specific, deeply nested fields
   // Used for topics with different sources per geographic breakdown
   // Note: `undefined` override values are ignored; use `null` to delete a field
@@ -200,5 +201,19 @@ export type DataTypeConfigOverride = Omit<
     [K in keyof DataTypeConfig['metrics']]?: MetricConfigOverride | null
   }
 }
+
+// Demographic groups a topic drops from its data table, resolved by demographic
+// and (optionally) geography. A flat array applies to every geography; a
+// geography-keyed map lets one demographic exclude different groups at county vs
+// state/national (e.g. incarceration). Replaces the old per-topic dispatch in
+// getExclusionList; the universal Unknown/All/Not-Hispanic exclusions and the
+// metric-set-driven AHR rule stay centralized there.
+export type ExcludedDemographicGroupsConfig = Partial<
+  Record<
+    DemographicType,
+    | DemographicGroup[]
+    | Partial<Record<GeographicBreakdown, DemographicGroup[]>>
+  >
+>
 
 export type CardMetricType = 'rate' | 'share' | 'inequity' | 'ratio'
