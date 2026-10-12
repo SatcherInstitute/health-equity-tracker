@@ -224,6 +224,33 @@ describe('DatasetUtils.getExclusionList() Tests', () => {
       expectedExclusionListDiabetesSexAlabama,
     )
   })
+  test('Prison by Race resolves county vs non-county geography differently', async () => {
+    const prisonConfig: DataTypeConfig = METRIC_CONFIG.incarceration[0]
+    const race: DemographicType = 'race_and_ethnicity'
+
+    const countyList = getExclusionList(prisonConfig, race, new Fips('01001'))
+    // county reports Asian and NHPI split out rather than the combined API group
+    expect(countyList).toContain('Asian (NH)')
+    expect(countyList).toContain('Native Hawaiian and Pacific Islander (NH)')
+    expect(countyList).not.toContain(
+      'Asian, Native Hawaiian, and Pacific Islander (NH)',
+    )
+
+    const nationalList = getExclusionList(prisonConfig, race, new Fips('00'))
+    expect(nationalList).toContain(
+      'Asian, Native Hawaiian, and Pacific Islander (NH)',
+    )
+    expect(nationalList).not.toContain('Asian (NH)')
+  })
+  test('AHR determinant by Age keeps only its own age buckets', async () => {
+    const diabetesConfig: DataTypeConfig = METRIC_CONFIG.diabetes[0]
+    const age: DemographicType = 'age'
+    const ageList = getExclusionList(diabetesConfig, age, new Fips('00'))
+    // diabetes uses the broad AHR buckets, so finer buckets are excluded while
+    // the broad buckets it reports are not
+    expect(ageList).toContain('18-24')
+    expect(ageList).not.toContain('18-44')
+  })
 })
 
 describe('DatasetUtils.splitIntoKnownsAndUnknowns() Unit Tests', () => {

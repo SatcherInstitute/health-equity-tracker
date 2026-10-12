@@ -3,7 +3,18 @@ import {
   defaultHigherIsWorseMapConfig,
   womenHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import { ALL_BLACK_WOMEN_13PLUS_LABEL } from '../../data/utils/Constants'
+import {
+  AGE,
+  AGE_BUCKETS,
+  AIAN_NH,
+  ALL_BLACK_WOMEN_13PLUS_LABEL,
+  ASIAN_NH,
+  MULTI_NH,
+  NHPI_NH,
+  NON_STANDARD_AND_MULTI,
+  OTHER_NONSTANDARD_NH,
+  RACE,
+} from '../../data/utils/Constants'
 import { populationPctShortLabel } from './MetricConfigConstants'
 import type { DataTypeConfig, DataTypeId, MetricId } from './MetricConfigTypes'
 
@@ -13,6 +24,16 @@ export const DATATYPES_NEEDING_13PLUS: DataTypeId[] = [
   'hiv_diagnoses',
   'hiv_prevalence',
 ]
+
+// The four 13+ HIV topics share one exclusion set: the non-standard/combined
+// race groups the CDC source does not report, plus the youth age buckets that
+// fall below the 13+ floor.
+const HIV_13PLUS_EXCLUSIONS = {
+  [RACE]: [...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH],
+  [AGE]: AGE_BUCKETS.filter(
+    (bucket) => bucket === '16-24' || bucket === '18-24',
+  ),
+}
 
 export const GENDER_METRICS: MetricId[] = [
   'hiv_care_total_additional_gender',
@@ -155,6 +176,7 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_care',
+    excludedDemographicGroups: HIV_13PLUS_EXCLUSIONS,
     mapConfig: defaultHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Linkage to HIV care',
     fullDisplayName: 'Linkage to HIV care',
@@ -223,6 +245,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_prevalence',
+    excludedDemographicGroups: HIV_13PLUS_EXCLUSIONS,
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Prevalence',
     fullDisplayName: 'HIV prevalence',
@@ -285,6 +308,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_diagnoses',
+    excludedDemographicGroups: HIV_13PLUS_EXCLUSIONS,
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'New diagnoses',
     fullDisplayName: 'New HIV diagnoses',
@@ -348,6 +372,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_deaths',
+    excludedDemographicGroups: HIV_13PLUS_EXCLUSIONS,
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Deaths',
     fullDisplayName: 'HIV deaths',
@@ -420,6 +445,12 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_stigma',
+    excludedDemographicGroups: {
+      [RACE]: [...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH],
+      [AGE]: AGE_BUCKETS.filter(
+        (bucket) => bucket === '13-24' || bucket === '16-24',
+      ),
+    },
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Stigma',
     fullDisplayName: 'HIV stigma',
@@ -694,6 +725,12 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_prep',
+    excludedDemographicGroups: {
+      [RACE]: [...NON_STANDARD_AND_MULTI, AIAN_NH, ASIAN_NH, NHPI_NH, MULTI_NH],
+      [AGE]: AGE_BUCKETS.filter(
+        (bucket) => bucket === '13-24' || bucket === '18-24',
+      ),
+    },
     mapConfig: defaultHigherIsBetterMapConfig,
     dataTypeShortLabel: 'PrEP coverage',
     fullDisplayName: 'PrEP coverage',

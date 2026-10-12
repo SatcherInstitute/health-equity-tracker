@@ -13,7 +13,6 @@ import {
   AHR_VOTER_AGE_METRICS,
   ALL_AHR_METRICS,
 } from '../config/MetricConfigBehavioralHealth'
-import { DATATYPES_NEEDING_13PLUS } from '../config/MetricConfigHivCategory'
 import type {
   DataTypeConfig,
   DataTypeId,
@@ -27,29 +26,17 @@ import {
   resolveDatasetId,
 } from '../query/MetricQuery'
 import {
-  ACS_POVERTY_AGE_BUCKETS,
-  ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
   AGE,
   AGE_BUCKETS,
-  type AgeBucket,
-  AIAN_API,
-  AIAN_NH,
   ALL,
   ALL_W,
   API_NH,
   ASIAN_NH,
-  BJS_JAIL_AGE_BUCKETS,
-  BJS_NATIONAL_AGE_BUCKETS,
   BROAD_AGE_BUCKETS,
   DECADE_PLUS_5_AGE_BUCKETS,
   type DemographicGroup,
-  MULTI_NH,
-  MULTI_OR_OTHER_STANDARD,
-  MULTI_OR_OTHER_STANDARD_NH,
   NHPI_NH,
   NON_HISPANIC,
-  NON_STANDARD_RACES,
-  OTHER_NONSTANDARD_NH,
   RACE,
   UNKNOWN,
   UNKNOWN_ETHNICITY,
@@ -142,11 +129,56 @@ const includeAllsGroupsIds: DataTypeId[] = [
   'hiv_prevalence',
 ]
 
-const NON_STANDARD_AND_MULTI: DemographicGroup[] = [
-  ...NON_STANDARD_RACES,
-  MULTI_OR_OTHER_STANDARD,
-  MULTI_OR_OTHER_STANDARD_NH,
-]
+// Resolve a topic's own excludedDemographicGroups config for the active
+// demographic and geography. A flat array applies to every geography; a
+// geography-keyed map narrows by county vs state/national.
+function resolveConfiguredExclusions(
+  excluded: DataTypeConfig['excludedDemographicGroups'],
+  demographicType: DemographicType,
+  currentFips: Fips,
+): DemographicGroup[] {
+  const entry = excluded?.[demographicType]
+  if (!entry) return []
+  if (Array.isArray(entry)) return entry
+  const geoKey = currentFips.isCounty()
+    ? 'county'
+    : currentFips.isUsa()
+      ? 'national'
+      : 'state'
+  return entry[geoKey] ?? []
+}
+
+// AHR exclusions are a single rule shared across ~30 determinants, keyed on the
+// rate's metric (not its dataTypeId), so they stay centralized rather than being
+// copied onto every AHR config: race drops the combined vs split API group, age
+// drops every bucket the determinant does not report.
+function getAhrExclusions(
+  currentRate: MetricId,
+  demographicType: DemographicType,
+): DemographicGroup[] {
+  if (!ALL_AHR_METRICS.includes(currentRate)) return []
+
+  if (demographicType === RACE) {
+    return AHR_API_NH_METRICS.includes(currentRate)
+      ? [ASIAN_NH, NHPI_NH]
+      : [API_NH]
+  }
+
+  if (demographicType === AGE) {
+    let determinantBuckets: readonly string[] = []
+    if (AHR_DECADE_PLUS_5_AGE_METRICS.includes(currentRate)) {
+      determinantBuckets = DECADE_PLUS_5_AGE_BUCKETS
+    } else if (AHR_VOTER_AGE_METRICS.includes(currentRate)) {
+      determinantBuckets = VOTER_AGE_BUCKETS
+    } else if (AHR_METRICS.includes(currentRate)) {
+      determinantBuckets = BROAD_AGE_BUCKETS
+    }
+    return AGE_BUCKETS.filter((bucket) => !determinantBuckets.includes(bucket))
+  }
+
+  return []
+}
+
 export function getExclusionList(
   currentDataType: DataTypeConfig,
   demographicType: DemographicType,
@@ -159,14 +191,13 @@ export function getExclusionList(
 
   if (!currentRate) return []
 
-  const currentDataTypeId = currentDataType.dataTypeId
   const exclusionList: DemographicGroup[] = [
     UNKNOWN,
     UNKNOWN_ETHNICITY,
     UNKNOWN_RACE,
   ]
 
-  if (!includeAllsGroupsIds.includes(currentDataTypeId)) {
+  if (!includeAllsGroupsIds.includes(currentDataType.dataTypeId)) {
     exclusionList.push(ALL)
   }
 
@@ -174,156 +205,15 @@ export function getExclusionList(
     exclusionList.push(NON_HISPANIC)
   }
 
-  // ACS CONDITION
-  if (currentDataTypeId === 'health_insurance') {
-    exclusionList.push(
-      ...AGE_BUCKETS.filter(
-        (bucket: AgeBucket) =>
-          !ACS_UNINSURANCE_CURRENT_AGE_BUCKETS.includes(bucket as any), // NOTE: table card only shows most recent year; this will mute older age buckets
-      ),
-    )
-  }
+  exclusionList.push(
+    ...resolveConfiguredExclusions(
+      currentDataType.excludedDemographicGroups,
+      demographicType,
+      currentFips,
+    ),
+  )
 
-  if (currentDataTypeId === 'poverty') {
-    exclusionList.push(
-      ...AGE_BUCKETS.filter(
-        (bucket: AgeBucket) => !ACS_POVERTY_AGE_BUCKETS.includes(bucket as any),
-      ),
-    )
-  }
-
-  // HIV
-  if (currentDataTypeId === 'hiv_prep') {
-    if (demographicType === RACE) {
-      exclusionList.push(
-        ...NON_STANDARD_AND_MULTI,
-        AIAN_NH,
-        ASIAN_NH,
-        NHPI_NH,
-        MULTI_NH,
-      )
-    }
-    if (demographicType === AGE) {
-      exclusionList.push(
-        ...AGE_BUCKETS.filter(
-          (bucket) => bucket === '13-24' || bucket === '18-24',
-        ),
-      )
-    }
-  }
-  if (DATATYPES_NEEDING_13PLUS.includes(currentDataTypeId)) {
-    if (demographicType === RACE) {
-      exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH)
-    }
-    if (demographicType === AGE) {
-      exclusionList.push(
-        ...AGE_BUCKETS.filter(
-          (bucket) => bucket === '16-24' || bucket === '18-24',
-        ),
-      )
-    }
-  }
-
-  if (currentDataTypeId === 'hiv_stigma') {
-    if (demographicType === RACE) {
-      exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH)
-    }
-    if (demographicType === AGE) {
-      exclusionList.push(
-        ...AGE_BUCKETS.filter(
-          (bucket) => bucket === '13-24' || bucket === '16-24',
-        ),
-      )
-    }
-  }
-
-  if (currentDataTypeId === 'gun_deaths_youth') {
-    if (demographicType === RACE) {
-      exclusionList.push(
-        ...NON_STANDARD_AND_MULTI,
-        OTHER_NONSTANDARD_NH,
-        AIAN_API,
-        API_NH,
-        NHPI_NH,
-      )
-    }
-  }
-
-  if (currentDataTypeId === 'gun_deaths_young_adults') {
-    if (demographicType === RACE) {
-      exclusionList.push(
-        ...NON_STANDARD_AND_MULTI,
-        OTHER_NONSTANDARD_NH,
-        AIAN_API,
-        API_NH,
-      )
-    }
-  }
-
-  // Incarceration
-  if (currentDataTypeId === 'prison') {
-    if (demographicType === RACE) {
-      currentFips.isCounty()
-        ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
-        : exclusionList.push(...NON_STANDARD_AND_MULTI, API_NH)
-    }
-
-    if (demographicType === AGE) {
-      currentFips.isUsa() &&
-        exclusionList.push(
-          ...AGE_BUCKETS.filter(
-            (bucket: AgeBucket) =>
-              !BJS_NATIONAL_AGE_BUCKETS.includes(bucket as any),
-          ),
-        )
-
-      currentFips.isState() &&
-        exclusionList.push(
-          // No demographic breakdowns so exclude ALL age buckets
-          ...AGE_BUCKETS,
-        )
-    }
-  }
-  if (currentDataTypeId === 'jail') {
-    if (demographicType === RACE) {
-      currentFips.isCounty()
-        ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
-        : exclusionList.push(...NON_STANDARD_AND_MULTI, API_NH)
-    }
-
-    if (demographicType === AGE) {
-      exclusionList.push(
-        ...AGE_BUCKETS.filter(
-          (bucket: AgeBucket) => !BJS_JAIL_AGE_BUCKETS.includes(bucket as any),
-        ),
-      )
-    }
-  }
-
-  // AHR
-  if (ALL_AHR_METRICS.includes(currentRate) && demographicType === RACE) {
-    AHR_API_NH_METRICS.includes(currentRate)
-      ? exclusionList.push(ASIAN_NH, NHPI_NH)
-      : exclusionList.push(API_NH)
-  }
-
-  if (ALL_AHR_METRICS.includes(currentRate) && demographicType === AGE) {
-    // get correct age buckets for this determinant
-    const determinantBuckets: any[] = []
-    if (AHR_DECADE_PLUS_5_AGE_METRICS.includes(currentRate)) {
-      determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS)
-    } else if (AHR_VOTER_AGE_METRICS.includes(currentRate)) {
-      determinantBuckets.push(...VOTER_AGE_BUCKETS)
-    } else if (AHR_METRICS.includes(currentRate)) {
-      determinantBuckets.push(...BROAD_AGE_BUCKETS)
-    }
-
-    // remove all of the other age groups
-    const irrelevantAgeBuckets = AGE_BUCKETS.filter(
-      (bucket) => !determinantBuckets.includes(bucket),
-    )
-    exclusionList.push(...irrelevantAgeBuckets)
-  }
+  exclusionList.push(...getAhrExclusions(currentRate, demographicType))
 
   return exclusionList
 }

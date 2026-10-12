@@ -3,12 +3,27 @@ import {
   medicareHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
 import {
+  ACS_POVERTY_AGE_BUCKETS,
+  ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
+  AGE,
+  AGE_BUCKETS,
+} from '../utils/Constants'
+import {
   adultPopulationPctShortLabel,
   adultPopulationPctTitle,
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigConstants'
 import type { DataTypeConfig } from './MetricConfigTypes'
+
+// The table card shows only the most recent year, so older age buckets the
+// current ACS release no longer reports are dropped.
+const UNINSURANCE_EXCLUDED_AGES = AGE_BUCKETS.filter(
+  (bucket) => !ACS_UNINSURANCE_CURRENT_AGE_BUCKETS.includes(bucket as any),
+)
+const POVERTY_EXCLUDED_AGES = AGE_BUCKETS.filter(
+  (bucket) => !ACS_POVERTY_AGE_BUCKETS.includes(bucket as any),
+)
 
 export const SDOH_CATEGORY_DROPDOWNIDS = [
   'avoided_care',
@@ -48,6 +63,7 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
     dataTypeId: 'health_insurance',
+    excludedDemographicGroups: { [AGE]: UNINSURANCE_EXCLUDED_AGES },
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Uninsured people',
     fullDisplayName: 'Uninsured people',
@@ -115,6 +131,7 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
     dataTypeId: 'poverty',
+    excludedDemographicGroups: { [AGE]: POVERTY_EXCLUDED_AGES },
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Poverty',
     fullDisplayName: 'People below the poverty line',
