@@ -34,10 +34,12 @@ The reviewers are always "the roster minus the PR author" — see Step 2.
 Gather everything in one call:
 
 ```bash
-gh pr view <number> --json number,title,url,author,isDraft,headRefName
+gh pr view <number> --json number,title,url,author,isDraft,state,headRefName
 ```
 
 Omit `<number>` to detect the PR from the current branch. If no open PR is found: print an error and stop.
+
+If `state` is not `"OPEN"` (e.g. the PR is closed or merged): print an error and stop — do not request review or ping Slack for a PR that is no longer active.
 
 If `isDraft` is `true`: stop and tell the user the PR is still a draft — mark it ready first (`gh pr ready <number>`) or re-run once it is. A draft is not ready for review and `@channel` should not be pinged for one.
 
@@ -66,7 +68,7 @@ Edge cases:
 gh pr edit <number> --add-reviewer "$REVIEWERS"
 ```
 
-`--add-reviewer` is additive and idempotent — re-running never removes an existing reviewer or errors on a duplicate, so this skill is safe to run more than once on the same PR.
+`--add-reviewer` is additive and will not error on a duplicate request. However, if a reviewer has already submitted their review, re-running will re-request them and trigger another notification. Only run this skill once per PR unless the team expects a re-request.
 
 ---
 
@@ -103,6 +105,6 @@ Print a single line:
 ## Notes
 
 - **No sensitive data in this file.** GitHub handles are public; Slack is addressed by `@channel` and a public channel ID, never by individual user ID or email. Keep it that way — resolve any future per-person Slack mention at runtime.
-- **Idempotent.** Step 3 is additive. Step 4 will post a second Slack message on a re-run, though — if you must re-run, consider whether a fresh `@channel` ping is warranted, or skip Step 4.
+- **Re-running:** Step 3 re-requests any reviewer who has already submitted a review, triggering another GitHub notification. Step 4 posts a second `@channel` Slack message. Only re-run if you genuinely want both of those to happen.
 - **Draft guard.** Step 1 refuses to ping `@channel` for a draft PR.
 - This skill does not open, merge, or modify the PR's code — it only requests review and announces it. Use `/pr` to polish a PR and `/merge` to land it.
