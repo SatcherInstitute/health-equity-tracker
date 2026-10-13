@@ -25,6 +25,8 @@ export const urlMap: Record<string, string> = {
   hivCriminalization:
     'https://satcherinstitute.org/news/hiv-criminalization-in-georgia-a-call-for-reform',
   lifeline: 'https://988lifeline.org',
+  maternalMortalityReappraisal:
+    'https://www.ajog.org/article/S0002-9378(24)00005-X/fulltext',
   msm: 'https://www.msm.edu/',
   ncslLegislators:
     'https://www.ncsl.org/resources/details/number-of-legislators-and-length-of-terms-in-years',

@@ -159,6 +159,36 @@ const MaternalHealthLink = () => {
               share of live births.
             </p>
           </div>
+
+          <div className='py-5'>
+            <h3
+              className='font-normal text-text'
+              id='maternal-mortality-pregnancy-checkbox'
+            >
+              Interpreting Long-Term Trends
+            </h3>
+            <p>
+              United States maternal mortality surveillance changed over the
+              period these trends cover. A dedicated “pregnancy checkbox” was
+              added to the standard death certificate and adopted by states on a
+              staggered schedule between 2003 and 2017. Research has shown that
+              this checkbox introduces misclassification, flagging some deaths
+              as maternal that were not pregnancy-related, with the largest
+              effect among older decedents. A{' '}
+              <a href={urlMap.maternalMortalityReappraisal}>
+                2024 reappraisal published in the American Journal of Obstetrics
+                &amp; Gynecology
+              </a>{' '}
+              argues that a substantial share of the measured rise in United
+              States maternal mortality reflects this change in how deaths are
+              counted rather than a true increase in risk. Part of the long-term
+              trend shown here should therefore be read as a shift in
+              measurement, not solely a change in underlying maternal health.
+              This caveat concerns the overall trend and does not undercut the
+              relative disparities between racial and ethnic groups, which
+              persist across measurement approaches.
+            </p>
+          </div>
         </section>
 
         <p>
