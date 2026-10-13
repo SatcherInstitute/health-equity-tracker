@@ -1,17 +1,17 @@
 ---
-name: request-review
+name: request
 model: sonnet
-description: Flag the open PR as ready for human review — request GitHub review from the two teammates who did not open it, then post a "ready for review" message to the het-core Slack channel with the PR title and link, tagging @channel. Use when the user wants to hand a finished PR off for review, or runs /request-review.
+description: Flag the open PR as ready for human review — request GitHub review from the two teammates who did not open it, then post a "ready for review" message to the het-core Slack channel with the PR title and link, tagging @channel. Use when the user wants to hand a finished PR off for review, or runs /request.
 ---
 
-# /request-review
+# /request
 
 Hand the open PR off for human review in two places at once:
 
 1. **GitHub** — request a review from the two teammates who are *not* the PR author.
 2. **Slack** — post a "ready for review" message to `het-core`, tagging `@channel`, with the PR title and link.
 
-The user may pass a PR number as an argument (e.g. `/request-review 5306`). If none is given, detect the open PR from the current branch.
+The user may pass a PR number as an argument (e.g. `/request 5306`). If none is given, detect the open PR from the current branch.
 
 ---
 
