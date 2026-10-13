@@ -168,25 +168,17 @@ const MaternalHealthLink = () => {
               Interpreting Long-Term Trends
             </h3>
             <p>
-              United States maternal mortality surveillance changed over the
-              period these trends cover. A dedicated “pregnancy checkbox” was
-              added to the standard death certificate and adopted by states on a
-              staggered schedule between 2003 and 2017. Research has shown that
-              this checkbox introduces misclassification, flagging some deaths
-              as maternal that were not pregnancy-related, with the largest
-              effect among older decedents. A{' '}
-              <a href={urlMap.maternalMortalityReappraisal}>
-                2024 reappraisal published in the American Journal of Obstetrics
-                &amp; Gynecology
-              </a>{' '}
-              argues that a substantial share of the measured rise in United
-              States maternal mortality reflects this change in how deaths are
-              counted rather than a true increase in risk. Part of the long-term
-              trend shown here should therefore be read as a shift in
-              measurement, not solely a change in underlying maternal health.
-              This caveat concerns the overall trend and does not undercut the
-              relative disparities between racial and ethnic groups, which
-              persist across measurement approaches.
+              United States maternal mortality surveillance changed over this
+              period: a “pregnancy checkbox” was added to death certificates and
+              adopted by states between 2003 and 2017. It improved detection of
+              pregnancy-related deaths but also flagged some deaths from
+              incidental causes as maternal. The source study notes it does not
+              remove this effect, so part of the long-term national rise
+              reflects expanded measurement, not solely a change in underlying
+              risk. This concerns the overall trend only; it does not undercut
+              the disparities between racial and ethnic groups, which persist
+              across measurement approaches and are not biased differentially by
+              race.
             </p>
           </div>
         </section>
