@@ -165,20 +165,16 @@ const MaternalHealthLink = () => {
               className='font-normal text-text'
               id='maternal-mortality-pregnancy-checkbox'
             >
-              Interpreting Long-Term Trends
+              The Pregnancy Checkbox and Long-Term Trends
             </h3>
             <p>
-              United States maternal mortality surveillance changed over this
-              period: a “pregnancy checkbox” was added to death certificates and
+              A “pregnancy checkbox” was added to US death certificates and
               adopted by states between 2003 and 2017. It improved detection of
-              pregnancy-related deaths but also flagged some deaths from
-              incidental causes as maternal. The source study notes it does not
-              remove this effect, so part of the long-term national rise
-              reflects expanded measurement, not solely a change in underlying
-              risk. This concerns the overall trend only; it does not undercut
-              the disparities between racial and ethnic groups, which persist
-              across measurement approaches and are not biased differentially by
-              race.
+              pregnancy-related deaths but also flagged some incidental deaths
+              as maternal, so part of the long-term national rise reflects
+              expanded measurement rather than underlying risk alone. This
+              affects the overall trend only, not the disparities between racial
+              and ethnic groups, which persist across measurement approaches.
             </p>
           </div>
         </section>
