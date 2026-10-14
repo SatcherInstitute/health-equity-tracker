@@ -45,6 +45,24 @@ describe('dataset utils test', () => {
     expect(data).toStrictEqual([A0_4, A20P])
   })
 
+  test('open-ended lower bucket sorts first', async () => {
+    const data: any = [
+      { age: '35+' },
+      { age: '30-34' },
+      { age: '<20' },
+      { age: '20-24' },
+      ALL,
+    ]
+    data.sort(new AgeSorterStrategy(['All']).compareFn)
+    expect(data.map((row: { age: string }) => row.age)).toStrictEqual([
+      'All',
+      '<20',
+      '20-24',
+      '30-34',
+      '35+',
+    ])
+  })
+
   test('testing real life usecase', async () => {
     const data: any = [A11_20, A20P, A0_4, A5_9, ALL]
     data.sort(new AgeSorterStrategy(['All']).compareFn)

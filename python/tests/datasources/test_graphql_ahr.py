@@ -452,3 +452,11 @@ def test_infant_mortality_zero_is_treated_as_suppressed():
     assert pd.isna(out.loc["40-44", "infant_mortality_per_100k"])
     assert out.loc["40-44", "low_birthweight_pct_rate"] == 11.0
     assert out.loc["25-29", "infant_mortality_per_100k"] == pytest.approx(520.0)
+
+
+def test_smm_earlier_under_20_name_still_maps():
+    """AHR has named SMM's under-20 bucket "Age Less Than 20 Years" before; that
+    spelling must keep mapping to "<20" if it returns."""
+    df = pd.DataFrame([_smm_row("Severe Maternal Morbidity - Age Less Than 20 Years", 90.0)])
+    out = parse_raw_data(df, std_col.AGE_COL)
+    assert list(out[std_col.AGE_COL]) == ["<20"]

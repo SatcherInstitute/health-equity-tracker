@@ -2,10 +2,13 @@ import { womenHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import {
   AIAN_NH,
   ASIAN_NH,
+  FEMALE,
+  MALE,
   MULTI_NH,
   NHPI_NH,
   OTHER_NONSTANDARD_NH,
   RACE,
+  SEX,
 } from '../utils/Constants'
 import type { DataTypeConfig } from './MetricConfigTypes'
 
@@ -117,8 +120,9 @@ export const SEVERE_MATERNAL_MORBIDITY_METRICS: DataTypeConfig[] = [
     // The sibling maternal_mortality label is real: that source models ages 10-54.
     otherSubPopulationLabel: 'Birthing People',
     // AHR reports a combined Asian/Pacific Islander group (hidden centrally via
-    // AHR_API_NH_METRICS) and no multiracial group for this measure.
-    excludedDemographicGroups: { [RACE]: [MULTI_NH] },
+    // AHR_API_NH_METRICS) and no multiracial group for this measure. Sex is only
+    // reachable in compare mode, where the shared sex file would show empty rows.
+    excludedDemographicGroups: { [RACE]: [MULTI_NH], [SEX]: [FEMALE, MALE] },
     metrics: {
       per100k: {
         timeSeriesCadence: 'yearly',
@@ -196,7 +200,10 @@ export const LOW_BIRTHWEIGHT_METRICS: DataTypeConfig[] = [
     },
     dataTableTitle: 'Summary for low birthweight',
     otherSubPopulationLabel: 'Live Births',
-    excludedDemographicGroups: { [RACE]: [OTHER_NONSTANDARD_NH] },
+    excludedDemographicGroups: {
+      [RACE]: [OTHER_NONSTANDARD_NH],
+      [SEX]: [FEMALE, MALE],
+    },
     metrics: {
       pct_rate: {
         timeSeriesCadence: 'yearly',
@@ -234,6 +241,7 @@ export const LOW_RISK_CESAREAN_METRICS: DataTypeConfig[] = [
     // AHR reports this measure for Black, Hispanic, and white births only.
     excludedDemographicGroups: {
       [RACE]: [AIAN_NH, ASIAN_NH, NHPI_NH, MULTI_NH, OTHER_NONSTANDARD_NH],
+      [SEX]: [FEMALE, MALE],
     },
     metrics: {
       pct_rate: {

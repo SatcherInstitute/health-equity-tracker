@@ -135,36 +135,36 @@ export const DatasetMetadataMapAhr: Record<DatasetIdAhr, DatasetMetadata> = {
   },
   'graphql_ahr_data-non-behavioral_health_age_national_historical': {
     name: 'Prevalence of multiple behavioral and mental health conditions by year, by age, nationally',
-    original_data_sourced: '1995-2022',
+    original_data_sourced: '1990-2022',
     source_id: 'ahr',
   },
   'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_national_historical':
     {
       name: 'Prevalence of multiple behavioral and mental health conditions by year, by race/ethnicity, nationally',
-      original_data_sourced: '1995-2022',
+      original_data_sourced: '1990-2022',
       contains_nh: true,
       source_id: 'ahr',
     },
   'graphql_ahr_data-non-behavioral_health_sex_national_historical': {
     name: 'Prevalence of multiple behavioral and mental health conditions by year, by sex, nationally',
-    original_data_sourced: '1995-2022',
+    original_data_sourced: '1990-2022',
     source_id: 'ahr',
   },
   'graphql_ahr_data-non-behavioral_health_age_state_historical': {
     name: 'Prevalence of multiple behavioral and mental health conditions by year, by age and state',
-    original_data_sourced: '1995-2022',
+    original_data_sourced: '1990-2022',
     source_id: 'ahr',
   },
   'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_historical':
     {
       name: 'Prevalence of multiple behavioral and mental health conditions by year, by race/ethnicity and state',
-      original_data_sourced: '1995-2022',
+      original_data_sourced: '1990-2022',
       contains_nh: true,
       source_id: 'ahr',
     },
   'graphql_ahr_data-non-behavioral_health_sex_state_historical': {
     name: 'Prevalence of multiple behavioral and mental health conditions by year, by sex and state',
-    original_data_sourced: '1995-2022',
+    original_data_sourced: '1990-2022',
     source_id: 'ahr',
   },
   'graphql_ahr_data-behavioral_health_alls_national_current': {
@@ -199,12 +199,12 @@ export const DatasetMetadataMapAhr: Record<DatasetIdAhr, DatasetMetadata> = {
   },
   'graphql_ahr_data-non-behavioral_health_alls_national_historical': {
     name: 'Prevalence of multiple behavioral and mental health conditions by year, nationally',
-    original_data_sourced: '1995-2022',
+    original_data_sourced: '1990-2022',
     source_id: 'ahr',
   },
   'graphql_ahr_data-non-behavioral_health_alls_state_historical': {
     name: 'Prevalence of multiple behavioral and mental health conditions by year, by state',
-    original_data_sourced: '1995-2022',
+    original_data_sourced: '1990-2022',
     source_id: 'ahr',
   },
 }

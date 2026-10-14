@@ -107,6 +107,25 @@ describe('AhrProvider', () => {
     )
   })
 
+  test('Birth-outcome topic reads the non-behavioral health dataset', async () => {
+    const ahrProvider = new VariableProviderMap().getProviderById(
+      'ahr_provider',
+    )
+    const datasetId: DatasetId =
+      'graphql_ahr_data-non-behavioral_health_sex_national_current'
+    dataFetcher.setFakeDatasetLoaded(datasetId, [])
+
+    const response = await ahrProvider.getData(
+      new MetricQuery(
+        ['infant_mortality_per_100k'],
+        Breakdowns.forFips(new Fips('00')).addBreakdown(SEX),
+        'infant_mortality',
+        'current',
+      ),
+    )
+    expect(response.consumedDatasetIds).toEqual([datasetId])
+  })
+
   test('County and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
       'chr_data-race_and_ethnicity_county_current',

@@ -346,8 +346,8 @@ export const AGE_BUCKETS = [
 export type AgeBucket = (typeof AGE_BUCKETS)[number]
 
 // SEX DEMOGRAPHIC TERMS
-const MALE = 'Male'
-const FEMALE = 'Female'
+export const MALE = 'Male'
+export const FEMALE = 'Female'
 const OTHER = 'Other'
 const SEX_GROUPS = [MALE, FEMALE, OTHER, UNKNOWN, ALL] as const
 // CREATE SEX-GROUP TYPE

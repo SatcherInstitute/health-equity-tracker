@@ -207,8 +207,9 @@ const MaternalHealthLink = () => {
           per 100,000, and each year shown is the second year of its two-year
           window. Low birthweight and low-risk cesarean delivery are percentages
           and are shown as published. Like severe maternal morbidity, these
-          measures are shown as rates only: their denominators (live births) are
-          not available by race, ethnicity, or age, so we do not calculate
+          measures are shown as rates only: America’s Health Rankings publishes
+          them without the underlying counts of live births (or, for low-risk
+          cesarean delivery, low-risk first births), so we do not calculate
           estimated totals, percent shares, or population comparisons.
         </p>
 

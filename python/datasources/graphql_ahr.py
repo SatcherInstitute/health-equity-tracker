@@ -54,8 +54,9 @@ AGE_GROUPS_TO_STANDARD = {
     # Severe maternal morbidity reproductive-age buckets (AHR measures 18030-18034).
     # AHR names measure 18030 "Severe Maternal Morbidity - Age >20", but it is the
     # under-20 bucket: its AHR population is "Age <20" and the other four buckets
-    # already cover ages 20 and up.
+    # already cover ages 20 and up. AHR's earlier name for it is kept as well.
     "Age >20": "<20",
+    "Age Less Than 20 Years": "<20",
     "Ages 20-24": "20-24",
     "Ages 25-29": "25-29",
     "Ages 30-34": "30-34",

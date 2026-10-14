@@ -270,7 +270,7 @@
 			"measure": "Infant Mortality",
 			"demographics": {
 				"American Indian/Alaska Native": ["17789", "1890"],
-				"Asian": ["17741", "1889"],
+				"Asian": ["17741"],
 				"Black": ["17790", "1887"],
 				"Hawaiian/Pacific Islander": ["17740"],
 				"Hispanic": ["1891"],
