@@ -159,6 +159,24 @@ const MaternalHealthLink = () => {
               share of live births.
             </p>
           </div>
+
+          <div className='py-5'>
+            <h3
+              className='font-normal text-text'
+              id='maternal-mortality-pregnancy-checkbox'
+            >
+              The Pregnancy Checkbox and Long-Term Trends
+            </h3>
+            <p>
+              A “pregnancy checkbox” was added to US death certificates and
+              adopted by states between 2003 and 2017. It improved detection of
+              pregnancy-related deaths but also flagged some incidental deaths
+              as maternal, so part of the long-term national rise reflects
+              expanded measurement rather than underlying risk alone. This
+              affects the overall trend only, not the disparities between racial
+              and ethnic groups, which persist across measurement approaches.
+            </p>
+          </div>
         </section>
 
         <p>
