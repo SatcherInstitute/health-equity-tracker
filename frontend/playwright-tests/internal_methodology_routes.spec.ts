@@ -53,6 +53,17 @@ test('Community Safety Tab Loads', async ({ page }) => {
   expect(accessibilityScanResults.violations).toEqual([])
 })
 
+test('Maternal Health Tab Loads', async ({ page }) => {
+  await page.goto('/methodology/topic-categories/maternal-health', {
+    waitUntil: 'commit',
+  })
+  await page
+    .getByRole('heading', { name: 'Maternal Health', exact: true })
+    .click()
+  const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
+  expect(accessibilityScanResults.violations).toEqual([])
+})
+
 test('COVID-19 Tab Loads', async ({ page }) => {
   await page.goto('/methodology/topic-categories/covid', {
     waitUntil: 'commit',
