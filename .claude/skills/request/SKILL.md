@@ -85,10 +85,10 @@ Template:
 ```
 <!channel> PR ready for review: *<PR title>*
 <PR URL>
-Requested review from <reviewer-1 first name> and <reviewer-2 first name> on GitHub.
+Requested review from <reviewer first names> on GitHub.
 ```
 
-Map the reviewer handles back to first names for the human-readable line (`benhammondmusic`→Ben, `kccrtv`→Kim, `eriwarr`→Eric). The names are not sensitive; this just saves readers a lookup.
+List **every** reviewer Step 2 actually produced, not a fixed two — a roster author yields two names, but an external-contributor PR yields all three. Join them naturally: `Kim and Eric` for two, `Ben, Kim, and Eric` for three. Map the handles back to first names (`benhammondmusic`→Ben, `kccrtv`→Kim, `eriwarr`→Eric). The names are not sensitive; this just saves readers a lookup.
 
 Keep the message to those few lines — `@channel` pings everyone, so it must be scannable in one glance.
 
