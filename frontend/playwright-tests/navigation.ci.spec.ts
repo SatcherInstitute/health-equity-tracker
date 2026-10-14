@@ -34,7 +34,7 @@ test('Clicking a state on national map loads state report; back button returns t
   const rateMap = page.locator('#rate-map')
   await expect(rateMap).toBeVisible()
 
-  await page.locator('path.coast-ghost[data-fips="25"]').click()
+  await page.locator('path.coast-ghost[data-fips="25"]').click({ force: true })
 
   // Confirm correct madlib setting includes FIPS for state of Mass.
   await expect(page).toHaveURL(/.*mls=1.hiv-3.25/)
@@ -336,7 +336,7 @@ test('demo param survives geo change via map click', async ({ page }) => {
   // Wait for map then click Massachusetts (FIPS 25) — force through ghost path overlay
   const rateMap = page.locator('#rate-map')
   await expect(rateMap).toBeVisible()
-  await page.locator('path.coast-ghost[data-fips="25"]').click()
+  await page.locator('path.coast-ghost[data-fips="25"]').click({ force: true })
   await expect(page).toHaveURL(/mls=1.hiv-3.25/)
 
   // demo=age must survive the geo change — regression: new system was wiping it

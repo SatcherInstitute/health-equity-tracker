@@ -220,18 +220,6 @@ export function resolveDatasetId(
     }
   }
 
-  // Handle tables that still use `race` instead of `race_and_ethnicity`
-  let requestedRaceDatasetId = ''
-  if (breakdowns.hasOnlyRace()) {
-    requestedRaceDatasetId = `${bqDatasetName}-${tablePrefix}race_${requestedGeography}_${timeView}${tableSuffix}`
-    if (isValidDatasetId(requestedRaceDatasetId)) {
-      return {
-        breakdowns,
-        datasetId: requestedRaceDatasetId as DatasetId,
-      }
-    }
-  }
-
   // Fallback to ALLS
   const fallbackAllsDatasetId: string = `${bqDatasetName}-${tablePrefix}alls_${requestedGeography}_${timeView}${tableSuffix}`
   if (isValidDatasetId(fallbackAllsDatasetId)) {
@@ -250,7 +238,7 @@ export function resolveDatasetId(
 
   // No valid dataset or fallback
   console.warn(
-    `Invalid datasetId requests:\n${requestedDatasetId}${requestedRaceDatasetId ? '\n' + requestedRaceDatasetId : ''}\n${fallbackAllsDatasetId}\nNone of those known datasetIds. Did you update DatasetId type?`,
+    `Invalid datasetId requests:\n${requestedDatasetId}\n${fallbackAllsDatasetId}\nNone of those known datasetIds. Did you update DatasetId type?`,
   )
   return { breakdowns }
 }

@@ -3,7 +3,15 @@ import {
   menHigherIsWorseMapConfig,
   youthHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
-import { ALL_BLACK_MEN_LABEL } from '../../data/utils/Constants'
+import {
+  AIAN_API,
+  ALL_BLACK_MEN_LABEL,
+  API_NH,
+  NHPI_NH,
+  NON_STANDARD_AND_MULTI,
+  OTHER_NONSTANDARD_NH,
+  RACE,
+} from '../../data/utils/Constants'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -294,6 +302,15 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
     categoryId: 'community-safety',
     dataTableTitle: 'Summary of gun deaths among children',
     dataTypeId: 'gun_deaths_youth',
+    excludedDemographicGroups: {
+      [RACE]: [
+        ...NON_STANDARD_AND_MULTI,
+        OTHER_NONSTANDARD_NH,
+        AIAN_API,
+        API_NH,
+        NHPI_NH,
+      ],
+    },
     dataTypeShortLabel: 'Children',
     definition: {
       text: 'Deaths of individuals under the age of 18 caused by firearms.',
@@ -357,6 +374,14 @@ export const GUN_VIOLENCE_YOUTH_METRICS: DataTypeConfig[] = [
     categoryId: 'community-safety',
     dataTableTitle: 'Summary of gun deaths among young adults',
     dataTypeId: 'gun_deaths_young_adults',
+    excludedDemographicGroups: {
+      [RACE]: [
+        ...NON_STANDARD_AND_MULTI,
+        OTHER_NONSTANDARD_NH,
+        AIAN_API,
+        API_NH,
+      ],
+    },
     dataTypeShortLabel: 'Young Adults',
     definition: {
       text: 'Deaths of individuals between the ages of 18-25 caused by firearms.',

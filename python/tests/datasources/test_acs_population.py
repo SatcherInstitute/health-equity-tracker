@@ -156,13 +156,13 @@ def testOverWriteToBqStateNationalCalls2009(
 
     assert table_names_for_bq == [
         # 2021 should only write to the time_series tables
-        "race_state_historical",
+        "race_and_ethnicity_state_historical",
         "multi_sex_age_race_state_historical",
         "multi_sex_age_state_historical",
         "age_state_historical",
         "sex_state_historical",
         "age_national_historical",
-        "race_national_historical",
+        "race_and_ethnicity_national_historical",
         "sex_national_historical",
     ]
 
@@ -209,8 +209,8 @@ def testWriteToBqCountyCallsAppend2024(mock_bq: mock.MagicMock, mock_cache: mock
 
     assert table_names_for_bq == [
         # the current year should write to both SINGLE YEAR and TIME SERIES tables
-        "race_county_current",
-        "race_county_historical",
+        "race_and_ethnicity_county_current",
+        "race_and_ethnicity_county_historical",
         "multi_sex_age_race_county_current",
         "multi_sex_age_race_county_historical",
         "multi_sex_age_county_current",

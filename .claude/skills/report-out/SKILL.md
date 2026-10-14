@@ -55,9 +55,9 @@ Skim subject lines and first 200 chars of each thread. Flag any that represent:
 Use `mcp__google_drive__list_recent_files` or search for documents modified in the period. Flag slide decks, reports, proposals, or methodology docs.
 
 ### Slack — het-core team channel
-Use `mcp__plugin_slack_slack__slack_read_channel` with the het-core channel ID (stored in memory as [[reference-slack-het-core]]). Read enough messages to cover the reporting period — paginate with `cursor` if needed. Convert `DATE_START` and `DATE_END` to Unix timestamps for the `oldest`/`latest` params; pass `inclusive: true` and discard any messages whose timestamp is >= `DATE_END`.
+Use `mcp__claude_ai_Slack__slack_read_channel` with the het-core channel ID (stored in memory as [[reference-slack-het-core]]). Read enough messages to cover the reporting period — paginate with `cursor` if needed. Convert `DATE_START` and `DATE_END` to Unix timestamps for the `oldest`/`latest` params; pass `inclusive: true` and discard any messages whose timestamp is >= `DATE_END`.
 
-For each top-level message that looks substantively relevant, call `mcp__plugin_slack_slack__slack_read_thread` with that message's `message_ts` to capture threaded replies — key strategic discussions often live in threads, not the top-level history.
+For each top-level message that looks substantively relevant, call `mcp__claude_ai_Slack__slack_read_thread` with that message's `message_ts` to capture threaded replies — key strategic discussions often live in threads, not the top-level history.
 
 Skim for:
 - Grant or funding discussions (new opportunities, submissions, decisions)
@@ -157,7 +157,7 @@ User-facing bug fixes and UX improvements that didn't fit elsewhere. Frame from 
 
 ## Step 6 — Format for Notion
 
-Structure the output as a new section to append to the existing page. Match the heading level and style already in use (read from Step 2's page fetch).
+Structure the output as a new section to **prepend above** the existing content — the page is reverse-chronological (newest month on top). Match the heading level and style already in use (read from Step 2's page fetch).
 
 The section should look like:
 
@@ -185,14 +185,22 @@ The section should look like:
 
 ## Step 7 — Post to Notion
 
-1. Use `mcp__notion__API-retrieve-a-page` with `page_id: "39e852c1676e8057b66ef141e18d9322"` to get the current page metadata (title, parent, etc.).
+The page is **reverse-chronological**: the newest month sits at the top. The new section must be prepended above the current top-most month, never appended to the bottom.
 
-2. Use `mcp__notion__API-patch-block-children` with `block_id: "39e852c1676e8057b66ef141e18d9322"` to **append** the new section as blocks. Do not overwrite or move existing content.
+**Never use `mcp__notion__API-patch-block-children`** — it always appends to the end of the page, which puts the new month at the bottom (a correction the user has had to make before).
 
-   Build the block array:
-   - One `heading_2` block for the month heading
-   - For each non-empty bucket: one `heading_3` block, then one `bulleted_list_item` block per bullet
-   - Add a blank `paragraph` block between sections for readability
+1. Use `mcp__notion__API-retrieve-a-page` with `page_id: "39e852c1676e8057b66ef141e18d9322"` to get the current page metadata, and reuse the content fetched in Step 2 to locate the current top-most `## [Month Year]` heading.
+
+2. Use `mcp__notion__API-update-page-markdown` with `type: update_content`. Find the current top-most `## [Month Year]` heading and replace it with the new section followed by that previous heading:
+
+   ```
+   ## [REPORT_MONTH]
+   ...new content...
+
+   ## [Previous Month]
+   ```
+
+   This inserts the new month above the previous one while leaving everything below untouched.
 
 3. After posting, retrieve the page URL and report it to the user.
 

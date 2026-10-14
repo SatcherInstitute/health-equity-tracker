@@ -1,6 +1,5 @@
 ---
 name: tackle
-model: sonnet
 description: Start work on a GitHub issue - assign it, move it to In Progress on the project board, branch from clean main, scan for related issues/PRs and sibling codebase patterns to replicate, then begin implementation directly with no confirmation gate. Use when the user says "work on #NNNN", "tackle #NNNN", "let's do issue NNNN", or runs /tackle.
 ---
 
@@ -46,6 +45,8 @@ gh issue edit <number> --add-assignee @me
 ```
 
 Move the board status to **In Progress**. This repo's project board is `SatcherInstitute` org project number 5 (id `PVT_kwDOBCaVcM4BeXhW`), Status field id `PVTSSF_lADOBCaVcM4BeXhWzhYyS0g`, "In Progress" option id `47fc9ee4`.
+
+> These project/field/option IDs are duplicated verbatim in `/merge` (Step 6) and `/pr` (Step 6). If the board is ever recreated, update all three skills.
 
 ```bash
 ISSUE_NODE_ID=$(gh issue view <number> --json id -q .id)

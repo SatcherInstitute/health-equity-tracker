@@ -1,6 +1,6 @@
 ---
 name: pr
-model: haiku
+model: sonnet
 description: Polish an open PR for review. Classify the diff by bucket (frontend / python / go) and run only the relevant checks — Biome+tsc+Playwright for frontend, black+pylint+pytest for python, build+test for go. Address open review comments, update CLAUDE.md docs if stale, rewrite the PR title and description, then watch CI until all checks pass (diagnosing and reporting any failures). Use when the user wants to close out a PR, verify it's ready for review, or run /pr.
 ---
 

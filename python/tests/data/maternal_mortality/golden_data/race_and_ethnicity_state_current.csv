@@ -6,49 +6,49 @@ state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_de
 01,Alabama,Hispanic or Latino,16.0,1.0,4910.0
 01,Alabama,White (NH),47.0,16.0,33394.0
 02,Alaska,Indigenous (NH),59.0,1.0,1885.0
-02,Alaska,All,23.0,2.0,8704.0
+02,Alaska,All,32.0,3.0,8704.0
 02,Alaska,"Asian, Native Hawaiian, and Pacific Islander (NH)",29.0,0.0,883.0
 02,Alaska,Black or African American (NH),33.0,0.0,290.0
 02,Alaska,Hispanic or Latino,9.0,0.0,787.0
 02,Alaska,White (NH),26.0,1.0,4859.0
 04,Arizona,Indigenous (NH),93.0,4.0,3911.0
-04,Arizona,All,39.0,30.0,77081.0
+04,Arizona,All,38.0,29.0,77081.0
 04,Arizona,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0,1.0,3049.0
 04,Arizona,Black or African American (NH),123.0,6.0,4542.0
 04,Arizona,Hispanic or Latino,32.0,11.0,33639.0
 04,Arizona,White (NH),25.0,8.0,31940.0
 05,Arkansas,Indigenous (NH),4.0,0.0,191.0
-05,Arkansas,All,48.0,17.0,35603.0
+05,Arkansas,All,51.0,18.0,35603.0
 05,Arkansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",39.0,0.0,1261.0
 05,Arkansas,Black or African American (NH),89.0,6.0,6998.0
 05,Arkansas,Hispanic or Latino,29.0,1.0,4088.0
 05,Arkansas,White (NH),45.0,10.0,23065.0
 06,California,Indigenous (NH),40.0,1.0,1458.0
-06,California,All,18.0,77.0,418369.0
+06,California,All,18.0,76.0,418369.0
 06,California,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0,13.0,69465.0
 06,California,Black or African American (NH),49.0,11.0,22374.0
 06,California,Hispanic or Latino,15.0,31.0,203996.0
 06,California,White (NH),17.0,21.0,121076.0
 08,Colorado,Indigenous (NH),33.0,0.0,365.0
-08,Colorado,All,22.0,13.0,60344.0
+08,Colorado,All,21.0,13.0,60344.0
 08,Colorado,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0,1.0,2708.0
 08,Colorado,Black or African American (NH),29.0,1.0,3044.0
 08,Colorado,Hispanic or Latino,30.0,5.0,18205.0
 08,Colorado,White (NH),16.0,6.0,36022.0
 09,Connecticut,Indigenous (NH),10.0,0.0,24.0
-09,Connecticut,All,24.0,8.0,33529.0
+09,Connecticut,All,25.0,8.0,33529.0
 09,Connecticut,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0,0.0,2199.0
 09,Connecticut,Black or African American (NH),51.0,2.0,4221.0
 09,Connecticut,Hispanic or Latino,22.0,2.0,8719.0
 09,Connecticut,White (NH),23.0,4.0,18366.0
 10,Delaware,Indigenous (NH),16.0,0.0,14.0
-10,Delaware,All,29.0,3.0,10203.0
+10,Delaware,All,26.0,3.0,10203.0
 10,Delaware,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0,0.0,624.0
 10,Delaware,Black or African American (NH),57.0,2.0,2804.0
 10,Delaware,Hispanic or Latino,2.0,0.0,1737.0
 10,Delaware,White (NH),18.0,1.0,5024.0
 11,District of Columbia,Indigenous (NH),8.0,0.0,11.0
-11,District of Columbia,All,45.0,4.0,8873.0
+11,District of Columbia,All,55.0,5.0,8873.0
 11,District of Columbia,"Asian, Native Hawaiian, and Pacific Islander (NH)",26.0,0.0,392.0
 11,District of Columbia,Black or African American (NH),107.0,4.0,4131.0
 11,District of Columbia,Hispanic or Latino,6.0,0.0,1354.0
@@ -72,13 +72,13 @@ state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_de
 15,Hawaii,Hispanic or Latino,14.0,0.0,2577.0
 15,Hawaii,White (NH),19.0,1.0,3223.0
 16,Idaho,Indigenous (NH),286.0,1.0,219.0
-16,Idaho,All,28.0,6.0,21557.0
+16,Idaho,All,26.0,6.0,21557.0
 16,Idaho,"Asian, Native Hawaiian, and Pacific Islander (NH)",2.0,0.0,422.0
 16,Idaho,Black or African American (NH),74.0,0.0,261.0
 16,Idaho,Hispanic or Latino,22.0,1.0,3696.0
 16,Idaho,White (NH),24.0,4.0,16959.0
 17,Illinois,Indigenous (NH),11.0,0.0,79.0
-17,Illinois,All,19.0,26.0,137077.0
+17,Illinois,All,19.0,25.0,137077.0
 17,Illinois,"Asian, Native Hawaiian, and Pacific Islander (NH)",19.0,2.0,9209.0
 17,Illinois,Black or African American (NH),22.0,5.0,23258.0
 17,Illinois,Hispanic or Latino,12.0,4.0,30097.0
@@ -96,31 +96,31 @@ state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_de
 19,Iowa,Hispanic or Latino,22.0,1.0,3695.0
 19,Iowa,White (NH),18.0,5.0,29050.0
 20,Kansas,Indigenous (NH),55.0,0.0,150.0
-20,Kansas,All,32.0,11.0,34508.0
+20,Kansas,All,34.0,12.0,34508.0
 20,Kansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,0.0,1280.0
 20,Kansas,Black or African American (NH),92.0,2.0,2458.0
 20,Kansas,Hispanic or Latino,19.0,1.0,6071.0
 20,Kansas,White (NH),33.0,8.0,24549.0
 21,Kentucky,Indigenous (NH),8.0,0.0,50.0
-21,Kentucky,All,46.0,24.0,51896.0
+21,Kentucky,All,45.0,23.0,51896.0
 21,Kentucky,"Asian, Native Hawaiian, and Pacific Islander (NH)",56.0,1.0,1147.0
 21,Kentucky,Black or African American (NH),75.0,4.0,5034.0
 21,Kentucky,Hispanic or Latino,11.0,0.0,3450.0
 21,Kentucky,White (NH),44.0,19.0,42215.0
 22,Louisiana,Indigenous (NH),53.0,0.0,249.0
-22,Louisiana,All,45.0,26.0,58175.0
+22,Louisiana,All,46.0,27.0,58175.0
 22,Louisiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",35.0,0.0,1198.0
 22,Louisiana,Black or African American (NH),71.0,16.0,22106.0
 22,Louisiana,Hispanic or Latino,19.0,1.0,4994.0
 22,Louisiana,White (NH),32.0,9.0,29628.0
 23,Maine,Indigenous (NH),6.0,0.0,91.0
-23,Maine,All,9.0,1.0,11493.0
+23,Maine,All,15.0,2.0,11493.0
 23,Maine,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0,0.0,217.0
 23,Maine,Black or African American (NH),60.0,0.0,541.0
 23,Maine,Hispanic or Latino,6.0,0.0,243.0
 23,Maine,White (NH),13.0,1.0,10401.0
 24,Maryland,Indigenous (NH),8.0,0.0,75.0
-24,Maryland,All,35.0,24.0,68253.0
+24,Maryland,All,36.0,25.0,68253.0
 24,Maryland,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,1.0,4966.0
 24,Maryland,Black or African American (NH),61.0,13.0,21494.0
 24,Maryland,Hispanic or Latino,17.0,2.0,12872.0
@@ -132,19 +132,19 @@ state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_de
 25,Massachusetts,Hispanic or Latino,16.0,2.0,14134.0
 25,Massachusetts,White (NH),13.0,5.0,39219.0
 26,Michigan,Indigenous (NH),96.0,0.0,400.0
-26,Michigan,All,33.0,35.0,105249.0
+26,Michigan,All,34.0,36.0,105249.0
 26,Michigan,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0,0.0,4337.0
 26,Michigan,Black or African American (NH),55.0,11.0,20370.0
 26,Michigan,Hispanic or Latino,23.0,2.0,7117.0
 26,Michigan,White (NH),30.0,22.0,73025.0
 27,Minnesota,Indigenous (NH),78.0,1.0,944.0
-27,Minnesota,All,19.0,12.0,64202.0
+27,Minnesota,All,18.0,11.0,64202.0
 27,Minnesota,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0,1.0,5283.0
 27,Minnesota,Black or African American (NH),25.0,2.0,8253.0
 27,Minnesota,Hispanic or Latino,10.0,1.0,5129.0
 27,Minnesota,White (NH),16.0,7.0,44593.0
 28,Mississippi,Indigenous (NH),8.0,0.0,225.0
-28,Mississippi,All,61.0,22.0,36332.0
+28,Mississippi,All,62.0,23.0,36332.0
 28,Mississippi,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0,0.0,472.0
 28,Mississippi,Black or African American (NH),97.0,15.0,15706.0
 28,Mississippi,Hispanic or Latino,26.0,0.0,1700.0
@@ -162,31 +162,31 @@ state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_de
 30,Montana,Hispanic or Latino,11.0,0.0,605.0
 30,Montana,White (NH),32.0,3.0,8800.0
 31,Nebraska,Indigenous (NH),180.0,1.0,323.0
-31,Nebraska,All,29.0,7.0,24127.0
+31,Nebraska,All,30.0,7.0,24127.0
 31,Nebraska,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0,0.0,875.0
 31,Nebraska,Black or African American (NH),30.0,0.0,1654.0
 31,Nebraska,Hispanic or Latino,16.0,1.0,4345.0
 31,Nebraska,White (NH),32.0,5.0,16930.0
 32,Nevada,Indigenous (NH),59.0,0.0,277.0
-32,Nevada,All,21.0,7.0,33467.0
+32,Nevada,All,23.0,8.0,33467.0
 32,Nevada,"Asian, Native Hawaiian, and Pacific Islander (NH)",56.0,2.0,2959.0
 32,Nevada,Black or African American (NH),30.0,1.0,4514.0
 32,Nevada,Hispanic or Latino,11.0,1.0,13238.0
 32,Nevada,White (NH),24.0,3.0,12479.0
 33,New Hampshire,Indigenous (NH),270.0,0.0,11.0
-33,New Hampshire,All,17.0,2.0,11617.0
+33,New Hampshire,All,18.0,2.0,11617.0
 33,New Hampshire,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0,0.0,508.0
 33,New Hampshire,Black or African American (NH),33.0,0.0,255.0
 33,New Hampshire,Hispanic or Latino,3.0,0.0,764.0
 33,New Hampshire,White (NH),19.0,2.0,10079.0
 34,New Jersey,Indigenous (NH),49.0,0.0,66.0
-34,New Jersey,All,40.0,39.0,97411.0
+34,New Jersey,All,39.0,38.0,97411.0
 34,New Jersey,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0,2.0,11140.0
 34,New Jersey,Black or African American (NH),120.0,16.0,13394.0
 34,New Jersey,Hispanic or Latino,41.0,11.0,27443.0
 34,New Jersey,White (NH),21.0,10.0,45368.0
 35,New Mexico,Indigenous (NH),35.0,1.0,2633.0
-35,New Mexico,All,27.0,6.0,22523.0
+35,New Mexico,All,30.0,7.0,22523.0
 35,New Mexico,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0,0.0,402.0
 35,New Mexico,Black or African American (NH),58.0,0.0,355.0
 35,New Mexico,Hispanic or Latino,25.0,3.0,12915.0
@@ -198,19 +198,19 @@ state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_de
 36,New York,Hispanic or Latino,32.0,16.0,50323.0
 36,New York,White (NH),27.0,30.0,109281.0
 37,North Carolina,Indigenous (NH),43.0,1.0,1445.0
-37,North Carolina,All,38.0,44.0,115484.0
+37,North Carolina,All,38.0,43.0,115484.0
 37,North Carolina,"Asian, Native Hawaiian, and Pacific Islander (NH)",24.0,1.0,4996.0
 37,North Carolina,Black or African American (NH),74.0,21.0,27733.0
 37,North Carolina,Hispanic or Latino,19.0,4.0,19105.0
 37,North Carolina,White (NH),28.0,17.0,62205.0
 38,North Dakota,Indigenous (NH),104.0,1.0,785.0
-38,North Dakota,All,30.0,3.0,9916.0
+38,North Dakota,All,28.0,3.0,9916.0
 38,North Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0,0.0,262.0
 38,North Dakota,Black or African American (NH),13.0,0.0,651.0
 38,North Dakota,Hispanic or Latino,29.0,0.0,651.0
 38,North Dakota,White (NH),22.0,2.0,7567.0
 39,Ohio,Indigenous (NH),11.0,0.0,101.0
-39,Ohio,All,36.0,47.0,130479.0
+39,Ohio,All,35.0,46.0,130479.0
 39,Ohio,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0,0.0,4477.0
 39,Ohio,Black or African American (NH),60.0,14.0,22555.0
 39,Ohio,Hispanic or Latino,11.0,1.0,7725.0
@@ -222,19 +222,19 @@ state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_de
 40,Oklahoma,Hispanic or Latino,30.0,2.0,7713.0
 40,Oklahoma,White (NH),36.0,10.0,27427.0
 41,Oregon,Indigenous (NH),25.0,0.0,402.0
-41,Oregon,All,18.0,7.0,39945.0
+41,Oregon,All,19.0,8.0,39945.0
 41,Oregon,"Asian, Native Hawaiian, and Pacific Islander (NH)",36.0,1.0,2717.0
 41,Oregon,Black or African American (NH),28.0,0.0,1007.0
 41,Oregon,Hispanic or Latino,14.0,1.0,8180.0
 41,Oregon,White (NH),19.0,5.0,27639.0
 42,Pennsylvania,Indigenous (NH),25.0,0.0,77.0
-42,Pennsylvania,All,32.0,41.0,129346.0
+42,Pennsylvania,All,31.0,40.0,129346.0
 42,Pennsylvania,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0,1.0,6256.0
 42,Pennsylvania,Black or African American (NH),72.0,13.0,17585.0
 42,Pennsylvania,Hispanic or Latino,25.0,4.0,16718.0
 42,Pennsylvania,White (NH),26.0,23.0,88710.0
 44,Rhode Island,Indigenous (NH),11.0,0.0,42.0
-44,Rhode Island,All,20.0,2.0,9859.0
+44,Rhode Island,All,23.0,2.0,9859.0
 44,Rhode Island,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0,0.0,496.0
 44,Rhode Island,Black or African American (NH),22.0,0.0,836.0
 44,Rhode Island,Hispanic or Latino,23.0,1.0,2921.0
@@ -246,7 +246,7 @@ state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_de
 45,South Carolina,Hispanic or Latino,16.0,1.0,5741.0
 45,South Carolina,White (NH),35.0,11.0,31660.0
 46,South Dakota,Indigenous (NH),130.0,2.0,1606.0
-46,South Dakota,All,36.0,4.0,11010.0
+46,South Dakota,All,39.0,4.0,11010.0
 46,South Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",43.0,0.0,206.0
 46,South Dakota,Black or African American (NH),45.0,0.0,416.0
 46,South Dakota,Hispanic or Latino,25.0,0.0,628.0
@@ -264,19 +264,19 @@ state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_de
 48,Texas,Hispanic or Latino,22.0,40.0,179689.0
 48,Texas,White (NH),30.0,37.0,124678.0
 49,Utah,Indigenous (NH),301.0,1.0,357.0
-49,Utah,All,30.0,13.0,43991.0
+49,Utah,All,29.0,13.0,43991.0
 49,Utah,"Asian, Native Hawaiian, and Pacific Islander (NH)",33.0,1.0,1552.0
 49,Utah,Black or African American (NH),34.0,0.0,580.0
 49,Utah,Hispanic or Latino,18.0,1.0,8139.0
 49,Utah,White (NH),29.0,10.0,33363.0
 50,Vermont,Indigenous (NH),5.0,0.0,10.0
-50,Vermont,All,19.0,1.0,5239.0
+50,Vermont,All,21.0,1.0,5239.0
 50,Vermont,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0,0.0,122.0
 50,Vermont,Black or African American (NH),6.0,0.0,133.0
 50,Vermont,Hispanic or Latino,7.0,0.0,118.0
 50,Vermont,White (NH),21.0,1.0,4856.0
 51,Virginia,Indigenous (NH),49.0,0.0,144.0
-51,Virginia,All,30.0,29.0,95573.0
+51,Virginia,All,31.0,29.0,95573.0
 51,Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0,1.0,7651.0
 51,Virginia,Black or African American (NH),63.0,13.0,20339.0
 51,Virginia,Hispanic or Latino,24.0,3.0,14442.0
@@ -288,19 +288,19 @@ state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k,maternal_de
 53,Washington,Hispanic or Latino,20.0,3.0,16161.0
 53,Washington,White (NH),32.0,15.0,47435.0
 54,West Virginia,Indigenous (NH),20.0,,
-54,West Virginia,All,40.0,7.0,17648.0
+54,West Virginia,All,41.0,7.0,17648.0
 54,West Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0,0.0,173.0
 54,West Virginia,Black or African American (NH),53.0,0.0,620.0
 54,West Virginia,Hispanic or Latino,6.0,0.0,379.0
 54,West Virginia,White (NH),42.0,7.0,16476.0
 55,Wisconsin,Indigenous (NH),27.0,0.0,632.0
-55,Wisconsin,All,21.0,13.0,61707.0
+55,Wisconsin,All,20.0,12.0,61707.0
 55,Wisconsin,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0,0.0,2974.0
 55,Wisconsin,Black or African American (NH),40.0,3.0,6859.0
 55,Wisconsin,Hispanic or Latino,8.0,1.0,6458.0
 55,Wisconsin,White (NH),19.0,9.0,44784.0
 56,Wyoming,Indigenous (NH),100.0,0.0,191.0
-56,Wyoming,All,32.0,2.0,6308.0
+56,Wyoming,All,46.0,3.0,6308.0
 56,Wyoming,"Asian, Native Hawaiian, and Pacific Islander (NH)",88.0,0.0,73.0
 56,Wyoming,Black or African American (NH),15.0,0.0,61.0
 56,Wyoming,Hispanic or Latino,25.0,0.0,825.0

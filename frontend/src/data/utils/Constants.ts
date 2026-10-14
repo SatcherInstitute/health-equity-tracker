@@ -113,6 +113,11 @@ const INDIGENOUS_NH = 'Indigenous (NH)'
 export const MULTI_OR_OTHER_STANDARD = 'Two or more races & Unrepresented race'
 export const MULTI_OR_OTHER_STANDARD_NH =
   'Two or more races & Unrepresented race (NH)'
+export const NON_STANDARD_AND_MULTI: DemographicGroup[] = [
+  ...NON_STANDARD_RACES,
+  MULTI_OR_OTHER_STANDARD,
+  MULTI_OR_OTHER_STANDARD_NH,
+]
 export const UNREPRESENTED = 'Unrepresented race'
 
 const COMBINATION_RACES = [

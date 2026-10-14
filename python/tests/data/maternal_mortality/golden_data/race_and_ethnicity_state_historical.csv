@@ -5106,19 +5106,19 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2019,01,Alabama,Hispanic or Latino,16.0
 2019,01,Alabama,White (NH),47.0
 2019,02,Alaska,Indigenous (NH),59.0
-2019,02,Alaska,All,23.0
+2019,02,Alaska,All,32.0
 2019,02,Alaska,"Asian, Native Hawaiian, and Pacific Islander (NH)",29.0
 2019,02,Alaska,Black or African American (NH),33.0
 2019,02,Alaska,Hispanic or Latino,9.0
 2019,02,Alaska,White (NH),26.0
 2019,04,Arizona,Indigenous (NH),93.0
-2019,04,Arizona,All,39.0
+2019,04,Arizona,All,38.0
 2019,04,Arizona,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0
 2019,04,Arizona,Black or African American (NH),123.0
 2019,04,Arizona,Hispanic or Latino,32.0
 2019,04,Arizona,White (NH),25.0
 2019,05,Arkansas,Indigenous (NH),4.0
-2019,05,Arkansas,All,48.0
+2019,05,Arkansas,All,51.0
 2019,05,Arkansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",39.0
 2019,05,Arkansas,Black or African American (NH),89.0
 2019,05,Arkansas,Hispanic or Latino,29.0
@@ -5130,25 +5130,25 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2019,06,California,Hispanic or Latino,15.0
 2019,06,California,White (NH),17.0
 2019,08,Colorado,Indigenous (NH),33.0
-2019,08,Colorado,All,22.0
+2019,08,Colorado,All,21.0
 2019,08,Colorado,"Asian, Native Hawaiian, and Pacific Islander (NH)",20.0
 2019,08,Colorado,Black or African American (NH),29.0
 2019,08,Colorado,Hispanic or Latino,30.0
 2019,08,Colorado,White (NH),16.0
 2019,09,Connecticut,Indigenous (NH),10.0
-2019,09,Connecticut,All,24.0
+2019,09,Connecticut,All,25.0
 2019,09,Connecticut,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
 2019,09,Connecticut,Black or African American (NH),51.0
 2019,09,Connecticut,Hispanic or Latino,22.0
 2019,09,Connecticut,White (NH),23.0
 2019,10,Delaware,Indigenous (NH),16.0
-2019,10,Delaware,All,29.0
+2019,10,Delaware,All,26.0
 2019,10,Delaware,"Asian, Native Hawaiian, and Pacific Islander (NH)",13.0
 2019,10,Delaware,Black or African American (NH),57.0
 2019,10,Delaware,Hispanic or Latino,2.0
 2019,10,Delaware,White (NH),18.0
 2019,11,District of Columbia,Indigenous (NH),8.0
-2019,11,District of Columbia,All,45.0
+2019,11,District of Columbia,All,55.0
 2019,11,District of Columbia,"Asian, Native Hawaiian, and Pacific Islander (NH)",26.0
 2019,11,District of Columbia,Black or African American (NH),107.0
 2019,11,District of Columbia,Hispanic or Latino,6.0
@@ -5172,7 +5172,7 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2019,15,Hawaii,Hispanic or Latino,14.0
 2019,15,Hawaii,White (NH),19.0
 2019,16,Idaho,Indigenous (NH),286.0
-2019,16,Idaho,All,28.0
+2019,16,Idaho,All,26.0
 2019,16,Idaho,"Asian, Native Hawaiian, and Pacific Islander (NH)",2.0
 2019,16,Idaho,Black or African American (NH),74.0
 2019,16,Idaho,Hispanic or Latino,22.0
@@ -5196,31 +5196,31 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2019,19,Iowa,Hispanic or Latino,22.0
 2019,19,Iowa,White (NH),18.0
 2019,20,Kansas,Indigenous (NH),55.0
-2019,20,Kansas,All,32.0
+2019,20,Kansas,All,34.0
 2019,20,Kansas,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2019,20,Kansas,Black or African American (NH),92.0
 2019,20,Kansas,Hispanic or Latino,19.0
 2019,20,Kansas,White (NH),33.0
 2019,21,Kentucky,Indigenous (NH),8.0
-2019,21,Kentucky,All,46.0
+2019,21,Kentucky,All,45.0
 2019,21,Kentucky,"Asian, Native Hawaiian, and Pacific Islander (NH)",56.0
 2019,21,Kentucky,Black or African American (NH),75.0
 2019,21,Kentucky,Hispanic or Latino,11.0
 2019,21,Kentucky,White (NH),44.0
 2019,22,Louisiana,Indigenous (NH),53.0
-2019,22,Louisiana,All,45.0
+2019,22,Louisiana,All,46.0
 2019,22,Louisiana,"Asian, Native Hawaiian, and Pacific Islander (NH)",35.0
 2019,22,Louisiana,Black or African American (NH),71.0
 2019,22,Louisiana,Hispanic or Latino,19.0
 2019,22,Louisiana,White (NH),32.0
 2019,23,Maine,Indigenous (NH),6.0
-2019,23,Maine,All,9.0
+2019,23,Maine,All,15.0
 2019,23,Maine,"Asian, Native Hawaiian, and Pacific Islander (NH)",1.0
 2019,23,Maine,Black or African American (NH),60.0
 2019,23,Maine,Hispanic or Latino,6.0
 2019,23,Maine,White (NH),13.0
 2019,24,Maryland,Indigenous (NH),8.0
-2019,24,Maryland,All,35.0
+2019,24,Maryland,All,36.0
 2019,24,Maryland,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2019,24,Maryland,Black or African American (NH),61.0
 2019,24,Maryland,Hispanic or Latino,17.0
@@ -5232,19 +5232,19 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2019,25,Massachusetts,Hispanic or Latino,16.0
 2019,25,Massachusetts,White (NH),13.0
 2019,26,Michigan,Indigenous (NH),96.0
-2019,26,Michigan,All,33.0
+2019,26,Michigan,All,34.0
 2019,26,Michigan,"Asian, Native Hawaiian, and Pacific Islander (NH)",10.0
 2019,26,Michigan,Black or African American (NH),55.0
 2019,26,Michigan,Hispanic or Latino,23.0
 2019,26,Michigan,White (NH),30.0
 2019,27,Minnesota,Indigenous (NH),78.0
-2019,27,Minnesota,All,19.0
+2019,27,Minnesota,All,18.0
 2019,27,Minnesota,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2019,27,Minnesota,Black or African American (NH),25.0
 2019,27,Minnesota,Hispanic or Latino,10.0
 2019,27,Minnesota,White (NH),16.0
 2019,28,Mississippi,Indigenous (NH),8.0
-2019,28,Mississippi,All,61.0
+2019,28,Mississippi,All,62.0
 2019,28,Mississippi,"Asian, Native Hawaiian, and Pacific Islander (NH)",16.0
 2019,28,Mississippi,Black or African American (NH),97.0
 2019,28,Mississippi,Hispanic or Latino,26.0
@@ -5262,31 +5262,31 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2019,30,Montana,Hispanic or Latino,11.0
 2019,30,Montana,White (NH),32.0
 2019,31,Nebraska,Indigenous (NH),180.0
-2019,31,Nebraska,All,29.0
+2019,31,Nebraska,All,30.0
 2019,31,Nebraska,"Asian, Native Hawaiian, and Pacific Islander (NH)",15.0
 2019,31,Nebraska,Black or African American (NH),30.0
 2019,31,Nebraska,Hispanic or Latino,16.0
 2019,31,Nebraska,White (NH),32.0
 2019,32,Nevada,Indigenous (NH),59.0
-2019,32,Nevada,All,21.0
+2019,32,Nevada,All,23.0
 2019,32,Nevada,"Asian, Native Hawaiian, and Pacific Islander (NH)",56.0
 2019,32,Nevada,Black or African American (NH),30.0
 2019,32,Nevada,Hispanic or Latino,11.0
 2019,32,Nevada,White (NH),24.0
 2019,33,New Hampshire,Indigenous (NH),270.0
-2019,33,New Hampshire,All,17.0
+2019,33,New Hampshire,All,18.0
 2019,33,New Hampshire,"Asian, Native Hawaiian, and Pacific Islander (NH)",8.0
 2019,33,New Hampshire,Black or African American (NH),33.0
 2019,33,New Hampshire,Hispanic or Latino,3.0
 2019,33,New Hampshire,White (NH),19.0
 2019,34,New Jersey,Indigenous (NH),49.0
-2019,34,New Jersey,All,40.0
+2019,34,New Jersey,All,39.0
 2019,34,New Jersey,"Asian, Native Hawaiian, and Pacific Islander (NH)",14.0
 2019,34,New Jersey,Black or African American (NH),120.0
 2019,34,New Jersey,Hispanic or Latino,41.0
 2019,34,New Jersey,White (NH),21.0
 2019,35,New Mexico,Indigenous (NH),35.0
-2019,35,New Mexico,All,27.0
+2019,35,New Mexico,All,30.0
 2019,35,New Mexico,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0
 2019,35,New Mexico,Black or African American (NH),58.0
 2019,35,New Mexico,Hispanic or Latino,25.0
@@ -5304,13 +5304,13 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2019,37,North Carolina,Hispanic or Latino,19.0
 2019,37,North Carolina,White (NH),28.0
 2019,38,North Dakota,Indigenous (NH),104.0
-2019,38,North Dakota,All,30.0
+2019,38,North Dakota,All,28.0
 2019,38,North Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",21.0
 2019,38,North Dakota,Black or African American (NH),13.0
 2019,38,North Dakota,Hispanic or Latino,29.0
 2019,38,North Dakota,White (NH),22.0
 2019,39,Ohio,Indigenous (NH),11.0
-2019,39,Ohio,All,36.0
+2019,39,Ohio,All,35.0
 2019,39,Ohio,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2019,39,Ohio,Black or African American (NH),60.0
 2019,39,Ohio,Hispanic or Latino,11.0
@@ -5322,19 +5322,19 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2019,40,Oklahoma,Hispanic or Latino,30.0
 2019,40,Oklahoma,White (NH),36.0
 2019,41,Oregon,Indigenous (NH),25.0
-2019,41,Oregon,All,18.0
+2019,41,Oregon,All,19.0
 2019,41,Oregon,"Asian, Native Hawaiian, and Pacific Islander (NH)",36.0
 2019,41,Oregon,Black or African American (NH),28.0
 2019,41,Oregon,Hispanic or Latino,14.0
 2019,41,Oregon,White (NH),19.0
 2019,42,Pennsylvania,Indigenous (NH),25.0
-2019,42,Pennsylvania,All,32.0
+2019,42,Pennsylvania,All,31.0
 2019,42,Pennsylvania,"Asian, Native Hawaiian, and Pacific Islander (NH)",9.0
 2019,42,Pennsylvania,Black or African American (NH),72.0
 2019,42,Pennsylvania,Hispanic or Latino,25.0
 2019,42,Pennsylvania,White (NH),26.0
 2019,44,Rhode Island,Indigenous (NH),11.0
-2019,44,Rhode Island,All,20.0
+2019,44,Rhode Island,All,23.0
 2019,44,Rhode Island,"Asian, Native Hawaiian, and Pacific Islander (NH)",0.0
 2019,44,Rhode Island,Black or African American (NH),22.0
 2019,44,Rhode Island,Hispanic or Latino,23.0
@@ -5346,7 +5346,7 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2019,45,South Carolina,Hispanic or Latino,16.0
 2019,45,South Carolina,White (NH),35.0
 2019,46,South Dakota,Indigenous (NH),130.0
-2019,46,South Dakota,All,36.0
+2019,46,South Dakota,All,39.0
 2019,46,South Dakota,"Asian, Native Hawaiian, and Pacific Islander (NH)",43.0
 2019,46,South Dakota,Black or African American (NH),45.0
 2019,46,South Dakota,Hispanic or Latino,25.0
@@ -5364,19 +5364,19 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2019,48,Texas,Hispanic or Latino,22.0
 2019,48,Texas,White (NH),30.0
 2019,49,Utah,Indigenous (NH),301.0
-2019,49,Utah,All,30.0
+2019,49,Utah,All,29.0
 2019,49,Utah,"Asian, Native Hawaiian, and Pacific Islander (NH)",33.0
 2019,49,Utah,Black or African American (NH),34.0
 2019,49,Utah,Hispanic or Latino,18.0
 2019,49,Utah,White (NH),29.0
 2019,50,Vermont,Indigenous (NH),5.0
-2019,50,Vermont,All,19.0
+2019,50,Vermont,All,21.0
 2019,50,Vermont,"Asian, Native Hawaiian, and Pacific Islander (NH)",32.0
 2019,50,Vermont,Black or African American (NH),6.0
 2019,50,Vermont,Hispanic or Latino,7.0
 2019,50,Vermont,White (NH),21.0
 2019,51,Virginia,Indigenous (NH),49.0
-2019,51,Virginia,All,30.0
+2019,51,Virginia,All,31.0
 2019,51,Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",18.0
 2019,51,Virginia,Black or African American (NH),63.0
 2019,51,Virginia,Hispanic or Latino,24.0
@@ -5388,19 +5388,19 @@ time_period,state_fips,state_name,race_and_ethnicity,maternal_mortality_per_100k
 2019,53,Washington,Hispanic or Latino,20.0
 2019,53,Washington,White (NH),32.0
 2019,54,West Virginia,Indigenous (NH),20.0
-2019,54,West Virginia,All,40.0
+2019,54,West Virginia,All,41.0
 2019,54,West Virginia,"Asian, Native Hawaiian, and Pacific Islander (NH)",3.0
 2019,54,West Virginia,Black or African American (NH),53.0
 2019,54,West Virginia,Hispanic or Latino,6.0
 2019,54,West Virginia,White (NH),42.0
 2019,55,Wisconsin,Indigenous (NH),27.0
-2019,55,Wisconsin,All,21.0
+2019,55,Wisconsin,All,20.0
 2019,55,Wisconsin,"Asian, Native Hawaiian, and Pacific Islander (NH)",7.0
 2019,55,Wisconsin,Black or African American (NH),40.0
 2019,55,Wisconsin,Hispanic or Latino,8.0
 2019,55,Wisconsin,White (NH),19.0
 2019,56,Wyoming,Indigenous (NH),100.0
-2019,56,Wyoming,All,32.0
+2019,56,Wyoming,All,46.0
 2019,56,Wyoming,"Asian, Native Hawaiian, and Pacific Islander (NH)",88.0
 2019,56,Wyoming,Black or African American (NH),15.0
 2019,56,Wyoming,Hispanic or Latino,25.0

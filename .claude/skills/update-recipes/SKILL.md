@@ -1,5 +1,6 @@
 ---
 name: update-recipes
+model: sonnet
 description: Refresh the ReadMe contributor recipes (code tabs, line highlights, and prose) after frontend changes land on main. Runs scripts/readme_recipes/sync_recipes.py, then scans recipe prose against the merged diff. Called by /merge after frontend PRs; also usable standalone via /update-recipes [PR number].
 ---
 
