@@ -44,6 +44,17 @@ AHR_MEASURES_TO_RATES_MAP_MATERNAL = {
     "Severe Maternal Morbidity": "severe_maternal_morbidity_per_100k",
 }
 
+# Infant mortality, low birth weight and low-risk cesarean delivery (source: CDC NCHS
+# National Vital Statistics System natality and linked birth/infant death files) are
+# rate-only for the same reason as SMM: their true denominator is live births, which this
+# pipeline does not have by race. Infant mortality is a two-year pooled rate per 1,000
+# live births (see PER_1K_TO_PER_100K_TOPICS); the other two are percentages of births.
+AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES = {
+    "Infant Mortality": "infant_mortality_per_100k",
+    "Low Birth Weight": "low_birthweight_pct_rate",
+    "Low-Risk Cesarean Delivery": "low_risk_cesarean_pct_rate",
+}
+
 AHR_MEASURES_TO_RATES_MAP_CITIZENS_18PLUS = {
     "Voter Participation (Presidential)": "voter_participation_pct_rate",
 }
@@ -58,6 +69,7 @@ AHR_BASE_MEASURES_TO_RATES_MAP = {
     **AHR_MEASURES_TO_RATES_MAP_MEDICARE_18PLUS,
     **AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
     **AHR_MEASURES_TO_RATES_MAP_MATERNAL,
+    **AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES,
 }
 
 # AHR provides case per 100; HET needs per 100k
@@ -75,6 +87,17 @@ PCT_RATE_TO_PER_100K_TOPICS = [
 # AHR provides these per 10,000; HET needs per 100k (x10)
 PER_10K_TO_PER_100K_TOPICS = [
     "Severe Maternal Morbidity",
+]
+
+# AHR provides these per 1,000; HET needs per 100k (x100)
+PER_1K_TO_PER_100K_TOPICS = [
+    "Infant Mortality",
+]
+
+# AHR's 2013-2014 infant mortality window marks suppressed values as 0, where every other
+# window uses null and none publishes a real zero, so a 0 for these topics means missing.
+ZERO_MEANS_SUPPRESSED_TOPICS = [
+    "Infant Mortality",
 ]
 
 

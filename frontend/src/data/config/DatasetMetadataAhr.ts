@@ -225,7 +225,7 @@ export const datasourceMetadataAhr: DataSourceMetadataAhr = {
   demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
   update_frequency: 'Yearly',
   description:
-    'The prevalence of multiple conditions at the state level, including chronic diseases (COPD, diabetes, chronic kidney disease, cardiovascular diseases), behavioral health indicators (suicide, depression, frequent mental distress, excessive drinking, opioid and other substance misuse), and other social determinants of health (care avoidance due to cost, preventable hospitalizations).',
+    'The prevalence of multiple conditions at the state level, including chronic diseases (COPD, diabetes, chronic kidney disease, cardiovascular diseases), behavioral health indicators (suicide, depression, frequent mental distress, excessive drinking, opioid and other substance misuse), other social determinants of health (care avoidance due to cost, preventable hospitalizations), and maternal and infant health outcomes (severe maternal morbidity, infant mortality, low birthweight, low-risk cesarean delivery).',
   dataset_ids: [
     'graphql_ahr_data-behavioral_health_age_national_current',
     'graphql_ahr_data-behavioral_health_race_and_ethnicity_national_current',

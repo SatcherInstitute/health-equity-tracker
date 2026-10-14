@@ -302,6 +302,15 @@ export function MissingAHRData() {
           adult population share is shown only for the three broad groups, where
           it accounts for 100% of the adult population.
         </li>
+        <li>
+          <b>Maternal and infant measures:</b> Severe maternal morbidity, infant
+          mortality, low birthweight, and low-risk cesarean delivery are shown
+          as rates only. Their denominators (delivery hospitalizations or live
+          births) are not available by race, ethnicity, or age, so we do not
+          calculate estimated totals, percent shares, or population comparisons
+          for them. For infant mortality and low birthweight, age groups
+          describe the person giving birth, not the infant.
+        </li>
       </BulletList>
     </MissingDataSection>
   )
