@@ -3,6 +3,7 @@ import {
   medicareHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
 import {
+  ACS_EMPLOYMENT_AGE_BUCKETS,
   ACS_POVERTY_AGE_BUCKETS,
   ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
   AGE,
@@ -24,12 +25,16 @@ const UNINSURANCE_EXCLUDED_AGES = AGE_BUCKETS.filter(
 const POVERTY_EXCLUDED_AGES = AGE_BUCKETS.filter(
   (bucket) => !ACS_POVERTY_AGE_BUCKETS.includes(bucket as any),
 )
+const EMPLOYMENT_EXCLUDED_AGES = AGE_BUCKETS.filter(
+  (bucket) => !ACS_EMPLOYMENT_AGE_BUCKETS.includes(bucket as any),
+)
 
 export const SDOH_CATEGORY_DROPDOWNIDS = [
   'avoided_care',
   'health_insurance',
   'poverty',
   'preventable_hospitalizations',
+  'unemployment',
 ] as const
 
 export type SDOHDataTypeId =
@@ -37,6 +42,7 @@ export type SDOHDataTypeId =
   | 'health_insurance'
   | 'preventable_hospitalizations'
   | 'avoided_care'
+  | 'unemployment'
 
 export type SDOHMetricId =
   | 'ahr_population_pct'
@@ -52,6 +58,12 @@ export type SDOHMetricId =
   | 'poverty_pop_estimated_total'
   | 'poverty_population_pct'
   | 'preventable_hospitalizations_per_100k'
+  | 'unemployment_estimated_total'
+  | 'unemployment_pct_rate'
+  | 'unemployment_pct_relative_inequity'
+  | 'unemployment_pct_share'
+  | 'unemployment_pop_estimated_total'
+  | 'unemployment_population_pct'
   | 'uninsured_estimated_total'
   | 'uninsured_pop_estimated_total'
   | 'uninsured_pct_rate'
@@ -184,6 +196,74 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
         timeSeriesCadence: 'yearly',
         chartTitle: 'Relative inequity for poverty',
         metricId: 'poverty_pct_relative_inequity',
+        shortLabel: '% relative inequity',
+        type: 'pct_relative_inequity',
+      },
+    },
+  },
+]
+
+export const UNEMPLOYMENT_METRICS: DataTypeConfig[] = [
+  {
+    categoryId: 'sdoh',
+    dataTypeId: 'unemployment',
+    excludedDemographicGroups: { [AGE]: EMPLOYMENT_EXCLUDED_AGES },
+    mapConfig: defaultHigherIsWorseMapConfig,
+    dataTypeShortLabel: 'Unemployment',
+    fullDisplayName: 'Unemployed people',
+    fullDisplayNameInline: 'unemployed people',
+    definition: {
+      text: `Following the Census Bureau's definition, the civilian labor force comprises
+      employed and unemployed people ages 16 and over. People are classified as unemployed if
+      they do not have a job, have actively looked for work in the prior four weeks, and are
+      currently available for work. The unemployment rate is the share of the civilian labor
+      force that is unemployed; people not in the labor force and members of the Armed Forces
+      are excluded from both the numerator and the denominator.`,
+    },
+    description: {
+      text: 'Unemployment is closely tied to health. People who are unemployed are more likely to experience financial strain, loss of health insurance, and worse physical and mental health outcomes. Studying unemployment can help us understand why these disparities exist and how to address them.',
+    },
+    dataTableTitle: 'Summary for unemployed people',
+    metrics: {
+      pct_rate: {
+        timeSeriesCadence: 'yearly',
+        metricId: 'unemployment_pct_rate',
+        chartTitle: 'Unemployed people',
+        trendsCardTitleName: 'Rates of unemployment over time',
+        columnTitleHeader: 'Unemployed people',
+        shortLabel: '% unemployed',
+        type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'unemployment_estimated_total',
+          shortLabel: 'Unemployed',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'unemployment_pop_estimated_total',
+          shortLabel: 'Civilian labor force',
+          chartTitle: '',
+          type: 'count',
+        },
+      },
+      pct_share: {
+        chartTitle: 'Share of unemployment',
+        metricId: 'unemployment_pct_share',
+        columnTitleHeader: 'Share of unemployment',
+        shortLabel: '% of unemployed',
+        type: 'pct_share',
+        populationComparisonMetric: {
+          chartTitle: 'Population vs. distribution of total unemployed people',
+          metricId: 'unemployment_population_pct',
+          columnTitleHeader: populationPctTitle,
+          shortLabel: populationPctShortLabel,
+          type: 'pct_share',
+        },
+      },
+      pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
+        chartTitle: 'Relative inequity for unemployment',
+        metricId: 'unemployment_pct_relative_inequity',
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
       },

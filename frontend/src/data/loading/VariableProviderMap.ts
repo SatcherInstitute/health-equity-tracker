@@ -29,7 +29,7 @@ import {
 const PROVIDER_REGISTRATIONS = [
   [
     'acs_condition_provider',
-    ['health_insurance', 'poverty'],
+    ['health_insurance', 'poverty', 'unemployment'],
     ACS_CONDITION_CONFIG,
   ],
   [
