@@ -62,6 +62,44 @@ class GcsToBqTest(unittest.TestCase):
         }
     }
 
+    # Models the ragged shape of C23002 (SEX BY AGE BY EMPLOYMENT STATUS): the
+    # 16-64 branch nests Employed/Unemployed under an extra "Civilian" level that
+    # the 65+ branch lacks, so the leaves sit at different depths.
+    _fake_ragged_metadata = {
+        "variables": {
+            "C23002A_006E": {
+                "label": "Estimate!!Total:!!Male:!!16 to 64 years:",
+                "concept": "SEX BY AGE BY EMPLOYMENT STATUS (WHITE ALONE)",
+                "group": "C23002A",
+            },
+            "C23002A_007E": {
+                "label": "Estimate!!Total:!!Male:!!16 to 64 years:!!In labor force:",
+                "concept": "SEX BY AGE BY EMPLOYMENT STATUS (WHITE ALONE)",
+                "group": "C23002A",
+            },
+            "C23002A_008E": {
+                "label": "Estimate!!Total:!!Male:!!16 to 64 years:!!In labor force:!!Civilian:!!Employed",
+                "concept": "SEX BY AGE BY EMPLOYMENT STATUS (WHITE ALONE)",
+                "group": "C23002A",
+            },
+            "C23002A_009E": {
+                "label": "Estimate!!Total:!!Male:!!16 to 64 years:!!In labor force:!!Civilian:!!Unemployed",
+                "concept": "SEX BY AGE BY EMPLOYMENT STATUS (WHITE ALONE)",
+                "group": "C23002A",
+            },
+            "C23002A_019E": {
+                "label": "Estimate!!Total:!!Male:!!65 years and over:!!In labor force:!!Employed",
+                "concept": "SEX BY AGE BY EMPLOYMENT STATUS (WHITE ALONE)",
+                "group": "C23002A",
+            },
+            "C23002A_020E": {
+                "label": "Estimate!!Total:!!Male:!!65 years and over:!!In labor force:!!Unemployed",
+                "concept": "SEX BY AGE BY EMPLOYMENT STATUS (WHITE ALONE)",
+                "group": "C23002A",
+            },
+        }
+    }
+
     _fake_sex_by_age_data = [
         ["NAME", "B01001_011E", "B01001_012E", "B01001_042E", "B01001_041E", "state"],
         ["Alabama", "20", "15", "42", "70", "01"],
@@ -130,6 +168,24 @@ class GcsToBqTest(unittest.TestCase):
                 "B02001_005E": ["Asian alone"],
                 "B02001_007E": ["Some other race alone"],
                 "B02001_008E": ["Two or more races"],
+            },
+            group_vars,
+        )
+
+    def testGetVarsForGroupByLeaf(self):
+        """Selecting leaves by label handles ragged tables that positional depth
+        cannot. The Employed/Unemployed leaves sit at depth 7 in the 16-64 branch
+        and depth 6 in the 65+ branch, yet both are extracted with sex and age."""
+        concept = "SEX BY AGE BY EMPLOYMENT STATUS (WHITE ALONE)"
+        metadata = census.parse_acs_metadata(self._fake_ragged_metadata, ["C23002A"])
+
+        group_vars = census.get_vars_for_group_by_leaf(concept, metadata, {"Employed", "Unemployed"}, 2)
+        self.assertDictEqual(
+            {
+                "C23002A_008E": ["Male", "16 to 64 years", "Employed"],
+                "C23002A_009E": ["Male", "16 to 64 years", "Unemployed"],
+                "C23002A_019E": ["Male", "65 years and over", "Employed"],
+                "C23002A_020E": ["Male", "65 years and over", "Unemployed"],
             },
             group_vars,
         )
