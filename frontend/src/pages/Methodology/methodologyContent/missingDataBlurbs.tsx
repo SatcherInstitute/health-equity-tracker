@@ -310,7 +310,10 @@ export function MissingAHRData() {
           estimates do not describe those groups, so we do not calculate
           estimated totals, percent shares, or population comparisons for them.
           For infant mortality and low birthweight, age groups describe the
-          person giving birth, not the infant.
+          person giving birth, not the infant. America’s Health Rankings’
+          national 2013–2014 infant mortality rates for White and American
+          Indian/Alaska Native births are inconsistent with the state rates for
+          those years, so we leave them out.
         </li>
       </BulletList>
     </MissingDataSection>

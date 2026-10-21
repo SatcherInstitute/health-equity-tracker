@@ -324,6 +324,7 @@ def test_maternal_age_buckets_write_to_bq_age_national(mock_fetch: mock.MagicMoc
     GraphQlAHRData().write_to_bq(
         "dataset", "gcs_bucket", demographic="age", geographic="national", category="non-behavioral_health"
     )
+    mock_fetch.assert_called_once_with("age", "national", "non-behavioral_health")
 
     current_df, _, table_name = mock_add.call_args_list[0][0]
     assert table_name == "non-behavioral_health_age_national_current"
@@ -368,6 +369,7 @@ def test_infant_mortality_write_to_bq_sex_state(mock_fetch: mock.MagicMock, mock
     GraphQlAHRData().write_to_bq(
         "dataset", "gcs_bucket", demographic="sex", geographic="state", category="non-behavioral_health"
     )
+    mock_fetch.assert_called_once_with("sex", "state", "non-behavioral_health")
 
     current_df, _, table_name = mock_add.call_args_list[0][0]
     assert table_name == "non-behavioral_health_sex_state_current"
@@ -403,6 +405,7 @@ def test_birth_outcome_only_groups_leave_adult_pop_shares_unchanged(
     ]
 
     def run(response):
+        mock_fetch.reset_mock()
         mock_fetch.side_effect = lambda *_args: response
         mock_add.reset_mock()
         GraphQlAHRData().write_to_bq(
@@ -412,6 +415,7 @@ def test_birth_outcome_only_groups_leave_adult_pop_shares_unchanged(
             geographic="state",
             category="non-behavioral_health",
         )
+        mock_fetch.assert_called_once_with("race_and_ethnicity", "state", "non-behavioral_health")
         (current_df, _, current_table), (historical_df, _, historical_table) = [
             call[0] for call in mock_add.call_args_list
         ]
@@ -460,3 +464,29 @@ def test_smm_earlier_under_20_name_still_maps():
     df = pd.DataFrame([_smm_row("Severe Maternal Morbidity - Age Less Than 20 Years", 90.0)])
     out = parse_raw_data(df, std_col.AGE_COL)
     assert list(out[std_col.AGE_COL]) == ["<20"]
+
+
+def test_known_bad_national_infant_mortality_values_are_dropped():
+    """AHR's national 2013-2014 infant mortality rates for white and AIAN mothers are wrong
+    upstream and must become missing; the same measure for a state or another year stays."""
+    df = pd.DataFrame(
+        [
+            {**_smm_row("Infant Mortality - White", 4.0), std_col.TIME_PERIOD_COL: "2014"},
+            {**_smm_row("Infant Mortality - Black", 10.8), std_col.TIME_PERIOD_COL: "2014"},
+            {**_smm_row("Infant Mortality - White", 4.9), std_col.TIME_PERIOD_COL: "2015"},
+            {
+                **_smm_row("Infant Mortality - White", 4.3),
+                std_col.TIME_PERIOD_COL: "2014",
+                std_col.STATE_POSTAL_COL: "CA",
+            },
+        ]
+    )
+    out = parse_raw_data(df, std_col.RACE_OR_HISPANIC_COL)
+    rate = out.set_index([std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL, std_col.RACE_OR_HISPANIC_COL])[
+        "infant_mortality_per_100k"
+    ]
+
+    assert ("2014", "US", "White") not in rate.dropna().index
+    assert rate[("2014", "US", "Black")] == pytest.approx(1080.0)
+    assert rate[("2015", "US", "White")] == pytest.approx(490.0)
+    assert rate[("2014", "CA", "White")] == pytest.approx(430.0)

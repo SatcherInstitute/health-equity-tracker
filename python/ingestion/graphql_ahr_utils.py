@@ -94,6 +94,15 @@ PER_1K_TO_PER_100K_TOPICS = [
     "Infant Mortality",
 ]
 
+# AHR's national 2013-2014 infant mortality rates for white and American Indian/Alaska Native
+# mothers (legacy measures 1888 and 1890) are wrong upstream: 4.0 and 5.9 per 1,000 sit below
+# almost every state's rate for that window and about 20% below the windows on either side, and
+# the AIAN value equals the all-races rate. They are left out as (measure name, year, state).
+AHR_KNOWN_BAD_VALUES = [
+    ("Infant Mortality - White", "2014", US_ABBR),
+    ("Infant Mortality - American Indian/Alaska Native", "2014", US_ABBR),
+]
+
 # AHR's 2013-2014 infant mortality window marks suppressed values as 0, where every other
 # window uses null and none publishes a real zero, so a 0 for these topics means missing.
 ZERO_MEANS_SUPPRESSED_TOPICS = [

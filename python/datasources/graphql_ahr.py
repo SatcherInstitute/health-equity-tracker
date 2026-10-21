@@ -21,6 +21,7 @@ from ingestion.graphql_ahr_utils import (
     PER_10K_TO_PER_100K_TOPICS,
     PER_1K_TO_PER_100K_TOPICS,
     ZERO_MEANS_SUPPRESSED_TOPICS,
+    AHR_KNOWN_BAD_VALUES,
 )  # type: ignore
 from ingestion.het_types import (
     DEMOGRAPHIC_TYPE,
@@ -381,6 +382,15 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
     resulting DataFrame by time period in descending order.
     """
     breakdown_df = df.copy()
+
+    # Matched on AHR's raw measure names, so this runs before the loop renames them
+    for measure, time_period, state in AHR_KNOWN_BAD_VALUES:
+        is_bad = (
+            (breakdown_df[AHR_MEASURE] == measure)
+            & (breakdown_df[std_col.TIME_PERIOD_COL] == time_period)
+            & (breakdown_df[std_col.STATE_POSTAL_COL] == state)
+        )
+        breakdown_df.loc[is_bad, AHR_VALUE] = float("nan")
 
     for ahr_topic, ahr_measure_type in AHR_BASE_MEASURES_TO_RATES_MAP.items():
         # Check if the ahr topic, e.g Asthma, is present in the `Measure` column
