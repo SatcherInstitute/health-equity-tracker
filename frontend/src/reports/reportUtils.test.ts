@@ -1,5 +1,10 @@
 import { HIV_DISEASE_METRICS } from '../data/config/MetricConfigHivCategory'
 import {
+  INFANT_MORTALITY_METRICS,
+  LOW_BIRTHWEIGHT_METRICS,
+  LOW_RISK_CESAREAN_METRICS,
+} from '../data/config/MetricConfigMaternalHealth'
+import {
   VOTER_PARTICIPATION_METRICS,
   WOMEN_IN_GOV_METRICS,
 } from '../data/config/MetricConfigPDOH'
@@ -166,5 +171,42 @@ describe('Test getAllDemographicOptions()', () => {
     expect(opts).toEqual({
       'Race/Ethnicity': 'race_and_ethnicity',
     })
+  })
+})
+
+describe('getAllDemographicOptions() for AHR birth outcomes', () => {
+  test('infant mortality offers race, sex, and age', () => {
+    const { enabledDemographicOptionsMap, disabledDemographicOptions } =
+      getAllDemographicOptions(INFANT_MORTALITY_METRICS[0], new Fips('00'))
+    expect(enabledDemographicOptionsMap).toEqual({
+      'Race/Ethnicity': 'race_and_ethnicity',
+      'Sex at Birth': 'sex',
+      Age: 'age',
+    })
+    expect(disabledDemographicOptions).toEqual([])
+  })
+
+  test('low birthweight offers race and age, not sex', () => {
+    const { enabledDemographicOptionsMap, disabledDemographicOptions } =
+      getAllDemographicOptions(LOW_BIRTHWEIGHT_METRICS[0], new Fips('00'))
+    expect(enabledDemographicOptionsMap).toEqual({
+      'Race/Ethnicity': 'race_and_ethnicity',
+      Age: 'age',
+    })
+    expect(disabledDemographicOptions).toEqual([
+      ['Sex', 'unavailable for Low Birthweight'],
+    ])
+  })
+
+  test('low-risk cesarean offers race only', () => {
+    const { enabledDemographicOptionsMap, disabledDemographicOptions } =
+      getAllDemographicOptions(LOW_RISK_CESAREAN_METRICS[0], new Fips('00'))
+    expect(enabledDemographicOptionsMap).toEqual({
+      'Race/Ethnicity': 'race_and_ethnicity',
+    })
+    expect(disabledDemographicOptions).toEqual([
+      ['Age', 'unavailable for Low-Risk Cesarean Delivery'],
+      ['Sex', 'unavailable for Low-Risk Cesarean Delivery'],
+    ])
   })
 })

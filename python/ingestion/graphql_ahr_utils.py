@@ -44,6 +44,20 @@ AHR_MEASURES_TO_RATES_MAP_MATERNAL = {
     "Severe Maternal Morbidity": "severe_maternal_morbidity_per_100k",
 }
 
+# Infant mortality, low birth weight and low-risk cesarean delivery (source: CDC NCHS
+# National Vital Statistics System natality and linked birth/infant death files) are
+# rate-only for the same reason as SMM: their true denominator is live births, which this
+# pipeline does not have by race. Infant mortality is a two-year pooled rate per 1,000
+# live births (see PER_1K_TO_PER_100K_TOPICS); the other two are percentages of births.
+# In the measure-ID config, infant mortality's Asian series has one ID while AIAN, Black and
+# White also list a legacy 2013-2017 ID: legacy ID 1889 is named "Infant Mortality - Asian" but
+# covers Asian and Pacific Islander mothers combined, so it is left out.
+AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES = {
+    "Infant Mortality": "infant_mortality_per_100k",
+    "Low Birth Weight": "low_birthweight_pct_rate",
+    "Low-Risk Cesarean Delivery": "low_risk_cesarean_pct_rate",
+}
+
 AHR_MEASURES_TO_RATES_MAP_CITIZENS_18PLUS = {
     "Voter Participation (Presidential)": "voter_participation_pct_rate",
 }
@@ -58,6 +72,7 @@ AHR_BASE_MEASURES_TO_RATES_MAP = {
     **AHR_MEASURES_TO_RATES_MAP_MEDICARE_18PLUS,
     **AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
     **AHR_MEASURES_TO_RATES_MAP_MATERNAL,
+    **AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES,
 }
 
 # AHR provides case per 100; HET needs per 100k
@@ -76,6 +91,27 @@ PCT_RATE_TO_PER_100K_TOPICS = [
 PER_10K_TO_PER_100K_TOPICS = [
     "Severe Maternal Morbidity",
 ]
+
+# AHR provides these per 1,000; HET needs per 100k (x100)
+PER_1K_TO_PER_100K_TOPICS = [
+    "Infant Mortality",
+]
+
+# AHR's national 2013-2014 infant mortality rates for white and American Indian/Alaska Native
+# mothers (legacy measures 1888 and 1890) are wrong upstream: 4.0 and 5.9 per 1,000 sit below
+# almost every state's rate for that window and about 20% below the windows on either side, and
+# the AIAN value equals the all-races rate. They are left out as (measure name, year, state).
+AHR_KNOWN_BAD_VALUES = [
+    ("Infant Mortality - White", "2014", US_ABBR),
+    ("Infant Mortality - American Indian/Alaska Native", "2014", US_ABBR),
+]
+
+# AHR's 2013-2014 infant mortality window (time_period "2014") marks suppressed values as 0,
+# where every other window uses null. Only that window is treated this way, so a real 0 in any
+# other year is kept: topic -> time periods where a 0 means missing.
+ZERO_MEANS_SUPPRESSED_TOPIC_YEARS = {
+    "Infant Mortality": ["2014"],
+}
 
 
 # Utility functions

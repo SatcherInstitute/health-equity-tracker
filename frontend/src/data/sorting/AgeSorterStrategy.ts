@@ -51,8 +51,12 @@ export class AgeSorterStrategy extends AbstractSortStrategy {
       return -1
     }
 
-    const lMin = lAge?.split('-')?.[0]
-    const rMin = rAge?.split('-')?.[0]
-    return Number(lMin) - Number(rMin)
+    return lowerBound(lAge) - lowerBound(rAge)
   }
+}
+
+// An open-ended lower bucket like '<20' has no numeric start, so it sorts first
+function lowerBound(age?: string) {
+  if (age?.startsWith('<')) return Number.NEGATIVE_INFINITY
+  return Number(age?.split('-')?.[0])
 }

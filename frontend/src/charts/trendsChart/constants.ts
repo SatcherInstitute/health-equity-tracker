@@ -129,6 +129,12 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '25-29': colors.timePastelGreen,
   '30-34': colors.redOrange,
 
+  // added age buckets for AHR maternal and birth-outcome topics
+  '<20': colors.timePurple,
+  '35+': colors.timeDarkRed,
+  '35-39': colors.timeDarkRed,
+  '40-44': colors.timeCyanBlue,
+
   // age for AHR
   '15-24': colors.timeCyanBlue,
   '18-44': colors.timeCyanBlue,
