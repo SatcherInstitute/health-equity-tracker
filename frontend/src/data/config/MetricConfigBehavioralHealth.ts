@@ -33,6 +33,9 @@ export const AHR_CONDITIONS = [
   'frequent_mental_distress',
   'preventable_hospitalizations',
   'severe_maternal_morbidity',
+  'infant_mortality',
+  'low_birthweight',
+  'low_risk_cesarean',
   'substance',
   'suicide',
   'voter_participation',
@@ -74,8 +77,21 @@ export const AHR_METRICS: MetricId[] = [
   'non_medical_drug_use_per_100k',
   'non_medical_drug_use_estimated_total',
   'preventable_hospitalizations_per_100k',
+]
+
+// Maternal and birth-outcome rates report their own age buckets rather than the
+// broad adult ones (see AHR_SMM_AGE_BUCKETS and AHR_MOTHER_AGE_BUCKETS)
+export const AHR_SMM_AGE_METRICS: MetricId[] = [
   'severe_maternal_morbidity_per_100k',
 ]
+
+export const AHR_MOTHER_AGE_METRICS: MetricId[] = [
+  'infant_mortality_per_100k',
+  'low_birthweight_pct_rate',
+]
+
+// No age breakdown at all, so every age bucket in the shared file is excluded
+export const AHR_NO_AGE_METRICS: MetricId[] = ['low_risk_cesarean_pct_rate']
 
 export const AHR_VOTER_AGE_METRICS: MetricId[] = [
   'voter_participation_pct_rate',
@@ -89,12 +105,16 @@ export const AHR_DECADE_PLUS_5_AGE_METRICS: MetricId[] = [
 
 export const AHR_API_NH_METRICS: MetricId[] = [
   'preventable_hospitalizations_per_100k',
+  'severe_maternal_morbidity_per_100k',
 ]
 
 export const ALL_AHR_METRICS: MetricId[] = [
   ...AHR_VOTER_AGE_METRICS,
   ...AHR_DECADE_PLUS_5_AGE_METRICS,
   ...AHR_METRICS,
+  ...AHR_SMM_AGE_METRICS,
+  ...AHR_MOTHER_AGE_METRICS,
+  ...AHR_NO_AGE_METRICS,
 ]
 
 export const BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS = [

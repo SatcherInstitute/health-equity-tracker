@@ -250,6 +250,70 @@ describe('DatasetUtils.getExclusionList() Tests', () => {
     // the broad buckets it reports are not
     expect(ageList).toContain('18-24')
     expect(ageList).not.toContain('18-44')
+    // the maternal and birth-outcome buckets in the shared AHR file are not its own
+    expect(ageList).toContain('15-19')
+    expect(ageList).toContain('<20')
+    expect(ageList).toContain('35+')
+  })
+  test('AHR birth outcomes by Age keep the mother-age buckets', async () => {
+    const age: DemographicType = 'age'
+    for (const config of [
+      METRIC_CONFIG.infant_mortality[0],
+      METRIC_CONFIG.low_birthweight[0],
+    ]) {
+      const ageList = getExclusionList(config, age, new Fips('00'))
+      for (const bucket of [
+        '15-19',
+        '20-24',
+        '25-29',
+        '30-34',
+        '35-39',
+        '40-44',
+      ]) {
+        expect(ageList).not.toContain(bucket)
+      }
+      expect(ageList).toContain('18-44')
+      expect(ageList).toContain('<20')
+      expect(ageList).toContain('35+')
+    }
+  })
+  test('AHR severe maternal morbidity keeps its own age and race groups', async () => {
+    const smmConfig: DataTypeConfig = METRIC_CONFIG.severe_maternal_morbidity[0]
+    const ageList = getExclusionList(smmConfig, 'age', new Fips('00'))
+    for (const bucket of ['<20', '20-24', '25-29', '30-34', '35+']) {
+      expect(ageList).not.toContain(bucket)
+    }
+    expect(ageList).toContain('18-44')
+    expect(ageList).toContain('15-19')
+
+    const raceList = getExclusionList(
+      smmConfig,
+      'race_and_ethnicity',
+      new Fips('00'),
+    )
+    // SMM reports the combined Asian/Pacific Islander group, not the split ones
+    expect(raceList).not.toContain(
+      'Asian, Native Hawaiian, and Pacific Islander (NH)',
+    )
+    expect(raceList).toContain('Asian (NH)')
+    expect(raceList).toContain('Two or more races (NH)')
+  })
+  test('AHR low-risk cesarean keeps only the race groups AHR reports', async () => {
+    const raceList = getExclusionList(
+      METRIC_CONFIG.low_risk_cesarean[0],
+      'race_and_ethnicity',
+      new Fips('00'),
+    )
+    for (const group of [
+      'Black or African American (NH)',
+      'Hispanic or Latino',
+      'White (NH)',
+    ]) {
+      expect(raceList).not.toContain(group)
+    }
+    expect(raceList).toContain('Asian (NH)')
+    expect(raceList).toContain('Indigenous (NH)')
+    expect(raceList).toContain('Unrepresented race (NH)')
   })
 })
 
