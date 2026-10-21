@@ -20,7 +20,7 @@ from ingestion.graphql_ahr_utils import (
     PCT_RATE_TO_PER_100K_TOPICS,
     PER_10K_TO_PER_100K_TOPICS,
     PER_1K_TO_PER_100K_TOPICS,
-    ZERO_MEANS_SUPPRESSED_TOPICS,
+    ZERO_MEANS_SUPPRESSED_TOPIC_YEARS,
     AHR_KNOWN_BAD_VALUES,
 )  # type: ignore
 from ingestion.het_types import (
@@ -350,8 +350,10 @@ def _rows_with_only_birth_outcome_topics(df: pd.DataFrame, demo_col: str) -> pd.
     reports those for groups, years and states that no adult measure covers, and such a
     row must not count toward the 18+ population summed across groups.
 
-    Severe maternal morbidity is rate-only too but is not included here: its rows predate
-    this rule and already shape the published adult population shares.
+    Any new rate-only topic should be masked here too. Severe maternal morbidity is rate-only
+    and does add such rows (it is the only measure reporting "Other Race" in some state-years),
+    but it is not masked yet: doing so would change already-published adult population shares,
+    which is being decided separately.
     """
     birth_outcome_cols = set(AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES.values())
     other_topic_cols = [
@@ -416,8 +418,13 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
         if ahr_topic in PER_1K_TO_PER_100K_TOPICS:
             breakdown_df.loc[is_topic_present, AHR_VALUE] *= 100
 
-        if ahr_topic in ZERO_MEANS_SUPPRESSED_TOPICS:
-            breakdown_df.loc[is_topic_present & breakdown_df[AHR_VALUE].eq(0), AHR_VALUE] = float("nan")
+        if ahr_topic in ZERO_MEANS_SUPPRESSED_TOPIC_YEARS:
+            is_suppressed = (
+                is_topic_present
+                & breakdown_df[AHR_VALUE].eq(0)
+                & breakdown_df[std_col.TIME_PERIOD_COL].isin(ZERO_MEANS_SUPPRESSED_TOPIC_YEARS[ahr_topic])
+            )
+            breakdown_df.loc[is_suppressed, AHR_VALUE] = float("nan")
 
     if breakdown_col == std_col.AGE_COL:
         # Standardize before pivoting. AHR spells the same bucket differently across

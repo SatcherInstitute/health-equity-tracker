@@ -443,15 +443,21 @@ def test_birth_outcome_only_groups_leave_adult_pop_shares_unchanged(
 
 def test_infant_mortality_zero_is_treated_as_suppressed():
     """AHR's 2013-2014 infant mortality window reports suppressed values as 0 instead of
-    null; those must become missing rather than a published rate of zero deaths."""
+    null; those must become missing rather than a published rate of zero deaths, while a 0
+    in any other window is kept."""
     df = pd.DataFrame(
         [
             {**_smm_row("Infant Mortality - Mother Age 40-44", 0), std_col.TIME_PERIOD_COL: "2014"},
             {**_smm_row("Infant Mortality - Mother Age 25-29", 5.2), std_col.TIME_PERIOD_COL: "2014"},
             {**_smm_row("Low Birth Weight - Mother Ages 40-44", 11.0), std_col.TIME_PERIOD_COL: "2014"},
+            {**_smm_row("Infant Mortality - Mother Age 40-44", 0), std_col.TIME_PERIOD_COL: "2016"},
         ]
     )
-    out = parse_raw_data(df, std_col.AGE_COL).set_index(std_col.AGE_COL)
+    out = parse_raw_data(df, std_col.AGE_COL)
+    # a 0 outside AHR's 2013-2014 window is a real value and is kept
+    later = out[out[std_col.TIME_PERIOD_COL] == "2016"].set_index(std_col.AGE_COL)
+    assert later.loc["40-44", "infant_mortality_per_100k"] == 0
+    out = out[out[std_col.TIME_PERIOD_COL] == "2014"].set_index(std_col.AGE_COL)
 
     assert pd.isna(out.loc["40-44", "infant_mortality_per_100k"])
     assert out.loc["40-44", "low_birthweight_pct_rate"] == 11.0

@@ -49,6 +49,9 @@ AHR_MEASURES_TO_RATES_MAP_MATERNAL = {
 # rate-only for the same reason as SMM: their true denominator is live births, which this
 # pipeline does not have by race. Infant mortality is a two-year pooled rate per 1,000
 # live births (see PER_1K_TO_PER_100K_TOPICS); the other two are percentages of births.
+# In the measure-ID config, infant mortality's Asian series has one ID while AIAN, Black and
+# White also list a legacy 2013-2017 ID: legacy ID 1889 is named "Infant Mortality - Asian" but
+# covers Asian and Pacific Islander mothers combined, so it is left out.
 AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES = {
     "Infant Mortality": "infant_mortality_per_100k",
     "Low Birth Weight": "low_birthweight_pct_rate",
@@ -103,11 +106,12 @@ AHR_KNOWN_BAD_VALUES = [
     ("Infant Mortality - American Indian/Alaska Native", "2014", US_ABBR),
 ]
 
-# AHR's 2013-2014 infant mortality window marks suppressed values as 0, where every other
-# window uses null and none publishes a real zero, so a 0 for these topics means missing.
-ZERO_MEANS_SUPPRESSED_TOPICS = [
-    "Infant Mortality",
-]
+# AHR's 2013-2014 infant mortality window (time_period "2014") marks suppressed values as 0,
+# where every other window uses null. Only that window is treated this way, so a real 0 in any
+# other year is kept: topic -> time periods where a 0 means missing.
+ZERO_MEANS_SUPPRESSED_TOPIC_YEARS = {
+    "Infant Mortality": ["2014"],
+}
 
 
 # Utility functions
