@@ -309,6 +309,26 @@ export const ACS_UNINSURANCE_CURRENT_AGE_BUCKETS = [
   '75+',
 ]
 
+// AHR maternal and birth-outcome buckets: severe maternal morbidity reports the
+// age of the person giving birth in its own open-ended buckets, and infant
+// mortality and low birthweight report that person's age at delivery
+export const AHR_SMM_AGE_BUCKETS = [
+  '<20',
+  '20-24',
+  '25-29',
+  '30-34',
+  '35+',
+] as const
+
+export const AHR_MOTHER_AGE_BUCKETS = [
+  '15-19',
+  '20-24',
+  '25-29',
+  '30-34',
+  '35-39',
+  '40-44',
+] as const
+
 // buckets that have been calculated in the BigQuery table but are not used in current code
 // still need to be defined here to explicitly exclude from the TABLE
 const UNUSED_BUCKETS = ['15-17', '65-69', '70-74', '75-79', '80-84'] as const
@@ -327,6 +347,8 @@ export const AGE_BUCKETS = [
   ...ACS_EMPLOYMENT_AGE_BUCKETS,
   ...ACS_UNINSURANCE_PRE2020_AGE_BUCKETS,
   ...ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
+  ...AHR_SMM_AGE_BUCKETS,
+  ...AHR_MOTHER_AGE_BUCKETS,
   ...UNUSED_BUCKETS,
 ] as const
 
@@ -334,8 +356,8 @@ export const AGE_BUCKETS = [
 export type AgeBucket = (typeof AGE_BUCKETS)[number]
 
 // SEX DEMOGRAPHIC TERMS
-const MALE = 'Male'
-const FEMALE = 'Female'
+export const MALE = 'Male'
+export const FEMALE = 'Female'
 const OTHER = 'Other'
 const SEX_GROUPS = [MALE, FEMALE, OTHER, UNKNOWN, ALL] as const
 // CREATE SEX-GROUP TYPE

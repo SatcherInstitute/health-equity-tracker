@@ -16,8 +16,12 @@ from ingestion.graphql_ahr_utils import (
     AHR_BASE_MEASURES_TO_RATES_MAP,
     AHR_MEASURES_TO_RATES_MAP_18PLUS,
     AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
+    AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES,
     PCT_RATE_TO_PER_100K_TOPICS,
     PER_10K_TO_PER_100K_TOPICS,
+    PER_1K_TO_PER_100K_TOPICS,
+    ZERO_MEANS_SUPPRESSED_TOPIC_YEARS,
+    AHR_KNOWN_BAD_VALUES,
 )  # type: ignore
 from ingestion.het_types import (
     DEMOGRAPHIC_TYPE,
@@ -48,12 +52,30 @@ AGE_GROUPS_TO_STANDARD = {
     "Ages 65-74": "65-74",
     "Ages 75-84": "75-84",
     "Age 85+": "85+",
-    # Severe maternal morbidity reproductive-age buckets (AHR measures 18030-18034)
+    # Severe maternal morbidity reproductive-age buckets (AHR measures 18030-18034).
+    # AHR names measure 18030 "Severe Maternal Morbidity - Age >20", but it is the
+    # under-20 bucket: its AHR population is "Age <20" and the other four buckets
+    # already cover ages 20 and up. AHR's earlier name for it is kept as well.
+    "Age >20": "<20",
     "Age Less Than 20 Years": "<20",
     "Ages 20-24": "20-24",
     "Ages 25-29": "25-29",
     "Ages 30-34": "30-34",
     "Age 35+": "35+",
+    # Mother's age at delivery for the birth-outcome measures. AHR spells these
+    # "Mother Age X" for infant mortality and "Mother Ages X" for low birth weight.
+    "Mother Age 15-19": "15-19",
+    "Mother Age 20-24": "20-24",
+    "Mother Age 25-29": "25-29",
+    "Mother Age 30-34": "30-34",
+    "Mother Age 35-39": "35-39",
+    "Mother Age 40-44": "40-44",
+    "Mother Ages 15-19": "15-19",
+    "Mother Ages 20-24": "20-24",
+    "Mother Ages 25-29": "25-29",
+    "Mother Ages 30-34": "30-34",
+    "Mother Ages 35-39": "35-39",
+    "Mother Ages 40-44": "40-44",
 }
 
 # AHR reports its 18+ measures against these three non-overlapping adult buckets.
@@ -155,7 +177,7 @@ class GraphQlAHRData(DataSource):
         - pd.DataFrame: A processed DataFrame containing the post-processed data.
 
         This function performs the following steps:
-        - Standardizes demographic breakdowns based on the specified demographic type.
+        - Standardizes race breakdowns (age breakdowns are standardized earlier, in parse_raw_data).
         - Merges state IDs with the DataFrame.
         - Merges yearly population numbers based on the demographic and geographic level.
         - Merges intersection population col for adult populations for race and sex breakdowns.
@@ -166,9 +188,7 @@ class GraphQlAHRData(DataSource):
         """
         breakdown_df = df.copy()
 
-        # Standardize demographic breakdowns
-        if demographic == std_col.AGE_COL:
-            breakdown_df = breakdown_df.replace(to_replace=AGE_GROUPS_TO_STANDARD)  # type: ignore[arg-type]
+        # Standardize demographic breakdowns (age is already standardized in parse_raw_data)
         if demographic == std_col.RACE_OR_HISPANIC_COL:
             breakdown_df = breakdown_df.rename(columns={std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL})
             breakdown_df = breakdown_df.replace(to_replace=RACE_GROUPS_TO_STANDARD)  # type: ignore[arg-type]
@@ -267,6 +287,11 @@ class GraphQlAHRData(DataSource):
             # the pct_share numerator basis for 18+ metrics. This gives a statistically consistent
             # denominator for pct_rel_inequity on race/sex 18+ topics, and surfaces in _current
             # tables for the frontend pop-share comparison bars.
+            # Group rows that carry only birth-outcome topics are left out of that sum: they would
+            # shrink every other group's share and skew the inequity of the topics compared to it.
+            breakdown_df[ahr_pop18plus_col] = breakdown_df[ahr_pop18plus_col].mask(
+                _rows_with_only_birth_outcome_topics(breakdown_df, share_demo)
+            )
             ahr_pop_18plus_pct_col = std_col.AHR_18PLUS_POPULATION_PCT
             breakdown_df = generate_pct_share_col_of_summed_alls(
                 breakdown_df, {ahr_pop18plus_col: ahr_pop_18plus_pct_col}, share_demo
@@ -318,6 +343,30 @@ class GraphQlAHRData(DataSource):
         return breakdown_df
 
 
+def _rows_with_only_birth_outcome_topics(df: pd.DataFrame, demo_col: str) -> pd.Series:
+    """
+    Flags the demographic group rows (not the "All" rows) whose only data comes from the
+    rate-only birth-outcome topics (see AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES). AHR
+    reports those for groups, years and states that no adult measure covers, and such a
+    row must not count toward the 18+ population summed across groups.
+
+    Any new rate-only topic should be masked here too. Severe maternal morbidity is rate-only
+    and does add such rows (it is the only measure reporting "Other Race" in some state-years),
+    but it is not masked yet: doing so would change already-published adult population shares,
+    which is being decided separately.
+    """
+    birth_outcome_cols = set(AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES.values())
+    other_topic_cols = [
+        rate_col
+        for rate_col in AHR_BASE_MEASURES_TO_RATES_MAP.values()
+        if rate_col in df.columns and rate_col not in birth_outcome_cols
+    ]
+    is_group_row = df[demo_col] != std_col.ALL_VALUE
+    if not other_topic_cols:
+        return is_group_row
+    return is_group_row & df[other_topic_cols].isna().all(axis=1)
+
+
 def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
     """
     Parses raw data in a DataFrame to extract breakdown information and create a pivot table.
@@ -335,6 +384,15 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
     resulting DataFrame by time period in descending order.
     """
     breakdown_df = df.copy()
+
+    # Matched on AHR's raw measure names, so this runs before the loop renames them
+    for measure, time_period, state in AHR_KNOWN_BAD_VALUES:
+        is_bad = (
+            (breakdown_df[AHR_MEASURE] == measure)
+            & (breakdown_df[std_col.TIME_PERIOD_COL] == time_period)
+            & (breakdown_df[std_col.STATE_POSTAL_COL] == state)
+        )
+        breakdown_df.loc[is_bad, AHR_VALUE] = float("nan")
 
     for ahr_topic, ahr_measure_type in AHR_BASE_MEASURES_TO_RATES_MAP.items():
         # Check if the ahr topic, e.g Asthma, is present in the `Measure` column
@@ -356,6 +414,23 @@ def parse_raw_data(df: pd.DataFrame, breakdown_col: DEMOGRAPHIC_TYPE):
 
         if ahr_topic in PER_10K_TO_PER_100K_TOPICS:
             breakdown_df.loc[is_topic_present, AHR_VALUE] *= 10
+
+        if ahr_topic in PER_1K_TO_PER_100K_TOPICS:
+            breakdown_df.loc[is_topic_present, AHR_VALUE] *= 100
+
+        if ahr_topic in ZERO_MEANS_SUPPRESSED_TOPIC_YEARS:
+            is_suppressed = (
+                is_topic_present
+                & breakdown_df[AHR_VALUE].eq(0)
+                & breakdown_df[std_col.TIME_PERIOD_COL].isin(ZERO_MEANS_SUPPRESSED_TOPIC_YEARS[ahr_topic])
+            )
+            breakdown_df.loc[is_suppressed, AHR_VALUE] = float("nan")
+
+    if breakdown_col == std_col.AGE_COL:
+        # Standardize before pivoting. AHR spells the same bucket differently across
+        # measures ("Ages 20-24", "Mother Age 20-24", "Mother Ages 20-24"), and each
+        # spelling would otherwise pivot into its own duplicate row.
+        breakdown_df[breakdown_col] = breakdown_df[breakdown_col].replace(AGE_GROUPS_TO_STANDARD)
 
     pivot_df = breakdown_df.pivot_table(
         index=[std_col.TIME_PERIOD_COL, std_col.STATE_POSTAL_COL, breakdown_col],

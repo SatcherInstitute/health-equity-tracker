@@ -35,6 +35,9 @@ import {
   HIV_STIGMA_METRICS,
 } from './MetricConfigHivCategory'
 import {
+  INFANT_MORTALITY_METRICS,
+  LOW_BIRTHWEIGHT_METRICS,
+  LOW_RISK_CESAREAN_METRICS,
   MATERNAL_MORTALITY_METRICS,
   SEVERE_MATERNAL_MORBIDITY_METRICS,
 } from './MetricConfigMaternalHealth'
@@ -97,6 +100,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   medicare_mental_health: PHRMA_MENTAL_HEALTH_METRICS,
   maternal_mortality: MATERNAL_MORTALITY_METRICS,
   severe_maternal_morbidity: SEVERE_MATERNAL_MORBIDITY_METRICS,
+  infant_mortality: INFANT_MORTALITY_METRICS,
+  low_birthweight: LOW_BIRTHWEIGHT_METRICS,
+  low_risk_cesarean: LOW_RISK_CESAREAN_METRICS,
   cancer_screening: PHRMA_BRFSS_CANCER_SCREENING_METRICS,
   cancer_incidence: CDC_CANCER_INCIDENCE_METRICS,
 }

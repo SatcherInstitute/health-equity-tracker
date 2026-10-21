@@ -38,6 +38,18 @@
 		{
 			"measure": "Severe Maternal Morbidity",
 			"ids": ["18022"]
+		},
+		{
+			"measure": "Infant Mortality",
+			"ids": ["1886"]
+		},
+		{
+			"measure": "Low Birth Weight",
+			"ids": ["164"]
+		},
+		{
+			"measure": "Low-Risk Cesarean Delivery",
+			"ids": ["1820"]
 		}
 	],
 	"age": [
@@ -111,11 +123,33 @@
 		{
 			"measure": "Severe Maternal Morbidity",
 			"demographics": {
-				"Age Less Than 20 Years": ["18030"],
+				"Age >20": ["18030"],
 				"Ages 20-24": ["18031"],
 				"Ages 25-29": ["18032"],
 				"Ages 30-34": ["18033"],
 				"Age 35+": ["18034"]
+			}
+		},
+		{
+			"measure": "Infant Mortality",
+			"demographics": {
+				"Mother Age 15-19": ["1892"],
+				"Mother Age 20-24": ["1893"],
+				"Mother Age 25-29": ["1894"],
+				"Mother Age 30-34": ["1883"],
+				"Mother Age 35-39": ["1884"],
+				"Mother Age 40-44": ["1885"]
+			}
+		},
+		{
+			"measure": "Low Birth Weight",
+			"demographics": {
+				"Mother Ages 15-19": ["3107"],
+				"Mother Ages 20-24": ["3108"],
+				"Mother Ages 25-29": ["3109"],
+				"Mother Ages 30-34": ["3110"],
+				"Mother Ages 35-39": ["3111"],
+				"Mother Ages 40-44": ["3112"]
 			}
 		}
 	],
@@ -231,6 +265,38 @@
 				"Other Race": ["18043"],
 				"White": ["18044"]
 			}
+		},
+		{
+			"measure": "Infant Mortality",
+			"demographics": {
+				"American Indian/Alaska Native": ["17789", "1890"],
+				"Asian": ["17741"],
+				"Black": ["17790", "1887"],
+				"Hawaiian/Pacific Islander": ["17740"],
+				"Hispanic": ["1891"],
+				"Multiracial": ["17742"],
+				"White": ["17791", "1888"]
+			}
+		},
+		{
+			"measure": "Low Birth Weight",
+			"demographics": {
+				"American Indian/Alaska Native": ["17786"],
+				"Asian": ["17783"],
+				"Black": ["17787"],
+				"Hawaiian/Pacific Islander": ["17784"],
+				"Hispanic": ["18112"],
+				"Multiracial": ["17785"],
+				"White": ["17788"]
+			}
+		},
+		{
+			"measure": "Low-Risk Cesarean Delivery",
+			"demographics": {
+				"Black": ["1822"],
+				"Hispanic": ["1823"],
+				"White": ["1821"]
+			}
 		}
 	],
 	"sex": [
@@ -290,6 +356,13 @@
 			"demographics": {
 				"Female": ["17543"],
 				"Male": ["17544"]
+			}
+		},
+		{
+			"measure": "Infant Mortality",
+			"demographics": {
+				"Female": ["20328"],
+				"Male": ["20329"]
 			}
 		}
 	]

@@ -10,6 +10,8 @@ import {
   AHR_API_NH_METRICS,
   AHR_DECADE_PLUS_5_AGE_METRICS,
   AHR_METRICS,
+  AHR_MOTHER_AGE_METRICS,
+  AHR_SMM_AGE_METRICS,
   AHR_VOTER_AGE_METRICS,
   ALL_AHR_METRICS,
 } from '../config/MetricConfigBehavioralHealth'
@@ -28,6 +30,8 @@ import {
 import {
   AGE,
   AGE_BUCKETS,
+  AHR_MOTHER_AGE_BUCKETS,
+  AHR_SMM_AGE_BUCKETS,
   ALL,
   ALL_W,
   API_NH,
@@ -170,6 +174,10 @@ function getAhrExclusions(
       determinantBuckets = DECADE_PLUS_5_AGE_BUCKETS
     } else if (AHR_VOTER_AGE_METRICS.includes(currentRate)) {
       determinantBuckets = VOTER_AGE_BUCKETS
+    } else if (AHR_SMM_AGE_METRICS.includes(currentRate)) {
+      determinantBuckets = AHR_SMM_AGE_BUCKETS
+    } else if (AHR_MOTHER_AGE_METRICS.includes(currentRate)) {
+      determinantBuckets = AHR_MOTHER_AGE_BUCKETS
     } else if (AHR_METRICS.includes(currentRate)) {
       determinantBuckets = BROAD_AGE_BUCKETS
     }

@@ -160,13 +160,21 @@ def get_vars_for_group_by_leaf(group_concept, var_map, leaf_values, num_breakdow
        on the leaf label instead and keeps only the first `num_breakdowns` label
        segments as the breakdown attributes, appending the leaf itself last.
 
+       Note: only the first `num_breakdowns` label segments are kept as
+       attributes; any intermediate levels between those segments and the leaf
+       (e.g. "In labor force", "Civilian" for C23002) are dropped. This is
+       correct when the whole table is scoped to those levels, but a caller
+       reusing this on a table where that intermediate context is meaningful
+       would lose it.
+
+
        get_vars_for_group_by_leaf(
            "SEX BY AGE BY EMPLOYMENT STATUS", var_map, {"Employed", "Unemployed"}, 2)
        would return a map like:
          {
            'C23002A_008E': ['Male', '16 to 64 years', 'Employed'],
            'C23002A_009E': ['Male', '16 to 64 years', 'Unemployed'],
-           'C23002A_021E': ['Male', '65 years and over', 'Employed'],
+           'C23002A_019E': ['Male', '65 years and over', 'Employed'],
             ...
          }
 

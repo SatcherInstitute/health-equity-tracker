@@ -302,6 +302,19 @@ export function MissingAHRData() {
           adult population share is shown only for the three broad groups, where
           it accounts for 100% of the adult population.
         </li>
+        <li>
+          <b>Maternal and infant measures:</b> Severe maternal morbidity, infant
+          mortality, low birthweight, and low-risk cesarean delivery are shown
+          as rates only. America’s Health Rankings publishes them without the
+          underlying counts of deliveries or births, and our population
+          estimates do not describe those groups, so we do not calculate
+          estimated totals, percent shares, or population comparisons for them.
+          For infant mortality and low birthweight, age groups describe the
+          person giving birth, not the infant. America’s Health Rankings’
+          national 2013–2014 infant mortality rates for White and American
+          Indian/Alaska Native births are inconsistent with the state rates for
+          those years, so we leave them out.
+        </li>
       </BulletList>
     </MissingDataSection>
   )
