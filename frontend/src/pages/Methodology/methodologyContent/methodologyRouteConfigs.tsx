@@ -196,7 +196,7 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     visible: true,
   },
   {
-    label: 'Maternal Health',
+    label: 'Maternal and Infant Health',
     path: MATERNAL_HEALTH_LINK,
     component: <MaternalHealthLink />,
     subLinks: [

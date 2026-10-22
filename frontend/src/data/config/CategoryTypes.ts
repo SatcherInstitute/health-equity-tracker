@@ -8,7 +8,7 @@ export const CategoryMap = {
   pdoh: 'Political Determinants of Health',
   sdoh: 'Social Determinants of Health',
   'community-safety': 'Community Safety',
-  'maternal-health': 'Maternal Health',
+  'maternal-health': 'Maternal and Infant Health',
   cancer: 'Cancer',
 }
 
