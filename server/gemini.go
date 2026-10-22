@@ -16,9 +16,11 @@ import (
 
 const (
 	geminiAPIBase         = "https://generativelanguage.googleapis.com/v1beta/models/"
-	geminiModelDefault    = "gemini-3.1-flash-lite"
+	geminiModelDefault    = "gemini-3.5-flash-lite"
 	geminiMaxOutputTokens = 1024
-	geminiTimeout         = 30 * time.Second
+	geminiTimeout         = 60 * time.Second
+	geminiMaxAttempts     = 3
+	geminiRetryDelay      = 2 * time.Second
 )
 
 var (
@@ -129,6 +131,10 @@ func parseGeminiResponse(raw []byte) (insightGeneration, error) {
 }
 
 func callGemini(ctx context.Context, apiKey, system, prompt string) (insightGeneration, error) {
+	return doCallGemini(ctx, apiKey, system, prompt, geminiAPIBase+geminiModel()+":generateContent")
+}
+
+func doCallGemini(ctx context.Context, apiKey, system, prompt, url string) (insightGeneration, error) {
 	reqBody, err := json.Marshal(map[string]any{
 		"systemInstruction": map[string]any{
 			"parts": []map[string]string{{"text": system}},
@@ -149,36 +155,57 @@ func callGemini(ctx context.Context, apiKey, system, prompt string) (insightGene
 	ctx, cancel := context.WithTimeout(ctx, geminiTimeout)
 	defer cancel()
 
-	url := geminiAPIBase + geminiModel() + ":generateContent"
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(reqBody))
-	if err != nil {
-		return insightGeneration{}, fmt.Errorf("build insight request: %w", err)
-	}
-	// Header rather than a ?key= query param, so the credential never lands in
-	// request logs or error strings that echo the URL.
-	req.Header.Set("x-goog-api-key", apiKey)
-	req.Header.Set("Content-Type", "application/json")
+	var lastErr error
+	for attempt := range geminiMaxAttempts {
+		if attempt > 0 {
+			select {
+			case <-ctx.Done():
+				return insightGeneration{}, fmt.Errorf("insight request: %w", ctx.Err())
+			case <-time.After(geminiRetryDelay):
+			}
+		}
 
-	resp, err := http.DefaultClient.Do(req)
-	if err != nil {
-		return insightGeneration{}, fmt.Errorf("insight request: %w", err)
-	}
-	defer resp.Body.Close()
+		req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewReader(reqBody))
+		if err != nil {
+			return insightGeneration{}, fmt.Errorf("build insight request: %w", err)
+		}
+		// Header rather than a ?key= query param, so the credential never lands in
+		// request logs or error strings that echo the URL.
+		req.Header.Set("x-goog-api-key", apiKey)
+		req.Header.Set("Content-Type", "application/json")
 
-	body, err := io.ReadAll(io.LimitReader(resp.Body, 1024*1024))
-	if err != nil {
-		return insightGeneration{}, fmt.Errorf("read insight response: %w", err)
+		resp, err := http.DefaultClient.Do(req)
+		if err != nil {
+			lastErr = fmt.Errorf("insight request: %w", err)
+			continue
+		}
+
+		body, err := io.ReadAll(io.LimitReader(resp.Body, 1024*1024))
+		resp.Body.Close()
+		if err != nil {
+			return insightGeneration{}, fmt.Errorf("read insight response: %w", err)
+		}
+
+		if resp.StatusCode == http.StatusTooManyRequests {
+			return insightGeneration{}, errInsightQuota
+		}
+		if resp.StatusCode == http.StatusServiceUnavailable {
+			// Capacity 503: retry after a short delay. Log on the last attempt only.
+			if attempt == geminiMaxAttempts-1 {
+				log.Printf("[insight] provider returned 503 after %d attempts: %s", geminiMaxAttempts, body)
+			}
+			lastErr = fmt.Errorf("insight provider status 503")
+			continue
+		}
+		if resp.StatusCode < 200 || resp.StatusCode >= 300 {
+			// Body is logged but never returned to the caller, since upstream error
+			// payloads can echo request content.
+			log.Printf("[insight] provider returned %d: %s", resp.StatusCode, body)
+			return insightGeneration{}, fmt.Errorf("insight provider status %d", resp.StatusCode)
+		}
+
+		return parseGeminiResponse(body)
 	}
 
-	if resp.StatusCode == http.StatusTooManyRequests {
-		return insightGeneration{}, errInsightQuota
-	}
-	if resp.StatusCode < 200 || resp.StatusCode >= 300 {
-		// Body is logged but never returned to the caller, since upstream error
-		// payloads can echo request content.
-		log.Printf("[insight] provider returned %d: %s", resp.StatusCode, body)
-		return insightGeneration{}, fmt.Errorf("insight provider status %d", resp.StatusCode)
-	}
-
-	return parseGeminiResponse(body)
+	return insightGeneration{}, lastErr
 }

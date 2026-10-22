@@ -74,6 +74,57 @@ func TestParseGeminiResponseMalformed(t *testing.T) {
 	}
 }
 
+// --- callGemini retry ---
+
+func TestCallGeminiRetries503(t *testing.T) {
+	attempts := 0
+	okBody := `{"candidates":[{"content":{"parts":[{"text":"insight text"}]},"finishReason":"STOP"}],"usageMetadata":{"promptTokenCount":10,"candidatesTokenCount":5}}`
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		attempts++
+		if attempts < geminiMaxAttempts {
+			w.WriteHeader(http.StatusServiceUnavailable)
+			w.Write([]byte(`{"error":{"code":503,"message":"high demand"}}`))
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte(okBody))
+	}))
+	defer srv.Close()
+
+	// Point callGemini at the fake server by overriding the URL via an env model
+	// that resolves to the test server's path.
+	orig := os.Getenv("GEMINI_MODEL")
+	// The URL is built as geminiAPIBase + model + ":generateContent".
+	// Trick: set model to a path component that, when appended to the real base,
+	// would fail — instead we test doCallGemini directly with the server URL.
+	defer os.Setenv("GEMINI_MODEL", orig)
+
+	// Call doCallGemini with the test server URL directly.
+	got, err := doCallGemini(context.Background(), "key", "sys", "prompt", srv.URL+"/")
+	if err != nil {
+		t.Fatalf("unexpected error after retries: %v", err)
+	}
+	if got.text != "insight text" {
+		t.Errorf("text = %q, want %q", got.text, "insight text")
+	}
+	if attempts != geminiMaxAttempts {
+		t.Errorf("attempts = %d, want %d", attempts, geminiMaxAttempts)
+	}
+}
+
+func TestCallGeminiExhaustedRetries(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusServiceUnavailable)
+		w.Write([]byte(`{"error":{"code":503}}`))
+	}))
+	defer srv.Close()
+
+	_, err := doCallGemini(context.Background(), "key", "sys", "prompt", srv.URL+"/")
+	if err == nil {
+		t.Fatal("expected error after all retries exhausted")
+	}
+}
+
 // --- ledger fake ---
 
 // fakeLedgerStore models the compare-and-swap semantics of a GCS object: every
