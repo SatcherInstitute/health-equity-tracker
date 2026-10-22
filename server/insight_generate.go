@@ -240,12 +240,11 @@ func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, pr
 
 	result, err := generateInsight(ctx, apiKey, insightSystemPrompt, finalPrompt)
 	// The model that answered, which is not necessarily the head of the chain.
-	// When nothing answered there is no single model to name, so the log records
-	// the whole chain that was attempted — that is what makes a provider failure
+	// On failure callGemini reports the entries it actually called, which is not
+	// always the whole configured chain: the shared deadline can end the walk
+	// early. Naming only what was tried is what makes a provider failure
 	// diagnosable from the logs alone.
-	if ev.Model = result.model; ev.Model == "" {
-		ev.Model = strings.Join(geminiModels(), ",")
-	}
+	ev.Model = result.model
 	ev.PromptTokens, ev.OutputTokens = result.promptTokens, result.outputTokens
 	// Detached from the request context: a slow generation can leave ctx at or
 	// past its deadline, and ledger bookkeeping must not be starved by the same

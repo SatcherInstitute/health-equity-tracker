@@ -239,6 +239,59 @@ func TestCallGeminiReportsQuotaWhenWholeChainIsSpent(t *testing.T) {
 	}
 }
 
+func TestCallGeminiDoesNotReportQuotaOnMixedFailures(t *testing.T) {
+	// errInsightQuota makes the caller hand the reserved ledger slot back. A
+	// chain where one model was spent but another was merely full has not proven
+	// nothing was generated, so it must not take that path.
+	srv, _ := chainServer(t, map[string]int{
+		"spent": http.StatusTooManyRequests,
+		"full":  http.StatusServiceUnavailable,
+	})
+	withGeminiChain(t, srv, "spent,full")
+
+	_, err := callGemini(context.Background(), "key", "sys", "prompt")
+	if err == nil {
+		t.Fatal("expected error")
+	}
+	if errors.Is(err, errInsightQuota) {
+		t.Errorf("err = %v, want a capacity error rather than quota", err)
+	}
+	if !errors.Is(err, errInsightCapacity) {
+		t.Errorf("err = %v, want errInsightCapacity", err)
+	}
+}
+
+func TestCallGeminiReportsOnlyAttemptedModels(t *testing.T) {
+	// The whole chain shares one deadline, so a walk can end before reaching the
+	// tail. Reporting the configured chain would name models never called.
+	srv, _ := chainServer(t, map[string]int{
+		"a": http.StatusBadRequest,
+		"b": http.StatusOK,
+	})
+	withGeminiChain(t, srv, "a,b")
+
+	got, err := callGemini(context.Background(), "key", "sys", "prompt")
+	if err == nil {
+		t.Fatal("expected error")
+	}
+	if got.model != "a" {
+		t.Errorf("model = %q, want only the attempted entry 'a'", got.model)
+	}
+}
+
+func TestCallGeminiReportsFullChainWhenEveryModelIsTried(t *testing.T) {
+	srv, _ := chainServer(t, map[string]int{
+		"a": http.StatusTooManyRequests,
+		"b": http.StatusTooManyRequests,
+	})
+	withGeminiChain(t, srv, "a,b")
+
+	got, _ := callGemini(context.Background(), "key", "sys", "prompt")
+	if got.model != "a,b" {
+		t.Errorf("model = %q, want a,b", got.model)
+	}
+}
+
 func TestCallGeminiDoesNotWalkChainOnBadRequest(t *testing.T) {
 	// A 400 is our bug and fails identically everywhere, so spending the budget
 	// on the rest of the chain would buy nothing.
@@ -1244,9 +1297,11 @@ func TestInsightRequestLogRecordsEveryOutcome(t *testing.T) {
 
 func TestInsightRequestLogCarriesSpendInputsOnGeneration(t *testing.T) {
 	env := newInsightTestEnv(t)
-	t.Setenv("GEMINI_MODEL", "gemini-test-model")
+	// callGemini names the chain entry that answered, so a stub has to as well.
 	env.stubGeneration(func() (insightGeneration, error) {
-		return insightGeneration{text: "generated", promptTokens: 1840, outputTokens: 96}, nil
+		return insightGeneration{
+			text: "generated", promptTokens: 1840, outputTokens: 96, model: "gemini-test-model",
+		}, nil
 	})
 
 	env.post(t, nil)

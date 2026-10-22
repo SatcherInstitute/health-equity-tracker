@@ -186,15 +186,22 @@ func callGemini(ctx context.Context, apiKey, system, prompt string) (insightGene
 
 	models := geminiModels()
 	var lastErr error
-	// Tracked because a chain that ends in quota everywhere has a different
-	// contract than one that ends in capacity: the caller releases the reserved
-	// slot and answers 429 only for quota.
+	// Both are tracked because the two outcomes carry different contracts: the
+	// caller releases the reserved slot and answers 429 only when quota is the
+	// whole story. A chain that also hit capacity may well have generated
+	// nothing too, but that is not provable, so the slot stays spent.
 	sawQuota := false
+	sawCapacity := false
+	// The models actually called, so a failure names what was tried rather than
+	// what was configured. The shared deadline can end the walk early, leaving
+	// later entries untouched.
+	attempted := make([]string, 0, len(models))
 
 	for i, model := range models {
 		if ctx.Err() != nil {
 			break
 		}
+		attempted = append(attempted, model)
 		out, err := doCallGemini(ctx, apiKey, system, prompt, geminiAPIBase+model+":generateContent")
 		if err == nil {
 			out.model = model
@@ -211,6 +218,7 @@ func callGemini(ctx context.Context, apiKey, system, prompt string) (insightGene
 		case errors.Is(err, errInsightQuota):
 			sawQuota = true
 		case errors.Is(err, errInsightCapacity), errors.Is(err, errInsightModelMissing):
+			sawCapacity = true
 		default:
 			out.model = model
 			return out, err
@@ -220,15 +228,18 @@ func callGemini(ctx context.Context, apiKey, system, prompt string) (insightGene
 		lastErr = err
 	}
 
-	// Quota outranks capacity: it is the one outcome that definitely generated
-	// nothing, and the caller returns the reserved slot on it.
-	if sawQuota {
-		return insightGeneration{}, errInsightQuota
+	failed := insightGeneration{model: strings.Join(attempted, ",")}
+
+	// Quota only when every failure was quota. Reporting it on a mixed chain
+	// would make the caller hand the reserved slot back on a capacity failure,
+	// which may have consumed a real generation.
+	if sawQuota && !sawCapacity {
+		return failed, errInsightQuota
 	}
 	if lastErr == nil {
 		lastErr = fmt.Errorf("insight request: %w", ctx.Err())
 	}
-	return insightGeneration{}, lastErr
+	return failed, lastErr
 }
 
 func doCallGemini(ctx context.Context, apiKey, system, prompt, url string) (insightGeneration, error) {

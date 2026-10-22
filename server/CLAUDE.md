@@ -141,9 +141,11 @@ object and hits are the hot path.
 
 `model` on a successful generation is the single chain entry that actually answered, which is
 not necessarily the configured head. When nothing answered there is no one model to name, so
-`model` carries the whole attempted chain as a comma-separated string. Queries that filter on
-a single model name therefore select successes only, which is what the token and volume
-queries below want.
+`model` carries the entries that were actually called, comma-separated. That is not always the
+whole configured chain: the walk shares one deadline, so a slow failure can end it before the
+tail is reached, and naming a model that was never called would misread as a failure it did
+not have. Queries that filter on a single model name therefore select successes only, which is
+what the token and volume queries below want.
 | `unavailable` | No insight shown. `reason` says which gate closed |
 | `suppressed` | A reviewer suppressed this exact insight |
 | `rejected` | Malformed request (missing, invalid, or oversize prompt or descriptor) |
@@ -306,7 +308,10 @@ at which point these ceilings are sized against the wrong numbers.
 
 **Quota limits are per model, which is what makes the fallback chain work.** A 429 on one
 chain entry says nothing about the next entry's budget, so `callGemini` advances on 429
-rather than failing, and reports `errInsightQuota` only once every entry is spent. Probing
+rather than failing, and reports `errInsightQuota` only when every failure in the walk was a
+429. A mixed chain (one model spent, another merely full) reports capacity instead: quota is
+the one outcome that hands the reserved ledger slot back, and a capacity failure has not
+proven nothing was generated. Probing
 on 2026-10-22 found `gemini-3.6-flash` returning a 429 where both 3.5 models did not, which
 is why it sits last in the chain. Our own ledger ceilings
 (`insight_max_generations_per_*`) are a single service-wide budget spent once per request,
