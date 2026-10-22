@@ -91,15 +91,6 @@ func TestCallGeminiRetries503(t *testing.T) {
 	}))
 	defer srv.Close()
 
-	// Point callGemini at the fake server by overriding the URL via an env model
-	// that resolves to the test server's path.
-	orig := os.Getenv("GEMINI_MODEL")
-	// The URL is built as geminiAPIBase + model + ":generateContent".
-	// Trick: set model to a path component that, when appended to the real base,
-	// would fail — instead we test doCallGemini directly with the server URL.
-	defer os.Setenv("GEMINI_MODEL", orig)
-
-	// Call doCallGemini with the test server URL directly.
 	got, err := doCallGemini(context.Background(), "key", "sys", "prompt", srv.URL+"/")
 	if err != nil {
 		t.Fatalf("unexpected error after retries: %v", err)

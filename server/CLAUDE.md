@@ -33,7 +33,7 @@ go test ./...
 | `FLAGGED_INSIGHTS_BUCKET` | No | - | GCS bucket for flagged insight records |
 | `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) |
 | `GEMINI_API_KEY` | No | - | Required for AI insight generation. Unset disables generation; cached insights still serve |
-| `GEMINI_MODEL` | No | `gemini-3.1-flash-lite` | Gemini model used for insight generation |
+| `GEMINI_MODEL` | No | `gemini-3.5-flash-lite` | Gemini model used for insight generation. **Terraform sets this explicitly** (`config/variables.tf`), so the Go default is unreachable on any deployed environment — change both together |
 | `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `300` | Daily generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
 | `INSIGHT_MAX_GENERATIONS_PER_MINUTE` | No | `10` | Service-wide generations per minute, enforced by a window in the daily ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
 | `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `6000` | Monthly generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
@@ -261,12 +261,14 @@ TOKEN=$(gcloud auth print-access-token)
 curl -s -H "Authorization: Bearer $TOKEN" \
   "https://serviceusage.googleapis.com/v1beta1/projects/$GEN_LANG_PROJECT/services/generativelanguage.googleapis.com/consumerQuotaMetrics?pageSize=500" \
 | jq -r '(.metrics//[])[] | .displayName as $d | (.consumerQuotaLimits//[])[] | .unit as $u
-         | (.quotaBuckets//[])[] | select(.dimensions.model == "gemini-3.1-flash-lite")
+         | (.quotaBuckets//[])[] | select(.dimensions.model == "gemini-3.5-flash-lite")
          | "\($d) | \($u) | \(.effectiveLimit)"'
 ```
 
-For `gemini-3.1-flash-lite` on the free tier that returns 15 requests per minute, 500 per
-day, and 250,000 input tokens per minute. Re-read it after any `GEMINI_MODEL` change: the
+For `gemini-3.1-flash-lite` on the free tier that returned 15 requests per minute, 500 per
+day, and 250,000 input tokens per minute. **That measurement is for the previous model and
+`gemini-3.5-flash-lite`'s limits have not been read yet**, so the ceiling sizing below is
+provisional until someone runs the query above. Re-read it after any `GEMINI_MODEL` change: the
 limits are per model and differ sharply between them, and a project that gains a billing
 account moves to paid-tier limits roughly two orders of magnitude higher, at which point
 these ceilings are sized against the wrong numbers.
