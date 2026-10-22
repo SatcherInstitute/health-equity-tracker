@@ -230,11 +230,18 @@ func callGemini(ctx context.Context, apiKey, system, prompt string) (insightGene
 
 	failed := insightGeneration{model: strings.Join(attempted, ",")}
 
-	// Quota only when every failure was quota. Reporting it on a mixed chain
-	// would make the caller hand the reserved slot back on a capacity failure,
-	// which may have consumed a real generation.
-	if sawQuota && !sawCapacity {
+	switch {
+	case sawQuota && !sawCapacity:
+		// Quota only when every failure was quota: it is the one outcome the
+		// caller answers by handing the reserved ledger slot back, and a
+		// capacity failure has not proven nothing was generated.
 		return failed, errInsightQuota
+	case sawCapacity && errors.Is(lastErr, errInsightQuota):
+		// doCallGemini returns errInsightQuota unwrapped, so a chain whose
+		// *last* entry 429s would otherwise leak quota through the fallback
+		// return below and release the slot regardless of what the earlier
+		// entries did. Gating the branch above is not enough on its own.
+		return failed, errInsightCapacity
 	}
 	if lastErr == nil {
 		lastErr = fmt.Errorf("insight request: %w", ctx.Err())

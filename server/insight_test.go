@@ -243,21 +243,29 @@ func TestCallGeminiDoesNotReportQuotaOnMixedFailures(t *testing.T) {
 	// errInsightQuota makes the caller hand the reserved ledger slot back. A
 	// chain where one model was spent but another was merely full has not proven
 	// nothing was generated, so it must not take that path.
-	srv, _ := chainServer(t, map[string]int{
-		"spent": http.StatusTooManyRequests,
-		"full":  http.StatusServiceUnavailable,
-	})
-	withGeminiChain(t, srv, "spent,full")
+	//
+	// Both orderings matter: doCallGemini returns errInsightQuota unwrapped, so
+	// a chain whose last entry 429s can leak quota through the terminal return
+	// even though an earlier entry failed on capacity.
+	for _, chain := range []string{"spent,full", "full,spent"} {
+		t.Run(chain, func(t *testing.T) {
+			srv, _ := chainServer(t, map[string]int{
+				"spent": http.StatusTooManyRequests,
+				"full":  http.StatusServiceUnavailable,
+			})
+			withGeminiChain(t, srv, chain)
 
-	_, err := callGemini(context.Background(), "key", "sys", "prompt")
-	if err == nil {
-		t.Fatal("expected error")
-	}
-	if errors.Is(err, errInsightQuota) {
-		t.Errorf("err = %v, want a capacity error rather than quota", err)
-	}
-	if !errors.Is(err, errInsightCapacity) {
-		t.Errorf("err = %v, want errInsightCapacity", err)
+			_, err := callGemini(context.Background(), "key", "sys", "prompt")
+			if err == nil {
+				t.Fatal("expected error")
+			}
+			if errors.Is(err, errInsightQuota) {
+				t.Errorf("err = %v, want a capacity error rather than quota", err)
+			}
+			if !errors.Is(err, errInsightCapacity) {
+				t.Errorf("err = %v, want errInsightCapacity", err)
+			}
+		})
 	}
 }
 
