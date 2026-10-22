@@ -28,6 +28,7 @@ GOLDEN_2024_TABLE_NATIONAL_SEX = os.path.join(TEST_DIR, "golden_data", "sex_nati
 GOLDEN_2024_TABLE_STATE_SEX = os.path.join(TEST_DIR, "golden_data", "sex_state_2024.csv")
 GOLDEN_2024_TABLE_COUNTY_SEX = os.path.join(TEST_DIR, "golden_data", "sex_county_2024.csv")
 GOLDEN_2024_TABLE_COUNTY_RACE = os.path.join(TEST_DIR, "golden_data", "race_and_ethnicity_county_2024.csv")
+GOLDEN_2024_TABLE_COUNTY_AGE = os.path.join(TEST_DIR, "golden_data", "age_county_2024.csv")
 
 
 # NOT USING SHARED POPULATION MOCKS BECAUSE THESE ARE THE CACHED ACS_CONDITION TABLES,
@@ -62,7 +63,7 @@ def testSexNationalBaseTable(mock_acs: mock.MagicMock):
     expected_df = pd.read_csv(GOLDEN_BASE_TABLE_NATIONAL_SEX, dtype={"state_fips": str})
     cols = list(expected_df.columns)
 
-    assert mock_acs.call_count == 2
+    assert mock_acs.call_count == 3
 
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
@@ -87,7 +88,7 @@ def testSexStateBaseTable(mock_acs: mock.MagicMock):
     expected_df = pd.read_csv(GOLDEN_BASE_TABLE_STATE_SEX, dtype={"state_fips": str})
     cols = list(expected_df.columns)
 
-    assert mock_acs.call_count == 2
+    assert mock_acs.call_count == 3
 
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
@@ -112,7 +113,7 @@ def testSexCountyBaseTable(mock_acs: mock.MagicMock):
     expected_df = pd.read_csv(GOLDEN_BASE_TABLE_COUNTY_SEX, dtype={"state_fips": str, "county_fips": str})
     cols = list(expected_df.columns)
 
-    assert mock_acs.call_count == 2
+    assert mock_acs.call_count == 3
 
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
@@ -137,7 +138,32 @@ def testRaceCountyBaseTable(mock_acs: mock.MagicMock):
     expected_df = pd.read_csv(GOLDEN_BASE_TABLE_COUNTY_RACE, dtype={"state_fips": str, "county_fips": str})
     cols = list(expected_df.columns)
 
-    assert mock_acs.call_count == 16
+    assert mock_acs.call_count == 24
+
+    assert_frame_equal(
+        df.sort_values(cols).reset_index(drop=True),
+        expected_df.sort_values(cols).reset_index(drop=True),
+        check_like=True,
+    )
+
+
+@mock.patch("ingestion.gcs_to_bq_util.load_values_as_df", side_effect=_get_by_race_as_df)
+def testAgeCountyBaseTable2024(mock_acs: mock.MagicMock):
+    df = acsCondition2024.get_raw_data(
+        "age", "county", get_acs_metadata_as_json(2024), ACS_ITEMS_2022_AND_LATER, "some-bucket", "2024"
+    )
+    df = acsCondition2024.post_process(
+        df,
+        "age",
+        "county",
+        ACS_ITEMS_2022_AND_LATER,
+        HEALTH_INSURANCE_RACE_TO_CONCEPT_TITLE,
+    )
+
+    expected_df = pd.read_csv(GOLDEN_2024_TABLE_COUNTY_AGE, dtype={"state_fips": str, "county_fips": str})
+    cols = list(expected_df.columns)
+
+    assert mock_acs.call_count == 3
 
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
@@ -157,7 +183,7 @@ def testWriteToBqOverwriteEarliestYear(
     acsCondition2012 = AcsCondition()
     acsCondition2012.write_to_bq("dataset", "gcs_bucket", year="2012")
 
-    assert mock_acs.call_count == 60
+    assert mock_acs.call_count == 90
     assert mock_json.call_count == 1
 
     for call in mock_bq.call_args_list:
@@ -208,77 +234,32 @@ def testWriteToBqAppend2024(
 
     assert mock_json.call_count == 1
 
-    # One call per race per geo, and then one call for sex at each geo
-    # and one for age at each geo
-    assert mock_acs.call_count == ((8 * 3) + 3 + 3) * 2
-    assert mock_acs.call_args_list[0].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_AIAN.json"
-    assert mock_acs.call_args_list[1].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_ASIAN.json"
-    assert mock_acs.call_args_list[2].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_HISP.json"
-    assert mock_acs.call_args_list[3].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_BLACK.json"
-    assert mock_acs.call_args_list[4].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_NHPI.json"
-    assert mock_acs.call_args_list[5].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_WHITE.json"
-    assert mock_acs.call_args_list[6].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[7].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_MULTI.json"
+    # One call per race per measure per geo, plus one sex-table call per measure for
+    # each of the age and sex demos at every geo. National reads the STATE files, so
+    # the first two geo blocks both request STATE, and only the third requests COUNTY.
+    measures = ["HEALTH_INSURANCE", "POVERTY", "EMPLOYMENT"]
+    races = ["AIAN", "ASIAN", "HISP", "BLACK", "NHPI", "WHITE", "OTHER_STANDARD", "MULTI"]
 
-    assert mock_acs.call_args_list[8].args[1] == "2024-POVERTY_BY_RACE_STATE_AIAN.json"
-    assert mock_acs.call_args_list[9].args[1] == "2024-POVERTY_BY_RACE_STATE_ASIAN.json"
-    assert mock_acs.call_args_list[10].args[1] == "2024-POVERTY_BY_RACE_STATE_HISP.json"
-    assert mock_acs.call_args_list[11].args[1] == "2024-POVERTY_BY_RACE_STATE_BLACK.json"
-    assert mock_acs.call_args_list[12].args[1] == "2024-POVERTY_BY_RACE_STATE_NHPI.json"
-    assert mock_acs.call_args_list[13].args[1] == "2024-POVERTY_BY_RACE_STATE_WHITE.json"
-    assert mock_acs.call_args_list[14].args[1] == "2024-POVERTY_BY_RACE_STATE_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[15].args[1] == "2024-POVERTY_BY_RACE_STATE_MULTI.json"
+    def expected_calls_for_geo(file_geo):
+        calls = []
+        # race demo: every measure x every race
+        for measure in measures:
+            for race in races:
+                calls.append(f"2024-{measure}_BY_RACE_{file_geo}_{race}.json")
+        # age demo then sex demo: one sex-table call per measure each
+        for _ in range(2):
+            for measure in measures:
+                calls.append(f"2024-{measure}_BY_SEX_{file_geo}.json")
+        return calls
 
-    assert mock_acs.call_args_list[16].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[17].args[1] == "2024-POVERTY_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[18].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[19].args[1] == "2024-POVERTY_BY_SEX_STATE.json"
-
-    assert mock_acs.call_args_list[20].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_AIAN.json"
-    assert mock_acs.call_args_list[21].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_ASIAN.json"
-    assert mock_acs.call_args_list[22].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_HISP.json"
-    assert mock_acs.call_args_list[23].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_BLACK.json"
-    assert mock_acs.call_args_list[24].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_NHPI.json"
-    assert mock_acs.call_args_list[25].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_WHITE.json"
-    assert mock_acs.call_args_list[26].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[27].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_STATE_MULTI.json"
-
-    assert mock_acs.call_args_list[28].args[1] == "2024-POVERTY_BY_RACE_STATE_AIAN.json"
-    assert mock_acs.call_args_list[29].args[1] == "2024-POVERTY_BY_RACE_STATE_ASIAN.json"
-    assert mock_acs.call_args_list[30].args[1] == "2024-POVERTY_BY_RACE_STATE_HISP.json"
-    assert mock_acs.call_args_list[31].args[1] == "2024-POVERTY_BY_RACE_STATE_BLACK.json"
-    assert mock_acs.call_args_list[32].args[1] == "2024-POVERTY_BY_RACE_STATE_NHPI.json"
-    assert mock_acs.call_args_list[33].args[1] == "2024-POVERTY_BY_RACE_STATE_WHITE.json"
-    assert mock_acs.call_args_list[34].args[1] == "2024-POVERTY_BY_RACE_STATE_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[35].args[1] == "2024-POVERTY_BY_RACE_STATE_MULTI.json"
-
-    assert mock_acs.call_args_list[36].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[37].args[1] == "2024-POVERTY_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[38].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_STATE.json"
-    assert mock_acs.call_args_list[39].args[1] == "2024-POVERTY_BY_SEX_STATE.json"
-
-    assert mock_acs.call_args_list[40].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_AIAN.json"
-    assert mock_acs.call_args_list[41].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_ASIAN.json"
-    assert mock_acs.call_args_list[42].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_HISP.json"
-    assert mock_acs.call_args_list[43].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_BLACK.json"
-    assert mock_acs.call_args_list[44].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_NHPI.json"
-    assert mock_acs.call_args_list[45].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_WHITE.json"
-    assert mock_acs.call_args_list[46].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[47].args[1] == "2024-HEALTH_INSURANCE_BY_RACE_COUNTY_MULTI.json"
-
-    assert mock_acs.call_args_list[48].args[1] == "2024-POVERTY_BY_RACE_COUNTY_AIAN.json"
-    assert mock_acs.call_args_list[49].args[1] == "2024-POVERTY_BY_RACE_COUNTY_ASIAN.json"
-    assert mock_acs.call_args_list[50].args[1] == "2024-POVERTY_BY_RACE_COUNTY_HISP.json"
-    assert mock_acs.call_args_list[51].args[1] == "2024-POVERTY_BY_RACE_COUNTY_BLACK.json"
-    assert mock_acs.call_args_list[52].args[1] == "2024-POVERTY_BY_RACE_COUNTY_NHPI.json"
-    assert mock_acs.call_args_list[53].args[1] == "2024-POVERTY_BY_RACE_COUNTY_WHITE.json"
-    assert mock_acs.call_args_list[54].args[1] == "2024-POVERTY_BY_RACE_COUNTY_OTHER_STANDARD.json"
-    assert mock_acs.call_args_list[55].args[1] == "2024-POVERTY_BY_RACE_COUNTY_MULTI.json"
-
-    assert mock_acs.call_args_list[56].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_COUNTY.json"
-    assert mock_acs.call_args_list[57].args[1] == "2024-POVERTY_BY_SEX_COUNTY.json"
-    assert mock_acs.call_args_list[58].args[1] == "2024-HEALTH_INSURANCE_BY_SEX_COUNTY.json"
-    assert mock_acs.call_args_list[59].args[1] == "2024-POVERTY_BY_SEX_COUNTY.json"
+    expected_filenames = (
+        expected_calls_for_geo("STATE")  # national (reads STATE files)
+        + expected_calls_for_geo("STATE")  # state
+        + expected_calls_for_geo("COUNTY")  # county
+    )
+    assert mock_acs.call_count == len(expected_filenames) == ((8 * 3) + 3 + 3) * 3
+    actual_filenames = [call.args[1] for call in mock_acs.call_args_list]
+    assert actual_filenames == expected_filenames
 
     # One call for each table write to BQ
     assert mock_bq.call_count == 18
@@ -327,7 +308,7 @@ def testSexNationalBaseTable2024(mock_acs: mock.MagicMock):
     expected_df = pd.read_csv(GOLDEN_2024_TABLE_NATIONAL_SEX, dtype={"state_fips": str})
     cols = list(expected_df.columns)
 
-    assert mock_acs.call_count == 2
+    assert mock_acs.call_count == 3
 
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
@@ -352,7 +333,7 @@ def testSexStateBaseTable2024(mock_acs: mock.MagicMock):
     expected_df = pd.read_csv(GOLDEN_2024_TABLE_STATE_SEX, dtype={"state_fips": str})
     cols = list(expected_df.columns)
 
-    assert mock_acs.call_count == 2
+    assert mock_acs.call_count == 3
 
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
@@ -377,7 +358,7 @@ def testSexCountyBaseTable2024(mock_acs: mock.MagicMock):
     expected_df = pd.read_csv(GOLDEN_2024_TABLE_COUNTY_SEX, dtype={"state_fips": str, "county_fips": str})
     cols = list(expected_df.columns)
 
-    assert mock_acs.call_count == 2
+    assert mock_acs.call_count == 3
 
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
@@ -402,7 +383,7 @@ def testRaceCountyBaseTable2024(mock_acs: mock.MagicMock):
     expected_df = pd.read_csv(GOLDEN_2024_TABLE_COUNTY_RACE, dtype={"state_fips": str, "county_fips": str})
     cols = list(expected_df.columns)
 
-    assert mock_acs.call_count == 16
+    assert mock_acs.call_count == 24
 
     assert_frame_equal(
         df.sort_values(cols).reset_index(drop=True),
