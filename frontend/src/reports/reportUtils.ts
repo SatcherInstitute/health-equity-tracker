@@ -27,6 +27,13 @@ const AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS = [
 const SEVERE_MATERNAL_MORBIDITY_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Sex', 'unavailable for Severe Maternal Morbidity'],
 ]
+const LOW_BIRTHWEIGHT_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Sex', 'unavailable for Low Birthweight'],
+]
+const LOW_RISK_CESAREAN_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Age', 'unavailable for Low-Risk Cesarean Delivery'],
+  ['Sex', 'unavailable for Low-Risk Cesarean Delivery'],
+]
 const CHR_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Age', 'unavailable at the county level'],
   ['Sex', 'unavailable at the county level'],
@@ -246,6 +253,22 @@ export function getAllDemographicOptions(
     enabledDemographicOptionsMap = ONLY_RACE_AGE_MAP
     disabledDemographicOptionsWithRepeats.push(
       ...SEVERE_MATERNAL_MORBIDITY_RESTRICTED_DEMOGRAPHIC_DETAILS,
+    )
+  }
+
+  // LOW BIRTHWEIGHT (AHR — race and mother's age only, no sex)
+  if (configsContainsMatchingId(configs, ['low_birthweight'])) {
+    enabledDemographicOptionsMap = ONLY_RACE_AGE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...LOW_BIRTHWEIGHT_RESTRICTED_DEMOGRAPHIC_DETAILS,
+    )
+  }
+
+  // LOW-RISK CESAREAN DELIVERY (AHR — race only)
+  if (configsContainsMatchingId(configs, ['low_risk_cesarean'])) {
+    enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...LOW_RISK_CESAREAN_RESTRICTED_DEMOGRAPHIC_DETAILS,
     )
   }
 

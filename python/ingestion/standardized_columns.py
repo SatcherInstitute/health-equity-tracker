@@ -105,6 +105,7 @@ UNINSURED_POPULATION_PCT = "uninsured_population_pct"
 
 UNINSURED_PREFIX = "uninsured"
 POVERTY_PREFIX = "poverty"
+UNEMPLOYMENT_PREFIX = "unemployment"
 
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"

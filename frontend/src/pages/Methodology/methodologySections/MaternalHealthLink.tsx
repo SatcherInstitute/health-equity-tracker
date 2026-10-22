@@ -191,6 +191,28 @@ const MaternalHealthLink = () => {
           100,000 for consistency with other tracker rates.
         </p>
 
+        <p>
+          Infant mortality, low birthweight, and low-risk cesarean delivery are
+          also sourced from America’s Health Rankings (
+          <a href={`${urlMap.ahr}/IMR_MCH`}>infant mortality</a>,{' '}
+          <a href={`${urlMap.ahr}/birthweight`}>low birthweight</a>,{' '}
+          <a href={`${urlMap.ahr}/low_risk_cesarean`}>
+            low-risk cesarean delivery
+          </a>
+          ), which analyzes the CDC National Center for Health Statistics’
+          National Vital Statistics System: the linked birth/infant death files
+          for infant mortality, and the natality files for low birthweight and
+          low-risk cesarean delivery. America’s Health Rankings reports infant
+          mortality per 1,000 live births, pooled over two years; we present it
+          per 100,000, and each year shown is the second year of its two-year
+          window. Low birthweight and low-risk cesarean delivery are percentages
+          and are shown as published. Like severe maternal morbidity, these
+          measures are shown as rates only: America’s Health Rankings publishes
+          them without the underlying counts of live births (or, for low-risk
+          cesarean delivery, low-risk first births), so we do not calculate
+          estimated totals, percent shares, or population comparisons.
+        </p>
+
         <section>
           <div className='py-5'>
             <h3 className='font-normal text-text'>America’s Health Rankings</h3>
@@ -198,6 +220,15 @@ const MaternalHealthLink = () => {
             <ul className='list-inside list-disc pl-4'>
               <li>
                 <HetTerm>Severe Maternal Morbidity</HetTerm>
+              </li>
+              <li>
+                <HetTerm>Infant Mortality</HetTerm>
+              </li>
+              <li>
+                <HetTerm>Low Birthweight</HetTerm>
+              </li>
+              <li>
+                <HetTerm>Low-Risk Cesarean Delivery</HetTerm>
               </li>
             </ul>
 
@@ -209,11 +240,27 @@ const MaternalHealthLink = () => {
                 complications during delivery per every 100,000 delivery
                 hospitalizations.
               </li>
+              <li>
+                <HetTerm>Deaths per 100k live births</HetTerm>: This figure
+                measures a particular group’s rate of infant deaths before the
+                first birthday per every 100,000 live births.
+              </li>
+              <li>
+                <HetTerm>Percent of live births</HetTerm>: The share of a
+                particular group’s live births weighing less than 2,500 grams
+                (about 5.5 pounds).
+              </li>
+              <li>
+                <HetTerm>Percent of low-risk first births</HetTerm>: The share
+                of a particular group’s low-risk first births (a single baby,
+                born at term in the head-first position) delivered by cesarean.
+              </li>
             </ul>
           </div>
 
           <div className='py-5'>
             <h3 className='font-normal text-text'>Demographic Identifiers</h3>
+            <h4 className='my-2'>Severe maternal morbidity</h4>
             <p>
               <strong>Race/ethnicity:</strong> Available for American
               Indian/Alaska Native, Asian/Pacific Islander (combined), Black,
@@ -226,6 +273,34 @@ const MaternalHealthLink = () => {
             <p>
               <strong>Sex:</strong> Not applicable — this measure covers
               delivery hospitalizations only.
+            </p>
+
+            <h4 className='my-2'>Infant mortality and low birthweight</h4>
+            <p>
+              <strong>Race/ethnicity:</strong> The race and ethnicity of the
+              person giving birth. Available for American Indian/Alaska Native,
+              Asian, Black, Native Hawaiian/Pacific Islander, Hispanic,
+              Multiracial, and White.
+            </p>
+            <p>
+              <strong>Age:</strong> The age of the person giving birth, not the
+              infant’s age: 15–19, 20–24, 25–29, 30–34, 35–39, and 40–44. Births
+              to people under 15 or 45 and older are counted in the overall rate
+              only.
+            </p>
+            <p>
+              <strong>Sex:</strong> For infant mortality, the infant’s sex. Not
+              available for low birthweight.
+            </p>
+
+            <h4 className='my-2'>Low-risk cesarean delivery</h4>
+            <p>
+              <strong>Race/ethnicity:</strong> The race and ethnicity of the
+              person giving birth. Available for Black, Hispanic, and White
+              only.
+            </p>
+            <p>
+              <strong>Age and sex:</strong> Not available.
             </p>
           </div>
         </section>

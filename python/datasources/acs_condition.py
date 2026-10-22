@@ -8,6 +8,7 @@ from ingestion.constants import HISTORICAL, CURRENT
 from ingestion.census import (
     parse_acs_metadata,
     get_vars_for_group,
+    get_vars_for_group_by_leaf,
     standardize_frame,
     get_all_params_for_group,
     rename_age_bracket,
@@ -116,6 +117,48 @@ POVERTY_RACE_TO_CONCEPT_TITLE = {
     Race.MULTI.value: "Poverty Status in the Past 12 Months by Sex by Age (Two or More Races)",
 }
 
+EMPLOYMENT_RACE_TO_CONCEPT_CAPS = {
+    Race.AIAN.value: (
+        "SEX BY AGE BY EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER "
+        "(AMERICAN INDIAN AND ALASKA NATIVE ALONE)"
+    ),
+    Race.ASIAN.value: "SEX BY AGE BY EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER (ASIAN ALONE)",
+    Race.HISP.value: "SEX BY AGE BY EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER (HISPANIC OR LATINO)",
+    Race.BLACK.value: (
+        "SEX BY AGE BY EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER (BLACK OR AFRICAN AMERICAN ALONE)"
+    ),
+    Race.NHPI.value: (
+        "SEX BY AGE BY EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER "
+        "(NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)"
+    ),
+    Race.WHITE.value: "SEX BY AGE BY EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER (WHITE ALONE)",
+    Race.OTHER_STANDARD.value: (
+        "SEX BY AGE BY EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER (SOME OTHER RACE ALONE)"
+    ),
+    Race.MULTI.value: "SEX BY AGE BY EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER (TWO OR MORE RACES)",
+}
+
+EMPLOYMENT_RACE_TO_CONCEPT_TITLE = {
+    Race.AIAN.value: (
+        "Sex by Age by Employment Status for the Population 16 Years and Over "
+        "(American Indian and Alaska Native Alone)"
+    ),
+    Race.ASIAN.value: "Sex by Age by Employment Status for the Population 16 Years and Over (Asian Alone)",
+    Race.HISP.value: "Sex by Age by Employment Status for the Population 16 Years and Over (Hispanic or Latino)",
+    Race.BLACK.value: (
+        "Sex by Age by Employment Status for the Population 16 Years and Over (Black or African American Alone)"
+    ),
+    Race.NHPI.value: (
+        "Sex by Age by Employment Status for the Population 16 Years and Over "
+        "(Native Hawaiian and Other Pacific Islander Alone)"
+    ),
+    Race.WHITE.value: "Sex by Age by Employment Status for the Population 16 Years and Over (White Alone)",
+    Race.OTHER_STANDARD.value: (
+        "Sex by Age by Employment Status for the Population 16 Years and Over (Some Other Race Alone)"
+    ),
+    Race.MULTI.value: "Sex by Age by Employment Status for the Population 16 Years and Over (Two or More Races)",
+}
+
 # Acs variables are in the form C27001A_xxx0 C27001A_xxx2 etc
 # to determine age buckets.  The metadata variables are merged with the suffixes to form the entire metadata.
 HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = {
@@ -140,12 +183,40 @@ POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES = {
     "B17001I": Race.HISP.value,
 }
 
+# C23002A = White alone (not C23002H = White alone non-Hispanic);
+# C23002I = Hispanic or Latino, which overlaps the race-alone groups above
+EMPLOYMENT_BY_RACE_SEX_AGE_GROUP_PREFIXES = {
+    "C23002A": Race.WHITE.value,
+    "C23002B": Race.BLACK.value,
+    "C23002C": Race.AIAN.value,
+    "C23002D": Race.ASIAN.value,
+    "C23002E": Race.NHPI.value,
+    "C23002F": Race.OTHER_STANDARD.value,
+    "C23002G": Race.MULTI.value,
+    "C23002I": Race.HISP.value,
+}
+
 
 def get_poverty_age_range(age_range):
     if age_range in {"0-4", "5-5"}:
         return "0-5"
     elif age_range in {"12-14", "15-15", "16-17"}:
         return "12-17"
+    else:
+        return age_range
+
+
+def get_employment_age_range(age_range):
+    """Collapses B23001's granular labor-force age brackets into the standard
+    working-age ranges used by the employment topic."""
+    if age_range in {"16-19", "20-21", "22-24"}:
+        return "16-24"
+    elif age_range in {"25-29", "30-34"}:
+        return "25-34"
+    elif age_range in {"55-59", "60-61", "62-64"}:
+        return "55-64"
+    elif age_range in {"65-69", "70-74", "75+"}:
+        return "65+"
     else:
         return age_range
 
@@ -198,6 +269,14 @@ POVERTY_BY_SEX_AGE_GROUPS_PREFIX = "B17001"
 POVERTY_BY_SEX_AGE_CONCEPT_CAPS = "POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE"
 POVERTY_BY_SEX_AGE_CONCEPT_TITLE = "Poverty Status in the Past 12 Months by Sex by Age"
 
+# Employment's all-races sex-by-age table is B23001 (detailed age buckets); there is
+# no non-race-iterated collapsed C23002 table. The age demo collapses B23001's
+# granular buckets into standard working-age ranges (see get_employment_age_range),
+# while the race tables (C23002A-I) collapse age away entirely.
+EMPLOYMENT_BY_SEX_AGE_GROUPS_PREFIX = "B23001"
+EMPLOYMENT_BY_SEX_AGE_CONCEPT_CAPS = "SEX BY AGE BY EMPLOYMENT STATUS FOR THE POPULATION 16 YEARS AND OVER"
+EMPLOYMENT_BY_SEX_AGE_CONCEPT_TITLE = "Sex by Age by Employment Status for the Population 16 Years and Over"
+
 HAS_HEALTH_INSURANCE = "has_health_insurance"
 INCOME_UNDER_POVERTY = "under_poverty_line"
 
@@ -212,8 +291,20 @@ WITH_HEALTH_INSURANCE_KEY = "With health insurance coverage"
 NOT_IN_POVERTY_KEY = "Income in the past 12 months at or above poverty level"
 POVERTY_KEY = "Income in the past 12 months below poverty level"
 
+# Unemployment uses the civilian labor force as its denominator: "population" is
+# derived as Employed + Unemployed, so people not in the labor force and the armed
+# forces (which sit outside the Civilian branch) are correctly excluded.
+EMPLOYED_KEY = "Employed"
+UNEMPLOYED_KEY = "Unemployed"
+
 HEALTH_INSURANCE_MEASURE = "health_insurance"
 POVERTY_MEASURE = "poverty"
+EMPLOYMENT_MEASURE = "employment"
+
+# Leaf labels (rather than positional depth) select the Employed/Unemployed
+# variables, since C23002/B23001 nest them under an extra "Civilian" level in the
+# working-age branch but not the 65+ branch.
+EMPLOYMENT_LEAF_VALUES = {EMPLOYED_KEY, UNEMPLOYED_KEY}
 
 ACS_ITEMS_2021_AND_EARLIER = {
     HEALTH_INSURANCE_MEASURE: AcsItem(
@@ -233,6 +324,15 @@ ACS_ITEMS_2021_AND_EARLIER = {
         POVERTY_KEY,
         NOT_IN_POVERTY_KEY,
         std_col.POVERTY_PREFIX,
+    ),
+    EMPLOYMENT_MEASURE: AcsItem(
+        EMPLOYMENT_BY_RACE_SEX_AGE_GROUP_PREFIXES,
+        EMPLOYMENT_RACE_TO_CONCEPT_CAPS,
+        EMPLOYMENT_BY_SEX_AGE_GROUPS_PREFIX,
+        EMPLOYMENT_BY_SEX_AGE_CONCEPT_CAPS,
+        UNEMPLOYED_KEY,
+        EMPLOYED_KEY,
+        std_col.UNEMPLOYMENT_PREFIX,
     ),
 }
 
@@ -255,6 +355,15 @@ ACS_ITEMS_2022_AND_LATER = {
         POVERTY_KEY,
         NOT_IN_POVERTY_KEY,
         std_col.POVERTY_PREFIX,
+    ),
+    EMPLOYMENT_MEASURE: AcsItem(
+        EMPLOYMENT_BY_RACE_SEX_AGE_GROUP_PREFIXES,
+        EMPLOYMENT_RACE_TO_CONCEPT_TITLE,
+        EMPLOYMENT_BY_SEX_AGE_GROUPS_PREFIX,
+        EMPLOYMENT_BY_SEX_AGE_CONCEPT_TITLE,
+        UNEMPLOYED_KEY,
+        EMPLOYED_KEY,
+        std_col.UNEMPLOYMENT_PREFIX,
     ),
 }
 
@@ -651,8 +760,17 @@ class AcsCondition(DataSource):
             group_cols = [std_col.AGE_COL, tmp_amount_key]
             if demo != RACE:
                 group_cols = [std_col.SEX_COL] + group_cols
+        elif measure == EMPLOYMENT_MEASURE:
+            # C23002/B23001 label order is sex, age, then the employment leaf. Both
+            # the race (C23002A-I) and all-races (B23001) tables carry sex and age,
+            # so the same group_cols apply to every demo; race sums them away later.
+            group_cols = [std_col.SEX_COL, std_col.AGE_COL, tmp_amount_key]
 
-        group_vars = get_vars_for_group(concept, var_map, len(group_cols))
+        if measure == EMPLOYMENT_MEASURE:
+            # Ragged table: select Employed/Unemployed leaves by label, not depth.
+            group_vars = get_vars_for_group_by_leaf(concept, var_map, EMPLOYMENT_LEAF_VALUES, len(group_cols) - 1)
+        else:
+            group_vars = get_vars_for_group(concept, var_map, len(group_cols))
 
         # Creates a df with different rows for the amount of people
         # in a demographic group with and without the condition
@@ -725,6 +843,9 @@ class AcsCondition(DataSource):
 
             if measure == POVERTY_MEASURE:
                 df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(get_poverty_age_range)
+                df = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
+            elif measure == EMPLOYMENT_MEASURE:
+                df[std_col.AGE_COL] = df[std_col.AGE_COL].apply(get_employment_age_range)
                 df = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
 
         return df
