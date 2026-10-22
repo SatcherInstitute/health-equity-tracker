@@ -183,6 +183,8 @@ POVERTY_BY_RACE_SEX_AGE_GROUP_PREFIXES = {
     "B17001I": Race.HISP.value,
 }
 
+# C23002A = White alone (not C23002H = White alone non-Hispanic);
+# C23002I = Hispanic or Latino, which overlaps the race-alone groups above
 EMPLOYMENT_BY_RACE_SEX_AGE_GROUP_PREFIXES = {
     "C23002A": Race.WHITE.value,
     "C23002B": Race.BLACK.value,
