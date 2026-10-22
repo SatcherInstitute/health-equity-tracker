@@ -31,7 +31,7 @@ const MaternalHealthLink = () => {
   return (
     <section id='maternal-health'>
       <article>
-        <title>Maternal Health - Health Equity Tracker</title>
+        <title>Maternal and Infant Health - Health Equity Tracker</title>
 
         <StripedTable
           id='categories-table'
@@ -42,7 +42,7 @@ const MaternalHealthLink = () => {
           ]}
           rows={[
             {
-              category: 'Maternal Health',
+              category: 'Maternal and Infant Health',
               topic: maternalHealthTopicsString,
             },
           ]}

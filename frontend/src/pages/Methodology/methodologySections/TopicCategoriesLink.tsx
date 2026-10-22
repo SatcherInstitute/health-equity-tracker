@@ -68,7 +68,7 @@ export default function TopicCategoriesLink() {
               topic: communitySafetyTopicsString,
             },
             {
-              category: 'Maternal Health',
+              category: 'Maternal and Infant Health',
               topic: maternalHealthTopicsString,
             },
             {
