@@ -114,6 +114,183 @@ func TestCallGeminiExhaustedRetries(t *testing.T) {
 	if err == nil {
 		t.Fatal("expected error after all retries exhausted")
 	}
+	if !errors.Is(err, errInsightCapacity) {
+		t.Errorf("err = %v, want errInsightCapacity so the chain advances", err)
+	}
+}
+
+// --- callGemini model fallback chain ---
+
+const geminiOKBody = `{"candidates":[{"content":{"parts":[{"text":"insight text"}]},"finishReason":"STOP"}],"usageMetadata":{"promptTokenCount":10,"candidatesTokenCount":5}}`
+
+// chainServer answers per model name, taken from the request path. A status of
+// 200 serves geminiOKBody; anything else is returned bare. It records the order
+// models were tried in so a test can assert the chain stopped where it should.
+func chainServer(t *testing.T, status map[string]int) (*httptest.Server, *[]string) {
+	t.Helper()
+	var tried []string
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		model := strings.TrimSuffix(strings.TrimPrefix(r.URL.Path, "/"), ":generateContent")
+		tried = append(tried, model)
+		code, ok := status[model]
+		if !ok {
+			code = http.StatusNotFound
+		}
+		if code == http.StatusOK {
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte(geminiOKBody))
+			return
+		}
+		w.WriteHeader(code)
+		w.Write([]byte(fmt.Sprintf(`{"error":{"code":%d}}`, code)))
+	}))
+	t.Cleanup(srv.Close)
+	return srv, &tried
+}
+
+// withGeminiChain points the package at a fake server and a fixed chain.
+func withGeminiChain(t *testing.T, srv *httptest.Server, chain string) {
+	t.Helper()
+	origBase := geminiAPIBase
+	geminiAPIBase = srv.URL + "/"
+	t.Setenv("GEMINI_MODEL", chain)
+	t.Cleanup(func() { geminiAPIBase = origBase })
+}
+
+func TestCallGeminiFallsThroughTo503Model(t *testing.T) {
+	srv, tried := chainServer(t, map[string]int{
+		"bad-model":  http.StatusServiceUnavailable,
+		"good-model": http.StatusOK,
+	})
+	withGeminiChain(t, srv, "bad-model,good-model")
+
+	got, err := callGemini(context.Background(), "key", "sys", "prompt")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if got.text != "insight text" {
+		t.Errorf("text = %q", got.text)
+	}
+	// The reported model must be the one that answered, not the head of the
+	// chain, or the insight log misattributes every fallback generation.
+	if got.model != "good-model" {
+		t.Errorf("model = %q, want good-model", got.model)
+	}
+	// bad-model exhausts its attempts before good-model is tried once.
+	wantTried := geminiMaxAttempts + 1
+	if len(*tried) != wantTried {
+		t.Errorf("tried %v (%d calls), want %d", *tried, len(*tried), wantTried)
+	}
+}
+
+func TestCallGeminiSkipsMissingModel(t *testing.T) {
+	// A 404 means this key cannot call the model. It must not retry (the name
+	// will not start existing) and must not end the request.
+	srv, tried := chainServer(t, map[string]int{"good-model": http.StatusOK})
+	withGeminiChain(t, srv, "typo-model,good-model")
+
+	got, err := callGemini(context.Background(), "key", "sys", "prompt")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if got.model != "good-model" {
+		t.Errorf("model = %q, want good-model", got.model)
+	}
+	if want := []string{"typo-model", "good-model"}; len(*tried) != len(want) {
+		t.Errorf("tried %v, want one attempt each: %v", *tried, want)
+	}
+}
+
+func TestCallGeminiAdvancesPastQuotaThenSucceeds(t *testing.T) {
+	// Free-tier limits are counted per model, so one model's 429 says nothing
+	// about the next one's budget.
+	srv, tried := chainServer(t, map[string]int{
+		"spent-model": http.StatusTooManyRequests,
+		"good-model":  http.StatusOK,
+	})
+	withGeminiChain(t, srv, "spent-model,good-model")
+
+	got, err := callGemini(context.Background(), "key", "sys", "prompt")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if got.model != "good-model" {
+		t.Errorf("model = %q, want good-model", got.model)
+	}
+	// 429 is not retried against the same model.
+	if len(*tried) != 2 {
+		t.Errorf("tried %v, want 2 calls", *tried)
+	}
+}
+
+func TestCallGeminiReportsQuotaWhenWholeChainIsSpent(t *testing.T) {
+	// The caller releases the reserved ledger slot and answers 429 only for
+	// errInsightQuota, so a fully spent chain must surface as quota and not as
+	// a generic capacity error.
+	srv, _ := chainServer(t, map[string]int{
+		"a": http.StatusTooManyRequests,
+		"b": http.StatusTooManyRequests,
+	})
+	withGeminiChain(t, srv, "a,b")
+
+	_, err := callGemini(context.Background(), "key", "sys", "prompt")
+	if !errors.Is(err, errInsightQuota) {
+		t.Errorf("err = %v, want errInsightQuota", err)
+	}
+}
+
+func TestCallGeminiDoesNotWalkChainOnBadRequest(t *testing.T) {
+	// A 400 is our bug and fails identically everywhere, so spending the budget
+	// on the rest of the chain would buy nothing.
+	srv, tried := chainServer(t, map[string]int{
+		"a": http.StatusBadRequest,
+		"b": http.StatusOK,
+	})
+	withGeminiChain(t, srv, "a,b")
+
+	if _, err := callGemini(context.Background(), "key", "sys", "prompt"); err == nil {
+		t.Fatal("expected error")
+	}
+	if len(*tried) != 1 {
+		t.Errorf("tried %v, want to stop after the first model", *tried)
+	}
+}
+
+func TestGeminiModelsParsing(t *testing.T) {
+	cases := []struct {
+		name string
+		env  string
+		want []string
+	}{
+		{"single name stays a one-entry chain", "solo", []string{"solo"}},
+		{"chain splits and trims", " a , b ,c ", []string{"a", "b", "c"}},
+		{"empty entries dropped", "a,,b,", []string{"a", "b"}},
+		// A blank or punctuation-only value must not disable generation.
+		{"unset falls back to default", "", strings.Split(geminiModelDefault, ",")},
+		{"commas only falls back to default", " , , ", strings.Split(geminiModelDefault, ",")},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			t.Setenv("GEMINI_MODEL", tc.env)
+			got := geminiModels()
+			if strings.Join(got, "|") != strings.Join(tc.want, "|") {
+				t.Errorf("geminiModels() = %v, want %v", got, tc.want)
+			}
+		})
+	}
+}
+
+// The Terraform default is what actually reaches a deployed environment, since
+// run.tf passes it as GEMINI_MODEL and geminiModels prefers the env var. A drift
+// between the two means the Go default is never the thing running.
+func TestGeminiModelDefaultMatchesTerraform(t *testing.T) {
+	raw, err := os.ReadFile(filepath.Join("..", "config", "variables.tf"))
+	if err != nil {
+		t.Skipf("cannot read variables.tf: %v", err)
+	}
+	if !strings.Contains(string(raw), `"`+geminiModelDefault+`"`) {
+		t.Errorf("config/variables.tf has no gemini_model default of %q", geminiModelDefault)
+	}
 }
 
 // --- ledger fake ---

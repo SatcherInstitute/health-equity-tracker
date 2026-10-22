@@ -15,6 +15,18 @@ import (
 
 const insightMemTTL = 180 * 24 * time.Hour // 6 months
 
+const (
+	// Must exceed geminiTimeout, since this context is the parent of the
+	// provider call and a parent deadline cannot be extended by a child. These
+	// two were previously both 30s, which made any raise to geminiTimeout alone
+	// a no-op. The headroom covers the GCS cache, suppression and ledger reads
+	// that share this budget with the generation.
+	insightRequestTimeout = 90 * time.Second
+	// Must in turn exceed insightRequestTimeout, so the context is what ends a
+	// slow generation and the deadline reports a real stall.
+	insightWriteDeadline = 100 * time.Second
+)
+
 // insightMemCache stores generated insights in-process to avoid redundant GCS
 // reads. Key is the sanitized cache key, value is insightMemEntry.
 var insightMemCache sync.Map
@@ -105,8 +117,18 @@ func writeInsightUnavailable(w http.ResponseWriter) {
 func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic, kind string) (string, bool) {
 	ev.CacheKey = cacheKey
 
-	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(r.Context(), insightRequestTimeout)
 	defer cancel()
+
+	// The server-wide WriteTimeout is deliberately far shorter than this path
+	// needs, so extend it for this handler only rather than loosening the
+	// default for every route. Without this the write deadline, not the context,
+	// is what kills a long generation.
+	if err := http.NewResponseController(w).SetWriteDeadline(time.Now().Add(insightWriteDeadline)); err != nil {
+		// Not fatal: a ResponseWriter that cannot extend its deadline still
+		// serves cache hits, which are over 99% of requests.
+		log.Printf("[insight] could not extend write deadline: %v", err)
+	}
 
 	flaggedBucket := os.Getenv("FLAGGED_INSIGHTS_BUCKET")
 	cacheBucket := os.Getenv("INSIGHTS_CACHE_BUCKET")
@@ -217,7 +239,13 @@ func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, pr
 	finalPrompt := buildNegativeExamplesBlock(ctx, flaggedBucket, topic) + prompt
 
 	result, err := generateInsight(ctx, apiKey, insightSystemPrompt, finalPrompt)
-	ev.Model = geminiModel()
+	// The model that answered, which is not necessarily the head of the chain.
+	// When nothing answered there is no single model to name, so the log records
+	// the whole chain that was attempted — that is what makes a provider failure
+	// diagnosable from the logs alone.
+	if ev.Model = result.model; ev.Model == "" {
+		ev.Model = strings.Join(geminiModels(), ",")
+	}
 	ev.PromptTokens, ev.OutputTokens = result.promptTokens, result.outputTokens
 	// Detached from the request context: a slow generation can leave ctx at or
 	// past its deadline, and ledger bookkeeping must not be starved by the same

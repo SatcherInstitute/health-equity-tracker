@@ -14,13 +14,33 @@ import (
 	"time"
 )
 
+// A var rather than a const so tests can point the model chain at a fake
+// server, matching the gcsDownload pattern in handlers.go.
+var geminiAPIBase = "https://generativelanguage.googleapis.com/v1beta/models/"
+
 const (
-	geminiAPIBase         = "https://generativelanguage.googleapis.com/v1beta/models/"
-	geminiModelDefault    = "gemini-3.5-flash-lite"
+	// A comma-separated fallback chain, tried in order. Every entry must be a
+	// free-tier text model, since this feature is budgeted at $0 (see the quota
+	// ceilings in config/variables.tf) and a paid model would silently start
+	// billing. Order is by measured availability, then by how tight the model's
+	// own free per-minute limit is: gemini-3.6-flash returned a 429 during
+	// probing where the two 3.5 models did not, so it sits last.
+	// Deliberately pinned names rather than the gemini-flash-lite-latest alias,
+	// whose target can change with no deploy and no prompt change.
+	geminiModelDefault    = "gemini-3.5-flash-lite,gemini-3.5-flash,gemini-3.6-flash"
 	geminiMaxOutputTokens = 1024
-	geminiTimeout         = 60 * time.Second
-	geminiMaxAttempts     = 3
-	geminiRetryDelay      = 2 * time.Second
+	// Budget for the whole chain, not one call. A generation that is genuinely
+	// running is a success worth waiting for (measured up to 54s), while the
+	// failure this chain exists to route around returns in under 11s, so a
+	// single shared deadline lets a slow success finish and still leaves room to
+	// fall through several fast failures.
+	geminiTimeout = 75 * time.Second
+	// Same-model attempts before advancing to the next model. Kept low because a
+	// different model is a strictly better retry than the same one: "high
+	// demand" 503s are correlated capacity windows, so a second attempt against
+	// the model that just refused usually refuses again.
+	geminiMaxAttempts = 2
+	geminiRetryDelay  = 2 * time.Second
 )
 
 var (
@@ -30,23 +50,50 @@ var (
 	// errInsightNoContent means the call succeeded but yielded no usable text,
 	// which happens when a safety or token-limit finish reason fires.
 	errInsightNoContent = errors.New("insight provider returned no content")
+	// errInsightCapacity is the "high demand" 503, returned once a single model
+	// has used up its attempts. Distinct from the others so the chain knows this
+	// model is full rather than misconfigured.
+	errInsightCapacity = errors.New("insight provider at capacity")
+	// errInsightModelMissing is a 404 on the model name. A chain entry that this
+	// key cannot call must not take the whole request down with it, so it is
+	// treated as an availability failure and skipped.
+	errInsightModelMissing = errors.New("insight model not available")
 )
 
 type insightGeneration struct {
 	text         string
 	promptTokens int
 	outputTokens int
+	// model is the chain entry that actually answered, which is not necessarily
+	// the first one. The insight log reports this rather than the configured
+	// head of the chain, so a reader can tell which model wrote a given insight.
+	model string
 }
 
 // generateInsight is a package-level var so tests can substitute a fake,
 // matching the gcsDownload pattern in handlers.go.
 var generateInsight = callGemini
 
-func geminiModel() string {
-	if m := os.Getenv("GEMINI_MODEL"); m != "" {
-		return m
+// geminiModels parses GEMINI_MODEL as a comma-separated fallback chain. A single
+// name is a one-entry chain, so an environment that predates the chain keeps
+// working unchanged.
+func geminiModels() []string {
+	raw := os.Getenv("GEMINI_MODEL")
+	if strings.TrimSpace(raw) == "" {
+		raw = geminiModelDefault
 	}
-	return geminiModelDefault
+	models := make([]string, 0, 3)
+	for _, m := range strings.Split(raw, ",") {
+		if m = strings.TrimSpace(m); m != "" {
+			models = append(models, m)
+		}
+	}
+	// An env var of only commas or whitespace would otherwise disable generation
+	// entirely, which is a worse outcome than ignoring it.
+	if len(models) == 0 {
+		return strings.Split(geminiModelDefault, ",")
+	}
+	return models
 }
 
 // Health equity reporting necessarily describes disease and incarceration
@@ -130,8 +177,58 @@ func parseGeminiResponse(raw []byte) (insightGeneration, error) {
 	return out, nil
 }
 
+// callGemini walks the model chain until one answers. The deadline is set here
+// rather than per model so a slow generation can use the whole budget, while a
+// chain of fast refusals still gets through every entry.
 func callGemini(ctx context.Context, apiKey, system, prompt string) (insightGeneration, error) {
-	return doCallGemini(ctx, apiKey, system, prompt, geminiAPIBase+geminiModel()+":generateContent")
+	ctx, cancel := context.WithTimeout(ctx, geminiTimeout)
+	defer cancel()
+
+	models := geminiModels()
+	var lastErr error
+	// Tracked because a chain that ends in quota everywhere has a different
+	// contract than one that ends in capacity: the caller releases the reserved
+	// slot and answers 429 only for quota.
+	sawQuota := false
+
+	for i, model := range models {
+		if ctx.Err() != nil {
+			break
+		}
+		out, err := doCallGemini(ctx, apiKey, system, prompt, geminiAPIBase+model+":generateContent")
+		if err == nil {
+			out.model = model
+			if i > 0 {
+				log.Printf("[insight] %s answered after %d earlier model(s) failed", model, i)
+			}
+			return out, nil
+		}
+
+		// Only availability failures advance. A malformed request or a blocked
+		// prompt fails identically on every model, so walking the chain would
+		// just spend the budget to learn the same thing three times.
+		switch {
+		case errors.Is(err, errInsightQuota):
+			sawQuota = true
+		case errors.Is(err, errInsightCapacity), errors.Is(err, errInsightModelMissing):
+		default:
+			out.model = model
+			return out, err
+		}
+
+		log.Printf("[insight] model %s unavailable (%v), trying next of %d", model, err, len(models))
+		lastErr = err
+	}
+
+	// Quota outranks capacity: it is the one outcome that definitely generated
+	// nothing, and the caller returns the reserved slot on it.
+	if sawQuota {
+		return insightGeneration{}, errInsightQuota
+	}
+	if lastErr == nil {
+		lastErr = fmt.Errorf("insight request: %w", ctx.Err())
+	}
+	return insightGeneration{}, lastErr
 }
 
 func doCallGemini(ctx context.Context, apiKey, system, prompt, url string) (insightGeneration, error) {
@@ -151,9 +248,6 @@ func doCallGemini(ctx context.Context, apiKey, system, prompt, url string) (insi
 	if err != nil {
 		return insightGeneration{}, fmt.Errorf("encode insight request: %w", err)
 	}
-
-	ctx, cancel := context.WithTimeout(ctx, geminiTimeout)
-	defer cancel()
 
 	var lastErr error
 	for attempt := range geminiMaxAttempts {
@@ -176,7 +270,9 @@ func doCallGemini(ctx context.Context, apiKey, system, prompt, url string) (insi
 
 		resp, err := http.DefaultClient.Do(req)
 		if err != nil {
-			lastErr = fmt.Errorf("insight request: %w", err)
+			// Wrapped as capacity so a connection-level failure advances the
+			// chain rather than ending the request on one unreachable model.
+			lastErr = fmt.Errorf("insight request: %w: %w", errInsightCapacity, err)
 			continue
 		}
 
@@ -187,14 +283,23 @@ func doCallGemini(ctx context.Context, apiKey, system, prompt, url string) (insi
 		}
 
 		if resp.StatusCode == http.StatusTooManyRequests {
+			// Not retried against this model: a spent free-tier limit does not
+			// clear in seconds. The caller advances to the next model, whose
+			// limits are counted separately.
 			return insightGeneration{}, errInsightQuota
+		}
+		if resp.StatusCode == http.StatusNotFound {
+			// A name this key cannot call. Logged because it means the chain is
+			// misconfigured even though the request may still succeed.
+			log.Printf("[insight] model not found at %s: %s", url, body)
+			return insightGeneration{}, errInsightModelMissing
 		}
 		if resp.StatusCode == http.StatusServiceUnavailable {
 			// Capacity 503: retry after a short delay. Log on the last attempt only.
 			if attempt == geminiMaxAttempts-1 {
 				log.Printf("[insight] provider returned 503 after %d attempts: %s", geminiMaxAttempts, body)
 			}
-			lastErr = fmt.Errorf("insight provider status 503")
+			lastErr = errInsightCapacity
 			continue
 		}
 		if resp.StatusCode < 200 || resp.StatusCode >= 300 {
