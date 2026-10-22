@@ -101,7 +101,7 @@ object and hits are the hot path.
 ```json
 {"severity":"INFO","message":"insight generated","insight":{
   "outcome":"generated","cacheKey":"a1b2c3","topic":"hiv","reserved":true,
-  "model":"gemini-3.1-flash-lite","promptTokens":1840,"outputTokens":96,
+  "model":"gemini-3.5-flash-lite","promptTokens":1840,"outputTokens":96,
   "dailyGenerations":42,"dailyLimit":300,"minuteGenerations":3,"minuteLimit":10,
   "monthlyGenerations":903,"monthlyLimit":6000,"durationMs":812}}
 ```
