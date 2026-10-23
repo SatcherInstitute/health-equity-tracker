@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"crypto/subtle"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -161,23 +162,35 @@ func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, pr
 		}
 	}
 
-	// Check in-memory cache
-	if v, ok := insightMemCache.Load(cacheKey); ok {
-		entry := v.(insightMemEntry)
-		if time.Since(entry.ts) < insightMemTTL {
-			ev.Outcome = outcomeMemoryHit
-			return entry.content, true
-		}
-		insightMemCache.Delete(cacheKey)
-	}
+	// force=true with a valid admin token bypasses both cache layers, guaranteeing
+	// a live provider round-trip. Used by the nightly canary to prove the
+	// generation path works regardless of cache state.
+	adminToken := os.Getenv("ADMIN_TOKEN")
+	forceGenerate := adminToken != "" && r.URL.Query().Get("force") == "true" &&
+		subtle.ConstantTimeCompare(
+			[]byte(r.Header.Get("Authorization")),
+			[]byte("Bearer "+adminToken),
+		) == 1
 
-	// Check GCS persistent cache
-	if cacheBucket != "" {
-		content := insightCacheRead(ctx, cacheBucket, cacheKey)
-		if content != "" {
-			insightMemCache.Store(cacheKey, insightMemEntry{content: content, ts: time.Now()})
-			ev.Outcome = outcomeGCSHit
-			return content, true
+	if !forceGenerate {
+		// Check in-memory cache
+		if v, ok := insightMemCache.Load(cacheKey); ok {
+			entry := v.(insightMemEntry)
+			if time.Since(entry.ts) < insightMemTTL {
+				ev.Outcome = outcomeMemoryHit
+				return entry.content, true
+			}
+			insightMemCache.Delete(cacheKey)
+		}
+
+		// Check GCS persistent cache
+		if cacheBucket != "" {
+			content := insightCacheRead(ctx, cacheBucket, cacheKey)
+			if content != "" {
+				insightMemCache.Store(cacheKey, insightMemEntry{content: content, ts: time.Now()})
+				ev.Outcome = outcomeGCSHit
+				return content, true
+			}
 		}
 	}
 

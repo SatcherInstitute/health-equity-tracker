@@ -990,6 +990,55 @@ func TestInsightHandlerServesPersistentCacheWithoutGenerating(t *testing.T) {
 	}
 }
 
+func TestForceGenerationBypassesMemoryCache(t *testing.T) {
+	env := newInsightTestEnv(t)
+	t.Setenv("ADMIN_TOKEN", "canary-token")
+	key := cardInsightKey(t)
+	insightMemCache.Store(key, insightMemEntry{content: "cached", ts: time.Now()})
+
+	body := cardDescriptorBody(t)
+	data, _ := json.Marshal(body)
+	req := httptest.NewRequest(http.MethodPost, "/insight?force=true", bytes.NewReader(data))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer canary-token")
+	rr := httptest.NewRecorder()
+	insightHandler(rr, req)
+	select {
+	case <-env.cacheWrites:
+	case <-time.After(5 * time.Second):
+		t.Fatal("force generation never persisted")
+	}
+
+	if env.upstream != 1 {
+		t.Errorf("upstream calls = %d, want 1 (force should bypass cached entry)", env.upstream)
+	}
+	if got := decodeBody(t, rr)["content"]; got != generatedInsightEnvelope {
+		t.Errorf("content = %v, want freshly generated", got)
+	}
+}
+
+func TestForceGenerationWithWrongTokenUsesCache(t *testing.T) {
+	env := newInsightTestEnv(t)
+	t.Setenv("ADMIN_TOKEN", "real-token")
+	key := cardInsightKey(t)
+	insightMemCache.Store(key, insightMemEntry{content: "cached", ts: time.Now()})
+
+	body := cardDescriptorBody(t)
+	data, _ := json.Marshal(body)
+	req := httptest.NewRequest(http.MethodPost, "/insight?force=true", bytes.NewReader(data))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer wrong-token")
+	rr := httptest.NewRecorder()
+	insightHandler(rr, req)
+
+	if env.upstream != 0 {
+		t.Error("wrong admin token should not bypass cache")
+	}
+	if got := decodeBody(t, rr)["content"]; got != "cached" {
+		t.Errorf("content = %v, want the cached entry", got)
+	}
+}
+
 func TestInsightHandlerUnavailableWithoutLedgerBucket(t *testing.T) {
 	env := newInsightTestEnv(t)
 	t.Setenv("INSIGHTS_CACHE_BUCKET", "")
