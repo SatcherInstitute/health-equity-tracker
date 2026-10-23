@@ -74,14 +74,14 @@ The server handles all traffic on a single port:
   the endpoint returns `{"unavailable": true}` and the frontend renders no insight section. The route is scoped to the origins in `INSIGHT_ALLOWED_ORIGINS` and rate limited per
   client. `{"preview": true}` stops after rendering and returns `{"cacheKey","prompt"}` without
   consulting the cache, reserving a slot, or calling the provider, which is how a client checks
-  the server renders the text it expects. `?force=true` on the query string with a valid
-  `Authorization: Bearer $ADMIN_TOKEN` header bypasses both cache layers and forces a live
-  provider call — used by the nightly canary (`cronInsightCanary.yml`). The generating path
-  returns `{"content","cacheKey"}`; a forced response also includes `"forced":true` so the
-  canary can fail if the token is misconfigured and the server silently serves from cache instead.
+  the server renders the text it expects. The generating path returns `{"content","cacheKey"}`;
   the key rides along because flagging needs it, and the prompt does not because it is up to
   30 KB the client has no use for. `content` is the JSON envelope described below, not a
-  bare sentence.
+  bare sentence. `?force=true` with a valid `Authorization: Bearer $ADMIN_TOKEN` skips both
+  cache layers so the provider path runs regardless of cache state, and adds `"forced":true`
+  to the response. It does not skip the kill switches, suppression, or the ledger. The nightly
+  canary (`cronInsightCanary.yml`) uses it and requires `"forced":true`, so a token that has
+  drifted from Secret Manager fails the canary instead of quietly passing on a cache hit.
 - **Flagging** (`/flag-insight`): writes a flag record to GCS, deletes the cached insight, and
   clears the in-process `sync.Map` entry — all in the same process with no HTTP hops.
 - **News** (`/het-news`): fetches from the Webflow CDN API with a 5-minute TTL cache (tags

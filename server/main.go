@@ -11,11 +11,19 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
+// An unset ADMIN_TOKEN denies rather than allows, so an environment that never
+// configured one has no admin surface at all.
+func hasAdminAuth(r *http.Request) bool {
+	expectedToken := os.Getenv("ADMIN_TOKEN")
+	return expectedToken != "" && subtle.ConstantTimeCompare(
+		[]byte(r.Header.Get("Authorization")),
+		[]byte("Bearer "+expectedToken),
+	) == 1
+}
+
 func adminOnly(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		token := r.Header.Get("Authorization")
-		expectedToken := os.Getenv("ADMIN_TOKEN")
-		if expectedToken == "" || subtle.ConstantTimeCompare([]byte(token), []byte("Bearer "+expectedToken)) != 1 {
+		if !hasAdminAuth(r) {
 			http.Error(w, "Unauthorized", http.StatusUnauthorized)
 			return
 		}

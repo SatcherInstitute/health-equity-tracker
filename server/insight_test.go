@@ -1021,25 +1021,42 @@ func TestForceGenerationBypassesMemoryCache(t *testing.T) {
 	}
 }
 
-func TestForceGenerationWithWrongTokenUsesCache(t *testing.T) {
-	env := newInsightTestEnv(t)
-	t.Setenv("ADMIN_TOKEN", "real-token")
-	key := cardInsightKey(t)
-	insightMemCache.Store(key, insightMemEntry{content: "cached", ts: time.Now()})
+// An unauthenticated force=true must be indistinguishable from an ordinary
+// request. The unset case is the one deployed environments actually hit before
+// ADMIN_TOKEN is wired in, and it must deny rather than allow.
+func TestForceGenerationWithoutValidTokenUsesCache(t *testing.T) {
+	for _, tc := range []struct {
+		name, adminToken, header string
+	}{
+		{"wrong token", "real-token", "Bearer wrong-token"},
+		{"admin token unset", "", "Bearer any-token"},
+		{"no header", "real-token", ""},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			env := newInsightTestEnv(t)
+			t.Setenv("ADMIN_TOKEN", tc.adminToken)
+			insightMemCache.Store(cardInsightKey(t), insightMemEntry{content: "cached", ts: time.Now()})
 
-	body := cardDescriptorBody(t)
-	data, _ := json.Marshal(body)
-	req := httptest.NewRequest(http.MethodPost, "/insight?force=true", bytes.NewReader(data))
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer wrong-token")
-	rr := httptest.NewRecorder()
-	insightHandler(rr, req)
+			data, _ := json.Marshal(cardDescriptorBody(t))
+			req := httptest.NewRequest(http.MethodPost, "/insight?force=true", bytes.NewReader(data))
+			req.Header.Set("Content-Type", "application/json")
+			if tc.header != "" {
+				req.Header.Set("Authorization", tc.header)
+			}
+			rr := httptest.NewRecorder()
+			insightHandler(rr, req)
 
-	if env.upstream != 0 {
-		t.Error("wrong admin token should not bypass cache")
-	}
-	if got := decodeBody(t, rr)["content"]; got != "cached" {
-		t.Errorf("content = %v, want the cached entry", got)
+			if env.upstream != 0 {
+				t.Errorf("upstream calls = %d, want 0 (force must not bypass cache)", env.upstream)
+			}
+			resp := decodeBody(t, rr)
+			if got := resp["content"]; got != "cached" {
+				t.Errorf("content = %v, want the cached entry", got)
+			}
+			if _, ok := resp["forced"]; ok {
+				t.Error(`"forced" must be absent, or the canary cannot detect a bad token`)
+			}
+		})
 	}
 }
 

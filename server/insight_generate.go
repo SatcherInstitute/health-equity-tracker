@@ -114,6 +114,9 @@ func writeInsightUnavailable(w http.ResponseWriter) {
 // since the envelope shipped is already in it, and the cache key is a hash of
 // the rendered prompt, so the prompt edit that introduced the envelope left no
 // older entry reachable.
+// forceGenerate skips both cache layers so the provider path runs regardless of
+// cache state. It does not skip the kill switches, suppression, or the ledger:
+// a forced generation spends a reservation like any other.
 func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic, kind string, forceGenerate bool) (string, bool) {
 	ev.CacheKey = cacheKey
 
@@ -161,9 +164,6 @@ func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, pr
 		}
 	}
 
-	// forceGenerate is set by the caller (insightHandler) when the request carries
-	// a valid admin token with force=true. When true, both cache layers are skipped
-	// so the provider path is exercised regardless of cache state.
 	if !forceGenerate {
 		// Check in-memory cache
 		if v, ok := insightMemCache.Load(cacheKey); ok {
