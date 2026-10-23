@@ -167,7 +167,6 @@ def get_vars_for_group_by_leaf(group_concept, var_map, leaf_values, num_breakdow
        reusing this on a table where that intermediate context is meaningful
        would lose it.
 
-
        get_vars_for_group_by_leaf(
            "SEX BY AGE BY EMPLOYMENT STATUS", var_map, {"Employed", "Unemployed"}, 2)
        would return a map like:
