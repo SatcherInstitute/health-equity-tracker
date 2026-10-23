@@ -153,6 +153,7 @@ export function StackedBarChart(props: StackedBarChartProps) {
             <StackedBarLegend
               aria-label='legend'
               metricDisplayName={props.metricDisplayName}
+              populationDisplayName={props.lightMetric.shortLabel}
             />
             <VerticalGridlines
               width={width}

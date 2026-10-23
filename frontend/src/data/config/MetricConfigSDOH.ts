@@ -224,6 +224,8 @@ export const UNEMPLOYMENT_METRICS: DataTypeConfig[] = [
       text: 'Unemployment is closely tied to health. People who are unemployed are more likely to experience financial strain, loss of health insurance, and worse physical and mental health outcomes. Studying unemployment can help us understand why these disparities exist and how to address them.',
     },
     dataTableTitle: 'Summary for unemployed people',
+    otherSubPopulationLabel: 'Civilian Labor Force',
+    ageSubPopulationLabel: 'Ages 16+',
     metrics: {
       pct_rate: {
         timeSeriesCadence: 'yearly',
@@ -253,10 +255,14 @@ export const UNEMPLOYMENT_METRICS: DataTypeConfig[] = [
         shortLabel: '% of unemployed',
         type: 'pct_share',
         populationComparisonMetric: {
-          chartTitle: 'Population vs. distribution of total unemployed people',
+          chartTitle:
+            'Civilian labor force vs. distribution of total unemployed people',
           metricId: 'unemployment_population_pct',
-          columnTitleHeader: populationPctTitle,
-          shortLabel: populationPctShortLabel,
+          // Not populationPctTitle: this share is of the civilian labor force,
+          // roughly half of total population, so a generic label would read as
+          // the same quantity as the ACS total in the map breadcrumbs.
+          columnTitleHeader: 'Labor force share (ages 16+)',
+          shortLabel: '% of labor force',
           type: 'pct_share',
         },
       },
