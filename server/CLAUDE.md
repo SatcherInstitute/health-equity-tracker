@@ -31,7 +31,7 @@ go test ./...
 | `METADATA_FILENAME` | Yes | - | Filename of the metadata NDJSON in GCS |
 | `INSIGHTS_CACHE_BUCKET` | No | - | GCS bucket for persisted AI insight cache |
 | `FLAGGED_INSIGHTS_BUCKET` | No | - | GCS bucket for flagged insight records |
-| `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) |
+| `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) and the `?force=true` cache bypass on `/insight` |
 | `GEMINI_API_KEY` | No | - | Required for AI insight generation. Unset disables generation; cached insights still serve |
 | `GEMINI_MODEL` | No | `gemini-3.5-flash-lite,gemini-3.5-flash,gemini-3.6-flash` | **Comma-separated fallback chain**, tried in order (a single name is a one-entry chain). Every entry must be a free-tier text model, or the feature silently starts billing. **Terraform sets this explicitly** (`config/variables.tf`), so the Go default is unreachable on any deployed environment — change both together. `TestGeminiModelDefaultMatchesTerraform` fails if they drift |
 | `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `300` | Daily generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
@@ -74,7 +74,10 @@ The server handles all traffic on a single port:
   the endpoint returns `{"unavailable": true}` and the frontend renders no insight section. The route is scoped to the origins in `INSIGHT_ALLOWED_ORIGINS` and rate limited per
   client. `{"preview": true}` stops after rendering and returns `{"cacheKey","prompt"}` without
   consulting the cache, reserving a slot, or calling the provider, which is how a client checks
-  the server renders the text it expects. The generating path returns `{"content","cacheKey"}`;
+  the server renders the text it expects. `?force=true` on the query string with a valid
+  `Authorization: Bearer $ADMIN_TOKEN` header bypasses both cache layers and forces a live
+  provider call — used by the nightly canary (`cronInsightCanary.yml`). The generating path
+  returns `{"content","cacheKey"}`;
   the key rides along because flagging needs it, and the prompt does not because it is up to
   30 KB the client has no use for. `content` is the JSON envelope described below, not a
   bare sentence.
