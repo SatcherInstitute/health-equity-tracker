@@ -80,11 +80,12 @@ function SdohLink() {
           className='mt-12 font-medium text-title'
           id='sdoh-acs-data-sourcing'
         >
-          Poverty and Uninsurance: American Community Survey
+          Poverty, Uninsurance, and Unemployment: American Community Survey
         </h3>
         <p>
-          Data on <HetTerm>poverty</HetTerm> and{' '}
-          <HetTerm>uninsured people</HetTerm> comes directly from the{' '}
+          Data on <HetTerm>poverty</HetTerm>,{' '}
+          <HetTerm>uninsured people</HetTerm>, and{' '}
+          <HetTerm>unemployment</HetTerm> comes directly from the{' '}
           <a href={urlMap.acs5}>
             American Community Survey (ACS) 5-year estimates
           </a>
@@ -117,12 +118,28 @@ function SdohLink() {
           comprehensive coverage.
         </p>
         <p>
+          <strong>Unemployment</strong> is measured using ACS table series
+          B23001 (Sex by Age by Employment Status for the Population 16 Years
+          and Over) for the overall, sex-, and age-stratified breakdowns, and
+          C23002A–I (the race-iterated equivalent) for race-stratified counts
+          (e.g., C23002A for White alone, C23002B for Black or African American
+          alone). Following the Census Bureau's definition, the denominator is
+          the civilian labor force, the sum of employed and unemployed people
+          ages 16 and over; members of the Armed Forces and people not in the
+          labor force are excluded from both the numerator and the denominator.
+          Because the race-iterated C23002 tables collapse age into a single
+          16-and-over band while B23001 reports finer age brackets, the
+          age-stratified view groups those brackets into standard working-age
+          ranges (16–24, 25–34, 35–44, 45–54, 55–64, and 65+).
+        </p>
+        <p>
           For each of these tables, rates are calculated using the table's own
           population universe as the denominator, the sum of everyone with and
           without the condition in that specific table, rather than the ACS's
           general population totals. This is why the tracker exposes{' '}
-          <HetTerm>poverty_pop_estimated_total</HetTerm> and{' '}
-          <HetTerm>uninsured_pop_estimated_total</HetTerm> as separate
+          <HetTerm>poverty_pop_estimated_total</HetTerm>,{' '}
+          <HetTerm>uninsured_pop_estimated_total</HetTerm>, and{' '}
+          <HetTerm>unemployment_pop_estimated_total</HetTerm> as separate
           denominators from overall population figures.
         </p>
         <p>
