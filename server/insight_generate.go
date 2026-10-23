@@ -15,6 +15,18 @@ import (
 
 const insightMemTTL = 180 * 24 * time.Hour // 6 months
 
+const (
+	// Must exceed geminiTimeout, since this context is the parent of the
+	// provider call and a parent deadline cannot be extended by a child. These
+	// two were previously both 30s, which made any raise to geminiTimeout alone
+	// a no-op. The headroom covers the GCS cache, suppression and ledger reads
+	// that share this budget with the generation.
+	insightRequestTimeout = 90 * time.Second
+	// Must in turn exceed insightRequestTimeout, so the context is what ends a
+	// slow generation and the deadline reports a real stall.
+	insightWriteDeadline = 100 * time.Second
+)
+
 // insightMemCache stores generated insights in-process to avoid redundant GCS
 // reads. Key is the sanitized cache key, value is insightMemEntry.
 var insightMemCache sync.Map
@@ -102,11 +114,24 @@ func writeInsightUnavailable(w http.ResponseWriter) {
 // since the envelope shipped is already in it, and the cache key is a hash of
 // the rendered prompt, so the prompt edit that introduced the envelope left no
 // older entry reachable.
-func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic, kind string) (string, bool) {
+// forceGenerate skips both cache layers so the provider path runs regardless of
+// cache state. It does not skip the kill switches, suppression, or the ledger:
+// a forced generation spends a reservation like any other.
+func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic, kind string, forceGenerate bool) (string, bool) {
 	ev.CacheKey = cacheKey
 
-	ctx, cancel := context.WithTimeout(r.Context(), 30*time.Second)
+	ctx, cancel := context.WithTimeout(r.Context(), insightRequestTimeout)
 	defer cancel()
+
+	// The server-wide WriteTimeout is deliberately far shorter than this path
+	// needs, so extend it for this handler only rather than loosening the
+	// default for every route. Without this the write deadline, not the context,
+	// is what kills a long generation.
+	if err := http.NewResponseController(w).SetWriteDeadline(time.Now().Add(insightWriteDeadline)); err != nil {
+		// Not fatal: a ResponseWriter that cannot extend its deadline still
+		// serves cache hits, which are over 99% of requests.
+		log.Printf("[insight] could not extend write deadline: %v", err)
+	}
 
 	flaggedBucket := os.Getenv("FLAGGED_INSIGHTS_BUCKET")
 	cacheBucket := os.Getenv("INSIGHTS_CACHE_BUCKET")
@@ -139,23 +164,25 @@ func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, pr
 		}
 	}
 
-	// Check in-memory cache
-	if v, ok := insightMemCache.Load(cacheKey); ok {
-		entry := v.(insightMemEntry)
-		if time.Since(entry.ts) < insightMemTTL {
-			ev.Outcome = outcomeMemoryHit
-			return entry.content, true
+	if !forceGenerate {
+		// Check in-memory cache
+		if v, ok := insightMemCache.Load(cacheKey); ok {
+			entry := v.(insightMemEntry)
+			if time.Since(entry.ts) < insightMemTTL {
+				ev.Outcome = outcomeMemoryHit
+				return entry.content, true
+			}
+			insightMemCache.Delete(cacheKey)
 		}
-		insightMemCache.Delete(cacheKey)
-	}
 
-	// Check GCS persistent cache
-	if cacheBucket != "" {
-		content := insightCacheRead(ctx, cacheBucket, cacheKey)
-		if content != "" {
-			insightMemCache.Store(cacheKey, insightMemEntry{content: content, ts: time.Now()})
-			ev.Outcome = outcomeGCSHit
-			return content, true
+		// Check GCS persistent cache
+		if cacheBucket != "" {
+			content := insightCacheRead(ctx, cacheBucket, cacheKey)
+			if content != "" {
+				insightMemCache.Store(cacheKey, insightMemEntry{content: content, ts: time.Now()})
+				ev.Outcome = outcomeGCSHit
+				return content, true
+			}
 		}
 	}
 
@@ -217,7 +244,12 @@ func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, pr
 	finalPrompt := buildNegativeExamplesBlock(ctx, flaggedBucket, topic) + prompt
 
 	result, err := generateInsight(ctx, apiKey, insightSystemPrompt, finalPrompt)
-	ev.Model = geminiModel()
+	// The model that answered, which is not necessarily the head of the chain.
+	// On failure callGemini reports the entries it actually called, which is not
+	// always the whole configured chain: the shared deadline can end the walk
+	// early. Naming only what was tried is what makes a provider failure
+	// diagnosable from the logs alone.
+	ev.Model = result.model
 	ev.PromptTokens, ev.OutputTokens = result.promptTokens, result.outputTokens
 	// Detached from the request context: a slow generation can leave ctx at or
 	// past its deadline, and ledger bookkeeping must not be starved by the same

@@ -38,6 +38,10 @@
 #   census-api-key        -> gcs_to_bq runner AND ingestion runner  (US Census Bureau ACS API)
 #   gemini-api-key        -> data-server-runner SA / Go server  (AI insight generation)
 #   webflow-api-token     -> data-server-runner SA / Go server  (CMS blog read access)
+#   insight-admin-token   -> data-server-runner SA / Go server  (ADMIN_TOKEN: /flagged-insights
+#                            and the ?force=true cache bypass used by cronInsightCanary.yml.
+#                            The same value is stored as the INSIGHT_ADMIN_TOKEN GitHub secret
+#                            so the canary workflow can authenticate; rotate both together.)
 #   sentry-auth-token     -> auto-deployer SA (via GitHub Actions build arg, not Secret Manager IAM)
 #
 # gemini-api-key is issued from a separate GCP project dedicated to the Generative
@@ -108,6 +112,16 @@ resource "google_secret_manager_secret_iam_binding" "census_api_key_accessor" {
 
 resource "google_secret_manager_secret_iam_binding" "gemini_api_key_accessor" {
   secret_id = "gemini-api-key"
+  role      = "roles/secretmanager.secretAccessor"
+  members = [
+    "serviceAccount:${google_service_account.data_server_runner_identity.email}",
+  ]
+}
+
+# No import block: this secret and its binding are new as of the insight canary, so
+# there is no pre-existing out-of-band binding for Terraform to adopt.
+resource "google_secret_manager_secret_iam_binding" "insight_admin_token_accessor" {
+  secret_id = "insight-admin-token"
   role      = "roles/secretmanager.secretAccessor"
   members = [
     "serviceAccount:${google_service_account.data_server_runner_identity.email}",
