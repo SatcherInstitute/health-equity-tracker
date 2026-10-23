@@ -33,7 +33,7 @@ go test ./...
 | `FLAGGED_INSIGHTS_BUCKET` | No | - | GCS bucket for flagged insight records |
 | `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) |
 | `GEMINI_API_KEY` | No | - | Required for AI insight generation. Unset disables generation; cached insights still serve |
-| `GEMINI_MODEL` | No | `gemini-3.1-flash-lite` | Gemini model used for insight generation |
+| `GEMINI_MODEL` | No | `gemini-3.5-flash-lite,gemini-3.5-flash,gemini-3.6-flash` | **Comma-separated fallback chain**, tried in order (a single name is a one-entry chain). Every entry must be a free-tier text model, or the feature silently starts billing. **Terraform sets this explicitly** (`config/variables.tf`), so the Go default is unreachable on any deployed environment — change both together. `TestGeminiModelDefaultMatchesTerraform` fails if they drift |
 | `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `300` | Daily generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
 | `INSIGHT_MAX_GENERATIONS_PER_MINUTE` | No | `10` | Service-wide generations per minute, enforced by a window in the daily ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
 | `INSIGHT_MAX_GENERATIONS_PER_MONTH` | No | `6000` | Monthly generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
@@ -88,6 +88,31 @@ The server handles all traffic on a single port:
   - Everything else — `public, max-age=7200`
   - Unknown paths → `index.html` (SPA client-side routing fallback)
 
+## Insight generation deadlines
+
+Three deadlines stack on the generation path, and **each one must be strictly larger than
+the one it contains** or the inner value is dead code:
+
+```
+geminiTimeout (75s)          whole model chain, set once in callGemini
+  < insightRequestTimeout (90s)   resolveInsight: cache + ledger + generation
+    < insightWriteDeadline (100s) per-handler, via http.NewResponseController
+```
+
+A context deadline cannot be extended by a child, so raising `geminiTimeout` alone does
+nothing — it was once raised to 60s while `resolveInsight` still capped the request at 30s,
+and the effective limit stayed 30s. Change them as a set.
+
+`insightWriteDeadline` is set per handler rather than by raising the server-wide
+`WriteTimeout` in `main.go` (35s), which would loosen the slow-client guard on every route
+to accommodate one. Failing to set it is logged and not fatal, since cache hits are over 99%
+of requests and need none of this budget.
+
+The chain shares one deadline rather than giving each model its own: a generation that is
+actually running is a success worth waiting for (measured up to 54s), while the "high demand"
+503 the chain routes around returns in under 11s. One shared budget lets a slow success
+finish and still falls through several fast refusals.
+
 ## Insight request logs
 
 Every `/insight` request emits exactly one JSON line to stdout, which Cloud Run ships to
@@ -101,7 +126,7 @@ object and hits are the hot path.
 ```json
 {"severity":"INFO","message":"insight generated","insight":{
   "outcome":"generated","cacheKey":"a1b2c3","topic":"hiv","reserved":true,
-  "model":"gemini-3.1-flash-lite","promptTokens":1840,"outputTokens":96,
+  "model":"gemini-3.5-flash-lite","promptTokens":1840,"outputTokens":96,
   "dailyGenerations":42,"dailyLimit":300,"minuteGenerations":3,"minuteLimit":10,
   "monthlyGenerations":903,"monthlyLimit":6000,"durationMs":812}}
 ```
@@ -113,6 +138,14 @@ object and hits are the hot path.
 | `memory_hit` | Served from the in-process `sync.Map` |
 | `gcs_hit` | Served from the GCS persistent cache |
 | `generated` | Called the provider. Carries `model` and token counts |
+
+`model` on a successful generation is the single chain entry that actually answered, which is
+not necessarily the configured head. When nothing answered there is no one model to name, so
+`model` carries the entries that were actually called, comma-separated. That is not always the
+whole configured chain: the walk shares one deadline, so a slow failure can end it before the
+tail is reached, and naming a model that was never called would misread as a failure it did
+not have. Queries that filter on a single model name therefore select successes only, which is
+what the token and volume queries below want.
 | `unavailable` | No insight shown. `reason` says which gate closed |
 | `suppressed` | A reviewer suppressed this exact insight |
 | `rejected` | Malformed request (missing, invalid, or oversize prompt or descriptor) |
@@ -261,15 +294,29 @@ TOKEN=$(gcloud auth print-access-token)
 curl -s -H "Authorization: Bearer $TOKEN" \
   "https://serviceusage.googleapis.com/v1beta1/projects/$GEN_LANG_PROJECT/services/generativelanguage.googleapis.com/consumerQuotaMetrics?pageSize=500" \
 | jq -r '(.metrics//[])[] | .displayName as $d | (.consumerQuotaLimits//[])[] | .unit as $u
-         | (.quotaBuckets//[])[] | select(.dimensions.model == "gemini-3.1-flash-lite")
+         | (.quotaBuckets//[])[] | select(.dimensions.model == "gemini-3.5-flash-lite")
          | "\($d) | \($u) | \(.effectiveLimit)"'
 ```
 
-For `gemini-3.1-flash-lite` on the free tier that returns 15 requests per minute, 500 per
-day, and 250,000 input tokens per minute. Re-read it after any `GEMINI_MODEL` change: the
-limits are per model and differ sharply between them, and a project that gains a billing
-account moves to paid-tier limits roughly two orders of magnitude higher, at which point
-these ceilings are sized against the wrong numbers.
+For `gemini-3.1-flash-lite` on the free tier that returned 15 requests per minute, 500 per
+day, and 250,000 input tokens per minute. **That measurement is for a model no longer in the
+chain, and no current chain entry's limits have been read**, so the ceiling sizing below is
+provisional until someone runs the query above for each one. Re-read it after any
+`GEMINI_MODEL` change: the limits are per model and differ sharply between them, and a project
+that gains a billing account moves to paid-tier limits roughly two orders of magnitude higher,
+at which point these ceilings are sized against the wrong numbers.
+
+**Quota limits are per model, which is what makes the fallback chain work.** A 429 on one
+chain entry says nothing about the next entry's budget, so `callGemini` advances on 429
+rather than failing, and reports `errInsightQuota` only when every failure in the walk was a
+429. A mixed chain (one model spent, another merely full) reports capacity instead: quota is
+the one outcome that hands the reserved ledger slot back, and a capacity failure has not
+proven nothing was generated. Probing
+on 2026-10-22 found `gemini-3.6-flash` returning a 429 where both 3.5 models did not, which
+is why it sits last in the chain. Our own ledger ceilings
+(`insight_max_generations_per_*`) are a single service-wide budget spent once per request,
+not once per chain entry: one reservation covers the whole walk, so falling through costs
+nothing against our limits.
 
 **Requests bind before tokens.** Measured prompts average about 3,200 input tokens and
 peak near 9,400. Even at the full 15 requests a minute, the worst case is roughly 141,000
