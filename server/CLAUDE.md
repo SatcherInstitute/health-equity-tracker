@@ -31,7 +31,7 @@ go test ./...
 | `METADATA_FILENAME` | Yes | - | Filename of the metadata NDJSON in GCS |
 | `INSIGHTS_CACHE_BUCKET` | No | - | GCS bucket for persisted AI insight cache |
 | `FLAGGED_INSIGHTS_BUCKET` | No | - | GCS bucket for flagged insight records |
-| `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) and the `?force=true` cache bypass on `/insight` |
+| `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) and the `?force=true` cache bypass on `/insight`. Deployed envs read it from the `insight-admin-token` Secret Manager secret (`config/run.tf`); the same value is the `INSIGHT_ADMIN_TOKEN` GitHub secret used by `cronInsightCanary.yml`, so rotate both together |
 | `GEMINI_API_KEY` | No | - | Required for AI insight generation. Unset disables generation; cached insights still serve |
 | `GEMINI_MODEL` | No | `gemini-3.5-flash-lite,gemini-3.5-flash,gemini-3.6-flash` | **Comma-separated fallback chain**, tried in order (a single name is a one-entry chain). Every entry must be a free-tier text model, or the feature silently starts billing. **Terraform sets this explicitly** (`config/variables.tf`), so the Go default is unreachable on any deployed environment — change both together. `TestGeminiModelDefaultMatchesTerraform` fails if they drift |
 | `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `300` | Daily generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |

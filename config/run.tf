@@ -169,6 +169,16 @@ resource "google_cloud_run_service" "server_service" {
           }
         }
         env {
+          name = "ADMIN_TOKEN"
+          value_from {
+            secret_key_ref {
+              # Secret is created/rotated manually in Secret Manager (see secrets.tf).
+              name = "insight-admin-token"
+              key  = "latest"
+            }
+          }
+        }
+        env {
           name  = "INSIGHT_NEGATIVE_EXAMPLES_ENABLED"
           value = "true"
         }

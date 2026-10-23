@@ -4,11 +4,10 @@
 # workflow forces a live generation so a broken provider is caught the day it
 # breaks rather than a month later.
 #
-# Prerequisites (one-time setup per environment):
-#   1. GitHub secret: INSIGHT_ADMIN_TOKEN
-#   2. Cloud Run env var: ADMIN_TOKEN=<same value> on both frontend-service deployments
-#
-# Without those, the canary runs but hits the cache instead of forcing generation.
+# Auth: the INSIGHT_ADMIN_TOKEN GitHub secret must match the insight-admin-token
+# Secret Manager value in each project, which Terraform wires into frontend-service
+# as ADMIN_TOKEN (config/run.tf). Rotate both together, or the canary silently falls
+# back to serving a cached response and proves nothing.
 # See server/CLAUDE.md "Insight generation" for deployment details.
 name: CRON Nightly Insight Canary
 
