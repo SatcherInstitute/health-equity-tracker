@@ -1,9 +1,11 @@
 package main
 
 import (
+	"crypto/subtle"
 	"encoding/json"
 	"io"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -71,12 +73,26 @@ func insightHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	content, ok := resolveInsight(w, r, &ev, prompt, cacheKey, desc.topic(), desc.Kind)
+	adminToken := os.Getenv("ADMIN_TOKEN")
+	forceGenerate := adminToken != "" && r.URL.Query().Get("force") == "true" &&
+		subtle.ConstantTimeCompare(
+			[]byte(r.Header.Get("Authorization")),
+			[]byte("Bearer "+adminToken),
+		) == 1
+
+	content, ok := resolveInsight(w, r, &ev, prompt, cacheKey, desc.topic(), desc.Kind, forceGenerate)
 	if !ok {
 		return
 	}
 	// The key rides along because flagging an insight needs it, and the client no
 	// longer builds it. The prompt does not: it is up to 30 KB the client has no
 	// use for, and preview returns it for the cases that do.
-	writeJSON(w, map[string]string{"content": content, "cacheKey": cacheKey})
+	// "forced": true is only present on force-generated responses so the nightly
+	// canary can distinguish a live provider call from a cache hit and detect
+	// silent token misconfiguration.
+	resp := map[string]any{"content": content, "cacheKey": cacheKey}
+	if forceGenerate {
+		resp["forced"] = true
+	}
+	writeJSON(w, resp)
 }

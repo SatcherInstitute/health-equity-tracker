@@ -77,7 +77,8 @@ The server handles all traffic on a single port:
   the server renders the text it expects. `?force=true` on the query string with a valid
   `Authorization: Bearer $ADMIN_TOKEN` header bypasses both cache layers and forces a live
   provider call — used by the nightly canary (`cronInsightCanary.yml`). The generating path
-  returns `{"content","cacheKey"}`;
+  returns `{"content","cacheKey"}`; a forced response also includes `"forced":true` so the
+  canary can fail if the token is misconfigured and the server silently serves from cache instead.
   the key rides along because flagging needs it, and the prompt does not because it is up to
   30 KB the client has no use for. `content` is the JSON envelope described below, not a
   bare sentence.

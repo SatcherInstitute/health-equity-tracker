@@ -1012,8 +1012,12 @@ func TestForceGenerationBypassesMemoryCache(t *testing.T) {
 	if env.upstream != 1 {
 		t.Errorf("upstream calls = %d, want 1 (force should bypass cached entry)", env.upstream)
 	}
-	if got := decodeBody(t, rr)["content"]; got != generatedInsightEnvelope {
+	resp := decodeBody(t, rr)
+	if got := resp["content"]; got != generatedInsightEnvelope {
 		t.Errorf("content = %v, want freshly generated", got)
+	}
+	if got, _ := resp["forced"].(bool); !got {
+		t.Errorf("forced = %v, want true (canary needs this to detect token misconfiguration)", resp["forced"])
 	}
 }
 

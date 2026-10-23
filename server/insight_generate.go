@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"crypto/subtle"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -115,7 +114,7 @@ func writeInsightUnavailable(w http.ResponseWriter) {
 // since the envelope shipped is already in it, and the cache key is a hash of
 // the rendered prompt, so the prompt edit that introduced the envelope left no
 // older entry reachable.
-func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic, kind string) (string, bool) {
+func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic, kind string, forceGenerate bool) (string, bool) {
 	ev.CacheKey = cacheKey
 
 	ctx, cancel := context.WithTimeout(r.Context(), insightRequestTimeout)
@@ -162,16 +161,9 @@ func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, pr
 		}
 	}
 
-	// force=true with a valid admin token bypasses both cache layers, guaranteeing
-	// a live provider round-trip. Used by the nightly canary to prove the
-	// generation path works regardless of cache state.
-	adminToken := os.Getenv("ADMIN_TOKEN")
-	forceGenerate := adminToken != "" && r.URL.Query().Get("force") == "true" &&
-		subtle.ConstantTimeCompare(
-			[]byte(r.Header.Get("Authorization")),
-			[]byte("Bearer "+adminToken),
-		) == 1
-
+	// forceGenerate is set by the caller (insightHandler) when the request carries
+	// a valid admin token with force=true. When true, both cache layers are skipped
+	// so the provider path is exercised regardless of cache state.
 	if !forceGenerate {
 		// Check in-memory cache
 		if v, ok := insightMemCache.Load(cacheKey); ok {
