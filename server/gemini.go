@@ -299,6 +299,10 @@ func doCallGemini(ctx context.Context, apiKey, system, prompt, url string) (insi
 		if err != nil {
 			return insightGeneration{}, fmt.Errorf("read insight response: %w", err)
 		}
+		// Cloud Run ships one log entry per newline. An error body that is
+		// pretty-printed JSON gets split across entries, making the 503 reason
+		// invisible. Collapse to a single line for every log call below.
+		logBody := strings.NewReplacer("\n", " ", "\r", "").Replace(string(body))
 
 		if resp.StatusCode == http.StatusTooManyRequests {
 			// Not retried against this model: a spent free-tier limit does not
@@ -309,13 +313,13 @@ func doCallGemini(ctx context.Context, apiKey, system, prompt, url string) (insi
 		if resp.StatusCode == http.StatusNotFound {
 			// A name this key cannot call. Logged because it means the chain is
 			// misconfigured even though the request may still succeed.
-			log.Printf("[insight] model not found at %s: %s", url, body)
+			log.Printf("[insight] model not found at %s: %s", url, logBody)
 			return insightGeneration{}, errInsightModelMissing
 		}
 		if resp.StatusCode == http.StatusServiceUnavailable {
 			// Capacity 503: retry after a short delay. Log on the last attempt only.
 			if attempt == geminiMaxAttempts-1 {
-				log.Printf("[insight] provider returned 503 after %d attempts: %s", geminiMaxAttempts, body)
+				log.Printf("[insight] provider returned 503 after %d attempts: %s", geminiMaxAttempts, logBody)
 			}
 			lastErr = errInsightCapacity
 			continue
@@ -323,7 +327,7 @@ func doCallGemini(ctx context.Context, apiKey, system, prompt, url string) (insi
 		if resp.StatusCode < 200 || resp.StatusCode >= 300 {
 			// Body is logged but never returned to the caller, since upstream error
 			// payloads can echo request content.
-			log.Printf("[insight] provider returned %d: %s", resp.StatusCode, body)
+			log.Printf("[insight] provider returned %d: %s", resp.StatusCode, logBody)
 			return insightGeneration{}, fmt.Errorf("insight provider status %d", resp.StatusCode)
 		}
 
