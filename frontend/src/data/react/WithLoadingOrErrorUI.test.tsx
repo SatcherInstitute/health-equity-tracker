@@ -77,7 +77,10 @@ describe('WithLoadingOrErrorUI', () => {
 
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata)
-      dataFetcher.setFakeDatasetLoaded('acs_population-race_state_current', [])
+      dataFetcher.setFakeDatasetLoaded(
+        'acs_population-race_and_ethnicity_state_current',
+        [],
+      )
       dataFetcher.setFakeDatasetLoaded(
         'graphql_ahr_data-non-behavioral_health_race_and_ethnicity_state_current',
         [
@@ -122,7 +125,7 @@ describe('WithLoadingOrErrorUI', () => {
     act(() => {
       dataFetcher.setFakeMetadataLoaded(fakeMetadata)
       dataFetcher.setFakeDatasetLoaded(
-        'acs_population-race_national_current',
+        'acs_population-race_and_ethnicity_national_current',
         [],
       )
       dataFetcher.setFakeDatasetLoaded(

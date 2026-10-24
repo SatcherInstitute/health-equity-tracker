@@ -2,7 +2,7 @@ import { DatasetMetadataMap } from '../../../data/config/DatasetMetadata'
 
 export default function DataMethodDefinitionsLink() {
   const acsYear =
-    DatasetMetadataMap['acs_population-race_national_current']
+    DatasetMetadataMap['acs_population-race_and_ethnicity_national_current']
       .original_data_sourced
   const sviYear =
     DatasetMetadataMap['geo_context-alls_county_current'].original_data_sourced
