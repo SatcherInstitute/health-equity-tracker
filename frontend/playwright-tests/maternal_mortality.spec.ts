@@ -62,7 +62,7 @@ test('Maternal Mortality', async ({ page }) => {
   await page.getByRole('columnheader', { name: 'Share of live births' }).click()
 
   await page.getByRole('heading', { name: 'Definitions:' }).click()
-  await page.getByRole('heading', { name: 'Maternal Health' }).click()
+  await page.getByRole('heading', { name: 'Maternal and Infant Health' }).click()
   await page.locator('#definitionsList').getByText('Maternal mortality').click()
   await page.getByText('Maternal deaths per 100,000').click()
 })

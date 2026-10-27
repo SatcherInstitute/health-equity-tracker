@@ -58,7 +58,7 @@ test('Maternal Health Tab Loads', async ({ page }) => {
     waitUntil: 'commit',
   })
   await page
-    .getByRole('heading', { name: 'Maternal Health', exact: true })
+    .getByRole('heading', { name: 'Maternal and Infant Health', exact: true })
     .click()
   const accessibilityScanResults = await new AxeBuilder({ page }).analyze()
   expect(accessibilityScanResults.violations).toEqual([])
