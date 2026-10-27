@@ -123,6 +123,13 @@ resource "google_cloud_run_service" "server_service" {
   location = var.compute_region
   project  = var.project_id
 
+  # insight_admin_token_accessor is a net-new binding (no pre-existing out-of-band
+  # grant), so Terraform must create it before deploying, or the service account
+  # will lack the accessor role when Cloud Run starts reading the secret.
+  depends_on = [
+    google_secret_manager_secret_iam_binding.insight_admin_token_accessor,
+  ]
+
   template {
     metadata {
       annotations = {
@@ -164,6 +171,16 @@ resource "google_cloud_run_service" "server_service" {
             secret_key_ref {
               # Secret is created/rotated manually in Secret Manager (see secrets.tf).
               name = "webflow-api-token"
+              key  = "latest"
+            }
+          }
+        }
+        env {
+          name = "ADMIN_TOKEN"
+          value_from {
+            secret_key_ref {
+              # Secret is created/rotated manually in Secret Manager (see secrets.tf).
+              name = "insight-admin-token"
               key  = "latest"
             }
           }

@@ -31,7 +31,7 @@ go test ./...
 | `METADATA_FILENAME` | Yes | - | Filename of the metadata NDJSON in GCS |
 | `INSIGHTS_CACHE_BUCKET` | No | - | GCS bucket for persisted AI insight cache |
 | `FLAGGED_INSIGHTS_BUCKET` | No | - | GCS bucket for flagged insight records |
-| `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) |
+| `ADMIN_TOKEN` | No | - | Bearer token for admin routes (`/flagged-insights`) and the `?force=true` cache bypass on `/insight`. Deployed envs read it from the `insight-admin-token` Secret Manager secret (`config/run.tf`); the same value is the `INSIGHT_ADMIN_TOKEN` GitHub secret used by `cronInsightCanary.yml`, so rotate both together |
 | `GEMINI_API_KEY` | No | - | Required for AI insight generation. Unset disables generation; cached insights still serve |
 | `GEMINI_MODEL` | No | `gemini-3.5-flash-lite,gemini-3.5-flash,gemini-3.6-flash` | **Comma-separated fallback chain**, tried in order (a single name is a one-entry chain). Every entry must be a free-tier text model, or the feature silently starts billing. **Terraform sets this explicitly** (`config/variables.tf`), so the Go default is unreachable on any deployed environment — change both together. `TestGeminiModelDefaultMatchesTerraform` fails if they drift |
 | `INSIGHT_MAX_GENERATIONS_PER_DAY` | No | `300` | Daily generation ceiling, tracked in the usage ledger. See [Ceiling sizing](#ceiling-sizing) before changing |
@@ -77,7 +77,11 @@ The server handles all traffic on a single port:
   the server renders the text it expects. The generating path returns `{"content","cacheKey"}`;
   the key rides along because flagging needs it, and the prompt does not because it is up to
   30 KB the client has no use for. `content` is the JSON envelope described below, not a
-  bare sentence.
+  bare sentence. `?force=true` with a valid `Authorization: Bearer $ADMIN_TOKEN` skips both
+  cache layers so the provider path runs regardless of cache state, and adds `"forced":true`
+  to the response. It does not skip the kill switches, suppression, or the ledger. The nightly
+  canary (`cronInsightCanary.yml`) uses it and requires `"forced":true`, so a token that has
+  drifted from Secret Manager fails the canary instead of quietly passing on a cache hit.
 - **Flagging** (`/flag-insight`): writes a flag record to GCS, deletes the cached insight, and
   clears the in-process `sync.Map` entry — all in the same process with no HTTP hops.
 - **News** (`/het-news`): fetches from the Webflow CDN API with a 5-minute TTL cache (tags

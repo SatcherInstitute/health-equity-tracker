@@ -28,34 +28,34 @@ export type DatasetIdAcs =
   | 'acs_population-age_county_current'
   | 'acs_population-age_national_current'
   | 'acs_population-age_state_current'
-  | 'acs_population-race_county_current'
-  | 'acs_population-race_national_current'
-  | 'acs_population-race_state_current'
+  | 'acs_population-race_and_ethnicity_county_current'
+  | 'acs_population-race_and_ethnicity_national_current'
+  | 'acs_population-race_and_ethnicity_state_current'
   | 'acs_population-sex_county_current'
   | 'acs_population-sex_national_current'
   | 'acs_population-sex_state_current'
   | 'acs_population-age_county_historical'
   | 'acs_population-age_national_historical'
   | 'acs_population-age_state_historical'
-  | 'acs_population-race_county_historical'
-  | 'acs_population-race_national_historical'
-  | 'acs_population-race_state_historical'
+  | 'acs_population-race_and_ethnicity_county_historical'
+  | 'acs_population-race_and_ethnicity_national_historical'
+  | 'acs_population-race_and_ethnicity_state_historical'
   | 'acs_population-sex_county_historical'
   | 'acs_population-sex_national_historical'
   | 'acs_population-sex_state_historical'
 
 export const DatasetMetadataMapAcs: Record<DatasetIdAcs, DatasetMetadata> = {
-  'acs_population-race_county_current': {
+  'acs_population-race_and_ethnicity_county_current': {
     name: 'Population by race/ethnicity and county',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
-  'acs_population-race_state_current': {
+  'acs_population-race_and_ethnicity_state_current': {
     name: 'Population by race/ethnicity and state',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
-  'acs_population-race_national_current': {
+  'acs_population-race_and_ethnicity_national_current': {
     name: 'Population by race/ethnicity nationally',
     original_data_sourced: '2024',
     source_id: 'acs',
@@ -90,17 +90,17 @@ export const DatasetMetadataMapAcs: Record<DatasetIdAcs, DatasetMetadata> = {
     original_data_sourced: '2024',
     source_id: 'acs',
   },
-  'acs_population-race_county_historical': {
+  'acs_population-race_and_ethnicity_county_historical': {
     name: 'Annual population by race/ethnicity and county',
     original_data_sourced: '2009-2024',
     source_id: 'acs',
   },
-  'acs_population-race_state_historical': {
+  'acs_population-race_and_ethnicity_state_historical': {
     name: 'Annual population by race/ethnicity and state',
     original_data_sourced: '2009-2024',
     source_id: 'acs',
   },
-  'acs_population-race_national_historical': {
+  'acs_population-race_and_ethnicity_national_historical': {
     name: 'Annual population by race/ethnicity nationally',
     original_data_sourced: '2009-2024',
     source_id: 'acs',
@@ -289,18 +289,18 @@ export const datasourceMetadataAcs: DataSourceMetadataAcs = {
   description:
     'Yearly population percentages, health insurance rates, and poverty rates at the national, state and county levels.',
   dataset_ids: [
-    'acs_population-race_county_current',
-    'acs_population-race_state_current',
-    'acs_population-race_national_current',
+    'acs_population-race_and_ethnicity_county_current',
+    'acs_population-race_and_ethnicity_state_current',
+    'acs_population-race_and_ethnicity_national_current',
     'acs_population-age_county_current',
     'acs_population-age_state_current',
     'acs_population-age_national_current',
     'acs_population-sex_county_current',
     'acs_population-sex_state_current',
     'acs_population-sex_national_current',
-    'acs_population-race_county_historical',
-    'acs_population-race_state_historical',
-    'acs_population-race_national_historical',
+    'acs_population-race_and_ethnicity_county_historical',
+    'acs_population-race_and_ethnicity_state_historical',
+    'acs_population-race_and_ethnicity_national_historical',
     'acs_population-age_county_historical',
     'acs_population-age_state_historical',
     'acs_population-age_national_historical',

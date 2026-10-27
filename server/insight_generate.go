@@ -114,7 +114,10 @@ func writeInsightUnavailable(w http.ResponseWriter) {
 // since the envelope shipped is already in it, and the cache key is a hash of
 // the rendered prompt, so the prompt edit that introduced the envelope left no
 // older entry reachable.
-func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic, kind string) (string, bool) {
+// forceGenerate skips both cache layers so the provider path runs regardless of
+// cache state. It does not skip the kill switches, suppression, or the ledger:
+// a forced generation spends a reservation like any other.
+func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, prompt, cacheKey, topic, kind string, forceGenerate bool) (string, bool) {
 	ev.CacheKey = cacheKey
 
 	ctx, cancel := context.WithTimeout(r.Context(), insightRequestTimeout)
@@ -161,23 +164,25 @@ func resolveInsight(w http.ResponseWriter, r *http.Request, ev *insightEvent, pr
 		}
 	}
 
-	// Check in-memory cache
-	if v, ok := insightMemCache.Load(cacheKey); ok {
-		entry := v.(insightMemEntry)
-		if time.Since(entry.ts) < insightMemTTL {
-			ev.Outcome = outcomeMemoryHit
-			return entry.content, true
+	if !forceGenerate {
+		// Check in-memory cache
+		if v, ok := insightMemCache.Load(cacheKey); ok {
+			entry := v.(insightMemEntry)
+			if time.Since(entry.ts) < insightMemTTL {
+				ev.Outcome = outcomeMemoryHit
+				return entry.content, true
+			}
+			insightMemCache.Delete(cacheKey)
 		}
-		insightMemCache.Delete(cacheKey)
-	}
 
-	// Check GCS persistent cache
-	if cacheBucket != "" {
-		content := insightCacheRead(ctx, cacheBucket, cacheKey)
-		if content != "" {
-			insightMemCache.Store(cacheKey, insightMemEntry{content: content, ts: time.Now()})
-			ev.Outcome = outcomeGCSHit
-			return content, true
+		// Check GCS persistent cache
+		if cacheBucket != "" {
+			content := insightCacheRead(ctx, cacheBucket, cacheKey)
+			if content != "" {
+				insightMemCache.Store(cacheKey, insightMemEntry{content: content, ts: time.Now()})
+				ev.Outcome = outcomeGCSHit
+				return content, true
+			}
 		}
 	}
 
