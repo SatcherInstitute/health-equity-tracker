@@ -221,10 +221,10 @@ export const UNEMPLOYMENT_METRICS: DataTypeConfig[] = [
       are excluded from both the numerator and the denominator.`,
     },
     description: {
-      text: 'Unemployment is closely tied to health. People who are unemployed are more likely to experience financial strain, loss of health insurance, and worse physical and mental health outcomes. Studying unemployment can help us understand why these disparities exist and how to address them.',
+      text: 'Unemployment affects health through several specific pathways. Losing a job often means losing employer-sponsored insurance, which delays preventive care and leaves chronic conditions unmanaged. The accompanying loss of income constrains housing, nutrition, and transportation to medical appointments, and prolonged job loss is associated with higher rates of depression, hypertension, and substance use. Tracking who is unemployed shows which communities carry these compounding risks.',
     },
     dataTableTitle: 'Summary for unemployed people',
-    otherSubPopulationLabel: 'Civilian Labor Force',
+    otherSubPopulationLabel: 'Civilian labor force',
     ageSubPopulationLabel: 'Ages 16+',
     metrics: {
       pct_rate: {
