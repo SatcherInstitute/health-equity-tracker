@@ -182,9 +182,9 @@ variable "flagged_insights_bucket" {
 }
 
 variable "gemini_model" {
-  description = "Gemini model used for AI insight generation"
+  description = "Comma-separated fallback chain of Gemini models for AI insight generation, tried in order. Every entry must be a free-tier text model. Must stay in sync with geminiModelDefault in server/gemini.go"
   type        = string
-  default     = "gemini-3.1-flash-lite"
+  default     = "gemini-3.5-flash-lite,gemini-3.5-flash,gemini-3.6-flash"
 }
 
 variable "insight_max_generations_per_day" {
