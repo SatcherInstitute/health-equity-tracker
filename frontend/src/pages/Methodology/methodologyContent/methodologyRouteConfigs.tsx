@@ -360,7 +360,7 @@ export const methodologyRouteConfigs: RouteConfig[] = [
     subLinks: [
       { label: 'Data Sourcing', path: 'sdoh-data-sourcing' },
       {
-        label: 'Poverty and Uninsurance (ACS)',
+        label: 'Poverty, Uninsurance, and Unemployment (ACS)',
         path: 'sdoh-acs-data-sourcing',
       },
       { label: 'Demographics', path: 'demographic-stratification' },

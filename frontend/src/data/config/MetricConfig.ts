@@ -56,6 +56,7 @@ import {
   CARE_AVOIDANCE_METRICS,
   POVERTY_METRICS,
   PREVENTABLE_HOSP_METRICS,
+  UNEMPLOYMENT_METRICS,
   UNINSURANCE_METRICS,
 } from './MetricConfigSDOH'
 import type { DataTypeConfig } from './MetricConfigTypes'
@@ -85,6 +86,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   copd: COPD_METRICS,
   health_insurance: UNINSURANCE_METRICS,
   poverty: POVERTY_METRICS,
+  unemployment: UNEMPLOYMENT_METRICS,
   preventable_hospitalizations: PREVENTABLE_HOSP_METRICS,
   avoided_care: CARE_AVOIDANCE_METRICS,
   asthma: ASTHMA_METRICS,

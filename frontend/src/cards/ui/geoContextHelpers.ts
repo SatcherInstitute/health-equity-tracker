@@ -36,5 +36,12 @@ export function getSubPopulationPhrase(
     .filter(Boolean)
     .join(', ')
 
-  return `Total population${dataTypeConfig.otherSubPopulationLabel ? ' of' : ''}${combinedSubPop ? ' ' + combinedSubPop : ''}: ${popAllCount}${subPopulationSourceLabel ? ' (from ' + subPopulationSourceLabel + ')' : ''}`
+  // A config with no sub-population labels would otherwise render the literal
+  // "Total population", duplicating the general ACS line above it with a
+  // different number and reading as a contradiction rather than a denominator.
+  const subject = combinedSubPop
+    ? `Total population${dataTypeConfig.otherSubPopulationLabel ? ' of' : ''} ${combinedSubPop}`
+    : 'Population measured'
+
+  return `${subject}: ${popAllCount}${subPopulationSourceLabel ? ' (from ' + subPopulationSourceLabel + ')' : ''}`
 }

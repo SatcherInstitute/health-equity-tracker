@@ -136,136 +136,136 @@ export const DatasetMetadataMapAcs: Record<DatasetIdAcs, DatasetMetadata> = {
     source_id: 'acs',
   },
   'acs_condition-age_county_historical': {
-    name: 'Health insurance and poverty, yearly, by age and county',
+    name: 'Health insurance, poverty, and unemployment, yearly, by age and county',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-age_state_historical': {
-    name: 'Health insurance and poverty, yearly, by age and state',
+    name: 'Health insurance, poverty, and unemployment, yearly, by age and state',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-age_national_historical': {
-    name: 'Health insurance and poverty, yearly, by age at the national level',
+    name: 'Health insurance, poverty, and unemployment, yearly, by age at the national level',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-sex_county_historical': {
-    name: 'Health insurance and poverty, yearly, by sex and county',
+    name: 'Health insurance, poverty, and unemployment, yearly, by sex and county',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-sex_state_historical': {
-    name: 'Health insurance and poverty, yearly, by sex and state',
+    name: 'Health insurance, poverty, and unemployment, yearly, by sex and state',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-sex_national_historical': {
-    name: 'Health insurance and poverty, yearly, by sex at the national level',
+    name: 'Health insurance, poverty, and unemployment, yearly, by sex at the national level',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-race_and_ethnicity_county_historical': {
-    name: 'Health insurance and poverty, yearly, by race and county',
+    name: 'Health insurance, poverty, and unemployment, yearly, by race and county',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-race_and_ethnicity_state_historical': {
-    name: 'Health insurance and poverty, yearly, by race and state',
+    name: 'Health insurance, poverty, and unemployment, yearly, by race and state',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-race_and_ethnicity_national_historical': {
-    name: 'Health insurance and poverty, yearly, by race at the national level',
+    name: 'Health insurance, poverty, and unemployment, yearly, by race at the national level',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
   'acs_condition-age_county_current': {
-    name: 'Health insurance and poverty, yearly, by age and county',
+    name: 'Health insurance, poverty, and unemployment, yearly, by age and county',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-age_state_current': {
-    name: 'Health insurance and poverty, yearly, by age and state',
+    name: 'Health insurance, poverty, and unemployment, yearly, by age and state',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-age_national_current': {
-    name: 'Health insurance and poverty, yearly, by age at the national level',
+    name: 'Health insurance, poverty, and unemployment, yearly, by age at the national level',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-sex_county_current': {
-    name: 'Health insurance and poverty, yearly, by sex and county',
+    name: 'Health insurance, poverty, and unemployment, yearly, by sex and county',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-sex_state_current': {
-    name: 'Health insurance and poverty, yearly, by sex and state',
+    name: 'Health insurance, poverty, and unemployment, yearly, by sex and state',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-sex_national_current': {
-    name: 'Health insurance and poverty, yearly, by sex at the national level',
+    name: 'Health insurance, poverty, and unemployment, yearly, by sex at the national level',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-race_and_ethnicity_county_current': {
-    name: 'Health insurance and poverty, yearly, by race and county',
+    name: 'Health insurance, poverty, and unemployment, yearly, by race and county',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-race_and_ethnicity_state_current': {
-    name: 'Health insurance and poverty, yearly, by race and state',
+    name: 'Health insurance, poverty, and unemployment, yearly, by race and state',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-race_and_ethnicity_national_current': {
-    name: 'Health insurance and poverty, yearly, by race at the national level',
+    name: 'Health insurance, poverty, and unemployment, yearly, by race at the national level',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_county_historical': {
-    name: 'Health insurance and poverty, yearly, by county',
+    name: 'Health insurance, poverty, and unemployment, yearly, by county',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_county_current': {
-    name: 'Health insurance and poverty, yearly, by county',
+    name: 'Health insurance, poverty, and unemployment, yearly, by county',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_state_historical': {
-    name: 'Health insurance and poverty, yearly, by state',
+    name: 'Health insurance, poverty, and unemployment, yearly, by state',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_state_current': {
-    name: 'Health insurance and poverty, yearly, by state',
+    name: 'Health insurance, poverty, and unemployment, yearly, by state',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_national_historical': {
-    name: 'Health insurance and poverty, yearly, at the national level',
+    name: 'Health insurance, poverty, and unemployment, yearly, at the national level',
     original_data_sourced: '2012-2024',
     source_id: 'acs',
   },
 
   'acs_condition-alls_national_current': {
-    name: 'Health insurance and poverty, yearly, at the national level',
+    name: 'Health insurance, poverty, and unemployment, yearly, at the national level',
     original_data_sourced: '2024',
     source_id: 'acs',
   },
@@ -287,7 +287,7 @@ export const datasourceMetadataAcs: DataSourceMetadataAcs = {
   demographic_breakdowns: ['race_and_ethnicity', 'age', 'sex'],
   update_frequency: 'Yearly',
   description:
-    'Yearly population percentages, health insurance rates, and poverty rates at the national, state and county levels.',
+    'Yearly population percentages, health insurance rates, poverty rates, and unemployment rates at the national, state and county levels.',
   dataset_ids: [
     'acs_population-race_and_ethnicity_county_current',
     'acs_population-race_and_ethnicity_state_current',
