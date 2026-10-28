@@ -26,6 +26,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SPEC_PATH = Path(__file__).with_name("recipes.json")
 SECRETS_PATH = REPO_ROOT / ".env.secrets"
+EXAMPLE_PATH = REPO_ROOT / ".env.secrets.example"
 KEY_NAME = "README_API_KEY"
 API = "https://api.readme.com/v2/branches/1.0/recipes/"
 REQUEST_TIMEOUT_SECONDS = 30
@@ -147,6 +148,7 @@ def fail_api(method, slug, reason):
 
 
 def key_from_secrets_file():
+    """Read KEY_NAME from .env.secrets, which is only ever plain NAME=value lines."""
     if not SECRETS_PATH.exists():
         return None
     for raw in SECRETS_PATH.read_text(encoding="utf-8").splitlines():
@@ -170,8 +172,8 @@ def resolve_api_key():
         f"\n"
         f"To set this up:\n"
         f"  1. Ask a team member for the readme.io API key.\n"
-        f"  2. cp .env.secrets.example .env.secrets\n"
-        f"  3. Add the key to .env.secrets as {KEY_NAME}=...\n"
+        f"  2. cp {EXAMPLE_PATH} {SECRETS_PATH}\n"
+        f"  3. Fill in the blank after {KEY_NAME}= in {SECRETS_PATH}\n"
         f"\n"
         f".env.secrets is gitignored. Never commit it or paste the key into a\n"
         f"PR, issue, or chat log.",
