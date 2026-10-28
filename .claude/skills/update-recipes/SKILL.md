@@ -21,7 +21,9 @@ gh pr view <number> --json files --jq '.files[].path'   # with a PR number
 git show --name-only --format= HEAD                      # without
 ```
 
-Skip the skill with a one-line note unless a path starts with `frontend/src/` or `frontend/.env`. Also skip with a note if `README_API_KEY` is unset after `source ~/.zshenv` (never print it).
+Skip the skill with a one-line note unless a path starts with `frontend/src/` or `frontend/.env`.
+
+**Never pre-check `README_API_KEY` yourself.** The script resolves the key from the environment or from `.env.secrets` at the repo root, and reports a missing key as exit 5 in Step 2. Testing the variable in your own shell gives a false negative: the key may live in a file the shell never read, and a bash shell does not source `~/.zshenv` at all. That exact mistake skipped this skill on PR #5311 and left the recipes drifted. Run the script and read its exit code.
 
 Local main must be at the merge commit so the script reads the merged code. `/merge` guarantees this in its Step 4; standalone, verify all three conditions and stop if any fails, since a wrong-branch or dirty checkout would publish recipes from unmerged code:
 
@@ -40,14 +42,15 @@ MERGE_SHA=$(gh pr view <number> --json mergeCommit --jq '.mergeCommit.oid')
 ## Step 2: Sync tabs and highlights
 
 ```bash
-source ~/.zshenv && python3 scripts/readme_recipes/sync_recipes.py check
+python3 scripts/readme_recipes/sync_recipes.py check
 ```
 
 - **Exit 0:** recipes are current.
 - **Exit 1 (drift):** only code tabs or line highlights changed, which is mechanical. Run `python3 scripts/readme_recipes/sync_recipes.py push` and report which recipes moved.
 - **Exit 2 (anchor error or unexpected recipe shape):** a symbol or file the recipes point at was renamed or removed, or a live recipe no longer matches `recipes.json`. Do not push. Tell the user which recipe broke and offer a follow-up PR that updates `scripts/readme_recipes/recipes.json`.
-- **Exit 3 (API error or no key):** the check did not complete. Do not push; report the error and move on.
+- **Exit 3 (API error):** readme.io returned an error or timed out, so the check did not complete. Transient. Do not push; report the error and move on.
 - **Exit 4 (bad command line):** you mistyped the invocation; fix it and rerun.
+- **Exit 5 (no API key configured):** a one-time setup task, not a transient failure. Do not push. Relay the script's own setup instructions to the user verbatim, since they name the file path and say to ask a team member for the value. Never print the key.
 
 Pass a slug as a second argument (`check <slug>`) to limit the run to one recipe.
 
@@ -66,6 +69,12 @@ The script never touches step titles or bodies. Map the changed paths (relative 
 | `utils/MadLibs.ts` | `updating-the-madlibs-configuration-for-new-dataset-integration` |
 | `featureFlags.ts`, `frontend/.env.*` | `merging-behind-a-feature-flag` |
 
+This step calls the API directly rather than through the script, so it needs the key in its own shell. Step 2 may have resolved it from `.env.secrets`, where a shell will not have it; load it first and never echo the value:
+
+```bash
+[ -n "$README_API_KEY" ] || { set -a; . .env.secrets; set +a; }
+```
+
 For each mapped recipe, fetch it (`GET https://api.readme.com/v2/branches/1.0/recipes/<slug>` with `Authorization: Bearer $README_API_KEY` and a `User-Agent` header, since the default Python one gets a 403) and check whether any step title or body names a file, symbol, path or behavior the change removed or altered. If so, show the user the proposed wording and ask before PATCHing. The whole `content` object must be sent back, so change only the step `title`/`body` fields you mean to.
 
 ---
@@ -73,6 +82,8 @@ For each mapped recipe, fetch it (`GET https://api.readme.com/v2/branches/1.0/re
 ## Step 4: Report
 
 One line: `Recipes: <current/pushed (which)/skipped/needs recipes.json update/prose flagged>`.
+
+**A skip must name its reason**, so that "nothing to do" is never mistaken for "something broke and I moved on". Say `skipped (no frontend/src changes)` or `skipped (no API key configured)`, not a bare `skipped`.
 
 ---
 
