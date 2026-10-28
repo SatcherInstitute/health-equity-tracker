@@ -2,6 +2,7 @@ import { STACKED_BAR_COLORS, STACKED_BAR_MARGIN } from './Index'
 
 interface StackedBarLegendProps {
   metricDisplayName: string
+  populationDisplayName: string
 }
 export default function StackedBarLegend(props: StackedBarLegendProps) {
   return (
@@ -9,7 +10,10 @@ export default function StackedBarLegend(props: StackedBarLegendProps) {
       aria-label='legend'
       transform={`translate(0,${STACKED_BAR_MARGIN.top * -1})`}
     >
-      <g role='img' aria-label='light green bars represent % of population'>
+      <g
+        role='img'
+        aria-label={`light green bars represent ${props.populationDisplayName}`}
+      >
         <circle r={6} cy={6} cx={6} fill={STACKED_BAR_COLORS.population} />
         <text
           x={18}
@@ -18,7 +22,7 @@ export default function StackedBarLegend(props: StackedBarLegendProps) {
           tabIndex={-1}
           aria-hidden='true'
         >
-          % of population
+          {props.populationDisplayName}
         </text>
       </g>
       <g

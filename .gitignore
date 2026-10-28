@@ -28,7 +28,6 @@ config/.terraform.lock.hcl
 /frontend/.env.local
 /frontend_server/.env.local
 /frontend_server/.env.development
-/scripts/.env.secrets
 
 # Build Outputs
 /frontend/build/

@@ -8,10 +8,12 @@ titles and prose are never touched here; edit those in the ReadMe editor.
     python3 scripts/readme_recipes/sync_recipes.py check [slug]  # exit 1 on drift
     python3 scripts/readme_recipes/sync_recipes.py push [slug]   # PATCH drifted recipes
 
-The optional slug limits the run to one recipe. Needs README_API_KEY in the
-environment. Exit codes: 0 current, 1 drift, 2 an anchor no longer resolves or a
-live recipe has an unexpected shape (recipes.json needs updating), 3 the ReadMe
-API call failed or no key was set (check incomplete), 4 bad command line.
+The optional slug limits the run to one recipe. Needs a ReadMe API key, taken
+from README_API_KEY in the environment or from .env.secrets at the repo root;
+see .env.secrets.example. Exit codes: 0 current, 1 drift, 2 an anchor no longer
+resolves or a live recipe has an unexpected shape (recipes.json needs updating),
+3 the ReadMe API call failed (check incomplete), 4 bad command line, 5 no API
+key configured.
 """
 
 import json
@@ -23,10 +25,14 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 SPEC_PATH = Path(__file__).with_name("recipes.json")
+SECRETS_PATH = REPO_ROOT / ".env.secrets"
+EXAMPLE_PATH = REPO_ROOT / ".env.secrets.example"
+KEY_NAME = "README_API_KEY"
 API = "https://api.readme.com/v2/branches/1.0/recipes/"
 REQUEST_TIMEOUT_SECONDS = 30
 EXIT_API_ERROR = 3
 EXIT_USAGE = 4
+EXIT_NO_KEY = 5
 
 
 class AnchorError(Exception):
@@ -141,11 +147,42 @@ def fail_api(method, slug, reason):
     sys.exit(EXIT_API_ERROR)
 
 
-def api_request(slug, method, body=None):
-    key = os.environ.get("README_API_KEY")
-    if not key:
-        print("README_API_KEY is not set", file=sys.stderr)
-        sys.exit(EXIT_API_ERROR)
+def key_from_secrets_file():
+    """Read KEY_NAME from .env.secrets, which is only ever plain NAME=value lines."""
+    if not SECRETS_PATH.exists():
+        return None
+    for raw in SECRETS_PATH.read_text(encoding="utf-8").splitlines():
+        name, separator, value = raw.strip().partition("=")
+        if separator and name.strip() == KEY_NAME:
+            return value.strip().strip("\"'") or None
+    return None
+
+
+def resolve_api_key():
+    """Return the ReadMe API key, or exit with setup instructions."""
+    key = os.environ.get(KEY_NAME) or key_from_secrets_file()
+    if key:
+        return key
+    print(
+        f"No readme.io API key found.\n"
+        f"\n"
+        f"Checked:\n"
+        f"  - {KEY_NAME} in the environment\n"
+        f"  - {KEY_NAME} in {SECRETS_PATH}\n"
+        f"\n"
+        f"To set this up:\n"
+        f"  1. Ask a team member for the readme.io API key.\n"
+        f"  2. cp -n {EXAMPLE_PATH} {SECRETS_PATH}  # skips if the file already exists\n"
+        f"  3. Add or fill in: {KEY_NAME}=<key from team member> in {SECRETS_PATH}\n"
+        f"\n"
+        f".env.secrets is gitignored. Never commit it or paste the key into a\n"
+        f"PR, issue, or chat log.",
+        file=sys.stderr,
+    )
+    sys.exit(EXIT_NO_KEY)
+
+
+def api_request(slug, method, key, body=None):
     request = urllib.request.Request(
         API + slug,
         method=method,
@@ -216,12 +253,13 @@ def main():
     if mode not in ("check", "push"):
         print(__doc__, file=sys.stderr)
         sys.exit(EXIT_USAGE)
+    key = resolve_api_key()
     spec = json.loads(SPEC_PATH.read_text(encoding="utf-8"))
     drifted = failed = False
     for recipe in spec["recipes"]:
         if only and recipe["slug"] != only:
             continue
-        live = api_request(recipe["slug"], "GET")
+        live = api_request(recipe["slug"], "GET", key)
         try:
             content, notes = refresh(recipe, live)
         except AnchorError as error:
@@ -243,6 +281,7 @@ def main():
             api_request(
                 recipe["slug"],
                 "PATCH",
+                key,
                 {"description": live["description"], "content": content},
             )
             print("          pushed")

@@ -157,6 +157,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   preventable_hospitalizations: 'Preventable Hospitalization',
   substance: 'Opioid and Other Substance Misuse',
   suicide: 'Suicide',
+  unemployment: 'Unemployment',
   voter_participation: 'Voter Participation',
   women_in_gov: 'Women Serving in Legislative Office',
 }

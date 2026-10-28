@@ -174,7 +174,9 @@ Only run the assign/move mutation for items the user actually selected. If nothi
 
 ## Step 7b — Refresh the ReadMe contributor recipes
 
-If the merged PR touched `frontend/src/` or `frontend/.env*`, invoke the `update-recipes` skill with the PR number (`/update-recipes <number>`). It syncs code tabs and highlights via `scripts/readme_recipes/sync_recipes.py`, flags prose drift, and skips itself when `README_API_KEY` is unset. Local main is already at the merge commit (Step 4), so it reads the merged code. Otherwise skip this step.
+If the merged PR touched `frontend/src/` or `frontend/.env*`, invoke the `update-recipes` skill with the PR number (`/update-recipes <number>`). It syncs code tabs and highlights via `scripts/readme_recipes/sync_recipes.py` and flags prose drift. Local main is already at the merge commit (Step 4), so it reads the merged code. Otherwise skip this step.
+
+Do not pre-check `README_API_KEY` to decide whether to invoke the skill. The script resolves the key from the environment or from `.env.secrets` at the repo root and reports a missing one as its own exit code. Testing the variable in a bash shell gives a false negative, which is how this step got skipped on PR #5311 and left the recipes drifted with nothing failing.
 
 ---
 

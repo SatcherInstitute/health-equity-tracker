@@ -188,7 +188,8 @@ export default function StackedSharesBarChartCard(
             {shouldShowDoesntAddUpMessage && (
               <HetNotice>
                 Population percentages on this graph add up to over 100% because
-                the racial categories reported for {chartTitle} in{' '}
+                the racial categories reported for{' '}
+                {props.dataTypeConfig.fullDisplayNameInline} in{' '}
                 {props.fips.getSentenceDisplayName()} include Hispanic
                 individuals in each racial category. As a result, Hispanic
                 individuals are counted twice.

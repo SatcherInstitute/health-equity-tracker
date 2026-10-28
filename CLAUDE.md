@@ -160,4 +160,5 @@ All of the following run automatically on `git commit`:
 | Python BQ/GCS utilities | `python/ingestion/gcs_to_bq_util.py` |
 | Python type definitions | `python/ingestion/het_types.py` |
 | GCP pipeline DAG workflows | `.github/workflows/dag*.yml` |
+| Local developer credentials | `.env.secrets` at the repo root (gitignored; copy `.env.secrets.example` and ask a team member for the values) |
 | Frontend key files | See `frontend/CLAUDE.md` |
