@@ -227,7 +227,7 @@ const CATEGORIES_LIST: Category[] = [
     options: MEDICARE_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
-    title: 'Maternal Health',
+    title: 'Maternal and Infant Health',
     definition: '',
     options: MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },

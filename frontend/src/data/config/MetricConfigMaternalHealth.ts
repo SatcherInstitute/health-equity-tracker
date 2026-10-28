@@ -1,4 +1,7 @@
-import { womenHigherIsWorseMapConfig } from '../../charts/mapGlobals'
+import {
+  womenHigherIsWorseMapConfig,
+  youthHigherIsWorseMapConfig,
+} from '../../charts/mapGlobals'
 import {
   AIAN_NH,
   ASIAN_NH,
@@ -58,7 +61,7 @@ export const MATERNAL_MORTALITY_METRICS: DataTypeConfig[] = [
         chartTitle: 'Maternal mortality',
         trendsCardTitleName: 'Rates of maternal mortality over time',
         columnTitleHeader: 'Maternal mortality',
-        shortLabel: 'deaths per 100k live births',
+        shortLabel: 'maternal deaths per 100k live births',
         type: 'per100k',
         rateNumeratorMetric: {
           metricId: 'maternal_deaths_estimated_total',
@@ -147,7 +150,7 @@ export const INFANT_MORTALITY_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'maternal-health',
     dataTypeId: 'infant_mortality',
-    mapConfig: womenHigherIsWorseMapConfig,
+    mapConfig: youthHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Infant mortality',
     fullDisplayName: 'Infant mortality',
     fullDisplayNameInline: 'infant mortality',
@@ -173,7 +176,7 @@ export const INFANT_MORTALITY_METRICS: DataTypeConfig[] = [
         chartTitle: 'Infant mortality',
         trendsCardTitleName: 'Rates of infant mortality over time',
         columnTitleHeader: 'Infant mortality',
-        shortLabel: 'deaths per 100k live births',
+        shortLabel: 'infant deaths per 100k live births',
         type: 'per100k',
       },
     },
@@ -184,7 +187,7 @@ export const LOW_BIRTHWEIGHT_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'maternal-health',
     dataTypeId: 'low_birthweight',
-    mapConfig: womenHigherIsWorseMapConfig,
+    mapConfig: youthHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Low birthweight',
     fullDisplayName: 'Low birthweight',
     fullDisplayNameInline: 'low birthweight',
