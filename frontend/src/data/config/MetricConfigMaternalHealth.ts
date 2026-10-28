@@ -1,6 +1,6 @@
 import {
-  defaultHigherIsWorseMapConfig,
   womenHigherIsWorseMapConfig,
+  youthHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
 import {
   AIAN_NH,
@@ -150,7 +150,7 @@ export const INFANT_MORTALITY_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'maternal-health',
     dataTypeId: 'infant_mortality',
-    mapConfig: defaultHigherIsWorseMapConfig,
+    mapConfig: youthHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Infant mortality',
     fullDisplayName: 'Infant mortality',
     fullDisplayNameInline: 'infant mortality',
@@ -187,7 +187,7 @@ export const LOW_BIRTHWEIGHT_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'maternal-health',
     dataTypeId: 'low_birthweight',
-    mapConfig: defaultHigherIsWorseMapConfig,
+    mapConfig: youthHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Low birthweight',
     fullDisplayName: 'Low birthweight',
     fullDisplayNameInline: 'low birthweight',
