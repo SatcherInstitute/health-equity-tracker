@@ -69,10 +69,13 @@ The script never touches step titles or bodies. Map the changed paths (relative 
 | `utils/MadLibs.ts` | `updating-the-madlibs-configuration-for-new-dataset-integration` |
 | `featureFlags.ts`, `frontend/.env.*` | `merging-behind-a-feature-flag` |
 
-This step calls the API directly rather than through the script, so it needs the key in its own shell. Step 2 may have resolved it from `.env.secrets`, where a shell will not have it; load it first and never echo the value:
+This step calls the API directly rather than through the script, so it needs the key in its own shell. Step 2 may have resolved it from `.env.secrets`, where a shell will not have it. **Issue the key load and every fetch/PATCH as a single Bash call** — each call runs in its own subprocess, so a variable set in one call is invisible in the next. The pattern for each request:
 
 ```bash
-[ -n "$README_API_KEY" ] || { set -a; . .env.secrets; set +a; }
+{ [ -n "$README_API_KEY" ] || { set -a; . .env.secrets; set +a; }; } && \
+  curl -sS -H "Authorization: Bearer $README_API_KEY" \
+    -H "User-Agent: het-readme-recipe-sync" \
+    "https://api.readme.com/v2/branches/1.0/recipes/<slug>"
 ```
 
 For each mapped recipe, fetch it (`GET https://api.readme.com/v2/branches/1.0/recipes/<slug>` with `Authorization: Bearer $README_API_KEY` and a `User-Agent` header, since the default Python one gets a 403) and check whether any step title or body names a file, symbol, path or behavior the change removed or altered. If so, show the user the proposed wording and ask before PATCHing. The whole `content` object must be sent back, so change only the step `title`/`body` fields you mean to.

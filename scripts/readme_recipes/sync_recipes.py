@@ -172,8 +172,8 @@ def resolve_api_key():
         f"\n"
         f"To set this up:\n"
         f"  1. Ask a team member for the readme.io API key.\n"
-        f"  2. cp {EXAMPLE_PATH} {SECRETS_PATH}\n"
-        f"  3. Fill in the blank after {KEY_NAME}= in {SECRETS_PATH}\n"
+        f"  2. cp -n {EXAMPLE_PATH} {SECRETS_PATH}  # skips if the file already exists\n"
+        f"  3. Add or fill in: {KEY_NAME}=<key from team member> in {SECRETS_PATH}\n"
         f"\n"
         f".env.secrets is gitignored. Never commit it or paste the key into a\n"
         f"PR, issue, or chat log.",
