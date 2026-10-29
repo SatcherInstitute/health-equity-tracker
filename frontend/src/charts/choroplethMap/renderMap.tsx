@@ -288,7 +288,9 @@ export const renderMap = (options: RenderMapOptions) => {
 
   // Coastline ghost paths — transparent thick stroke on non-shared arc edges
   // only (coastlines, not inland borders). Extends the pointer hit area into
-  // coastal water without overlapping adjacent geographies' hit areas.
+  // coastal water. They are lowered beneath the visible paths so land always
+  // wins the hit test: otherwise a small neighbor's halo (e.g. Rhode Island's)
+  // steals clicks on adjacent land (e.g. Massachusetts).
   // getVisualTarget redirects visual effects to the underlying visible-path.
   if (topology && sortedFeatures.length > 1) {
     const topoKey = showCounties ? 'counties' : 'states'
@@ -298,6 +300,9 @@ export const renderMap = (options: RenderMapOptions) => {
 
     if (topoObj && topoObj.geometries.length > 1) {
       const coastalArcs = buildCoastalArcSet(topoObj)
+      const firstLandPath = mapGroup
+        .select<SVGPathElement>('path.visible-path')
+        .node()
 
       // Build a fast lookup from id -> topology geometry for path construction
       const geomById = new Map<string, GeometryObject>()
@@ -357,6 +362,12 @@ export const renderMap = (options: RenderMapOptions) => {
           ) {
             signalListeners.click(event, d)
           }
+        })
+        // Move each ghost just before the first land path. Inserting before a
+        // fixed node (rather than .lower()) keeps the ghosts in feature order.
+        .each((_d, i, nodes) => {
+          const ghost = nodes[i] as SVGPathElement
+          ghost.parentNode?.insertBefore(ghost, firstLandPath)
         })
     }
   }

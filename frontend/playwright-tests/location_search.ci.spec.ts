@@ -127,9 +127,18 @@ test('arrow keys plus Enter navigate to the highlighted option', async ({
   await expect(input).toHaveAttribute('aria-activedescendant', /.+/)
   await expect(page.getByRole('option').nth(5)).toBeAttached()
   // Empty query keeps original order: United States, Alabama, Alaska, Arizona.
-  await input.press('ArrowDown')
-  await input.press('ArrowDown')
-  await input.press('ArrowDown')
+  // Confirm each press moved the highlight before sending the next one; back
+  // to back presses can be dropped while the virtualized list re-renders.
+  const activeOption = () =>
+    expect.poll(async () => {
+      const id = await input.getAttribute('aria-activedescendant')
+      return id ? page.locator(`[id="${id}"]`).textContent() : null
+    })
+  await activeOption().toContain('United States')
+  for (const name of ['Alabama', 'Alaska', 'Arizona']) {
+    await input.press('ArrowDown')
+    await activeOption().toContain(name)
+  }
   await input.press('Enter')
   await expect(page).toHaveURL(/3\.04/, { timeout: 8000 })
 })
@@ -152,9 +161,7 @@ test('"Atlanta" offers a city option that navigates to Fulton County', async ({
   await expect(page).toHaveURL(/3\.13121/, { timeout: 8000 })
 })
 
-test('place index is fetched only after the search opens', async ({
-  page,
-}) => {
+test('place index is fetched only after the search opens', async ({ page }) => {
   const placeIndexRequests: string[] = []
   page.on('request', (request) => {
     // In dev, Vite also serves the tiny ?url helper module at page load;

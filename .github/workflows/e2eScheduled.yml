@@ -42,7 +42,11 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium firefox webkit
 
-      - run: npm run e2e-prod-nightly
+      - id: main_suite
+        run: npm run e2e-prod-nightly
 
       - name: Run nightly browser/viewport matrix (mobile + Firefox + WebKit)
+        # Run even when the main suite fails so one failure can't hide these
+        # results, but not when setup failed before the main suite ran.
+        if: ${{ !cancelled() && (success() || steps.main_suite.outcome == 'failure') }}
         run: npm run e2e-nightly-matrix

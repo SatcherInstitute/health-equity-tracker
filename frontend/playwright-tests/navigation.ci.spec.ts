@@ -1,4 +1,70 @@
+/* cSpell:ignore CTM */
+import type { Page } from '@playwright/test'
 import { expect, test } from './utils/fixtures'
+
+// Screen points that sample a place's land on the rate map, each paired with
+// the element that actually wins the hit test there.
+async function sampleLand(page: Page, fips: string) {
+  // .first(): pages with several rate maps repeat each data-fips.
+  const land = page
+    .locator(`#rate-map path.visible-path[data-fips="${fips}"]`)
+    .first()
+  await land.scrollIntoViewIfNeeded({ timeout: 2000 })
+  return land.evaluate((el) => {
+    const p = el as SVGPathElement
+    const box = p.getBBox()
+    const screenMatrix = p.getScreenCTM()
+    const svg = p.ownerSVGElement
+    if (!screenMatrix || !svg) return []
+    const samples: {
+      x: number
+      y: number
+      hitFips: string | null
+      hitClass: string | null
+    }[] = []
+    for (let fy = 0.05; fy < 1; fy += 0.05) {
+      for (let fx = 0.05; fx < 1; fx += 0.05) {
+        const pt = svg.createSVGPoint()
+        pt.x = box.x + box.width * fx
+        pt.y = box.y + box.height * fy
+        if (!p.isPointInFill(pt)) continue
+        const screen = pt.matrixTransform(screenMatrix)
+        const hit = document.elementFromPoint(screen.x, screen.y)
+        samples.push({
+          x: screen.x,
+          y: screen.y,
+          hitFips: hit?.getAttribute('data-fips') ?? null,
+          hitClass: hit?.getAttribute('class') ?? null,
+        })
+      }
+    }
+    return samples
+  })
+}
+
+// Click a point on the place's own land. Avoids bounding-box centers, which
+// can fall on water or a neighbor. Picks the middle land sample (away from
+// borders) and re-samples to make sure the map has stopped moving, since the
+// report scrolls and re-renders while it loads.
+async function clickLand(page: Page, fips: string) {
+  let target: { x: number; y: number } | undefined
+  await expect(async () => {
+    const first = (await sampleLand(page, fips)).filter(
+      (s) => s.hitFips === fips,
+    )
+    expect(
+      first.length,
+      `no clickable land found for FIPS ${fips}`,
+    ).toBeGreaterThan(0)
+    const pick = first[Math.floor(first.length / 2)]
+    const again = (await sampleLand(page, fips)).filter(
+      (s) => s.hitFips === fips,
+    )
+    expect(again[Math.floor(again.length / 2)]).toEqual(pick)
+    target = pick
+  }).toPass({ timeout: 15000 })
+  if (target) await page.mouse.click(target.x, target.y)
+}
 
 test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({
   page,
@@ -29,12 +95,10 @@ test('Clicking a state on national map loads state report; back button returns t
     { waitUntil: 'domcontentloaded' },
   )
 
-  // click state of Mass. (FIPS 25) — force through ghost path overlay
-  // Ensure the map is actually visible first
+  // click state of Mass. (FIPS 25)
   const rateMap = page.locator('#rate-map')
   await expect(rateMap).toBeVisible()
-
-  await page.locator('path.coast-ghost[data-fips="25"]').click({ force: true })
+  await clickLand(page, '25')
 
   // Confirm correct madlib setting includes FIPS for state of Mass.
   await expect(page).toHaveURL(/.*mls=1.hiv-3.25/)
@@ -58,8 +122,8 @@ test('Clicking a county on state map loads county report; back button returns to
   await expect(rateMap).toBeVisible()
   await expect(rateMap.locator('svg path').first()).toBeVisible()
 
-  // click on specific county
-  await page.locator('path:nth-child(122)').click()
+  // click on Lee County (FIPS 13177)
+  await clickLand(page, '13177')
 
   // Confirm correct madlib setting includes FIPS for county
   await expect(page).toHaveURL(/.*mls=1.incarceration-3.13177/)
@@ -272,7 +336,9 @@ test('Cross-topic navigation: back button traverses all steps including topic sw
   await page
     .getByRole('button', { name: 'Prevalence for Black Women', exact: true })
     .click()
-  await page.getByRole('menuitem', { name: 'New Diagnoses for Black Women' }).click()
+  await page
+    .getByRole('menuitem', { name: 'New Diagnoses for Black Women' })
+    .click()
   await expect(page).toHaveURL(/dt1=hiv_diagnoses_black_women/)
 
   // State 6: BW Deaths
@@ -333,10 +399,10 @@ test('demo param survives geo change via map click', async ({ page }) => {
   )
   await expect(page).toHaveURL(/demo=age/)
 
-  // Wait for map then click Massachusetts (FIPS 25) — force through ghost path overlay
+  // Wait for map then click Massachusetts (FIPS 25)
   const rateMap = page.locator('#rate-map')
   await expect(rateMap).toBeVisible()
-  await page.locator('path.coast-ghost[data-fips="25"]').click({ force: true })
+  await clickLand(page, '25')
   await expect(page).toHaveURL(/mls=1.hiv-3.25/)
 
   // demo=age must survive the geo change — regression: new system was wiping it
@@ -413,7 +479,9 @@ test('comparevars: each panel tracks its own data type independently', async ({
   await page
     .getByRole('button', { name: 'Prevalence for Black Women', exact: true })
     .click()
-  await page.getByRole('menuitem', { name: 'New Diagnoses for Black Women' }).click()
+  await page
+    .getByRole('menuitem', { name: 'New Diagnoses for Black Women' })
+    .click()
 
   await expect(page).toHaveURL(/dt2=hiv_diagnoses_black_women/)
   await expect(page).toHaveURL(/dt1=hiv_prevalence/)
@@ -438,3 +506,27 @@ test('navigating to a topic writes dt1 explicitly to the URL', async ({
   await expect(page).not.toHaveURL(/dt1=hiv_diagnoses/)
 })
 
+test('coastal hit areas never steal clicks on neighboring land', async ({
+  page,
+}) => {
+  await page.goto('/exploredata?mls=1.hiv-3.00&mlp=disparity', {
+    waitUntil: 'domcontentloaded',
+  })
+  await expect(
+    page.locator('#rate-map path.visible-path').first(),
+  ).toBeVisible()
+
+  // Small, tightly packed coastal states where one state's coastal hit
+  // area could overlap another's land: MA, RI, CT, DE, MD.
+  for (const fips of ['25', '44', '09', '10', '24']) {
+    await expect(async () => {
+      const samples = await sampleLand(page, fips)
+      expect(
+        samples.some((s) => s.hitFips === fips),
+        `no land hit found for FIPS ${fips}`,
+      ).toBe(true)
+      const stolen = samples.filter((s) => s.hitClass === 'coast-ghost')
+      expect(stolen, `coastal hit area covers FIPS ${fips} land`).toEqual([])
+    }).toPass({ timeout: 15000 })
+  }
+})
