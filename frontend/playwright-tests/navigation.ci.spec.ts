@@ -521,7 +521,10 @@ test('coastal hit areas never steal clicks on neighboring land', async ({
   for (const fips of ['25', '44', '09', '10', '24']) {
     await expect(async () => {
       const samples = await sampleLand(page, fips)
-      expect(samples.length).toBeGreaterThan(0)
+      expect(
+        samples.some((s) => s.hitFips === fips),
+        `no land hit found for FIPS ${fips}`,
+      ).toBe(true)
       const stolen = samples.filter((s) => s.hitClass === 'coast-ghost')
       expect(stolen, `coastal hit area covers FIPS ${fips} land`).toEqual([])
     }).toPass({ timeout: 15000 })
