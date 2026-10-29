@@ -45,4 +45,6 @@ jobs:
       - run: npm run e2e-prod-nightly
 
       - name: Run nightly browser/viewport matrix (mobile + Firefox + WebKit)
+        # Run even when the main suite fails so one failure can't hide these results.
+        if: ${{ !cancelled() }}
         run: npm run e2e-nightly-matrix

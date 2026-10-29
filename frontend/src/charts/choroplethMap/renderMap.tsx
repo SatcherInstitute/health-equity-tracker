@@ -288,7 +288,9 @@ export const renderMap = (options: RenderMapOptions) => {
 
   // Coastline ghost paths — transparent thick stroke on non-shared arc edges
   // only (coastlines, not inland borders). Extends the pointer hit area into
-  // coastal water without overlapping adjacent geographies' hit areas.
+  // coastal water. They are lowered beneath the visible paths so land always
+  // wins the hit test: otherwise a small neighbor's halo (e.g. Rhode Island's)
+  // steals clicks on adjacent land (e.g. Massachusetts).
   // getVisualTarget redirects visual effects to the underlying visible-path.
   if (topology && sortedFeatures.length > 1) {
     const topoKey = showCounties ? 'counties' : 'states'
@@ -358,6 +360,7 @@ export const renderMap = (options: RenderMapOptions) => {
             signalListeners.click(event, d)
           }
         })
+        .lower()
     }
   }
 
