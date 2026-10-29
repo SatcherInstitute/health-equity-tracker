@@ -5,7 +5,10 @@ import { expect, test } from './utils/fixtures'
 // Screen points that sample a place's land on the rate map, each paired with
 // the element that actually wins the hit test there.
 async function sampleLand(page: Page, fips: string) {
-  const land = page.locator(`#rate-map path.visible-path[data-fips="${fips}"]`)
+  // .first(): pages with several rate maps repeat each data-fips.
+  const land = page
+    .locator(`#rate-map path.visible-path[data-fips="${fips}"]`)
+    .first()
   await land.scrollIntoViewIfNeeded({ timeout: 2000 })
   return land.evaluate((el) => {
     const p = el as SVGPathElement

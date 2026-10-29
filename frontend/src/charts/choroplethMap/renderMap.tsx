@@ -300,6 +300,9 @@ export const renderMap = (options: RenderMapOptions) => {
 
     if (topoObj && topoObj.geometries.length > 1) {
       const coastalArcs = buildCoastalArcSet(topoObj)
+      const firstLandPath = mapGroup
+        .select<SVGPathElement>('path.visible-path')
+        .node()
 
       // Build a fast lookup from id -> topology geometry for path construction
       const geomById = new Map<string, GeometryObject>()
@@ -360,7 +363,12 @@ export const renderMap = (options: RenderMapOptions) => {
             signalListeners.click(event, d)
           }
         })
-        .lower()
+        // Move each ghost just before the first land path. Inserting before a
+        // fixed node (rather than .lower()) keeps the ghosts in feature order.
+        .each((_d, i, nodes) => {
+          const ghost = nodes[i] as SVGPathElement
+          ghost.parentNode?.insertBefore(ghost, firstLandPath)
+        })
     }
   }
 
