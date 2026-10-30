@@ -30,15 +30,16 @@ test('Prison by Race', async ({ page }) => {
   await page.getByLabel('close dialog').click()
   await expect(page.getByRole('dialog')).toBeHidden()
 
-  // --- Missing Data Section ---
-  await test.step('Verify Missing Data Info', async () => {
+  // --- No over-time cards: BJS national/state data has no time series ---
+  await test.step('Verify over-time cards are not rendered', async () => {
     await Promise.all([
+      expect.soft(page.locator('#rates-over-time')).toHaveCount(0),
+      expect.soft(page.locator('#inequities-over-time')).toHaveCount(0),
       expect
         .soft(
           page.getByRole('heading', { name: 'Graph unavailable: Rates of' }),
         )
-        .toBeVisible(),
-      expect.soft(page.getByText('Our data sources do not have')).toBeVisible(),
+        .toHaveCount(0),
     ])
   })
 
@@ -56,9 +57,7 @@ test('Prison by Race', async ({ page }) => {
         )
         .toBeVisible(),
       // 'children' is in the definitions footer, use .first() to avoid strict mode errors
-      expect
-        .soft(rateChart.getByText('children').first())
-        .toBeVisible(),
+      expect.soft(rateChart.getByText('children').first()).toBeVisible(),
     ])
   })
 

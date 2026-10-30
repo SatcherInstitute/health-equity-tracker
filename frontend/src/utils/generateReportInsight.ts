@@ -2,6 +2,7 @@ import type {
   DataTypeConfig,
   MetricConfig,
 } from '../data/config/MetricConfigTypes'
+import { applyGeoOverrides } from '../data/config/MetricConfigUtils'
 import { exclude } from '../data/query/BreakdownFilter'
 import { Breakdowns, type DemographicType } from '../data/query/Breakdowns'
 import {
@@ -292,10 +293,17 @@ async function loadReportData(
 }
 
 export async function generateReportInsight(
-  dataTypeConfig: DataTypeConfig,
+  unresolvedConfig: DataTypeConfig,
   demographicType: DemographicType,
   fips: Fips,
 ): Promise<ReportInsightResult> {
+  // Resolve per-geography overrides the same way Report.tsx does, so the
+  // insight never queries a dataset the page's cards dropped (e.g. BJS
+  // national/state has no time series).
+  const dataTypeConfig = applyGeoOverrides(
+    unresolvedConfig,
+    fips.getGeographicBreakdown(),
+  )
   try {
     const described = await loadReportData(
       dataTypeConfig,
@@ -351,10 +359,17 @@ export async function generateReportInsight(
 }
 
 export async function previewReportInsight(
-  dataTypeConfig: DataTypeConfig,
+  unresolvedConfig: DataTypeConfig,
   demographicType: DemographicType,
   fips: Fips,
 ): Promise<string | null> {
+  // Resolve per-geography overrides the same way Report.tsx does, so the
+  // insight never queries a dataset the page's cards dropped (e.g. BJS
+  // national/state has no time series).
+  const dataTypeConfig = applyGeoOverrides(
+    unresolvedConfig,
+    fips.getGeographicBreakdown(),
+  )
   try {
     const described = await loadReportData(
       dataTypeConfig,
