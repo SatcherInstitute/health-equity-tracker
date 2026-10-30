@@ -35,10 +35,10 @@ export default function RowOfTwoOptionalMetrics(
     return <></>
   }
 
-  const dataTypeConfig2 =
-    props.trackerMode === 'comparegeos'
-      ? props.dataTypeConfig1
-      : props.dataTypeConfig2
+  // CompareReport already resolves the second panel's config against fips2
+  // (reusing dt1 in comparegeos), so use it as given rather than falling back to
+  // dataTypeConfig1, which carries fips1's geoOverrides.
+  const dataTypeConfig2 = props.dataTypeConfig2
 
   return (
     <div id={`${props.id}-row`} className='flex w-full flex-wrap'>
