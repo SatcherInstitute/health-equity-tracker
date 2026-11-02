@@ -33,7 +33,9 @@ export function handlePreloadError(
     if (Date.now() - lastReload < PRELOAD_RELOAD_COOLDOWN_MS) return
     storage.setItem(PRELOAD_RELOAD_KEY, String(Date.now()))
   } catch {
-    // Storage can be blocked; reload anyway rather than leave the page broken.
+    // Without storage there is no way to bound retries across reloads, and an
+    // unbounded reload loop is worse than the single failed chunk.
+    return
   }
   reload()
 }

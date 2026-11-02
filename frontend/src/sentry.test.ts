@@ -23,11 +23,11 @@ describe('handlePreloadError', () => {
     expect(reload).toHaveBeenCalledTimes(1)
   })
 
-  test('still reloads when storage is blocked', () => {
+  test('does not reload when storage is blocked, to avoid a reload loop', () => {
     const reload = vi.fn()
     handlePreloadError(() => {
       throw new DOMException('blocked', 'SecurityError')
     }, reload)
-    expect(reload).toHaveBeenCalledTimes(1)
+    expect(reload).not.toHaveBeenCalled()
   })
 })
