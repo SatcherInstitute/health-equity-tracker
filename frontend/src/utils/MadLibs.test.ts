@@ -69,4 +69,15 @@ describe('getValidatedSelections', () => {
       disparity.defaultSelections[3],
     )
   })
+
+  test('falls back to the default for a well-formed but unknown location', () => {
+    for (const code of ['99', '99999']) {
+      expect(
+        getValidatedSelections(disparity, parseMls(`1.hiv-3.${code}`))[3],
+      ).toBe(disparity.defaultSelections[3])
+    }
+    expect(
+      getValidatedSelections(disparity, parseMls('1.hiv-3.13121'))[3],
+    ).toBe('13121')
+  })
 })

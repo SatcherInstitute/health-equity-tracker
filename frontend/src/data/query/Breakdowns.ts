@@ -47,7 +47,7 @@ type DemographicBreakdownKey = (typeof DEMOGRAPHIC_TYPES)[number]
 // The `demo` URL param is user-editable; an unknown value makes addBreakdown()
 // fall through and return undefined, which breaks every query built from it.
 export function resolveDemographicType(
-  value: string | undefined,
+  value: string | null | undefined,
   fallback: DemographicType,
 ): DemographicType {
   return (DEMOGRAPHIC_TYPES as readonly string[]).includes(value ?? '')

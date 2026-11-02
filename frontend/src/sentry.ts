@@ -20,22 +20,25 @@ const PRELOAD_RELOAD_COOLDOWN_MS = 60_000
 
 // A tab opened before a deploy requests chunk hashes that no longer exist.
 // Reload once to pick up the new index.html; the cooldown stops a reload loop
-// if the chunk is genuinely unavailable.
+// if the chunk is genuinely unavailable. The event is deliberately not
+// prevented: that would resolve the import to undefined and make React.lazy
+// throw a different, unfiltered error before the reload lands.
 export function handlePreloadError(
-  event: Event,
-  storage: Storage = sessionStorage,
+  getStorage: () => Storage = () => sessionStorage,
   reload: () => void = () => window.location.reload(),
 ): void {
-  const lastReload = Number(storage.getItem(PRELOAD_RELOAD_KEY) ?? 0)
-  if (Date.now() - lastReload < PRELOAD_RELOAD_COOLDOWN_MS) return
-  storage.setItem(PRELOAD_RELOAD_KEY, String(Date.now()))
-  event.preventDefault()
+  try {
+    const storage = getStorage()
+    const lastReload = Number(storage.getItem(PRELOAD_RELOAD_KEY) ?? 0)
+    if (Date.now() - lastReload < PRELOAD_RELOAD_COOLDOWN_MS) return
+    storage.setItem(PRELOAD_RELOAD_KEY, String(Date.now()))
+  } catch {
+    // Storage can be blocked; reload anyway rather than leave the page broken.
+  }
   reload()
 }
 
-window.addEventListener('vite:preloadError', (event) =>
-  handlePreloadError(event),
-)
+window.addEventListener('vite:preloadError', () => handlePreloadError())
 
 if (import.meta.env.VITE_SENTRY_DSN) {
   Sentry.init({

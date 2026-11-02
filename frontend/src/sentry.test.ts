@@ -18,14 +18,16 @@ describe('handlePreloadError', () => {
 
   test('reloads once, then not again within the cooldown', () => {
     const reload = vi.fn()
-    const first = new Event('vite:preloadError', { cancelable: true })
-    handlePreloadError(first, sessionStorage, reload)
+    handlePreloadError(() => sessionStorage, reload)
+    handlePreloadError(() => sessionStorage, reload)
     expect(reload).toHaveBeenCalledTimes(1)
-    expect(first.defaultPrevented).toBe(true)
+  })
 
-    const second = new Event('vite:preloadError', { cancelable: true })
-    handlePreloadError(second, sessionStorage, reload)
+  test('still reloads when storage is blocked', () => {
+    const reload = vi.fn()
+    handlePreloadError(() => {
+      throw new DOMException('blocked', 'SecurityError')
+    }, reload)
     expect(reload).toHaveBeenCalledTimes(1)
-    expect(second.defaultPrevented).toBe(false)
   })
 })

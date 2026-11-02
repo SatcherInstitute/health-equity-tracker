@@ -18,7 +18,7 @@ import type {
 } from '../data/config/MetricConfigTypes'
 
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
-import { Fips, isFipsString } from '../data/utils/Fips'
+import { Fips } from '../data/utils/Fips'
 import { FIPS_MAP } from '../data/utils/FipsData'
 
 // Map of phrase segment index to its selected value
@@ -298,16 +298,19 @@ function getParentDropdownFromDataTypeId(dataType: DataTypeId): DropdownVarId {
   return 'poverty'
 }
 
-// A truncated or hand-edited `mls` param can leave a location slot missing or
-// malformed, and `new Fips()` throws on it. Fall back to the mode's default
-// location for any such slot.
+// A truncated or hand-edited `mls` param can leave a location slot missing,
+// malformed, or naming a place we have no record of; `new Fips()` and
+// `getDisplayName()` throw on those. Fall back to the mode's default location.
 function getValidatedSelections(
   madLib: MadLib,
   selections: PhraseSelections,
 ): PhraseSelections {
   const validated = { ...selections }
   madLib.phrase.forEach((segment, index) => {
-    if (segment === FIPS_MAP && !isFipsString(validated[index])) {
+    if (
+      segment === FIPS_MAP &&
+      !Object.hasOwn(FIPS_MAP, validated[index] ?? '')
+    ) {
       validated[index] = madLib.defaultSelections[index]
     }
   })
