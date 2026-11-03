@@ -33,7 +33,10 @@ import {
   selectedDataTypeConfig2Atom,
 } from '../utils/sharedSettingsState'
 import { DEMOGRAPHIC_PARAM } from '../utils/urlutils'
-import { CompareModeProvider } from './CompareModeContext'
+import {
+  CompareModeProvider,
+  ContrastAvailableProvider,
+} from './CompareModeContext'
 import ContrastInsightSection from './ContrastInsightSection'
 import { reportProviderSteps } from './ReportProviderSteps'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
@@ -160,6 +163,14 @@ export default function CompareReport(props: CompareReportProps) {
   const showRatesOverTimeCardRow =
     rateConfig1?.timeSeriesCadence || rateConfig2?.timeSeriesCadence
   const showInequitiesOverTimeCardRow = inequityConfig1 || inequityConfig2
+  // One side may have no time series at its geography (e.g. state BJS beside
+  // county Vera); there is nothing to contrast, so skip the contrast insight.
+  const canContrastRatesOverTime = Boolean(
+    rateConfig1?.timeSeriesCadence && rateConfig2?.timeSeriesCadence,
+  )
+  const canContrastInequitiesOverTime = Boolean(
+    inequityConfig1 && inequityConfig2,
+  )
   const showAgeAdjustCardRow =
     ageAdjustedRatioConfig1 || ageAdjustedRatioConfig2
 
@@ -215,7 +226,6 @@ export default function CompareReport(props: CompareReportProps) {
               headerScrollMargin={props.headerScrollMargin}
             />
             <RowOfTwoOptionalMetrics
-              trackerMode={props.trackerMode}
               id='rate-map'
               // NOTE: map card handles its own geo overrides so we send base configs rather than resolved
               dataTypeConfig1={dataTypeConfig1!}
@@ -249,39 +259,42 @@ export default function CompareReport(props: CompareReportProps) {
             {/* SIDE-BY-SIDE RATE TREND CARDS */}
             {showRatesOverTimeCardRow && (
               <>
-                <ContrastInsightSection
-                  hashId='rates-over-time'
-                  dataTypeConfig1={resolvedConfig1}
-                  dataTypeConfig2={resolvedConfig2}
-                  fips1={props.fips1}
-                  fips2={props.fips2}
-                  demographicType={demographicType}
-                  headerScrollMargin={props.headerScrollMargin}
-                />
-                <RowOfTwoOptionalMetrics
-                  trackerMode={props.trackerMode}
-                  id='rates-over-time'
-                  dataTypeConfig1={resolvedConfig1}
-                  dataTypeConfig2={resolvedConfig2}
-                  fips1={props.fips1}
-                  fips2={props.fips2}
-                  headerScrollMargin={props.headerScrollMargin}
-                  createCard={(
-                    dataTypeConfig: DataTypeConfig,
-                    fips: Fips,
-                    _unusedUpdateFips: (fips: Fips) => void,
-                    _unusedDropdown: any,
-                    isCompareCard: boolean | undefined,
-                  ) => (
-                    <RateTrendsChartCard
-                      dataTypeConfig={dataTypeConfig}
-                      demographicType={demographicType}
-                      fips={fips}
-                      isCompareCard={isCompareCard}
-                      reportTitle={props.reportTitle}
-                    />
-                  )}
-                />
+                {canContrastRatesOverTime && (
+                  <ContrastInsightSection
+                    hashId='rates-over-time'
+                    dataTypeConfig1={resolvedConfig1}
+                    dataTypeConfig2={resolvedConfig2}
+                    fips1={props.fips1}
+                    fips2={props.fips2}
+                    demographicType={demographicType}
+                    headerScrollMargin={props.headerScrollMargin}
+                  />
+                )}
+                <ContrastAvailableProvider available={canContrastRatesOverTime}>
+                  <RowOfTwoOptionalMetrics
+                    id='rates-over-time'
+                    dataTypeConfig1={resolvedConfig1}
+                    dataTypeConfig2={resolvedConfig2}
+                    fips1={props.fips1}
+                    fips2={props.fips2}
+                    headerScrollMargin={props.headerScrollMargin}
+                    createCard={(
+                      dataTypeConfig: DataTypeConfig,
+                      fips: Fips,
+                      _unusedUpdateFips: (fips: Fips) => void,
+                      _unusedDropdown: any,
+                      isCompareCard: boolean | undefined,
+                    ) => (
+                      <RateTrendsChartCard
+                        dataTypeConfig={dataTypeConfig}
+                        demographicType={demographicType}
+                        fips={fips}
+                        isCompareCard={isCompareCard}
+                        reportTitle={props.reportTitle}
+                      />
+                    )}
+                  />
+                </ContrastAvailableProvider>
               </>
             )}
 
@@ -296,7 +309,6 @@ export default function CompareReport(props: CompareReportProps) {
               headerScrollMargin={props.headerScrollMargin}
             />
             <RowOfTwoOptionalMetrics
-              trackerMode={props.trackerMode}
               id='rate-chart'
               dataTypeConfig1={resolvedConfig1}
               dataTypeConfig2={resolvedConfig2}
@@ -322,7 +334,6 @@ export default function CompareReport(props: CompareReportProps) {
 
             {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
             <RowOfTwoOptionalMetrics
-              trackerMode={props.trackerMode}
               id='unknown-demographic-map'
               dataTypeConfig1={resolvedConfig1}
               dataTypeConfig2={resolvedConfig2}
@@ -356,39 +367,44 @@ export default function CompareReport(props: CompareReportProps) {
 
             {showInequitiesOverTimeCardRow && (
               <>
-                <ContrastInsightSection
-                  hashId='inequities-over-time'
-                  dataTypeConfig1={resolvedConfig1}
-                  dataTypeConfig2={resolvedConfig2}
-                  fips1={props.fips1}
-                  fips2={props.fips2}
-                  demographicType={demographicType}
-                  headerScrollMargin={props.headerScrollMargin}
-                />
-                <RowOfTwoOptionalMetrics
-                  trackerMode={props.trackerMode}
-                  id='inequities-over-time'
-                  dataTypeConfig1={resolvedConfig1}
-                  dataTypeConfig2={resolvedConfig2}
-                  fips1={props.fips1}
-                  fips2={props.fips2}
-                  headerScrollMargin={props.headerScrollMargin}
-                  createCard={(
-                    dataTypeConfig: DataTypeConfig,
-                    fips: Fips,
-                    _unusedUpdateFips: (fips: Fips) => void,
-                    _unusedDropdown: any,
-                    isCompareCard: boolean | undefined,
-                  ) => (
-                    <ShareTrendsChartCard
-                      dataTypeConfig={dataTypeConfig}
-                      demographicType={demographicType}
-                      fips={fips}
-                      isCompareCard={isCompareCard}
-                      reportTitle={props.reportTitle}
-                    />
-                  )}
-                />
+                {canContrastInequitiesOverTime && (
+                  <ContrastInsightSection
+                    hashId='inequities-over-time'
+                    dataTypeConfig1={resolvedConfig1}
+                    dataTypeConfig2={resolvedConfig2}
+                    fips1={props.fips1}
+                    fips2={props.fips2}
+                    demographicType={demographicType}
+                    headerScrollMargin={props.headerScrollMargin}
+                  />
+                )}
+                <ContrastAvailableProvider
+                  available={canContrastInequitiesOverTime}
+                >
+                  <RowOfTwoOptionalMetrics
+                    id='inequities-over-time'
+                    dataTypeConfig1={resolvedConfig1}
+                    dataTypeConfig2={resolvedConfig2}
+                    fips1={props.fips1}
+                    fips2={props.fips2}
+                    headerScrollMargin={props.headerScrollMargin}
+                    createCard={(
+                      dataTypeConfig: DataTypeConfig,
+                      fips: Fips,
+                      _unusedUpdateFips: (fips: Fips) => void,
+                      _unusedDropdown: any,
+                      isCompareCard: boolean | undefined,
+                    ) => (
+                      <ShareTrendsChartCard
+                        dataTypeConfig={dataTypeConfig}
+                        demographicType={demographicType}
+                        fips={fips}
+                        isCompareCard={isCompareCard}
+                        reportTitle={props.reportTitle}
+                      />
+                    )}
+                  />
+                </ContrastAvailableProvider>
               </>
             )}
 
@@ -403,7 +419,6 @@ export default function CompareReport(props: CompareReportProps) {
               headerScrollMargin={props.headerScrollMargin}
             />
             <RowOfTwoOptionalMetrics
-              trackerMode={props.trackerMode}
               id='population-vs-distribution'
               dataTypeConfig1={resolvedConfig1}
               dataTypeConfig2={resolvedConfig2}
@@ -438,7 +453,6 @@ export default function CompareReport(props: CompareReportProps) {
               headerScrollMargin={props.headerScrollMargin}
             />
             <RowOfTwoOptionalMetrics
-              trackerMode={props.trackerMode}
               id='data-table'
               dataTypeConfig1={resolvedConfig1}
               dataTypeConfig2={resolvedConfig2}
@@ -478,7 +492,6 @@ export default function CompareReport(props: CompareReportProps) {
                   headerScrollMargin={props.headerScrollMargin}
                 />
                 <RowOfTwoOptionalMetrics
-                  trackerMode={props.trackerMode}
                   id='age-adjusted-ratios'
                   // specific data type
                   dataTypeConfig1={resolvedConfig1}
