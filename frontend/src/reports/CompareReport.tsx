@@ -171,6 +171,20 @@ export default function CompareReport(props: CompareReportProps) {
   const canContrastInequitiesOverTime = Boolean(
     inequityConfig1 && inequityConfig2,
   )
+  // Share figures follow the same rule: many topics lack them at some
+  // geographies, so a row renders when either side has them and contrasts only
+  // when both do. The unknowns map mirrors UnknownsMapCard's own fallback.
+  const shareConfig1 =
+    resolvedConfig1 && metricConfigFromDtConfig('share', resolvedConfig1)
+  const shareConfig2 =
+    resolvedConfig2 && metricConfigFromDtConfig('share', resolvedConfig2)
+  const showUnknownsMapCardRow =
+    resolvedConfig1?.metrics?.pct_share_unknown ??
+    shareConfig1 ??
+    resolvedConfig2?.metrics?.pct_share_unknown ??
+    shareConfig2
+  const showSharesCardRow = shareConfig1 || shareConfig2
+  const canContrastShares = Boolean(shareConfig1 && shareConfig2)
   const showAgeAdjustCardRow =
     ageAdjustedRatioConfig1 || ageAdjustedRatioConfig2
 
@@ -333,35 +347,38 @@ export default function CompareReport(props: CompareReportProps) {
             />
 
             {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
-            <RowOfTwoOptionalMetrics
-              id='unknown-demographic-map'
-              dataTypeConfig1={resolvedConfig1}
-              dataTypeConfig2={resolvedConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              headerScrollMargin={props.headerScrollMargin}
-              updateFips1={props.updateFips1Callback}
-              updateFips2={props.updateFips2Callback}
-              createCard={(
-                dataTypeConfig: DataTypeConfig,
-                fips: Fips,
-                updateFips: (fips: Fips) => void,
-                _unusedDropdown: any,
-                isCompareCard: boolean | undefined,
-              ) => (
-                <UnknownsMapCard
-                  overrideAndWithOr={demographicType === RACE}
-                  dataTypeConfig={dataTypeConfig}
-                  fips={fips}
-                  updateFipsCallback={(fips: Fips) => {
-                    updateFips(fips)
-                  }}
-                  demographicType={demographicType}
-                  isCompareCard={isCompareCard}
-                  reportTitle={props.reportTitle}
-                />
-              )}
-            />
+
+            {showUnknownsMapCardRow && (
+              <RowOfTwoOptionalMetrics
+                id='unknown-demographic-map'
+                dataTypeConfig1={resolvedConfig1}
+                dataTypeConfig2={resolvedConfig2}
+                fips1={props.fips1}
+                fips2={props.fips2}
+                headerScrollMargin={props.headerScrollMargin}
+                updateFips1={props.updateFips1Callback}
+                updateFips2={props.updateFips2Callback}
+                createCard={(
+                  dataTypeConfig: DataTypeConfig,
+                  fips: Fips,
+                  updateFips: (fips: Fips) => void,
+                  _unusedDropdown: any,
+                  isCompareCard: boolean | undefined,
+                ) => (
+                  <UnknownsMapCard
+                    overrideAndWithOr={demographicType === RACE}
+                    dataTypeConfig={dataTypeConfig}
+                    fips={fips}
+                    updateFipsCallback={(fips: Fips) => {
+                      updateFips(fips)
+                    }}
+                    demographicType={demographicType}
+                    isCompareCard={isCompareCard}
+                    reportTitle={props.reportTitle}
+                  />
+                )}
+              />
+            )}
 
             {/* SIDE-BY-SIDE SHARE INEQUITY TREND CARDS */}
 
@@ -409,38 +426,48 @@ export default function CompareReport(props: CompareReportProps) {
             )}
 
             {/* SIDE-BY-SIDE STACKED SHARES BAR CHARTS CARDS */}
-            <ContrastInsightSection
-              hashId='population-vs-distribution'
-              dataTypeConfig1={resolvedConfig1}
-              dataTypeConfig2={resolvedConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              demographicType={demographicType}
-              headerScrollMargin={props.headerScrollMargin}
-            />
-            <RowOfTwoOptionalMetrics
-              id='population-vs-distribution'
-              dataTypeConfig1={resolvedConfig1}
-              dataTypeConfig2={resolvedConfig2}
-              fips1={props.fips1}
-              fips2={props.fips2}
-              headerScrollMargin={props.headerScrollMargin}
-              createCard={(
-                dataTypeConfig: DataTypeConfig,
-                fips: Fips,
-                _unusedUpdateFips: (fips: Fips) => void,
-                _unusedDropdown: any,
-                isCompareCard: boolean | undefined,
-              ) => (
-                <StackedSharesBarChartCard
-                  dataTypeConfig={dataTypeConfig}
-                  demographicType={demographicType}
-                  fips={fips}
-                  isCompareCard={isCompareCard}
-                  reportTitle={props.reportTitle}
-                />
-              )}
-            />
+
+            {showSharesCardRow && (
+              <>
+                {canContrastShares && (
+                  <ContrastInsightSection
+                    hashId='population-vs-distribution'
+                    dataTypeConfig1={resolvedConfig1}
+                    dataTypeConfig2={resolvedConfig2}
+                    fips1={props.fips1}
+                    fips2={props.fips2}
+                    demographicType={demographicType}
+                    headerScrollMargin={props.headerScrollMargin}
+                  />
+                )}
+
+                <ContrastAvailableProvider available={canContrastShares}>
+                  <RowOfTwoOptionalMetrics
+                    id='population-vs-distribution'
+                    dataTypeConfig1={resolvedConfig1}
+                    dataTypeConfig2={resolvedConfig2}
+                    fips1={props.fips1}
+                    fips2={props.fips2}
+                    headerScrollMargin={props.headerScrollMargin}
+                    createCard={(
+                      dataTypeConfig: DataTypeConfig,
+                      fips: Fips,
+                      _unusedUpdateFips: (fips: Fips) => void,
+                      _unusedDropdown: any,
+                      isCompareCard: boolean | undefined,
+                    ) => (
+                      <StackedSharesBarChartCard
+                        dataTypeConfig={dataTypeConfig}
+                        demographicType={demographicType}
+                        fips={fips}
+                        isCompareCard={isCompareCard}
+                        reportTitle={props.reportTitle}
+                      />
+                    )}
+                  />
+                </ContrastAvailableProvider>
+              </>
+            )}
 
             {/* SIDE-BY-SIDE DATA TABLE CARDS */}
             <ContrastInsightSection
