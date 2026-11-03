@@ -298,6 +298,25 @@ function getParentDropdownFromDataTypeId(dataType: DataTypeId): DropdownVarId {
   return 'poverty'
 }
 
+// A truncated or hand-edited `mls` param can leave a location slot missing,
+// malformed, or naming a place we have no record of; `new Fips()` and
+// `getDisplayName()` throw on those. Fall back to the mode's default location.
+function getValidatedSelections(
+  madLib: MadLib,
+  selections: PhraseSelections,
+): PhraseSelections {
+  const validated = { ...selections }
+  madLib.phrase.forEach((segment, index) => {
+    if (
+      segment === FIPS_MAP &&
+      !Object.hasOwn(FIPS_MAP, validated[index] ?? '')
+    ) {
+      validated[index] = madLib.defaultSelections[index]
+    }
+  })
+  return validated
+}
+
 function getFipsListFromMadlib(madlib: MadLib) {
   const madLibMode = madlib.id
 
@@ -320,6 +339,7 @@ export {
   getFipsListFromMadlib,
   getMadLibPhraseText,
   getParentDropdownFromDataTypeId,
+  getValidatedSelections,
   insertOptionalThe,
   MADLIB_LIST,
 }
