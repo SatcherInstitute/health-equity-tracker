@@ -265,7 +265,9 @@ export function Report(props: ReportProps) {
                 )}
 
                 {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
-                {shareMetricConfig && (
+                {/* Gate on `pct_share` itself, as the card does: topics with only
+                    `pct_share_unknown` (Medicare adherence) have no shares chart. */}
+                {resolvedConfig?.metrics?.pct_share && (
                   <div
                     className='w-full'
                     id='population-vs-distribution'

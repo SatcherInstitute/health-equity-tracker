@@ -183,8 +183,12 @@ export default function CompareReport(props: CompareReportProps) {
     shareConfig1 ??
     resolvedConfig2?.metrics?.pct_share_unknown ??
     shareConfig2
-  const showSharesCardRow = shareConfig1 || shareConfig2
-  const canContrastShares = Boolean(shareConfig1 && shareConfig2)
+  // The shares chart reads `pct_share` itself; `share` resolution can land on
+  // `pct_share_unknown` (Medicare adherence), which has no shares chart.
+  const sharesChartConfig1 = resolvedConfig1?.metrics?.pct_share
+  const sharesChartConfig2 = resolvedConfig2?.metrics?.pct_share
+  const showSharesCardRow = sharesChartConfig1 || sharesChartConfig2
+  const canContrastShares = Boolean(sharesChartConfig1 && sharesChartConfig2)
   const showAgeAdjustCardRow =
     ageAdjustedRatioConfig1 || ageAdjustedRatioConfig2
 
