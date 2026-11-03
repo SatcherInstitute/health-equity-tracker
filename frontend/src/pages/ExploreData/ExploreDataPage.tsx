@@ -21,6 +21,7 @@ import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import {
   getMadLibPhraseText,
   getSelectedConditions,
+  getValidatedSelections,
   MADLIB_LIST,
   type MadLib,
   type MadLibId,
@@ -77,7 +78,7 @@ function ExploreDataPage() {
     const index = MADLIB_LIST.findIndex((el) => el.id === mlpParam)
     const idx = index !== -1 ? index : 0
     const selections: PhraseSelections = mlsParam
-      ? parseMls(mlsParam)
+      ? getValidatedSelections(MADLIB_LIST[idx], parseMls(mlsParam))
       : MADLIB_LIST[idx].defaultSelections
     return { ...MADLIB_LIST[idx], activeSelections: selections }
   }, [mlsParam, mlpParam])
