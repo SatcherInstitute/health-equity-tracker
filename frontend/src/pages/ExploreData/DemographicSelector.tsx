@@ -1,5 +1,8 @@
 import { useAtomValue, useSetAtom } from 'jotai'
-import type { DemographicType } from '../../data/query/Breakdowns'
+import {
+  type DemographicType,
+  resolveDemographicType,
+} from '../../data/query/Breakdowns'
 import { locationAtom, urlParamAtom } from '../../utils/sharedSettingsState'
 import {
   DEMOGRAPHIC_PARAM,
@@ -19,7 +22,7 @@ export default function DemographicSelector({
   const defaultDemo: DemographicType = options[0][0]
   const demoParam = useAtomValue(urlParamAtom(DEMOGRAPHIC_PARAM))
   const setLocationState = useSetAtom(locationAtom)
-  const demographicType = (demoParam || defaultDemo) as DemographicType
+  const demographicType = resolveDemographicType(demoParam, defaultDemo)
 
   function handleSelect(value: DemographicType) {
     if (value === demographicType) return

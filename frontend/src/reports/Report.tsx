@@ -18,6 +18,7 @@ import {
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
+  resolveDemographicType,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
@@ -65,10 +66,11 @@ export function Report(props: ReportProps) {
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [demographicType, setDemographicType] = useParamState<DemographicType>(
+  const [demoParam, setDemographicType] = useParamState<DemographicType>(
     DEMOGRAPHIC_PARAM,
     defaultDemo,
   )
+  const demographicType = resolveDemographicType(demoParam, defaultDemo)
 
   const [insightIsOpen] = useParamState(REPORT_INSIGHT_PARAM_KEY)
   const insightMode = Boolean(insightIsOpen)
