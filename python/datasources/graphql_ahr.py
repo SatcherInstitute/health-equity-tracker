@@ -17,6 +17,7 @@ from ingestion.graphql_ahr_utils import (
     AHR_MEASURES_TO_RATES_MAP_18PLUS,
     AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
     AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES,
+    AHR_MEASURES_TO_RATES_MAP_MATERNAL_ALLS_ONLY,
     PCT_RATE_TO_PER_100K_TOPICS,
     PER_10K_TO_PER_100K_TOPICS,
     PER_1K_TO_PER_100K_TOPICS,
@@ -38,6 +39,11 @@ from ingestion.merge_utils import merge_state_ids, merge_yearly_pop_numbers, mer
 AHR_MEASURE = "measure"
 AHR_VALUE = "value"
 LAST_COMPLETE_DATA_YEAR = 2022
+
+# Topics kept past LAST_COMPLETE_DATA_YEAR. AHR publishes maternity care desert only from 2023,
+# so the cap would drop it entirely. These are alls-only and rate-only, so their later rows need
+# no population and do not move the most recent year of any other topic.
+TOPICS_EXEMPT_FROM_LAST_COMPLETE_DATA_YEAR = list(AHR_MEASURES_TO_RATES_MAP_MATERNAL_ALLS_ONLY.values())
 
 AGE_GROUPS_TO_STANDARD = {
     "Ages 15-24": "15-24",
@@ -152,7 +158,7 @@ class GraphQlAHRData(DataSource):
                 if rate_col in df.columns
             ]
             topic_prefixes.append("ahr")
-            df = df[df[std_col.TIME_PERIOD_COL].astype(int) <= LAST_COMPLETE_DATA_YEAR]
+            df = _drop_years_after_last_complete(df)
             df_for_bq, col_types = get_timeview_df_and_cols(df, time_view, topic_prefixes)
             first_two_columns = df_for_bq.columns[:2].tolist()
             df_for_bq = df_for_bq.sort_values(by=first_two_columns, ascending=True).reset_index(drop=True)
@@ -341,6 +347,28 @@ class GraphQlAHRData(DataSource):
             breakdown_df = breakdown_df.drop(columns=[std_col.RACE_CATEGORY_ID_COL])
 
         return breakdown_df
+
+
+def _drop_years_after_last_complete(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Drops data after LAST_COMPLETE_DATA_YEAR, except for TOPICS_EXEMPT_FROM_LAST_COMPLETE_DATA_YEAR.
+    Later rows keep only the exempt topics' columns (every other metric and population column is
+    blanked), and rows left with no exempt data are dropped.
+    """
+    exempt_cols = [col for col in TOPICS_EXEMPT_FROM_LAST_COMPLETE_DATA_YEAR if col in df.columns]
+    is_later_year = df[std_col.TIME_PERIOD_COL].astype(int) > LAST_COMPLETE_DATA_YEAR
+    if not exempt_cols:
+        return df[~is_later_year]
+
+    df = df.copy()
+    capped_cols = [
+        col
+        for col in df.columns
+        if std_col.ends_with_suffix_from_list(col, std_col.SUFFIXES) and col not in exempt_cols
+    ]
+    df.loc[is_later_year, capped_cols] = float("nan")
+    has_exempt_data = df[exempt_cols].notna().any(axis=1)
+    return df[~is_later_year | has_exempt_data]
 
 
 def _rows_with_only_birth_outcome_topics(df: pd.DataFrame, demo_col: str) -> pd.Series:

@@ -496,3 +496,59 @@ def test_known_bad_national_infant_mortality_values_are_dropped():
     assert rate[("2014", "US", "Black")] == pytest.approx(1080.0)
     assert rate[("2015", "US", "White")] == pytest.approx(490.0)
     assert rate[("2014", "CA", "White")] == pytest.approx(430.0)
+
+
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+@mock.patch("datasources.graphql_ahr.fetch_ahr_data_from_graphql")
+def test_alls_only_maternal_topics_kept_past_last_complete_year(mock_fetch: mock.MagicMock, mock_add: mock.MagicMock):
+    """Adequate prenatal care, maternity care desert and maternity practices have no demographic
+    variants, and AHR publishes maternity care desert only from 2023. Those three topics are kept
+    after LAST_COMPLETE_DATA_YEAR; every other topic is still cut off there, and no population
+    is carried into the later rows. All three are rate-only."""
+
+    def _resp(_demographic: str, _geo: str, _category: str):
+        def rows(name, values_by_year):
+            return {
+                "data": [
+                    {
+                        "endDate": f"{year}-01-01T00:00:00.000Z",
+                        "state": "ALL",
+                        "value": value,
+                        "measure": {"name": name},
+                    }
+                    for year, value in values_by_year.items()
+                ]
+            }
+
+        return [
+            rows("Asthma", {2022: 10.4, 2023: 10.9}),
+            rows("Asthma - Ages 18-44", {2022: 11.0, 2023: 11.5}),
+            rows("Adequate Prenatal Care", {2022: 74.9, 2024: 75.0}),
+            rows("Maternity Care Desert", {2023: 3.1, 2026: 3.5}),
+            rows("Maternity Practices Score", {2022: 81, 2024: 82}),
+        ]
+
+    mock_fetch.side_effect = _resp
+    GraphQlAHRData().write_to_bq(
+        "dataset", "gcs_bucket", demographic="age", geographic="national", category="non-behavioral_health"
+    )
+
+    current_df, _, _ = mock_add.call_args_list[0][0]
+    current_all = current_df.set_index(std_col.AGE_COL).loc[std_col.ALL_VALUE]
+    assert current_all["asthma_per_100k"] == pytest.approx(10400.0)
+    assert current_all["adequate_prenatal_care_pct_rate"] == 75.0
+    assert current_all["maternity_care_desert_pct_rate"] == 3.5
+    assert current_all["maternity_practices_index"] == 82
+
+    historical_df, _, _ = mock_add.call_args_list[1][0]
+    later = historical_df[historical_df[std_col.TIME_PERIOD_COL].astype(int) > 2022]
+    assert set(later[std_col.TIME_PERIOD_COL]) == {"2023", "2024", "2026"}
+    assert set(later[std_col.AGE_COL]) == {std_col.ALL_VALUE}
+    assert later["asthma_per_100k"].isna().all()
+    assert later["asthma_pct_relative_inequity"].isna().all()
+
+    for prefix in ["adequate_prenatal_care", "maternity_care_desert", "maternity_practices"]:
+        assert not any(
+            col.startswith(prefix) and col.endswith(("_estimated_total", "_pct_share", "_pct_relative_inequity"))
+            for col in historical_df.columns
+        )

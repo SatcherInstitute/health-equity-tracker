@@ -58,6 +58,18 @@ AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES = {
     "Low-Risk Cesarean Delivery": "low_risk_cesarean_pct_rate",
 }
 
+# Maternal health measures AHR publishes for the whole population only, with no race, age
+# or sex variants, so they appear only on "All" rows. Rate-only like the topics above.
+# Adequate prenatal care is a percentage of live births (CDC NCHS natality files); maternity
+# care desert is the percentage of females ages 15-44 living in a county with no obstetric care
+# (March of Dimes); maternity practices is the CDC mPINC survey score of birth facility
+# policies (0-100, higher is better), hence its index suffix.
+AHR_MEASURES_TO_RATES_MAP_MATERNAL_ALLS_ONLY = {
+    "Adequate Prenatal Care": "adequate_prenatal_care_pct_rate",
+    "Maternity Care Desert": "maternity_care_desert_pct_rate",
+    "Maternity Practices Score": "maternity_practices_index",
+}
+
 AHR_MEASURES_TO_RATES_MAP_CITIZENS_18PLUS = {
     "Voter Participation (Presidential)": "voter_participation_pct_rate",
 }
@@ -73,6 +85,7 @@ AHR_BASE_MEASURES_TO_RATES_MAP = {
     **AHR_MEASURES_TO_RATES_MAP_ALL_AGES,
     **AHR_MEASURES_TO_RATES_MAP_MATERNAL,
     **AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES,
+    **AHR_MEASURES_TO_RATES_MAP_MATERNAL_ALLS_ONLY,
 }
 
 # AHR provides case per 100; HET needs per 100k
