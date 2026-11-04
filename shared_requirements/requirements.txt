@@ -25,7 +25,7 @@ googleapis-common-protos[grpc]==1.75.0  # 1.76.0+ requires protobuf 6 (see proto
 grpc-google-iam-v1==0.14.3
 grpcio-status==1.71.0         # FIXED: 1.72.0+ strictly requires Protobuf 6
 grpcio==1.85.1
-gunicorn==23.0.0
+gunicorn==26.2.0
 idna
 importlib-metadata==8.7.0
 iniconfig==2.3.0
