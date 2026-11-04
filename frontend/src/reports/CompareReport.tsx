@@ -13,6 +13,7 @@ import type { DropdownVarId } from '../data/config/DropDownIds'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import {
   applyGeoOverrides,
+  getUnknownsMetricConfig,
   metricConfigFromDtConfig,
 } from '../data/config/MetricConfigUtils'
 import {
@@ -174,15 +175,9 @@ export default function CompareReport(props: CompareReportProps) {
   // Share figures follow the same rule: many topics lack them at some
   // geographies, so a row renders when either side has them and contrasts only
   // when both do. The unknowns map mirrors UnknownsMapCard's own fallback.
-  const shareConfig1 =
-    resolvedConfig1 && metricConfigFromDtConfig('share', resolvedConfig1)
-  const shareConfig2 =
-    resolvedConfig2 && metricConfigFromDtConfig('share', resolvedConfig2)
   const showUnknownsMapCardRow =
-    resolvedConfig1?.metrics?.pct_share_unknown ??
-    shareConfig1 ??
-    resolvedConfig2?.metrics?.pct_share_unknown ??
-    shareConfig2
+    (resolvedConfig1 && getUnknownsMetricConfig(resolvedConfig1)) ??
+    (resolvedConfig2 && getUnknownsMetricConfig(resolvedConfig2))
   // The shares chart reads `pct_share` itself; `share` resolution can land on
   // `pct_share_unknown` (Medicare adherence), which has no shares chart.
   const sharesChartConfig1 = resolvedConfig1?.metrics?.pct_share

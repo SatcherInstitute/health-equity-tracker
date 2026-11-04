@@ -125,10 +125,17 @@ interface ReportSections {
 // dataset here is one a card on the page has already loaded, so these resolve
 // against the dataset cache rather than the network.
 async function loadReportData(
-  dataTypeConfig: DataTypeConfig,
+  unresolvedConfig: DataTypeConfig,
   demographicType: DemographicType,
   fips: Fips,
 ): Promise<{ metricConfig: InsightMetric; sections: ReportSections } | null> {
+  // Resolve per-geography overrides the same way Report.tsx does, so the
+  // insight never queries a dataset the page's cards dropped (e.g. BJS
+  // national/state has no time series).
+  const dataTypeConfig = applyGeoOverrides(
+    unresolvedConfig,
+    fips.getGeographicBreakdown(),
+  )
   const metricConfig = getPrimaryMetricConfig(
     'rate-map',
     dataTypeConfig.metrics,
@@ -297,16 +304,9 @@ export async function generateReportInsight(
   demographicType: DemographicType,
   fips: Fips,
 ): Promise<ReportInsightResult> {
-  // Resolve per-geography overrides the same way Report.tsx does, so the
-  // insight never queries a dataset the page's cards dropped (e.g. BJS
-  // national/state has no time series).
-  const dataTypeConfig = applyGeoOverrides(
-    unresolvedConfig,
-    fips.getGeographicBreakdown(),
-  )
   try {
     const described = await loadReportData(
-      dataTypeConfig,
+      unresolvedConfig,
       demographicType,
       fips,
     )
@@ -321,7 +321,7 @@ export async function generateReportInsight(
     const result = await fetchInsight({
       kind: 'report',
       demographicType,
-      topic: dataTypeConfig.fullDisplayName,
+      topic: unresolvedConfig.fullDisplayName,
       location: fips.getSentenceDisplayName(),
       placeNoun: fips.getPluralChildFipsTypeDisplayName(),
       metricConfig: described.metricConfig,
@@ -363,16 +363,9 @@ export async function previewReportInsight(
   demographicType: DemographicType,
   fips: Fips,
 ): Promise<string | null> {
-  // Resolve per-geography overrides the same way Report.tsx does, so the
-  // insight never queries a dataset the page's cards dropped (e.g. BJS
-  // national/state has no time series).
-  const dataTypeConfig = applyGeoOverrides(
-    unresolvedConfig,
-    fips.getGeographicBreakdown(),
-  )
   try {
     const described = await loadReportData(
-      dataTypeConfig,
+      unresolvedConfig,
       demographicType,
       fips,
     )
@@ -380,7 +373,7 @@ export async function previewReportInsight(
     return fetchInsightPreview({
       kind: 'report',
       demographicType,
-      topic: dataTypeConfig.fullDisplayName,
+      topic: unresolvedConfig.fullDisplayName,
       location: fips.getSentenceDisplayName(),
       placeNoun: fips.getPluralChildFipsTypeDisplayName(),
       metricConfig: described.metricConfig,
