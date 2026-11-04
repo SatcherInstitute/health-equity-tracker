@@ -124,3 +124,37 @@ test('Jail by Age', async ({ page }) => {
     ])
   })
 })
+
+test('Compare county vs state: state side explains missing history', async ({
+  page,
+}) => {
+  await page.goto(
+    '/exploredata?mls=1.incarceration-3.13121-5.13&mlp=comparegeos&group1=All',
+    { waitUntil: 'domcontentloaded' },
+  )
+
+  const ratesRow = page.locator('#rates-over-time-row')
+  await ratesRow.scrollIntoViewIfNeeded()
+
+  await test.step('Verify one-sided over-time rows', async () => {
+    await Promise.all([
+      expect
+        .soft(ratesRow.getByText('historical data for', { exact: false }))
+        .toHaveCount(1),
+      expect
+        .soft(
+          page
+            .locator('#inequities-over-time-row')
+            .getByText('historical data for', { exact: false }),
+        )
+        .toHaveCount(1),
+      // Nothing to contrast, so neither the section nor its button renders
+      expect
+        .soft(ratesRow.getByRole('button', { name: 'Comparison insights' }))
+        .toHaveCount(0),
+      expect
+        .soft(page.getByLabel('Rates over time comparison insight'))
+        .toHaveCount(0),
+    ])
+  })
+})
