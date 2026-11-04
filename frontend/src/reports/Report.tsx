@@ -13,11 +13,13 @@ import { METRIC_CONFIG } from '../data/config/MetricConfig'
 import type { DataTypeConfig, MetricId } from '../data/config/MetricConfigTypes'
 import {
   applyGeoOverrides,
+  getUnknownsMetricConfig,
   metricConfigFromDtConfig,
 } from '../data/config/MetricConfigUtils'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
+  resolveDemographicType,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
@@ -65,10 +67,11 @@ export function Report(props: ReportProps) {
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [demographicType, setDemographicType] = useParamState<DemographicType>(
+  const [demoParam, setDemographicType] = useParamState<DemographicType>(
     DEMOGRAPHIC_PARAM,
     defaultDemo,
   )
+  const demographicType = resolveDemographicType(demoParam, defaultDemo)
 
   const [insightIsOpen] = useParamState(REPORT_INSIGHT_PARAM_KEY)
   const insightMode = Boolean(insightIsOpen)
@@ -126,13 +129,11 @@ export function Report(props: ReportProps) {
 
   const rateMetricConfig =
     resolvedConfig && metricConfigFromDtConfig('rate', resolvedConfig)
-  const shareMetricConfig =
-    resolvedConfig && metricConfigFromDtConfig('share', resolvedConfig)
   // The unknowns map renders from an unknown-share metric, falling back to the
   // regular share metric — mirror UnknownsMapCard's own guard so the TOC step
   // and the card stay in sync (rate-only topics have neither and show neither).
   const unknownsMetricConfig =
-    resolvedConfig?.metrics?.pct_share_unknown ?? shareMetricConfig
+    resolvedConfig && getUnknownsMetricConfig(resolvedConfig)
   const inequityOverTimeConfig =
     resolvedConfig && metricConfigFromDtConfig('inequity', resolvedConfig)
 
@@ -263,7 +264,9 @@ export function Report(props: ReportProps) {
                 )}
 
                 {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
-                {shareMetricConfig && (
+                {/* Gate on `pct_share` itself, as the card does: topics with only
+                    `pct_share_unknown` (Medicare adherence) have no shares chart. */}
+                {resolvedConfig?.metrics?.pct_share && (
                   <div
                     className='w-full'
                     id='population-vs-distribution'

@@ -12,7 +12,10 @@ import type { DemographicGroup } from '../data/utils/Constants'
 import type { MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import { getGeographiesDatasetId } from '../data/utils/datasetutils'
 import type { Fips } from '../data/utils/Fips'
-import { useCompareMode } from '../reports/CompareModeContext'
+import {
+  useCompareMode,
+  useContrastAvailable,
+} from '../reports/CompareModeContext'
 import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import type { InsightPeerConfig } from '../utils/generateVisualizationInsight'
 import { getInsightDataStatus } from '../utils/generateVisualizationInsight'
@@ -103,6 +106,7 @@ function CardWrapper(props: {
   // insight takes over. Sourced from context, not `props.isCompareCard`, because
   // the policy page passes `isCompareCard={false}` outside any real compare context.
   const inCompareMode = useCompareMode()
+  const contrastAvailable = useContrastAvailable()
 
   // Cache key for cardQueryResponsesAtom — same shape as cardInsightsAtom so
   // ContrastInsightSection can compute it from the same inputs.
@@ -171,6 +175,7 @@ function CardWrapper(props: {
         // In compare mode, show the sparkle only for sections that have a ContrastInsightSection.
         const showContrastInsightButton =
           inCompareMode &&
+          contrastAvailable &&
           cardHasData &&
           insightProps != null &&
           (reportProviderSteps[props.scrollToHash]?.hasContrastSection ?? false)

@@ -30,15 +30,16 @@ test('Prison by Race', async ({ page }) => {
   await page.getByLabel('close dialog').click()
   await expect(page.getByRole('dialog')).toBeHidden()
 
-  // --- Missing Data Section ---
-  await test.step('Verify Missing Data Info', async () => {
+  // --- No over-time cards: BJS national/state data has no time series ---
+  await test.step('Verify over-time cards are not rendered', async () => {
     await Promise.all([
+      expect.soft(page.locator('#rates-over-time')).toHaveCount(0),
+      expect.soft(page.locator('#inequities-over-time')).toHaveCount(0),
       expect
         .soft(
           page.getByRole('heading', { name: 'Graph unavailable: Rates of' }),
         )
-        .toBeVisible(),
-      expect.soft(page.getByText('Our data sources do not have')).toBeVisible(),
+        .toHaveCount(0),
     ])
   })
 
@@ -56,9 +57,7 @@ test('Prison by Race', async ({ page }) => {
         )
         .toBeVisible(),
       // 'children' is in the definitions footer, use .first() to avoid strict mode errors
-      expect
-        .soft(rateChart.getByText('children').first())
-        .toBeVisible(),
+      expect.soft(rateChart.getByText('children').first()).toBeVisible(),
     ])
   })
 
@@ -122,6 +121,40 @@ test('Jail by Age', async ({ page }) => {
           page.getByRole('columnheader', { name: 'People in jail per 100k' }),
         )
         .toBeVisible(),
+    ])
+  })
+})
+
+test('Compare county vs state: state side explains missing history', async ({
+  page,
+}) => {
+  await page.goto(
+    '/exploredata?mls=1.incarceration-3.13121-5.13&mlp=comparegeos&group1=All',
+    { waitUntil: 'domcontentloaded' },
+  )
+
+  const ratesRow = page.locator('#rates-over-time-row')
+  await ratesRow.scrollIntoViewIfNeeded()
+
+  await test.step('Verify one-sided over-time rows', async () => {
+    await Promise.all([
+      expect
+        .soft(ratesRow.getByText('historical data for', { exact: false }))
+        .toHaveCount(1),
+      expect
+        .soft(
+          page
+            .locator('#inequities-over-time-row')
+            .getByText('historical data for', { exact: false }),
+        )
+        .toHaveCount(1),
+      // Nothing to contrast, so neither the section nor its button renders
+      expect
+        .soft(ratesRow.getByRole('button', { name: 'Comparison insights' }))
+        .toHaveCount(0),
+      expect
+        .soft(page.getByLabel('Rates over time comparison insight'))
+        .toHaveCount(0),
     ])
   })
 })

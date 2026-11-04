@@ -337,6 +337,24 @@ const JAIL_EXCLUDED_AGES = AGE_BUCKETS.filter(
   (bucket) => !BJS_JAIL_AGE_BUCKETS.includes(bucket as any),
 )
 
+// BJS (national and state) publishes a point-in-time snapshot with no time
+// series and no relative inequity; only Vera's county data is historical. Drop
+// the over-time cards there so they never request a `_historical` BJS dataset.
+const BJS_GEO_OVERRIDES = {
+  national: {
+    metrics: {
+      pct_relative_inequity: null,
+      per100k: { timeSeriesCadence: null },
+    },
+  },
+  state: {
+    metrics: {
+      pct_relative_inequity: null,
+      per100k: { timeSeriesCadence: null },
+    },
+  },
+}
+
 export const INCARCERATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
@@ -413,6 +431,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
         type: 'pct_relative_inequity',
       },
     },
+    geoOverrides: BJS_GEO_OVERRIDES,
   },
   {
     categoryId: 'pdoh',
@@ -486,5 +505,6 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
         type: 'pct_relative_inequity',
       },
     },
+    geoOverrides: BJS_GEO_OVERRIDES,
   },
 ]

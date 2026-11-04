@@ -72,6 +72,20 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     props.dataTypeConfig.metrics.pct_relative_inequity
   const metricConfigPctShares = props.dataTypeConfig.metrics.pct_share
 
+  // No inequity config means no time series at this geography; say so rather
+  // than requesting `_historical` datasets that do not exist.
+  if (!metricConfigInequitable) {
+    return (
+      <MissingDataAlert
+        dataName={`historical data for ${props.dataTypeConfig.fullDisplayName}`}
+        demographicTypeString={
+          DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+        }
+        fips={props.fips}
+      />
+    )
+  }
+
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
     exclude(NON_HISPANIC, ALL),

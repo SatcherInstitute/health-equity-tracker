@@ -22,3 +22,26 @@ export function CompareModeProvider({ children }: { children: ReactNode }) {
 export function useCompareMode(): boolean {
   return useContext(CompareModeContext)
 }
+
+// A compare row whose sides cannot be contrasted (one side has no data for that
+// card, e.g. state BJS beside county Vera history) renders no contrast section,
+// so its cards must not offer the contrast insight button either.
+const ContrastAvailableContext = createContext<boolean>(true)
+
+export function ContrastAvailableProvider({
+  available,
+  children,
+}: {
+  available: boolean
+  children: ReactNode
+}) {
+  return (
+    <ContrastAvailableContext.Provider value={available}>
+      {children}
+    </ContrastAvailableContext.Provider>
+  )
+}
+
+export function useContrastAvailable(): boolean {
+  return useContext(ContrastAvailableContext)
+}
