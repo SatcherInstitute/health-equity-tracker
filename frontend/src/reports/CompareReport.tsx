@@ -18,6 +18,7 @@ import {
 import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
   type DemographicType,
+  resolveDemographicType,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
@@ -68,10 +69,11 @@ export default function CompareReport(props: CompareReportProps) {
     props.dropdownVarId2 === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [demographicType, setDemographicType] = useParamState<DemographicType>(
+  const [demoParam, setDemographicType] = useParamState<DemographicType>(
     DEMOGRAPHIC_PARAM,
     defaultDemo,
   )
+  const demographicType = resolveDemographicType(demoParam, defaultDemo)
 
   const dataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
   // In comparegeos mode both panels show the same data type (dt2 is not in the URL).
