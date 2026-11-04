@@ -31,9 +31,9 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true,
+			"preset": "recommended",
 			"nursery": {
-				"useSortedClasses": "info"
+				"useTailwindSortedClasses": "info"
 			},
 			"a11y": {
 				"useSemanticElements": "off",

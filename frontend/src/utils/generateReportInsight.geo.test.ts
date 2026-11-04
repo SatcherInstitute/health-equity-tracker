@@ -31,11 +31,14 @@ describe('report insight respects geoOverrides', () => {
   test.each([
     ['national', '00'],
     ['state', '13'],
-  ])('%s incarceration never queries a historical dataset', async (_geo, code) => {
-    await previewReportInsight(prison, RACE, new Fips(code))
-    expect(queries.length).toBeGreaterThan(0)
-    expect(queries.filter((q) => q.timeView === 'historical')).toHaveLength(0)
-  })
+  ])(
+    '%s incarceration never queries a historical dataset',
+    async (_geo, code) => {
+      await previewReportInsight(prison, RACE, new Fips(code))
+      expect(queries.length).toBeGreaterThan(0)
+      expect(queries.filter((q) => q.timeView === 'historical')).toHaveLength(0)
+    },
+  )
 
   test('county incarceration still queries its Vera history', async () => {
     await previewReportInsight(prison, RACE, new Fips('13001'))
