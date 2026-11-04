@@ -60,9 +60,9 @@ AHR_MEASURES_TO_RATES_MAP_BIRTH_OUTCOMES = {
 
 # Maternal health measures AHR publishes for the whole population only, with no race, age
 # or sex variants, so they appear only on "All" rows. Rate-only like the topics above.
-# Adequate prenatal care is a percentage of live births (CDC NCHS natality files); maternity
-# care desert is the percentage of females ages 15-44 living in a county with no obstetric care
-# (March of Dimes); maternity practices is the CDC mPINC survey score of birth facility
+# Adequate prenatal care is a percentage of live births and maternity care desert the percentage
+# of females ages 15-44 living in a county with no obstetric care (both from the March of Dimes
+# Perinatal Data Center); maternity practices is the CDC mPINC survey score of birth facility
 # policies (0-100, higher is better), hence its index suffix.
 AHR_MEASURES_TO_RATES_MAP_MATERNAL_ALLS_ONLY = {
     "Adequate Prenatal Care": "adequate_prenatal_care_pct_rate",

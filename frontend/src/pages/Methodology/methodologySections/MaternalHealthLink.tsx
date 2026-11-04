@@ -6,7 +6,10 @@ import { MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/Metri
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
 import { urlMap } from '../../../utils/externalUrls'
-import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
+import {
+  DATA_CATALOG_PAGE_LINK,
+  METRICS_LINK,
+} from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import StripedTable from '../methodologyComponents/StripedTable'
@@ -26,6 +29,10 @@ const dataTypeConfigs = MATERNAL_HEALTH_CATEGORY_DROPDOWNIDS.flatMap(
     return METRIC_CONFIG[dropdownId]
   },
 )
+
+// AHR's own URL slug for this measure misspells "adequate".
+// cspell:disable-next-line
+const AHR_ADEQUATE_PRENATAL_CARE_SLUG = 'prenatalcare_adquate'
 
 const MaternalHealthLink = () => {
   return (
@@ -301,6 +308,62 @@ const MaternalHealthLink = () => {
             </p>
             <p>
               <strong>Age and sex:</strong> Not available.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <div className='py-5'>
+            <h3 className='font-normal text-text' id='maternal-care-context'>
+              Maternal Care Context in Map Tooltips
+            </h3>
+            <p>
+              When you hover over a state on the map of any maternal and infant
+              health topic, the tooltip also shows three measures of maternal
+              care in that state, much as county maps show the{' '}
+              <a href={`${METRICS_LINK}#svi`}>Social Vulnerability Index</a>.
+              All three come from America’s Health Rankings, which publishes
+              them for each state and the nation as a whole but not by race,
+              ethnicity, age, or sex. That is why they appear as context for the
+              state rather than as topics of their own.
+            </p>
+            <ul className='list-inside list-disc pl-4'>
+              <li>
+                <HetTerm>Maternity care desert</HetTerm>: The percentage of
+                females ages 15–44 living in a county with no birth centers,
+                certified nurse midwives, family practice physicians,
+                obstetricians, or hospitals that provide obstetric care. Source:
+                March of Dimes Perinatal Data Center, via{' '}
+                <a href={`${urlMap.ahr}/maternity_care_desert`}>
+                  America’s Health Rankings
+                </a>
+                .
+              </li>
+              <li>
+                <HetTerm>Adequate prenatal care</HetTerm>: The percentage of
+                live births in which prenatal care began in the first four
+                months of pregnancy, with the appropriate number of visits for
+                the infant’s gestational age. Source: March of Dimes Perinatal
+                Data Center, via{' '}
+                <a href={`${urlMap.ahr}/${AHR_ADEQUATE_PRENATAL_CARE_SLUG}`}>
+                  America’s Health Rankings
+                </a>
+                .
+              </li>
+              <li>
+                <HetTerm>Maternity practices (mPINC) score</HetTerm>: A score
+                from 0 to 100 from the CDC Survey of Maternity Practices in
+                Infant Nutrition and Care, based on birth facility policies and
+                practices that support breastfeeding and infant care. Higher
+                scores mean better practices. The survey runs every two years.
+                Source: CDC, via{' '}
+                <a href={`${urlMap.ahr}/mPINC_a`}>America’s Health Rankings</a>.
+              </li>
+            </ul>
+            <p>
+              Each measure shows its most recent available year, which may
+              differ from the year of the topic shown on the map. A state with
+              no value for a measure does not show that line.
             </p>
           </div>
         </section>
