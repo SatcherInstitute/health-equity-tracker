@@ -215,7 +215,7 @@ function DataSourceListing(props: DataSourceListingProps) {
             href='/data_dictionaries/medicare_population.csv'
             className='px-0 py-0 text-center font-bold leading-normal'
             buttonClassName='w-auto mx-auto md:w-auto md:mr-4 md:ml-0 px-0 pt-2 pb-4'
-            ariaLabel={'Download ' + props.source_metadata.data_source_name}
+            ariaLabel={`Download data dictionary for ${props.source_metadata.data_source_name}`}
           >
             <SaveAlt className='pt-1 pr-2 pl-0' />
             Download data dictionary
@@ -227,7 +227,7 @@ function DataSourceListing(props: DataSourceListingProps) {
             onClick={() => {
               setDialogIsOpen(true)
             }}
-            ariaLabel={`'Download ${props.source_metadata.data_source_name}`}
+            ariaLabel={`View downloadable tables for ${props.source_metadata.data_source_name}`}
             href={''}
           >
             View downloadable tables

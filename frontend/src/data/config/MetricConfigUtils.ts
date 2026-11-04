@@ -31,6 +31,13 @@ export function metricConfigFromDtConfig(
   return requestedConfig
 }
 
+// The unknowns map prefers the unknown-share metric, falling back to pct_share.
+export function getUnknownsMetricConfig(
+  dtConfig: DataTypeConfig,
+): MetricConfig | undefined {
+  return dtConfig.metrics?.pct_share_unknown ?? dtConfig.metrics?.pct_share
+}
+
 export function isPctType(metricType: MetricType) {
   return ['pct_share', 'pct_relative_inequity', 'pct_rate'].includes(metricType)
 }

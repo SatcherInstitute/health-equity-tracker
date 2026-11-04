@@ -49,7 +49,19 @@ export default function StackedSharesBarChartCard(
   )
 
   const shareConfig = props.dataTypeConfig.metrics?.pct_share
-  if (!shareConfig) return <></>
+  // Only compare mode mounts this card without share figures, for the side
+  // whose geography lacks them; say so rather than rendering an empty column.
+  if (!shareConfig) {
+    return (
+      <MissingDataAlert
+        dataName={`share data for ${props.dataTypeConfig.fullDisplayName}`}
+        demographicTypeString={
+          DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+        }
+        fips={props.fips}
+      />
+    )
+  }
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
     exclude(ALL, NON_HISPANIC),

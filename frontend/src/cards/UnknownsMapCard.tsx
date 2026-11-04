@@ -9,6 +9,7 @@ import type {
   DataTypeConfig,
   MapConfig,
 } from '../data/config/MetricConfigTypes'
+import { getUnknownsMetricConfig } from '../data/config/MetricConfigUtils'
 import {
   Breakdowns,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
@@ -54,7 +55,12 @@ interface UnknownsMapCardProps {
 export default function UnknownsMapCard(props: UnknownsMapCardProps) {
   return (
     <UnknownsMapCardWithKey
-      key={props.demographicType + props.dataTypeConfig.dataTypeId}
+      // Share figures can come and go with geography (e.g. county cancer), and
+      // the inner card returns before its later hooks when they are absent, so
+      // remount on that change to keep hook order stable.
+      key={`${props.demographicType}${props.dataTypeConfig.dataTypeId}${Boolean(
+        getUnknownsMetricConfig(props.dataTypeConfig),
+      )}`}
       {...props}
     />
   )
@@ -64,11 +70,21 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const isMdAndUp = useIsBreakpointAndUp('sm')
 
   const preloadHeight = useGuessPreloadHeight([700, 1000])
-  const metricConfig =
-    props.dataTypeConfig.metrics?.pct_share_unknown ??
-    props.dataTypeConfig.metrics?.pct_share
+  const metricConfig = getUnknownsMetricConfig(props.dataTypeConfig)
 
-  if (!metricConfig) return <></>
+  // Only compare mode mounts this card without share figures, for the side
+  // whose geography lacks them; say so rather than rendering an empty column.
+  if (!metricConfig) {
+    return (
+      <MissingDataAlert
+        dataName={`share data for ${props.dataTypeConfig.fullDisplayName}`}
+        demographicTypeString={
+          DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+        }
+        fips={props.fips}
+      />
+    )
+  }
   const demographicType = props.demographicType
   const location = useLocation()
 
