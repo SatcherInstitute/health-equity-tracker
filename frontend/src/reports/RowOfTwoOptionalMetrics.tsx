@@ -2,7 +2,6 @@ import type { DropdownVarId } from '../data/config/DropDownIds'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { Fips } from '../data/utils/Fips'
 import type { ScrollableHashId } from '../utils/hooks/useStepObserver'
-import type { MadLibId } from '../utils/MadLibs'
 
 // Needed for type safety, used when the card does not need to use the fips update callback
 const unusedFipsCallback = () => {}
@@ -24,7 +23,6 @@ interface RowOfTwoOptionalMetricsProps {
   dropdownVarId1?: DropdownVarId
   dropdownVarId2?: DropdownVarId
   headerScrollMargin: number
-  trackerMode: MadLibId
   hideSecondCard?: boolean
 }
 
@@ -35,10 +33,10 @@ export default function RowOfTwoOptionalMetrics(
     return <></>
   }
 
-  const dataTypeConfig2 =
-    props.trackerMode === 'comparegeos'
-      ? props.dataTypeConfig1
-      : props.dataTypeConfig2
+  // CompareReport already resolves the second panel's config against fips2
+  // (reusing dt1 in comparegeos), so use it as given rather than falling back to
+  // dataTypeConfig1, which carries fips1's geoOverrides.
+  const dataTypeConfig2 = props.dataTypeConfig2
 
   return (
     <div id={`${props.id}-row`} className='flex w-full flex-wrap'>

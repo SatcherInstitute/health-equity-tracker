@@ -78,6 +78,22 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   if (!metricConfigRates) return <></>
 
+  // A config without a cadence has no time series at this geography (e.g. BJS
+  // national/state). Only compare mode mounts the card then, for the side
+  // lacking history; say so instead of requesting a `_historical` dataset that
+  // does not exist.
+  if (!metricConfigRates.timeSeriesCadence) {
+    return (
+      <MissingDataAlert
+        dataName={`historical data for ${metricConfigRates.chartTitle}`}
+        demographicTypeString={
+          DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+        }
+        fips={props.fips}
+      />
+    )
+  }
+
   const metricConfigPctShares =
     props.dataTypeConfig.metrics?.pct_share_unknown ??
     props.dataTypeConfig.metrics?.pct_share
