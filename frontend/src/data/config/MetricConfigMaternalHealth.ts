@@ -38,6 +38,12 @@ export type MaternalHealthMetricId =
   | 'infant_mortality_per_100k'
   | 'low_birthweight_pct_rate'
   | 'low_risk_cesarean_pct_rate'
+  // Maternal care context (AHR-sourced, state and national "All" rows only).
+  // Shown in the map tooltip of maternal health topics, the way SVI is shown
+  // for counties, rather than as topics of their own.
+  | 'adequate_prenatal_care_pct_rate'
+  | 'maternity_care_desert_pct_rate'
+  | 'maternity_practices_index'
 
 export const MATERNAL_MORTALITY_METRICS: DataTypeConfig[] = [
   {
@@ -259,3 +265,30 @@ export const LOW_RISK_CESAREAN_METRICS: DataTypeConfig[] = [
     },
   },
 ]
+
+// State-level maternal care context for the map tooltip. AHR publishes these
+// without demographic breakdowns, so they describe each state as a whole.
+export const MATERNAL_CONTEXT_TOOLTIP_METRICS: ReadonlyArray<{
+  metricId: MaternalHealthMetricId
+  label: string
+  formatValue: (value: number) => string
+}> = [
+  {
+    metricId: 'maternity_care_desert_pct_rate',
+    label: 'Living in a maternity care desert',
+    formatValue: (value) => `${value}% of females ages 15-44`,
+  },
+  {
+    metricId: 'adequate_prenatal_care_pct_rate',
+    label: 'Adequate prenatal care',
+    formatValue: (value) => `${value}% of live births`,
+  },
+  {
+    metricId: 'maternity_practices_index',
+    label: 'Maternity practices (mPINC) score',
+    formatValue: (value) => `${value} out of 100`,
+  },
+]
+
+export const MATERNAL_CONTEXT_METRIC_IDS: MaternalHealthMetricId[] =
+  MATERNAL_CONTEXT_TOOLTIP_METRICS.map(({ metricId }) => metricId)

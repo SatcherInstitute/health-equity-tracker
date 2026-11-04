@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import { useLocation } from 'react-router'
 import { createColorScale } from '../charts/choroplethMap/colorSchemes'
 import ChoroplethMap from '../charts/choroplethMap/index'
+import { getMaternalContextByFips } from '../charts/choroplethMap/mapHelpers'
 import RateMapLegend from '../charts/choroplethMap/RateMapLegend'
 import {
   ATLANTA_METRO_COUNTY_FIPS,
@@ -14,6 +15,7 @@ import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import type { DatasetId } from '../data/config/DatasetMetadata'
 import { dataSourceMetadataMap } from '../data/config/MetadataMap'
+import { MATERNAL_CONTEXT_METRIC_IDS } from '../data/config/MetricConfigMaternalHealth'
 import {
   CAWP_METRICS,
   COMBINED_INCARCERATION_STATES_LIST,
@@ -293,11 +295,30 @@ function MapCardWithKey(props: MapCardProps) {
   queries.push(popQuery)
 
   // state and county level reports require county-fips data for hover tooltips
+  let sviQueryIndex: number | undefined
   if (!props.fips.isUsa()) {
     const sviBreakdowns = Breakdowns.byCounty()
     sviBreakdowns.filterFips = props.fips
     const sviQuery = new MetricQuery([SVI], sviBreakdowns)
+    sviQueryIndex = queries.length
     queries.push(sviQuery)
+  }
+
+  // Maternal health topics show state-level maternal care context in the
+  // tooltip, the way SVI is shown for counties. AHR publishes these measures on
+  // the "All" rows of every AHR table, so any one demographic file serves them;
+  // the AHR dataTypeId routes the query there whatever the current topic's
+  // provider is.
+  let maternalContextQueryIndex: number | undefined
+  if (props.dataTypeConfig.categoryId === 'maternal-health') {
+    maternalContextQueryIndex = queries.length
+    queries.push(
+      new MetricQuery(
+        MATERNAL_CONTEXT_METRIC_IDS,
+        Breakdowns.byState().addBreakdown(RACE),
+        'severe_maternal_morbidity',
+      ),
+    )
   }
 
   // A single-region map (a county whose subgroups are all suppressed, or a state
@@ -443,7 +464,13 @@ function MapCardWithKey(props: MapCardProps) {
           subPopSourceLabel = '@unitedstates'
         }
 
-        const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
+        const sviQueryResponse: MetricQueryResponse | null =
+          sviQueryIndex === undefined ? null : queryResponses[sviQueryIndex]
+        const maternalContextByFips = getMaternalContextByFips(
+          maternalContextQueryIndex === undefined
+            ? []
+            : queryResponses[maternalContextQueryIndex].data,
+        )
         const sortArgs = getSortArgs(demographicType)
 
         const fieldValues = mapQueryResponse.getFieldValues(
@@ -525,6 +552,12 @@ function MapCardWithKey(props: MapCardProps) {
                 rating: findVerboseRating(thisCountySviRow?.svi),
               }
             },
+          )
+        }
+
+        if (maternalContextByFips.size > 0) {
+          dataForActiveDemographicGroup = dataForActiveDemographicGroup.map(
+            (row) => ({ ...row, ...maternalContextByFips.get(row.fips) }),
           )
         }
 

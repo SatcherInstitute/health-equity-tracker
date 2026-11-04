@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
+import { ALL, BLACK_NH, RACE } from '../../data/utils/Constants'
 import { DATA_SUPPRESSED, DATA_UNAVAILABLE } from '../mapGlobals'
-import { createDataMap } from './mapHelpers'
+import {
+  createDataMap,
+  getMaternalContextByFips,
+  getMaternalContextEntries,
+} from './mapHelpers'
 
 const metric = {
   metricId: 'gun_violence_homicide_per_100k',
@@ -114,5 +119,52 @@ describe('createDataMap suppressed vs unavailable labels', () => {
     })
     expect(entry['# homicides']).toEqual(0)
     expect(entry['# people']).toEqual(0)
+  })
+})
+
+describe('maternal care context tooltip entries', () => {
+  it('takes context values from "All" rows only, keyed by fips', () => {
+    const contextByFips = getMaternalContextByFips([
+      {
+        fips: '28',
+        [RACE]: ALL,
+        maternity_care_desert_pct_rate: 18.1,
+        adequate_prenatal_care_pct_rate: 70.2,
+        maternity_practices_index: 75,
+      },
+      { fips: '28', [RACE]: BLACK_NH, maternity_care_desert_pct_rate: null },
+      { fips: '06', [RACE]: ALL, maternity_care_desert_pct_rate: null },
+    ])
+
+    expect(contextByFips.get('28')).toEqual({
+      maternity_care_desert_pct_rate: 18.1,
+      adequate_prenatal_care_pct_rate: 70.2,
+      maternity_practices_index: 75,
+    })
+    // a state with no context values gets no entry, so its tooltip is unchanged
+    expect(contextByFips.has('06')).toBe(false)
+  })
+
+  it('formats each available value with its unit and skips missing ones', () => {
+    expect(
+      getMaternalContextEntries({
+        fips: '28',
+        maternity_care_desert_pct_rate: 18.1,
+        maternity_practices_index: 75,
+      }),
+    ).toEqual({
+      'Living in a maternity care desert': '18.1% of females ages 15-44',
+      'Maternity practices (mPINC) score': '75 out of 100',
+    })
+  })
+
+  it('adds the context entries to the map tooltip data', () => {
+    const entry = build({
+      fips: '28',
+      gun_violence_homicide_per_100k: 20,
+      adequate_prenatal_care_pct_rate: 70.2,
+    })
+    expect(entry['Adequate prenatal care']).toEqual('70.2% of live births')
+    expect(entry['Living in a maternity care desert']).toBeUndefined()
   })
 })
