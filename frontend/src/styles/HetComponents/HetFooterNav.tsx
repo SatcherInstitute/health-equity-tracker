@@ -17,13 +17,12 @@ export default function HetFooterLinks() {
         {[
           ['Explore Data', EXPLORE_DATA_PAGE_LINK],
           ['Methods', METHODOLOGY_PAGE_LINK],
-          ['FAQs', FULL_FAQS_LINK, 'Frequently Asked Questions'],
+          ['FAQs', FULL_FAQS_LINK],
           ['Contact Us', ABOUT_US_PAGE_LINK],
           ['Terms of Use', TERMS_OF_USE_PAGE_LINK],
-        ].map(([label, url, ariaLabel]) => (
+        ].map(([label, url]) => (
           <li key={url} className='grid lg:place-content-end'>
             <HetLinkButton
-              ariaLabel={ariaLabel}
               href={url}
               className='w-full pt-4 text-alt-black no-underline md:w-auto'
             >
