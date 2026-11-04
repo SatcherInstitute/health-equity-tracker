@@ -1,4 +1,5 @@
 import type { CategoryTypeId } from '../../utils/MadLibs'
+import { INCARCERATION_METRICS } from './MetricConfigPDOH'
 import type {
   DataTypeConfig,
   DataTypeId,
@@ -187,5 +188,24 @@ describe('applyGeoOverrides', () => {
     const result = applyGeoOverrides(config, 'county')
     expect('dataTypeShortLabel' in result).toBe(false)
     expect(result.fullDisplayName).toBe('Display Name (default)')
+  })
+})
+
+describe('Incarceration geoOverrides', () => {
+  // BJS (national/state) has no time series; only Vera (county) does.
+  test.each(
+    INCARCERATION_METRICS.map((c) => [c.dataTypeId, c]),
+  )('%s drops over-time cards at national and state only', (_id, config) => {
+    for (const geo of ['national', 'state'] as const) {
+      const result = applyGeoOverrides(config, geo)
+      expect(result.metrics.per100k?.timeSeriesCadence).toBeUndefined()
+      expect(result.metrics.pct_relative_inequity).toBeUndefined()
+      expect(result.metrics.per100k?.metricId).toBe(
+        config.metrics.per100k?.metricId,
+      )
+    }
+    const county = applyGeoOverrides(config, 'county')
+    expect(county.metrics.per100k?.timeSeriesCadence).toBe('yearly')
+    expect(county.metrics.pct_relative_inequity).toBeDefined()
   })
 })
