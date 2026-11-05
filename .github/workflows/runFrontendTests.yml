@@ -29,7 +29,7 @@ jobs:
             server/testdata/insight_prompts
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version-file: frontend/package.json
           cache: 'npm'
