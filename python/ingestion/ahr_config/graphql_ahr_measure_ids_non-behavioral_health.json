@@ -50,6 +50,18 @@
 		{
 			"measure": "Low-Risk Cesarean Delivery",
 			"ids": ["1820"]
+		},
+		{
+			"measure": "Adequate Prenatal Care",
+			"ids": ["17620"]
+		},
+		{
+			"measure": "Maternity Care Desert",
+			"ids": ["18113"]
+		},
+		{
+			"measure": "Maternity Practices Score",
+			"ids": ["17427"]
 		}
 	],
 	"age": [

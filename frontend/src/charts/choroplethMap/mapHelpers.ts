@@ -6,6 +6,7 @@ import type {
   Geometry,
 } from 'geojson'
 import { feature, merge } from 'topojson-client'
+import { MATERNAL_CONTEXT_TOOLTIP_METRICS } from '../../data/config/MetricConfigMaternalHealth'
 import {
   CAWP_METRICS,
   getWomenRaceLabel,
@@ -13,7 +14,9 @@ import {
 import type { MetricConfig } from '../../data/config/MetricConfigTypes'
 import { isPctType } from '../../data/config/MetricConfigUtils'
 import type { DemographicType } from '../../data/query/Breakdowns'
+import { ALL, RACE } from '../../data/utils/Constants'
 import { TERRITORY_CODES } from '../../data/utils/ConstantsGeography'
+import type { HetRow } from '../../data/utils/DatasetTypes'
 import { Fips } from '../../data/utils/Fips'
 import {
   ATLANTA_METRO_COUNTY_FIPS,
@@ -223,10 +226,45 @@ export const createDataMap = (
           ...(d.highestGroup && { ['Highest rate group']: d.highestGroup }),
           ...(d.lowestGroup && { ['Lowest rate group']: d.lowestGroup }),
           ...(d.rating && { ['County SVI']: d.rating }),
+          ...getMaternalContextEntries(d),
         },
       ] as [string, MetricData]
     }),
   )
+}
+
+/**
+ * Picks each state's maternal care context values from the "All" rows of the
+ * maternal context query, keyed by fips, for merging onto that state's map row.
+ */
+export const getMaternalContextByFips = (
+  rows: HetRow[],
+): Map<string, Record<string, number>> => {
+  const contextByFips = new Map<string, Record<string, number>>()
+  for (const row of rows) {
+    if (row[RACE] !== ALL) continue
+    const values: Record<string, number> = {}
+    for (const { metricId } of MATERNAL_CONTEXT_TOOLTIP_METRICS) {
+      if (row[metricId] != null) values[metricId] = row[metricId]
+    }
+    if (Object.keys(values).length > 0) contextByFips.set(row.fips, values)
+  }
+  return contextByFips
+}
+
+/** Tooltip entries for whichever maternal care context values a map row has. */
+export const getMaternalContextEntries = (
+  d: Record<string, any>,
+): Record<string, string> => {
+  const entries: Record<string, string> = {}
+  for (const {
+    metricId,
+    label,
+    formatValue,
+  } of MATERNAL_CONTEXT_TOOLTIP_METRICS) {
+    if (d[metricId] != null) entries[label] = formatValue(d[metricId])
+  }
+  return entries
 }
 
 export const formatMetricValue = (

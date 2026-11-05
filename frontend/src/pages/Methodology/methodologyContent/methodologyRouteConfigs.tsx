@@ -205,6 +205,7 @@ export const methodologyRouteConfigs: RouteConfig[] = [
         label: 'Live Birth Denominators',
         path: 'maternal-mortality-denominators',
       },
+      { label: 'Map Tooltip Context', path: 'maternal-care-context' },
       { label: 'Demographics', path: 'demographic-stratification' },
       { label: 'Data Sources', path: 'maternal-health-data-sources' },
       { label: 'Key Terms', path: 'maternal-health-key-terms' },

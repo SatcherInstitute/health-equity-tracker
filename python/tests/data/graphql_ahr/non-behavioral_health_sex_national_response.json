@@ -2134,5 +2134,137 @@
                 }
             }
         ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2017-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 76.1,
+                "measure": {
+                    "name": "Adequate Prenatal Care"
+                }
+            },
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 76.4,
+                "measure": {
+                    "name": "Adequate Prenatal Care"
+                }
+            },
+            {
+                "endDate": "2019-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 76.7,
+                "measure": {
+                    "name": "Adequate Prenatal Care"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 74.7,
+                "measure": {
+                    "name": "Adequate Prenatal Care"
+                }
+            },
+            {
+                "endDate": "2021-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 75.6,
+                "measure": {
+                    "name": "Adequate Prenatal Care"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 74.9,
+                "measure": {
+                    "name": "Adequate Prenatal Care"
+                }
+            },
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 75.2,
+                "measure": {
+                    "name": "Adequate Prenatal Care"
+                }
+            },
+            {
+                "endDate": "2024-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 75,
+                "measure": {
+                    "name": "Adequate Prenatal Care"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2023-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 3.1,
+                "measure": {
+                    "name": "Maternity Care Desert"
+                }
+            },
+            {
+                "endDate": "2024-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 3.7,
+                "measure": {
+                    "name": "Maternity Care Desert"
+                }
+            },
+            {
+                "endDate": "2026-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 3.5,
+                "measure": {
+                    "name": "Maternity Care Desert"
+                }
+            }
+        ]
+    },
+    {
+        "data": [
+            {
+                "endDate": "2018-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 79,
+                "measure": {
+                    "name": "Maternity Practices Score"
+                }
+            },
+            {
+                "endDate": "2020-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 81,
+                "measure": {
+                    "name": "Maternity Practices Score"
+                }
+            },
+            {
+                "endDate": "2022-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 81,
+                "measure": {
+                    "name": "Maternity Practices Score"
+                }
+            },
+            {
+                "endDate": "2024-01-01T00:00:00.000Z",
+                "state": "ALL",
+                "value": 82,
+                "measure": {
+                    "name": "Maternity Practices Score"
+                }
+            }
+        ]
     }
 ]
