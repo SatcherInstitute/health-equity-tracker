@@ -57,6 +57,22 @@ If any new unresolved review threads or comments exist: stop and ask the user wh
 
 ---
 
+## Step 1c — Check prod and dev CI health
+
+Check the latest completed run of every non-PR workflow (main pushes and the dev deploy, release/prod deploys, scheduled crons and E2E, DAG runs):
+
+```bash
+gh run list --limit 300 --json workflowName,event,headBranch,conclusion,status,createdAt,url \
+  --jq '[.[] | select(.event != "pull_request" and .status == "completed")]
+        | group_by(.workflowName) | map(sort_by(.createdAt) | last)
+        | .[] | select(.conclusion != "success" and .conclusion != "skipped")
+        | {workflowName, event, headBranch, conclusion, createdAt, url}'
+```
+
+If anything comes back, alert the user up front with a short list (workflow name, branch, conclusion, date, link). Runs on the `infra-test` branch may be someone's in-progress backend test rather than a real dev failure; say so for those. This is an alert, not a gate: continue with the merge unless the user says otherwise. If nothing comes back, say "Prod/dev CI: all green" in one line.
+
+---
+
 ## Step 2 — Force-merge the PR
 
 ```bash
@@ -224,7 +240,7 @@ gh workflow run <dag>.yml --ref infra-test
 ## Step 10 — Confirm
 
 Print a summary:
-> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main. Board: <issues moved to Done, if any> <issues moved to Up Next, if any>. Recipes: <current/pushed/skipped>. DAG: <triggered/skipped/declined>."
+> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main. CI: <all green / failing workflows from Step 1c>. Board: <issues moved to Done, if any> <issues moved to Up Next, if any>. Recipes: <current/pushed/skipped>. DAG: <triggered/skipped/declined>."
 
 ---
 
