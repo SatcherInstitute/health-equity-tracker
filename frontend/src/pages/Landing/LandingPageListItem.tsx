@@ -29,17 +29,17 @@ export default function LandingPageListItem({
 
   return (
     <li
-      className={`sticky top-[0] mx-24 my-12 flex h-auto xs:h-auto min-h-[55vh] min-w-full list-none xs:flex-col items-center justify-around rounded-xl bg-alt-white p-8 xs:px-4 xs:py-2 shadow-raised sm:flex-col sm:p-8 lg:flex-row xl:flex-row ${customClassName}`}
+      className={`xs:h-auto xs:flex-col bg-alt-white xs:px-4 xs:py-2 shadow-raised sticky top-[0] mx-24 my-12 flex h-auto min-h-[55vh] min-w-full list-none items-center justify-around rounded-xl p-8 sm:flex-col sm:p-8 lg:flex-row xl:flex-row ${customClassName}`}
     >
-      <div className='mx-4 flex w-1/3 xs:w-auto flex-col justify-between sm:w-auto md:w-auto'>
-        <p className='xs:my-0 xs:py-0 text-left font-bold font-sans-title text-alt-green text-small'>
+      <div className='xs:w-auto mx-4 flex w-1/3 flex-col justify-between sm:w-auto md:w-auto'>
+        <p className='xs:my-0 xs:py-0 font-sans-title text-alt-green text-small text-left font-bold'>
           {itemNumber}/4
         </p>
-        <div className='mb-4 xs:mb-0 w-full min-w-1/2'>
-          <h4 className='my-2 font-medium font-sans-title text-smallest-header xs:text-title md:text-left'>
+        <div className='xs:mb-0 mb-4 w-full min-w-1/2'>
+          <h4 className='font-sans-title text-smallest-header xs:text-title my-2 font-medium md:text-left'>
             {title}
           </h4>
-          <p className='mb-8 xs:mb-4 xs:text-small sm:text-small md:text-left'>
+          <p className='xs:mb-4 xs:text-small sm:text-small mb-8 md:text-left'>
             {description}
           </p>
           <HetTextArrowLink
@@ -52,7 +52,7 @@ export default function LandingPageListItem({
         {youtubeId ? (
           embedLoaded ? (
             <iframe
-              className='mx-auto xs:h-[25vh] max-h-[40vh] w-full max-w-[60vw] rounded-md sm:h-[25vh] md:h-[25vh] lg:min-h-[40vh] xl:min-h-[40vh]'
+              className='xs:h-[25vh] mx-auto max-h-[40vh] w-full max-w-[60vw] rounded-md sm:h-[25vh] md:h-[25vh] lg:min-h-[40vh] xl:min-h-[40vh]'
               src={`https://www.youtube-nocookie.com/embed/${youtubeId}?autoplay=1`}
               title='YouTube video player'
               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
@@ -62,7 +62,7 @@ export default function LandingPageListItem({
             <button
               type='button'
               aria-label='Play video'
-              className='group relative mx-auto block xs:h-[25vh] max-h-[40vh] w-full max-w-[60vw] cursor-pointer overflow-hidden rounded-md border-0 p-0 focus-visible:ring-2 focus-visible:ring-alt-green focus-visible:ring-offset-2'
+              className='group xs:h-[25vh] focus-visible:ring-alt-green relative mx-auto block max-h-[40vh] w-full max-w-[60vw] cursor-pointer overflow-hidden rounded-md border-0 p-0 focus-visible:ring-2 focus-visible:ring-offset-2'
               onClick={() => setEmbedLoaded(true)}
             >
               <picture>

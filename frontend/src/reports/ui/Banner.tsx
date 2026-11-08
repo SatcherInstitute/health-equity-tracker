@@ -43,8 +43,8 @@ const Banner: React.FC = () => {
     >
       <div className='flex items-center justify-between'>
         {/* Mobile / tablet: single inline paragraph */}
-        <p className='m-0 px-2 text-left text-small md:hidden'>
-          <span className='font-bold font-sans-title text-small'>
+        <p className='text-small m-0 px-2 text-left md:hidden'>
+          <span className='font-sans-title text-small font-bold'>
             Major gaps in the data:
           </span>{' '}
           Structural racism causes health inequities in the U.S.{' '}
@@ -55,8 +55,8 @@ const Banner: React.FC = () => {
 
         {/* Desktop: text + HetTextArrowLink on its own line */}
         <div className='hidden items-center justify-start px-2 md:flex md:flex-row'>
-          <p className='my-0 p-0 text-left text-small lg:mr-8'>
-            <span className='font-bold font-sans-title lg:text-text'>
+          <p className='text-small my-0 p-0 text-left lg:mr-8'>
+            <span className='font-sans-title lg:text-text font-bold'>
               Major gaps in the data:
             </span>{' '}
             Structural racism causes health inequities. We&apos;re closing these
@@ -64,7 +64,7 @@ const Banner: React.FC = () => {
           </p>
           <a
             href={LIMITATIONS_HREF}
-            className='mx-2 inline-flex items-center gap-0.5 whitespace-nowrap font-bold font-sans-title text-alt-green text-text no-underline'
+            className='font-sans-title text-alt-green text-text mx-2 inline-flex items-center gap-0.5 font-bold whitespace-nowrap no-underline'
           >
             {LIMITATIONS_LINK_TEXT}
             <ArrowForward fontSize='inherit' />

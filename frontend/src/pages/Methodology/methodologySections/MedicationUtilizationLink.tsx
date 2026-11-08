@@ -42,7 +42,7 @@ export default function MedicareMedicationLink() {
         />
 
         <h2
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='medication-utilization-data-sourcing'
         >
           Data Sourcing
@@ -60,7 +60,7 @@ export default function MedicareMedicationLink() {
           .
         </p>
 
-        <table className='m-4 border-collapse border-bg-color border-solid p-1'>
+        <table className='border-bg-color m-4 border-collapse border-solid p-1'>
           <thead className='bg-methodology-green font-bold'>
             <tr>
               <th>Field from data dictionary</th>
@@ -69,48 +69,48 @@ export default function MedicareMedicationLink() {
           </thead>
           <tbody className='[&>tr:nth-child(even)]:bg-methodology-green/20'>
             <tr>
-              <td className='border-collapse border-bg-color border-solid p-1'>
+              <td className='border-bg-color border-collapse border-solid p-1'>
                 <>RTI_RACE_CD</>
               </td>
-              <td className='border-collapse border-bg-color border-solid p-1'>
+              <td className='border-bg-color border-collapse border-solid p-1'>
                 Beneficiary race code (modified using RTI algorithm). The race
                 of the beneficiary and enhanced based on first and last name
                 algorithms.
               </td>
             </tr>
             <tr>
-              <td className='border-collapse border-bg-color border-solid p-1'>
+              <td className='border-bg-color border-collapse border-solid p-1'>
                 <>SEX_IDENT_CD</>
               </td>
-              <td className='border-collapse border-bg-color border-solid p-1'>
+              <td className='border-bg-color border-collapse border-solid p-1'>
                 This variable indicates the sex of the beneficiary.
               </td>
             </tr>
             <tr>
-              <td className='border-collapse border-bg-color border-solid p-1'>
+              <td className='border-bg-color border-collapse border-solid p-1'>
                 <>AGE_AT_END_REF_YR</>
               </td>
-              <td className='border-collapse border-bg-color border-solid p-1'>
+              <td className='border-bg-color border-collapse border-solid p-1'>
                 This is the beneficiary’s age, expressed in years and calculated
                 as of the end of the calendar year, or, for beneficiaries that
                 died during the year, age as of the date of death.
               </td>
             </tr>
             <tr>
-              <td className='border-collapse border-bg-color border-solid p-1'>
+              <td className='border-bg-color border-collapse border-solid p-1'>
                 <>CST_SHR_GRP_CD</>
               </td>
-              <td className='border-collapse border-bg-color border-solid p-1'>
+              <td className='border-bg-color border-collapse border-solid p-1'>
                 Monthly cost sharing group under Part D low-income subsidy.
                 Beneficiaries receiving the subsidy at any time during the year
                 were classified as LIS.
               </td>
             </tr>
             <tr>
-              <td className='border-collapse border-bg-color border-solid p-1'>
+              <td className='border-bg-color border-collapse border-solid p-1'>
                 <>ENTLMT_RSN_CURR</>
               </td>
-              <td className='border-collapse border-bg-color border-solid p-1'>
+              <td className='border-bg-color border-collapse border-solid p-1'>
                 Current reason for Medicare entitlement. This variable indicates
                 how the beneficiary currently qualifies for Medicare.
               </td>
@@ -120,7 +120,7 @@ export default function MedicareMedicationLink() {
 
         <section>
           <div className='py-5'>
-            <h3 className='font-normal text-text'>Medicare PQA Adherence</h3>
+            <h3 className='text-text font-normal'>Medicare PQA Adherence</h3>
             <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
               <li>
@@ -175,7 +175,7 @@ export default function MedicareMedicationLink() {
             </ul>
           </div>
           <div className='py-5'>
-            <h3 className='list-inside font-normal text-text'>
+            <h3 className='text-text list-inside font-normal'>
               Medicare NQF Adherence
             </h3>
 
@@ -224,7 +224,7 @@ export default function MedicareMedicationLink() {
             </ul>
           </div>
           <div className='py-5'>
-            <h3 className='font-normal text-text'>Medicare Disease Measures</h3>
+            <h3 className='text-text font-normal'>Medicare Disease Measures</h3>
 
             <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
@@ -271,7 +271,7 @@ export default function MedicareMedicationLink() {
             </ul>
           </div>
           <div className='py-5'>
-            <h3 className='font-normal text-text'>
+            <h3 className='text-text font-normal'>
               Medicare Demographic Identifiers
             </h3>
             <p>
@@ -388,7 +388,7 @@ export default function MedicareMedicationLink() {
           </div>
         </section>
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='demographic-stratification'
         >
           Demographic Stratification
@@ -399,7 +399,7 @@ export default function MedicareMedicationLink() {
         />
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='medication-utilization-data-sources'
         >
           Data Sources

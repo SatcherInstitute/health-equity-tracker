@@ -28,10 +28,10 @@ export const HetTags: React.FC<HetTagsProps> = ({
             type='button'
             aria-label={tag.name}
             aria-pressed={isActive}
-            className={`mt-1 mr-2 rounded-sm border-none px-2 py-1 font-bold font-sans-title text-tiny-tag uppercase no-underline transition-colors duration-150 ${
+            className={`font-sans-title text-tiny-tag mt-1 mr-2 rounded-sm border-none px-2 py-1 font-bold uppercase no-underline transition-colors duration-150 ${
               isActive
-                ? 'cursor-pointer bg-alt-green text-alt-white hover:bg-alt-green/80'
-                : 'cursor-pointer bg-tiny-tag-gray text-alt-black hover:bg-methodology-green'
+                ? 'bg-alt-green text-alt-white hover:bg-alt-green/80 cursor-pointer'
+                : 'bg-tiny-tag-gray text-alt-black hover:bg-methodology-green cursor-pointer'
             }`}
             onClick={() => onTagClick?.(tag.name)}
           >

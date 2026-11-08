@@ -56,7 +56,7 @@ const AgeAdjustmentLink = () => {
       <section id='age-adjusted-ratios'>
         <title>Age-Adjustment - Health Equity Tracker</title>
         <article className='pb-6'>
-          <div className='text-left font-sans-text text-alt-black text-small'>
+          <div className='font-sans-text text-alt-black text-small text-left'>
             <HetNotice>
               Age-adjustment is a statistical process applied to rates of
               disease, death, or other health outcomes that correlate with an
@@ -124,7 +124,7 @@ const AgeAdjustmentLink = () => {
               </a>
               .
             </p>
-            <h2 id='data-sourcing' className='mt-20 font-medium text-title'>
+            <h2 id='data-sourcing' className='text-title mt-20 font-medium'>
               Data Sourcing
             </h2>
             <p>
@@ -177,7 +177,7 @@ const AgeAdjustmentLink = () => {
                 </ul>
               </li>
             </ol>
-            <h2 id='algorithm' className='mt-20 font-medium text-title'>
+            <h2 id='algorithm' className='text-title mt-20 font-medium'>
               Algorithm
             </h2>
             <p>
@@ -280,7 +280,7 @@ const AgeAdjustmentLink = () => {
 
             <h2
               id='age-adjustment-examples'
-              className='text-left font-medium font-sans-title text-alt-green text-header leading-modal-heading'
+              className='font-sans-title text-alt-green text-header leading-modal-heading text-left font-medium'
             >
               Age-Adjustment Example: HIV Deaths
             </h2>
@@ -293,19 +293,19 @@ const AgeAdjustmentLink = () => {
               obtain our ratios (like <HetTerm>White, Non-Hispanic</HetTerm>
               ), and <HetTerm>Race B</HetTerm> is any other race group.
             </p>
-            <table className='m-4 border-collapse border-bg-color border-solid p-1 font-roboto'>
+            <table className='border-bg-color font-roboto m-4 border-collapse border-solid p-1'>
               <thead>
                 <tr className='bg-methodology-green'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race Group
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Age Group
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     HIV Deaths
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Population
                   </td>
                 </tr>
@@ -313,91 +313,91 @@ const AgeAdjustmentLink = () => {
 
               <tbody>
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race A
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0-29
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     50
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     600,000
                   </td>
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race A
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     30-59
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     500
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     800,000
                   </td>
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race A
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     60+
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     5,000
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     200,000
                   </td>
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race B
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0-29
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     20
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     200,000
                   </td>
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race B
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     30-59
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     200
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     300,000
                   </td>
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race B
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     60+
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     800
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     60,000
                   </td>
                 </tr>
@@ -411,22 +411,22 @@ const AgeAdjustmentLink = () => {
             </h3>
 
             {/* CALCULATE AGE SPECIFIC DEATH RATES TABLE */}
-            <table className='m-4 border-collapse border-bg-color border-solid p-1 font-roboto'>
+            <table className='border-bg-color font-roboto m-4 border-collapse border-solid p-1'>
               <thead>
                 <tr className='bg-methodology-green'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race Group
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Age Group
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     HIV Deaths
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Population
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Age-Specific HIV Death Rate
                   </td>
                 </tr>
@@ -434,57 +434,57 @@ const AgeAdjustmentLink = () => {
 
               <tbody>
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race A
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0-29
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     50
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     600,000
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>(50 / 600,000)</div>
                     <b> = 0.00008333</b>
                   </td>
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race A
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     30-59
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     500
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     800,000
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>(500 / 800,000)</div>
                     <b> = 0.000625</b>
                   </td>
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race A
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     60+
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     5,000
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     200,000
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>
                       (5,000 / 200,000)
                     </div>
@@ -493,57 +493,57 @@ const AgeAdjustmentLink = () => {
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race B
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0-29
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     20
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     200,000
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>(20 / 200,000)</div>
                     <b> = 0.0001</b>
                   </td>
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race B
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     30-59
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     200
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     300,000
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>(200 / 300,000)</div>
                     <b> = 0.00066667</b>
                   </td>
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race B
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     60+
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     800
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     60,000
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>(800 / 60,000)</div>
                     <b> = 0.01333333</b>
                   </td>
@@ -558,16 +558,16 @@ const AgeAdjustmentLink = () => {
             </h3>
 
             {/* A + B TABLE */}
-            <table className='m-4 border-collapse border-bg-color border-solid p-1 font-roboto'>
+            <table className='border-bg-color font-roboto m-4 border-collapse border-solid p-1'>
               <thead>
                 <tr className='bg-methodology-green'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race Group
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Age Group
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Standard Population
                   </td>
                 </tr>
@@ -575,13 +575,13 @@ const AgeAdjustmentLink = () => {
 
               <tbody>
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Total (A & B)
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0-29
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>
                       600,000 + 200,000
                     </div>
@@ -590,13 +590,13 @@ const AgeAdjustmentLink = () => {
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Total (A & B)
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     30-59
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>
                       800,000 + 300,000
                     </div>
@@ -605,13 +605,13 @@ const AgeAdjustmentLink = () => {
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Total (A & B)
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     60+
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>200,000 + 60,000</div>
                     <b>= 260,000</b>
                   </td>
@@ -638,22 +638,22 @@ const AgeAdjustmentLink = () => {
               ]}
             />
 
-            <table className='m-4 border-collapse border-bg-color border-solid p-1 font-roboto'>
+            <table className='border-bg-color font-roboto m-4 border-collapse border-solid p-1'>
               <thead>
                 <tr className='bg-methodology-green'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race Group
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Age Group
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Age-Specific HIV Death Rate
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Standard Population
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Expected HIV Deaths
                   </td>
                 </tr>
@@ -661,20 +661,20 @@ const AgeAdjustmentLink = () => {
 
               <tbody>
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race A
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0-29
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0.00008333
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>for Ages 0-29:</div>
                     800,000
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>
                       0.00008333 * 800,000
                     </div>
@@ -683,22 +683,22 @@ const AgeAdjustmentLink = () => {
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race A
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     30-59
                   </td>
 
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0.000625
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>for Ages 30-59:</div>
                     1,100,000
                   </td>
 
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>
                       0.000625 * 1,100,000
                     </div>
@@ -707,63 +707,63 @@ const AgeAdjustmentLink = () => {
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race A
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     60+
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0.025
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>for Ages 60+:</div>
                     260,000
                   </td>
 
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>0.025 * 260,000</div>
                     <b> = 6,500</b>
                   </td>
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race B
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0-29
                   </td>
 
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0.0001
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>for Ages 0-29:</div>
                     800,000
                   </td>
 
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>0.0001 * 800,000</div>
                     <b> = 80</b>
                   </td>
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race B
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     30-59
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0.00066667
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>for Ages 30-59:</div>
                     1,100,000
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>
                       0.00066667 * 1,100,000
                     </div>
@@ -772,20 +772,20 @@ const AgeAdjustmentLink = () => {
                 </tr>
 
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race B
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     60+
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     0.01333333
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>for Ages 60+:</div>
                     260,000
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>
                       0.01333333 * 260,000
                     </div>
@@ -799,13 +799,13 @@ const AgeAdjustmentLink = () => {
               each of its age groups to calculate the total expected HIV deaths
               for that race:
             </h3>
-            <table className='m-4 border-collapse border-bg-color border-solid p-1 font-roboto'>
+            <table className='border-bg-color font-roboto m-4 border-collapse border-solid p-1'>
               <thead>
                 <tr className='bg-methodology-green'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race Group
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Total Expected HIV Deaths
                   </td>
                 </tr>
@@ -813,10 +813,10 @@ const AgeAdjustmentLink = () => {
 
               <tbody>
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race A
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>
                       66.67 + 687.5 + 6,500
                     </div>
@@ -824,10 +824,10 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race B
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>
                       80 + 733.33 + 3466.67
                     </div>
@@ -839,29 +839,29 @@ const AgeAdjustmentLink = () => {
             <h3 className='mt-20 font-medium'>
               5) Calculate the age-adjusted death ratio:
             </h3>
-            <table className='m-4 border-collapse border-bg-color border-solid p-1 font-roboto'>
+            <table className='border-bg-color font-roboto m-4 border-collapse border-solid p-1'>
               <thead>
                 <tr className='bg-methodology-green'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race Group
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Total Expected HIV Deaths
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Age-Adjusted Death Ratio
                   </td>
                 </tr>
               </thead>
               <tbody>
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race A
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     7,254.17
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>
                       7,254.17 / 7,254.17
                     </div>
@@ -869,13 +869,13 @@ const AgeAdjustmentLink = () => {
                   </td>
                 </tr>
                 <tr className='odd:bg-alt-white even:bg-standard-info'>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     Race B
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     4,280
                   </td>
-                  <td className='border-collapse border-bg-color border-solid p-1'>
+                  <td className='border-bg-color border-collapse border-solid p-1'>
                     <div className='text-smallest italic'>4,280 / 7,254.17</div>
                     <b>= 0.6×</b>
                   </td>

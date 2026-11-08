@@ -8,7 +8,7 @@ export default function CHLPMapsBanner() {
 
   return (
     <HetNotice
-      className='border-0 bg-methodology-green/50 text-left text-alt-black'
+      className='bg-methodology-green/50 text-alt-black border-0 text-left'
       title={`HIV Criminalization`}
       kind='helpful-info'
     >
@@ -17,7 +17,7 @@ export default function CHLPMapsBanner() {
       HIV.
       <div className='mt-2'>
         <HetLinkButton
-          className='font-semibold text-alt-black hover:translate-x-1 hover:transition-transform hover:duration-300'
+          className='text-alt-black font-semibold hover:translate-x-1 hover:transition-transform hover:duration-300'
           onClick={() => setModalIsOpen(true)}
         >
           <span className='font-semibold'>

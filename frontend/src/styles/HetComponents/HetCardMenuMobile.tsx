@@ -19,7 +19,7 @@ export default function HetCardMenuMobile(props: HetCardMenuMobileProps) {
   return (
     <>
       <div
-        className={`top-0 z-almost-top flex w-fit max-w-screen rounded-sm bg-alt-white pt-8 pb-4 ${
+        className={`z-almost-top bg-alt-white top-0 flex w-fit max-w-screen rounded-sm pt-8 pb-4 ${
           props.className ?? ''
         }`}
       >

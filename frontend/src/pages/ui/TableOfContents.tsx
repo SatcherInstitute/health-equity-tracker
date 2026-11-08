@@ -35,7 +35,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
       orientation='vertical'
       aria-label='Available cards on this report'
       role='navigation'
-      className='hidden p-0 titleSm:pl-1p sm:flex sm:w-90p md:px-5'
+      className='titleSm:pl-1p sm:w-90p hidden p-0 sm:flex md:px-5'
     >
       {props.reportStepHashIds?.map((stepId) => {
         return (
@@ -50,7 +50,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
             >
               <span
                 // hide labels visually but not from screen readers on small screens
-                className='sr-only text-alt-dark text-smallest md:not-sr-only'
+                className='text-alt-dark text-smallest sr-only md:not-sr-only'
               >
                 {reportProviderSteps[stepId].label}
               </span>

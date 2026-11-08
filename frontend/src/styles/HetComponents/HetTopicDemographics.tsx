@@ -47,17 +47,17 @@ export default function HetTopicDemographics(props: HetTopicDemographicsProps) {
       {topicDemographicDetailsItems.map((item) => (
         <div key={item.topic + '_' + item.topicDetails} className='m-1'>
           <div className='justify-left my-2 flex flex-col'>
-            <p className='my-0 text-text'>
+            <p className='text-text my-0'>
               <HetTerm>{item.topic}</HetTerm>
             </p>
             {item.topicDetails && (
-              <p className='my-0 text-smallest'>
+              <p className='text-smallest my-0'>
                 <HetTerm>{item.topicDetails}</HetTerm>
               </p>
             )}
           </div>
 
-          <ul className='ml-2 list-none p-0 text-smallest'>
+          <ul className='text-smallest ml-2 list-none p-0'>
             {item.items.map((item) => (
               <li
                 key={item.demographicLabel}

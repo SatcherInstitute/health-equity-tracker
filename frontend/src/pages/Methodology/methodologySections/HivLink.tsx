@@ -49,7 +49,7 @@ const HivLink = () => {
           ]}
         />
 
-        <h2 className='mt-12 font-medium text-title' id='hiv-data-sourcing'>
+        <h2 className='text-title mt-12 font-medium' id='hiv-data-sourcing'>
           Data Sourcing
         </h2>
         <p id='hiv'>
@@ -91,12 +91,12 @@ const HivLink = () => {
           2021 as our reference year when showcasing data from a single year.
         </p>
         <h3
-          className='mt-12 font-semibold text-title'
+          className='text-title mt-12 font-semibold'
           id='hiv-variable-data-compilation'
         >
           Variable Data Compilation and Analysis
         </h3>
-        <h4 className='font-normal text-text'>HIV Diagnoses</h4>
+        <h4 className='text-text font-normal'>HIV Diagnoses</h4>
         <p>
           Refers to confirmed HIV infections via laboratory or clinical evidence
           within a specific calendar year. Counts are for individuals aged 13 or
@@ -105,7 +105,7 @@ const HivLink = () => {
           CDC for HIV diagnoses are calculated directly from the raw count of
           those cases.
         </p>
-        <h4 className='font-normal text-text'>HIV Prevalence</h4>
+        <h4 className='text-text font-normal'>HIV Prevalence</h4>
         <p>
           Represents estimated individuals aged 13 and older living with HIV by
           the year's end. Accounts for both diagnosed and undiagnosed cases.
@@ -119,7 +119,7 @@ const HivLink = () => {
           people diagnosed with HIV and subsequently died provided by the CDC’s
           Atlas database.
         </p>
-        <h4 className='font-normal text-text'>HIV Deaths</h4>
+        <h4 className='text-text font-normal'>HIV Deaths</h4>
         <p>
           Counts deaths of persons aged 13 and older with diagnosed HIV or AIDS,
           irrespective of death cause. Data has a 12-month reporting delay for
@@ -127,7 +127,7 @@ const HivLink = () => {
           death. All metrics sourced from the CDC for HIV deaths are calculated
           directly from the raw count of those cases.
         </p>
-        <h4 className='font-normal text-text'>Algorithms</h4>
+        <h4 className='text-text font-normal'>Algorithms</h4>
         <h5>Percent share</h5>
         <p>
           To calculate the percent share of HIV diagnoses, prevalence, or
@@ -211,7 +211,7 @@ const HivLink = () => {
         <div id='hiv-missing-and-suppressed-data'>
           <MissingHIVData headingLevel='h3' />
         </div>
-        <h3 className='mt-12 font-medium text-title' id='prep-coverage'>
+        <h3 className='text-title mt-12 font-medium' id='prep-coverage'>
           Defining PrEP Coverage as a Percentage
         </h3>
         <p>
@@ -220,7 +220,7 @@ const HivLink = () => {
           to the estimated number of individuals in the same age group with
           indications for PrEP during that year.
         </p>
-        <h4 className='font-normal text-text'>
+        <h4 className='text-text font-normal'>
           Significance of Measuring PrEP Coverage
         </h4>
         <ul className='list-disc pl-4'>
@@ -257,7 +257,7 @@ const HivLink = () => {
             effectiveness of PrEP implementation and uptake initiatives.
           </li>
         </ul>
-        <h4 className='font-normal text-text'>
+        <h4 className='text-text font-normal'>
           The Interrelation Between PrEP Coverage and Usage
         </h4>
         <p>
@@ -268,7 +268,7 @@ const HivLink = () => {
           limited access.
         </p>
 
-        <h4 className='font-normal text-text'>Algorithms</h4>
+        <h4 className='text-text font-normal'>Algorithms</h4>
 
         <p>
           All metrics sourced from the CDC are calculated based on the number of
@@ -349,7 +349,7 @@ const HivLink = () => {
           <MissingPrepData headingLevel='h3' />
         </div>
 
-        <h3 className='mt-12 font-medium text-title' id='linkage-to-care'>
+        <h3 className='text-title mt-12 font-medium' id='linkage-to-care'>
           Linkage to Care
         </h3>
         <p>
@@ -370,7 +370,7 @@ const HivLink = () => {
           care can result in poorer health outcomes for individuals living with
           HIV and can increase the risk of transmitting HIV to others.
         </p>
-        <h4 className='font-normal text-text'>Algorithms</h4>
+        <h4 className='text-text font-normal'>Algorithms</h4>
         <p>
           All metrics sourced from the CDC are calculated based on the number of
           cases of HIV diagnosis where individuals have received at least 1 CD4
@@ -449,7 +449,7 @@ const HivLink = () => {
           ]}
         />
 
-        <h3 className='mt-12 font-medium text-title' id='stigma'>
+        <h3 className='text-title mt-12 font-medium' id='stigma'>
           HIV Stigma
         </h3>
         <p>
@@ -470,7 +470,7 @@ const HivLink = () => {
           stigma, promote social support, and improve the well-being of
           individuals living with HIV.
         </p>
-        <h4 className='font-normal text-text'>Algorithm</h4>
+        <h4 className='text-text font-normal'>Algorithm</h4>
 
         <p>
           All metrics related to HIV stigma are calculated based on a national
@@ -499,7 +499,7 @@ const HivLink = () => {
         </p>
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='demographic-stratification'
         >
           Demographic Stratification
@@ -510,7 +510,7 @@ const HivLink = () => {
           datasourceMetadata={datasourceMetadataHivCategory}
         />
 
-        <h3 className='mt-12 font-medium text-title' id='hiv-data-sources'>
+        <h3 className='text-title mt-12 font-medium' id='hiv-data-sources'>
           Data Sources
         </h3>
         <StripedTable

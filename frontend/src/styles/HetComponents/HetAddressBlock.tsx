@@ -5,7 +5,7 @@ interface AddressBlockProps {
 export default function AddressBlock(props: AddressBlockProps) {
   return (
     <article
-      className={`min-w-fit text-left font-sans-title text-small sm:text-text lg:text-title ${
+      className={`font-sans-title text-small sm:text-text lg:text-title min-w-fit text-left ${
         props.className ?? ''
       }`}
     >

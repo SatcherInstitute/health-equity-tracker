@@ -11,11 +11,11 @@ export default function ShareYourStory() {
 
       <section
         id='main-content'
-        className='mx-auto flex w-svw max-w-lgplus flex-col justify-center px-8 py-16'
+        className='max-w-lgplus mx-auto flex w-svw flex-col justify-center px-8 py-16'
       >
         <h1
           id='main'
-          className='font-bold font-sans-title text-alt-green text-big-header leading-normal'
+          className='font-sans-title text-alt-green text-big-header leading-normal font-bold'
         >
           Share Your Story
         </h1>
@@ -38,11 +38,11 @@ export default function ShareYourStory() {
           </HetButtonSecondary>
 
           <div className='mt-5 flex w-full items-center'>
-            <div className='flex-1 border-0 border-alt-gray border-t border-solid'></div>
-            <h2 className='m-0 ps-4 pe-4 font-bold text-alt-green text-title leading-some-more-space md:font-medium md:text-smallest-header'>
+            <div className='border-alt-gray flex-1 border-0 border-t border-solid'></div>
+            <h2 className='text-alt-green text-title leading-some-more-space md:text-smallest-header m-0 ps-4 pe-4 font-bold md:font-medium'>
               Submission guidelines
             </h2>
-            <div className='flex-1 border-0 border-alt-gray border-t border-solid'></div>
+            <div className='border-alt-gray flex-1 border-0 border-t border-solid'></div>
           </div>
           <ul className='mt-4 mb-8 ml-0 grid max-w-md list-none grid-cols-1 gap-2 px-6 md:grid-cols-2'>
             {submissionGuidelines.map((submissionGuideline, index) => {

@@ -142,7 +142,7 @@ function DemographicGroupMenu(props: DemographicGroupMenuProps) {
   return (
     <div className='flex'>
       <label
-        className='flex items-center px-2 py-1.5 text-small'
+        className='text-small flex items-center px-2 py-1.5'
         htmlFor={`groupMenu${props?.idSuffix ?? ''}`}
       >
         {demOption}:

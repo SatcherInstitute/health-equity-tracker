@@ -19,11 +19,11 @@ export default function AboutUsPage() {
   return (
     <>
       <title>About Us - Health Equity Tracker</title>
-      <section className='mx-auto flex w-svw max-w-lgplus flex-col justify-center px-8 py-16'>
+      <section className='max-w-lgplus mx-auto flex w-svw flex-col justify-center px-8 py-16'>
         <header>
           <h1
             id='main'
-            className='my-8 font-bold font-sans-title text-alt-green text-big-header leading-normal'
+            className='font-sans-title text-alt-green text-big-header my-8 leading-normal font-bold'
           >
             About the Health Equity Tracker
           </h1>
@@ -40,7 +40,7 @@ export default function AboutUsPage() {
             to make informed decisions, this scalable, feature-rich platform
             supports efforts to achieve health equity and justice for all.
           </p>
-          <h2 className='pt-8 pb-4 font-medium font-sans-title'>
+          <h2 className='font-sans-title pt-8 pb-4 font-medium'>
             Morehouse School of Medicine
           </h2>
           <p className='max-w-md px-6 text-left'>
@@ -58,7 +58,7 @@ export default function AboutUsPage() {
             and the world.
           </p>
 
-          <h2 className='pt-8 pb-4 font-medium font-sans-title'>
+          <h2 className='font-sans-title pt-8 pb-4 font-medium'>
             Satcher Health Leadership Institute
           </h2>
 
@@ -75,7 +75,7 @@ export default function AboutUsPage() {
             population groups.
           </p>
 
-          <h2 className='pt-8 pb-4 font-medium font-sans-title'>
+          <h2 className='font-sans-title pt-8 pb-4 font-medium'>
             Native Land Acknowledgment
           </h2>
 
@@ -101,8 +101,8 @@ export default function AboutUsPage() {
         </section>
       </section>
 
-      <section className='border-0 border-alt-black border-t md:border-solid md:pt-20'>
-        <h2 className='mx-4 my-12 text-center font-sans-title text-alt-green text-header leading-some-space sm:text-big-header'>
+      <section className='border-alt-black border-0 border-t md:border-solid md:pt-20'>
+        <h2 className='font-sans-title text-alt-green text-header leading-some-space sm:text-big-header mx-4 my-12 text-center'>
           We are committed to the following ethics
         </h2>
         <ul className='mx-4 flex list-none flex-wrap pl-0'>
@@ -130,7 +130,7 @@ export default function AboutUsPage() {
 
       <div className='flex w-full flex-col p-10'>
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-0 border-alt-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='border-alt-black font-sans-title text-small-header leading-some-more-space my-8 border-0 border-b border-solid text-left'>
             Leadership Team
           </h3>
           <ul className='grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
@@ -141,11 +141,11 @@ export default function AboutUsPage() {
                     <img
                       src={leader.imageUrl}
                       alt={leader.name}
-                      className='inline-block max-w-team-headshot rounded-md'
+                      className='max-w-team-headshot inline-block rounded-md'
                     />
                   </HetLazyLoader>
                   <div className='font-medium'>{leader.name}</div>
-                  <div className='font-normal text-small'>{leader.role}</div>
+                  <div className='text-small font-normal'>{leader.role}</div>
                 </li>
               )
             })}
@@ -153,7 +153,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-0 border-alt-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='border-alt-black font-sans-title text-small-header leading-some-more-space my-8 border-0 border-b border-solid text-left'>
             HET Software Engineering and Education Development (SEED) Program
           </h3>
           <ul className='mb-8 grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-4'>
@@ -161,7 +161,7 @@ export default function AboutUsPage() {
               return (
                 <li className='text-left' key={dev.name}>
                   <div className='font-medium'>{dev.name}</div>
-                  <div className='font-normal text-small'>{dev.role}</div>
+                  <div className='text-small font-normal'>{dev.role}</div>
                 </li>
               )
             })}
@@ -173,7 +173,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-0 border-alt-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='border-alt-black font-sans-title text-small-header leading-some-more-space my-8 border-0 border-b border-solid text-left'>
             Former SHLI Contributors
           </h3>
 
@@ -182,7 +182,7 @@ export default function AboutUsPage() {
               return (
                 <li className='mb-2 text-left' key={leader.name}>
                   <div className='font-medium'>{leader.name}</div>
-                  <div className='font-normal text-small'>{leader.role}</div>
+                  <div className='text-small font-normal'>{leader.role}</div>
                 </li>
               )
             })}
@@ -190,7 +190,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-0 border-alt-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='border-alt-black font-sans-title text-small-header leading-some-more-space my-8 border-0 border-b border-solid text-left'>
             Google.org Fellows
           </h3>
           <ul className='grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-4'>
@@ -208,7 +208,7 @@ export default function AboutUsPage() {
                   )}
 
                   <div className='font-medium'>{fellow.name}</div>
-                  <div className='font-normal text-small'>{fellow.role}</div>
+                  <div className='text-small font-normal'>{fellow.role}</div>
                 </li>
               )
             })}
@@ -216,7 +216,7 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-0 border-alt-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='border-alt-black font-sans-title text-small-header leading-some-more-space my-8 border-0 border-b border-solid text-left'>
             Health Equity Task Force
           </h3>
           <ul className='grid list-none grid-cols-2 justify-between gap-6 md:grid-cols-3'>
@@ -229,14 +229,14 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-0 border-alt-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='border-alt-black font-sans-title text-small-header leading-some-more-space my-8 border-0 border-b border-solid text-left'>
             Founding Partners
           </h3>
 
           <HetLazyLoader offset={300} height={200} once>
             <ul className='grid list-none grid-cols-1 justify-between gap-6 md:grid-cols-2'>
               {PARTNERS.map((partner) => (
-                <li className='flex align-start' key={partner.url}>
+                <li className='align-start flex' key={partner.url}>
                   <a href={partner.url}>
                     <img
                       src={partner.imageUrl}
@@ -251,14 +251,14 @@ export default function AboutUsPage() {
         </section>
 
         <section className='flex flex-col pt-8'>
-          <h3 className='my-8 border-0 border-alt-black border-b border-solid text-left font-sans-title text-small-header leading-some-more-space'>
+          <h3 className='border-alt-black font-sans-title text-small-header leading-some-more-space my-8 border-0 border-b border-solid text-left'>
             Grantors
           </h3>
 
           <ul className='grid list-none grid-cols-1 items-center justify-between gap-6 md:grid-cols-2'>
             {GRANTORS.map((grantor) => (
               <li
-                className='flex place-content-start items-center align-start'
+                className='align-start flex place-content-start items-center'
                 key={grantor.url}
               >
                 <a href={grantor.url}>

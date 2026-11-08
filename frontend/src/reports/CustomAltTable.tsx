@@ -56,7 +56,7 @@ export default function CustomAltTable(props: CustomAltTableProps) {
       minHeight={400}
       reportTitle={props.reportTitle}
       scrollToHash={HASH_ID_RATES_OVER_TIME}
-      className={`relative m-2 rounded-sm bg-alt-white p-3 shadow-raised ${props.className}`}
+      className={`bg-alt-white shadow-raised relative m-2 rounded-sm p-3 ${props.className}`}
       fips={props.fips}
       dataTypeConfig={props.dataTypeConfig}
       demographicType={props.demographicType}

@@ -10,15 +10,15 @@ export default function DefaultHelperBox() {
 
   return (
     <div className='flex w-full items-center justify-center px-4 pt-4 pb-0 sm:px-12 sm:pt-8'>
-      <div className='m-0 mb-5 w-full max-w-helper-box content-center items-center justify-evenly justify-items-center rounded-md pb-0'>
-        <div className='px-10 xs:px-2 py-0 text-left smplus:px-0 md:px-10'>
+      <div className='max-w-helper-box m-0 mb-5 w-full content-center items-center justify-evenly justify-items-center rounded-md pb-0'>
+        <div className='xs:px-2 smplus:px-0 px-10 py-0 text-left md:px-10'>
           <h1
             id='main-heading'
-            className='m-0 text-center font-bold font-sans-title text-alt-green text-title leading-tight md:text-header md:leading-modal-heading'
+            className='font-sans-title text-alt-green text-title md:text-header md:leading-modal-heading m-0 text-center leading-tight font-bold'
           >
             Select a topic
           </h1>
-          <p className='mt-1 mb-2 text-center text-text md:my-4'>
+          <p className='text-text mt-1 mb-2 text-center md:my-4'>
             <span className='md:hidden'>or explore these reports:</span>
             <span className='hidden md:inline'>
               or explore one of the following reports:
@@ -30,16 +30,16 @@ export default function DefaultHelperBox() {
           >
             {reportMappings.map((report, index) => (
               <li
-                className='group mx-0 my-4 xs:my-2 flex w-full flex-col rounded-md border border-alt-green border-solid bg-alt-white transition-all duration-300 ease-in-out hover:shadow-raised'
+                className='group xs:my-2 border-alt-green bg-alt-white hover:shadow-raised mx-0 my-4 flex w-full flex-col rounded-md border border-solid transition-all duration-300 ease-in-out'
                 key={report.title}
               >
                 <article
-                  className='grid w-full place-items-center gap-4 p-4 text-left text-alt-green md:grid-cols-[40%_60%] md:items-start'
+                  className='text-alt-green grid w-full place-items-center gap-4 p-4 text-left md:grid-cols-[40%_60%] md:items-start'
                   aria-labelledby={`report-title-${index}`}
                 >
                   <a
                     href={EXPLORE_DATA_PAGE_LINK + report.setting}
-                    className='ml-6 h-72 w-full bg-center bg-cover bg-no-repeat px-4 transition-opacity duration-300 ease-in-out hover:opacity-80 hover:shadow-lg'
+                    className='ml-6 h-72 w-full bg-cover bg-center bg-no-repeat px-4 transition-opacity duration-300 ease-in-out hover:opacity-80 hover:shadow-lg'
                     style={{
                       backgroundImage: `url(${report.previewImg})`,
                     }}
@@ -53,7 +53,7 @@ export default function DefaultHelperBox() {
                     <h2
                       aria-label={report.title}
                       id={`report-title-${index}`}
-                      className='my-2 text-center font-medium text-title md:my-4 md:text-left'
+                      className='text-title my-2 text-center font-medium md:my-4 md:text-left'
                     >
                       <a
                         href={EXPLORE_DATA_PAGE_LINK + report.setting}
@@ -62,7 +62,7 @@ export default function DefaultHelperBox() {
                         {report.title} {report.icon && report.icon}
                       </a>
                     </h2>
-                    <p className='my-0 hidden text-alt-black md:mb-4 md:block'>
+                    <p className='text-alt-black my-0 hidden md:mb-4 md:block'>
                       {report.description}
                     </p>
                     <HetTextArrowLink

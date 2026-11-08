@@ -82,7 +82,7 @@ export default function HetDesktopToolbar() {
           <div key={key} className='flex items-center gap-1'>
             <HetNavLink
               href={value.link}
-              className='mx-2 my-0 w-auto px-2 font-medium font-sans-title text-alt-black text-small'
+              className='font-sans-title text-alt-black text-small mx-2 my-0 w-auto px-2 font-medium'
               {...(external && {
                 target: '_blank',
                 rel: 'noopener noreferrer',
@@ -100,7 +100,7 @@ export default function HetDesktopToolbar() {
   }
 
   return (
-    <Toolbar className='flex min-h-toolbar justify-between border-0 border-alt-black border-b border-solid bg-alt-white leading-some-space'>
+    <Toolbar className='min-h-toolbar border-alt-black bg-alt-white leading-some-space flex justify-between border-0 border-b border-solid'>
       <nav aria-label='home navigation' className='m-0'>
         <HetNavLink className='flex items-center pl-0' href='/'>
           <img
@@ -108,7 +108,7 @@ export default function HetDesktopToolbar() {
             className='h-little-het-logo w-little-het-logo'
             alt='Health Equity Tracker logo'
           />
-          <span className='xs:hidden grow pl-5 text-left font-medium font-sans-title text-alt-green text-nav-bar-header leading-some-space no-underline lg:flex'>
+          <span className='xs:hidden font-sans-title text-alt-green text-nav-bar-header leading-some-space grow pl-5 text-left font-medium no-underline lg:flex'>
             Health Equity Tracker
           </span>
         </HetNavLink>

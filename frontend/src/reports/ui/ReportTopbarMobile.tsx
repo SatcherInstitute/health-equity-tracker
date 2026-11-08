@@ -21,7 +21,7 @@ export default function ReportTopbarMobile(props: ReportTopbarMobileProps) {
   const insightLabel = isSmAndUp ? undefined : ''
 
   return (
-    <div className='mode-selector-box-mobile m-2 flex items-center justify-between rounded-sm bg-alt-white p-2 shadow-raised md:hidden'>
+    <div className='mode-selector-box-mobile bg-alt-white shadow-raised m-2 flex items-center justify-between rounded-sm p-2 md:hidden'>
       <div className='flex items-center gap-2'>
         <SimpleSelect<MadLibId>
           label={isSmAndUp ? 'Compare mode' : 'Compare'}

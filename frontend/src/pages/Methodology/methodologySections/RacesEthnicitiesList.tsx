@@ -6,7 +6,7 @@ interface RaceEthnicityListProps {
 export default function RaceEthnicityList(props: RaceEthnicityListProps) {
   return (
     <>
-      <h3 className='mt-16 mb-0 text-center font-sans-title font-semibold text-explore-button'>
+      <h3 className='font-sans-title text-explore-button mt-16 mb-0 text-center font-semibold'>
         {props.dataItem.topic}
       </h3>
 
@@ -18,23 +18,23 @@ export default function RaceEthnicityList(props: RaceEthnicityListProps) {
               id={def.path}
               key={def.key}
             >
-              <h4 className='mt-8 mb-4 font-medium font-sans-title text-text'>
+              <h4 className='font-sans-title text-text mt-8 mb-4 font-medium'>
                 {def.key}
               </h4>
               <article className='mt-0 flex flex-col items-start pl-6'>
-                <p className='mb-1 font-semibold text-smallest'>Definition</p>
-                <p className='m-0 text-alt-black text-small italic'>
+                <p className='text-smallest mb-1 font-semibold'>Definition</p>
+                <p className='text-alt-black text-small m-0 italic'>
                   {def.description}
                 </p>
                 {def.considerations && def.considerations.length > 0 && (
                   <div>
                     {def.considerations.map((consideration) => (
                       <div key={consideration.title}>
-                        <p className='mb-1 font-semibold text-smallest'>
+                        <p className='text-smallest mb-1 font-semibold'>
                           {consideration.title}
                         </p>
                         {consideration.points.map((point, idx) => (
-                          <p className='my-2 text-small' key={idx}>
+                          <p className='text-small my-2' key={idx}>
                             {point}
                           </p>
                         ))}
@@ -45,7 +45,7 @@ export default function RaceEthnicityList(props: RaceEthnicityListProps) {
                 {def.resource && (
                   <a
                     href={def.resource}
-                    className='mt-3 font-medium font-sans-title text-alt-green leading-normal no-underline'
+                    className='font-sans-title text-alt-green mt-3 leading-normal font-medium no-underline'
                   >
                     Explore {def.key} resources →
                   </a>

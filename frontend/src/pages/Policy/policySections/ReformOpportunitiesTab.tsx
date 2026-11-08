@@ -24,7 +24,7 @@ export default function ReformOpportunitiesTab() {
 
       <section id='where-to-start'>
         <HetOverline text='Where to Start' />
-        <h2 className='my-0 font-medium text-alt-green text-title'>
+        <h2 className='text-alt-green text-title my-0 font-medium'>
           Insights from the Advocacy Community
         </h2>
         <ul className='mt-4 mb-8 ml-0 grid list-none grid-cols-1 gap-2 pl-0 md:grid-cols-2'>
@@ -64,7 +64,7 @@ export default function ReformOpportunitiesTab() {
 '
         />
 
-        <h2 className='my-0 font-medium text-alt-green text-title'>
+        <h2 className='text-alt-green text-title my-0 font-medium'>
           Legislative Items to Consider for Policy Changes
         </h2>
         <HetOverline text={`SOURCE: RAND Foundation`} className='inline' />

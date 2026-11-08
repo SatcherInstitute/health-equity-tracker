@@ -95,7 +95,7 @@ export function Sources(props: SourcesProps) {
     datasetIds.some((id) => DatasetMetadataMap[id]?.contains_nh)
 
   return (
-    <footer className='px-1 py-0 text-left text-smallest'>
+    <footer className='text-smallest px-1 py-0 text-left'>
       {props.hasIntersectionalAllCompareBar && (
         <p className='w-full'>
           Note. "All People" represents the reference rate for the general

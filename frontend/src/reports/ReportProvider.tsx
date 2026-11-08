@@ -181,8 +181,8 @@ function ReportProvider(props: ReportProviderProps) {
         {getReport()}
       </div>
 
-      <div className='mt-20 flex min-h-preload-article w-full justify-center bg-alt-white'>
-        <aside className='m-8 max-w-explore-data-page text-left sm:m-16'>
+      <div className='min-h-preload-article bg-alt-white mt-20 flex w-full justify-center'>
+        <aside className='max-w-explore-data-page m-8 text-left sm:m-16'>
           {/* Display condition definition(s) based on the tracker madlib settings */}
           {definedConditions?.length > 0 && (
             <div className='mb-5'>
@@ -208,7 +208,7 @@ function ReportProvider(props: ReportProviderProps) {
             </div>
           )}
 
-          <h2 className='mt-12 mb-0 text-header'>What data are missing?</h2>
+          <h2 className='text-header mt-12 mb-0'>What data are missing?</h2>
 
           <p>Unfortunately there are crucial data missing in our sources.</p>
           <HetTextArrowLink

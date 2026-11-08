@@ -44,7 +44,7 @@ export default function TopicCategoriesLink() {
           challenges and needs of diverse communities.
         </p>
 
-        <h2 className='mt-12 font-medium text-title' id='categories'>
+        <h2 className='text-title mt-12 font-medium' id='categories'>
           Categories
         </h2>
         <StripedTable

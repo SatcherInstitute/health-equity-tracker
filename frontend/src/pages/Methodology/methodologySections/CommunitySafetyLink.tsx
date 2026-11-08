@@ -47,7 +47,7 @@ const CommunitySafetyLink = () => {
         />
 
         <h2
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='community-safety-data-sourcing'
         >
           Data Sourcing
@@ -88,7 +88,7 @@ const CommunitySafetyLink = () => {
 
         <section>
           <div className='py-5'>
-            <h3 className='font-normal text-text'>Measures</h3>
+            <h3 className='text-text font-normal'>Measures</h3>
             <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
               <>
@@ -131,7 +131,7 @@ const CommunitySafetyLink = () => {
           </div>
 
           <div className='py-5'>
-            <h3 className='font-normal text-text'>Demographic Identifiers</h3>
+            <h3 className='text-text font-normal'>Demographic Identifiers</h3>
             <p>
               <strong>Race/ethnicity:</strong> WISQARS' methodology includes
               race category data from 2018 onward, aligning with WISQARS’
@@ -177,7 +177,7 @@ const CommunitySafetyLink = () => {
         </section>
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='demographic-stratification'
         >
           Demographic Stratification
@@ -188,7 +188,7 @@ const CommunitySafetyLink = () => {
         />
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='community-safety-data-sources'
         >
           Data Sources

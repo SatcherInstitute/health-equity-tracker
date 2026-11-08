@@ -152,7 +152,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
         {/* Maps container */}
         <div className='mb-6'>
-          <ul className='grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 smplus:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
+          <ul className='smplus:grid-cols-3 grid list-none grid-cols-1 justify-between gap-2 p-0 sm:grid-cols-2 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
             {props.demographicGroups.map((demographicGroup) => {
               const mapLabel = CAWP_METRICS.includes(
                 props.metricConfig.metricId,
@@ -167,9 +167,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               return (
                 <li
                   key={`${demographicGroup}-grid-item`}
-                  className='min-h-multimap-mobile w-full sm:p-1 md:min-h-multimap-desktop md:p-2'
+                  className='min-h-multimap-mobile md:min-h-multimap-desktop w-full sm:p-1 md:p-2'
                 >
-                  <h3 className='m-0 font-medium text-smallest leading-tight sm:text-small sm:leading-normal md:text-text'>
+                  <h3 className='text-smallest sm:text-small md:text-text m-0 leading-tight font-medium sm:leading-normal'>
                     {mapLabel}
                   </h3>
                   <div>
@@ -279,7 +279,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
         {/* Sources - hidden on mobile */}
         {isSmAndUp && (
-          <div className='mt-2 pl-2 text-left text-small'>
+          <div className='text-small mt-2 pl-2 text-left'>
             <Sources
               queryResponses={props.queryResponses}
               metadata={props.metadata}

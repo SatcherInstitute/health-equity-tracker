@@ -4,7 +4,7 @@ import { methodologyRouteConfigs } from '../methodologyContent/methodologyRouteC
 export default function MethodologyCardMenu() {
   return (
     <HetCardMenu
-      className='sticky top-24 z-almost-top hidden h-min max-w-menu smplus:block'
+      className='z-almost-top max-w-menu smplus:block sticky top-24 hidden h-min'
       routeConfigs={methodologyRouteConfigs}
       ariaLabel='methodology sections'
     />

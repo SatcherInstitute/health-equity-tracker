@@ -24,7 +24,7 @@ export default function TopicDefinitionsLink() {
               key={category.title}
             >
               <div key={category.title}>
-                <h2 className='mt-12 font-medium text-title'>
+                <h2 className='text-title mt-12 font-medium'>
                   {category.title}
                 </h2>
 
@@ -32,12 +32,12 @@ export default function TopicDefinitionsLink() {
                   return (
                     <div
                       key={config.dataTypeId}
-                      className='ml-0 self-start border-0 border-alt-dark font-sans-text text-alt-green text-smallest first:border-t'
+                      className='border-alt-dark font-sans-text text-alt-green text-smallest ml-0 self-start border-0 first:border-t'
                     >
                       <span>
                         <strong>{config.fullDisplayName}</strong>
                       </span>
-                      <p className='m-0 ml-1 self-start text-alt-black text-small'>
+                      <p className='text-alt-black text-small m-0 ml-1 self-start'>
                         {config.definition?.text}
                       </p>
                     </div>

@@ -61,7 +61,7 @@ export default function CHLPMapsModal() {
 
         <div className='mt-6 flex items-center justify-center'>
           <Button
-            className='mx-4 rounded-full bg-explore-bg-color p-2 text-alt-dark hover:bg-alt-gray'
+            className='bg-explore-bg-color text-alt-dark hover:bg-alt-gray mx-4 rounded-full p-2'
             onClick={handlePrevious}
             aria-label='Previous map'
           >
@@ -76,7 +76,7 @@ export default function CHLPMapsModal() {
           />
 
           <Button
-            className='mx-4 rounded-full bg-explore-bg-color p-2 text-alt-dark hover:bg-alt-gray'
+            className='bg-explore-bg-color text-alt-dark hover:bg-alt-gray mx-4 rounded-full p-2'
             onClick={handleNext}
             aria-label='Next map'
           >
@@ -92,7 +92,7 @@ export default function CHLPMapsModal() {
             href='https://www.hivlawandpolicy.org/maps'
             target='_blank'
             rel='noopener noreferrer'
-            className='rounded px-4 py-2 text-dark-green hover:underline'
+            className='text-dark-green rounded px-4 py-2 hover:underline'
           >
             Learn more at hivlawandpolicy.org →
           </a>

@@ -6,7 +6,7 @@ interface HetPostsLoadingProps {
 
 export default function HetPostsLoading({ doPulse }: HetPostsLoadingProps) {
   return (
-    <div className='flex w-full flex-col overflow-hidden rounded-md border border-alt-green border-solid'>
+    <div className='border-alt-green flex w-full flex-col overflow-hidden rounded-md border border-solid'>
       <Skeleton
         animation={doPulse ? 'wave' : false}
         variant='rectangular'

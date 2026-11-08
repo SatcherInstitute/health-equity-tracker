@@ -40,7 +40,7 @@ export default function HetHighlightSpan({
     <span
       ref={spanRef}
       data-testid='insight-highlight'
-      className={`font-semibold text-dark-green ${className ?? ''}`}
+      className={`text-dark-green font-semibold ${className ?? ''}`}
       style={{
         animation:
           isVisible && !prefersReducedMotion

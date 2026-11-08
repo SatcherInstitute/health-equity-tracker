@@ -14,7 +14,7 @@ function MissingDataSection({
   return (
     <>
       <Heading className='mt-8 mb-2'>{title}</Heading>
-      <div className='m-0 ml-1 self-start text-alt-black text-small'>
+      <div className='text-alt-black text-small m-0 ml-1 self-start'>
         {children}
       </div>
     </>
@@ -24,7 +24,7 @@ function MissingDataSection({
 // Shared component for bullet lists
 function BulletList({ children }: { children: React.ReactNode }) {
   return (
-    <ul className='m-0 ml-1 list-disc self-start pl-4 text-alt-black text-small'>
+    <ul className='text-alt-black text-small m-0 ml-1 list-disc self-start pl-4'>
       {children}
     </ul>
   )
@@ -33,7 +33,7 @@ function BulletList({ children }: { children: React.ReactNode }) {
 // Shared component for paragraphs
 function InfoParagraph({ children }: { children: React.ReactNode }) {
   return (
-    <p className='m-0 ml-1 self-start text-alt-black text-small'>{children}</p>
+    <p className='text-alt-black text-small m-0 ml-1 self-start'>{children}</p>
   )
 }
 

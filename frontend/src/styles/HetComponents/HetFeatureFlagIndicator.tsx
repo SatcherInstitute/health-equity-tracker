@@ -58,7 +58,7 @@ export default function HetFeatureFlagIndicator() {
           aria-label={`${onFlags.length} active feature flags: ${onFlags
             .map(({ key, source }) => `${key} via ${source}`)
             .join(', ')}`}
-          className='ml-2 cursor-pointer self-center border-0 bg-transparent p-1 text-title leading-none'
+          className='text-title ml-2 cursor-pointer self-center border-0 bg-transparent p-1 leading-none'
         >
           <span aria-hidden='true'>🧑🏽‍🔬</span>
         </button>

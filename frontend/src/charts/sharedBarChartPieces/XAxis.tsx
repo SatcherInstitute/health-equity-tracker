@@ -31,7 +31,7 @@ export default function XAxis(props: XAxisProps) {
       <text
         transform={`translate(${props.width / 2},${props.height + 40})`}
         textAnchor='middle'
-        className='font-semibold text-smallest'
+        className='text-smallest font-semibold'
       >
         {xAxisLabel}
       </text>
@@ -51,7 +51,7 @@ export default function XAxis(props: XAxisProps) {
               y={9}
               dy='.71em'
               textAnchor='middle'
-              className='fill-current text-smallest'
+              className='text-smallest fill-current'
             >
               {formatTick(tick)}
             </text>

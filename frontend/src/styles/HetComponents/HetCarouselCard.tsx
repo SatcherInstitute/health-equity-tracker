@@ -70,7 +70,7 @@ export function HetCarouselCard({
     <>
       <article
         ref={cardRef}
-        className='group mr-4 flex h-full max-w-tiny shrink-0 flex-col overflow-hidden rounded-md border border-alt-green border-solid bg-alt-white text-left text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'
+        className='group max-w-tiny border-alt-green bg-alt-white text-title hover:shadow-raised mr-4 flex h-full shrink-0 flex-col overflow-hidden rounded-md border border-solid text-left no-underline transition-all duration-300 ease-in-out'
       >
         {isVisible && (
           <>
@@ -84,7 +84,7 @@ export function HetCarouselCard({
                     aria-label={`Open video: ${ariaLabel}`}
                   >
                     <div
-                      className='max-h-40 min-h-36 w-full rounded-sm bg-center bg-cover bg-no-repeat'
+                      className='max-h-40 min-h-36 w-full rounded-sm bg-cover bg-center bg-no-repeat'
                       style={{ backgroundImage: `url(${getImageSource()})` }}
                     />
                   </button>
@@ -108,11 +108,11 @@ export function HetCarouselCard({
                       className='cursor-pointer border-none bg-transparent p-0 text-left'
                       aria-label={`Open video: ${ariaLabel}`}
                     >
-                      <h3 className='my-2 pt-0 font-semibold text-alt-green text-text leading-normal'>
+                      <h3 className='text-alt-green text-text my-2 pt-0 leading-normal font-semibold'>
                         {ariaLabel}
                       </h3>
                     </button>
-                    <p className='my-2 hidden text-left text-alt-black text-small leading-some-space md:block'>
+                    <p className='text-alt-black text-small leading-some-space my-2 hidden text-left md:block'>
                       {description}
                     </p>
                   </div>
@@ -122,7 +122,7 @@ export function HetCarouselCard({
                       <a
                         target='_blank'
                         rel='noopener noreferrer'
-                        className='ml-auto font-medium text-small leading-some-space no-underline'
+                        className='text-small leading-some-space ml-auto font-medium no-underline'
                         aria-label={`Learn more about ${ariaLabel}`}
                         href={readMoreHref}
                       >
@@ -144,7 +144,7 @@ export function HetCarouselCard({
                   className='cursor-pointer no-underline'
                 >
                   <div
-                    className='h-36 max-h-40 w-full rounded-sm bg-center bg-cover bg-no-repeat'
+                    className='h-36 max-h-40 w-full rounded-sm bg-cover bg-center bg-no-repeat'
                     style={{ backgroundImage: `url(${getImageSource()})` }}
                   />
                 </a>
@@ -156,12 +156,12 @@ export function HetCarouselCard({
                       aria-label={ariaLabel}
                       className='cursor-pointer no-underline'
                     >
-                      <h4 className='my-2 pt-0 font-semibold text-alt-green text-text leading-normal'>
+                      <h4 className='text-alt-green text-text my-2 pt-0 leading-normal font-semibold'>
                         {title}
                       </h4>
                     </a>
                     {description && (
-                      <p className='my-0 hidden text-alt-black text-smallest leading-some-space md:block'>
+                      <p className='text-alt-black text-smallest leading-some-space my-0 hidden md:block'>
                         {description}
                       </p>
                     )}
@@ -170,7 +170,7 @@ export function HetCarouselCard({
                     <div className='mb-4 flex w-full flex-row items-center justify-start gap-2 py-0'>
                       {/* biome-ignore lint/a11y/noAmbiguousAnchorText: accessible name comes from the dynamic aria-label, which Biome can't evaluate statically */}
                       <a
-                        className='ml-auto font-medium text-small leading-some-space no-underline'
+                        className='text-small leading-some-space ml-auto font-medium no-underline'
                         aria-label={`Learn more about ${ariaLabel}`}
                         href={readMoreHref}
                       >
@@ -188,18 +188,18 @@ export function HetCarouselCard({
 
       {/* Custom modal using HTML and Tailwind instead of MUI */}
       {isVideo && open && (
-        <div className='fixed inset-0 z-50 flex items-center justify-center bg-alt-black bg-opacity-50'>
-          <div className='relative w-4/5 max-w-6xl rounded-lg bg-alt-white p-6 shadow-xl'>
+        <div className='bg-alt-black bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center'>
+          <div className='bg-alt-white relative w-4/5 max-w-6xl rounded-lg p-6 shadow-xl'>
             <button
               onClick={handleClose}
               type='button'
-              className='absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-bg-color text-alt-dark hover:bg-alt-gray'
+              className='bg-bg-color text-alt-dark hover:bg-alt-gray absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full'
               aria-label='Close modal'
             >
               ×
             </button>
 
-            <h4 className='mb-6 text-center font-semibold text-alt-green text-title leading-normal'>
+            <h4 className='text-alt-green text-title mb-6 text-center leading-normal font-semibold'>
               {ariaLabel}
             </h4>
 
@@ -218,7 +218,7 @@ export function HetCarouselCard({
               <button
                 onClick={handleClose}
                 type='button'
-                className='rounded-md bg-alt-green px-4 py-2 text-alt-white hover:bg-opacity-90'
+                className='bg-alt-green text-alt-white hover:bg-opacity-90 rounded-md px-4 py-2'
               >
                 Close
               </button>
