@@ -28,6 +28,7 @@ export default function ClickableLegendHeader(
       title={`Click for more info on ${topicName}`}
     >
       <Button
+        aria-label={`${props.legendTitle}: click for more info on ${topicName}`}
         onClick={() => {
           setTopicInfoModalIsOpen(true)
         }}

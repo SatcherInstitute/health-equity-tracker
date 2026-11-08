@@ -52,6 +52,12 @@ export function FilterLegend({
 
   const noGroupsAreFiltered = selectedGroups.length === 0
 
+  // An aria-label must contain a button's visible text (WCAG 2.5.3, Label in Name)
+  // so speech-input users can activate it by saying what they see.
+  const minMaxButtonText = groupsAreMinMax
+    ? 'Showing highest / lowest averages'
+    : 'Show highest / lowest averages'
+
   return (
     // Legend Wrapper
     <div className='font-sans-text text-small mt-4 font-normal'>
@@ -68,20 +74,17 @@ export function FilterLegend({
                 ? 'bg-methodology-green cursor-default font-bold'
                 : 'bg-alt-white hover:bg-methodology-green cursor-pointer'
             }`}
-            aria-label={`Highlight groups with lowest and highest average values over time`}
+            aria-label={`${minMaxButtonText}: highlight groups with lowest and highest average values over time`}
             onClick={() => {
               handleMinMaxClick(null)
             }} // clear selected groups on click
           >
-            {groupsAreMinMax
-              ? 'Showing highest / lowest averages'
-              : 'Show highest / lowest averages'}
+            {minMaxButtonText}
           </button>
 
           {/* Remove Filters / Show All Button */}
           <button
             type='button'
-            aria-label={`Clear demographic filters`}
             aria-disabled={noGroupsAreFiltered}
             className={`border-alt-black text-alt-black rounded-r-sm border p-4 ${
               noGroupsAreFiltered
@@ -108,6 +111,8 @@ export function FilterLegend({
         {data?.map(([group]) => {
           const groupEnabled = selectedGroups.includes(group)
 
+          const groupLabel =
+            demographicType === AGE && group !== ALL ? `Ages ${group}` : group
           const isUnknown = group === UNKNOWN_W
           const gradient = `linear-gradient(30deg, ${colors.unknownMapMost}, ${colors.unknownMapMid}, ${colors.unknownMapMost})`
           // Legend Item Filter Button
@@ -115,7 +120,7 @@ export function FilterLegend({
             <button
               type='button'
               key={`legendItem-${group}`}
-              aria-label={`Include ${group}`}
+              aria-label={`Include ${groupLabel}`}
               aria-pressed={groupEnabled}
               className='text-alt-black mr-5 mb-1.5 flex cursor-pointer items-center border-0 bg-transparent p-0 text-start transition-opacity duration-300 ease-in-out'
               onClick={() => {
@@ -136,10 +141,7 @@ export function FilterLegend({
                 }}
               />
               {/* Legend Item Label */}
-              <div>
-                {demographicType === AGE && group !== ALL && 'Ages '}
-                {group}
-              </div>
+              <div>{groupLabel}</div>
             </button>
           )
         })}

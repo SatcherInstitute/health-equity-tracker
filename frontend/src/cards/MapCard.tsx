@@ -729,7 +729,7 @@ function MapCardWithKey(props: MapCardProps) {
                     setMultimapOpen(true)
                   }}
                   className='flex items-start'
-                  ariaLabel={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
+                  ariaLabel={`View small multiples: launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
                 >
                   <GridView className='mt-0.5 shrink-0' />
                   <span className='text-alt-green px-1 text-left'>
