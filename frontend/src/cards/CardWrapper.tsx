@@ -83,7 +83,7 @@ function CardWrapper(props: {
 }) {
   const loadingComponent = (
     <div
-      className={`relative m-2 flex justify-center rounded bg-alt-white p-3 shadow-raised ${props.className}`}
+      className={`bg-alt-white shadow-raised relative m-2 flex justify-center rounded p-3 ${props.className}`}
       style={{ minHeight: props.minHeight }}
     >
       <CircularProgress aria-label='loading' />
@@ -186,7 +186,7 @@ function CardWrapper(props: {
               props.scrollToHash,
               props.isCompareCard,
             )}
-            className={`relative m-2 rounded-sm bg-alt-white p-3 shadow-raised ${props.className}`}
+            className={`bg-alt-white shadow-raised relative m-2 rounded-sm p-3 ${props.className}`}
           >
             {cardDataCacheKey && (
               <CardQueryResponsesWriter

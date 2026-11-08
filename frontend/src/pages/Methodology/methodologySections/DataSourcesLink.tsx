@@ -23,7 +23,7 @@ export default function DataSourcesLink() {
             relevant details, can be found in our data catalog.
           </p>
 
-          <h2 className='mt-12 font-medium text-title' id='data-collection'>
+          <h2 className='text-title mt-12 font-medium' id='data-collection'>
             Data Collection
           </h2>
           <ul className='list-disc pl-4'>
@@ -38,7 +38,7 @@ export default function DataSourcesLink() {
             </li>
           </ul>
 
-          <h2 className='mt-12 font-medium text-title' id='data-processing'>
+          <h2 className='text-title mt-12 font-medium' id='data-processing'>
             Data Processing
           </h2>
 
@@ -63,7 +63,7 @@ export default function DataSourcesLink() {
           </ul>
 
           <h2
-            className='mt-12 font-medium text-title'
+            className='text-title mt-12 font-medium'
             id='visualization-techniques'
           >
             Visualization Techniques
@@ -75,7 +75,7 @@ export default function DataSourcesLink() {
             tailored to the specific type of data being presented.
           </p>
 
-          <h2 className='mt-12 font-medium text-title' id='dataset-limitations'>
+          <h2 className='text-title mt-12 font-medium' id='dataset-limitations'>
             Dataset Limitations
           </h2>
           <p>
@@ -85,7 +85,7 @@ export default function DataSourcesLink() {
           </p>
 
           <h2
-            className='mt-12 font-medium text-title'
+            className='text-title mt-12 font-medium'
             id='updates-and-revisions'
           >
             Updates and Revisions
@@ -97,7 +97,7 @@ export default function DataSourcesLink() {
           </p>
 
           <h2
-            className='mt-12 font-medium text-title'
+            className='text-title mt-12 font-medium'
             id='stakeholder-engagement'
           >
             Stakeholder Engagement
@@ -109,7 +109,7 @@ export default function DataSourcesLink() {
           </p>
 
           <h2
-            className='mt-12 font-medium text-title'
+            className='text-title mt-12 font-medium'
             id='references-and-citations'
           >
             References and Citations
@@ -132,11 +132,11 @@ export default function DataSourcesLink() {
             <a href='https://healthequitytracker.org/contact'>contact us</a>.
           </p>
 
-          <h2 className='mt-12 font-medium text-title' id='contact-information'>
+          <h2 className='text-title mt-12 font-medium' id='contact-information'>
             Contact Information
           </h2>
           <div className='flex w-full flex-col items-center'>
-            <HetAddressBlock className='flex w-full flex-col rounded-lg bg-standard-info px-10 py-5' />
+            <HetAddressBlock className='bg-standard-info flex w-full flex-col rounded-lg px-10 py-5' />
           </div>
         </div>
       </article>

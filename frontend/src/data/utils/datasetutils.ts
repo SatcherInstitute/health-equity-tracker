@@ -71,7 +71,7 @@ export function getExtremeValues(
   // checked after the filter rather than against the raw input
   if (sortedData.length === 0) return { lowestValues: [], highestValues: [] }
 
-  listSize = listSize > sortedData.length ? sortedData.length : listSize
+  listSize = Math.min(listSize, sortedData.length)
 
   const lowestValue = sortedData[0][fieldName]
   const valuesTiedAtLowest = sortedData.filter(

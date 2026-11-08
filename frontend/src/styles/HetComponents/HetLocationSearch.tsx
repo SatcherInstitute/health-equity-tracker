@@ -63,7 +63,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
 
   return (
     <div className='w-[min(90vw,26rem)] max-w-full p-5'>
-      <h3 className='my-1 font-semibold text-small md:text-title'>
+      <h3 className='text-small md:text-title my-1 font-semibold'>
         Search for location
       </h3>
       <ListboxSyncContext.Provider value={listboxSync}>
@@ -152,16 +152,16 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         />
       </ListboxSyncContext.Provider>
       {visibleRecent.length > 0 && (
-        <div className='mt-3 border-divider-gray border-t pt-3'>
+        <div className='border-divider-gray mt-3 border-t pt-3'>
           <div className='mb-1 flex items-center justify-between'>
-            <span className='font-semibold text-alt-dark text-xs uppercase tracking-wide'>
+            <span className='text-alt-dark text-xs font-semibold tracking-wide uppercase'>
               Recent
             </span>
             <button
               type='button'
               aria-label='Clear recent locations'
               title='Clear recent locations'
-              className='cursor-pointer border-0 bg-transparent p-0 text-alt-dark opacity-50 hover:opacity-100'
+              className='text-alt-dark cursor-pointer border-0 bg-transparent p-0 opacity-50 hover:opacity-100'
               onClick={props.clearRecentLocations}
             >
               <CloseIcon sx={{ fontSize: 14 }} />
@@ -172,7 +172,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
               <li key={code}>
                 <button
                   type='button'
-                  className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small hover:underline'
+                  className='text-alt-green text-small cursor-pointer border-0 bg-transparent p-0 text-left hover:underline'
                   onClick={() => {
                     props.onOptionUpdate(code)
                     props.popover.close()
@@ -186,13 +186,13 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         </div>
       )}
       {showUsaShortcut && (
-        <div className='mt-3 border-divider-gray border-t pt-3'>
-          <div className='mb-1 font-semibold text-alt-dark text-xs uppercase tracking-wide'>
+        <div className='border-divider-gray mt-3 border-t pt-3'>
+          <div className='text-alt-dark mb-1 text-xs font-semibold tracking-wide uppercase'>
             National
           </div>
           <button
             type='button'
-            className='cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green text-small hover:underline'
+            className='text-alt-green text-small cursor-pointer border-0 bg-transparent p-0 text-left hover:underline'
             onClick={() => {
               props.onOptionUpdate(USA_FIPS)
               props.popover.close()

@@ -78,11 +78,11 @@ export default function TermsOfUsePage() {
 
       <section
         id='main-content'
-        className='mx-auto flex w-svw max-w-lgplus flex-col justify-center px-8 py-16'
+        className='max-w-lgplus mx-auto flex w-svw flex-col justify-center px-8 py-16'
       >
         <h1
           id='main'
-          className='font-bold font-sans-title text-alt-green text-big-header leading-normal'
+          className='font-sans-title text-alt-green text-big-header leading-normal font-bold'
         >
           Terms of Use
         </h1>
@@ -93,7 +93,7 @@ export default function TermsOfUsePage() {
               className='pb-5'
               id={`termOfUse-${index}`}
             >
-              <h2 className='mt-0 font-medium font-sans-title text-alt-green text-title'>
+              <h2 className='font-sans-title text-alt-green text-title mt-0 font-medium'>
                 {termOfUse.title}
               </h2>
               <p className='font-sans-text text-small'>

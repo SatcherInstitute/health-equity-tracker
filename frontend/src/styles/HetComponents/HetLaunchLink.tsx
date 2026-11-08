@@ -23,7 +23,7 @@ const HetLaunchLink: React.FC<HetLaunchLinkProps> = ({
           : `Opens ${href} in a new window`
       }
     >
-      <LaunchRounded className={svgClassName || 'my-auto text-text'} />
+      <LaunchRounded className={svgClassName || 'text-text my-auto'} />
     </a>
   )
 }

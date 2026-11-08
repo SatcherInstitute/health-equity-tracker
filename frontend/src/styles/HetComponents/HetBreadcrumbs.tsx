@@ -72,7 +72,7 @@ export default function HetBreadcrumbs(props: {
       </Breadcrumbs>
 
       {(props.totalPopulationPhrase || props.subPopulationPhrase) && (
-        <div className='px-1 text-left text-alt-black text-smallest'>
+        <div className='text-alt-black text-smallest px-1 text-left'>
           {props.totalPopulationPhrase && (
             <p className='my-0.5'>{props.totalPopulationPhrase}</p>
           )}
@@ -95,7 +95,7 @@ function Crumb(props: {
     <>
       {props.isClickable && (
         <Button
-          className='p-1 text-alt-green'
+          className='text-alt-green p-1'
           onClick={() => {
             props.onClick?.()
           }}
@@ -105,7 +105,7 @@ function Crumb(props: {
       )}
       {!props.isClickable && (
         <Button
-          className={`p-1 text-alt-black ${props.isNote ? 'text-left' : ''}`}
+          className={`text-alt-black p-1 ${props.isNote ? 'text-left' : ''}`}
           disabled
         >
           {props.text}

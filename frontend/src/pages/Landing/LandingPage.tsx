@@ -46,12 +46,12 @@ function LandingPage() {
         <img
           src='/img/graphics/het-hero.png'
           alt='various charts from the health equity tracker'
-          className='absolute top-0 right-0 bottom-0 z-0 float-right mx-24 max-w-4xl opacity-35 xs:opacity-15 sm:opacity-15 md:opacity-15'
+          className='xs:opacity-15 absolute top-0 right-0 bottom-0 z-0 float-right mx-24 max-w-4xl opacity-35 sm:opacity-15 md:opacity-15'
         />
         <div className='relative m-0 p-0 text-left sm:w-full md:w-full lg:w-3/4'>
-          <h1 className='mt-4 mb-0 text-left font-medium font-serif text-alt-black xs:text-header leading-some-space sm:text-big-header lg:text-hero-header'>
+          <h1 className='text-alt-black xs:text-header leading-some-space sm:text-big-header lg:text-hero-header mt-4 mb-0 text-left font-serif font-medium'>
             Where will the <br aria-hidden />
-            <span className='font-medium font-serif text-alt-green xs:text-header leading-some-space sm:text-big-header lg:text-hero-header'>
+            <span className='text-alt-green xs:text-header leading-some-space sm:text-big-header lg:text-hero-header font-serif font-medium'>
               Health Equity Tracker
             </span>
             <br aria-hidden /> take you?
@@ -59,7 +59,7 @@ function LandingPage() {
           <HetCTABig id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
             Explore the data
           </HetCTABig>
-          <div className='z-1 border-0 border-timberwolf border-l-2 border-solid py-0 pl-2'>
+          <div className='border-timberwolf z-1 border-0 border-l-2 border-solid py-0 pl-2'>
             <p className='z-1 my-0 py-0'>
               Developed by Morehouse School of Medicine, sourcing data from
               leading public health organizations
@@ -127,7 +127,7 @@ function LandingPage() {
       </section>
 
       <section className='flex w-full flex-wrap items-center justify-center'>
-        <div className='space-8 lg:space-24 mx-auto my-0 xs:block flex h-auto min-h-[60vh] w-full items-center justify-center bg-white-smoke p-16 sm:block md:flex'>
+        <div className='space-8 lg:space-24 xs:block bg-white-smoke mx-auto my-0 flex h-auto min-h-[60vh] w-full items-center justify-center p-16 sm:block md:flex'>
           <img
             src='/img/graphics/banner.png'
             className='w-full md:w-2/5'
@@ -137,11 +137,11 @@ function LandingPage() {
           <div className='flex w-full flex-col items-center justify-center sm:block md:block'>
             <h2
               id='main'
-              className='m-0 text-center font-bold font-sans-title text-alt-green text-big-header xs:text-header leading-modal-heading'
+              className='font-sans-title text-alt-green text-big-header xs:text-header leading-modal-heading m-0 text-center font-bold'
             >
               Advancing Health Justice
             </h2>
-            <p className='mt-4 mb-8 text-title lg:text-left lg:text-title'>
+            <p className='text-title lg:text-title mt-4 mb-8 lg:text-left'>
               The Health Equity Tracker from the Satcher Health Leadership
               Institute at Morehouse School of Medicine aims to address health
               disparities in the United States by identifying at-risk
@@ -161,11 +161,11 @@ function LandingPage() {
         </div>
       </section>
 
-      <section className='h-full xs:px-4 pt-8 pb-0'>
+      <section className='xs:px-4 h-full pt-8 pb-0'>
         <div className='m-0 py-0'>
           <div className='m-0 flex flex-col items-center justify-center p-0'>
             <div className='w-full'>
-              <h3 className='m-0 font-bold font-sans-title text-alt-green text-header leading-modal-heading'>
+              <h3 className='font-sans-title text-alt-green text-header leading-modal-heading m-0 font-bold'>
                 How do I use the Health Equity Tracker?
               </h3>
             </div>
@@ -173,8 +173,8 @@ function LandingPage() {
               Scroll down to learn more about the platform.
             </p>
           </div>
-          <div className='relative flex xs:max-h-[75vh] xs:min-h-[75vh] flex-col items-center justify-center overflow-y-auto py-4'>
-            <ul className='scrollbar-hide absolute top-0 flex w-full flex-col items-center justify-center px-8 xs:px-4 py-0 pb-8'>
+          <div className='xs:max-h-[75vh] xs:min-h-[75vh] relative flex flex-col items-center justify-center overflow-y-auto py-4'>
+            <ul className='scrollbar-hide xs:px-4 absolute top-0 flex w-full flex-col items-center justify-center px-8 py-0 pb-8'>
               <LandingPageListItem
                 title='Take a tour of the data'
                 description='New to the Health Equity Tracker? Watch a short video demo that highlights major features of the platform.'
@@ -207,20 +207,20 @@ function LandingPage() {
             </ul>
           </div>
         </div>
-        <div className='my-0 py-0 xs:py-0'>
+        <div className='xs:py-0 my-0 py-0'>
           <HetCTABig href={EXPLORE_DATA_PAGE_LINK}>Explore the data</HetCTABig>
         </div>
       </section>
 
       <section className='flex w-full flex-wrap items-center justify-center'>
-        <div className='flex flex-wrap px-56 xs:px-16 py-24 sm:px-24 md:px-32'>
+        <div className='xs:px-16 flex flex-wrap px-56 py-24 sm:px-24 md:px-32'>
           <div className='w-full'>
-            <h3 className='m-0 font-bold font-sans-title text-alt-green text-header leading-modal-heading'>
+            <h3 className='font-sans-title text-alt-green text-header leading-modal-heading m-0 font-bold'>
               Recent news
             </h3>
           </div>
           <div className='w-full'>
-            <p className='mt-4 mb-16 text-text'>
+            <p className='text-text mt-4 mb-16'>
               Stories and updates from Morehouse School of Medicine and beyond
             </p>
           </div>

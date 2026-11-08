@@ -210,10 +210,10 @@ export default function ContrastInsightSection({
       role='status'
       aria-label={`${sectionLabel} comparison insight`}
       style={{ scrollMarginTop: headerScrollMargin }}
-      className='relative m-2 animate-expand-down rounded-sm bg-alt-white p-3 shadow-raised'
+      className='animate-expand-down bg-alt-white shadow-raised relative m-2 rounded-sm p-3'
     >
       <div className='mb-2 flex items-center justify-between'>
-        <p className='m-0 flex items-center gap-1 text-alt-dark text-smallest'>
+        <p className='text-alt-dark text-smallest m-0 flex items-center gap-1'>
           <AutoAwesome sx={{ fontSize: 12 }} />
           {sectionLabel} comparison
         </p>
@@ -228,26 +228,26 @@ export default function ContrastInsightSection({
         </Tooltip>
       </div>
       {isGenerating ? (
-        <div className='flex items-center gap-2 rounded-md bg-footer-color p-3'>
+        <div className='bg-footer-color flex items-center gap-2 rounded-md p-3'>
           <CircularProgress size={14} className='shrink-0' />
-          <p className='m-0 text-alt-dark text-small'>Analyzing with AI...</p>
+          <p className='text-alt-dark text-small m-0'>Analyzing with AI...</p>
         </div>
       ) : error ? (
-        <div className='flex flex-col gap-1 rounded-md bg-footer-color p-3'>
-          <p className='m-0 text-red-orange text-small'>{error}</p>
+        <div className='bg-footer-color flex flex-col gap-1 rounded-md p-3'>
+          <p className='text-red-orange text-small m-0'>{error}</p>
           <Button size='small' onClick={handleGenerate}>
             Try again
           </Button>
         </div>
       ) : contrastInsight ? (
-        <div className='rounded-md bg-footer-color p-3'>
+        <div className='bg-footer-color rounded-md p-3'>
           <p
             data-testid='insight-text'
-            className='m-0 font-bold text-alt-dark leading-snug'
+            className='text-alt-dark m-0 leading-snug font-bold'
           >
             <HetHighlightedText section={contrastInsight} />
           </p>
-          <p className='m-0 mt-2 text-alt-dark text-smallest'>
+          <p className='text-alt-dark text-smallest m-0 mt-2'>
             <FlagInsightButton
               cacheKey={serverCacheKey ?? undefined}
               content={contrastInsight.text}

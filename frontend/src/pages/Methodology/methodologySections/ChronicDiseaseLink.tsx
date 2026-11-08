@@ -49,7 +49,7 @@ const ChronicDiseaseLink = () => {
           ]}
         />
         <h2
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='chronic-diseases-data-sourcing'
         >
           Data Sourcing
@@ -71,7 +71,7 @@ const ChronicDiseaseLink = () => {
         <AhrMetrics category='chronic-diseases' />
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='demographic-stratification'
         >
           Demographic Stratification
@@ -84,7 +84,7 @@ const ChronicDiseaseLink = () => {
           }}
         />
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='chronic-diseases-data-sources'
         >
           Data Sources

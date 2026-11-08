@@ -204,7 +204,7 @@ export function TrendsChart({
     `chart-title-label-${axisConfig.type}-${isCompareCard ? '2' : '1'}`
 
   return (
-    <figure className='m-0 font-normal font-sans-text' ref={containerRef}>
+    <figure className='font-sans-text m-0 font-normal' ref={containerRef}>
       <div className={isSkinny ? 'mb-5 ml-2' : 'mb-5 ml-12'}>
         {isSm && (
           <ChartTitle

@@ -6,7 +6,7 @@ import { faqMappings } from '../../FAQs/FaqsPageData'
 export default function FaqSection() {
   return (
     <article className='grid'>
-      <h2 className='m-0 pb-5 text-center font-bold font-sans-title text-alt-green text-header leading-modal-heading'>
+      <h2 className='font-sans-title text-alt-green text-header leading-modal-heading m-0 pb-5 text-center font-bold'>
         Frequently asked questions
       </h2>
 

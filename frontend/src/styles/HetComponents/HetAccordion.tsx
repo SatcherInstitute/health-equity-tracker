@@ -44,7 +44,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
       expanded={expandedIndex === index}
       onChange={handleChange(index)}
       sx={{ '&::before': { content: 'none' } }}
-      className={`list-none rounded-md border border-methodology-green border-solid shadow-none ${
+      className={`border-methodology-green list-none rounded-md border border-solid shadow-none ${
         accordionClassName ?? 'mb-8'
       }`}
     >
@@ -54,14 +54,14 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
         id={`${uid}-panel-header-${index}`}
         className={`${
           expandedIndex === index
-            ? 'rounded-t-md bg-hover-alt-green'
+            ? 'bg-hover-alt-green rounded-t-md'
             : 'hover:bg-white-smoke'
         }`}
       >
         <div
           className={`my-0 ${
             summaryClassName ??
-            'p-2 text-left font-medium text-alt-black leading-normal md:py-4 md:text-title md:leading-some-space'
+            'text-alt-black md:text-title md:leading-some-space p-2 text-left leading-normal font-medium md:py-4'
           }`}
         >
           {data.question}
@@ -69,7 +69,7 @@ const HetAccordion: React.FC<HetAccordionProps> = ({
       </AccordionSummary>
       <AccordionDetails>
         <div
-          className={`text-left font-normal text-alt-black text-text leading-some-more-space ${
+          className={`text-alt-black text-text leading-some-more-space text-left font-normal ${
             detailsClassName ?? 'm-0 p-2 md:my-0 md:px-6 md:py-4'
           }`}
         >

@@ -50,7 +50,7 @@ function CancerLink() {
             },
           ]}
         />
-        <h2 className='mt-12 font-medium text-title' id='cancer-data-sourcing'>
+        <h2 className='text-title mt-12 font-medium' id='cancer-data-sourcing'>
           Data Sourcing
         </h2>
         <p>CDC Wonder</p>
@@ -88,7 +88,7 @@ function CancerLink() {
         {/* <NoteBrfss /> */}
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='demographic-stratification'
         >
           Demographic Stratification
@@ -100,7 +100,7 @@ function CancerLink() {
           }}
         />
 
-        <h3 className='mt-12 font-medium text-title' id='cancer-data-sources'>
+        <h3 className='text-title mt-12 font-medium' id='cancer-data-sources'>
           Data Sources
         </h3>
         <StripedTable

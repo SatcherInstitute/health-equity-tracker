@@ -44,19 +44,19 @@ export default function KeyTermsTopicsAccordion(
               return (
                 <div className='m-2 mb-8' key={config.dataTypeId}>
                   <HetTerm>{config.fullDisplayName}</HetTerm>
-                  <p className='mb-1 font-medium text-small'>
+                  <p className='text-small mb-1 font-medium'>
                     Measurement Definition
                   </p>
-                  <p className='m-0 self-start pt-1 text-alt-black text-small'>
+                  <p className='text-alt-black text-small m-0 self-start pt-1'>
                     {config.definition?.text}
                   </p>
                   <InfoCitations citations={config.definition?.citations} />
                   {config?.description && (
                     <>
-                      <p className='mb-1 font-medium text-small'>
+                      <p className='text-small mb-1 font-medium'>
                         Clinical Importance
                       </p>
-                      <p className='m-0 self-start pt-1 text-alt-black text-small'>
+                      <p className='text-alt-black text-small m-0 self-start pt-1'>
                         {config.description.text}
                       </p>
                       <InfoCitations

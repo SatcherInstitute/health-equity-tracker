@@ -148,12 +148,12 @@ export default function InsightReportCard(props: InsightReportCardProps) {
       }
     >
       <div
-        className={`flex min-h-0 flex-col gap-3 bg-alt-white text-left ${props.isFlat ? '' : 'rounded-sm p-4 shadow-raised md:m-card-gutter'}`}
+        className={`bg-alt-white flex min-h-0 flex-col gap-3 text-left ${props.isFlat ? '' : 'shadow-raised md:m-card-gutter rounded-sm p-4'}`}
       >
         {/* Header. isFlat means a parent dialog already supplies the frame and
             its own close button, so rendering ours would stack two. */}
         <div className='flex items-center justify-between gap-2'>
-          <span className='font-semibold text-alt-dark'>Report Insights</span>
+          <span className='text-alt-dark font-semibold'>Report Insights</span>
           {!props.isFlat && (
             <Tooltip title='Close' disableTouchListener>
               <IconButton onClick={handleClose} aria-label='close report'>
@@ -178,7 +178,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
         {/* Error with retry */}
         {error && !isGenerating && (
           <div className='flex flex-col items-center gap-2 py-4'>
-            <p className='m-0 text-center text-red-500 text-small'>{error}</p>
+            <p className='text-small m-0 text-center text-red-500'>{error}</p>
             <Button size='small' onClick={handleGenerate}>
               Try again
             </Button>
@@ -189,7 +189,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
             deliberately, so it says so plainly rather than rendering an empty
             shell, but it is stated as a normal condition, not an error. */}
         {unavailable && !isGenerating && (
-          <p className='m-0 py-4 text-center text-alt-dark text-small'>
+          <p className='text-alt-dark text-small m-0 py-4 text-center'>
             Report summaries are not available right now. Every chart below
             still shows the full data.
           </p>
@@ -208,16 +208,16 @@ export default function InsightReportCard(props: InsightReportCardProps) {
               {SECTIONS.map(({ key, label, icon }) => (
                 <div
                   key={key}
-                  className={`flex flex-col gap-1 px-4 ${key === 'keyFindings' ? 'rounded-md bg-footer-color py-4 text-alt-black' : 'py-2'}`}
+                  className={`flex flex-col gap-1 px-4 ${key === 'keyFindings' ? 'bg-footer-color text-alt-black rounded-md py-4' : 'py-2'}`}
                 >
                   {/* All-caps text has no descenders, so its visual center sits
                       above the line box center that flex aligns the icon to. */}
-                  <span className='flex items-center gap-1 font-semibold text-alt-green text-smallest uppercase tracking-wide [&>svg]:-translate-y-0.5'>
+                  <span className='text-alt-green text-smallest flex items-center gap-1 font-semibold tracking-wide uppercase [&>svg]:-translate-y-0.5'>
                     {icon}
                     {label}
                   </span>
                   <p
-                    className={`m-0 text-alt-dark leading-snug ${key === 'keyFindings' ? 'font-bold text-title' : 'text-text leading-relaxed'}`}
+                    className={`text-alt-dark m-0 leading-snug ${key === 'keyFindings' ? 'text-title font-bold' : 'text-text leading-relaxed'}`}
                   >
                     <HetHighlightedText section={sections[key]} />
                   </p>
@@ -227,7 +227,7 @@ export default function InsightReportCard(props: InsightReportCardProps) {
 
             <Divider />
 
-            <p className='m-0 text-alt-dark text-smallest'>
+            <p className='text-alt-dark text-smallest m-0'>
               <FlagInsightButton
                 cacheKey={serverCacheKey ?? undefined}
                 content={insightText}

@@ -57,7 +57,7 @@ function SdohLink() {
             },
           ]}
         />
-        <h2 className='mt-12 font-medium text-title' id='sdoh-data-sourcing'>
+        <h2 className='text-title mt-12 font-medium' id='sdoh-data-sourcing'>
           Data Sourcing
         </h2>
         <p>
@@ -77,7 +77,7 @@ function SdohLink() {
         <AhrMetrics category='social-determinants' />
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='sdoh-acs-data-sourcing'
         >
           Poverty, Uninsurance, and Unemployment: American Community Survey
@@ -150,7 +150,7 @@ function SdohLink() {
         </p>
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='demographic-stratification'
         >
           Demographic Stratification
@@ -164,7 +164,7 @@ function SdohLink() {
           }}
         />
 
-        <h3 className='mt-12 font-medium text-title' id='sdoh-data-sources'>
+        <h3 className='text-title mt-12 font-medium' id='sdoh-data-sources'>
           Data Sources
         </h3>
         <StripedTable

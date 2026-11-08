@@ -15,7 +15,7 @@ export default function HetReturnToTopFloating(
       onClick={() => {
         window.scrollTo(0, 0)
       }}
-      className={`fixed right-4 bottom-8 z-top transform rounded-xl bg-hover-alt-green py-4 text-alt-black shadow-sm transition-transform hover:scale-110 hover:shadow-raised md:right-36 ${props.className}`}
+      className={`z-top bg-hover-alt-green text-alt-black hover:shadow-raised fixed right-4 bottom-8 transform rounded-xl py-4 shadow-sm transition-transform hover:scale-110 md:right-36 ${props.className}`}
     >
       <ArrowUpwardRoundedIcon />
     </Button>

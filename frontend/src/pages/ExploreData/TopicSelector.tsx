@@ -50,12 +50,12 @@ export default function TopicSelector(props: TopicSelectorProps) {
 
         <HetPopover popover={popover}>
           {/* Condition Topic Dropdown */}
-          <menu className='m-6 grid max-w-menu grid-cols-1 tiny:grid-cols-2 gap-2 p-0 smplus:grid-cols-3'>
+          <menu className='max-w-menu tiny:grid-cols-2 smplus:grid-cols-3 m-6 grid grid-cols-1 gap-2 p-0'>
             {CATEGORIES_LIST.map((category) => {
               return (
                 <div key={category.title} className='mb-4'>
                   <h3
-                    className='m-0 mr-4 mb-1 p-0 font-semibold text-alt-black text-small leading-some-more-space sm:text-text'
+                    className='text-alt-black text-small leading-some-more-space sm:text-text m-0 mr-4 mb-1 p-0 font-semibold'
                     aria-label={category.title + ' options'}
                   >
                     {category.title}
@@ -83,11 +83,11 @@ export default function TopicSelector(props: TopicSelectorProps) {
             <div className='col-span-full flex w-full justify-end'>
               {!noTopic && (
                 <a
-                  className='bg-alt-white text-alt-black no-underline hover:bg-explore-bg-color'
+                  className='bg-alt-white text-alt-black hover:bg-explore-bg-color no-underline'
                   href={EXPLORE_DATA_PAGE_LINK}
                 >
-                  <KeyboardBackspaceIcon className='pb-0.75 text-alt-black text-small' />{' '}
-                  <span className='p-1 text-alt-black text-smallest'>
+                  <KeyboardBackspaceIcon className='text-alt-black text-small pb-0.75' />{' '}
+                  <span className='text-alt-black text-smallest p-1'>
                     Clear selections
                   </span>
                 </a>

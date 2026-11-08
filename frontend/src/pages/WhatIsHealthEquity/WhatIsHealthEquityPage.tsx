@@ -21,16 +21,16 @@ export default function WhatIsHealthEquityPage() {
         id='main-content'
         aria-labelledby='main'
         tabIndex={-1}
-        className='mx-auto flex w-svw max-w-lgplus flex-col justify-center px-8 py-16'
+        className='max-w-lgplus mx-auto flex w-svw flex-col justify-center px-8 py-16'
       >
         <h1
           id='main'
-          className='font-bold font-sans-title text-alt-green text-big-header leading-normal'
+          className='font-sans-title text-alt-green text-big-header leading-normal font-bold'
         >
           What is Health Equity?
         </h1>
 
-        <div className='my-4 xs:block flex grow items-center text-left smplus:flex-col'>
+        <div className='xs:block smplus:flex-col my-4 flex grow items-center text-left'>
           <HetTermRaised
             term={'Health equity'}
             termType={'noun'}
@@ -41,7 +41,7 @@ export default function WhatIsHealthEquityPage() {
             description={`exists when all people, regardless of race, sex, sexual orientation, disability, socio-economic status, geographic location, or other societal constructs have fair and just access, opportunity, and resources to achieve their highest potential for health.`}
             source={'Health Equity Leadership & Exchange Network, 2020'}
           />
-          <p className='p-4 text-left text-title md:text-center'>
+          <p className='text-title p-4 text-left md:text-center'>
             Unfortunately, social and political determinants of health
             negatively affect many communities, their people, and their ability
             to lead healthy lives.
@@ -75,13 +75,13 @@ export default function WhatIsHealthEquityPage() {
         id='learning-section'
         className='bg-white-smoke'
       >
-        <div className='mx-auto flex w-svw max-w-lgplus flex-col justify-center p-8'>
-          <div className='mx-auto flex w-full max-w-lgplus flex-col justify-center'>
+        <div className='max-w-lgplus mx-auto flex w-svw flex-col justify-center p-8'>
+          <div className='max-w-lgplus mx-auto flex w-full flex-col justify-center'>
             <HetOverline text={'Trending Topics'} className='text-center' />
-            <h2 className='m-0 pb-5 text-center font-bold font-sans-title text-alt-green text-header leading-modal-heading'>
+            <h2 className='font-sans-title text-alt-green text-header leading-modal-heading m-0 pb-5 text-center font-bold'>
               Don't know where to start?
             </h2>
-            <p className='my-4 text-center text-title'>
+            <p className='text-title my-4 text-center'>
               Discover how the Health Equity Tracker can be your tool to drive
               change and advance health equity in your community.
             </p>
@@ -101,7 +101,7 @@ export default function WhatIsHealthEquityPage() {
 
       <section
         aria-label='Frequently Asked Questions'
-        className='mx-auto flex w-svw max-w-lgplus items-center justify-center px-8 py-16 xl:px-0'
+        className='max-w-lgplus mx-auto flex w-svw items-center justify-center px-8 py-16 xl:px-0'
       >
         <FaqSection />
       </section>

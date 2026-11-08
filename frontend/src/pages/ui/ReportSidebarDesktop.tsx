@@ -23,7 +23,7 @@ interface ReportSidebarDesktopProps {
 
 function SidebarCard({ children }: { children: React.ReactNode }) {
   return (
-    <div className='rounded-sm bg-alt-white shadow-raised md:m-card-gutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
+    <div className='bg-alt-white shadow-raised md:m-card-gutter md:w-90p rounded-sm md:flex md:flex-col md:justify-center md:p-2'>
       {children}
     </div>
   )

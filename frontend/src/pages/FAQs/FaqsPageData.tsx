@@ -25,7 +25,7 @@ interface IndentedItemProps {
   pClassName?: string
 }
 export const IndentedItem = ({ label, pClassName }: IndentedItemProps) => (
-  <p className={`my-2 ml-4 text-small leading-normal ${pClassName}`}>{label}</p>
+  <p className={`text-small my-2 ml-4 leading-normal ${pClassName}`}>{label}</p>
 )
 
 export const faqMappings: Faq[] = [
@@ -150,7 +150,7 @@ function AnswerAreTheLimitations() {
         label={'providing detailed race and ethnicity breakdowns, and'}
       />
       <IndentedItem label={'including thorough sex and age breakdowns.'} />
-      <p className='font-semibold text-alt-black text-text'>
+      <p className='text-alt-black text-text font-semibold'>
         Known limitations in the data
       </p>
       <p>
@@ -266,7 +266,7 @@ const additionalFaqs: Faq[] = [
           trust.
         </p>
 
-        <p className='font-semibold text-alt-black text-text'>
+        <p className='text-alt-black text-text font-semibold'>
           These guiding questions help ensure the right standards are in place:
         </p>
 
@@ -287,11 +287,11 @@ const additionalFaqs: Faq[] = [
         <IndentedItem label={`Are we holding our partners accountable?`} />
 
         <HetDivider className='my-8' />
-        <p className='font-semibold text-alt-black text-text'>
+        <p className='text-alt-black text-text font-semibold'>
           We are committed to the following ethics:
         </p>
         <div className='ml-2'>
-          <h3 className='my-0 font-medium text-alt-green text-title'>
+          <h3 className='text-alt-green text-title my-0 font-medium'>
             Transparency & Accountability
           </h3>
           <IndentedItem
@@ -300,7 +300,7 @@ const additionalFaqs: Faq[] = [
           interprets the data and how that shapes the overall health narrative.
         `}
           />
-          <h3 className='my-0 font-medium text-alt-green text-title'>
+          <h3 className='text-alt-green text-title my-0 font-medium'>
             Community First
           </h3>
           <IndentedItem
@@ -309,7 +309,7 @@ const additionalFaqs: Faq[] = [
           changes are needed to boost these communities.
         `}
           />
-          <h3 className='my-0 font-medium text-alt-green text-title'>
+          <h3 className='text-alt-green text-title my-0 font-medium'>
             Open Access
           </h3>
           <IndentedItem
@@ -445,7 +445,7 @@ const additionalFaqs: Faq[] = [
           <img
             src='/img/screenshots/card-menu-options.png'
             alt='options on card menu'
-            className='rounded-md shadow-raised-tighter'
+            className='shadow-raised-tighter rounded-md'
           />
         </div>
         <p>

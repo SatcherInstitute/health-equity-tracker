@@ -15,7 +15,7 @@ export default function HetCardMenu(props: HetCardMenuProps) {
   return (
     <nav
       aria-label={props.ariaLabel}
-      className={`ml-0 flex flex-col rounded-sm py-0 pl-0 tracking-normal shadow-raised-tighter ${props.className ?? ''} `}
+      className={`shadow-raised-tighter ml-0 flex flex-col rounded-sm py-0 pl-0 tracking-normal ${props.className ?? ''} `}
     >
       {props.routeConfigs.map((config) => (
         <HetDesktopMenuItem
@@ -44,7 +44,7 @@ function HetDesktopMenuItem(props: HetDesktopMenuItemProps) {
 
       <HetListItemButton
         to={props.routeConfig.path}
-        className='mx-2 pl-2 font-roboto'
+        className='font-roboto mx-2 pl-2'
         selected={props.selected}
         ariaLabel={props.routeConfig.label}
         option={props.routeConfig.isTopLevel ? 'boldGreenCol' : 'normalBlack'}

@@ -171,7 +171,7 @@ export function MapTooltipContent({
       <div className='font-semibold'>
         {data.name} {data.geographyType}
         {!data.isSummaryLegend && !isTouch && (
-          <span className='ml-2 font-normal text-alt-dark text-small italic'>
+          <span className='text-alt-dark text-small ml-2 font-normal italic'>
             · click to explore
           </span>
         )}
@@ -179,7 +179,7 @@ export function MapTooltipContent({
       {!data.isSummaryLegend && isTouch && (
         <button
           type='button'
-          className='mt-1 cursor-pointer border-0 bg-transparent p-0 text-left text-alt-green underline'
+          className='text-alt-green mt-1 cursor-pointer border-0 bg-transparent p-0 text-left underline'
           onClick={() => onExplore(new Fips(data.featureId))}
         >
           Explore →
@@ -192,7 +192,7 @@ export function MapTooltipContent({
           featureId={data.featureId}
         />
       )}
-      {data.entries.length > 0 && <hr className='my-2 border-alt-gray' />}
+      {data.entries.length > 0 && <hr className='border-alt-gray my-2' />}
       <div className='mt-1'>
         {data.entries.map((entry, i) => (
           <div key={i}>

@@ -11,10 +11,10 @@ export default function RecommendedCitationLink() {
           Medicine's commitment to promoting data democratization, health
           equity, and justice.
         </p>
-        <p className='mt-12 font-medium text-title'>
+        <p className='text-title mt-12 font-medium'>
           APA (American Psychological Association) Format
         </p>
-        <div className='text-left font-sans-text text-alt-black text-small'>
+        <div className='font-sans-text text-alt-black text-small text-left'>
           <Card elevation={3}>
             <p className='mx-0 my-4 pr-4 pl-12 first-of-type:-indent-8'>
               {CITATION_APA}

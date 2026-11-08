@@ -23,7 +23,7 @@ export default function ExploreDataFallback() {
       <h1
         ref={headingRef}
         tabIndex={-1}
-        className='m-0 font-bold font-sans-title text-alt-green text-header leading-modal-heading focus-visible:outline-none'
+        className='font-sans-title text-alt-green text-header leading-modal-heading m-0 font-bold focus-visible:outline-none'
       >
         This report could not be displayed
       </h1>

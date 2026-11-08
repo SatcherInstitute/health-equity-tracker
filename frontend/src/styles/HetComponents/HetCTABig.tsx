@@ -25,13 +25,13 @@ export default function HetCTABig(props: HetCTABigProps) {
     <Button
       id={props.id}
       variant='contained'
-      className={`m-0 my-8 xs:my-4 max-w-3/5 rounded-2xl px-6 py-4 sm:w-auto sm:px-16 ${
+      className={`xs:my-4 m-0 my-8 max-w-3/5 rounded-2xl px-6 py-4 sm:w-auto sm:px-16 ${
         props.className ?? ''
       }`}
       href={optionalMailTo}
       onClick={handleClick}
     >
-      <span className='font-bold text-alt-white text-explore-button xs:text-small sm:text-small'>
+      <span className='text-alt-white text-explore-button xs:text-small sm:text-small font-bold'>
         {props.children}
       </span>
     </Button>

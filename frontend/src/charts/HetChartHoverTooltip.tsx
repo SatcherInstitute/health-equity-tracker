@@ -14,7 +14,7 @@ export function HetTooltipPanel({
   return (
     <div
       role='tooltip'
-      className={`rounded-sm border border-alt-gray border-solid bg-alt-white/[0.97] p-3 font-medium font-sans-text shadow-lg text-small${className ? ` ${className}` : ''}`}
+      className={`border-alt-gray bg-alt-white/[0.97] font-sans-text rounded-sm border border-solid p-3 font-medium shadow-lg text-small${className ? ` ${className}` : ''}`}
       style={style}
     >
       {children}

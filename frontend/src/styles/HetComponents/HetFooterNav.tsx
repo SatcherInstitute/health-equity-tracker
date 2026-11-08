@@ -24,7 +24,7 @@ export default function HetFooterLinks() {
           <li key={url} className='grid lg:place-content-end'>
             <HetLinkButton
               href={url}
-              className='w-full pt-4 text-alt-black no-underline md:w-auto'
+              className='text-alt-black w-full pt-4 no-underline md:w-auto'
             >
               {label}
             </HetLinkButton>

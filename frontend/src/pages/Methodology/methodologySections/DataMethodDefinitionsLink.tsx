@@ -12,7 +12,7 @@ export default function DataMethodDefinitionsLink() {
       <article>
         <title>Data Methods - Health Equity Tracker</title>
 
-        <h2 className='mt-12 font-medium text-title'>Population</h2>
+        <h2 className='text-title mt-12 font-medium'>Population</h2>
         <p>
           Unless otherwise noted throughout this methodology, population counts
           and rates are obtained from the American Community Survey (ACS) 5-year
@@ -32,7 +32,7 @@ export default function DataMethodDefinitionsLink() {
           younger age distributions.
         </p>
 
-        <h2 className='mt-12 font-medium text-title'>
+        <h2 className='text-title mt-12 font-medium'>
           Social Vulnerability Index (SVI)
         </h2>
         <p>
@@ -57,7 +57,7 @@ export default function DataMethodDefinitionsLink() {
           services.
         </p>
 
-        <h2 className='mt-12 font-medium text-title'>Visualizations</h2>
+        <h2 className='text-title mt-12 font-medium'>Visualizations</h2>
         <p>
           Please consider the impact of under-reporting and data gaps when
           exploring the visualizations. These issues may lead to incorrect

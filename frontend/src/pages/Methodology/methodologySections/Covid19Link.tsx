@@ -59,7 +59,7 @@ export default function Covid19Link() {
           ]}
         />
 
-        <h2 className='mt-12 font-medium text-title' id='covid-data-sourcing'>
+        <h2 className='text-title mt-12 font-medium' id='covid-data-sourcing'>
           Data Sourcing
         </h2>
         <p>
@@ -275,7 +275,7 @@ export default function Covid19Link() {
           administered, adding another layer to our comprehensive analysis.
         </p>
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='demographic-stratification'
         >
           Demographic Stratification

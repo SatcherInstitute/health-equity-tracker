@@ -22,7 +22,7 @@ export default function LegendItem({
           {...(borderColor && { stroke: borderColor, strokeWidth: 1 })}
         />
       </svg>
-      <span className='whitespace-nowrap text-smallest'>{label}</span>
+      <span className='text-smallest whitespace-nowrap'>{label}</span>
     </div>
   )
 }

@@ -39,7 +39,7 @@ export default function DefinitionsList(props: DefinitionsListProps) {
         return (
           <aside key={category.title} className='px-5 pb-10'>
             {/* display category name and optional category definition */}
-            <h3 className='m-0 pb-5 font-semibold text-title'>
+            <h3 className='text-title m-0 pb-5 font-semibold'>
               {category.title}
             </h3>
             {category.definition && <p>{category.definition}</p>}

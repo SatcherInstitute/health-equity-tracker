@@ -69,7 +69,7 @@ export default function HetMobileToolbar() {
                         primary={label}
                       />
                       {external && (
-                        <LaunchRounded className='my-auto text-alt-black' />
+                        <LaunchRounded className='text-alt-black my-auto' />
                       )}
                     </div>
                   </ListItem>
@@ -94,7 +94,7 @@ export default function HetMobileToolbar() {
           >
             <div className='flex w-full items-center justify-between gap-2'>
               <ListItemText className='text-alt-black' primary={value.label} />
-              <LaunchRounded className='my-auto text-alt-black' />
+              <LaunchRounded className='text-alt-black my-auto' />
             </div>
           </ListItem>
         ) : (
@@ -144,14 +144,14 @@ export default function HetMobileToolbar() {
           >
             <img
               src={AppBarLogo}
-              className='mr-auto ml-2 h-little-het-logo w-little-het-logo'
+              className='h-little-het-logo w-little-het-logo mr-auto ml-2'
               alt='Health Equity Tracker logo'
             />
           </HetNavLink>
           <IconButton
             aria-label='Collapse site navigation'
             onClick={() => setOpen(false)}
-            className='mx-2 my-4 ml-auto p-2.5 text-alt-black'
+            className='text-alt-black mx-2 my-4 ml-auto p-2.5'
             sx={{ borderRadius: 1 }}
           >
             <Close />

@@ -11,14 +11,14 @@ export default function HetLogos() {
         <HetLinkButton href='/'>
           <img
             src={AppbarLogo}
-            className='m-2 mb-0 h-little-het-logo object-contain'
+            className='h-little-het-logo m-2 mb-0 object-contain'
             alt='Health Equity Tracker logo'
           />
         </HetLinkButton>
         <div className='flex items-start justify-start'>
           <div className='w-full'>
             <span
-              className='inline-block w-max font-medium font-sans-title text-alt-green text-title'
+              className='font-sans-title text-alt-green text-title inline-block w-max font-medium'
               aria-hidden='true'
             >
               Health Equity Tracker
