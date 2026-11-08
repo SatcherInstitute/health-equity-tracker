@@ -21,6 +21,7 @@ import {
   createEventHandler,
   createMouseEventOptions,
 } from './mouseEventHandlers'
+import { buildCoastalArcSet } from './topologyUtils'
 import type {
   ColorScale,
   InitializeSvgOptions,
@@ -32,33 +33,7 @@ const MARGIN = { top: 0, right: 0, bottom: 0, left: 0 }
 // from the projection fit height or the bottom of the map clips off the SVG
 const MOBILE_TOP_OFFSET = 10
 
-// Pre-compute which arc indices appear in exactly one geometry (coastlines).
-// Shared arcs (borders between two geographies) appear twice and are excluded
-// so ghost strokes never bleed across state/county lines.
 // cSpell:ignore topoObj topoKey
-function buildCoastalArcSet(topoObj: GeometryCollection): Set<number> {
-  const count = new Map<number, number>()
-  for (const geom of topoObj.geometries) {
-    const arcs = (geom as { arcs?: number[][] | number[][][] }).arcs
-    if (!arcs) continue
-    const rings: number[][] =
-      geom.type === 'MultiPolygon'
-        ? (arcs as number[][][]).flat(1)
-        : (arcs as number[][])
-    for (const ring of rings) {
-      for (const rawIdx of ring) {
-        const canon = rawIdx < 0 ? ~rawIdx : rawIdx
-        count.set(canon, (count.get(canon) ?? 0) + 1)
-      }
-    }
-  }
-  const coastal = new Set<number>()
-  for (const [idx, c] of count) {
-    if (c === 1) coastal.add(idx)
-  }
-  return coastal
-}
-
 // Build an SVG path string from only the coastal arcs of one topology geometry.
 // Arcs are delta-decoded to lat/lng via the topology transform, then projected.
 function buildCoastalPathD(

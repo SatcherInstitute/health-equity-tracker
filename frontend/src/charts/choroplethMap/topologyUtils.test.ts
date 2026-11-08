@@ -1,9 +1,9 @@
-import type { Topology } from 'topojson-specification'
+import type { GeometryCollection, Topology } from 'topojson-specification'
 import { describe, expect, test } from 'vitest'
 import georgiaCounties from '../../assets/geo/geographies_counties-13.json'
 import texasCounties from '../../assets/geo/geographies_counties-48.json'
 import states from '../../assets/geo/geographies_states.json'
-import { getBorderingFips } from './borderingFips'
+import { buildCoastalArcSet, getBorderingFips } from './topologyUtils'
 
 const statesTopology = states as unknown as Topology
 const georgiaTopology = georgiaCounties as unknown as Topology
@@ -33,6 +33,7 @@ describe('getBorderingFips', () => {
   })
 
   test("Fulton County's bordering counties", () => {
+    // cSpell:ignore Fayette
     // Carroll, Cherokee, Clayton, Cobb, Coweta, DeKalb, Douglas, Fayette,
     // Forsyth, Gwinnett
     expect(getBorderingFips(georgiaTopology, '13121')).toEqual([
@@ -66,5 +67,23 @@ describe('getBorderingFips', () => {
     expect(getBorderingFips(georgiaTopology, '99999')).toEqual([])
     // A county code against the states topology has no counties object
     expect(getBorderingFips(statesTopology, '13121')).toEqual([])
+  })
+})
+
+describe('buildCoastalArcSet', () => {
+  const statesCollection = statesTopology.objects.states as GeometryCollection
+  const coastal = buildCoastalArcSet(statesCollection)
+  const arcsOf = (fips: string) => {
+    const geometry = statesCollection.geometries.find((g) => g.id === fips)
+    const arcs = (geometry as { arcs: number[][] | number[][][] }).arcs
+    return arcs.flat(2).map((i) => (i < 0 ? ~i : i))
+  }
+
+  test('an island state is all coastline', () => {
+    expect(arcsOf('15').every((arc) => coastal.has(arc))).toBe(true)
+  })
+
+  test('a landlocked state has no coastline', () => {
+    expect(arcsOf('08').some((arc) => coastal.has(arc))).toBe(false)
   })
 })

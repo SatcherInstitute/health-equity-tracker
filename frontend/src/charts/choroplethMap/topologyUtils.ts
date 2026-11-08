@@ -1,6 +1,37 @@
 import { neighbors } from 'topojson-client'
 import type { GeometryCollection, Topology } from 'topojson-specification'
 
+// Topology questions that depend on which geometries share an arc: an arc
+// used by one geometry is a coastline (or other outer edge), and two
+// geometries sharing an arc border each other.
+// cSpell:ignore topoObj
+
+// Pre-compute which arc indices appear in exactly one geometry (coastlines).
+// Shared arcs (borders between two geographies) appear twice and are excluded
+// so ghost strokes never bleed across state/county lines.
+export function buildCoastalArcSet(topoObj: GeometryCollection): Set<number> {
+  const count = new Map<number, number>()
+  for (const geom of topoObj.geometries) {
+    const arcs = (geom as { arcs?: number[][] | number[][][] }).arcs
+    if (!arcs) continue
+    const rings: number[][] =
+      geom.type === 'MultiPolygon'
+        ? (arcs as number[][][]).flat(1)
+        : (arcs as number[][])
+    for (const ring of rings) {
+      for (const rawIdx of ring) {
+        const canon = rawIdx < 0 ? ~rawIdx : rawIdx
+        count.set(canon, (count.get(canon) ?? 0) + 1)
+      }
+    }
+  }
+  const coastal = new Set<number>()
+  for (const [idx, c] of count) {
+    if (c === 1) coastal.add(idx)
+  }
+  return coastal
+}
+
 // Adjacency is derived at runtime from the topology the map already loads
 // rather than shipped as a precomputed file: neighbors() takes about 1 ms on
 // the largest file (Texas, 254 counties), so there is nothing to precompute.
