@@ -298,9 +298,10 @@ function getParentDropdownFromDataTypeId(dataType: DataTypeId): DropdownVarId {
   return 'poverty'
 }
 
-// A truncated or hand-edited `mls` param can leave a location slot missing,
-// malformed, or naming a place we have no record of; `new Fips()` and
-// `getDisplayName()` throw on those. Fall back to the mode's default location.
+// A truncated, hand-edited, or outdated `mls` param can leave a slot missing,
+// malformed, or naming a place or topic we have no record of: `new Fips()` and
+// `getDisplayName()` throw on an unknown location, and an unknown topic has no
+// config, so the report crashes resolving it. Fall back to the mode's default.
 function getValidatedSelections(
   madLib: MadLib,
   selections: PhraseSelections,
@@ -308,8 +309,8 @@ function getValidatedSelections(
   const validated = { ...selections }
   madLib.phrase.forEach((segment, index) => {
     if (
-      segment === FIPS_MAP &&
-      !Object.hasOwn(FIPS_MAP, validated[index] ?? '')
+      typeof segment !== 'string' &&
+      !Object.hasOwn(segment, validated[index] ?? '')
     ) {
       validated[index] = madLib.defaultSelections[index]
     }
