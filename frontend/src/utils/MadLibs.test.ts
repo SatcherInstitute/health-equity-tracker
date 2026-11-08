@@ -50,6 +50,14 @@ describe('getValidatedSelections', () => {
     ).toEqual({ 1: disparity.defaultSelections[1], 3: '13' })
   })
 
+  test("every mode's defaults are themselves valid", () => {
+    for (const madLib of MADLIB_LIST) {
+      expect(getValidatedSelections(madLib, madLib.defaultSelections)).toEqual(
+        madLib.defaultSelections,
+      )
+    }
+  })
+
   test('keeps a valid topic in every topic slot', () => {
     const [, , comparevars] = MADLIB_LIST
     expect(

@@ -271,8 +271,8 @@ const MADLIB_LIST: MadLib[] = [
       'in',
       FIPS_MAP,
     ],
-    defaultSelections: { 1: 'poverty', 3: 'uninsurance', 5: USA_FIPS },
-    activeSelections: { 1: 'poverty', 3: 'uninsurance', 5: USA_FIPS },
+    defaultSelections: { 1: 'poverty', 3: 'health_insurance', 5: USA_FIPS },
+    activeSelections: { 1: 'poverty', 3: 'health_insurance', 5: USA_FIPS },
   },
 ]
 
