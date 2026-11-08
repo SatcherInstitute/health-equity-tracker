@@ -38,7 +38,7 @@ test('HIV Black Women: Prevalance Top Cards', async ({ page }) => {
           }),
         )
         .toBeVisible(),
-      expect.soft(page.getByLabel('Include 65+')).toBeVisible(),
+      expect.soft(page.getByLabel('Include Ages 65+')).toBeVisible(),
       // Regression for #4996: PR #4978 added a second comparison series for
       // all Black women ages 13+; verify the label renders in the chart.
       expect
@@ -84,7 +84,7 @@ test('HIV Black Women: Prevalance Bottom Cards', async ({ page }) => {
           page.getByRole('heading', { name: 'Historical relative inequity' }),
         )
         .toBeVisible(),
-      expect.soft(inequities.getByLabel('Include 65+')).toBeVisible(),
+      expect.soft(inequities.getByLabel('Include Ages 65+')).toBeVisible(),
       expect.soft(page.getByText('← disproportionately low')).toBeVisible(),
       expect
         .soft(

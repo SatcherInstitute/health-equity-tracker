@@ -1,4 +1,4 @@
-import { test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
   await page.goto('/exploredata?mls=1.medicare_hiv-3.00&group1=All')
@@ -30,9 +30,10 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
     .getByRole('heading', { name: 'Medicare ARV Beneficiaries,' })
     .click()
   await page.getByRole('button', { name: 'Unknown demographic map' }).click()
-  await page
-    .getByRole('button', { name: 'Population vs. distribution' })
-    .click()
+  // Adherence has no shares chart, so no "Population vs. distribution" step (#5335)
+  await expect(
+    page.getByRole('button', { name: 'Population vs. distribution' }),
+  ).toHaveCount(0)
   await page.getByRole('heading', { name: 'Summary for adherence to' }).click()
   await page.getByRole('columnheader', { name: 'Race/Ethnicity' }).click()
   await page

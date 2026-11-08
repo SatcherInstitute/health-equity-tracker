@@ -1,4 +1,4 @@
-import { test } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 test('RAS Antagonists', async ({ page }) => {
   await page.goto(
@@ -26,9 +26,10 @@ test('RAS Antagonists', async ({ page }) => {
       name: 'Summary for adherence to renin angiotensin system antagonists in the United States',
     })
     .click()
-  await page
-    .getByRole('button', { name: 'Population vs. distribution' })
-    .click()
+  // Adherence has no shares chart, so no "Population vs. distribution" step (#5335)
+  await expect(
+    page.getByRole('button', { name: 'Population vs. distribution' }),
+  ).toHaveCount(0)
   await page.getByText('Share this report:').click()
   await page.getByRole('heading', { name: 'Definitions:' }).click()
   await page
