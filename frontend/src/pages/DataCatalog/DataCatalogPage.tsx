@@ -102,11 +102,11 @@ export default function DataCatalogPage() {
       <title>Data Downloads - Health Equity Tracker</title>
       <section
         id='main-content'
-        className='mx-auto flex w-svw max-w-lgplus flex-col justify-center px-2 py-16 sm:px-16 md:px-24 lg:px-56'
+        className='max-w-lgplus mx-auto flex w-svw flex-col justify-center px-2 py-16 sm:px-16 md:px-24 lg:px-56'
       >
         <h1
           id='main'
-          className='font-bold font-sans-title text-alt-green text-big-header leading-normal'
+          className='font-sans-title text-alt-green text-big-header leading-normal font-bold'
         >
           Data Downloads
         </h1>
@@ -124,8 +124,8 @@ export default function DataCatalogPage() {
           Explore the data dashboard
         </HetCTASmall>
 
-        <div className='mt-10 mb-2 rounded-md bg-methodology-green/20 p-6'>
-          <p className='my-0 mb-3 font-semibold text-alt-black text-small'>
+        <div className='bg-methodology-green/20 mt-10 mb-2 rounded-md p-6'>
+          <p className='text-alt-black text-small my-0 mb-3 font-semibold'>
             Filter by topic
           </p>
           <div className='flex flex-wrap gap-2'>
@@ -137,10 +137,10 @@ export default function DataCatalogPage() {
                   type='button'
                   aria-pressed={isActive}
                   onClick={() => handleCategoryClick(catId)}
-                  className={`rounded-sm border-none px-2 py-1 font-bold font-sans-title text-tiny-tag uppercase transition-colors duration-150 ${
+                  className={`font-sans-title text-tiny-tag rounded-sm border-none px-2 py-1 font-bold uppercase transition-colors duration-150 ${
                     isActive
-                      ? 'cursor-pointer bg-alt-green text-alt-white hover:bg-alt-green/80'
-                      : 'cursor-pointer bg-tiny-tag-gray text-alt-black hover:bg-methodology-green'
+                      ? 'bg-alt-green text-alt-white hover:bg-alt-green/80 cursor-pointer'
+                      : 'bg-tiny-tag-gray text-alt-black hover:bg-methodology-green cursor-pointer'
                   }`}
                 >
                   {CategoryMap[catId]}
@@ -152,7 +152,7 @@ export default function DataCatalogPage() {
                 type='button'
                 onClick={() => setActiveCategories(new Set())}
                 aria-label='Clear all topic filters'
-                className='cursor-pointer rounded-sm border border-alt-green border-solid bg-transparent px-2 py-1 font-bold font-sans-title text-alt-green text-tiny-tag uppercase transition-colors duration-150 hover:bg-alt-green/10'
+                className='border-alt-green font-sans-title text-alt-green text-tiny-tag hover:bg-alt-green/10 cursor-pointer rounded-sm border border-solid bg-transparent px-2 py-1 font-bold uppercase transition-colors duration-150'
               >
                 Clear ×
               </button>

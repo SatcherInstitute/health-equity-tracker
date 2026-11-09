@@ -25,17 +25,17 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
   return (
     <nav
       aria-label='on this page quick navigation'
-      className={`my-2 flex w-full grow flex-col items-start text-left md:w-on-this-page-menu-desktop md:max-w-on-this-page-menu-desktop ${props.className ?? ''}`}
+      className={`md:w-on-this-page-menu-desktop md:max-w-on-this-page-menu-desktop my-2 flex w-full grow flex-col items-start text-left ${props.className ?? ''}`}
     >
-      <ul className='my-1 list-none space-y-2 pl-0 font-roboto text-smallest leading-normal lg:space-y-2'>
+      <ul className='font-roboto text-smallest my-1 list-none space-y-2 pl-0 leading-normal lg:space-y-2'>
         {props.links?.map((link) => (
           <li key={link.path}>
             <button
               type='button'
               onClick={() => handleClick(link.path)}
-              className={`m-0 border-none bg-transparent p-0 text-left text-smallest ${
+              className={`text-smallest m-0 border-none bg-transparent p-0 text-left ${
                 activeLink === link.path
-                  ? 'font-semibold text-alt-green'
+                  ? 'text-alt-green font-semibold'
                   : 'text-alt-black hover:cursor-pointer'
               }`}
             >

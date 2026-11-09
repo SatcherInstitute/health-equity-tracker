@@ -355,11 +355,11 @@ function ExploreDataPage() {
       <div
         id={EXPLORE_DATA_ID}
         tabIndex={-1}
-        className={'h-full bg-explore-bg-color'}
+        className={'bg-explore-bg-color h-full'}
       >
         <div
           ref={madlibRef}
-          className={`z-sticky-mad-lib mb-1 bg-alt-white p-4 shadow-raised-tighter md:top-0 md:w-full ${!noTopicChosen ? 'md:sticky' : ''} `}
+          className={`z-sticky-mad-lib bg-alt-white shadow-raised-tighter mb-1 p-4 md:top-0 md:w-full ${!noTopicChosen ? 'md:sticky' : ''} `}
           id='madlib-container'
         >
           <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />

@@ -56,7 +56,7 @@ const MaternalHealthLink = () => {
         />
 
         <h2
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='maternal-health-data-sourcing'
         >
           Data Sourcing
@@ -70,7 +70,7 @@ const MaternalHealthLink = () => {
 
         <section>
           <div className='py-5'>
-            <h3 className='font-normal text-text'>JAMA Network</h3>
+            <h3 className='text-text font-normal'>JAMA Network</h3>
             <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
               <li>
@@ -97,7 +97,7 @@ const MaternalHealthLink = () => {
           </div>
 
           <div className='py-5'>
-            <h3 className='font-normal text-text'>Demographic Identifiers</h3>
+            <h3 className='text-text font-normal'>Demographic Identifiers</h3>
             <p>
               <strong>Race/ethnicity:</strong> This source uses race/ethnicity
               categories that align with those we retrieve from the Census data.
@@ -106,7 +106,7 @@ const MaternalHealthLink = () => {
 
           <div className='py-5'>
             <h3
-              className='font-normal text-text'
+              className='text-text font-normal'
               id='maternal-mortality-denominators'
             >
               Live Birth Denominators and Estimated Counts
@@ -169,7 +169,7 @@ const MaternalHealthLink = () => {
 
           <div className='py-5'>
             <h3
-              className='font-normal text-text'
+              className='text-text font-normal'
               id='maternal-mortality-pregnancy-checkbox'
             >
               The Pregnancy Checkbox and Long-Term Trends
@@ -222,7 +222,7 @@ const MaternalHealthLink = () => {
 
         <section>
           <div className='py-5'>
-            <h3 className='font-normal text-text'>America’s Health Rankings</h3>
+            <h3 className='text-text font-normal'>America’s Health Rankings</h3>
             <h4 className='my-2'>Conditions</h4>
             <ul className='list-inside list-disc pl-4'>
               <li>
@@ -266,7 +266,7 @@ const MaternalHealthLink = () => {
           </div>
 
           <div className='py-5'>
-            <h3 className='font-normal text-text'>Demographic Identifiers</h3>
+            <h3 className='text-text font-normal'>Demographic Identifiers</h3>
             <h4 className='my-2'>Severe maternal morbidity</h4>
             <p>
               <strong>Race/ethnicity:</strong> Available for American
@@ -314,7 +314,7 @@ const MaternalHealthLink = () => {
 
         <section>
           <div className='py-5'>
-            <h3 className='font-normal text-text' id='maternal-care-context'>
+            <h3 className='text-text font-normal' id='maternal-care-context'>
               Maternal Care Context in Map Tooltips
             </h3>
             <p>
@@ -369,7 +369,7 @@ const MaternalHealthLink = () => {
         </section>
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='demographic-stratification'
         >
           Demographic Stratification
@@ -383,7 +383,7 @@ const MaternalHealthLink = () => {
         />
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='maternal-health-data-sources'
         >
           Data Sources

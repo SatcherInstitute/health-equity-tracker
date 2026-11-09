@@ -8,13 +8,13 @@ export default function VoteDotOrgBanner() {
 
   return (
     <HetNotice
-      className='border-0 bg-methodology-green text-left text-alt-black'
+      className='bg-methodology-green text-alt-black border-0 text-left'
       title='“The vote is precious. It is almost sacred. It is the most powerful
           non-violent tool we have in a democracy.” — John Lewis'
       kind='quote'
     >
       <HetLinkButton
-        className='font-semibold text-alt-black hover:translate-x-1 hover:transition-transform hover:duration-300'
+        className='text-alt-black font-semibold hover:translate-x-1 hover:transition-transform hover:duration-300'
         onClick={() => setModalIsOpen(true)}
       >
         {/* Mobile */}

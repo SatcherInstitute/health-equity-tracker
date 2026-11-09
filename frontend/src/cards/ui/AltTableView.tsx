@@ -101,7 +101,7 @@ export default function AltTableView(props: AltTableViewProps) {
 
   return (
     <div
-      className='hide-on-screenshot mx-2 mt-4 rounded-md bg-standard-info text-left'
+      className='hide-on-screenshot bg-standard-info mx-2 mt-4 rounded-md text-left'
       id={uniqueId}
     >
       <HetExpandableBoxButton

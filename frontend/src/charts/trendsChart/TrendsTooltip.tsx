@@ -67,16 +67,16 @@ export function TrendsTooltip({
 
   return (
     <>
-      <div className='border-0 border-alt-gray border-b border-solid pb-3 text-center'>
+      <div className='border-alt-gray border-0 border-b border-solid pb-3 text-center'>
         <div>{displayDate}</div>
         {isSkinny && type === TYPES.HUNDRED_K && (
-          <div className='mt-1 font-normal font-sans-text text-smallest'>
+          <div className='font-sans-text text-smallest mt-1 font-normal'>
             {F.capitalize(yAxisLabel)}
           </div>
         )}
       </div>
       <div
-        className='grid items-center justify-items-start gap-x-2 gap-y-1 pt-3 text-smallest'
+        className='text-smallest grid items-center justify-items-start gap-x-2 gap-y-1 pt-3'
         style={{ gridTemplateColumns: '1fr 50px 1fr' }}
       >
         {data &&
@@ -103,8 +103,8 @@ export function TrendsTooltip({
                     className='h-2.5 transition duration-200 ease-linear'
                   />
                   <div className='justify-end whitespace-nowrap'>
-                    <span className='font-normal font-sans-text'>{value}</span>
-                    <span className='font-normal font-sans-text'>
+                    <span className='font-sans-text font-normal'>{value}</span>
+                    <span className='font-sans-text font-normal'>
                       {TYPE_CONFIG[type]?.UNIT}
                     </span>
                   </div>

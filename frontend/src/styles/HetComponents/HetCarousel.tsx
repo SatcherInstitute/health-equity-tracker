@@ -69,14 +69,14 @@ export default function HetCarousel({
         <Button
           aria-label='previous'
           onClick={handlePrev}
-          className='mx-1 w-16 transform rounded-xl bg-methodology-green text-alt-black shadow-sm transition-transform hover:scale-110 hover:shadow-raised'
+          className='bg-methodology-green text-alt-black hover:shadow-raised mx-1 w-16 transform rounded-xl shadow-sm transition-transform hover:scale-110'
         >
           <ArrowBack />
         </Button>
         <Button
           aria-label='next'
           onClick={handleNext}
-          className='mx-1 w-16 transform rounded-xl bg-methodology-green text-alt-black shadow-sm transition-transform hover:scale-110 hover:shadow-raised'
+          className='bg-methodology-green text-alt-black hover:shadow-raised mx-1 w-16 transform rounded-xl shadow-sm transition-transform hover:scale-110'
         >
           <ArrowForward />
         </Button>

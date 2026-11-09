@@ -6,10 +6,10 @@ interface GoalListItemProps {
 export default function GoalListItem(props: GoalListItemProps) {
   return (
     <li className='flex w-full flex-col content-start px-6 py-2 md:w-4/12'>
-      <h3 className='px-0 py-4 text-left font-sans-title text-smallest-header'>
+      <h3 className='font-sans-title text-smallest-header px-0 py-4 text-left'>
         {props.title}
       </h3>
-      <p className='my-0 text-left font-sans-text'>{props.text}</p>
+      <p className='font-sans-text my-0 text-left'>{props.text}</p>
     </li>
   )
 }

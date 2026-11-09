@@ -16,14 +16,14 @@ const TogglePreview: React.FC<{ index: number; report: any }> = ({
   }
 
   return (
-    <div className='m-8 flex flex-col rounded-md bg-methodology-green p-0'>
+    <div className='bg-methodology-green m-8 flex flex-col rounded-md p-0'>
       <button
         type='button'
         onClick={(e) => {
           e.preventDefault()
           togglePreview(index)
         }}
-        className='w-auto cursor-pointer rounded-md border-none bg-methodology-green py-4 font-medium text-alt-black text-text no-underline'
+        className='bg-methodology-green text-alt-black text-text w-auto cursor-pointer rounded-md border-none py-4 font-medium no-underline'
         aria-expanded={showPreview[index] ? 'true' : 'false'}
         aria-controls={`preview-${index}`}
       >

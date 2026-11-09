@@ -162,7 +162,7 @@ export function Axes({
       <g>
         {/* X-Axis */}
         <g
-          className='xAxisGroup font-normal font-sans-text text-smallest'
+          className='xAxisGroup font-sans-text text-smallest font-normal'
           ref={xAxisRef}
           transform={`translate(0, ${HEIGHT - marginBottom})`}
           aria-label={`x axis as months ranging from ${startDate} through ${endDate}`}
@@ -171,7 +171,7 @@ export function Axes({
         />
         {/* Y-Axis */}
         <g
-          className='yAxisGroup font-normal font-sans-text text-smallest'
+          className='yAxisGroup font-sans-text text-smallest font-normal'
           ref={yAxisRef}
           transform={`translate(${marginLeft}, 0)`}
           aria-label={`y axis as ${
@@ -194,7 +194,7 @@ export function Axes({
         />
       </g>
       {/* Axis Labels */}
-      <g className='font-medium font-sans-text text-smallest'>
+      <g className='font-sans-text text-smallest font-medium'>
         {/* X-Axis Label */}
         <g
           transform={`translate(${width}, ${

@@ -36,7 +36,7 @@ export default function CurrentEffortsTab() {
           determinants of health unfairly disadvantage certain groups, leading
           to disparities in violence exposure.
         </p>
-        <article className='group fade-in-up-blur my-0 rounded-md border border-methodology-green border-solid bg-alt-white p-4 shadow-raised-tighter'>
+        <article className='group fade-in-up-blur border-methodology-green bg-alt-white shadow-raised-tighter my-0 rounded-md border border-solid p-4'>
           <p>
             <HetTerm>Health inequities</HetTerm> <em>(noun)</em>:{' '}
             <HetHighlightSpan>Unfair and avoidable</HetHighlightSpan>{' '}

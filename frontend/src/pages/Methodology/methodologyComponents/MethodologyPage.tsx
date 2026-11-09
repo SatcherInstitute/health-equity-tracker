@@ -21,7 +21,7 @@ export default function MethodologyPage() {
         aria-labelledby='page-heading'
         id='main-content'
       >
-        <div className='flex min-w-0 max-w-lgplus grow flex-col smplus:m-5 smplus:flex-row'>
+        <div className='max-w-lgplus smplus:m-5 smplus:flex-row flex min-w-0 grow flex-col'>
           {/* MAIN METHODOLOGY PAGES MENU */}
           <div className='w-fit min-w-fit'>
             <MethodologyCardMenu />
@@ -29,7 +29,7 @@ export default function MethodologyPage() {
           </div>
 
           {/* CONTENT */}
-          <div className='xs:block flex grow smplus:flex-col'>
+          <div className='xs:block smplus:flex-col flex grow'>
             {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
             <div className='px-8 lg:hidden'>
               {methodologyRouteConfigs.map((routeConfig) => {
@@ -41,7 +41,7 @@ export default function MethodologyPage() {
                   routeConfig.subLinks && routeConfig.subLinks.length > 0
                 return match && hasSublinks ? (
                   <div className='mt-2 mb-12' key={routeConfig.path}>
-                    <p className='my-0 text-left font-roboto font-semibold text-alt-black text-smallest uppercase'>
+                    <p className='font-roboto text-alt-black text-smallest my-0 text-left font-semibold uppercase'>
                       On this page
                     </p>
                     <HetOnThisPageMenu
@@ -56,7 +56,7 @@ export default function MethodologyPage() {
             <section className='mx-8 my-0 flex grow flex-col justify-end lg:mx-12'>
               {activeRoute?.visible && (
                 <h1
-                  className='my-0 mb-8 font-bold font-sans-title text-alt-green text-big-header leading-normal'
+                  className='font-sans-title text-alt-green text-big-header my-0 mb-8 leading-normal font-bold'
                   id='page-heading'
                 >
                   {activeRoute?.label}
@@ -81,10 +81,10 @@ export default function MethodologyPage() {
               return (
                 hasMatchedSublinks && (
                   <div
-                    className='sticky top-24 z-almost-top hidden h-min w-48 min-w-40 max-w-menu flex-col lg:flex'
+                    className='z-almost-top max-w-menu sticky top-24 hidden h-min w-48 min-w-40 flex-col lg:flex'
                     key={routeConfig.path}
                   >
-                    <p className='my-0 text-left font-roboto font-semibold text-alt-black text-smallest uppercase'>
+                    <p className='font-roboto text-alt-black text-smallest my-0 text-left font-semibold uppercase'>
                       On this page
                     </p>
 

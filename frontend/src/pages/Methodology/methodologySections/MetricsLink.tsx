@@ -44,7 +44,7 @@ export default function MetricsLink() {
 
         <ConditionVariable definitions={firstHalfDefinitions} />
 
-        <h2 className='mt-12 font-medium text-title' id='percent-share-example'>
+        <h2 className='text-title mt-12 font-medium' id='percent-share-example'>
           Percent Share Example: COVID-19 Cases
         </h2>
         <HetNotice>

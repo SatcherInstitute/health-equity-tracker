@@ -12,19 +12,19 @@ export default function ConditionVariable({
       {Object.entries(definitions).map(([itemKey, itemVal]) => {
         return (
           <div id={itemKey} key={itemKey}>
-            <h2 className='mt-12 font-medium text-title' id={itemVal.id}>
+            <h2 className='text-title mt-12 font-medium' id={itemVal.id}>
               {itemKey}
             </h2>
             {itemVal.definitions.map((def) => {
               return (
                 <figure
                   key={def.key}
-                  className='ml-0 self-start border-0 border-alt-dark font-sans-text text-alt-green text-smallest first:border-t'
+                  className='border-alt-dark font-sans-text text-alt-green text-smallest ml-0 self-start border-0 first:border-t'
                 >
                   <span>
                     <strong>{def.key}</strong>
                   </span>
-                  <p className='m-0 ml-1 self-start text-alt-black text-small'>
+                  <p className='text-alt-black text-small m-0 ml-1 self-start'>
                     {def.description}
                   </p>
                 </figure>

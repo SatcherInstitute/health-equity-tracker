@@ -20,11 +20,11 @@ export default function HetCTASmall({
     <Button
       id={id}
       variant='outlined'
-      className={`my-2 w-auto rounded-2xl bg-alt-green px-8 py-2 ${className ?? ''}`}
+      className={`bg-alt-green my-2 w-auto rounded-2xl px-8 py-2 ${className ?? ''}`}
       href={href}
       onClick={onClick}
     >
-      <span className='font-bold text-alt-white text-small'>{children}</span>
+      <span className='text-alt-white text-small font-bold'>{children}</span>
     </Button>
   )
 }

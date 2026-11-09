@@ -54,7 +54,7 @@ export default function BehavioralHealthLink() {
           ]}
         />
         <h2
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='behavioral-health-data-sourcing'
         >
           Data Sourcing
@@ -77,7 +77,7 @@ export default function BehavioralHealthLink() {
 
         <AhrMetrics category='behavioral-health' />
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='demographic-stratification'
         >
           Demographic Stratification
@@ -91,7 +91,7 @@ export default function BehavioralHealthLink() {
         />
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='behavioral-health-data-sources'
         >
           Data Sources

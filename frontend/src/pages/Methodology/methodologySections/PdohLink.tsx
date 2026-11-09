@@ -52,7 +52,7 @@ const PdohLink = () => {
             },
           ]}
         />
-        <h2 className='mt-12 font-medium text-title' id='pdoh-data-sourcing'>
+        <h2 className='text-title mt-12 font-medium' id='pdoh-data-sourcing'>
           Data Sourcing
         </h2>
         <p>
@@ -105,7 +105,7 @@ const PdohLink = () => {
             Trends.
           </li>
         </ul>
-        <h3 className='mt-12 font-medium text-title' id='jails-vs-prisons'>
+        <h3 className='text-title mt-12 font-medium' id='jails-vs-prisons'>
           Understanding Jails vs. Prisons
         </h3>
         <h3>Jails</h3>
@@ -146,7 +146,7 @@ const PdohLink = () => {
         </p>
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='children-in-adult-facilities'
         >
           Children in Adult Facilities
@@ -170,7 +170,7 @@ const PdohLink = () => {
             populations.
           </li>
         </ul>
-        <h3 className='mt-12 font-medium text-title' id='combined-systems'>
+        <h3 className='text-title mt-12 font-medium' id='combined-systems'>
           Combined Systems
         </h3>
         <p>
@@ -179,7 +179,7 @@ const PdohLink = () => {
           these are categorized as prison facilities only.
         </p>
 
-        <h3 className='mt-12 font-medium text-title' id='political-forces'>
+        <h3 className='text-title mt-12 font-medium' id='political-forces'>
           Political Forces and Incarceration
         </h3>
         <p>
@@ -198,7 +198,7 @@ const PdohLink = () => {
           affected by this disenfranchisement (Sentencing Project).
         </p>
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='health-impact-of-incarceration'
         >
           Health Impact of Incarceration
@@ -224,7 +224,7 @@ const PdohLink = () => {
           inequities experienced by this group.
         </p>
 
-        <h3 className='mt-12 font-medium text-title' id='women-in-gov'>
+        <h3 className='text-title mt-12 font-medium' id='women-in-gov'>
           Women in Legislative Office and Health Impacts
         </h3>
 
@@ -236,7 +236,7 @@ const PdohLink = () => {
           policies significantly advance health equity.
         </p>
 
-        <h3 className='mt-12 font-medium text-title' id='pdoh-data-metrics'>
+        <h3 className='text-title mt-12 font-medium' id='pdoh-data-metrics'>
           Data Metrics and Methodology
         </h3>
         <p>
@@ -245,10 +245,10 @@ const PdohLink = () => {
         </p>
 
         <ul className='list-disc pl-4'>
-          <li className='font-medium font-sans-title'>
+          <li className='font-sans-title font-medium'>
             Women in State Legislature
           </li>
-          <li className='font-medium font-sans-title'>
+          <li className='font-sans-title font-medium'>
             {' '}
             Women in U.S. Congress
           </li>
@@ -263,7 +263,7 @@ const PdohLink = () => {
         </p>
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='county-level-congress-data'
         >
           County-Level U.S. Congress Data
@@ -318,7 +318,7 @@ const PdohLink = () => {
           </li>
         </ol>
 
-        <h3 className='mt-12 font-medium text-title' id='historical-tracking'>
+        <h3 className='text-title mt-12 font-medium' id='historical-tracking'>
           Historical Tracking
         </h3>
         <ul>
@@ -345,7 +345,7 @@ const PdohLink = () => {
           goes back only to 1983.
         </p>
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='race-ethnicity-groupings-and-challenges'
         >
           Race/Ethnicity Groupings and Challenges
@@ -376,7 +376,7 @@ const PdohLink = () => {
         </div>
 
         <h3
-          className='mt-12 font-medium text-title'
+          className='text-title mt-12 font-medium'
           id='demographic-stratification'
         >
           Demographic Stratification
@@ -391,7 +391,7 @@ const PdohLink = () => {
           }}
         />
 
-        <h3 className='mt-12 font-medium text-title' id='pdoh-data-resources'>
+        <h3 className='text-title mt-12 font-medium' id='pdoh-data-resources'>
           Data Sources
         </h3>
         <StripedTable

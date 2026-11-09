@@ -4,7 +4,7 @@ export default function AiInsightsLink() {
       <article>
         <title>AI-Generated Insights - Health Equity Tracker</title>
 
-        <h2 className='mt-12 font-medium text-title'>AI-Generated Insights</h2>
+        <h2 className='text-title mt-12 font-medium'>AI-Generated Insights</h2>
         <p>
           Some charts and report summaries on the Health Equity Tracker include
           AI-generated text. These insights are produced by a large language

@@ -25,14 +25,14 @@ interface Faq {
 
 const OptionGroup = ({ title, children }: OptionGroupProps) => (
   <div className='my-4'>
-    <h3 className='my-0 font-medium text-alt-green text-title'>{title}</h3>
+    <h3 className='text-alt-green text-title my-0 font-medium'>{title}</h3>
     {children}
   </div>
 )
 
 const AgeGroupList = () => (
-  <div className='ml-4 flex flex-col justify-start align-start md:flex-row'>
-    <div className='my-2 flex w-full flex-col text-small md:grid md:grid-cols-8 md:text-text'>
+  <div className='align-start ml-4 flex flex-col justify-start md:flex-row'>
+    <div className='text-small md:text-text my-2 flex w-full flex-col md:grid md:grid-cols-8'>
       <ul className='col-span-2 my-4 list-none pl-0'>
         <li>Ages 0-14</li>
         <li>Ages 15-19</li>
@@ -54,14 +54,14 @@ const AgeGroupList = () => (
 )
 
 const Divider = () => (
-  <div className='mx-0 my-2 w-full border border-methodology-green border-t-0 border-r-1.2 border-b-1.2 border-l-0 border-solid md:mx-10 md:my-0 md:w-fit md:border-b-0'></div>
+  <div className='border-methodology-green border-r-1.2 border-b-1.2 mx-0 my-2 w-full border border-t-0 border-l-0 border-solid md:mx-10 md:my-0 md:w-fit md:border-b-0'></div>
 )
 
 const RaceEthnicityOptions = () => (
-  <div className='ml-2 flex flex-col justify-start align-start md:flex-row'>
+  <div className='align-start ml-2 flex flex-col justify-start md:flex-row'>
     <div className='my-2 flex w-auto flex-col'>
-      <p className='my-0 font-semibold text-alt-black text-text'>Races</p>
-      <ul className='list-none pl-1 text-small'>
+      <p className='text-alt-black text-text my-0 font-semibold'>Races</p>
+      <ul className='text-small list-none pl-1'>
         <li>Asian</li>
         <li>Black or African American</li>
         <li>Hawaiian Native/Pacific Islander</li>
@@ -73,8 +73,8 @@ const RaceEthnicityOptions = () => (
     </div>
     <Divider />
     <div className='flex flex-col'>
-      <p className='my-0 font-semibold text-alt-black text-text'>Ethnicities</p>
-      <ul className='list-none pl-1 text-small'>
+      <p className='text-alt-black text-text my-0 font-semibold'>Ethnicities</p>
+      <ul className='text-small list-none pl-1'>
         <li>Hispanic/Latino</li>
       </ul>
     </div>

@@ -5,19 +5,19 @@ export default function SeedPage() {
   return (
     <>
       <title>About the SEED Program - Health Equity Tracker</title>
-      <section className='mx-auto flex w-svw max-w-lgplus flex-col justify-center px-8 py-16'>
+      <section className='max-w-lgplus mx-auto flex w-svw flex-col justify-center px-8 py-16'>
         <header>
           <img src={SeedLogo} alt='SEED logo' className='mx-auto max-h-24' />
-          <h1 className='my-8 font-bold font-sans-title text-alt-green text-big-header leading-normal'>
+          <h1 className='font-sans-title text-alt-green text-big-header my-8 leading-normal font-bold'>
             About the SEED Program
           </h1>
         </header>
 
         <section className='mx-auto mb-8 flex max-w-md flex-col items-center'>
-          <h2 className='pt-8 pb-4 font-medium font-sans-title text-small-header'>
+          <h2 className='font-sans-title text-small-header pt-8 pb-4 font-medium'>
             Software Engineering and Education Development (SEED) Program
           </h2>
-          <h3 className='text-left font-sans-title text-smallest-header leading-some-more-space'>
+          <h3 className='font-sans-title text-smallest-header leading-some-more-space text-left'>
             Building Technology Careers While Advancing Health Equity
           </h3>
           <p className='text-left'>
@@ -37,7 +37,7 @@ export default function SeedPage() {
             Python.
           </p>
 
-          <h2 className='pt-8 pb-4 font-medium font-sans-title text-small-header'>
+          <h2 className='font-sans-title text-small-header pt-8 pb-4 font-medium'>
             Our Approach
           </h2>
           <p className='text-left'>
@@ -69,7 +69,7 @@ export default function SeedPage() {
             Tracker's capabilities—a tool now used by community advocates,
             educators, journalists, and policymakers nationwide.
           </p>
-          <h2 className='pt-8 pb-4 font-medium font-sans-title text-small-header'>
+          <h2 className='font-sans-title text-small-header pt-8 pb-4 font-medium'>
             Who We Welcome
           </h2>
           <p className='text-left'>
@@ -104,10 +104,10 @@ export default function SeedPage() {
             communications, policy analysis, or other contributions, there's a
             place for you in building a more equitable health data ecosystem.
           </p>
-          <h2 className='pt-8 pb-4 font-medium font-sans-title text-small-header'>
+          <h2 className='font-sans-title text-small-header pt-8 pb-4 font-medium'>
             Our Impact
           </h2>
-          <h3 className='mr-auto text-left font-sans-title text-smallest-header leading-some-more-space'>
+          <h3 className='font-sans-title text-smallest-header leading-some-more-space mr-auto text-left'>
             Program Outcomes:
           </h3>
           <ul className='mx-16 my-8 list-disc pl-4 text-left'>
@@ -137,7 +137,7 @@ export default function SeedPage() {
             into actionable insights that support prevention strategies,
             resource allocation, and systemic change.
           </p>
-          <h3 className='mr-auto text-left font-sans-title text-smallest-header leading-some-more-space'>
+          <h3 className='font-sans-title text-smallest-header leading-some-more-space mr-auto text-left'>
             Sustainability and Support
           </h3>
           <p className='text-left'>
@@ -148,7 +148,7 @@ export default function SeedPage() {
             provide unprecedented access to harmonized data and specialized
             research centers.
           </p>
-          <h3 className='mr-auto text-left font-sans-title text-smallest-header leading-some-more-space'>
+          <h3 className='font-sans-title text-smallest-header leading-some-more-space mr-auto text-left'>
             Funding supports:
           </h3>
           <ul className='mx-16 my-8 list-disc pl-4 text-left'>
@@ -165,7 +165,7 @@ export default function SeedPage() {
               diverse socioeconomic backgrounds
             </li>
           </ul>
-          <h2 className='pt-8 pb-4 font-medium font-sans-title text-small-header'>
+          <h2 className='font-sans-title text-small-header pt-8 pb-4 font-medium'>
             Join Us
           </h2>
           <p className='text-left'>

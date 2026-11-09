@@ -24,7 +24,7 @@ export default function HetListBoxOption(props: HetListBoxOptionProps) {
       role='menuitem'
     >
       <span
-        className={`py-0 pl-0 font-light font-roboto text-alt-black text-smallest leading-some-more-space sm:text-small ${props.className ?? ''}`}
+        className={`font-roboto text-alt-black text-smallest leading-some-more-space sm:text-small py-0 pl-0 font-light ${props.className ?? ''}`}
       >
         {props.children}
       </span>

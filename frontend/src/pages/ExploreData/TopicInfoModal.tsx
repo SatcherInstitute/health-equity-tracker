@@ -33,7 +33,7 @@ export default function TopicInfoModal() {
       maxWidth='lg'
     >
       <DataTypeDefinitionsList />
-      <p className='mt-4 border-t pt-4 text-smallest'>
+      <p className='text-smallest mt-4 border-t pt-4'>
         For specific calculations and more detailed information, visit our{' '}
         <Link to={methodologyLink}>methodology</Link>, or view the{' '}
         <Link to={DATA_CATALOG_PAGE_LINK}>source data</Link>.

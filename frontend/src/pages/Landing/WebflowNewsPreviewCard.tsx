@@ -28,7 +28,7 @@ export default function WebflowNewsPreviewCard({
   const articleUrl = `${SATCHER_NEWS_PAGE}/${article.slug}`
 
   return (
-    <article className='group flex h-full flex-col rounded-md border border-alt-green border-solid bg-alt-white text-center text-title no-underline transition-all duration-300 ease-in-out hover:shadow-raised'>
+    <article className='group border-alt-green bg-alt-white text-title hover:shadow-raised flex h-full flex-col rounded-md border border-solid text-center no-underline transition-all duration-300 ease-in-out'>
       <HetLazyLoader once offset={300} className='m-0 h-full p-0'>
         <div className='relative m-0 flex h-full flex-col justify-between'>
           <div
@@ -41,7 +41,7 @@ export default function WebflowNewsPreviewCard({
               className='absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110'
             />
           </div>
-          <h2 className='mx-4 mt-8 pt-0 text-left font-semibold text-alt-green text-text leading-normal'>
+          <h2 className='text-alt-green text-text mx-4 mt-8 pt-0 text-left leading-normal font-semibold'>
             <a
               href={articleUrl}
               target='_blank'

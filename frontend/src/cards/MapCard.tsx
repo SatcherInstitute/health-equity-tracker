@@ -729,10 +729,10 @@ function MapCardWithKey(props: MapCardProps) {
                     setMultimapOpen(true)
                   }}
                   className='flex items-start'
-                  ariaLabel={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
+                  ariaLabel={`View small multiples: launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
                 >
                   <GridView className='mt-0.5 shrink-0' />
-                  <span className='px-1 text-left text-alt-green'>
+                  <span className='text-alt-green px-1 text-left'>
                     View small multiples
                   </span>
                 </HetLinkButton>
@@ -764,7 +764,7 @@ function MapCardWithKey(props: MapCardProps) {
                         onClick={() => setIsAtlantaMode(!isAtlantaMode)}
                         className='flex items-center'
                       >
-                        <span className='mt-1 px-1 text-alt-green'>
+                        <span className='text-alt-green mt-1 px-1'>
                           {isAtlantaMode
                             ? 'Return to all counties'
                             : 'Highlight metro Atlanta counties'}

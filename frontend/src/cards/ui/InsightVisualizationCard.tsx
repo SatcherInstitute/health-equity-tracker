@@ -315,7 +315,7 @@ export default function InsightVisualizationCard({
         return (
           <div className='flex items-center gap-2 py-1'>
             <CircularProgress size={14} className='shrink-0' />
-            <p className='m-0 text-alt-dark text-small'>
+            <p className='text-alt-dark text-small m-0'>
               Gathering peer comparison data...
             </p>
           </div>
@@ -324,20 +324,20 @@ export default function InsightVisualizationCard({
         return (
           <div className='flex items-center gap-2 py-1'>
             <CircularProgress size={14} className='shrink-0' />
-            <p className='m-0 text-alt-dark text-small'>
+            <p className='text-alt-dark text-small m-0'>
               Analyzing health equity data with AI...
             </p>
           </div>
         )
       case 'peersErrored':
         return (
-          <p className='m-0 text-red-orange text-small'>
+          <p className='text-red-orange text-small m-0'>
             Unable to load comparison data. Please try again later.
           </p>
         )
       case 'peersInsufficient':
         return (
-          <p className='m-0 text-alt-dark text-small'>
+          <p className='text-alt-dark text-small m-0'>
             Not enough comparable places report this measure to generate an
             insight.
           </p>
@@ -345,7 +345,7 @@ export default function InsightVisualizationCard({
       case 'errored':
         return (
           <div className='flex flex-col gap-1'>
-            <p className='m-0 text-red-orange text-small'>{state.error}</p>
+            <p className='text-red-orange text-small m-0'>{state.error}</p>
             <Button size='small' onClick={handleGenerate}>
               Try again
             </Button>
@@ -358,11 +358,11 @@ export default function InsightVisualizationCard({
           <>
             <p
               data-testid='insight-text'
-              className='m-0 font-bold text-alt-dark leading-snug'
+              className='text-alt-dark m-0 leading-snug font-bold'
             >
               <HetHighlightedText section={insight} />
             </p>
-            <p className='m-0 mt-2 text-alt-dark text-smallest'>
+            <p className='text-alt-dark text-smallest m-0 mt-2'>
               <FlagInsightButton
                 cacheKey={serverCacheKey ?? undefined}
                 content={insight.text}
@@ -406,7 +406,7 @@ export default function InsightVisualizationCard({
   return (
     <div
       role='status'
-      className='mb-3 animate-expand-down rounded-md bg-footer-color p-3'
+      className='animate-expand-down bg-footer-color mb-3 rounded-md p-3'
     >
       {renderBody()}
     </div>

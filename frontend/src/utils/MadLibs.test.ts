@@ -43,6 +43,28 @@ describe('MadLib Unit Tests', () => {
 describe('getValidatedSelections', () => {
   const [disparity, comparegeos] = MADLIB_LIST
 
+  test('falls back to the default for an unknown topic', () => {
+    // e.g. a bookmarked link to a topic that was renamed or removed
+    expect(
+      getValidatedSelections(disparity, parseMls('1.not_a_topic-3.13')),
+    ).toEqual({ 1: disparity.defaultSelections[1], 3: '13' })
+  })
+
+  test("every mode's defaults are themselves valid", () => {
+    for (const madLib of MADLIB_LIST) {
+      expect(getValidatedSelections(madLib, madLib.defaultSelections)).toEqual(
+        madLib.defaultSelections,
+      )
+    }
+  })
+
+  test('keeps a valid topic in every topic slot', () => {
+    const [, , comparevars] = MADLIB_LIST
+    expect(
+      getValidatedSelections(comparevars, parseMls('1.hiv-3.covid-5.13')),
+    ).toEqual({ 1: 'hiv', 3: 'covid', 5: '13' })
+  })
+
   test('keeps a valid location', () => {
     expect(getValidatedSelections(disparity, parseMls('1.hiv-3.13'))).toEqual({
       1: 'hiv',

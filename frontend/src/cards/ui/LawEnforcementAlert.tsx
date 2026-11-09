@@ -67,7 +67,7 @@ function LawEnforcementAlert(props: LawEnforcementAlertProps) {
       <HetNotice
         title='Law Enforcement Impact'
         kind='health-crisis'
-        className='m-2 border border-report-alert'
+        className='border-report-alert m-2 border'
       >
         <p>
           The CDC reports that law enforcement actions resulted in an additional{' '}

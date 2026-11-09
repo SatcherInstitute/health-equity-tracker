@@ -100,7 +100,7 @@ export default function App() {
   return (
     <ThemeProvider theme={muiTheme} defaultMode='light'>
       <CssBaseline />
-      <div className='relative min-h-full bg-alt-white text-center'>
+      <div className='bg-alt-white relative min-h-full text-center'>
         <SkipLink />
 
         <div className='relative h-full'>

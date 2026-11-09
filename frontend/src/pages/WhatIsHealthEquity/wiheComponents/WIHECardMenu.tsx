@@ -51,7 +51,7 @@ function HetTabButton(props: HetTabButtonProps) {
   return (
     <button
       aria-pressed={props.isActiveTab}
-      className={`mx-2 cursor-pointer rounded rounded-sm px-8 py-4 text-center font-sans-title font-semibold text-title no-underline ${props.isActiveTab ? 'cursor-auto border-0 bg-methodology-green text-alt-black shadow-raised' : 'border border-divider-gray bg-alt-white text-alt-green'}`}
+      className={`font-sans-title text-title mx-2 cursor-pointer rounded rounded-sm px-8 py-4 text-center font-semibold no-underline ${props.isActiveTab ? 'bg-methodology-green text-alt-black shadow-raised cursor-auto border-0' : 'border-divider-gray bg-alt-white text-alt-green border'}`}
       type='button'
       onClick={props.onClick}
     >

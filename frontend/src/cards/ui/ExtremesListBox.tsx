@@ -56,7 +56,7 @@ export function ExtremesListBox(props: ExtremesListBoxProps) {
 
   return (
     <div
-      className={`mt-4 rounded-md bg-standard-info text-left ${props.isOpen ? '' : 'hide-on-screenshot'}`}
+      className={`bg-standard-info mt-4 rounded-md text-left ${props.isOpen ? '' : 'hide-on-screenshot'}`}
     >
       <HetExpandableBoxButton
         expandBoxLabel={`${placesType} rate extremes`}

@@ -8,7 +8,7 @@ export const LIFELINE_IDS: DataTypeId[] = ['suicide', 'gun_violence_suicide']
 export default function LifelineAlert() {
   return (
     <HetNotice
-      className='border border-secondary-main text-left text-small'
+      className='border-secondary-main text-small border text-left'
       icon={<PhoneIcon color='primary' />}
       title='988 Suicide & Crisis Lifeline'
       kind='text-only'

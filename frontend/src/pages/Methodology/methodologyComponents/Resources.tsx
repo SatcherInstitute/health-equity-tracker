@@ -14,7 +14,7 @@ export default function Resources(props: ResourcesProps) {
   const { resourceGroups, id } = props
 
   const renderResourcesList = (groups: Resource[]) => (
-    <ul className='mx-1 my-0 list-none pl-0 text-smallest'>
+    <ul className='text-smallest mx-1 my-0 list-none pl-0'>
       {groups.map((resource) => (
         <li key={resource.name ? resource.name : ''}>
           <a href={resource.url}>{resource.name}</a>
@@ -32,7 +32,7 @@ export default function Resources(props: ResourcesProps) {
   }) => (
     <div className='w-full' id={id} key={heading}>
       <div className='w-full'>
-        <h2 className='mt-12 font-medium text-title'>{heading} Resources</h2>
+        <h2 className='text-title mt-12 font-medium'>{heading} Resources</h2>
       </div>
       <div
         className={`w-full ${resources.length >= 10 ? 'md:w-1/2' : 'w-full'}`}

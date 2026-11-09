@@ -9,7 +9,7 @@ function IncarceratedChildrenLongAlert() {
     <HetNotice
       title='Children in Adult Jails and Prisons'
       kind='health-crisis'
-      className='border border-report-alert text-left'
+      className='border-report-alert border text-left'
     >
       <p>
         Despite criminal justice distinctions between adults and children, some

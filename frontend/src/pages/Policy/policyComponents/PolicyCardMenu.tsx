@@ -4,7 +4,7 @@ import { policyRouteConfigs } from '../policyContent/policyRouteConfigs'
 export default function PolicyCardMenu() {
   return (
     <HetCardMenu
-      className='sticky top-24 z-almost-top hidden h-min max-w-menu smplus:block'
+      className='z-almost-top max-w-menu smplus:block sticky top-24 hidden h-min'
       routeConfigs={policyRouteConfigs}
       ariaLabel='policy context sections'
     />

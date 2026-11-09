@@ -52,41 +52,44 @@ export function FilterLegend({
 
   const noGroupsAreFiltered = selectedGroups.length === 0
 
+  // An aria-label must contain a button's visible text (WCAG 2.5.3, Label in Name)
+  // so speech-input users can activate it by saying what they see.
+  const minMaxButtonText = groupsAreMinMax
+    ? 'Showing highest / lowest averages'
+    : 'Show highest / lowest averages'
+
   return (
     // Legend Wrapper
-    <div className='mt-4 font-normal font-sans-text text-small'>
+    <div className='font-sans-text text-small mt-4 font-normal'>
       {/* Legend Title & Clear Button */}
-      <div className='hide-on-screenshot remove-height-on-screenshot mb-5 flex items-center text-left font-medium font-sans-text'>
+      <div className='hide-on-screenshot remove-height-on-screenshot font-sans-text mb-5 flex items-center text-left font-medium'>
         <p id={legendId}>Select groups:</p>
         {/* Reset to Highest Lowest Averages */}
-        <div className='mx-4 flex items-center justify-center rounded-sm border-alt-green border-none'>
+        <div className='border-alt-green mx-4 flex items-center justify-center rounded-sm border-none'>
           <button
             type='button'
             aria-disabled={groupsAreMinMax}
-            className={`rounded-l-sm border border-alt-black p-4 text-alt-black ${
+            className={`border-alt-black text-alt-black rounded-l-sm border p-4 ${
               groupsAreMinMax
-                ? 'cursor-default bg-methodology-green font-bold'
-                : 'cursor-pointer bg-alt-white hover:bg-methodology-green'
+                ? 'bg-methodology-green cursor-default font-bold'
+                : 'bg-alt-white hover:bg-methodology-green cursor-pointer'
             }`}
-            aria-label={`Highlight groups with lowest and highest average values over time`}
+            aria-label={`${minMaxButtonText}: highlight groups with lowest and highest average values over time`}
             onClick={() => {
               handleMinMaxClick(null)
             }} // clear selected groups on click
           >
-            {groupsAreMinMax
-              ? 'Showing highest / lowest averages'
-              : 'Show highest / lowest averages'}
+            {minMaxButtonText}
           </button>
 
           {/* Remove Filters / Show All Button */}
           <button
             type='button'
-            aria-label={`Clear demographic filters`}
             aria-disabled={noGroupsAreFiltered}
-            className={`rounded-r-sm border border-alt-black p-4 text-alt-black ${
+            className={`border-alt-black text-alt-black rounded-r-sm border p-4 ${
               noGroupsAreFiltered
-                ? 'cursor-default bg-methodology-green font-bold'
-                : 'cursor-pointer bg-alt-white hover:bg-methodology-green'
+                ? 'bg-methodology-green cursor-default font-bold'
+                : 'bg-alt-white hover:bg-methodology-green cursor-pointer'
             }`}
             onClick={() => {
               handleClick(null)
@@ -108,6 +111,8 @@ export function FilterLegend({
         {data?.map(([group]) => {
           const groupEnabled = selectedGroups.includes(group)
 
+          const groupLabel =
+            demographicType === AGE && group !== ALL ? `Ages ${group}` : group
           const isUnknown = group === UNKNOWN_W
           const gradient = `linear-gradient(30deg, ${colors.unknownMapMost}, ${colors.unknownMapMid}, ${colors.unknownMapMost})`
           // Legend Item Filter Button
@@ -115,9 +120,9 @@ export function FilterLegend({
             <button
               type='button'
               key={`legendItem-${group}`}
-              aria-label={`Include ${group}`}
+              aria-label={`Include ${groupLabel}`}
               aria-pressed={groupEnabled}
-              className='mr-5 mb-1.5 flex cursor-pointer items-center border-0 bg-transparent p-0 text-start text-alt-black transition-opacity duration-300 ease-in-out'
+              className='text-alt-black mr-5 mb-1.5 flex cursor-pointer items-center border-0 bg-transparent p-0 text-start transition-opacity duration-300 ease-in-out'
               onClick={() => {
                 handleClick(group)
               }} // send group name to parent on click
@@ -128,7 +133,7 @@ export function FilterLegend({
             >
               {/* Legend Item color swatch */}
               <div
-                className='mr-1.5 h-6 w-6 shrink-0 rounded-xs border-2 border-transparent border-dashed text-start'
+                className='mr-1.5 h-6 w-6 shrink-0 rounded-xs border-2 border-dashed border-transparent text-start'
                 aria-hidden={true}
                 style={{
                   backgroundImage: isUnknown ? gradient : undefined,
@@ -136,10 +141,7 @@ export function FilterLegend({
                 }}
               />
               {/* Legend Item Label */}
-              <div>
-                {demographicType === AGE && group !== ALL && 'Ages '}
-                {group}
-              </div>
+              <div>{groupLabel}</div>
             </button>
           )
         })}
