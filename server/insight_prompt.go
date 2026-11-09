@@ -530,6 +530,13 @@ type insightContext struct {
 	PeerComparison         *peerComparison `json:"peerComparison"`
 }
 
+// A map's rows cover only its child places, never the parent geography, yet
+// models reach for a "national average" anyway and invent one (#5370). The
+// parent figure is deliberately not supplied: it often comes from a different
+// file or scope (BJS national prison rates include federal prisons; state rates
+// do not), so a supplied one would be a real number compared on the wrong basis.
+const mapOutsideFigureRule = " Every figure must come from the data below. It holds no national, state, or other wider-area rate, so never state or estimate one, such as a \"national average\"."
+
 func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeDemographicGroup string, hasPeerComparison bool, tableShape *tableColumnShape) string {
 	dataBlock := ""
 	if dataSection != "" {
@@ -537,8 +544,8 @@ func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeD
 	}
 
 	if mapChartIDs[hashID] && hasPeerComparison {
-		return fmt.Sprintf("This is a choropleth map of %s in %s. Because only its overall rate is available locally, %s is ranked against its peer places at the same geographic level — which draw on the same data source and methodology, so the comparison is fair.%s\n\nWrite a single sentence at an 8th grade reading level that says where %s falls among its peers (for example, higher than most, near the middle, or among the lowest) and what that means for the people who live there. Focus on the \"so what\", not the chart mechanics.",
-			topic, location, location, dataBlock, location)
+		return fmt.Sprintf("This is a choropleth map of %s in %s. Because only its overall rate is available locally, %s is ranked against its peer places at the same geographic level — which draw on the same data source and methodology, so the comparison is fair.%s%s\n\nWrite a single sentence at an 8th grade reading level that says where %s falls among its peers (for example, higher than most, near the middle, or among the lowest) and what that means for the people who live there. Focus on the \"so what\", not the chart mechanics.",
+			topic, location, location, mapOutsideFigureRule, dataBlock, location)
 	}
 
 	if mapChartIDs[hashID] {
@@ -550,8 +557,8 @@ func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeD
 		if activeDemographicGroup != "" && !groupIsAll(activeDemographicGroup) {
 			focus = fmt.Sprintf(" The map currently highlights the %s group — use that group's rates to describe the geographic pattern, with \"All\" as the baseline.", activeDemographicGroup)
 		}
-		return fmt.Sprintf("This is a choropleth map showing %s in %s by %s. Each data row is labeled with its place and %s group; an \"All\" row gives the overall rate for that place.%s%s\n\nWrite a single sentence at an 8th grade reading level that captures the geographic disparity — which places have the highest and lowest rates — and what that concentration means for the people who live there. Focus on the \"so what\", not the chart mechanics.",
-			topic, location, demographicLabel, demographicLabel, focus, dataBlock)
+		return fmt.Sprintf("This is a choropleth map showing %s in %s by %s. Each data row is labeled with its place and %s group; an \"All\" row gives the overall rate for that place.%s%s%s\n\nWrite a single sentence at an 8th grade reading level that captures the geographic disparity — which places have the highest and lowest rates — and what that concentration means for the people who live there. Focus on the \"so what\", not the chart mechanics.",
+			topic, location, demographicLabel, demographicLabel, focus, mapOutsideFigureRule, dataBlock)
 	}
 
 	if hashID == "rate-chart" {
