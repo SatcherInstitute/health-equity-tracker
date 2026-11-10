@@ -532,10 +532,11 @@ type insightContext struct {
 
 // A map's rows cover only its child places, never the parent geography, yet
 // models reach for a "national average" anyway and invent one (#5370). The
-// parent figure is deliberately not supplied: it often comes from a different
-// file or scope (BJS national prison rates include federal prisons; state rates
-// do not), so a supplied one would be a real number compared on the wrong basis.
-const mapOutsideFigureRule = " Every figure must come from the data below. It holds no national, state, or other wider-area rate, so never state or estimate one, such as a \"national average\"."
+// parent figure is deliberately not supplied: levels often come from different
+// sources or scopes (incarceration counties are Vera, states and the nation are
+// BJS; BJS national prison rates include federal prisons, state rates do not),
+// so a supplied or remembered one would be compared on the wrong basis.
+const mapOutsideFigureRule = " Every figure must come from the data below. It holds no national, state, or other wider-area rate, so never state or estimate one, such as a \"national average\". Other geographic levels and other data sources often count differently, so never compare these places with a figure from outside this data."
 
 func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeDemographicGroup string, hasPeerComparison bool, tableShape *tableColumnShape) string {
 	dataBlock := ""
