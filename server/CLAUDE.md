@@ -76,7 +76,7 @@ The server handles all traffic on a single port:
   consulting the cache, reserving a slot, or calling the provider, which is how a client checks
   the server renders the text it expects. The generating path returns `{"content","cacheKey"}`;
   the key rides along because flagging needs it, and the prompt does not because it is up to
-  40 KB the client has no use for. `content` is the JSON envelope described below, not a
+  72 KB the client has no use for. `content` is the JSON envelope described below, not a
   bare sentence. `?force=true` with a valid `Authorization: Bearer $ADMIN_TOKEN` skips both
   cache layers so the provider path runs regardless of cache state, and adds `"forced":true`
   to the response. It does not skip the kill switches, suppression, or the ledger. The nightly
@@ -624,7 +624,9 @@ baseline when the selected group is not `All` itself; a single-place map sends e
 compare, each side carries its own `activeDemographicGroup` on its view, since the two maps can show
 different groups; the top-level context group is set only when both sides share one. The
 card budget (32 KB) is sized so the largest state's county map with a group selected fits whole
-(`card_map_large_state_group`). A map still over it is trimmed by `trimMapLinesToBudget`, not in
+(`card_map_large_state_group`), and each side of a compare gets the same budget, so two such maps
+fit side by side (`contrast_compare_large_states`). The prompt cap is two card budgets plus
+template headroom. A map still over it is trimmed by `trimMapLinesToBudget`, not in
 file order: each group's highest and lowest row and every place's `All` row are kept first, then
 the rest fill the remaining budget. A trim in file order silently dropped whichever places sorted
 last, so the model could name "the highest" place without seeing it.

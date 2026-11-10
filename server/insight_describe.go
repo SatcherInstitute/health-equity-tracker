@@ -78,7 +78,7 @@ func insightHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	// The key rides along because flagging an insight needs it, and the client no
-	// longer builds it. The prompt does not: it is up to 40 KB the client has no
+	// longer builds it. The prompt does not: it is up to 72 KB the client has no
 	// use for, and preview returns it for the cases that do.
 	// "forced" is present only on a force-generated response, so the canary can
 	// tell a live provider call from a cache hit and fail on a misconfigured token.

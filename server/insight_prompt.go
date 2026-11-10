@@ -15,13 +15,14 @@ import (
 // views, and TestInsightPromptFixtures renders those same inputs through this
 // code. A diff in those files is the thing to review.
 
-// Bytes of data rows a prompt may carry, tiered by how many data sections that
-// prompt holds. A prompt with one section can afford to send far more of it than
-// a prompt that always carries two.
+// Bytes of data rows a prompt section may carry. The card budget is sized to
+// fit the largest view we serve whole (a large state's county map with one
+// group selected), and each side of a contrast gets the same, so a compare
+// carries both views in full. The report's five sections stay small.
 const (
 	insightBudgetCard     = 32 * 1024
 	insightBudgetReport   = 4 * 1024
-	insightBudgetContrast = 12 * 1024
+	insightBudgetContrast = insightBudgetCard
 )
 
 var mapChartIDs = map[string]bool{

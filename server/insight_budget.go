@@ -26,9 +26,9 @@ const (
 	// formatDataRows trims every data section to a per-context budget
 	// (insightBudget* in insight_prompt.go), sized so the worst case in each
 	// context lands under this. Raising a budget without re-checking it against
-	// this value is what would push a prompt over. The card budget is sized to fit
-	// a large state's county map with one group selected.
-	insightPromptMaxBytes   = 40 * 1024
+	// this value is what would push a prompt over. A contrast carries two full
+	// card budgets, plus room for the template text.
+	insightPromptMaxBytes   = 2*insightBudgetCard + 8*1024
 	killSwitchObject        = "insights-generation-disabled"
 	servingKillSwitchObject = "insights-serving-disabled"
 	killSwitchTTL           = 60 * time.Second
