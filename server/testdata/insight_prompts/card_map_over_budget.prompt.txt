@@ -1,0 +1,499 @@
+This is a choropleth map showing prison in the United States by race/ethnicity. Each data row is labeled with its place and race/ethnicity group; an "All" row gives the overall rate for that place. Every figure must come from the data below. It holds no rate for any area wider than the places listed, so never state or estimate one, such as a "national average".
+
+Data:
+- Place 01 (All): 100 per 100k
+- Place 01 (American Indian and Alaska Native (NH)): 113 per 100k
+- Place 01 (Asian (NH)): 126 per 100k
+- Place 01 (Black or African American (NH)): 139 per 100k
+- Place 01 (Hispanic and Latino): 102 per 100k
+- Place 01 (Native Hawaiian and Pacific Islander (NH)): 115 per 100k
+- Place 01 (Two or more races & Unreported Race (NH)): 128 per 100k
+- Place 01 (White (NH)): 141 per 100k
+- Place 02 (All): 107 per 100k
+- Place 02 (American Indian and Alaska Native (NH)): 120 per 100k
+- Place 02 (Asian (NH)): 133 per 100k
+- Place 02 (Black or African American (NH)): 146 per 100k
+- Place 02 (Hispanic and Latino): 109 per 100k
+- Place 02 (Native Hawaiian and Pacific Islander (NH)): 122 per 100k
+- Place 02 (Two or more races & Unreported Race (NH)): 135 per 100k
+- Place 02 (White (NH)): 148 per 100k
+- Place 03 (All): 114 per 100k
+- Place 03 (American Indian and Alaska Native (NH)): 127 per 100k
+- Place 03 (Asian (NH)): 140 per 100k
+- Place 03 (Black or African American (NH)): 103 per 100k
+- Place 03 (Hispanic and Latino): 116 per 100k
+- Place 03 (Native Hawaiian and Pacific Islander (NH)): 129 per 100k
+- Place 03 (Two or more races & Unreported Race (NH)): 142 per 100k
+- Place 03 (White (NH)): 105 per 100k
+- Place 04 (All): 121 per 100k
+- Place 04 (American Indian and Alaska Native (NH)): 134 per 100k
+- Place 04 (Asian (NH)): 147 per 100k
+- Place 04 (Black or African American (NH)): 110 per 100k
+- Place 04 (Hispanic and Latino): 123 per 100k
+- Place 04 (Native Hawaiian and Pacific Islander (NH)): 136 per 100k
+- Place 04 (Two or more races & Unreported Race (NH)): 149 per 100k
+- Place 04 (White (NH)): 112 per 100k
+- Place 05 (All): 128 per 100k
+- Place 05 (American Indian and Alaska Native (NH)): 141 per 100k
+- Place 05 (Asian (NH)): 104 per 100k
+- Place 05 (Black or African American (NH)): 117 per 100k
+- Place 05 (Hispanic and Latino): 130 per 100k
+- Place 05 (Native Hawaiian and Pacific Islander (NH)): 143 per 100k
+- Place 05 (Two or more races & Unreported Race (NH)): 106 per 100k
+- Place 05 (White (NH)): 119 per 100k
+- Place 06 (All): 135 per 100k
+- Place 06 (American Indian and Alaska Native (NH)): 148 per 100k
+- Place 06 (Asian (NH)): 111 per 100k
+- Place 06 (Black or African American (NH)): 124 per 100k
+- Place 06 (Hispanic and Latino): 137 per 100k
+- Place 06 (Native Hawaiian and Pacific Islander (NH)): 100 per 100k
+- Place 06 (Two or more races & Unreported Race (NH)): 113 per 100k
+- Place 06 (White (NH)): 126 per 100k
+- Place 07 (All): 142 per 100k
+- Place 07 (American Indian and Alaska Native (NH)): 105 per 100k
+- Place 07 (Asian (NH)): 118 per 100k
+- Place 07 (Black or African American (NH)): 131 per 100k
+- Place 07 (Hispanic and Latino): 144 per 100k
+- Place 07 (Native Hawaiian and Pacific Islander (NH)): 107 per 100k
+- Place 07 (Two or more races & Unreported Race (NH)): 120 per 100k
+- Place 07 (White (NH)): 133 per 100k
+- Place 08 (All): 149 per 100k
+- Place 08 (American Indian and Alaska Native (NH)): 112 per 100k
+- Place 08 (Asian (NH)): 125 per 100k
+- Place 08 (Black or African American (NH)): 138 per 100k
+- Place 08 (Hispanic and Latino): 101 per 100k
+- Place 08 (Native Hawaiian and Pacific Islander (NH)): 114 per 100k
+- Place 08 (Two or more races & Unreported Race (NH)): 127 per 100k
+- Place 08 (White (NH)): 140 per 100k
+- Place 09 (All): 106 per 100k
+- Place 09 (American Indian and Alaska Native (NH)): 119 per 100k
+- Place 09 (Asian (NH)): 132 per 100k
+- Place 09 (Black or African American (NH)): 145 per 100k
+- Place 09 (Hispanic and Latino): 108 per 100k
+- Place 09 (Native Hawaiian and Pacific Islander (NH)): 121 per 100k
+- Place 09 (Two or more races & Unreported Race (NH)): 134 per 100k
+- Place 09 (White (NH)): 147 per 100k
+- Place 10 (All): 113 per 100k
+- Place 10 (American Indian and Alaska Native (NH)): 126 per 100k
+- Place 10 (Asian (NH)): 139 per 100k
+- Place 10 (Black or African American (NH)): 102 per 100k
+- Place 10 (Hispanic and Latino): 115 per 100k
+- Place 10 (Native Hawaiian and Pacific Islander (NH)): 128 per 100k
+- Place 10 (Two or more races & Unreported Race (NH)): 141 per 100k
+- Place 10 (White (NH)): 104 per 100k
+- Place 11 (All): 120 per 100k
+- Place 11 (American Indian and Alaska Native (NH)): 133 per 100k
+- Place 11 (Asian (NH)): 146 per 100k
+- Place 11 (Black or African American (NH)): 109 per 100k
+- Place 11 (Hispanic and Latino): 122 per 100k
+- Place 11 (Native Hawaiian and Pacific Islander (NH)): 135 per 100k
+- Place 11 (Two or more races & Unreported Race (NH)): 148 per 100k
+- Place 11 (White (NH)): 111 per 100k
+- Place 12 (All): 127 per 100k
+- Place 12 (American Indian and Alaska Native (NH)): 140 per 100k
+- Place 12 (Asian (NH)): 103 per 100k
+- Place 12 (Black or African American (NH)): 116 per 100k
+- Place 12 (Hispanic and Latino): 129 per 100k
+- Place 12 (Native Hawaiian and Pacific Islander (NH)): 142 per 100k
+- Place 12 (Two or more races & Unreported Race (NH)): 105 per 100k
+- Place 12 (White (NH)): 118 per 100k
+- Place 13 (All): 134 per 100k
+- Place 13 (American Indian and Alaska Native (NH)): 147 per 100k
+- Place 13 (Asian (NH)): 110 per 100k
+- Place 13 (Black or African American (NH)): 123 per 100k
+- Place 13 (Hispanic and Latino): 136 per 100k
+- Place 13 (Native Hawaiian and Pacific Islander (NH)): 149 per 100k
+- Place 13 (Two or more races & Unreported Race (NH)): 112 per 100k
+- Place 13 (White (NH)): 125 per 100k
+- Place 14 (All): 141 per 100k
+- Place 14 (American Indian and Alaska Native (NH)): 104 per 100k
+- Place 14 (Asian (NH)): 117 per 100k
+- Place 14 (Black or African American (NH)): 130 per 100k
+- Place 14 (Hispanic and Latino): 143 per 100k
+- Place 14 (Native Hawaiian and Pacific Islander (NH)): 106 per 100k
+- Place 14 (Two or more races & Unreported Race (NH)): 119 per 100k
+- Place 14 (White (NH)): 132 per 100k
+- Place 15 (All): 148 per 100k
+- Place 15 (American Indian and Alaska Native (NH)): 111 per 100k
+- Place 15 (Asian (NH)): 124 per 100k
+- Place 15 (Black or African American (NH)): 137 per 100k
+- Place 15 (Hispanic and Latino): 100 per 100k
+- Place 15 (Native Hawaiian and Pacific Islander (NH)): 113 per 100k
+- Place 15 (Two or more races & Unreported Race (NH)): 126 per 100k
+- Place 15 (White (NH)): 139 per 100k
+- Place 16 (All): 105 per 100k
+- Place 16 (American Indian and Alaska Native (NH)): 118 per 100k
+- Place 16 (Asian (NH)): 131 per 100k
+- Place 16 (Black or African American (NH)): 144 per 100k
+- Place 16 (Hispanic and Latino): 107 per 100k
+- Place 16 (Native Hawaiian and Pacific Islander (NH)): 120 per 100k
+- Place 16 (Two or more races & Unreported Race (NH)): 133 per 100k
+- Place 16 (White (NH)): 146 per 100k
+- Place 17 (All): 112 per 100k
+- Place 17 (American Indian and Alaska Native (NH)): 125 per 100k
+- Place 17 (Asian (NH)): 138 per 100k
+- Place 17 (Black or African American (NH)): 101 per 100k
+- Place 17 (Hispanic and Latino): 114 per 100k
+- Place 17 (Native Hawaiian and Pacific Islander (NH)): 127 per 100k
+- Place 17 (Two or more races & Unreported Race (NH)): 140 per 100k
+- Place 17 (White (NH)): 103 per 100k
+- Place 18 (All): 119 per 100k
+- Place 18 (American Indian and Alaska Native (NH)): 132 per 100k
+- Place 18 (Asian (NH)): 145 per 100k
+- Place 18 (Black or African American (NH)): 108 per 100k
+- Place 18 (Hispanic and Latino): 121 per 100k
+- Place 18 (Native Hawaiian and Pacific Islander (NH)): 134 per 100k
+- Place 18 (Two or more races & Unreported Race (NH)): 147 per 100k
+- Place 18 (White (NH)): 110 per 100k
+- Place 19 (All): 126 per 100k
+- Place 19 (American Indian and Alaska Native (NH)): 139 per 100k
+- Place 19 (Asian (NH)): 102 per 100k
+- Place 19 (Black or African American (NH)): 115 per 100k
+- Place 19 (Hispanic and Latino): 128 per 100k
+- Place 19 (Native Hawaiian and Pacific Islander (NH)): 141 per 100k
+- Place 19 (Two or more races & Unreported Race (NH)): 104 per 100k
+- Place 19 (White (NH)): 117 per 100k
+- Place 20 (All): 133 per 100k
+- Place 20 (American Indian and Alaska Native (NH)): 146 per 100k
+- Place 20 (Asian (NH)): 109 per 100k
+- Place 20 (Black or African American (NH)): 122 per 100k
+- Place 20 (Hispanic and Latino): 135 per 100k
+- Place 20 (Native Hawaiian and Pacific Islander (NH)): 148 per 100k
+- Place 20 (Two or more races & Unreported Race (NH)): 111 per 100k
+- Place 20 (White (NH)): 124 per 100k
+- Place 21 (All): 140 per 100k
+- Place 21 (American Indian and Alaska Native (NH)): 103 per 100k
+- Place 21 (Asian (NH)): 116 per 100k
+- Place 21 (Black or African American (NH)): 129 per 100k
+- Place 21 (Hispanic and Latino): 142 per 100k
+- Place 21 (Native Hawaiian and Pacific Islander (NH)): 105 per 100k
+- Place 21 (Two or more races & Unreported Race (NH)): 118 per 100k
+- Place 21 (White (NH)): 131 per 100k
+- Place 22 (All): 147 per 100k
+- Place 22 (American Indian and Alaska Native (NH)): 110 per 100k
+- Place 22 (Asian (NH)): 123 per 100k
+- Place 22 (Black or African American (NH)): 136 per 100k
+- Place 22 (Hispanic and Latino): 149 per 100k
+- Place 22 (Native Hawaiian and Pacific Islander (NH)): 112 per 100k
+- Place 22 (Two or more races & Unreported Race (NH)): 125 per 100k
+- Place 22 (White (NH)): 138 per 100k
+- Place 23 (All): 104 per 100k
+- Place 23 (American Indian and Alaska Native (NH)): 117 per 100k
+- Place 23 (Asian (NH)): 130 per 100k
+- Place 23 (Black or African American (NH)): 143 per 100k
+- Place 23 (Hispanic and Latino): 106 per 100k
+- Place 23 (Native Hawaiian and Pacific Islander (NH)): 119 per 100k
+- Place 23 (Two or more races & Unreported Race (NH)): 132 per 100k
+- Place 23 (White (NH)): 145 per 100k
+- Place 24 (All): 111 per 100k
+- Place 24 (American Indian and Alaska Native (NH)): 124 per 100k
+- Place 24 (Asian (NH)): 137 per 100k
+- Place 24 (Black or African American (NH)): 100 per 100k
+- Place 24 (Hispanic and Latino): 113 per 100k
+- Place 24 (Native Hawaiian and Pacific Islander (NH)): 126 per 100k
+- Place 24 (Two or more races & Unreported Race (NH)): 139 per 100k
+- Place 24 (White (NH)): 102 per 100k
+- Place 25 (All): 118 per 100k
+- Place 25 (American Indian and Alaska Native (NH)): 131 per 100k
+- Place 25 (Asian (NH)): 144 per 100k
+- Place 25 (Black or African American (NH)): 107 per 100k
+- Place 25 (Hispanic and Latino): 120 per 100k
+- Place 25 (Native Hawaiian and Pacific Islander (NH)): 133 per 100k
+- Place 25 (Two or more races & Unreported Race (NH)): 146 per 100k
+- Place 25 (White (NH)): 109 per 100k
+- Place 26 (All): 125 per 100k
+- Place 26 (American Indian and Alaska Native (NH)): 138 per 100k
+- Place 26 (Asian (NH)): 101 per 100k
+- Place 26 (Black or African American (NH)): 114 per 100k
+- Place 26 (Hispanic and Latino): 127 per 100k
+- Place 26 (Native Hawaiian and Pacific Islander (NH)): 140 per 100k
+- Place 26 (Two or more races & Unreported Race (NH)): 103 per 100k
+- Place 26 (White (NH)): 116 per 100k
+- Place 27 (All): 132 per 100k
+- Place 27 (American Indian and Alaska Native (NH)): 145 per 100k
+- Place 27 (Asian (NH)): 108 per 100k
+- Place 27 (Black or African American (NH)): 121 per 100k
+- Place 27 (Hispanic and Latino): 134 per 100k
+- Place 27 (Native Hawaiian and Pacific Islander (NH)): 147 per 100k
+- Place 27 (Two or more races & Unreported Race (NH)): 110 per 100k
+- Place 27 (White (NH)): 123 per 100k
+- Place 28 (All): 139 per 100k
+- Place 28 (American Indian and Alaska Native (NH)): 102 per 100k
+- Place 28 (Asian (NH)): 115 per 100k
+- Place 28 (Black or African American (NH)): 128 per 100k
+- Place 28 (Hispanic and Latino): 141 per 100k
+- Place 28 (Native Hawaiian and Pacific Islander (NH)): 104 per 100k
+- Place 28 (Two or more races & Unreported Race (NH)): 117 per 100k
+- Place 28 (White (NH)): 130 per 100k
+- Place 29 (All): 146 per 100k
+- Place 29 (American Indian and Alaska Native (NH)): 109 per 100k
+- Place 29 (Asian (NH)): 122 per 100k
+- Place 29 (Black or African American (NH)): 135 per 100k
+- Place 29 (Hispanic and Latino): 148 per 100k
+- Place 29 (Native Hawaiian and Pacific Islander (NH)): 111 per 100k
+- Place 29 (Two or more races & Unreported Race (NH)): 124 per 100k
+- Place 29 (White (NH)): 137 per 100k
+- Place 30 (All): 103 per 100k
+- Place 30 (American Indian and Alaska Native (NH)): 116 per 100k
+- Place 30 (Asian (NH)): 129 per 100k
+- Place 30 (Black or African American (NH)): 142 per 100k
+- Place 30 (Hispanic and Latino): 105 per 100k
+- Place 30 (Native Hawaiian and Pacific Islander (NH)): 118 per 100k
+- Place 30 (Two or more races & Unreported Race (NH)): 131 per 100k
+- Place 30 (White (NH)): 144 per 100k
+- Place 31 (All): 110 per 100k
+- Place 31 (American Indian and Alaska Native (NH)): 123 per 100k
+- Place 31 (Asian (NH)): 136 per 100k
+- Place 31 (Black or African American (NH)): 149 per 100k
+- Place 31 (Hispanic and Latino): 112 per 100k
+- Place 31 (Native Hawaiian and Pacific Islander (NH)): 125 per 100k
+- Place 31 (Two or more races & Unreported Race (NH)): 138 per 100k
+- Place 31 (White (NH)): 101 per 100k
+- Place 32 (All): 117 per 100k
+- Place 32 (American Indian and Alaska Native (NH)): 130 per 100k
+- Place 32 (Asian (NH)): 143 per 100k
+- Place 32 (Black or African American (NH)): 106 per 100k
+- Place 32 (Hispanic and Latino): 119 per 100k
+- Place 32 (Native Hawaiian and Pacific Islander (NH)): 132 per 100k
+- Place 32 (Two or more races & Unreported Race (NH)): 145 per 100k
+- Place 32 (White (NH)): 108 per 100k
+- Place 33 (All): 124 per 100k
+- Place 33 (American Indian and Alaska Native (NH)): 137 per 100k
+- Place 33 (Asian (NH)): 100 per 100k
+- Place 33 (Black or African American (NH)): 113 per 100k
+- Place 33 (Hispanic and Latino): 126 per 100k
+- Place 33 (Native Hawaiian and Pacific Islander (NH)): 139 per 100k
+- Place 33 (Two or more races & Unreported Race (NH)): 102 per 100k
+- Place 33 (White (NH)): 115 per 100k
+- Place 34 (All): 131 per 100k
+- Place 34 (American Indian and Alaska Native (NH)): 144 per 100k
+- Place 34 (Asian (NH)): 107 per 100k
+- Place 34 (Black or African American (NH)): 120 per 100k
+- Place 34 (Hispanic and Latino): 133 per 100k
+- Place 34 (Native Hawaiian and Pacific Islander (NH)): 146 per 100k
+- Place 34 (Two or more races & Unreported Race (NH)): 109 per 100k
+- Place 34 (White (NH)): 122 per 100k
+- Place 35 (All): 138 per 100k
+- Place 35 (American Indian and Alaska Native (NH)): 101 per 100k
+- Place 35 (Asian (NH)): 114 per 100k
+- Place 35 (Black or African American (NH)): 127 per 100k
+- Place 35 (Hispanic and Latino): 140 per 100k
+- Place 35 (Native Hawaiian and Pacific Islander (NH)): 103 per 100k
+- Place 35 (Two or more races & Unreported Race (NH)): 116 per 100k
+- Place 35 (White (NH)): 129 per 100k
+- Place 36 (All): 145 per 100k
+- Place 36 (American Indian and Alaska Native (NH)): 108 per 100k
+- Place 36 (Asian (NH)): 121 per 100k
+- Place 36 (Black or African American (NH)): 134 per 100k
+- Place 36 (Hispanic and Latino): 147 per 100k
+- Place 36 (Native Hawaiian and Pacific Islander (NH)): 110 per 100k
+- Place 36 (Two or more races & Unreported Race (NH)): 123 per 100k
+- Place 36 (White (NH)): 136 per 100k
+- Place 37 (All): 102 per 100k
+- Place 37 (American Indian and Alaska Native (NH)): 115 per 100k
+- Place 37 (Asian (NH)): 128 per 100k
+- Place 37 (Black or African American (NH)): 141 per 100k
+- Place 37 (Hispanic and Latino): 104 per 100k
+- Place 37 (Native Hawaiian and Pacific Islander (NH)): 117 per 100k
+- Place 37 (Two or more races & Unreported Race (NH)): 130 per 100k
+- Place 37 (White (NH)): 143 per 100k
+- Place 38 (All): 109 per 100k
+- Place 38 (American Indian and Alaska Native (NH)): 122 per 100k
+- Place 38 (Asian (NH)): 135 per 100k
+- Place 38 (Black or African American (NH)): 148 per 100k
+- Place 38 (Hispanic and Latino): 111 per 100k
+- Place 38 (Native Hawaiian and Pacific Islander (NH)): 124 per 100k
+- Place 38 (Two or more races & Unreported Race (NH)): 137 per 100k
+- Place 38 (White (NH)): 100 per 100k
+- Place 39 (All): 116 per 100k
+- Place 39 (American Indian and Alaska Native (NH)): 129 per 100k
+- Place 39 (Asian (NH)): 142 per 100k
+- Place 39 (Black or African American (NH)): 105 per 100k
+- Place 39 (Hispanic and Latino): 118 per 100k
+- Place 39 (Native Hawaiian and Pacific Islander (NH)): 131 per 100k
+- Place 39 (Two or more races & Unreported Race (NH)): 144 per 100k
+- Place 39 (White (NH)): 107 per 100k
+- Place 40 (All): 123 per 100k
+- Place 40 (American Indian and Alaska Native (NH)): 136 per 100k
+- Place 40 (Asian (NH)): 149 per 100k
+- Place 40 (Black or African American (NH)): 112 per 100k
+- Place 40 (Hispanic and Latino): 125 per 100k
+- Place 40 (Native Hawaiian and Pacific Islander (NH)): 138 per 100k
+- Place 40 (Two or more races & Unreported Race (NH)): 101 per 100k
+- Place 40 (White (NH)): 114 per 100k
+- Place 41 (All): 130 per 100k
+- Place 41 (American Indian and Alaska Native (NH)): 143 per 100k
+- Place 41 (Asian (NH)): 106 per 100k
+- Place 41 (Black or African American (NH)): 119 per 100k
+- Place 41 (Hispanic and Latino): 132 per 100k
+- Place 41 (Native Hawaiian and Pacific Islander (NH)): 145 per 100k
+- Place 41 (Two or more races & Unreported Race (NH)): 108 per 100k
+- Place 41 (White (NH)): 121 per 100k
+- Place 42 (All): 137 per 100k
+- Place 42 (American Indian and Alaska Native (NH)): 100 per 100k
+- Place 42 (Asian (NH)): 113 per 100k
+- Place 42 (Black or African American (NH)): 126 per 100k
+- Place 42 (Hispanic and Latino): 139 per 100k
+- Place 42 (Native Hawaiian and Pacific Islander (NH)): 102 per 100k
+- Place 42 (Two or more races & Unreported Race (NH)): 115 per 100k
+- Place 42 (White (NH)): 128 per 100k
+- Place 43 (All): 144 per 100k
+- Place 43 (American Indian and Alaska Native (NH)): 107 per 100k
+- Place 43 (Asian (NH)): 120 per 100k
+- Place 43 (Black or African American (NH)): 133 per 100k
+- Place 43 (Hispanic and Latino): 146 per 100k
+- Place 43 (Native Hawaiian and Pacific Islander (NH)): 109 per 100k
+- Place 43 (Two or more races & Unreported Race (NH)): 122 per 100k
+- Place 43 (White (NH)): 135 per 100k
+- Place 44 (All): 101 per 100k
+- Place 44 (American Indian and Alaska Native (NH)): 114 per 100k
+- Place 44 (Asian (NH)): 127 per 100k
+- Place 44 (Black or African American (NH)): 140 per 100k
+- Place 44 (Hispanic and Latino): 103 per 100k
+- Place 44 (Native Hawaiian and Pacific Islander (NH)): 116 per 100k
+- Place 44 (Two or more races & Unreported Race (NH)): 129 per 100k
+- Place 44 (White (NH)): 142 per 100k
+- Place 45 (All): 108 per 100k
+- Place 45 (American Indian and Alaska Native (NH)): 121 per 100k
+- Place 45 (Asian (NH)): 134 per 100k
+- Place 45 (Black or African American (NH)): 147 per 100k
+- Place 45 (Hispanic and Latino): 110 per 100k
+- Place 45 (Native Hawaiian and Pacific Islander (NH)): 123 per 100k
+- Place 45 (Two or more races & Unreported Race (NH)): 136 per 100k
+- Place 45 (White (NH)): 149 per 100k
+- Place 46 (All): 115 per 100k
+- Place 46 (American Indian and Alaska Native (NH)): 128 per 100k
+- Place 46 (Asian (NH)): 141 per 100k
+- Place 46 (Black or African American (NH)): 104 per 100k
+- Place 46 (Hispanic and Latino): 117 per 100k
+- Place 46 (Native Hawaiian and Pacific Islander (NH)): 130 per 100k
+- Place 46 (Two or more races & Unreported Race (NH)): 143 per 100k
+- Place 46 (White (NH)): 106 per 100k
+- Place 47 (All): 122 per 100k
+- Place 47 (American Indian and Alaska Native (NH)): 135 per 100k
+- Place 47 (Asian (NH)): 148 per 100k
+- Place 47 (Black or African American (NH)): 111 per 100k
+- Place 47 (Hispanic and Latino): 124 per 100k
+- Place 47 (Native Hawaiian and Pacific Islander (NH)): 137 per 100k
+- Place 47 (Two or more races & Unreported Race (NH)): 100 per 100k
+- Place 47 (White (NH)): 113 per 100k
+- Place 48 (All): 129 per 100k
+- Place 48 (American Indian and Alaska Native (NH)): 142 per 100k
+- Place 48 (Asian (NH)): 105 per 100k
+- Place 48 (Black or African American (NH)): 118 per 100k
+- Place 48 (Hispanic and Latino): 131 per 100k
+- Place 48 (Native Hawaiian and Pacific Islander (NH)): 144 per 100k
+- Place 48 (Two or more races & Unreported Race (NH)): 107 per 100k
+- Place 48 (White (NH)): 120 per 100k
+- Place 49 (All): 136 per 100k
+- Place 49 (American Indian and Alaska Native (NH)): 149 per 100k
+- Place 49 (Asian (NH)): 112 per 100k
+- Place 49 (Black or African American (NH)): 125 per 100k
+- Place 49 (Hispanic and Latino): 138 per 100k
+- Place 49 (Native Hawaiian and Pacific Islander (NH)): 101 per 100k
+- Place 49 (Two or more races & Unreported Race (NH)): 114 per 100k
+- Place 49 (White (NH)): 127 per 100k
+- Place 50 (All): 143 per 100k
+- Place 50 (American Indian and Alaska Native (NH)): 106 per 100k
+- Place 50 (Asian (NH)): 119 per 100k
+- Place 50 (Black or African American (NH)): 132 per 100k
+- Place 50 (Hispanic and Latino): 145 per 100k
+- Place 50 (Native Hawaiian and Pacific Islander (NH)): 108 per 100k
+- Place 50 (Two or more races & Unreported Race (NH)): 121 per 100k
+- Place 50 (White (NH)): 134 per 100k
+- Place 51 (All): 100 per 100k
+- Place 51 (American Indian and Alaska Native (NH)): 113 per 100k
+- Place 51 (Asian (NH)): 126 per 100k
+- Place 51 (Black or African American (NH)): 139 per 100k
+- Place 51 (Hispanic and Latino): 102 per 100k
+- Place 51 (Native Hawaiian and Pacific Islander (NH)): 115 per 100k
+- Place 51 (Two or more races & Unreported Race (NH)): 128 per 100k
+- Place 51 (White (NH)): 141 per 100k
+- Place 52 (All): 107 per 100k
+- Place 52 (American Indian and Alaska Native (NH)): 120 per 100k
+- Place 52 (Asian (NH)): 133 per 100k
+- Place 52 (Black or African American (NH)): 146 per 100k
+- Place 52 (Hispanic and Latino): 109 per 100k
+- Place 52 (Native Hawaiian and Pacific Islander (NH)): 122 per 100k
+- Place 52 (Two or more races & Unreported Race (NH)): 135 per 100k
+- Place 52 (White (NH)): 148 per 100k
+- Place 53 (All): 114 per 100k
+- Place 53 (American Indian and Alaska Native (NH)): 127 per 100k
+- Place 53 (Asian (NH)): 140 per 100k
+- Place 53 (Black or African American (NH)): 103 per 100k
+- Place 53 (Hispanic and Latino): 116 per 100k
+- Place 53 (Native Hawaiian and Pacific Islander (NH)): 129 per 100k
+- Place 53 (Two or more races & Unreported Race (NH)): 142 per 100k
+- Place 53 (White (NH)): 105 per 100k
+- Place 54 (All): 121 per 100k
+- Place 54 (American Indian and Alaska Native (NH)): 134 per 100k
+- Place 54 (Asian (NH)): 147 per 100k
+- Place 54 (Black or African American (NH)): 110 per 100k
+- Place 54 (Hispanic and Latino): 123 per 100k
+- Place 54 (Native Hawaiian and Pacific Islander (NH)): 136 per 100k
+- Place 54 (Two or more races & Unreported Race (NH)): 149 per 100k
+- Place 54 (White (NH)): 112 per 100k
+- Place 55 (All): 128 per 100k
+- Place 55 (American Indian and Alaska Native (NH)): 141 per 100k
+- Place 55 (Asian (NH)): 104 per 100k
+- Place 55 (Black or African American (NH)): 117 per 100k
+- Place 55 (Hispanic and Latino): 130 per 100k
+- Place 55 (Native Hawaiian and Pacific Islander (NH)): 143 per 100k
+- Place 55 (Two or more races & Unreported Race (NH)): 106 per 100k
+- Place 55 (White (NH)): 119 per 100k
+- Place 56 (All): 135 per 100k
+- Place 56 (American Indian and Alaska Native (NH)): 148 per 100k
+- Place 56 (Asian (NH)): 111 per 100k
+- Place 56 (Black or African American (NH)): 124 per 100k
+- Place 56 (Hispanic and Latino): 137 per 100k
+- Place 56 (Native Hawaiian and Pacific Islander (NH)): 100 per 100k
+- Place 56 (Two or more races & Unreported Race (NH)): 113 per 100k
+- Place 56 (White (NH)): 126 per 100k
+- Place 57 (All): 142 per 100k
+- Place 57 (American Indian and Alaska Native (NH)): 105 per 100k
+- Place 57 (Asian (NH)): 118 per 100k
+- Place 57 (Black or African American (NH)): 131 per 100k
+- Place 57 (Hispanic and Latino): 144 per 100k
+- Place 57 (Native Hawaiian and Pacific Islander (NH)): 107 per 100k
+- Place 57 (Two or more races & Unreported Race (NH)): 120 per 100k
+- Place 57 (White (NH)): 133 per 100k
+- Place 58 (All): 149 per 100k
+- Place 58 (American Indian and Alaska Native (NH)): 112 per 100k
+- Place 58 (Asian (NH)): 125 per 100k
+- Place 58 (Black or African American (NH)): 138 per 100k
+- Place 58 (Hispanic and Latino): 101 per 100k
+- Place 58 (Native Hawaiian and Pacific Islander (NH)): 114 per 100k
+- Place 58 (Two or more races & Unreported Race (NH)): 127 per 100k
+- Place 58 (White (NH)): 140 per 100k
+- Place 59 (All): 106 per 100k
+- Place 59 (Asian (NH)): 132 per 100k
+- Place 60 (All): 113 per 100k
+- Place 60 (American Indian and Alaska Native (NH)): 901 per 100k
+- Place 60 (Asian (NH)): 902 per 100k
+- Place 60 (Black or African American (NH)): 903 per 100k
+- Place 60 (Hispanic and Latino): 904 per 100k
+- Place 60 (Native Hawaiian and Pacific Islander (NH)): 905 per 100k
+- Place 60 (Two or more races & Unreported Race (NH)): 906 per 100k
+- Place 60 (White (NH)): 907 per 100k
+
+Write a single sentence at an 8th grade reading level that captures the geographic disparity — which places have the highest and lowest rates — and what that concentration means for the people who live there. Focus on the "so what", not the chart mechanics.
+
+WRITING RULES, follow these strictly:
+- Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.
+- Every figure must come from or be derived from the data, including rounded figures and comparisons. Never state or estimate a figure from outside the data, such as a national or state average. Other geographic levels and other data sources often count differently, so comparisons with outside figures would not be fair.
+- Use at most two numbers, and prefer a comparison over a raw rate. Compare a group against the overall "All" rate whenever the data shows one; only if it does not, compare against the largest group shown. Compare a place against the typical place.
+- Write about the people in the data in the third person. Never "we", "us", "our communities", or "those in our communities". A reader may belong to any group on the page.
+- Name the extreme, not the spread. Say which group or place is highest or lowest. Never say values "vary widely".
+- Say how long a pattern has held in human terms, "for over a decade", rather than listing years.
+- Use the words people actually use: "Black" for "Black or African American (NH)", "people living with HIV" for "HIV prevalence", "heart attacks" for "acute myocardial infarction".
+
+Respond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:
+
+{
+  "insight": {
+    "text": "the sentence",
+    "highlight": "the key phrase from that sentence"
+  }
+}
+
+"highlight" is the one phrase in "text" a reader should notice first: the comparison or figure that carries the finding. Copy it character for character from "text", keep it to roughly 3 to 8 words, and never make it the whole sentence. Inside "text", write only the sentence itself: no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.

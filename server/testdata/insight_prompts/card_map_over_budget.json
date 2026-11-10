@@ -1,0 +1,2897 @@
+{
+  "kind": "card",
+  "why": "A national map by race with every group shown and more rows than the card budget carries. The last place in file order holds every group's highest rate, so a file-order trim would drop it; the prompt must keep every place's All row and each group's extremes.",
+  "hashId": "rate-map",
+  "topic": "prison",
+  "location": "the United States",
+  "demographicType": "race_and_ethnicity",
+  "metricConfig": {
+    "metricId": "prison_per_100k",
+    "shortLabel": "per 100k"
+  },
+  "context": {
+    "activeDemographicGroup": "All"
+  },
+  "rows": [
+    {
+      "fips": "01",
+      "fips_name": "Place 01",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 100
+    },
+    {
+      "fips": "01",
+      "fips_name": "Place 01",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 113
+    },
+    {
+      "fips": "01",
+      "fips_name": "Place 01",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 126
+    },
+    {
+      "fips": "01",
+      "fips_name": "Place 01",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 139
+    },
+    {
+      "fips": "01",
+      "fips_name": "Place 01",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 102
+    },
+    {
+      "fips": "01",
+      "fips_name": "Place 01",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 115
+    },
+    {
+      "fips": "01",
+      "fips_name": "Place 01",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 128
+    },
+    {
+      "fips": "01",
+      "fips_name": "Place 01",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 141
+    },
+    {
+      "fips": "02",
+      "fips_name": "Place 02",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 107
+    },
+    {
+      "fips": "02",
+      "fips_name": "Place 02",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 120
+    },
+    {
+      "fips": "02",
+      "fips_name": "Place 02",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 133
+    },
+    {
+      "fips": "02",
+      "fips_name": "Place 02",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 146
+    },
+    {
+      "fips": "02",
+      "fips_name": "Place 02",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 109
+    },
+    {
+      "fips": "02",
+      "fips_name": "Place 02",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 122
+    },
+    {
+      "fips": "02",
+      "fips_name": "Place 02",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 135
+    },
+    {
+      "fips": "02",
+      "fips_name": "Place 02",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 148
+    },
+    {
+      "fips": "03",
+      "fips_name": "Place 03",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 114
+    },
+    {
+      "fips": "03",
+      "fips_name": "Place 03",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 127
+    },
+    {
+      "fips": "03",
+      "fips_name": "Place 03",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 140
+    },
+    {
+      "fips": "03",
+      "fips_name": "Place 03",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 103
+    },
+    {
+      "fips": "03",
+      "fips_name": "Place 03",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 116
+    },
+    {
+      "fips": "03",
+      "fips_name": "Place 03",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 129
+    },
+    {
+      "fips": "03",
+      "fips_name": "Place 03",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 142
+    },
+    {
+      "fips": "03",
+      "fips_name": "Place 03",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 105
+    },
+    {
+      "fips": "04",
+      "fips_name": "Place 04",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 121
+    },
+    {
+      "fips": "04",
+      "fips_name": "Place 04",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 134
+    },
+    {
+      "fips": "04",
+      "fips_name": "Place 04",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 147
+    },
+    {
+      "fips": "04",
+      "fips_name": "Place 04",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 110
+    },
+    {
+      "fips": "04",
+      "fips_name": "Place 04",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 123
+    },
+    {
+      "fips": "04",
+      "fips_name": "Place 04",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 136
+    },
+    {
+      "fips": "04",
+      "fips_name": "Place 04",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 149
+    },
+    {
+      "fips": "04",
+      "fips_name": "Place 04",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 112
+    },
+    {
+      "fips": "05",
+      "fips_name": "Place 05",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 128
+    },
+    {
+      "fips": "05",
+      "fips_name": "Place 05",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 141
+    },
+    {
+      "fips": "05",
+      "fips_name": "Place 05",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 104
+    },
+    {
+      "fips": "05",
+      "fips_name": "Place 05",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 117
+    },
+    {
+      "fips": "05",
+      "fips_name": "Place 05",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 130
+    },
+    {
+      "fips": "05",
+      "fips_name": "Place 05",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 143
+    },
+    {
+      "fips": "05",
+      "fips_name": "Place 05",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 106
+    },
+    {
+      "fips": "05",
+      "fips_name": "Place 05",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 119
+    },
+    {
+      "fips": "06",
+      "fips_name": "Place 06",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 135
+    },
+    {
+      "fips": "06",
+      "fips_name": "Place 06",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 148
+    },
+    {
+      "fips": "06",
+      "fips_name": "Place 06",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 111
+    },
+    {
+      "fips": "06",
+      "fips_name": "Place 06",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 124
+    },
+    {
+      "fips": "06",
+      "fips_name": "Place 06",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 137
+    },
+    {
+      "fips": "06",
+      "fips_name": "Place 06",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 100
+    },
+    {
+      "fips": "06",
+      "fips_name": "Place 06",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 113
+    },
+    {
+      "fips": "06",
+      "fips_name": "Place 06",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 126
+    },
+    {
+      "fips": "07",
+      "fips_name": "Place 07",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 142
+    },
+    {
+      "fips": "07",
+      "fips_name": "Place 07",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 105
+    },
+    {
+      "fips": "07",
+      "fips_name": "Place 07",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 118
+    },
+    {
+      "fips": "07",
+      "fips_name": "Place 07",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 131
+    },
+    {
+      "fips": "07",
+      "fips_name": "Place 07",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 144
+    },
+    {
+      "fips": "07",
+      "fips_name": "Place 07",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 107
+    },
+    {
+      "fips": "07",
+      "fips_name": "Place 07",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 120
+    },
+    {
+      "fips": "07",
+      "fips_name": "Place 07",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 133
+    },
+    {
+      "fips": "08",
+      "fips_name": "Place 08",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 149
+    },
+    {
+      "fips": "08",
+      "fips_name": "Place 08",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 112
+    },
+    {
+      "fips": "08",
+      "fips_name": "Place 08",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 125
+    },
+    {
+      "fips": "08",
+      "fips_name": "Place 08",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 138
+    },
+    {
+      "fips": "08",
+      "fips_name": "Place 08",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 101
+    },
+    {
+      "fips": "08",
+      "fips_name": "Place 08",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 114
+    },
+    {
+      "fips": "08",
+      "fips_name": "Place 08",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 127
+    },
+    {
+      "fips": "08",
+      "fips_name": "Place 08",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 140
+    },
+    {
+      "fips": "09",
+      "fips_name": "Place 09",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 106
+    },
+    {
+      "fips": "09",
+      "fips_name": "Place 09",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 119
+    },
+    {
+      "fips": "09",
+      "fips_name": "Place 09",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 132
+    },
+    {
+      "fips": "09",
+      "fips_name": "Place 09",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 145
+    },
+    {
+      "fips": "09",
+      "fips_name": "Place 09",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 108
+    },
+    {
+      "fips": "09",
+      "fips_name": "Place 09",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 121
+    },
+    {
+      "fips": "09",
+      "fips_name": "Place 09",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 134
+    },
+    {
+      "fips": "09",
+      "fips_name": "Place 09",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 147
+    },
+    {
+      "fips": "10",
+      "fips_name": "Place 10",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 113
+    },
+    {
+      "fips": "10",
+      "fips_name": "Place 10",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 126
+    },
+    {
+      "fips": "10",
+      "fips_name": "Place 10",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 139
+    },
+    {
+      "fips": "10",
+      "fips_name": "Place 10",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 102
+    },
+    {
+      "fips": "10",
+      "fips_name": "Place 10",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 115
+    },
+    {
+      "fips": "10",
+      "fips_name": "Place 10",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 128
+    },
+    {
+      "fips": "10",
+      "fips_name": "Place 10",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 141
+    },
+    {
+      "fips": "10",
+      "fips_name": "Place 10",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 104
+    },
+    {
+      "fips": "11",
+      "fips_name": "Place 11",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 120
+    },
+    {
+      "fips": "11",
+      "fips_name": "Place 11",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 133
+    },
+    {
+      "fips": "11",
+      "fips_name": "Place 11",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 146
+    },
+    {
+      "fips": "11",
+      "fips_name": "Place 11",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 109
+    },
+    {
+      "fips": "11",
+      "fips_name": "Place 11",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 122
+    },
+    {
+      "fips": "11",
+      "fips_name": "Place 11",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 135
+    },
+    {
+      "fips": "11",
+      "fips_name": "Place 11",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 148
+    },
+    {
+      "fips": "11",
+      "fips_name": "Place 11",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 111
+    },
+    {
+      "fips": "12",
+      "fips_name": "Place 12",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 127
+    },
+    {
+      "fips": "12",
+      "fips_name": "Place 12",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 140
+    },
+    {
+      "fips": "12",
+      "fips_name": "Place 12",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 103
+    },
+    {
+      "fips": "12",
+      "fips_name": "Place 12",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 116
+    },
+    {
+      "fips": "12",
+      "fips_name": "Place 12",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 129
+    },
+    {
+      "fips": "12",
+      "fips_name": "Place 12",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 142
+    },
+    {
+      "fips": "12",
+      "fips_name": "Place 12",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 105
+    },
+    {
+      "fips": "12",
+      "fips_name": "Place 12",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 118
+    },
+    {
+      "fips": "13",
+      "fips_name": "Place 13",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 134
+    },
+    {
+      "fips": "13",
+      "fips_name": "Place 13",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 147
+    },
+    {
+      "fips": "13",
+      "fips_name": "Place 13",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 110
+    },
+    {
+      "fips": "13",
+      "fips_name": "Place 13",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 123
+    },
+    {
+      "fips": "13",
+      "fips_name": "Place 13",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 136
+    },
+    {
+      "fips": "13",
+      "fips_name": "Place 13",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 149
+    },
+    {
+      "fips": "13",
+      "fips_name": "Place 13",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 112
+    },
+    {
+      "fips": "13",
+      "fips_name": "Place 13",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 125
+    },
+    {
+      "fips": "14",
+      "fips_name": "Place 14",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 141
+    },
+    {
+      "fips": "14",
+      "fips_name": "Place 14",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 104
+    },
+    {
+      "fips": "14",
+      "fips_name": "Place 14",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 117
+    },
+    {
+      "fips": "14",
+      "fips_name": "Place 14",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 130
+    },
+    {
+      "fips": "14",
+      "fips_name": "Place 14",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 143
+    },
+    {
+      "fips": "14",
+      "fips_name": "Place 14",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 106
+    },
+    {
+      "fips": "14",
+      "fips_name": "Place 14",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 119
+    },
+    {
+      "fips": "14",
+      "fips_name": "Place 14",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 132
+    },
+    {
+      "fips": "15",
+      "fips_name": "Place 15",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 148
+    },
+    {
+      "fips": "15",
+      "fips_name": "Place 15",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 111
+    },
+    {
+      "fips": "15",
+      "fips_name": "Place 15",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 124
+    },
+    {
+      "fips": "15",
+      "fips_name": "Place 15",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 137
+    },
+    {
+      "fips": "15",
+      "fips_name": "Place 15",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 100
+    },
+    {
+      "fips": "15",
+      "fips_name": "Place 15",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 113
+    },
+    {
+      "fips": "15",
+      "fips_name": "Place 15",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 126
+    },
+    {
+      "fips": "15",
+      "fips_name": "Place 15",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 139
+    },
+    {
+      "fips": "16",
+      "fips_name": "Place 16",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 105
+    },
+    {
+      "fips": "16",
+      "fips_name": "Place 16",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 118
+    },
+    {
+      "fips": "16",
+      "fips_name": "Place 16",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 131
+    },
+    {
+      "fips": "16",
+      "fips_name": "Place 16",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 144
+    },
+    {
+      "fips": "16",
+      "fips_name": "Place 16",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 107
+    },
+    {
+      "fips": "16",
+      "fips_name": "Place 16",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 120
+    },
+    {
+      "fips": "16",
+      "fips_name": "Place 16",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 133
+    },
+    {
+      "fips": "16",
+      "fips_name": "Place 16",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 146
+    },
+    {
+      "fips": "17",
+      "fips_name": "Place 17",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 112
+    },
+    {
+      "fips": "17",
+      "fips_name": "Place 17",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 125
+    },
+    {
+      "fips": "17",
+      "fips_name": "Place 17",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 138
+    },
+    {
+      "fips": "17",
+      "fips_name": "Place 17",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 101
+    },
+    {
+      "fips": "17",
+      "fips_name": "Place 17",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 114
+    },
+    {
+      "fips": "17",
+      "fips_name": "Place 17",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 127
+    },
+    {
+      "fips": "17",
+      "fips_name": "Place 17",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 140
+    },
+    {
+      "fips": "17",
+      "fips_name": "Place 17",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 103
+    },
+    {
+      "fips": "18",
+      "fips_name": "Place 18",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 119
+    },
+    {
+      "fips": "18",
+      "fips_name": "Place 18",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 132
+    },
+    {
+      "fips": "18",
+      "fips_name": "Place 18",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 145
+    },
+    {
+      "fips": "18",
+      "fips_name": "Place 18",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 108
+    },
+    {
+      "fips": "18",
+      "fips_name": "Place 18",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 121
+    },
+    {
+      "fips": "18",
+      "fips_name": "Place 18",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 134
+    },
+    {
+      "fips": "18",
+      "fips_name": "Place 18",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 147
+    },
+    {
+      "fips": "18",
+      "fips_name": "Place 18",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 110
+    },
+    {
+      "fips": "19",
+      "fips_name": "Place 19",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 126
+    },
+    {
+      "fips": "19",
+      "fips_name": "Place 19",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 139
+    },
+    {
+      "fips": "19",
+      "fips_name": "Place 19",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 102
+    },
+    {
+      "fips": "19",
+      "fips_name": "Place 19",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 115
+    },
+    {
+      "fips": "19",
+      "fips_name": "Place 19",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 128
+    },
+    {
+      "fips": "19",
+      "fips_name": "Place 19",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 141
+    },
+    {
+      "fips": "19",
+      "fips_name": "Place 19",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 104
+    },
+    {
+      "fips": "19",
+      "fips_name": "Place 19",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 117
+    },
+    {
+      "fips": "20",
+      "fips_name": "Place 20",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 133
+    },
+    {
+      "fips": "20",
+      "fips_name": "Place 20",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 146
+    },
+    {
+      "fips": "20",
+      "fips_name": "Place 20",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 109
+    },
+    {
+      "fips": "20",
+      "fips_name": "Place 20",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 122
+    },
+    {
+      "fips": "20",
+      "fips_name": "Place 20",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 135
+    },
+    {
+      "fips": "20",
+      "fips_name": "Place 20",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 148
+    },
+    {
+      "fips": "20",
+      "fips_name": "Place 20",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 111
+    },
+    {
+      "fips": "20",
+      "fips_name": "Place 20",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 124
+    },
+    {
+      "fips": "21",
+      "fips_name": "Place 21",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 140
+    },
+    {
+      "fips": "21",
+      "fips_name": "Place 21",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 103
+    },
+    {
+      "fips": "21",
+      "fips_name": "Place 21",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 116
+    },
+    {
+      "fips": "21",
+      "fips_name": "Place 21",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 129
+    },
+    {
+      "fips": "21",
+      "fips_name": "Place 21",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 142
+    },
+    {
+      "fips": "21",
+      "fips_name": "Place 21",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 105
+    },
+    {
+      "fips": "21",
+      "fips_name": "Place 21",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 118
+    },
+    {
+      "fips": "21",
+      "fips_name": "Place 21",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 131
+    },
+    {
+      "fips": "22",
+      "fips_name": "Place 22",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 147
+    },
+    {
+      "fips": "22",
+      "fips_name": "Place 22",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 110
+    },
+    {
+      "fips": "22",
+      "fips_name": "Place 22",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 123
+    },
+    {
+      "fips": "22",
+      "fips_name": "Place 22",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 136
+    },
+    {
+      "fips": "22",
+      "fips_name": "Place 22",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 149
+    },
+    {
+      "fips": "22",
+      "fips_name": "Place 22",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 112
+    },
+    {
+      "fips": "22",
+      "fips_name": "Place 22",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 125
+    },
+    {
+      "fips": "22",
+      "fips_name": "Place 22",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 138
+    },
+    {
+      "fips": "23",
+      "fips_name": "Place 23",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 104
+    },
+    {
+      "fips": "23",
+      "fips_name": "Place 23",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 117
+    },
+    {
+      "fips": "23",
+      "fips_name": "Place 23",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 130
+    },
+    {
+      "fips": "23",
+      "fips_name": "Place 23",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 143
+    },
+    {
+      "fips": "23",
+      "fips_name": "Place 23",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 106
+    },
+    {
+      "fips": "23",
+      "fips_name": "Place 23",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 119
+    },
+    {
+      "fips": "23",
+      "fips_name": "Place 23",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 132
+    },
+    {
+      "fips": "23",
+      "fips_name": "Place 23",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 145
+    },
+    {
+      "fips": "24",
+      "fips_name": "Place 24",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 111
+    },
+    {
+      "fips": "24",
+      "fips_name": "Place 24",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 124
+    },
+    {
+      "fips": "24",
+      "fips_name": "Place 24",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 137
+    },
+    {
+      "fips": "24",
+      "fips_name": "Place 24",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 100
+    },
+    {
+      "fips": "24",
+      "fips_name": "Place 24",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 113
+    },
+    {
+      "fips": "24",
+      "fips_name": "Place 24",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 126
+    },
+    {
+      "fips": "24",
+      "fips_name": "Place 24",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 139
+    },
+    {
+      "fips": "24",
+      "fips_name": "Place 24",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 102
+    },
+    {
+      "fips": "25",
+      "fips_name": "Place 25",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 118
+    },
+    {
+      "fips": "25",
+      "fips_name": "Place 25",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 131
+    },
+    {
+      "fips": "25",
+      "fips_name": "Place 25",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 144
+    },
+    {
+      "fips": "25",
+      "fips_name": "Place 25",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 107
+    },
+    {
+      "fips": "25",
+      "fips_name": "Place 25",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 120
+    },
+    {
+      "fips": "25",
+      "fips_name": "Place 25",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 133
+    },
+    {
+      "fips": "25",
+      "fips_name": "Place 25",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 146
+    },
+    {
+      "fips": "25",
+      "fips_name": "Place 25",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 109
+    },
+    {
+      "fips": "26",
+      "fips_name": "Place 26",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 125
+    },
+    {
+      "fips": "26",
+      "fips_name": "Place 26",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 138
+    },
+    {
+      "fips": "26",
+      "fips_name": "Place 26",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 101
+    },
+    {
+      "fips": "26",
+      "fips_name": "Place 26",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 114
+    },
+    {
+      "fips": "26",
+      "fips_name": "Place 26",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 127
+    },
+    {
+      "fips": "26",
+      "fips_name": "Place 26",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 140
+    },
+    {
+      "fips": "26",
+      "fips_name": "Place 26",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 103
+    },
+    {
+      "fips": "26",
+      "fips_name": "Place 26",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 116
+    },
+    {
+      "fips": "27",
+      "fips_name": "Place 27",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 132
+    },
+    {
+      "fips": "27",
+      "fips_name": "Place 27",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 145
+    },
+    {
+      "fips": "27",
+      "fips_name": "Place 27",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 108
+    },
+    {
+      "fips": "27",
+      "fips_name": "Place 27",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 121
+    },
+    {
+      "fips": "27",
+      "fips_name": "Place 27",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 134
+    },
+    {
+      "fips": "27",
+      "fips_name": "Place 27",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 147
+    },
+    {
+      "fips": "27",
+      "fips_name": "Place 27",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 110
+    },
+    {
+      "fips": "27",
+      "fips_name": "Place 27",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 123
+    },
+    {
+      "fips": "28",
+      "fips_name": "Place 28",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 139
+    },
+    {
+      "fips": "28",
+      "fips_name": "Place 28",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 102
+    },
+    {
+      "fips": "28",
+      "fips_name": "Place 28",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 115
+    },
+    {
+      "fips": "28",
+      "fips_name": "Place 28",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 128
+    },
+    {
+      "fips": "28",
+      "fips_name": "Place 28",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 141
+    },
+    {
+      "fips": "28",
+      "fips_name": "Place 28",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 104
+    },
+    {
+      "fips": "28",
+      "fips_name": "Place 28",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 117
+    },
+    {
+      "fips": "28",
+      "fips_name": "Place 28",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 130
+    },
+    {
+      "fips": "29",
+      "fips_name": "Place 29",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 146
+    },
+    {
+      "fips": "29",
+      "fips_name": "Place 29",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 109
+    },
+    {
+      "fips": "29",
+      "fips_name": "Place 29",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 122
+    },
+    {
+      "fips": "29",
+      "fips_name": "Place 29",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 135
+    },
+    {
+      "fips": "29",
+      "fips_name": "Place 29",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 148
+    },
+    {
+      "fips": "29",
+      "fips_name": "Place 29",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 111
+    },
+    {
+      "fips": "29",
+      "fips_name": "Place 29",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 124
+    },
+    {
+      "fips": "29",
+      "fips_name": "Place 29",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 137
+    },
+    {
+      "fips": "30",
+      "fips_name": "Place 30",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 103
+    },
+    {
+      "fips": "30",
+      "fips_name": "Place 30",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 116
+    },
+    {
+      "fips": "30",
+      "fips_name": "Place 30",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 129
+    },
+    {
+      "fips": "30",
+      "fips_name": "Place 30",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 142
+    },
+    {
+      "fips": "30",
+      "fips_name": "Place 30",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 105
+    },
+    {
+      "fips": "30",
+      "fips_name": "Place 30",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 118
+    },
+    {
+      "fips": "30",
+      "fips_name": "Place 30",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 131
+    },
+    {
+      "fips": "30",
+      "fips_name": "Place 30",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 144
+    },
+    {
+      "fips": "31",
+      "fips_name": "Place 31",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 110
+    },
+    {
+      "fips": "31",
+      "fips_name": "Place 31",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 123
+    },
+    {
+      "fips": "31",
+      "fips_name": "Place 31",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 136
+    },
+    {
+      "fips": "31",
+      "fips_name": "Place 31",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 149
+    },
+    {
+      "fips": "31",
+      "fips_name": "Place 31",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 112
+    },
+    {
+      "fips": "31",
+      "fips_name": "Place 31",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 125
+    },
+    {
+      "fips": "31",
+      "fips_name": "Place 31",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 138
+    },
+    {
+      "fips": "31",
+      "fips_name": "Place 31",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 101
+    },
+    {
+      "fips": "32",
+      "fips_name": "Place 32",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 117
+    },
+    {
+      "fips": "32",
+      "fips_name": "Place 32",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 130
+    },
+    {
+      "fips": "32",
+      "fips_name": "Place 32",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 143
+    },
+    {
+      "fips": "32",
+      "fips_name": "Place 32",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 106
+    },
+    {
+      "fips": "32",
+      "fips_name": "Place 32",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 119
+    },
+    {
+      "fips": "32",
+      "fips_name": "Place 32",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 132
+    },
+    {
+      "fips": "32",
+      "fips_name": "Place 32",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 145
+    },
+    {
+      "fips": "32",
+      "fips_name": "Place 32",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 108
+    },
+    {
+      "fips": "33",
+      "fips_name": "Place 33",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 124
+    },
+    {
+      "fips": "33",
+      "fips_name": "Place 33",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 137
+    },
+    {
+      "fips": "33",
+      "fips_name": "Place 33",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 100
+    },
+    {
+      "fips": "33",
+      "fips_name": "Place 33",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 113
+    },
+    {
+      "fips": "33",
+      "fips_name": "Place 33",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 126
+    },
+    {
+      "fips": "33",
+      "fips_name": "Place 33",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 139
+    },
+    {
+      "fips": "33",
+      "fips_name": "Place 33",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 102
+    },
+    {
+      "fips": "33",
+      "fips_name": "Place 33",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 115
+    },
+    {
+      "fips": "34",
+      "fips_name": "Place 34",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 131
+    },
+    {
+      "fips": "34",
+      "fips_name": "Place 34",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 144
+    },
+    {
+      "fips": "34",
+      "fips_name": "Place 34",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 107
+    },
+    {
+      "fips": "34",
+      "fips_name": "Place 34",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 120
+    },
+    {
+      "fips": "34",
+      "fips_name": "Place 34",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 133
+    },
+    {
+      "fips": "34",
+      "fips_name": "Place 34",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 146
+    },
+    {
+      "fips": "34",
+      "fips_name": "Place 34",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 109
+    },
+    {
+      "fips": "34",
+      "fips_name": "Place 34",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 122
+    },
+    {
+      "fips": "35",
+      "fips_name": "Place 35",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 138
+    },
+    {
+      "fips": "35",
+      "fips_name": "Place 35",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 101
+    },
+    {
+      "fips": "35",
+      "fips_name": "Place 35",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 114
+    },
+    {
+      "fips": "35",
+      "fips_name": "Place 35",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 127
+    },
+    {
+      "fips": "35",
+      "fips_name": "Place 35",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 140
+    },
+    {
+      "fips": "35",
+      "fips_name": "Place 35",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 103
+    },
+    {
+      "fips": "35",
+      "fips_name": "Place 35",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 116
+    },
+    {
+      "fips": "35",
+      "fips_name": "Place 35",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 129
+    },
+    {
+      "fips": "36",
+      "fips_name": "Place 36",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 145
+    },
+    {
+      "fips": "36",
+      "fips_name": "Place 36",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 108
+    },
+    {
+      "fips": "36",
+      "fips_name": "Place 36",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 121
+    },
+    {
+      "fips": "36",
+      "fips_name": "Place 36",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 134
+    },
+    {
+      "fips": "36",
+      "fips_name": "Place 36",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 147
+    },
+    {
+      "fips": "36",
+      "fips_name": "Place 36",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 110
+    },
+    {
+      "fips": "36",
+      "fips_name": "Place 36",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 123
+    },
+    {
+      "fips": "36",
+      "fips_name": "Place 36",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 136
+    },
+    {
+      "fips": "37",
+      "fips_name": "Place 37",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 102
+    },
+    {
+      "fips": "37",
+      "fips_name": "Place 37",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 115
+    },
+    {
+      "fips": "37",
+      "fips_name": "Place 37",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 128
+    },
+    {
+      "fips": "37",
+      "fips_name": "Place 37",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 141
+    },
+    {
+      "fips": "37",
+      "fips_name": "Place 37",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 104
+    },
+    {
+      "fips": "37",
+      "fips_name": "Place 37",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 117
+    },
+    {
+      "fips": "37",
+      "fips_name": "Place 37",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 130
+    },
+    {
+      "fips": "37",
+      "fips_name": "Place 37",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 143
+    },
+    {
+      "fips": "38",
+      "fips_name": "Place 38",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 109
+    },
+    {
+      "fips": "38",
+      "fips_name": "Place 38",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 122
+    },
+    {
+      "fips": "38",
+      "fips_name": "Place 38",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 135
+    },
+    {
+      "fips": "38",
+      "fips_name": "Place 38",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 148
+    },
+    {
+      "fips": "38",
+      "fips_name": "Place 38",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 111
+    },
+    {
+      "fips": "38",
+      "fips_name": "Place 38",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 124
+    },
+    {
+      "fips": "38",
+      "fips_name": "Place 38",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 137
+    },
+    {
+      "fips": "38",
+      "fips_name": "Place 38",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 100
+    },
+    {
+      "fips": "39",
+      "fips_name": "Place 39",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 116
+    },
+    {
+      "fips": "39",
+      "fips_name": "Place 39",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 129
+    },
+    {
+      "fips": "39",
+      "fips_name": "Place 39",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 142
+    },
+    {
+      "fips": "39",
+      "fips_name": "Place 39",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 105
+    },
+    {
+      "fips": "39",
+      "fips_name": "Place 39",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 118
+    },
+    {
+      "fips": "39",
+      "fips_name": "Place 39",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 131
+    },
+    {
+      "fips": "39",
+      "fips_name": "Place 39",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 144
+    },
+    {
+      "fips": "39",
+      "fips_name": "Place 39",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 107
+    },
+    {
+      "fips": "40",
+      "fips_name": "Place 40",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 123
+    },
+    {
+      "fips": "40",
+      "fips_name": "Place 40",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 136
+    },
+    {
+      "fips": "40",
+      "fips_name": "Place 40",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 149
+    },
+    {
+      "fips": "40",
+      "fips_name": "Place 40",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 112
+    },
+    {
+      "fips": "40",
+      "fips_name": "Place 40",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 125
+    },
+    {
+      "fips": "40",
+      "fips_name": "Place 40",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 138
+    },
+    {
+      "fips": "40",
+      "fips_name": "Place 40",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 101
+    },
+    {
+      "fips": "40",
+      "fips_name": "Place 40",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 114
+    },
+    {
+      "fips": "41",
+      "fips_name": "Place 41",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 130
+    },
+    {
+      "fips": "41",
+      "fips_name": "Place 41",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 143
+    },
+    {
+      "fips": "41",
+      "fips_name": "Place 41",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 106
+    },
+    {
+      "fips": "41",
+      "fips_name": "Place 41",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 119
+    },
+    {
+      "fips": "41",
+      "fips_name": "Place 41",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 132
+    },
+    {
+      "fips": "41",
+      "fips_name": "Place 41",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 145
+    },
+    {
+      "fips": "41",
+      "fips_name": "Place 41",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 108
+    },
+    {
+      "fips": "41",
+      "fips_name": "Place 41",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 121
+    },
+    {
+      "fips": "42",
+      "fips_name": "Place 42",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 137
+    },
+    {
+      "fips": "42",
+      "fips_name": "Place 42",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 100
+    },
+    {
+      "fips": "42",
+      "fips_name": "Place 42",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 113
+    },
+    {
+      "fips": "42",
+      "fips_name": "Place 42",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 126
+    },
+    {
+      "fips": "42",
+      "fips_name": "Place 42",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 139
+    },
+    {
+      "fips": "42",
+      "fips_name": "Place 42",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 102
+    },
+    {
+      "fips": "42",
+      "fips_name": "Place 42",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 115
+    },
+    {
+      "fips": "42",
+      "fips_name": "Place 42",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 128
+    },
+    {
+      "fips": "43",
+      "fips_name": "Place 43",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 144
+    },
+    {
+      "fips": "43",
+      "fips_name": "Place 43",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 107
+    },
+    {
+      "fips": "43",
+      "fips_name": "Place 43",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 120
+    },
+    {
+      "fips": "43",
+      "fips_name": "Place 43",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 133
+    },
+    {
+      "fips": "43",
+      "fips_name": "Place 43",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 146
+    },
+    {
+      "fips": "43",
+      "fips_name": "Place 43",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 109
+    },
+    {
+      "fips": "43",
+      "fips_name": "Place 43",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 122
+    },
+    {
+      "fips": "43",
+      "fips_name": "Place 43",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 135
+    },
+    {
+      "fips": "44",
+      "fips_name": "Place 44",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 101
+    },
+    {
+      "fips": "44",
+      "fips_name": "Place 44",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 114
+    },
+    {
+      "fips": "44",
+      "fips_name": "Place 44",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 127
+    },
+    {
+      "fips": "44",
+      "fips_name": "Place 44",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 140
+    },
+    {
+      "fips": "44",
+      "fips_name": "Place 44",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 103
+    },
+    {
+      "fips": "44",
+      "fips_name": "Place 44",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 116
+    },
+    {
+      "fips": "44",
+      "fips_name": "Place 44",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 129
+    },
+    {
+      "fips": "44",
+      "fips_name": "Place 44",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 142
+    },
+    {
+      "fips": "45",
+      "fips_name": "Place 45",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 108
+    },
+    {
+      "fips": "45",
+      "fips_name": "Place 45",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 121
+    },
+    {
+      "fips": "45",
+      "fips_name": "Place 45",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 134
+    },
+    {
+      "fips": "45",
+      "fips_name": "Place 45",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 147
+    },
+    {
+      "fips": "45",
+      "fips_name": "Place 45",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 110
+    },
+    {
+      "fips": "45",
+      "fips_name": "Place 45",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 123
+    },
+    {
+      "fips": "45",
+      "fips_name": "Place 45",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 136
+    },
+    {
+      "fips": "45",
+      "fips_name": "Place 45",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 149
+    },
+    {
+      "fips": "46",
+      "fips_name": "Place 46",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 115
+    },
+    {
+      "fips": "46",
+      "fips_name": "Place 46",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 128
+    },
+    {
+      "fips": "46",
+      "fips_name": "Place 46",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 141
+    },
+    {
+      "fips": "46",
+      "fips_name": "Place 46",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 104
+    },
+    {
+      "fips": "46",
+      "fips_name": "Place 46",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 117
+    },
+    {
+      "fips": "46",
+      "fips_name": "Place 46",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 130
+    },
+    {
+      "fips": "46",
+      "fips_name": "Place 46",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 143
+    },
+    {
+      "fips": "46",
+      "fips_name": "Place 46",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 106
+    },
+    {
+      "fips": "47",
+      "fips_name": "Place 47",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 122
+    },
+    {
+      "fips": "47",
+      "fips_name": "Place 47",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 135
+    },
+    {
+      "fips": "47",
+      "fips_name": "Place 47",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 148
+    },
+    {
+      "fips": "47",
+      "fips_name": "Place 47",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 111
+    },
+    {
+      "fips": "47",
+      "fips_name": "Place 47",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 124
+    },
+    {
+      "fips": "47",
+      "fips_name": "Place 47",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 137
+    },
+    {
+      "fips": "47",
+      "fips_name": "Place 47",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 100
+    },
+    {
+      "fips": "47",
+      "fips_name": "Place 47",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 113
+    },
+    {
+      "fips": "48",
+      "fips_name": "Place 48",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 129
+    },
+    {
+      "fips": "48",
+      "fips_name": "Place 48",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 142
+    },
+    {
+      "fips": "48",
+      "fips_name": "Place 48",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 105
+    },
+    {
+      "fips": "48",
+      "fips_name": "Place 48",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 118
+    },
+    {
+      "fips": "48",
+      "fips_name": "Place 48",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 131
+    },
+    {
+      "fips": "48",
+      "fips_name": "Place 48",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 144
+    },
+    {
+      "fips": "48",
+      "fips_name": "Place 48",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 107
+    },
+    {
+      "fips": "48",
+      "fips_name": "Place 48",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 120
+    },
+    {
+      "fips": "49",
+      "fips_name": "Place 49",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 136
+    },
+    {
+      "fips": "49",
+      "fips_name": "Place 49",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 149
+    },
+    {
+      "fips": "49",
+      "fips_name": "Place 49",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 112
+    },
+    {
+      "fips": "49",
+      "fips_name": "Place 49",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 125
+    },
+    {
+      "fips": "49",
+      "fips_name": "Place 49",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 138
+    },
+    {
+      "fips": "49",
+      "fips_name": "Place 49",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 101
+    },
+    {
+      "fips": "49",
+      "fips_name": "Place 49",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 114
+    },
+    {
+      "fips": "49",
+      "fips_name": "Place 49",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 127
+    },
+    {
+      "fips": "50",
+      "fips_name": "Place 50",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 143
+    },
+    {
+      "fips": "50",
+      "fips_name": "Place 50",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 106
+    },
+    {
+      "fips": "50",
+      "fips_name": "Place 50",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 119
+    },
+    {
+      "fips": "50",
+      "fips_name": "Place 50",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 132
+    },
+    {
+      "fips": "50",
+      "fips_name": "Place 50",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 145
+    },
+    {
+      "fips": "50",
+      "fips_name": "Place 50",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 108
+    },
+    {
+      "fips": "50",
+      "fips_name": "Place 50",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 121
+    },
+    {
+      "fips": "50",
+      "fips_name": "Place 50",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 134
+    },
+    {
+      "fips": "51",
+      "fips_name": "Place 51",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 100
+    },
+    {
+      "fips": "51",
+      "fips_name": "Place 51",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 113
+    },
+    {
+      "fips": "51",
+      "fips_name": "Place 51",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 126
+    },
+    {
+      "fips": "51",
+      "fips_name": "Place 51",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 139
+    },
+    {
+      "fips": "51",
+      "fips_name": "Place 51",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 102
+    },
+    {
+      "fips": "51",
+      "fips_name": "Place 51",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 115
+    },
+    {
+      "fips": "51",
+      "fips_name": "Place 51",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 128
+    },
+    {
+      "fips": "51",
+      "fips_name": "Place 51",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 141
+    },
+    {
+      "fips": "52",
+      "fips_name": "Place 52",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 107
+    },
+    {
+      "fips": "52",
+      "fips_name": "Place 52",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 120
+    },
+    {
+      "fips": "52",
+      "fips_name": "Place 52",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 133
+    },
+    {
+      "fips": "52",
+      "fips_name": "Place 52",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 146
+    },
+    {
+      "fips": "52",
+      "fips_name": "Place 52",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 109
+    },
+    {
+      "fips": "52",
+      "fips_name": "Place 52",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 122
+    },
+    {
+      "fips": "52",
+      "fips_name": "Place 52",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 135
+    },
+    {
+      "fips": "52",
+      "fips_name": "Place 52",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 148
+    },
+    {
+      "fips": "53",
+      "fips_name": "Place 53",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 114
+    },
+    {
+      "fips": "53",
+      "fips_name": "Place 53",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 127
+    },
+    {
+      "fips": "53",
+      "fips_name": "Place 53",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 140
+    },
+    {
+      "fips": "53",
+      "fips_name": "Place 53",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 103
+    },
+    {
+      "fips": "53",
+      "fips_name": "Place 53",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 116
+    },
+    {
+      "fips": "53",
+      "fips_name": "Place 53",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 129
+    },
+    {
+      "fips": "53",
+      "fips_name": "Place 53",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 142
+    },
+    {
+      "fips": "53",
+      "fips_name": "Place 53",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 105
+    },
+    {
+      "fips": "54",
+      "fips_name": "Place 54",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 121
+    },
+    {
+      "fips": "54",
+      "fips_name": "Place 54",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 134
+    },
+    {
+      "fips": "54",
+      "fips_name": "Place 54",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 147
+    },
+    {
+      "fips": "54",
+      "fips_name": "Place 54",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 110
+    },
+    {
+      "fips": "54",
+      "fips_name": "Place 54",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 123
+    },
+    {
+      "fips": "54",
+      "fips_name": "Place 54",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 136
+    },
+    {
+      "fips": "54",
+      "fips_name": "Place 54",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 149
+    },
+    {
+      "fips": "54",
+      "fips_name": "Place 54",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 112
+    },
+    {
+      "fips": "55",
+      "fips_name": "Place 55",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 128
+    },
+    {
+      "fips": "55",
+      "fips_name": "Place 55",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 141
+    },
+    {
+      "fips": "55",
+      "fips_name": "Place 55",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 104
+    },
+    {
+      "fips": "55",
+      "fips_name": "Place 55",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 117
+    },
+    {
+      "fips": "55",
+      "fips_name": "Place 55",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 130
+    },
+    {
+      "fips": "55",
+      "fips_name": "Place 55",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 143
+    },
+    {
+      "fips": "55",
+      "fips_name": "Place 55",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 106
+    },
+    {
+      "fips": "55",
+      "fips_name": "Place 55",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 119
+    },
+    {
+      "fips": "56",
+      "fips_name": "Place 56",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 135
+    },
+    {
+      "fips": "56",
+      "fips_name": "Place 56",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 148
+    },
+    {
+      "fips": "56",
+      "fips_name": "Place 56",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 111
+    },
+    {
+      "fips": "56",
+      "fips_name": "Place 56",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 124
+    },
+    {
+      "fips": "56",
+      "fips_name": "Place 56",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 137
+    },
+    {
+      "fips": "56",
+      "fips_name": "Place 56",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 100
+    },
+    {
+      "fips": "56",
+      "fips_name": "Place 56",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 113
+    },
+    {
+      "fips": "56",
+      "fips_name": "Place 56",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 126
+    },
+    {
+      "fips": "57",
+      "fips_name": "Place 57",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 142
+    },
+    {
+      "fips": "57",
+      "fips_name": "Place 57",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 105
+    },
+    {
+      "fips": "57",
+      "fips_name": "Place 57",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 118
+    },
+    {
+      "fips": "57",
+      "fips_name": "Place 57",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 131
+    },
+    {
+      "fips": "57",
+      "fips_name": "Place 57",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 144
+    },
+    {
+      "fips": "57",
+      "fips_name": "Place 57",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 107
+    },
+    {
+      "fips": "57",
+      "fips_name": "Place 57",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 120
+    },
+    {
+      "fips": "57",
+      "fips_name": "Place 57",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 133
+    },
+    {
+      "fips": "58",
+      "fips_name": "Place 58",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 149
+    },
+    {
+      "fips": "58",
+      "fips_name": "Place 58",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 112
+    },
+    {
+      "fips": "58",
+      "fips_name": "Place 58",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 125
+    },
+    {
+      "fips": "58",
+      "fips_name": "Place 58",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 138
+    },
+    {
+      "fips": "58",
+      "fips_name": "Place 58",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 101
+    },
+    {
+      "fips": "58",
+      "fips_name": "Place 58",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 114
+    },
+    {
+      "fips": "58",
+      "fips_name": "Place 58",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 127
+    },
+    {
+      "fips": "58",
+      "fips_name": "Place 58",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 140
+    },
+    {
+      "fips": "59",
+      "fips_name": "Place 59",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 106
+    },
+    {
+      "fips": "59",
+      "fips_name": "Place 59",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 119
+    },
+    {
+      "fips": "59",
+      "fips_name": "Place 59",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 132
+    },
+    {
+      "fips": "59",
+      "fips_name": "Place 59",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 145
+    },
+    {
+      "fips": "59",
+      "fips_name": "Place 59",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 108
+    },
+    {
+      "fips": "59",
+      "fips_name": "Place 59",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 121
+    },
+    {
+      "fips": "59",
+      "fips_name": "Place 59",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 134
+    },
+    {
+      "fips": "59",
+      "fips_name": "Place 59",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 147
+    },
+    {
+      "fips": "60",
+      "fips_name": "Place 60",
+      "race_and_ethnicity": "All",
+      "prison_per_100k": 113
+    },
+    {
+      "fips": "60",
+      "fips_name": "Place 60",
+      "race_and_ethnicity": "American Indian and Alaska Native (NH)",
+      "prison_per_100k": 901
+    },
+    {
+      "fips": "60",
+      "fips_name": "Place 60",
+      "race_and_ethnicity": "Asian (NH)",
+      "prison_per_100k": 902
+    },
+    {
+      "fips": "60",
+      "fips_name": "Place 60",
+      "race_and_ethnicity": "Black or African American (NH)",
+      "prison_per_100k": 903
+    },
+    {
+      "fips": "60",
+      "fips_name": "Place 60",
+      "race_and_ethnicity": "Hispanic and Latino",
+      "prison_per_100k": 904
+    },
+    {
+      "fips": "60",
+      "fips_name": "Place 60",
+      "race_and_ethnicity": "Native Hawaiian and Pacific Islander (NH)",
+      "prison_per_100k": 905
+    },
+    {
+      "fips": "60",
+      "fips_name": "Place 60",
+      "race_and_ethnicity": "Two or more races & Unreported Race (NH)",
+      "prison_per_100k": 906
+    },
+    {
+      "fips": "60",
+      "fips_name": "Place 60",
+      "race_and_ethnicity": "White (NH)",
+      "prison_per_100k": 907
+    }
+  ]
+}

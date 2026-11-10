@@ -315,7 +315,90 @@ func formatDataRows(rows []insightRow, hashID, demographicType string, metricCon
 	// Group filtering bounds a map section in the common case, but a wide
 	// breakdown over hundreds of places can still outgrow the budget, and the
 	// data table has no geographic filter at all.
+	if isMap {
+		return trimMapLinesToBudget(lines, activeRows, demographicType, metricConfig.MetricID, budgetBytes)
+	}
 	return trimLinesToBudget(lines, budgetBytes)
+}
+
+// A map trimmed in file order loses whichever places happen to sort last, so
+// the model can name "the highest" place without ever seeing it. When a map is
+// over budget, every place's All row and each group's highest and lowest row
+// are kept first, and the remaining budget is filled in file order. Kept lines
+// render in their original order, so the same rows always hash the same way.
+func trimMapLinesToBudget(lines []string, rows []insightRow, demographicType, metricID string, budgetBytes int) string {
+	total := 0
+	for i, line := range lines {
+		if i > 0 {
+			total++
+		}
+		total += len(line)
+	}
+	if total <= budgetBytes {
+		return strings.Join(lines, "\n")
+	}
+
+	priority := make([]bool, len(lines))
+	type extremes struct{ minIdx, maxIdx int }
+	byGroup := map[string]*extremes{}
+	for i, row := range rows {
+		group := jsString(row[demographicType])
+		if groupIsAll(group) {
+			priority[i] = true
+			continue
+		}
+		value, ok := finiteNumber(row[metricID])
+		if !ok {
+			continue
+		}
+		e, seen := byGroup[group]
+		if !seen {
+			byGroup[group] = &extremes{minIdx: i, maxIdx: i}
+			continue
+		}
+		if minValue, _ := finiteNumber(rows[e.minIdx][metricID]); value < minValue {
+			e.minIdx = i
+		}
+		if maxValue, _ := finiteNumber(rows[e.maxIdx][metricID]); value > maxValue {
+			e.maxIdx = i
+		}
+	}
+	for _, e := range byGroup {
+		priority[e.minIdx] = true
+		priority[e.maxIdx] = true
+	}
+
+	keep := make([]bool, len(lines))
+	used := 0
+	take := func(i int) {
+		cost := len(lines[i])
+		if used > 0 {
+			cost++
+		}
+		if used+cost > budgetBytes {
+			return
+		}
+		keep[i] = true
+		used += cost
+	}
+	for i := range lines {
+		if priority[i] {
+			take(i)
+		}
+	}
+	for i := range lines {
+		if !keep[i] && !priority[i] {
+			take(i)
+		}
+	}
+
+	kept := make([]string, 0, len(lines))
+	for i, line := range lines {
+		if keep[i] {
+			kept = append(kept, line)
+		}
+	}
+	return strings.Join(kept, "\n")
 }
 
 func formatTimeSeriesRows(rows []insightRow, demographicType string, metricConfig *insightMetricConfig, groupFilter map[string]bool, budgetBytes int) string {
