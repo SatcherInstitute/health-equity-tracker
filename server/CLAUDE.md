@@ -613,6 +613,12 @@ the output drifts back to restating the chart in words. The rules ask the model 
 reason from the exact figures and then round them for the reader, so an instruction
 that pins the output to the raw values defeats the whole block.
 
+The rules also forbid comparing against any figure outside the data. A prompt
+carries no parent-geography row (map rows are child places only), and levels often
+come from different sources or scopes: incarceration counties are Vera, states and
+the nation are BJS, and BJS national prison rates include federal prisons while state
+rates do not. So the fix is to forbid outside figures, never to supply a parent row.
+
 It is deterministic and offline: no API key, no network, no clock. A template
 edit shows up as a diff in the `.prompt.txt` files, and **that diff is the thing
 to review.** Since #5029/#5053 the cache key is a hash of the rendered prompt and
