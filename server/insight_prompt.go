@@ -540,6 +540,12 @@ type insightContext struct {
 // names the baseline maps are most tempted to invent.
 const mapOutsideFigureRule = " Every figure must come from the data below. It holds no national, state, or other wider-area rate, so never state or estimate one, such as a \"national average\"."
 
+// Two places at different levels can come from different sources and methods:
+// incarceration counties are Vera, states and the nation are BJS, and BJS
+// national prison rates include federal prisons. A ratio across them compares
+// two ways of counting, so the pattern within each place is the safer finding.
+const compareGeosSourceCaution = " The two places may come from different data sources or methods, especially when one is a county and the other a state or the nation, so compare them carefully: prefer comparing patterns, such as which group is highest in each place, over a direct ratio between the two places' rates."
+
 func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeDemographicGroup string, hasPeerComparison bool, tableShape *tableColumnShape) string {
 	dataBlock := ""
 	if dataSection != "" {
@@ -698,6 +704,7 @@ func buildContrastPrompt(hashID, topic1, topic2, location1, location2, demograph
 				guidance += fmt.Sprintf(" Both charts are currently highlighting the %s group. Center the sentence on how %s fares in each place.", activeDemographicGroup, activeDemographicGroup)
 			}
 		}
+		guidance += compareGeosSourceCaution
 	case location1 == location2:
 		// compare-vars: same place, different topics
 		setup = fmt.Sprintf("Two side-by-side charts show %s, one for %s and one for %s, across %s groups.", location1, topic1, topic2, demographic)
