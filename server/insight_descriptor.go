@@ -181,7 +181,7 @@ func renderInsightPrompt(d *insightDescriptor) (string, error) {
 		}
 		section := func(v *insightView) string {
 			return formatDataRows(v.Rows, d.HashID, d.DemographicType, v.MetricConfig,
-				insightDataOptions{BudgetBytes: insightBudgetContrast})
+				insightDataOptions{BudgetBytes: insightBudgetContrast, ActiveDemographicGroup: activeGroup})
 		}
 		return buildContrastPrompt(d.HashID, d.ViewA.Topic, d.ViewB.Topic, d.ViewA.Location, d.ViewB.Location,
 			demographic, section(d.ViewA), section(d.ViewB), activeGroup), nil

@@ -258,11 +258,12 @@ func formatDataRows(rows []insightRow, hashID, demographicType string, metricCon
 		filtered = append(filtered, row)
 	}
 
-	// A map showing 2+ places is a real geographic comparison, so default to the
-	// group on screen. A map showing fewer than 2 places has nothing geographic
+	// A map showing 2+ places is a real geographic comparison, so send only the
+	// group on screen, plus each place's All row as the baseline when that group
+	// is not All itself. A map showing fewer than 2 places has nothing geographic
 	// to gain from filtering, so fall back to every group within that one place.
 	activeRows := filtered
-	if isMap && opts.ActiveDemographicGroup != "" && !groupIsAll(opts.ActiveDemographicGroup) {
+	if isMap {
 		places := map[string]bool{}
 		for _, row := range filtered {
 			places[jsString(row["fips_name"])] = true

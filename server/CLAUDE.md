@@ -619,9 +619,11 @@ come from different sources or scopes: incarceration counties are Vera, states a
 the nation are BJS, and BJS national prison rates include federal prisons while state
 rates do not. So the fix is to forbid outside figures, never to supply a parent row.
 
-A map prompt over the card budget (24 KB) is trimmed by `trimMapLinesToBudget`, not in file
-order: every place's `All` row and each group's highest and lowest row are kept first, then the
-rest fill the remaining budget. A trim in file order silently dropped whichever places sorted
+A map showing 2+ places sends only the group on screen, plus each place's `All` row as the
+baseline when the selected group is not `All` itself; a single-place map sends every group. A map
+still over the card budget (24 KB), such as a large state's counties with a group selected, is
+trimmed by `trimMapLinesToBudget`, not in file order: each group's highest and lowest row and
+every place's `All` row are kept first, then the rest fill the remaining budget. A trim in file order silently dropped whichever places sorted
 last, so the model could name "the highest" place without seeing it. `card_map_over_budget`
 pins this.
 
