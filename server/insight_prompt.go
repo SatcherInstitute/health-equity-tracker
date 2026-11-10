@@ -345,9 +345,10 @@ func trimMapLinesToBudget(lines []string, rows []insightRow, demographicType, me
 	byGroup := map[string]*extremes{}
 	for i, row := range rows {
 		group := jsString(row[demographicType])
+		// All rows are kept as each place's baseline, and the All group still
+		// gets its own extremes, since an All-only map has no other group.
 		if groupIsAll(group) {
 			allRow[i] = true
-			continue
 		}
 		value, ok := finiteNumber(row[metricID])
 		if !ok {

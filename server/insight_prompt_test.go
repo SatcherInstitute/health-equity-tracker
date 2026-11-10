@@ -167,3 +167,30 @@ func TestTrimMapLinesKeepsExtremesBeforeAllRows(t *testing.T) {
 		t.Errorf("trimmed to %d bytes, over the 250 budget", len(got))
 	}
 }
+
+// An All-only map over budget has no other group, so the All group's own
+// highest and lowest places must survive the trim.
+func TestTrimMapLinesKeepsAllGroupExtremes(t *testing.T) {
+	var rows []insightRow
+	var lines []string
+	for i := 0; i < 40; i++ {
+		value := 50.0
+		switch i {
+		case 0:
+			value = 5
+		case 39:
+			value = 95
+		}
+		place := fmt.Sprintf("Place %02d", i)
+		rows = append(rows, insightRow{"fips_name": place, "race": "All", "rate": value})
+		lines = append(lines, fmt.Sprintf("- %s (All): %s", place, jsNumber(value)))
+	}
+
+	got := trimMapLinesToBudget(lines, rows, "race", "rate", 250)
+
+	for _, want := range []string{"- Place 00 (All): 5", "- Place 39 (All): 95"} {
+		if !strings.Contains(got, want) {
+			t.Errorf("trimmed prompt lost extreme %q:\n%s", want, got)
+		}
+	}
+}
