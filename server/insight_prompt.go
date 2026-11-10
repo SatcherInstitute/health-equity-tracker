@@ -530,6 +530,22 @@ type insightContext struct {
 	PeerComparison         *peerComparison `json:"peerComparison"`
 }
 
+// A map's rows cover only its child places, never the parent geography, yet
+// models reach for a "national average" anyway and invent one (#5370). The
+// parent figure is deliberately not supplied: levels often come from different
+// sources or scopes (incarceration counties are Vera, states and the nation are
+// BJS; BJS national prison rates include federal prisons, state rates do not),
+// so a supplied or remembered one would be compared on the wrong basis. The
+// shared plainLanguageRules carry the general no-outside-figure rule; this one
+// names the baseline maps are most tempted to invent.
+const mapOutsideFigureRule = " Every figure must come from the data below. It holds no rate for any area wider than the places listed, so never state or estimate one, such as a \"national average\"."
+
+// Two places at different levels can come from different sources and methods:
+// incarceration counties are Vera, states and the nation are BJS, and BJS
+// national prison rates include federal prisons. A ratio across them compares
+// two ways of counting, so the pattern within each place is the safer finding.
+const compareGeosSourceCaution = " The two places may come from different data sources or methods, especially when one is a county and the other a state or the nation, so compare them carefully: prefer comparing patterns, such as which group is highest in each place, over a direct ratio between the two places' rates."
+
 func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeDemographicGroup string, hasPeerComparison bool, tableShape *tableColumnShape) string {
 	dataBlock := ""
 	if dataSection != "" {
@@ -537,8 +553,8 @@ func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeD
 	}
 
 	if mapChartIDs[hashID] && hasPeerComparison {
-		return fmt.Sprintf("This is a choropleth map of %s in %s. Because only its overall rate is available locally, %s is ranked against its peer places at the same geographic level — which draw on the same data source and methodology, so the comparison is fair.%s\n\nWrite a single sentence at an 8th grade reading level that says where %s falls among its peers (for example, higher than most, near the middle, or among the lowest) and what that means for the people who live there. Focus on the \"so what\", not the chart mechanics.",
-			topic, location, location, dataBlock, location)
+		return fmt.Sprintf("This is a choropleth map of %s in %s. Because only its overall rate is available locally, %s is ranked against its peer places at the same geographic level — which draw on the same data source and methodology, so the comparison is fair.%s%s\n\nWrite a single sentence at an 8th grade reading level that says where %s falls among its peers (for example, higher than most, near the middle, or among the lowest) and what that means for the people who live there. Focus on the \"so what\", not the chart mechanics.",
+			topic, location, location, mapOutsideFigureRule, dataBlock, location)
 	}
 
 	if mapChartIDs[hashID] {
@@ -550,8 +566,8 @@ func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeD
 		if activeDemographicGroup != "" && !groupIsAll(activeDemographicGroup) {
 			focus = fmt.Sprintf(" The map currently highlights the %s group — use that group's rates to describe the geographic pattern, with \"All\" as the baseline.", activeDemographicGroup)
 		}
-		return fmt.Sprintf("This is a choropleth map showing %s in %s by %s. Each data row is labeled with its place and %s group; an \"All\" row gives the overall rate for that place.%s%s\n\nWrite a single sentence at an 8th grade reading level that captures the geographic disparity — which places have the highest and lowest rates — and what that concentration means for the people who live there. Focus on the \"so what\", not the chart mechanics.",
-			topic, location, demographicLabel, demographicLabel, focus, dataBlock)
+		return fmt.Sprintf("This is a choropleth map showing %s in %s by %s. Each data row is labeled with its place and %s group; an \"All\" row gives the overall rate for that place.%s%s%s\n\nWrite a single sentence at an 8th grade reading level that captures the geographic disparity — which places have the highest and lowest rates — and what that concentration means for the people who live there. Focus on the \"so what\", not the chart mechanics.",
+			topic, location, demographicLabel, demographicLabel, focus, mapOutsideFigureRule, dataBlock)
 	}
 
 	if hashID == "rate-chart" {
@@ -619,8 +635,11 @@ const insightHighlightRule = `"highlight" is the one phrase in "text" a reader s
 // the output read like the chart restated rather than explained: decimals off
 // the axis, raw rates with no reference point, "varies widely" standing in for
 // the actual extreme, and the clinical column names interpolated from the
-// frontend metric configs.
+// frontend metric configs. The outside-figure line answers a remembered state or
+// national rate set beside data from another source (incarceration counties are
+// Vera, states are BJS), which compares two different ways of counting.
 const plainLanguageRules = `- Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.
+- Every figure must come from or be derived from the data, including rounded figures and comparisons. Never state or estimate a figure from outside the data, such as a national or state average. Other geographic levels and other data sources often count differently, so comparisons with outside figures would not be fair.
 - Use at most two numbers, and prefer a comparison over a raw rate. Compare a group against the overall "All" rate whenever the data shows one; only if it does not, compare against the largest group shown. Compare a place against the typical place.
 - Write about the people in the data in the third person. Never "we", "us", "our communities", or "those in our communities". A reader may belong to any group on the page.
 - Name the extreme, not the spread. Say which group or place is highest or lowest. Never say values "vary widely".
@@ -685,6 +704,7 @@ func buildContrastPrompt(hashID, topic1, topic2, location1, location2, demograph
 				guidance += fmt.Sprintf(" Both charts are currently highlighting the %s group. Center the sentence on how %s fares in each place.", activeDemographicGroup, activeDemographicGroup)
 			}
 		}
+		guidance += compareGeosSourceCaution
 	case location1 == location2:
 		// compare-vars: same place, different topics
 		setup = fmt.Sprintf("Two side-by-side charts show %s, one for %s and one for %s, across %s groups.", location1, topic1, topic2, demographic)
