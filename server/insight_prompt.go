@@ -535,8 +535,10 @@ type insightContext struct {
 // parent figure is deliberately not supplied: levels often come from different
 // sources or scopes (incarceration counties are Vera, states and the nation are
 // BJS; BJS national prison rates include federal prisons, state rates do not),
-// so a supplied or remembered one would be compared on the wrong basis.
-const mapOutsideFigureRule = " Every figure must come from the data below. It holds no national, state, or other wider-area rate, so never state or estimate one, such as a \"national average\". Other geographic levels and other data sources often count differently, so never compare these places with a figure from outside this data."
+// so a supplied or remembered one would be compared on the wrong basis. The
+// shared plainLanguageRules carry the general no-outside-figure rule; this one
+// names the baseline maps are most tempted to invent.
+const mapOutsideFigureRule = " Every figure must come from the data below. It holds no national, state, or other wider-area rate, so never state or estimate one, such as a \"national average\"."
 
 func buildPrompt(hashID, topic, location, demographicLabel, dataSection, activeDemographicGroup string, hasPeerComparison bool, tableShape *tableColumnShape) string {
 	dataBlock := ""
@@ -627,8 +629,11 @@ const insightHighlightRule = `"highlight" is the one phrase in "text" a reader s
 // the output read like the chart restated rather than explained: decimals off
 // the axis, raw rates with no reference point, "varies widely" standing in for
 // the actual extreme, and the clinical column names interpolated from the
-// frontend metric configs.
+// frontend metric configs. The outside-figure line answers a remembered state or
+// national rate set beside data from another source (incarceration counties are
+// Vera, states are BJS), which compares two different ways of counting.
 const plainLanguageRules = `- Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.
+- Never compare the data with a figure from outside it, such as a national or state average. Other geographic levels and other data sources often count differently, so the comparison would not be fair.
 - Use at most two numbers, and prefer a comparison over a raw rate. Compare a group against the overall "All" rate whenever the data shows one; only if it does not, compare against the largest group shown. Compare a place against the typical place.
 - Write about the people in the data in the third person. Never "we", "us", "our communities", or "those in our communities". A reader may belong to any group on the page.
 - Name the extreme, not the spread. Say which group or place is highest or lowest. Never say values "vary widely".
