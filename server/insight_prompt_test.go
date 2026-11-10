@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"math"
 	"os"
 	"path/filepath"
@@ -135,5 +136,34 @@ func TestPeerRankLabelBands(t *testing.T) {
 		if got := peerRankLabel(c.higherThan, 1000); got != c.want {
 			t.Errorf("peerRankLabel(%d, 1000) = %q, want %q", c.higherThan, got, c.want)
 		}
+	}
+}
+
+// When the All rows alone exceed the budget, each group's highest and lowest
+// row must still survive, since those are what the map insight names.
+func TestTrimMapLinesKeepsExtremesBeforeAllRows(t *testing.T) {
+	var rows []insightRow
+	var lines []string
+	add := func(place, group string, value float64) {
+		rows = append(rows, insightRow{"fips_name": place, "race": group, "rate": value})
+		lines = append(lines, fmt.Sprintf("- %s (%s): %s", place, group, jsNumber(value)))
+	}
+	for i := 0; i < 40; i++ {
+		add(fmt.Sprintf("Place %02d", i), "All", 50)
+	}
+	add("Place 00", "Black", 10)
+	add("Place 20", "Black", 30)
+	add("Place 39", "Black", 90)
+
+	// Room for about ten lines: fewer than the forty All rows.
+	got := trimMapLinesToBudget(lines, rows, "race", "rate", 250)
+
+	for _, want := range []string{"- Place 00 (Black): 10", "- Place 39 (Black): 90"} {
+		if !strings.Contains(got, want) {
+			t.Errorf("trimmed prompt lost extreme %q:\n%s", want, got)
+		}
+	}
+	if len(got) > 250 {
+		t.Errorf("trimmed to %d bytes, over the 250 budget", len(got))
 	}
 }
