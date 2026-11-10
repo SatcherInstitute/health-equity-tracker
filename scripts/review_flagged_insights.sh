@@ -11,8 +11,9 @@
 # bash can't import them, so the strings are duplicated below — keep the two in sync if the
 # vocabulary ever changes.
 #
-#   flagged    - raw user report. Does NOT hide the insight and is NOT fed to the prompt.
-#                Awaits team review (this script). Counts as "unhandled".
+#   flagged    - raw user report. Does NOT hide the insight. Awaits team review (this
+#                script). Counts as "unhandled". With INSIGHT_NEGATIVE_EXAMPLES_ENABLED on it
+#                can still be fed to same-topic prompts as a negative example.
 #   suppressed - team-confirmed bad output. Hides the insight for that exact view: the
 #                server checks the flag record before either cache and answers
 #                {"suppressed": true}, so the card renders no insight. The record is keyed

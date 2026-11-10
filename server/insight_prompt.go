@@ -338,13 +338,14 @@ func trimMapLinesToBudget(lines []string, rows []insightRow, demographicType, me
 		return strings.Join(lines, "\n")
 	}
 
-	priority := make([]bool, len(lines))
+	allRow := make([]bool, len(lines))
+	extreme := make([]bool, len(lines))
 	type extremes struct{ minIdx, maxIdx int }
 	byGroup := map[string]*extremes{}
 	for i, row := range rows {
 		group := jsString(row[demographicType])
 		if groupIsAll(group) {
-			priority[i] = true
+			allRow[i] = true
 			continue
 		}
 		value, ok := finiteNumber(row[metricID])
@@ -364,13 +365,16 @@ func trimMapLinesToBudget(lines []string, rows []insightRow, demographicType, me
 		}
 	}
 	for _, e := range byGroup {
-		priority[e.minIdx] = true
-		priority[e.maxIdx] = true
+		extreme[e.minIdx] = true
+		extreme[e.maxIdx] = true
 	}
 
 	keep := make([]bool, len(lines))
 	used := 0
 	take := func(i int) {
+		if keep[i] {
+			return
+		}
 		cost := len(lines[i])
 		if used > 0 {
 			cost++
@@ -381,15 +385,21 @@ func trimMapLinesToBudget(lines []string, rows []insightRow, demographicType, me
 		keep[i] = true
 		used += cost
 	}
+	// Extremes go first: they are two rows per group, so they always fit, while
+	// the All rows scale with the number of places and could otherwise use up a
+	// small budget before a later group's extreme is reached.
 	for i := range lines {
-		if priority[i] {
+		if extreme[i] {
 			take(i)
 		}
 	}
 	for i := range lines {
-		if !keep[i] && !priority[i] {
+		if allRow[i] {
 			take(i)
 		}
+	}
+	for i := range lines {
+		take(i)
 	}
 
 	kept := make([]string, 0, len(lines))
