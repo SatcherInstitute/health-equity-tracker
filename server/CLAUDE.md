@@ -619,6 +619,12 @@ come from different sources or scopes: incarceration counties are Vera, states a
 the nation are BJS, and BJS national prison rates include federal prisons while state
 rates do not. So the fix is to forbid outside figures, never to supply a parent row.
 
+A map prompt over the card budget (24 KB) is trimmed by `trimMapLinesToBudget`, not in file
+order: every place's `All` row and each group's highest and lowest row are kept first, then the
+rest fill the remaining budget. A trim in file order silently dropped whichever places sorted
+last, so the model could name "the highest" place without seeing it. `card_map_over_budget`
+pins this.
+
 It is deterministic and offline: no API key, no network, no clock. A template
 edit shows up as a diff in the `.prompt.txt` files, and **that diff is the thing
 to review.** Since #5029/#5053 the cache key is a hash of the rendered prompt and
