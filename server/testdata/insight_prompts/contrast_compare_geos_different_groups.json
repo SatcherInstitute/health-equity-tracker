@@ -1,0 +1,90 @@
+{
+  "kind": "contrast",
+  "why": "Compare-geos maps where each side highlights a different group. Each side sends only its own group plus its All rows, and no shared group steers the wording.",
+  "hashId": "rate-map",
+  "demographicType": "race_and_ethnicity",
+  "urlPathname": "/exploredata",
+  "urlParams": "mls=1.hiv-3.00-5.13&mlp=comparegeos&group1=Black.NH&group2=White.NH",
+  "viewA": {
+    "topic": "HIV diagnoses",
+    "location": "Georgia",
+    "metricConfig": {
+      "metricId": "hiv_diagnoses_per_100k",
+      "shortLabel": "cases per 100k"
+    },
+    "rows": [
+      {
+        "fips_name": "Fulton County",
+        "race_and_ethnicity": "All",
+        "hiv_diagnoses_per_100k": 31.2
+      },
+      {
+        "fips_name": "Fulton County",
+        "race_and_ethnicity": "Black or African American (NH)",
+        "hiv_diagnoses_per_100k": 58.4
+      },
+      {
+        "fips_name": "Fulton County",
+        "race_and_ethnicity": "White (NH)",
+        "hiv_diagnoses_per_100k": 8.1
+      },
+      {
+        "fips_name": "DeKalb County",
+        "race_and_ethnicity": "All",
+        "hiv_diagnoses_per_100k": 22.7
+      },
+      {
+        "fips_name": "DeKalb County",
+        "race_and_ethnicity": "Black or African American (NH)",
+        "hiv_diagnoses_per_100k": 41.3
+      },
+      {
+        "fips_name": "DeKalb County",
+        "race_and_ethnicity": "White (NH)",
+        "hiv_diagnoses_per_100k": 6.0
+      }
+    ],
+    "activeDemographicGroup": "Black or African American (NH)"
+  },
+  "viewB": {
+    "topic": "HIV diagnoses",
+    "location": "Vermont",
+    "metricConfig": {
+      "metricId": "hiv_diagnoses_per_100k",
+      "shortLabel": "cases per 100k"
+    },
+    "rows": [
+      {
+        "fips_name": "Chittenden County",
+        "race_and_ethnicity": "All",
+        "hiv_diagnoses_per_100k": 4.1
+      },
+      {
+        "fips_name": "Chittenden County",
+        "race_and_ethnicity": "Black or African American (NH)",
+        "hiv_diagnoses_per_100k": 19.0
+      },
+      {
+        "fips_name": "Chittenden County",
+        "race_and_ethnicity": "White (NH)",
+        "hiv_diagnoses_per_100k": 3.2
+      },
+      {
+        "fips_name": "Rutland County",
+        "race_and_ethnicity": "All",
+        "hiv_diagnoses_per_100k": 2.8
+      },
+      {
+        "fips_name": "Rutland County",
+        "race_and_ethnicity": "Black or African American (NH)",
+        "hiv_diagnoses_per_100k": 12.5
+      },
+      {
+        "fips_name": "Rutland County",
+        "race_and_ethnicity": "White (NH)",
+        "hiv_diagnoses_per_100k": 2.4
+      }
+    ],
+    "activeDemographicGroup": "White (NH)"
+  }
+}

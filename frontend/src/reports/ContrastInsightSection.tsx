@@ -6,10 +6,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import FlagInsightButton from '../cards/ui/FlagInsightButton'
 import type { DataTypeConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
-import { ALL } from '../data/utils/Constants'
+import type { MetricQueryResponse } from '../data/query/MetricQuery'
+import { ALL, type DemographicGroup } from '../data/utils/Constants'
 import type { Fips } from '../data/utils/Fips'
 import HetHighlightedText from '../styles/HetComponents/HetHighlightedText'
 import {
+  type ContrastGroups,
   generateContrastInsight,
   previewContrastInsight,
 } from '../utils/generateContrastInsight'
@@ -66,9 +68,8 @@ export default function ContrastInsightSection({
   const queryResponses2 = cardQueryResponses[card2Key]
   const bothDataLoaded = Boolean(queryResponses1 && queryResponses2)
 
-  // The highlighted group on each side of the compare. When both sides
-  // highlight the same non-All group we send it as the contrast's active group;
-  // when they differ we send nothing and let the model reason across both.
+  // The group each side of the compare is showing. Each side's insight rows are
+  // filtered to its own group plus its All rows, so the two can differ.
   const group1Param = useAtomValue(urlParamAtom(MAP1_GROUP_PARAM))
   const group2Param = useAtomValue(urlParamAtom(MAP2_GROUP_PARAM))
   const group1 = group1Param
@@ -77,26 +78,31 @@ export default function ContrastInsightSection({
   const group2 = group2Param
     ? getDemographicGroupFromGroupParam(group2Param)
     : undefined
-  const highlightedGroup =
-    group1 && group1 === group2 && group1 !== ALL ? group1 : undefined
 
   // The decoder passes an unrecognized code straight through, so the param
-  // alone cannot vouch for the value that ends up in the prompt. The loaded
-  // rows are the allowlist: a group the response never returned is dropped.
-  const activeDemographicGroup = useMemo(() => {
-    if (!highlightedGroup) return undefined
-    const appearsInData = [
-      ...(queryResponses1 ?? []),
-      ...(queryResponses2 ?? []),
-    ].some((response) =>
-      response
-        .getValidRowsForField(demographicType)
-        .some((row) => row[demographicType] === highlightedGroup),
-    )
-    return appearsInData ? highlightedGroup : undefined
-  }, [highlightedGroup, queryResponses1, queryResponses2, demographicType])
+  // alone cannot vouch for the value that ends up in the prompt. Each side's
+  // loaded rows are its allowlist: a group its response never returned is dropped.
+  const groups: ContrastGroups = useMemo(() => {
+    const validated = (
+      group: DemographicGroup | undefined,
+      responses: MetricQueryResponse[] | undefined,
+    ) =>
+      group &&
+      group !== ALL &&
+      (responses ?? []).some((response) =>
+        response
+          .getValidRowsForField(demographicType)
+          .some((row) => row[demographicType] === group),
+      )
+        ? group
+        : undefined
+    return {
+      viewA: validated(group1, queryResponses1),
+      viewB: validated(group2, queryResponses2),
+    }
+  }, [group1, group2, queryResponses1, queryResponses2, demographicType])
 
-  const contrastCacheKey = `${hashId}-${dataTypeConfig1.dataTypeId}-${fips1.code}-${dataTypeConfig2.dataTypeId}-${fips2.code}-${demographicType}-${activeDemographicGroup ?? ''}`
+  const contrastCacheKey = `${hashId}-${dataTypeConfig1.dataTypeId}-${fips1.code}-${dataTypeConfig2.dataTypeId}-${fips2.code}-${demographicType}-${groups.viewA ?? ''}-${groups.viewB ?? ''}`
   const contrastInsight = contrastInsights[contrastCacheKey]
 
   const stepInfo = reportProviderSteps[hashId]
@@ -120,7 +126,7 @@ export default function ContrastInsightSection({
         demographicType,
         queryResponses1,
         queryResponses2,
-        activeDemographicGroup,
+        groups,
       )
       setServerCacheKey(result.cacheKey ?? null)
       if (result.rateLimited) {
@@ -139,7 +145,7 @@ export default function ContrastInsightSection({
       setIsGenerating(false)
     }
   }, [
-    activeDemographicGroup,
+    groups,
     contrastCacheKey,
     dataTypeConfig1,
     dataTypeConfig2,
@@ -265,7 +271,7 @@ export default function ContrastInsightSection({
                         demographicType,
                         queryResponses1,
                         queryResponses2,
-                        activeDemographicGroup,
+                        groups,
                       )
                   : undefined
               }

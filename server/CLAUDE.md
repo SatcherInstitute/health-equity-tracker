@@ -620,7 +620,9 @@ the nation are BJS, and BJS national prison rates include federal prisons while 
 rates do not. So the fix is to forbid outside figures, never to supply a parent row.
 
 A map showing 2+ places sends only the group on screen, plus each place's `All` row as the
-baseline when the selected group is not `All` itself; a single-place map sends every group. The
+baseline when the selected group is not `All` itself; a single-place map sends every group. In a
+compare, each side carries its own `activeDemographicGroup` on its view, since the two maps can show
+different groups; the top-level context group is set only when both sides share one. The
 card budget (32 KB) is sized so the largest state's county map with a group selected fits whole
 (`card_map_large_state_group`). A map still over it is trimmed by `trimMapLinesToBudget`, not in
 file order: each group's highest and lowest row and every place's `All` row are kept first, then
