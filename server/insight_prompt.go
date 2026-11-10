@@ -19,7 +19,7 @@ import (
 // prompt holds. A prompt with one section can afford to send far more of it than
 // a prompt that always carries two.
 const (
-	insightBudgetCard     = 24 * 1024
+	insightBudgetCard     = 32 * 1024
 	insightBudgetReport   = 4 * 1024
 	insightBudgetContrast = 12 * 1024
 )

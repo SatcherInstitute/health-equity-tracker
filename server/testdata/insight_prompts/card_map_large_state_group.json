@@ -1,6 +1,6 @@
 {
   "kind": "card",
-  "why": "A county map the size of Texas with one group highlighted. Only that group and each county's All row are sent, which still runs past the card budget. The last county in file order holds the highlighted group's highest rate, so a file-order trim would drop it; the prompt must keep every county's All row and the group's extremes.",
+  "why": "The largest county map we serve (Texas, 254 counties) with one group highlighted. Only that group and each county's All row are sent, and the card budget is sized so this fits whole: every county appears, including the last one in file order, which holds the group's highest rate.",
   "hashId": "rate-map",
   "topic": "prison",
   "location": "Texas",
