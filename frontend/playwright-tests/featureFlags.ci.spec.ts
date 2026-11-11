@@ -79,12 +79,12 @@ test('the override survives a report change that rewrites the query', async ({
   await expect(
     page.getByRole('button', { name: /active feature flags/ }),
   ).toBeVisible()
-  // The app strips the flag param with its own history write. WebKit reports
-  // that as a navigation, so a goto issued before it lands gets interrupted.
-  await expect(page).not.toHaveURL(/VITE_SHOW_/)
-  await page.waitForLoadState('networkidle')
-
-  await page.goto('/exploredata?mls=1.diabetes-3.00')
+  // The first report makes a late same-document history write after it loads.
+  // WebKit reports that write as a navigation, which can interrupt the goto
+  // below, so retry the navigation until it lands.
+  await expect(async () => {
+    await page.goto('/exploredata?mls=1.diabetes-3.00')
+  }).toPass({ timeout: 15_000 })
   await expect(
     page.getByRole('button', { name: /active feature flags/ }),
   ).toBeVisible()
