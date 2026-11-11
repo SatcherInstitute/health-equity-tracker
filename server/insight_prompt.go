@@ -777,9 +777,18 @@ func buildCardInsightPrompt(hashID, topic, location, demographicLabel, dataSecti
 		activeGroup, peerSummary != nil, tableShape) + singleInsightOutputRule
 }
 
-func buildContrastPrompt(hashID, topic1, topic2, location1, location2, demographic, data1, data2, activeDemographicGroup string) string {
+func buildContrastPrompt(hashID, topic1, topic2, location1, location2, demographic, data1, data2, groupA, groupB string) string {
 	isMap := mapChartIDs[hashID]
-	hasActiveGroup := activeDemographicGroup != "" && !groupIsAll(activeDemographicGroup)
+	isOverall := func(g string) bool { return g == "" || groupIsAll(g) }
+	// Only a group both sides share steers the wording below.
+	activeDemographicGroup := ""
+	if groupA == groupB {
+		activeDemographicGroup = groupA
+	}
+	hasActiveGroup := !isOverall(activeDemographicGroup)
+	// Each map is filtered to its own group, so two maps showing different
+	// groups hold rows for different populations.
+	groupsDiffer := isMap && !(isOverall(groupA) && isOverall(groupB)) && groupA != groupB
 
 	var setup, viewALabel, viewBLabel, guidance string
 
@@ -824,6 +833,17 @@ func buildContrastPrompt(hashID, topic1, topic2, location1, location2, demograph
 		viewALabel = fmt.Sprintf("View A (%s in %s)", topic1, location1)
 		viewBLabel = fmt.Sprintf("View B (%s in %s)", topic2, location2)
 		guidance = "Focus on what the contrast reveals about how place and topic interact in driving health inequities."
+	}
+
+	if groupsDiffer {
+		groupLabel := func(g string) string {
+			if isOverall(g) {
+				return "the overall (All) rate only"
+			}
+			return fmt.Sprintf("the %s group", g)
+		}
+		guidance += fmt.Sprintf(" View A shows %s and View B shows %s, each alongside its own places' All rates. These are different populations: compare each group against the All rate in its own view, and never compare one group's rate directly against the other group's.",
+			groupLabel(groupA), groupLabel(groupB))
 	}
 
 	dataBlock1 := ""
