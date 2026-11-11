@@ -7,15 +7,20 @@
 # A flag record is a JSON object ({key}.json) written when a site visitor reports an
 # insight. Its `status` drives behavior on the live site and in the generation prompt.
 #
-# Source of truth for these status values is data_server/main.py (FLAG_STATUS_* constants).
+# Source of truth for these status values is server/insights.go (flagStatus* constants).
 # bash can't import them, so the strings are duplicated below — keep the two in sync if the
 # vocabulary ever changes.
 #
-#   flagged    - raw user report. Does NOT hide the insight and is NOT fed to the prompt.
-#                Awaits team review (this script). Counts as "unhandled".
-#   suppressed - team-confirmed bad output. The combo stays live, but its stored content is
-#                fed back into the generation prompt as a negative example and the cached
-#                insight is dropped, so it regenerates steered away from the bad output.
+#   flagged    - raw user report. Does NOT hide the insight. Awaits team review (this
+#                script). Counts as "unhandled". With INSIGHT_NEGATIVE_EXAMPLES_ENABLED on it
+#                can still be fed to same-topic prompts as a negative example.
+#   suppressed - team-confirmed bad output. Hides the insight for that exact view: the
+#                server checks the flag record before either cache and answers
+#                {"suppressed": true}, so the card renders no insight. The record is keyed
+#                on the prompt hash, so the view only gets an insight again once its data or
+#                the template changes and mints a new key. With
+#                INSIGHT_NEGATIVE_EXAMPLES_ENABLED on, its content is also fed to new
+#                same-topic prompts as a negative example. It does NOT regenerate a better sentence.
 #
 # A false-alarm report is deleted outright (this script's `d` action) rather than given a
 # status — nothing is ever hidden, so there is nothing to "re-enable".
@@ -73,8 +78,8 @@ Review AI-insight flag records, manage kill switches, and seed the prod cache.
 
 Modes:
   (default)           List every flag record grouped by status.
-  --review            Interactively triage each unhandled ("flagged") report: suppress,
-                      delete (false alarm), skip, or quit.
+  --review            Interactively triage each unhandled ("flagged") report: suppress
+                      (hide that view's insight), delete (false alarm), skip, or quit.
   --ci                Non-interactive check used by CI. Prints any unhandled reports and
                       exits 1 if there are any, else exits 0.
   --switch-status     Report the current state of both kill switches (generation and serving).
@@ -443,8 +448,8 @@ if [[ ${#FILES[@]} -eq 0 ]]; then
     exit 0
 fi
 
-# Clears a cached insight so a suppressed combo regenerates fresh (this time with the
-# suppressed content fed in as a negative example). The cache object name is built from the
+# Clears the cached insight for a suppressed key. Suppression already hides it, so this only
+# stops the bad text from sitting in the cache bucket. The cache object name is built from the
 # literal key; guard against wildcard chars that `rm` would expand and could match
 # unintended objects (these effectively never appear in real report URLs).
 clear_cache() {
@@ -456,19 +461,19 @@ clear_cache() {
     esac
     if err=$(gcloud storage rm "gs://$CACHE_BUCKET/insights/${key}.json" \
             --project "$PROJECT_ID" 2>&1); then
-        echo "  cleared cached insight so it regenerates fresh."
+        echo "  cleared cached insight."
         return
     fi
     # A missing object is the normal case (nothing was cached). Anything else — auth,
-    # network, permissions — is a real failure the reviewer needs to see, since the stale
-    # insight will keep being served until the cache is cleared. Lowercase the message
+    # network, permissions — is a real failure the reviewer needs to see, since the bad
+    # text stays in the cache bucket until its TTL sweeps it. Lowercase the message
     # first (portably, via tr) so the match is case-insensitive without glob char classes.
     err_lc=$(printf '%s' "$err" | tr '[:upper:]' '[:lower:]')
     case "$err_lc" in
         *"not found"*|*404*|*"does not match any"*|*"no urls matched"*)
             echo "  no cached insight to clear." ;;
         *)
-            echo "  WARNING: could not clear cached insight — it may keep serving the stale text:" >&2
+            echo "  WARNING: could not clear cached insight (suppression still hides it):" >&2
             echo "    $err" >&2 ;;
     esac
 }
@@ -587,7 +592,7 @@ for f in "${FILES[@]}"; do
 
     action=""
     while [[ -z "$action" ]]; do
-        read -r -p "Action  s = suppress  d = delete (false alarm)  k = skip  q = quit: " choice </dev/tty
+        read -r -p "Action  s = suppress (hide this view's insight)  d = delete (false alarm)  k = skip  q = quit: " choice </dev/tty
         case "$choice" in
             s|S) action="suppress" ;;
             d|D) action="delete" ;;

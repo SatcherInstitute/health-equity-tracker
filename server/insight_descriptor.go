@@ -44,6 +44,9 @@ type insightView struct {
 	Location     string               `json:"location"`
 	MetricConfig *insightMetricConfig `json:"metricConfig"`
 	Rows         []insightRow         `json:"rows"`
+	// The group this side's map shows. The two sides of a compare can differ,
+	// so each is filtered to its own group plus its All rows.
+	ActiveDemographicGroup string `json:"activeDemographicGroup"`
 }
 
 // One of the report insight's five data sections. Each carries its own rows and
@@ -179,12 +182,19 @@ func renderInsightPrompt(d *insightDescriptor) (string, error) {
 		if d.Context != nil {
 			activeGroup = d.Context.ActiveDemographicGroup
 		}
-		section := func(v *insightView) string {
+		viewGroup := func(v *insightView) string {
+			if v.ActiveDemographicGroup != "" {
+				return v.ActiveDemographicGroup
+			}
+			return activeGroup
+		}
+		groupA, groupB := viewGroup(d.ViewA), viewGroup(d.ViewB)
+		section := func(v *insightView, group string) string {
 			return formatDataRows(v.Rows, d.HashID, d.DemographicType, v.MetricConfig,
-				insightDataOptions{BudgetBytes: insightBudgetContrast})
+				insightDataOptions{BudgetBytes: insightBudgetContrast, ActiveDemographicGroup: group})
 		}
 		return buildContrastPrompt(d.HashID, d.ViewA.Topic, d.ViewB.Topic, d.ViewA.Location, d.ViewB.Location,
-			demographic, section(d.ViewA), section(d.ViewB), activeGroup), nil
+			demographic, section(d.ViewA, groupA), section(d.ViewB, groupB), groupA, groupB), nil
 
 	case insightKindReport:
 		s := d.Sections

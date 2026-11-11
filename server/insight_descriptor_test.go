@@ -310,7 +310,7 @@ func TestInsightHandlerGeneratesAndPersistsUnderDerivedKey(t *testing.T) {
 		t.Errorf("persisted to %q, want the path derived from the returned key", path)
 	}
 
-	// The prompt is not echoed on the generating path: it is up to 30 KB the
+	// The prompt is not echoed on the generating path: it is up to 72 KB the
 	// client has no use for.
 	if _, ok := got["prompt"]; ok {
 		t.Error("the generating path echoed the prompt back")

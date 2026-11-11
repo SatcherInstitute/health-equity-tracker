@@ -215,6 +215,24 @@ describe('countInsightRows', () => {
       ),
     ).toBe(4)
   })
+
+  test('a multi-place map with no group highlighted counts only the overall rows', () => {
+    const rows = [
+      { fips_name: 'Fulton County', race_and_ethnicity: 'All', rate: 5 },
+      { fips_name: 'Fulton County', race_and_ethnicity: 'Black (NH)', rate: 9 },
+      { fips_name: 'Cobb County', race_and_ethnicity: 'All', rate: 6 },
+      { fips_name: 'Cobb County', race_and_ethnicity: 'Black (NH)', rate: 8 },
+    ]
+    expect(countInsightRows(rows, 'rate-map', DEMO, metricConfig)).toBe(2)
+    expect(
+      countInsightRows(
+        rows.filter((row) => row.race_and_ethnicity !== 'All'),
+        'rate-map',
+        DEMO,
+        metricConfig,
+      ),
+    ).toBe(0)
+  })
 })
 describe('getInsightDataStatus', () => {
   const oneRow = new MetricQueryResponse([

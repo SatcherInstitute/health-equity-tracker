@@ -15,13 +15,14 @@ import (
 // views, and TestInsightPromptFixtures renders those same inputs through this
 // code. A diff in those files is the thing to review.
 
-// Bytes of data rows a prompt may carry, tiered by how many data sections that
-// prompt holds. A prompt with one section can afford to send far more of it than
-// a prompt that always carries two.
+// Bytes of data rows a prompt section may carry. The card budget is sized to
+// fit the largest view we serve whole (a large state's county map with one
+// group selected), and each side of a contrast gets the same, so a compare
+// carries both views in full. The report's five sections stay small.
 const (
-	insightBudgetCard     = 24 * 1024
+	insightBudgetCard     = 32 * 1024
 	insightBudgetReport   = 4 * 1024
-	insightBudgetContrast = 12 * 1024
+	insightBudgetContrast = insightBudgetCard
 )
 
 var mapChartIDs = map[string]bool{
@@ -258,11 +259,12 @@ func formatDataRows(rows []insightRow, hashID, demographicType string, metricCon
 		filtered = append(filtered, row)
 	}
 
-	// A map showing 2+ places is a real geographic comparison, so default to the
-	// group on screen. A map showing fewer than 2 places has nothing geographic
+	// A map showing 2+ places is a real geographic comparison, so send only the
+	// group on screen, plus each place's All row as the baseline when that group
+	// is not All itself. A map showing fewer than 2 places has nothing geographic
 	// to gain from filtering, so fall back to every group within that one place.
 	activeRows := filtered
-	if isMap && opts.ActiveDemographicGroup != "" && !groupIsAll(opts.ActiveDemographicGroup) {
+	if isMap {
 		places := map[string]bool{}
 		for _, row := range filtered {
 			places[jsString(row["fips_name"])] = true
@@ -315,7 +317,101 @@ func formatDataRows(rows []insightRow, hashID, demographicType string, metricCon
 	// Group filtering bounds a map section in the common case, but a wide
 	// breakdown over hundreds of places can still outgrow the budget, and the
 	// data table has no geographic filter at all.
+	if isMap {
+		return trimMapLinesToBudget(lines, activeRows, demographicType, metricConfig.MetricID, budgetBytes)
+	}
 	return trimLinesToBudget(lines, budgetBytes)
+}
+
+// A map trimmed in file order loses whichever places happen to sort last, so
+// the model can name "the highest" place without ever seeing it. When a map is
+// over budget, every place's All row and each group's highest and lowest row
+// are kept first, and the remaining budget is filled in file order. Kept lines
+// render in their original order, so the same rows always hash the same way.
+func trimMapLinesToBudget(lines []string, rows []insightRow, demographicType, metricID string, budgetBytes int) string {
+	total := 0
+	for i, line := range lines {
+		if i > 0 {
+			total++
+		}
+		total += len(line)
+	}
+	if total <= budgetBytes {
+		return strings.Join(lines, "\n")
+	}
+
+	allRow := make([]bool, len(lines))
+	extreme := make([]bool, len(lines))
+	type extremes struct{ minIdx, maxIdx int }
+	byGroup := map[string]*extremes{}
+	for i, row := range rows {
+		group := jsString(row[demographicType])
+		// All rows are kept as each place's baseline, and the All group still
+		// gets its own extremes, since an All-only map has no other group.
+		if groupIsAll(group) {
+			allRow[i] = true
+		}
+		value, ok := finiteNumber(row[metricID])
+		if !ok {
+			continue
+		}
+		e, seen := byGroup[group]
+		if !seen {
+			byGroup[group] = &extremes{minIdx: i, maxIdx: i}
+			continue
+		}
+		if minValue, _ := finiteNumber(rows[e.minIdx][metricID]); value < minValue {
+			e.minIdx = i
+		}
+		if maxValue, _ := finiteNumber(rows[e.maxIdx][metricID]); value > maxValue {
+			e.maxIdx = i
+		}
+	}
+	for _, e := range byGroup {
+		extreme[e.minIdx] = true
+		extreme[e.maxIdx] = true
+	}
+
+	keep := make([]bool, len(lines))
+	used := 0
+	take := func(i int) {
+		if keep[i] {
+			return
+		}
+		cost := len(lines[i])
+		if used > 0 {
+			cost++
+		}
+		if used+cost > budgetBytes {
+			return
+		}
+		keep[i] = true
+		used += cost
+	}
+	// Extremes go first: they are two rows per group, so they always fit, while
+	// the All rows scale with the number of places and could otherwise use up a
+	// small budget before a later group's extreme is reached.
+	for i := range lines {
+		if extreme[i] {
+			take(i)
+		}
+	}
+	for i := range lines {
+		if allRow[i] {
+			take(i)
+		}
+	}
+	for i := range lines {
+		take(i)
+	}
+
+	kept := make([]string, 0, len(lines))
+	for i, line := range lines {
+		if keep[i] {
+			kept = append(kept, line)
+		}
+	}
+	return strings.Join(kept, "\n")
 }
 
 func formatTimeSeriesRows(rows []insightRow, demographicType string, metricConfig *insightMetricConfig, groupFilter map[string]bool, budgetBytes int) string {
@@ -681,9 +777,18 @@ func buildCardInsightPrompt(hashID, topic, location, demographicLabel, dataSecti
 		activeGroup, peerSummary != nil, tableShape) + singleInsightOutputRule
 }
 
-func buildContrastPrompt(hashID, topic1, topic2, location1, location2, demographic, data1, data2, activeDemographicGroup string) string {
+func buildContrastPrompt(hashID, topic1, topic2, location1, location2, demographic, data1, data2, groupA, groupB string) string {
 	isMap := mapChartIDs[hashID]
-	hasActiveGroup := activeDemographicGroup != "" && !groupIsAll(activeDemographicGroup)
+	isOverall := func(g string) bool { return g == "" || groupIsAll(g) }
+	// Only a group both sides share steers the wording below.
+	activeDemographicGroup := ""
+	if groupA == groupB {
+		activeDemographicGroup = groupA
+	}
+	hasActiveGroup := !isOverall(activeDemographicGroup)
+	// Each map is filtered to its own group, so two maps showing different
+	// groups hold rows for different populations.
+	groupsDiffer := isMap && !(isOverall(groupA) && isOverall(groupB)) && groupA != groupB
 
 	var setup, viewALabel, viewBLabel, guidance string
 
@@ -728,6 +833,17 @@ func buildContrastPrompt(hashID, topic1, topic2, location1, location2, demograph
 		viewALabel = fmt.Sprintf("View A (%s in %s)", topic1, location1)
 		viewBLabel = fmt.Sprintf("View B (%s in %s)", topic2, location2)
 		guidance = "Focus on what the contrast reveals about how place and topic interact in driving health inequities."
+	}
+
+	if groupsDiffer {
+		groupLabel := func(g string) string {
+			if isOverall(g) {
+				return "the overall (All) rate only"
+			}
+			return fmt.Sprintf("the %s group", g)
+		}
+		guidance += fmt.Sprintf(" View A shows %s and View B shows %s, each alongside its own places' All rates. These are different populations: compare each group against the All rate in its own view, and never compare one group's rate directly against the other group's.",
+			groupLabel(groupA), groupLabel(groupB))
 	}
 
 	dataBlock1 := ""

@@ -293,12 +293,9 @@ export function countInsightRows(
   const distinctPlaces = isMap
     ? new Set(filteredRows.map((row) => row.fips_name)).size
     : 0
-  if (
-    isMap &&
-    activeDemographicGroup &&
-    !groupIsAll(activeDemographicGroup) &&
-    distinctPlaces >= 2
-  ) {
+  // A map of 2+ places sends only the group on screen plus each place's All
+  // row; with no group (or All) selected, that is the All rows alone.
+  if (isMap && distinctPlaces >= 2) {
     return filteredRows.filter(
       (row) =>
         String(row[demographicType]) === activeDemographicGroup ||

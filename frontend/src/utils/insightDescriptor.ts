@@ -1,5 +1,6 @@
 import type { MetricConfig } from '../data/config/MetricConfigTypes'
 import type { DemographicType } from '../data/query/Breakdowns'
+import type { DemographicGroup } from '../data/utils/Constants'
 import type { HetRow } from '../data/utils/DatasetTypes'
 import type {
   InsightContext,
@@ -103,6 +104,7 @@ interface ContrastView {
   location: string
   metricConfig: InsightMetric
   rows: HetRow[]
+  activeDemographicGroup?: DemographicGroup
 }
 
 interface ContrastDescriptor {
@@ -111,8 +113,9 @@ interface ContrastDescriptor {
   demographicType: DemographicType
   viewA: ContrastView
   viewB: ContrastView
-  // The highlighted demographic group across both sides. Sent explicitly so the
-  // server never has to decode the browser's short-code URL encoding on its own.
+  // The highlighted demographic group, set only when both sides share it. Sent
+  // explicitly so the server never has to decode the browser's short-code URL
+  // encoding on its own.
   context?: InsightContext
 }
 

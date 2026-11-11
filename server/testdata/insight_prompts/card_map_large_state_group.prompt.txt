@@ -1,0 +1,533 @@
+This is a choropleth map showing prison in Texas by race/ethnicity. Each data row is labeled with its place and race/ethnicity group; an "All" row gives the overall rate for that place. The map currently highlights the Black or African American (NH) group — use that group's rates to describe the geographic pattern, with "All" as the baseline. Every figure must come from the data below. It holds no rate for any area wider than the places listed, so never state or estimate one, such as a "national average".
+
+Data:
+- Place 001 County (All): 100 per 100k
+- Place 001 County (Black or African American (NH)): 139 per 100k
+- Place 002 County (All): 107 per 100k
+- Place 002 County (Black or African American (NH)): 146 per 100k
+- Place 003 County (All): 114 per 100k
+- Place 003 County (Black or African American (NH)): 103 per 100k
+- Place 004 County (All): 121 per 100k
+- Place 004 County (Black or African American (NH)): 110 per 100k
+- Place 005 County (All): 128 per 100k
+- Place 005 County (Black or African American (NH)): 117 per 100k
+- Place 006 County (All): 135 per 100k
+- Place 006 County (Black or African American (NH)): 124 per 100k
+- Place 007 County (All): 142 per 100k
+- Place 007 County (Black or African American (NH)): 131 per 100k
+- Place 008 County (All): 149 per 100k
+- Place 008 County (Black or African American (NH)): 138 per 100k
+- Place 009 County (All): 106 per 100k
+- Place 009 County (Black or African American (NH)): 145 per 100k
+- Place 010 County (All): 113 per 100k
+- Place 010 County (Black or African American (NH)): 102 per 100k
+- Place 011 County (All): 120 per 100k
+- Place 011 County (Black or African American (NH)): 109 per 100k
+- Place 012 County (All): 127 per 100k
+- Place 012 County (Black or African American (NH)): 116 per 100k
+- Place 013 County (All): 134 per 100k
+- Place 013 County (Black or African American (NH)): 123 per 100k
+- Place 014 County (All): 141 per 100k
+- Place 014 County (Black or African American (NH)): 130 per 100k
+- Place 015 County (All): 148 per 100k
+- Place 015 County (Black or African American (NH)): 137 per 100k
+- Place 016 County (All): 105 per 100k
+- Place 016 County (Black or African American (NH)): 144 per 100k
+- Place 017 County (All): 112 per 100k
+- Place 017 County (Black or African American (NH)): 101 per 100k
+- Place 018 County (All): 119 per 100k
+- Place 018 County (Black or African American (NH)): 108 per 100k
+- Place 019 County (All): 126 per 100k
+- Place 019 County (Black or African American (NH)): 115 per 100k
+- Place 020 County (All): 133 per 100k
+- Place 020 County (Black or African American (NH)): 122 per 100k
+- Place 021 County (All): 140 per 100k
+- Place 021 County (Black or African American (NH)): 129 per 100k
+- Place 022 County (All): 147 per 100k
+- Place 022 County (Black or African American (NH)): 136 per 100k
+- Place 023 County (All): 104 per 100k
+- Place 023 County (Black or African American (NH)): 143 per 100k
+- Place 024 County (All): 111 per 100k
+- Place 024 County (Black or African American (NH)): 100 per 100k
+- Place 025 County (All): 118 per 100k
+- Place 025 County (Black or African American (NH)): 107 per 100k
+- Place 026 County (All): 125 per 100k
+- Place 026 County (Black or African American (NH)): 114 per 100k
+- Place 027 County (All): 132 per 100k
+- Place 027 County (Black or African American (NH)): 121 per 100k
+- Place 028 County (All): 139 per 100k
+- Place 028 County (Black or African American (NH)): 128 per 100k
+- Place 029 County (All): 146 per 100k
+- Place 029 County (Black or African American (NH)): 135 per 100k
+- Place 030 County (All): 103 per 100k
+- Place 030 County (Black or African American (NH)): 142 per 100k
+- Place 031 County (All): 110 per 100k
+- Place 031 County (Black or African American (NH)): 149 per 100k
+- Place 032 County (All): 117 per 100k
+- Place 032 County (Black or African American (NH)): 106 per 100k
+- Place 033 County (All): 124 per 100k
+- Place 033 County (Black or African American (NH)): 113 per 100k
+- Place 034 County (All): 131 per 100k
+- Place 034 County (Black or African American (NH)): 120 per 100k
+- Place 035 County (All): 138 per 100k
+- Place 035 County (Black or African American (NH)): 127 per 100k
+- Place 036 County (All): 145 per 100k
+- Place 036 County (Black or African American (NH)): 134 per 100k
+- Place 037 County (All): 102 per 100k
+- Place 037 County (Black or African American (NH)): 141 per 100k
+- Place 038 County (All): 109 per 100k
+- Place 038 County (Black or African American (NH)): 148 per 100k
+- Place 039 County (All): 116 per 100k
+- Place 039 County (Black or African American (NH)): 105 per 100k
+- Place 040 County (All): 123 per 100k
+- Place 040 County (Black or African American (NH)): 112 per 100k
+- Place 041 County (All): 130 per 100k
+- Place 041 County (Black or African American (NH)): 119 per 100k
+- Place 042 County (All): 137 per 100k
+- Place 042 County (Black or African American (NH)): 126 per 100k
+- Place 043 County (All): 144 per 100k
+- Place 043 County (Black or African American (NH)): 133 per 100k
+- Place 044 County (All): 101 per 100k
+- Place 044 County (Black or African American (NH)): 140 per 100k
+- Place 045 County (All): 108 per 100k
+- Place 045 County (Black or African American (NH)): 147 per 100k
+- Place 046 County (All): 115 per 100k
+- Place 046 County (Black or African American (NH)): 104 per 100k
+- Place 047 County (All): 122 per 100k
+- Place 047 County (Black or African American (NH)): 111 per 100k
+- Place 048 County (All): 129 per 100k
+- Place 048 County (Black or African American (NH)): 118 per 100k
+- Place 049 County (All): 136 per 100k
+- Place 049 County (Black or African American (NH)): 125 per 100k
+- Place 050 County (All): 143 per 100k
+- Place 050 County (Black or African American (NH)): 132 per 100k
+- Place 051 County (All): 100 per 100k
+- Place 051 County (Black or African American (NH)): 139 per 100k
+- Place 052 County (All): 107 per 100k
+- Place 052 County (Black or African American (NH)): 146 per 100k
+- Place 053 County (All): 114 per 100k
+- Place 053 County (Black or African American (NH)): 103 per 100k
+- Place 054 County (All): 121 per 100k
+- Place 054 County (Black or African American (NH)): 110 per 100k
+- Place 055 County (All): 128 per 100k
+- Place 055 County (Black or African American (NH)): 117 per 100k
+- Place 056 County (All): 135 per 100k
+- Place 056 County (Black or African American (NH)): 124 per 100k
+- Place 057 County (All): 142 per 100k
+- Place 057 County (Black or African American (NH)): 131 per 100k
+- Place 058 County (All): 149 per 100k
+- Place 058 County (Black or African American (NH)): 138 per 100k
+- Place 059 County (All): 106 per 100k
+- Place 059 County (Black or African American (NH)): 145 per 100k
+- Place 060 County (All): 113 per 100k
+- Place 060 County (Black or African American (NH)): 102 per 100k
+- Place 061 County (All): 120 per 100k
+- Place 061 County (Black or African American (NH)): 109 per 100k
+- Place 062 County (All): 127 per 100k
+- Place 062 County (Black or African American (NH)): 116 per 100k
+- Place 063 County (All): 134 per 100k
+- Place 063 County (Black or African American (NH)): 123 per 100k
+- Place 064 County (All): 141 per 100k
+- Place 064 County (Black or African American (NH)): 130 per 100k
+- Place 065 County (All): 148 per 100k
+- Place 065 County (Black or African American (NH)): 137 per 100k
+- Place 066 County (All): 105 per 100k
+- Place 066 County (Black or African American (NH)): 144 per 100k
+- Place 067 County (All): 112 per 100k
+- Place 067 County (Black or African American (NH)): 101 per 100k
+- Place 068 County (All): 119 per 100k
+- Place 068 County (Black or African American (NH)): 108 per 100k
+- Place 069 County (All): 126 per 100k
+- Place 069 County (Black or African American (NH)): 115 per 100k
+- Place 070 County (All): 133 per 100k
+- Place 070 County (Black or African American (NH)): 122 per 100k
+- Place 071 County (All): 140 per 100k
+- Place 071 County (Black or African American (NH)): 129 per 100k
+- Place 072 County (All): 147 per 100k
+- Place 072 County (Black or African American (NH)): 136 per 100k
+- Place 073 County (All): 104 per 100k
+- Place 073 County (Black or African American (NH)): 143 per 100k
+- Place 074 County (All): 111 per 100k
+- Place 074 County (Black or African American (NH)): 100 per 100k
+- Place 075 County (All): 118 per 100k
+- Place 075 County (Black or African American (NH)): 107 per 100k
+- Place 076 County (All): 125 per 100k
+- Place 076 County (Black or African American (NH)): 114 per 100k
+- Place 077 County (All): 132 per 100k
+- Place 077 County (Black or African American (NH)): 121 per 100k
+- Place 078 County (All): 139 per 100k
+- Place 078 County (Black or African American (NH)): 128 per 100k
+- Place 079 County (All): 146 per 100k
+- Place 079 County (Black or African American (NH)): 135 per 100k
+- Place 080 County (All): 103 per 100k
+- Place 080 County (Black or African American (NH)): 142 per 100k
+- Place 081 County (All): 110 per 100k
+- Place 081 County (Black or African American (NH)): 149 per 100k
+- Place 082 County (All): 117 per 100k
+- Place 082 County (Black or African American (NH)): 106 per 100k
+- Place 083 County (All): 124 per 100k
+- Place 083 County (Black or African American (NH)): 113 per 100k
+- Place 084 County (All): 131 per 100k
+- Place 084 County (Black or African American (NH)): 120 per 100k
+- Place 085 County (All): 138 per 100k
+- Place 085 County (Black or African American (NH)): 127 per 100k
+- Place 086 County (All): 145 per 100k
+- Place 086 County (Black or African American (NH)): 134 per 100k
+- Place 087 County (All): 102 per 100k
+- Place 087 County (Black or African American (NH)): 141 per 100k
+- Place 088 County (All): 109 per 100k
+- Place 088 County (Black or African American (NH)): 148 per 100k
+- Place 089 County (All): 116 per 100k
+- Place 089 County (Black or African American (NH)): 105 per 100k
+- Place 090 County (All): 123 per 100k
+- Place 090 County (Black or African American (NH)): 112 per 100k
+- Place 091 County (All): 130 per 100k
+- Place 091 County (Black or African American (NH)): 119 per 100k
+- Place 092 County (All): 137 per 100k
+- Place 092 County (Black or African American (NH)): 126 per 100k
+- Place 093 County (All): 144 per 100k
+- Place 093 County (Black or African American (NH)): 133 per 100k
+- Place 094 County (All): 101 per 100k
+- Place 094 County (Black or African American (NH)): 140 per 100k
+- Place 095 County (All): 108 per 100k
+- Place 095 County (Black or African American (NH)): 147 per 100k
+- Place 096 County (All): 115 per 100k
+- Place 096 County (Black or African American (NH)): 104 per 100k
+- Place 097 County (All): 122 per 100k
+- Place 097 County (Black or African American (NH)): 111 per 100k
+- Place 098 County (All): 129 per 100k
+- Place 098 County (Black or African American (NH)): 118 per 100k
+- Place 099 County (All): 136 per 100k
+- Place 099 County (Black or African American (NH)): 125 per 100k
+- Place 100 County (All): 143 per 100k
+- Place 100 County (Black or African American (NH)): 132 per 100k
+- Place 101 County (All): 100 per 100k
+- Place 101 County (Black or African American (NH)): 139 per 100k
+- Place 102 County (All): 107 per 100k
+- Place 102 County (Black or African American (NH)): 146 per 100k
+- Place 103 County (All): 114 per 100k
+- Place 103 County (Black or African American (NH)): 103 per 100k
+- Place 104 County (All): 121 per 100k
+- Place 104 County (Black or African American (NH)): 110 per 100k
+- Place 105 County (All): 128 per 100k
+- Place 105 County (Black or African American (NH)): 117 per 100k
+- Place 106 County (All): 135 per 100k
+- Place 106 County (Black or African American (NH)): 124 per 100k
+- Place 107 County (All): 142 per 100k
+- Place 107 County (Black or African American (NH)): 131 per 100k
+- Place 108 County (All): 149 per 100k
+- Place 108 County (Black or African American (NH)): 138 per 100k
+- Place 109 County (All): 106 per 100k
+- Place 109 County (Black or African American (NH)): 145 per 100k
+- Place 110 County (All): 113 per 100k
+- Place 110 County (Black or African American (NH)): 102 per 100k
+- Place 111 County (All): 120 per 100k
+- Place 111 County (Black or African American (NH)): 109 per 100k
+- Place 112 County (All): 127 per 100k
+- Place 112 County (Black or African American (NH)): 116 per 100k
+- Place 113 County (All): 134 per 100k
+- Place 113 County (Black or African American (NH)): 123 per 100k
+- Place 114 County (All): 141 per 100k
+- Place 114 County (Black or African American (NH)): 130 per 100k
+- Place 115 County (All): 148 per 100k
+- Place 115 County (Black or African American (NH)): 137 per 100k
+- Place 116 County (All): 105 per 100k
+- Place 116 County (Black or African American (NH)): 144 per 100k
+- Place 117 County (All): 112 per 100k
+- Place 117 County (Black or African American (NH)): 101 per 100k
+- Place 118 County (All): 119 per 100k
+- Place 118 County (Black or African American (NH)): 108 per 100k
+- Place 119 County (All): 126 per 100k
+- Place 119 County (Black or African American (NH)): 115 per 100k
+- Place 120 County (All): 133 per 100k
+- Place 120 County (Black or African American (NH)): 122 per 100k
+- Place 121 County (All): 140 per 100k
+- Place 121 County (Black or African American (NH)): 129 per 100k
+- Place 122 County (All): 147 per 100k
+- Place 122 County (Black or African American (NH)): 136 per 100k
+- Place 123 County (All): 104 per 100k
+- Place 123 County (Black or African American (NH)): 143 per 100k
+- Place 124 County (All): 111 per 100k
+- Place 124 County (Black or African American (NH)): 100 per 100k
+- Place 125 County (All): 118 per 100k
+- Place 125 County (Black or African American (NH)): 107 per 100k
+- Place 126 County (All): 125 per 100k
+- Place 126 County (Black or African American (NH)): 114 per 100k
+- Place 127 County (All): 132 per 100k
+- Place 127 County (Black or African American (NH)): 121 per 100k
+- Place 128 County (All): 139 per 100k
+- Place 128 County (Black or African American (NH)): 128 per 100k
+- Place 129 County (All): 146 per 100k
+- Place 129 County (Black or African American (NH)): 135 per 100k
+- Place 130 County (All): 103 per 100k
+- Place 130 County (Black or African American (NH)): 142 per 100k
+- Place 131 County (All): 110 per 100k
+- Place 131 County (Black or African American (NH)): 149 per 100k
+- Place 132 County (All): 117 per 100k
+- Place 132 County (Black or African American (NH)): 106 per 100k
+- Place 133 County (All): 124 per 100k
+- Place 133 County (Black or African American (NH)): 113 per 100k
+- Place 134 County (All): 131 per 100k
+- Place 134 County (Black or African American (NH)): 120 per 100k
+- Place 135 County (All): 138 per 100k
+- Place 135 County (Black or African American (NH)): 127 per 100k
+- Place 136 County (All): 145 per 100k
+- Place 136 County (Black or African American (NH)): 134 per 100k
+- Place 137 County (All): 102 per 100k
+- Place 137 County (Black or African American (NH)): 141 per 100k
+- Place 138 County (All): 109 per 100k
+- Place 138 County (Black or African American (NH)): 148 per 100k
+- Place 139 County (All): 116 per 100k
+- Place 139 County (Black or African American (NH)): 105 per 100k
+- Place 140 County (All): 123 per 100k
+- Place 140 County (Black or African American (NH)): 112 per 100k
+- Place 141 County (All): 130 per 100k
+- Place 141 County (Black or African American (NH)): 119 per 100k
+- Place 142 County (All): 137 per 100k
+- Place 142 County (Black or African American (NH)): 126 per 100k
+- Place 143 County (All): 144 per 100k
+- Place 143 County (Black or African American (NH)): 133 per 100k
+- Place 144 County (All): 101 per 100k
+- Place 144 County (Black or African American (NH)): 140 per 100k
+- Place 145 County (All): 108 per 100k
+- Place 145 County (Black or African American (NH)): 147 per 100k
+- Place 146 County (All): 115 per 100k
+- Place 146 County (Black or African American (NH)): 104 per 100k
+- Place 147 County (All): 122 per 100k
+- Place 147 County (Black or African American (NH)): 111 per 100k
+- Place 148 County (All): 129 per 100k
+- Place 148 County (Black or African American (NH)): 118 per 100k
+- Place 149 County (All): 136 per 100k
+- Place 149 County (Black or African American (NH)): 125 per 100k
+- Place 150 County (All): 143 per 100k
+- Place 150 County (Black or African American (NH)): 132 per 100k
+- Place 151 County (All): 100 per 100k
+- Place 151 County (Black or African American (NH)): 139 per 100k
+- Place 152 County (All): 107 per 100k
+- Place 152 County (Black or African American (NH)): 146 per 100k
+- Place 153 County (All): 114 per 100k
+- Place 153 County (Black or African American (NH)): 103 per 100k
+- Place 154 County (All): 121 per 100k
+- Place 154 County (Black or African American (NH)): 110 per 100k
+- Place 155 County (All): 128 per 100k
+- Place 155 County (Black or African American (NH)): 117 per 100k
+- Place 156 County (All): 135 per 100k
+- Place 156 County (Black or African American (NH)): 124 per 100k
+- Place 157 County (All): 142 per 100k
+- Place 157 County (Black or African American (NH)): 131 per 100k
+- Place 158 County (All): 149 per 100k
+- Place 158 County (Black or African American (NH)): 138 per 100k
+- Place 159 County (All): 106 per 100k
+- Place 159 County (Black or African American (NH)): 145 per 100k
+- Place 160 County (All): 113 per 100k
+- Place 160 County (Black or African American (NH)): 102 per 100k
+- Place 161 County (All): 120 per 100k
+- Place 161 County (Black or African American (NH)): 109 per 100k
+- Place 162 County (All): 127 per 100k
+- Place 162 County (Black or African American (NH)): 116 per 100k
+- Place 163 County (All): 134 per 100k
+- Place 163 County (Black or African American (NH)): 123 per 100k
+- Place 164 County (All): 141 per 100k
+- Place 164 County (Black or African American (NH)): 130 per 100k
+- Place 165 County (All): 148 per 100k
+- Place 165 County (Black or African American (NH)): 137 per 100k
+- Place 166 County (All): 105 per 100k
+- Place 166 County (Black or African American (NH)): 144 per 100k
+- Place 167 County (All): 112 per 100k
+- Place 167 County (Black or African American (NH)): 101 per 100k
+- Place 168 County (All): 119 per 100k
+- Place 168 County (Black or African American (NH)): 108 per 100k
+- Place 169 County (All): 126 per 100k
+- Place 169 County (Black or African American (NH)): 115 per 100k
+- Place 170 County (All): 133 per 100k
+- Place 170 County (Black or African American (NH)): 122 per 100k
+- Place 171 County (All): 140 per 100k
+- Place 171 County (Black or African American (NH)): 129 per 100k
+- Place 172 County (All): 147 per 100k
+- Place 172 County (Black or African American (NH)): 136 per 100k
+- Place 173 County (All): 104 per 100k
+- Place 173 County (Black or African American (NH)): 143 per 100k
+- Place 174 County (All): 111 per 100k
+- Place 174 County (Black or African American (NH)): 100 per 100k
+- Place 175 County (All): 118 per 100k
+- Place 175 County (Black or African American (NH)): 107 per 100k
+- Place 176 County (All): 125 per 100k
+- Place 176 County (Black or African American (NH)): 114 per 100k
+- Place 177 County (All): 132 per 100k
+- Place 177 County (Black or African American (NH)): 121 per 100k
+- Place 178 County (All): 139 per 100k
+- Place 178 County (Black or African American (NH)): 128 per 100k
+- Place 179 County (All): 146 per 100k
+- Place 179 County (Black or African American (NH)): 135 per 100k
+- Place 180 County (All): 103 per 100k
+- Place 180 County (Black or African American (NH)): 142 per 100k
+- Place 181 County (All): 110 per 100k
+- Place 181 County (Black or African American (NH)): 149 per 100k
+- Place 182 County (All): 117 per 100k
+- Place 182 County (Black or African American (NH)): 106 per 100k
+- Place 183 County (All): 124 per 100k
+- Place 183 County (Black or African American (NH)): 113 per 100k
+- Place 184 County (All): 131 per 100k
+- Place 184 County (Black or African American (NH)): 120 per 100k
+- Place 185 County (All): 138 per 100k
+- Place 185 County (Black or African American (NH)): 127 per 100k
+- Place 186 County (All): 145 per 100k
+- Place 186 County (Black or African American (NH)): 134 per 100k
+- Place 187 County (All): 102 per 100k
+- Place 187 County (Black or African American (NH)): 141 per 100k
+- Place 188 County (All): 109 per 100k
+- Place 188 County (Black or African American (NH)): 148 per 100k
+- Place 189 County (All): 116 per 100k
+- Place 189 County (Black or African American (NH)): 105 per 100k
+- Place 190 County (All): 123 per 100k
+- Place 190 County (Black or African American (NH)): 112 per 100k
+- Place 191 County (All): 130 per 100k
+- Place 191 County (Black or African American (NH)): 119 per 100k
+- Place 192 County (All): 137 per 100k
+- Place 192 County (Black or African American (NH)): 126 per 100k
+- Place 193 County (All): 144 per 100k
+- Place 193 County (Black or African American (NH)): 133 per 100k
+- Place 194 County (All): 101 per 100k
+- Place 194 County (Black or African American (NH)): 140 per 100k
+- Place 195 County (All): 108 per 100k
+- Place 195 County (Black or African American (NH)): 147 per 100k
+- Place 196 County (All): 115 per 100k
+- Place 196 County (Black or African American (NH)): 104 per 100k
+- Place 197 County (All): 122 per 100k
+- Place 197 County (Black or African American (NH)): 111 per 100k
+- Place 198 County (All): 129 per 100k
+- Place 198 County (Black or African American (NH)): 118 per 100k
+- Place 199 County (All): 136 per 100k
+- Place 199 County (Black or African American (NH)): 125 per 100k
+- Place 200 County (All): 143 per 100k
+- Place 200 County (Black or African American (NH)): 132 per 100k
+- Place 201 County (All): 100 per 100k
+- Place 201 County (Black or African American (NH)): 139 per 100k
+- Place 202 County (All): 107 per 100k
+- Place 202 County (Black or African American (NH)): 146 per 100k
+- Place 203 County (All): 114 per 100k
+- Place 203 County (Black or African American (NH)): 103 per 100k
+- Place 204 County (All): 121 per 100k
+- Place 204 County (Black or African American (NH)): 110 per 100k
+- Place 205 County (All): 128 per 100k
+- Place 205 County (Black or African American (NH)): 117 per 100k
+- Place 206 County (All): 135 per 100k
+- Place 206 County (Black or African American (NH)): 124 per 100k
+- Place 207 County (All): 142 per 100k
+- Place 207 County (Black or African American (NH)): 131 per 100k
+- Place 208 County (All): 149 per 100k
+- Place 208 County (Black or African American (NH)): 138 per 100k
+- Place 209 County (All): 106 per 100k
+- Place 209 County (Black or African American (NH)): 145 per 100k
+- Place 210 County (All): 113 per 100k
+- Place 210 County (Black or African American (NH)): 102 per 100k
+- Place 211 County (All): 120 per 100k
+- Place 211 County (Black or African American (NH)): 109 per 100k
+- Place 212 County (All): 127 per 100k
+- Place 212 County (Black or African American (NH)): 116 per 100k
+- Place 213 County (All): 134 per 100k
+- Place 213 County (Black or African American (NH)): 123 per 100k
+- Place 214 County (All): 141 per 100k
+- Place 214 County (Black or African American (NH)): 130 per 100k
+- Place 215 County (All): 148 per 100k
+- Place 215 County (Black or African American (NH)): 137 per 100k
+- Place 216 County (All): 105 per 100k
+- Place 216 County (Black or African American (NH)): 144 per 100k
+- Place 217 County (All): 112 per 100k
+- Place 217 County (Black or African American (NH)): 101 per 100k
+- Place 218 County (All): 119 per 100k
+- Place 218 County (Black or African American (NH)): 108 per 100k
+- Place 219 County (All): 126 per 100k
+- Place 219 County (Black or African American (NH)): 115 per 100k
+- Place 220 County (All): 133 per 100k
+- Place 220 County (Black or African American (NH)): 122 per 100k
+- Place 221 County (All): 140 per 100k
+- Place 221 County (Black or African American (NH)): 129 per 100k
+- Place 222 County (All): 147 per 100k
+- Place 222 County (Black or African American (NH)): 136 per 100k
+- Place 223 County (All): 104 per 100k
+- Place 223 County (Black or African American (NH)): 143 per 100k
+- Place 224 County (All): 111 per 100k
+- Place 224 County (Black or African American (NH)): 100 per 100k
+- Place 225 County (All): 118 per 100k
+- Place 225 County (Black or African American (NH)): 107 per 100k
+- Place 226 County (All): 125 per 100k
+- Place 226 County (Black or African American (NH)): 114 per 100k
+- Place 227 County (All): 132 per 100k
+- Place 227 County (Black or African American (NH)): 121 per 100k
+- Place 228 County (All): 139 per 100k
+- Place 228 County (Black or African American (NH)): 128 per 100k
+- Place 229 County (All): 146 per 100k
+- Place 229 County (Black or African American (NH)): 135 per 100k
+- Place 230 County (All): 103 per 100k
+- Place 230 County (Black or African American (NH)): 142 per 100k
+- Place 231 County (All): 110 per 100k
+- Place 231 County (Black or African American (NH)): 149 per 100k
+- Place 232 County (All): 117 per 100k
+- Place 232 County (Black or African American (NH)): 106 per 100k
+- Place 233 County (All): 124 per 100k
+- Place 233 County (Black or African American (NH)): 113 per 100k
+- Place 234 County (All): 131 per 100k
+- Place 234 County (Black or African American (NH)): 120 per 100k
+- Place 235 County (All): 138 per 100k
+- Place 235 County (Black or African American (NH)): 127 per 100k
+- Place 236 County (All): 145 per 100k
+- Place 236 County (Black or African American (NH)): 134 per 100k
+- Place 237 County (All): 102 per 100k
+- Place 237 County (Black or African American (NH)): 141 per 100k
+- Place 238 County (All): 109 per 100k
+- Place 238 County (Black or African American (NH)): 148 per 100k
+- Place 239 County (All): 116 per 100k
+- Place 239 County (Black or African American (NH)): 105 per 100k
+- Place 240 County (All): 123 per 100k
+- Place 240 County (Black or African American (NH)): 112 per 100k
+- Place 241 County (All): 130 per 100k
+- Place 241 County (Black or African American (NH)): 119 per 100k
+- Place 242 County (All): 137 per 100k
+- Place 242 County (Black or African American (NH)): 126 per 100k
+- Place 243 County (All): 144 per 100k
+- Place 243 County (Black or African American (NH)): 133 per 100k
+- Place 244 County (All): 101 per 100k
+- Place 244 County (Black or African American (NH)): 140 per 100k
+- Place 245 County (All): 108 per 100k
+- Place 245 County (Black or African American (NH)): 147 per 100k
+- Place 246 County (All): 115 per 100k
+- Place 246 County (Black or African American (NH)): 104 per 100k
+- Place 247 County (All): 122 per 100k
+- Place 247 County (Black or African American (NH)): 111 per 100k
+- Place 248 County (All): 129 per 100k
+- Place 248 County (Black or African American (NH)): 118 per 100k
+- Place 249 County (All): 136 per 100k
+- Place 249 County (Black or African American (NH)): 125 per 100k
+- Place 250 County (All): 143 per 100k
+- Place 250 County (Black or African American (NH)): 132 per 100k
+- Place 251 County (All): 100 per 100k
+- Place 251 County (Black or African American (NH)): 139 per 100k
+- Place 252 County (All): 107 per 100k
+- Place 252 County (Black or African American (NH)): 146 per 100k
+- Place 253 County (All): 114 per 100k
+- Place 253 County (Black or African American (NH)): 103 per 100k
+- Place 254 County (All): 121 per 100k
+- Place 254 County (Black or African American (NH)): 903 per 100k
+
+Write a single sentence at an 8th grade reading level that captures the geographic disparity — which places have the highest and lowest rates — and what that concentration means for the people who live there. Focus on the "so what", not the chart mechanics.
+
+WRITING RULES, follow these strictly:
+- Reason from the exact numbers in the data, then round hard for the reader: "nearly 40%", "about 1 in 3", "over 3 times higher". Drop the decimal places from any rate or percentage.
+- Every figure must come from or be derived from the data, including rounded figures and comparisons. Never state or estimate a figure from outside the data, such as a national or state average. Other geographic levels and other data sources often count differently, so comparisons with outside figures would not be fair.
+- Use at most two numbers, and prefer a comparison over a raw rate. Compare a group against the overall "All" rate whenever the data shows one; only if it does not, compare against the largest group shown. Compare a place against the typical place.
+- Write about the people in the data in the third person. Never "we", "us", "our communities", or "those in our communities". A reader may belong to any group on the page.
+- Name the extreme, not the spread. Say which group or place is highest or lowest. Never say values "vary widely".
+- Say how long a pattern has held in human terms, "for over a decade", rather than listing years.
+- Use the words people actually use: "Black" for "Black or African American (NH)", "people living with HIV" for "HIV prevalence", "heart attacks" for "acute myocardial infarction".
+
+Respond ONLY with a valid JSON object, no markdown, no backticks, and no text outside the JSON. Include this key and no others:
+
+{
+  "insight": {
+    "text": "the sentence",
+    "highlight": "the key phrase from that sentence"
+  }
+}
+
+"highlight" is the one phrase in "text" a reader should notice first: the comparison or figure that carries the finding. Copy it character for character from "text", keep it to roughly 3 to 8 words, and never make it the whole sentence. Inside "text", write only the sentence itself: no preamble, no lead-in, no labels, and do not restate these instructions or note which data is or is not available.
