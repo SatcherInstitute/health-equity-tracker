@@ -1,5 +1,6 @@
 ---
 name: abandoned
+model: haiku
 description: List abandoned BigQuery tables and export JSON (left behind by table renames or dataset moves) in test or prod, and hand the user the delete commands to run by hand. Read-only; never deletes. Use after a datasource rename, for periodic cleanup, or when the user runs /abandoned.
 ---
 
