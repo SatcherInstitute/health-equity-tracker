@@ -237,7 +237,13 @@ gh workflow run <dag>.yml --ref infra-test
 
 ### Step 9b — Check for abandoned tables after the DAG run
 
-A datasource change can rename or move tables, leaving the old ones behind. Once the DAG run finishes (watch it with `gh run watch <run-id>` via `run_in_background`; don't sleep-poll), check its dataset (the DAG's `DATASET_NAME`) in one call:
+A datasource change can rename or move tables, leaving the old ones behind. `gh workflow run` prints no run ID, so look it up first:
+
+```bash
+gh run list --workflow <dag>.yml --branch infra-test --limit 1 --json databaseId,status -q '.[0]'
+```
+
+Once that run finishes (watch it with `gh run watch <run-id>` via `run_in_background`; don't sleep-poll), check its dataset (the DAG's `DATASET_NAME`) in one call:
 
 ```bash
 source .venv/bin/activate && python scripts/find_abandoned.py --env test --dataset <dataset> > /tmp/abandoned-test.txt 2>&1; grep -E "^  (table|json)|^#   " /tmp/abandoned-test.txt

@@ -80,3 +80,4 @@ jobs:
           pytest exporter/
           pytest run_gcs_to_bq/
           pytest run_ingestion/
+          pytest scripts/
