@@ -246,17 +246,17 @@ gh run list --workflow <dag>.yml --branch infra-test --limit 1 --json databaseId
 Once that run finishes (watch it with `gh run watch <run-id>` via `run_in_background`; don't sleep-poll), check its dataset (the DAG's `DATASET_NAME`) in one call:
 
 ```bash
-source .venv/bin/activate && python scripts/find_abandoned.py --env test --dataset <dataset> > /tmp/abandoned-test.txt 2>&1; grep -E "^  (table|json)|^#   " /tmp/abandoned-test.txt
+source .venv/bin/activate && python scripts/find_abandoned.py --env test --dataset <dataset> > /tmp/abandoned-test.txt 2>&1 || { echo "CHECK FAILED"; tail -5 /tmp/abandoned-test.txt; }; grep -E "^  (table|json)|^#   " /tmp/abandoned-test.txt
 ```
 
-Empty output means nothing abandoned; say nothing beyond the Step 10 summary. Otherwise list what it found in two or three lines and point to the delete commands in `/tmp/abandoned-test.txt`. Never run them. If the DAG run failed, skip this step: the script only judges against successful runs.
+If it prints `CHECK FAILED`, report "Abandoned: check failed" with the error lines in Step 10 (typically expired ADC credentials or a `gh` error), not "none". Otherwise, empty output means nothing abandoned; say nothing beyond the Step 10 summary. Otherwise list what it found in two or three lines and point to the delete commands in `/tmp/abandoned-test.txt`. Never run them. If the DAG run failed, skip this step: the script only judges against successful runs.
 
 ---
 
 ## Step 10 — Confirm
 
 Print a summary:
-> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main. CI: <all green / failing workflows from Step 1c>. Board: <issues moved to Done, if any> <issues moved to Up Next, if any>. Recipes: <current/pushed/skipped>. DAG: <triggered/skipped/declined>. Abandoned: <none / N tables, M JSON groups / skipped>."
+> "Merged PR #<number>. Local main is up to date with origin/main and pushed to $FORK_REMOTE/main. CI: <all green / failing workflows from Step 1c>. Board: <issues moved to Done, if any> <issues moved to Up Next, if any>. Recipes: <current/pushed/skipped>. DAG: <triggered/skipped/declined>. Abandoned: <none / N tables, M JSON groups / skipped / check failed>."
 
 ---
 
