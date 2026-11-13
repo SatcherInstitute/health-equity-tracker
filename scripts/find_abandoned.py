@@ -23,6 +23,7 @@ Uses Application Default Credentials for BigQuery/GCS and the gh CLI for workflo
 import argparse
 import json
 import re
+import shlex
 import subprocess
 import sys
 from datetime import datetime
@@ -133,8 +134,8 @@ def main():
         try:
             tables = [bq.get_table(t.reference) for t in bq.list_tables(f"{env['project']}.{dataset}")]
         except NotFound:
-            print(f"{dataset}: skipped, dataset not found in {env['project']}")
-            continue
+            # A deleted dataset leaves all of its exports abandoned.
+            tables = []
 
         abandoned = sorted((t for t in tables if t.modified < cutoff), key=lambda t: t.table_id)
         live = {t.table_id for t in tables if t.modified >= cutoff}
@@ -158,7 +159,9 @@ def main():
             if f"{dataset}-{table}" in frontend_ids:
                 still_read.append(f"{dataset}-{table}")
                 continue
-            json_cmds.append("gcloud storage rm " + " ".join(f"gs://{env['bucket']}/{o}" for o in sorted(objs)))
+            json_cmds.append(
+                "gcloud storage rm " + " ".join(shlex.quote(f"gs://{env['bucket']}/{o}") for o in sorted(objs))
+            )
 
     if still_read:
         print(
