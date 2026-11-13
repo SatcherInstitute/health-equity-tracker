@@ -132,10 +132,16 @@ def main():
             continue
         cutoff = min(runs)
         try:
-            tables = [bq.get_table(t.reference) for t in bq.list_tables(f"{env['project']}.{dataset}")]
+            listed = list(bq.list_tables(f"{env['project']}.{dataset}"))
         except NotFound:
             # A deleted dataset leaves all of its exports abandoned.
-            tables = []
+            listed = []
+        tables = []
+        for item in listed:
+            try:
+                tables.append(bq.get_table(item.reference))
+            except NotFound:
+                pass  # dropped since listing; neither live nor abandoned
 
         abandoned = sorted((t for t in tables if t.modified < cutoff), key=lambda t: t.table_id)
         live = {t.table_id for t in tables if t.modified >= cutoff}
