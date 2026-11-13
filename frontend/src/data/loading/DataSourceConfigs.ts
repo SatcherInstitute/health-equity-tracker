@@ -278,7 +278,7 @@ export const GUN_DEATHS_BLACK_MEN_CONFIG: DataSourceConfig = {
 
 export const HIV_BLACK_WOMEN_CONFIG: DataSourceConfig = {
   getDatasetDetails: () => ({
-    datasetName: 'cdc_hiv_data',
+    datasetName: 'cdc_hiv_black_women_data',
     tablePrefix: 'black_women_by_',
   }),
   allowsBreakdowns: oneOfGeoWithSingleDemo(['state', 'national']),
