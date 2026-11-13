@@ -129,6 +129,10 @@ def main():
         print("Cancelled; nothing dropped.")
         return
     for t in stale:
+        # A writer DAG may have rewritten the table while the prompt was waiting.
+        if client.get_table(t.reference).modified >= cutoff:
+            print(f"Skipped {t.full_table_id}; written since the cutoff.")
+            continue
         client.delete_table(t.reference)
         print(f"Dropped {t.full_table_id}")
 
