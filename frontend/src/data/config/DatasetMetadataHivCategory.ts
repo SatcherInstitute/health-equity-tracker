@@ -13,14 +13,14 @@ export type DatasetIdHivCategory =
   | 'cdc_hiv_data-alls_national_historical'
   | 'cdc_hiv_data-alls_state_current'
   | 'cdc_hiv_data-alls_state_historical'
-  | 'cdc_hiv_data-black_women_by_age_national_current'
-  | 'cdc_hiv_data-black_women_by_age_national_historical'
-  | 'cdc_hiv_data-black_women_by_age_state_current'
-  | 'cdc_hiv_data-black_women_by_age_state_historical'
-  | 'cdc_hiv_data-black_women_by_alls_national_current'
-  | 'cdc_hiv_data-black_women_by_alls_national_historical'
-  | 'cdc_hiv_data-black_women_by_alls_state_current'
-  | 'cdc_hiv_data-black_women_by_alls_state_historical'
+  | 'cdc_hiv_black_women_data-black_women_by_age_national_current'
+  | 'cdc_hiv_black_women_data-black_women_by_age_national_historical'
+  | 'cdc_hiv_black_women_data-black_women_by_age_state_current'
+  | 'cdc_hiv_black_women_data-black_women_by_age_state_historical'
+  | 'cdc_hiv_black_women_data-black_women_by_alls_national_current'
+  | 'cdc_hiv_black_women_data-black_women_by_alls_national_historical'
+  | 'cdc_hiv_black_women_data-black_women_by_alls_state_current'
+  | 'cdc_hiv_black_women_data-black_women_by_alls_state_historical'
   | 'cdc_hiv_data-race_and_ethnicity_county_current'
   | 'cdc_hiv_data-race_and_ethnicity_county_historical'
   | 'cdc_hiv_data-race_and_ethnicity_national_current-with_age_adjust'
@@ -181,42 +181,42 @@ export const DatasetMetadataMapHivCategory: Record<
     source_id: 'cdc_atlas',
   },
 
-  'cdc_hiv_data-black_women_by_age_national_historical': {
+  'cdc_hiv_black_women_data-black_women_by_age_national_historical': {
     name: 'Yearly HIV diagnoses, deaths, and prevalence for Black women, by age, nationally',
     original_data_sourced: '2008-2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-black_women_by_age_state_historical': {
+  'cdc_hiv_black_women_data-black_women_by_age_state_historical': {
     name: 'Yearly HIV diagnoses, deaths, and prevalence for Black women, by age, by state',
     original_data_sourced: '2008-2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-black_women_by_age_state_current': {
+  'cdc_hiv_black_women_data-black_women_by_age_state_current': {
     name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, by state',
     original_data_sourced: '2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-black_women_by_age_national_current': {
+  'cdc_hiv_black_women_data-black_women_by_age_national_current': {
     name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, nationally',
     original_data_sourced: '2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-black_women_by_alls_national_historical': {
+  'cdc_hiv_black_women_data-black_women_by_alls_national_historical': {
     name: 'Yearly HIV diagnoses, deaths, and prevalence for Black women, nationally',
     original_data_sourced: '2008-2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-black_women_by_alls_state_historical': {
+  'cdc_hiv_black_women_data-black_women_by_alls_state_historical': {
     name: 'Yearly HIV diagnoses, deaths, and prevalence for Black women, by state',
     original_data_sourced: '2008-2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-black_women_by_alls_state_current': {
+  'cdc_hiv_black_women_data-black_women_by_alls_state_current': {
     name: 'HIV diagnoses, deaths, and prevalence for Black women, by state',
     original_data_sourced: '2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-black_women_by_alls_national_current': {
+  'cdc_hiv_black_women_data-black_women_by_alls_national_current': {
     name: 'HIV diagnoses, deaths, and prevalence for Black women, nationally',
     original_data_sourced: '2021',
     source_id: 'cdc_atlas',
