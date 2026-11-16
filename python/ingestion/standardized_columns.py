@@ -166,6 +166,16 @@ W_ALL_RACES_CONGRESS_NAMES = "women_all_races_us_congress_names"
 CONGRESS_COUNT = "total_us_congress_count"
 CONGRESS_NAMES = "total_us_congress_names"
 
+# Governors
+PCT_OF_W_GOV = "pct_share_of_women_governor"
+PCT_OF_GOV = "pct_share_of_governor"
+W_GOV_PCT_INEQUITY = "women_governor_pct_relative_inequity"
+W_THIS_RACE_GOV_COUNT = "women_this_race_governor_count"
+W_THIS_RACE_GOV_NAMES = "women_this_race_governor_names"
+W_ALL_RACES_GOV_COUNT = "women_all_races_governor_count"
+W_ALL_RACES_GOV_NAMES = "women_all_races_governor_names"
+GOV_COUNT = "total_governor_count"
+
 # Incarceration columns
 PRISON_PREFIX = "prison"
 JAIL_PREFIX = "jail"
