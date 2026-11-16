@@ -225,7 +225,7 @@ const PdohLink = () => {
         </p>
 
         <h3 className='text-title mt-12 font-medium' id='women-in-gov'>
-          Women in Legislative Office and Health Impacts
+          Women in Elected Office and Health Impacts
         </h3>
 
         <p>
@@ -241,7 +241,8 @@ const PdohLink = () => {
         </h3>
         <p>
           We use data from the Center for American Women in Politics (CAWP) to
-          present metrics on the representation of women in legislative roles:
+          present metrics on the representation of women in legislative and
+          executive roles:
         </p>
 
         <ul className='list-disc pl-4'>
@@ -252,6 +253,7 @@ const PdohLink = () => {
             {' '}
             Women in U.S. Congress
           </li>
+          <li className='font-sans-title font-medium'>Women Governors</li>
         </ul>
 
         <p>
@@ -260,6 +262,25 @@ const PdohLink = () => {
           leading to variations from the CAWP website's data. All gender and
           race/ethnicity categorizations are self-reported. A legislator might
           appear in multiple race groups based on their identification.
+        </p>
+
+        <h3 className='text-title mt-12 font-medium' id='governors-data'>
+          Governors Data
+        </h3>
+        <p>
+          Governor data covers the 50 states at the state and national levels.
+          Each state has one governor, so the denominator is 1 per state per
+          year and 50 nationally. A state's rate is therefore either 0% or 100%
+          in a given year, and national rates change in steps of 2%. Because the
+          numbers are this small, a single election can move a group's national
+          share sharply. D.C. and the U.S. territories are not included in
+          governor metrics.
+        </p>
+        <p>
+          The President and Vice President are not included. With only two
+          offices nationwide, a rate would not be meaningful. Kamala Harris, who
+          served as Vice President from 2021 to 2025, is the only woman to have
+          held either office.
         </p>
 
         <h3

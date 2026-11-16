@@ -48,11 +48,17 @@ export const CAWP_METRICS: MetricId[] = [
   'total_us_congress_count',
   'women_this_race_state_leg_count',
   'total_state_leg_count',
+  'pct_share_of_governor',
+  'pct_share_of_women_governor',
+  'women_governor_pct_relative_inequity',
+  'women_this_race_governor_count',
+  'total_governor_count',
 ]
 
 export const CAWP_DATA_TYPES: DataTypeId[] = [
   'women_in_state_legislature',
   'women_in_us_congress',
+  'women_governors',
 ]
 
 export function getWomenRaceLabel(
@@ -103,6 +109,7 @@ export type PDOHDataTypeId =
   | 'prison'
   | 'women_in_state_legislature'
   | 'women_in_us_congress'
+  | 'women_governors'
 
 export type PDOHMetricId =
   | 'ahr_population_pct'
@@ -113,8 +120,10 @@ export type PDOHMetricId =
   | 'jail_pct_relative_inequity'
   | 'jail_pct_share'
   | 'jail_per_100k'
+  | 'pct_share_of_governor'
   | 'pct_share_of_state_leg'
   | 'pct_share_of_us_congress'
+  | 'pct_share_of_women_governor'
   | 'pct_share_of_women_state_leg'
   | 'pct_share_of_women_us_congress'
   | 'prison_estimated_total'
@@ -122,11 +131,14 @@ export type PDOHMetricId =
   | 'prison_pct_share'
   | 'prison_per_100k'
   | 'confined_children_estimated_total'
+  | 'total_governor_count'
   | 'total_state_leg_count'
   | 'total_us_congress_count'
   | 'total_us_congress_names'
   | 'voter_participation_pct_rate'
+  | 'women_governor_pct_relative_inequity'
   | 'women_state_leg_pct_relative_inequity'
+  | 'women_this_race_governor_count'
   | 'women_this_race_state_leg_count'
   | 'congressional_districts'
   | 'women_this_race_us_congress_count'
@@ -315,6 +327,64 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
         chartTitle:
           'Relative racial inequity of women state legislators over time',
         metricId: 'women_state_leg_pct_relative_inequity',
+        shortLabel: '% relative inequity',
+        type: 'pct_relative_inequity',
+      },
+    },
+  },
+  {
+    categoryId: 'pdoh',
+    dataTypeId: 'women_governors',
+    mapConfig: womenHigherIsBetterMapConfig,
+    dataTypeShortLabel: 'Governors',
+    fullDisplayName: 'Women governors',
+    surveyCollectedData: true,
+    definition: {
+      text: `Individuals identifying as women who have served as governor of one of the 50 states. Each state has a single governor, so a state's rate is either 0% or 100% in any year, and national rates move in steps of 2% (one governor out of 50). Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
+    },
+    dataTableTitle: 'Summary for Women governors',
+    otherSubPopulationLabel: 'State governors',
+    metrics: {
+      pct_rate: {
+        timeSeriesCadence: 'yearly',
+        metricId: 'pct_share_of_governor',
+        chartTitle: 'Percentage of governors identifying as women',
+        trendsCardTitleName: 'Rates of women governors over time',
+        columnTitleHeader: 'Percentage of women governors',
+        shortLabel: '% women governors',
+        type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'women_this_race_governor_count',
+          shortLabel: 'governors',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'total_governor_count',
+          shortLabel: 'Total governors',
+          chartTitle: '',
+          type: 'count',
+        },
+      },
+      pct_share: {
+        chartTitle: 'Percent share of women governors',
+        metricId: 'pct_share_of_women_governor',
+        trendsCardTitleName: 'Inequitable share of women governors over time',
+        columnTitleHeader: 'Percent share of women governors',
+        shortLabel: '% of women governors',
+        type: 'pct_share',
+        populationComparisonMetric: {
+          chartTitle: 'Population vs. distribution of total women governors',
+          metricId: 'cawp_population_pct',
+          columnTitleHeader: 'Total population share (all genders)',
+          shortLabel: `${populationPctShortLabel} (all genders)`,
+          type: 'pct_share',
+        },
+      },
+      pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
+        chartTitle: 'Relative racial inequity of women governors over time',
+        metricId: 'women_governor_pct_relative_inequity',
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
       },

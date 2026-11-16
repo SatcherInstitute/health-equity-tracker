@@ -114,7 +114,7 @@ export function MissingCAWPData({
 } = {}) {
   return (
     <MissingDataSection
-      title='Missing data for women in legislative office'
+      title='Missing data for women in elected office'
       headingLevel={headingLevel}
     >
       <BulletList>
@@ -131,6 +131,11 @@ export function MissingCAWPData({
           We are currently unable to locate reliable data on state legislature
           totals, by state, by year prior to 1983. For that reason, we cannot
           calculate rates of representation historically before that year.
+        </li>
+        <li>
+          Governor metrics cover the 50 states only. D.C. has a mayor rather
+          than a governor, and governors of the U.S. territories are not
+          included, so those areas show no governor data.
         </li>
         <li>
           <b>Legislature seat totals (denominator):</b> Annual seat counts for

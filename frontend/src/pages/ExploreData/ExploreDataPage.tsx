@@ -312,6 +312,7 @@ function ExploreDataPage() {
           'voter_participation',
           'women_in_state_legislature',
           'women_in_us_congress',
+          'women_governors',
         ].includes(condition?.dataTypeId),
       ),
     )

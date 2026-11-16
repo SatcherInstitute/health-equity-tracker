@@ -159,7 +159,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   suicide: 'Suicide',
   unemployment: 'Unemployment',
   voter_participation: 'Voter Participation',
-  women_in_gov: 'Women Serving in Legislative Office',
+  women_in_gov: 'Women Serving in Elected Office',
 }
 
 export const SELECTED_DROPDOWN_OVERRIDES: Partial<

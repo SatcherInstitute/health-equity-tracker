@@ -314,7 +314,7 @@ export const methodologyRouteConfigs: RouteConfig[] = [
       },
 
       {
-        label: 'Women in Legislative Office and Health Impacts',
+        label: 'Women in Elected Office and Health Impacts',
         path: 'women-in-gov',
       },
       {
