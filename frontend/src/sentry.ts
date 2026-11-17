@@ -46,6 +46,8 @@ if (import.meta.env.VITE_SENTRY_DSN) {
   Sentry.init({
     dsn: import.meta.env.VITE_SENTRY_DSN,
     environment: import.meta.env.VITE_DEPLOY_CONTEXT,
+    // Drop events from copies of the app running elsewhere with our DSN
+    allowUrls: [/^https:\/\/(dev\.)?healthequitytracker\.org\//],
     tracesSampleRate: 0,
     beforeSend(event) {
       const message = event.exception?.values?.[0]?.value ?? ''
