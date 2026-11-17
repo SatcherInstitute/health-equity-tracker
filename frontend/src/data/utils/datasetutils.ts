@@ -125,8 +125,7 @@ Conditionally hide some of the extra buckets from the table card, which generall
 const includeAllsGroupsIds: DataTypeId[] = [
   'women_in_state_legislature',
   'women_in_us_congress',
-  'women_governors',
-  'women_lt_governors',
+  'women_state_executives',
   'prison',
   'jail',
   'hiv_deaths',

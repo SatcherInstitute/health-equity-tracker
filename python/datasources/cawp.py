@@ -28,28 +28,26 @@ Instructions for Downloading STATEWIDE EXECUTIVE NUMERATOR Data (governors, lieu
   filtered to "Level of Office: Statewide Executive", saved to
   /data/cawp/cawp-statewide_executive_time_series.csv. Same columns and race coding.
 
+Every file in /data/cawp, its source, and how and when to update it is listed in
+/data/cawp/README.md. Keep that file in sync with any change here.
+
 Notes:
 - This is simply the "numerator" data; we rely on directly downloaded table data from CAWP
  for state legislature demoninators, and UnitedStates.io for Congress denominators
-- Governors have no external denominator: each state and inhabited territory has one governor
- per year, counted from statehood for Alaska and Hawaii and from the first popularly elected
- governor for each territory (see GOVERNOR_FIRST_YEAR). Territorial governors come from the
- main export's Territorial/D.C. level. When more than one woman served as governor of the
- same place in the same year (mid-term succession), the denominator is raised to match so
- the share never exceeds 100%. DC has a mayor rather than a governor and is excluded.
-
-Instructions for Updating LIEUTENANT GOVERNOR DENOMINATOR Data:
-- /data/cawp/cawp_lt_gov_offices.csv lists each state with a statewide-elected lieutenant
- governor, the first year the office (under that title) was filled, an optional last year,
- a note, and a citation. Each listed state counts as one seat per year in that range.
-- States not listed have no statewide-elected lieutenant governor: ME, NH, OR, WY have none,
- and in TN and WV the title belongs to the state senate president. CAWP records no
- territorial lieutenant governors, so territories and DC are not listed.
-- Review once per year (and after any election that creates or abolishes an office): add a
- row or set last_year, with a source. Arizona's first lieutenant governor takes office in 2027.
 - County-level congressional tables (race_and_ethnicity_county_historical/current) are also
  generated here, using the Census 118th Congress county-to-district crosswalk. All historical
  years use 118th Congress (2022) district boundaries; see expand_members_to_counties().
+- Governors have no external denominator: each state and inhabited territory has one governor
+ per year, counted from statehood for Alaska and Hawaii and from the first popularly elected
+ governor for each territory (see GOVERNOR_FIRST_YEAR). Territorial governors come from the
+ main export's Territorial/D.C. level. DC has a mayor rather than a governor and is excluded.
+- Lieutenant governor seats come from the hand-maintained, cited reference file
+ /data/cawp/cawp_lt_gov_offices.csv (one seat per listed state per year from first_year,
+ through last_year if set). See /data/cawp/README.md for its sources and update steps.
+- For both offices, when more than one woman held the same office in the same place and year
+ (mid-term succession), the denominator is raised to match so the share never exceeds 100%.
+- The "executive" columns combine governors and lieutenant governors: seats and women counts
+ add across the two offices.
 
 Instructions for Updating TERRITORIAL LEGISLATURE DENOMINATOR Data:
 - Once per year, we should also update our custom-made denominator files for territorial leg
@@ -57,7 +55,7 @@ Instructions for Updating TERRITORIAL LEGISLATURE DENOMINATOR Data:
 - Data source: ncsl.org/resources/details/number-of-legislators-and-length-of-terms-in-years
 
 
-Last Updated: July 2026
+Last Updated: November 2026
 """
 
 import datetime
@@ -352,6 +350,9 @@ class CAWPData(DataSource):
                     std_col.LT_GOV_COUNT,
                     std_col.W_THIS_RACE_LT_GOV_COUNT,
                     std_col.PCT_OF_W_LT_GOV,
+                    std_col.EXEC_COUNT,
+                    std_col.W_THIS_RACE_EXEC_COUNT,
+                    std_col.PCT_OF_W_EXEC,
                     CAWP_POP_COL,
                     CAWP_POP_PCT_COL,
                 ]
@@ -365,6 +366,8 @@ class CAWPData(DataSource):
                 std_col.W_GOV_PCT_INEQUITY,
                 std_col.PCT_OF_LT_GOV,
                 std_col.W_LT_GOV_PCT_INEQUITY,
+                std_col.PCT_OF_EXEC,
+                std_col.W_EXEC_PCT_INEQUITY,
             ]
 
             column_types = gcs_to_bq_util.get_bq_column_types(df_historical, float_cols)
@@ -384,6 +387,7 @@ class CAWPData(DataSource):
                     std_col.W_STLEG_PCT_INEQUITY,
                     std_col.W_GOV_PCT_INEQUITY,
                     std_col.W_LT_GOV_PCT_INEQUITY,
+                    std_col.W_EXEC_PCT_INEQUITY,
                 ]
             )
             # drop unneeded rows from current
@@ -406,6 +410,10 @@ class CAWPData(DataSource):
                 std_col.W_THIS_RACE_LT_GOV_COUNT,
                 std_col.PCT_OF_LT_GOV,
                 std_col.PCT_OF_W_LT_GOV,
+                std_col.EXEC_COUNT,
+                std_col.W_THIS_RACE_EXEC_COUNT,
+                std_col.PCT_OF_EXEC,
+                std_col.PCT_OF_W_EXEC,
                 CAWP_POP_COL,
                 CAWP_POP_PCT_COL,
             ]
@@ -515,6 +523,15 @@ class CAWPData(DataSource):
         # combine ROWS together from ALLS ROWS and BY RACES rows
         df = pd.concat([df_alls_rows, df_by_races_rows])
 
+        # governors and lieutenant governors combined: seats and women counts add across
+        # the two offices; null only where a place has neither office that year
+        for exec_col, gov_col, lt_gov_col in [
+            (std_col.EXEC_COUNT, std_col.GOV_COUNT, std_col.LT_GOV_COUNT),
+            (std_col.W_THIS_RACE_EXEC_COUNT, std_col.W_THIS_RACE_GOV_COUNT, std_col.W_THIS_RACE_LT_GOV_COUNT),
+            (std_col.W_ALL_RACES_EXEC_COUNT, std_col.W_ALL_RACES_GOV_COUNT, std_col.W_ALL_RACES_LT_GOV_COUNT),
+        ]:
+            df[exec_col] = df[[gov_col, lt_gov_col]].sum(axis=1, min_count=1)
+
         # standardize race labels
         df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
             lambda x: ("ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x))
@@ -608,6 +625,11 @@ class CAWPData(DataSource):
             df[std_col.W_THIS_RACE_GOV_COUNT] / df[std_col.W_ALL_RACES_GOV_COUNT] * 100,
             1,
         )
+        df[std_col.PCT_OF_EXEC] = round(df[std_col.W_THIS_RACE_EXEC_COUNT] / df[std_col.EXEC_COUNT] * 100, 1)
+        df[std_col.PCT_OF_W_EXEC] = round(
+            df[std_col.W_THIS_RACE_EXEC_COUNT] / df[std_col.W_ALL_RACES_EXEC_COUNT] * 100,
+            1,
+        )
         df[std_col.PCT_OF_LT_GOV] = round(df[std_col.W_THIS_RACE_LT_GOV_COUNT] / df[std_col.LT_GOV_COUNT] * 100, 1)
         df[std_col.PCT_OF_W_LT_GOV] = round(
             df[std_col.W_THIS_RACE_LT_GOV_COUNT] / df[std_col.W_ALL_RACES_LT_GOV_COUNT] * 100,
@@ -621,6 +643,7 @@ class CAWPData(DataSource):
                 std_col.W_ALL_RACES_STLEG_COUNT,
                 std_col.W_ALL_RACES_GOV_COUNT,
                 std_col.W_ALL_RACES_LT_GOV_COUNT,
+                std_col.W_ALL_RACES_EXEC_COUNT,
             ]
         )
 
@@ -682,6 +705,20 @@ class CAWPData(DataSource):
             std_col.POPULATION_PCT_COL,
         )
 
+        df = generate_pct_rel_inequity_col(
+            df,
+            std_col.PCT_OF_W_EXEC,
+            std_col.POPULATION_PCT_COL,
+            std_col.W_EXEC_PCT_INEQUITY,
+        )
+        df = zero_out_pct_rel_inequity(
+            df,
+            cast(GEO_TYPE, geo_level),
+            RACE,
+            {std_col.PCT_OF_EXEC: std_col.W_EXEC_PCT_INEQUITY},
+            std_col.POPULATION_PCT_COL,
+        )
+
         sort_cols = [std_col.TIME_PERIOD_COL, *STATE_COLS, std_col.RACE_CATEGORY_ID_COL]
 
         df = df.sort_values(by=sort_cols).reset_index(drop=True)
@@ -692,6 +729,7 @@ class CAWPData(DataSource):
         df.loc[mask, std_col.PCT_OF_STLEG] = None
         df.loc[mask, std_col.PCT_OF_GOV] = None
         df.loc[mask, std_col.PCT_OF_LT_GOV] = None
+        df.loc[mask, std_col.PCT_OF_EXEC] = None
 
         df = df.rename(
             columns={
@@ -1300,6 +1338,9 @@ def combine_states_to_national(df):
             std_col.LT_GOV_COUNT,
             std_col.W_ALL_RACES_LT_GOV_COUNT,
             std_col.W_THIS_RACE_LT_GOV_COUNT,
+            std_col.EXEC_COUNT,
+            std_col.W_ALL_RACES_EXEC_COUNT,
+            std_col.W_THIS_RACE_EXEC_COUNT,
         ]
     ].agg("sum", min_count=1)
 
@@ -1589,7 +1630,8 @@ def handle_other_and_multi_races(df):
 
     # rows with multiple specific races will sum later with
     # CAWP's incoming "multiracial alone"
-    df_multiple_specific = df[df[RACE_ETH].apply(lambda x: isinstance(x, str) and len(x) > 1)]
+    # (after the split, every value is a list; a list of 2+ races is a multiracial woman)
+    df_multiple_specific = df[df[RACE_ETH].apply(lambda x: isinstance(x, list) and len(x) > 1)].copy()
     df_multiple_specific[RACE_ETH] = CAWP_MULTI
     df = pd.concat([df, df_multiple_specific])
 

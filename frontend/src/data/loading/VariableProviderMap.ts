@@ -60,8 +60,7 @@ const PROVIDER_REGISTRATIONS = [
     [
       'women_in_state_legislature',
       'women_in_us_congress',
-      'women_governors',
-      'women_lt_governors',
+      'women_state_executives',
     ],
     CAWP_CONFIG,
   ],

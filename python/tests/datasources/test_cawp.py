@@ -6,6 +6,7 @@ import json
 
 import ingestion.standardized_columns as std_col
 from datasources.cawp import (
+    handle_other_and_multi_races,
     get_governor_totals,
     get_lt_governor_totals,
     CAWPData,
@@ -257,6 +258,15 @@ def test_get_governor_totals():
     result = get_governor_totals(df)
     assert result.tolist()[:4] == [1.0, 1.0, 2.0, 1.0]
     assert result.iloc[4:].isna().all()
+
+
+def test_handle_other_and_multi_races():
+    df = pd.DataFrame({"name": ["A", "B"], "race_ethnicity": ["Black, Latina", "White"]})
+    result = handle_other_and_multi_races(df)
+    races_for_a = sorted(result.loc[result["name"] == "A", "race_ethnicity"])
+    # a woman listing two races counts in each, and in the multiracial group
+    assert races_for_a == ["Black", "Latina", "Multiracial Alone"]
+    assert result.loc[result["name"] == "B", "race_ethnicity"].tolist() == ["White"]
 
 
 @mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_as_df_from_data_dir)

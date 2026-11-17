@@ -186,6 +186,14 @@ W_ALL_RACES_LT_GOV_COUNT = "women_all_races_lt_governor_count"
 W_ALL_RACES_LT_GOV_NAMES = "women_all_races_lt_governor_names"
 LT_GOV_COUNT = "total_lt_governor_count"
 
+# Governors and Lieutenant Governors combined (state executive office)
+PCT_OF_W_EXEC = "pct_share_of_women_executive"
+PCT_OF_EXEC = "pct_share_of_executive"
+W_EXEC_PCT_INEQUITY = "women_executive_pct_relative_inequity"
+W_THIS_RACE_EXEC_COUNT = "women_this_race_executive_count"
+W_ALL_RACES_EXEC_COUNT = "women_all_races_executive_count"
+EXEC_COUNT = "total_executive_count"
+
 # Incarceration columns
 PRISON_PREFIX = "prison"
 JAIL_PREFIX = "jail"

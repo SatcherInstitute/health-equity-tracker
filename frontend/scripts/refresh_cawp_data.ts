@@ -633,6 +633,8 @@ if (runAll || section === 'state_leg') await refreshStateLegTables(cache, force)
 
 // Note: territories (11, 60, 66, 69, 72, 78) are maintained as manual CSV files
 // and are not scraped by this script.
+// cawp_lt_gov_offices.csv (lieutenant governor seats) is also maintained by hand.
+// See data/cawp/README.md for every file's source and update steps.
 
 console.log('\nDone. Review changes with: git diff data/cawp/')
 console.log('Then commit and re-run the relevant DAG pipelines.')
