@@ -16,10 +16,10 @@ import type {
   DataTypeConfig,
   DataTypeId,
 } from '../data/config/MetricConfigTypes'
-
 import { GEORGIA_FIPS, USA_FIPS } from '../data/utils/ConstantsGeography'
 import { Fips } from '../data/utils/Fips'
 import { FIPS_MAP } from '../data/utils/FipsData'
+import { flag } from '../featureFlags'
 
 // Map of phrase segment index to its selected value
 export type PhraseSelections = Record<number, string>
@@ -159,7 +159,9 @@ export const DROPDOWN_TOPIC_MAP: Record<
   suicide: 'Suicide',
   unemployment: 'Unemployment',
   voter_participation: 'Voter Participation',
-  women_in_gov: 'Women Serving in Elected Office',
+  women_in_gov: flag('VITE_SHOW_WOMEN_EXECUTIVES')
+    ? 'Women Serving in Elected Office'
+    : 'Women Serving in Legislative Office',
 }
 
 export const SELECTED_DROPDOWN_OVERRIDES: Partial<

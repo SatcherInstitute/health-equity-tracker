@@ -1,3 +1,4 @@
+import { flag } from '../../../featureFlags'
 import { urlMap } from '../../../utils/externalUrls'
 
 // Shared component for consistent styling
@@ -114,7 +115,11 @@ export function MissingCAWPData({
 } = {}) {
   return (
     <MissingDataSection
-      title='Missing data for women in elected office'
+      title={
+        flag('VITE_SHOW_WOMEN_EXECUTIVES')
+          ? 'Missing data for women in elected office'
+          : 'Missing data for women in legislative office'
+      }
       headingLevel={headingLevel}
     >
       <BulletList>
@@ -132,16 +137,21 @@ export function MissingCAWPData({
           totals, by state, by year prior to 1983. For that reason, we cannot
           calculate rates of representation historically before that year.
         </li>
-        <li>
-          D.C. has a mayor rather than a governor, so it shows no governor data.
-          Governor totals for Alaska and Hawaii begin at statehood (1959), and
-          for each territory with its first popularly elected governor.
-        </li>
-        <li>
-          Lieutenant governor seats exist only in the 43 states (44 from 2027)
-          that elect the office statewide. Other states, D.C., and the
-          territories contribute governor seats only.
-        </li>
+        {flag('VITE_SHOW_WOMEN_EXECUTIVES') && (
+          <>
+            <li>
+              D.C. has a mayor rather than a governor, so it shows no governor
+              data. Governor totals for Alaska and Hawaii begin at statehood
+              (1959), and for each territory with its first popularly elected
+              governor.
+            </li>
+            <li>
+              Lieutenant governor seats exist only in the 43 states (44 from
+              2027) that elect the office statewide. Other states, D.C., and the
+              territories contribute governor seats only.
+            </li>
+          </>
+        )}
         <li>
           <b>Legislature seat totals (denominator):</b> Annual seat counts for
           all 50 states and DC are scraped from{' '}

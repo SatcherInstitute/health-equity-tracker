@@ -1,4 +1,5 @@
 import { lazy } from 'react'
+import { flag } from '../../../featureFlags'
 import {
   AGE_ADJUSTMENT_LINK,
   AI_INSIGHTS_LINK,
@@ -314,17 +315,23 @@ export const methodologyRouteConfigs: RouteConfig[] = [
       },
 
       {
-        label: 'Women in Elected Office and Health Impacts',
+        label: flag('VITE_SHOW_WOMEN_EXECUTIVES')
+          ? 'Women in Elected Office and Health Impacts'
+          : 'Women in Legislative Office and Health Impacts',
         path: 'women-in-gov',
       },
       {
         label: 'Data Metrics and Methodology',
         path: 'pdoh-data-metrics',
       },
-      {
-        label: 'Governors and Lieutenant Governors Data',
-        path: 'governors-data',
-      },
+      ...(flag('VITE_SHOW_WOMEN_EXECUTIVES')
+        ? [
+            {
+              label: 'Governors and Lieutenant Governors Data',
+              path: 'governors-data',
+            },
+          ]
+        : []),
       {
         label: 'County-Level U.S. Congress Data',
         path: 'county-level-congress-data',
