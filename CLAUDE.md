@@ -51,6 +51,8 @@ Each backend microservice is a Docker container triggered by Cloud Run. GitHub A
 
 **A `python/datasources/` or `python/ingestion/` change has no effect until its DAG runs.** Merging or deploying the code alone does not regenerate BigQuery/GCS data — the pipeline only reprocesses a source when its `dag*.yml` workflow is actually triggered. After any change that alters what a `DataSource.write_to_bq()` produces (new columns, new detection/suppression logic, changed transforms), rerun the matching DAG; otherwise dev/prod keep serving stale data even though the new code is live.
 
+**Renaming or moving a BigQuery table leaves the old one behind.** The exporter exports every table in the dataset, so the abandoned table keeps getting re-exported with a fresh timestamp. Run `/abandoned` (or `python scripts/find_abandoned.py --env test|prod`) after the DAG reruns: it lists abandoned tables and export JSON read-only and prints `bq rm` / `gcloud storage rm` commands to run by hand. Anything `frontend/src` still references is excluded from the commands.
+
 **Testing backend changes:** Push your branch to the shared `infra-test` branch to trigger a GCP deployment:
 
 ```bash
