@@ -254,19 +254,22 @@ const PdohLink = () => {
             Women in U.S. Congress
           </li>
           <li className='font-sans-title font-medium'>Women Governors</li>
+          <li className='font-sans-title font-medium'>
+            Women Lieutenant Governors
+          </li>
         </ul>
 
         <p>
-          All three data types cover state, territory, and national levels. Our
-          national level calculations include officeholders from U.S.
-          territories, leading to variations from the CAWP website's data. All
-          gender and race/ethnicity categorizations are self-reported. An
-          officeholder might appear in multiple race groups based on their
-          identification.
+          These data types cover state and national levels, and all but
+          lieutenant governors also cover territories. Our national level
+          calculations include officeholders from U.S. territories, leading to
+          variations from the CAWP website's data. All gender and race/ethnicity
+          categorizations are self-reported. An officeholder might appear in
+          multiple race groups based on their identification.
         </p>
 
         <h3 className='text-title mt-12 font-medium' id='governors-data'>
-          Governors Data
+          Governors and Lieutenant Governors Data
         </h3>
         <p>
           Governor data covers the 50 states and the five inhabited U.S.
@@ -280,6 +283,20 @@ const PdohLink = () => {
           today, national rates change in steps of about 2%. Because the numbers
           are this small, a single election can move a group's national share
           sharply. D.C. has a mayor rather than a governor and is not included.
+        </p>
+        <p>
+          Lieutenant governor data covers the states where the office is elected
+          statewide: 43 states as of 2026, rising to 44 when Arizona's first
+          lieutenant governor takes office in 2027. Maine, New Hampshire,
+          Oregon, and Wyoming have no lieutenant governor, and in Tennessee and
+          West Virginia the title belongs to the state senate president, who is
+          not elected statewide, so those states are not included. The office
+          was created or took its current title after 1915 in several states
+          (Arkansas 1927, Georgia 1947, Hawaii 1959, Florida 1969, Alaska 1970,
+          Maryland 1971, Utah 1975, New Jersey 2010), and each counts from that
+          year. We maintain this list, with a source for each state, in a
+          reference file we review every year. CAWP does not track territorial
+          lieutenant governors, so territories are not included.
         </p>
         <p>
           The President and Vice President are not included. With only two

@@ -313,6 +313,7 @@ function ExploreDataPage() {
           'women_in_state_legislature',
           'women_in_us_congress',
           'women_governors',
+          'women_lt_governors',
         ].includes(condition?.dataTypeId),
       ),
     )

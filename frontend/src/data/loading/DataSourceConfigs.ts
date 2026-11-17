@@ -154,6 +154,9 @@ export const CAWP_CONFIG: DataSourceConfig = {
         ) ||
         metricQuery.metricIds.includes(
           'women_governor_pct_relative_inequity',
+        ) ||
+        metricQuery.metricIds.includes(
+          'women_lt_governor_pct_relative_inequity',
         )) &&
       !breakdowns.filterFips?.isIslandArea()
     ) {

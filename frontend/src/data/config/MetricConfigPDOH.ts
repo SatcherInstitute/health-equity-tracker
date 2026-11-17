@@ -53,12 +53,18 @@ export const CAWP_METRICS: MetricId[] = [
   'women_governor_pct_relative_inequity',
   'women_this_race_governor_count',
   'total_governor_count',
+  'pct_share_of_lt_governor',
+  'pct_share_of_women_lt_governor',
+  'women_lt_governor_pct_relative_inequity',
+  'women_this_race_lt_governor_count',
+  'total_lt_governor_count',
 ]
 
 export const CAWP_DATA_TYPES: DataTypeId[] = [
   'women_in_state_legislature',
   'women_in_us_congress',
   'women_governors',
+  'women_lt_governors',
 ]
 
 export function getWomenRaceLabel(
@@ -110,6 +116,7 @@ export type PDOHDataTypeId =
   | 'women_in_state_legislature'
   | 'women_in_us_congress'
   | 'women_governors'
+  | 'women_lt_governors'
 
 export type PDOHMetricId =
   | 'ahr_population_pct'
@@ -121,9 +128,11 @@ export type PDOHMetricId =
   | 'jail_pct_share'
   | 'jail_per_100k'
   | 'pct_share_of_governor'
+  | 'pct_share_of_lt_governor'
   | 'pct_share_of_state_leg'
   | 'pct_share_of_us_congress'
   | 'pct_share_of_women_governor'
+  | 'pct_share_of_women_lt_governor'
   | 'pct_share_of_women_state_leg'
   | 'pct_share_of_women_us_congress'
   | 'prison_estimated_total'
@@ -132,13 +141,16 @@ export type PDOHMetricId =
   | 'prison_per_100k'
   | 'confined_children_estimated_total'
   | 'total_governor_count'
+  | 'total_lt_governor_count'
   | 'total_state_leg_count'
   | 'total_us_congress_count'
   | 'total_us_congress_names'
   | 'voter_participation_pct_rate'
   | 'women_governor_pct_relative_inequity'
+  | 'women_lt_governor_pct_relative_inequity'
   | 'women_state_leg_pct_relative_inequity'
   | 'women_this_race_governor_count'
+  | 'women_this_race_lt_governor_count'
   | 'women_this_race_state_leg_count'
   | 'congressional_districts'
   | 'women_this_race_us_congress_count'
@@ -385,6 +397,67 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
         timeSeriesCadence: 'yearly',
         chartTitle: 'Relative racial inequity of women governors over time',
         metricId: 'women_governor_pct_relative_inequity',
+        shortLabel: '% relative inequity',
+        type: 'pct_relative_inequity',
+      },
+    },
+  },
+  {
+    categoryId: 'pdoh',
+    dataTypeId: 'women_lt_governors',
+    mapConfig: womenHigherIsBetterMapConfig,
+    dataTypeShortLabel: 'Lieutenant governors',
+    fullDisplayName: 'Women lieutenant governors',
+    surveyCollectedData: true,
+    definition: {
+      text: `Individuals identifying as women who have served as lieutenant governor of a U.S. state where the office is elected statewide (43 states as of 2026). Each such state has a single lieutenant governor, so its rate is either 0% or 100% in any year. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
+    },
+    dataTableTitle: 'Summary for Women lieutenant governors',
+    otherSubPopulationLabel: 'State lieutenant governors',
+    metrics: {
+      pct_rate: {
+        timeSeriesCadence: 'yearly',
+        metricId: 'pct_share_of_lt_governor',
+        chartTitle: 'Percentage of lieutenant governors identifying as women',
+        trendsCardTitleName: 'Rates of women lieutenant governors over time',
+        columnTitleHeader: 'Percentage of women lieutenant governors',
+        shortLabel: '% women lieutenant governors',
+        type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'women_this_race_lt_governor_count',
+          shortLabel: 'lieutenant governors',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'total_lt_governor_count',
+          shortLabel: 'Total lieutenant governors',
+          chartTitle: '',
+          type: 'count',
+        },
+      },
+      pct_share: {
+        chartTitle: 'Percent share of women lieutenant governors',
+        metricId: 'pct_share_of_women_lt_governor',
+        trendsCardTitleName:
+          'Inequitable share of women lieutenant governors over time',
+        columnTitleHeader: 'Percent share of women lieutenant governors',
+        shortLabel: '% of women lieutenant governors',
+        type: 'pct_share',
+        populationComparisonMetric: {
+          chartTitle:
+            'Population vs. distribution of total women lieutenant governors',
+          metricId: 'cawp_population_pct',
+          columnTitleHeader: 'Total population share (all genders)',
+          shortLabel: `${populationPctShortLabel} (all genders)`,
+          type: 'pct_share',
+        },
+      },
+      pct_relative_inequity: {
+        timeSeriesCadence: 'yearly',
+        chartTitle:
+          'Relative racial inequity of women lieutenant governors over time',
+        metricId: 'women_lt_governor_pct_relative_inequity',
         shortLabel: '% relative inequity',
         type: 'pct_relative_inequity',
       },

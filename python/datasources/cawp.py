@@ -22,7 +22,7 @@ Instructions for Downloading NUMERATOR Data:
 10. Save over the existing file at /data/cawp/cawp-by_race_and_ethnicity_time_series.csv
 11. Commit to the repo, and if needed rerun the DEV/INFRA-TEST and PROD DAG pipelines
 
-Instructions for Downloading STATEWIDE EXECUTIVE NUMERATOR Data (governors):
+Instructions for Downloading STATEWIDE EXECUTIVE NUMERATOR Data (governors, lieutenant governors):
   npm run refresh-cawp -- --section statewide_exec (from frontend/)
   The unfiltered export above omits Statewide Executive rows, so this is a second export
   filtered to "Level of Office: Statewide Executive", saved to
@@ -37,6 +37,16 @@ Notes:
  main export's Territorial/D.C. level. When more than one woman served as governor of the
  same place in the same year (mid-term succession), the denominator is raised to match so
  the share never exceeds 100%. DC has a mayor rather than a governor and is excluded.
+
+Instructions for Updating LIEUTENANT GOVERNOR DENOMINATOR Data:
+- /data/cawp/cawp_lt_gov_offices.csv lists each state with a statewide-elected lieutenant
+ governor, the first year the office (under that title) was filled, an optional last year,
+ a note, and a citation. Each listed state counts as one seat per year in that range.
+- States not listed have no statewide-elected lieutenant governor: ME, NH, OR, WY have none,
+ and in TN and WV the title belongs to the state senate president. CAWP records no
+ territorial lieutenant governors, so territories and DC are not listed.
+- Review once per year (and after any election that creates or abolishes an office): add a
+ row or set last_year, with a source. Arizona's first lieutenant governor takes office in 2027.
 - County-level congressional tables (race_and_ethnicity_county_historical/current) are also
  generated here, using the Census 118th Congress county-to-district crosswalk. All historical
  years use 118th Congress (2022) district boundaries; see expand_members_to_counties().
@@ -214,6 +224,8 @@ CONGRESS = "Congress"
 STATE_LEG = "State Legislative"
 TERRITORY_LEG = "Territorial/D.C."
 GOVERNOR = "Governor"
+LT_GOVERNOR = "Lt. Governor"
+CAWP_LT_GOV_OFFICES_FILE = "cawp_lt_gov_offices.csv"
 
 # The 50 states and 5 inhabited territories each have one governor; DC has a mayor instead.
 # Each place counts from statehood (AK, HI) or its first popularly elected governor
@@ -251,6 +263,9 @@ POSITION_LABELS = {
         "Governor": "Gov.",
         "Territorial Governor": "Gov.",
     },
+    LT_GOVERNOR: {
+        "Lt. Governor": "Lt. Gov.",
+    },
 }
 
 # per level of government: (this race count, this race names, all races count, all races names)
@@ -272,6 +287,12 @@ LEVEL_WOMEN_COLS = {
         std_col.W_THIS_RACE_GOV_NAMES,
         std_col.W_ALL_RACES_GOV_COUNT,
         std_col.W_ALL_RACES_GOV_NAMES,
+    ),
+    LT_GOVERNOR: (
+        std_col.W_THIS_RACE_LT_GOV_COUNT,
+        std_col.W_THIS_RACE_LT_GOV_NAMES,
+        std_col.W_ALL_RACES_LT_GOV_COUNT,
+        std_col.W_ALL_RACES_LT_GOV_NAMES,
     ),
 }
 
@@ -328,6 +349,9 @@ class CAWPData(DataSource):
                     std_col.GOV_COUNT,
                     std_col.W_THIS_RACE_GOV_COUNT,
                     std_col.PCT_OF_W_GOV,
+                    std_col.LT_GOV_COUNT,
+                    std_col.W_THIS_RACE_LT_GOV_COUNT,
+                    std_col.PCT_OF_W_LT_GOV,
                     CAWP_POP_COL,
                     CAWP_POP_PCT_COL,
                 ]
@@ -339,6 +363,8 @@ class CAWPData(DataSource):
                 std_col.W_STLEG_PCT_INEQUITY,
                 std_col.PCT_OF_GOV,
                 std_col.W_GOV_PCT_INEQUITY,
+                std_col.PCT_OF_LT_GOV,
+                std_col.W_LT_GOV_PCT_INEQUITY,
             ]
 
             column_types = gcs_to_bq_util.get_bq_column_types(df_historical, float_cols)
@@ -357,6 +383,7 @@ class CAWPData(DataSource):
                     std_col.W_CONGRESS_PCT_INEQUITY,
                     std_col.W_STLEG_PCT_INEQUITY,
                     std_col.W_GOV_PCT_INEQUITY,
+                    std_col.W_LT_GOV_PCT_INEQUITY,
                 ]
             )
             # drop unneeded rows from current
@@ -375,6 +402,10 @@ class CAWPData(DataSource):
                 std_col.W_THIS_RACE_GOV_COUNT,
                 std_col.PCT_OF_GOV,
                 std_col.PCT_OF_W_GOV,
+                std_col.LT_GOV_COUNT,
+                std_col.W_THIS_RACE_LT_GOV_COUNT,
+                std_col.PCT_OF_LT_GOV,
+                std_col.PCT_OF_W_LT_GOV,
                 CAWP_POP_COL,
                 CAWP_POP_PCT_COL,
             ]
@@ -438,10 +469,10 @@ class CAWPData(DataSource):
         """Creates a dataframe with the raw counts by state by year by race of:
         all congress members, all women congress members,
         and women congress members of the row's race (and likewise for state
-        legislatures and governors)"""
+        legislatures, governors, and lieutenant governors)"""
 
         try:
-            women_us_congress_df, women_state_leg_df, women_governor_df = get_women_dfs()
+            women_us_congress_df, women_state_leg_df, women_governor_df, women_lt_governor_df = get_women_dfs()
         except Exception as e:
             print(f"ERROR in get_women_dfs(): {e}")
             print(f"Full error details: {str(e)}")
@@ -461,6 +492,7 @@ class CAWPData(DataSource):
             women_us_congress_df,
             women_state_leg_df,
             women_governor_df,
+            women_lt_governor_df,
             [Race.ALL.value],
             last_year=recent_year,
         )
@@ -472,6 +504,7 @@ class CAWPData(DataSource):
             women_us_congress_df,
             women_state_leg_df,
             women_governor_df,
+            women_lt_governor_df,
             list(CAWP_RACE_GROUPS_TO_STANDARD.keys()),
             last_year=recent_year,
         )
@@ -498,6 +531,7 @@ class CAWPData(DataSource):
                 std_col.W_ALL_RACES_CONGRESS_NAMES,
                 std_col.W_ALL_RACES_STLEG_NAMES,
                 std_col.W_ALL_RACES_GOV_NAMES,
+                std_col.W_ALL_RACES_LT_GOV_NAMES,
             ],
             axis=1,
         )
@@ -507,6 +541,7 @@ class CAWPData(DataSource):
             std_col.W_THIS_RACE_CONGRESS_NAMES,
             std_col.W_THIS_RACE_STLEG_NAMES,
             std_col.W_THIS_RACE_GOV_NAMES,
+            std_col.W_THIS_RACE_LT_GOV_NAMES,
         ]
 
         for col in names_cols:
@@ -547,6 +582,7 @@ class CAWPData(DataSource):
                 std_col.W_THIS_RACE_CONGRESS_NAMES,
                 std_col.W_THIS_RACE_STLEG_NAMES,
                 std_col.W_THIS_RACE_GOV_NAMES,
+                std_col.W_THIS_RACE_LT_GOV_NAMES,
             ],
             axis=1,
         )
@@ -572,6 +608,11 @@ class CAWPData(DataSource):
             df[std_col.W_THIS_RACE_GOV_COUNT] / df[std_col.W_ALL_RACES_GOV_COUNT] * 100,
             1,
         )
+        df[std_col.PCT_OF_LT_GOV] = round(df[std_col.W_THIS_RACE_LT_GOV_COUNT] / df[std_col.LT_GOV_COUNT] * 100, 1)
+        df[std_col.PCT_OF_W_LT_GOV] = round(
+            df[std_col.W_THIS_RACE_LT_GOV_COUNT] / df[std_col.W_ALL_RACES_LT_GOV_COUNT] * 100,
+            1,
+        )
 
         # drop the ALL WOMEN counts since that data is available on the "All" race rows
         df = df.drop(
@@ -579,6 +620,7 @@ class CAWPData(DataSource):
                 std_col.W_ALL_RACES_CONGRESS_COUNT,
                 std_col.W_ALL_RACES_STLEG_COUNT,
                 std_col.W_ALL_RACES_GOV_COUNT,
+                std_col.W_ALL_RACES_LT_GOV_COUNT,
             ]
         )
 
@@ -626,6 +668,20 @@ class CAWPData(DataSource):
             std_col.POPULATION_PCT_COL,
         )
 
+        df = generate_pct_rel_inequity_col(
+            df,
+            std_col.PCT_OF_W_LT_GOV,
+            std_col.POPULATION_PCT_COL,
+            std_col.W_LT_GOV_PCT_INEQUITY,
+        )
+        df = zero_out_pct_rel_inequity(
+            df,
+            cast(GEO_TYPE, geo_level),
+            RACE,
+            {std_col.PCT_OF_LT_GOV: std_col.W_LT_GOV_PCT_INEQUITY},
+            std_col.POPULATION_PCT_COL,
+        )
+
         sort_cols = [std_col.TIME_PERIOD_COL, *STATE_COLS, std_col.RACE_CATEGORY_ID_COL]
 
         df = df.sort_values(by=sort_cols).reset_index(drop=True)
@@ -635,6 +691,7 @@ class CAWPData(DataSource):
         df.loc[mask, std_col.PCT_OF_CONGRESS] = None
         df.loc[mask, std_col.PCT_OF_STLEG] = None
         df.loc[mask, std_col.PCT_OF_GOV] = None
+        df.loc[mask, std_col.PCT_OF_LT_GOV] = None
 
         df = df.rename(
             columns={
@@ -667,6 +724,7 @@ class CAWPData(DataSource):
                 std_col.W_THIS_RACE_CONGRESS_NAMES,
                 std_col.W_THIS_RACE_STLEG_NAMES,
                 std_col.W_THIS_RACE_GOV_NAMES,
+                std_col.W_THIS_RACE_LT_GOV_NAMES,
             ]
         ]
 
@@ -1058,10 +1116,12 @@ def merge_total_cols(scaffold_congress_df, scaffold_stleg_df, us_congress_df, st
 def get_women_dfs():
     """Fetches CAWP data counts of women by race by year by state,
     generates three dfs, each with rows for every woman
-    in U.S. Congress, state/territory legislature, or governor's office in any year
+    in U.S. Congress, state/territory legislature, governor's office, or lieutenant
+    governor's office in any year
 
     Returns :
-        [women_us_congress_df, women_state_leg_df, women_governor_df] each with rows
+        [women_us_congress_df, women_state_leg_df, women_governor_df, women_lt_governor_df]
+            each with rows
             per woman officeholder, columns "time_period" by year and "state_postal",
             "race_ethnicity" with specific CAWP race strings"""
 
@@ -1099,7 +1159,7 @@ def get_women_dfs():
 
     women_dfs = []
 
-    for gov_level in [CONGRESS, STATE_LEG, GOVERNOR]:
+    for gov_level in [CONGRESS, STATE_LEG, GOVERNOR, LT_GOVERNOR]:
         # keep only line items for this level of government
         df_gov_level = df.copy().loc[df[POSITION].isin(POSITION_LABELS[gov_level].keys())]
         # standardize gov. titles between sources
@@ -1118,7 +1178,7 @@ def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool
             "time_period" X "state_postal" X "race_ethnicity
         women_df: df containing a row for every woman in US Congress, State Leg, or governor's office
         gov_level: string to choose the level of government to add cols for,
-            one of CONGRESS, STATE_LEG, or GOVERNOR
+            one of CONGRESS, STATE_LEG, GOVERNOR, or LT_GOVERNOR
         preserve_races (optional boolean): if True will calculate the counts and names
             per race and merge "_this_race" cols, if False will perform the
             calculations for the Race.ALL.value race group and merge the "_all_races" cols
@@ -1237,6 +1297,9 @@ def combine_states_to_national(df):
             std_col.GOV_COUNT,
             std_col.W_ALL_RACES_GOV_COUNT,
             std_col.W_THIS_RACE_GOV_COUNT,
+            std_col.LT_GOV_COUNT,
+            std_col.W_ALL_RACES_LT_GOV_COUNT,
+            std_col.W_THIS_RACE_LT_GOV_COUNT,
         ]
     ].agg("sum", min_count=1)
 
@@ -1296,11 +1359,16 @@ def add_aian_api_rows(df):
             std_col.W_ALL_RACES_GOV_COUNT,
             std_col.W_ALL_RACES_GOV_NAMES,
         ],
+        LT_GOVERNOR: [
+            std_col.LT_GOV_COUNT,
+            std_col.W_ALL_RACES_LT_GOV_COUNT,
+            std_col.W_ALL_RACES_LT_GOV_NAMES,
+        ],
     }
 
     aian_api_dfs = []
 
-    for gov_level in [CONGRESS, STATE_LEG, GOVERNOR]:
+    for gov_level in [CONGRESS, STATE_LEG, GOVERNOR, LT_GOVERNOR]:
         # specific columns needed for this level of government
         count_col, names_col, _, _ = LEVEL_WOMEN_COLS[gov_level]
         level_denom_cols = level_denom_cols_map[gov_level]
@@ -1365,6 +1433,7 @@ def build_base_rows_df(
     women_us_congress_df,
     women_state_leg_df,
     women_governor_df,
+    women_lt_governor_df,
     race_list: List[str],
     last_year: int | None = None,
 ):
@@ -1373,6 +1442,7 @@ def build_base_rows_df(
     - TOTAL CONGRESS, WOMEN IN CONGRESS, WOMEN THIS RACE IN CONGRESS
     - TOTAL STATE LEG, WOMEN IN STATE LEG, WOMEN THIS RACE STATE LEG
     - TOTAL GOVERNORS, WOMEN GOVERNORS, WOMEN THIS RACE GOVERNORS
+    - TOTAL LT. GOVERNORS, WOMEN LT. GOVERNORS, WOMEN THIS RACE LT. GOVERNORS
 
     Parameters:
         us_congress_totals_df: prev. processed df with congress info from unitedstates project
@@ -1380,11 +1450,12 @@ def build_base_rows_df(
         women_us_congress_df: prev. processed df with women in US Congress info from CAWP database
         women_state_leg_df: prev. processed df with women in state leg. info from CAWP database
         women_governor_df: prev. processed df with women governors info from CAWP database
+        women_lt_governor_df: prev. processed df with women lt. governors info from CAWP database
         race_list: a list of strings representing which races should be included in this base chunk
         last_year: optional final year for the scaffold; derived from source data if not provided
 
     Returns: a df with rows per year/state/race from race list, with columns incl.
-        US CONGRESS, STATE LEG, and GOVERNOR counts for TOTAL, WOMEN ALL RACE, and WOMEN THIS RACE
+        US CONGRESS, STATE LEG, GOVERNOR, and LT. GOVERNOR counts for TOTAL, WOMEN ALL RACE, and WOMEN THIS RACE
     """
 
     # create chunks with needed COLUMNS
@@ -1407,7 +1478,6 @@ def build_base_rows_df(
     # intentionally merging onto congress scaffold because we can have
     #  STLEG WOMEN COUNTS back further than the STLEG TOTALS
     df_w_any_race_state_leg_cols = merge_women_cols(df_congress_scaffold.copy(), women_state_leg_df, STATE_LEG)
-    df_w_any_race_governor_cols = merge_women_cols(df_congress_scaffold.copy(), women_governor_df, GOVERNOR)
 
     # for the ALL rows, the ALL_W cols will be the same as the W_THIS_RACE cols
     # so don't need to waste time recalculating them
@@ -1424,12 +1494,6 @@ def build_base_rows_df(
                 std_col.W_ALL_RACES_STLEG_COUNT: std_col.W_THIS_RACE_STLEG_COUNT,
             }
         )
-        df_w_this_race_governor_cols = df_w_any_race_governor_cols.copy().rename(
-            columns={
-                std_col.W_ALL_RACES_GOV_NAMES: std_col.W_THIS_RACE_GOV_NAMES,
-                std_col.W_ALL_RACES_GOV_COUNT: std_col.W_THIS_RACE_GOV_COUNT,
-            }
-        )
     else:
         df_w_this_race_us_congress_cols = merge_women_cols(
             df_congress_scaffold.copy(),
@@ -1443,12 +1507,6 @@ def build_base_rows_df(
             STATE_LEG,
             preserve_races=True,
         )
-        df_w_this_race_governor_cols = merge_women_cols(
-            df_congress_scaffold.copy(),
-            women_governor_df,
-            GOVERNOR,
-            preserve_races=True,
-        )
 
     # combine COLUMN chunks
     df = pd.merge(df_congress_scaffold, df_total_cols, on=MERGE_COLS)
@@ -1456,30 +1514,61 @@ def build_base_rows_df(
     df = pd.merge(df, df_w_this_race_us_congress_cols, on=MERGE_COLS)
     df = pd.merge(df, df_w_any_race_state_leg_cols, on=MERGE_COLS)
     df = pd.merge(df, df_w_this_race_state_leg_cols, on=MERGE_COLS)
-    df = pd.merge(df, df_w_any_race_governor_cols, on=MERGE_COLS)
-    df = pd.merge(df, df_w_this_race_governor_cols, on=MERGE_COLS)
+
+    # executive offices: one seat per place per year, so totals derive from the scaffold
+    for gov_level, women_df in [(GOVERNOR, women_governor_df), (LT_GOVERNOR, women_lt_governor_df)]:
+        this_count_col, this_names_col, all_count_col, all_names_col = LEVEL_WOMEN_COLS[gov_level]
+        df_w_any_race_cols = merge_women_cols(df_congress_scaffold.copy(), women_df, gov_level)
+        if race_list == [Race.ALL.value]:
+            df_w_this_race_cols = df_w_any_race_cols.copy().rename(
+                columns={all_names_col: this_names_col, all_count_col: this_count_col}
+            )
+        else:
+            df_w_this_race_cols = merge_women_cols(
+                df_congress_scaffold.copy(), women_df, gov_level, preserve_races=True
+            )
+        df = pd.merge(df, df_w_any_race_cols, on=MERGE_COLS)
+        df = pd.merge(df, df_w_this_race_cols, on=MERGE_COLS)
 
     df[std_col.GOV_COUNT] = get_governor_totals(df)
+    df[std_col.LT_GOV_COUNT] = get_lt_governor_totals(df)
 
     return df
 
 
-def get_governor_totals(df: pd.DataFrame) -> pd.Series:
-    """Each state has one governor per year. CAWP lists a woman for every year she served any
-    part of, so a mid-term succession between two women puts two in the same state-year;
-    the denominator rises to match so the share stays within 100%.
+def get_office_totals(df: pd.DataFrame, women_all_races_count_col: str, first_year_by_fips: dict) -> pd.Series:
+    """Executive offices have one seat per place per year. CAWP lists a woman for every year she
+    served any part of, so a mid-term succession between two women puts two in the same
+    place-year; the denominator rises to match so the share stays within 100%.
 
     Parameters:
-        df: rows per year/state/race with the women all races governor count column
+        df: rows per year/state/race with the women all races count column for this office
+        women_all_races_count_col: that count column
+        first_year_by_fips: first year each place has the office; places not listed never do
     Returns:
-        series of total governor counts, null for DC and for years before a place's
-        first counted governor (see GOVERNOR_FIRST_YEAR)"""
-    totals = df[std_col.W_ALL_RACES_GOV_COUNT].clip(lower=1).astype(float)
-    first_year = df[std_col.STATE_FIPS_COL].map(GOVERNOR_FIRST_YEAR).fillna(0)
-    has_governor = df[std_col.STATE_FIPS_COL].isin(GOVERNOR_FIPS) & (
-        df[std_col.TIME_PERIOD_COL].astype(int) >= first_year
-    )
-    return totals.where(has_governor)
+        series of total seat counts, null where the place has no such office that year"""
+    totals = df[women_all_races_count_col].clip(lower=1).astype(float)
+    first_year = df[std_col.STATE_FIPS_COL].map(first_year_by_fips)
+    has_office = first_year.notna() & (df[std_col.TIME_PERIOD_COL].astype(int) >= first_year)
+    return totals.where(has_office)
+
+
+def get_governor_totals(df: pd.DataFrame) -> pd.Series:
+    """Governor seats per state/territory/year, null for DC and for years before a place's
+    first counted governor (see GOVERNOR_FIRST_YEAR)"""
+    first_year_by_fips = {fips: GOVERNOR_FIRST_YEAR.get(fips, 0) for fips in GOVERNOR_FIPS}
+    return get_office_totals(df, std_col.W_ALL_RACES_GOV_COUNT, first_year_by_fips)
+
+
+def get_lt_governor_totals(df: pd.DataFrame) -> pd.Series:
+    """Lieutenant governor seats per state/year from the committed reference file
+    (data/cawp/cawp_lt_gov_offices.csv), null where a state has no statewide-elected
+    lieutenant governor that year"""
+    offices = gcs_to_bq_util.load_csv_as_df_from_data_dir("cawp", CAWP_LT_GOV_OFFICES_FILE, dtype={"state_fips": str})
+    first_year_by_fips = dict(zip(offices["state_fips"], offices["first_year"]))
+    totals = get_office_totals(df, std_col.W_ALL_RACES_LT_GOV_COUNT, first_year_by_fips)
+    last_year = df[std_col.STATE_FIPS_COL].map(dict(zip(offices["state_fips"], offices["last_year"])))
+    return totals.where(last_year.isna() | (df[std_col.TIME_PERIOD_COL].astype(int) <= last_year))
 
 
 def handle_other_and_multi_races(df):

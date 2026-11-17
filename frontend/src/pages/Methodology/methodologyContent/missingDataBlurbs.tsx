@@ -138,6 +138,12 @@ export function MissingCAWPData({
           for each territory with its first popularly elected governor.
         </li>
         <li>
+          Lieutenant governor data covers only the 43 states (44 from 2027) that
+          elect a lieutenant governor statewide. Other states, D.C., and the
+          territories show no lieutenant governor data, because they have no
+          such office or CAWP does not track it.
+        </li>
+        <li>
           <b>Legislature seat totals (denominator):</b> Annual seat counts for
           all 50 states and DC are scraped from{' '}
           <a href={urlMap.cawpStateInfo}>CAWP's state information pages</a>.
