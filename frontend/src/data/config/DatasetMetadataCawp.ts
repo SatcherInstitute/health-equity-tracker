@@ -17,7 +17,7 @@ export type DatasetIdCawp =
 
 export const DatasetMetadataMapCawp: Record<DatasetIdCawp, DatasetMetadata> = {
   'cawp_data-race_and_ethnicity_national_current': {
-    name: 'Current, national representation of women by race/ethnicity in the U.S. Congress, state/territory legislatures, and state governorships',
+    name: 'Current, national representation of women by race/ethnicity in the U.S. Congress, state/territory legislatures, and state/territory governorships',
     original_data_sourced: 'July 2026',
     source_id: 'cawp',
   },
@@ -32,7 +32,7 @@ export const DatasetMetadataMapCawp: Record<DatasetIdCawp, DatasetMetadata> = {
     source_id: 'cawp',
   },
   'cawp_data-race_and_ethnicity_national_historical': {
-    name: 'National representation of women by race/ethnicity in the U.S. Congress, state/territory legislatures, and state governorships, over time',
+    name: 'National representation of women by race/ethnicity in the U.S. Congress, state/territory legislatures, and state/territory governorships, over time',
     original_data_sourced:
       '1915-2026 for Congress and governors, 1983-2026 for state/territory legislatures',
     source_id: 'cawp',
@@ -49,13 +49,13 @@ export const DatasetMetadataMapCawp: Record<DatasetIdCawp, DatasetMetadata> = {
     source_id: 'cawp',
   },
   'cawp_data-race_and_ethnicity_state_historical_names': {
-    name: 'By-state and by-territory lists of legislator names, yearly back to 1915 including: all members of U.S Congress, regardless of race or gender; all women members of U.S. Congress, by race/ethnicity; and all women members of state and territory legislatures, by race/ethnicity; and all women governors, by race/ethnicity',
+    name: 'By-state and by-territory lists of officeholder names, yearly back to 1915 including: all members of U.S Congress, regardless of race or gender; all women members of U.S. Congress, by race/ethnicity; and all women members of state and territory legislatures, by race/ethnicity; and all women governors, by race/ethnicity',
     original_data_sourced:
       '1915-2026 for Congress and governors, 1983-2026 for state/territory legislatures',
     source_id: 'cawp',
   },
   'cawp_data-alls_national_current': {
-    name: 'Current, national representation of all women combined in the U.S. Congress, state/territory legislatures, and state governorships',
+    name: 'Current, national representation of all women combined in the U.S. Congress, state/territory legislatures, and state/territory governorships',
     original_data_sourced: 'July 2026',
     source_id: 'cawp',
   },
@@ -70,7 +70,7 @@ export const DatasetMetadataMapCawp: Record<DatasetIdCawp, DatasetMetadata> = {
     source_id: 'cawp',
   },
   'cawp_data-alls_national_historical': {
-    name: 'National representation of all women combined in the U.S. Congress, state/territory legislatures, and state governorships, over time',
+    name: 'National representation of all women combined in the U.S. Congress, state/territory legislatures, and state/territory governorships, over time',
     original_data_sourced:
       '1915-2026 for Congress and governors, 1983-2026 for state/territory legislatures',
     source_id: 'cawp',
@@ -101,11 +101,11 @@ export const datasourceMetadataCawp: DataSourceMetadataCawp = {
   data_source_link: 'https://cawpdata.rutgers.edu/',
   geographic_breakdowns: ['national', 'state', 'county'],
   data_source_release_years:
-    'U.S. Congress: 1915 - current, State Legislatures: 1983 - current',
+    'U.S. Congress and governors: 1915 - current, State Legislatures: 1983 - current',
   demographic_breakdowns: ['race_and_ethnicity'],
   update_frequency: 'Monthly',
   description:
-    'Detailed information on women legislators, by race/ethnicity, in the US Congress and state legislatures, and historical counts of total state legislators of any gender by year by state. A separate table is also available containing legislator names and positions.',
+    'Detailed information on women in elected office, by race/ethnicity, in the US Congress, state legislatures, and governorships, and historical counts of total state legislators of any gender by year by state. A separate table is also available containing officeholder names and positions.',
   dataset_ids: [
     'cawp_data-race_and_ethnicity_national_current',
     'cawp_data-race_and_ethnicity_state_current',

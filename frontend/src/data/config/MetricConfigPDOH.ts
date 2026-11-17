@@ -340,10 +340,10 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Women governors',
     surveyCollectedData: true,
     definition: {
-      text: `Individuals identifying as women who have served as governor of one of the 50 states. Each state has a single governor, so a state's rate is either 0% or 100% in any year, and national rates move in steps of 2% (one governor out of 50). Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
+      text: `Individuals identifying as women who have served as governor of a U.S. state or territory. Each state and territory has a single governor, so its rate is either 0% or 100% in any year, and national rates move in steps of about 2% (one governor out of 55). Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
     },
     dataTableTitle: 'Summary for Women governors',
-    otherSubPopulationLabel: 'State governors',
+    otherSubPopulationLabel: 'State and territorial governors',
     metrics: {
       pct_rate: {
         timeSeriesCadence: 'yearly',

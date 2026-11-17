@@ -31,11 +31,12 @@ Instructions for Downloading STATEWIDE EXECUTIVE NUMERATOR Data (governors):
 Notes:
 - This is simply the "numerator" data; we rely on directly downloaded table data from CAWP
  for state legislature demoninators, and UnitedStates.io for Congress denominators
-- Governors have no external denominator: each of the 50 states has one governor per year
- (Alaska and Hawaii only from 1959 statehood).
- When more than one woman served as a state's governor in the same year (mid-term succession),
- the denominator is raised to match so the share never exceeds 100%. DC and the territories
- are excluded from governor metrics.
+- Governors have no external denominator: each state and inhabited territory has one governor
+ per year, counted from statehood for Alaska and Hawaii and from the first popularly elected
+ governor for each territory (see GOVERNOR_FIRST_YEAR). Territorial governors come from the
+ main export's Territorial/D.C. level. When more than one woman served as governor of the
+ same place in the same year (mid-term succession), the denominator is raised to match so
+ the share never exceeds 100%. DC has a mayor rather than a governor and is excluded.
 - County-level congressional tables (race_and_ethnicity_county_historical/current) are also
  generated here, using the Census 118th Congress county-to-district crosswalk. All historical
  years use 118th Congress (2022) district boundaries; see expand_members_to_counties().
@@ -214,10 +215,19 @@ STATE_LEG = "State Legislative"
 TERRITORY_LEG = "Territorial/D.C."
 GOVERNOR = "Governor"
 
-# Only the 50 states have a governor; DC and territories get no governor denominator
-GOVERNOR_STATE_FIPS = list(FIPS_TO_STATE_TABLE_MAP.keys())
-# States admitted after the scaffold's first year have no state governor before statehood
-STATEHOOD_YEAR = {"02": 1959, "15": 1959}
+# The 50 states and 5 inhabited territories each have one governor; DC has a mayor instead.
+# Each place counts from statehood (AK, HI) or its first popularly elected governor
+# (territories); places not listed here count from the scaffold's first year.
+GOVERNOR_FIPS = [*FIPS_TO_STATE_TABLE_MAP.keys(), "60", "66", "69", "72", "78"]
+GOVERNOR_FIRST_YEAR = {
+    "02": 1959,  # Alaska statehood
+    "15": 1959,  # Hawaii statehood
+    "60": 1978,  # American Samoa
+    "66": 1971,  # Guam
+    "69": 1978,  # Northern Mariana Islands
+    "72": 1949,  # Puerto Rico
+    "78": 1971,  # U.S. Virgin Islands
+}
 
 STATE_COLS = [std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, std_col.STATE_NAME_COL]
 
@@ -239,6 +249,7 @@ POSITION_LABELS = {
     },
     GOVERNOR: {
         "Governor": "Gov.",
+        "Territorial Governor": "Gov.",
     },
 }
 
@@ -1065,6 +1076,10 @@ def get_women_dfs():
     # keep only valid rows
     df = df.dropna(subset=[STATE, RACE_ETH])
 
+    # CAWP repeats a woman's rows when she changed party (or her party is spelled two ways),
+    # which would count her twice in the same office and year
+    df = df.drop_duplicates(subset=[ID, YEAR, POSITION, STATE])
+
     # standardize postal codes (can't just swap codes because Michigan is also MI)
     df[STATE] = df[STATE].replace(
         {
@@ -1457,12 +1472,12 @@ def get_governor_totals(df: pd.DataFrame) -> pd.Series:
     Parameters:
         df: rows per year/state/race with the women all races governor count column
     Returns:
-        series of total governor counts, null for DC, the territories, and
-        Alaska and Hawaii before statehood"""
+        series of total governor counts, null for DC and for years before a place's
+        first counted governor (see GOVERNOR_FIRST_YEAR)"""
     totals = df[std_col.W_ALL_RACES_GOV_COUNT].clip(lower=1).astype(float)
-    statehood_year = df[std_col.STATE_FIPS_COL].map(STATEHOOD_YEAR).fillna(0)
-    has_governor = df[std_col.STATE_FIPS_COL].isin(GOVERNOR_STATE_FIPS) & (
-        df[std_col.TIME_PERIOD_COL].astype(int) >= statehood_year
+    first_year = df[std_col.STATE_FIPS_COL].map(GOVERNOR_FIRST_YEAR).fillna(0)
+    has_governor = df[std_col.STATE_FIPS_COL].isin(GOVERNOR_FIPS) & (
+        df[std_col.TIME_PERIOD_COL].astype(int) >= first_year
     )
     return totals.where(has_governor)
 

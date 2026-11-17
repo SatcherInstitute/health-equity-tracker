@@ -133,9 +133,9 @@ export function MissingCAWPData({
           calculate rates of representation historically before that year.
         </li>
         <li>
-          Governor metrics cover the 50 states only. D.C. has a mayor rather
-          than a governor, and governors of the U.S. territories are not
-          included, so those areas show no governor data.
+          D.C. has a mayor rather than a governor, so it shows no governor data.
+          Governor totals for Alaska and Hawaii begin at statehood (1959), and
+          for each territory with its first popularly elected governor.
         </li>
         <li>
           <b>Legislature seat totals (denominator):</b> Annual seat counts for

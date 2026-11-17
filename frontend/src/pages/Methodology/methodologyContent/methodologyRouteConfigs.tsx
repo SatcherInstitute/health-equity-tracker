@@ -322,6 +322,10 @@ export const methodologyRouteConfigs: RouteConfig[] = [
         path: 'pdoh-data-metrics',
       },
       {
+        label: 'Governors Data',
+        path: 'governors-data',
+      },
+      {
         label: 'County-Level U.S. Congress Data',
         path: 'county-level-congress-data',
       },

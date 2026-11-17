@@ -230,8 +230,8 @@ const PdohLink = () => {
 
         <p>
           Having women in government has been linked to improvements in
-          population health. Women in legislative roles advocate for vital
-          social and political determinants of health, such as education, social
+          population health. Women in elected office advocate for vital social
+          and political determinants of health, such as education, social
           welfare, reproductive and maternal health, and family life. These
           policies significantly advance health equity.
         </p>
@@ -257,24 +257,29 @@ const PdohLink = () => {
         </ul>
 
         <p>
-          Both data types cover state, territory, and national levels. Our
-          national level calculations include legislators from U.S. territories,
-          leading to variations from the CAWP website's data. All gender and
-          race/ethnicity categorizations are self-reported. A legislator might
-          appear in multiple race groups based on their identification.
+          All three data types cover state, territory, and national levels. Our
+          national level calculations include officeholders from U.S.
+          territories, leading to variations from the CAWP website's data. All
+          gender and race/ethnicity categorizations are self-reported. An
+          officeholder might appear in multiple race groups based on their
+          identification.
         </p>
 
         <h3 className='text-title mt-12 font-medium' id='governors-data'>
           Governors Data
         </h3>
         <p>
-          Governor data covers the 50 states at the state and national levels.
-          Each state has one governor, so the denominator is 1 per state per
-          year and 50 nationally (48 before Alaska and Hawaii became states in
-          1959). A state's rate is therefore either 0% or 100% in a given year,
-          and national rates change in steps of 2%. Because the numbers are this
-          small, a single election can move a group's national share sharply.
-          D.C. and the U.S. territories are not included in governor metrics.
+          Governor data covers the 50 states and the five inhabited U.S.
+          territories at the state, territory, and national levels. Each has one
+          governor, so the denominator is 1 per state or territory per year.
+          Alaska and Hawaii are counted from statehood in 1959, and each
+          territory from its first popularly elected governor: Puerto Rico in
+          1949, Guam and the U.S. Virgin Islands in 1971, and American Samoa and
+          the Northern Mariana Islands in 1978. A state or territory's rate is
+          therefore either 0% or 100% in a given year, and with 55 governors
+          today, national rates change in steps of about 2%. Because the numbers
+          are this small, a single election can move a group's national share
+          sharply. D.C. has a mayor rather than a governor and is not included.
         </p>
         <p>
           The President and Vice President are not included. With only two
@@ -317,7 +322,7 @@ const PdohLink = () => {
 
         <p>
           For each of those data types we calculate and present two metrics to
-          study the proportion of women legislators:
+          study the proportion of women officeholders:
         </p>
 
         <ol>

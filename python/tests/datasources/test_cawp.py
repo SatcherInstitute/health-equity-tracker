@@ -243,15 +243,16 @@ def test_get_governor_totals():
     df = pd.DataFrame(
         {
             # AK: no woman; AZ: one woman; CA: two women in one year (succession);
-            # DC, AS: no governor; HI 1958: before statehood
-            "state_fips": ["02", "04", "06", "11", "60", "15"],
-            "time_period": ["2020", "2020", "2020", "2020", "2020", "1958"],
-            "women_all_races_governor_count": [0.0, 1.0, 2.0, 0.0, 0.0, 0.0],
+            # AS 2020: territory with an elected governor;
+            # DC: no governor; HI 1958: before statehood; AS 1977: before first elected governor
+            "state_fips": ["02", "04", "06", "60", "11", "15", "60"],
+            "time_period": ["2020", "2020", "2020", "2020", "2020", "1958", "1977"],
+            "women_all_races_governor_count": [0.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0],
         }
     )
     result = get_governor_totals(df)
-    assert result.tolist()[:3] == [1.0, 1.0, 2.0]
-    assert result.iloc[3:].isna().all()
+    assert result.tolist()[:4] == [1.0, 1.0, 2.0, 1.0]
+    assert result.iloc[4:].isna().all()
 
 
 @mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_strict_for_data_recent_year)
