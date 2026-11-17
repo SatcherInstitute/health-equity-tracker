@@ -31,7 +31,8 @@ Instructions for Downloading STATEWIDE EXECUTIVE NUMERATOR Data (governors):
 Notes:
 - This is simply the "numerator" data; we rely on directly downloaded table data from CAWP
  for state legislature demoninators, and UnitedStates.io for Congress denominators
-- Governors have no external denominator: each of the 50 states has one governor per year.
+- Governors have no external denominator: each of the 50 states has one governor per year
+ (Alaska and Hawaii only from 1959 statehood).
  When more than one woman served as a state's governor in the same year (mid-term succession),
  the denominator is raised to match so the share never exceeds 100%. DC and the territories
  are excluded from governor metrics.
@@ -215,6 +216,8 @@ GOVERNOR = "Governor"
 
 # Only the 50 states have a governor; DC and territories get no governor denominator
 GOVERNOR_STATE_FIPS = list(FIPS_TO_STATE_TABLE_MAP.keys())
+# States admitted after the scaffold's first year have no state governor before statehood
+STATEHOOD_YEAR = {"02": 1959, "15": 1959}
 
 STATE_COLS = [std_col.STATE_FIPS_COL, std_col.STATE_POSTAL_COL, std_col.STATE_NAME_COL]
 
@@ -1454,9 +1457,14 @@ def get_governor_totals(df: pd.DataFrame) -> pd.Series:
     Parameters:
         df: rows per year/state/race with the women all races governor count column
     Returns:
-        series of total governor counts, null for DC and the territories"""
+        series of total governor counts, null for DC, the territories, and
+        Alaska and Hawaii before statehood"""
     totals = df[std_col.W_ALL_RACES_GOV_COUNT].clip(lower=1).astype(float)
-    return totals.where(df[std_col.STATE_FIPS_COL].isin(GOVERNOR_STATE_FIPS))
+    statehood_year = df[std_col.STATE_FIPS_COL].map(STATEHOOD_YEAR).fillna(0)
+    has_governor = df[std_col.STATE_FIPS_COL].isin(GOVERNOR_STATE_FIPS) & (
+        df[std_col.TIME_PERIOD_COL].astype(int) >= statehood_year
+    )
+    return totals.where(has_governor)
 
 
 def handle_other_and_multi_races(df):

@@ -270,11 +270,11 @@ const PdohLink = () => {
         <p>
           Governor data covers the 50 states at the state and national levels.
           Each state has one governor, so the denominator is 1 per state per
-          year and 50 nationally. A state's rate is therefore either 0% or 100%
-          in a given year, and national rates change in steps of 2%. Because the
-          numbers are this small, a single election can move a group's national
-          share sharply. D.C. and the U.S. territories are not included in
-          governor metrics.
+          year and 50 nationally (48 before Alaska and Hawaii became states in
+          1959). A state's rate is therefore either 0% or 100% in a given year,
+          and national rates change in steps of 2%. Because the numbers are this
+          small, a single election can move a group's national share sharply.
+          D.C. and the U.S. territories are not included in governor metrics.
         </p>
         <p>
           The President and Vice President are not included. With only two

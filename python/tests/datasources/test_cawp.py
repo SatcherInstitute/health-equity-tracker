@@ -242,9 +242,11 @@ def _load_county_crosswalk():
 def test_get_governor_totals():
     df = pd.DataFrame(
         {
-            # AK: no woman; AZ: one woman; CA: two women in one year (succession); DC, AS: no governor
-            "state_fips": ["02", "04", "06", "11", "60"],
-            "women_all_races_governor_count": [0.0, 1.0, 2.0, 0.0, 0.0],
+            # AK: no woman; AZ: one woman; CA: two women in one year (succession);
+            # DC, AS: no governor; HI 1958: before statehood
+            "state_fips": ["02", "04", "06", "11", "60", "15"],
+            "time_period": ["2020", "2020", "2020", "2020", "2020", "1958"],
+            "women_all_races_governor_count": [0.0, 1.0, 2.0, 0.0, 0.0, 0.0],
         }
     )
     result = get_governor_totals(df)
