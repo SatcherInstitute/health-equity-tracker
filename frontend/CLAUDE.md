@@ -207,6 +207,8 @@ Read it with `flag('VITE_SHOW_MY_FEATURE')`. The identical string appears in the
 
 One rule covers env values and params alike: present, non-empty, and not `0` means on. A param **overrides** the env for that browser tab only, so `?VITE_SHOW_CORRELATION_CARD=0` is how you see the prod experience on dev.
 
+To gate one data type of a topic rather than a whole topic, filter it out where the topic's configs are registered (the `METRIC_CONFIG` map in `src/data/config/MetricConfig.ts`) and gate any topic label, methodology section, or missing-data text that describes it on the same flag, so the page reads consistently either way. `VITE_SHOW_WOMEN_EXECUTIVES` does this for the governors and lieutenant governors data type; launching it means deleting those `flag()` calls.
+
 ### Prod is param-only, always
 
 **A feature is launched by deleting its flag gate from the code, never by turning the flag on in `.env.prod`.** The flag exists to let a feature ship dark and be previewed; once it is meant for everyone, the `flag()` call and the `.env` lines come out and the feature is simply the product. A flag left in place on prod is not a launch, it is an unreviewed conditional serving the public.
