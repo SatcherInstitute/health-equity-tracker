@@ -336,7 +336,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
     categoryId: 'pdoh',
     dataTypeId: 'women_state_executives',
     mapConfig: womenHigherIsBetterMapConfig,
-    dataTypeShortLabel: 'Governor and Lt. governor offices',
+    dataTypeShortLabel: 'Governors & Lt. governors',
     fullDisplayName: 'Women governors and lieutenant governors',
     surveyCollectedData: true,
     definition: {

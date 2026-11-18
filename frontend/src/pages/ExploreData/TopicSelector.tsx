@@ -12,11 +12,13 @@ import {
   DEFAULT,
   type DefaultDropdownVarId,
   DROPDOWN_TOPIC_MAP,
+  SELECTED_DATA_TYPE_OVERRIDES,
   SELECTED_DROPDOWN_OVERRIDES,
 } from '../../utils/MadLibs'
 
 interface TopicSelectorProps {
   newValue: DataTypeId | DefaultDropdownVarId // DataTypeId OR default setting with no topic selected
+  selectedDataTypeId?: DataTypeId
   onOptionUpdate: (option: string) => void
   phraseSegment: any
 }
@@ -30,6 +32,8 @@ export default function TopicSelector(props: TopicSelectorProps) {
 
   // prefer the overrides, use normal name otherwise. fallback to empty string
   const currentDisplayName =
+    (props.selectedDataTypeId &&
+      SELECTED_DATA_TYPE_OVERRIDES[props.selectedDataTypeId]) ??
     SELECTED_DROPDOWN_OVERRIDES?.[chosenOption?.[0] as DropdownVarId] ??
     chosenOption?.[1] ??
     ''

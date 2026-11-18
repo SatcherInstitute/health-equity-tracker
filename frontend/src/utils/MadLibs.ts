@@ -180,6 +180,12 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   cancer_incidence: 'Incidence for',
 }
 
+// Wins over SELECTED_DROPDOWN_OVERRIDES when the topic's data types need different connectors
+export const SELECTED_DATA_TYPE_OVERRIDES: Partial<Record<DataTypeId, string>> =
+  {
+    women_state_executives: 'Women Serving as',
+  }
+
 export interface Category {
   title: CategoryTitle
   options: DropdownVarId[]
