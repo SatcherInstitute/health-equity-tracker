@@ -33,7 +33,7 @@ GH_USER=$(gh api user -q .login)
 FORK_REMOTE=$(git remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
 ```
 
-If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fork remote with `git remote -v`. In a cloud session there is no fork remote; skip Step 5 and say so in the final summary.
+If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fork remote with `git remote -v`. In a cloud session (`CLAUDE_CODE_REMOTE=true`) there is no fork to sync; skip Step 5 and say so in the final summary.
 
 When the user explicitly passed a PR number with the `/merge` command, proceed without asking for confirmation. Only ask if the PR number was auto-detected from the current branch (i.e. no argument was given).
 

@@ -192,7 +192,7 @@ If the user's current branch has an open PR, note it briefly and ask whether the
 
 ```bash
 CURRENT_BRANCH=$(git branch --show-current)
-gh pr list --author @me --state open --head "${GH_USER}:$CURRENT_BRANCH" --json number,title,headRefName
+gh pr list --author @me --state open --head "$CURRENT_BRANCH" --json number,title,headRefName
 ```
 
 Keep the whole response under 200 words.

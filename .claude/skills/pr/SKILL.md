@@ -35,12 +35,14 @@ git fetch origin main --quiet
 git log origin/main..HEAD --oneline   # empty = nothing to PR; stop and tell the user
 ```
 
-If there are commits, push the branch to the fork and open a draft-quality PR. Title and body are first-pass only — Step 6 rewrites them properly once the diff is classified and verified. Derive the fork remote the same way Step 1's context block does (`git remote -v | grep <your-login>/`). In a cloud session there is no fork remote, so push to `origin` instead (see the Git Workflow section of the root `CLAUDE.md`).
+If there are commits, push the branch to the fork and open a draft-quality PR. Title and body are first-pass only — Step 6 rewrites them properly once the diff is classified and verified. Derive the fork remote the same way Step 1's context block does (`git remote -v | grep <your-login>/`). In a cloud session (`CLAUDE_CODE_REMOTE=true`) push to `origin` instead (see the Git Workflow section of the root `CLAUDE.md`); anywhere else, a missing fork remote is an error.
 
 ```bash
 GH_USER=$(gh api user -q .login)
 FORK_REMOTE=$(git remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
-if [ -n "$FORK_REMOTE" ]; then PUSH_REMOTE=$FORK_REMOTE; HEAD_SPEC="${GH_USER}:${BRANCH}"; else PUSH_REMOTE=origin; HEAD_SPEC="$BRANCH"; fi
+if [ "$CLAUDE_CODE_REMOTE" = "true" ]; then PUSH_REMOTE=origin; HEAD_SPEC="$BRANCH"
+elif [ -n "$FORK_REMOTE" ]; then PUSH_REMOTE=$FORK_REMOTE; HEAD_SPEC="${GH_USER}:${BRANCH}"
+else echo "No fork remote found. Run \`git remote -v\` and add your fork as a remote." >&2; exit 1; fi
 git push -u "$PUSH_REMOTE" HEAD
 gh pr create --base main --head "$HEAD_SPEC" \
   --title "$(git log origin/main..HEAD --format=%s | tail -1)" \

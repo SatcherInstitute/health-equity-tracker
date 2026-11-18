@@ -86,11 +86,15 @@ gh pr create --base main --head <your-github-username>:<branch-name>
 **Don't push feature branches directly to `origin`** (`SatcherInstitute`), with two
 exceptions:
 
-- **Cloud sessions run by core team members** (Claude Code on the web, the Claude app,
-  `claude --cloud`) push their feature branch to `origin` and open the PR from there.
-  A cloud session can't attach a fork with the same repository name as upstream, so it
-  can't push to one. Pushing to `origin` also gives the PR's CI and Netlify preview the
-  secrets that fork PRs don't get. Never push to `origin/main`.
+- **Cloud sessions run by core team members** (anyone with write access to
+  `SatcherInstitute`, working in Claude Code on the web, the Claude app, or
+  `claude --cloud`; these set `CLAUDE_CODE_REMOTE=true`) push their feature branch to
+  `origin` and open the PR from there. A cloud session can't attach a fork with the same
+  repository name as upstream, so it can't push to one. Pushing to `origin` also gives
+  the PR's CI and Netlify preview the secrets that fork PRs don't get. Never push to
+  `origin/main`. Cloud sessions have little or no `gh` CLI, so they do PR operations
+  (create, view, comment, check status) with the GitHub MCP tools in place of the `gh`
+  commands the skills show.
 - **The shared backend test branch:**
 
   ```bash
