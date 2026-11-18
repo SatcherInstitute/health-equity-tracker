@@ -41,8 +41,9 @@ COMMITMSG
 # push to the remote that points at the PR head repo: origin for a cloud-session PR,
 # the owner's fork otherwise. If none matches, stop and ask the user.
 HEAD_OWNER=$(gh pr view --json headRepositoryOwner -q .headRepositoryOwner.login)
-PUSH_REMOTE=$(git -C /path/to/repo remote -v | grep -i "github.com[/:]${HEAD_OWNER}/" | head -1 | awk '{print $1}')
-[ -z "$PUSH_REMOTE" ] && { echo "No remote points at ${HEAD_OWNER}'s repo; ask the user." >&2; exit 1; }
+HEAD_REPO=$(gh pr view --json headRepository -q .headRepository.name)
+PUSH_REMOTE=$(git -C /path/to/repo remote -v | grep '(push)' | grep -iE "github\.com[/:]${HEAD_OWNER}/${HEAD_REPO}(\.git)?[[:space:]]" | head -1 | awk '{print $1}')
+[ -z "$PUSH_REMOTE" ] && { echo "No remote pushes to ${HEAD_OWNER}/${HEAD_REPO}; ask the user." >&2; exit 1; }
 git -C /path/to/repo push $PUSH_REMOTE HEAD
 ```
 

@@ -86,9 +86,10 @@ echo "=== commits on branch ==="; git log origin/main..HEAD --oneline
 
 ```bash
 HEAD_OWNER=$(gh pr view <number> --json headRepositoryOwner -q .headRepositoryOwner.login)
-# the remote that points at the head repo: origin for SatcherInstitute, the owner's fork otherwise
-PUSH_REMOTE=$(git remote -v | grep -i "github.com[/:]${HEAD_OWNER}/" | head -1 | awk '{print $1}')
-echo "Head owner: $HEAD_OWNER  PUSH_REMOTE=$PUSH_REMOTE"
+HEAD_REPO=$(gh pr view <number> --json headRepository -q .headRepository.name)
+# the remote whose push URL is the head repo: origin for SatcherInstitute, the owner's fork otherwise
+PUSH_REMOTE=$(git remote -v | grep '(push)' | grep -iE "github\.com[/:]${HEAD_OWNER}/${HEAD_REPO}(\.git)?[[:space:]]" | head -1 | awk '{print $1}')
+echo "Head: $HEAD_OWNER/$HEAD_REPO  PUSH_REMOTE=$PUSH_REMOTE"
 ```
 
 If `PUSH_REMOTE` is empty, no remote points at the head repo (often another contributor's fork): ask the user which remote to push to, or whether to add one, before pushing anything. A cloud session cannot push to a fork; tell the user and stop.
