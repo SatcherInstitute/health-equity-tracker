@@ -67,10 +67,10 @@ gh workflow run dag<Source>.yml --ref infra-test
 
 ## Git Workflow
 
-This repo uses a **fork-based PR model**. `origin` points to the upstream
-`SatcherInstitute/health-equity-tracker`. Each contributor has their own fork
-added as a personal remote. Push feature branches to your fork, then open a PR
-from there against `origin/main`.
+This repo uses a **fork-based PR model**, with one exception for cloud sessions.
+`origin` points to the upstream `SatcherInstitute/health-equity-tracker`. Each
+contributor has their own fork added as a personal remote. Push feature branches
+to your fork, then open a PR from there against `origin/main`.
 
 ```bash
 # Check your remotes — your fork should be listed alongside origin
@@ -83,12 +83,22 @@ git push -u <your-remote-name> <branch-name>
 gh pr create --base main --head <your-github-username>:<branch-name>
 ```
 
-**Never push feature branches directly to `origin`** (`SatcherInstitute`). The one
-exception is the shared backend test branch:
+**Don't push feature branches directly to `origin`** (`SatcherInstitute`), with two
+exceptions:
 
-```bash
-git push origin HEAD:infra-test -f   # backend GCP deploy only
-```
+- **Cloud sessions run by core team members** (Claude Code on the web, the Claude app,
+  `claude --cloud`) push their feature branch to `origin` and open the PR from there.
+  A cloud session can't attach a fork with the same repository name as upstream, so it
+  can't push to one. Pushing to `origin` also gives the PR's CI and Netlify preview the
+  secrets that fork PRs don't get. Never push to `origin/main`.
+- **The shared backend test branch:**
+
+  ```bash
+  git push origin HEAD:infra-test -f   # backend GCP deploy only
+  ```
+
+Once a PR exists, keep pushing to whichever repository its branch lives on; don't move
+an open PR between a fork and `origin`.
 
 See `README.md` for full fork setup steps including how to add your fork as a remote.
 

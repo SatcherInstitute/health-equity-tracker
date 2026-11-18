@@ -38,8 +38,11 @@ git -C /path/to/repo commit -m "$(cat <<'COMMITMSG'
 Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
 COMMITMSG
 )"
-FORK_REMOTE=$(git -C /path/to/repo remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
-git -C /path/to/repo push $FORK_REMOTE HEAD
+# push to wherever the PR head lives: origin for a cloud-session PR, else your fork
+HEAD_OWNER=$(gh pr view --json headRepositoryOwner -q .headRepositoryOwner.login)
+if [ "$HEAD_OWNER" = "SatcherInstitute" ]; then PUSH_REMOTE=origin; else
+  PUSH_REMOTE=$(git -C /path/to/repo remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}'); fi
+git -C /path/to/repo push $PUSH_REMOTE HEAD
 ```
 
 Only continue to Step 1 once the working tree is clean and all changes are pushed.
