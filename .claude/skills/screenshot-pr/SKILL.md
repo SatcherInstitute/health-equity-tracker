@@ -38,8 +38,13 @@ git -C /path/to/repo commit -m "$(cat <<'COMMITMSG'
 Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>
 COMMITMSG
 )"
-FORK_REMOTE=$(git -C /path/to/repo remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
-git -C /path/to/repo push $FORK_REMOTE HEAD
+# push to the remote that points at the PR head repo: origin for a cloud-session PR,
+# the owner's fork otherwise. If none matches, stop and ask the user.
+HEAD_OWNER=$(gh pr view --json headRepositoryOwner -q .headRepositoryOwner.login)
+HEAD_REPO=$(gh pr view --json headRepository -q .headRepository.name)
+PUSH_REMOTE=$(git -C /path/to/repo remote -v | grep '(push)' | grep -iE "github\.com[/:]${HEAD_OWNER}/${HEAD_REPO}(\.git)?[[:space:]]" | head -1 | awk '{print $1}')
+[ -z "$PUSH_REMOTE" ] && { echo "No remote pushes to ${HEAD_OWNER}/${HEAD_REPO}; ask the user." >&2; exit 1; }
+git -C /path/to/repo push $PUSH_REMOTE HEAD
 ```
 
 Only continue to Step 1 once the working tree is clean and all changes are pushed.
