@@ -685,7 +685,8 @@ def load_women_line_items(extra_cols: List[str] | None = None) -> pd.DataFrame:
 
     # CAWP repeats a woman's rows when she changed party (or her party is spelled two ways),
     # which would count her twice in the same office and year. The repeats agree on
-    # race_ethnicity in the current export, so keeping the first loses nothing.
+    # race_ethnicity in the current export. Some also differ on District, but only for
+    # state legislators, whose district is never used, so keeping the first loses nothing.
     df = df.drop_duplicates(subset=[ID, YEAR, POSITION, STATE])
 
     # standardize postal codes (can't just swap codes because Michigan is also MI)
@@ -1374,8 +1375,12 @@ def handle_other_and_multi_races(df):
 
     # rows with multiple specific races will sum later with
     # CAWP's incoming "multiracial alone"
-    # (after the split, every value is a list; a list of 2+ races is a multiracial woman)
-    df_multiple_specific = df[df[RACE_ETH].apply(lambda x: isinstance(x, list) and len(x) > 1)].copy()
+    # (after the split, every value is a list; a list of 2+ races is a multiracial woman).
+    # Skip lists that already name CAWP_MULTI: the explode below gives those women
+    # their multiracial row, and tagging them too would count them twice.
+    df_multiple_specific = df[
+        df[RACE_ETH].apply(lambda x: isinstance(x, list) and len(x) > 1 and CAWP_MULTI not in x)
+    ].copy()
     df_multiple_specific[RACE_ETH] = CAWP_MULTI
     df = pd.concat([df, df_multiple_specific])
 
