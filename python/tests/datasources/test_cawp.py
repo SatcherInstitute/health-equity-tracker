@@ -6,6 +6,7 @@ import json
 
 import ingestion.standardized_columns as std_col
 from datasources.cawp import (
+    handle_other_and_multi_races,
     CAWPData,
     US_CONGRESS_HISTORICAL_URL,
     US_CONGRESS_CURRENT_URL,
@@ -236,6 +237,15 @@ def _load_county_crosswalk():
     df.loc[territory_mask, "district_num"] = LEGISLATORS_ATLARGE_CODE
     df.loc[territory_mask, "GEOID_CD118_20"] = df.loc[territory_mask, "state_fips"] + LEGISLATORS_ATLARGE_CODE
     return df
+
+
+def test_handle_other_and_multi_races():
+    df = pd.DataFrame({"name": ["A", "B"], "race_ethnicity": ["Black, Latina", "White"]})
+    result = handle_other_and_multi_races(df)
+    races_for_a = sorted(result.loc[result["name"] == "A", "race_ethnicity"])
+    # a woman listing two races counts in each, and in the multiracial group
+    assert races_for_a == ["Black", "Latina", "Multiracial Alone"]
+    assert result.loc[result["name"] == "B", "race_ethnicity"].tolist() == ["White"]
 
 
 @mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_strict_for_data_recent_year)

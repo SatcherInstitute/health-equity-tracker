@@ -678,6 +678,10 @@ def get_women_congress_by_county_df(crosswalk_df: pd.DataFrame) -> pd.DataFrame:
         usecols=[ID, YEAR, STATE, FIRST_NAME, LAST_NAME, POSITION, RACE_ETH, DISTRICT],
     )
     df = df.dropna(subset=[STATE, RACE_ETH])
+
+    # CAWP repeats a woman's rows when she changed party (or her party is spelled two ways),
+    # which would count her twice in the same office and year
+    df = df.drop_duplicates(subset=[ID, YEAR, POSITION, STATE])
     df[STATE] = df[STATE].replace(
         {
             "Northern Mariana Islands - MI": "Northern Mariana Islands - MP",
@@ -1372,7 +1376,8 @@ def handle_other_and_multi_races(df):
 
     # rows with multiple specific races will sum later with
     # CAWP's incoming "multiracial alone"
-    df_multiple_specific = df[df[RACE_ETH].apply(lambda x: isinstance(x, str) and len(x) > 1)]
+    # (after the split, every value is a list; a list of 2+ races is a multiracial woman)
+    df_multiple_specific = df[df[RACE_ETH].apply(lambda x: isinstance(x, list) and len(x) > 1)].copy()
     df_multiple_specific[RACE_ETH] = CAWP_MULTI
     df = pd.concat([df, df_multiple_specific])
 
