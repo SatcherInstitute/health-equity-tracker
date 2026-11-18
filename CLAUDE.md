@@ -93,7 +93,7 @@ exceptions:
   repository name as upstream, so it can't push to one. Pushing to `origin` also gives
   the PR's CI and Netlify preview the secrets that fork PRs don't get. Never push to
   `origin/main`. Cloud sessions have little or no `gh` CLI, so they do PR operations
-  (create, view, comment, check status) with the GitHub MCP tools in place of the `gh`
+  (create, view, comment, check status) with the session's built-in GitHub tools in place of the `gh`
   commands the skills show.
 - **The shared backend test branch:**
 

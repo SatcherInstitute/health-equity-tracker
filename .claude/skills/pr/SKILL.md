@@ -86,11 +86,12 @@ echo "=== commits on branch ==="; git log origin/main..HEAD --oneline
 
 ```bash
 HEAD_OWNER=$(gh pr view <number> --json headRepositoryOwner -q .headRepositoryOwner.login)
-if [ "$HEAD_OWNER" = "SatcherInstitute" ]; then PUSH_REMOTE=origin; else PUSH_REMOTE=$FORK_REMOTE; fi
+# the remote that points at the head repo: origin for SatcherInstitute, the owner's fork otherwise
+PUSH_REMOTE=$(git remote -v | grep -i "github.com[/:]${HEAD_OWNER}/" | head -1 | awk '{print $1}')
 echo "Head owner: $HEAD_OWNER  PUSH_REMOTE=$PUSH_REMOTE"
 ```
 
-If the head is on a fork and `FORK_REMOTE` is empty, ask the user to identify their fork remote with `git remote -v`, then continue using that name. A cloud session cannot push to a fork; tell the user and stop.
+If `PUSH_REMOTE` is empty, no remote points at the head repo (often another contributor's fork): ask the user which remote to push to, or whether to add one, before pushing anything. A cloud session cannot push to a fork; tell the user and stop.
 
 That single block covers the fork remote, the file classification in Step 1b, the behind-main check in Step 2c, and the commit list Step 6 needs. Do not re-run any of them later; reuse this output.
 
