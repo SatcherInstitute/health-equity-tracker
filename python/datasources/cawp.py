@@ -678,10 +678,6 @@ def get_women_congress_by_county_df(crosswalk_df: pd.DataFrame) -> pd.DataFrame:
         usecols=[ID, YEAR, STATE, FIRST_NAME, LAST_NAME, POSITION, RACE_ETH, DISTRICT],
     )
     df = df.dropna(subset=[STATE, RACE_ETH])
-
-    # CAWP repeats a woman's rows when she changed party (or her party is spelled two ways),
-    # which would count her twice in the same office and year
-    df = df.drop_duplicates(subset=[ID, YEAR, POSITION, STATE])
     df[STATE] = df[STATE].replace(
         {
             "Northern Mariana Islands - MI": "Northern Mariana Islands - MP",
@@ -983,6 +979,10 @@ def get_women_dfs():
 
     # keep only valid rows
     df = df.dropna(subset=[STATE, RACE_ETH])
+
+    # CAWP repeats a woman's rows when she changed party (or her party is spelled two ways),
+    # which would count her twice in the same office and year
+    df = df.drop_duplicates(subset=[ID, YEAR, POSITION, STATE])
 
     # standardize postal codes (can't just swap codes because Michigan is also MI)
     df[STATE] = df[STATE].replace(
