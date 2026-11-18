@@ -35,14 +35,16 @@ git fetch origin main --quiet
 git log origin/main..HEAD --oneline   # empty = nothing to PR; stop and tell the user
 ```
 
-If there are commits, push the branch to the fork and open a draft-quality PR. Title and body are first-pass only — Step 6 rewrites them properly once the diff is classified and verified. Derive the fork remote the same way Step 1's context block does (`git remote -v | grep <your-login>/`). Never push to `origin`.
+If there are commits, push the branch to the fork and open a draft-quality PR. Title and body are first-pass only — Step 6 rewrites them properly once the diff is classified and verified. Derive the fork remote the same way Step 1's context block does (`git remote -v | grep <your-login>/`). In a cloud session (`CLAUDE_CODE_REMOTE=true`) push to `origin` instead (see the Git Workflow section of the root `CLAUDE.md`); anywhere else, a missing fork remote is an error.
 
 ```bash
 GH_USER=$(gh api user -q .login)
 FORK_REMOTE=$(git remote -v | grep -i "github.com[/:]${GH_USER}/" | head -1 | awk '{print $1}')
-[ -z "$FORK_REMOTE" ] && { echo "No fork remote found. Run \`git remote -v\` and add your fork as a remote." >&2; exit 1; }
-git push -u "$FORK_REMOTE" HEAD
-gh pr create --base main --head "${GH_USER}:${BRANCH}" \
+if [ "$CLAUDE_CODE_REMOTE" = "true" ]; then PUSH_REMOTE=origin; HEAD_SPEC="$BRANCH"
+elif [ -n "$FORK_REMOTE" ]; then PUSH_REMOTE=$FORK_REMOTE; HEAD_SPEC="${GH_USER}:${BRANCH}"
+else echo "No fork remote found. Run \`git remote -v\` and add your fork as a remote." >&2; exit 1; fi
+git push -u "$PUSH_REMOTE" HEAD
+gh pr create --base main --head "$HEAD_SPEC" \
   --title "$(git log origin/main..HEAD --format=%s | tail -1)" \
   --body "Draft — populated by /pr." --assignee @me
 ```
@@ -80,31 +82,17 @@ echo "=== behind main? (lines with < are missing commits) ==="; git log --onelin
 echo "=== commits on branch ==="; git log origin/main..HEAD --oneline
 ```
 
-If `FORK_REMOTE` is empty, print a warning and ask the user to identify their fork remote with `git remote -v`, then continue using that name.
-
-**Verify the PR head is on the fork, not on `origin`.** This repo's policy is that all feature branches live on the contributor's personal fork. A PR whose head is on `SatcherInstitute` directly was pushed to `origin` by mistake and must be corrected before proceeding:
+**Push to wherever the PR head lives.** Feature branches normally live on the contributor's fork; branches pushed from a core team member's cloud session live on `origin` (see the Git Workflow section of the root `CLAUDE.md`). Both are fine, so never move a PR between them:
 
 ```bash
 HEAD_OWNER=$(gh pr view <number> --json headRepositoryOwner -q .headRepositoryOwner.login)
-echo "Head owner: $HEAD_OWNER"
+HEAD_REPO=$(gh pr view <number> --json headRepository -q .headRepository.name)
+# the remote whose push URL is the head repo: origin for SatcherInstitute, the owner's fork otherwise
+PUSH_REMOTE=$(git remote -v | grep '(push)' | grep -iE "github\.com[/:]${HEAD_OWNER}/${HEAD_REPO}(\.git)?[[:space:]]" | head -1 | awk '{print $1}')
+echo "Head: $HEAD_OWNER/$HEAD_REPO  PUSH_REMOTE=$PUSH_REMOTE"
 ```
 
-If `HEAD_OWNER` is `SatcherInstitute` (not the user's login): stop, tell the user, then:
-1. Push all commits to the fork: `git push $FORK_REMOTE HEAD`
-2. Capture the original PR metadata:
-   ```bash
-   OLD_TITLE=$(gh pr view <number> --json title -q .title)
-   OLD_BODY=$(gh pr view <number> --json body -q .body)
-   HEAD_REF=$(gh pr view <number> --json headRefName -q .headRefName)
-   ```
-3. Close the misplaced PR: `gh pr close <number> --comment "Reopening from fork."`
-4. Create a new PR from the fork:
-   ```bash
-   gh pr create --base main --head "${GH_USER}:${HEAD_REF}" \
-     --title "$OLD_TITLE" \
-     --body "$OLD_BODY"
-   ```
-5. Continue with the new PR number for all remaining steps.
+If `PUSH_REMOTE` is empty, no remote points at the head repo (often another contributor's fork): ask the user which remote to push to, or whether to add one, before pushing anything. A cloud session cannot push to a fork; tell the user and stop.
 
 That single block covers the fork remote, the file classification in Step 1b, the behind-main check in Step 2c, and the commit list Step 6 needs. Do not re-run any of them later; reuse this output.
 
@@ -145,7 +133,7 @@ git commit -m "style: biome auto-fix"
 If tsc exits non-zero: fix all errors before continuing.
 
 ```bash
-git push $FORK_REMOTE HEAD
+git push $PUSH_REMOTE HEAD
 ```
 
 ---
@@ -179,7 +167,7 @@ pip install -e python/datasources/ -e python/ingestion/ && pytest python/tests/<
 If `black` reformats or `pylint` flags anything: fix, stage explicitly, commit, and push. If any test fails: fix it before continuing — a red test here is a red DAG later. Record the passing test command and count; it becomes the test plan checklist in Step 6.
 
 ```bash
-git push $FORK_REMOTE HEAD
+git push $PUSH_REMOTE HEAD
 ```
 
 ---
@@ -196,7 +184,7 @@ git push $FORK_REMOTE HEAD
 Fix any build or test failure before continuing. Record the passing `go test` command for the Step 6 test plan.
 
 ```bash
-git push $FORK_REMOTE HEAD
+git push $PUSH_REMOTE HEAD
 ```
 
 ---
@@ -235,7 +223,7 @@ Parse the output for lines starting with `<` (commits on `origin/main` not on th
 
 ```bash
 git merge origin/main --no-edit
-git push $FORK_REMOTE HEAD
+git push $PUSH_REMOTE HEAD
 ```
 
 If the merge produces conflicts: stop, print the conflicting files, and ask the user to resolve them manually before continuing.
@@ -281,7 +269,7 @@ Then act:
   ```bash
   git add <files>
   git commit -m "address review: <short description>"
-  git push $FORK_REMOTE HEAD
+  git push $PUSH_REMOTE HEAD
   ```
   Reply and resolve in the same call. The mutation needs the **thread's** node ID (`PRRT_...`), not the comment's (`PRRC_...`); Step 3's first block already printed the mapping, so look it up there rather than re-querying:
   ```bash
@@ -322,7 +310,7 @@ If updates are needed: edit the relevant docs, then commit:
 ```bash
 git add frontend/CLAUDE.md CLAUDE.md README.md   # only files actually changed
 git commit -m "docs: update CLAUDE.md to reflect <what changed>"
-git push $FORK_REMOTE HEAD
+git push $PUSH_REMOTE HEAD
 ```
 
 ---
@@ -407,7 +395,7 @@ If no spec files match, note that and skip this step.
 ```bash
 git add frontend/playwright-tests/<spec>.spec.ts
 git commit -m "fix(e2e): update <topic> spec to match <what changed>"
-git push $FORK_REMOTE HEAD
+git push $PUSH_REMOTE HEAD
 ```
 
 Do not proceed until all matched existing specs pass. This is the only gate that catches E2E regressions before they hit the post-merge CI run.
@@ -648,6 +636,6 @@ This blocks until all checks finish (exit code 0 = all passed, nonzero = at leas
 
 ## Notes
 
-- Never push directly to `origin` (SatcherInstitute). Always push to `$FORK_REMOTE` (your personal fork).
+- Push to `$PUSH_REMOTE`: the remote the PR head lives on. Never push to `origin/main`.
 - All test failures must be fixed before proceeding — do not skip or suppress them.
 - Doc updates should reflect durable invariants, not ephemeral task details.
