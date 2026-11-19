@@ -45,3 +45,10 @@ To update: check the newest Book of the States lieutenant governor table (`booko
 for states gaining or losing the office, check CAWP for any change in coverage, edit the rows
 and both source columns, then copy the file over
 `python/tests/data/cawp/test_input_cawp_lt_gov_offices.csv` and rerun the CAWP tests.
+
+## How line items are counted
+
+`load_women_line_items()` in `cawp.py` reads `cawp-by_race_and_ethnicity_time_series.csv` (and, for governors and lieutenant governors, `cawp-statewide_executive_time_series.csv`) before any counting.
+
+- CAWP repeats a woman's row when her party label changes, so rows are deduplicated on ID, year, position, and state.
+- A woman listing several races counts once in each of them and once in "Two or more races". A "Multiracial Alone" entry listed beside another race still counts once in "Two or more races".

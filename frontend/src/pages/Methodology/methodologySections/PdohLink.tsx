@@ -275,7 +275,8 @@ const PdohLink = () => {
           territories, leading to variations from the CAWP website's data. All
           gender and race/ethnicity categorizations are self-reported. An
           officeholder might appear in multiple race groups based on their
-          identification.
+          identification, and is also counted in the &quot;Two or more
+          races&quot; group, so race groups can add up to more than the total.
         </p>
 
         {showExecutives && (
@@ -449,7 +450,8 @@ const PdohLink = () => {
         <ul className='list-disc pl-4'>
           <li>
             Women identifying with multiple races appear in each corresponding
-            race visualization.
+            race visualization, and also in the &quot;Two or more races&quot;
+            group.
           </li>
           <li>
             The combined group "American Indian, Alaska Native, Asian & Pacific

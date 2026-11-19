@@ -184,6 +184,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
 export const SELECTED_DATA_TYPE_OVERRIDES: Partial<Record<DataTypeId, string>> =
   {
     women_state_executives: 'Women Serving as',
+    medicare_schizophrenia: 'Medicare Beneficiaries with',
   }
 
 export interface Category {

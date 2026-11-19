@@ -856,16 +856,28 @@ def expand_members_to_counties(members_df: pd.DataFrame, crosswalk_df: pd.DataFr
     return combined.dropna(subset=[std_col.COUNTY_FIPS_COL])
 
 
-def get_women_congress_by_county_df(crosswalk_df: pd.DataFrame) -> pd.DataFrame:
-    """Loads CAWP women Congress data with district info and expands to county level.
+def load_women_line_items(extra_cols: List[str] | None = None, include_statewide_exec: bool = False) -> pd.DataFrame:
+    """Loads CAWP's line items (one row per woman per year per office) with
+    state FIPS/postal codes and a string time_period.
 
-    Returns df with columns: time_period, county_fips, race_ethnicity, name."""
-    df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-        "cawp",
-        CAWP_LINE_ITEMS_FILE,
-        usecols=[ID, YEAR, STATE, FIRST_NAME, LAST_NAME, POSITION, RACE_ETH, DISTRICT],
-    )
+    Parameters:
+        extra_cols: CAWP columns to load beyond the shared set (e.g. District)
+        include_statewide_exec: also load the statewide executive export (governors,
+            lieutenant governors), which CAWP's unfiltered export omits"""
+    usecols = [ID, YEAR, STATE, FIRST_NAME, LAST_NAME, POSITION, RACE_ETH, *(extra_cols or [])]
+    files = [CAWP_LINE_ITEMS_FILE, CAWP_STATEWIDE_EXEC_FILE] if include_statewide_exec else [CAWP_LINE_ITEMS_FILE]
+    df = pd.concat([gcs_to_bq_util.load_csv_as_df_from_data_dir("cawp", f, usecols=usecols) for f in files])
+
+    # keep only valid rows
     df = df.dropna(subset=[STATE, RACE_ETH])
+
+    # CAWP repeats a woman's rows when she changed party (or her party is spelled two ways),
+    # which would count her twice in the same office and year. The repeats agree on
+    # race_ethnicity in the current export. Some also differ on District, but only for
+    # state legislators, whose district is never used, so keeping the first loses nothing.
+    df = df.drop_duplicates(subset=[ID, YEAR, POSITION, STATE])
+
+    # standardize postal codes (can't just swap codes because Michigan is also MI)
     df[STATE] = df[STATE].replace(
         {
             "Northern Mariana Islands - MI": "Northern Mariana Islands - MP",
@@ -873,10 +885,23 @@ def get_women_congress_by_county_df(crosswalk_df: pd.DataFrame) -> pd.DataFrame:
         }
     )
     df[std_col.STATE_POSTAL_COL] = df[STATE].str[-2:]
+
+    # merge in FIPS codes
     df = merge_utils.merge_state_ids(df, keep_postal=True)
     df = df.drop(columns=[STATE])
+
+    # rename year
     df = df.rename(columns={YEAR: std_col.TIME_PERIOD_COL})
     df[std_col.TIME_PERIOD_COL] = df[std_col.TIME_PERIOD_COL].astype(str)
+
+    return df
+
+
+def get_women_congress_by_county_df(crosswalk_df: pd.DataFrame) -> pd.DataFrame:
+    """Loads CAWP women Congress data with district info and expands to county level.
+
+    Returns df with columns: time_period, county_fips, race_ethnicity, name."""
+    df = load_women_line_items(extra_cols=[DISTRICT])
 
     df = df[df[POSITION].isin(POSITION_LABELS[CONGRESS].keys())].copy()
     df[POSITION] = df[POSITION].apply(lambda x: POSITION_LABELS[CONGRESS][x])
@@ -1163,37 +1188,7 @@ def get_women_dfs():
             per woman officeholder, columns "time_period" by year and "state_postal",
             "race_ethnicity" with specific CAWP race strings"""
 
-    usecols = [ID, YEAR, STATE, FIRST_NAME, LAST_NAME, POSITION, RACE_ETH]
-    df = pd.concat(
-        [
-            gcs_to_bq_util.load_csv_as_df_from_data_dir("cawp", CAWP_LINE_ITEMS_FILE, usecols=usecols),
-            gcs_to_bq_util.load_csv_as_df_from_data_dir("cawp", CAWP_STATEWIDE_EXEC_FILE, usecols=usecols),
-        ]
-    )
-
-    # keep only valid rows
-    df = df.dropna(subset=[STATE, RACE_ETH])
-
-    # CAWP repeats a woman's rows when she changed party (or her party is spelled two ways),
-    # which would count her twice in the same office and year
-    df = df.drop_duplicates(subset=[ID, YEAR, POSITION, STATE])
-
-    # standardize postal codes (can't just swap codes because Michigan is also MI)
-    df[STATE] = df[STATE].replace(
-        {
-            "Northern Mariana Islands - MI": "Northern Mariana Islands - MP",
-            "American Samoa - AM": "American Samoa - AS",
-        }
-    )
-    df[std_col.STATE_POSTAL_COL] = df[STATE].str[-2:]
-
-    # merge in FIPS codes
-    df = merge_utils.merge_state_ids(df, keep_postal=True)
-    df = df.drop(columns=[STATE])
-
-    # rename year
-    df = df.rename(columns={YEAR: std_col.TIME_PERIOD_COL})
-    df[std_col.TIME_PERIOD_COL] = df[std_col.TIME_PERIOD_COL].astype(str)
+    df = load_women_line_items(include_statewide_exec=True)
 
     women_dfs = []
 
@@ -1630,8 +1625,12 @@ def handle_other_and_multi_races(df):
 
     # rows with multiple specific races will sum later with
     # CAWP's incoming "multiracial alone"
-    # (after the split, every value is a list; a list of 2+ races is a multiracial woman)
-    df_multiple_specific = df[df[RACE_ETH].apply(lambda x: isinstance(x, list) and len(x) > 1)].copy()
+    # (after the split, every value is a list; a list of 2+ races is a multiracial woman).
+    # Skip lists that already name CAWP_MULTI: the explode below gives those women
+    # their multiracial row, and tagging them too would count them twice.
+    df_multiple_specific = df[
+        df[RACE_ETH].apply(lambda x: isinstance(x, list) and len(x) > 1 and CAWP_MULTI not in x)
+    ].copy()
     df_multiple_specific[RACE_ETH] = CAWP_MULTI
     df = pd.concat([df, df_multiple_specific])
 
