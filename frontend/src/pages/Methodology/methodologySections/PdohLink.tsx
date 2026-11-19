@@ -260,8 +260,8 @@ const PdohLink = () => {
           leading to variations from the CAWP website's data. All gender and
           race/ethnicity categorizations are self-reported. A legislator might
           appear in multiple race groups based on their identification, and is
-          also counted in the &quot;Two or more races&quot; group, so race groups
-          can add up to more than the total.
+          also counted in the &quot;Two or more races&quot; group, so race
+          groups can add up to more than the total.
         </p>
 
         <h3

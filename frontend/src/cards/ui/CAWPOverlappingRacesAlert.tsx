@@ -15,8 +15,8 @@ export default function CAWPOverlappingRacesAlert(
       <HetTerm>{props.dataTypeConfig.fullDisplayName}</HetTerm> cannot be
       summed, as these race/ethnicity groupings are not mutually exclusive.
       Individuals who identify with more than one group (e.g. both "White" and
-      "Latina") are represented in each corresponding category, and in "Two
-      or more races".
+      "Latina") are represented in each corresponding category, and in "Two or
+      more races".
     </HetNotice>
   )
 }
