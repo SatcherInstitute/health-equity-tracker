@@ -441,11 +441,19 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     page.on('response', onResponse)
 
     try {
-      await page
-        .getByRole('button', { name: /download csv/i })
-        .or(page.getByRole('link', { name: /download csv/i }))
-        .first()
-        .click()
+      // The search-results export link carries the active filters in its query string.
+      // The page has several hidden copies of the export controls, so click it via the DOM
+      // rather than waiting on a visible match.
+      const exportLink = page.locator('a[href*="/export/roles/csv"]').first()
+      if ((await exportLink.count()) > 0) {
+        await exportLink.evaluate((el: HTMLElement) => el.click())
+      } else {
+        await page
+          .getByRole('button', { name: /download csv/i })
+          .or(page.getByRole('link', { name: /download csv/i }))
+          .first()
+          .click()
+      }
 
       const end = Date.now() + EXPORT_TIMEOUT_MS
       while (Date.now() < end) {
@@ -576,6 +584,7 @@ if (runAll || section === 'state_leg') await refreshStateLegTables(cache, force)
 
 // Note: territories (11, 60, 66, 69, 72, 78) are maintained as manual CSV files
 // and are not scraped by this script.
+// See data/cawp/README.md for every file's source and update steps.
 
 console.log('\nDone. Review changes with: git diff data/cawp/')
 console.log('Then commit and re-run the relevant DAG pipelines.')

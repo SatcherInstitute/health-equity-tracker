@@ -132,9 +132,14 @@ export function processLegendData(
   // special items below carry the whole story.
   if ((isSummaryLegend || uniqueNonZeroValues.length === 1) && nonZeroData[0]) {
     const summaryValue = nonZeroData[0][metricConfig.metricId]
+    // Only a summary legend shows the place's own overall rate. A map whose
+    // child geographies happen to share one non-zero value (e.g. governors,
+    // where every state is 0% or 100%) is showing that value, not the overall.
     regularItems.push({
       value: summaryValue,
-      label: `${labelFormat(summaryValue)} (${fipsTypeDisplayName} overall)`,
+      label: isSummaryLegend
+        ? `${labelFormat(summaryValue)} (${fipsTypeDisplayName} overall)`
+        : labelFormat(summaryValue),
       color: colorScale(summaryValue),
     })
   }

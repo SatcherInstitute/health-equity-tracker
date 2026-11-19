@@ -95846,3 +95846,7 @@ ID,"Years Served","First Name","Middle Name","Last Name",party,Level,Position,st
 647730k,2022,Erin,,Zwiener,Democrat,"State Legislative","State Representative","Texas - TX",45,White
 647730k,2023,Erin,,Zwiener,Democrat,"State Legislative","State Representative","Texas - TX",45,White
 647730k,2024,Erin,,Zwiener,Democrat,"State Legislative","State Representative","Texas - TX",45,White
+803941k,2024,Mary,,Peltola,Democratic,Congress,"U.S. Representative","Alaska - AK",01,"Native American/Alaska Native/Native Hawaiian"
+812214k,2024,Jamie,,Allard,"Republican Party","State Legislative","State Representative","Alaska - AK",023,Latina
+fixture01,2024,Fixture,,Multiracial,Nonpartisan,"State Legislative","State Representative","Alaska - AK",099,"Black, Latina"
+fixture02,2024,Fixture,,ListedMultiracial,Nonpartisan,"State Legislative","State Senator","Alaska - AK",Z,"Multiracial Alone, Asian American/Pacific Islander"

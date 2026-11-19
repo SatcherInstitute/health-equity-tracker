@@ -6,6 +6,8 @@ import json
 
 import ingestion.standardized_columns as std_col
 from datasources.cawp import (
+    handle_other_and_multi_races,
+    load_women_line_items,
     CAWPData,
     US_CONGRESS_HISTORICAL_URL,
     US_CONGRESS_CURRENT_URL,
@@ -236,6 +238,40 @@ def _load_county_crosswalk():
     df.loc[territory_mask, "district_num"] = LEGISLATORS_ATLARGE_CODE
     df.loc[territory_mask, "GEOID_CD118_20"] = df.loc[territory_mask, "state_fips"] + LEGISLATORS_ATLARGE_CODE
     return df
+
+
+def test_handle_other_and_multi_races():
+    df = pd.DataFrame({"name": ["A", "B"], "race_ethnicity": ["Black, Latina", "White"]})
+    result = handle_other_and_multi_races(df)
+    races_for_a = sorted(result.loc[result["name"] == "A", "race_ethnicity"])
+    # a woman listing two races counts in each, and in the multiracial group
+    assert races_for_a == ["Black", "Latina", "Multiracial Alone"]
+    assert result.loc[result["name"] == "B", "race_ethnicity"].tolist() == ["White"]
+
+
+def test_handle_other_and_multi_races_counts_listed_multiracial_once():
+    # CAWP sometimes lists "Multiracial Alone" alongside a specific race
+    df = pd.DataFrame({"name": ["A"], "race_ethnicity": ["Multiracial Alone, Latina"]})
+    result = handle_other_and_multi_races(df)
+    assert sorted(result["race_ethnicity"]) == ["Latina", "Multiracial Alone"]
+
+
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir")
+def test_load_women_line_items_drops_party_change_repeats(mock_load):
+    # the same woman, office and year, listed once per party label
+    mock_load.return_value = pd.DataFrame(
+        {
+            "ID": [1, 1, 2],
+            "Years Served": [2020, 2020, 2020],
+            "state": ["Georgia - GA", "Georgia - GA", "Georgia - GA"],
+            "First Name": ["Ann", "Ann", "Bea"],
+            "Last Name": ["Ash", "Ash", "Bell"],
+            "Position": ["State Representative"] * 3,
+            "race_ethnicity": ["Black", "Black", "White"],
+        }
+    )
+    result = load_women_line_items()
+    assert result["ID"].tolist() == [1, 2]
 
 
 @mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_strict_for_data_recent_year)
