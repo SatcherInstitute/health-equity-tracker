@@ -7,6 +7,8 @@ import json
 import ingestion.standardized_columns as std_col
 from datasources.cawp import (
     handle_other_and_multi_races,
+    get_governor_totals,
+    get_lt_governor_totals,
     load_women_line_items,
     CAWPData,
     US_CONGRESS_HISTORICAL_URL,
@@ -161,7 +163,10 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 
     usecols = kwargs.get("usecols", None)
 
-    if filename == "cawp-by_race_and_ethnicity_time_series.csv":
+    if filename == "cawp_lt_gov_offices.csv":
+        return pd.read_csv(os.path.join(TEST_DIR, f"test_input_{filename}"), dtype=kwargs.get("dtype"))
+
+    if filename in ("cawp-by_race_and_ethnicity_time_series.csv", "cawp-statewide_executive_time_series.csv"):
         test_input_data_types = {
             "id": str,
             "year": str,
@@ -240,6 +245,22 @@ def _load_county_crosswalk():
     return df
 
 
+def test_get_governor_totals():
+    df = pd.DataFrame(
+        {
+            # AK: no woman; AZ: one woman; CA: two women in one year (succession);
+            # AS 2020: territory with an elected governor;
+            # DC: no governor; HI 1958: before statehood; AS 1977: before first elected governor
+            "state_fips": ["02", "04", "06", "60", "11", "15", "60"],
+            "time_period": ["2020", "2020", "2020", "2020", "2020", "1958", "1977"],
+            "women_all_races_governor_count": [0.0, 1.0, 2.0, 0.0, 0.0, 0.0, 0.0],
+        }
+    )
+    result = get_governor_totals(df)
+    assert result.tolist()[:4] == [1.0, 1.0, 2.0, 1.0]
+    assert result.iloc[4:].isna().all()
+
+
 def test_handle_other_and_multi_races():
     df = pd.DataFrame({"name": ["A", "B"], "race_ethnicity": ["Black, Latina", "White"]})
     result = handle_other_and_multi_races(df)
@@ -247,6 +268,24 @@ def test_handle_other_and_multi_races():
     # a woman listing two races counts in each, and in the multiracial group
     assert races_for_a == ["Black", "Latina", "Multiracial Alone"]
     assert result.loc[result["name"] == "B", "race_ethnicity"].tolist() == ["White"]
+
+
+@mock.patch("ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir", side_effect=_load_csv_as_df_from_data_dir)
+def test_get_lt_governor_totals(_mock_load):
+    df = pd.DataFrame(
+        {
+            # CA: office predates series; CA 2020 with two women (succession);
+            # NJ before/after 2010 creation; AK before 1970 rename; ME, TN: no
+            # statewide-elected office; PR: territory, not tracked
+            "state_fips": ["06", "06", "34", "34", "02", "23", "47", "72"],
+            "time_period": ["1915", "2020", "2009", "2010", "1969", "2020", "2020", "2020"],
+            "women_all_races_lt_governor_count": [0.0, 2.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0],
+        }
+    )
+    result = get_lt_governor_totals(df).tolist()
+    assert result[:2] == [1.0, 2.0]
+    assert pd.isna(result[2]) and result[3] == 1.0
+    assert all(pd.isna(x) for x in result[4:])
 
 
 def test_handle_other_and_multi_races_counts_listed_multiracial_once():
@@ -325,10 +364,11 @@ def testWriteToBq(
     # COUNTY BREAKDOWN ACS YEARS
     assert mock_test_time_periods.call_count == 7
 
-    # CAWP LINE ITEM CSV + 50 STATE LEG CSVS + 6 TERRITORY LEG CSVS +
+    # CAWP LINE ITEM CSV + STATEWIDE EXEC CSV + 50 STATE LEG CSVS + 6 TERRITORY LEG CSVS +
     # get_data_recent_year() numerator CSV (usecols=[YEAR]) +
+    # LT GOV OFFICES CSV (BY ALL + BY RACE) +
     # COUNTY: CAWP LINE ITEM CSV in get_women_congress_by_county_df
-    assert mock_data_dir.call_count == 1 + len(FIPS_TO_STATE_TABLE_MAP) + len(TERRITORY_FIPS_LIST) + 1 + 1
+    assert mock_data_dir.call_count == 2 + len(FIPS_TO_STATE_TABLE_MAP) + len(TERRITORY_FIPS_LIST) + 1 + 2 + 1
 
     # CURRENT + HISTORICAL CONGRESS TOTALS (fetched once in write_to_bq, passed down)
     assert mock_json_from_web.call_count == 2

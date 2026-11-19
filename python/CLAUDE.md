@@ -98,4 +98,4 @@ When a new ACS vintage lands in BigQuery and is ready for use, follow these step
 | Shared type definitions | `ingestion/het_types.py` |
 | ACS population CSV snapshots | `ingestion/acs_population/*.csv` |
 | ACS population CSV refresh script | `ingestion/acs_population/refresh_historical_csvs.py` |
-| CAWP input files (sources and update steps for each) | `../data/cawp/README.md` |
+| CAWP input files (sources and update steps for each, incl. the hand-maintained, cited lieutenant governor office list) | `../data/cawp/README.md` |

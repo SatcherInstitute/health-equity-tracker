@@ -102,3 +102,39 @@ test('CAWP: State Legislature', async ({ page }) => {
     ])
   })
 })
+
+test('CAWP: Governors & Lt. Governors', async ({ page }) => {
+  // Flag is on in deploy previews but off on localhost, so force it on
+  await page.goto(
+    '/exploredata?mls=1.women_in_gov-3.00&group1=All&dt1=women_state_executives&VITE_SHOW_WOMEN_EXECUTIVES=1',
+    { waitUntil: 'domcontentloaded' },
+  )
+
+  await test.step('Madlib reads "Women Serving as Governors & Lt. Governors"', async () => {
+    await Promise.all([
+      expect
+        .soft(page.getByRole('button', { name: 'Women Serving as' }))
+        .toBeVisible(),
+      expect
+        .soft(
+          page.getByRole('button', {
+            name: 'Governors & Lt. Governors',
+            exact: true,
+          }),
+        )
+        .toBeVisible(),
+    ])
+  })
+
+  const rateMap = page.locator('#rate-map')
+  await rateMap.scrollIntoViewIfNeeded()
+
+  await test.step('Rate map renders executive data', async () => {
+    await Promise.all([
+      expect
+        .soft(rateMap.getByText('% women governors & lt. governors'))
+        .toBeVisible(),
+      expect.soft(rateMap.getByText(/Rate map unavailable/i)).toHaveCount(0),
+    ])
+  })
+})
