@@ -17,8 +17,12 @@ export interface FeatureFlagState {
 const OVERRIDE_STORAGE_KEY = 'featureFlagOverrides'
 
 // Vite emits `import.meta.env` as a whole object literal, so a computed key
-// resolves fine. An unset var is simply absent, which reads as off.
-const ENV = import.meta.env as unknown as Record<string, string | undefined>
+// resolves fine. An unset var is simply absent, which reads as off. Playwright
+// imports config modules in Node, where import.meta.env is undefined.
+const ENV = (import.meta.env ?? {}) as unknown as Record<
+  string,
+  string | undefined
+>
 
 // Launching a feature means deleting its flag gate, never switching the flag on
 // for everyone, so an env-set flag on prod is always a mistake — and a loud one,
