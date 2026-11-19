@@ -23,7 +23,7 @@ export const NAVIGATION_STRUCTURE: Record<string, NavigationItem> = {
     },
   },
   exploreTheData: {
-    label: 'Insights Hub',
+    label: 'Data & Methods',
     pages: {
       [EXPLORE_DATA_PAGE_LINK]: 'Data Dashboard',
       [DATA_CATALOG_PAGE_LINK]: 'Source Files',
