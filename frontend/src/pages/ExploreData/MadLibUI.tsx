@@ -151,6 +151,11 @@ export default function MadLibUI(props: MadLibUIProps) {
                             handleOptionUpdate(newValue, index)
                           }}
                           phraseSegment={phraseSegment}
+                          selectedDataTypeId={
+                            dataTypes?.some(([id]) => id === config?.dataTypeId)
+                              ? config?.dataTypeId
+                              : undefined
+                          }
                         />
                       )}
 
