@@ -5,7 +5,9 @@ import { datasourceMetadataVera } from '../../../data/config/DatasetMetadataVera
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPDOH'
+import { flag } from '../../../featureFlags'
 import HetTopicDemographics from '../../../styles/HetComponents/HetTopicDemographics'
+import { urlMap } from '../../../utils/externalUrls'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
@@ -33,6 +35,8 @@ const datatypeConfigs = PDOH_CATEGORY_DROPDOWNIDS.flatMap((dropdownId) => {
 export const pdohTopicsString = buildTopicsString(PDOH_CATEGORY_DROPDOWNIDS)
 
 const PdohLink = () => {
+  const showExecutives = flag('VITE_SHOW_WOMEN_EXECUTIVES')
+
   return (
     <section id='pdoh'>
       <article>
@@ -225,13 +229,15 @@ const PdohLink = () => {
         </p>
 
         <h3 className='text-title mt-12 font-medium' id='women-in-gov'>
-          Women in Legislative Office and Health Impacts
+          {showExecutives
+            ? 'Women in Elected Office and Health Impacts'
+            : 'Women in Legislative Office and Health Impacts'}
         </h3>
 
         <p>
           Having women in government has been linked to improvements in
-          population health. Women in legislative roles advocate for vital
-          social and political determinants of health, such as education, social
+          population health. Women in elected office advocate for vital social
+          and political determinants of health, such as education, social
           welfare, reproductive and maternal health, and family life. These
           policies significantly advance health equity.
         </p>
@@ -241,7 +247,11 @@ const PdohLink = () => {
         </h3>
         <p>
           We use data from the Center for American Women in Politics (CAWP) to
-          present metrics on the representation of women in legislative roles:
+          present metrics on the representation of women in{' '}
+          {showExecutives
+            ? 'legislative and executive roles'
+            : 'legislative roles'}
+          :
         </p>
 
         <ul className='list-disc pl-4'>
@@ -252,15 +262,97 @@ const PdohLink = () => {
             {' '}
             Women in U.S. Congress
           </li>
+          {showExecutives && (
+            <li className='font-sans-title font-medium'>
+              Women Governors and Lieutenant Governors
+            </li>
+          )}
         </ul>
 
         <p>
-          Both data types cover state, territory, and national levels. Our
-          national level calculations include legislators from U.S. territories,
-          leading to variations from the CAWP website's data. All gender and
-          race/ethnicity categorizations are self-reported. A legislator might
-          appear in multiple race groups based on their identification.
+          These data types cover state, territory, and national levels. Our
+          national level calculations include officeholders from U.S.
+          territories, leading to variations from the CAWP website's data. All
+          gender and race/ethnicity categorizations are self-reported. An
+          officeholder might appear in multiple race groups based on their
+          identification, and is also counted in the &quot;Two or more
+          races&quot; group, so race groups can add up to more than the total.
         </p>
+
+        {showExecutives && (
+          <>
+            <h3 className='text-title mt-12 font-medium' id='governors-data'>
+              Governors and Lieutenant Governors Data
+            </h3>
+            <p>
+              This data type combines two executive offices: governors and
+              lieutenant governors. Each office counts as one seat per state or
+              territory per year, so the denominator is the number of these
+              seats: 98 nationally in 2026 (55 governors and 43 lieutenant
+              governors). A state with both offices has a rate of 0%, 50%, or
+              100% in a given year; a place with only a governor has a rate of
+              0% or 100%. Because the numbers are this small, a single election
+              can move a group's national share sharply. Women officeholders
+              come from the{' '}
+              <a href={urlMap.cawpDatabase}>
+                CAWP Women Elected Officials Database
+              </a>
+              , statewide executive and territorial levels.
+            </p>
+            <p>
+              <strong>Governors</strong> cover the 50 states and the five
+              inhabited U.S. territories. Alaska and Hawaii count from statehood
+              in 1959. Each territory counts from the start of its first
+              popularly elected governor's term:{' '}
+              <a href={urlMap.governorPuertoRico}>Puerto Rico</a> in 1949,{' '}
+              <a href={urlMap.governorGuam}>Guam</a> and the{' '}
+              <a href={urlMap.governorVirginIslands}>U.S. Virgin Islands</a> in
+              1971, and{' '}
+              <a href={urlMap.governorAmericanSamoa}>American Samoa</a> and the{' '}
+              <a href={urlMap.governorNorthernMarianaIslands}>
+                Northern Mariana Islands
+              </a>{' '}
+              in 1978. D.C. has a mayor rather than a governor and is not
+              included.
+            </p>
+            <p>
+              <strong>Lieutenant governors</strong> cover the states that elect
+              the office statewide, as listed in The Council of State
+              Governments'{' '}
+              <a href={urlMap.bookOfStatesLtGov}>
+                Book of the States, Table 4.12: The Lieutenant Governors
+              </a>
+              : 43 states as of 2026. Maine, New Hampshire, Oregon, and Wyoming
+              have no lieutenant governor, and in Tennessee and West Virginia
+              the title belongs to the state senate president, who is not
+              elected statewide. Arizona voters created the office with{' '}
+              <a href={urlMap.azLtGovAmendment}>Proposition 131 in 2022</a>, and
+              it counts from 2027, when its first lieutenant governor takes
+              office. CAWP does not track territorial lieutenant governors, so
+              territories are not included. Several states created the office,
+              or gave it its current title, after 1915, and each counts from
+              that year: <a href={urlMap.ltGovArkansas}>Arkansas</a> (1927),{' '}
+              <a href={urlMap.ltGovGeorgia}>Georgia</a> (1947),{' '}
+              <a href={urlMap.ltGovHawaii}>Hawaii</a> (1959),{' '}
+              <a href={urlMap.ltGovFlorida}>Florida</a> (1969),{' '}
+              <a href={urlMap.ltGovAlaska}>Alaska</a> (1970),{' '}
+              <a href={urlMap.ltGovMaryland}>Maryland</a> (1971),{' '}
+              <a href={urlMap.ltGovUtah}>Utah</a> (1975), and{' '}
+              <a href={urlMap.ltGovNewJersey}>New Jersey</a> (2010). The full
+              list, with a source for each state, is in our{' '}
+              <a href={urlMap.cawpLtGovOfficesFile}>
+                lieutenant governor reference file
+              </a>
+              , which we review every year.
+            </p>
+            <p>
+              The President and Vice President are not included. With only two
+              offices nationwide, a rate would not be meaningful. Kamala Harris,
+              who served as Vice President from 2021 to 2025, is the only woman
+              to have held either office.
+            </p>
+          </>
+        )}
 
         <h3
           className='text-title mt-12 font-medium'
@@ -296,7 +388,7 @@ const PdohLink = () => {
 
         <p>
           For each of those data types we calculate and present two metrics to
-          study the proportion of women legislators:
+          study the proportion of women officeholders:
         </p>
 
         <ol>
@@ -358,7 +450,8 @@ const PdohLink = () => {
         <ul className='list-disc pl-4'>
           <li>
             Women identifying with multiple races appear in each corresponding
-            race visualization.
+            race visualization, and also in the &quot;Two or more races&quot;
+            group.
           </li>
           <li>
             The combined group "American Indian, Alaska Native, Asian & Pacific

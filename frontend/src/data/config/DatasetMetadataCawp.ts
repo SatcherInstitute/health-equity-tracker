@@ -1,4 +1,20 @@
+import { flag } from '../../featureFlags'
 import type { DataSourceMetadata, DatasetMetadata } from '../utils/DatasetTypes'
+
+// Governors and Lt. governors are previewable before launch; inline the executive wording to launch
+const SHOW_EXECUTIVES = flag('VITE_SHOW_WOMEN_EXECUTIVES')
+
+const NATIONAL_OFFICES = SHOW_EXECUTIVES
+  ? 'the U.S. Congress, state/territory legislatures, state/territory governorships, and state lieutenant governorships'
+  : 'the U.S. Congress and state/territory legislatures'
+
+const STATE_OFFICES = SHOW_EXECUTIVES
+  ? 'the U.S. Congress, to their respective state/territory legislature, their governorship, and their lieutenant governorship'
+  : 'the U.S. Congress and to their respective state/territory legislature'
+
+const HISTORICAL_YEARS = SHOW_EXECUTIVES
+  ? '1915-2026 for Congress, governors, and lieutenant governors, 1983-2026 for state/territory legislatures'
+  : '1915-2026 for Congress, 1983-2026 for state/territory legislatures'
 
 export type DatasetIdCawp =
   | 'cawp_data-race_and_ethnicity_national_current'
@@ -17,12 +33,12 @@ export type DatasetIdCawp =
 
 export const DatasetMetadataMapCawp: Record<DatasetIdCawp, DatasetMetadata> = {
   'cawp_data-race_and_ethnicity_national_current': {
-    name: 'Current, national representation of women by race/ethnicity in the U.S. Congress and state/territory legislatures',
+    name: `Current, national representation of women by race/ethnicity in ${NATIONAL_OFFICES}`,
     original_data_sourced: 'July 2026',
     source_id: 'cawp',
   },
   'cawp_data-race_and_ethnicity_state_current': {
-    name: 'Current representation of women by race/ethnicity from each state and territory to the U.S. Congress and to their respective state/territory legislature',
+    name: `Current representation of women by race/ethnicity from each state and territory to ${STATE_OFFICES}`,
     original_data_sourced: 'July 2026',
     source_id: 'cawp',
   },
@@ -32,15 +48,13 @@ export const DatasetMetadataMapCawp: Record<DatasetIdCawp, DatasetMetadata> = {
     source_id: 'cawp',
   },
   'cawp_data-race_and_ethnicity_national_historical': {
-    name: 'National representation of women by race/ethnicity in the U.S. Congress and state/territory legislatures, over time',
-    original_data_sourced:
-      '1915-2026 for Congress, 1983-2026 for state/territory legislatures',
+    name: `National representation of women by race/ethnicity in ${NATIONAL_OFFICES}, over time`,
+    original_data_sourced: HISTORICAL_YEARS,
     source_id: 'cawp',
   },
   'cawp_data-race_and_ethnicity_state_historical': {
-    name: 'Representation of women by race/ethnicity from each state and territory to the U.S. Congress and to their respective state/territory legislature over time',
-    original_data_sourced:
-      '1915-2026 for Congress, 1983-2026 for state/territory legislatures',
+    name: `Representation of women by race/ethnicity from each state and territory to ${STATE_OFFICES} over time`,
+    original_data_sourced: HISTORICAL_YEARS,
     source_id: 'cawp',
   },
   'cawp_data-race_and_ethnicity_county_historical': {
@@ -49,18 +63,17 @@ export const DatasetMetadataMapCawp: Record<DatasetIdCawp, DatasetMetadata> = {
     source_id: 'cawp',
   },
   'cawp_data-race_and_ethnicity_state_historical_names': {
-    name: 'By-state and by-territory lists of legislator names, yearly back to 1915 including: all members of U.S Congress, regardless of race or gender; all women members of U.S. Congress, by race/ethnicity; and all women members of state and territory legislatures, by race/ethnicity',
-    original_data_sourced:
-      '1915-2026 for Congress, 1983-2026 for state/territory legislatures',
+    name: `By-state and by-territory lists of ${SHOW_EXECUTIVES ? 'officeholder' : 'legislator'} names, yearly back to 1915 including: all members of U.S Congress, regardless of race or gender; all women members of U.S. Congress, by race/ethnicity; and all women members of state and territory legislatures, by race/ethnicity${SHOW_EXECUTIVES ? '; all women governors, by race/ethnicity; and all women lieutenant governors, by race/ethnicity' : ''}`,
+    original_data_sourced: HISTORICAL_YEARS,
     source_id: 'cawp',
   },
   'cawp_data-alls_national_current': {
-    name: 'Current, national representation of all women combined in the U.S. Congress and state/territory legislatures',
+    name: `Current, national representation of all women combined in ${NATIONAL_OFFICES}`,
     original_data_sourced: 'July 2026',
     source_id: 'cawp',
   },
   'cawp_data-alls_state_current': {
-    name: 'Current representation of all women combined from each state and territory to the U.S. Congress and to their respective state/territory legislature',
+    name: `Current representation of all women combined from each state and territory to ${STATE_OFFICES}`,
     original_data_sourced: 'July 2026',
     source_id: 'cawp',
   },
@@ -70,15 +83,13 @@ export const DatasetMetadataMapCawp: Record<DatasetIdCawp, DatasetMetadata> = {
     source_id: 'cawp',
   },
   'cawp_data-alls_national_historical': {
-    name: 'National representation of all women combined in the U.S. Congress and state/territory legislatures, over time',
-    original_data_sourced:
-      '1915-2026 for Congress, 1983-2026 for state/territory legislatures',
+    name: `National representation of all women combined in ${NATIONAL_OFFICES}, over time`,
+    original_data_sourced: HISTORICAL_YEARS,
     source_id: 'cawp',
   },
   'cawp_data-alls_state_historical': {
-    name: 'Representation of all women combined from each state and territory to the U.S. Congress and to their respective state/territory legislature over time',
-    original_data_sourced:
-      '1915-2026 for Congress, 1983-2026 for state/territory legislatures',
+    name: `Representation of all women combined from each state and territory to ${STATE_OFFICES} over time`,
+    original_data_sourced: HISTORICAL_YEARS,
     source_id: 'cawp',
   },
   'cawp_data-alls_county_historical': {
@@ -100,12 +111,14 @@ export const datasourceMetadataCawp: DataSourceMetadataCawp = {
   data_source_pretty_site_name: 'cawpdata.rutgers.edu',
   data_source_link: 'https://cawpdata.rutgers.edu/',
   geographic_breakdowns: ['national', 'state', 'county'],
-  data_source_release_years:
-    'U.S. Congress: 1915 - current, State Legislatures: 1983 - current',
+  data_source_release_years: SHOW_EXECUTIVES
+    ? 'U.S. Congress, governors, and lieutenant governors: 1915 - current, State Legislatures: 1983 - current'
+    : 'U.S. Congress: 1915 - current, State Legislatures: 1983 - current',
   demographic_breakdowns: ['race_and_ethnicity'],
   update_frequency: 'Monthly',
-  description:
-    'Detailed information on women legislators, by race/ethnicity, in the US Congress and state legislatures, and historical counts of total state legislators of any gender by year by state. A separate table is also available containing legislator names and positions.',
+  description: SHOW_EXECUTIVES
+    ? 'Detailed information on women in elected office, by race/ethnicity, in the US Congress, state legislatures, governorships, and lieutenant governorships, and historical counts of total state legislators of any gender by year by state. A separate table is also available containing officeholder names and positions.'
+    : 'Detailed information on women legislators, by race/ethnicity, in the US Congress and state legislatures, and historical counts of total state legislators of any gender by year by state. A separate table is also available containing legislator names and positions.',
   dataset_ids: [
     'cawp_data-race_and_ethnicity_national_current',
     'cawp_data-race_and_ethnicity_state_current',

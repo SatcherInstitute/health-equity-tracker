@@ -3,6 +3,33 @@ export const urlMap: Record<string, string> = {
   ahr: 'https://www.americashealthrankings.org/explore/measures',
   ahrGraphQl: 'https://developers.americashealthrankings.org/',
   cawpStateInfo: 'https://cawp.rutgers.edu/facts/state-state-information/',
+  cawpDatabase:
+    'https://cawp.rutgers.edu/data/women-elected-officials-database',
+  bookOfStatesLtGov: 'https://bookofthestates.org/tables/2023-4-12/',
+  azLtGovAmendment:
+    'https://ballotpedia.org/Arizona_Lieutenant_Governor_Amendment_(2022)',
+  ltGovUnitedStates:
+    'https://en.wikipedia.org/wiki/Lieutenant_governor_(United_States)',
+  governorPuertoRico: 'https://en.wikipedia.org/wiki/Governor_of_Puerto_Rico',
+  governorGuam: 'https://en.wikipedia.org/wiki/Governor_of_Guam',
+  governorVirginIslands:
+    'https://en.wikipedia.org/wiki/Governor_of_the_United_States_Virgin_Islands',
+  governorAmericanSamoa:
+    'https://en.wikipedia.org/wiki/Governor_of_American_Samoa',
+  governorNorthernMarianaIslands:
+    'https://en.wikipedia.org/wiki/Governor_of_the_Northern_Mariana_Islands',
+  ltGovArkansas: 'https://ltgovernor.arkansas.gov/about-the-office/',
+  ltGovGeorgia: 'https://en.wikipedia.org/wiki/Lieutenant_Governor_of_Georgia',
+  ltGovHawaii: 'https://en.wikipedia.org/wiki/Lieutenant_Governor_of_Hawaii',
+  ltGovFlorida: 'https://en.wikipedia.org/wiki/Lieutenant_Governor_of_Florida',
+  ltGovAlaska: 'https://en.wikipedia.org/wiki/Lieutenant_Governor_of_Alaska',
+  ltGovMaryland:
+    'https://en.wikipedia.org/wiki/Lieutenant_Governor_of_Maryland',
+  ltGovUtah: 'https://en.wikipedia.org/wiki/Lieutenant_Governor_of_Utah',
+  ltGovNewJersey:
+    'https://en.wikipedia.org/wiki/Lieutenant_Governor_of_New_Jersey',
+  cawpLtGovOfficesFile:
+    'https://github.com/SatcherInstitute/health-equity-tracker/blob/main/data/cawp/cawp_lt_gov_offices.csv',
   cdcBrfss: 'https://www.cdc.gov/brfss/index.html',
   cdcCovidRestricted:
     'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
