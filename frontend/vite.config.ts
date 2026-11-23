@@ -13,6 +13,10 @@ export default defineConfig(({ mode }) => {
       outDir: 'build',
       sourcemap: !isDeployPreview, // Disable sourcemaps for deploy previews
       minify: !isDeployPreview,
+      // The injected polyfill fetches preloads with no catch, so a dropped
+      // connection on Safari < 17 reports an unhandled "Load failed". Without
+      // it those browsers just skip the hint; import() still loads the chunk.
+      modulePreload: { polyfill: false },
     },
     resolve: { tsconfigPaths: true },
     cache: true,

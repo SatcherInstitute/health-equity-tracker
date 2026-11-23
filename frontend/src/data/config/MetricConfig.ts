@@ -1,3 +1,4 @@
+import { flag } from '../../featureFlags'
 // TODO: integrate strings from Category / Madlib into the Metric Config
 // so ALL related topic data is contained in a single object
 
@@ -93,7 +94,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   cardiovascular_diseases: CARDIOVASCULAR_DISEASES_METRICS,
   chronic_kidney_disease: CHRONIC_KIDNEY_DISEASE_METRICS,
   voter_participation: VOTER_PARTICIPATION_METRICS,
-  women_in_gov: WOMEN_IN_GOV_METRICS,
+  // Governors and Lt. governors are previewable before launch; delete the filter to launch
+  women_in_gov: WOMEN_IN_GOV_METRICS.filter(
+    (config) =>
+      config.dataTypeId !== 'women_state_executives' ||
+      flag('VITE_SHOW_WOMEN_EXECUTIVES'),
+  ),
   incarceration: INCARCERATION_METRICS,
   medicare_cardiovascular: PHRMA_CARDIOVASCULAR_METRICS,
   medicare_hiv: PHRMA_HIV_METRICS,

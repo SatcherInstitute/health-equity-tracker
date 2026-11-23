@@ -112,6 +112,7 @@ A `MetricConfig` must declare its `suppressionFlagMetricId` so the map can disti
 - `madLib` in `ExploreDataPage` is a `useMemo` derived from `urlParamAtom('mls')` + `urlParamAtom('mlp')`. It is not owned state — never call `setMadLib`. Back/forward automatically updates the URL atoms which recomputes `madLib`.
 - URL params are user-editable, so validate them before they reach constructors that throw. Parsed `mls` location slots go through `getValidatedSelections()` (falls back to the mode's default FIPS), and `demo` goes through `resolveDemographicType()` in `Report`/`CompareReport` (an unknown value would make `Breakdowns.addBreakdown()` return undefined).
 - If you add a new atom that should survive back-navigation, derive it from a `urlParamAtom` rather than wiring up a manual `popstate` handler.
+- The topic dropdown's madlib text comes from `SELECTED_DATA_TYPE_OVERRIDES` (keyed by `DataTypeId`) when the selected data type has an entry, then `SELECTED_DROPDOWN_OVERRIDES` (keyed by `DropdownVarId`), then the topic name. Use the per-data-type map when one data type needs a different connector so the sentence stays grammatical, e.g. "Women Serving as" vs. "Women Serving in".
 - AI insights collapse on every report change. `cardInsightOpenAtom` and `contrastInsightOpenAtom` hold at most one open key each and are cleared by an effect in `ExploreDataPage` whenever `mls`, `mlp`, `dt1`, `dt2`, or `demo` changes; `setMadLibWithParam` and `DemographicSelector` delete `report-insight` in the same write that changes the report. Every insight is keyed by topic, place, and demographic, so a report change misses the cache for all of them at once, and anything left open would call the model again unasked.
 - Derive UI flags directly from URL atoms rather than seeding `useState` with a derived value. `useState(derivedValue)` only captures the value at mount; the flag won't react to URL changes unless the component remounts. Example: `activelyOnboarding` is `onboardParam === 'true' && location.hash === ''`, not a `useState` copy of it.
 
@@ -206,6 +207,8 @@ VITE_SHOW_MY_FEATURE=1            # in .env.localhost / .env.dev / .env.deploy_p
 Read it with `flag('VITE_SHOW_MY_FEATURE')`. The identical string appears in the `.env` file, the URL param, and the call site. It is verbose, which is appropriate: a flag reference should look temporary at the point of use. The tradeoff of having no registry is no typo safety — a misspelled key reads `false` forever rather than failing to compile.
 
 One rule covers env values and params alike: present, non-empty, and not `0` means on. A param **overrides** the env for that browser tab only, so `?VITE_SHOW_CORRELATION_CARD=0` is how you see the prod experience on dev.
+
+To gate one data type of a topic rather than a whole topic, filter it out where the topic's configs are registered (the `METRIC_CONFIG` map in `src/data/config/MetricConfig.ts`) and gate any topic label, methodology section, or missing-data text that describes it on the same flag, so the page reads consistently either way.
 
 ### Prod is param-only, always
 
