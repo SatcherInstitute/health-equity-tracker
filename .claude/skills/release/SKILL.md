@@ -364,7 +364,7 @@ If any backend pipeline changes shipped in this release (any commit touching `py
 
 ## Notes
 
-- Never push feature branches to `origin`. Tags and releases go directly to `origin` (SatcherInstitute) -- that is correct and intentional for releases.
+- Tags and releases go directly to `origin` (SatcherInstitute); that is correct and intentional for releases. Feature branches follow the Git Workflow section of the root `CLAUDE.md`.
 - The `--generate-notes` flag uses GitHub's comparison between `--notes-start-tag` and HEAD to build the changelog automatically. Do not manually craft release notes.
 - Only `Set as the latest release` should be set (no pre-release flag). `--latest` in the CLI maps to this.
 - The prod deploy is in a private repo (`health-equity-tracker-prod`). Access via `gh run list --repo SatcherInstitute/health-equity-tracker-prod` works as long as the user has access to that repo.

@@ -4,11 +4,14 @@ import { expect, test } from '@playwright/test'
 // run in a real browser because the arming happens at module scope against
 // sessionStorage and window.location, which the unit tests only simulate.
 // The CI build comes from .env.deploy_preview, which turns VITE_SHOW_CORRELATION_CARD
-// on, so the indicator is normally present here. Forcing off every flag that env
-// declares is the only way to reach the empty state, and it doubles as proof that
-// an override beats an env-on flag.
+// and VITE_SHOW_WOMEN_EXECUTIVES on, so the indicator is normally present here.
+// Forcing off every flag that env declares is the only way to reach the empty
+// state, and it doubles as proof that an override beats an env-on flag. A newly
+// added flag in .env.deploy_preview must be added to this list too.
 test('no indicator once every flag is forced off', async ({ page }) => {
-  await page.goto('/exploredata?mls=1.hiv-3.00&VITE_SHOW_CORRELATION_CARD=0')
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&VITE_SHOW_CORRELATION_CARD=0&VITE_SHOW_WOMEN_EXECUTIVES=0',
+  )
   await expect(
     page.getByRole('button', { name: /active feature flags/ }),
   ).toHaveCount(0)

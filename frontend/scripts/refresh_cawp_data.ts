@@ -11,22 +11,24 @@
  *
  * Options:
  *   --force           Bypass the 30-day freshness cache and re-download everything
- *   --section NAME    Only run one section: numerator | state_leg | crosswalk
+ *   --section NAME    Only run one section: numerator | statewide_exec | state_leg | crosswalk
  *
  * Cache: each section records its last-run timestamp in data/cawp/.refresh_cache.json.
  * By default the script skips any section that ran successfully within the last 30 days.
  *
  * What this updates:
  *   data/cawp/cawp-by_race_and_ethnicity_time_series.csv  numerator: women by race/ethnicity
+ *   data/cawp/cawp-statewide_executive_time_series.csv  numerator: women in statewide executive office
  *   data/cawp/cawp_state_leg_{fips}.csv  50 state legislature denominator tables
  *   data/cawp/tab20_cd11820_county20_natl.txt  118th Congress county crosswalk (Census)
  *
  * The numerator download requires only a name and email (no account, no payment). It opens
  * a headed browser (required to pass Cloudflare), fills a modal form, re-applies the
  * "Show All Years" filter (the modal resets it), runs Search, then clicks Download CSV.
- * The export covers all levels; HET currently ingests Congress, State Legislative, and
- * Territorial/D.C. The export takes roughly 30-60 minutes.
- * Run via: npm run refresh-cawp -- --section numerator
+ * The unfiltered export omits Statewide Executive rows, so the statewide_exec section runs a
+ * second export filtered to that level (small, a few minutes). The main export takes
+ * roughly 30-60 minutes.
+ * Run via: npm run refresh-cawp -- --section numerator  (or --section statewide_exec)
  */
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -55,6 +57,10 @@ const CAWP_STATE_INFO_BASE =
 const CAWP_NUMERATOR_URL =
   'https://cawp.rutgers.edu/data/women-elected-officials-database'
 const CAWP_NUMERATOR_FILE = 'cawp-by_race_and_ethnicity_time_series.csv'
+// The unfiltered "all levels" export omits Statewide Executive rows, so governors and
+// other statewide executives need their own export, filtered to that level.
+const CAWP_STATEWIDE_EXEC_FILE = 'cawp-statewide_executive_time_series.csv'
+const CAWP_STATEWIDE_EXEC_LEVEL = 'Statewide'
 
 const BROWSER_UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
@@ -354,13 +360,36 @@ async function refreshStateLegTables(
 }
 
 // --- Section: Numerator (race/ethnicity time series via Playwright form) ---
-async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
-  console.log(
-    '\n--- CAWP numerator data (women by race/ethnicity time series) ---',
-  )
+interface NumeratorExport {
+  key: string
+  file: string
+  label: string
+  // CAWP "Level of Office" option values; empty means no level filter
+  levels: string[]
+}
 
-  const key = 'numerator'
-  const dest = join(DATA_DIR, CAWP_NUMERATOR_FILE)
+const LEGISLATIVE_EXPORT: NumeratorExport = {
+  key: 'numerator',
+  file: CAWP_NUMERATOR_FILE,
+  label: 'women by race/ethnicity time series',
+  levels: [],
+}
+
+const STATEWIDE_EXEC_EXPORT: NumeratorExport = {
+  key: 'statewide_exec',
+  file: CAWP_STATEWIDE_EXEC_FILE,
+  label: 'women in statewide executive office by race/ethnicity time series',
+  levels: [CAWP_STATEWIDE_EXEC_LEVEL],
+}
+
+async function refreshNumerator(
+  cache: Cache,
+  force: boolean,
+  { key, file, label, levels }: NumeratorExport,
+): Promise<void> {
+  console.log(`\n--- CAWP numerator data (${label}) ---`)
+
+  const dest = join(DATA_DIR, file)
 
   if (!force && isFresh(cache, key)) {
     const last = (cache[key].lastRun ?? cache[key].last_run ?? '').slice(0, 10)
@@ -408,6 +437,22 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
       .click()
     await page.waitForTimeout(500)
 
+    // The page renders several copies of the filter form, and the level picker may be
+    // a styled widget over a hidden <select>, so set the options on every copy directly.
+    if (levels.length > 0) {
+      await page.evaluate((wanted) => {
+        for (const select of document.querySelectorAll<HTMLSelectElement>(
+          'select[name="level[]"]',
+        )) {
+          for (const option of select.options) {
+            option.selected = wanted.includes(option.value)
+          }
+          select.dispatchEvent(new Event('change', { bubbles: true }))
+        }
+      }, levels)
+      await page.waitForTimeout(500)
+    }
+
     await page
       .getByRole('button', { name: /^search$/i })
       .first()
@@ -441,11 +486,19 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     page.on('response', onResponse)
 
     try {
-      await page
-        .getByRole('button', { name: /download csv/i })
-        .or(page.getByRole('link', { name: /download csv/i }))
-        .first()
-        .click()
+      // The search-results export link carries the active filters in its query string.
+      // The page has several hidden copies of the export controls, so click it via the DOM
+      // rather than waiting on a visible match.
+      const exportLink = page.locator('a[href*="/export/roles/csv"]').first()
+      if ((await exportLink.count()) > 0) {
+        await exportLink.evaluate((el: HTMLElement) => el.click())
+      } else {
+        await page
+          .getByRole('button', { name: /download csv/i })
+          .or(page.getByRole('link', { name: /download csv/i }))
+          .first()
+          .click()
+      }
 
       const end = Date.now() + EXPORT_TIMEOUT_MS
       while (Date.now() < end) {
@@ -535,7 +588,7 @@ async function refreshNumerator(cache: Cache, force: boolean): Promise<void> {
     const rows = readFileSync(dest, 'utf8')
       .split('\n')
       .filter((l) => l.trim()).length
-    console.log(`  Saved ${rows} rows to ${CAWP_NUMERATOR_FILE}`)
+    console.log(`  Saved ${rows} rows to ${file}`)
   } catch (e) {
     throw new Error(`Numerator download failed: ${e}`)
   } finally {
@@ -557,6 +610,7 @@ const { values } = parseArgs({
 const force = values.force ?? false
 const section = values.section as
   | 'numerator'
+  | 'statewide_exec'
   | 'state_leg'
   | 'crosswalk'
   | undefined
@@ -570,12 +624,17 @@ mkdirSync(DATA_DIR, { recursive: true })
 const cache = loadCache()
 
 const runAll = section == null
-if (runAll || section === 'numerator') await refreshNumerator(cache, force)
+if (runAll || section === 'numerator')
+  await refreshNumerator(cache, force, LEGISLATIVE_EXPORT)
+if (runAll || section === 'statewide_exec')
+  await refreshNumerator(cache, force, STATEWIDE_EXEC_EXPORT)
 if (runAll || section === 'crosswalk') await refreshCrosswalk(cache, force)
 if (runAll || section === 'state_leg') await refreshStateLegTables(cache, force)
 
 // Note: territories (11, 60, 66, 69, 72, 78) are maintained as manual CSV files
 // and are not scraped by this script.
+// cawp_lt_gov_offices.csv (lieutenant governor seats) is also maintained by hand.
+// See data/cawp/README.md for every file's source and update steps.
 
 console.log('\nDone. Review changes with: git diff data/cawp/')
 console.log('Then commit and re-run the relevant DAG pipelines.')

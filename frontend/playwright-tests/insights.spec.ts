@@ -1,11 +1,9 @@
 // Nightly-only: covers the three insight surfaces (card, contrast, report)
 // and the flag control. Insights are unconditional since the gate came out, so
-// these run on every environment as-is. The flag control test is skipped on prod
-// because flagging deletes the cached key and writes to the flagged bucket.
+// these run on every environment as-is. The flag control test mocks the report
+// request, since a real one deletes the cached key and writes a record to the
+// flagged bucket that fails the weekly flagged-insights cron.
 import { expect, test } from './utils/fixtures'
-
-const IS_PROD =
-  process.env.E2E_BASE_URL?.includes('healthequitytracker.org') ?? false
 
 const DISPARITY_URL =
   '/exploredata?mls=1.incarceration-3.00&group1=All&mlp=disparity&dt1=prison'
@@ -105,10 +103,11 @@ test('report insight — all four sections render non-empty text', async ({
 test('flag control — dialog opens, reason enables submit, dialog closes on submission', async ({
   page,
 }) => {
-  test.skip(
-    IS_PROD,
-    'flagging deletes cache entries and writes to the flagged bucket — must not run against prod',
-  )
+  let flagReason: string | undefined
+  await page.route('**/flag-insight', async (route) => {
+    flagReason = route.request().postDataJSON().reason
+    await route.fulfill({ status: 200, body: '{}' })
+  })
 
   await page.goto(DISPARITY_URL, { waitUntil: 'domcontentloaded' })
 
@@ -136,4 +135,5 @@ test('flag control — dialog opens, reason enables submit, dialog closes on sub
 
   // The dialog closes after a successful submission.
   await expect(submit).toBeHidden({ timeout: 10_000 })
+  expect(flagReason).toBe('inaccurate')
 })

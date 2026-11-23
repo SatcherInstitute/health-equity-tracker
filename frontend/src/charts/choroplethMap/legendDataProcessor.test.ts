@@ -159,3 +159,27 @@ describe('processLegendData territory coverage', () => {
     ).toEqual([])
   })
 })
+
+describe('processLegendData single-value maps', () => {
+  const regularLabelsFor = (isSummaryLegend: boolean) =>
+    processLegendData({
+      data: [
+        { gun_violence_homicide_per_100k: 0 },
+        { gun_violence_homicide_per_100k: 100 },
+        { gun_violence_homicide_per_100k: 100 },
+      ],
+      metricConfig,
+      mapConfig,
+      colorScale,
+      isSummaryLegend,
+      fipsTypeDisplayName: 'national',
+    }).regularItems.map((item) => item.label)
+
+  it('does not call a shared child value the overall rate', () => {
+    expect(regularLabelsFor(false).join()).not.toMatch(/overall/)
+  })
+
+  it('labels a summary legend value as the overall rate', () => {
+    expect(regularLabelsFor(true).join()).toMatch(/national overall/)
+  })
+})
