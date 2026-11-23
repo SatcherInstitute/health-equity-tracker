@@ -66,10 +66,6 @@ class CDCHIVData(DataSource):
             col_types = gcs_to_bq_util.get_bq_column_types(race_age_df, float_cols)
             gcs_to_bq_util.add_df_to_bq(race_age_df, dataset, race_age_table_id, column_types=col_types)
 
-        # WE DONT SHOW BLACK WOMEN AT COUNTY LEVEL
-        if geo_level == COUNTY_LEVEL and demographic == std_col.BLACK_WOMEN:
-            return
-
         alls_df = load_atlas_df_from_data_dir(geo_level, "all", detect_suppression=True)
         df = self.generate_breakdown_df(demographic, geo_level, alls_df)
 
